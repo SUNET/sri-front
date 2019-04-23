@@ -6,6 +6,8 @@ import appStore from "./store";
 import AppContainer from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
+import './stye/reset.css';
+
 
 /* for redux dev tools */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
