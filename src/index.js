@@ -1,10 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './stye/base.css';
-import App from './components/App';
+import { createStore, compose } from "redux";
+
+import appStore from "./store";
+import AppContainer from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+/* for redux dev tools */
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+
+/* Store */
+export const store = createStore(
+    appStore,
+);
+
+/* render app */
+const app = (
+  <Provider store={store}>
+      <AppContainer />
+  </Provider>
+);
+
+ReactDOM.render(app, document.getElementById('root'));
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
