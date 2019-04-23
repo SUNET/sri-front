@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import App from '../components/App';
+import Footer from '../components/Footer';
 
 
 const mapStateToProps = (state, props) => {
@@ -14,9 +14,9 @@ const mapDispatchToProps = (dispatch, props) => {
     }
 };
 
-const AppContainer = connect(
+const FooterContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(Footer);
 
-export default AppContainer
+export default FooterContainer
