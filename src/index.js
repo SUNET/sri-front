@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, compose } from "redux";
+import { Provider } from 'react-redux';
 
 import appStore from "./store";
 import AppContainer from './containers/App';
