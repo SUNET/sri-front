@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "enzyme": "^3.9.0",
     "jest-mock": "^24.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
