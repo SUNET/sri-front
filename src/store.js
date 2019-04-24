@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import appReducer from '../reducers/App';
+import appReducer from './reducers/App';
 
 
 const appStore = combineReducers({

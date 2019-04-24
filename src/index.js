@@ -7,10 +7,11 @@ import appStore from "./store";
 import AppContainer from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
-import './stye/reset.css';
+import './style/reset.css';
 
 
 /* for redux dev tools */
+// eslint-disable-next-line
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 

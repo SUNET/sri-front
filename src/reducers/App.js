@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import * as actions from "../actions/App";
 
 
