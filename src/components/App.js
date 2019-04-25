@@ -3,6 +3,7 @@ import React from 'react';
 import SplashContainer from "../containers/Splash";
 import HeaderContainer from "../containers/Header";
 import FooterContainer from "../containers/Footer";
+import NotifyContainer from "../containers/Notify";
 
 import '../style/App.scss';
 
@@ -12,6 +13,7 @@ function App() {
     <div className="App">
 			<SplashContainer />
 			<HeaderContainer />
+			<NotifyContainer />
       <div className="row" id="main">
       </div>
 			<FooterContainer />

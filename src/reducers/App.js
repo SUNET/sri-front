@@ -3,7 +3,7 @@ import * as actions from "../actions/App";
 
 
 const appData = {
-    is_app_loaded: false,
+    is_app_loaded: true,
 };
 
 

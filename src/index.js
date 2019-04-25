@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, compose } from "redux";
+import { createStore } from "redux";
 import { Provider } from 'react-redux';
 
 import appStore from "./store";
@@ -8,11 +8,6 @@ import AppContainer from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
 import './style/reset.css';
-
-
-/* for redux dev tools */
-// eslint-disable-next-line
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 
 /* Store */
