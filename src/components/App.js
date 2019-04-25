@@ -10,9 +10,11 @@ import '../style/App.scss';
 function App() {
   return (
     <div className="App">
-			<SplashContainer />	
-			<HeaderContainer />	
-			<FooterContainer />	
+			<SplashContainer />
+			<HeaderContainer />
+      <div className="row" id="main">
+      </div>
+			<FooterContainer />
     </div>
   );
 }

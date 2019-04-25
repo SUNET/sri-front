@@ -5,7 +5,7 @@ import '../style/Footer.scss';
 
 function Footer() {
     return (
-        <footer>
+        <footer className="row">
             <p>
                 SUNET &copy; 2019
             </p>

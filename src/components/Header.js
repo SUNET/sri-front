@@ -5,7 +5,7 @@ import '../style/Header.scss';
 
 function Header() {
     return (
-        <header className="header">
+        <header className="row">
             <p>
                 SUNET Resources Inventory
             </p>
