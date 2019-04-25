@@ -11,7 +11,7 @@ class Splash extends Component {
     render() {
         const comp = this.props.is_app_loaded ? '' :
                     (<div className="splash-spinner">
-                       <FontAwesomeIcon icon={faSpinner} />
+                       <FontAwesomeIcon icon={faSpinner} className="fa-pulse fa-6x fa-fw" />
                      </div>);
         return comp;
     }
