@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
+import * as actions from "../actions/Notify";
 import Notify from '../components/Notify';
-import * as actions from '../actions/Notify';
 
 
 const mapStateToProps = (state, props) => {
@@ -9,9 +9,17 @@ const mapStateToProps = (state, props) => {
   }
 };
 
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        rmNotification: (e) => {
+            dispatch(actions.rmNotification());
+        }
+    }
+};
 
 const NotifyContainer = connect(
     mapStateToProps,
+    mapDispatchToProps
 )(Notify);
 
 export default NotifyContainer;

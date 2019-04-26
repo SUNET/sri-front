@@ -1,5 +1,7 @@
 import React from 'react';
 
+import 'bootstrap/scss/bootstrap.scss';
+
 import SplashContainer from "../containers/Splash";
 import HeaderContainer from "../containers/Header";
 import FooterContainer from "../containers/Footer";

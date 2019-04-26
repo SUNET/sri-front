@@ -2,7 +2,11 @@ import * as actions from "../actions/Notify";
 
 
 const notify = {
-  messages: [{msg: 'hoh ho ho', vals: null, level: 'danger'}],
+  messages: [
+    {msg: 'hoh ho ho', vals: null, level: 'danger'},
+    {msg: 'heh he he', vals: null, level: 'success'},
+    {msg: 'hih hi hi', vals: null, level: 'danger'},
+  ],
 };
 
 

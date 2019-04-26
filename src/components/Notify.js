@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Alert } from 'react-bootstrap/Alert';
+import Alert from 'react-bootstrap/Alert';
 
 import '../style/Notify.scss';
 
 
-function Notify (props) {
+class Notify extends Component {
+    
+    render () {
 
-    let message = props.messages[0],
-        msg = message.msg;
+        if (this.props.messages.length > 0) {
 
-    if (message.vals !== null) {
-        msg = msg(message.vals);
+            let message = this.props.messages[0],
+                msg = message.msg;
+
+            if (message.vals !== null) {
+                msg = msg(message.vals);
+            }
+
+            return (
+                <div className="notify-area">
+                    <Alert dismissible
+                           variant={message.level}
+                           onClose={this.props.rmNotification}>
+                       {msg}
+                    </Alert>
+                </div>
+            );
+        }
+        return '';
     }
-
-    return (
-        <div className="notify-area">
-            <Alert color={message.level}>
-               {msg}
-            </Alert>
-        </div>
-    );
 }
 
 Notify.propTypes = {
