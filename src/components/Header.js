@@ -1,16 +1,17 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 
 import '../style/Header.scss';
 
 
-function Header() {
+function Header({t, i18n}) {
     return (
         <header className="row">
             <p>
-                SUNET Resources Inventory
+                {t('header.welcome')}
             </p>
         </header>
   );
 }
 
-export default Header;
+export default withTranslation()(Header);

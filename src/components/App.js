@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 
 import 'bootstrap/scss/bootstrap.scss';
 
@@ -23,4 +24,4 @@ function App() {
   );
 }
 
-export default App;
+export default withTranslation()(App);

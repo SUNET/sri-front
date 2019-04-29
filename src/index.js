@@ -7,6 +7,8 @@ import appStore from "./store";
 import AppContainer from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
+import './i18n';
+
 import './style/reset.css';
 
 
