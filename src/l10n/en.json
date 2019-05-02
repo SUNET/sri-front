@@ -1,8 +1,8 @@
 {
-  "en": {
-    "translation": {
-      "header.welcome": "Welcome to SUNET Resources Inventory",
-      "footer.copyright": "&copy; SUNET 2019"
+    "en": {
+        "translation": {
+            "header.welcome": "Welcome to SUNET Resources Inventory",
+            "footer.copyright": "© SUNET 2019"
+        }
     }
-  }
 }

@@ -1,12 +1,19 @@
-import { combineReducers } from 'redux';
+import { createStore, compose, applyMiddleware } from "redux";
 
-import appReducer from './reducers/App';
-import notifyReducer from './reducers/Notify';
+import history from "./history";
+import reducers from "./reducers";
+import middlewares from "./middlewares";
 
+const composedMiddlewares = compose(applyMiddleware(...middlewares(history)));
 
-const appStore = combineReducers({
-    app: appReducer,
-    notify: notifyReducer
-});
+const configureStore = (preloadedState) => {
+	const store = createStore(
+		reducers(history),
+		preloadedState,
+		composedMiddlewares
+	);
 
-export default appStore;
+	return store;
+};
+
+export default configureStore;
