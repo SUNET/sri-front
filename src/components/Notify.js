@@ -15,8 +15,8 @@ class Notify extends Component {
                 <div className="notify-area">
                     {this.props.messages.map((msg) =>{
                         let message = msg.msg;
-                        if (msg.vals !== null) {
-                            message = msg(msg.vals)
+                        if (msg.values !== null) {
+                            message = msg(msg.values)
                         }
                         return (
                           <Alert dismissible
