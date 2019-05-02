@@ -7,11 +7,11 @@ import appReducer from "../reducers/App";
 import notifyReducer from "../reducers/Notify";
 
 const reducers = (history) =>
-	combineReducers({
-		app: appReducer,
-		form: formReducer,
-		notify: notifyReducer,
-		router: connectRouter(history)
-	});
+    combineReducers({
+        app: appReducer,
+        form: formReducer,
+        notify: notifyReducer,
+        router: connectRouter(history)
+    });
 
 export default reducers;
