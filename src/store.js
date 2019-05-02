@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-import appReducer from './reducers/App';
-import notifyReducer from './reducers/Notify';
-
+import appReducer from "./reducers/App";
+import notifyReducer from "./reducers/Notify";
 
 const appStore = combineReducers({
     app: appReducer,
