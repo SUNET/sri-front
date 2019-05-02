@@ -15,6 +15,7 @@ import './style/reset.css';
 /* Store */
 export const store = createStore(
     appStore,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 /* render app */
