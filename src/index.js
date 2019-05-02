@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import appStore from "./store";
 import AppContainer from './containers/App';
+import * as actions from "./actions/App";
 import * as serviceWorker from './serviceWorker';
 
 import './i18n';
@@ -25,7 +26,12 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+const initialAction = () => {
+  store.dispatch(actions.appLoaded());
+}
+
+
+ReactDOM.render(app, document.getElementById('root'), initialAction);
 
 
 // If you want your app to work offline and load faster, you can change
