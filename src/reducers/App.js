@@ -23,7 +23,7 @@ let appReducer = (state=appData, action) => {
     case actions.STOP_FETCHING:
       return {
         ...state,
-        is_fetching: true
+        is_fetching: false
       };
     default:
       return state;

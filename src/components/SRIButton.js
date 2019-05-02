@@ -14,7 +14,7 @@ class SRIButton extends Component {
   render () {
     return (
         <FetchingContext.Consumer>
-            {({fetching, toggleFetching}) => {
+            {(fetching) => {
                 if (fetching) {
                     let classes = " sri-button has-spinner";
                     if (this.props.className !== undefined) {

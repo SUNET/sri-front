@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 
 import 'bootstrap/scss/bootstrap.scss';
@@ -15,24 +16,9 @@ import '../style/App.scss';
 
 class App extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetching: props.is_fetching,
-            setFetching: this.setFetching.bind(this),
-            openTabs: false
-        };
-    }
-
-    setFetching(fetching) {
-        this.setState({
-            fetching: fetching
-        });
-    }
-
     render () {
       return (
-        <FetchingContext.Provider value={this.state}>
+        <FetchingContext.Provider value={this.props.is_fetching}>
           <div className="App">
             <SplashContainer />
             <HeaderContainer />
@@ -44,6 +30,10 @@ class App extends Component {
         </FetchingContext.Provider>
       );
     }
+}
+
+App.propTypes = {
+    is_fetching: PropTypes.bool,
 }
 
 export default withTranslation()(App);

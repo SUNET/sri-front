@@ -1,9 +1,6 @@
 import React from 'react';
 
 
-const FetchingContext = React.createContext({
-    fetching: false,
-    setFetching: () => {}
-});
+const FetchingContext = React.createContext(false);
 
 export default FetchingContext;
