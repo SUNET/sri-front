@@ -6,6 +6,7 @@ import Notify from '../components/Notify';
 const mapStateToProps = (state, props) => {
   return {
       messages: state.notify.messages,
+      refresh: state.notify.refresh
   }
 };
 
