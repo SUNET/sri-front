@@ -5,6 +5,7 @@ import App from '../components/App';
 
 const mapStateToProps = (state, props) => {
     return {
+        is_fetching: state.app.is_fetching
     }
 };
 
