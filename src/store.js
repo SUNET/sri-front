@@ -7,13 +7,13 @@ import middlewares from "./middlewares";
 const composedMiddlewares = compose(applyMiddleware(...middlewares(history)));
 
 const configureStore = (preloadedState) => {
-	const store = createStore(
-		reducers(history),
-		preloadedState,
-		composedMiddlewares
-	);
+    const store = createStore(
+        reducers(history),
+        preloadedState,
+        composedMiddlewares
+    );
 
-	return store;
+    return store;
 };
 
 export default configureStore;

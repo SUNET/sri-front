@@ -5,33 +5,36 @@ import Alert from "react-bootstrap/Alert";
 import "../style/Notify.scss";
 
 class Notify extends Component {
-	render() {
-		if (this.props.messages.length > 0) {
-			let message = this.props.messages[0],
-				msg = message.msg;
-
-			if (message.vals !== null) {
-				msg = msg(message.vals);
-			}
-
-			return (
-				<div className="notify-area">
-					<Alert
-						dismissible
-						variant={message.level}
-						onClose={this.props.rmNotification}
-					>
-						{msg}
-					</Alert>
-				</div>
-			);
-		}
-		return "";
-	}
+    render() {
+        if (this.props.messages.length > 0) {
+            return (
+                <div className="notify-area">
+                    {this.props.messages.map((msg) => {
+                        let message = msg.msg;
+                        if (msg.values !== null) {
+                            message = msg(msg.values);
+                        }
+                        return (
+                            <Alert
+                                dismissible
+                                className="sri-notification"
+                                key={message}
+                                variant={msg.level}
+                                onClose={this.props.rmNotification}
+                            >
+                                {message}
+                            </Alert>
+                        );
+                    })}
+                </div>
+            );
+        }
+        return "";
+    }
 }
 
 Notify.propTypes = {
-	messages: PropTypes.array
+    messages: PropTypes.array
 };
 
 export default Notify;
