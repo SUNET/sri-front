@@ -1,16 +1,14 @@
-
-@import '../variables.scss';
-
+@import "../variables.scss";
 
 .notify-area {
-    position: relative;
-    height: 5em;
-    width: 100%;
+  position: relative;
+  height: 5em;
+  width: 100%;
 }
 
 .sri-notification {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }

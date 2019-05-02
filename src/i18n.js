@@ -4,7 +4,6 @@ import { initReactI18next } from "react-i18next";
 // import the translations
 import resources from "./l10n/en";
 
-
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
@@ -18,4 +17,4 @@ i18n
     }
   });
 
-  export default i18n;
+export default i18n;

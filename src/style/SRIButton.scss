@@ -1,5 +1,4 @@
-@import '../variables.scss';
-
+@import "../variables.scss";
 
 /* generic styles for all buttons 
 (incl. :hover, :active, :focus and :disabled) */
@@ -110,25 +109,25 @@ button.btn-link {
 }
 
 .btn-icon {
-    display: inline-block;
-    vertical-align: middle;
-    width: 40px;
-    height: 40px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
 }
 
 .btn-text {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 14px 0 10px;
-    margin: 0 0 0 4px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 14px 0 10px;
+  margin: 0 0 0 4px;
 }
 
 .pre-big {
-    font-size: 150%;
+  font-size: 150%;
 }
 
 .has-spinner {
-  cursor:progress;
+  cursor: progress;
   position: relative;
 }
 

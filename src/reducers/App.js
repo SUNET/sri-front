@@ -1,14 +1,12 @@
 // eslint-disable-next-line
 import * as actions from "../actions/App";
 
-
 const appData = {
-    is_app_loaded: false,
-    is_fetching: false,
+  is_app_loaded: false,
+  is_fetching: false
 };
 
-
-let appReducer = (state=appData, action) => {
+let appReducer = (state = appData, action) => {
   switch (action.type) {
     case actions.LOADED:
       return {

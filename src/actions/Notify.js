@@ -1,9 +1,8 @@
+export const NEW = "NEW_NOTIFICATION";
+export const RM = "RM_NOTIFICATION";
+export const RM_ALL = "RM_ALL_NOTIFICATION";
 
-export const NEW = 'NEW_NOTIFICATION';
-export const RM = 'RM_NOTIFICATION';
-export const RM_ALL = 'RM_ALL_NOTIFICATION';
-
-export function notify (msg, level, values=null) {
+export function notify(msg, level, values = null) {
   return {
     type: NEW,
     payload: {
@@ -14,13 +13,13 @@ export function notify (msg, level, values=null) {
   };
 }
 
-export function rmNotification () {
+export function rmNotification() {
   return {
-    type: RM,
+    type: RM
   };
 }
 
-export function rmAllNotifications () {
+export function rmAllNotifications() {
   return {
     type: RM_ALL
   };

@@ -1,26 +1,25 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import * as actions from "../actions/Notify";
-import Notify from '../components/Notify';
-
+import Notify from "../components/Notify";
 
 const mapStateToProps = (state, props) => {
   return {
-      messages: state.notify.messages,
-      refresh: state.notify.refresh
-  }
+    messages: state.notify.messages,
+    refresh: state.notify.refresh
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
-        rmNotification: (e) => {
-            dispatch(actions.rmNotification());
-        }
+  return {
+    rmNotification: e => {
+      dispatch(actions.rmNotification());
     }
+  };
 };
 
 const NotifyContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Notify);
 
 export default NotifyContainer;
