@@ -14,23 +14,23 @@ import NotifyContainer from "../containers/Notify";
 import "../style/App.scss";
 
 class App extends Component {
-  render() {
-    return (
-      <FetchingContext.Provider value={this.props.is_fetching}>
-        <div className="App">
-          <SplashContainer />
-          <HeaderContainer />
-          <NotifyContainer />
-          <div className="row" id="main" />
-          <FooterContainer />
-        </div>
-      </FetchingContext.Provider>
-    );
-  }
+    render() {
+        return (
+            <FetchingContext.Provider value={this.props.is_fetching}>
+                <div className="App">
+                    <SplashContainer />
+                    <HeaderContainer />
+                    <NotifyContainer />
+                    <div className="row" id="main" />
+                    <FooterContainer />
+                </div>
+            </FetchingContext.Provider>
+        );
+    }
 }
 
 App.propTypes = {
-  is_fetching: PropTypes.bool
+    is_fetching: PropTypes.bool
 };
 
 export default withTranslation()(App);

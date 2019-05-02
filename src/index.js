@@ -14,19 +14,19 @@ import "./style/reset.css";
 
 /* Store */
 export const store = createStore(
-  appStore,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    appStore,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 /* render app */
 const app = (
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>
+    <Provider store={store}>
+        <AppContainer />
+    </Provider>
 );
 
 const initialAction = () => {
-  store.dispatch(actions.appLoaded());
+    store.dispatch(actions.appLoaded());
 };
 
 ReactDOM.render(app, document.getElementById("root"), initialAction);
