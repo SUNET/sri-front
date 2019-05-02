@@ -10,6 +10,21 @@ const appData = {
 
 let appReducer = (state=appData, action) => {
   switch (action.type) {
+    case actions.LOADED:
+      return {
+        ...state,
+        is_app_loaded: true
+      };
+    case actions.START_FETCHING:
+      return {
+        ...state,
+        is_fetching: true
+      };
+    case actions.STOP_FETCHING:
+      return {
+        ...state,
+        is_fetching: true
+      };
     default:
       return state;
   }
