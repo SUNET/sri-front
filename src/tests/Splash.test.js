@@ -9,7 +9,7 @@ describe("Splash Component", () => {
                 component: <SplashContainer />,
                 overrides: { app: { is_app_loaded: false } }
             }),
-            splash = wrapper.find("div.splash-spinner");
+            splash = wrapper.find("div#splash-spinner");
 
         expect(splash.length).toEqual(1);
     });
@@ -19,7 +19,7 @@ describe("Splash Component", () => {
                 component: <SplashContainer />,
                 overrides: { app: { is_app_loaded: true } }
             }),
-            splash = wrapper.find("div.splash-spinner");
+            splash = wrapper.find("div#splash-spinner");
 
         expect(splash.length).toEqual(0);
     });
