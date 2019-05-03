@@ -10,6 +10,7 @@ import FetchingContext from "../components/FetchingContext";
 
 import SplashContainer from "../containers/Splash";
 import HeaderContainer from "../containers/Header";
+import BaseContainer from "../containers/Base";
 import FooterContainer from "../containers/Footer";
 import NotifyContainer from "../containers/Notify";
 
@@ -26,9 +27,8 @@ class App extends Component {
                     <HeaderContainer />
                     <NotifyContainer />
                     <ConnectedRouter history={history}>
-                        <Route path="/" />
+                        <Route path="/" component={BaseContainer} />
                     </ConnectedRouter>
-                    <div className="row" id="main" />
                     <FooterContainer />
                 </div>
             </FetchingContext.Provider>

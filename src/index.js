@@ -14,9 +14,9 @@ import "./i18n";
 import "./style/reset.css";
 
 /* Store */
-export const store = configureStore([
+export const store = configureStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-]);
+);
 
 /* render app */
 const app = (
