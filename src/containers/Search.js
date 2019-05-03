@@ -10,9 +10,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onSubmit: (value) => {
-            dispatch(startSearch(value))
-        }
+        startSearch: (value) => dispatch(startSearch(value)),
+        successSearch: (items) => dispatch(successSearch(items))
     };
 };
 
