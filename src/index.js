@@ -5,8 +5,7 @@ import { Provider } from "react-redux";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 
-import configureStore from "./store";
-import history from "./history";
+import configureStore, { history } from "./store";
 
 import AppContainer from "./containers/App";
 import * as actions from "./actions/App";
