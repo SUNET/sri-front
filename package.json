@@ -26,7 +26,6 @@
         "babel-plugin-relay": "^3.0.0",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.12.1",
-        "eslint-plugin-prettier": "^3.0.1",
         "graphql": "^14.2.1",
         "jest-mock": "^24.7.0",
         "prettier": "^1.17.0",
@@ -36,12 +35,14 @@
         "relay-compiler": "^3.0.0"
     },
     "scripts": {
-        "start": "npm run check-pretty && react-scripts start",
+        "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "check-pretty": "prettier --check ./src/**/*.{js,jsx,json}",
-        "pretty": "prettier --write ./src/**/*.{js,jsx,json}",
+        "check-code": "prettier --check ./src/**/*.{js,jsx,json}",
+        "check-styles": "prettier --check --config .stylelintrc ./src/**/*.{css,scss}",
+        "fix-code": "prettier --write ./src/**/*.{js,jsx,json}",
+        "fix-styles": "prettier --write --config .stylelintrc ./src/**/*.{css,scss}",
         "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions js jsx"
     },
     "eslintConfig": {
