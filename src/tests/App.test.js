@@ -8,7 +8,7 @@ import AppContainer from "../containers/App";
 
 configure({ adapter: new Adapter() });
 
-const fakeStore = (state) => ({
+export const fakeStore = (state) => ({
     default: () => {},
     dispatch: mock.fn(),
     subscribe: mock.fn(),
@@ -17,7 +17,10 @@ const fakeStore = (state) => ({
 
 const fakeState = {
     app: {
-        is_app_loaded: false
+        is_app_loaded: true
+    },
+    notify: {
+        messages: []
     }
 };
 
