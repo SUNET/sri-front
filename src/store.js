@@ -1,11 +1,23 @@
-import { combineReducers } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
+import { createBrowserHistory } from "history";
+import { routerMiddleware } from "connected-react-router";
 
-import appReducer from "./reducers/App";
-import notifyReducer from "./reducers/Notify";
+import reducers from "./reducers";
 
-const appStore = combineReducers({
-    app: appReducer,
-    notify: notifyReducer
-});
+export const history = createBrowserHistory();
 
-export default appStore;
+const middlewares = [routerMiddleware(history)];
+
+const composedMiddlewares = compose(applyMiddleware(...middlewares));
+
+const configureStore = (preloadedState) => {
+    const store = createStore(
+        reducers(history),
+        preloadedState,
+        composedMiddlewares
+    );
+
+    return store;
+};
+
+export default configureStore;

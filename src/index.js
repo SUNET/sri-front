@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "redux";
+
 import { Provider } from "react-redux";
 
-import appStore from "./store";
+import configureStore from "./store";
+
 import AppContainer from "./containers/App";
 import * as actions from "./actions/App";
 import * as serviceWorker from "./serviceWorker";
@@ -13,10 +14,9 @@ import "./i18n";
 import "./style/reset.css";
 
 /* Store */
-export const store = createStore(
-    appStore,
+export const store = configureStore([
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+]);
 
 /* render app */
 const app = (

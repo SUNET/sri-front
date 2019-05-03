@@ -3,179 +3,179 @@
 /* generic styles for all buttons 
 (incl. :hover, :active, :focus and :disabled) */
 button.btn {
-  height: 45px;
-  background-color: $light-green;
-  border-color: $light-green;
-  color: #fff;
-  font-size: 14px;
-  letter-spacing: 0.25px;
-  line-height: 45px;
-  text-transform: uppercase;
-  padding: 0 40px;
-  margin-bottom: 10px;
-  border-radius: 0;
-  border: none;
-  &:hover {
-    background: $light-green-hover;
-    border-color: $light-green-hover;
-  }
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled):focus,
-  &:not(:disabled):not(.disabled):active:focus {
-    background-color: $light-green-hover;
-    border-color: $light-green-hover;
-    box-shadow: 0 0 0 0.2rem $light-green-shadow;
-  }
-  &:disabled {
-    background-color: $light-green-disabled;
-    border-color: $light-green-disabled;
-  }
+    height: 45px;
+    background-color: $light-green;
+    border-color: $light-green;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+    line-height: 45px;
+    text-transform: uppercase;
+    padding: 0 40px;
+    margin-bottom: 10px;
+    border-radius: 0;
+    border: none;
+    &:hover {
+        background: $light-green-hover;
+        border-color: $light-green-hover;
+    }
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):focus,
+    &:not(:disabled):not(.disabled):active:focus {
+        background-color: $light-green-hover;
+        border-color: $light-green-hover;
+        box-shadow: 0 0 0 0.2rem $light-green-shadow;
+    }
+    &:disabled {
+        background-color: $light-green-disabled;
+        border-color: $light-green-disabled;
+    }
 }
 
 /* styles for success and ok-button buttons */
 button.btn-success:hover,
 button.ok-button:hover {
-  background: $light-green-hover;
-  border-color: $light-green-hover;
+    background: $light-green-hover;
+    border-color: $light-green-hover;
 }
 
 /* styles for cancel and close buttons */
 button.cancel-button,
 button.finish-button {
-  background-color: $cancel-color;
-  border-color: $cancel-color;
-  color: $text-color;
-  &:hover {
-    background: $cancel-color-hover;
-    border-color: $cancel-color-hover;
+    background-color: $cancel-color;
+    border-color: $cancel-color;
     color: $text-color;
-  }
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled):focus,
-  &:not(:disabled):not(.disabled):active:focus {
-    background-color: $cancel-color-hover;
-    border-color: $cancel-color-hover;
-    box-shadow: 0 0 0 0.2rem $cancel-color-shadow;
-    color: $text-color;
-  }
+    &:hover {
+        background: $cancel-color-hover;
+        border-color: $cancel-color-hover;
+        color: $text-color;
+    }
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):focus,
+    &:not(:disabled):not(.disabled):active:focus {
+        background-color: $cancel-color-hover;
+        border-color: $cancel-color-hover;
+        box-shadow: 0 0 0 0.2rem $cancel-color-shadow;
+        color: $text-color;
+    }
 }
 
 /* styles for remove and delete buttons
 (incl. :hover, :active and :focus ) */
 button.btn.btn-sm {
-  margin-left: 30px;
-  height: 2rem;
-  line-height: 2rem;
+    margin-left: 30px;
+    height: 2rem;
+    line-height: 2rem;
 }
 
 button.btn.btn-sm,
 button.btn.btn-danger {
-  background-color: $error-red;
-  border-color: $error-red;
-  &:hover {
-    background-color: $error-red-hover;
-    border-color: $error-red-hover;
-  }
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled):focus,
-  &:not(:disabled):not(.disabled):active:focus {
-    background-color: $error-red-hover;
-    border-color: $error-red-hover;
-    box-shadow: 0 0 0 0.2rem $error-red-shadow;
-  }
+    background-color: $error-red;
+    border-color: $error-red;
+    &:hover {
+        background-color: $error-red-hover;
+        border-color: $error-red-hover;
+    }
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):focus,
+    &:not(:disabled):not(.disabled):active:focus {
+        background-color: $error-red-hover;
+        border-color: $error-red-hover;
+        box-shadow: 0 0 0 0.2rem $error-red-shadow;
+    }
 }
 
 /* styles for links that are also buttons
 (incl. :hover, :active and :focus ) */
 
 button.btn-link {
-  background-color: transparent;
-  color: $link-color;
-  font-weight: 500;
-  &:hover {
     background-color: transparent;
-    border-color: transparent;
-    color: $link-hover;
-    text-decoration: none;
-  }
-  &:not(:disabled):not(.disabled):active,
-  &:not(:disabled):not(.disabled):focus,
-  &:not(:disabled):not(.disabled):active:focus {
-    background-color: transparent;
-    border-color: transparent;
     color: $link-color;
-    box-shadow: 0 0 0 0.2rem $link-shadow;
-  }
+    font-weight: 500;
+    &:hover {
+        background-color: transparent;
+        border-color: transparent;
+        color: $link-hover;
+        text-decoration: none;
+    }
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):focus,
+    &:not(:disabled):not(.disabled):active:focus {
+        background-color: transparent;
+        border-color: transparent;
+        color: $link-color;
+        box-shadow: 0 0 0 0.2rem $link-shadow;
+    }
 }
 
 .btn-icon {
-  display: inline-block;
-  vertical-align: middle;
-  width: 40px;
-  height: 40px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
 }
 
 .btn-text {
-  display: inline-block;
-  vertical-align: middle;
-  padding: 0 14px 0 10px;
-  margin: 0 0 0 4px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 14px 0 10px;
+    margin: 0 0 0 4px;
 }
 
 .pre-big {
-  font-size: 150%;
+    font-size: 150%;
 }
 
 .has-spinner {
-  cursor: progress;
-  position: relative;
+    cursor: progress;
+    position: relative;
 }
 
 .has-spinner .spin-holder {
-  width: 100%;
-  height: 80%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin-top: -40px;
-  color: #ccc;
+    width: 100%;
+    height: 80%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-top: -40px;
+    color: #ccc;
 }
 
 .has-spinner .fa-spinner {
-  display: inline-block;
-  width: 26px;
-  height: 80%;
-  opacity: 1;
-  font-size: 2em;
-  -webkit-animation: spin 1.5s infinite linear;
-  -moz-animation: spin 1.5s infinite linear;
-  -o-animation: spin 1.5s infinite linear;
-  animation: spin 1.5s infinite linear;
+    display: inline-block;
+    width: 26px;
+    height: 80%;
+    opacity: 1;
+    font-size: 2em;
+    -webkit-animation: spin 1.5s infinite linear;
+    -moz-animation: spin 1.5s infinite linear;
+    -o-animation: spin 1.5s infinite linear;
+    animation: spin 1.5s infinite linear;
 }
 
 @-moz-keyframes spin {
-  from {
-    -moz-transform: rotate(0deg);
-  }
-  to {
-    -moz-transform: rotate(360deg);
-  }
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
 }
 
 @-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

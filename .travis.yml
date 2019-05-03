@@ -3,4 +3,4 @@ node_js:
   - 'lts/*'
 before_script:
   - npm install
-script: npm run-script build && npm run-script test && find src/ -regex ".*\.\(js\|json\|scss\)$" -exec prettier -c --config prettier.json {} \;
+script: npm run-script build && npm run-script test && find src/ -regex ".*\.\(js\|json\|scss\)$" -exec prettier -c {} \;
