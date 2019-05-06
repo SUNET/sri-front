@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { reduxForm } from "redux-form";
+import Form from "react-bootstrap/Form";
 
 class SearchForm extends React.Component {
     static propTypes = {
@@ -29,8 +30,7 @@ class SearchForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
-                <label htmlFor="searchInput">Search Contact</label>
-                <input
+                <Form.Control
                     type="text"
                     className="u-full-width"
                     name="search"
@@ -38,11 +38,6 @@ class SearchForm extends React.Component {
                     onChange={this.handleChange}
                     id="searchInput"
                     defaultValue={this.props.search}
-                />
-                <input
-                    type="submit"
-                    className="button-primary"
-                    value="Search"
                 />
             </form>
         );

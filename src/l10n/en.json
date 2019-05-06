@@ -1,7 +1,9 @@
 {
     "en": {
         "translation": {
-            "header.welcome": "Welcome to SUNET Resources Inventory",
+            "header.welcome": "SUNET",
+            "header.navbar.contacts": "Contacts",
+            "header.navbar.roles": "Roles",
             "footer.copyright": "© SUNET 2019"
         }
     }

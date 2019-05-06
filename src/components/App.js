@@ -23,13 +23,13 @@ class App extends Component {
         return (
             <FetchingContext.Provider value={this.props.is_fetching}>
                 <div className="App">
-                    <SplashContainer />
-                    <HeaderContainer />
-                    <NotifyContainer />
                     <ConnectedRouter history={history}>
+                        <SplashContainer />
+                        <HeaderContainer />
+                        <NotifyContainer />
                         <Route path="/" component={BaseContainer} />
+                        <FooterContainer />
                     </ConnectedRouter>
-                    <FooterContainer />
                 </div>
             </FetchingContext.Provider>
         );

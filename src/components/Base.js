@@ -1,13 +1,21 @@
 import React from "react";
-// import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import SearchContainer from "../containers/Search";
+import ContactDetails from "../components/ContactDetails";
 
 class Base extends React.Component {
     render() {
         return (
             <main className="container">
-                <SearchContainer />
+                <Switch>
+                    <Route path="/contacts" component={SearchContainer} />
+                    <Route
+                        path={`${this.props.match.url}:contact`}
+                        component={ContactDetails}
+                    />
+                    <Route path="/roles" component={SearchContainer} />
+                </Switch>
             </main>
         );
     }
