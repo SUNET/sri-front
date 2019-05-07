@@ -4,27 +4,21 @@ import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import Table from "react-bootstrap/Table";
 
-import Contact from "./Contact";
+import ContactRow from "./ContactRow";
 
 class ModelList extends React.PureComponent {
     static propTypes = {
         viewer: PropTypes.object.isRequired,
-        // data: PropTypes.arrayOf(PropTypes.object).isRequired,
-        // total: PropTypes.number.isRequired,
-        // loading: PropTypes.bool.isRequired,
-        // search: PropTypes.string.isRequired,
-        // queried: PropTypes.bool.isRequired
     };
 
     handleOnClick = (event, data) => {
-        console.log(this.props);
-        this.props.history.push(`/contact/${data.name}`)
+        this.props.history.push(`/contact/${data.id}`)
     };
 
     getData() {
         let models = this.props.viewer.allContacts;
         models = models.edges.map(({ node }) => (
-            <Contact
+            <ContactRow
                 key={node.id}
                 contact={node}
                 viewer={this.props.viewer}
@@ -56,14 +50,14 @@ export default createFragmentContainer(
     ModelList,
     graphql`
         fragment ModelList_viewer on Viewer {
-            ...Contact_viewer
+            ...ContactRow_viewer
             allContacts(last: 100, orderBy: createdAt_DESC)
                 @connection(key: "ModelList_allContacts", filters: []) {
                 edges {
                     node {
                         id
                         name
-                        ...Contact_contact
+                        ...ContactRow_contact
                     }
                 }
             }

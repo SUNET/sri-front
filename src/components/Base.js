@@ -11,7 +11,7 @@ class Base extends React.Component {
                 <Switch>
                     <Route path="/contacts" component={SearchContainer} />
                     <Route
-                        path={`${this.props.match.url}:contact`}
+                        path="/contact/:id"
                         component={ContactDetails}
                     />
                     <Route path="/roles" component={SearchContainer} />

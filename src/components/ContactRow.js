@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-class Contact extends React.PureComponent {
+class ContactRow extends React.PureComponent {
     static propTypes = {
         contact: PropTypes.object.isRequired,
         onClick: PropTypes.func.isRequired
@@ -21,17 +21,17 @@ class Contact extends React.PureComponent {
     }
 }
 
-const FragmentContainer = createFragmentContainer(
-    Contact,
+const ContactRowFragment = createFragmentContainer(
+    ContactRow,
     graphql`
-        fragment Contact_viewer on Viewer {
+        fragment ContactRow_viewer on Viewer {
             id
         }
-        fragment Contact_contact on Contact {
+        fragment ContactRow_contact on Contact {
             id
             name
         }
     `
 );
 
-export default FragmentContainer;
+export default ContactRowFragment;
