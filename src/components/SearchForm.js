@@ -34,7 +34,7 @@ class SearchForm extends React.Component {
                     type="text"
                     className="u-full-width"
                     name="search"
-                    placeholder="Contact name"
+                    placeholder="Search ..."
                     onChange={this.handleChange}
                     id="searchInput"
                     defaultValue={this.props.search}

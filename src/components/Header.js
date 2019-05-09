@@ -32,7 +32,9 @@ function Header({ t, i18n }) {
                             </Nav.Link>
                         </Nav>
                         <Nav>
-                            <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
+                            <Nav.Link as={NavLink} to="/login">
+                                Login
+                            </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

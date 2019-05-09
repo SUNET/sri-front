@@ -16,6 +16,7 @@ class ContactRow extends React.PureComponent {
             <tr onClick={(e) => this.props.onClick(e, contact)}>
                 <td>{contact.id}</td>
                 <td>{contact.name}</td>
+                <td>{contact.email}</td>
             </tr>
         );
     }

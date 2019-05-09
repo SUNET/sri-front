@@ -1,13 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { Link } from "react-router-dom";
+import { ButtonToolbar, Button, Row, Col, Form } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
+
+import { Route } from "react-router-dom";
 
 import environment from "../createRelayEnvironment";
 
 import SearchFormContainer from "../containers/SearchForm";
 import ModelList from "./ModelList";
+import CreateContact from "./CreateContact";
 
 const SearchAllContactsQuery = graphql`
     query SearchAllContactsQuery {
@@ -49,27 +53,61 @@ class Search extends React.Component {
                     onSubmit={this.onSubmit}
                     search={this.props.search}
                 />
-                <QueryRenderer
-                    environment={environment}
-                    query={SearchAllContactsQuery}
-                    render={({ error, props }) => {
-                        if (error) {
-                            return <div>{error.message}</div>;
-                        } else if (props) {
-                            return (
-                                <ModelList
-                                    // data={this.props.results}
-                                    // total={this.props.results.length}
-                                    // loading={this.props.loading}
-                                    // queried={this.props.queried}
-                                    // search={this.props.search}
-                                    history={this.props.history}
-                                    viewer={props.viewer}
-                                />
-                            );
-                        }
-                        return <div>Loading</div>;
-                    }}
+
+                <Route
+                    exact
+                    path="/contacts"
+                    render={() =>
+                        <section>
+                            <Row className="mt-2">
+                                <Col sm={9}>
+                                    <ButtonToolbar>
+                                        <Button
+                                            as={Link}
+                                            to={`${
+                                                this.props.match.url
+                                            }/create`}
+                                            variant="outline-primary"
+                                        >
+                                            + New Contact
+                                        </Button>
+                                    </ButtonToolbar>
+                                </Col>
+                                <Col sm={3}>
+                                    <Form.Control
+                                        placeholder="Filter"
+                                        defaultValue=""
+                                    />
+                                </Col>
+                            </Row>
+                            <QueryRenderer
+                                environment={environment}
+                                query={SearchAllContactsQuery}
+                                render={({ error, props }) => {
+                                    if (error) {
+                                        return <div>{error.message}</div>;
+                                    } else if (props) {
+                                        return (
+                                            <ModelList
+                                                // data={this.props.results}
+                                                // total={this.props.results.length}
+                                                // loading={this.props.loading}
+                                                // queried={this.props.queried}
+                                                // search={this.props.search}
+                                                history={this.props.history}
+                                                viewer={props.viewer}
+                                            />
+                                        );
+                                    }
+                                    return <div>Loading</div>;
+                                }}
+                            />
+                        </section>
+                    }
+                />
+                <Route
+                    path={`${this.props.match.url}/create`}
+                    component={CreateContact}
                 />
             </section>
         );

@@ -35,6 +35,7 @@ class ModelList extends React.PureComponent {
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>{this.getData()}</tbody>
@@ -57,6 +58,13 @@ export default createFragmentContainer(
                     node {
                         id
                         name
+                        firstName
+                        lastName
+                        email
+                        phone
+                        handleId
+                        nodeName
+                        nodeMetaType
                         ...ContactRow_contact
                     }
                 }

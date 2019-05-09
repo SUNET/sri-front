@@ -1,8 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { createFragmentContainer } from "react-relay";
-import { Jumbotron, Form, Col } from "react-bootstrap";
+import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
+import { Button } from "react-bootstrap";
+
+import Contact from "./Contact";
+import environment from "../createRelayEnvironment";
+
+const ContactDetailsQuery = graphql`
+    query ContactDetailsQuery($contactId: ID) {
+        viewer {
+            ...Contact_viewer
+            Contact(id: $contactId) {
+                id
+                name
+                ...Contact_contact
+            }
+        }
+    }
+`;
 
 class ContactDetails extends React.PureComponent {
     static propTypes = {
@@ -10,50 +26,43 @@ class ContactDetails extends React.PureComponent {
             params: PropTypes.shape({
                 id: PropTypes.node
             }).isRequired
-        }).isRequired,
-        viewer: PropTypes.object.isRequired
+        }).isRequired
     };
 
-    renderFullName() {
-        return this.props.contact.firstName + " " + this.props.contact.lastName;
-    }
-
     render() {
-        const contact = this.props.contact;
         return (
-            <Jumbotron>
-                <h1 className="mt-3 mb-3">{this.renderFullName()}</h1>
-                <Form>
-                    <Form.Row>
-                        <Col>
-                            <Form.Control
-                                placeholder="First name"
-                                defaultValue={contact.firstName}
+            <div>
+            <QueryRenderer
+                environment={environment}
+                query={ContactDetailsQuery}
+                variables={{
+                    contactId: this.props.match.params.contactId
+                }}
+                render={({ error, props }) => {
+                    if (error) {
+                        return <div>{error.message}</div>;
+                    } else if (props) {
+                        return (
+                            <Contact
+                                contact={props.viewer.Contact}
+                                viewer={props.viewer}
                             />
-                        </Col>
-                        <Col>
-                            <Form.Control
-                                placeholder="Last name"
-                                defaultValue={contact.lastName}
-                            />
-                        </Col>
-                    </Form.Row>
-                </Form>
-            </Jumbotron>
+                        );
+                    }
+                    return <div>Loading</div>;
+                }}
+            />
+            <Button
+                onClick={() => {
+                    this.props.history.goBack();
+                }}
+                variant="outline-danger"
+            >
+                Delete
+            </Button>
+            </div>
         );
     }
 }
 
-const ContactDetailsFragment = createFragmentContainer(
-    ContactDetails,
-    graphql`
-        fragment ContactDetails_viewer on Viewer {
-            id
-        }
-        fragment ContactDetails_contact on Contact {
-            ...Contact
-        }
-    `
-);
-
-export default ContactDetailsFragment;
+export default ContactDetails;
