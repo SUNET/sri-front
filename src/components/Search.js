@@ -79,7 +79,7 @@ class Search extends React.Component {
                                 <Col sm={3}>
                                     <Form.Control
                                         placeholder="Filter"
-                                        defaultValue=""
+                                        defaultValue={this.state.filterValue}
                                         onChange={(e) =>
                                             this._handleOnChange(e)
                                         }
