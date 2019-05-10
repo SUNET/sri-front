@@ -16,6 +16,7 @@ class ContactRow extends React.PureComponent {
             <tr onClick={(e) => this.props.onClick(e, contact)}>
                 <td>{contact.id}</td>
                 <td>{contact.name}</td>
+                <td>{contact.phone}</td>
                 <td>{contact.email}</td>
             </tr>
         );
@@ -31,6 +32,8 @@ const ContactRowFragment = createFragmentContainer(
         fragment ContactRow_contact on Contact {
             id
             name
+            email
+            phone
         }
     `
 );

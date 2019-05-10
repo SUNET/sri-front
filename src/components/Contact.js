@@ -15,7 +15,6 @@ class Contact extends React.PureComponent {
 
     render() {
         let contact = this.props.contact;
-
         return (
             <Jumbotron>
                 <h1 className="mt-3 mb-3">{this.renderFullName()}</h1>
@@ -25,11 +24,6 @@ class Contact extends React.PureComponent {
                             <Form.Control
                                 placeholder="ID"
                                 defaultValue={contact.id}
-                                readOnly
-                            />
-                            <Form.Control
-                                placeholder="Handle ID"
-                                defaultValue={contact.hundleId}
                                 readOnly
                             />
                             <Form.Control
@@ -69,10 +63,12 @@ const ContactFragment = createFragmentContainer(
         }
         fragment Contact_contact on Contact {
             id
+            nodeName
             name
             firstName
             lastName
             email
+            phone
         }
     `
 );

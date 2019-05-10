@@ -5,6 +5,7 @@ import graphql from "babel-plugin-relay/macro";
 import { Button } from "react-bootstrap";
 
 import Contact from "./Contact";
+import DeleteContactMutation from "../mutations/DeleteContactMutation";
 import environment from "../createRelayEnvironment";
 
 const ContactDetailsQuery = graphql`
@@ -13,7 +14,6 @@ const ContactDetailsQuery = graphql`
             ...Contact_viewer
             Contact(id: $contactId) {
                 id
-                name
                 ...Contact_contact
             }
         }
@@ -29,9 +29,13 @@ class ContactDetails extends React.PureComponent {
         }).isRequired
     };
 
+    _handleDelete = (contactId, viewerId) => {
+        console.log("Hundle Delete");
+        DeleteContactMutation(contactId, viewerId, () => this.props.history.push("/contacts"));
+    };
+
     render() {
         return (
-            <div>
             <QueryRenderer
                 environment={environment}
                 query={ContactDetailsQuery}
@@ -43,24 +47,26 @@ class ContactDetails extends React.PureComponent {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <Contact
-                                contact={props.viewer.Contact}
-                                viewer={props.viewer}
-                            />
+                            <section>
+                                <Contact
+                                    contact={props.viewer.Contact}
+                                    viewer={props.viewer}
+                                />
+                                <Button
+                                    onClick={() => this._handleDelete(
+                                        props.viewer.Contact.id,
+                                        props.viewer.id
+                                    )}
+                                    variant="outline-danger"
+                                >
+                                    Delete
+                                </Button>
+                            </section>
                         );
                     }
                     return <div>Loading</div>;
                 }}
             />
-            <Button
-                onClick={() => {
-                    this.props.history.goBack();
-                }}
-                variant="outline-danger"
-            >
-                Delete
-            </Button>
-            </div>
         );
     }
 }

@@ -8,13 +8,14 @@ import graphql from "babel-plugin-relay/macro";
 import { Route } from "react-router-dom";
 
 import environment from "../createRelayEnvironment";
+import { ITEMS_PER_PAGE } from "../constants";
 
 import SearchFormContainer from "../containers/SearchForm";
 import ModelList from "./ModelList";
 import CreateContact from "./CreateContact";
 
 const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery {
+    query SearchAllContactsQuery($count: Int!, $after: String) {
         viewer {
             ...ModelList_viewer
         }
@@ -57,7 +58,7 @@ class Search extends React.Component {
                 <Route
                     exact
                     path="/contacts"
-                    render={() =>
+                    render={() => (
                         <section>
                             <Row className="mt-2">
                                 <Col sm={9}>
@@ -83,6 +84,9 @@ class Search extends React.Component {
                             <QueryRenderer
                                 environment={environment}
                                 query={SearchAllContactsQuery}
+                                variables={{
+                                    count: ITEMS_PER_PAGE
+                                }}
                                 render={({ error, props }) => {
                                     if (error) {
                                         return <div>{error.message}</div>;
@@ -103,7 +107,7 @@ class Search extends React.Component {
                                 }}
                             />
                         </section>
-                    }
+                    )}
                 />
                 <Route
                     path={`${this.props.match.url}/create`}

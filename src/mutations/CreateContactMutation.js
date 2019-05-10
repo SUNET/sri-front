@@ -8,7 +8,6 @@ const mutation = graphql`
         createContact(input: $input) {
             contact {
                 id
-                handleId
                 nodeMetaType
                 nodeName
                 name
@@ -38,7 +37,6 @@ export default function CreateContactMutation(
             lastName,
             email,
             phone,
-            handleId: 200 + tempID,
             nodeName: "Contact",
             nodeMetaType: "PHYSICAL",
             clientMutationId: ""
@@ -61,19 +59,14 @@ export default function CreateContactMutation(
             newContact.setValue(lastName, "lastName");
             newContact.setValue(email, "email");
             newContact.setValue(phone, "phone");
-            // newContact.setValue(200 + tempID, "handleId");
-            // newContact.setValue("Contact", "nodeName");
-            // newContact.setValue("PHYSICAL", "nodeMetaType");
 
             // 2 - add `newContact` to the store
             const viewerProxy = proxyStore.get(viewerId);
-            console.log(viewerProxy);
             const connection = ConnectionHandler.getConnection(
                 viewerProxy,
                 "ModelList_allContacts",
                 []
             );
-            console.log(connection);
             if (connection) {
                 ConnectionHandler.insertEdgeAfter(connection, newContact);
             }

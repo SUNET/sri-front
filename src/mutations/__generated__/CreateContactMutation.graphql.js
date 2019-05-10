@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 41d82faaf5b129e873125ccf0bd43721
+ * @relayHash 2463f83629bd4f1068aba621c35bda59
  */
 
 /* eslint-disable */
@@ -14,7 +14,6 @@ export type CreateContactInput = {|
   contactType?: ?string,
   email?: ?string,
   firstName: string,
-  handleId: number,
   lastName: string,
   mobile?: ?string,
   name: string,
@@ -29,7 +28,6 @@ export type CreateContactInput = {|
   clientMutationId: string,
 |};
 export type ContactrolesRole = {|
-  handleId: number,
   name: string,
   nodeMetaType: NodeHandleNodeMeta,
   nodeName: string,
@@ -40,7 +38,6 @@ export type RolecontactsContact = {|
   contactType?: ?string,
   email?: ?string,
   firstName: string,
-  handleId: number,
   lastName: string,
   mobile?: ?string,
   name: string,
@@ -60,7 +57,6 @@ export type CreateContactMutationResponse = {|
   +createContact: ?{|
     +contact: ?{|
       +id: string,
-      +handleId: number,
       +nodeMetaType: NodeHandleNodeMeta,
       +nodeName: string,
       +name: string,
@@ -85,7 +81,6 @@ mutation CreateContactMutation(
   createContact(input: $input) {
     contact {
       id
-      handleId
       nodeMetaType
       nodeName
       name
@@ -137,13 +132,6 @@ v1 = [
             "kind": "ScalarField",
             "alias": null,
             "name": "id",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "handleId",
             "args": null,
             "storageKey": null
           },
@@ -221,11 +209,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateContactMutation",
     "id": null,
-    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  createContact(input: $input) {\n    contact {\n      id\n      handleId\n      nodeMetaType\n      nodeName\n      name\n      firstName\n      lastName\n      email\n      phone\n    }\n  }\n}\n",
+    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  createContact(input: $input) {\n    contact {\n      id\n      nodeMetaType\n      nodeName\n      name\n      firstName\n      lastName\n      email\n      phone\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b60f5d82f108b8f03cd5a4d09cd60c7c';
+(node/*: any*/).hash = '63d5c6f5c54570a4e2e1cf599f0e46d6';
 module.exports = node;

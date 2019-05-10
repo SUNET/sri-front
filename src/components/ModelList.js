@@ -1,18 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { createFragmentContainer } from "react-relay";
+import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import Table from "react-bootstrap/Table";
+import { Button, Table } from "react-bootstrap";
 
 import ContactRow from "./ContactRow";
+import { ITEMS_PER_PAGE } from "../constants";
 
 class ModelList extends React.PureComponent {
     static propTypes = {
-        viewer: PropTypes.object.isRequired,
+        viewer: PropTypes.object.isRequired
+    };
+
+    _loadMore = () => {
+        if (!this.props.relay.hasMore()) {
+            console.log(`Nothing more to load`);
+            return;
+        } else if (this.props.relay.isLoading()) {
+            console.log(`Request is already pending`);
+            return;
+        }
+
+        this.props.relay.loadMore(ITEMS_PER_PAGE);
     };
 
     handleOnClick = (event, data) => {
-        this.props.history.push(`/contact/${data.id}`)
+        this.props.history.push(`/contact/${data.id}`);
     };
 
     getData() {
@@ -35,6 +48,7 @@ class ModelList extends React.PureComponent {
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Phone</th>
                         <th>Email</th>
                     </tr>
                 </thead>
@@ -43,16 +57,26 @@ class ModelList extends React.PureComponent {
         );
     }
     render() {
-        return <section>{this.renderTable()}</section>;
+        return (
+            <section>
+                {this.renderTable()}
+                <Button
+                    onClick={() => this._loadMore()}
+                    variant="outline-primary"
+                >
+                    Load More
+                </Button>
+            </section>
+        );
     }
 }
 
-export default createFragmentContainer(
+export default createPaginationContainer(
     ModelList,
     graphql`
         fragment ModelList_viewer on Viewer {
             ...ContactRow_viewer
-            allContacts(last: 100, orderBy: createdAt_DESC)
+            allContacts(first: $count, after: $after, orderBy: createdAt_DESC)
                 @connection(key: "ModelList_allContacts", filters: []) {
                 edges {
                     node {
@@ -62,13 +86,41 @@ export default createFragmentContainer(
                         lastName
                         email
                         phone
-                        handleId
                         nodeName
                         nodeMetaType
                         ...ContactRow_contact
                     }
                 }
+                pageInfo {
+                    hasNextPage
+                    endCursor
+                }
             }
         }
-    `
+    `,
+    {
+        direction: "forward",
+        query: graphql`
+            query ModelListForwardQuery($count: Int!, $after: String) {
+                viewer {
+                    ...ModelList_viewer
+                }
+            }
+        `,
+        getConnectionFromProps(props) {
+            return props.viewer && props.viewer.allContacts;
+        },
+        getFragmentVariables(previousVariables, totalCount) {
+            return {
+                ...previousVariables,
+                count: totalCount
+            };
+        },
+        getVariables(props, paginationInfo, fragmentVariables) {
+            return {
+                count: paginationInfo.count,
+                after: paginationInfo.cursor
+            };
+        }
+    }
 );

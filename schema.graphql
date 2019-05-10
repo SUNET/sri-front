@@ -18,7 +18,6 @@ type Contact implements Node {
   createdAt: DateTime!
   email: String
   firstName: String!
-  handleId: Int!
   id: ID!
   lastName: String!
   mobile: String
@@ -202,28 +201,6 @@ input ContactFilter {
 
   """All values not ending with the given string."""
   firstName_not_ends_with: String
-  handleId: Int
-
-  """All values that are not equal to given value."""
-  handleId_not: Int
-
-  """All values that are contained in given list."""
-  handleId_in: [Int!]
-
-  """All values that are not contained in given list."""
-  handleId_not_in: [Int!]
-
-  """All values less than the given value."""
-  handleId_lt: Int
-
-  """All values less than or equal the given value."""
-  handleId_lte: Int
-
-  """All values greater than the given value."""
-  handleId_gt: Int
-
-  """All values greater than or equal the given value."""
-  handleId_gte: Int
   id: ID
 
   """All values that are not equal to given value."""
@@ -630,8 +607,6 @@ enum ContactOrderBy {
   email_DESC
   firstName_ASC
   firstName_DESC
-  handleId_ASC
-  handleId_DESC
   id_ASC
   id_DESC
   lastName_ASC
@@ -657,7 +632,6 @@ enum ContactOrderBy {
 }
 
 input ContactrolesRole {
-  handleId: Int!
   name: String!
   nodeMetaType: NodeHandleNodeMeta!
   nodeName: String!
@@ -669,7 +643,6 @@ input CreateContact {
   contactType: String
   email: String
   firstName: String!
-  handleId: Int!
   lastName: String!
   mobile: String
   name: String!
@@ -687,7 +660,6 @@ input CreateContactInput {
   contactType: String
   email: String
   firstName: String!
-  handleId: Int!
   lastName: String!
   mobile: String
   name: String!
@@ -710,7 +682,6 @@ type CreateContactPayload {
 }
 
 input CreateRole {
-  handleId: Int!
   name: String!
   nodeMetaType: NodeHandleNodeMeta!
   nodeName: String!
@@ -719,7 +690,6 @@ input CreateRole {
 }
 
 input CreateRoleInput {
-  handleId: Int!
   name: String!
   nodeMetaType: NodeHandleNodeMeta!
   nodeName: String!
@@ -832,7 +802,6 @@ type RemoveFromIsPayload {
 type Role implements Node {
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ContactConnection
   createdAt: DateTime!
-  handleId: Int!
   id: ID!
   name: String!
   nodeMetaType: NodeHandleNodeMeta!
@@ -856,7 +825,6 @@ input RolecontactsContact {
   contactType: String
   email: String
   firstName: String!
-  handleId: Int!
   lastName: String!
   mobile: String
   name: String!
@@ -907,28 +875,6 @@ input RoleFilter {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
-  handleId: Int
-
-  """All values that are not equal to given value."""
-  handleId_not: Int
-
-  """All values that are contained in given list."""
-  handleId_in: [Int!]
-
-  """All values that are not contained in given list."""
-  handleId_not_in: [Int!]
-
-  """All values less than the given value."""
-  handleId_lt: Int
-
-  """All values less than or equal the given value."""
-  handleId_lte: Int
-
-  """All values greater than the given value."""
-  handleId_gt: Int
-
-  """All values greater than or equal the given value."""
-  handleId_gte: Int
   id: ID
 
   """All values that are not equal to given value."""
@@ -1089,8 +1035,6 @@ input RoleFilter {
 enum RoleOrderBy {
   createdAt_ASC
   createdAt_DESC
-  handleId_ASC
-  handleId_DESC
   id_ASC
   id_DESC
   name_ASC
@@ -1107,7 +1051,6 @@ input UpdateContact {
   contactType: String
   email: String
   firstName: String
-  handleId: Int
   id: ID!
   lastName: String
   mobile: String
@@ -1126,7 +1069,6 @@ input UpdateContactInput {
   contactType: String
   email: String
   firstName: String
-  handleId: Int
   id: ID!
   lastName: String
   mobile: String
@@ -1176,7 +1118,6 @@ type UpdateOrCreateRolePayload {
 }
 
 input UpdateRole {
-  handleId: Int
   id: ID!
   name: String
   nodeMetaType: NodeHandleNodeMeta
@@ -1186,7 +1127,6 @@ input UpdateRole {
 }
 
 input UpdateRoleInput {
-  handleId: Int
   id: ID!
   name: String
   nodeMetaType: NodeHandleNodeMeta
@@ -1207,8 +1147,8 @@ type UpdateRolePayload {
 type Viewer {
   allContacts(filter: ContactFilter, orderBy: ContactOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ContactConnection!
   allRoles(filter: RoleFilter, orderBy: RoleOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
-  Contact(handleId: Int, id: ID): Contact
-  Role(handleId: Int, id: ID): Role
+  Contact(id: ID): Contact
+  Role(id: ID): Role
   id: ID!
 }
 
