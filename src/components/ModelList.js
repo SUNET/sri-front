@@ -9,7 +9,8 @@ import { ITEMS_PER_PAGE } from "../constants";
 
 class ModelList extends React.PureComponent {
     static propTypes = {
-        viewer: PropTypes.object.isRequired
+        viewer: PropTypes.object.isRequired,
+        filterValue: PropTypes.string.isRequired
     };
 
     _loadMore = () => {
@@ -24,7 +25,7 @@ class ModelList extends React.PureComponent {
         this.props.relay.loadMore(ITEMS_PER_PAGE);
     };
 
-    handleOnClick = (event, data) => {
+    _handleOnClick = (event, data) => {
         this.props.history.push(`/contact/${data.id}`);
     };
 
@@ -35,7 +36,7 @@ class ModelList extends React.PureComponent {
                 key={node.id}
                 contact={node}
                 viewer={this.props.viewer}
-                onClick={this.handleOnClick}
+                onClick={this._handleOnClick}
             />
         ));
         return models;
@@ -58,7 +59,7 @@ class ModelList extends React.PureComponent {
     }
     render() {
         return (
-            <section>
+            <section style={{height: 400}}>
                 {this.renderTable()}
                 <Button
                     onClick={() => this._loadMore()}
@@ -76,8 +77,12 @@ export default createPaginationContainer(
     graphql`
         fragment ModelList_viewer on Viewer {
             ...ContactRow_viewer
-            allContacts(first: $count, after: $after, orderBy: createdAt_DESC)
-                @connection(key: "ModelList_allContacts", filters: []) {
+            allContacts(
+                first: $count
+                after: $after
+                filter: $filter
+                orderBy: createdAt_ASC
+            ) @connection(key: "ModelList_allContacts", filters: []) {
                 edges {
                     node {
                         id
@@ -101,7 +106,11 @@ export default createPaginationContainer(
     {
         direction: "forward",
         query: graphql`
-            query ModelListForwardQuery($count: Int!, $after: String) {
+            query ModelListForwardQuery(
+                $count: Int!
+                $after: String
+                $filter: ContactFilter
+            ) {
                 viewer {
                     ...ModelList_viewer
                 }

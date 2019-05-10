@@ -15,7 +15,11 @@ import ModelList from "./ModelList";
 import CreateContact from "./CreateContact";
 
 const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery($count: Int!, $after: String) {
+    query SearchAllContactsQuery(
+        $count: Int!
+        $after: String
+        $filter: ContactFilter
+    ) {
         viewer {
             ...ModelList_viewer
         }
@@ -33,18 +37,16 @@ class Search extends React.Component {
         queried: PropTypes.bool.isRequired
     };
 
-    onSubmit = (value) => {
-        this.props.startSearch(value);
-        fetch(`https://api.github.com/search/repositories?q=${value}`)
-            .then((response) => {
-                return response.json();
-            })
-            .then((json) => {
-                this.props.successSearch(json.items);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            filterValue: ""
+        };
+    }
+
+    _handleOnChange = (event) => {
+        this.setState({ filterValue: event.target.value });
     };
 
     render() {
@@ -78,6 +80,9 @@ class Search extends React.Component {
                                     <Form.Control
                                         placeholder="Filter"
                                         defaultValue=""
+                                        onChange={(e) =>
+                                            this._handleOnChange(e)
+                                        }
                                     />
                                 </Col>
                             </Row>
@@ -85,7 +90,10 @@ class Search extends React.Component {
                                 environment={environment}
                                 query={SearchAllContactsQuery}
                                 variables={{
-                                    count: ITEMS_PER_PAGE
+                                    count: ITEMS_PER_PAGE,
+                                    filter: {
+                                        name_contains: this.state.filterValue
+                                    }
                                 }}
                                 render={({ error, props }) => {
                                     if (error) {
@@ -93,13 +101,11 @@ class Search extends React.Component {
                                     } else if (props) {
                                         return (
                                             <ModelList
-                                                // data={this.props.results}
-                                                // total={this.props.results.length}
-                                                // loading={this.props.loading}
-                                                // queried={this.props.queried}
-                                                // search={this.props.search}
                                                 history={this.props.history}
                                                 viewer={props.viewer}
+                                                filterValue={
+                                                    this.state.filterValue
+                                                }
                                             />
                                         );
                                     }
