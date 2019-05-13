@@ -11,7 +11,7 @@ import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
 import SearchFormContainer from "../containers/SearchForm";
-import ModelList from "./ModelList";
+import ContactList from "./ContactList";
 import CreateContact from "./CreateContact";
 
 const SearchAllContactsQuery = graphql`
@@ -21,7 +21,7 @@ const SearchAllContactsQuery = graphql`
         $filter: ContactFilter
     ) {
         viewer {
-            ...ModelList_viewer
+            ...ContactList_viewer
         }
     }
 `;
@@ -45,13 +45,15 @@ class Search extends React.Component {
         };
     }
 
+    onSubmit = () => {}
+
     _handleOnChange = (event) => {
         this.setState({ filterValue: event.target.value });
     };
 
     render() {
         return (
-            <section>
+            <section style={{minHeight: 450}}>
                 <SearchFormContainer
                     onSubmit={this.onSubmit}
                     search={this.props.search}
@@ -100,7 +102,7 @@ class Search extends React.Component {
                                         return <div>{error.message}</div>;
                                     } else if (props) {
                                         return (
-                                            <ModelList
+                                            <ContactList
                                                 history={this.props.history}
                                                 viewer={props.viewer}
                                                 filterValue={

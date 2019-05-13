@@ -7,7 +7,7 @@ import { Button, Table } from "react-bootstrap";
 import ContactRow from "./ContactRow";
 import { ITEMS_PER_PAGE } from "../constants";
 
-class ModelList extends React.PureComponent {
+class ContactList extends React.PureComponent {
     static propTypes = {
         viewer: PropTypes.object.isRequired,
         filterValue: PropTypes.string.isRequired
@@ -59,7 +59,7 @@ class ModelList extends React.PureComponent {
     }
     render() {
         return (
-            <section style={{height: 400}}>
+            <section>
                 {this.renderTable()}
                 <Button
                     onClick={() => this._loadMore()}
@@ -73,16 +73,16 @@ class ModelList extends React.PureComponent {
 }
 
 export default createPaginationContainer(
-    ModelList,
+    ContactList,
     graphql`
-        fragment ModelList_viewer on Viewer {
+        fragment ContactList_viewer on Viewer {
             ...ContactRow_viewer
             allContacts(
                 first: $count
                 after: $after
                 filter: $filter
                 orderBy: createdAt_ASC
-            ) @connection(key: "ModelList_allContacts", filters: []) {
+            ) @connection(key: "ContactList_allContacts", filters: []) {
                 edges {
                     node {
                         id
@@ -106,13 +106,13 @@ export default createPaginationContainer(
     {
         direction: "forward",
         query: graphql`
-            query ModelListForwardQuery(
+            query ContactListForwardQuery(
                 $count: Int!
                 $after: String
                 $filter: ContactFilter
             ) {
                 viewer {
-                    ...ModelList_viewer
+                    ...ContactList_viewer
                 }
             }
         `,

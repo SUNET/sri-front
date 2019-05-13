@@ -32,7 +32,7 @@ export default function DeleteContactMutation(contactId, viewerId, callback) {
             console.log(viewerProxy);
             const connection = ConnectionHandler.getConnection(
                 viewerProxy,
-                "ModelList_allContacts"
+                "ContactList_allContacts"
             );
             ConnectionHandler.deleteNode(connection, deletedId);
             callback();

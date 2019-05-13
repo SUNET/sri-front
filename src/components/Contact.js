@@ -7,6 +7,7 @@ import { Jumbotron, Form, Col } from "react-bootstrap";
 class Contact extends React.PureComponent {
     static propTypes = {
         viewer: PropTypes.object.isRequired,
+        onChange: PropTypes.func
     };
 
     renderFullName() {
@@ -34,18 +35,42 @@ class Contact extends React.PureComponent {
                             <Form.Control
                                 placeholder="First name"
                                 defaultValue={contact.firstName}
+                                onChange={(e) =>
+                                    this.props.onChange(
+                                        "firstName",
+                                        e.target.value
+                                    )
+                                }
                             />
                             <Form.Control
-                                placeholder="First name"
+                                placeholder="Last name"
                                 defaultValue={contact.lastName}
+                                onChange={(e) =>
+                                    this.props.onChange(
+                                        "lastName",
+                                        e.target.value
+                                    )
+                                }
                             />
                             <Form.Control
                                 placeholder="Email"
                                 defaultValue={contact.email}
+                                onChange={(e) =>
+                                    this.props.onChange(
+                                        "email",
+                                        e.target.value
+                                    )
+                                }
                             />
                             <Form.Control
                                 placeholder="Phone"
                                 defaultValue={contact.phone}
+                                onChange={(e) =>
+                                    this.props.onChange(
+                                        "phone",
+                                        e.target.value
+                                    )
+                                }
                             />
                         </Col>
                     </Form.Row>

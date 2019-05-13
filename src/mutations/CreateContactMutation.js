@@ -64,7 +64,7 @@ export default function CreateContactMutation(
             const viewerProxy = proxyStore.get(viewerId);
             const connection = ConnectionHandler.getConnection(
                 viewerProxy,
-                "ModelList_allContacts",
+                "ContactList_allContacts",
                 []
             );
             if (connection) {
@@ -80,7 +80,7 @@ export default function CreateContactMutation(
             const viewerProxy = proxyStore.get(viewerId);
             const connection = ConnectionHandler.getConnection(
                 viewerProxy,
-                "ModelList_allContacts",
+                "ContactList_allContacts",
                 []
             );
 
