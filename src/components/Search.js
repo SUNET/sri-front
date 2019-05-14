@@ -16,7 +16,7 @@ import CreateContact from "./CreateContact";
 
 const SearchAllContactsQuery = graphql`
     query SearchAllContactsQuery {
-        contacts(first: 10) @connection(key: "ContactList_contacts", filters: []){
+        contacts(first: 10){
             ...ContactList_contacts
         }
     }

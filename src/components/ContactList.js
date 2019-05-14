@@ -72,23 +72,26 @@ class ContactList extends React.PureComponent {
     }
 }
 
-export default createFragmentContainer(ContactList,
+export default createFragmentContainer(
+    ContactList,
     graphql`
-        fragment ContactList_contacts on ContactConnection {
-            edges {
-                node {
-                    handle_id
-                    name
-                    first_name
-                    last_name
-                    is_roles {
+        fragment ContactList_contacts on ContactConnection
+            @connection(key: "ContactList_contacts", filters: []) {
+                edges{
+                    node{
+
+                        handle_id
                         name
-                    }
-                    member_of_groups {
-                        name
+                        first_name
+                        last_name
+                        is_roles {
+                            name
+                        }
+                        member_of_groups {
+                            name
+                        }
                     }
                 }
-            }
         }
     `
 );
