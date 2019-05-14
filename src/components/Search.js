@@ -15,13 +15,9 @@ import ContactList from "./ContactList";
 import CreateContact from "./CreateContact";
 
 const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery(
-        $count: Int!
-        $after: String
-        $filter: ContactFilter
-    ) {
-        viewer {
-            ...ContactList_viewer
+    query SearchAllContactsQuery {
+        contacts(first: 10) @connection(key: "ContactList_contacts", filters: []){
+            ...ContactList_contacts
         }
     }
 `;
@@ -45,7 +41,7 @@ class Search extends React.Component {
         };
     }
 
-    onSubmit = () => {}
+    onSubmit = () => {};
 
     _handleOnChange = (event) => {
         this.setState({ filterValue: event.target.value });
@@ -53,7 +49,7 @@ class Search extends React.Component {
 
     render() {
         return (
-            <section style={{minHeight: 450}}>
+            <section style={{ minHeight: 450 }}>
                 <SearchFormContainer
                     onSubmit={this.onSubmit}
                     search={this.props.search}
@@ -91,23 +87,15 @@ class Search extends React.Component {
                             <QueryRenderer
                                 environment={environment}
                                 query={SearchAllContactsQuery}
-                                variables={{
-                                    count: ITEMS_PER_PAGE,
-                                    filter: {
-                                        name_contains: this.state.filterValue
-                                    }
-                                }}
                                 render={({ error, props }) => {
                                     if (error) {
                                         return <div>{error.message}</div>;
                                     } else if (props) {
+                                        console.log(props);
                                         return (
                                             <ContactList
                                                 history={this.props.history}
-                                                viewer={props.viewer}
-                                                filterValue={
-                                                    this.state.filterValue
-                                                }
+                                                contacts={props.contacts}
                                             />
                                         );
                                     }

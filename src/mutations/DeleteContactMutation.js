@@ -4,17 +4,17 @@ import { ConnectionHandler } from "relay-runtime";
 import environment from "../createRelayEnvironment";
 
 const mutation = graphql`
-    mutation DeleteContactMutation($input: DeleteContactInput!) {
-        deleteContact(input: $input) {
-            deletedId
+    mutation DeleteContactMutation($input: DeleteNIContactMutationInput!) {
+        delete_contact(input: $input) {
+            nodehandle
         }
     }
 `;
 
-export default function DeleteContactMutation(contactId, viewerId, callback) {
+export default function DeleteContactMutation(handle_id, viewerId, callback) {
     const variables = {
         input: {
-            id: contactId,
+            handle_id: handle_id,
             clientMutationId: ""
         }
     };
@@ -26,15 +26,15 @@ export default function DeleteContactMutation(contactId, viewerId, callback) {
             console.log("Upadter");
             const deleteContactField = proxyStore.getRootField("deleteContact");
             console.log(deleteContactField);
-            const deletedId = deleteContactField.getValue("deletedId");
-            console.log(deletedId);
+            const handle_id = deleteContactField.getValue("handle_id");
+            console.log(handle_id);
             const viewerProxy = proxyStore.get(viewerId);
             console.log(viewerProxy);
             const connection = ConnectionHandler.getConnection(
                 viewerProxy,
-                "ContactList_allContacts"
+                "ContactList_contacts"
             );
-            ConnectionHandler.deleteNode(connection, deletedId);
+            ConnectionHandler.deleteNode(connection, handle_id);
             callback();
         }
     });

@@ -10,13 +10,10 @@ import UpdateContactMutation from "../mutations/UpdateContactMutation";
 import environment from "../createRelayEnvironment";
 
 const ContactDetailsQuery = graphql`
-    query ContactDetailsQuery($contactId: ID) {
-        viewer {
-            ...Contact_viewer
-            Contact(id: $contactId) {
-                id
-                ...Contact_contact
-            }
+    query ContactDetailsQuery($contactId: Int!) {
+        getContactById(handle_id: $contactId) {
+            handle_id
+            ...Contact_contact
         }
     }
 `;
@@ -69,6 +66,7 @@ class ContactDetails extends React.PureComponent {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
+                        console.log(props);
                         return (
                             <section>
                                 <Contact

@@ -1,7 +1,7 @@
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
 
 function fetchQuery(operation, variables) {
-    return fetch("http://localhost:60000/relay/v1/cjv9ayq3h000a0137qz37ix75", {
+    return fetch("http://localhost:8000/graphql/", {
         method: "POST",
         headers: {
             Accept: "application/json",

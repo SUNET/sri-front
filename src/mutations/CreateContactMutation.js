@@ -4,15 +4,12 @@ import environment from "../createRelayEnvironment";
 import { ConnectionHandler } from "relay-runtime";
 
 const mutation = graphql`
-    mutation CreateContactMutation($input: CreateContactInput!) {
-        createContact(input: $input) {
-            contact {
-                id
-                nodeMetaType
-                nodeName
-                name
-                firstName
-                lastName
+    mutation CreateContactMutation($input: CreateNIContactMutationInput!) {
+        create_contact(input: $input) {
+            nodehandle {
+                handle_id
+                first_name
+                last_name
                 email
                 phone
             }
@@ -20,26 +17,40 @@ const mutation = graphql`
     }
 `;
 
+function sharedUpdater(proxyStore, user, newEdge) {
+    // Get the current user record from the store
+    const userProxy = proxyStore.get(user.id);
+
+    // Get the user's Todo List using ConnectionHandler helper
+    const connection = ConnectionHandler.getConnection(
+        userProxy,
+        "ContactList_contacts"
+    );
+
+    if (connection) {
+        ConnectionHandler.insertEdgeAfter(connection, newEdge);
+    }
+}
+
 let tempID = 0;
 
 export default function CreateContactMutation(
-    firstName,
-    lastName,
+    user,
+    first_name,
+    last_name,
     email,
     phone,
-    viewerId,
+    contact_type,
     callback
 ) {
     const variables = {
         input: {
-            name: firstName + " " + lastName,
-            firstName,
-            lastName,
+            first_name,
+            last_name,
             email,
             phone,
-            nodeName: "Contact",
-            nodeMetaType: "PHYSICAL",
-            clientMutationId: ""
+            contact_type,
+            clientMutationId: tempID++
         }
     };
     commitMutation(environment, {
@@ -51,42 +62,27 @@ export default function CreateContactMutation(
         },
         onError: (err) => console.error(err),
         optimisticUpdater: (proxyStore) => {
-            // 1 - create the `newContact` as a mock that can be added to the store
-            const id = "client:newPost:" + tempID++;
+            const id = "client:newContact:" + tempID++;
             const newContact = proxyStore.create(id, "Contact");
-            newContact.setValue(id, "id");
-            newContact.setValue(firstName, "firstName");
-            newContact.setValue(lastName, "lastName");
+            newContact.setValue(id, "handle_id");
+            newContact.setValue(first_name, "first_name");
+            newContact.setValue(last_name, "last_name");
             newContact.setValue(email, "email");
             newContact.setValue(phone, "phone");
+            newContact.setValue(contact_type, "contact_type");
 
-            // 2 - add `newContact` to the store
-            const viewerProxy = proxyStore.get(viewerId);
-            const connection = ConnectionHandler.getConnection(
-                viewerProxy,
-                "ContactList_allContacts",
-                []
+            const newEdge = proxyStore.create(
+                "client:newEdge:" + tempID++,
+                "ContactEdge"
             );
-            if (connection) {
-                ConnectionHandler.insertEdgeAfter(connection, newContact);
-            }
+            newEdge.setLinkedRecord(newContact, "node");
+
+            sharedUpdater(proxyStore, user, newEdge);
         },
         updater: (proxyStore) => {
-            // 1 - retrieve the `newContact` from the server response
-            const createContactField = proxyStore.getRootField("createContact");
-            const newContact = createContactField.getLinkedRecord("contact");
-
-            // 2 - add `newContact` to the store
-            const viewerProxy = proxyStore.get(viewerId);
-            const connection = ConnectionHandler.getConnection(
-                viewerProxy,
-                "ContactList_allContacts",
-                []
-            );
-
-            if (connection) {
-                ConnectionHandler.insertEdgeAfter(connection, newContact);
-            }
+            const payload = proxyStore.getRootField("create_contact");
+            const newEdge = payload.getLinkedRecord("contactEdge");
+            sharedUpdater(proxyStore, user, newEdge);
         }
     });
 }

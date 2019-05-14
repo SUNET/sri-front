@@ -83,15 +83,11 @@ class Contact extends React.PureComponent {
 const ContactFragment = createFragmentContainer(
     Contact,
     graphql`
-        fragment Contact_viewer on Viewer {
-            id
-        }
-        fragment Contact_contact on Contact {
-            id
-            nodeName
-            name
-            firstName
-            lastName
+        fragment Contact_contact on ContactType {
+            handle_id
+            contact_type
+            first_name
+            last_name
             email
             phone
         }

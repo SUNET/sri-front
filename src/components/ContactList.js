@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { createPaginationContainer } from "react-relay";
+import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Button, Table } from "react-bootstrap";
 
@@ -9,7 +9,7 @@ import { ITEMS_PER_PAGE } from "../constants";
 
 class ContactList extends React.PureComponent {
     static propTypes = {
-        viewer: PropTypes.object.isRequired,
+        contacts: PropTypes.object.isRequired,
         filterValue: PropTypes.string.isRequired
     };
 
@@ -30,12 +30,12 @@ class ContactList extends React.PureComponent {
     };
 
     getData() {
-        let models = this.props.viewer.allContacts;
+        console.log(this.props);
+        let models = this.props.contacts;
         models = models.edges.map(({ node }) => (
             <ContactRow
                 key={node.id}
                 contact={node}
-                viewer={this.props.viewer}
                 onClick={this._handleOnClick}
             />
         ));
@@ -72,64 +72,23 @@ class ContactList extends React.PureComponent {
     }
 }
 
-export default createPaginationContainer(
-    ContactList,
+export default createFragmentContainer(ContactList,
     graphql`
-        fragment ContactList_viewer on Viewer {
-            ...ContactRow_viewer
-            allContacts(
-                first: $count
-                after: $after
-                filter: $filter
-                orderBy: createdAt_ASC
-            ) @connection(key: "ContactList_allContacts", filters: []) {
-                edges {
-                    node {
-                        id
+        fragment ContactList_contacts on ContactConnection {
+            edges {
+                node {
+                    handle_id
+                    name
+                    first_name
+                    last_name
+                    is_roles {
                         name
-                        firstName
-                        lastName
-                        email
-                        phone
-                        nodeName
-                        nodeMetaType
-                        ...ContactRow_contact
+                    }
+                    member_of_groups {
+                        name
                     }
                 }
-                pageInfo {
-                    hasNextPage
-                    endCursor
-                }
             }
         }
-    `,
-    {
-        direction: "forward",
-        query: graphql`
-            query ContactListForwardQuery(
-                $count: Int!
-                $after: String
-                $filter: ContactFilter
-            ) {
-                viewer {
-                    ...ContactList_viewer
-                }
-            }
-        `,
-        getConnectionFromProps(props) {
-            return props.viewer && props.viewer.allContacts;
-        },
-        getFragmentVariables(previousVariables, totalCount) {
-            return {
-                ...previousVariables,
-                count: totalCount
-            };
-        },
-        getVariables(props, paginationInfo, fragmentVariables) {
-            return {
-                count: paginationInfo.count,
-                after: paginationInfo.cursor
-            };
-        }
-    }
+    `
 );
