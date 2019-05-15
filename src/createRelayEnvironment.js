@@ -1,7 +1,7 @@
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
 
 function fetchQuery(operation, variables) {
-    return fetch("http://localhost:8000/graphql/", {
+    return fetch("http://django.localni.info/graphql/", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -12,7 +12,9 @@ function fetchQuery(operation, variables) {
             variables
         })
     }).then((response) => {
-        return response.json();
+        console.log(response);
+        document.location = response.url
+        // return response.json();
     });
 }
 

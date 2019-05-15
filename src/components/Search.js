@@ -15,10 +15,8 @@ import ContactList from "./ContactList";
 import CreateContact from "./CreateContact";
 
 const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery {
-        contacts(first: 10){
-            ...ContactList_contacts
-        }
+    query SearchAllContactsQuery($count: Int!, $cursor: String) {
+        ...ContactList_contacts @arguments(count: $count, cursor: $cursor)
     }
 `;
 
@@ -87,6 +85,9 @@ class Search extends React.Component {
                             <QueryRenderer
                                 environment={environment}
                                 query={SearchAllContactsQuery}
+                                variables={{
+                                    count: ITEMS_PER_PAGE
+                                }}
                                 render={({ error, props }) => {
                                     if (error) {
                                         return <div>{error.message}</div>;

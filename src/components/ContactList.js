@@ -30,7 +30,6 @@ class ContactList extends React.PureComponent {
     };
 
     getData() {
-        console.log(this.props);
         let models = this.props.contacts;
         models = models.edges.map(({ node }) => (
             <ContactRow
@@ -75,11 +74,15 @@ class ContactList extends React.PureComponent {
 export default createFragmentContainer(
     ContactList,
     graphql`
-        fragment ContactList_contacts on ContactConnection
-            @connection(key: "ContactList_contacts", filters: []) {
-                edges{
-                    node{
-
+        fragment ContactList_contacts on Query
+            @argumentDefinitions(
+                count: { type: "Int", defaultValue: 10 }
+                cursor: { type: "String" }
+            ) {
+            contacts(first: $count, after: $cursor)
+                @connection(key: "ContactList_contacts") {
+                edges {
+                    node {
                         handle_id
                         name
                         first_name
@@ -92,6 +95,7 @@ export default createFragmentContainer(
                         }
                     }
                 }
+            }
         }
     `
 );
