@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import { createFragmentContainer } from "react-relay";
-// import graphql from "babel-plugin-relay/macro";
+import { createFragmentContainer } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
 
 class ContactRow extends React.PureComponent {
     static propTypes = {
@@ -14,8 +14,10 @@ class ContactRow extends React.PureComponent {
 
         return (
             <tr onClick={(e) => this.props.onClick(e, contact)}>
-                <td>{contact.id}</td>
-                <td>{contact.first_name} {contact.last_name}</td>
+                <td>{contact.handle_id}</td>
+                <td>
+                    {contact.first_name} {contact.last_name}
+                </td>
                 <td>{contact.phone}</td>
                 <td>{contact.email}</td>
             </tr>
@@ -23,4 +25,24 @@ class ContactRow extends React.PureComponent {
     }
 }
 
-export default ContactRow;
+const ContactRowFragment = createFragmentContainer(
+    ContactRow,
+    graphql`
+        fragment ContactRow_contact on ContactType {
+            handle_id
+            name
+            first_name
+            last_name
+            phone
+            email
+            is_roles {
+                name
+            }
+            member_of_groups {
+                name
+            }
+        }
+    `
+);
+
+export default ContactRowFragment;

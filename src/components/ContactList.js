@@ -26,14 +26,15 @@ class ContactList extends React.PureComponent {
     };
 
     _handleOnClick = (event, data) => {
-        this.props.history.push(`/contact/${data.id}`);
+        this.props.history.push(`/contact/${data.handle_id}`);
     };
 
     getData() {
+        console.log(this.props);
         let models = this.props.contacts;
-        models = models.edges.map(({ node }) => (
+        models = models.map(({ node }) => (
             <ContactRow
-                key={node.id}
+                key={node.handle_id}
                 contact={node}
                 onClick={this._handleOnClick}
             />
@@ -74,27 +75,9 @@ class ContactList extends React.PureComponent {
 export default createFragmentContainer(
     ContactList,
     graphql`
-        fragment ContactList_contacts on Query
-            @argumentDefinitions(
-                count: { type: "Int", defaultValue: 10 }
-                cursor: { type: "String" }
-            ) {
-            contacts(first: $count, after: $cursor)
-                @connection(key: "ContactList_contacts") {
-                edges {
-                    node {
-                        handle_id
-                        name
-                        first_name
-                        last_name
-                        is_roles {
-                            name
-                        }
-                        member_of_groups {
-                            name
-                        }
-                    }
-                }
+        fragment ContactList_contacts on ContactEdge @relay(plural: true) {
+            node {
+                ...ContactRow_contact
             }
         }
     `

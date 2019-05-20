@@ -15,8 +15,13 @@ import ContactList from "./ContactList";
 import CreateContact from "./CreateContact";
 
 const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery($count: Int!, $cursor: String) {
-        ...ContactList_contacts @arguments(count: $count, cursor: $cursor)
+    query SearchAllContactsQuery($count: Int!) {
+        contacts(first: $count) @connection(key: "ContactList_contacts"){
+            edges{
+                ...ContactList_contacts
+            }
+        }
+
     }
 `;
 
@@ -92,11 +97,10 @@ class Search extends React.Component {
                                     if (error) {
                                         return <div>{error.message}</div>;
                                     } else if (props) {
-                                        console.log(props);
                                         return (
                                             <ContactList
                                                 history={this.props.history}
-                                                contacts={props.contacts}
+                                                contacts={props.contacts.edges}
                                             />
                                         );
                                     }
