@@ -1,6 +1,8 @@
 import React from "react";
 import { Form, Col, ButtonToolbar, Button } from "react-bootstrap";
 
+import Dropdown from "./Dropdowns/Dropdown";
+
 import CreateContactMutation from "../mutations/CreateContactMutation";
 
 class CreateContact extends React.PureComponent {
@@ -59,6 +61,7 @@ class CreateContact extends React.PureComponent {
                                     }
                                 />
                             </Form.Group>
+                            <Dropdown />
                             <Form.Group controlId="formGroupEmail">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
