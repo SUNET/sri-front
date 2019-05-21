@@ -4,6 +4,8 @@ import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Jumbotron, Form, Col } from "react-bootstrap";
 
+import Dropdown from "./Dropdowns/Dropdown";
+
 class Contact extends React.PureComponent {
     static propTypes = {
         onChange: PropTypes.func
@@ -17,53 +19,60 @@ class Contact extends React.PureComponent {
 
     render() {
         let contact = this.props.contact;
-        console.log(this.props);
         return (
             <Jumbotron>
                 <h1 className="mt-3 mb-3">{this.renderFullName()}</h1>
                 <Form.Row>
                     <Col>
-                        <Form.Control
-                            placeholder="ID"
-                            name="handle_id"
-                            defaultValue={contact.handle_id}
-                            readOnly
-                        />
-                        <Form.Control
-                            placeholder="Node name"
-                            name="contact_type"
-                            defaultValue={contact.contact_type}
-                        />
-                        <Form.Group controlId="exampleForm.ControlSelect1">
-                            <Form.Label>Example select</Form.Label>
-                            <Form.Control as="select">
-                                <option>1</option>
-                            </Form.Control>
+                        <Form.Group controlId="formGroupId">
+                            <Form.Control
+                                placeholder="ID"
+                                name="handle_id"
+                                defaultValue={contact.handle_id}
+                                readOnly
+                            />
                         </Form.Group>
-                        <Form.Control
-                            placeholder="First name"
-                            name="first_name"
-                            defaultValue={contact.first_name}
-                            onChange={(e) => this.props.onChange(e)}
+                        <Dropdown
+                            label="Contact Type"
+                            type="contact_type"
+                            onChange={(e) =>
+                                this.setState({
+                                    contact_type: e.target.value
+                                })
+                            }
                         />
-                        <Form.Control
-                            placeholder="Last name"
-                            name="last_name"
-                            defaultValue={contact.last_name}
-                            onChange={(e) => this.props.onChange(e)}
-                        />
-                        <Form.Control
-                            placeholder="Email"
-                            name="email"
-                            defaultValue={contact.email}
-                            onChange={(e) => this.props.onChange(e)}
-                        />
-                        <Form.Control
-                            placeholder="Phone"
-                            name="phone"
-                            defaultValue={contact.phone}
-                            onChange={(e) => this.props.onChange(e)}
-                        />
+                        <Form.Group controlId="formGroupFirstName">
+                            <Form.Control
+                                placeholder="First name"
+                                name="first_name"
+                                defaultValue={contact.first_name}
+                                onChange={(e) => this.props.onChange(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formGroupLastName">
+                            <Form.Control
+                                placeholder="Last name"
+                                name="last_name"
+                                defaultValue={contact.last_name}
+                                onChange={(e) => this.props.onChange(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formGroupEmail">
+                            <Form.Control
+                                placeholder="Email"
+                                name="email"
+                                defaultValue={contact.email}
+                                onChange={(e) => this.props.onChange(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formGroupPhone">
+                            <Form.Control
+                                placeholder="Phone"
+                                name="phone"
+                                defaultValue={contact.phone}
+                                onChange={(e) => this.props.onChange(e)}
+                            />
+                        </Form.Group>
                     </Col>
                 </Form.Row>
             </Jumbotron>

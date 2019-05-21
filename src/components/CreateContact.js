@@ -10,18 +10,19 @@ class CreateContact extends React.PureComponent {
         super(props);
 
         this.state = {
-            firstName: "",
-            lastName: "",
+            first_name: "",
+            last_name: "",
             email: "",
-            phone: ""
+            phone: "",
+            contact_type: ""
         };
     }
 
     _handleContact = (viewerId) => {
-        const { firstName, lastName, email, phone } = this.state;
+        const { first_name, last_name, email, phone } = this.state;
         CreateContactMutation(
-            firstName,
-            lastName,
+            first_name,
+            last_name,
             email,
             phone,
             "person",
@@ -44,7 +45,7 @@ class CreateContact extends React.PureComponent {
                                     placeholder="Enter first name"
                                     onChange={(e) =>
                                         this.setState({
-                                            firstName: e.target.value
+                                            first_name: e.target.value
                                         })
                                     }
                                 />
@@ -56,12 +57,20 @@ class CreateContact extends React.PureComponent {
                                     placeholder="Enter last name"
                                     onChange={(e) =>
                                         this.setState({
-                                            lastName: e.target.value
+                                            last_name: e.target.value
                                         })
                                     }
                                 />
                             </Form.Group>
-                            <Dropdown />
+                            <Dropdown
+                                label="Contact Type"
+                                type="contact_type"
+                                onChange={(e) =>
+                                    this.setState({
+                                        contact_type: e.target.value
+                                    })
+                                }
+                            />
                             <Form.Group controlId="formGroupEmail">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control

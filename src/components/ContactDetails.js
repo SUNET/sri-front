@@ -33,7 +33,8 @@ class ContactDetails extends React.PureComponent {
             first_name: "",
             last_name: "",
             email: "",
-            phone: ""
+            phone: "",
+            contact_type: ""
         };
     }
 
@@ -41,10 +42,17 @@ class ContactDetails extends React.PureComponent {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    _handleUpdate = () => {
-        const { first_name, last_name, email, phone } = this.state;
+    _handleUpdate = (contact) => {
+        const { first_name, last_name, email, phone, contact_type } = contact || this.state;
+        console.log(contact);
+        console.log(first_name);
+        console.log(last_name);
+        console.log(email);
+        console.log(phone);
+        console.log(contact_type);
+        console.log(first_name);
         const contactId = this.props.match.params.contactId;
-        UpdateContactMutation(contactId, first_name, last_name, email, phone);
+        // UpdateContactMutation(contactId, first_name, last_name, email, phone, contact_type);
     };
 
     _handleDelete = () => {
@@ -75,7 +83,7 @@ class ContactDetails extends React.PureComponent {
                                     />
                                     <ButtonToolbar>
                                         <Button
-                                            onClick={this._handleUpdate}
+                                            onClick={() => {this._handleUpdate(props.getContactById); console.log("Contact");console.log(props.getContactById);}}
                                             className="mr-2"
                                             variant="outline-success"
                                         >
