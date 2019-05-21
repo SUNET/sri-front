@@ -6,24 +6,25 @@ import { ConnectionHandler } from "relay-runtime";
 const mutation = graphql`
     mutation CreateContactMutation($input: CreateNIContactMutationInput!) {
         create_contact(input: $input) {
-            nodehandle {
+            contacttype {
                 handle_id
                 first_name
                 last_name
                 email
                 phone
+                contact_type
             }
         }
     }
 `;
 
-function sharedUpdater(proxyStore, user, newEdge) {
+function sharedUpdater(proxyStore, newEdge) {
     // Get the current user record from the store
-    const userProxy = proxyStore.get(user.id);
+    // const userProxy = proxyStore.get(user.id);
 
     // Get the user's Todo List using ConnectionHandler helper
     const connection = ConnectionHandler.getConnection(
-        userProxy,
+        proxyStore,
         "ContactList_contacts"
     );
 
@@ -77,12 +78,12 @@ export default function CreateContactMutation(
             );
             newEdge.setLinkedRecord(newContact, "node");
 
-            sharedUpdater(proxyStore, user, newEdge);
+            sharedUpdater(proxyStore, newEdge);
         },
         updater: (proxyStore) => {
             const payload = proxyStore.getRootField("create_contact");
             const newEdge = payload.getLinkedRecord("contactEdge");
-            sharedUpdater(proxyStore, user, newEdge);
+            sharedUpdater(proxyStore, newEdge);
         }
     });
 }

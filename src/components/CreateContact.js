@@ -19,13 +19,13 @@ class CreateContact extends React.PureComponent {
     }
 
     _handleContact = (viewerId) => {
-        const { first_name, last_name, email, phone } = this.state;
+        const { first_name, last_name, email, phone, contact_type } = this.state;
         CreateContactMutation(
             first_name,
             last_name,
             email,
             phone,
-            "person",
+            contact_type,
             this.props,
             () => this.props.history.replace("/contacts")
         );

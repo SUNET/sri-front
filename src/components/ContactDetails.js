@@ -52,7 +52,7 @@ class ContactDetails extends React.PureComponent {
         console.log(contact_type);
         console.log(first_name);
         const contactId = this.props.match.params.contactId;
-        // UpdateContactMutation(contactId, first_name, last_name, email, phone, contact_type);
+        UpdateContactMutation(contactId, first_name, last_name, email, phone, contact_type);
     };
 
     _handleDelete = () => {

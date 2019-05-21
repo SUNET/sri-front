@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { createFragmentContainer } from "react-relay";
+import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Button, Table } from "react-bootstrap";
 
@@ -10,7 +10,7 @@ import { ITEMS_PER_PAGE } from "../constants";
 class ContactList extends React.PureComponent {
     static propTypes = {
         contacts: PropTypes.object.isRequired,
-        filterValue: PropTypes.string.isRequired
+        // filterValue: PropTypes.string.isRequired
     };
 
     _loadMore = () => {
@@ -30,16 +30,10 @@ class ContactList extends React.PureComponent {
     };
 
     getData() {
-        console.log(this.props);
-        let models = this.props.contacts;
-        models = models.map(({ node }) => (
-            <ContactRow
-                key={node.handle_id}
-                contact={node}
-                onClick={this._handleOnClick}
-            />
+        let models = this.props.contacts.contacts;
+        return models.edges.map(({ node, index }) => (
+            <ContactRow Key={index} contact={node} onClick={this._handleOnClick} />
         ));
-        return models;
     }
 
     renderTable() {
@@ -48,6 +42,7 @@ class ContactList extends React.PureComponent {
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Contact Type</th>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Email</th>
@@ -72,13 +67,53 @@ class ContactList extends React.PureComponent {
     }
 }
 
-export default createFragmentContainer(
+export default createPaginationContainer(
     ContactList,
     graphql`
-        fragment ContactList_contacts on ContactEdge @relay(plural: true) {
-            node {
-                ...ContactRow_contact
+        fragment ContactList_contacts on Query
+            @argumentDefinitions(
+                count: { type: "Int" }
+                cursor: { type: "String" }
+            ) {
+            contacts(first: $count, after: $cursor)
+                @connection(key: "ContactList_contacts") {
+                edges {
+                    node {
+                        ...ContactRow_contact
+                    }
+                }
+                pageInfo {
+                    hasNextPage
+                    endCursor
+                }
             }
         }
-    `
+    `,
+    {
+        direction: "forward",
+        query: graphql`
+            # Pagination query to be fetched upon calling 'loadMore'.
+            # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
+            query ContactListForwardQuery($count: Int!, $cursor: String) {
+                ...ContactList_contacts
+                    @arguments(count: $count, cursor: $cursor)
+            }
+        `,
+        getConnectionFromProps(props) {
+            return props.contacts && props.contacts.contacts;
+        },
+        // This is also the default implementation of `getFragmentVariables` if it isn't provided.
+        getFragmentVariables(previousVariables, totalCount) {
+            return {
+                ...previousVariables,
+                count: totalCount
+            };
+        },
+        getVariables(props, paginationInfo, fragmentVariables) {
+            return {
+                count: paginationInfo.count,
+                cursor: paginationInfo.cursor
+            };
+        }
+    }
 );

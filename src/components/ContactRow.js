@@ -11,10 +11,10 @@ class ContactRow extends React.PureComponent {
 
     render() {
         let contact = this.props.contact;
-
         return (
             <tr onClick={(e) => this.props.onClick(e, contact)}>
                 <td>{contact.handle_id}</td>
+                <td>{contact.contact_type}</td>
                 <td>
                     {contact.first_name} {contact.last_name}
                 </td>
@@ -33,6 +33,7 @@ const ContactRowFragment = createFragmentContainer(
             name
             first_name
             last_name
+            contact_type
             phone
             email
             is_roles {
