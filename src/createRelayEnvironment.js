@@ -20,19 +20,19 @@ import { Environment, Network, RecordSource, Store } from "relay-runtime";
 //
 // var csrftoken = getCookie("csrftoken");
 
-const API_HOST = 'http://localhost:8000';
+const API_HOST = "http://localhost:8000";
 
 let _csrfToken = null;
 
 async function getCsrfToken() {
-  if (_csrfToken === null) {
-    const response = await fetch(`${API_HOST}/csrf/`, {
-      credentials: 'include',
-    });
-    const data = await response.json();
-    _csrfToken = data.csrfToken;
-  }
-  return _csrfToken;
+    if (_csrfToken === null) {
+        const response = await fetch(`${API_HOST}/csrf/`, {
+            credentials: "include"
+        });
+        const data = await response.json();
+        _csrfToken = data.csrfToken;
+    }
+    return _csrfToken;
 }
 
 function fetchQuery(operation, variables) {
@@ -40,7 +40,7 @@ function fetchQuery(operation, variables) {
         credentials: "include",
         method: "POST",
         headers: {
-            "Accept": "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
             "X-CSRFToken": getCsrfToken()
         },
@@ -49,8 +49,8 @@ function fetchQuery(operation, variables) {
             variables
         })
     }).then((response) => {
-        if (response.redirected){
-            document.location = response.url
+        if (response.redirected) {
+            document.location = response.url;
         }
         return response.json();
     });

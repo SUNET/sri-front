@@ -6,12 +6,14 @@ import environment from "../createRelayEnvironment";
 const mutation = graphql`
     mutation DeleteContactMutation($input: DeleteNIContactMutationInput!) {
         delete_contact(input: $input) {
-            nodehandle
+            contact {
+                handle_id
+            }
         }
     }
 `;
 
-export default function DeleteContactMutation(handle_id, viewerId, callback) {
+export default function DeleteContactMutation(handle_id, callback) {
     const variables = {
         input: {
             handle_id: handle_id,
@@ -23,19 +25,14 @@ export default function DeleteContactMutation(handle_id, viewerId, callback) {
         variables,
         onError: (err) => console.error(err),
         updater: (proxyStore) => {
-            console.log("Upadter");
-            const deleteContactField = proxyStore.getRootField("deleteContact");
-            console.log(deleteContactField);
+            const deleteContactField = proxyStore.getRootField(
+                "delete_contact"
+            );
             const handle_id = deleteContactField.getValue("handle_id");
-            console.log(handle_id);
-            const viewerProxy = proxyStore.get(viewerId);
-            console.log(viewerProxy);
             const connection = ConnectionHandler.getConnection(
-                viewerProxy,
                 "ContactList_contacts"
             );
             ConnectionHandler.deleteNode(connection, handle_id);
-            callback();
         }
     });
 }

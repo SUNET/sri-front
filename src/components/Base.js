@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import SearchContainer from "../containers/Search";
-import ContactDetails from "../components/ContactDetails";
+import { ContactDetails } from "./Contact";
 
 class Base extends React.Component {
     render() {

@@ -5,9 +5,9 @@ import graphql from "babel-plugin-relay/macro";
 import { Button, ButtonToolbar, Form } from "react-bootstrap";
 
 import Contact from "./Contact";
-import DeleteContactMutation from "../mutations/DeleteContactMutation";
-import UpdateContactMutation from "../mutations/UpdateContactMutation";
-import environment from "../createRelayEnvironment";
+import DeleteContactMutation from "../../mutations/DeleteContactMutation";
+import UpdateContactMutation from "../../mutations/UpdateContactMutation";
+import environment from "../../createRelayEnvironment";
 
 const ContactDetailsQuery = graphql`
     query ContactDetailsQuery($contactId: Int!) {
@@ -43,16 +43,22 @@ class ContactDetails extends React.PureComponent {
     };
 
     _handleUpdate = (contact) => {
-        const { first_name, last_name, email, phone, contact_type } = contact || this.state;
-        console.log(contact);
-        console.log(first_name);
-        console.log(last_name);
-        console.log(email);
-        console.log(phone);
-        console.log(contact_type);
-        console.log(first_name);
+        const {
+            first_name,
+            last_name,
+            email,
+            phone,
+            contact_type
+        } = this.state;
         const contactId = this.props.match.params.contactId;
-        UpdateContactMutation(contactId, first_name, last_name, email, phone, contact_type);
+        UpdateContactMutation(
+            contactId,
+            first_name,
+            last_name,
+            email,
+            phone,
+            contact_type
+        );
     };
 
     _handleDelete = () => {
@@ -83,21 +89,27 @@ class ContactDetails extends React.PureComponent {
                                     />
                                     <ButtonToolbar>
                                         <Button
-                                            onClick={() => {this._handleUpdate(props.getContactById); console.log("Contact");console.log(props.getContactById);}}
+                                            onClick={() =>
+                                                this._handleUpdate(
+                                                    props.getContactById
+                                                )
+                                            }
                                             className="mr-2"
                                             variant="outline-success"
                                         >
                                             Update
                                         </Button>
                                         <Button
-                                            onClick={this._handleDelete}
+                                            onClick={() => this._handleDelete}
                                             className="mr-2"
                                             variant="outline-danger"
                                         >
                                             Delete
                                         </Button>
                                         <Button
-                                            onClick={() => this.props.history.goBack()}
+                                            onClick={() =>
+                                                this.props.history.goBack()
+                                            }
                                             variant="outline-dark"
                                         >
                                             Back

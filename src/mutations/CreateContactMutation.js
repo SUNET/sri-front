@@ -6,7 +6,7 @@ import { ConnectionHandler } from "relay-runtime";
 const mutation = graphql`
     mutation CreateContactMutation($input: CreateNIContactMutationInput!) {
         create_contact(input: $input) {
-            contacttype {
+            contact {
                 handle_id
                 first_name
                 last_name

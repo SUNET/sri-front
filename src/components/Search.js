@@ -1,18 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import { ButtonToolbar, Button, Row, Col, Form } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-
-import { Route } from "react-router-dom";
 
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
 import SearchFormContainer from "../containers/SearchForm";
-import ContactList from "./ContactList";
-import CreateContact from "./CreateContact";
+import { ContactList, CreateContact } from "./Contact";
 
 const SearchAllContactsQuery = graphql`
     query SearchAllContactsQuery($count: Int!) {
@@ -21,16 +17,6 @@ const SearchAllContactsQuery = graphql`
 `;
 
 class Search extends React.Component {
-    static propTypes = {
-        history: PropTypes.object.isRequired,
-        startSearch: PropTypes.func.isRequired,
-        successSearch: PropTypes.func.isRequired,
-        loading: PropTypes.bool.isRequired,
-        results: PropTypes.arrayOf(PropTypes.object).isRequired,
-        search: PropTypes.string.isRequired,
-        queried: PropTypes.bool.isRequired
-    };
-
     constructor(props) {
         super(props);
 
@@ -39,9 +25,9 @@ class Search extends React.Component {
         };
     }
 
-    onSubmit = () => {};
+    _onSubmit = () => {};
 
-    _handleOnChange = (event) => {
+    _handleOnChangeFilter = (event) => {
         this.setState({ filterValue: event.target.value });
     };
 
@@ -49,7 +35,7 @@ class Search extends React.Component {
         return (
             <section style={{ minHeight: 450 }}>
                 <SearchFormContainer
-                    onSubmit={this.onSubmit}
+                    onSubmit={this._onSubmit}
                     search={this.props.search}
                 />
 
@@ -77,7 +63,7 @@ class Search extends React.Component {
                                         placeholder="Filter"
                                         defaultValue={this.state.filterValue}
                                         onChange={(e) =>
-                                            this._handleOnChange(e)
+                                            this._handleOnChangeFilter(e)
                                         }
                                     />
                                 </Col>

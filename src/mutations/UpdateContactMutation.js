@@ -5,7 +5,7 @@ import environment from "../createRelayEnvironment";
 const mutation = graphql`
     mutation UpdateContactMutation($input: UpdateNIContactMutationInput!) {
         update_contact(input: $input) {
-            nodehandle {
+            contact {
                 handle_id
             }
         }
@@ -18,7 +18,7 @@ export default function UpdateContactMutation(
     last_name,
     email,
     phone,
-    viewerId
+    contact_type
 ) {
     const variables = {
         input: {
@@ -27,6 +27,7 @@ export default function UpdateContactMutation(
             last_name,
             email,
             phone,
+            contact_type,
             clientMutationId: ""
         }
     };
@@ -43,6 +44,7 @@ export default function UpdateContactMutation(
             contact.setValue(last_name, "last_name");
             contact.setValue(email, "email");
             contact.setValue(phone, "phone");
+            contact.setValue(contact_type, "contact_type");
         }
     });
 }

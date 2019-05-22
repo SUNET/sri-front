@@ -4,13 +4,12 @@ import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Button, Table } from "react-bootstrap";
 
+import { ITEMS_PER_PAGE } from "../../constants";
 import ContactRow from "./ContactRow";
-import { ITEMS_PER_PAGE } from "../constants";
 
 class ContactList extends React.PureComponent {
     static propTypes = {
-        contacts: PropTypes.object.isRequired,
-        // filterValue: PropTypes.string.isRequired
+        contacts: PropTypes.object.isRequired
     };
 
     _loadMore = () => {
@@ -32,7 +31,11 @@ class ContactList extends React.PureComponent {
     getData() {
         let models = this.props.contacts.contacts;
         return models.edges.map(({ node, index }) => (
-            <ContactRow Key={index} contact={node} onClick={this._handleOnClick} />
+            <ContactRow
+                Key={index}
+                contact={node}
+                onClick={this._handleOnClick}
+            />
         ));
     }
 

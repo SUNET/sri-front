@@ -4,7 +4,7 @@ import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Jumbotron, Form, Col } from "react-bootstrap";
 
-import Dropdown from "./Dropdowns/Dropdown";
+import Dropdown from "../Dropdown";
 
 class Contact extends React.PureComponent {
     static propTypes = {
@@ -83,7 +83,7 @@ class Contact extends React.PureComponent {
 const ContactFragment = createFragmentContainer(
     Contact,
     graphql`
-        fragment Contact_contact on ContactType {
+        fragment Contact_contact on Contact {
             handle_id
             contact_type
             first_name

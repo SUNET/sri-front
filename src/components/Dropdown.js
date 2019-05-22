@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import environment from "../../createRelayEnvironment";
+import environment from "../createRelayEnvironment";
 
 const DropdownQuery = graphql`
     query DropdownQuery($name: String!) {
@@ -47,7 +47,10 @@ class Dropdown extends React.PureComponent {
                             return <div>{error.message}</div>;
                         } else if (props) {
                             return (
-                                <Form.Control as="select" onChange={(e) => this.props.onChange(e)}>
+                                <Form.Control
+                                    as="select"
+                                    onChange={(e) => this.props.onChange(e)}
+                                >
                                     {this.renderOptions(
                                         props.getChoicesForDropdown
                                     )}

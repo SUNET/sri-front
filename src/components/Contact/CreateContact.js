@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, Col, ButtonToolbar, Button } from "react-bootstrap";
 
-import Dropdown from "./Dropdowns/Dropdown";
+import Dropdown from "../Dropdown";
 
-import CreateContactMutation from "../mutations/CreateContactMutation";
+import CreateContactMutation from "../../mutations/CreateContactMutation";
 
 class CreateContact extends React.PureComponent {
     constructor(props) {
@@ -19,7 +19,13 @@ class CreateContact extends React.PureComponent {
     }
 
     _handleContact = (viewerId) => {
-        const { first_name, last_name, email, phone, contact_type } = this.state;
+        const {
+            first_name,
+            last_name,
+            email,
+            phone,
+            contact_type
+        } = this.state;
         CreateContactMutation(
             first_name,
             last_name,
