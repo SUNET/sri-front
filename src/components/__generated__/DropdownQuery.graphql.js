@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 655e20103bf167c3d06f3d6918d465a1
+ * @relayHash ba43c160417a6ec98c7db31dea8882fd
  */
 
 /* eslint-disable */
@@ -83,7 +83,7 @@ return {
         "name": "getChoicesForDropdown",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "ChoiceType",
+        "concreteType": "Choice",
         "plural": true,
         "selections": [
           (v2/*: any*/),
@@ -103,7 +103,7 @@ return {
         "name": "getChoicesForDropdown",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "ChoiceType",
+        "concreteType": "Choice",
         "plural": true,
         "selections": [
           (v2/*: any*/),

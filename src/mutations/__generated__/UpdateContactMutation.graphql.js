@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ca756b8983a98e43c21f507778455b37
+ * @relayHash 90dfb098f02625b30834d9c37775b405
  */
 
 /* eslint-disable */
@@ -9,7 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type CreateNIContactMutationInput = {|
+export type UpdateNIContactMutationInput = {|
   first_name: string,
   last_name: string,
   contact_type: string,
@@ -21,41 +21,35 @@ export type CreateNIContactMutationInput = {|
   name?: ?string,
   title?: ?string,
   PGP_fingerprint?: ?string,
+  relationship_works_for?: ?string,
+  relationship_member_of?: ?string,
+  relationship_is?: ?string,
+  handle_id: number,
   clientMutationId?: ?string,
 |};
-export type CreateContactMutationVariables = {|
-  input: CreateNIContactMutationInput
+export type UpdateContactMutationVariables = {|
+  input: UpdateNIContactMutationInput
 |};
-export type CreateContactMutationResponse = {|
-  +create_contact: ?{|
+export type UpdateContactMutationResponse = {|
+  +update_contact: ?{|
     +contact: ?{|
-      +handle_id: string,
-      +first_name: string,
-      +last_name: string,
-      +email: ?string,
-      +phone: ?string,
-      +contact_type: ?string,
+      +handle_id: string
     |}
   |}
 |};
-export type CreateContactMutation = {|
-  variables: CreateContactMutationVariables,
-  response: CreateContactMutationResponse,
+export type UpdateContactMutation = {|
+  variables: UpdateContactMutationVariables,
+  response: UpdateContactMutationResponse,
 |};
 */
 
 /*
-mutation CreateContactMutation(
-  $input: CreateNIContactMutationInput!
+mutation UpdateContactMutation(
+  $input: UpdateNIContactMutationInput!
 ) {
-  create_contact(input: $input) {
+  update_contact(input: $input) {
     contact {
       handle_id
-      first_name
-      last_name
-      email
-      phone
-      contact_type
       id
     }
   }
@@ -67,7 +61,7 @@ const node /*: ConcreteRequest*/ = (function() {
             {
                 kind: "LocalArgument",
                 name: "input",
-                type: "CreateNIContactMutationInput!",
+                type: "UpdateNIContactMutationInput!",
                 defaultValue: null
             }
         ],
@@ -76,7 +70,7 @@ const node /*: ConcreteRequest*/ = (function() {
                 kind: "Variable",
                 name: "input",
                 variableName: "input",
-                type: "CreateNIContactMutationInput!"
+                type: "UpdateNIContactMutationInput!"
             }
         ],
         v2 = {
@@ -85,47 +79,12 @@ const node /*: ConcreteRequest*/ = (function() {
             name: "handle_id",
             args: null,
             storageKey: null
-        },
-        v3 = {
-            kind: "ScalarField",
-            alias: null,
-            name: "first_name",
-            args: null,
-            storageKey: null
-        },
-        v4 = {
-            kind: "ScalarField",
-            alias: null,
-            name: "last_name",
-            args: null,
-            storageKey: null
-        },
-        v5 = {
-            kind: "ScalarField",
-            alias: null,
-            name: "email",
-            args: null,
-            storageKey: null
-        },
-        v6 = {
-            kind: "ScalarField",
-            alias: null,
-            name: "phone",
-            args: null,
-            storageKey: null
-        },
-        v7 = {
-            kind: "ScalarField",
-            alias: null,
-            name: "contact_type",
-            args: null,
-            storageKey: null
         };
     return {
         kind: "Request",
         fragment: {
             kind: "Fragment",
-            name: "CreateContactMutation",
+            name: "UpdateContactMutation",
             type: "Mutation",
             metadata: null,
             argumentDefinitions: (v0 /*: any*/),
@@ -133,10 +92,10 @@ const node /*: ConcreteRequest*/ = (function() {
                 {
                     kind: "LinkedField",
                     alias: null,
-                    name: "create_contact",
+                    name: "update_contact",
                     storageKey: null,
                     args: (v1 /*: any*/),
-                    concreteType: "CreateNIContactMutation",
+                    concreteType: "UpdateNIContactMutation",
                     plural: false,
                     selections: [
                         {
@@ -147,14 +106,7 @@ const node /*: ConcreteRequest*/ = (function() {
                             args: null,
                             concreteType: "Contact",
                             plural: false,
-                            selections: [
-                                (v2 /*: any*/),
-                                (v3 /*: any*/),
-                                (v4 /*: any*/),
-                                (v5 /*: any*/),
-                                (v6 /*: any*/),
-                                (v7 /*: any*/)
-                            ]
+                            selections: [(v2 /*: any*/)]
                         }
                     ]
                 }
@@ -162,16 +114,16 @@ const node /*: ConcreteRequest*/ = (function() {
         },
         operation: {
             kind: "Operation",
-            name: "CreateContactMutation",
+            name: "UpdateContactMutation",
             argumentDefinitions: (v0 /*: any*/),
             selections: [
                 {
                     kind: "LinkedField",
                     alias: null,
-                    name: "create_contact",
+                    name: "update_contact",
                     storageKey: null,
                     args: (v1 /*: any*/),
-                    concreteType: "CreateNIContactMutation",
+                    concreteType: "UpdateNIContactMutation",
                     plural: false,
                     selections: [
                         {
@@ -184,11 +136,6 @@ const node /*: ConcreteRequest*/ = (function() {
                             plural: false,
                             selections: [
                                 (v2 /*: any*/),
-                                (v3 /*: any*/),
-                                (v4 /*: any*/),
-                                (v5 /*: any*/),
-                                (v6 /*: any*/),
-                                (v7 /*: any*/),
                                 {
                                     kind: "ScalarField",
                                     alias: null,
@@ -204,14 +151,14 @@ const node /*: ConcreteRequest*/ = (function() {
         },
         params: {
             operationKind: "mutation",
-            name: "CreateContactMutation",
+            name: "UpdateContactMutation",
             id: null,
             text:
-                "mutation CreateContactMutation(\n  $input: CreateNIContactMutationInput!\n) {\n  create_contact(input: $input) {\n    contact {\n      handle_id\n      first_name\n      last_name\n      email\n      phone\n      contact_type\n      id\n    }\n  }\n}\n",
+                "mutation UpdateContactMutation(\n  $input: UpdateNIContactMutationInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      id\n    }\n  }\n}\n",
             metadata: {}
         }
     };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '235bed471ad82cf8a27f649eaedb7ce9';
+(node/*: any*/).hash = 'ec3ad8a232dfbeec41c6ed6d0df07b68';
 module.exports = node;

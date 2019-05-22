@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b63b4e1731ac1a5825c78f764c3f3b1c
+ * @relayHash 9384e2d73299768d57c91fd1be0160ff
  */
 
 /* eslint-disable */
@@ -10,30 +10,28 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type ContactList_contacts$ref = any;
-export type ContactListForwardQueryVariables = {|
-  count: number,
-  cursor?: ?string,
+export type SearchAllContactsQueryVariables = {|
+  count: number
 |};
-export type ContactListForwardQueryResponse = {|
+export type SearchAllContactsQueryResponse = {|
   +$fragmentRefs: ContactList_contacts$ref
 |};
-export type ContactListForwardQuery = {|
-  variables: ContactListForwardQueryVariables,
-  response: ContactListForwardQueryResponse,
+export type SearchAllContactsQuery = {|
+  variables: SearchAllContactsQueryVariables,
+  response: SearchAllContactsQueryResponse,
 |};
 */
 
 
 /*
-query ContactListForwardQuery(
+query SearchAllContactsQuery(
   $count: Int!
-  $cursor: String
 ) {
-  ...ContactList_contacts_1G22uz
+  ...ContactList_contacts_yu5n1
 }
 
-fragment ContactList_contacts_1G22uz on Query {
-  contacts(first: $count, after: $cursor) {
+fragment ContactList_contacts_yu5n1 on Query {
+  contacts(first: $count) {
     edges {
       node {
         handle_id
@@ -76,21 +74,9 @@ var v0 = [
     "name": "count",
     "type": "Int!",
     "defaultValue": null
-  },
-  {
-    "kind": "LocalArgument",
-    "name": "cursor",
-    "type": "String",
-    "defaultValue": null
   }
 ],
 v1 = [
-  {
-    "kind": "Variable",
-    "name": "after",
-    "variableName": "cursor",
-    "type": "String"
-  },
   {
     "kind": "Variable",
     "name": "first",
@@ -120,7 +106,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "ContactListForwardQuery",
+    "name": "SearchAllContactsQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -134,12 +120,6 @@ return {
             "name": "count",
             "variableName": "count",
             "type": null
-          },
-          {
-            "kind": "Variable",
-            "name": "cursor",
-            "variableName": "cursor",
-            "type": null
           }
         ]
       }
@@ -147,7 +127,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "ContactListForwardQuery",
+    "name": "SearchAllContactsQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -299,13 +279,13 @@ return {
   },
   "params": {
     "operationKind": "query",
-    "name": "ContactListForwardQuery",
+    "name": "SearchAllContactsQuery",
     "id": null,
-    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n) {\n  ...ContactList_contacts_1G22uz\n}\n\nfragment ContactList_contacts_1G22uz on Query {\n  contacts(first: $count, after: $cursor) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  phone\n  email\n  is_roles {\n    name\n    id\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query SearchAllContactsQuery(\n  $count: Int!\n) {\n  ...ContactList_contacts_yu5n1\n}\n\nfragment ContactList_contacts_yu5n1 on Query {\n  contacts(first: $count) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  phone\n  email\n  is_roles {\n    name\n    id\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8b48327f225cc690878c9a5fc311712f';
+(node/*: any*/).hash = 'da9a4abe257c4e403a78d46f638af61b';
 module.exports = node;

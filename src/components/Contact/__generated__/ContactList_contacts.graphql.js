@@ -4,7 +4,7 @@
 
 /* eslint-disable */
 
-"use strict";
+'use strict';
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
@@ -15,7 +15,8 @@ export type ContactList_contacts = {|
   +contacts: ?{|
     +edges: $ReadOnlyArray<?{|
       +node: ?{|
-        +$fragmentRefs: ContactRow_contact$ref
+        +handle_id: string,
+        +$fragmentRefs: ContactRow_contact$ref,
       |}
     |}>,
     +pageInfo: {|
@@ -27,114 +28,124 @@ export type ContactList_contacts = {|
 |};
 */
 
-const node /*: ReaderFragment*/ = {
-    kind: "Fragment",
-    name: "ContactList_contacts",
-    type: "Query",
-    metadata: {
-        connection: [
-            {
-                count: "count",
-                cursor: "cursor",
-                direction: "forward",
-                path: ["contacts"]
-            }
+
+const node/*: ReaderFragment*/ = {
+  "kind": "Fragment",
+  "name": "ContactList_contacts",
+  "type": "Query",
+  "metadata": {
+    "connection": [
+      {
+        "count": "count",
+        "cursor": "cursor",
+        "direction": "forward",
+        "path": [
+          "contacts"
         ]
+      }
+    ]
+  },
+  "argumentDefinitions": [
+    {
+      "kind": "LocalArgument",
+      "name": "count",
+      "type": "Int",
+      "defaultValue": null
     },
-    argumentDefinitions: [
+    {
+      "kind": "LocalArgument",
+      "name": "cursor",
+      "type": "String",
+      "defaultValue": null
+    }
+  ],
+  "selections": [
+    {
+      "kind": "LinkedField",
+      "alias": "contacts",
+      "name": "__ContactList_contacts_connection",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "ContactConnection",
+      "plural": false,
+      "selections": [
         {
-            kind: "LocalArgument",
-            name: "count",
-            type: "Int",
-            defaultValue: null
-        },
-        {
-            kind: "LocalArgument",
-            name: "cursor",
-            type: "String",
-            defaultValue: null
-        }
-    ],
-    selections: [
-        {
-            kind: "LinkedField",
-            alias: "contacts",
-            name: "__ContactList_contacts_connection",
-            storageKey: null,
-            args: null,
-            concreteType: "ContactConnection",
-            plural: false,
-            selections: [
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "edges",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "ContactEdge",
+          "plural": true,
+          "selections": [
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "name": "node",
+              "storageKey": null,
+              "args": null,
+              "concreteType": "Contact",
+              "plural": false,
+              "selections": [
                 {
-                    kind: "LinkedField",
-                    alias: null,
-                    name: "edges",
-                    storageKey: null,
-                    args: null,
-                    concreteType: "ContactEdge",
-                    plural: true,
-                    selections: [
-                        {
-                            kind: "LinkedField",
-                            alias: null,
-                            name: "node",
-                            storageKey: null,
-                            args: null,
-                            concreteType: "Contact",
-                            plural: false,
-                            selections: [
-                                {
-                                    kind: "FragmentSpread",
-                                    name: "ContactRow_contact",
-                                    args: null
-                                },
-                                {
-                                    kind: "ScalarField",
-                                    alias: null,
-                                    name: "__typename",
-                                    args: null,
-                                    storageKey: null
-                                }
-                            ]
-                        },
-                        {
-                            kind: "ScalarField",
-                            alias: null,
-                            name: "cursor",
-                            args: null,
-                            storageKey: null
-                        }
-                    ]
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "handle_id",
+                  "args": null,
+                  "storageKey": null
                 },
                 {
-                    kind: "LinkedField",
-                    alias: null,
-                    name: "pageInfo",
-                    storageKey: null,
-                    args: null,
-                    concreteType: "PageInfo",
-                    plural: false,
-                    selections: [
-                        {
-                            kind: "ScalarField",
-                            alias: null,
-                            name: "hasNextPage",
-                            args: null,
-                            storageKey: null
-                        },
-                        {
-                            kind: "ScalarField",
-                            alias: null,
-                            name: "endCursor",
-                            args: null,
-                            storageKey: null
-                        }
-                    ]
+                  "kind": "FragmentSpread",
+                  "name": "ContactRow_contact",
+                  "args": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "__typename",
+                  "args": null,
+                  "storageKey": null
                 }
-            ]
+              ]
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "cursor",
+              "args": null,
+              "storageKey": null
+            }
+          ]
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "pageInfo",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "hasNextPage",
+              "args": null,
+              "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "endCursor",
+              "args": null,
+              "storageKey": null
+            }
+          ]
         }
-    ]
+      ]
+    }
+  ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '33ed34ac343630333ac90c59cd19bba3';
+(node/*: any*/).hash = '0eca5787798bb0b5132cf82dd7500ae7';
 module.exports = node;
