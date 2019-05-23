@@ -14,11 +14,13 @@ class CreateContact extends React.PureComponent {
             last_name: "",
             email: "",
             phone: "",
-            contact_type: ""
+            contact_type: "",
+            errors: []
         };
     }
 
-    _handleContact = (viewerId) => {
+    _handleContact = () => {
+        console.log(this.props);
         const {
             first_name,
             last_name,
@@ -26,15 +28,14 @@ class CreateContact extends React.PureComponent {
             phone,
             contact_type
         } = this.state;
-        CreateContactMutation(
-            first_name,
-            last_name,
-            email,
-            phone,
-            contact_type,
-            this.props,
-            () => this.props.history.replace("/contacts")
-        );
+        CreateContactMutation(first_name, last_name, email, phone, contact_type)
+            .then((resp) => {
+                this.props.history.replace("/contacts");
+            })
+            .catch((err) => {
+                this.setState({ errors: err });
+            });
+        console.log(this.state.errors);
     };
 
     render() {
@@ -107,7 +108,7 @@ class CreateContact extends React.PureComponent {
                         <Button
                             className="mr-2"
                             variant="outline-primary"
-                            onClick={() => this._handleContact(this.props.user)}
+                            onClick={() => this._handleContact()}
                         >
                             Create
                         </Button>

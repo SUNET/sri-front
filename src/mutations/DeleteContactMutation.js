@@ -1,6 +1,6 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { ConnectionHandler } from "relay-runtime";
+import { ROOT_ID } from "relay-runtime";
 import environment from "../createRelayEnvironment";
 
 const mutation = graphql`
@@ -31,8 +31,8 @@ export default function DeleteContactMutation(handle_id, callback) {
         configs: [
             {
                 type: "RANGE_DELETE",
-                parentName: "client:root",
-                parentID: "client:root",
+                parentName: ROOT_ID,
+                parentID: ROOT_ID,
                 connectionKeys: [
                     {
                         key: "ContactList_contacts",

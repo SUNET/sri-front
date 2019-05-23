@@ -51,6 +51,7 @@ class Dropdown extends React.PureComponent {
                                     as="select"
                                     onChange={(e) => this.props.onChange(e)}
                                 >
+                                    <option value="" />
                                     {this.renderOptions(
                                         props.getChoicesForDropdown
                                     )}

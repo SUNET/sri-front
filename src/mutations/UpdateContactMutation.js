@@ -34,7 +34,7 @@ export default function UpdateContactMutation(
     commitMutation(environment, {
         mutation,
         variables,
-        onCompleted: (response) => {
+        onCompleted: (response, errors) => {
             console.log(response, environment);
         },
         onError: (err) => console.error(err),

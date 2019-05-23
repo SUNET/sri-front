@@ -30,9 +30,9 @@ class ContactList extends React.PureComponent {
 
     getData() {
         let models = this.props.contacts.contacts;
-        return models.edges.map(({ node, index }) => (
+        return models.edges.map(({ node }) => (
             <ContactRow
-                Key={index}
+                Key={node.handle_id}
                 contact={node}
                 onClick={this._handleOnClick}
             />
@@ -79,9 +79,10 @@ export default createPaginationContainer(
                 cursor: { type: "String" }
             ) {
             contacts(first: $count, after: $cursor)
-                @connection(key: "ContactList_contacts") {
+                @connection(key: "ContactList_contacts", filters: []) {
                 edges {
                     node {
+                        handle_id
                         ...ContactRow_contact
                     }
                 }
