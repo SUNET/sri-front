@@ -100,7 +100,7 @@ class ContactDetails extends React.PureComponent {
                                             Update
                                         </Button>
                                         <Button
-                                            onClick={() => this._handleDelete}
+                                            onClick={() => this._handleDelete()}
                                             className="mr-2"
                                             variant="outline-danger"
                                         >

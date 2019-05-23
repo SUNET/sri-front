@@ -46,42 +46,53 @@ type ContactEdge {
 }
 
 input ContactFilter {
-  name: String!
-  name_not: String!
-  name_lt: String!
-  name_lte: String!
-  name_gt: String!
-  name_gte: String!
-  name_contains: String!
-  name_not_contains: String!
-  name_starts_with: String!
-  name_not_starts_with: String!
-  name_ends_with: String!
-  name_not_ends_with: String!
-  first_name: String!
-  first_name_not: String!
-  first_name_lt: String!
-  first_name_lte: String!
-  first_name_gt: String!
-  first_name_gte: String!
-  first_name_contains: String!
-  first_name_not_contains: String!
-  first_name_starts_with: String!
-  first_name_not_starts_with: String!
-  first_name_ends_with: String!
-  first_name_not_ends_with: String!
-  last_name: String!
-  last_name_not: String!
-  last_name_lt: String!
-  last_name_lte: String!
-  last_name_gt: String!
-  last_name_gte: String!
-  last_name_contains: String!
-  last_name_not_contains: String!
-  last_name_starts_with: String!
-  last_name_not_starts_with: String!
-  last_name_ends_with: String!
-  last_name_not_ends_with: String!
+  AND: [ContactNestedFilter!]
+  OR: [ContactNestedFilter!]
+}
+
+input ContactNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  first_name: String
+  first_name_not: String
+  first_name_lt: String
+  first_name_lte: String
+  first_name_gt: String
+  first_name_gte: String
+  first_name_contains: String
+  first_name_not_contains: String
+  first_name_starts_with: String
+  first_name_not_starts_with: String
+  first_name_ends_with: String
+  first_name_not_ends_with: String
+  first_name_in: [String!]
+  first_name_not_in: [String!]
+  last_name: String
+  last_name_not: String
+  last_name_lt: String
+  last_name_lte: String
+  last_name_gt: String
+  last_name_gte: String
+  last_name_contains: String
+  last_name_not_contains: String
+  last_name_starts_with: String
+  last_name_not_starts_with: String
+  last_name_ends_with: String
+  last_name_not_ends_with: String
+  last_name_in: [String!]
+  last_name_not_in: [String!]
   title: String
   title_not: String
   title_lt: String
@@ -94,6 +105,8 @@ input ContactFilter {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
+  title_in: [String!]
+  title_not_in: [String!]
   salutation: String
   salutation_not: String
   salutation_lt: String
@@ -106,6 +119,8 @@ input ContactFilter {
   salutation_not_starts_with: String
   salutation_ends_with: String
   salutation_not_ends_with: String
+  salutation_in: [String!]
+  salutation_not_in: [String!]
   contact_type: String
   contact_type_not: String
   contact_type_lt: String
@@ -118,6 +133,8 @@ input ContactFilter {
   contact_type_not_starts_with: String
   contact_type_ends_with: String
   contact_type_not_ends_with: String
+  contact_type_in: [String!]
+  contact_type_not_in: [String!]
   phone: String
   phone_not: String
   phone_lt: String
@@ -130,6 +147,8 @@ input ContactFilter {
   phone_not_starts_with: String
   phone_ends_with: String
   phone_not_ends_with: String
+  phone_in: [String!]
+  phone_not_in: [String!]
   mobile: String
   mobile_not: String
   mobile_lt: String
@@ -142,6 +161,8 @@ input ContactFilter {
   mobile_not_starts_with: String
   mobile_ends_with: String
   mobile_not_ends_with: String
+  mobile_in: [String!]
+  mobile_not_in: [String!]
   email: String
   email_not: String
   email_lt: String
@@ -154,6 +175,8 @@ input ContactFilter {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  email_in: [String!]
+  email_not_in: [String!]
   other_email: String
   other_email_not: String
   other_email_lt: String
@@ -166,6 +189,8 @@ input ContactFilter {
   other_email_not_starts_with: String
   other_email_ends_with: String
   other_email_not_ends_with: String
+  other_email_in: [String!]
+  other_email_not_in: [String!]
   PGP_fingerprint: String
   PGP_fingerprint_not: String
   PGP_fingerprint_lt: String
@@ -178,28 +203,44 @@ input ContactFilter {
   PGP_fingerprint_not_starts_with: String
   PGP_fingerprint_ends_with: String
   PGP_fingerprint_not_ends_with: String
-  name_in: [String!]
-  name_not_in: [String!]
-  first_name_in: [String!]
-  first_name_not_in: [String!]
-  last_name_in: [String!]
-  last_name_not_in: [String!]
-  title_in: [String!]
-  title_not_in: [String!]
-  salutation_in: [String!]
-  salutation_not_in: [String!]
-  contact_type_in: [String!]
-  contact_type_not_in: [String!]
-  phone_in: [String!]
-  phone_not_in: [String!]
-  mobile_in: [String!]
-  mobile_not_in: [String!]
-  email_in: [String!]
-  email_not_in: [String!]
-  other_email_in: [String!]
-  other_email_not_in: [String!]
   PGP_fingerprint_in: [String!]
   PGP_fingerprint_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+}
+
+"""An enumeration."""
+enum ContactOrderBy {
+  name_ASC
+  name_DESC
+  first_name_ASC
+  first_name_DESC
+  last_name_ASC
+  last_name_DESC
+  title_ASC
+  title_DESC
+  salutation_ASC
+  salutation_DESC
+  contact_type_ASC
+  contact_type_DESC
+  phone_ASC
+  phone_DESC
+  mobile_ASC
+  mobile_DESC
+  email_ASC
+  email_DESC
+  other_email_ASC
+  other_email_DESC
+  PGP_fingerprint_ASC
+  PGP_fingerprint_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 type CreateNIContactMutation {
@@ -323,20 +364,41 @@ type GroupEdge {
 }
 
 input GroupFilter {
-  name: String!
-  name_not: String!
-  name_lt: String!
-  name_lte: String!
-  name_gt: String!
-  name_gte: String!
-  name_contains: String!
-  name_not_contains: String!
-  name_starts_with: String!
-  name_not_starts_with: String!
-  name_ends_with: String!
-  name_not_ends_with: String!
+  AND: [GroupNestedFilter!]
+  OR: [GroupNestedFilter!]
+}
+
+input GroupNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
   name_in: [String!]
   name_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+}
+
+"""An enumeration."""
+enum GroupOrderBy {
+  name_ASC
+  name_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 type Mutation {
@@ -405,11 +467,11 @@ type Query {
   node(id: ID!): Node
   getNodeById(handle_id: Int): NodeHandler
   getChoicesForDropdown(name: String!): [Choice]
-  roles(filter: RoleFilter, before: String, after: String, first: Int, last: Int): RoleConnection
+  roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
   getRoleById(handle_id: Int): Role
-  groups(filter: GroupFilter, before: String, after: String, first: Int, last: Int): GroupConnection
+  groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
   getGroupById(handle_id: Int): Group
-  contacts(filter: ContactFilter, before: String, after: String, first: Int, last: Int): ContactConnection
+  contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
   getContactById(handle_id: Int): Contact
 }
 
@@ -442,20 +504,41 @@ type RoleEdge {
 }
 
 input RoleFilter {
-  name: String!
-  name_not: String!
-  name_lt: String!
-  name_lte: String!
-  name_gt: String!
-  name_gte: String!
-  name_contains: String!
-  name_not_contains: String!
-  name_starts_with: String!
-  name_not_starts_with: String!
-  name_ends_with: String!
-  name_not_ends_with: String!
+  AND: [RoleNestedFilter!]
+  OR: [RoleNestedFilter!]
+}
+
+input RoleNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
   name_in: [String!]
   name_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+}
+
+"""An enumeration."""
+enum RoleOrderBy {
+  name_ASC
+  name_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 type UpdateNIContactMutation {

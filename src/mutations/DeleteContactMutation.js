@@ -24,15 +24,24 @@ export default function DeleteContactMutation(handle_id, callback) {
         mutation,
         variables,
         onError: (err) => console.error(err),
-        updater: (proxyStore) => {
-            const deleteContactField = proxyStore.getRootField(
-                "delete_contact"
-            );
-            const handle_id = deleteContactField.getValue("handle_id");
-            const connection = ConnectionHandler.getConnection(
-                "ContactList_contacts"
-            );
-            ConnectionHandler.deleteNode(connection, handle_id);
-        }
+        onCompleted: (response) => {
+            console.log(response, environment);
+            callback();
+        },
+        configs: [
+            {
+                type: "RANGE_DELETE",
+                parentName: "client:root",
+                parentID: "client:root",
+                connectionKeys: [
+                    {
+                        key: "ContactList_contacts",
+                        rangeBehavior: "append"
+                    }
+                ],
+                pathToConnection: ["client:root", "contacts"],
+                deletedIDFieldName: "handle_id"
+            }
+        ]
     });
 }
