@@ -74,13 +74,14 @@ class Search extends React.Component {
                                 variables={{
                                     count: ITEMS_PER_PAGE
                                 }}
-                                render={({ error, props, data }) => {
+                                render={({ error, props }) => {
                                     if (error) {
                                         return <div>{error.message}</div>;
                                     } else if (props) {
                                         return (
                                             <ContactList
                                                 history={this.props.history}
+                                                match={this.props.match}
                                                 contacts={props}
                                             />
                                         );

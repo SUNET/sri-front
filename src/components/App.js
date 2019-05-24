@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
+import Breadcrumbs  from 'react-router-dynamic-breadcrumbs';
 
 import "bootstrap/scss/bootstrap.scss";
 
@@ -18,6 +19,14 @@ import "../style/App.scss";
 
 import { history } from "../store";
 
+const routes = {
+  '/': 'Home',
+  '/contacts': 'Contacts',
+  '/roles': 'Roles',
+  '/contacts/create': 'Create Contact',
+  '/contacts/:contactId': 'Contact Info',
+};
+
 class App extends Component {
     render() {
         return (
@@ -26,6 +35,7 @@ class App extends Component {
                     <ConnectedRouter history={history}>
                         <SplashContainer />
                         <HeaderContainer />
+                        <Breadcrumbs mappedRoutes={routes} />
                         <NotifyContainer />
                         <Route path="/" component={BaseContainer} />
                         <FooterContainer />

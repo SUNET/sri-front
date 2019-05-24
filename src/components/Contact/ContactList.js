@@ -25,7 +25,10 @@ class ContactList extends React.PureComponent {
     };
 
     _handleOnClick = (event, data) => {
-        this.props.history.push(`/contact/${data.handle_id}`);
+        // let test = `${this.props.match.url}/${data.handle_id}`;
+        // console.log(test);
+        console.log(`${this.props.match.url}/${data.handle_id}`);
+        this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
     };
 
     getData() {

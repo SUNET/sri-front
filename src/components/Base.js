@@ -9,9 +9,9 @@ class Base extends React.Component {
         return (
             <main className="container">
                 <Switch>
-                    <Route path="/contacts" component={SearchContainer} />
+                    <Route exact path="/contacts" component={SearchContainer} />
                     <Route
-                        path="/contact/:contactId"
+                        path="/contacts/:contactId"
                         component={ContactDetails}
                     />
                     <Route path="/roles" component={SearchContainer} />
