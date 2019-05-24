@@ -19,8 +19,7 @@ class CreateContact extends React.PureComponent {
         };
     }
 
-    _handleContact = () => {
-        console.log(this.props);
+    _handleContact() {
         const {
             first_name,
             last_name,
@@ -28,20 +27,25 @@ class CreateContact extends React.PureComponent {
             phone,
             contact_type
         } = this.state;
+
         CreateContactMutation(first_name, last_name, email, phone, contact_type)
-            .then((resp) => {
+            .then((response) => {
                 this.props.history.replace("/contacts");
             })
-            .catch((err) => {
-                this.setState({ errors: err });
+            .catch((errors) => {
+                this.setState({
+                    errors: errors.map((message) => {
+                        return message.message;
+                    })
+                });
             });
-        console.log(this.state.errors);
-    };
+    }
 
     render() {
         return (
             <section className="mt-4">
                 <h1>Create Contact</h1>
+                <div>{this.state.errors}</div>
                 <Form className="mt-3">
                     <Form.Row>
                         <Col sm={4}>

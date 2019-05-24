@@ -20,7 +20,7 @@ const mutation = graphql`
 
 let tempID = 0;
 
-export default function CreateContactMutation(
+function CreateContactMutation(
     first_name,
     last_name,
     email,
@@ -37,31 +37,34 @@ export default function CreateContactMutation(
             clientMutationId: tempID++
         }
     };
-    commitMutation(environment, {
-        mutation,
-        variables,
-        onCompleted: (response, errors) => {
-            console.log(response, environment);
-            if (errors) {
-                return errors;
-            } else {
-                return response;
-            }
-        },
-        onError: (err) => console.error(err),
-        configs: [
-            {
-                type: "RANGE_ADD",
-                parentName: ROOT_ID,
-                parentID: ROOT_ID,
-                connectionInfo: [
-                    {
-                        key: "ContactList_contacts",
-                        rangeBehavior: "append"
-                    }
-                ],
-                edgeName: "contactEdge"
-            }
-        ]
+    return new Promise( (resolve, reject) => {
+        commitMutation(environment, {
+            mutation,
+            variables,
+            onCompleted: (response, errors) => {
+                console.log(response, environment);
+                if (errors) {
+                    return reject(errors);
+                }
+                return resolve(response);
+            },
+            onError: (errors) => console.error(errors),
+            configs: [
+                {
+                    type: "RANGE_ADD",
+                    parentName: ROOT_ID,
+                    parentID: ROOT_ID,
+                    connectionInfo: [
+                        {
+                            key: "ContactList_contacts",
+                            rangeBehavior: "append"
+                        }
+                    ],
+                    edgeName: "contactEdge"
+                }
+            ]
+        });
     });
 }
+
+export default CreateContactMutation;
