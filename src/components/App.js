@@ -3,29 +3,18 @@ import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import Breadcrumbs  from 'react-router-dynamic-breadcrumbs';
+import { Row, Col } from "react-bootstrap";
 
 import "bootstrap/scss/bootstrap.scss";
 
 import FetchingContext from "../components/FetchingContext";
-
 import SplashContainer from "../containers/Splash";
-import HeaderContainer from "../containers/Header";
+import MainMenuContainer from "../containers/MainMenu";
 import BaseContainer from "../containers/Base";
-import FooterContainer from "../containers/Footer";
-import NotifyContainer from "../containers/Notify";
 
 import "../style/App.scss";
 
 import { history } from "../store";
-
-const routes = {
-  '/': 'Home',
-  '/contacts': 'Contacts',
-  '/roles': 'Roles',
-  '/contacts/create': 'Create Contact',
-  '/contacts/:contactId': 'Contact Info',
-};
 
 class App extends Component {
     render() {
@@ -34,11 +23,14 @@ class App extends Component {
                 <div className="App">
                     <ConnectedRouter history={history}>
                         <SplashContainer />
-                        <HeaderContainer />
-                        <Breadcrumbs mappedRoutes={routes} />
-                        <NotifyContainer />
-                        <Route path="/" component={BaseContainer} />
-                        <FooterContainer />
+                        <Row className="no-gutters">
+                            <Col sm={1} className="wrapper-main-menu">
+                                <MainMenuContainer />
+                            </Col>
+                            <Col sm={11} ml-3>
+                                <Route path="/" component={BaseContainer} />
+                            </Col>
+                        </Row>
                     </ConnectedRouter>
                 </div>
             </FetchingContext.Provider>

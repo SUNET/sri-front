@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import Header from "../components/Header";
+import MainMenu from "../components/MainMenu";
 
 const mapStateToProps = (state, props) => {
     return {};
@@ -10,9 +10,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {};
 };
 
-const HeaderContainer = connect(
+const MainMenuContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Header);
+)(MainMenu);
 
-export default HeaderContainer;
+export default MainMenuContainer;

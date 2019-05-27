@@ -7,7 +7,6 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import SearchFormContainer from "../containers/SearchForm";
 import { ContactList, CreateContact } from "./Contact";
 
 const SearchAllContactsQuery = graphql`
@@ -34,11 +33,6 @@ class Search extends React.Component {
     render() {
         return (
             <section style={{ minHeight: 450 }}>
-                <SearchFormContainer
-                    onSubmit={this._onSubmit}
-                    search={this.props.search}
-                />
-
                 <Route
                     exact
                     path="/contacts"
