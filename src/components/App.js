@@ -23,11 +23,11 @@ class App extends Component {
                 <div className="App">
                     <ConnectedRouter history={history}>
                         <SplashContainer />
-                        <Row className="no-gutters">
-                            <Col sm={1} className="wrapper-main-menu">
+                        <Row>
+                            <Col sm={1} id="wrapper-main-menu">
                                 <MainMenuContainer />
                             </Col>
-                            <Col sm={11} ml-3>
+                            <Col sm={11} id="wrapper-base">
                                 <Route path="/" component={BaseContainer} />
                             </Col>
                         </Row>

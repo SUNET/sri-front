@@ -5,7 +5,7 @@ import "../style/Footer.scss";
 
 function Footer({ t, i18n }) {
     return (
-        <footer className="row">
+        <footer>
             <p>{t("footer.copyright")}</p>
         </footer>
     );
