@@ -34,7 +34,7 @@ class Search extends React.Component {
             <section style={{ minHeight: 450 }}>
                 <Route
                     exact
-                    path="/contacts"
+                    path="/community/contacts"
                     render={() => (
                         <section className="mt-3">
                             <Row>
@@ -73,7 +73,7 @@ class Search extends React.Component {
                     )}
                 />
                 <Route
-                    path={`${this.props.match.url}/create`}
+                    path={`/community/contacts/create`}
                     component={CreateContact}
                 />
             </section>

@@ -12,7 +12,7 @@ class SubMenuActions extends React.Component {
             <ButtonToolbar>
                 <Button
                     as={Link}
-                    to={`${this.props.match.url}/create`}
+                    to={`/community/contacts/create`}
                     variant="outline-primary"
                 >
                     {t("+ New Contact")}
