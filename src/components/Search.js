@@ -1,6 +1,6 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
-import { ButtonToolbar, Button, Row, Col, Form } from "react-bootstrap";
+import { Route } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
@@ -8,6 +8,7 @@ import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
 import { ContactList, CreateContact } from "./Contact";
+import Filter from "./Filter";
 
 const SearchAllContactsQuery = graphql`
     query SearchAllContactsQuery($count: Int!) {
@@ -24,8 +25,6 @@ class Search extends React.Component {
         };
     }
 
-    _onSubmit = () => {};
-
     _handleOnChangeFilter = (event) => {
         this.setState({ filterValue: event.target.value });
     };
@@ -37,52 +36,39 @@ class Search extends React.Component {
                     exact
                     path="/contacts"
                     render={() => (
-                        <section>
-                            <Row className="mt-2">
+                        <section className="mt-3">
+                            <Row>
                                 <Col sm={9}>
-                                    <ButtonToolbar>
-                                        <Button
-                                            as={Link}
-                                            to={`${
-                                                this.props.match.url
-                                            }/create`}
-                                            variant="outline-primary"
-                                        >
-                                            + New Contact
-                                        </Button>
-                                    </ButtonToolbar>
-                                </Col>
-                                <Col sm={3}>
-                                    <Form.Control
-                                        placeholder="Filter"
-                                        defaultValue={this.state.filterValue}
-                                        onChange={(e) =>
-                                            this._handleOnChangeFilter(e)
-                                        }
+                                    <QueryRenderer
+                                        environment={environment}
+                                        query={SearchAllContactsQuery}
+                                        variables={{
+                                            count: ITEMS_PER_PAGE
+                                        }}
+                                        render={({ error, props }) => {
+                                            if (error) {
+                                                return (
+                                                    <div>{error.message}</div>
+                                                );
+                                            } else if (props) {
+                                                return (
+                                                    <ContactList
+                                                        history={
+                                                            this.props.history
+                                                        }
+                                                        match={this.props.match}
+                                                        contacts={props}
+                                                    />
+                                                );
+                                            }
+                                            return <div>Loading</div>;
+                                        }}
                                     />
                                 </Col>
+                                <Col sm={3}>
+                                    <Filter />
+                                </Col>
                             </Row>
-                            <QueryRenderer
-                                environment={environment}
-                                query={SearchAllContactsQuery}
-                                variables={{
-                                    count: ITEMS_PER_PAGE
-                                }}
-                                render={({ error, props }) => {
-                                    if (error) {
-                                        return <div>{error.message}</div>;
-                                    } else if (props) {
-                                        return (
-                                            <ContactList
-                                                history={this.props.history}
-                                                match={this.props.match}
-                                                contacts={props}
-                                            />
-                                        );
-                                    }
-                                    return <div>Loading</div>;
-                                }}
-                            />
                         </section>
                     )}
                 />

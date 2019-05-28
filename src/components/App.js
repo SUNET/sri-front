@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
-import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { Row, Col } from "react-bootstrap";
 
@@ -28,7 +27,7 @@ class App extends Component {
                                 <MainMenuContainer />
                             </Col>
                             <Col sm={11} id="wrapper-base">
-                                <Route path="/" component={BaseContainer} />
+                                <BaseContainer />
                             </Col>
                         </Row>
                     </ConnectedRouter>

@@ -2,6 +2,10 @@
     "en": {
         "translation": {
             "header.welcome": "SUNET",
+            "header.main-menu.home": "Home",
+            "header.main-menu.network": "Network",
+            "header.main-menu.services": "Sevices",
+            "header.main-menu.community": "Community",
             "header.navbar.contacts": "Contacts",
             "header.navbar.roles": "Roles",
             "footer.copyright": "© SUNET 2019"

@@ -1,0 +1,18 @@
+@import "../variables.scss";
+
+.filter {
+    > div {
+        background-color: $secundary-color;
+        padding: 20px 10px;
+        div{
+            margin-top: 20px;
+        }
+    }
+    header {
+        font-size: 24px;
+        svg {
+            float: right;
+        }
+    }
+
+}

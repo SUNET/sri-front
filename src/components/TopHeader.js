@@ -10,7 +10,7 @@ import "../style/TopHeader.scss";
 function TopHeader({ t, i18n }) {
     return (
         <header>
-            <Navbar>
+            <Navbar id="top-header">
                 <Navbar.Brand as={Link} to="/">
                     {t("header.welcome")}
                 </Navbar.Brand>

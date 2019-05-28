@@ -1,6 +1,10 @@
 @import "../variables.scss";
 
-header {
+header nav#top-header {
     width: 100%;
     text-align: center;
+}
+
+header nav#top-header svg {
+    color: grey;
 }

@@ -41,7 +41,7 @@ class ContactList extends React.PureComponent {
 
     renderTable() {
         return (
-            <Table striped bordered hover className="mt-3">
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Id</th>
