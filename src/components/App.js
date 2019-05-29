@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withTranslation } from "react-i18next";
 import { ConnectedRouter } from "connected-react-router";
+import { Route } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 
 import "bootstrap/scss/bootstrap.scss";
@@ -27,7 +27,7 @@ class App extends Component {
                                 <MainMenuContainer />
                             </Col>
                             <Col sm={11} id="wrapper-base">
-                                <BaseContainer />
+                                <Route path="/" component={BaseContainer} />
                             </Col>
                         </Row>
                     </ConnectedRouter>
@@ -41,4 +41,4 @@ App.propTypes = {
     is_fetching: PropTypes.bool
 };
 
-export default withTranslation()(App);
+export default App;

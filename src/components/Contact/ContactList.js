@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Button, Table } from "react-bootstrap";
+import { withRouter } from 'react-router-dom';
 
 import { ITEMS_PER_PAGE } from "../../constants";
 import ContactRow from "./ContactRow";
@@ -71,7 +72,7 @@ class ContactList extends React.PureComponent {
 }
 
 export default createPaginationContainer(
-    ContactList,
+    withRouter(ContactList),
     graphql`
         fragment ContactList_contacts on Query
             @argumentDefinitions(

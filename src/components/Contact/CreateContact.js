@@ -30,7 +30,7 @@ class CreateContact extends React.PureComponent {
 
         CreateContactMutation(first_name, last_name, email, phone, contact_type)
             .then((response) => {
-                this.props.history.replace("/contacts");
+                this.props.history.replace("/community/contacts");
             })
             .catch((errors) => {
                 this.setState({

@@ -1,14 +1,16 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
+import { withRouter } from "react-router-dom";
 
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import { ContactList, CreateContact } from "./Contact";
+import { ContactList, CreateContact, ContactDetails } from "./Contact";
 import Filter from "./Filter";
+import { RouteNotFound } from "./NotFound";
 
 const SearchAllContactsQuery = graphql`
     query SearchAllContactsQuery($count: Int!) {
@@ -31,54 +33,59 @@ class Search extends React.Component {
 
     render() {
         return (
-            <section style={{ minHeight: 450 }}>
-                <Route
-                    exact
-                    path="/community/contacts"
-                    render={() => (
-                        <section className="mt-3">
-                            <Row>
-                                <Col sm={9}>
-                                    <QueryRenderer
-                                        environment={environment}
-                                        query={SearchAllContactsQuery}
-                                        variables={{
-                                            count: ITEMS_PER_PAGE
-                                        }}
-                                        render={({ error, props }) => {
-                                            if (error) {
-                                                return (
-                                                    <div>{error.message}</div>
-                                                );
-                                            } else if (props) {
-                                                return (
-                                                    <ContactList
-                                                        history={
-                                                            this.props.history
-                                                        }
-                                                        match={this.props.match}
-                                                        contacts={props}
-                                                    />
-                                                );
-                                            }
-                                            return <div>Loading</div>;
-                                        }}
-                                    />
-                                </Col>
-                                <Col sm={3}>
-                                    <Filter />
-                                </Col>
-                            </Row>
-                        </section>
-                    )}
-                />
-                <Route
-                    path={`/community/contacts/create`}
-                    component={CreateContact}
-                />
+            <section>
+                <Switch>
+                    <Route
+                        exact
+                        path={`${this.props.match.url}/contacts`}
+                        render={() => (
+                            <section className="mt-3">
+                                <Row>
+                                    <Col sm={9}>
+                                        <QueryRenderer
+                                            environment={environment}
+                                            query={SearchAllContactsQuery}
+                                            variables={{
+                                                count: ITEMS_PER_PAGE
+                                            }}
+                                            render={({ error, props }) => {
+                                                if (error) {
+                                                    return (
+                                                        <div>
+                                                            {error.message}
+                                                        </div>
+                                                    );
+                                                } else if (props) {
+                                                    return (
+                                                        <ContactList
+                                                            contacts={props}
+                                                        />
+                                                    );
+                                                }
+                                                return <div>Loading</div>;
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col sm={3}>
+                                        <Filter />
+                                    </Col>
+                                </Row>
+                            </section>
+                        )}
+                    />
+                    <Route
+                        path={`${this.props.match.url}/contacts/create`}
+                        component={CreateContact}
+                    />
+                    <Route
+                        path={`${this.props.match.url}/contacts/:contactId`}
+                        component={ContactDetails}
+                    />
+                    <RouteNotFound />
+                </Switch>
             </section>
         );
     }
 }
 
-export default Search;
+export default withRouter(Search);

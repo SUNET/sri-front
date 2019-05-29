@@ -17,7 +17,7 @@ const ContactDetailsQuery = graphql`
     }
 `;
 
-class ContactDetails extends React.PureComponent {
+class ContactDetails extends React.Component {
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.shape({
@@ -64,7 +64,7 @@ class ContactDetails extends React.PureComponent {
     _handleDelete = () => {
         const contactId = this.props.match.params.contactId;
         DeleteContactMutation(contactId, () =>
-            this.props.history.push("/contacts")
+            this.props.history.push(`/community/contacts`)
         );
     };
 
@@ -81,7 +81,7 @@ class ContactDetails extends React.PureComponent {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <section>
+                            <section className="mt-3">
                                 <Form>
                                     <Contact
                                         onChange={this._handleContactChange}

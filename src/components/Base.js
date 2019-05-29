@@ -11,9 +11,9 @@ import Community from "./Community";
 import NotifyContainer from "../containers/Notify";
 import FooterContainer from "../containers/Footer";
 import Routes from "./Routes";
-import NotFound from "./NotFound";
+import CaptureRouteNotFound, { RouteNotFound } from "./NotFound";
 
-import "../style/Breadcrumbs.scss"
+import "../style/Breadcrumbs.scss";
 
 class Base extends React.Component {
     render() {
@@ -22,13 +22,15 @@ class Base extends React.Component {
                 <TopHeader />
                 <NotifyContainer />
                 <Breadcrumbs mappedRoutes={Routes} />
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/network" component={Network} />
-                    <Route path="/services" component={Services} />
-                    <Route path="/community" component={Community} />
-                    <Route path="*" component={NotFound} />
-                </Switch>
+                <CaptureRouteNotFound>
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route path="/network" component={Network} />
+                        <Route path="/services" component={Services} />
+                        <Route path="/community" component={Community} />
+                        <RouteNotFound />
+                    </Switch>
+                </CaptureRouteNotFound>
                 <FooterContainer />
             </section>
         );

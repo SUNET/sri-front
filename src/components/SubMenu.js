@@ -2,7 +2,6 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { Route, Switch } from "react-router-dom";
 
 import SubMenuActions from "./SubMenuActions";
 

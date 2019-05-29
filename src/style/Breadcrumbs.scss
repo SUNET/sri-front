@@ -1,5 +1,12 @@
 @import "../variables.scss";
 
-.breadcrumbs{
-    background-color: $background-color !important;
+.breadcrumb{
+    background-color: $background-color;
+    .breadcrumb-item{
+        &:not(:first-child){
+            &:before {
+                content: ">";
+            }
+        }
+    }
 }
