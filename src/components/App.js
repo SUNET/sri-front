@@ -23,7 +23,7 @@ class App extends Component {
                     <ConnectedRouter history={history}>
                         <SplashContainer />
                         <Row>
-                            <Col sm={1} id="wrapper-main-menu">
+                            <Col sm={1} id="wrapper-main-menu" className="px-0">
                                 <MainMenuContainer />
                             </Col>
                             <Col sm={11} id="wrapper-base">

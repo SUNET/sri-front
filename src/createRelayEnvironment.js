@@ -1,4 +1,10 @@
-import { Environment, Network, RecordSource, Store } from "relay-runtime";
+import {
+    Environment,
+    Network,
+    RecordSource,
+    Store,
+    QueryResponseCache
+} from "relay-runtime";
 // import $ from "jquery";
 
 // function getCookie(name) {
@@ -20,6 +26,10 @@ import { Environment, Network, RecordSource, Store } from "relay-runtime";
 //
 // var csrftoken = getCookie("csrftoken");
 
+// CACHING
+const oneMinute = 60 * 1000;
+const cache = new QueryResponseCache({ size: 100, ttl: oneMinute });
+
 const API_HOST = "http://localhost:8000";
 
 let _csrfToken = null;
@@ -35,7 +45,26 @@ async function getCsrfToken() {
     return _csrfToken;
 }
 
-function fetchQuery(operation, variables) {
+function fetchQuery(operation, variables, cacheConfig, uploadables) {
+    const queryId = operation.name;
+    const isMutation = operation.operationKind === "mutation";
+    const isQuery = operation.operationKind === "query";
+    const cachedData = cache.get(queryId, variables);
+    const forceLoad = cacheConfig && cacheConfig.force;
+
+    console.log(isQuery);
+    console.log(cacheConfig);
+    console.log(cachedData);
+
+    if (isQuery && !forceLoad && cachedData) {
+        return cachedData;
+    }
+
+    if (forceLoad) {
+        // clear() means to reset all the cache, not only the entry addressed by specific queryId.
+        cache.clear();
+    }
+
     return fetch(`${API_HOST}/graphql/`, {
         credentials: "include",
         method: "POST",
@@ -48,12 +77,25 @@ function fetchQuery(operation, variables) {
             query: operation.text,
             variables
         })
-    }).then((response) => {
-        if (response.redirected) {
-            document.location = response.url;
-        }
-        return response.json();
-    });
+    })
+        .then((response) => {
+            if (response.redirected) {
+                document.location = response.url;
+            }
+            return response.json();
+        })
+        .then((json) => {
+            // Update cache on queries
+            if (isQuery && json) {
+                cache.set(queryId, variables, json);
+            }
+            // Clear cache on mutations
+            if (isMutation) {
+                cache.clear();
+            }
+
+            return json;
+        });
 }
 
 const RelayEnvironment = new Environment({

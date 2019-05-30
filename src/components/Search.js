@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
+import QueryLookupRenderer from "relay-query-lookup-renderer";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
 
@@ -39,16 +40,19 @@ class Search extends React.Component {
                         exact
                         path={`${this.props.match.url}/contacts`}
                         render={() => (
+
                             <section className="mt-3">
                                 <Row>
                                     <Col sm={9}>
-                                        <QueryRenderer
+                                        <QueryLookupRenderer
+                                            lookup={true}
                                             environment={environment}
                                             query={SearchAllContactsQuery}
                                             variables={{
                                                 count: ITEMS_PER_PAGE
                                             }}
                                             render={({ error, props }) => {
+                                                console.log(environment.getStore().getSource());
                                                 if (error) {
                                                     return (
                                                         <div>
@@ -67,7 +71,11 @@ class Search extends React.Component {
                                         />
                                     </Col>
                                     <Col sm={3}>
-                                        <Filter />
+                                        <Filter
+                                            handleOnChangeFilter={
+                                                this._handleOnChangeFilter
+                                            }
+                                        />
                                     </Col>
                                 </Row>
                             </section>
