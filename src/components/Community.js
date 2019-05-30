@@ -1,6 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import SearchContainer from "../containers/Search";
 import SubMenu from "./SubMenu";
@@ -13,10 +13,17 @@ class Community extends React.Component {
         return (
             <div>
                 <SubMenu />
-                <SearchContainer />
+                <Switch>
+                    <Route
+                        exact
+                        path="/community"
+                        component={() => <p>Community</p>}
+                    />
+                    <Route component={SearchContainer} />
+                </Switch>
             </div>
         );
     }
 }
 
-export default withTranslation()(withRouter(Community));
+export default withTranslation()(Community);
