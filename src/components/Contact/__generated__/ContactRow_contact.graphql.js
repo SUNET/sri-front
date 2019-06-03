@@ -18,6 +18,7 @@ export type ContactRow_contact = {|
   +contact_type: ?string,
   +phone: ?string,
   +email: ?string,
+  +modified: any,
   +is_roles: ?$ReadOnlyArray<?{|
     +name: string
   |}>,
@@ -91,6 +92,13 @@ return {
       "storageKey": null
     },
     {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "modified",
+      "args": null,
+      "storageKey": null
+    },
+    {
       "kind": "LinkedField",
       "alias": null,
       "name": "is_roles",
@@ -114,5 +122,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd32705e83254d73c99695019d5029cd1';
+(node/*: any*/).hash = 'ca81fe9e17ab3cda0d64df8654e53a7b';
 module.exports = node;

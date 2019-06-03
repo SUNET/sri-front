@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Button, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
 import { ITEMS_PER_PAGE } from "../../constants";
 import ContactRow from "./ContactRow";
+import OrderBy from "../OrderBy";
 
 class ContactList extends React.PureComponent {
     static propTypes = {
@@ -42,20 +43,13 @@ class ContactList extends React.PureComponent {
 
     renderTable() {
         return (
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Contact Type</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>{this.getData()}</tbody>
-            </Table>
+            <section>
+                <OrderBy changeOrderBy={this.props.changeOrderBy} />
+                {this.getData()}
+            </section>
         );
     }
+
     render() {
         return (
             <section>
@@ -79,9 +73,14 @@ export default createPaginationContainer(
                 count: { type: "Int" }
                 cursor: { type: "String" }
                 filter: { type: ContactFilter }
+                orderBy: { type: ContactOrderBy }
             ) {
-            contacts(first: $count, after: $cursor, filter: $filter)
-                @connection(key: "ContactList_contacts", filters: []) {
+            contacts(
+                first: $count
+                after: $cursor
+                filter: $filter
+                orderBy: $orderBy
+            ) @connection(key: "ContactList_contacts", filters: []) {
                 edges {
                     node {
                         handle_id
@@ -100,9 +99,17 @@ export default createPaginationContainer(
         query: graphql`
             # Pagination query to be fetched upon calling 'loadMore'.
             # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
-            query ContactListForwardQuery($count: Int!, $cursor: String) {
+            query ContactListForwardQuery(
+                $count: Int!
+                $cursor: String
+                $orderBy: ContactOrderBy
+            ) {
                 ...ContactList_contacts
-                    @arguments(count: $count, cursor: $cursor)
+                    @arguments(
+                        count: $count
+                        cursor: $cursor
+                        orderBy: $orderBy
+                    )
             }
         `,
         getConnectionFromProps(props) {
@@ -118,7 +125,8 @@ export default createPaginationContainer(
         getVariables(props, paginationInfo, fragmentVariables) {
             return {
                 count: paginationInfo.count,
-                cursor: paginationInfo.cursor
+                cursor: paginationInfo.cursor,
+                orderBy: fragmentVariables.orderBy
             };
         }
     }

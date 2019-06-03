@@ -63,6 +63,12 @@ const node/*: ReaderFragment*/ = {
       "name": "filter",
       "type": "ContactFilter",
       "defaultValue": null
+    },
+    {
+      "kind": "LocalArgument",
+      "name": "orderBy",
+      "type": "ContactOrderBy",
+      "defaultValue": null
     }
   ],
   "selections": [
@@ -153,5 +159,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = 'f430ba146b43c6e12fdc9bc4c3fcb689';
+(node/*: any*/).hash = 'dcfc2bb6c31ccb1c1b57ae2fa5cc0d6b';
 module.exports = node;

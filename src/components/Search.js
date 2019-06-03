@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
-import { QueryRenderer } from "react-relay";
 import QueryLookupRenderer from "relay-query-lookup-renderer";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
@@ -14,8 +13,13 @@ import Filter from "./Filter";
 import { RouteNotFound } from "./NotFound";
 
 const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery($count: Int!, $filter: ContactFilter) {
-        ...ContactList_contacts @arguments(count: $count, filter: $filter)
+    query SearchAllContactsQuery(
+        $count: Int!
+        $filter: ContactFilter
+        $orderBy: ContactOrderBy
+    ) {
+        ...ContactList_contacts
+            @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
 `;
 
@@ -24,13 +28,53 @@ class Search extends React.Component {
         super(props);
 
         this.state = {
-            filterValue: ""
+            filterValue: "",
+            orderBy: "handle_id_ASC"
         };
     }
 
     _handleOnChangeFilter = (event) => {
         this.setState({ filterValue: event.target.value });
     };
+
+    _handleOnChangeOrderBy = (orderBy) => {
+        console.log(orderBy);
+        this.setState({ orderBy: orderBy });
+    };
+
+    renderModelList() {
+        return (
+            <QueryLookupRenderer
+                lookup={true}
+                environment={environment}
+                query={SearchAllContactsQuery}
+                variables={{
+                    count: ITEMS_PER_PAGE,
+                    filter: {
+                        AND: [
+                            {
+                                name_contains: this.state.filterValue
+                            }
+                        ]
+                    },
+                    orderBy: this.state.orderBy
+                }}
+                render={({ error, props }) => {
+                    if (error) {
+                        return <div>{error.message}</div>;
+                    } else if (props) {
+                        return (
+                            <ContactList
+                                contacts={props}
+                                changeOrderBy={this._handleOnChangeOrderBy}
+                            />
+                        );
+                    }
+                    return <div>Loading</div>;
+                }}
+            />
+        );
+    }
 
     render() {
         return (
@@ -42,42 +86,10 @@ class Search extends React.Component {
                         render={() => (
                             <section className="mt-3">
                                 <Row>
-                                    <Col sm={9}>
-                                        <QueryLookupRenderer
-                                            lookup={true}
-                                            environment={environment}
-                                            query={SearchAllContactsQuery}
-                                            variables={{
-                                                count: ITEMS_PER_PAGE,
-                                                filter: {
-                                                    AND: [
-                                                        {
-                                                            name_contains: this.state.filterValue,
-                                                        }
-                                                    ]
-                                                }
-                                            }}
-                                            render={({ error, props }) => {
-                                                if (error) {
-                                                    return (
-                                                        <div>
-                                                            {error.message}
-                                                        </div>
-                                                    );
-                                                } else if (props) {
-                                                    return (
-                                                        <ContactList
-                                                            contacts={props}
-                                                        />
-                                                    );
-                                                }
-                                                return <div>Loading</div>;
-                                            }}
-                                        />
-                                    </Col>
+                                    <Col sm={9}>{this.renderModelList()}</Col>
                                     <Col sm={3}>
                                         <Filter
-                                            handleOnChangeFilter={
+                                            changeFilter={
                                                 this._handleOnChangeFilter
                                             }
                                         />

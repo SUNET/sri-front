@@ -27,7 +27,7 @@ class Filter extends React.Component {
                         <Form.Control
                             placeholder="Filter"
                             defaultValue={this.state.filterValue}
-                            onChange={(e) => this.props.handleOnChangeFilter(e)}
+                            onChange={(e) => this.props.changeFilter(e)}
                         />
                     </div>
                     <div className="mt-1">

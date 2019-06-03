@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b63b4e1731ac1a5825c78f764c3f3b1c
+ * @relayHash f256a3795b0d1f7ba94105cec486ac5d
  */
 
 /* eslint-disable */
@@ -10,9 +10,11 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type ContactList_contacts$ref = any;
+export type ContactOrderBy = "PGP_fingerprint_ASC" | "PGP_fingerprint_DESC" | "contact_type_ASC" | "contact_type_DESC" | "email_ASC" | "email_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "mobile_ASC" | "mobile_DESC" | "name_ASC" | "name_DESC" | "other_email_ASC" | "other_email_DESC" | "phone_ASC" | "phone_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
 export type ContactListForwardQueryVariables = {|
   count: number,
   cursor?: ?string,
+  orderBy?: ?ContactOrderBy,
 |};
 export type ContactListForwardQueryResponse = {|
   +$fragmentRefs: ContactList_contacts$ref
@@ -28,12 +30,13 @@ export type ContactListForwardQuery = {|
 query ContactListForwardQuery(
   $count: Int!
   $cursor: String
+  $orderBy: ContactOrderBy
 ) {
-  ...ContactList_contacts_1G22uz
+  ...ContactList_contacts_32czeo
 }
 
-fragment ContactList_contacts_1G22uz on Query {
-  contacts(first: $count, after: $cursor) {
+fragment ContactList_contacts_32czeo on Query {
+  contacts(first: $count, after: $cursor, orderBy: $orderBy) {
     edges {
       node {
         handle_id
@@ -58,6 +61,7 @@ fragment ContactRow_contact on Contact {
   contact_type
   phone
   email
+  modified
   is_roles {
     name
     id
@@ -82,6 +86,12 @@ var v0 = [
     "name": "cursor",
     "type": "String",
     "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
+    "name": "orderBy",
+    "type": "ContactOrderBy",
+    "defaultValue": null
   }
 ],
 v1 = [
@@ -96,6 +106,12 @@ v1 = [
     "name": "first",
     "variableName": "count",
     "type": "Int"
+  },
+  {
+    "kind": "Variable",
+    "name": "orderBy",
+    "variableName": "orderBy",
+    "type": "ContactOrderBy"
   }
 ],
 v2 = {
@@ -139,6 +155,12 @@ return {
             "kind": "Variable",
             "name": "cursor",
             "variableName": "cursor",
+            "type": null
+          },
+          {
+            "kind": "Variable",
+            "name": "orderBy",
+            "variableName": "orderBy",
             "type": null
           }
         ]
@@ -217,6 +239,13 @@ return {
                     "kind": "ScalarField",
                     "alias": null,
                     "name": "email",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "modified",
                     "args": null,
                     "storageKey": null
                   },
@@ -301,11 +330,11 @@ return {
     "operationKind": "query",
     "name": "ContactListForwardQuery",
     "id": null,
-    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n) {\n  ...ContactList_contacts_1G22uz\n}\n\nfragment ContactList_contacts_1G22uz on Query {\n  contacts(first: $count, after: $cursor) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  phone\n  email\n  is_roles {\n    name\n    id\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  phone\n  email\n  modified\n  is_roles {\n    name\n    id\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8b48327f225cc690878c9a5fc311712f';
+(node/*: any*/).hash = '96a0d0eb0ad60f76ab272f4c423e87fd';
 module.exports = node;

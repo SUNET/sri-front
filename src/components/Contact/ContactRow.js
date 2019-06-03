@@ -2,6 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+
+import "../../style/ModelRow.scss"
 
 class ContactRow extends React.PureComponent {
     static propTypes = {
@@ -9,18 +13,31 @@ class ContactRow extends React.PureComponent {
         onClick: PropTypes.func.isRequired
     };
 
+    formatDate = (dateString) => {
+        let date = new Date(dateString);
+        return date.toISOString("YYYY-MM-DD");
+    }
+
     render() {
         let contact = this.props.contact;
         return (
-            <tr onClick={(e) => this.props.onClick(e, contact)}>
-                <td>{contact.handle_id}</td>
-                <td>{contact.contact_type}</td>
-                <td>
-                    {contact.first_name} {contact.last_name}
-                </td>
-                <td>{contact.phone}</td>
-                <td>{contact.email}</td>
-            </tr>
+            <article className="model-row">
+                <button onClick={(e) => this.props.onClick(e, contact)}>
+                    <FontAwesomeIcon icon={faPlus} />FOLLOW
+                </button>
+                <div>
+                    <div>
+                        {contact.first_name} {contact.last_name}
+                    </div>
+                    <span>{contact.is_roles.map((role) => {
+                        return role.name
+                    })}</span>
+                </div>
+                <div>Last update: {this.formatDate(contact.modified)}</div>
+                <button onClick={(e) => this.props.onClick(e, contact)}>
+                    SEE DETAILS<FontAwesomeIcon icon={faAngleRight} />
+                </button>
+            </article>
         );
     }
 }
@@ -36,6 +53,7 @@ const ContactRowFragment = createFragmentContainer(
             contact_type
             phone
             email
+            modified
             is_roles {
                 name
             }
