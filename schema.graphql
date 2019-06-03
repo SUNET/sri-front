@@ -1,3 +1,4 @@
+"""This class is used for the choices available in a dropdown"""
 type Choice {
   id: ID!
   dropdown: Dropdown!
@@ -5,6 +6,7 @@ type Choice {
   value: String!
 }
 
+"""A contact in the SRI system"""
 type Contact implements Node {
   handle_id: ID!
   node_name: String!
@@ -16,6 +18,9 @@ type Contact implements Node {
 
   """The ID of the object."""
   id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
   name: String!
   first_name: String!
   last_name: String!
@@ -29,7 +34,7 @@ type Contact implements Node {
   PGP_fingerprint: String
   is_roles: [Role]
   member_of_groups: [Group]
-  nidata: [DictEntryType]
+  works_for: [NIRelationType]
 }
 
 type ContactConnection {
@@ -53,6 +58,8 @@ input ContactFilter {
 input ContactNestedFilter {
   name: String
   name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
   name_lt: String
   name_lte: String
   name_gt: String
@@ -63,10 +70,10 @@ input ContactNestedFilter {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  name_in: [String!]
-  name_not_in: [String!]
   first_name: String
   first_name_not: String
+  first_name_in: [String!]
+  first_name_not_in: [String!]
   first_name_lt: String
   first_name_lte: String
   first_name_gt: String
@@ -77,10 +84,10 @@ input ContactNestedFilter {
   first_name_not_starts_with: String
   first_name_ends_with: String
   first_name_not_ends_with: String
-  first_name_in: [String!]
-  first_name_not_in: [String!]
   last_name: String
   last_name_not: String
+  last_name_in: [String!]
+  last_name_not_in: [String!]
   last_name_lt: String
   last_name_lte: String
   last_name_gt: String
@@ -91,10 +98,10 @@ input ContactNestedFilter {
   last_name_not_starts_with: String
   last_name_ends_with: String
   last_name_not_ends_with: String
-  last_name_in: [String!]
-  last_name_not_in: [String!]
   title: String
   title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
   title_lt: String
   title_lte: String
   title_gt: String
@@ -105,10 +112,10 @@ input ContactNestedFilter {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
-  title_in: [String!]
-  title_not_in: [String!]
   salutation: String
   salutation_not: String
+  salutation_in: [String!]
+  salutation_not_in: [String!]
   salutation_lt: String
   salutation_lte: String
   salutation_gt: String
@@ -119,10 +126,10 @@ input ContactNestedFilter {
   salutation_not_starts_with: String
   salutation_ends_with: String
   salutation_not_ends_with: String
-  salutation_in: [String!]
-  salutation_not_in: [String!]
   contact_type: String
   contact_type_not: String
+  contact_type_in: [String!]
+  contact_type_not_in: [String!]
   contact_type_lt: String
   contact_type_lte: String
   contact_type_gt: String
@@ -133,10 +140,10 @@ input ContactNestedFilter {
   contact_type_not_starts_with: String
   contact_type_ends_with: String
   contact_type_not_ends_with: String
-  contact_type_in: [String!]
-  contact_type_not_in: [String!]
   phone: String
   phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
   phone_lt: String
   phone_lte: String
   phone_gt: String
@@ -147,10 +154,10 @@ input ContactNestedFilter {
   phone_not_starts_with: String
   phone_ends_with: String
   phone_not_ends_with: String
-  phone_in: [String!]
-  phone_not_in: [String!]
   mobile: String
   mobile_not: String
+  mobile_in: [String!]
+  mobile_not_in: [String!]
   mobile_lt: String
   mobile_lte: String
   mobile_gt: String
@@ -161,10 +168,10 @@ input ContactNestedFilter {
   mobile_not_starts_with: String
   mobile_ends_with: String
   mobile_not_ends_with: String
-  mobile_in: [String!]
-  mobile_not_in: [String!]
   email: String
   email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
   email_lt: String
   email_lte: String
   email_gt: String
@@ -175,10 +182,10 @@ input ContactNestedFilter {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
-  email_in: [String!]
-  email_not_in: [String!]
   other_email: String
   other_email_not: String
+  other_email_in: [String!]
+  other_email_not_in: [String!]
   other_email_lt: String
   other_email_lte: String
   other_email_gt: String
@@ -189,10 +196,10 @@ input ContactNestedFilter {
   other_email_not_starts_with: String
   other_email_ends_with: String
   other_email_not_ends_with: String
-  other_email_in: [String!]
-  other_email_not_in: [String!]
   PGP_fingerprint: String
   PGP_fingerprint_not: String
+  PGP_fingerprint_in: [String!]
+  PGP_fingerprint_not_in: [String!]
   PGP_fingerprint_lt: String
   PGP_fingerprint_lte: String
   PGP_fingerprint_gt: String
@@ -203,8 +210,6 @@ input ContactNestedFilter {
   PGP_fingerprint_not_starts_with: String
   PGP_fingerprint_ends_with: String
   PGP_fingerprint_not_ends_with: String
-  PGP_fingerprint_in: [String!]
-  PGP_fingerprint_not_in: [String!]
   handle_id: Int
   handle_id_not: Int
   handle_id_in: [Int!]
@@ -329,12 +334,23 @@ type DictEntryType {
   value: String!
 }
 
+"""
+This type represents an key value pair for a relationship dictionary,
+the key is the name of the relationship and the value the NIRelationType itself
+"""
+type DictRelationType {
+  name: String!
+  relation: NIRelationType!
+}
+
+"""This class represents a dropdown to use in forms"""
 type Dropdown {
   id: ID!
   name: String!
   choice_set: [Choice]
 }
 
+"""The group type is used to group contacts"""
 type Group implements Node {
   handle_id: ID!
   node_name: String!
@@ -346,8 +362,10 @@ type Group implements Node {
 
   """The ID of the object."""
   id: ID!
-  name: String!
   nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  name: String!
 }
 
 type GroupConnection {
@@ -371,6 +389,8 @@ input GroupFilter {
 input GroupNestedFilter {
   name: String
   name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
   name_lt: String
   name_lte: String
   name_gt: String
@@ -381,8 +401,6 @@ input GroupNestedFilter {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  name_in: [String!]
-  name_not_in: [String!]
   handle_id: Int
   handle_id_not: Int
   handle_id_in: [Int!]
@@ -411,6 +429,17 @@ type Mutation {
   create_contact(input: CreateNIContactMutationInput!): CreateNIContactMutation
   update_contact(input: UpdateNIContactMutationInput!): UpdateNIContactMutation
   delete_contact(input: DeleteNIContactMutationInput!): DeleteNIContactMutation
+}
+
+"""This class represents a relationship and its properties"""
+type NIRelationType implements Node {
+  """The ID of the object."""
+  id: ID!
+  relation_id: Int!
+  type: String!
+  start: Int!
+  end: Int!
+  data: [DictEntryType]
 }
 
 """An object with an ID"""
@@ -446,6 +475,9 @@ type NodeHandler implements Node {
   """The ID of the object."""
   id: ID!
   nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  name: String!
 }
 
 type PageInfo {
@@ -467,6 +499,7 @@ type Query {
   node(id: ID!): Node
   getNodeById(handle_id: Int): NodeHandler
   getChoicesForDropdown(name: String!): [Choice]
+  getRelationById(relation_id: Int!): NIRelationType
   roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
   getRoleById(handle_id: Int): Role
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
@@ -486,8 +519,10 @@ type Role implements Node {
 
   """The ID of the object."""
   id: ID!
-  name: String!
   nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  name: String!
 }
 
 type RoleConnection {
@@ -511,6 +546,8 @@ input RoleFilter {
 input RoleNestedFilter {
   name: String
   name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
   name_lt: String
   name_lte: String
   name_gt: String
@@ -521,8 +558,6 @@ input RoleNestedFilter {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  name_in: [String!]
-  name_not_in: [String!]
   handle_id: Int
   handle_id_not: Int
   handle_id_in: [Int!]
@@ -589,6 +624,7 @@ input UpdateNIRoleMutationInput {
   clientMutationId: String
 }
 
+"""The django user type"""
 type User {
   id: ID!
   password: String!

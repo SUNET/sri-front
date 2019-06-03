@@ -52,10 +52,6 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
     const cachedData = cache.get(queryId, variables);
     const forceLoad = cacheConfig && cacheConfig.force;
 
-    console.log(isQuery);
-    console.log(cacheConfig);
-    console.log(cachedData);
-
     if (isQuery && !forceLoad && cachedData) {
         return cachedData;
     }

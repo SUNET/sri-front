@@ -14,8 +14,8 @@ import Filter from "./Filter";
 import { RouteNotFound } from "./NotFound";
 
 const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery($count: Int!) {
-        ...ContactList_contacts @arguments(count: $count)
+    query SearchAllContactsQuery($count: Int!, $filter: ContactFilter) {
+        ...ContactList_contacts @arguments(count: $count, filter: $filter)
     }
 `;
 
@@ -40,7 +40,6 @@ class Search extends React.Component {
                         exact
                         path={`${this.props.match.url}/contacts`}
                         render={() => (
-
                             <section className="mt-3">
                                 <Row>
                                     <Col sm={9}>
@@ -49,10 +48,16 @@ class Search extends React.Component {
                                             environment={environment}
                                             query={SearchAllContactsQuery}
                                             variables={{
-                                                count: ITEMS_PER_PAGE
+                                                count: ITEMS_PER_PAGE,
+                                                filter: {
+                                                    AND: [
+                                                        {
+                                                            name_contains: this.state.filterValue,
+                                                        }
+                                                    ]
+                                                }
                                             }}
                                             render={({ error, props }) => {
-                                                console.log(environment.getStore().getSource());
                                                 if (error) {
                                                     return (
                                                         <div>

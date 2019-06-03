@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Button, Table } from "react-bootstrap";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 import { ITEMS_PER_PAGE } from "../../constants";
 import ContactRow from "./ContactRow";
@@ -78,8 +78,9 @@ export default createPaginationContainer(
             @argumentDefinitions(
                 count: { type: "Int" }
                 cursor: { type: "String" }
+                filter: { type: ContactFilter }
             ) {
-            contacts(first: $count, after: $cursor)
+            contacts(first: $count, after: $cursor, filter: $filter)
                 @connection(key: "ContactList_contacts", filters: []) {
                 edges {
                     node {
