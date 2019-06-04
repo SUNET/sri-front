@@ -28,17 +28,21 @@ class Search extends React.Component {
         super(props);
 
         this.state = {
+            countList: ITEMS_PER_PAGE,
             filterValue: "",
-            orderBy: "handle_id_ASC"
+            orderBy: "handle_id_DESC"
         };
     }
+
+    _handleOnChangeCount = (count) => {
+        this.setState({ countList: this.state.countList + count });
+    };
 
     _handleOnChangeFilter = (event) => {
         this.setState({ filterValue: event.target.value });
     };
 
     _handleOnChangeOrderBy = (orderBy) => {
-        console.log(orderBy);
         this.setState({ orderBy: orderBy });
     };
 
@@ -67,6 +71,7 @@ class Search extends React.Component {
                             <ContactList
                                 contacts={props}
                                 changeOrderBy={this._handleOnChangeOrderBy}
+                                changeCount={this._handleOnChangeCount}
                             />
                         );
                     }

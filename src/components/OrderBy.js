@@ -14,25 +14,35 @@ class Filter extends React.Component {
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state == null) return true;
+
+        if (this.props === nextProps) {
+            return false;
+        }
+        return true;
+    };
+
     _handleOnChangeOrderBy = (event) => {
         if (this.state.orderBy === "handle_id_DESC") {
-            this.setState({ orderBy: "handle_id_ASC" }, () => this.props.changeOrderBy(this.state.orderBy));
+            this.setState({ orderBy: "handle_id_ASC" });
         } else {
-            this.setState({ orderBy: "handle_id_DESC" }, () => this.props.changeOrderBy(this.state.orderBy));
+            this.setState({ orderBy: "handle_id_DESC" });
         }
-     };
+        this.props.changeOrderBy(this.state.orderBy);
+    };
 
     renderType() {
         const t = this.props.t;
         switch (this.state.orderBy) {
-            case "handle_id_ASC":
+            case "handle_id_DESC":
                 return (
                     <>
                         <span>{t("Newest first")}</span>
                         <FontAwesomeIcon icon={faAngleDown} />
                     </>
                 );
-            case "handle_id_DESC":
+            case "handle_id_ASC":
                 return (
                     <>
                         <span>{t("Latest first")}</span>

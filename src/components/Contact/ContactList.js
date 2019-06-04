@@ -22,7 +22,7 @@ class ContactList extends React.PureComponent {
             console.log(`Request is already pending`);
             return;
         }
-
+        this.props.changeCount(ITEMS_PER_PAGE);
         this.props.relay.loadMore(ITEMS_PER_PAGE);
     };
 
