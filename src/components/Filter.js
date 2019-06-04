@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 import Dropdown from "./Dropdown";
+import RangeDayPicker from "./RangeDayPicker";
 
 import "../style/Filter.scss";
 
@@ -40,6 +41,7 @@ class Filter extends React.Component {
                                 className="pullRight"
                             />
                         </header>
+                        <RangeDayPicker />
                         <Dropdown
                             label="Role"
                             type="contact_type"

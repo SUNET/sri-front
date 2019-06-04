@@ -19,7 +19,7 @@ class App extends Component {
     render() {
         return (
             <FetchingContext.Provider value={this.props.is_fetching}>
-                <div className="App">
+                <main className="App">
                     <ConnectedRouter history={history}>
                         <SplashContainer />
                         <Row>
@@ -31,7 +31,7 @@ class App extends Component {
                             </Col>
                         </Row>
                     </ConnectedRouter>
-                </div>
+                </main>
             </FetchingContext.Provider>
         );
     }
