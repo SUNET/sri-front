@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 
 import SearchContainer from "../containers/Search";
 import SubMenu from "./SubMenu";
-import { RouteNotFound } from "./NotFound";
 
 import "../style/Footer.scss";
 

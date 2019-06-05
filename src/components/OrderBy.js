@@ -10,26 +10,19 @@ class Filter extends React.Component {
         super(props);
 
         this.state = {
-            orderBy: "handle_id_ASC"
+            orderBy: "handle_id_DESC"
         };
     }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.state == null) return true;
-
-        if (this.props === nextProps) {
-            return false;
-        }
-        return true;
-    };
 
     _handleOnChangeOrderBy = (event) => {
         if (this.state.orderBy === "handle_id_DESC") {
             this.setState({ orderBy: "handle_id_ASC" });
+            this.props.changeOrderBy("handle_id_ASC");
         } else {
             this.setState({ orderBy: "handle_id_DESC" });
+            this.props.changeOrderBy("handle_id_DESC");
         }
-        this.props.changeOrderBy(this.state.orderBy);
+
     };
 
     renderType() {
@@ -56,7 +49,7 @@ class Filter extends React.Component {
 
     render() {
         return (
-            <section className="pullRight">
+            <section className="text-right">
                 <button onClick={(e) => this._handleOnChangeOrderBy(e)}>
                     {this.renderType()}
                 </button>

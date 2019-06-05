@@ -63,7 +63,6 @@ class RangeDayPicker extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         const { from, to } = this.state;
         const modifiers = { start: from, end: to };
         return (
@@ -80,7 +79,7 @@ class RangeDayPicker extends React.Component {
                                 disabledDays: { after: to },
                                 toMonth: to,
                                 modifiers,
-                                numberOfMonths: 2,
+                                numberOfMonths: 2
                             }}
                             onDayChange={this.handleFromChange}
                             component={(props) => (

@@ -7,6 +7,7 @@ import Home from "./Home";
 import Network from "./Network";
 import Services from "./Services";
 import Community from "./Community";
+import PersonalArea from "./PersonalArea";
 
 import NotifyContainer from "../containers/Notify";
 import FooterContainer from "../containers/Footer";
@@ -28,6 +29,7 @@ class Base extends React.Component {
                         <Route path="/network" component={Network} />
                         <Route path="/services" component={Services} />
                         <Route path="/community" component={Community} />
+                        <Route path="/personal-area" component={PersonalArea} />
                         <RouteNotFound />
                     </Switch>
                 </CaptureRouteNotFound>

@@ -30,30 +30,26 @@ class ContactList extends React.PureComponent {
         this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
     };
 
-    getData() {
+    renderList() {
         let models = this.props.contacts.contacts;
-        return models.edges.map(({ node }) => (
-            <ContactRow
-                Key={node.handle_id}
-                contact={node}
-                onClick={this._handleOnClick}
-            />
-        ));
-    }
-
-    renderTable() {
         return (
-            <section>
-                <OrderBy changeOrderBy={this.props.changeOrderBy} />
-                {this.getData()}
-            </section>
+            <div>
+                {models.edges.map(({ node }) => (
+                    <ContactRow
+                        Key={node.handle_id}
+                        contact={node}
+                        onClick={this._handleOnClick}
+                    />
+                ))}
+            </div>
         );
     }
 
     render() {
         return (
             <section>
-                {this.renderTable()}
+                <OrderBy changeOrderBy={this.props.changeOrderBy} className="text-right" />
+                {this.renderList()}
                 <Button
                     onClick={() => this._loadMore()}
                     variant="outline-primary"
