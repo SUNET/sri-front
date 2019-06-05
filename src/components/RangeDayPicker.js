@@ -13,16 +13,22 @@ import "../style/RangeDayPicker.scss";
 
 const DateInput = (props) => {
     return (
-        <InputGroup className="mb-3">
-            <Form.Control {...props} onFocus={(e) => props.onFocus(e)} />
-            <InputGroup.Append>
-                <Button
-                    variant="outline-secondary"
-                >
-                    <FontAwesomeIcon icon={faCalendarAlt} />
-                </Button>
-            </InputGroup.Append>
-        </InputGroup>
+        <>
+            <label>{props.label}</label>
+            <InputGroup className="mb-3">
+                <Form.Control
+                    {...props}
+                    onClick={(e) => props.onClick(e)}
+                    onFocus={(e) => props.onFocus(e)}
+                    onBlur={(e) => props.onBlur(e)}
+                />
+                <InputGroup.Append>
+                    <Button variant="outline-secondary">
+                        <FontAwesomeIcon icon={faCalendarAlt} />
+                    </Button>
+                </InputGroup.Append>
+            </InputGroup>
+        </>
     );
 };
 
@@ -57,6 +63,7 @@ class RangeDayPicker extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         const { from, to } = this.state;
         const modifiers = { start: from, end: to };
         return (
@@ -66,7 +73,6 @@ class RangeDayPicker extends React.Component {
                         <DayPickerInput
                             value={from}
                             placeholder="From"
-                            format="LL"
                             formatDate={formatDate}
                             parseDate={parseDate}
                             dayPickerProps={{
@@ -75,11 +81,11 @@ class RangeDayPicker extends React.Component {
                                 toMonth: to,
                                 modifiers,
                                 numberOfMonths: 2,
-                                onDayClick: () => console.log(this.to.getInput().focus())
-                                // onDayClick: () => this.to.getInput().focus()
                             }}
                             onDayChange={this.handleFromChange}
-                            component={(props) => <DateInput {...props} onFocus={(e) => props.onFocus(e)} />}
+                            component={(props) => (
+                                <DateInput {...props} label="From" />
+                            )}
                         />
                     </Col>
                     <Col>
@@ -88,7 +94,6 @@ class RangeDayPicker extends React.Component {
                                 ref={(el) => (this.to = el)}
                                 value={to}
                                 placeholder="To"
-                                format="LL"
                                 formatDate={formatDate}
                                 parseDate={parseDate}
                                 dayPickerProps={{
@@ -100,7 +105,9 @@ class RangeDayPicker extends React.Component {
                                     numberOfMonths: 2
                                 }}
                                 onDayChange={this.handleToChange}
-                                // component={(props) => <DateInput {...props} />}
+                                component={(props) => (
+                                    <DateInput {...props} label="To" />
+                                )}
                             />
                         </span>
                     </Col>
