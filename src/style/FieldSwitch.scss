@@ -1,0 +1,17 @@
+@import "../variables.scss";
+
+.field-switch{
+    .react-switch {
+        margin-right: 12px;
+        vertical-align: middle;
+    }
+
+    label {
+        vertical-align: middle;
+        font-weight: normal;
+        margin-bottom: 0;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
