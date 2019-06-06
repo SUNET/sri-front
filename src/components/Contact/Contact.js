@@ -34,12 +34,10 @@ class Contact extends React.PureComponent {
                         </Form.Group>
                         <Dropdown
                             label="Contact Type"
+                            emptyLabel="Select type"
                             type="contact_type"
-                            onChange={(e) =>
-                                this.setState({
-                                    contact_type: e.target.value
-                                })
-                            }
+                            onChange={(e) => this.props.onChange(e)}
+                            defaultValue={contact.contact_type}
                         />
                         <Form.Group controlId="formGroupFirstName">
                             <Form.Control

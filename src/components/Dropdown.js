@@ -46,15 +46,19 @@ class Dropdown extends React.PureComponent {
                         if (error) {
                             return <div>{error.message}</div>;
                         } else if (props) {
+                            const options = props.getChoicesForDropdown;
                             return (
                                 <Form.Control
                                     as="select"
                                     onChange={(e) => this.props.onChange(e)}
+                                    defaultValue={this.props.defaultValue || ""}
                                 >
-                                    <option value="" />
-                                    {this.renderOptions(
-                                        props.getChoicesForDropdown
+                                    {this.props.emptyLabel && (
+                                        <option value="">
+                                            {this.props.emptyLabel}
+                                        </option>
                                     )}
+                                    {this.renderOptions(options)}
                                 </Form.Control>
                             );
                         }
