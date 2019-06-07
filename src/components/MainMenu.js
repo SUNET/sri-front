@@ -8,7 +8,7 @@ import "../style/MainMenu.scss";
 function MainMenu({ t, i18n }) {
     return (
         <Nav className="flex-column" id="main-menu">
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={Link} to="/personal-area/profile">
                 <Image src={require("../img/profile.png")} roundedCircle img-fluid="true"/>
             </Nav.Link>
             <Nav className="flex-column">

@@ -10,6 +10,7 @@ import { ITEMS_PER_PAGE } from "../constants";
 
 import { ContactList, CreateContact, ContactDetails } from "./Contact";
 import Filter from "./Filter";
+import OrderBy from "./OrderBy";
 import { RouteNotFound } from "./NotFound";
 
 const SearchAllContactsQuery = graphql`
@@ -70,7 +71,6 @@ class Search extends React.Component {
                         return (
                             <ContactList
                                 contacts={props}
-                                changeOrderBy={this._handleOnChangeOrderBy}
                                 changeCount={this._handleOnChangeCount}
                             />
                         );
@@ -91,7 +91,10 @@ class Search extends React.Component {
                         render={() => (
                             <section className="mt-3">
                                 <Row>
-                                    <Col sm={9}>{this.renderModelList()}</Col>
+                                    <Col sm={9}>
+                                        <OrderBy changeOrderBy={this._handleOnChangeOrderBy} className="text-right" />
+                                        {this.renderModelList()}
+                                    </Col>
                                     <Col sm={3}>
                                         <Filter
                                             changeFilter={

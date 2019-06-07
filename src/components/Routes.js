@@ -7,6 +7,7 @@ const Routes = {
     "/community/roles": "Roles",
     "/community/contacts/create": "Create Contact",
     "/community/contacts/:contactId": "Contact Info",
+    "/personal-area": "Personal Area",
     "/personal-area/profile": "Profile",
     "/personal-area/settings": "Settings"
 };

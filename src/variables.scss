@@ -40,3 +40,31 @@ $cancel-color-shadow: rgba(183, 183, 183, 0.25);
  * ========================================================================== */
 
 $font: "Roboto-Black";
+
+
+/*
+ * Pretty Checkbox
+ * ========================================================================== */
+
+ $pretty--class-name: pretty;
+
+// Change my handpicked
+$pretty--color-default:#bdc3c7;
+$pretty--color-primary:#428bca;
+$pretty--color-info:#5bc0de;
+$pretty--color-success:#5cb85c;
+$pretty--color-warning:#f0ad4e;
+$pretty--color-danger:#d9534f;
+$pretty--color-dark:#5a656b;
+
+// z-index
+$pretty--z-index-back:0;
+$pretty--z-index-between:1;
+$pretty--z-index-front:2;
+
+// Blocked settings
+$pretty--debug:false;
+$pretty--dev-err:'Invalid input type!';
+
+// Custom
+$pretty--size-scale:0.6em;

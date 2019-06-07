@@ -1,17 +1,40 @@
 @import "../variables.scss";
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
 
-.field-switch{
-    .react-switch {
-        margin-right: 12px;
-        vertical-align: middle;
+.field-checkbox {
+    div.pretty {
+        min-width: 25px;
+        &.custom{
+            &.p-switch.p-fill {
+                .state {
+                    &:before {
+                        width: 1.2em;
+                        height: calc(0.6em + 2px);
+                        top: calc((0% - (100% - 1.3em)) - 16%);
+                    }
+
+                    label {
+                        width: calc(0.6em + 2px);
+
+                        &:after,
+                        &:before {
+                            border: 1px solid #cacaca;
+                            width: calc(0.7em + 2px);
+                            height: calc(0.7em + 2px);
+                            top: calc((0% - (100% - 1.26em)) - 8%);
+                            // transform: scale(1);
+                        }
+                    }
+                }
+
+                input:checked ~ .state label:after {
+                    left: 0.6em;
+                }
+            }
+        }
     }
 
-    label {
-        vertical-align: middle;
-        font-weight: normal;
-        margin-bottom: 0;
-        &:hover{
-            cursor: pointer;
-        }
+    label:hover {
+        cursor: pointer;
     }
 }

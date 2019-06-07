@@ -6,8 +6,15 @@
             "header.main-menu.network": "Network",
             "header.main-menu.services": "Sevices",
             "header.main-menu.community": "Community",
-            "header.navbar.contacts": "Contacts",
-            "header.navbar.roles": "Roles",
+            "submenu.contacts": "Contacts",
+            "submenu.navbar.roles": "Roles",
+            "submenu.profile": "Profile",
+            "submenu.settings": "Settings",
+            "settings.network": "Network",
+            "settings.services": "Services",
+            "settings.community": "Community",
+            "settings.notifications": "Notifications",
+            "settings.emails": "Emails",
             "footer.copyright": "© SUNET 2019"
         }
     }

@@ -17,7 +17,11 @@ const DropdownQuery = graphql`
 
 class Dropdown extends React.PureComponent {
     static propTypes = {
-        type: PropTypes.string.isRequired
+        type: PropTypes.string.isRequired,
+        onChange: PropTypes.func.isRequired,
+        label: PropTypes.string,
+        emptyLabel: PropTypes.string,
+        defaultValue: PropTypes.string
     };
 
     renderOptions = (options) => {

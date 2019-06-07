@@ -7,7 +7,6 @@ import { withRouter } from "react-router-dom";
 
 import { ITEMS_PER_PAGE } from "../../constants";
 import ContactRow from "./ContactRow";
-import OrderBy from "../OrderBy";
 
 class ContactList extends React.PureComponent {
     static propTypes = {
@@ -48,7 +47,6 @@ class ContactList extends React.PureComponent {
     render() {
         return (
             <section>
-                <OrderBy changeOrderBy={this.props.changeOrderBy} className="text-right" />
                 {this.renderList()}
                 <Button
                     onClick={() => this._loadMore()}

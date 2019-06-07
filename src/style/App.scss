@@ -16,3 +16,9 @@ button{
     background: none;
     border: none;
 }
+
+.borderless{
+    > div{
+        border: none;
+    }
+}
