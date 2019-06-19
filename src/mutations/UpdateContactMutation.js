@@ -12,22 +12,15 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateContactMutation(
-    handle_id,
-    first_name,
-    last_name,
-    email,
-    phone,
-    contact_type
-) {
+export default function UpdateContactMutation(contact) {
     const variables = {
         input: {
-            handle_id,
-            first_name,
-            last_name,
-            email,
-            phone,
-            contact_type,
+            handle_id: contact.id,
+            first_name: contact.first_name,
+            last_name: contact.last_name,
+            email: contact.email,
+            phone: contact.phone,
+            contact_type: contact.contact_type,
             clientMutationId: ""
         }
     };
@@ -39,12 +32,12 @@ export default function UpdateContactMutation(
         },
         onError: (err) => console.error(err),
         updater: (proxyStore) => {
-            const contact = proxyStore.get(handle_id, "Contact");
-            contact.setValue(first_name, "first_name");
-            contact.setValue(last_name, "last_name");
-            contact.setValue(email, "email");
-            contact.setValue(phone, "phone");
-            contact.setValue(contact_type, "contact_type");
+            const contact_node = proxyStore.get(contact.id, "Contact");
+            contact_node.setValue(contact.first_name, "first_name");
+            contact_node.setValue(contact.last_name, "last_name");
+            contact_node.setValue(contact.email, "email");
+            contact_node.setValue(contact.phone, "phone");
+            contact_node.setValue(contact.contact_type, "contact_type");
         }
     });
 }

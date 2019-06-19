@@ -15,6 +15,22 @@
             "settings.community": "Community",
             "settings.notifications": "Notifications",
             "settings.emails": "Emails",
+            "network.sub-menu.physical": "Physical",
+            "network.sub-menu.logical": "Logical",
+            "network.sub-menu.locations": "Locations",
+            "network.sub-menu.physical.cables": "Cables",
+            "network.sub-menu.physical.external-equipment": "External equipment",
+            "network.sub-menu.physical.firewalls": "Firewalls",
+            "network.sub-menu.physical.hosts": "Hosts",
+            "network.sub-menu.physical.odfs": "Odfs",
+            "network.sub-menu.physical.optical-nodes": "Optical nodes",
+            "network.sub-menu.physical.routers": "Routers",
+            "network.sub-menu.logical.hosts": "Hosts",
+            "network.sub-menu.logical.optical-links": "Optical links",
+            "network.sub-menu.logical.optical-multiplex": "Optical multiplex",
+            "network.sub-menu.logical.optical-paths": "Optical paths",
+            "network.sub-menu.locations.racks": "Racks",
+            "network.sub-menu.locations.sites": "Sites",
             "footer.copyright": "© SUNET 2019"
         }
     }

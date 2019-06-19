@@ -3,7 +3,12 @@
 
 .field-checkbox {
     div.pretty {
-        min-width: 25px;
+        margin-right: 0;
+        .state{
+            svg{
+                width: 20px;
+            }
+        }
         &.custom{
             &.p-switch.p-fill {
                 .state {

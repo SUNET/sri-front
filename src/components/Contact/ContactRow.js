@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+
+import FieldSwitch from "../FieldSwitch";
 
 import "../../style/ModelRow.scss"
 
@@ -22,9 +24,15 @@ class ContactRow extends React.PureComponent {
         let contact = this.props.contact;
         return (
             <article className="model-row">
-                <button onClick={(e) => this.props.onClick(e, contact)}>
-                    <FontAwesomeIcon icon={faPlus} />FOLLOW
-                </button>
+                <div>
+                    <FieldSwitch
+                        type="toggle-icon"
+                        icon="plus"
+                        labelChecked="UNFOLLOW"
+                        labelUnChecked="FOLLOW"
+                        onChange={(e) => {}}
+                    />
+                </div>
                 <div>
                     <div>
                         {contact.first_name} {contact.last_name}

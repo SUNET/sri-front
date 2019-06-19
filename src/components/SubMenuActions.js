@@ -3,8 +3,6 @@ import { withTranslation } from "react-i18next";
 import { ButtonToolbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import "../style/SubMenu.scss";
-
 class SubMenuActions extends React.Component {
     render() {
         const t = this.props.t;

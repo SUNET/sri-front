@@ -43,22 +43,15 @@ class ContactDetails extends React.Component {
     };
 
     _handleUpdate = (contact) => {
-        const {
-            first_name,
-            last_name,
-            email,
-            phone,
-            contact_type
-        } = this.state;
-        const contactId = this.props.match.params.contactId;
-        UpdateContactMutation(
-            contactId,
-            first_name,
-            last_name,
-            email,
-            phone,
-            contact_type
-        );
+        const update_contact = {
+            id: this.props.match.params.contactId,
+            first_name: this.state.first_name || contact.first_name,
+            last_name: this.state.last_name || contact.last_name,
+            email: this.state.email || contact.email,
+            phone: this.state.phone || contact.phone,
+            contact_type: this.state.contact_type || contact.contact_type
+        };
+        UpdateContactMutation(update_contact);
     };
 
     _handleDelete = () => {

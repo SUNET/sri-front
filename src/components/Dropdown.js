@@ -55,6 +55,7 @@ class Dropdown extends React.PureComponent {
                                 <Form.Control
                                     as="select"
                                     onChange={(e) => this.props.onChange(e)}
+                                    name={this.props.type}
                                     defaultValue={this.props.defaultValue || ""}
                                 >
                                     {this.props.emptyLabel && (

@@ -49,6 +49,7 @@ class Settings extends React.Component {
                         <ListGroup className="borderless">
                             <ListGroup.Item>
                                 <FieldSwitch
+                                    type="toggle-icon"
                                     icon="eyes"
                                     label={t("settings.network")}
                                     onChange={(e) => {}}
@@ -57,6 +58,7 @@ class Settings extends React.Component {
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <FieldSwitch
+                                    type="toggle-icon"
                                     icon="eyes"
                                     label={t("settings.services")}
                                     onChange={(e) => {}}
@@ -65,6 +67,7 @@ class Settings extends React.Component {
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <FieldSwitch
+                                    type="toggle-icon"
                                     icon="eyes"
                                     label={t("settings.community")}
                                     onChange={(e) => {}}

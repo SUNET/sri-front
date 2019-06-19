@@ -1,28 +1,19 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import Breadcrumbs from "react-router-dynamic-breadcrumbs";
+import { Route, Switch, withRouter } from "react-router-dom";
 
-import TopHeader from "./TopHeader";
 import Home from "./Home";
 import Network from "./Network";
 import Services from "./Services";
 import Community from "./Community";
 import PersonalArea from "./PersonalArea";
 
-import NotifyContainer from "../containers/Notify";
-import FooterContainer from "../containers/Footer";
-import Routes from "./Routes";
 import CaptureRouteNotFound, { RouteNotFound } from "./NotFound";
-
-import "../style/Breadcrumbs.scss";
 
 class Base extends React.Component {
     render() {
         return (
             <section>
-                <TopHeader />
-                <NotifyContainer />
-                <Breadcrumbs mappedRoutes={Routes} />
+
                 <CaptureRouteNotFound>
                     <Switch>
                         <Route exact path="/" component={Home} />
@@ -33,10 +24,9 @@ class Base extends React.Component {
                         <RouteNotFound />
                     </Switch>
                 </CaptureRouteNotFound>
-                <FooterContainer />
             </section>
         );
     }
 }
 
-export default Base;
+export default withRouter(Base);

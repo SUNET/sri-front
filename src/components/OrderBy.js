@@ -24,6 +24,7 @@ class Filter extends React.Component {
         return (
             <section className="text-right">
                 <FieldSwitch
+                    type="toggle-icon"
                     icon="angle"
                     labelChecked={t("Latest first")}
                     labelUnChecked={t("Newest first")}

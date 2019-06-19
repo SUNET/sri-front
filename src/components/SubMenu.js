@@ -3,7 +3,7 @@ import { withTranslation } from "react-i18next";
 import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-import "../style/SubMenu.scss";
+import "../style/SideNav.scss";
 
 class SubMenu extends React.Component {
     renderLinks = () => {
