@@ -1,6 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { Nav, Navbar, Image } from "react-bootstrap";
+import { Dropdown, Nav, Navbar, Image } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
@@ -17,45 +17,47 @@ class TopHeader extends React.Component {
                         {t("header.welcome")}
                     </Navbar.Brand>
                     <Nav className="mx-auto">
-                        <Nav.Link as={NavLink} activeClassName="active" to="/">
+                        <Nav.Link as={NavLink} activeClassName="active" to="/dashboard">
                             {t("header.main-menu.home")}
                         </Nav.Link>
-                        <Nav.Link
-                            as={NavLink}
-                            activeClassName="active"
-                            to="/network"
-                        >
+                        <Nav.Link as={NavLink} activeClassName="active" to="/network">
                             {t("header.main-menu.network")}
                         </Nav.Link>
-                        <Nav.Link
-                            as={NavLink}
-                            activeClassName="active"
-                            to="/services"
-                        >
+                        <Nav.Link as={NavLink} activeClassName="active" to="/services">
                             {t("header.main-menu.services")}
                         </Nav.Link>
-                        <Nav.Link
-                            as={NavLink}
-                            activeClassName="active"
-                            to="/community"
-                        >
+                        <Nav.Link as={NavLink} activeClassName="active" to="/community">
                             {t("header.main-menu.community")}
                         </Nav.Link>
                     </Nav>
                     <Nav>
                         <Nav.Item>
-                            <FontAwesomeIcon icon={faBell} />
+                            <Dropdown>
+                                <Dropdown.Toggle as="span">
+                                    <FontAwesomeIcon icon={faBell} />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/notification-1">Notification 1</Dropdown.Item>
+                                    <Dropdown.Item href="#/notification-2">Notification 2</Dropdown.Item>
+                                    <Dropdown.Item href="#/notification-3">Notification 3</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Nav.Item>
                         <Nav.Item>
-                            <FontAwesomeIcon icon={faEllipsisV} />
+                            <Dropdown>
+                                <Dropdown.Toggle as="span">
+                                    <FontAwesomeIcon icon={faEllipsisV} />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/notification-1">Notification 1</Dropdown.Item>
+                                    <Dropdown.Item href="#/notification-2">Notification 2</Dropdown.Item>
+                                    <Dropdown.Item href="#/notification-3">Notification 3</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Nav.Item>
                         <Nav.Item>
                             <Link to="/personal-area/profile">
-                                <Image
-                                    src={require("../img/profile.png")}
-                                    roundedCircle
-                                    img-fluid="true"
-                                />
+                                <Image src={require("../img/profile.png")} roundedCircle img-fluid="true" />
                             </Link>
                         </Nav.Item>
                     </Nav>

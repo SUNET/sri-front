@@ -12,6 +12,7 @@ import * as serviceWorker from "./serviceWorker";
 import "./i18n";
 
 import "./style/reset.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 /* Store */
 export const store = configureStore(

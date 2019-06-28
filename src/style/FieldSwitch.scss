@@ -2,6 +2,7 @@
 @import '~pretty-checkbox/src/pretty-checkbox.scss';
 
 .field-checkbox {
+    display: inline-block;
     div.pretty {
         margin-right: 0;
         .state{

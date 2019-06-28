@@ -3,9 +3,7 @@ import { withTranslation } from "react-i18next";
 
 import FieldSwitch from "./FieldSwitch";
 
-import "../style/Filter.scss";
-
-class Filter extends React.Component {
+class OrderBy extends React.Component {
 
     componentWillUnmount(next_props, next_state) {
         return false;
@@ -22,7 +20,7 @@ class Filter extends React.Component {
     render() {
         const t = this.props.t;
         return (
-            <section className="text-right">
+            <div className="order-by">
                 <FieldSwitch
                     type="toggle-icon"
                     icon="angle"
@@ -31,9 +29,9 @@ class Filter extends React.Component {
                     onChange={(e) => this._handleOnChangeOrderBy(e)}
                     id="orderBy"
                 />
-            </section>
+            </div>
         );
     }
 }
 
-export default withTranslation()(Filter);
+export default withTranslation()(OrderBy);

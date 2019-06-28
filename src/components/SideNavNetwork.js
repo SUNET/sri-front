@@ -10,8 +10,6 @@ import {
 } from "react-accessible-accordion";
 import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/SideNav.scss";
 
@@ -34,12 +32,7 @@ class SideNavNetwork extends React.Component {
                     <AccordionItem uuid="physical">
                         <AccordionItemHeading>
                             <AccordionItemButton>
-                                <NavLink
-                                    to={`${this.props.match.url}/physical`}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faAngleDoubleRight}
-                                    />
+                                <NavLink to={`${this.props.match.url}/physical`}>
                                     {t("network.sub-menu.physical")}
                                 </NavLink>
                             </AccordionItemButton>
@@ -49,38 +42,28 @@ class SideNavNetwork extends React.Component {
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/physical/cables`}
+                                    to={`${this.props.match.url}/physical/cables`}
                                 >
                                     {t("network.sub-menu.physical.cables")}
                                 </Nav.Link>
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/physical/external-equipment`}
+                                    to={`${this.props.match.url}/physical/external-equipment`}
                                 >
-                                    {t(
-                                        "network.sub-menu.physical.external-equipment"
-                                    )}
+                                    {t("network.sub-menu.physical.external-equipment")}
                                 </Nav.Link>
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/physical/firewalls`}
+                                    to={`${this.props.match.url}/physical/firewalls`}
                                 >
                                     {t("network.sub-menu.physical.firewalls")}
                                 </Nav.Link>
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/physical/hosts`}
+                                    to={`${this.props.match.url}/physical/hosts`}
                                 >
                                     {t("network.sub-menu.physical.hosts")}
                                 </Nav.Link>
@@ -94,20 +77,14 @@ class SideNavNetwork extends React.Component {
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/physical/optical-nodes`}
+                                    to={`${this.props.match.url}/physical/optical-nodes`}
                                 >
-                                    {t(
-                                        "network.sub-menu.physical.optical-nodes"
-                                    )}
+                                    {t("network.sub-menu.physical.optical-nodes")}
                                 </Nav.Link>
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/physical/routers`}
+                                    to={`${this.props.match.url}/physical/routers`}
                                 >
                                     {t("network.sub-menu.physical.routers")}
                                 </Nav.Link>
@@ -118,9 +95,6 @@ class SideNavNetwork extends React.Component {
                         <AccordionItemHeading>
                             <AccordionItemButton>
                                 <NavLink to={`${this.props.match.url}/logical`}>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDoubleRight}
-                                    />
                                     {t("network.sub-menu.logical")}
                                 </NavLink>
                             </AccordionItemButton>
@@ -137,35 +111,23 @@ class SideNavNetwork extends React.Component {
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/logical/optical-links`}
+                                    to={`${this.props.match.url}/logical/optical-links`}
                                 >
-                                    {t(
-                                        "network.sub-menu.logical.optical-links"
-                                    )}
+                                    {t("network.sub-menu.logical.optical-links")}
                                 </Nav.Link>
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/logical/optical-multiplex`}
+                                    to={`${this.props.match.url}/logical/optical-multiplex`}
                                 >
-                                    {t(
-                                        "network.sub-menu.logical.optical-multiplex"
-                                    )}
+                                    {t("network.sub-menu.logical.optical-multiplex")}
                                 </Nav.Link>
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/logical/optical-paths`}
+                                    to={`${this.props.match.url}/logical/optical-paths`}
                                 >
-                                    {t(
-                                        "network.sub-menu.logical.optical-paths"
-                                    )}
+                                    {t("network.sub-menu.logical.optical-paths")}
                                 </Nav.Link>
                             </Nav>
                         </AccordionItemPanel>
@@ -173,12 +135,7 @@ class SideNavNetwork extends React.Component {
                     <AccordionItem uuid="locations">
                         <AccordionItemHeading>
                             <AccordionItemButton>
-                                <NavLink
-                                    to={`${this.props.match.url}/locations`}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faAngleDoubleRight}
-                                    />
+                                <NavLink to={`${this.props.match.url}/locations`}>
                                     {t("network.sub-menu.locations")}
                                 </NavLink>
                             </AccordionItemButton>
@@ -188,18 +145,14 @@ class SideNavNetwork extends React.Component {
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/locations/racks`}
+                                    to={`${this.props.match.url}/locations/racks`}
                                 >
                                     {t("network.sub-menu.locations.racks")}
                                 </Nav.Link>
                                 <Nav.Link
                                     as={NavLink}
                                     activeClassName="active"
-                                    to={`${
-                                        this.props.match.url
-                                    }/locations/sites`}
+                                    to={`${this.props.match.url}/locations/sites`}
                                 >
                                     {t("network.sub-menu.locations.sites")}
                                 </Nav.Link>

@@ -24,6 +24,16 @@ header {
                     }
                 }
             }
+            .nav-item{
+                span.dropdown-toggle{
+                    &:hover{
+                        cursor: pointer;
+                    }
+                    &:after{
+                        display: none;
+                    }
+                }
+            }
         }
     }
 }

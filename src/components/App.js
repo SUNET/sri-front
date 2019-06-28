@@ -10,7 +10,7 @@ import TopHeader from "./TopHeader";
 import BaseContainer from "../containers/Base";
 import FooterContainer from "../containers/Footer";
 
-import Routes from "./Routes";
+import Routes from "../Routes";
 
 import "bootstrap/scss/bootstrap.scss";
 import "../style/App.scss";

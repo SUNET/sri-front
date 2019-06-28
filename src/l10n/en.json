@@ -31,6 +31,11 @@
             "network.sub-menu.logical.optical-paths": "Optical paths",
             "network.sub-menu.locations.racks": "Racks",
             "network.sub-menu.locations.sites": "Sites",
+            "community.sub-menu.organizations": "Organizations",
+            "community.sub-menu.organizations/provider": "Provider",
+            "community.sub-menu.organizations/customers": "Customers",
+            "community.sub-menu.organizations/end-users": "End users",
+            "community.sub-menu.groups": "Groups",
             "footer.copyright": "© SUNET 2019"
         }
     }

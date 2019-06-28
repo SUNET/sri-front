@@ -37,7 +37,7 @@ class ContactRow extends React.PureComponent {
                     <div>
                         {contact.first_name} {contact.last_name}
                     </div>
-                    <span>{contact.is_roles.map((role) => {
+                    <span>{contact.roles.map((role) => {
                         return role.name
                     })}</span>
                 </div>

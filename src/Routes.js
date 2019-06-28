@@ -1,5 +1,6 @@
 const Routes = {
     "/": "Home",
+    "/dashboard": "Dashboard",
     "/network": "Network",
     "/network/physical": "Physical",
     "/network/physical/cables": "Cables",
@@ -19,6 +20,11 @@ const Routes = {
     "/network/locations/sites": "Sites",
     "/services": "Services",
     "/community": "Community",
+    "/community/organizations": "Organizations",
+    "/community/organizations/provider": "Provider",
+    "/community/organizations/customers": "Customers",
+    "/community/organizations/end-users": "End users",
+    "/community/groups": "Groups",
     "/community/contacts": "Contacts",
     "/community/roles": "Roles",
     "/community/contacts/create": "Create Contact",

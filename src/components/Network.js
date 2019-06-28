@@ -6,8 +6,6 @@ import { Row, Col } from "react-bootstrap";
 import SideNavNetwork from "./SideNavNetwork";
 import Locations from "./Locations";
 
-import "../style/Footer.scss";
-
 class Network extends React.Component {
     render() {
         return (

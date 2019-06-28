@@ -30,12 +30,12 @@ class ContactList extends React.PureComponent {
     };
 
     renderList() {
-        let models = this.props.contacts.contacts;
+        let models = this.props.contacts;
         return (
             <div>
-                {models.edges.map(({ node }) => (
+                {models.contacts.edges.map(({ node }) => (
                     <ContactRow
-                        Key={node.handle_id}
+                        Key={node.node.__id}
                         contact={node}
                         onClick={this._handleOnClick}
                     />

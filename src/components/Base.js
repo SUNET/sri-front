@@ -13,10 +13,9 @@ class Base extends React.Component {
     render() {
         return (
             <section>
-
                 <CaptureRouteNotFound>
                     <Switch>
-                        <Route exact path="/" component={Home} />
+                        <Route path="/dashboard" component={Home} />
                         <Route path="/network" component={Network} />
                         <Route path="/services" component={Services} />
                         <Route path="/community" component={Community} />

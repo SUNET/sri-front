@@ -1,7 +1,6 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
-   License: none (public domain)
-*/
+   License: none (public domain)*/
 
 html,
 body,
@@ -126,4 +125,8 @@ q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+.form-group{
+    margin-bottom: 0;
 }
