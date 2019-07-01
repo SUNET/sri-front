@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ba43c160417a6ec98c7db31dea8882fd
+ * @relayHash 02a4a74b65b77b74c624961d62903fb4
  */
 
 /* eslint-disable */
@@ -30,9 +30,9 @@ query DropdownQuery(
   $name: String!
 ) {
   getChoicesForDropdown(name: $name) {
+    __typename
     name
     value
-    id
   }
 }
 */
@@ -83,7 +83,7 @@ return {
         "name": "getChoicesForDropdown",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "Choice",
+        "concreteType": null,
         "plural": true,
         "selections": [
           (v2/*: any*/),
@@ -103,18 +103,18 @@ return {
         "name": "getChoicesForDropdown",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "Choice",
+        "concreteType": null,
         "plural": true,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "id",
+            "name": "__typename",
             "args": null,
             "storageKey": null
-          }
+          },
+          (v2/*: any*/),
+          (v3/*: any*/)
         ]
       }
     ]
@@ -123,7 +123,7 @@ return {
     "operationKind": "query",
     "name": "DropdownQuery",
     "id": null,
-    "text": "query DropdownQuery(\n  $name: String!\n) {\n  getChoicesForDropdown(name: $name) {\n    name\n    value\n    id\n  }\n}\n",
+    "text": "query DropdownQuery(\n  $name: String!\n) {\n  getChoicesForDropdown(name: $name) {\n    __typename\n    name\n    value\n  }\n}\n",
     "metadata": {}
   }
 };

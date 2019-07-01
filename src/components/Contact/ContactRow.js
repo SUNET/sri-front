@@ -62,7 +62,7 @@ const ContactRowFragment = createFragmentContainer(
             phone
             email
             modified
-            is_roles {
+            roles {
                 name
             }
             member_of_groups {

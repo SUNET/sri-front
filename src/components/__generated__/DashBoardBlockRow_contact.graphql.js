@@ -9,15 +9,11 @@
 /*::
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type ContactRow_contact$ref: FragmentReference;
-export type ContactRow_contact = {|
+declare export opaque type DashBoardBlockRow_contact$ref: FragmentReference;
+export type DashBoardBlockRow_contact = {|
   +handle_id: string,
-  +name: string,
   +first_name: string,
   +last_name: string,
-  +contact_type: ?string,
-  +phone: ?string,
-  +email: ?string,
   +modified: any,
   +roles: ?$ReadOnlyArray<?{|
     +name: ?string
@@ -25,25 +21,24 @@ export type ContactRow_contact = {|
   +member_of_groups: ?$ReadOnlyArray<?{|
     +name: string
   |}>,
-  +$refType: ContactRow_contact$ref,
+  +$refType: DashBoardBlockRow_contact$ref,
 |};
 */
 
 
 const node/*: ReaderFragment*/ = (function(){
-var v0 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "name",
-  "args": null,
-  "storageKey": null
-},
-v1 = [
-  (v0/*: any*/)
+var v0 = [
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "name",
+    "args": null,
+    "storageKey": null
+  }
 ];
 return {
   "kind": "Fragment",
-  "name": "ContactRow_contact",
+  "name": "DashBoardBlockRow_contact",
   "type": "Contact",
   "metadata": null,
   "argumentDefinitions": [],
@@ -55,7 +50,6 @@ return {
       "args": null,
       "storageKey": null
     },
-    (v0/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -67,27 +61,6 @@ return {
       "kind": "ScalarField",
       "alias": null,
       "name": "last_name",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "contact_type",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "phone",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "email",
       "args": null,
       "storageKey": null
     },
@@ -106,7 +79,7 @@ return {
       "args": null,
       "concreteType": "Role",
       "plural": true,
-      "selections": (v1/*: any*/)
+      "selections": (v0/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -116,11 +89,11 @@ return {
       "args": null,
       "concreteType": "Group",
       "plural": true,
-      "selections": (v1/*: any*/)
+      "selections": (v0/*: any*/)
     }
   ]
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3ebf224f627cf3f0deccf37b5f4b9806';
+(node/*: any*/).hash = '7ccde4c9aa4125a8fd2f9e49d7cb48e3';
 module.exports = node;

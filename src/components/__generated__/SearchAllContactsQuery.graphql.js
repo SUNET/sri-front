@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash de2423fd03d82be17ce84fb9fbd2fbd1
+ * @relayHash 1a53ebd6a19f9ead867ff8dba3a25d2d
  */
 
 /* eslint-disable */
@@ -18,8 +18,6 @@ export type ContactFilter = {|
 export type ContactNestedFilter = {|
   name?: ?string,
   name_not?: ?string,
-  name_in?: ?$ReadOnlyArray<string>,
-  name_not_in?: ?$ReadOnlyArray<string>,
   name_lt?: ?string,
   name_lte?: ?string,
   name_gt?: ?string,
@@ -30,10 +28,10 @@ export type ContactNestedFilter = {|
   name_not_starts_with?: ?string,
   name_ends_with?: ?string,
   name_not_ends_with?: ?string,
+  name_in?: ?$ReadOnlyArray<string>,
+  name_not_in?: ?$ReadOnlyArray<string>,
   first_name?: ?string,
   first_name_not?: ?string,
-  first_name_in?: ?$ReadOnlyArray<string>,
-  first_name_not_in?: ?$ReadOnlyArray<string>,
   first_name_lt?: ?string,
   first_name_lte?: ?string,
   first_name_gt?: ?string,
@@ -44,10 +42,10 @@ export type ContactNestedFilter = {|
   first_name_not_starts_with?: ?string,
   first_name_ends_with?: ?string,
   first_name_not_ends_with?: ?string,
+  first_name_in?: ?$ReadOnlyArray<string>,
+  first_name_not_in?: ?$ReadOnlyArray<string>,
   last_name?: ?string,
   last_name_not?: ?string,
-  last_name_in?: ?$ReadOnlyArray<string>,
-  last_name_not_in?: ?$ReadOnlyArray<string>,
   last_name_lt?: ?string,
   last_name_lte?: ?string,
   last_name_gt?: ?string,
@@ -58,10 +56,10 @@ export type ContactNestedFilter = {|
   last_name_not_starts_with?: ?string,
   last_name_ends_with?: ?string,
   last_name_not_ends_with?: ?string,
+  last_name_in?: ?$ReadOnlyArray<string>,
+  last_name_not_in?: ?$ReadOnlyArray<string>,
   title?: ?string,
   title_not?: ?string,
-  title_in?: ?$ReadOnlyArray<string>,
-  title_not_in?: ?$ReadOnlyArray<string>,
   title_lt?: ?string,
   title_lte?: ?string,
   title_gt?: ?string,
@@ -72,10 +70,10 @@ export type ContactNestedFilter = {|
   title_not_starts_with?: ?string,
   title_ends_with?: ?string,
   title_not_ends_with?: ?string,
+  title_in?: ?$ReadOnlyArray<string>,
+  title_not_in?: ?$ReadOnlyArray<string>,
   salutation?: ?string,
   salutation_not?: ?string,
-  salutation_in?: ?$ReadOnlyArray<string>,
-  salutation_not_in?: ?$ReadOnlyArray<string>,
   salutation_lt?: ?string,
   salutation_lte?: ?string,
   salutation_gt?: ?string,
@@ -86,10 +84,10 @@ export type ContactNestedFilter = {|
   salutation_not_starts_with?: ?string,
   salutation_ends_with?: ?string,
   salutation_not_ends_with?: ?string,
+  salutation_in?: ?$ReadOnlyArray<string>,
+  salutation_not_in?: ?$ReadOnlyArray<string>,
   contact_type?: ?string,
   contact_type_not?: ?string,
-  contact_type_in?: ?$ReadOnlyArray<string>,
-  contact_type_not_in?: ?$ReadOnlyArray<string>,
   contact_type_lt?: ?string,
   contact_type_lte?: ?string,
   contact_type_gt?: ?string,
@@ -100,10 +98,10 @@ export type ContactNestedFilter = {|
   contact_type_not_starts_with?: ?string,
   contact_type_ends_with?: ?string,
   contact_type_not_ends_with?: ?string,
+  contact_type_in?: ?$ReadOnlyArray<string>,
+  contact_type_not_in?: ?$ReadOnlyArray<string>,
   phone?: ?string,
   phone_not?: ?string,
-  phone_in?: ?$ReadOnlyArray<string>,
-  phone_not_in?: ?$ReadOnlyArray<string>,
   phone_lt?: ?string,
   phone_lte?: ?string,
   phone_gt?: ?string,
@@ -114,10 +112,10 @@ export type ContactNestedFilter = {|
   phone_not_starts_with?: ?string,
   phone_ends_with?: ?string,
   phone_not_ends_with?: ?string,
+  phone_in?: ?$ReadOnlyArray<string>,
+  phone_not_in?: ?$ReadOnlyArray<string>,
   mobile?: ?string,
   mobile_not?: ?string,
-  mobile_in?: ?$ReadOnlyArray<string>,
-  mobile_not_in?: ?$ReadOnlyArray<string>,
   mobile_lt?: ?string,
   mobile_lte?: ?string,
   mobile_gt?: ?string,
@@ -128,10 +126,10 @@ export type ContactNestedFilter = {|
   mobile_not_starts_with?: ?string,
   mobile_ends_with?: ?string,
   mobile_not_ends_with?: ?string,
+  mobile_in?: ?$ReadOnlyArray<string>,
+  mobile_not_in?: ?$ReadOnlyArray<string>,
   email?: ?string,
   email_not?: ?string,
-  email_in?: ?$ReadOnlyArray<string>,
-  email_not_in?: ?$ReadOnlyArray<string>,
   email_lt?: ?string,
   email_lte?: ?string,
   email_gt?: ?string,
@@ -142,10 +140,10 @@ export type ContactNestedFilter = {|
   email_not_starts_with?: ?string,
   email_ends_with?: ?string,
   email_not_ends_with?: ?string,
+  email_in?: ?$ReadOnlyArray<string>,
+  email_not_in?: ?$ReadOnlyArray<string>,
   other_email?: ?string,
   other_email_not?: ?string,
-  other_email_in?: ?$ReadOnlyArray<string>,
-  other_email_not_in?: ?$ReadOnlyArray<string>,
   other_email_lt?: ?string,
   other_email_lte?: ?string,
   other_email_gt?: ?string,
@@ -156,10 +154,10 @@ export type ContactNestedFilter = {|
   other_email_not_starts_with?: ?string,
   other_email_ends_with?: ?string,
   other_email_not_ends_with?: ?string,
+  other_email_in?: ?$ReadOnlyArray<string>,
+  other_email_not_in?: ?$ReadOnlyArray<string>,
   PGP_fingerprint?: ?string,
   PGP_fingerprint_not?: ?string,
-  PGP_fingerprint_in?: ?$ReadOnlyArray<string>,
-  PGP_fingerprint_not_in?: ?$ReadOnlyArray<string>,
   PGP_fingerprint_lt?: ?string,
   PGP_fingerprint_lte?: ?string,
   PGP_fingerprint_gt?: ?string,
@@ -170,14 +168,40 @@ export type ContactNestedFilter = {|
   PGP_fingerprint_not_starts_with?: ?string,
   PGP_fingerprint_ends_with?: ?string,
   PGP_fingerprint_not_ends_with?: ?string,
+  PGP_fingerprint_in?: ?$ReadOnlyArray<string>,
+  PGP_fingerprint_not_in?: ?$ReadOnlyArray<string>,
+  member_of_groups?: ?GroupInputField,
+  member_of_groups_not?: ?GroupInputField,
+  member_of_groups_lt?: ?GroupInputField,
+  member_of_groups_lte?: ?GroupInputField,
+  member_of_groups_gt?: ?GroupInputField,
+  member_of_groups_gte?: ?GroupInputField,
+  member_of_groups_in?: ?$ReadOnlyArray<GroupInputField>,
+  member_of_groups_not_in?: ?$ReadOnlyArray<GroupInputField>,
+  roles?: ?RoleInputField,
+  roles_not?: ?RoleInputField,
+  roles_lt?: ?RoleInputField,
+  roles_lte?: ?RoleInputField,
+  roles_gt?: ?RoleInputField,
+  roles_gte?: ?RoleInputField,
+  roles_in?: ?$ReadOnlyArray<RoleInputField>,
+  roles_not_in?: ?$ReadOnlyArray<RoleInputField>,
   handle_id?: ?number,
   handle_id_not?: ?number,
-  handle_id_in?: ?$ReadOnlyArray<number>,
-  handle_id_not_in?: ?$ReadOnlyArray<number>,
   handle_id_lt?: ?number,
   handle_id_lte?: ?number,
   handle_id_gt?: ?number,
   handle_id_gte?: ?number,
+  handle_id_in?: ?$ReadOnlyArray<number>,
+  handle_id_not_in?: ?$ReadOnlyArray<number>,
+|};
+export type GroupInputField = {|
+  name?: ?string,
+  handle_id?: ?number,
+|};
+export type RoleInputField = {|
+  relation_id?: ?number,
+  name?: ?string,
 |};
 export type SearchAllContactsQueryVariables = {|
   count: number,
@@ -230,9 +254,8 @@ fragment ContactRow_contact on Contact {
   phone
   email
   modified
-  is_roles {
+  roles {
     name
-    id
   }
   member_of_groups {
     name
@@ -295,11 +318,7 @@ v3 = {
   "name": "id",
   "args": null,
   "storageKey": null
-},
-v4 = [
-  (v2/*: any*/),
-  (v3/*: any*/)
-];
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -420,12 +439,14 @@ return {
                   {
                     "kind": "LinkedField",
                     "alias": null,
-                    "name": "is_roles",
+                    "name": "roles",
                     "storageKey": null,
                     "args": null,
                     "concreteType": "Role",
                     "plural": true,
-                    "selections": (v4/*: any*/)
+                    "selections": [
+                      (v2/*: any*/)
+                    ]
                   },
                   {
                     "kind": "LinkedField",
@@ -435,7 +456,10 @@ return {
                     "args": null,
                     "concreteType": "Group",
                     "plural": true,
-                    "selections": (v4/*: any*/)
+                    "selections": [
+                      (v2/*: any*/),
+                      (v3/*: any*/)
+                    ]
                   },
                   (v3/*: any*/),
                   {
@@ -498,7 +522,7 @@ return {
     "operationKind": "query",
     "name": "SearchAllContactsQuery",
     "id": null,
-    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  phone\n  email\n  modified\n  is_roles {\n    name\n    id\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  phone\n  email\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

@@ -1,9 +1,14 @@
 import React from "react";
+// import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 
 import FieldSwitch from "./FieldSwitch";
 
 class OrderBy extends React.Component {
+
+    // static propTypes = {
+    //     // models: PropTypes.object.isRequired,
+    // };
 
     componentWillUnmount(next_props, next_state) {
         return false;

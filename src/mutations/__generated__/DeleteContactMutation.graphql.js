@@ -1,11 +1,11 @@
 /**
  * @flow
- * @relayHash 42323ac3d87888bdc52da32b516e8ee0
+ * @relayHash e5d16877c01bceb7d674eaee8b3eca12
  */
 
 /* eslint-disable */
 
-"use strict";
+'use strict';
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
@@ -18,9 +18,7 @@ export type DeleteContactMutationVariables = {|
 |};
 export type DeleteContactMutationResponse = {|
   +delete_contact: ?{|
-    +contact: ?{|
-      +handle_id: string
-    |}
+    +success: boolean
   |}
 |};
 export type DeleteContactMutation = {|
@@ -29,122 +27,78 @@ export type DeleteContactMutation = {|
 |};
 */
 
+
 /*
 mutation DeleteContactMutation(
   $input: DeleteNIContactMutationInput!
 ) {
   delete_contact(input: $input) {
-    contact {
-      handle_id
-      id
-    }
+    success
   }
 }
 */
 
-const node /*: ConcreteRequest*/ = (function() {
-    var v0 = [
-            {
-                kind: "LocalArgument",
-                name: "input",
-                type: "DeleteNIContactMutationInput!",
-                defaultValue: null
-            }
-        ],
-        v1 = [
-            {
-                kind: "Variable",
-                name: "input",
-                variableName: "input",
-                type: "DeleteNIContactMutationInput!"
-            }
-        ],
-        v2 = {
-            kind: "ScalarField",
-            alias: null,
-            name: "handle_id",
-            args: null,
-            storageKey: null
-        };
-    return {
-        kind: "Request",
-        fragment: {
-            kind: "Fragment",
-            name: "DeleteContactMutation",
-            type: "Mutation",
-            metadata: null,
-            argumentDefinitions: (v0 /*: any*/),
-            selections: [
-                {
-                    kind: "LinkedField",
-                    alias: null,
-                    name: "delete_contact",
-                    storageKey: null,
-                    args: (v1 /*: any*/),
-                    concreteType: "DeleteNIContactMutation",
-                    plural: false,
-                    selections: [
-                        {
-                            kind: "LinkedField",
-                            alias: null,
-                            name: "contact",
-                            storageKey: null,
-                            args: null,
-                            concreteType: "Contact",
-                            plural: false,
-                            selections: [(v2 /*: any*/)]
-                        }
-                    ]
-                }
-            ]
-        },
-        operation: {
-            kind: "Operation",
-            name: "DeleteContactMutation",
-            argumentDefinitions: (v0 /*: any*/),
-            selections: [
-                {
-                    kind: "LinkedField",
-                    alias: null,
-                    name: "delete_contact",
-                    storageKey: null,
-                    args: (v1 /*: any*/),
-                    concreteType: "DeleteNIContactMutation",
-                    plural: false,
-                    selections: [
-                        {
-                            kind: "LinkedField",
-                            alias: null,
-                            name: "contact",
-                            storageKey: null,
-                            args: null,
-                            concreteType: "Contact",
-                            plural: false,
-                            selections: [
-                                (v2 /*: any*/),
-                                {
-                                    kind: "ScalarField",
-                                    alias: null,
-                                    name: "id",
-                                    args: null,
-                                    storageKey: null
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        params: {
-            operationKind: "mutation",
-            name: "DeleteContactMutation",
-            id: null,
-            text:
-                "mutation DeleteContactMutation(\n  $input: DeleteNIContactMutationInput!\n) {\n  delete_contact(input: $input) {\n    contact {\n      handle_id\n      id\n    }\n  }\n}\n",
-            metadata: {}
-        }
-    };
+const node/*: ConcreteRequest*/ = (function(){
+var v0 = [
+  {
+    "kind": "LocalArgument",
+    "name": "input",
+    "type": "DeleteNIContactMutationInput!",
+    "defaultValue": null
+  }
+],
+v1 = [
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "delete_contact",
+    "storageKey": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "input",
+        "variableName": "input",
+        "type": "DeleteNIContactMutationInput!"
+      }
+    ],
+    "concreteType": "DeleteNIContactMutationPayload",
+    "plural": false,
+    "selections": [
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "success",
+        "args": null,
+        "storageKey": null
+      }
+    ]
+  }
+];
+return {
+  "kind": "Request",
+  "fragment": {
+    "kind": "Fragment",
+    "name": "DeleteContactMutation",
+    "type": "Mutation",
+    "metadata": null,
+    "argumentDefinitions": (v0/*: any*/),
+    "selections": (v1/*: any*/)
+  },
+  "operation": {
+    "kind": "Operation",
+    "name": "DeleteContactMutation",
+    "argumentDefinitions": (v0/*: any*/),
+    "selections": (v1/*: any*/)
+  },
+  "params": {
+    "operationKind": "mutation",
+    "name": "DeleteContactMutation",
+    "id": null,
+    "text": "mutation DeleteContactMutation(\n  $input: DeleteNIContactMutationInput!\n) {\n  delete_contact(input: $input) {\n    success\n  }\n}\n",
+    "metadata": {}
+  }
+};
 })();
 // prettier-ignore
-(node/*: any*/).hash = '643d818e642fc2f46f22072b32aff75e';
+(node/*: any*/).hash = 'd58c85d87f5679bfd0f27baadb1f0c0d';
 module.exports = node;

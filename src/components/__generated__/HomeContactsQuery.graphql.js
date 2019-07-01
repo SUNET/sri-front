@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 5aad0f916fcbd842a1a013a6e8cdd102
+ * @relayHash f89341cd09184ade25d75294d615e64c
  */
 
 /* eslint-disable */
@@ -9,58 +9,51 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type ContactList_contacts$ref = any;
+type DashBoardBlockList_models$ref = any;
 export type ContactOrderBy = "PGP_fingerprint_ASC" | "PGP_fingerprint_DESC" | "contact_type_ASC" | "contact_type_DESC" | "email_ASC" | "email_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "mobile_ASC" | "mobile_DESC" | "name_ASC" | "name_DESC" | "other_email_ASC" | "other_email_DESC" | "phone_ASC" | "phone_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
-export type ContactListForwardQueryVariables = {|
+export type HomeContactsQueryVariables = {|
   count: number,
-  cursor?: ?string,
   orderBy?: ?ContactOrderBy,
 |};
-export type ContactListForwardQueryResponse = {|
-  +$fragmentRefs: ContactList_contacts$ref
+export type HomeContactsQueryResponse = {|
+  +$fragmentRefs: DashBoardBlockList_models$ref
 |};
-export type ContactListForwardQuery = {|
-  variables: ContactListForwardQueryVariables,
-  response: ContactListForwardQueryResponse,
+export type HomeContactsQuery = {|
+  variables: HomeContactsQueryVariables,
+  response: HomeContactsQueryResponse,
 |};
 */
 
 
 /*
-query ContactListForwardQuery(
+query HomeContactsQuery(
   $count: Int!
-  $cursor: String
   $orderBy: ContactOrderBy
 ) {
-  ...ContactList_contacts_32czeo
+  ...DashBoardBlockList_models_1ikxwq
 }
 
-fragment ContactList_contacts_32czeo on Query {
-  contacts(first: $count, after: $cursor, orderBy: $orderBy) {
+fragment DashBoardBlockList_models_1ikxwq on Query {
+  contacts(first: $count, orderBy: $orderBy) {
     edges {
       node {
-        handle_id
-        ...ContactRow_contact
+        ...DashBoardBlockRow_contact
         id
         __typename
       }
       cursor
     }
     pageInfo {
-      hasNextPage
       endCursor
+      hasNextPage
     }
   }
 }
 
-fragment ContactRow_contact on Contact {
+fragment DashBoardBlockRow_contact on Contact {
   handle_id
-  name
   first_name
   last_name
-  contact_type
-  phone
-  email
   modified
   roles {
     name
@@ -82,24 +75,12 @@ var v0 = [
   },
   {
     "kind": "LocalArgument",
-    "name": "cursor",
-    "type": "String",
-    "defaultValue": null
-  },
-  {
-    "kind": "LocalArgument",
     "name": "orderBy",
     "type": "ContactOrderBy",
     "defaultValue": null
   }
 ],
 v1 = [
-  {
-    "kind": "Variable",
-    "name": "after",
-    "variableName": "cursor",
-    "type": "String"
-  },
   {
     "kind": "Variable",
     "name": "first",
@@ -131,25 +112,19 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "ContactListForwardQuery",
+    "name": "HomeContactsQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
         "kind": "FragmentSpread",
-        "name": "ContactList_contacts",
+        "name": "DashBoardBlockList_models",
         "args": [
           {
             "kind": "Variable",
             "name": "count",
             "variableName": "count",
-            "type": null
-          },
-          {
-            "kind": "Variable",
-            "name": "cursor",
-            "variableName": "cursor",
             "type": null
           },
           {
@@ -164,7 +139,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "ContactListForwardQuery",
+    "name": "HomeContactsQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -201,7 +176,6 @@ return {
                     "args": null,
                     "storageKey": null
                   },
-                  (v2/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -213,27 +187,6 @@ return {
                     "kind": "ScalarField",
                     "alias": null,
                     "name": "last_name",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "contact_type",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "phone",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "email",
                     "args": null,
                     "storageKey": null
                   },
@@ -300,14 +253,14 @@ return {
               {
                 "kind": "ScalarField",
                 "alias": null,
-                "name": "hasNextPage",
+                "name": "endCursor",
                 "args": null,
                 "storageKey": null
               },
               {
                 "kind": "ScalarField",
                 "alias": null,
-                "name": "endCursor",
+                "name": "hasNextPage",
                 "args": null,
                 "storageKey": null
               }
@@ -321,20 +274,20 @@ return {
         "name": "contacts",
         "args": (v1/*: any*/),
         "handle": "connection",
-        "key": "ContactList_contacts",
+        "key": "DashBoardBlockList_contacts",
         "filters": []
       }
     ]
   },
   "params": {
     "operationKind": "query",
-    "name": "ContactListForwardQuery",
+    "name": "HomeContactsQuery",
     "id": null,
-    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  phone\n  email\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query HomeContactsQuery(\n  $count: Int!\n  $orderBy: ContactOrderBy\n) {\n  ...DashBoardBlockList_models_1ikxwq\n}\n\nfragment DashBoardBlockList_models_1ikxwq on Query {\n  contacts(first: $count, orderBy: $orderBy) {\n    edges {\n      node {\n        ...DashBoardBlockRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment DashBoardBlockRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '96a0d0eb0ad60f76ab272f4c423e87fd';
+(node/*: any*/).hash = '2a513e6d7246a8160da7e0c62beca7ba';
 module.exports = node;

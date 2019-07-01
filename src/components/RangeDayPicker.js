@@ -82,9 +82,7 @@ class RangeDayPicker extends React.Component {
                                 numberOfMonths: 2
                             }}
                             onDayChange={this.handleFromChange}
-                            component={(props) => (
-                                <DateInput {...props} label="From" />
-                            )}
+                            component={(props) => <DateInput {...props} label="From" />}
                         />
                     </Col>
                     <Col>
@@ -104,9 +102,7 @@ class RangeDayPicker extends React.Component {
                                     numberOfMonths: 2
                                 }}
                                 onDayChange={this.handleToChange}
-                                component={(props) => (
-                                    <DateInput {...props} label="To" />
-                                )}
+                                component={(props) => <DateInput {...props} label="To" />}
                             />
                         </span>
                     </Col>

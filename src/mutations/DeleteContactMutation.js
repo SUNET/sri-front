@@ -6,9 +6,7 @@ import environment from "../createRelayEnvironment";
 const mutation = graphql`
     mutation DeleteContactMutation($input: DeleteNIContactMutationInput!) {
         delete_contact(input: $input) {
-            contact {
-                handle_id
-            }
+            success
         }
     }
 `;

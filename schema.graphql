@@ -1,7 +1,5 @@
 """This class is used for the choices available in a dropdown"""
-type Choice {
-  id: ID!
-  dropdown: Dropdown!
+type Choice implements KeyValue {
   name: String!
   value: String!
 }
@@ -32,9 +30,8 @@ type Contact implements Node {
   email: String
   other_email: String
   PGP_fingerprint: String
-  is_roles: [Role]
   member_of_groups: [Group]
-  works_for: [NIRelationType]
+  roles: [Role]
 }
 
 type ContactConnection {
@@ -58,8 +55,6 @@ input ContactFilter {
 input ContactNestedFilter {
   name: String
   name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
   name_lt: String
   name_lte: String
   name_gt: String
@@ -70,10 +65,10 @@ input ContactNestedFilter {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
   first_name: String
   first_name_not: String
-  first_name_in: [String!]
-  first_name_not_in: [String!]
   first_name_lt: String
   first_name_lte: String
   first_name_gt: String
@@ -84,10 +79,10 @@ input ContactNestedFilter {
   first_name_not_starts_with: String
   first_name_ends_with: String
   first_name_not_ends_with: String
+  first_name_in: [String!]
+  first_name_not_in: [String!]
   last_name: String
   last_name_not: String
-  last_name_in: [String!]
-  last_name_not_in: [String!]
   last_name_lt: String
   last_name_lte: String
   last_name_gt: String
@@ -98,10 +93,10 @@ input ContactNestedFilter {
   last_name_not_starts_with: String
   last_name_ends_with: String
   last_name_not_ends_with: String
+  last_name_in: [String!]
+  last_name_not_in: [String!]
   title: String
   title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
   title_lt: String
   title_lte: String
   title_gt: String
@@ -112,10 +107,10 @@ input ContactNestedFilter {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
+  title_in: [String!]
+  title_not_in: [String!]
   salutation: String
   salutation_not: String
-  salutation_in: [String!]
-  salutation_not_in: [String!]
   salutation_lt: String
   salutation_lte: String
   salutation_gt: String
@@ -126,10 +121,10 @@ input ContactNestedFilter {
   salutation_not_starts_with: String
   salutation_ends_with: String
   salutation_not_ends_with: String
+  salutation_in: [String!]
+  salutation_not_in: [String!]
   contact_type: String
   contact_type_not: String
-  contact_type_in: [String!]
-  contact_type_not_in: [String!]
   contact_type_lt: String
   contact_type_lte: String
   contact_type_gt: String
@@ -140,10 +135,10 @@ input ContactNestedFilter {
   contact_type_not_starts_with: String
   contact_type_ends_with: String
   contact_type_not_ends_with: String
+  contact_type_in: [String!]
+  contact_type_not_in: [String!]
   phone: String
   phone_not: String
-  phone_in: [String!]
-  phone_not_in: [String!]
   phone_lt: String
   phone_lte: String
   phone_gt: String
@@ -154,10 +149,10 @@ input ContactNestedFilter {
   phone_not_starts_with: String
   phone_ends_with: String
   phone_not_ends_with: String
+  phone_in: [String!]
+  phone_not_in: [String!]
   mobile: String
   mobile_not: String
-  mobile_in: [String!]
-  mobile_not_in: [String!]
   mobile_lt: String
   mobile_lte: String
   mobile_gt: String
@@ -168,10 +163,10 @@ input ContactNestedFilter {
   mobile_not_starts_with: String
   mobile_ends_with: String
   mobile_not_ends_with: String
+  mobile_in: [String!]
+  mobile_not_in: [String!]
   email: String
   email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
   email_lt: String
   email_lte: String
   email_gt: String
@@ -182,10 +177,10 @@ input ContactNestedFilter {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  email_in: [String!]
+  email_not_in: [String!]
   other_email: String
   other_email_not: String
-  other_email_in: [String!]
-  other_email_not_in: [String!]
   other_email_lt: String
   other_email_lte: String
   other_email_gt: String
@@ -196,10 +191,10 @@ input ContactNestedFilter {
   other_email_not_starts_with: String
   other_email_ends_with: String
   other_email_not_ends_with: String
+  other_email_in: [String!]
+  other_email_not_in: [String!]
   PGP_fingerprint: String
   PGP_fingerprint_not: String
-  PGP_fingerprint_in: [String!]
-  PGP_fingerprint_not_in: [String!]
   PGP_fingerprint_lt: String
   PGP_fingerprint_lte: String
   PGP_fingerprint_gt: String
@@ -210,14 +205,32 @@ input ContactNestedFilter {
   PGP_fingerprint_not_starts_with: String
   PGP_fingerprint_ends_with: String
   PGP_fingerprint_not_ends_with: String
+  PGP_fingerprint_in: [String!]
+  PGP_fingerprint_not_in: [String!]
+  member_of_groups: GroupInputField
+  member_of_groups_not: GroupInputField
+  member_of_groups_lt: GroupInputField
+  member_of_groups_lte: GroupInputField
+  member_of_groups_gt: GroupInputField
+  member_of_groups_gte: GroupInputField
+  member_of_groups_in: [GroupInputField!]
+  member_of_groups_not_in: [GroupInputField!]
+  roles: RoleInputField
+  roles_not: RoleInputField
+  roles_lt: RoleInputField
+  roles_lte: RoleInputField
+  roles_gt: RoleInputField
+  roles_gte: RoleInputField
+  roles_in: [RoleInputField!]
+  roles_not_in: [RoleInputField!]
   handle_id: Int
   handle_id_not: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
   handle_id_lt: Int
   handle_id_lte: Int
   handle_id_gt: Int
   handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
 }
 
 """An enumeration."""
@@ -248,11 +261,6 @@ enum ContactOrderBy {
   handle_id_DESC
 }
 
-type CreateNIContactMutation {
-  contact: Contact
-  clientMutationId: String
-}
-
 input CreateNIContactMutationInput {
   first_name: String!
   last_name: String!
@@ -268,8 +276,8 @@ input CreateNIContactMutationInput {
   clientMutationId: String
 }
 
-type CreateNIGroupMutation {
-  group: Group
+type CreateNIContactMutationPayload {
+  contact: Contact
   clientMutationId: String
 }
 
@@ -278,13 +286,42 @@ input CreateNIGroupMutationInput {
   clientMutationId: String
 }
 
-type CreateNIRoleMutation {
-  role: Role
+type CreateNIGroupMutationPayload {
+  group: Group
   clientMutationId: String
 }
 
-input CreateNIRoleMutationInput {
+input CreateNIOrganizationMutationInput {
+  account_id: String
   name: String!
+  description: String
+  phone: String
+  website: String
+  customer_id: String
+  type: String
+  additional_info: String
+  abuse_contact: String
+  primary_contact: String
+  secondary_contact: String
+  it_technical_contact: String
+  it_security_contact: String
+  it_manager_contact: String
+  clientMutationId: String
+}
+
+type CreateNIOrganizationMutationPayload {
+  organization: Organization
+  clientMutationId: String
+}
+
+input CreateNIProcedureMutationInput {
+  name: String!
+  description: String
+  clientMutationId: String
+}
+
+type CreateNIProcedureMutationPayload {
+  procedure: Procedure
   clientMutationId: String
 }
 
@@ -295,18 +332,13 @@ value as specified by
 """
 scalar DateTime
 
-type DeleteNIContactMutation {
-  contact: Contact
-  clientMutationId: String
-}
-
 input DeleteNIContactMutationInput {
   handle_id: Int!
   clientMutationId: String
 }
 
-type DeleteNIGroupMutation {
-  group: Group
+type DeleteNIContactMutationPayload {
+  success: Boolean!
   clientMutationId: String
 }
 
@@ -315,13 +347,39 @@ input DeleteNIGroupMutationInput {
   clientMutationId: String
 }
 
-type DeleteNIRoleMutation {
-  role: Role
+type DeleteNIGroupMutationPayload {
+  success: Boolean!
   clientMutationId: String
 }
 
-input DeleteNIRoleMutationInput {
+input DeleteNIOrganizationMutationInput {
   handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteNIOrganizationMutationPayload {
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteNIProcedureMutationInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteNIProcedureMutationPayload {
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteRelationshipInput {
+  relation_id: Int!
+  clientMutationId: String
+}
+
+type DeleteRelationshipPayload {
+  success: Boolean!
+  relation_id: Int!
   clientMutationId: String
 }
 
@@ -329,8 +387,8 @@ input DeleteNIRoleMutationInput {
 This type represents an key value pair in a dictionary for the data
 dict of the norduniclient nodes
 """
-type DictEntryType {
-  key: String!
+type DictEntryType implements KeyValue {
+  name: String!
   value: String!
 }
 
@@ -347,7 +405,6 @@ type DictRelationType {
 type Dropdown {
   id: ID!
   name: String!
-  choice_set: [Choice]
 }
 
 """The group type is used to group contacts"""
@@ -386,11 +443,14 @@ input GroupFilter {
   OR: [GroupNestedFilter!]
 }
 
+input GroupInputField {
+  name: String
+  handle_id: Int
+}
+
 input GroupNestedFilter {
   name: String
   name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
   name_lt: String
   name_lte: String
   name_gt: String
@@ -401,14 +461,16 @@ input GroupNestedFilter {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
   handle_id: Int
   handle_id_not: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
   handle_id_lt: Int
   handle_id_lte: Int
   handle_id_gt: Int
   handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
 }
 
 """An enumeration."""
@@ -419,16 +481,85 @@ enum GroupOrderBy {
   handle_id_DESC
 }
 
+"""A host in the SRI system"""
+type Host implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  ip_addresses: IPAddr
+  name: String!
+  operational_state: String!
+  os: String
+  os_version: String
+  vendor: String
+  backup: String
+  managed_by: String
+  description: String
+  responsible_group: String
+  support_group: String
+  security_class: String
+  security_comment: String
+}
+
+"""IPAddr scalar to be matched with the IPAddrField in a django form"""
+scalar IPAddr
+
+interface KeyValue {
+  name: String!
+  value: String!
+}
+
 type Mutation {
-  create_role(input: CreateNIRoleMutationInput!): CreateNIRoleMutation
-  update_role(input: UpdateNIRoleMutationInput!): UpdateNIRoleMutation
-  delete_role(input: DeleteNIRoleMutationInput!): DeleteNIRoleMutation
-  create_group(input: CreateNIGroupMutationInput!): CreateNIGroupMutation
-  update_group(input: UpdateNIGroupMutationInput!): UpdateNIGroupMutation
-  delete_group(input: DeleteNIGroupMutationInput!): DeleteNIGroupMutation
-  create_contact(input: CreateNIContactMutationInput!): CreateNIContactMutation
-  update_contact(input: UpdateNIContactMutationInput!): UpdateNIContactMutation
-  delete_contact(input: DeleteNIContactMutationInput!): DeleteNIContactMutation
+  create_group(input: CreateNIGroupMutationInput!): CreateNIGroupMutationPayload
+  update_group(input: UpdateNIGroupMutationInput!): UpdateNIGroupMutationPayload
+  delete_group(input: DeleteNIGroupMutationInput!): DeleteNIGroupMutationPayload
+  create_procedure(input: CreateNIProcedureMutationInput!): CreateNIProcedureMutationPayload
+  update_procedure(input: UpdateNIProcedureMutationInput!): UpdateNIProcedureMutationPayload
+  delete_procedure(input: DeleteNIProcedureMutationInput!): DeleteNIProcedureMutationPayload
+  create_contact(input: CreateNIContactMutationInput!): CreateNIContactMutationPayload
+  update_contact(input: UpdateNIContactMutationInput!): UpdateNIContactMutationPayload
+  delete_contact(input: DeleteNIContactMutationInput!): DeleteNIContactMutationPayload
+  create_organization(input: CreateNIOrganizationMutationInput!): CreateNIOrganizationMutationPayload
+  update_organization(input: UpdateNIOrganizationMutationInput!): UpdateNIOrganizationMutationPayload
+  delete_organization(input: DeleteNIOrganizationMutationInput!): DeleteNIOrganizationMutationPayload
+  delete_relationship(input: DeleteRelationshipInput!): DeleteRelationshipPayload
+}
+
+type Neo4jChoice implements KeyValue {
+  name: String!
+  value: String!
+}
+
+"""
+This class expands graphene_django object type adding the defined fields in
+the types subclasses and extracts the data from the norduniclient nodes and
+adds a resolver for each field, a nidata field is also added to hold the
+values of the node data dict.
+"""
+type NIObjectType implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
 }
 
 """This class represents a relationship and its properties"""
@@ -439,7 +570,7 @@ type NIRelationType implements Node {
   type: String!
   start: Int!
   end: Int!
-  data: [DictEntryType]
+  nidata: [DictEntryType]
 }
 
 """An object with an ID"""
@@ -480,35 +611,8 @@ type NodeHandler implements Node {
   name: String!
 }
 
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
-}
-
-type Query {
-  """The ID of the object"""
-  node(id: ID!): Node
-  getNodeById(handle_id: Int): NodeHandler
-  getChoicesForDropdown(name: String!): [Choice]
-  getRelationById(relation_id: Int!): NIRelationType
-  roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
-  getRoleById(handle_id: Int): Role
-  groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
-  getGroupById(handle_id: Int): Group
-  contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
-  getContactById(handle_id: Int): Contact
-}
-
-type Role implements Node {
+"""The group type is used to group contacts"""
+type Organization implements Node {
   handle_id: ID!
   node_name: String!
   node_meta_type: NodeHandleNodeMetaType!
@@ -523,31 +627,34 @@ type Role implements Node {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   name: String!
+  description: String!
+  phone: String
+  website: String
+  customer_id: String
+  additional_info: String
 }
 
-type RoleConnection {
+type OrganizationConnection {
   pageInfo: PageInfo!
-  edges: [RoleEdge]!
+  edges: [OrganizationEdge]!
 }
 
-type RoleEdge {
+type OrganizationEdge {
   """The item at the end of the edge"""
-  node: Role
+  node: Organization
 
   """A cursor for use in pagination"""
   cursor: String!
 }
 
-input RoleFilter {
-  AND: [RoleNestedFilter!]
-  OR: [RoleNestedFilter!]
+input OrganizationFilter {
+  AND: [OrganizationNestedFilter!]
+  OR: [OrganizationNestedFilter!]
 }
 
-input RoleNestedFilter {
+input OrganizationNestedFilter {
   name: String
   name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
   name_lt: String
   name_lte: String
   name_gt: String
@@ -558,27 +665,238 @@ input RoleNestedFilter {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  phone: String
+  phone_not: String
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  website: String
+  website_not: String
+  website_lt: String
+  website_lte: String
+  website_gt: String
+  website_gte: String
+  website_contains: String
+  website_not_contains: String
+  website_starts_with: String
+  website_not_starts_with: String
+  website_ends_with: String
+  website_not_ends_with: String
+  website_in: [String!]
+  website_not_in: [String!]
+  customer_id: String
+  customer_id_not: String
+  customer_id_lt: String
+  customer_id_lte: String
+  customer_id_gt: String
+  customer_id_gte: String
+  customer_id_contains: String
+  customer_id_not_contains: String
+  customer_id_starts_with: String
+  customer_id_not_starts_with: String
+  customer_id_ends_with: String
+  customer_id_not_ends_with: String
+  customer_id_in: [String!]
+  customer_id_not_in: [String!]
+  additional_info: String
+  additional_info_not: String
+  additional_info_lt: String
+  additional_info_lte: String
+  additional_info_gt: String
+  additional_info_gte: String
+  additional_info_contains: String
+  additional_info_not_contains: String
+  additional_info_starts_with: String
+  additional_info_not_starts_with: String
+  additional_info_ends_with: String
+  additional_info_not_ends_with: String
+  additional_info_in: [String!]
+  additional_info_not_in: [String!]
   handle_id: Int
   handle_id_not: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
   handle_id_lt: Int
   handle_id_lte: Int
   handle_id_gt: Int
   handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
 }
 
 """An enumeration."""
-enum RoleOrderBy {
+enum OrganizationOrderBy {
   name_ASC
   name_DESC
+  description_ASC
+  description_DESC
+  phone_ASC
+  phone_DESC
+  website_ASC
+  website_DESC
+  customer_id_ASC
+  customer_id_DESC
+  additional_info_ASC
+  additional_info_DESC
   handle_id_ASC
   handle_id_DESC
 }
 
-type UpdateNIContactMutation {
-  contact: Contact
-  clientMutationId: String
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""The group type is used to group contacts"""
+type Procedure implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  name: String!
+  description: String
+}
+
+type ProcedureConnection {
+  pageInfo: PageInfo!
+  edges: [ProcedureEdge]!
+}
+
+type ProcedureEdge {
+  """The item at the end of the edge"""
+  node: Procedure
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ProcedureFilter {
+  AND: [ProcedureNestedFilter!]
+  OR: [ProcedureNestedFilter!]
+}
+
+input ProcedureNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+}
+
+"""An enumeration."""
+enum ProcedureOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+type Query {
+  """The ID of the object"""
+  node(id: ID!): Node
+  getNodeById(handle_id: Int): NodeHandler
+  getAvailableDropdowns: [String]
+  getChoicesForDropdown(name: String!): [KeyValue]
+  getRelationById(relation_id: Int!): NIRelationType
+  getRoleById(relation_id: Int!): Role
+  groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
+  getGroupById(handle_id: Int): Group
+  contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
+  getContactById(handle_id: Int): Contact
+  organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): OrganizationConnection
+  getOrganizationById(handle_id: Int): Organization
+  procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
+  getProcedureById(handle_id: Int): Procedure
+}
+
+type Role {
+  relation_id: Int!
+  type: String!
+  start: Int!
+  end: Int!
+  nidata: [DictEntryType]
+  start_node: NIObjectType
+  end_node: Organization
+  name: String
+}
+
+input RoleInputField {
+  relation_id: Int
+  name: String
 }
 
 input UpdateNIContactMutationInput {
@@ -595,32 +913,57 @@ input UpdateNIContactMutationInput {
   PGP_fingerprint: String
   relationship_works_for: String
   relationship_member_of: String
-  relationship_is: String
+  role_name: String
   handle_id: Int!
   clientMutationId: String
 }
 
-type UpdateNIGroupMutation {
-  group: Group
+type UpdateNIContactMutationPayload {
+  contact: Contact
   clientMutationId: String
 }
 
 input UpdateNIGroupMutationInput {
   name: String!
-  description: String
   relationship_member_of: String
   handle_id: Int!
   clientMutationId: String
 }
 
-type UpdateNIRoleMutation {
-  role: Role
+type UpdateNIGroupMutationPayload {
+  group: Group
   clientMutationId: String
 }
 
-input UpdateNIRoleMutationInput {
+input UpdateNIOrganizationMutationInput {
+  account_id: String
   name: String!
+  description: String
+  phone: String
+  website: String
+  customer_id: String
+  type: String
+  additional_info: String
+  relationship_parent_of: String
+  relationship_uses_a: String
   handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateNIOrganizationMutationPayload {
+  organization: Organization
+  clientMutationId: String
+}
+
+input UpdateNIProcedureMutationInput {
+  name: String!
+  description: String
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateNIProcedureMutationPayload {
+  procedure: Procedure
   clientMutationId: String
 }
 
