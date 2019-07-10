@@ -3,12 +3,12 @@ import { withTranslation } from "react-i18next";
 
 import "../style/Footer.scss";
 
-function Services({ t, i18n }) {
+function Contracts({ t, i18n }) {
     return (
         <div>
-            <p>Services</p>
+            <p>Contracts</p>
         </div>
     );
 }
 
-export default withTranslation()(Services);
+export default withTranslation()(Contracts);

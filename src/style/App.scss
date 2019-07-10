@@ -1,21 +1,43 @@
 @import "../variables.scss";
 
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    width: inherit;
+    min-height: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 1500px) {
+    .container {
+        max-width: 1450px;
+    }
+}
+
 .App {
     background-color: $background-color;
     font-family: $font;
 }
 
-img{
+img {
     max-width: 100%;
 }
 
-button{
+button {
     background: none;
     border: none;
 }
 
-.borderless{
-    > div{
+.borderless {
+    > div {
         border: none;
     }
 }

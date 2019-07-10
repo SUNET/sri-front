@@ -1,32 +1,60 @@
 @import "../variables.scss";
 
-.accordion__button {
-    a {
-        vertical-align: middle;
-    }
+.side-nav {
+    background-color: $secundary-color;
+    height: 100%;
 
-    &:before {
-        display: inline-block;
-        content: "\f111";
-        font-family: 'Font Awesome\ 5 Free';
-        margin-right: 8px;
-        font-size: 21px;
-        vertical-align: middle;
-    }
+    .accordion {
+        margin-top: 128px;
 
-    &:after {
-        display: inline-block;
-        content: '';
-        height: 8px;
-        width: 8px;
-        margin-left: 12px;
-        border-bottom: 2px solid currentColor;
-        border-right: 2px solid currentColor;
-        transform: rotate(-45deg);
-    }
+        .accordion__item {
+            .accordion__button {
+                margin-bottom: 4px;
+                background-color: $tertiary-color;
+                padding: 25px 0 25px 20px;
 
-    &[aria-expanded='true']:after,
-    &[aria-selected='true']:after {
-        transform: rotate(45deg);
+                a {
+                    vertical-align: middle;
+                }
+
+                &:before {
+                    display: inline-block;
+                    content: "\f111";
+                    font-family: 'Font Awesome\ 5 Free';
+                    margin-right: 10px;
+                    font-size: 21px;
+                    vertical-align: middle;
+                }
+
+                &:after {
+                    display: inline-block;
+                    content: '';
+                    height: 8px;
+                    width: 8px;
+                    margin-left: 12px;
+                    border-bottom: 2px solid currentColor;
+                    border-right: 2px solid currentColor;
+                    transform: rotate(-45deg);
+                }
+                &[aria-expanded='true']{
+                    background-color: $primary-color;
+                }
+                &[aria-expanded='true']:after,
+                &[aria-selected='true']:after {
+                    transform: rotate(45deg);
+                }
+            }
+        }
+        .accordion__panel{
+            .nav{
+                .nav-link{
+                    background-color: $tertiary-color;
+                    margin-bottom: 4px;
+                    &.active{
+                        background-color: $primary-color;
+                    }
+                }
+            }
+        }
     }
 }

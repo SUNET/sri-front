@@ -1,11 +1,50 @@
 @import "../variables.scss";
 
-.DayPickerInput .DayPickerInput-OverlayWrapper {
-    position: absolute;
-    right: 10px;
-}
-
 .InputFromTo {
+    .DayPickerInput {
+        .day-picker-wrap {
+            align-items: center;
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            width: 100%;
+            margin: 0 25px 15px 0;
+
+            label {
+                margin-right: 10px;
+            }
+            input {
+                width: 112px;
+                border-radius: 20px;
+                height: 28px;
+                padding: 0 10px;
+                font-size: 14px;
+            }
+            input::placeholder{
+                color: grey;
+            }
+            span {
+                margin-left: -28px;
+                color: RGB(124, 176, 177);
+                text-align: center;
+            }
+        }
+
+        .DayPickerInput-OverlayWrapper {
+            position: absolute;
+            z-index: 999;
+
+            .DayPicker-Months {
+                flex-wrap: nowrap;
+            }
+        }
+    }
+
+    .InputFromTo-to .DayPickerInput-Overlay {
+        position: relative;
+        right: 0;
+    }
+
     .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
         background-color: #f0f8ff !important;
         color: #4a90e2;
@@ -26,13 +65,7 @@
     }
 
     .DayPickerInput-Overlay {
-        width: 518px;
         position: relative;
         right: 0;
     }
-}
-
-.InputFromTo-to .DayPickerInput-Overlay {
-    position: relative;
-    right: 0;
 }

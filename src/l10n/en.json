@@ -4,7 +4,7 @@
             "header.welcome": "SUNET",
             "header.main-menu.home": "Home",
             "header.main-menu.network": "Network",
-            "header.main-menu.services": "Sevices",
+            "header.main-menu.contracts": "Contracts",
             "header.main-menu.community": "Community",
             "submenu.contacts": "Contacts",
             "submenu.navbar.roles": "Roles",
@@ -35,6 +35,7 @@
             "community.sub-menu.organizations/provider": "Provider",
             "community.sub-menu.organizations/customers": "Customers",
             "community.sub-menu.organizations/end-users": "End users",
+            "community.sub-menu.contacts": "Contacts",
             "community.sub-menu.groups": "Groups",
             "footer.copyright": "© SUNET 2019"
         }

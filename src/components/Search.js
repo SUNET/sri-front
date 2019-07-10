@@ -11,7 +11,8 @@ import { ITEMS_PER_PAGE } from "../constants";
 import { ContactList, CreateContact, ContactDetails } from "./Contact";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
-import { RouteNotFound } from "./NotFound";
+import RangeDayPicker from "./RangeDayPicker";
+// import { RouteNotFound } from "./NotFound";
 
 const SearchAllContactsQuery = graphql`
     query SearchAllContactsQuery(
@@ -92,6 +93,7 @@ class Search extends React.Component {
                             <section className="mt-3">
                                 <Row>
                                     <Col sm={9}>
+                                        <RangeDayPicker />
                                         <OrderBy changeOrderBy={this._handleOnChangeOrderBy} className="text-right" />
                                         {this.renderModelList()}
                                     </Col>
@@ -114,7 +116,6 @@ class Search extends React.Component {
                         path={`${this.props.match.url}/contacts/:contactId`}
                         component={ContactDetails}
                     />
-                    <RouteNotFound />
                 </Switch>
             </section>
         );

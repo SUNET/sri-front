@@ -18,7 +18,6 @@ const Routes = {
     "/network/locations": "Locations",
     "/network/locations/racks": "Racks",
     "/network/locations/sites": "Sites",
-    "/services": "Services",
     "/community": "Community",
     "/community/organizations": "Organizations",
     "/community/organizations/provider": "Provider",
@@ -26,9 +25,9 @@ const Routes = {
     "/community/organizations/end-users": "End users",
     "/community/groups": "Groups",
     "/community/contacts": "Contacts",
-    "/community/roles": "Roles",
     "/community/contacts/create": "Create Contact",
     "/community/contacts/:contactId": "Contact Info",
+    "/contracts": "Contracts",
     "/personal-area": "Personal Area",
     "/personal-area/profile": "Profile",
     "/personal-area/settings": "Settings"

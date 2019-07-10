@@ -3,23 +3,15 @@ import { withTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 
-import SideNavNetwork from "./SideNavNetwork";
 import Locations from "./Locations";
 
 class Network extends React.Component {
     render() {
         return (
             <Row>
-                <Col sm={3}>
-                    <SideNavNetwork />
-                </Col>
-                <Col sm={3}>
+                <Col>
                     <Switch>
-                        <Route
-                            exact
-                            path={`${this.props.match.url}`}
-                            component={() => <p>Network</p>}
-                        />
+                        <Route exact path={`${this.props.match.url}`} component={() => <p>Network</p>} />
                         <Route component={Locations} />
                     </Switch>
                 </Col>

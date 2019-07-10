@@ -1,6 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { Dropdown, Nav, Navbar, Image } from "react-bootstrap";
+import { Dropdown, Form, Nav, Navbar, Image } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
@@ -23,14 +23,19 @@ class TopHeader extends React.Component {
                         <Nav.Link as={NavLink} activeClassName="active" to="/network">
                             {t("header.main-menu.network")}
                         </Nav.Link>
-                        <Nav.Link as={NavLink} activeClassName="active" to="/services">
-                            {t("header.main-menu.services")}
-                        </Nav.Link>
                         <Nav.Link as={NavLink} activeClassName="active" to="/community">
                             {t("header.main-menu.community")}
                         </Nav.Link>
+                        <Nav.Link as={NavLink} activeClassName="active" to="/contracts">
+                            {t("header.main-menu.contracts")}
+                        </Nav.Link>
                     </Nav>
                     <Nav>
+                        <Nav.Item>
+                            <Form inline>
+                                <Form.Control type="text" placeholder="Search" className="mr-sm-2" />
+                            </Form>
+                        </Nav.Item>
                         <Nav.Item>
                             <Dropdown>
                                 <Dropdown.Toggle as="span">
