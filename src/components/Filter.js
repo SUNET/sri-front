@@ -1,11 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
-import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
-
-import Dropdown from "./Dropdown";
-
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/Filter.scss";
 
@@ -14,48 +10,24 @@ class Filter extends React.Component {
         super(props);
 
         this.state = {
-            filterValue: "",
-            contact_type: ""
+            filterValue: ""
         };
     }
 
     render() {
-        const t = this.props.t;
         return (
-            <section>
-                <Form className="filter">
-                    <div>
-                        <Form.Control
-                            placeholder="Filter"
-                            defaultValue={this.state.filterValue}
-                            onChange={(e) => this.props.changeFilter(e)}
-                        />
-                    </div>
-                    <div className="mt-1">
-                        <header>
-                            <span>
-                                {t("Filters")}
-                            </span>
-                            <FontAwesomeIcon
-                                icon={faFilter}
-                                className="pullRight"
-                            />
-                        </header>
-
-                        <Dropdown
-                            label="Role"
-                            type="contact_type"
-                            onChange={(e) =>
-                                this.setState({
-                                    contact_type: e.target.value
-                                })
-                            }
-                        />
-                    </div>
-                </Form>
-            </section>
+            <Form className="filter">
+                <span>
+                    <FontAwesomeIcon icon={faSearch} />
+                </span>
+                <Form.Control
+                    placeholder="Filter by word"
+                    defaultValue={this.state.filterValue}
+                    onChange={(e) => this.props.changeFilter(e)}
+                />
+            </Form>
         );
     }
 }
 
-export default withTranslation()(Filter);
+export default Filter;

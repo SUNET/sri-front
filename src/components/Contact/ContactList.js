@@ -2,11 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown, Row, Col } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+import { withTranslation } from "react-i18next";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 import { ITEMS_PER_PAGE } from "../../constants";
 import ContactRow from "./ContactRow";
+import FieldSwitch from "../FieldSwitch";
+
+import "../../style/ModelList.scss";
 
 class ContactList extends React.PureComponent {
     static propTypes = {
@@ -32,26 +39,98 @@ class ContactList extends React.PureComponent {
     renderList() {
         let models = this.props.contacts;
         return (
-            <div>
+            <>
                 {models.contacts.edges.map(({ node }) => (
-                    <ContactRow
-                        key={node.__id}
-                        contact={node}
-                        onClick={this._handleOnClick}
-                    />
+                    <ContactRow key={node.__id} contact={node} onClick={this._handleOnClick} />
                 ))}
-            </div>
+            </>
         );
     }
 
     render() {
+        const { t } = this.props;
         return (
             <section>
-                {this.renderList()}
-                <Button
-                    onClick={() => this._loadMore()}
-                    variant="outline-primary"
-                >
+                <div className="model-list">
+                    <div>
+                        <div></div>
+                        <div>{t("Name")}</div>
+                        <div>{t("Organization")}</div>
+                        <div>{t("Roles")}</div>
+                        <div>{t("Contact Type")}</div>
+                        <div>
+                            <Dropdown alignRight>
+                                <Dropdown.Toggle as="span">
+                                    <FontAwesomeIcon icon={faBars} />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Header>Show/Hide Columns</Dropdown.Header>
+                                    <Dropdown.Divider />
+                                    <div>
+                                        <FieldSwitch
+                                            type="toggle-icon"
+                                            icon="check"
+                                            color="p-success-o"
+                                            classNames="off-hidden"
+                                            label="Name"
+                                            onChange={(e) => {}}
+                                            id="network"
+                                        />
+                                        <FieldSwitch
+                                            type="toggle-icon"
+                                            icon="check"
+                                            color="p-success-o"
+                                            classNames="off-hidden"
+                                            label="Organization"
+                                            onChange={(e) => {}}
+                                            id="network"
+                                        />
+                                        <FieldSwitch
+                                            type="toggle-icon"
+                                            icon="check"
+                                            color="p-success-o"
+                                            classNames="off-hidden"
+                                            label="Roles"
+                                            onChange={(e) => {}}
+                                            id="network"
+                                        />
+                                        <FieldSwitch
+                                            type="toggle-icon"
+                                            icon="check"
+                                            color="p-success-o"
+                                            classNames="off-hidden"
+                                            label="Contact Type"
+                                            onChange={(e) => {}}
+                                            id="network"
+                                        />
+                                        <FieldSwitch
+                                            type="toggle-icon"
+                                            icon="check"
+                                            color="p-success-o"
+                                            classNames="off-hidden"
+                                            label="All"
+                                            onChange={(e) => {}}
+                                            id="network"
+                                        />
+                                    </div>
+                                    <Dropdown.Divider />
+                                    <div>
+                                        <Row>
+                                            <Col>
+                                                <Button>Cancel</Button>
+                                            </Col>
+                                            <Col>
+                                                <Button>Accept</Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                    </div>
+                    <div>{this.renderList()}</div>
+                </div>
+                <Button onClick={() => this._loadMore()} variant="outline-primary">
                     Load More
                 </Button>
             </section>
@@ -60,7 +139,7 @@ class ContactList extends React.PureComponent {
 }
 
 export default createPaginationContainer(
-    withRouter(ContactList),
+    withTranslation()(withRouter(ContactList)),
     graphql`
         fragment ContactList_contacts on Query
             @argumentDefinitions(
@@ -69,12 +148,8 @@ export default createPaginationContainer(
                 filter: { type: ContactFilter }
                 orderBy: { type: ContactOrderBy }
             ) {
-            contacts(
-                first: $count
-                after: $cursor
-                filter: $filter
-                orderBy: $orderBy
-            ) @connection(key: "ContactList_contacts", filters: []) {
+            contacts(first: $count, after: $cursor, filter: $filter, orderBy: $orderBy)
+                @connection(key: "ContactList_contacts", filters: []) {
                 edges {
                     node {
                         handle_id
@@ -93,17 +168,8 @@ export default createPaginationContainer(
         query: graphql`
             # Pagination query to be fetched upon calling 'loadMore'.
             # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
-            query ContactListForwardQuery(
-                $count: Int!
-                $cursor: String
-                $orderBy: ContactOrderBy
-            ) {
-                ...ContactList_contacts
-                    @arguments(
-                        count: $count
-                        cursor: $cursor
-                        orderBy: $orderBy
-                    )
+            query ContactListForwardQuery($count: Int!, $cursor: String, $orderBy: ContactOrderBy) {
+                ...ContactList_contacts @arguments(count: $count, cursor: $cursor, orderBy: $orderBy)
             }
         `,
         getConnectionFromProps(props) {

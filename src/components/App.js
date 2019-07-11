@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ConnectedRouter } from "connected-react-router";
 import Breadcrumbs from "react-router-dynamic-breadcrumbs";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import FetchingContext from "../components/FetchingContext";
 import SplashContainer from "../containers/Splash";
@@ -27,11 +27,10 @@ class App extends Component {
     render() {
         return (
             <FetchingContext.Provider value={this.props.is_fetching}>
-                <div className="App">
+                <div className="App container">
                     <ConnectedRouter history={history}>
                         <TopHeader />
                         <Row>
-                        {/* Col define on components */}
                             <Switch>
                                 <Route path="/network" component={SideNavNetwork} />
                                 <Route path="/community" component={SideNavCommunity} />

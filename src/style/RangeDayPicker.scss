@@ -1,6 +1,7 @@
 @import "../variables.scss";
 
 .InputFromTo {
+    display: inline-block;
     .DayPickerInput {
         .day-picker-wrap {
             align-items: center;
@@ -14,9 +15,10 @@
                 margin-right: 10px;
             }
             input {
-                width: 112px;
+                width: 104px;
                 border-radius: 20px;
-                height: 28px;
+                border-width: 2px;
+                height: 32px;
                 padding: 0 10px;
                 font-size: 14px;
             }
@@ -25,7 +27,7 @@
             }
             span {
                 margin-left: -28px;
-                color: RGB(124, 176, 177);
+                color: $color-icons;
                 text-align: center;
             }
         }

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1a53ebd6a19f9ead867ff8dba3a25d2d
+ * @relayHash da5b05eaacd965770b2ad4e97db07bfe
  */
 
 /* eslint-disable */
@@ -251,8 +251,6 @@ fragment ContactRow_contact on Contact {
   first_name
   last_name
   contact_type
-  phone
-  email
   modified
   roles {
     name
@@ -418,20 +416,6 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "phone",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "email",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
                     "name": "modified",
                     "args": null,
                     "storageKey": null
@@ -522,7 +506,7 @@ return {
     "operationKind": "query",
     "name": "SearchAllContactsQuery",
     "id": null,
-    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  phone\n  email\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

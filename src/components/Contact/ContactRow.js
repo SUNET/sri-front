@@ -2,12 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-import FieldSwitch from "../FieldSwitch";
-
-import "../../style/ModelRow.scss"
+import "../../style/ModelRow.scss";
 
 class ContactRow extends React.PureComponent {
     static propTypes = {
@@ -18,33 +14,27 @@ class ContactRow extends React.PureComponent {
     formatDate = (dateString) => {
         let date = new Date(dateString);
         return date.toISOString("YYYY-MM-DD");
-    }
+    };
 
     render() {
         let contact = this.props.contact;
         return (
-            <article className="model-row">
+            <article onClick={(e) => this.props.onClick(e, contact)}>
                 <div>
-                    <FieldSwitch
-                        type="toggle-icon"
-                        icon="plus"
-                        labelChecked="UNFOLLOW"
-                        labelUnChecked="FOLLOW"
-                        onChange={(e) => {}}
-                    />
+                    {contact.first_name} {contact.last_name}
                 </div>
                 <div>
-                    <div>
-                        {contact.first_name} {contact.last_name}
-                    </div>
-                    <span>{contact.roles.map((role) => {
-                        return role.name
-                    })}</span>
+                    {contact.member_of_groups.map((organization) => {
+                        return organization.name;
+                    })}
                 </div>
-                <div>Last update: {this.formatDate(contact.modified)}</div>
-                <button onClick={(e) => this.props.onClick(e, contact)}>
-                    SEE DETAILS<FontAwesomeIcon icon={faAngleRight} />
-                </button>
+                <div>
+                    {contact.roles.map((role) => {
+                        return role.name;
+                    })}
+                </div>
+                <div>{contact.contact_type}</div>
+                <div></div>
             </article>
         );
     }
@@ -59,8 +49,6 @@ const ContactRowFragment = createFragmentContainer(
             first_name
             last_name
             contact_type
-            phone
-            email
             modified
             roles {
                 name

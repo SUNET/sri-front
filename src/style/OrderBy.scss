@@ -1,0 +1,11 @@
+@import "../variables.scss";
+
+.order-by {
+    display: inline-block;
+
+    &.outline {
+        border: 2px $placeholder solid;
+        border-radius: 20px;
+        padding: 6px 11px;
+    }
+}

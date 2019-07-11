@@ -2,7 +2,7 @@
 
 .side-nav {
     background-color: $secundary-color;
-    height: 100%;
+    height: -webkit-fill-available;
 
     .accordion {
         margin-top: 128px;

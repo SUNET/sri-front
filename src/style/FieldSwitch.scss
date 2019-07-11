@@ -3,14 +3,17 @@
 
 .field-checkbox {
     display: inline-block;
+
     div.pretty {
         margin-right: 0;
-        .state{
-            svg{
+
+        .state {
+            svg {
                 width: 20px;
             }
         }
-        &.custom{
+
+        &.custom {
             &.p-switch.p-fill {
                 .state {
                     &:before {
@@ -35,6 +38,21 @@
 
                 input:checked ~ .state label:after {
                     left: 0.6em;
+                }
+            }
+
+            &.icon-right {
+                .state {
+                    label {
+                        text-indent: 0 !important;
+                    }
+                }
+            }
+            &.off-hidden{
+                .state.p-off{
+                    svg{
+                        visibility: hidden;
+                    }
                 }
             }
         }

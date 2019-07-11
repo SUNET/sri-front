@@ -15,13 +15,8 @@ import RangeDayPicker from "./RangeDayPicker";
 // import { RouteNotFound } from "./NotFound";
 
 const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery(
-        $count: Int!
-        $filter: ContactFilter
-        $orderBy: ContactOrderBy
-    ) {
-        ...ContactList_contacts
-            @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+    query SearchAllContactsQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
+        ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
 `;
 
@@ -69,12 +64,7 @@ class Search extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        return (
-                            <ContactList
-                                contacts={props}
-                                changeCount={this._handleOnChangeCount}
-                            />
-                        );
+                        return <ContactList contacts={props} changeCount={this._handleOnChangeCount} />;
                     }
                     return <div>Loading</div>;
                 }}
@@ -92,30 +82,22 @@ class Search extends React.Component {
                         render={() => (
                             <section className="mt-3">
                                 <Row>
-                                    <Col sm={9}>
+                                    <Col>
                                         <RangeDayPicker />
-                                        <OrderBy changeOrderBy={this._handleOnChangeOrderBy} className="text-right" />
-                                        {this.renderModelList()}
                                     </Col>
-                                    <Col sm={3}>
-                                        <Filter
-                                            changeFilter={
-                                                this._handleOnChangeFilter
-                                            }
-                                        />
+                                    <Col className="text-right">
+                                        <Filter changeFilter={this._handleOnChangeFilter} />
+                                        <OrderBy changeOrderBy={this._handleOnChangeOrderBy} />
                                     </Col>
+                                </Row>
+                                <Row>
+                                    <Col>{this.renderModelList()}</Col>
                                 </Row>
                             </section>
                         )}
                     />
-                    <Route
-                        path={`${this.props.match.url}/contacts/create`}
-                        component={CreateContact}
-                    />
-                    <Route
-                        path={`${this.props.match.url}/contacts/:contactId`}
-                        component={ContactDetails}
-                    />
+                    <Route path={`${this.props.match.url}/contacts/create`} component={CreateContact} />
+                    <Route path={`${this.props.match.url}/contacts/:contactId`} component={ContactDetails} />
                 </Switch>
             </section>
         );

@@ -1,18 +1,11 @@
 import React from "react";
-// import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 
 import FieldSwitch from "./FieldSwitch";
 
+import "../style/OrderBy.scss";
+
 class OrderBy extends React.Component {
-
-    // static propTypes = {
-    //     // models: PropTypes.object.isRequired,
-    // };
-
-    componentWillUnmount(next_props, next_state) {
-        return false;
-    }
 
     _handleOnChangeOrderBy = (checked) => {
         if (checked) {
@@ -25,10 +18,11 @@ class OrderBy extends React.Component {
     render() {
         const t = this.props.t;
         return (
-            <div className="order-by">
+            <div className="order-by outline">
                 <FieldSwitch
                     type="toggle-icon"
                     icon="angle"
+                    classNames="icon-right"
                     labelChecked={t("Latest first")}
                     labelUnChecked={t("Newest first")}
                     onChange={(e) => this._handleOnChangeOrderBy(e)}

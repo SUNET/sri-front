@@ -4,7 +4,6 @@ import { Col, Nav } from "react-bootstrap";
 import {
     Accordion,
     AccordionItem,
-    AccordionItemState,
     AccordionItemHeading,
     AccordionItemButton
 } from "react-accessible-accordion";

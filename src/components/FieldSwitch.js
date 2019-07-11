@@ -7,7 +7,8 @@ import {
     faAngleDown,
     faAngleUp,
     faPlus,
-    faMinus
+    faMinus,
+    faCheck
 } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/FieldSwitch.scss";
@@ -21,6 +22,8 @@ class FieldSwitch extends Component {
     static propTypes = {
         label: PropTypes.string,
         icon: PropTypes.string,
+        classNames: PropTypes.string,
+        color: PropTypes.string,
         type: PropTypes.string
     };
 
@@ -33,16 +36,17 @@ class FieldSwitch extends Component {
         switch (this.props.type) {
             case "toggle-icon":
                 return (
-                    <div className="pretty p-icon p-toggle p-plain">
+                    <div className={`pretty custom p-icon p-toggle p-plain ${this.props.classNames}`}>
                         <input
                             type="checkbox"
                             id={this.props.id}
                             checked={this.state.checked}
                             onChange={(e) => this.handleChange(e)}
                         />
-                        <div className="state p-on">
+                        <div className={`state p-on ${this.props.color}`}>
                             {this.props.icon==="eyes" && <FontAwesomeIcon icon={faEye} />}
                             {this.props.icon==="plus" && <FontAwesomeIcon icon={faMinus} />}
+                            {this.props.icon==="check" && <FontAwesomeIcon icon={faCheck} />}
                             <label>
                                 {this.props.labelChecked || this.props.label}
                             </label>
@@ -51,6 +55,7 @@ class FieldSwitch extends Component {
                         <div className="state p-off">
                             {this.props.icon==="eyes" && <FontAwesomeIcon icon={faEyeSlash} />}
                             {this.props.icon==="plus" && <FontAwesomeIcon icon={faPlus} />}
+                            {this.props.icon==="check" && <FontAwesomeIcon icon={faCheck} />}
                             <label>
                                 {this.props.labelUnChecked || this.props.label}
                             </label>
@@ -60,7 +65,7 @@ class FieldSwitch extends Component {
                 );
             default:
                 return (
-                    <div className="pretty custom p-switch p-fill">
+                    <div className={`pretty custom p-switch p-fill ${this.props.classNames}`}>
                         <input
                             type="checkbox"
                             id={this.props.id}

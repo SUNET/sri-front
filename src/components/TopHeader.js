@@ -11,7 +11,7 @@ class TopHeader extends React.Component {
     render() {
         const { t } = this.props;
         return (
-            <header>
+            <header className="">
                 <Navbar id="top-header">
                     <Navbar.Brand as={Link} to="/">
                         {t("header.welcome")}
