@@ -10,7 +10,6 @@ import "../style/Footer.scss";
 
 class Community extends React.Component {
     render() {
-        const t = this.props.t;
         return (
             <Switch>
                 <Route exact path={`${this.props.match.url}`} component={() => <p>Community</p>} />

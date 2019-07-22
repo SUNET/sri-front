@@ -1,0 +1,27 @@
+@import "../variables.scss";
+
+.filter-columns {
+    .dropdown {
+        span.dropdown-toggle {
+            cursor: pointer;
+
+            &:after {
+                display: none;
+            }
+        }
+
+        .dropdown-menu {
+            padding: 10px 20px 15px;
+            border-radius: 0;
+            -webkit-box-shadow: 0 0 4px 2px #d6d6d6;
+            -moz-box-shadow: 0 0 4px 2px #d6d6d6;
+            box-shadow: 0 0 4px 2px #d6d6d6;
+            border: none;
+
+            .field-checkbox {
+                display: block;
+                margin: 15px 0;
+            }
+        }
+    }
+}

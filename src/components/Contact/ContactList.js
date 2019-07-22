@@ -2,18 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Button, Dropdown, Row, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-
 import { ITEMS_PER_PAGE } from "../../constants";
 import ContactRow from "./ContactRow";
-import FieldSwitch from "../FieldSwitch";
+import FilterColumns from "../FilterColumns";
 
 import "../../style/ModelList.scss";
+
+const defaultColumns = [{ label: "Name" }, { label: "Organization" }, { label: "Roles" }, { label: "Contact Type" }];
 
 class ContactList extends React.PureComponent {
     static propTypes = {
@@ -36,6 +35,18 @@ class ContactList extends React.PureComponent {
         this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
     };
 
+    renderHeaderList() {
+        return (
+            <>
+                <div></div>
+                {defaultColumns.map((column, index) => {
+                    return <div key={index}>{column.label}</div>;
+                })}
+                <FilterColumns columns={defaultColumns}/>
+            </>
+        );
+    }
+
     renderList() {
         let models = this.props.contacts;
         return (
@@ -52,82 +63,7 @@ class ContactList extends React.PureComponent {
         return (
             <section>
                 <div className="model-list">
-                    <div>
-                        <div></div>
-                        <div>{t("Name")}</div>
-                        <div>{t("Organization")}</div>
-                        <div>{t("Roles")}</div>
-                        <div>{t("Contact Type")}</div>
-                        <div>
-                            <Dropdown alignRight>
-                                <Dropdown.Toggle as="span">
-                                    <FontAwesomeIcon icon={faBars} />
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Header>Show/Hide Columns</Dropdown.Header>
-                                    <Dropdown.Divider />
-                                    <div>
-                                        <FieldSwitch
-                                            type="toggle-icon"
-                                            icon="check"
-                                            color="p-success-o"
-                                            classNames="off-hidden"
-                                            label="Name"
-                                            onChange={(e) => {}}
-                                            id="network"
-                                        />
-                                        <FieldSwitch
-                                            type="toggle-icon"
-                                            icon="check"
-                                            color="p-success-o"
-                                            classNames="off-hidden"
-                                            label="Organization"
-                                            onChange={(e) => {}}
-                                            id="network"
-                                        />
-                                        <FieldSwitch
-                                            type="toggle-icon"
-                                            icon="check"
-                                            color="p-success-o"
-                                            classNames="off-hidden"
-                                            label="Roles"
-                                            onChange={(e) => {}}
-                                            id="network"
-                                        />
-                                        <FieldSwitch
-                                            type="toggle-icon"
-                                            icon="check"
-                                            color="p-success-o"
-                                            classNames="off-hidden"
-                                            label="Contact Type"
-                                            onChange={(e) => {}}
-                                            id="network"
-                                        />
-                                        <FieldSwitch
-                                            type="toggle-icon"
-                                            icon="check"
-                                            color="p-success-o"
-                                            classNames="off-hidden"
-                                            label="All"
-                                            onChange={(e) => {}}
-                                            id="network"
-                                        />
-                                    </div>
-                                    <Dropdown.Divider />
-                                    <div>
-                                        <Row>
-                                            <Col>
-                                                <Button>Cancel</Button>
-                                            </Col>
-                                            <Col>
-                                                <Button>Accept</Button>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-                    </div>
+                    <div>{this.renderHeaderList()}</div>
                     <div>{this.renderList()}</div>
                 </div>
                 <Button onClick={() => this._loadMore()} variant="outline-primary">

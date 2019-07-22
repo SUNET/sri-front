@@ -16,7 +16,7 @@ import "../style/FieldSwitch.scss";
 class FieldSwitch extends Component {
     constructor(props) {
         super(props);
-        this.state = { checked: this.props.defaultValue };
+        this.state = { checked: this.props.defaultValue || false };
     }
 
     static propTypes = {
@@ -24,12 +24,12 @@ class FieldSwitch extends Component {
         icon: PropTypes.string,
         classNames: PropTypes.string,
         color: PropTypes.string,
-        type: PropTypes.string
+        type: PropTypes.string,
+        handleChecked: PropTypes.func
     };
 
     handleChange = (event) => {
-        this.setState({ checked: event.target.checked });
-        this.props.onChange && this.props.onChange(event.target.checked);
+        this.setState({ checked: event.target.checked }, this.props.handleChecked && this.props.handleChecked(event));
     };
 
     renderCheckBox = () => {
