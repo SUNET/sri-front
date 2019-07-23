@@ -8,24 +8,12 @@ import FieldSwitch from "./FieldSwitch";
 import "../style/FilterColumns.scss";
 
 class FilterColumns extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            columnsVisible: {
-                all_col: true
-            }
-        };
-    }
-
     handleChangeColumns = (event) => {
-        let newState = {};
-        var name = event.target.id;
-        newState = { columnsVisible: { ...this.state.columnsVisible, [name]: event.target.checked } };
-        if (event.target.id !== "all_col" && event.target.checked) {
-            newState = { columnsVisible: { ...this.state.columnsVisible, all_col: false } };
+        if (event.target.id === "all_columns") {
+            this.props.showAllColumns(this.props.columnsVisible);
+        } else {
+            this.props.showHideColumn(event.target.id, event.target.checked);
         }
-        this.setState(newState, console.log(this.state));
     };
 
     render() {
@@ -51,7 +39,7 @@ class FilterColumns extends React.Component {
                                         handleChecked={(e) => {
                                             this.handleChangeColumns(e);
                                         }}
-                                        defaultValue={this.state.columnsVisible[column.label]}
+                                        defaultValue={this.props.columnsVisible[column.label]}
                                         id={column.label}
                                     />
                                 );
@@ -63,11 +51,11 @@ class FilterColumns extends React.Component {
                                 color="p-success-o"
                                 classNames="off-hidden"
                                 label="All"
-                                onChange={(e) => {
+                                handleChecked={(e) => {
                                     this.handleChangeColumns(e);
                                 }}
-                                defaultValue={this.state.columnsVisible["all_col"]}
-                                id="all_col"
+                                defaultValue={this.props.all_columns}
+                                id="all_columns"
                             />
                         </div>
                         <Dropdown.Divider />

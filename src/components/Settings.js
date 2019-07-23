@@ -52,7 +52,7 @@ class Settings extends React.Component {
                                     type="toggle-icon"
                                     icon="eyes"
                                     label={t("settings.network")}
-                                    onChange={(e) => {}}
+                                    handleChecked={(e) => {}}
                                     id="network"
                                 />
                             </ListGroup.Item>
@@ -61,7 +61,7 @@ class Settings extends React.Component {
                                     type="toggle-icon"
                                     icon="eyes"
                                     label={t("settings.services")}
-                                    onChange={(e) => {}}
+                                    handleChecked={(e) => {}}
                                     id="services"
                                 />
                             </ListGroup.Item>
@@ -70,7 +70,7 @@ class Settings extends React.Component {
                                     type="toggle-icon"
                                     icon="eyes"
                                     label={t("settings.community")}
-                                    onChange={(e) => {}}
+                                    handleChecked={(e) => {}}
                                     id="community"
                                 />
                             </ListGroup.Item>
@@ -80,14 +80,14 @@ class Settings extends React.Component {
                             <ListGroup.Item>
                                 <FieldSwitch
                                     label={t("settings.notifications")}
-                                    onChange={(e) => {}}
+                                    handleChecked={(e) => {}}
                                     id="notifications"
                                 />
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <FieldSwitch
                                     label={t("settings.emails")}
-                                    onChange={(e) => {}}
+                                    handleChecked={(e) => {}}
                                     id="emails-notification"
                                 />
                             </ListGroup.Item>

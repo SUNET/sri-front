@@ -8,7 +8,7 @@ import { withTranslation } from "react-i18next";
 
 import { ITEMS_PER_PAGE } from "../../constants";
 import ContactRow from "./ContactRow";
-import FilterColumns from "../FilterColumns";
+import FilterColumnsContainer from "../../containers/FilterColumns";
 
 import "../../style/ModelList.scss";
 
@@ -42,7 +42,7 @@ class ContactList extends React.PureComponent {
                 {defaultColumns.map((column, index) => {
                     return <div key={index}>{column.label}</div>;
                 })}
-                <FilterColumns columns={defaultColumns}/>
+                <FilterColumnsContainer columns={defaultColumns}/>
             </>
         );
     }

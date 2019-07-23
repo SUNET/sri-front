@@ -12,7 +12,10 @@ import { withRouter } from "react-router-dom";
 
 import "../style/SideNav.scss";
 
+
 class SideNavCommunity extends React.Component {
+
+    //Get the section by the url to expand the side menu
     matchUrl = () => {
         if (this.props.location.pathname.includes("organizations")) {
             return "organizations";

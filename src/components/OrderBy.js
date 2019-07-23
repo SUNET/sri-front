@@ -7,8 +7,8 @@ import "../style/OrderBy.scss";
 
 class OrderBy extends React.Component {
 
-    _handleOnChangeOrderBy = (checked) => {
-        if (checked) {
+    _handleOnChangeOrderBy = (event) => {
+        if (event.target.checked) {
             this.props.changeOrderBy("handle_id_ASC");
         } else {
             this.props.changeOrderBy("handle_id_DESC");
@@ -25,7 +25,7 @@ class OrderBy extends React.Component {
                     classNames="icon-right"
                     labelChecked={t("Latest first")}
                     labelUnChecked={t("Newest first")}
-                    onChange={(e) => this._handleOnChangeOrderBy(e)}
+                    handleChecked={(e) => this._handleOnChangeOrderBy(e)}
                     id="orderBy"
                 />
             </div>

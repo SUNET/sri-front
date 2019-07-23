@@ -4,13 +4,15 @@ import { connectRouter } from "connected-react-router";
 import { reducer as formReducer } from "redux-form";
 
 import appReducer from "./App";
-import searchReducer from "./Search";
+import searchReducer from "./search";
+import filterColumnsReducer from "./filterColumns";
 import notifyReducer from "./Notify";
 
 const reducers = (history) =>
     combineReducers({
         app: appReducer,
         search: searchReducer,
+        filterColumns: filterColumnsReducer,
         form: formReducer,
         notify: notifyReducer,
         router: connectRouter(history)
