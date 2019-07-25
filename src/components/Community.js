@@ -3,8 +3,8 @@ import { withTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
 
 import SearchContainer from "../containers/Search";
-import SubMenu from "./SubMenu";
-import SubMenuActions from "./SubMenuActions";
+// import SubMenu from "./SubMenu";
+// import SubMenuActions from "./SubMenuActions";
 
 import "../style/Footer.scss";
 

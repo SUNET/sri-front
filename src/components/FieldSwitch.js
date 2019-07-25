@@ -11,7 +11,7 @@ class FieldSwitch extends Component {
         this.state = { checked: this.props.defaultValue || false };
     }
 
-    componentDidUpdate(prevProps) {
+    componentWillUpdate(prevProps) {
         if (this.props.defaultValue !== prevProps.defaultValue) {
             this.setState({ checked: prevProps.defaultValue });
         }
@@ -38,7 +38,7 @@ class FieldSwitch extends Component {
                         <input
                             type="checkbox"
                             id={this.props.id}
-                            checked={this.props.defaultValue || false}
+                            checked={this.state.checked || false}
                             onChange={(e) => this.handleChange(e)}
                         />
                         <div className={`state p-on ${this.props.color}`}>
@@ -63,7 +63,7 @@ class FieldSwitch extends Component {
                         <input
                             type="checkbox"
                             id={this.props.id}
-                            checked={this.props.defaultValue || false}
+                            checked={this.state.checked || false}
                             onChange={(e) => this.handleChange(e)}
                         />
                         <div className="state p-primary">

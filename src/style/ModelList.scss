@@ -15,6 +15,10 @@
             text-align: left;
             display: table-cell;
 
+            &:first-of-type, &:last-of-type {
+                width: 45px;
+            }
+
             &:last-of-type {
                 text-align: right;
             }

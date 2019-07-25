@@ -12,9 +12,10 @@ import FilterColumnsContainer from "../../containers/FilterColumns";
 
 import "../../style/ModelList.scss";
 
+//mock for when the backend is ready
 const defaultColumns = [{ label: "Name" }, { label: "Organization" }, { label: "Roles" }, { label: "Contact Type" }];
 
-class ContactList extends React.PureComponent {
+export class ContactList extends React.PureComponent {
     static propTypes = {
         contacts: PropTypes.object.isRequired
     };
@@ -31,6 +32,8 @@ class ContactList extends React.PureComponent {
         this.props.relay.loadMore(ITEMS_PER_PAGE);
     };
 
+    handleFilterColumns = () => {};
+
     _handleOnClick = (event, data) => {
         this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
     };
@@ -40,9 +43,13 @@ class ContactList extends React.PureComponent {
             <>
                 <div></div>
                 {defaultColumns.map((column, index) => {
-                    return <div key={index}>{column.label}</div>;
+                    if (this.props.columns_visible[column.label] || this.props.all_columns) {
+                        return <div key={index}>{column.label}</div>;
+                    } else {
+                        return null;
+                    }
                 })}
-                <FilterColumnsContainer columns={defaultColumns}/>
+                <FilterColumnsContainer columns={defaultColumns} filterColumns={this.handleFilterColumns} />
             </>
         );
     }
@@ -51,9 +58,17 @@ class ContactList extends React.PureComponent {
         let models = this.props.contacts;
         return (
             <>
-                {models.contacts.edges.map(({ node }) => (
-                    <ContactRow key={node.__id} contact={node} onClick={this._handleOnClick} />
-                ))}
+                {models.contacts.edges.map(({ node }) => {
+                    return (
+                        <ContactRow
+                            key={node.__id}
+                            contact={node}
+                            onClick={this._handleOnClick}
+                            columnsVisible={this.props.columns_visible}
+                            showAllColumns={this.props.all_columns}
+                        />
+                    );
+                })}
             </>
         );
     }
@@ -67,7 +82,7 @@ class ContactList extends React.PureComponent {
                     <div>{this.renderList()}</div>
                 </div>
                 <Button onClick={() => this._loadMore()} variant="outline-primary">
-                    Load More
+                    {t("paginator.load_more")}
                 </Button>
             </section>
         );

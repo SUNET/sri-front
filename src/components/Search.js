@@ -8,7 +8,8 @@ import { withRouter } from "react-router-dom";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import { ContactList, CreateContact, ContactDetails } from "./Contact";
+import { CreateContact, ContactDetails } from "./Contact";
+import ContactListContainer from "../containers/ContactList"
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
@@ -64,7 +65,7 @@ class Search extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        return <ContactList contacts={props} changeCount={this._handleOnChangeCount} />;
+                        return <ContactListContainer contacts={props} changeCount={this._handleOnChangeCount} />;
                     }
                     return <div>Loading</div>;
                 }}

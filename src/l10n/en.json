@@ -37,7 +37,8 @@
             "community.sub-menu.organizations/end-users": "End users",
             "community.sub-menu.contacts": "Contacts",
             "community.sub-menu.groups": "Groups",
-            "footer.copyright": "© SUNET 2019"
+            "footer.copyright": "© SUNET 2019",
+            "paginator.load_more": "Load More"
         }
     }
 }

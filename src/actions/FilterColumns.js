@@ -12,3 +12,10 @@ export const showAllColumns = (columns) => {
         columns
     };
 };
+
+export const cancelFilterColumns = (columns) => {
+    return {
+        type: "CANCEL_FILTER_COLUMNS",
+        columns
+    };
+};

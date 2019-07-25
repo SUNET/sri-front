@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button, Dropdown, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -8,9 +9,22 @@ import FieldSwitch from "./FieldSwitch";
 import "../style/FilterColumns.scss";
 
 class FilterColumns extends React.Component {
+
+    static propTypes = {
+        filterColumns: PropTypes.func
+    };
+
+    cancelFilterColumns = () => {
+        this.props.cancelFilterColumns(this.props.columns_visible);
+    }
+
+    applyFilterColumns = () => {
+        this.props.filterColumns();
+    }
+
     handleChangeColumns = (event) => {
         if (event.target.id === "all_columns") {
-            this.props.showAllColumns(this.props.columnsVisible);
+            this.props.showAllColumns(this.props.columns_visible);
         } else {
             this.props.showHideColumn(event.target.id, event.target.checked);
         }
@@ -39,7 +53,7 @@ class FilterColumns extends React.Component {
                                         handleChecked={(e) => {
                                             this.handleChangeColumns(e);
                                         }}
-                                        defaultValue={this.props.columnsVisible[column.label]}
+                                        defaultValue={this.props.columns_visible[column.label]}
                                         id={column.label}
                                     />
                                 );
@@ -62,10 +76,10 @@ class FilterColumns extends React.Component {
                         <div>
                             <Row>
                                 <Col>
-                                    <Button>Cancel</Button>
+                                    <Button onClick={this.cancelFilterColumns()}>Cancel</Button>
                                 </Col>
                                 <Col>
-                                    <Button>Accept</Button>
+                                    <Button onClick={this.applyFilterColumns()}>Accept</Button>
                                 </Col>
                             </Row>
                         </div>
