@@ -23,11 +23,15 @@ class FieldSwitch extends Component {
         classNames: PropTypes.string,
         color: PropTypes.string,
         type: PropTypes.string,
-        handleChecked: PropTypes.func
+        handleChecked: PropTypes.func,
+        forcedDefault: PropTypes.bool // disabled handleChange
     };
 
     handleChange = (event) => {
-        this.setState({ checked: event.target.checked }, this.props.handleChecked && this.props.handleChecked(event));
+        if (!this.props.forcedDefault || !this.state.checked) {
+            this.setState({ checked: event.target.checked });
+            this.props.handleChecked && this.props.handleChecked(event);
+        }
     };
 
     renderCheckBox = () => {
@@ -38,7 +42,7 @@ class FieldSwitch extends Component {
                         <input
                             type="checkbox"
                             id={this.props.id}
-                            checked={this.state.checked || false}
+                            checked={this.state.checked}
                             onChange={(e) => this.handleChange(e)}
                         />
                         <div className={`state p-on ${this.props.color}`}>
@@ -63,7 +67,7 @@ class FieldSwitch extends Component {
                         <input
                             type="checkbox"
                             id={this.props.id}
-                            checked={this.state.checked || false}
+                            checked={this.state.checked}
                             onChange={(e) => this.handleChange(e)}
                         />
                         <div className="state p-primary">

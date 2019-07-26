@@ -23,6 +23,7 @@ class FilterColumns extends React.Component {
     }
 
     handleChangeColumns = (event) => {
+        console.log("enter");
         if (event.target.id === "all_columns") {
             this.props.showAllColumns(this.props.columns_visible);
         } else {
@@ -65,6 +66,7 @@ class FilterColumns extends React.Component {
                                 color="p-success-o"
                                 classNames="off-hidden"
                                 label="All"
+                                forcedDefault={true}
                                 handleChecked={(e) => {
                                     this.handleChangeColumns(e);
                                 }}

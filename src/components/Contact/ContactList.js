@@ -35,6 +35,7 @@ export class ContactList extends React.PureComponent {
     handleFilterColumns = () => {};
 
     _handleOnClick = (event, data) => {
+        // Redirection to contact detail
         this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
     };
 
@@ -43,6 +44,7 @@ export class ContactList extends React.PureComponent {
             <>
                 <div></div>
                 {defaultColumns.map((column, index) => {
+                    // Hiding the columns passed by props
                     if (this.props.columns_visible[column.label] || this.props.all_columns) {
                         return <div key={index}>{column.label}</div>;
                     } else {

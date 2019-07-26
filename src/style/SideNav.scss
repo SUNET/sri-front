@@ -35,6 +35,10 @@
                     border-bottom: 2px solid currentColor;
                     border-right: 2px solid currentColor;
                     transform: rotate(-45deg);
+                    -webkit-transition-duration: 0.125s;
+                    transition-duration: 0.125s;
+                    -webkit-transition-timing-function: ease-out;
+                    transition-timing-function: ease-out;
                 }
                 &[aria-expanded='true']{
                     background-color: $primary-color;
