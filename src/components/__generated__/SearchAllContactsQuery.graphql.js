@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6732b075af652d30bf1202b4bb26f1cf
+ * @relayHash 84b956b3f06cc56f340197ee3b56d95e
  */
 
 /* eslint-disable */
@@ -10,6 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type ContactList_contacts$ref = any;
+type ContactList_organization_types$ref = any;
 export type ContactOrderBy = "PGP_fingerprint_ASC" | "PGP_fingerprint_DESC" | "contact_type_ASC" | "contact_type_DESC" | "email_ASC" | "email_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "mobile_ASC" | "mobile_DESC" | "name_ASC" | "name_DESC" | "other_email_ASC" | "other_email_DESC" | "phone_ASC" | "phone_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
 export type ContactFilter = {|
   AND?: ?$ReadOnlyArray<ContactNestedFilter>,
@@ -209,7 +210,7 @@ export type SearchAllContactsQueryVariables = {|
   orderBy?: ?ContactOrderBy,
 |};
 export type SearchAllContactsQueryResponse = {|
-  +$fragmentRefs: ContactList_contacts$ref
+  +$fragmentRefs: ContactList_contacts$ref & ContactList_organization_types$ref
 |};
 export type SearchAllContactsQuery = {|
   variables: SearchAllContactsQueryVariables,
@@ -225,6 +226,7 @@ query SearchAllContactsQuery(
   $orderBy: ContactOrderBy
 ) {
   ...ContactList_contacts_1tT5Hu
+  ...ContactList_organization_types
 }
 
 fragment ContactList_contacts_1tT5Hu on Query {
@@ -242,6 +244,14 @@ fragment ContactList_contacts_1tT5Hu on Query {
       hasNextPage
       endCursor
     }
+  }
+}
+
+fragment ContactList_organization_types on Query {
+  getChoicesForDropdown(name: "organization_types") {
+    __typename
+    name
+    value
   }
 }
 
@@ -315,6 +325,13 @@ v5 = {
   "name": "id",
   "args": null,
   "storageKey": null
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "__typename",
+  "args": null,
+  "storageKey": null
 };
 return {
   "kind": "Request",
@@ -337,6 +354,11 @@ return {
           (v1/*: any*/),
           (v2/*: any*/)
         ]
+      },
+      {
+        "kind": "FragmentSpread",
+        "name": "ContactList_organization_types",
+        "args": null
       }
     ]
   },
@@ -434,13 +456,7 @@ return {
                     ]
                   },
                   (v5/*: any*/),
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "__typename",
-                    "args": null,
-                    "storageKey": null
-                  }
+                  (v6/*: any*/)
                 ]
               },
               {
@@ -487,6 +503,32 @@ return {
         "handle": "connection",
         "key": "ContactList_contacts",
         "filters": []
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "getChoicesForDropdown",
+        "storageKey": "getChoicesForDropdown(name:\"organization_types\")",
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "name",
+            "value": "organization_types"
+          }
+        ],
+        "concreteType": null,
+        "plural": true,
+        "selections": [
+          (v6/*: any*/),
+          (v4/*: any*/),
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "value",
+            "args": null,
+            "storageKey": null
+          }
+        ]
       }
     ]
   },
@@ -494,11 +536,11 @@ return {
     "operationKind": "query",
     "name": "SearchAllContactsQuery",
     "id": null,
-    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    __typename\n    name\n    value\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '56e66a7e925df863a047dd655ae36bd6';
+(node/*: any*/).hash = '8cc2554d3789a35564c1bc8d80ef970d';
 module.exports = node;

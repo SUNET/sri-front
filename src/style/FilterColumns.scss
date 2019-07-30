@@ -1,6 +1,7 @@
 @import "../variables.scss";
 
 .filter-columns {
+    display: inline-block;
     .dropdown {
         span.dropdown-toggle {
             cursor: pointer;

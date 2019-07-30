@@ -38,7 +38,12 @@
             "community.sub-menu.contacts": "Contacts",
             "community.sub-menu.groups": "Groups",
             "footer.copyright": "© SUNET 2019",
-            "paginator.load_more": "Load More"
+            "paginator.load_more": "Load More",
+            "filter_columns.header": "Show/Hide Columns",
+            "filter_columns.order_asc": "Order A < Z",
+            "filter_columns.order_desc": "Order A > Z",
+            "actions.cancel": "Cancel",
+            "actions.accept": "Accept"
         }
     }
 }

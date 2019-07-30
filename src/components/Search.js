@@ -8,8 +8,8 @@ import { withRouter } from "react-router-dom";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import { CreateContact, ContactDetails } from "./Contact";
-import ContactListContainer from "../containers/ContactList"
+import { CreateContact, ContactDetails } from "./contact";
+import ContactListContainer from "../containers/ContactList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
@@ -18,6 +18,7 @@ import RangeDayPicker from "./RangeDayPicker";
 const SearchAllContactsQuery = graphql`
     query SearchAllContactsQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
         ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+        ...ContactList_organization_types
     }
 `;
 
@@ -62,10 +63,17 @@ class Search extends React.Component {
                     orderBy: this.state.orderBy
                 }}
                 render={({ error, props }) => {
+                    console.log(props);
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        return <ContactListContainer contacts={props} changeCount={this._handleOnChangeCount} />;
+                        return (
+                            <ContactListContainer
+                                contacts={props}
+                                organization_types={props}
+                                changeCount={this._handleOnChangeCount}
+                            />
+                        );
                     }
                     return <div>Loading</div>;
                 }}

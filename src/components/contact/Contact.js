@@ -12,9 +12,7 @@ class Contact extends React.PureComponent {
     };
 
     renderFullName() {
-        return (
-            this.props.contact.first_name + " " + this.props.contact.last_name
-        );
+        return this.props.contact.first_name + " " + this.props.contact.last_name;
     }
 
     render() {
@@ -25,12 +23,7 @@ class Contact extends React.PureComponent {
                 <Form.Row>
                     <Col>
                         <Form.Group controlId="formGroupId">
-                            <Form.Control
-                                placeholder="ID"
-                                name="handle_id"
-                                defaultValue={contact.handle_id}
-                                readOnly
-                            />
+                            <Form.Control placeholder="ID" name="handle_id" defaultValue={contact.handle_id} readOnly />
                         </Form.Group>
                         <Dropdown
                             label="Contact Type"
@@ -78,9 +71,8 @@ class Contact extends React.PureComponent {
     }
 }
 
-const ContactFragment = createFragmentContainer(
-    Contact,
-    graphql`
+const ContactFragment = createFragmentContainer(Contact, {
+    contact: graphql`
         fragment Contact_contact on Contact {
             handle_id
             contact_type
@@ -90,6 +82,6 @@ const ContactFragment = createFragmentContainer(
             phone
         }
     `
-);
+});
 
 export default ContactFragment;

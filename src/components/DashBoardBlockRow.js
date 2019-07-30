@@ -51,9 +51,8 @@ class DashBoardBlockRow extends React.PureComponent {
     }
 }
 
-const ContactRowFragment = createFragmentContainer(
-    DashBoardBlockRow,
-    graphql`
+const ContactRowFragment = createFragmentContainer(DashBoardBlockRow, {
+    contact: graphql`
         fragment DashBoardBlockRow_contact on Contact {
             handle_id
             first_name
@@ -67,6 +66,6 @@ const ContactRowFragment = createFragmentContainer(
             }
         }
     `
-);
+});
 
 export default ContactRowFragment;

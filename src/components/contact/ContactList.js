@@ -13,7 +13,12 @@ import FilterColumnsContainer from "../../containers/FilterColumns";
 import "../../style/ModelList.scss";
 
 //mock for when the backend is ready
-const defaultColumns = [{ label: "Name" }, { label: "Organization" }, { label: "Roles" }, { label: "Contact Type" }];
+const defaultColumns = [
+    { name: "Name", value: "name" },
+    { name: "Organization", value: "organization", filter: "order" },
+    { name: "Roles", value: "roles" },
+    { name: "Contact Type", value: "contact_type" }
+];
 
 export class ContactList extends React.PureComponent {
     static propTypes = {
@@ -45,18 +50,33 @@ export class ContactList extends React.PureComponent {
                 <div></div>
                 {defaultColumns.map((column, index) => {
                     // Hiding the columns passed by props
-                    if (this.props.columns_visible[column.label] || this.props.all_columns) {
-                        return <div key={index}>{column.label}</div>;
+                    if (this.props.columns_visible[column.value] || this.props.all_columns) {
+                        return (
+                            <div key={index}>
+                                {column.name}
+                                {column.filter === "order" && (
+                                    <FilterColumnsContainer
+                                        type="order"
+                                        columns={this.props.organization_types.getChoicesForDropdown}
+                                    />
+                                )}
+                            </div>
+                        );
                     } else {
                         return null;
                     }
                 })}
-                <FilterColumnsContainer columns={defaultColumns} filterColumns={this.handleFilterColumns} />
+                <FilterColumnsContainer
+                    type="hidden-col"
+                    columns={defaultColumns}
+                    filterColumns={this.handleFilterColumns}
+                />
             </>
         );
     }
 
     renderList() {
+        console.log(this.props);
         let models = this.props.contacts;
         return (
             <>
@@ -93,29 +113,39 @@ export class ContactList extends React.PureComponent {
 
 export default createPaginationContainer(
     withTranslation()(withRouter(ContactList)),
-    graphql`
-        fragment ContactList_contacts on Query
-            @argumentDefinitions(
-                count: { type: "Int" }
-                cursor: { type: "String" }
-                filter: { type: ContactFilter }
-                orderBy: { type: ContactOrderBy }
-            ) {
-            contacts(first: $count, after: $cursor, filter: $filter, orderBy: $orderBy)
-                @connection(key: "ContactList_contacts", filters: []) {
-                edges {
-                    node {
-                        handle_id
-                        ...ContactRow_contact
+    {
+        contacts: graphql`
+            fragment ContactList_contacts on Query
+                @argumentDefinitions(
+                    count: { type: "Int" }
+                    cursor: { type: "String" }
+                    filter: { type: ContactFilter }
+                    orderBy: { type: ContactOrderBy }
+                ) {
+                contacts(first: $count, after: $cursor, filter: $filter, orderBy: $orderBy)
+                    @connection(key: "ContactList_contacts", filters: []) {
+                    edges {
+                        node {
+                            handle_id
+                            ...ContactRow_contact
+                        }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
                     }
                 }
-                pageInfo {
-                    hasNextPage
-                    endCursor
+            }
+        `,
+        organization_types: graphql`
+            fragment ContactList_organization_types on Query {
+                getChoicesForDropdown(name: "organization_types") {
+                    name
+                    value
                 }
             }
-        }
-    `,
+        `
+    },
     {
         direction: "forward",
         query: graphql`

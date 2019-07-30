@@ -25,7 +25,6 @@ const filterColumnsReducer = (state = initialState, action) => {
             return nextState;
 
         case "SHOW_ALL_COLUMNS":
-            console.log("enter");
             //change to false the state of each column and activate all_collumns
             let columns_visible = Object.keys(action.columns).map((key) => {
                 action.columns[key] = false;

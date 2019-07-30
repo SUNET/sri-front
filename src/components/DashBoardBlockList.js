@@ -52,6 +52,6 @@ function createFragment(fragmentSpec) {
     return (Component) => Relay.createFragmentContainer(Component, fragmentSpec);
 }
 
-const withFragmentContainer = createFragment(queryContacts);
+const withFragmentContainer = createFragment({contacts: queryContacts});
 
 export default withFragmentContainer(DashBoardBlockList);
