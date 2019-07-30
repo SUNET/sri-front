@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e5d16877c01bceb7d674eaee8b3eca12
+ * @relayHash 422e867928c85f69cccc85eef7ed5079
  */
 
 /* eslint-disable */
@@ -57,8 +57,7 @@ v1 = [
       {
         "kind": "Variable",
         "name": "input",
-        "variableName": "input",
-        "type": "DeleteNIContactMutationInput!"
+        "variableName": "input"
       }
     ],
     "concreteType": "DeleteNIContactMutationPayload",

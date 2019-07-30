@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e78f14086849b9b335c8c27d8aa6f2db
+ * @relayHash dec8e08d8366df56aef8d6276b29a4e3
  */
 
 /* eslint-disable */
@@ -70,8 +70,7 @@ v1 = [
   {
     "kind": "Variable",
     "name": "input",
-    "variableName": "input",
-    "type": "UpdateNIContactMutationInput!"
+    "variableName": "input"
   }
 ],
 v2 = {

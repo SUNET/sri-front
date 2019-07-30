@@ -11,6 +11,7 @@ import type { ReaderFragment } from 'relay-runtime';
 type DashBoardBlockRow_contact$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type DashBoardBlockList_models$ref: FragmentReference;
+declare export opaque type DashBoardBlockList_models$fragmentType: DashBoardBlockList_models$ref;
 export type DashBoardBlockList_models = {|
   +contacts: ?{|
     +edges: $ReadOnlyArray<?{|
@@ -21,6 +22,11 @@ export type DashBoardBlockList_models = {|
   |},
   +$refType: DashBoardBlockList_models$ref,
 |};
+export type DashBoardBlockList_models$data = DashBoardBlockList_models;
+export type DashBoardBlockList_models$key = {
+  +$data?: DashBoardBlockList_models$data,
+  +$fragmentRefs: DashBoardBlockList_models$ref,
+};
 */
 
 
@@ -89,16 +95,16 @@ const node/*: ReaderFragment*/ = {
               "plural": false,
               "selections": [
                 {
-                  "kind": "FragmentSpread",
-                  "name": "DashBoardBlockRow_contact",
-                  "args": null
-                },
-                {
                   "kind": "ScalarField",
                   "alias": null,
                   "name": "__typename",
                   "args": null,
                   "storageKey": null
+                },
+                {
+                  "kind": "FragmentSpread",
+                  "name": "DashBoardBlockRow_contact",
+                  "args": null
                 }
               ]
             },

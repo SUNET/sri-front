@@ -11,6 +11,7 @@ import type { ReaderFragment } from 'relay-runtime';
 type ContactRow_contact$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type ContactList_contacts$ref: FragmentReference;
+declare export opaque type ContactList_contacts$fragmentType: ContactList_contacts$ref;
 export type ContactList_contacts = {|
   +contacts: ?{|
     +edges: $ReadOnlyArray<?{|
@@ -26,6 +27,11 @@ export type ContactList_contacts = {|
   |},
   +$refType: ContactList_contacts$ref,
 |};
+export type ContactList_contacts$data = ContactList_contacts;
+export type ContactList_contacts$key = {
+  +$data?: ContactList_contacts$data,
+  +$fragmentRefs: ContactList_contacts$ref,
+};
 */
 
 
@@ -107,16 +113,16 @@ const node/*: ReaderFragment*/ = {
                   "storageKey": null
                 },
                 {
-                  "kind": "FragmentSpread",
-                  "name": "ContactRow_contact",
-                  "args": null
-                },
-                {
                   "kind": "ScalarField",
                   "alias": null,
                   "name": "__typename",
                   "args": null,
                   "storageKey": null
+                },
+                {
+                  "kind": "FragmentSpread",
+                  "name": "ContactRow_contact",
+                  "args": null
                 }
               ]
             },

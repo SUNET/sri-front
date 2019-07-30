@@ -10,6 +10,7 @@
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type Contact_contact$ref: FragmentReference;
+declare export opaque type Contact_contact$fragmentType: Contact_contact$ref;
 export type Contact_contact = {|
   +handle_id: string,
   +contact_type: ?string,
@@ -19,6 +20,11 @@ export type Contact_contact = {|
   +phone: ?string,
   +$refType: Contact_contact$ref,
 |};
+export type Contact_contact$data = Contact_contact;
+export type Contact_contact$key = {
+  +$data?: Contact_contact$data,
+  +$fragmentRefs: Contact_contact$ref,
+};
 */
 
 

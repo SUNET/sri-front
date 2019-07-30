@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 02a4a74b65b77b74c624961d62903fb4
+ * @relayHash c6c6881fa69a04723b2c0fdbdb1220eb
  */
 
 /* eslint-disable */
@@ -50,8 +50,7 @@ v1 = [
   {
     "kind": "Variable",
     "name": "name",
-    "variableName": "name",
-    "type": "String!"
+    "variableName": "name"
   }
 ],
 v2 = {

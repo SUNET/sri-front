@@ -10,6 +10,7 @@
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type DashBoardBlockRow_contact$ref: FragmentReference;
+declare export opaque type DashBoardBlockRow_contact$fragmentType: DashBoardBlockRow_contact$ref;
 export type DashBoardBlockRow_contact = {|
   +handle_id: string,
   +first_name: string,
@@ -23,6 +24,11 @@ export type DashBoardBlockRow_contact = {|
   |}>,
   +$refType: DashBoardBlockRow_contact$ref,
 |};
+export type DashBoardBlockRow_contact$data = DashBoardBlockRow_contact;
+export type DashBoardBlockRow_contact$key = {
+  +$data?: DashBoardBlockRow_contact$data,
+  +$fragmentRefs: DashBoardBlockRow_contact$ref,
+};
 */
 
 

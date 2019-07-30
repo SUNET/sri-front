@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f89341cd09184ade25d75294d615e64c
+ * @relayHash d1fa54eef92ec88e94b382c0c1188efb
  */
 
 /* eslint-disable */
@@ -80,28 +80,27 @@ var v0 = [
     "defaultValue": null
   }
 ],
-v1 = [
+v1 = {
+  "kind": "Variable",
+  "name": "orderBy",
+  "variableName": "orderBy"
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "first",
-    "variableName": "count",
-    "type": "Int"
+    "variableName": "count"
   },
-  {
-    "kind": "Variable",
-    "name": "orderBy",
-    "variableName": "orderBy",
-    "type": "ContactOrderBy"
-  }
+  (v1/*: any*/)
 ],
-v2 = {
+v3 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "name",
   "args": null,
   "storageKey": null
 },
-v3 = {
+v4 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -124,15 +123,9 @@ return {
           {
             "kind": "Variable",
             "name": "count",
-            "variableName": "count",
-            "type": null
+            "variableName": "count"
           },
-          {
-            "kind": "Variable",
-            "name": "orderBy",
-            "variableName": "orderBy",
-            "type": null
-          }
+          (v1/*: any*/)
         ]
       }
     ]
@@ -147,7 +140,7 @@ return {
         "alias": null,
         "name": "contacts",
         "storageKey": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "ContactConnection",
         "plural": false,
         "selections": [
@@ -206,7 +199,7 @@ return {
                     "concreteType": "Role",
                     "plural": true,
                     "selections": [
-                      (v2/*: any*/)
+                      (v3/*: any*/)
                     ]
                   },
                   {
@@ -218,11 +211,11 @@ return {
                     "concreteType": "Group",
                     "plural": true,
                     "selections": [
-                      (v2/*: any*/),
-                      (v3/*: any*/)
+                      (v3/*: any*/),
+                      (v4/*: any*/)
                     ]
                   },
-                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -272,7 +265,7 @@ return {
         "kind": "LinkedHandle",
         "alias": null,
         "name": "contacts",
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "handle": "connection",
         "key": "DashBoardBlockList_contacts",
         "filters": []
