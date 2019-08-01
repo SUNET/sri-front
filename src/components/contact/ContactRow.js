@@ -20,26 +20,26 @@ class ContactRow extends React.PureComponent {
         let contact = this.props.contact;
         return (
             <article onClick={(e) => this.props.onClick(e, contact)}>
-                {(this.props.columnsVisible["Name"] || this.props.showAllColumns) && (
+                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && (
                     <div>
                         {contact.first_name} {contact.last_name}
                     </div>
                 )}
-                {(this.props.columnsVisible["Organization"] || this.props.showAllColumns) && (
+                {(this.props.columnsVisible["organization"] || this.props.showAllColumns) && (
                     <div>
                         {contact.member_of_groups.map((organization) => {
                             return organization.name;
                         })}
                     </div>
                 )}
-                {(this.props.columnsVisible["Roles"] || this.props.showAllColumns) && (
+                {(this.props.columnsVisible["roles"] || this.props.showAllColumns) && (
                     <div>
                         {contact.roles.map((role) => {
-                            return role.name;
+                            return "";
                         })}
                     </div>
                 )}
-                {(this.props.columnsVisible["Contact Type"] || this.props.showAllColumns) && (
+                {(this.props.columnsVisible["contact_type"] || this.props.showAllColumns) && (
                     <div>{contact.contact_type}</div>
                 )}
                 <div></div>

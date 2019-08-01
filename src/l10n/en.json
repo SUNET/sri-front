@@ -43,7 +43,11 @@
             "filter_columns.order_asc": "Order A < Z",
             "filter_columns.order_desc": "Order A > Z",
             "actions.cancel": "Cancel",
-            "actions.accept": "Accept"
+            "actions.accept": "Accept",
+            "contact-details.notes": "Notes",
+            "contact-details.general-information": "General information",
+            "contact-details.profesional-details": "Profesional details",
+            "contact-details.worklog": "worklog"
         }
     }
 }

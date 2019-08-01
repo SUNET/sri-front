@@ -63,7 +63,6 @@ class Search extends React.Component {
                     orderBy: this.state.orderBy
                 }}
                 render={({ error, props }) => {
-                    console.log(props);
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
@@ -89,7 +88,7 @@ class Search extends React.Component {
                         exact
                         path={`${this.props.match.url}/contacts`}
                         render={() => (
-                            <section className="mt-3">
+                            <>
                                 <Row>
                                     <Col>
                                         <RangeDayPicker />
@@ -99,10 +98,10 @@ class Search extends React.Component {
                                         <OrderBy changeOrderBy={this._handleOnChangeOrderBy} />
                                     </Col>
                                 </Row>
-                                <Row>
+                                <Row className="mt-3">
                                     <Col>{this.renderModelList()}</Col>
                                 </Row>
-                            </section>
+                            </>
                         )}
                     />
                     <Route path={`${this.props.match.url}/contacts/create`} component={CreateContact} />

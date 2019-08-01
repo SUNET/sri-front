@@ -76,7 +76,6 @@ export class ContactList extends React.PureComponent {
     }
 
     renderList() {
-        console.log(this.props);
         let models = this.props.contacts;
         return (
             <>
@@ -98,7 +97,7 @@ export class ContactList extends React.PureComponent {
     render() {
         const { t } = this.props;
         return (
-            <section>
+            <>
                 <div className="model-list">
                     <div>{this.renderHeaderList()}</div>
                     <div>{this.renderList()}</div>
@@ -106,7 +105,7 @@ export class ContactList extends React.PureComponent {
                 <Button onClick={() => this._loadMore()} variant="outline-primary">
                     {t("paginator.load_more")}
                 </Button>
-            </section>
+            </>
         );
     }
 }

@@ -73,7 +73,8 @@ class ContactDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        console.log(environment.getStore());
+                        console.log(this.props);
+                        console.log(props);
                         return (
                             <section className="mt-3">
                                 <Form>

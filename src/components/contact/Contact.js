@@ -2,9 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Jumbotron, Form, Col } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
+import { withTranslation } from "react-i18next";
 
 import Dropdown from "../Dropdown";
+
+import "../../style/ModelDetails.scss";
 
 class Contact extends React.PureComponent {
     static propTypes = {
@@ -17,11 +20,16 @@ class Contact extends React.PureComponent {
 
     render() {
         let contact = this.props.contact;
+        let {t} = this.props;
         return (
-            <Jumbotron>
+            <div className="model-details">
                 <h1 className="mt-3 mb-3">{this.renderFullName()}</h1>
                 <Form.Row>
                     <Col>
+                        <h2>{t("contact-details.notes")}</h2>
+                        <h2>{t("contact-details.general-information")}</h2>
+                        <h2>{t("contact-details.profesional-details")}</h2>
+                        <h2>{t("contact-details.worklog")}</h2>
                         <Form.Group controlId="formGroupId">
                             <Form.Control placeholder="ID" name="handle_id" defaultValue={contact.handle_id} readOnly />
                         </Form.Group>
@@ -66,12 +74,12 @@ class Contact extends React.PureComponent {
                         </Form.Group>
                     </Col>
                 </Form.Row>
-            </Jumbotron>
+            </div>
         );
     }
 }
 
-const ContactFragment = createFragmentContainer(Contact, {
+const ContactFragment = createFragmentContainer(withTranslation()(Contact), {
     contact: graphql`
         fragment Contact_contact on Contact {
             handle_id

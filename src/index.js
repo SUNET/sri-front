@@ -16,7 +16,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 
 /* Store */
 export const store = configureStore(
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 /* render app */

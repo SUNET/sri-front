@@ -13,18 +13,10 @@ class SubMenu extends React.Component {
         return (
             <Navbar bg="light" className="sub-menu">
                 <Nav className="mr-auto">
-                    <Nav.Link
-                        as={NavLink}
-                        activeClassName="active"
-                        to={`/community/contacts`}
-                    >
+                    <Nav.Link as={NavLink} activeClassName="active" to={`/community/contacts`}>
                         {t("header.navbar.contacts")}
                     </Nav.Link>
-                    <Nav.Link
-                        as={NavLink}
-                        activeClassName="active"
-                        to={`/community/roles`}
-                    >
+                    <Nav.Link as={NavLink} activeClassName="active" to={`/community/roles`}>
                         {t("header.navbar.roles")}
                     </Nav.Link>
                 </Nav>

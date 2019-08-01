@@ -26,7 +26,7 @@ const Routes = {
     "/community/groups": "Groups",
     "/community/contacts": "Contacts",
     "/community/contacts/create": "Create Contact",
-    "/community/contacts/:contactId": "Contact Info",
+    "/community/contacts/:contactId": ":contactId",
     "/contracts": "Contracts",
     "/personal-area": "Personal Area",
     "/personal-area/profile": "Profile",

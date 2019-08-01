@@ -12,7 +12,7 @@ import CaptureRouteNotFound, { RouteNotFound } from "./NotFound";
 class Base extends React.Component {
     render() {
         return (
-            <section>
+            <>
                 <CaptureRouteNotFound>
                     <Switch>
                         <Route path="/dashboard" component={Home} />
@@ -23,7 +23,7 @@ class Base extends React.Component {
                         <RouteNotFound />
                     </Switch>
                 </CaptureRouteNotFound>
-            </section>
+            </>
         );
     }
 }
