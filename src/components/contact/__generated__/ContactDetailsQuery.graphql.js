@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 565c9fe30655bcca3e36c6599d7157cb
+ * @relayHash fd1d2ac51530a1d5d85e053f25b4f362
  */
 
 /* eslint-disable */
@@ -15,7 +15,16 @@ export type ContactDetailsQueryVariables = {|
 |};
 export type ContactDetailsQueryResponse = {|
   +getContactById: ?{|
-    +$fragmentRefs: Contact_contact$ref
+    +name: string,
+    +created: any,
+    +creator: {|
+      +email: string
+    |},
+    +modified: any,
+    +modifier: {|
+      +email: string
+    |},
+    +$fragmentRefs: Contact_contact$ref,
   |}
 |};
 export type ContactDetailsQuery = {|
@@ -31,6 +40,17 @@ query ContactDetailsQuery(
 ) {
   getContactById(handle_id: $contactId) {
     ...Contact_contact
+    name
+    created
+    creator {
+      email
+      id
+    }
+    modified
+    modifier {
+      email
+      id
+    }
     id
   }
 }
@@ -60,6 +80,48 @@ v1 = [
     "name": "handle_id",
     "variableName": "contactId"
   }
+],
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "created",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "email",
+  "args": null,
+  "storageKey": null
+},
+v5 = [
+  (v4/*: any*/)
+],
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "modified",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v8 = [
+  (v4/*: any*/),
+  (v7/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -79,6 +141,29 @@ return {
         "concreteType": "Contact",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "creator",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v5/*: any*/)
+          },
+          (v6/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "modifier",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v5/*: any*/)
+          },
           {
             "kind": "FragmentSpread",
             "name": "Contact_contact",
@@ -130,13 +215,7 @@ return {
             "args": null,
             "storageKey": null
           },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "email",
-            "args": null,
-            "storageKey": null
-          },
+          (v4/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
@@ -144,13 +223,30 @@ return {
             "args": null,
             "storageKey": null
           },
+          (v2/*: any*/),
+          (v3/*: any*/),
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
-            "name": "id",
+            "name": "creator",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
-          }
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v8/*: any*/)
+          },
+          (v6/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "modifier",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v8/*: any*/)
+          },
+          (v7/*: any*/)
         ]
       }
     ]
@@ -159,11 +255,11 @@ return {
     "operationKind": "query",
     "name": "ContactDetailsQuery",
     "id": null,
-    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n}\n",
+    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '96439a1dcc5700678f19582c3bab8a0f';
+(node/*: any*/).hash = 'de8e47385534bb132b8ba341b2458383';
 module.exports = node;

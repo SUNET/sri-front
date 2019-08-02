@@ -46,8 +46,10 @@ $cancel-color-shadow: rgba(183, 183, 183, 0.25);
 /*
  * Typography
  * ========================================================================== */
+@import url('https://fonts.googleapis.com/css?family=Karla&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
-$font: "Ubuntu";
+$font: 'Montserrat', sans-serif;
 
 /*
  * Pretty Checkbox

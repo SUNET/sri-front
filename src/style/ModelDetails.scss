@@ -1,9 +1,12 @@
 @import "../variables.scss";
 
 .model-details {
-    padding: 20px;
-    background-color: white;
-    -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
-    -moz-box-shadow: 0 0 4px -1px #d6d6d6;
-    box-shadow: 0 0 4px -1px #d6d6d6;
+    .model-section {
+        margin-top: 24px;
+        padding: 32px 24px;
+        background-color: white;
+        -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
+        -moz-box-shadow: 0 0 4px -1px #d6d6d6;
+        box-shadow: 0 0 4px -1px #d6d6d6;
+    }
 }

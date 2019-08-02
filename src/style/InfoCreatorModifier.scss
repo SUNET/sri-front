@@ -1,0 +1,12 @@
+@import "../variables.scss";
+
+.info-creator-modifier {
+    > div {
+        text-align: right;
+        display: inline-block;
+
+        &:not(:last-child) {
+            margin-right: 30px;
+        }
+    }
+}

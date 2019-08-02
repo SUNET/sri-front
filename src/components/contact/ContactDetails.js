@@ -2,17 +2,29 @@ import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Button, ButtonToolbar, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import Contact from "./Contact";
 import DeleteContactMutation from "../../mutations/DeleteContactMutation";
 import UpdateContactMutation from "../../mutations/UpdateContactMutation";
 import environment from "../../createRelayEnvironment";
+import InfoCreatorModifier from "../InfoCreatorModifier";
 
 const ContactDetailsQuery = graphql`
     query ContactDetailsQuery($contactId: Int!) {
         getContactById(handle_id: $contactId) {
             ...Contact_contact
+            name
+            created
+            creator {
+                email
+            }
+            modified
+            modifier {
+                email
+            }
         }
     }
 `;
@@ -56,9 +68,7 @@ class ContactDetails extends React.Component {
 
     _handleDelete = () => {
         const contactId = this.props.match.params.contactId;
-        DeleteContactMutation(contactId, () =>
-            this.props.history.push(`/community/contacts`)
-        );
+        DeleteContactMutation(contactId, () => this.props.history.push(`/community/contacts`));
     };
 
     render() {
@@ -73,22 +83,24 @@ class ContactDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        console.log(this.props);
-                        console.log(props);
                         return (
-                            <section className="mt-3">
+                            <section className="model-details">
+                                <div>
+                                    <div>
+                                        <Button onClick={() => this.props.history.goBack()} variant="outline-dark">
+                                            Back
+                                        </Button>
+                                        <h1>{props.getContactById.name}</h1>
+                                    </div>
+                                    <div>
+                                        <InfoCreatorModifier model={props.getContactById} />
+                                    </div>
+                                </div>
                                 <Form>
-                                    <Contact
-                                        onChange={this._handleContactChange}
-                                        contact={props.getContactById}
-                                    />
-                                    <ButtonToolbar>
+                                    <Contact onChange={this._handleContactChange} contact={props.getContactById} />
+                                    <div>
                                         <Button
-                                            onClick={() =>
-                                                this._handleUpdate(
-                                                    props.getContactById
-                                                )
-                                            }
+                                            onClick={() => this._handleUpdate(props.getContactById)}
                                             className="mr-2"
                                             variant="outline-success"
                                         >
@@ -101,15 +113,7 @@ class ContactDetails extends React.Component {
                                         >
                                             Delete
                                         </Button>
-                                        <Button
-                                            onClick={() =>
-                                                this.props.history.goBack()
-                                            }
-                                            variant="outline-dark"
-                                        >
-                                            Back
-                                        </Button>
-                                    </ButtonToolbar>
+                                    </div>
                                 </Form>
                             </section>
                         );

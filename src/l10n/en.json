@@ -47,7 +47,9 @@
             "contact-details.notes": "Notes",
             "contact-details.general-information": "General information",
             "contact-details.profesional-details": "Profesional details",
-            "contact-details.worklog": "worklog"
+            "contact-details.worklog": "worklog",
+            "info.created": "Created",
+            "info.last_update": "Last update"
         }
     }
 }
