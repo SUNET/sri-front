@@ -1,6 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import { Col, Nav } from "react-bootstrap";
+import ReactSVG from 'react-svg'
 import {
     Accordion,
     AccordionItem,
@@ -35,6 +36,7 @@ class SideNavCommunity extends React.Component {
                         <AccordionItem uuid="organizations">
                             <AccordionItemHeading>
                                 <AccordionItemButton>
+                                    <ReactSVG src={require("../img/organization-icon.svg")} className="wrapper-svg" />
                                     <NavLink to={`${this.props.match.url}/organizations`}>
                                         {t("community.sub-menu.organizations")}
                                     </NavLink>
@@ -44,6 +46,7 @@ class SideNavCommunity extends React.Component {
                         <AccordionItem uuid="contacts">
                             <AccordionItemHeading>
                                 <AccordionItemButton>
+                                    <ReactSVG src={require("../img/contact-icon.svg")} className="wrapper-svg" />
                                     <NavLink to={`${this.props.match.url}/contacts`}>
                                         {t("community.sub-menu.contacts")}
                                     </NavLink>
@@ -53,6 +56,7 @@ class SideNavCommunity extends React.Component {
                         <AccordionItem uuid="groups">
                             <AccordionItemHeading>
                                 <AccordionItemButton>
+                                    <ReactSVG src={require("../img/groups-icon.svg")} className="wrapper-svg" />
                                     <NavLink to={`${this.props.match.url}/groups`}>
                                         {t("community.sub-menu.groups")}
                                     </NavLink>

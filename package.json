@@ -29,6 +29,7 @@
         "react-relay": "^5.0.0",
         "react-router-dom": "^5.0.1",
         "react-router-dynamic-breadcrumbs": "^2.2.0",
+        "react-svg": "^10.0.14",
         "redux": "^4.0.4",
         "redux-form": "^8.2.4",
         "relay-query-lookup-renderer": "^4.1.0"
