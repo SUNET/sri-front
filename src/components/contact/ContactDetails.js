@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Button, Form } from "react-bootstrap";
+import { Button, Row, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faStar } from "@fortawesome/free-solid-svg-icons";
+import { withTranslation } from "react-i18next";
 
 import Contact from "./Contact";
 import DeleteContactMutation from "../../mutations/DeleteContactMutation";
@@ -72,6 +73,7 @@ class ContactDetails extends React.Component {
     };
 
     render() {
+        let { t } = this.props;
         return (
             <QueryRenderer
                 environment={environment}
@@ -85,36 +87,40 @@ class ContactDetails extends React.Component {
                     } else if (props) {
                         return (
                             <section className="model-details">
-                                <div>
-                                    <div>
-                                        <Button onClick={() => this.props.history.goBack()} variant="outline-dark">
-                                            Back
-                                        </Button>
-                                        <h1>{props.getContactById.name}</h1>
-                                    </div>
-                                    <div>
+                                <Row>
+                                    <Col>
+                                        <div className="title-section">
+                                            <Button onClick={() => this.props.history.goBack()} className="outline">
+                                                {t("actions.back")}
+                                            </Button>
+                                            <h1>{props.getContactById.name}</h1>
+                                            <FontAwesomeIcon icon={faPen} />
+                                            <FontAwesomeIcon icon={faStar} />
+                                        </div>
+                                    </Col>
+                                    <Col>
                                         <InfoCreatorModifier model={props.getContactById} />
-                                    </div>
-                                </div>
-                                <Form>
-                                    <Contact onChange={this._handleContactChange} contact={props.getContactById} />
-                                    <div>
-                                        <Button
-                                            onClick={() => this._handleUpdate(props.getContactById)}
-                                            className="mr-2"
-                                            variant="outline-success"
-                                        >
-                                            Update
-                                        </Button>
-                                        <Button
-                                            onClick={() => this._handleDelete()}
-                                            className="mr-2"
-                                            variant="outline-danger"
-                                        >
-                                            Delete
-                                        </Button>
-                                    </div>
-                                </Form>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Form>
+                                            <Contact
+                                                onChange={this._handleContactChange}
+                                                contact={props.getContactById}
+                                            />
+                                            <Button
+                                                onClick={() => this._handleUpdate(props.getContactById)}
+                                                variant="outline-success"
+                                            >
+                                                {t("actions.update")}
+                                            </Button>
+                                            <Button onClick={() => this._handleDelete()} variant="outline-danger">
+                                                {t("actions.delete")}
+                                            </Button>
+                                        </Form>
+                                    </Col>
+                                </Row>
                             </section>
                         );
                     }
@@ -125,4 +131,4 @@ class ContactDetails extends React.Component {
     }
 }
 
-export default ContactDetails;
+export default withTranslation()(ContactDetails);

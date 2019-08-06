@@ -4,7 +4,6 @@
     box-sizing: border-box;
     font-size: 14px;
 }
-
 @media (min-width: 1500px) {
     .container {
         max-width: 1450px;
@@ -17,7 +16,7 @@ html {
 }
 
 .App {
-    background-color: $background-color;
+    background-color: $tertiary-color-3;
     font-family: $font;
 }
 
@@ -34,27 +33,40 @@ button {
     border: none;
 }
 
-h1, h2, h3, i, placeholder{
+::placeholder,
+h1,
+h2,
+h3,
+i {
     font-family: 'Karla', sans-serif;
 }
 
-h1{
+h1 {
     font-size: 24px;
     font-weight: bold;
 }
 
-h2{
+h2 {
     font-size: inherit;
     font-weight: bold;
 }
 
-h3{
+h3 {
     font-size: inherit;
     font-weight: normal;
+}
+
+::placeholder {
+    font-style: italic;
+    color: $secondary-color-20;
 }
 
 .borderless {
     > div {
         border: none;
     }
+}
+
+.wrapper-svg{
+    display: inline-block;
 }

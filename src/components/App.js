@@ -20,6 +20,7 @@ import Routes from "../Routes";
 import "bootstrap/scss/bootstrap.scss";
 import "../style/App.scss";
 import "../style/Breadcrumbs.scss";
+import "../style/SRIButton.scss";
 
 import { history } from "../store";
 

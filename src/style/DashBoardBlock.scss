@@ -1,7 +1,7 @@
 @import "../variables.scss";
 
 .dashboard-block{
-    background-color: $secundary-color;
+    background-color: $tertiary-color-20;
     padding: 20px;
     box-sizing: border-box;
     margin-bottom: 20px;
@@ -23,7 +23,7 @@
     article{
         font-size: 14px;
         .row{
-            border-bottom: solid 1px $primary-color;
+            border-bottom: solid 1px $tertiary-color-20;
             padding: 15px 0;
             .col{
                 vertical-align: middle;

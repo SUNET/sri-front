@@ -1,6 +1,26 @@
 @import "../variables.scss";
 
 .model-details {
+    .title-section {
+        h1 {
+            display: inline-block;
+            margin: 0 16px;
+            vertical-align: middle;
+        }
+
+        svg {
+            vertical-align: middle;
+
+            &:first-of-type {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .info-creator-modifier {
+        text-align: right;
+    }
+
     .model-section {
         margin-top: 24px;
         padding: 32px 24px;

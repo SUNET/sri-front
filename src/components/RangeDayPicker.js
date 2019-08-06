@@ -68,7 +68,7 @@ class RangeDayPicker extends React.Component {
             <div className="InputFromTo">
                 <DayPickerInput
                     value={from}
-                    placeholder="__/__/__"
+                    placeholder="dd/mm/yy"
                     format="MM/DD/YY"
                     formatDate={formatDate}
                     parseDate={parseDate}
@@ -86,8 +86,9 @@ class RangeDayPicker extends React.Component {
                 />
                 <span className="InputFromTo-to">
                     <DayPickerInput
+                        ref={(el) => this.to = el}
                         value={to}
-                        placeholder="__/__/__"
+                        placeholder="dd/mm/yy"
                         format="MM/DD/YY"
                         formatDate={formatDate}
                         parseDate={parseDate}

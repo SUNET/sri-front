@@ -64,7 +64,9 @@ class FilterColumns extends React.Component {
                                         handleChecked={(e) => {
                                             this.handleChangeColumns(e);
                                         }}
-                                        defaultValue={this.props.columns_visible[column.value]}
+                                        defaultValue={
+                                            this.props.columns_visible && this.props.columns_visible[column.value]
+                                        }
                                         id={column.value}
                                     />
                                 );

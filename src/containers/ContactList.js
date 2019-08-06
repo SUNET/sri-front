@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { ContactList } from "../components/contact";
 
 const mapStateToProps = (state, props) => {
-    let { columns_visible, all_columns } = state.filterColumns;
+    let { columns_visible, all_columns } = state.filterColumns.contact;
     return { columns_visible, all_columns };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return;
+    return {};
 };
 
 const ContactListContainer = connect(

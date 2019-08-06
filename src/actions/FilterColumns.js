@@ -1,21 +1,24 @@
-export const showHideColumn = (column, visible) => {
+export const showHideColumn = (column, visible, model) => {
     return {
         type: "SHOW_HIDE_COLUMN",
         column,
-        visible
+        visible,
+        model
     };
 };
 
-export const showAllColumns = (columns) => {
+export const showAllColumns = (columns, model) => {
     return {
         type: "SHOW_ALL_COLUMNS",
-        columns
+        columns,
+        model
     };
 };
 
-export const cancelFilterColumns = (columns) => {
+export const cancelFilterColumns = (columns, model) => {
     return {
         type: "CANCEL_FILTER_COLUMNS",
-        columns
+        columns,
+        model
     };
 };

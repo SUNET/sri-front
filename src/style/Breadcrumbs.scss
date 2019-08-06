@@ -1,7 +1,7 @@
 @import "../variables.scss";
 
 .breadcrumb{
-    background-color: $background-color;
+    background-color: transparent;
     .breadcrumb-item{
         &:not(:first-child){
             &:before {

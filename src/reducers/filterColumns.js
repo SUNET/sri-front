@@ -1,27 +1,36 @@
 const initialState = {
-    all_columns: true,
-    columns_visible: []
+    contact: {
+        all_columns: true,
+        columns_visible: []
+    },
+    organization: {
+        all_columns: true,
+        columns_visible: []
+    }
 };
 
-const filterColumnsReducer = (state = initialState, action) => {
+const filterColumnsReducer = (state = initialState, action, model) => {
     let nextState = {};
     switch (action.type) {
         case "SHOW_HIDE_COLUMN":
             //automatically adds columns that are shown or hidden
             nextState = {
                 ...state,
-                columns_visible: {
-                    ...state.columns_visible,
-                    [action.column]: action.visible
-                },
-                all_columns: true
+                [model]: {
+                    columns_visible: {
+                        ...state.columns_visible,
+                        [action.column]: action.visible
+                    },
+                    all_columns: true
+                }
             };
             //if all columns are hidden show all
-            for (const column in nextState.columns_visible) {
-                if (nextState.columns_visible[column]) {
+            for (const column in nextState[model].columns_visible) {
+                if (nextState[model].columns_visible[column]) {
                     return (nextState = { ...nextState, all_columns: false });
                 }
             }
+            console.log(nextState);
             return nextState;
 
         case "SHOW_ALL_COLUMNS":
@@ -32,10 +41,12 @@ const filterColumnsReducer = (state = initialState, action) => {
             });
             nextState = {
                 ...state,
-                columns_visible: {
-                    ...columns_visible
-                },
-                all_columns: true
+                [model]: {
+                    columns_visible: {
+                        ...columns_visible
+                    },
+                    all_columns: true
+                }
             };
             return nextState;
 

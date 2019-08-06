@@ -69,6 +69,7 @@ export class ContactList extends React.PureComponent {
                 <FilterColumnsContainer
                     type="hidden-col"
                     columns={defaultColumns}
+                    model="contact"
                     filterColumns={this.handleFilterColumns}
                 />
             </>
