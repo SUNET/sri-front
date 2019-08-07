@@ -2,35 +2,85 @@
 
 header {
     background-color: white;
+
     nav#top-header {
-        border-bottom: solid 2px $tertiary-color-3;
+        border-bottom: solid 1px $tertiary-color-20;
         width: 100%;
         text-align: center;
+        font-family: karla;
+        font-size: 16px;
 
-        svg {
-            color: grey;
-        }
-        .navbar-nav{
-            &:last-child{
+        .navbar-nav {
+            &:first-of-type {
+                .nav-link {
+                    width: 116px;
+                    color: rgba($secondary-color, .75);
+                    -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+                    -webkit-backface-visibility: hidden;
+                    backface-visibility: hidden;
+                    -moz-osx-font-smoothing: grayscale;
+                    position: relative;
+                    overflow: hidden;
+
+                    &:not(.active) {
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            z-index: -1;
+                            left: 50%;
+                            right: 50%;
+                            bottom: 0;
+                            background: $brand-color;
+                            height: 4px;
+                            border-radius: 2px;
+                            -webkit-transition-property: left right;
+                            transition-property: left right;
+                            -webkit-transition-duration: 0.09s;
+                            transition-duration: 0.09s;
+                            -webkit-transition-timing-function: ease-out;
+                            transition-timing-function: ease-out;
+                        }
+
+                        &:hover:after {
+                            left: 0;
+                            right: 0;
+                        }
+                    }
+
+                    &.active {
+                        font-weight: bold;
+                        color: $secondary-color;
+                        border-bottom: 4px solid $brand-color;
+                        border-radius: 2px;
+                    }
+                }
+            }
+
+            &:last-of-type {
                 display: table;
-                .nav-item{
+
+                .nav-item {
                     display: table-cell;
                     width: 40px;
                     vertical-align: middle;
                     font-size: 18px;
-                    &:last-child{
+
+                    &:last-child {
                         img {
                             border: solid 1px rgba(177,177,177,1);
                         }
                     }
                 }
             }
-            .nav-item{
-                span.dropdown-toggle{
-                    &:hover{
+
+            .nav-item {
+                span.dropdown-toggle {
+                    &:hover {
                         cursor: pointer;
                     }
-                    &:after{
+
+                    &:after {
                         display: none;
                     }
                 }

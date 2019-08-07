@@ -2,6 +2,7 @@
 
 .InputFromTo {
     display: inline-block;
+
     .DayPickerInput {
         .day-picker-wrap {
             align-items: center;
@@ -14,6 +15,7 @@
             label {
                 margin-right: 10px;
             }
+
             input {
                 width: 120px;
                 border-radius: 20px;
@@ -22,9 +24,7 @@
                 padding: 0 10px;
                 font-size: 14px;
             }
-            input::placeholder{
-                color: grey;
-            }
+
             span {
                 margin-left: -28px;
                 color: $complementary-color;
@@ -35,9 +35,18 @@
         .DayPickerInput-OverlayWrapper {
             position: absolute;
             z-index: 999;
+            margin-top: 8px;
 
             .DayPicker-Months {
                 flex-wrap: nowrap;
+
+                .DayPicker-Caption {
+                    div {
+                        font-family: karla;
+                        font-weight: bold;
+                        font-size: 14px;
+                    }
+                }
             }
         }
     }
@@ -51,7 +60,7 @@
         color: #fff;
     }
 
-    .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside){
+    .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
         background-color: $complementary-color;
     }
 
@@ -71,7 +80,6 @@
 
     .DayPickerInput-Overlay {
         position: relative;
-        right: 0;
     }
 
     .DayPicker-NavButton--prev {
