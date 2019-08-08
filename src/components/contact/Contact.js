@@ -27,9 +27,7 @@ class Contact extends React.PureComponent {
                                     <ToggleHeading>
                                         <h2>{t("contact-details.notes")}</h2>
                                     </ToggleHeading>
-                                    <TogglePanel>
-                                        <span>test</span>
-                                    </TogglePanel>
+
                                 </ToggleSection>
                                 <header>
 

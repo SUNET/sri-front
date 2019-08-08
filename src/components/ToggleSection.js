@@ -1,9 +1,5 @@
 import React from "react";
 
-export const ToggleHeading = ({ children }) => <div>{children}</div>;
-
-export const TogglePanel = ({ children }) => <div>{children}</div>;
-
 class ToggleSection extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +9,7 @@ class ToggleSection extends React.Component {
         };
     }
 
-    togglePanel = () => {
+    handleTogglePanel = (event) => {
         this.setState({ visible: !this.state.visible });
     };
 
@@ -22,10 +18,35 @@ class ToggleSection extends React.Component {
         console.log(this.state);
         return (
             <div className="toggle-section">
-                <ToggleHeading onClick={this.togglePanel}>{this.props.children[0]}</ToggleHeading>
-                {this.state.visible && <TogglePanel>{this.props.children[1]}</TogglePanel>}
+                    {React.Children.map(this.props.children, child =>
+                            React.cloneElement(child, { handleTogglePanel: this.handleTogglePanel })
+                        )
+                    }
             </div>
         );
+    }
+}
+
+export class TogglePanel extends React.Component {
+
+    handleTogglePanel = (event) => {
+        this.props.handleTogglePanel(event);
+    }
+
+    render() {
+        return <div onClick={(e) => this.handleTogglePanel(e)}>{this.props.children}</div>;
+    }
+}
+
+
+export class ToggleHeading extends React.Component {
+
+    handleTogglePanel = (event) => {
+        this.props.handleTogglePanel(event);
+    }
+
+    render() {
+        return <div onClick={(e) => this.handleTogglePanel(e)}>{this.props.children}</div>;
     }
 }
 

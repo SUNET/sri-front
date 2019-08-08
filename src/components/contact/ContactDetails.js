@@ -90,7 +90,7 @@ class ContactDetails extends React.Component {
                                 <Row>
                                     <Col>
                                         <div className="title-section">
-                                            <button onClick={() => this.props.history.goBack()} className="btn outline">
+                                            <button onClick={() => this.props.history.goBack()} className="btn btn-back outline">
                                                 <span>{t("actions.back")}</span>
                                             </button>
                                             <h1>{props.getContactById.name}</h1>

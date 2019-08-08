@@ -16,20 +16,22 @@ button.btn {
             vertical-align: middle;
         }
 
-        &:before {
-            display: inline-block;
-            content: '';
-            height: 6px;
-            width: 6px;
-            margin-right: 8px;
-            border-bottom: 2px solid $complementary-color;
-            border-right: 2px solid $complementary-color;
-            transform: rotate(135deg);
-            vertical-align: middle;
+        &.btn-back {
+            &:before {
+                display: inline-block;
+                content: '';
+                height: 6px;
+                width: 6px;
+                margin-right: 8px;
+                border-bottom: 2px solid $complementary-color;
+                border-right: 2px solid $complementary-color;
+                transform: rotate(135deg);
+                vertical-align: middle;
+            }
         }
 
-        &:hover{
-            background-color: $tertiary-color-3;
+        &:hover {
+            background-color: $tertiary-color-20;
         }
     }
 }
