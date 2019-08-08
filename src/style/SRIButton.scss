@@ -3,22 +3,33 @@
 (incl. :hover, :active, :focus and :disabled) */
 button.btn {
     &.outline {
+        line-height: normal;
+        font-size: 14px;
+        font-family: karla;
         width: 75px;
-        height: 32px;
-        opacity: 0.2;
+        color: $secondary-color;
         border-radius: 16px;
-        border: solid 1px $secondary-color;
+        border: solid 1px $secondary-color-20;
         background: none;
-        color:
+
+        span {
+            vertical-align: middle;
+        }
+
         &:before {
             display: inline-block;
             content: '';
-            height: 8px;
-            width: 8px;
+            height: 6px;
+            width: 6px;
             margin-right: 8px;
             border-bottom: 2px solid $complementary-color;
             border-right: 2px solid $complementary-color;
             transform: rotate(135deg);
+            vertical-align: middle;
+        }
+
+        &:hover{
+            background-color: $tertiary-color-3;
         }
     }
 }
