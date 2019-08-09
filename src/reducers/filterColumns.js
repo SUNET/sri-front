@@ -9,28 +9,30 @@ const initialState = {
     }
 };
 
-const filterColumnsReducer = (state = initialState, action, model) => {
+const filterColumnsReducer = (state = initialState, action) => {
     let nextState = {};
     switch (action.type) {
         case "SHOW_HIDE_COLUMN":
             //automatically adds columns that are shown or hidden
             nextState = {
                 ...state,
-                [model]: {
+                [action.model]: {
                     columns_visible: {
-                        ...state.columns_visible,
+                        ...state[action.model].columns_visible,
                         [action.column]: action.visible
                     },
                     all_columns: true
                 }
             };
             //if all columns are hidden show all
-            for (const column in nextState[model].columns_visible) {
-                if (nextState[model].columns_visible[column]) {
-                    return (nextState = { ...nextState, all_columns: false });
+            for (const column in nextState[action.model].columns_visible) {
+                if (nextState[action.model].columns_visible[column]) {
+                    return (nextState = {
+                        ...nextState,
+                        [action.model]: { ...nextState[action.model], all_columns: false }
+                    });
                 }
             }
-            console.log(nextState);
             return nextState;
 
         case "SHOW_ALL_COLUMNS":
@@ -41,7 +43,7 @@ const filterColumnsReducer = (state = initialState, action, model) => {
             });
             nextState = {
                 ...state,
-                [model]: {
+                [action.model]: {
                     columns_visible: {
                         ...columns_visible
                     },

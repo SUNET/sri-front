@@ -45,12 +45,14 @@ export class ContactList extends React.PureComponent {
     };
 
     renderHeaderList() {
+        console.log(this.props);
         return (
             <>
                 <div></div>
                 {defaultColumns.map((column, index) => {
                     // Hiding the columns passed by props
-                    if (this.props.columns_visible[column.value] || this.props.all_columns) {
+                    console.log(column);
+                    if (this.props.columns_visible[column.value] !== undefined || this.props.all_columns) {
                         return (
                             <div key={index}>
                                 {column.name}

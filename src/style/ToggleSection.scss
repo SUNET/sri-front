@@ -1,0 +1,35 @@
+@import "../variables.scss";
+
+.toggle-section {
+    .toggle-header {
+        :first-child {
+            margin-right: 8px;
+        }
+
+        > * {
+            display: inline-block;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:after {
+            float: right;
+            display: inline-block;
+            content: '';
+            height: 6px;
+            width: 6px;
+            border-bottom: 2px solid $complementary-color;
+            border-right: 2px solid $complementary-color;
+            vertical-align: middle;
+            transform: rotate(45deg);
+        }
+        
+        &[aria-expanded='false']:after {
+            transform: rotate(-45deg);
+        }
+    }
+
+    .toggle-panel {}
+}

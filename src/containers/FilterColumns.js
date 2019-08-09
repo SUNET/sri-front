@@ -12,9 +12,9 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        showHideColumn: (column, visible) => dispatch(showHideColumn(column, visible, props.model)),
-        showAllColumns: (columns) => dispatch(showAllColumns(columns, props.model)),
-        cancelFilterColumns: (columns) => dispatch(cancelFilterColumns(columns, props.model))
+        showHideColumn: (column, visible, model) => dispatch(showHideColumn(column, visible, model)),
+        showAllColumns: (columns, model) => dispatch(showAllColumns(columns, model)),
+        cancelFilterColumns: (columns, model) => dispatch(cancelFilterColumns(columns, model))
     };
 };
 

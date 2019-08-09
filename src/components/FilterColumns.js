@@ -25,9 +25,9 @@ class FilterColumns extends React.Component {
 
     handleChangeColumns = (event) => {
         if (event.target.id === "all_columns") {
-            this.props.showAllColumns(this.props.columns_visible);
+            this.props.showAllColumns(this.props.columns_visible, this.props.model);
         } else {
-            this.props.showHideColumn(event.target.id, event.target.checked);
+            this.props.showHideColumn(event.target.id, event.target.checked, this.props.model);
         }
     };
 
@@ -53,6 +53,7 @@ class FilterColumns extends React.Component {
                         <Dropdown.Divider />
                         <div>
                             {this.props.columns.map((column) => {
+                                let defaultValue = this.props.columns_visible !== undefined ? this.props.columns_visible[column.value] : false;
                                 return (
                                     <FieldSwitch
                                         key={column.value}
@@ -64,9 +65,7 @@ class FilterColumns extends React.Component {
                                         handleChecked={(e) => {
                                             this.handleChangeColumns(e);
                                         }}
-                                        defaultValue={
-                                            this.props.columns_visible && this.props.columns_visible[column.value]
-                                        }
+                                        defaultValue={defaultValue}
                                         id={column.value}
                                     />
                                 );
