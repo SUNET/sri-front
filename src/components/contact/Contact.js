@@ -6,6 +6,7 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 
 import Dropdown from "../Dropdown";
+import AppendChild from "../AppendChild";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
@@ -28,7 +29,9 @@ class Contact extends React.PureComponent {
                                         <h2>{t("contact-details.notes")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
-                                        <span>test</span>
+                                        <AppendChild>
+                                            <span>test</span>
+                                        </AppendChild>
                                     </TogglePanel>
                                 </ToggleSection>
                             </article>
