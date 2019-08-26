@@ -47,6 +47,7 @@
             "actions.back": "Back",
             "actions.delete": "Delete",
             "actions.update": "Update",
+            "actions.add-new": "Add new",
             "contact-details.notes": "Notes",
             "contact-details.general-information": "General information",
             "contact-details.profesional-details": "Profesional details",

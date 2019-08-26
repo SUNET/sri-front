@@ -1,4 +1,5 @@
 import React from "react";
+import { withTranslation } from "react-i18next";
 
 class AppendChild extends React.Component {
     constructor() {
@@ -10,26 +11,28 @@ class AppendChild extends React.Component {
     }
     componentWillMount() {
         this.setState({
-            children: [this.props.children]
+            children: [...this.state.children, this.props.children]
         });
     }
 
     appendChild = (event) => {
         event.preventDefault();
         this.setState({
-            children: [...this.state.children, this.props.children[0]]
+            children: [...this.state.children, this.state.children[0]]
         });
     };
 
     render() {
-        console.log(this.props.children);
+        let { t } = this.props;
         return (
             <div>
                 <div>{this.state.children.map((child) => child)}</div>
-                <button onClick={(e) => this.appendChild(e)}>Add New</button>
+                <button className="btn btn-add outline" onClick={(e) => this.appendChild(e)}>
+                    <span>{t("actions.add-new")}</span>
+                </button>
             </div>
         );
     }
 }
 
-export default AppendChild;
+export default withTranslation()(AppendChild);

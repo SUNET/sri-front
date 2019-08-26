@@ -29,19 +29,35 @@ class Contact extends React.PureComponent {
                                         <h2>{t("contact-details.notes")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
-                                        <AppendChild>
-                                            <span>test</span>
-                                        </AppendChild>
+                                        <span>test</span>
                                     </TogglePanel>
                                 </ToggleSection>
                             </article>
                             <hr />
                             <article>
-                                <header>
-                                    <h2>{t("contact-details.general-information")}</h2>
-                                </header>
-                                <div></div>
+                                <ToggleSection>
+                                    <ToggleHeading>
+                                        <h2>{t("contact-details.general-information")}</h2>
+                                    </ToggleHeading>
+                                    <TogglePanel>
+                                        <div>
+                                            <div>Title</div>
+                                            <div>Type</div>
+                                            <div>E-mails</div>
+                                            <div>Phone</div>
+                                        </div>
+                                        <div>
+                                            <div>{contact.first_name}</div>
+                                            <div>{contact.last_name}</div>
+                                            <div>
+
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    </TogglePanel>
+                                </ToggleSection>
                             </article>
+                            <hr />
                             <article>
                                 <header>
                                     <h2>{t("contact-details.profesional-details")}</h2>

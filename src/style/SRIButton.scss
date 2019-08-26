@@ -2,11 +2,12 @@
 /* generic styles for all buttons
 (incl. :hover, :active, :focus and :disabled) */
 button.btn {
+    line-height: normal;
+    position: relative;
+    font-family: karla;
+
     &.outline {
-        line-height: normal;
         font-size: 14px;
-        font-family: karla;
-        width: 75px;
         color: $secondary-color;
         border-radius: 16px;
         border: solid 1px $secondary-color-20;
@@ -14,6 +15,37 @@ button.btn {
 
         span {
             vertical-align: middle;
+        }
+
+        &.btn-add {
+            width: 100%;
+            color: $tertiary-color;
+
+            span {
+                position: relative;
+
+                &:after,
+                &:before {
+                    content: "";
+                    display: inline-block;
+                    background-color: $complementary-color;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    left: -16px;
+                    transform: translate(-50%, -50%);
+                }
+
+                &:before {
+                    height: 10px;
+                    width: 2px;
+                }
+
+                &:after {
+                    height: 2px;
+                    width: 10px;
+                }
+            }
         }
 
         &.btn-back {
