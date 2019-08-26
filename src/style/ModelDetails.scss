@@ -28,5 +28,31 @@
         -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
         -moz-box-shadow: 0 0 4px -1px #d6d6d6;
         box-shadow: 0 0 4px -1px #d6d6d6;
+
+        .table-details {
+            display: table;
+            width: 100%;
+            border-spacing: 0 16px;
+            margin-left: 24px;
+
+            > div:first-of-type {
+                display: table-header-group;
+                font-family: karla;
+                font-weight: bold;
+                color: $secondary-color-30;
+
+                > div {
+                    display: table-cell;
+                }
+            }
+
+            > div:last-of-type {
+                display: table-row-group;
+
+                > div {
+                    display: table-cell;
+                }
+            }
+        }
     }
 }

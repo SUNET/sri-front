@@ -48,6 +48,7 @@
             "actions.delete": "Delete",
             "actions.update": "Update",
             "actions.add-new": "Add new",
+            "actions.copied": "Copied!",
             "contact-details.notes": "Notes",
             "contact-details.general-information": "General information",
             "contact-details.profesional-details": "Profesional details",

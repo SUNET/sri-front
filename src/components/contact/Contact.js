@@ -6,8 +6,9 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 
 import Dropdown from "../Dropdown";
+import CopyToClipboard from "../CopyToClipboard";
 import AppendChild from "../AppendChild";
-import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
 
@@ -29,7 +30,11 @@ class Contact extends React.PureComponent {
                                         <h2>{t("contact-details.notes")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
-                                        <span>test</span>
+                                        <PanelEditable.Consumer>
+                                            {(editable) => {
+                                                return (<span>test {editable.toString()}</span> );
+                                            }}
+                                        </PanelEditable.Consumer>
                                     </TogglePanel>
                                 </ToggleSection>
                             </article>
@@ -40,19 +45,21 @@ class Contact extends React.PureComponent {
                                         <h2>{t("contact-details.general-information")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
-                                        <div>
-                                            <div>Title</div>
-                                            <div>Type</div>
-                                            <div>E-mails</div>
-                                            <div>Phone</div>
-                                        </div>
-                                        <div>
-                                            <div>{contact.first_name}</div>
-                                            <div>{contact.last_name}</div>
+                                        <div className="table-details">
                                             <div>
-
+                                                <div>Title</div>
+                                                <div>Type</div>
+                                                <div>E-mails</div>
+                                                <div>Phone</div>
                                             </div>
-                                            <div></div>
+                                            <div>
+                                                <div>
+                                                    <CopyToClipboard>{contact.first_name}</CopyToClipboard>
+                                                </div>
+                                                <div>{contact.last_name}</div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
                                         </div>
                                     </TogglePanel>
                                 </ToggleSection>

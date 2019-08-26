@@ -2,8 +2,10 @@
 
 .toggle-section {
     .toggle-header {
+
         :first-child {
             margin-right: 8px;
+            margin-bottom: 0;
         }
 
         > * {
@@ -25,11 +27,13 @@
             vertical-align: middle;
             transform: rotate(45deg);
         }
-        
+
         &[aria-expanded='false']:after {
             transform: rotate(-45deg);
         }
     }
 
-    .toggle-panel {}
+    .toggle-panel {
+        margin-top: 16px;
+    }
 }
