@@ -13,11 +13,13 @@ declare export opaque type Contact_contact$ref: FragmentReference;
 declare export opaque type Contact_contact$fragmentType: Contact_contact$ref;
 export type Contact_contact = {|
   +handle_id: string,
+  +title: ?string,
   +contact_type: ?string,
   +first_name: string,
   +last_name: string,
   +email: ?string,
   +phone: ?string,
+  +PGP_fingerprint: ?string,
   +$refType: Contact_contact$ref,
 |};
 export type Contact_contact$data = Contact_contact;
@@ -39,6 +41,13 @@ const node/*: ReaderFragment*/ = {
       "kind": "ScalarField",
       "alias": null,
       "name": "handle_id",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "title",
       "args": null,
       "storageKey": null
     },
@@ -76,9 +85,16 @@ const node/*: ReaderFragment*/ = {
       "name": "phone",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "PGP_fingerprint",
+      "args": null,
+      "storageKey": null
     }
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '686b80ee31dd5c12b4eb2a7c9dbb92f0';
+(node/*: any*/).hash = 'ba34fef64c7ff61d2f493e6a70e99f25';
 module.exports = node;

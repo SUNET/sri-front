@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash fd1d2ac51530a1d5d85e053f25b4f362
+ * @relayHash 8ff901a09fff53d69317fc31ea61ef63
  */
 
 /* eslint-disable */
@@ -57,11 +57,13 @@ query ContactDetailsQuery(
 
 fragment Contact_contact on Contact {
   handle_id
+  title
   contact_type
   first_name
   last_name
   email
   phone
+  PGP_fingerprint
 }
 */
 
@@ -197,6 +199,13 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
+            "name": "title",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
             "name": "contact_type",
             "args": null,
             "storageKey": null
@@ -220,6 +229,13 @@ return {
             "kind": "ScalarField",
             "alias": null,
             "name": "phone",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "PGP_fingerprint",
             "args": null,
             "storageKey": null
           },
@@ -255,7 +271,7 @@ return {
     "operationKind": "query",
     "name": "ContactDetailsQuery",
     "id": null,
-    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n}\n",
+    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  title\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n  PGP_fingerprint\n}\n",
     "metadata": {}
   }
 };

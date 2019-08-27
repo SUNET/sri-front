@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 422e867928c85f69cccc85eef7ed5079
+ * @relayHash 528976d6a0793a768b76ee8bf66f6708
  */
 
 /* eslint-disable */
@@ -9,12 +9,12 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type DeleteNIContactMutationInput = {|
+export type DeleteContactInput = {|
   handle_id: number,
   clientMutationId?: ?string,
 |};
 export type DeleteContactMutationVariables = {|
-  input: DeleteNIContactMutationInput
+  input: DeleteContactInput
 |};
 export type DeleteContactMutationResponse = {|
   +delete_contact: ?{|
@@ -30,7 +30,7 @@ export type DeleteContactMutation = {|
 
 /*
 mutation DeleteContactMutation(
-  $input: DeleteNIContactMutationInput!
+  $input: DeleteContactInput!
 ) {
   delete_contact(input: $input) {
     success
@@ -43,7 +43,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteNIContactMutationInput!",
+    "type": "DeleteContactInput!",
     "defaultValue": null
   }
 ],
@@ -60,7 +60,7 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "DeleteNIContactMutationPayload",
+    "concreteType": "DeleteContactPayload",
     "plural": false,
     "selections": [
       {
@@ -93,11 +93,11 @@ return {
     "operationKind": "mutation",
     "name": "DeleteContactMutation",
     "id": null,
-    "text": "mutation DeleteContactMutation(\n  $input: DeleteNIContactMutationInput!\n) {\n  delete_contact(input: $input) {\n    success\n  }\n}\n",
+    "text": "mutation DeleteContactMutation(\n  $input: DeleteContactInput!\n) {\n  delete_contact(input: $input) {\n    success\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd58c85d87f5679bfd0f27baadb1f0c0d';
+(node/*: any*/).hash = '2ca7cc50fce98fbe920155db60674743';
 module.exports = node;

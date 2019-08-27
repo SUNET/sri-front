@@ -94,7 +94,7 @@ return {
       "name": "roles",
       "storageKey": null,
       "args": null,
-      "concreteType": "Role",
+      "concreteType": "RoleRelation",
       "plural": true,
       "selections": (v1/*: any*/)
     },

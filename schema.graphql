@@ -4,6 +4,31 @@ type Choice implements KeyValue {
   value: String!
 }
 
+"""This scalar represents a choice field in query/mutation"""
+scalar ChoiceScalar
+
+type CommentType {
+  id: ID!
+  object_pk: String!
+  user: User
+  user_name: String!
+  user_email: String!
+  user_url: String!
+  comment: String!
+  submit_date: DateTime!
+  ip_address: String
+
+  """
+  Uncheck this box to make the comment effectively disappear from the site.
+  """
+  is_public: Boolean!
+
+  """
+  Check this box if the comment is inappropriate. A "This comment has been removed" message will be displayed instead.
+  """
+  is_removed: Boolean!
+}
+
 """A contact in the SRI system"""
 type Contact implements Node {
   handle_id: ID!
@@ -19,6 +44,7 @@ type Contact implements Node {
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
+  comments: [CommentType]
   name: String!
   first_name: String!
   last_name: String!
@@ -31,14 +57,18 @@ type Contact implements Node {
   other_email: String
   PGP_fingerprint: String
   member_of_groups: [Group]
-  roles: [Role]
+  roles: [RoleRelation]
 }
 
 type ContactConnection {
+  """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
   edges: [ContactEdge]!
 }
 
+"""A Relay edge containing a `Contact` and its cursor."""
 type ContactEdge {
   """The item at the end of the edge"""
   node: Contact
@@ -215,14 +245,14 @@ input ContactNestedFilter {
   member_of_groups_gte: GroupInputField
   member_of_groups_in: [GroupInputField!]
   member_of_groups_not_in: [GroupInputField!]
-  roles: RoleInputField
-  roles_not: RoleInputField
-  roles_lt: RoleInputField
-  roles_lte: RoleInputField
-  roles_gt: RoleInputField
-  roles_gte: RoleInputField
-  roles_in: [RoleInputField!]
-  roles_not_in: [RoleInputField!]
+  roles: RoleRelationInputField
+  roles_not: RoleRelationInputField
+  roles_lt: RoleRelationInputField
+  roles_lte: RoleRelationInputField
+  roles_gt: RoleRelationInputField
+  roles_gte: RoleRelationInputField
+  roles_in: [RoleRelationInputField!]
+  roles_not_in: [RoleRelationInputField!]
   handle_id: Int
   handle_id_not: Int
   handle_id_lt: Int
@@ -261,13 +291,12 @@ enum ContactOrderBy {
   handle_id_DESC
 }
 
-input CreateNIContactMutationInput {
+input CreateContactInput {
   first_name: String!
   last_name: String!
-  contact_type: String!
+  contact_type: ChoiceScalar!
   mobile: String
   phone: String
-  salutation: String
   email: String
   other_email: String
   name: String
@@ -276,52 +305,64 @@ input CreateNIContactMutationInput {
   clientMutationId: String
 }
 
-type CreateNIContactMutationPayload {
+type CreateContactPayload {
+  errors: [ErrorType]
   contact: Contact
   clientMutationId: String
 }
 
-input CreateNIGroupMutationInput {
+input CreateGroupInput {
   name: String!
+  description: String
   clientMutationId: String
 }
 
-type CreateNIGroupMutationPayload {
+type CreateGroupPayload {
+  errors: [ErrorType]
   group: Group
   clientMutationId: String
 }
 
-input CreateNIOrganizationMutationInput {
+input CreateOrganizationInput {
   account_id: String
   name: String!
   description: String
   phone: String
   website: String
   customer_id: String
-  type: String
-  additional_info: String
-  abuse_contact: String
-  primary_contact: String
-  secondary_contact: String
-  it_technical_contact: String
-  it_security_contact: String
-  it_manager_contact: String
+  type: ChoiceScalar
+  incident_management_info: String
   clientMutationId: String
 }
 
-type CreateNIOrganizationMutationPayload {
+type CreateOrganizationPayload {
+  errors: [ErrorType]
   organization: Organization
   clientMutationId: String
 }
 
-input CreateNIProcedureMutationInput {
+input CreateProcedureInput {
   name: String!
   description: String
   clientMutationId: String
 }
 
-type CreateNIProcedureMutationPayload {
+type CreateProcedurePayload {
+  errors: [ErrorType]
   procedure: Procedure
+  clientMutationId: String
+}
+
+input CreateRoleInput {
+  name: String!
+  description: String
+  id: ID
+  clientMutationId: String
+}
+
+type CreateRolePayload {
+  role: Role
+  errors: [ErrorType]
   clientMutationId: String
 }
 
@@ -332,42 +373,46 @@ value as specified by
 """
 scalar DateTime
 
-input DeleteNIContactMutationInput {
+input DeleteContactInput {
   handle_id: Int!
   clientMutationId: String
 }
 
-type DeleteNIContactMutationPayload {
+type DeleteContactPayload {
+  errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
 }
 
-input DeleteNIGroupMutationInput {
+input DeleteGroupInput {
   handle_id: Int!
   clientMutationId: String
 }
 
-type DeleteNIGroupMutationPayload {
+type DeleteGroupPayload {
+  errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
 }
 
-input DeleteNIOrganizationMutationInput {
+input DeleteOrganizationInput {
   handle_id: Int!
   clientMutationId: String
 }
 
-type DeleteNIOrganizationMutationPayload {
+type DeleteOrganizationPayload {
+  errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
 }
 
-input DeleteNIProcedureMutationInput {
+input DeleteProcedureInput {
   handle_id: Int!
   clientMutationId: String
 }
 
-type DeleteNIProcedureMutationPayload {
+type DeleteProcedurePayload {
+  errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
 }
@@ -380,6 +425,17 @@ input DeleteRelationshipInput {
 type DeleteRelationshipPayload {
   success: Boolean!
   relation_id: Int!
+  clientMutationId: String
+}
+
+input DeleteRoleInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteRolePayload {
+  success: Boolean!
+  handle_id: Int!
   clientMutationId: String
 }
 
@@ -407,6 +463,11 @@ type Dropdown {
   name: String!
 }
 
+type ErrorType {
+  field: String!
+  messages: [String!]!
+}
+
 """The group type is used to group contacts"""
 type Group implements Node {
   handle_id: ID!
@@ -422,14 +483,19 @@ type Group implements Node {
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
+  comments: [CommentType]
   name: String!
 }
 
 type GroupConnection {
+  """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
   edges: [GroupEdge]!
 }
 
+"""A Relay edge containing a `Group` and its cursor."""
 type GroupEdge {
   """The item at the end of the edge"""
   node: Group
@@ -496,6 +562,7 @@ type Host implements Node {
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
+  comments: [CommentType]
   ip_addresses: IPAddr
   name: String!
   operational_state: String!
@@ -520,18 +587,21 @@ interface KeyValue {
 }
 
 type Mutation {
-  create_group(input: CreateNIGroupMutationInput!): CreateNIGroupMutationPayload
-  update_group(input: UpdateNIGroupMutationInput!): UpdateNIGroupMutationPayload
-  delete_group(input: DeleteNIGroupMutationInput!): DeleteNIGroupMutationPayload
-  create_procedure(input: CreateNIProcedureMutationInput!): CreateNIProcedureMutationPayload
-  update_procedure(input: UpdateNIProcedureMutationInput!): UpdateNIProcedureMutationPayload
-  delete_procedure(input: DeleteNIProcedureMutationInput!): DeleteNIProcedureMutationPayload
-  create_contact(input: CreateNIContactMutationInput!): CreateNIContactMutationPayload
-  update_contact(input: UpdateNIContactMutationInput!): UpdateNIContactMutationPayload
-  delete_contact(input: DeleteNIContactMutationInput!): DeleteNIContactMutationPayload
-  create_organization(input: CreateNIOrganizationMutationInput!): CreateNIOrganizationMutationPayload
-  update_organization(input: UpdateNIOrganizationMutationInput!): UpdateNIOrganizationMutationPayload
-  delete_organization(input: DeleteNIOrganizationMutationInput!): DeleteNIOrganizationMutationPayload
+  create_group(input: CreateGroupInput!): CreateGroupPayload
+  update_group(input: UpdateGroupInput!): UpdateGroupPayload
+  delete_group(input: DeleteGroupInput!): DeleteGroupPayload
+  create_procedure(input: CreateProcedureInput!): CreateProcedurePayload
+  update_procedure(input: UpdateProcedureInput!): UpdateProcedurePayload
+  delete_procedure(input: DeleteProcedureInput!): DeleteProcedurePayload
+  create_contact(input: CreateContactInput!): CreateContactPayload
+  update_contact(input: UpdateContactInput!): UpdateContactPayload
+  delete_contact(input: DeleteContactInput!): DeleteContactPayload
+  create_organization(input: CreateOrganizationInput!): CreateOrganizationPayload
+  update_organization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
+  delete_organization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
+  create_role(input: CreateRoleInput!): CreateRolePayload
+  update_role(input: UpdateRoleInput!): UpdateRolePayload
+  delete_role(input: DeleteRoleInput!): DeleteRolePayload
   delete_relationship(input: DeleteRelationshipInput!): DeleteRelationshipPayload
 }
 
@@ -560,6 +630,7 @@ type NIObjectType implements Node {
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
+  comments: [CommentType]
 }
 
 """This class represents a relationship and its properties"""
@@ -608,6 +679,7 @@ type NodeHandler implements Node {
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
+  comments: [CommentType]
   name: String!
 }
 
@@ -626,19 +698,25 @@ type Organization implements Node {
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
+  comments: [CommentType]
   name: String!
   description: String!
   phone: String
   website: String
   customer_id: String
   additional_info: String
+  type: ChoiceScalar
 }
 
 type OrganizationConnection {
+  """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
   edges: [OrganizationEdge]!
 }
 
+"""A Relay edge containing a `Organization` and its cursor."""
 type OrganizationEdge {
   """The item at the end of the edge"""
   node: Organization
@@ -737,6 +815,14 @@ input OrganizationNestedFilter {
   additional_info_not_ends_with: String
   additional_info_in: [String!]
   additional_info_not_in: [String!]
+  type: ChoiceScalar
+  type_not: ChoiceScalar
+  type_lt: ChoiceScalar
+  type_lte: ChoiceScalar
+  type_gt: ChoiceScalar
+  type_gte: ChoiceScalar
+  type_in: [ChoiceScalar!]
+  type_not_in: [ChoiceScalar!]
   handle_id: Int
   handle_id_not: Int
   handle_id_lt: Int
@@ -761,10 +847,15 @@ enum OrganizationOrderBy {
   customer_id_DESC
   additional_info_ASC
   additional_info_DESC
+  type_ASC
+  type_DESC
   handle_id_ASC
   handle_id_DESC
 }
 
+"""
+The Relay compliant `PageInfo` type, containing data necessary to paginate this connection.
+"""
 type PageInfo {
   """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
@@ -794,15 +885,20 @@ type Procedure implements Node {
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
+  comments: [CommentType]
   name: String!
   description: String
 }
 
 type ProcedureConnection {
+  """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
   edges: [ProcedureEdge]!
 }
 
+"""A Relay edge containing a `Procedure` and its cursor."""
 type ProcedureEdge {
   """The item at the end of the edge"""
   node: Procedure
@@ -872,7 +968,8 @@ type Query {
   getAvailableDropdowns: [String]
   getChoicesForDropdown(name: String!): [KeyValue]
   getRelationById(relation_id: Int!): NIRelationType
-  getRoleById(relation_id: Int!): Role
+  getRoleRelationById(relation_id: Int!): RoleRelation
+  roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
   getGroupById(handle_id: Int): Group
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
@@ -883,7 +980,44 @@ type Query {
   getProcedureById(handle_id: Int): Procedure
 }
 
+"""This class represents a Role in the relational db"""
 type Role {
+  handle_id: ID!
+  name: String!
+  slug: String!
+  description: String
+}
+
+type RoleConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [RoleEdge]!
+}
+
+"""A Relay edge containing a `Role` and its cursor."""
+type RoleEdge {
+  """The item at the end of the edge"""
+  node: Role
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input RoleFilter {
+  name: String
+  handle_id: Int
+}
+
+enum RoleOrderBy {
+  name_ASC
+  name_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+type RoleRelation {
   relation_id: Int!
   type: String!
   start: Int!
@@ -892,78 +1026,103 @@ type Role {
   start_node: NIObjectType
   end_node: Organization
   name: String
+  role_data: Role
 }
 
-input RoleInputField {
+input RoleRelationInputField {
   relation_id: Int
   name: String
 }
 
-input UpdateNIContactMutationInput {
+input UpdateContactInput {
   first_name: String!
   last_name: String!
-  contact_type: String!
+  contact_type: ChoiceScalar!
   mobile: String
   phone: String
-  salutation: String
   email: String
   other_email: String
   name: String
   title: String
   PGP_fingerprint: String
-  relationship_works_for: String
-  relationship_member_of: String
-  role_name: String
+  relationship_works_for: ChoiceScalar
+  relationship_member_of: ChoiceScalar
+  role: ChoiceScalar
   handle_id: Int!
   clientMutationId: String
 }
 
-type UpdateNIContactMutationPayload {
+type UpdateContactPayload {
+  errors: [ErrorType]
   contact: Contact
   clientMutationId: String
 }
 
-input UpdateNIGroupMutationInput {
+input UpdateGroupInput {
   name: String!
-  relationship_member_of: String
+  description: String
+  relationship_member_of: ChoiceScalar
   handle_id: Int!
   clientMutationId: String
 }
 
-type UpdateNIGroupMutationPayload {
+type UpdateGroupPayload {
+  errors: [ErrorType]
   group: Group
   clientMutationId: String
 }
 
-input UpdateNIOrganizationMutationInput {
+input UpdateOrganizationInput {
   account_id: String
   name: String!
   description: String
   phone: String
   website: String
   customer_id: String
-  type: String
-  additional_info: String
-  relationship_parent_of: String
-  relationship_uses_a: String
+  type: ChoiceScalar
+  incident_management_info: String
+  relationship_parent_of: ChoiceScalar
+  relationship_uses_a: ChoiceScalar
+  abuse_contact: ChoiceScalar
+  primary_contact: ChoiceScalar
+  secondary_contact: ChoiceScalar
+  it_technical_contact: ChoiceScalar
+  it_security_contact: ChoiceScalar
+  it_manager_contact: ChoiceScalar
   handle_id: Int!
   clientMutationId: String
 }
 
-type UpdateNIOrganizationMutationPayload {
+type UpdateOrganizationPayload {
+  errors: [ErrorType]
   organization: Organization
   clientMutationId: String
 }
 
-input UpdateNIProcedureMutationInput {
+input UpdateProcedureInput {
   name: String!
   description: String
   handle_id: Int!
   clientMutationId: String
 }
 
-type UpdateNIProcedureMutationPayload {
+type UpdateProcedurePayload {
+  errors: [ErrorType]
   procedure: Procedure
+  clientMutationId: String
+}
+
+input UpdateRoleInput {
+  handle_id: Int!
+  name: String!
+  description: String
+  id: ID
+  clientMutationId: String
+}
+
+type UpdateRolePayload {
+  role: Role
+  errors: [ErrorType]
   clientMutationId: String
 }
 
@@ -992,5 +1151,6 @@ type User {
   """
   is_active: Boolean!
   date_joined: DateTime!
+  comment_comments: [CommentType!]!
 }
 

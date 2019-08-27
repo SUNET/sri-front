@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9eb30c59cff94304c0a2f9f98dfc4e49
+ * @relayHash 7b1affa13d83b346a5be50faca5d7b1f
  */
 
 /* eslint-disable */
@@ -225,7 +225,7 @@ return {
                     "name": "roles",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "Role",
+                    "concreteType": "RoleRelation",
                     "plural": true,
                     "selections": [
                       (v3/*: any*/)

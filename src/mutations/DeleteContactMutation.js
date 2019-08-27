@@ -4,7 +4,7 @@ import { ROOT_ID } from "relay-runtime";
 import environment from "../createRelayEnvironment";
 
 const mutation = graphql`
-    mutation DeleteContactMutation($input: DeleteNIContactMutationInput!) {
+    mutation DeleteContactMutation($input: DeleteContactInput!) {
         delete_contact(input: $input) {
             success
         }

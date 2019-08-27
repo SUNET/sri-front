@@ -4,7 +4,7 @@ import environment from "../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 const mutation = graphql`
-    mutation CreateContactMutation($input: CreateNIContactMutationInput!) {
+    mutation CreateContactMutation($input: CreateContactInput!) {
         create_contact(input: $input) {
             contact {
                 handle_id

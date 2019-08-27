@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash dec8e08d8366df56aef8d6276b29a4e3
+ * @relayHash d664537c609443e238777d25790bfda8
  */
 
 /* eslint-disable */
@@ -9,26 +9,25 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type UpdateNIContactMutationInput = {|
+export type UpdateContactInput = {|
   first_name: string,
   last_name: string,
-  contact_type: string,
+  contact_type: any,
   mobile?: ?string,
   phone?: ?string,
-  salutation?: ?string,
   email?: ?string,
   other_email?: ?string,
   name?: ?string,
   title?: ?string,
   PGP_fingerprint?: ?string,
-  relationship_works_for?: ?string,
-  relationship_member_of?: ?string,
-  role_name?: ?string,
+  relationship_works_for?: ?any,
+  relationship_member_of?: ?any,
+  role?: ?any,
   handle_id: number,
   clientMutationId?: ?string,
 |};
 export type UpdateContactMutationVariables = {|
-  input: UpdateNIContactMutationInput
+  input: UpdateContactInput
 |};
 export type UpdateContactMutationResponse = {|
   +update_contact: ?{|
@@ -46,7 +45,7 @@ export type UpdateContactMutation = {|
 
 /*
 mutation UpdateContactMutation(
-  $input: UpdateNIContactMutationInput!
+  $input: UpdateContactInput!
 ) {
   update_contact(input: $input) {
     contact {
@@ -62,7 +61,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateNIContactMutationInput!",
+    "type": "UpdateContactInput!",
     "defaultValue": null
   }
 ],
@@ -95,7 +94,7 @@ return {
         "name": "update_contact",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateNIContactMutationPayload",
+        "concreteType": "UpdateContactPayload",
         "plural": false,
         "selections": [
           {
@@ -125,7 +124,7 @@ return {
         "name": "update_contact",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateNIContactMutationPayload",
+        "concreteType": "UpdateContactPayload",
         "plural": false,
         "selections": [
           {
@@ -155,11 +154,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactMutation",
     "id": null,
-    "text": "mutation UpdateContactMutation(\n  $input: UpdateNIContactMutationInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ec3ad8a232dfbeec41c6ed6d0df07b68';
+(node/*: any*/).hash = 'a267f343aa6ab9205b01a1c3ddb8862c';
 module.exports = node;

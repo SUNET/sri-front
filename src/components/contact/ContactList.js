@@ -51,7 +51,6 @@ export class ContactList extends React.PureComponent {
                 <div></div>
                 {defaultColumns.map((column, index) => {
                     // Hiding the columns passed by props
-                    console.log(column);
                     if (this.props.columns_visible[column.value] !== undefined || this.props.all_columns) {
                         return (
                             <div key={index}>

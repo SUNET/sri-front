@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2c8839f44fa7ef547d311db42e0e3cc7
+ * @relayHash 48915dc25b75e60b97faa293590b33cb
  */
 
 /* eslint-disable */
@@ -9,13 +9,12 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type CreateNIContactMutationInput = {|
+export type CreateContactInput = {|
   first_name: string,
   last_name: string,
-  contact_type: string,
+  contact_type: any,
   mobile?: ?string,
   phone?: ?string,
-  salutation?: ?string,
   email?: ?string,
   other_email?: ?string,
   name?: ?string,
@@ -24,7 +23,7 @@ export type CreateNIContactMutationInput = {|
   clientMutationId?: ?string,
 |};
 export type CreateContactMutationVariables = {|
-  input: CreateNIContactMutationInput
+  input: CreateContactInput
 |};
 export type CreateContactMutationResponse = {|
   +create_contact: ?{|
@@ -47,7 +46,7 @@ export type CreateContactMutation = {|
 
 /*
 mutation CreateContactMutation(
-  $input: CreateNIContactMutationInput!
+  $input: CreateContactInput!
 ) {
   create_contact(input: $input) {
     contact {
@@ -68,7 +67,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateNIContactMutationInput!",
+    "type": "CreateContactInput!",
     "defaultValue": null
   }
 ],
@@ -136,7 +135,7 @@ return {
         "name": "create_contact",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateNIContactMutationPayload",
+        "concreteType": "CreateContactPayload",
         "plural": false,
         "selections": [
           {
@@ -171,7 +170,7 @@ return {
         "name": "create_contact",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateNIContactMutationPayload",
+        "concreteType": "CreateContactPayload",
         "plural": false,
         "selections": [
           {
@@ -206,11 +205,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateContactMutation",
     "id": null,
-    "text": "mutation CreateContactMutation(\n  $input: CreateNIContactMutationInput!\n) {\n  create_contact(input: $input) {\n    contact {\n      handle_id\n      first_name\n      last_name\n      email\n      phone\n      contact_type\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    contact {\n      handle_id\n      first_name\n      last_name\n      email\n      phone\n      contact_type\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '235bed471ad82cf8a27f649eaedb7ce9';
+(node/*: any*/).hash = 'a900277ab1ab98e59692c75ba00d1b07';
 module.exports = node;

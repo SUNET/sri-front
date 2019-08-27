@@ -3,7 +3,7 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
 
 const mutation = graphql`
-    mutation UpdateContactMutation($input: UpdateNIContactMutationInput!) {
+    mutation UpdateContactMutation($input: UpdateContactInput!) {
         update_contact(input: $input) {
             contact {
                 handle_id

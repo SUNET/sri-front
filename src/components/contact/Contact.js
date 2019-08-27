@@ -4,6 +4,7 @@ import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+import NumberFormat from "react-number-format";
 
 import Dropdown from "../Dropdown";
 import CopyToClipboard from "../CopyToClipboard";
@@ -32,7 +33,7 @@ class Contact extends React.PureComponent {
                                     <TogglePanel>
                                         <PanelEditable.Consumer>
                                             {(editable) => {
-                                                return (<span>test {editable.toString()}</span> );
+                                                return <span>test {editable.toString()}</span>;
                                             }}
                                         </PanelEditable.Consumer>
                                     </TogglePanel>
@@ -53,12 +54,32 @@ class Contact extends React.PureComponent {
                                                 <div>Phone</div>
                                             </div>
                                             <div>
+                                                <div>{contact.title}</div>
+                                                <div>{contact.contact_type}</div>
                                                 <div>
-                                                    <CopyToClipboard>{contact.first_name}</CopyToClipboard>
+                                                    <CopyToClipboard>{contact.email}</CopyToClipboard>
                                                 </div>
-                                                <div>{contact.last_name}</div>
-                                                <div></div>
-                                                <div></div>
+                                                <div>
+                                                    <NumberFormat
+                                                        value={contact.phone}
+                                                        displayType={"text"}
+                                                        format="+34 ### ### ###"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="table-details">
+                                            <div>
+                                                <div>PGP Fingerprint</div>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <NumberFormat
+                                                        value={contact.PGP_fingerprint}
+                                                        displayType={"text"}
+                                                        format="#### #### #### #### #### #### #### #### #### ####"
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </TogglePanel>
@@ -138,11 +159,13 @@ const ContactFragment = createFragmentContainer(withTranslation()(Contact), {
     contact: graphql`
         fragment Contact_contact on Contact {
             handle_id
+            title
             contact_type
             first_name
             last_name
             email
             phone
+            PGP_fingerprint
         }
     `
 });

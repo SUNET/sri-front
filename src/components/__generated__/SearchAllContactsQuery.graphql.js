@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 84b956b3f06cc56f340197ee3b56d95e
+ * @relayHash 59ced1e93046e0359a47e26cd7ba94c3
  */
 
 /* eslint-disable */
@@ -179,14 +179,14 @@ export type ContactNestedFilter = {|
   member_of_groups_gte?: ?GroupInputField,
   member_of_groups_in?: ?$ReadOnlyArray<GroupInputField>,
   member_of_groups_not_in?: ?$ReadOnlyArray<GroupInputField>,
-  roles?: ?RoleInputField,
-  roles_not?: ?RoleInputField,
-  roles_lt?: ?RoleInputField,
-  roles_lte?: ?RoleInputField,
-  roles_gt?: ?RoleInputField,
-  roles_gte?: ?RoleInputField,
-  roles_in?: ?$ReadOnlyArray<RoleInputField>,
-  roles_not_in?: ?$ReadOnlyArray<RoleInputField>,
+  roles?: ?RoleRelationInputField,
+  roles_not?: ?RoleRelationInputField,
+  roles_lt?: ?RoleRelationInputField,
+  roles_lte?: ?RoleRelationInputField,
+  roles_gt?: ?RoleRelationInputField,
+  roles_gte?: ?RoleRelationInputField,
+  roles_in?: ?$ReadOnlyArray<RoleRelationInputField>,
+  roles_not_in?: ?$ReadOnlyArray<RoleRelationInputField>,
   handle_id?: ?number,
   handle_id_not?: ?number,
   handle_id_lt?: ?number,
@@ -200,7 +200,7 @@ export type GroupInputField = {|
   name?: ?string,
   handle_id?: ?number,
 |};
-export type RoleInputField = {|
+export type RoleRelationInputField = {|
   relation_id?: ?number,
   name?: ?string,
 |};
@@ -436,7 +436,7 @@ return {
                     "name": "roles",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "Role",
+                    "concreteType": "RoleRelation",
                     "plural": true,
                     "selections": [
                       (v4/*: any*/)
