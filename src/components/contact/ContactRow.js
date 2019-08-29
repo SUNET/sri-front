@@ -27,15 +27,25 @@ class ContactRow extends React.PureComponent {
                 )}
                 {(this.props.columnsVisible["organization"] || this.props.showAllColumns) && (
                     <div>
-                        {contact.member_of_groups.map((organization) => {
-                            return organization.name;
+                        {contact.roles.map((role, index) => {
+                            return (
+                                <>
+                                    {role.end_node.name}
+                                    {contact.roles[index + 1] ? ", " : ""}
+                                </>
+                            );
                         })}
                     </div>
                 )}
                 {(this.props.columnsVisible["roles"] || this.props.showAllColumns) && (
                     <div>
-                        {contact.roles.map((role) => {
-                            return "";
+                        {contact.roles.map((role, index) => {
+                            return (
+                                <>
+                                    {role.name}
+                                    {contact.roles[index + 1] ? ", " : ""}
+                                </>
+                            );
                         })}
                     </div>
                 )}
@@ -52,16 +62,15 @@ const ContactRowFragment = createFragmentContainer(ContactRow, {
     contact: graphql`
         fragment ContactRow_contact on Contact {
             handle_id
-            name
             first_name
             last_name
             contact_type
             modified
             roles {
                 name
-            }
-            member_of_groups {
-                name
+                end_node {
+                    name
+                }
             }
         }
     `

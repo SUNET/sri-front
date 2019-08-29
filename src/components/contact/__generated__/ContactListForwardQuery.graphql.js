@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7b1affa13d83b346a5be50faca5d7b1f
+ * @relayHash 09e60ae964022ccf9ac54219b148447a
  */
 
 /* eslint-disable */
@@ -55,17 +55,16 @@ fragment ContactList_contacts_32czeo on Query {
 
 fragment ContactRow_contact on Contact {
   handle_id
-  name
   first_name
   last_name
   contact_type
   modified
   roles {
     name
-  }
-  member_of_groups {
-    name
-    id
+    end_node {
+      name
+      id
+    }
   }
 }
 */
@@ -190,7 +189,6 @@ return {
                     "args": null,
                     "storageKey": null
                   },
-                  (v3/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -228,20 +226,20 @@ return {
                     "concreteType": "RoleRelation",
                     "plural": true,
                     "selections": [
-                      (v3/*: any*/)
-                    ]
-                  },
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "member_of_groups",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "Group",
-                    "plural": true,
-                    "selections": [
                       (v3/*: any*/),
-                      (v4/*: any*/)
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "end_node",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "Organization",
+                        "plural": false,
+                        "selections": [
+                          (v3/*: any*/),
+                          (v4/*: any*/)
+                        ]
+                      }
                     ]
                   },
                   (v4/*: any*/),
@@ -305,7 +303,7 @@ return {
     "operationKind": "query",
     "name": "ContactListForwardQuery",
     "id": null,
-    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end_node {\n      name\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

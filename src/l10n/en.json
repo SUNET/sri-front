@@ -54,7 +54,8 @@
             "contact-details.profesional-details": "Profesional details",
             "contact-details.worklog": "worklog",
             "info.created": "Created",
-            "info.last_update": "Last update"
+            "info.last_update": "Last update",
+            "worklog.wrote": "wrote"
         }
     }
 }

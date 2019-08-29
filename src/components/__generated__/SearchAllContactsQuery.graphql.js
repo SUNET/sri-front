@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 59ced1e93046e0359a47e26cd7ba94c3
+ * @relayHash 94be4a5859922ead16846d544dc97efd
  */
 
 /* eslint-disable */
@@ -257,17 +257,16 @@ fragment ContactList_organization_types on Query {
 
 fragment ContactRow_contact on Contact {
   handle_id
-  name
   first_name
   last_name
   contact_type
   modified
   roles {
     name
-  }
-  member_of_groups {
-    name
-    id
+    end_node {
+      name
+      id
+    }
   }
 }
 */
@@ -401,7 +400,6 @@ return {
                     "args": null,
                     "storageKey": null
                   },
-                  (v4/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -439,20 +437,20 @@ return {
                     "concreteType": "RoleRelation",
                     "plural": true,
                     "selections": [
-                      (v4/*: any*/)
-                    ]
-                  },
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "member_of_groups",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "Group",
-                    "plural": true,
-                    "selections": [
                       (v4/*: any*/),
-                      (v5/*: any*/)
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "end_node",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "Organization",
+                        "plural": false,
+                        "selections": [
+                          (v4/*: any*/),
+                          (v5/*: any*/)
+                        ]
+                      }
                     ]
                   },
                   (v5/*: any*/),
@@ -536,7 +534,7 @@ return {
     "operationKind": "query",
     "name": "SearchAllContactsQuery",
     "id": null,
-    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    __typename\n    name\n    value\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  name\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    __typename\n    name\n    value\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end_node {\n      name\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

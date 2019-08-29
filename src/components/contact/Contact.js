@@ -46,67 +46,127 @@ class Contact extends React.PureComponent {
                                         <h2>{t("contact-details.general-information")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
-                                        <div className="table-details">
-                                            <div>
-                                                <div>Title</div>
-                                                <div>Type</div>
-                                                <div>E-mails</div>
-                                                <div>Phone</div>
-                                            </div>
-                                            <div>
-                                                <div>{contact.title}</div>
-                                                <div>{contact.contact_type}</div>
-                                                <div>
-                                                    <CopyToClipboard>{contact.email}</CopyToClipboard>
-                                                </div>
-                                                <div>
-                                                    <NumberFormat
-                                                        value={contact.phone}
-                                                        displayType={"text"}
-                                                        format="+34 ### ### ###"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="table-details">
-                                            <div>
-                                                <div>PGP Fingerprint</div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <NumberFormat
-                                                        value={contact.PGP_fingerprint}
-                                                        displayType={"text"}
-                                                        format="#### #### #### #### #### #### #### #### #### ####"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <PanelEditable.Consumer>
+                                            {(editable) => {
+                                                return (
+                                                    <>
+                                                        <div className="table-details">
+                                                            <div>
+                                                                <div>Title</div>
+                                                                <div>Type</div>
+                                                                <div>E-mails</div>
+                                                                <div>Phone</div>
+                                                            </div>
+                                                            <div>
+                                                                <div>
+                                                                    <div>
+                                                                        {!editable ? (
+                                                                            contact.title
+                                                                        ) : (
+                                                                            <Form.Group controlId="formGroupEmail">
+                                                                                <Form.Control
+                                                                                    placeholder="Email"
+                                                                                    name="email"
+                                                                                    defaultValue={contact.email}
+                                                                                    onChange={(e) =>
+                                                                                        this.props.onChange(e)
+                                                                                    }
+                                                                                />
+                                                                            </Form.Group>
+                                                                        )}
+                                                                    </div>
+                                                                    <div>
+                                                                        {!editable ? (
+                                                                            contact.contact_type
+                                                                        ) : (
+                                                                            <Dropdown
+                                                                                emptyLabel="Select type"
+                                                                                type="contact_type"
+                                                                                onChange={(e) => this.props.onChange(e)}
+                                                                                defaultValue={contact.contact_type}
+                                                                            />
+                                                                        )}
+                                                                    </div>
+                                                                    <div>
+                                                                        {!editable ? (
+                                                                            <CopyToClipboard>
+                                                                                {contact.email}
+                                                                            </CopyToClipboard>
+                                                                        ) : (
+                                                                            <AppendChild>
+                                                                                <Form.Group controlId="formGroupEmail">
+                                                                                    <Form.Control
+                                                                                        placeholder="Email"
+                                                                                        name="email"
+                                                                                        defaultValue={contact.email}
+                                                                                        onChange={(e) =>
+                                                                                            this.props.onChange(e)
+                                                                                        }
+                                                                                    />
+                                                                                </Form.Group>
+                                                                            </AppendChild>
+                                                                        )}
+                                                                    </div>
+                                                                    <div>
+                                                                        <NumberFormat
+                                                                            value={contact.phone}
+                                                                            displayType={editable ? "input" : "text"}
+                                                                            format="+34 ### ### ###"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="table-details">
+                                                            <div>
+                                                                <div>PGP Fingerprint</div>
+                                                            </div>
+                                                            <div>
+                                                                <div>
+                                                                    <NumberFormat
+                                                                        value={contact.PGP_fingerprint}
+                                                                        displayType={editable ? "input" : "text"}
+                                                                        format="#### #### #### #### #### #### #### #### #### ####"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span>test {editable.toString()}</span>
+                                                    </>
+                                                );
+                                            }}
+                                        </PanelEditable.Consumer>
                                     </TogglePanel>
                                 </ToggleSection>
                             </article>
                             <hr />
                             <article>
-                                <header>
-                                    <h2>{t("contact-details.profesional-details")}</h2>
-                                </header>
-                                <div></div>
+                                <ToggleSection>
+                                    <ToggleHeading>
+                                        <h2>{t("contact-details.profesional-details")}</h2>
+                                    </ToggleHeading>
+                                    <TogglePanel>
+                                        <div className="table-details">
+                                            <div>
+                                                <div>Role</div>
+                                                <div>Organization ID</div>
+                                                <div>Organization</div>
+                                            </div>
+                                            <div>
+                                                {contact.roles.map((role) => {
+                                                    return (
+                                                        <div>
+                                                            <div>{role.name}</div>
+                                                            <div>{role.end_node.handle_id}</div>
+                                                            <div>{role.end_node.name}</div>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    </TogglePanel>
+                                </ToggleSection>
                             </article>
-                            <Form.Group controlId="formGroupId">
-                                <Form.Control
-                                    placeholder="ID"
-                                    name="handle_id"
-                                    defaultValue={contact.handle_id}
-                                    readOnly
-                                />
-                            </Form.Group>
-                            <Dropdown
-                                label="Contact Type"
-                                emptyLabel="Select type"
-                                type="contact_type"
-                                onChange={(e) => this.props.onChange(e)}
-                                defaultValue={contact.contact_type}
-                            />
                             <Form.Group controlId="formGroupFirstName">
                                 <Form.Control
                                     placeholder="First name"
@@ -123,31 +183,36 @@ class Contact extends React.PureComponent {
                                     onChange={(e) => this.props.onChange(e)}
                                 />
                             </Form.Group>
-                            <Form.Group controlId="formGroupEmail">
-                                <Form.Control
-                                    placeholder="Email"
-                                    name="email"
-                                    defaultValue={contact.email}
-                                    onChange={(e) => this.props.onChange(e)}
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="formGroupPhone">
-                                <Form.Control
-                                    placeholder="Phone"
-                                    name="phone"
-                                    defaultValue={contact.phone}
-                                    onChange={(e) => this.props.onChange(e)}
-                                />
-                            </Form.Group>
                         </Col>
                     </Form.Row>
                 </div>
                 <div className="model-section">
                     <article>
-                        <header>
-                            <h2>{t("contact-details.worklog")}</h2>
-                        </header>
-                        <div></div>
+                        <ToggleSection>
+                            <ToggleHeading>
+                                <h2>{t("contact-details.worklog")}</h2>
+                            </ToggleHeading>
+                            <TogglePanel>
+                                <div className="worklog">
+                                    <div>
+                                        {contact.comments.map((comment) => {
+                                            return (
+                                                <div>
+                                                    <header>
+                                                        <div>
+                                                            {comment.user.first_name} {comment.user.last_name}{" "}
+                                                            {t("worklog.wrote")}:
+                                                        </div>
+                                                        <div>{comment.submit_date}</div>
+                                                    </header>
+                                                    <div>{comment.comment}</div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </TogglePanel>
+                        </ToggleSection>
                     </article>
                 </div>
             </>
@@ -166,6 +231,21 @@ const ContactFragment = createFragmentContainer(withTranslation()(Contact), {
             email
             phone
             PGP_fingerprint
+            roles {
+                name
+                end_node {
+                    handle_id
+                    name
+                }
+            }
+            comments {
+                user {
+                    first_name
+                    last_name
+                }
+                comment
+                submit_date
+            }
         }
     `
 });

@@ -291,6 +291,17 @@ enum ContactOrderBy {
   handle_id_DESC
 }
 
+input CreateCommentInput {
+  object_pk: Int!
+  comment: String!
+  clientMutationId: String
+}
+
+type CreateCommentPayload {
+  comment: CommentType
+  clientMutationId: String
+}
+
 input CreateContactInput {
   first_name: String!
   last_name: String!
@@ -372,6 +383,17 @@ value as specified by
 [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
 """
 scalar DateTime
+
+input DeleteCommentInput {
+  id: Int!
+  clientMutationId: String
+}
+
+type DeleteCommentPayload {
+  success: Boolean!
+  id: Int!
+  clientMutationId: String
+}
 
 input DeleteContactInput {
   handle_id: Int!
@@ -602,6 +624,9 @@ type Mutation {
   create_role(input: CreateRoleInput!): CreateRolePayload
   update_role(input: UpdateRoleInput!): UpdateRolePayload
   delete_role(input: DeleteRoleInput!): DeleteRolePayload
+  create_comment(input: CreateCommentInput!): CreateCommentPayload
+  update_comment(input: UpdateCommentInput!): UpdateCommentPayload
+  delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
   delete_relationship(input: DeleteRelationshipInput!): DeleteRelationshipPayload
 }
 
@@ -1032,6 +1057,17 @@ type RoleRelation {
 input RoleRelationInputField {
   relation_id: Int
   name: String
+}
+
+input UpdateCommentInput {
+  id: Int!
+  comment: String!
+  clientMutationId: String
+}
+
+type UpdateCommentPayload {
+  comment: CommentType
+  clientMutationId: String
 }
 
 input UpdateContactInput {

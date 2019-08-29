@@ -13,16 +13,15 @@ declare export opaque type ContactRow_contact$ref: FragmentReference;
 declare export opaque type ContactRow_contact$fragmentType: ContactRow_contact$ref;
 export type ContactRow_contact = {|
   +handle_id: string,
-  +name: string,
   +first_name: string,
   +last_name: string,
   +contact_type: ?string,
   +modified: any,
   +roles: ?$ReadOnlyArray<?{|
-    +name: ?string
-  |}>,
-  +member_of_groups: ?$ReadOnlyArray<?{|
-    +name: string
+    +name: ?string,
+    +end_node: ?{|
+      +name: string
+    |},
   |}>,
   +$refType: ContactRow_contact$ref,
 |};
@@ -41,10 +40,7 @@ var v0 = {
   "name": "name",
   "args": null,
   "storageKey": null
-},
-v1 = [
-  (v0/*: any*/)
-];
+};
 return {
   "kind": "Fragment",
   "name": "ContactRow_contact",
@@ -59,7 +55,6 @@ return {
       "args": null,
       "storageKey": null
     },
-    (v0/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -96,21 +91,25 @@ return {
       "args": null,
       "concreteType": "RoleRelation",
       "plural": true,
-      "selections": (v1/*: any*/)
-    },
-    {
-      "kind": "LinkedField",
-      "alias": null,
-      "name": "member_of_groups",
-      "storageKey": null,
-      "args": null,
-      "concreteType": "Group",
-      "plural": true,
-      "selections": (v1/*: any*/)
+      "selections": [
+        (v0/*: any*/),
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "end_node",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "Organization",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/)
+          ]
+        }
+      ]
     }
   ]
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c4f0825ec93ec4a00239dd0fdb3b7056';
+(node/*: any*/).hash = '56e2d00da0d4fabb44f0f3f8a81a5b9f';
 module.exports = node;

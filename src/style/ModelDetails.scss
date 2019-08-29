@@ -51,7 +51,11 @@
                 font-family: Montserrat;
 
                 > div {
-                    display: table-cell;
+                    display: table-row;
+
+                    > div {
+                        display: table-cell;
+                    }
                 }
             }
         }

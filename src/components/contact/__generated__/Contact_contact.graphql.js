@@ -20,6 +20,21 @@ export type Contact_contact = {|
   +email: ?string,
   +phone: ?string,
   +PGP_fingerprint: ?string,
+  +roles: ?$ReadOnlyArray<?{|
+    +name: ?string,
+    +end_node: ?{|
+      +handle_id: string,
+      +name: string,
+    |},
+  |}>,
+  +comments: ?$ReadOnlyArray<?{|
+    +user: ?{|
+      +first_name: string,
+      +last_name: string,
+    |},
+    +comment: string,
+    +submit_date: any,
+  |}>,
   +$refType: Contact_contact$ref,
 |};
 export type Contact_contact$data = Contact_contact;
@@ -30,20 +45,43 @@ export type Contact_contact$key = {
 */
 
 
-const node/*: ReaderFragment*/ = {
+const node/*: ReaderFragment*/ = (function(){
+var v0 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "handle_id",
+  "args": null,
+  "storageKey": null
+},
+v1 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "first_name",
+  "args": null,
+  "storageKey": null
+},
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+};
+return {
   "kind": "Fragment",
   "name": "Contact_contact",
   "type": "Contact",
   "metadata": null,
   "argumentDefinitions": [],
   "selections": [
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "handle_id",
-      "args": null,
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -58,20 +96,8 @@ const node/*: ReaderFragment*/ = {
       "args": null,
       "storageKey": null
     },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "first_name",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "last_name",
-      "args": null,
-      "storageKey": null
-    },
+    (v1/*: any*/),
+    (v2/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -92,9 +118,73 @@ const node/*: ReaderFragment*/ = {
       "name": "PGP_fingerprint",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "roles",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "RoleRelation",
+      "plural": true,
+      "selections": [
+        (v3/*: any*/),
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "end_node",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "Organization",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/),
+            (v3/*: any*/)
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "comments",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "CommentType",
+      "plural": true,
+      "selections": [
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "user",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "User",
+          "plural": false,
+          "selections": [
+            (v1/*: any*/),
+            (v2/*: any*/)
+          ]
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "comment",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "submit_date",
+          "args": null,
+          "storageKey": null
+        }
+      ]
     }
   ]
 };
+})();
 // prettier-ignore
-(node/*: any*/).hash = 'ba34fef64c7ff61d2f493e6a70e99f25';
+(node/*: any*/).hash = 'afcf1679bcb17170584259da93746d45';
 module.exports = node;
