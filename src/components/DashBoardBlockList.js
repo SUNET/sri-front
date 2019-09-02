@@ -25,7 +25,7 @@ const queryContacts = graphql`
 
 class DashBoardBlockList extends React.PureComponent {
     static propTypes = {
-        models: PropTypes.object.isRequired,
+        contacts: PropTypes.object.isRequired,
     };
 
     _handleOnClick = (event, data) => {
@@ -33,10 +33,11 @@ class DashBoardBlockList extends React.PureComponent {
     };
 
     renderList() {
-        let contacts = this.props.models.contacts;
+        let contacts = this.props.contacts;
+        console.log(this.props);
         return (
             <div>
-                {contacts.edges.map(({ node }) => (
+                {contacts.contacts.edges.map(({ node }) => (
                     <DashBoardBlockRow key={node.__id} contact={node} onClick={this._handleOnClick} />
                 ))}
             </div>

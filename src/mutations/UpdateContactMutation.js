@@ -32,6 +32,7 @@ export default function UpdateContactMutation(contact) {
         },
         onError: (err) => console.error(err),
         updater: (proxyStore) => {
+            console.log(proxyStore.get(contact.id, "Contact"));
             const contact_node = proxyStore.get(contact.id, "Contact");
             contact_node.setValue(contact.first_name, "first_name");
             contact_node.setValue(contact.last_name, "last_name");

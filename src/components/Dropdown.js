@@ -53,6 +53,7 @@ class Dropdown extends React.PureComponent {
                             const options = props.getChoicesForDropdown;
                             return (
                                 <Form.Control
+                                    className={this.props.className}
                                     as="select"
                                     onChange={(e) => this.props.onChange(e)}
                                     name={this.props.type}

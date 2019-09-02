@@ -4,10 +4,11 @@ import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Button, Row, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { withTranslation } from "react-i18next";
 
 import Contact from "./Contact";
+import EditField from "../EditField";
 import DeleteContactMutation from "../../mutations/DeleteContactMutation";
 import UpdateContactMutation from "../../mutations/UpdateContactMutation";
 import environment from "../../createRelayEnvironment";
@@ -18,6 +19,7 @@ const ContactDetailsQuery = graphql`
         getContactById(handle_id: $contactId) {
             ...Contact_contact
             name
+            contact_type
             created
             creator {
                 email
@@ -43,6 +45,7 @@ class ContactDetails extends React.Component {
         super(props);
 
         this.state = {
+            name: "",
             first_name: "",
             last_name: "",
             email: "",
@@ -51,20 +54,34 @@ class ContactDetails extends React.Component {
         };
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        if (this.state.first_name !== nextState.first_name && this.state.last_name !== nextState.last_name) {
+            this._handleUpdate(nextState);
+        }
+    }
+
     _handleContactChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value });
+        if (event.target.name === "full-name") {
+            let fullName = event.target.value;
+            fullName = fullName.split(" ");
+            this.setState({ first_name: fullName[0], last_name: fullName[1] });
+        }
     };
 
     _handleUpdate = (contact) => {
         const update_contact = {
             id: this.props.match.params.contactId,
-            first_name: this.state.first_name || contact.first_name,
-            last_name: this.state.last_name || contact.last_name,
-            email: this.state.email || contact.email,
-            phone: this.state.phone || contact.phone,
-            contact_type: this.state.contact_type || contact.contact_type
+            first_name: contact.first_name,
+            last_name: contact.last_name,
+            email: contact.email,
+            phone: contact.phone,
+            contact_type: "person"
         };
         UpdateContactMutation(update_contact);
+    };
+
+    getContact = (contact) => {
+        this.contact = contact;
     };
 
     _handleDelete = () => {
@@ -85,6 +102,7 @@ class ContactDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
+                        this.contact = props.getContactById;
                         return (
                             <section className="model-details">
                                 <Row>
@@ -96,8 +114,9 @@ class ContactDetails extends React.Component {
                                             >
                                                 <span>{t("actions.back")}</span>
                                             </button>
-                                            <h1>{props.getContactById.name}</h1>
-                                            <FontAwesomeIcon icon={faPen} />
+                                            <EditField onChange={this._handleContactChange}>
+                                                <h1>{props.getContactById.name}</h1>
+                                            </EditField>
                                             <FontAwesomeIcon icon={faStar} />
                                         </div>
                                     </Col>

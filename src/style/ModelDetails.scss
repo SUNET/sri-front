@@ -31,7 +31,7 @@
 
         .table-details {
             display: table;
-            width: 100%;
+            width: stretch;
             border-spacing: 0 16px;
             margin-left: 24px;
 
@@ -44,6 +44,8 @@
                 > div {
                     display: table-cell;
                 }
+
+
             }
 
             > div:last-of-type {
@@ -55,6 +57,12 @@
 
                     > div {
                         display: table-cell;
+                        padding-right: 16px;
+                        &.col-actions{
+                            text-align: right;
+                            padding: 0;
+                            width: auto;
+                        }
                     }
                 }
             }

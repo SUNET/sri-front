@@ -43,7 +43,7 @@ class DashBoardBlock extends React.Component {
                             if (error) {
                                 return <div>{error.message}</div>;
                             } else if (props) {
-                                return <DashBoardBlockList models={props} />;
+                                return <DashBoardBlockList contacts={props} />;
                             }
                             return <div>Loading</div>;
                         }}

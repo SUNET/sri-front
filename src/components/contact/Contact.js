@@ -8,6 +8,7 @@ import NumberFormat from "react-number-format";
 
 import Worklog from "../Worklog";
 import Dropdown from "../Dropdown";
+import ComponentFormRow from "../ComponentFormRow";
 import CopyToClipboard from "../CopyToClipboard";
 import AppendChild from "../AppendChild";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
@@ -68,7 +69,7 @@ class Contact extends React.PureComponent {
                                                                                 <Form.Control
                                                                                     placeholder="Email"
                                                                                     name="email"
-                                                                                    defaultValue={contact.email}
+                                                                                    defaultValue={contact.title}
                                                                                     onChange={(e) =>
                                                                                         this.props.onChange(e)
                                                                                     }
@@ -81,6 +82,7 @@ class Contact extends React.PureComponent {
                                                                             contact.contact_type
                                                                         ) : (
                                                                             <Dropdown
+                                                                                className="auto"
                                                                                 emptyLabel="Select type"
                                                                                 type="contact_type"
                                                                                 onChange={(e) => this.props.onChange(e)}
@@ -97,6 +99,7 @@ class Contact extends React.PureComponent {
                                                                             <AppendChild>
                                                                                 <Form.Group controlId="formGroupEmail">
                                                                                     <Form.Control
+                                                                                        className="lg"
                                                                                         placeholder="Email"
                                                                                         name="email"
                                                                                         defaultValue={contact.email}
@@ -109,11 +112,21 @@ class Contact extends React.PureComponent {
                                                                         )}
                                                                     </div>
                                                                     <div>
-                                                                        <NumberFormat
-                                                                            value={contact.phone}
-                                                                            displayType={editable ? "input" : "text"}
-                                                                            format="+34 ### ### ###"
-                                                                        />
+                                                                        {!editable ? (
+                                                                            contact.phone
+                                                                        ) : (
+                                                                            <AppendChild position="button">
+                                                                                <Form.Group controlId="formGroupFirstName">
+                                                                                    <NumberFormat
+                                                                                        value={contact.phone}
+                                                                                        displayType={
+                                                                                            editable ? "input" : "text"
+                                                                                        }
+                                                                                        format="+34 ### ### ###"
+                                                                                    />
+                                                                                </Form.Group>
+                                                                            </AppendChild>
+                                                                        )}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -125,13 +138,13 @@ class Contact extends React.PureComponent {
                                                             <div>
                                                                 <div>
                                                                     <Form.Group controlId="formGroupFirstName">
-                                                                    <NumberFormat
-                                                                        className="auto"
-                                                                        value={contact.PGP_fingerprint}
-                                                                        displayType={editable ? "input" : "text"}
-                                                                        format="#### #### #### #### #### #### #### #### #### ####"
-                                                                    />
-                                                                </Form.Group>
+                                                                        <NumberFormat
+                                                                            className="auto"
+                                                                            value={contact.PGP_fingerprint}
+                                                                            displayType={editable ? "input" : "text"}
+                                                                            format="#### #### #### #### #### #### #### #### #### ####"
+                                                                        />
+                                                                    </Form.Group>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -150,49 +163,40 @@ class Contact extends React.PureComponent {
                                         <h2>{t("contact-details.profesional-details")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
-                                        <div className="table-details">
-                                            <div>
-                                                <div>Role</div>
-                                                <div>Organization ID</div>
-                                                <div>Organization</div>
-                                            </div>
-                                            <div>
-                                                {contact.roles.map((role, index) => {
-                                                    return (
-                                                        <div key={index}>
-                                                            <div>{role.name}</div>
-                                                            <div>{role.end_node.handle_id}</div>
-                                                            <div>{role.end_node.name}</div>
+                                        <PanelEditable.Consumer>
+                                            {(editable) => {
+                                                return (
+                                                    <div className="table-details">
+                                                        <div>
+                                                            <div>Role</div>
+                                                            <div>Organization ID</div>
+                                                            <div>Organization</div>
+                                                            {editable ? <div></div> : null}
                                                         </div>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
+                                                        <div>
+                                                            {contact.roles.map((role, index) => {
+                                                                return (
+                                                                    <ComponentFormRow editable={editable}>
+                                                                        <div>{role.name}</div>
+                                                                        <div>{role.end_node.handle_id}</div>
+                                                                        <div>{role.end_node.name}</div>
+                                                                    </ComponentFormRow>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }}
+                                        </PanelEditable.Consumer>
                                     </TogglePanel>
                                 </ToggleSection>
                             </article>
-                            <Form.Group controlId="formGroupFirstName">
-                                <Form.Control
-                                    placeholder="First name"
-                                    name="first_name"
-                                    defaultValue={contact.first_name}
-                                    onChange={(e) => this.props.onChange(e)}
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="formGroupLastName">
-                                <Form.Control
-                                    placeholder="Last name"
-                                    name="last_name"
-                                    defaultValue={contact.last_name}
-                                    onChange={(e) => this.props.onChange(e)}
-                                />
-                            </Form.Group>
                         </Col>
                     </Form.Row>
                 </div>
                 <div className="model-section">
                     <article>
-                        <Worklog model={contact}/>
+                        <Worklog model={contact} />
                     </article>
                 </div>
             </>

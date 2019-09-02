@@ -45,7 +45,6 @@ export class ContactList extends React.PureComponent {
     };
 
     renderHeaderList() {
-        console.log(this.props);
         return (
             <>
                 <div></div>

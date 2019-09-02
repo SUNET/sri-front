@@ -30,7 +30,7 @@ class AppendChild extends React.Component {
         return (
             <div>
                 <div>{this.state.children.map((child) => child)}</div>
-                <button className="btn btn-add outline" onClick={(e) => this.appendChild(e)}>
+                <button className="btn btn-add outline mt-2" onClick={(e) => this.appendChild(e)}>
                     <span>{t("actions.add-new")}</span>
                 </button>
             </div>
