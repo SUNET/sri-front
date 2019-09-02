@@ -17,8 +17,11 @@ class AppendChild extends React.Component {
 
     appendChild = (event) => {
         event.preventDefault();
+        const childrenToCopy = this.state.children[0];
+        console.log(childrenToCopy.props.children);
+        // delete childrenToCopy.props.children.props.defaultValue;
         this.setState({
-            children: [...this.state.children, this.state.children[0]]
+            children: [...this.state.children, childrenToCopy]
         });
     };
 

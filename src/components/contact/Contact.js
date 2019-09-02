@@ -6,6 +6,7 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import NumberFormat from "react-number-format";
 
+import Worklog from "../Worklog";
 import Dropdown from "../Dropdown";
 import CopyToClipboard from "../CopyToClipboard";
 import AppendChild from "../AppendChild";
@@ -123,11 +124,14 @@ class Contact extends React.PureComponent {
                                                             </div>
                                                             <div>
                                                                 <div>
+                                                                    <Form.Group controlId="formGroupFirstName">
                                                                     <NumberFormat
+                                                                        className="auto"
                                                                         value={contact.PGP_fingerprint}
                                                                         displayType={editable ? "input" : "text"}
                                                                         format="#### #### #### #### #### #### #### #### #### ####"
                                                                     />
+                                                                </Form.Group>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -153,9 +157,9 @@ class Contact extends React.PureComponent {
                                                 <div>Organization</div>
                                             </div>
                                             <div>
-                                                {contact.roles.map((role) => {
+                                                {contact.roles.map((role, index) => {
                                                     return (
-                                                        <div>
+                                                        <div key={index}>
                                                             <div>{role.name}</div>
                                                             <div>{role.end_node.handle_id}</div>
                                                             <div>{role.end_node.name}</div>
@@ -188,31 +192,7 @@ class Contact extends React.PureComponent {
                 </div>
                 <div className="model-section">
                     <article>
-                        <ToggleSection>
-                            <ToggleHeading>
-                                <h2>{t("contact-details.worklog")}</h2>
-                            </ToggleHeading>
-                            <TogglePanel>
-                                <div className="worklog">
-                                    <div>
-                                        {contact.comments.map((comment) => {
-                                            return (
-                                                <div>
-                                                    <header>
-                                                        <div>
-                                                            {comment.user.first_name} {comment.user.last_name}{" "}
-                                                            {t("worklog.wrote")}:
-                                                        </div>
-                                                        <div>{comment.submit_date}</div>
-                                                    </header>
-                                                    <div>{comment.comment}</div>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            </TogglePanel>
-                        </ToggleSection>
+                        <Worklog model={contact}/>
                     </article>
                 </div>
             </>

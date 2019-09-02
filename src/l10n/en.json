@@ -48,14 +48,16 @@
             "actions.delete": "Delete",
             "actions.update": "Update",
             "actions.add-new": "Add new",
+            "actions.send": "Send",
             "actions.copied": "Copied!",
             "contact-details.notes": "Notes",
             "contact-details.general-information": "General information",
             "contact-details.profesional-details": "Profesional details",
-            "contact-details.worklog": "worklog",
+            "contact-details.worklog": "Worklog",
             "info.created": "Created",
             "info.last_update": "Last update",
-            "worklog.wrote": "wrote"
+            "worklog.wrote": "wrote",
+            "worklog.add-comment": "Add commnet"
         }
     }
 }

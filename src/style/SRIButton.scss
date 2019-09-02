@@ -5,6 +5,35 @@ button.btn {
     line-height: normal;
     position: relative;
     font-family: karla;
+    border: none;
+
+    &.primary{
+        border-radius: 24px;
+        color: #fff;
+        background-color: $brand-color;
+
+        &:active{
+            background-color: #db470e !important;
+        }
+
+        &:disabled{
+            color: $secondary-color-30;
+        }
+    }
+
+    &.secundary{
+        border-radius: 24px;
+        color: #fff;
+        background-color: $complementary-color;
+
+        &:active{
+            background-color: #44a2a0 !important;
+        }
+
+        &:disabled{
+            color: $secondary-color-30;
+        }
+    }
 
     &.outline {
         font-size: 14px;

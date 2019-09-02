@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,6 +15,16 @@ class ToggleSection extends React.Component {
             visible: true,
             editable: false
         };
+    }
+
+    static propTypes = {
+        defaultEditable: PropTypes.bool,
+        handleTogglePanel: PropTypes.func,
+        handleEditPanel: PropTypes.func,
+    };
+
+    static defaultProps = {
+        defaultEditable: true,
     }
 
     handleTogglePanel = (event) => {
@@ -35,6 +46,7 @@ class ToggleSection extends React.Component {
                                 {...child.props}
                                 handleTogglePanel={this.handleTogglePanel}
                                 handleEditPanel={this.handleEditPanel}
+                                defaultEditable={this.props.defaultEditable}
                                 aria-expanded={this.state.visible}
                             >
                                 {child.props.children}
@@ -63,13 +75,20 @@ export class ToggleHeading extends React.Component {
         this.props.handleEditPanel(event);
     };
 
+    static propTypes = {
+        handleTogglePanel: PropTypes.func,
+        handleEditPanel: PropTypes.func
+    };
+
     render() {
         return (
             <div className="toggle-header" {...this.props} onClick={(e) => this.handleTogglePanel(e)}>
                 {this.props.children}
-                <span className="icon-action" onClick={(e) => this.handleEditPanel(e)}>
-                    <FontAwesomeIcon icon={faPen} />
-                </span>
+                {this.props.defaultEditable && (
+                    <span className="icon-action" onClick={(e) => this.handleEditPanel(e)}>
+                        <FontAwesomeIcon icon={faPen} />
+                    </span>
+                )}
             </div>
         );
     }

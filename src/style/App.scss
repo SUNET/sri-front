@@ -59,7 +59,7 @@ h3 {
 
 ::placeholder {
     font-style: italic;
-    color: $secondary-color-20;
+    color: $secondary-color-20 !important;
 }
 
 .borderless {
@@ -68,6 +68,31 @@ h3 {
     }
 }
 
-.wrapper-svg{
+.wrapper-svg {
     display: inline-block;
+}
+// INPUTS
+
+.form-group {
+    font-family: Montserrat;
+    color: $secondary-color;
+
+    input, select {
+        width: 160px;
+        height: 32px;
+        border-radius: 16px;
+        border: solid 1px $secondary-color-20;
+        padding: 4px 16px;
+
+        &.lg {
+            width: 200px;
+        }
+
+        &.sm {
+            width: 120px;
+        }
+        &.auto{
+            width: auto;
+        }
+    }
 }
