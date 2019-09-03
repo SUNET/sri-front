@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d664537c609443e238777d25790bfda8
+ * @relayHash 6e8c6559fec4ff6151bf9fb57ea39f35
  */
 
 /* eslint-disable */
@@ -32,7 +32,29 @@ export type UpdateContactMutationVariables = {|
 export type UpdateContactMutationResponse = {|
   +update_contact: ?{|
     +contact: ?{|
-      +handle_id: string
+      +handle_id: string,
+      +title: ?string,
+      +contact_type: ?string,
+      +first_name: string,
+      +last_name: string,
+      +email: ?string,
+      +phone: ?string,
+      +PGP_fingerprint: ?string,
+      +roles: ?$ReadOnlyArray<?{|
+        +name: ?string,
+        +end_node: ?{|
+          +handle_id: string,
+          +name: string,
+        |},
+      |}>,
+      +comments: ?$ReadOnlyArray<?{|
+        +user: ?{|
+          +first_name: string,
+          +last_name: string,
+        |},
+        +comment: string,
+        +submit_date: any,
+      |}>,
     |}
   |}
 |};
@@ -50,6 +72,31 @@ mutation UpdateContactMutation(
   update_contact(input: $input) {
     contact {
       handle_id
+      title
+      contact_type
+      first_name
+      last_name
+      email
+      phone
+      PGP_fingerprint
+      roles {
+        name
+        end_node {
+          handle_id
+          name
+          id
+        }
+      }
+      comments {
+        user {
+          first_name
+          last_name
+          id
+        }
+        comment
+        submit_date
+        id
+      }
       id
     }
   }
@@ -76,6 +123,83 @@ v2 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "handle_id",
+  "args": null,
+  "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "title",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "contact_type",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "first_name",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "email",
+  "args": null,
+  "storageKey": null
+},
+v8 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "phone",
+  "args": null,
+  "storageKey": null
+},
+v9 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "PGP_fingerprint",
+  "args": null,
+  "storageKey": null
+},
+v10 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+},
+v11 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "comment",
+  "args": null,
+  "storageKey": null
+},
+v12 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "submit_date",
+  "args": null,
+  "storageKey": null
+},
+v13 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
   "args": null,
   "storageKey": null
 };
@@ -106,7 +230,65 @@ return {
             "concreteType": "Contact",
             "plural": false,
             "selections": [
-              (v2/*: any*/)
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "roles",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "RoleRelation",
+                "plural": true,
+                "selections": [
+                  (v10/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "end_node",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v10/*: any*/)
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "comments",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "CommentType",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "user",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "plural": false,
+                    "selections": [
+                      (v5/*: any*/),
+                      (v6/*: any*/)
+                    ]
+                  },
+                  (v11/*: any*/),
+                  (v12/*: any*/)
+                ]
+              }
             ]
           }
         ]
@@ -137,13 +319,68 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
               {
-                "kind": "ScalarField",
+                "kind": "LinkedField",
                 "alias": null,
-                "name": "id",
+                "name": "roles",
+                "storageKey": null,
                 "args": null,
-                "storageKey": null
-              }
+                "concreteType": "RoleRelation",
+                "plural": true,
+                "selections": [
+                  (v10/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "end_node",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v10/*: any*/),
+                      (v13/*: any*/)
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "comments",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "CommentType",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "user",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "plural": false,
+                    "selections": [
+                      (v5/*: any*/),
+                      (v6/*: any*/),
+                      (v13/*: any*/)
+                    ]
+                  },
+                  (v11/*: any*/),
+                  (v12/*: any*/),
+                  (v13/*: any*/)
+                ]
+              },
+              (v13/*: any*/)
             ]
           }
         ]
@@ -154,11 +391,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactMutation",
     "id": null,
-    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      title\n      contact_type\n      first_name\n      last_name\n      email\n      phone\n      PGP_fingerprint\n      roles {\n        name\n        end_node {\n          handle_id\n          name\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a267f343aa6ab9205b01a1c3ddb8862c';
+(node/*: any*/).hash = '07f6406114eb149f8b6a97ef8848c6e3';
 module.exports = node;

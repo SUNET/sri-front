@@ -26,13 +26,11 @@ class EditField extends React.Component {
 
     editField = (event) => {
         this.setState({ editable: !this.state.editable });
-        this.forceUpdate();
     };
 
     editDone = (event) => {
         this.setState({ editable: false });
         this.props.onChange(event);
-        this.forceUpdate();
     };
 
     render() {

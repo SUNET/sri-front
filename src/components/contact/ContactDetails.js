@@ -77,7 +77,7 @@ class ContactDetails extends React.Component {
             phone: contact.phone,
             contact_type: "person"
         };
-        UpdateContactMutation(update_contact);
+        UpdateContactMutation(update_contact, environment);
     };
 
     getContact = (contact) => {
