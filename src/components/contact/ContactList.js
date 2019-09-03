@@ -48,11 +48,11 @@ export class ContactList extends React.PureComponent {
         return (
             <>
                 <div></div>
-                {defaultColumns.map((column, index) => {
+                {defaultColumns.map((column) => {
                     // Hiding the columns passed by props
-                    if (this.props.columns_visible[column.value] !== undefined || this.props.all_columns) {
+                    if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
                         return (
-                            <div key={index}>
+                            <div key={column.name}>
                                 {column.name}
                                 {column.filter === "order" && (
                                     <FilterColumnsContainer
@@ -83,7 +83,7 @@ export class ContactList extends React.PureComponent {
                 {models.contacts.edges.map(({ node }) => {
                     return (
                         <ContactRow
-                            key={node.__id}
+                            key={node.handle_id}
                             contact={node}
                             onClick={this._handleOnClick}
                             columnsVisible={this.props.columns_visible}

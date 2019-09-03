@@ -4,7 +4,6 @@ import { withTranslation } from "react-i18next";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Form } from "react-bootstrap";
 
 class ComponentFormRow extends React.Component {
     constructor() {

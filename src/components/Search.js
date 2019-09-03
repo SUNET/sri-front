@@ -107,7 +107,7 @@ class Search extends React.Component {
                             <>
                                 <Row>
                                     <Col>
-                                        <div class="pretty p-default p-round">
+                                        <div className="pretty p-default p-round">
                                             <input
                                                 type="radio"
                                                 name="filterDateType"
@@ -117,12 +117,12 @@ class Search extends React.Component {
                                                     this.changeFilterDateType(e);
                                                 }}
                                             />
-                                            <div class="state p-info-o">
+                                            <div className="state p-info-o">
                                                 <label>Created</label>
                                             </div>
                                         </div>
 
-                                        <div class="pretty p-default p-round">
+                                        <div className="pretty p-default p-round">
                                             <input
                                                 type="radio"
                                                 name="filterDateType"
@@ -132,7 +132,7 @@ class Search extends React.Component {
                                                     this.changeFilterDateType(e);
                                                 }}
                                             />
-                                            <div class="state p-info-o">
+                                            <div className="state p-info-o">
                                                 <label>Updated</label>
                                             </div>
                                         </div>
