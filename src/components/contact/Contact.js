@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { createFragmentContainer } from "react-relay";
+import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
@@ -18,6 +18,17 @@ import "../../style/ModelDetails.scss";
 class Contact extends React.PureComponent {
     static propTypes = {
         onChange: PropTypes.func
+    };
+
+    refetch = () => {
+        this.props.relay.refetch(
+            { contactId: this.props.contact.handle_id }, // Our refetchQuery needs to know the `itemID`
+            null, // We can use the refetchVariables as renderVariables
+            () => {
+                console.log("Refetch done");
+            },
+            { force: true } // Assuming we've configured a network layer cache, we want to ensure we fetch the latest data.
+        );
     };
 
     render() {
@@ -200,7 +211,7 @@ class Contact extends React.PureComponent {
                 </div>
                 <div className="model-section">
                     <article>
-                        <Worklog model={contact} />
+                        <Worklog model={contact} refetch={this.refetch}/>
                     </article>
                 </div>
             </>
@@ -208,7 +219,7 @@ class Contact extends React.PureComponent {
     }
 }
 
-const ContactFragment = createFragmentContainer(withTranslation()(Contact), {
+const ContactFragment = createRefetchContainer(withTranslation()(Contact), {
     contact: graphql`
         fragment Contact_contact on Contact {
             handle_id
@@ -235,7 +246,16 @@ const ContactFragment = createFragmentContainer(withTranslation()(Contact), {
                 submit_date
             }
         }
+    `},
+    graphql`
+        # Refetch query to be fetched upon calling 'refetch'.
+        # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
+        query ContactRefetchQuery($contactId: Int!) {
+            getContactById(handle_id: $contactId) {
+                ...Contact_contact
+            }
+        }
     `
-});
+);
 
 export default ContactFragment;

@@ -38,8 +38,10 @@ export class Worklog extends React.Component {
         this.setState({ comment: event.target.value });
     };
 
-    createCommnet = () => {
+    createComment = () => {
         CreateCommentMutation(this.props.model.handle_id, this.state.comment);
+        this.setState({comment: ""});
+        this.props.refetch();
     };
 
     render() {
@@ -78,10 +80,11 @@ export class Worklog extends React.Component {
                                         onChange={(e) => {
                                             this.handleCommentChange(e);
                                         }}
+                                        value={this.state.comment}
                                     />
                                 </Form.Group>
                                 <div className="actions">
-                                    <Button onClick={() => this.createCommnet()} className="secundary">
+                                    <Button onClick={() => this.createComment()} className="secundary">
                                         {t("actions.send")}
                                     </Button>
                                 </div>

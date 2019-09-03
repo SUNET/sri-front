@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,10 +12,6 @@ class ComponentFormRow extends React.Component {
             is_saved: false
         };
     }
-
-    static propTypes = {
-        position: PropTypes.string.isRequired
-    };
 
     saveRow = (event) => {
         this.setState({ is_saved: true });
