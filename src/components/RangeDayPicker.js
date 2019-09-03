@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { Form} from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 import DayPickerInput from "react-day-picker/DayPickerInput";
 
@@ -25,6 +25,7 @@ const DateInput = (props) => {
                 onClick={(e) => props.onClick(e)}
                 onFocus={(e) => props.onFocus(e)}
                 onBlur={(e) => props.onBlur(e)}
+                onChange={(e) => props.onChange(e)}
             />
             <span>
                 <FontAwesomeIcon icon={faCalendarAlt} />
@@ -51,15 +52,22 @@ class RangeDayPicker extends React.Component {
             this.to.getDayPicker().showMonth(from);
         }
     }
+    //
+    // getSnapshotBeforeUpdate(prevProps, prevState){
+    //     console.log("prevS", prevState);
+    //     console.log("thisS", this.state);
+    //     console.log("prevP", prevProps);
+    //     console.log("thisP", this.props);
+    // }
 
     handleFromChange = (from) => {
         // Change the from date and focus the "to" input field
-        this.setState({ from });
-    }
+        this.setState({ from }, this.props.dateFrom(from));
+    };
 
     handleToChange = (to) => {
-        this.setState({ to }, this.showFromMonth);
-    }
+        this.setState({ to }, this.showFromMonth, this.props.dateTo(to));
+    };
 
     render() {
         const { from, to } = this.state;
@@ -82,11 +90,13 @@ class RangeDayPicker extends React.Component {
                         numberOfMonths: 2
                     }}
                     onDayChange={this.handleFromChange}
-                    component={(props) => <DateInput {...props} label="From" />}
+                    component={(props) => (
+                        <DateInput {...props} label="From" />
+                    )}
                 />
                 <span className="InputFromTo-to">
                     <DayPickerInput
-                        ref={(el) => this.to = el}
+                        ref={(el) => (this.to = el)}
                         value={to}
                         placeholder="dd/mm/yy"
                         format="MM/DD/YY"
@@ -103,7 +113,9 @@ class RangeDayPicker extends React.Component {
                             numberOfMonths: 2
                         }}
                         onDayChange={this.handleToChange}
-                        component={(props) => <DateInput {...props} label="To" />}
+                        component={(props) => (
+                            <DateInput {...props} label="To" />
+                        )}
                     />
                 </span>
             </div>

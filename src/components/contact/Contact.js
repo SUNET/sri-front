@@ -177,9 +177,13 @@ class Contact extends React.PureComponent {
                                                             {contact.roles.map((role, index) => {
                                                                 return (
                                                                     <ComponentFormRow editable={editable}>
-                                                                        <div>{role.name}</div>
-                                                                        <div>{role.end_node.handle_id}</div>
-                                                                        <div>{role.end_node.name}</div>
+                                                                        {role.end_node && (
+                                                                            <>
+                                                                                <div>{role.name}</div>
+                                                                                <div>{role.end_node.handle_id}</div>
+                                                                                <div>{role.end_node.name}</div>
+                                                                            </>
+                                                                        )}
                                                                     </ComponentFormRow>
                                                                 );
                                                             })}

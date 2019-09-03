@@ -29,6 +29,9 @@ class Search extends React.Component {
         this.state = {
             countList: ITEMS_PER_PAGE,
             filterValue: "",
+            filterDateType: "created",
+            filterDateFrom: "",
+            filterDateTo: "",
             orderBy: "handle_id_DESC"
         };
     }
@@ -45,7 +48,20 @@ class Search extends React.Component {
         this.setState({ orderBy: orderBy });
     };
 
+    handleDateTo = (dateTo) => {
+        this.setState({ filterDateTo: dateTo });
+    };
+
+    handleDateFrom = (dateFrom) => {
+        this.setState({ filterDateFrom: dateFrom });
+    };
+
+    changeFilterDateType = (event) => {
+        this.setState({ filterDateType: event.target.value });
+    };
+
     renderModelList() {
+        console.log(this.state);
         return (
             <QueryLookupRenderer
                 lookup={true}
@@ -91,7 +107,36 @@ class Search extends React.Component {
                             <>
                                 <Row>
                                     <Col>
-                                        <RangeDayPicker />
+                                        <div class="pretty p-default p-round">
+                                            <input
+                                                type="radio"
+                                                name="filterDateType"
+                                                checked={this.state.filterDateType === "created"}
+                                                value="created"
+                                                onChange={(e) => {
+                                                    this.changeFilterDateType(e);
+                                                }}
+                                            />
+                                            <div class="state p-info-o">
+                                                <label>Created</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="pretty p-default p-round">
+                                            <input
+                                                type="radio"
+                                                name="filterDateType"
+                                                checked={this.state.filterDateType === "updated"}
+                                                value="updated"
+                                                onChange={(e) => {
+                                                    this.changeFilterDateType(e);
+                                                }}
+                                            />
+                                            <div class="state p-info-o">
+                                                <label>Updated</label>
+                                            </div>
+                                        </div>
+                                        <RangeDayPicker dateTo={this.handleDateTo} dateFrom={this.handleDateFrom} />
                                     </Col>
                                     <Col className="text-right">
                                         <Filter changeFilter={this._handleOnChangeFilter} />
