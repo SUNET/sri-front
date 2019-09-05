@@ -42,6 +42,7 @@ function CreateContactMutation(
             mutation,
             variables,
             onCompleted: (response, errors) => {
+                console.log(errors);
                 console.log(response, environment);
                 if (errors) {
                     return reject(errors);

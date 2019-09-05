@@ -8,12 +8,16 @@ button.btn {
     border: none;
 
     &.primary{
-        border-radius: 24px;
+        border-radius: 22px;
+        padding: 13px 32px;
         color: #fff;
         background-color: $brand-color;
+        font-weight: bold;
 
-        &:active{
+        &:active, &.focus{
             background-color: #db470e !important;
+            outline: 0 !important;
+            box-shadow: none;
         }
 
         &:disabled{

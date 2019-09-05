@@ -14,6 +14,7 @@ import FooterContainer from "../containers/Footer";
 import { Row, Col } from "react-bootstrap";
 import SideNavNetwork from "./SideNavNetwork";
 import SideNavCommunity from "./SideNavCommunity";
+import SubMenuActions from "./SubMenuActions";
 
 import Routes from "../Routes";
 
@@ -37,7 +38,16 @@ class App extends Component {
                                 <Route path="/community" component={SideNavCommunity} />
                             </Switch>
                             <Col>
-                                <Breadcrumbs mappedRoutes={Routes} />
+                                <Row>
+                                    <Col>
+                                        <Breadcrumbs mappedRoutes={Routes} />
+                                    </Col>
+                                    <Col>
+                                        <Switch>
+                                            <Route path="/community/contacts/" component={SubMenuActions} />
+                                        </Switch>
+                                    </Col>
+                                </Row>
                                 <NotifyContainer />
                                 <SplashContainer />
                                 <BaseContainer />

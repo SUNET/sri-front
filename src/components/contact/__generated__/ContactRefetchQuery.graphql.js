@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6977bf84317fcb98f8015c72619a8c92
+ * @relayHash 24bafa74cd8aac0783f5bd40c16e863d
  */
 
 /* eslint-disable */
@@ -53,6 +53,7 @@ fragment Contact_contact on Contact {
     }
   }
   comments {
+    id
     user {
       first_name
       last_name
@@ -60,7 +61,6 @@ fragment Contact_contact on Contact {
     }
     comment
     submit_date
-    id
   }
 }
 */
@@ -230,6 +230,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
+              (v6/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -257,8 +258,7 @@ return {
                 "name": "submit_date",
                 "args": null,
                 "storageKey": null
-              },
-              (v6/*: any*/)
+              }
             ]
           },
           (v6/*: any*/)
@@ -270,7 +270,7 @@ return {
     "operationKind": "query",
     "name": "ContactRefetchQuery",
     "id": null,
-    "text": "query ContactRefetchQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  title\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n  PGP_fingerprint\n  roles {\n    name\n    end_node {\n      handle_id\n      name\n      id\n    }\n  }\n  comments {\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n    id\n  }\n}\n",
+    "text": "query ContactRefetchQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  title\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n  PGP_fingerprint\n  roles {\n    name\n    end_node {\n      handle_id\n      name\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

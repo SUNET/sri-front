@@ -49,6 +49,7 @@ export default function UpdateContactMutation(contact, environment) {
         mutation,
         variables,
         updater: (proxyStore, data) => {
+            console.log("entra");
             // const payload = proxyStore.get(contact.id, "Contact");
             // console.log(proxyStore.getRoot());
             // console.log(proxyStore.getDataID());

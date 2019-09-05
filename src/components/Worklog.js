@@ -40,7 +40,7 @@ export class Worklog extends React.Component {
 
     createComment = () => {
         CreateCommentMutation(this.props.model.handle_id, this.state.comment);
-        this.setState({comment: ""});
+        this.setState({ comment: "" });
         this.props.refetch();
     };
 
@@ -56,39 +56,34 @@ export class Worklog extends React.Component {
                         <div>
                             {model.comments.map((comment, index) => {
                                 return (
-                                    <>
-                                        <div key={index}>
-                                            <header>
-                                                <div>
-                                                    {comment.user.first_name} {comment.user.last_name}{" "}
-                                                    {t("worklog.wrote")}:
-                                                </div>
-                                                <div>{this.formatDate(comment.submit_date)}</div>
-                                            </header>
-                                            <div>{comment.comment}</div>
-                                        </div>
+                                    <div key={comment.id}>
+                                        <header>
+                                            <div>
+                                                {comment.user.first_name} {comment.user.last_name} {t("worklog.wrote")}:
+                                            </div>
+                                            <div>{this.formatDate(comment.submit_date)}</div>
+                                        </header>
+                                        <div>{comment.comment}</div>
                                         <hr></hr>
-                                    </>
+                                    </div>
                                 );
                             })}
-                            <Form>
-                                <Form.Group controlId="exampleForm.ControlTextarea1">
-                                    <Form.Control
-                                        as="textarea"
-                                        rows="3"
-                                        placeholder={t("worklog.add-comment")}
-                                        onChange={(e) => {
-                                            this.handleCommentChange(e);
-                                        }}
-                                        value={this.state.comment}
-                                    />
-                                </Form.Group>
-                                <div className="actions">
-                                    <Button onClick={() => this.createComment()} className="secundary">
-                                        {t("actions.send")}
-                                    </Button>
-                                </div>
-                            </Form>
+                            <Form.Group controlId="textarea">
+                                <Form.Control
+                                    as="textarea"
+                                    rows="3"
+                                    placeholder={t("worklog.add-comment")}
+                                    onChange={(e) => {
+                                        this.handleCommentChange(e);
+                                    }}
+                                    value={this.state.comment}
+                                />
+                            </Form.Group>
+                            <div className="actions">
+                                <Button onClick={() => this.createComment()} className="secundary">
+                                    {t("actions.send")}
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </TogglePanel>

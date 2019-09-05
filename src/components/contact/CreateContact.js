@@ -1,9 +1,13 @@
 import React from "react";
 import { Form, Col, ButtonToolbar, Button } from "react-bootstrap";
-
-import Dropdown from "../Dropdown";
+import { withTranslation } from "react-i18next";
+import NumberFormat from "react-number-format";
 
 import CreateContactMutation from "../../mutations/CreateContactMutation";
+
+import AppendChild from "../AppendChild";
+import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+import Dropdown from "../Dropdown";
 
 class CreateContact extends React.PureComponent {
     constructor(props) {
@@ -19,19 +23,21 @@ class CreateContact extends React.PureComponent {
         };
     }
 
+    handleFieldChange = (event) => {
+        if (event.target.name === "full-name") {
+            let fullName = event.target.value;
+            fullName = fullName.split(" ");
+            this.setState({ first_name: fullName[0], last_name: fullName[1] });
+        }
+    };
+
     _handleContact() {
-        const {
-            first_name,
-            last_name,
-            email,
-            phone,
-            contact_type
-        } = this.state;
+        const { first_name, last_name, email, phone, contact_type } = this.state;
 
         CreateContactMutation(first_name, last_name, email, phone, contact_type)
             .then((response) => {
-                console.log("entro");
-                this.props.history.replace("/community/contacts");
+                // this.props.history.replace("/community/contacts");
+                console.log(response);
             })
             .catch((errors) => {
                 this.setState({
@@ -43,10 +49,111 @@ class CreateContact extends React.PureComponent {
     }
 
     render() {
+        const { t } = this.props;
         return (
-            <section className="mt-4">
+            <section className="model-details mt-4">
                 <h1>Create Contact</h1>
                 <div>{this.state.errors}</div>
+                <Form.Row className="model-section">
+                    <Col>
+                        <ToggleSection defaultEditable={false}>
+                            <ToggleHeading>
+                                <h2>{t("contact-details.notes")}</h2>
+                            </ToggleHeading>
+                            <TogglePanel>
+                                <Form.Control
+                                    as="textarea"
+                                    rows="3"
+                                    placeholder={t("contact-details.add-notes")}
+                                    onChange={(e) => {
+                                        this.handleFieldChange(e);
+                                    }}
+                                    value={this.state.comment}
+                                />
+                            </TogglePanel>
+                        </ToggleSection>
+                        <hr />
+                    </Col>
+                </Form.Row>
+                <Form.Row className="model-section">
+                    <Col>
+                        <ToggleSection>
+                            <ToggleHeading>
+                                <h2>{t("contact-details.general-information")}</h2>
+                            </ToggleHeading>
+                            <TogglePanel>
+                                <div className="table-details">
+                                    <div>
+                                        <div>Title</div>
+                                        <div>Type</div>
+                                        <div>E-mails</div>
+                                        <div>Phone</div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <Form.Group controlId="formGroupEmail">
+                                                    <Form.Control
+                                                        placeholder="Email"
+                                                        name="email"
+                                                        onChange={(e) => this.props.handleFieldChange(e)}
+                                                    />
+                                                </Form.Group>
+                                            </div>
+                                            <div>
+                                                <Dropdown
+                                                    className="auto"
+                                                    emptyLabel="Select type"
+                                                    type="contact_type"
+                                                    onChange={(e) => this.props.handleFieldChange(e)}
+                                                />
+                                            </div>
+                                            <div>
+                                                <AppendChild>
+                                                    <div>
+                                                        <Form.Group controlId="formGroupEmail">
+                                                            <Form.Control
+                                                                className="lg"
+                                                                placeholder="Email"
+                                                                name="email"
+                                                                onChange={(e) => this.handleFieldChange(e)}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
+                                                </AppendChild>
+                                                )}
+                                            </div>
+                                            <div>
+                                                <AppendChild position="button">
+                                                    <Form.Group controlId="formGroupFirstName">
+                                                        <NumberFormat displayType={"input"} format="+34 ### ### ###" />
+                                                    </Form.Group>
+                                                </AppendChild>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="table-details">
+                                    <div>
+                                        <div>PGP Fingerprint</div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <Form.Group controlId="formGroupFirstName">
+                                                <NumberFormat
+                                                    className="auto"
+                                                    displayType={"input"}
+                                                    format="#### #### #### #### #### #### #### #### #### ####"
+                                                />
+                                            </Form.Group>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TogglePanel>
+                        </ToggleSection>
+                        <hr />
+                    </Col>
+                </Form.Row>
                 <Form className="mt-3">
                     <Form.Row>
                         <Col sm={4}>
@@ -110,11 +217,7 @@ class CreateContact extends React.PureComponent {
                         </Col>
                     </Form.Row>
                     <ButtonToolbar>
-                        <Button
-                            className="mr-2"
-                            variant="outline-primary"
-                            onClick={() => this._handleContact()}
-                        >
+                        <Button className="mr-2" variant="outline-primary" onClick={() => this._handleContact()}>
                             Create
                         </Button>
                         <Button
@@ -132,4 +235,4 @@ class CreateContact extends React.PureComponent {
     }
 }
 
-export default CreateContact;
+export default withTranslation()(CreateContact);

@@ -44,8 +44,8 @@ class ToggleSection extends React.Component {
                         {index === 0 && (
                             <ToggleHeading
                                 {...child.props}
-                                handleTogglePanel={this.handleTogglePanel}
-                                handleEditPanel={this.handleEditPanel}
+                                togglePanel={this.handleTogglePanel}
+                                editPanel={this.handleEditPanel}
                                 defaultEditable={this.props.defaultEditable}
                                 aria-expanded={this.state.visible}
                             >
@@ -68,21 +68,21 @@ class ToggleSection extends React.Component {
 
 export class ToggleHeading extends React.Component {
     handleTogglePanel = (event) => {
-        this.props.handleTogglePanel(event);
+        this.props.togglePanel(event);
     };
 
     handleEditPanel = (event) => {
-        this.props.handleEditPanel(event);
+        this.props.editPanel(event);
     };
 
     static propTypes = {
-        handleTogglePanel: PropTypes.func,
-        handleEditPanel: PropTypes.func
+        togglePanel: PropTypes.func,
+        editPanel: PropTypes.func
     };
 
     render() {
         return (
-            <div className="toggle-header" {...this.props} onClick={(e) => this.handleTogglePanel(e)}>
+            <div className="toggle-header" aria-expanded={this.props['aria-expanded']} onClick={(e) => this.handleTogglePanel(e)}>
                 {this.props.children}
                 {this.props.defaultEditable && (
                     <span className="icon-action" onClick={(e) => this.handleEditPanel(e)}>

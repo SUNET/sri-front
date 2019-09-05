@@ -28,6 +28,7 @@ export type Contact_contact = {|
     |},
   |}>,
   +comments: ?$ReadOnlyArray<?{|
+    +id: string,
     +user: ?{|
       +first_name: string,
       +last_name: string,
@@ -154,6 +155,13 @@ return {
       "plural": true,
       "selections": [
         {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "id",
+          "args": null,
+          "storageKey": null
+        },
+        {
           "kind": "LinkedField",
           "alias": null,
           "name": "user",
@@ -186,5 +194,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'afcf1679bcb17170584259da93746d45';
+(node/*: any*/).hash = '21da145764ef78a216cfb8639728a67d';
 module.exports = node;

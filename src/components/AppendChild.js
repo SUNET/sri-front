@@ -9,6 +9,7 @@ class AppendChild extends React.Component {
             children: []
         };
     }
+
     componentWillMount() {
         this.setState({
             children: [...this.state.children, this.props.children]
@@ -17,11 +18,8 @@ class AppendChild extends React.Component {
 
     appendChild = (event) => {
         event.preventDefault();
-        const childrenToCopy = this.state.children[0];
-        console.log(childrenToCopy.props.children);
-        // delete childrenToCopy.props.children.props.defaultValue;
         this.setState({
-            children: [...this.state.children, childrenToCopy]
+            children: [...this.state.children, this.state.children[0]]
         });
     };
 
@@ -29,7 +27,11 @@ class AppendChild extends React.Component {
         let { t } = this.props;
         return (
             <div>
-                <div>{this.state.children.map((child) => child)}</div>
+                <div>
+                    {this.state.children.map((child) => (
+                        child
+                    ))}
+                </div>
                 <button className="btn btn-add outline mt-2" onClick={(e) => this.appendChild(e)}>
                     <span>{t("actions.add-new")}</span>
                 </button>
