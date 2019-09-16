@@ -32,6 +32,7 @@ class Search extends React.Component {
             filterDateType: "created",
             filterDateFrom: "",
             filterDateTo: "",
+            filterDate: {},
             orderBy: "handle_id_DESC"
         };
     }
@@ -60,6 +61,24 @@ class Search extends React.Component {
         this.setState({ filterDateType: event.target.value });
     };
 
+    componentWillMount() {
+        this.filterDate();
+    }
+
+    filterDate() {
+        if (this.state.filterDateFrom && this.state.filterDateTo) {
+            this.setState({
+                filterDate: { created_gte: this.state.filterDateFrom, created_lte: this.state.filterDateTo }
+            });
+        } else if (this.state.filterDateFrom) {
+            this.setState({ filterDate: { created_gte: this.state.filterDateFrom } });
+        } else if (this.state.filterDateTo) {
+            this.setState({ filterDate: { created_lte: this.state.filterDateTo } });
+        } else {
+            this.setState({ filterDate: {} });
+        }
+    }
+
     renderModelList() {
         console.log(this.state);
         return (
@@ -74,7 +93,8 @@ class Search extends React.Component {
                             {
                                 name_contains: this.state.filterValue
                             }
-                        ]
+                        ],
+                        AND: [this.state.filterDate]
                     },
                     orderBy: this.state.orderBy
                 }}

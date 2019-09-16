@@ -34,6 +34,10 @@ button {
     border: none;
 }
 
+hr{
+    margin: 24px 0;
+}
+
 ::placeholder,
 h1,
 h2,
@@ -57,7 +61,7 @@ h3 {
     font-weight: normal;
 }
 
-::placeholder {
+::placeholder, select[disabled] {
     font-style: italic;
     color: $secondary-color-20 !important;
 }

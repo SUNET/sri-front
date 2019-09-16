@@ -32,7 +32,7 @@ class AppendChild extends React.Component {
                         child
                     ))}
                 </div>
-                <button className="btn btn-add outline mt-2" onClick={(e) => this.appendChild(e)}>
+                <button className="btn btn-add outline" onClick={(e) => this.appendChild(e)}>
                     <span>{t("actions.add-new")}</span>
                 </button>
             </div>

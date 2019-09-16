@@ -38,11 +38,11 @@ class App extends Component {
                                 <Route path="/community" component={SideNavCommunity} />
                             </Switch>
                             <Col>
-                                <Row>
+                                <Row className="mt-4">
                                     <Col>
                                         <Breadcrumbs mappedRoutes={Routes} />
                                     </Col>
-                                    <Col>
+                                    <Col className="text-right">
                                         <Switch>
                                             <Route path="/community/contacts/" component={SubMenuActions} />
                                         </Switch>

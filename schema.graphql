@@ -261,6 +261,38 @@ input ContactNestedFilter {
   handle_id_gte: Int
   handle_id_in: [Int!]
   handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
 }
 
 """An enumeration."""
@@ -289,6 +321,14 @@ enum ContactOrderBy {
   PGP_fingerprint_DESC
   handle_id_ASC
   handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
 }
 
 input CreateCommentInput {
@@ -313,6 +353,9 @@ input CreateContactInput {
   name: String
   title: String
   PGP_fingerprint: String
+  relationship_works_for: ChoiceScalar
+  relationship_member_of: ChoiceScalar
+  role: ChoiceScalar
   clientMutationId: String
 }
 
@@ -534,6 +577,10 @@ input GroupFilter {
 input GroupInputField {
   name: String
   handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
 }
 
 input GroupNestedFilter {
@@ -559,6 +606,38 @@ input GroupNestedFilter {
   handle_id_gte: Int
   handle_id_in: [Int!]
   handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
 }
 
 """An enumeration."""
@@ -567,6 +646,14 @@ enum GroupOrderBy {
   name_DESC
   handle_id_ASC
   handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
 }
 
 """A host in the SRI system"""
@@ -856,6 +943,38 @@ input OrganizationNestedFilter {
   handle_id_gte: Int
   handle_id_in: [Int!]
   handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
 }
 
 """An enumeration."""
@@ -876,6 +995,14 @@ enum OrganizationOrderBy {
   type_DESC
   handle_id_ASC
   handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
 }
 
 """
@@ -974,6 +1101,38 @@ input ProcedureNestedFilter {
   handle_id_gte: Int
   handle_id_in: [Int!]
   handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
 }
 
 """An enumeration."""
@@ -984,6 +1143,14 @@ enum ProcedureOrderBy {
   description_DESC
   handle_id_ASC
   handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
 }
 
 type Query {
@@ -1165,28 +1332,14 @@ type UpdateRolePayload {
 """The django user type"""
 type User {
   id: ID!
-  password: String!
-  last_login: DateTime
-
-  """
-  Designates that this user has all permissions without explicitly assigning them.
-  """
-  is_superuser: Boolean!
 
   """Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."""
   username: String!
   first_name: String!
   last_name: String!
-  email: String!
+}
 
-  """Designates whether the user can log into this admin site."""
-  is_staff: Boolean!
-
-  """
-  Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
-  """
-  is_active: Boolean!
-  date_joined: DateTime!
-  comment_comments: [CommentType!]!
+input UserInputType {
+  username: String!
 }
 

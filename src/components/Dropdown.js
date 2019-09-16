@@ -15,9 +15,36 @@ const DropdownQuery = graphql`
     }
 `;
 
+const DropdownOrganizationsQuery = graphql`
+    query DropdownOrganizationsQuery {
+        organizations {
+            edges {
+                node {
+                    handle_id
+                    name
+                }
+            }
+        }
+    }
+`;
+
+const DropdownRolesQuery = graphql`
+    query DropdownRolesQuery {
+        roles {
+            edges {
+                node {
+                    handle_id
+                    name
+                }
+            }
+        }
+    }
+`;
+
 class Dropdown extends React.PureComponent {
     static propTypes = {
-        type: PropTypes.string.isRequired,
+        type: PropTypes.string,
+        model: PropTypes.string,
         onChange: PropTypes.func.isRequired,
         label: PropTypes.string,
         emptyLabel: PropTypes.string,
@@ -34,23 +61,53 @@ class Dropdown extends React.PureComponent {
         });
     };
 
+    renderOptionsModel = (options) => {
+        return options.edges.map((option) => {
+            return (
+                <option key={option.node.handle_id} value={option.node.handle_id}>
+                    {option.node.name}
+                </option>
+            );
+        });
+    };
+
     render() {
+        let dropdownQuery = undefined;
+        switch (this.props.model) {
+            case "organization":
+                dropdownQuery = DropdownOrganizationsQuery;
+                break;
+            case "roles":
+                dropdownQuery = DropdownRolesQuery;
+                break;
+            default:
+                dropdownQuery = DropdownQuery;
+                break;
+        }
+        const variables =
+            this.props.model === undefined
+                ? {
+                      name: this.props.type
+                  }
+                : null;
         return (
             <Form.Group>
-                {this.props.label && (
-                    <Form.Label>{this.props.label}</Form.Label>
-                )}
+                {this.props.label && <Form.Label>{this.props.label}</Form.Label>}
                 <QueryRenderer
                     environment={environment}
-                    query={DropdownQuery}
-                    variables={{
-                        name: this.props.type
-                    }}
+                    query={dropdownQuery}
+                    variables={variables}
                     render={({ error, props }) => {
                         if (error) {
                             return <div>{error.message}</div>;
                         } else if (props) {
-                            const options = props.getChoicesForDropdown;
+                            let options = undefined;
+                            if (this.props.model !== undefined) {
+                                options = props[Object.keys(props)[0]];
+                            } else {
+                                options = props.getChoicesForDropdown;
+                            }
+
                             return (
                                 <Form.Control
                                     className={this.props.className}
@@ -60,11 +117,13 @@ class Dropdown extends React.PureComponent {
                                     defaultValue={this.props.defaultValue || ""}
                                 >
                                     {this.props.emptyLabel && (
-                                        <option value="">
+                                        <option value="" disabled selected hidden default>
                                             {this.props.emptyLabel}
                                         </option>
                                     )}
-                                    {this.renderOptions(options)}
+                                    {this.props.model !== undefined
+                                        ? this.renderOptionsModel(options)
+                                        : this.renderOptions(options)}
                                 </Form.Control>
                             );
                         }

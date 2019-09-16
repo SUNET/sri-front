@@ -29,7 +29,6 @@ class ComponentFormRow extends React.PureComponent {
 
     render() {
         let { t } = this.props;
-        console.log(this.state);
         return (
             <>
                 {this.state.mount && (

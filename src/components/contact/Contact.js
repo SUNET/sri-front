@@ -35,7 +35,7 @@ class Contact extends React.PureComponent {
         let { contact, t } = this.props;
         return (
             <>
-                <div className="model-section">
+                <section className="model-section">
                     <Form.Row>
                         <Col>
                             <ToggleSection>
@@ -262,10 +262,10 @@ class Contact extends React.PureComponent {
                             </ToggleSection>
                         </Col>
                     </Form.Row>
-                </div>
-                <div className="model-section">
+                </section>
+                <section className="model-section">
                     <Worklog model={contact} refetch={this.refetch} />
-                </div>
+                </section>
             </>
         );
     }
