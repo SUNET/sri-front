@@ -45,7 +45,7 @@ const node/*: ReaderFragment*/ = {
           "value": "organization_types"
         }
       ],
-      "concreteType": null,
+      "concreteType": "Choice",
       "plural": true,
       "selections": [
         {

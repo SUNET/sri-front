@@ -43,24 +43,26 @@ class EditField extends React.Component {
     render() {
         return (
             <OutsideClick callback={this.exitEdition}>
-                {this.state.editable ? (
-                    <Form.Group controlId="formGroupName" className="d-inline">
-                        <Form.Control
-                            className="edit-field-title auto"
-                            placeholder="Full Name"
-                            name="full-name"
-                            defaultValue={this.props.children.props.children}
-                            onBlur={(e) => this.editDone(e)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") this.editDone(e);
-                            }}
-                        />
-                    </Form.Group>
-                ) : (
-                    this.props.children
-                )}
+                <>
+                    {this.state.editable ? (
+                        <Form.Group controlId="formGroupName" className="d-inline">
+                            <Form.Control
+                                className="edit-field-title auto"
+                                placeholder="Full Name"
+                                name="full-name"
+                                defaultValue={this.props.children.props.children}
+                                onBlur={(e) => this.editDone(e)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") this.editDone(e);
+                                }}
+                            />
+                        </Form.Group>
+                    ) : (
+                        this.props.children
+                    )}
 
-                <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />
+                    <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />
+                </>
             </OutsideClick>
         );
     }

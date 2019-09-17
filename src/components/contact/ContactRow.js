@@ -30,9 +30,9 @@ class ContactRow extends React.PureComponent {
                         {contact.roles.map((role, index) => {
                             return (
                                 <span key={index} >
-                                    {role.end_node && (
+                                    {role.end && (
                                         <>
-                                            {role.end_node.name}
+                                            {role.end.name}
                                             {contact.roles[index + 1] ? ", " : ""}
                                         </>
                                     )}
@@ -45,10 +45,10 @@ class ContactRow extends React.PureComponent {
                     <div>
                         {contact.roles.map((role, index) => {
                             return (
-                                <>
+                                <span key={index}>
                                     {role.name}
                                     {contact.roles[index + 1] ? ", " : ""}
-                                </>
+                                </span>
                             );
                         })}
                     </div>
@@ -72,7 +72,7 @@ const ContactRowFragment = createFragmentContainer(ContactRow, {
             modified
             roles {
                 name
-                end_node {
+                end {
                     name
                 }
             }

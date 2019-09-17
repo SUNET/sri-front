@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6e8c6559fec4ff6151bf9fb57ea39f35
+ * @relayHash 0b97018461fe181a66d12e38f4b23421
  */
 
 /* eslint-disable */
@@ -19,7 +19,8 @@ export type UpdateContactInput = {|
   other_email?: ?string,
   name?: ?string,
   title?: ?string,
-  PGP_fingerprint?: ?string,
+  pgp_fingerprint?: ?string,
+  notes?: ?string,
   relationship_works_for?: ?any,
   relationship_member_of?: ?any,
   role?: ?any,
@@ -39,10 +40,10 @@ export type UpdateContactMutationResponse = {|
       +last_name: string,
       +email: ?string,
       +phone: ?string,
-      +PGP_fingerprint: ?string,
+      +pgp_fingerprint: ?string,
       +roles: ?$ReadOnlyArray<?{|
         +name: ?string,
-        +end_node: ?{|
+        +end: ?{|
           +handle_id: string,
           +name: string,
         |},
@@ -78,10 +79,10 @@ mutation UpdateContactMutation(
       last_name
       email
       phone
-      PGP_fingerprint
+      pgp_fingerprint
       roles {
         name
-        end_node {
+        end {
           handle_id
           name
           id
@@ -171,7 +172,7 @@ v8 = {
 v9 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "PGP_fingerprint",
+  "name": "pgp_fingerprint",
   "args": null,
   "storageKey": null
 },
@@ -251,7 +252,7 @@ return {
                   {
                     "kind": "LinkedField",
                     "alias": null,
-                    "name": "end_node",
+                    "name": "end",
                     "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
@@ -339,7 +340,7 @@ return {
                   {
                     "kind": "LinkedField",
                     "alias": null,
-                    "name": "end_node",
+                    "name": "end",
                     "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
@@ -391,11 +392,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactMutation",
     "id": null,
-    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      title\n      contact_type\n      first_name\n      last_name\n      email\n      phone\n      PGP_fingerprint\n      roles {\n        name\n        end_node {\n          handle_id\n          name\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      title\n      contact_type\n      first_name\n      last_name\n      email\n      phone\n      pgp_fingerprint\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '07f6406114eb149f8b6a97ef8848c6e3';
+(node/*: any*/).hash = 'a753fbd3e8facbf16aa0efdda332df34';
 module.exports = node;

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 4d5a415b76ba8b34c9d5bc54f49e8675
+ * @relayHash 92a6a482fb9dfb3aeee1099d90a2622b
  */
 
 /* eslint-disable */
@@ -65,10 +65,10 @@ fragment Contact_contact on Contact {
   last_name
   email
   phone
-  PGP_fingerprint
+  pgp_fingerprint
   roles {
     name
-    end_node {
+    end {
       handle_id
       name
       id
@@ -260,7 +260,7 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "PGP_fingerprint",
+            "name": "pgp_fingerprint",
             "args": null,
             "storageKey": null
           },
@@ -277,7 +277,7 @@ return {
               {
                 "kind": "LinkedField",
                 "alias": null,
-                "name": "end_node",
+                "name": "end",
                 "storageKey": null,
                 "args": null,
                 "concreteType": "Organization",
@@ -362,7 +362,7 @@ return {
     "operationKind": "query",
     "name": "ContactDetailsQuery",
     "id": null,
-    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    name\n    contact_type\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  title\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n  PGP_fingerprint\n  roles {\n    name\n    end_node {\n      handle_id\n      name\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    name\n    contact_type\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  title\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n  pgp_fingerprint\n  roles {\n    name\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

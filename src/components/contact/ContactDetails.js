@@ -131,15 +131,18 @@ class ContactDetails extends React.Component {
                                                 onChange={this._handleContactChange}
                                                 contact={props.getContactById}
                                             />
-                                            <Button
-                                                onClick={() => this._handleUpdate(props.getContactById)}
-                                                variant="outline-success"
-                                            >
-                                                {t("actions.update")}
-                                            </Button>
-                                            <Button onClick={() => this._handleDelete()} variant="outline-danger">
+                                            <div className="text-right mt-4">
+                                            <button onClick={() => this._handleDelete()} className="btn link">
                                                 {t("actions.delete")}
-                                            </Button>
+                                            </button>
+                                                <button
+                                                    onClick={() => this._handleUpdate(props.getContactById)}
+                                                    className="btn primary lg"
+                                                >
+                                                    {t("actions.save")}
+                                                </button>
+
+                                            </div>
                                         </Form>
                                     </Col>
                                 </Row>

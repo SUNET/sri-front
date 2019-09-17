@@ -19,7 +19,7 @@ export type ContactRow_contact = {|
   +modified: any,
   +roles: ?$ReadOnlyArray<?{|
     +name: ?string,
-    +end_node: ?{|
+    +end: ?{|
       +name: string
     |},
   |}>,
@@ -96,7 +96,7 @@ return {
         {
           "kind": "LinkedField",
           "alias": null,
-          "name": "end_node",
+          "name": "end",
           "storageKey": null,
           "args": null,
           "concreteType": "Organization",
@@ -111,5 +111,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '56e2d00da0d4fabb44f0f3f8a81a5b9f';
+(node/*: any*/).hash = '7ea1bf2ce3656356f9749f6b299186e9';
 module.exports = node;

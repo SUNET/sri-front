@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 48915dc25b75e60b97faa293590b33cb
+ * @relayHash 41ab8bc109f01d2c81f9fc4247e93176
  */
 
 /* eslint-disable */
@@ -19,7 +19,11 @@ export type CreateContactInput = {|
   other_email?: ?string,
   name?: ?string,
   title?: ?string,
-  PGP_fingerprint?: ?string,
+  pgp_fingerprint?: ?string,
+  notes?: ?string,
+  relationship_works_for?: ?any,
+  relationship_member_of?: ?any,
+  role?: ?any,
   clientMutationId?: ?string,
 |};
 export type CreateContactMutationVariables = {|
@@ -29,11 +33,24 @@ export type CreateContactMutationResponse = {|
   +create_contact: ?{|
     +contact: ?{|
       +handle_id: string,
+      +title: ?string,
       +first_name: string,
       +last_name: string,
-      +email: ?string,
-      +phone: ?string,
+      +notes: ?string,
       +contact_type: ?string,
+      +phone: ?string,
+      +email: ?string,
+      +pgp_fingerprint: ?string,
+      +roles: ?$ReadOnlyArray<?{|
+        +name: ?string,
+        +end: ?{|
+          +handle_id: string,
+          +name: string,
+        |},
+      |}>,
+      +member_of_groups: ?$ReadOnlyArray<?{|
+        +name: string
+      |}>,
     |}
   |}
 |};
@@ -51,11 +68,26 @@ mutation CreateContactMutation(
   create_contact(input: $input) {
     contact {
       handle_id
+      title
       first_name
       last_name
-      email
-      phone
+      notes
       contact_type
+      phone
+      email
+      pgp_fingerprint
+      roles {
+        name
+        end {
+          handle_id
+          name
+          id
+        }
+      }
+      member_of_groups {
+        name
+        id
+      }
       id
     }
   }
@@ -88,28 +120,28 @@ v2 = {
 v3 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
+  "name": "title",
   "args": null,
   "storageKey": null
 },
 v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
+  "name": "first_name",
   "args": null,
   "storageKey": null
 },
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "email",
+  "name": "last_name",
   "args": null,
   "storageKey": null
 },
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "phone",
+  "name": "notes",
   "args": null,
   "storageKey": null
 },
@@ -117,6 +149,41 @@ v7 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "contact_type",
+  "args": null,
+  "storageKey": null
+},
+v8 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "phone",
+  "args": null,
+  "storageKey": null
+},
+v9 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "email",
+  "args": null,
+  "storageKey": null
+},
+v10 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "pgp_fingerprint",
+  "args": null,
+  "storageKey": null
+},
+v11 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+},
+v12 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
   "args": null,
   "storageKey": null
 };
@@ -152,7 +219,47 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
-              (v7/*: any*/)
+              (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "roles",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "RoleRelation",
+                "plural": true,
+                "selections": [
+                  (v11/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "end",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v11/*: any*/)
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "member_of_groups",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Group",
+                "plural": true,
+                "selections": [
+                  (v11/*: any*/)
+                ]
+              }
             ]
           }
         ]
@@ -188,13 +295,49 @@ return {
               (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/),
               {
-                "kind": "ScalarField",
+                "kind": "LinkedField",
                 "alias": null,
-                "name": "id",
+                "name": "roles",
+                "storageKey": null,
                 "args": null,
-                "storageKey": null
-              }
+                "concreteType": "RoleRelation",
+                "plural": true,
+                "selections": [
+                  (v11/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "end",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v11/*: any*/),
+                      (v12/*: any*/)
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "member_of_groups",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Group",
+                "plural": true,
+                "selections": [
+                  (v11/*: any*/),
+                  (v12/*: any*/)
+                ]
+              },
+              (v12/*: any*/)
             ]
           }
         ]
@@ -205,11 +348,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateContactMutation",
     "id": null,
-    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    contact {\n      handle_id\n      first_name\n      last_name\n      email\n      phone\n      contact_type\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    contact {\n      handle_id\n      title\n      first_name\n      last_name\n      notes\n      contact_type\n      phone\n      email\n      pgp_fingerprint\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a900277ab1ab98e59692c75ba00d1b07';
+(node/*: any*/).hash = 'e99b20408a6db636bd014b2895a5e35e';
 module.exports = node;

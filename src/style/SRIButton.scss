@@ -7,34 +7,39 @@ button.btn {
     font-family: karla;
     border: none;
 
-    &.primary{
+    &.lg {
+        width: 180px;
+    }
+
+    &.primary {
         border-radius: 22px;
         padding: 13px 32px;
         color: #fff;
         background-color: $brand-color;
         font-weight: bold;
 
-        &:active, &.focus{
+        &.focus,
+        &:active {
             background-color: #db470e !important;
             outline: 0 !important;
             box-shadow: none;
         }
 
-        &:disabled{
+        &:disabled {
             color: $secondary-color-30;
         }
     }
 
-    &.secundary{
+    &.secundary {
         border-radius: 24px;
         color: #fff;
         background-color: $complementary-color;
 
-        &:active{
+        &:active {
             background-color: #44a2a0 !important;
         }
 
-        &:disabled{
+        &:disabled {
             color: $secondary-color-30;
         }
     }
@@ -79,6 +84,11 @@ button.btn {
                     width: 10px;
                 }
             }
+        }
+
+        &.link {
+            color: $tertiary-color;
+            background: none;
         }
 
         &.btn-back {

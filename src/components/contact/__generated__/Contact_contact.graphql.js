@@ -19,10 +19,10 @@ export type Contact_contact = {|
   +last_name: string,
   +email: ?string,
   +phone: ?string,
-  +PGP_fingerprint: ?string,
+  +pgp_fingerprint: ?string,
   +roles: ?$ReadOnlyArray<?{|
     +name: ?string,
-    +end_node: ?{|
+    +end: ?{|
       +handle_id: string,
       +name: string,
     |},
@@ -116,7 +116,7 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "PGP_fingerprint",
+      "name": "pgp_fingerprint",
       "args": null,
       "storageKey": null
     },
@@ -133,7 +133,7 @@ return {
         {
           "kind": "LinkedField",
           "alias": null,
-          "name": "end_node",
+          "name": "end",
           "storageKey": null,
           "args": null,
           "concreteType": "Organization",
@@ -194,5 +194,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '21da145764ef78a216cfb8639728a67d';
+(node/*: any*/).hash = '9801f2791144060ce97f0fc0b98b1eab';
 module.exports = node;

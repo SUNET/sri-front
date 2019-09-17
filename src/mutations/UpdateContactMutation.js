@@ -12,10 +12,10 @@ const mutation = graphql`
                 last_name
                 email
                 phone
-                PGP_fingerprint
+                pgp_fingerprint
                 roles {
                     name
-                    end_node {
+                    end {
                         handle_id
                         name
                     }
@@ -49,7 +49,6 @@ export default function UpdateContactMutation(contact, environment) {
         mutation,
         variables,
         updater: (proxyStore, data) => {
-            console.log("entra");
             // const payload = proxyStore.get(contact.id, "Contact");
             // console.log(proxyStore.getRoot());
             // console.log(proxyStore.getDataID());

@@ -61,22 +61,29 @@ class Search extends React.Component {
         this.setState({ filterDateType: event.target.value });
     };
 
-    componentWillMount() {
-        this.filterDate();
+    componentWillUpdate(nextProps, nextState) {
+        if (this.state.filterDateFrom !== nextState.filterDateFrom || this.state.filterDateTo !== nextState.filterDateTo) {
+            this.filterDateUpdate(nextState);
+        }
     }
 
-    filterDate() {
-        if (this.state.filterDateFrom && this.state.filterDateTo) {
+    filterDateUpdate = (nextState) => {
+        if (nextState.filterDateFrom && nextState.filterDateTo) {
             this.setState({
-                filterDate: { created_gte: this.state.filterDateFrom, created_lte: this.state.filterDateTo }
+                filterDate: { created_gte: nextState.filterDateFrom, created_lte: nextState.filterDateTo }
             });
-        } else if (this.state.filterDateFrom) {
-            this.setState({ filterDate: { created_gte: this.state.filterDateFrom } });
-        } else if (this.state.filterDateTo) {
-            this.setState({ filterDate: { created_lte: this.state.filterDateTo } });
+            // return { created_gte: this.state.filterDateFrom, created_lte: this.state.filterDateTo };
+        } else if (nextState.filterDateFrom) {
+            this.setState({ filterDate: { created_gte: nextState.filterDateFrom } });
+            // return { created_gte: this.state.filterDateFrom };
+        } else if (nextState.filterDateTo) {
+            this.setState({ filterDate: { created_lte: nextState.filterDateTo } });
+            // return { created_lte: this.state.filterDateTo };
         } else {
             this.setState({ filterDate: {} });
+            // return {};
         }
+        console.log(nextState);
     }
 
     renderModelList() {
@@ -91,10 +98,10 @@ class Search extends React.Component {
                     filter: {
                         AND: [
                             {
-                                name_contains: this.state.filterValue
-                            }
-                        ],
-                        AND: [this.state.filterDate]
+                                name_contains: this.state.filterValue,
+                            },
+                            this.state.filterDate
+                        ]
                     },
                     orderBy: this.state.orderBy
                 }}

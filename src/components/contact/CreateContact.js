@@ -1,7 +1,8 @@
 import React from "react";
-import { Form, Row, Col, ButtonToolbar, Button } from "react-bootstrap";
+import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import NumberFormat from "react-number-format";
+import { Field, reduxForm } from "redux-form";
 
 import CreateContactMutation from "../../mutations/CreateContactMutation";
 
@@ -9,6 +10,7 @@ import AppendChild from "../AppendChild";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Dropdown from "../Dropdown";
 import EditField from "../EditField";
+import FieldInput from "../FieldInput";
 import ComponentFormRow from "../ComponentFormRow";
 
 class CreateContact extends React.PureComponent {
@@ -16,7 +18,7 @@ class CreateContact extends React.PureComponent {
         super(props);
 
         this.state = {
-            name: "New Contact",
+            title: "",
             first_name: "New",
             last_name: "Contact",
             notes: "",
@@ -30,8 +32,6 @@ class CreateContact extends React.PureComponent {
         };
     }
 
-    componentDidMount() {}
-
     handleFieldChange = (event) => {
         if (event.target.name === "full-name") {
             let fullName = event.target.value;
@@ -41,11 +41,33 @@ class CreateContact extends React.PureComponent {
     };
 
     _handleContact() {
-        const { first_name, last_name, email, phone, contact_type } = this.state;
+        const {
+            title,
+            first_name,
+            last_name,
+            notes,
+            email,
+            phone,
+            contact_type,
+            comment,
+            roles,
+            organizations
+        } = this.state;
 
-        CreateContactMutation(first_name, last_name, email, phone, contact_type)
+        CreateContactMutation(
+            title,
+            first_name,
+            last_name,
+            notes,
+            email,
+            phone,
+            contact_type,
+            comment,
+            roles,
+            organizations,
+            () => this.props.history
+        )
             .then((response) => {
-                // this.props.history.replace("/community/contacts");
                 console.log(response);
             })
             .catch((errors) => {
@@ -57,11 +79,18 @@ class CreateContact extends React.PureComponent {
             });
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(this.props);
+        // this._handleContact();
+    };
+
     render() {
         const { t } = this.props;
-        console.log(this.state);
+        const required = (value) => (value ? undefined : "Required");
+        console.log(this.props);
         return (
-            <>
+            <form onSubmit={this.handleSubmit} class="needs-validation" novalidate>
                 <div className="model-details">
                     <section className="title-section">
                         <EditField onChange={this.handleFieldChange}>
@@ -78,14 +107,16 @@ class CreateContact extends React.PureComponent {
                                         <h2>{t("contact-details.notes")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
-                                        <Form.Control
+                                        <Field
+                                            name="notes"
+                                            component={FieldInput}
                                             as="textarea"
                                             rows="3"
                                             placeholder={t("contact-details.add-notes")}
                                             onChange={(e) => {
                                                 this.setState({ notes: e.target.value });
                                             }}
-                                            value={this.state.notes}
+                                            defaultValue={this.state.notes}
                                         />
                                     </TogglePanel>
                                 </ToggleSection>
@@ -110,12 +141,15 @@ class CreateContact extends React.PureComponent {
                                                 <div>
                                                     <div>
                                                         <Form.Group controlId="formGroupTitle">
-                                                            <Form.Control
+                                                            <Field
+                                                                type="text"
+                                                                component={FieldInput}
                                                                 placeholder="Type title"
                                                                 name="title"
-                                                                onChange={(e) =>
-                                                                    this.setState({ title: e.target.value })
+                                                                onBlur={(e) =>
+                                                                    this.setState({ contact_type: e.target.value })
                                                                 }
+                                                                required
                                                             />
                                                         </Form.Group>
                                                     </div>
@@ -277,22 +311,36 @@ class CreateContact extends React.PureComponent {
                         </ToggleSection>
                     </section>
                 </div>
-                <ButtonToolbar>
-                    <Button className="mr-2" variant="outline-primary" onClick={() => this._handleContact()}>
-                        Create
-                    </Button>
-                    <Button
+                <div className="text-right mt-4">
+                    <button
+                        className="mr-2 btn link"
                         onClick={() => {
                             this.props.history.goBack();
                         }}
-                        variant="outline-danger"
                     >
                         Cancel
-                    </Button>
-                </ButtonToolbar>
-            </>
+                    </button>
+                    <button className="btn primary lg" type="submit" disabled={this.props.submitting}>
+                        Save
+                    </button>
+                </div>
+            </form>
+
         );
     }
 }
+
+const validate = values => {
+	const errors = {};
+	if (!values.title){
+		errors.title = 'The field is required!';
+	}
+	return errors;
+};
+
+CreateContact = reduxForm({
+    form: "createContact",
+    validate
+})(CreateContact);
 
 export default withTranslation()(CreateContact);

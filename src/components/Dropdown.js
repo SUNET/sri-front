@@ -117,7 +117,7 @@ class Dropdown extends React.PureComponent {
                                     defaultValue={this.props.defaultValue || ""}
                                 >
                                     {this.props.emptyLabel && (
-                                        <option value="" disabled selected hidden default>
+                                        <option value="" disabled hidden default>
                                             {this.props.emptyLabel}
                                         </option>
                                     )}

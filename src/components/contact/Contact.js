@@ -148,7 +148,7 @@ class Contact extends React.PureComponent {
                                                                 <Form.Group controlId="formGroupFirstName">
                                                                     <NumberFormat
                                                                         className="auto"
-                                                                        value={contact.PGP_fingerprint}
+                                                                        value={contact.pgp_fingerprint}
                                                                         displayType={editable ? "input" : "text"}
                                                                         format="#### #### #### #### #### #### #### #### #### ####"
                                                                     />
@@ -189,9 +189,9 @@ class Contact extends React.PureComponent {
                                                                                     <>
                                                                                         <div>{role.name}</div>
                                                                                         <div>
-                                                                                            {role.end_node.handle_id}
+                                                                                            {role.end.handle_id}
                                                                                         </div>
-                                                                                        <div>{role.end_node.name}</div>
+                                                                                        <div>{role.end.name}</div>
                                                                                     </>
                                                                                 ) : (
                                                                                     <>
@@ -283,10 +283,10 @@ const ContactFragment = createRefetchContainer(
                 last_name
                 email
                 phone
-                PGP_fingerprint
+                pgp_fingerprint
                 roles {
                     name
-                    end_node {
+                    end {
                         handle_id
                         name
                     }
