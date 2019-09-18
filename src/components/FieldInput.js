@@ -3,14 +3,19 @@ import { Form } from "react-bootstrap";
 
 class FieldInput extends React.Component {
     render() {
-        const { input, meta } = this.props;
-        console.log(this.props);
-        const has_error = meta.touched && meta.error;
+        const {
+            input,
+            meta: { touched, error }
+        } = this.props;
+        const copyProps = { ...this.props };
+        const has_error = touched && error;
+        delete copyProps["input"];
+        delete copyProps["meta"];
         return (
-            <>
-                <Form.Control {...this.props} {...input} />
-                <div className="invalid-feedback">{meta.error}</div>
-            </>
+            <div className={has_error ? "invalidate" : ""}>
+                <Form.Control {...copyProps} {...input} />
+                {has_error && <span>{error}</span>}
+            </div>
         );
     }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import NumberFormat from "react-number-format";
-import { Field, reduxForm } from "redux-form";
+import { FieldArray, Field, reduxForm } from "redux-form";
 
 import CreateContactMutation from "../../mutations/CreateContactMutation";
 
@@ -13,6 +13,79 @@ import EditField from "../EditField";
 import FieldInput from "../FieldInput";
 import ComponentFormRow from "../ComponentFormRow";
 
+const renderEmails = ({ fields, onBlurEmail, onChangeType }) => {
+    const pushField = (event) => {
+        event.preventDefault();
+        if (fields.length < 5) {
+            fields.push({});
+        }
+    };
+    return (
+        <>
+            {fields.map((email, index) => (
+                <div key={index} className="mt-2">
+                    <Form.Group className="d-inline mr-2">
+                        <Field
+                            name={`${email}.email`}
+                            type="text"
+                            component={FieldInput}
+                            placeholder="Email"
+                            onBlur={(e) => onBlurEmail(e, index)}
+                        />
+                    </Form.Group>
+                    <Dropdown
+                        className="auto d-inline"
+                        emptyLabel="Type"
+                        type="contact_type"
+                        name={`${email}.type`}
+                        onChange={(e) => onChangeType(e, index)}
+                    />
+                </div>
+            ))}
+            <button className="btn btn-add outline mt-2" onClick={(e) => pushField(e)}>
+                <span>{"actions.add-new"}</span>
+            </button>
+        </>
+    );
+};
+
+const renderPhones = ({ fields, onBlurPhone, onChangeType }) => {
+    const pushField = (event) => {
+        event.preventDefault();
+        if (fields.length < 5) {
+            fields.push({});
+        }
+    };
+    return (
+        <>
+            {fields.map((phone, index) => (
+                <div key={index} className="mt-2">
+                    <Form.Group className="d-inline mr-2">
+                        <Field
+                            className="auto"
+                            name={`${phone}.phone`}
+                            type="text"
+                            component={FieldInput}
+                            placeholder="Phone"
+                            onBlur={(e) => onBlurPhone(e, index)}
+                        />
+                    </Form.Group>
+                    <Dropdown
+                        className="auto d-inline"
+                        emptyLabel="Type"
+                        type="contact_type"
+                        name={`${phone}.type`}
+                        onChange={(e) => onChangeType(e, index)}
+                    />
+                </div>
+            ))}
+            <button className="btn btn-add outline mt-2" onClick={(e) => pushField(e)}>
+                <span>{"actions.add-new"}</span>
+            </button>
+        </>
+    );
+};
+
 class CreateContact extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -22,8 +95,8 @@ class CreateContact extends React.PureComponent {
             first_name: "New",
             last_name: "Contact",
             notes: "",
-            email: "",
-            phone: "",
+            emails: {},
+            phones: {},
             contact_type: "",
             comment: "",
             roles: {},
@@ -80,17 +153,15 @@ class CreateContact extends React.PureComponent {
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
         console.log(this.props);
+        event.preventDefault();
         // this._handleContact();
     };
 
     render() {
         const { t } = this.props;
-        const required = (value) => (value ? undefined : "Required");
-        console.log(this.props);
         return (
-            <form onSubmit={this.handleSubmit} class="needs-validation" novalidate>
+            <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
                     <section className="title-section">
                         <EditField onChange={this.handleFieldChange}>
@@ -116,7 +187,7 @@ class CreateContact extends React.PureComponent {
                                             onChange={(e) => {
                                                 this.setState({ notes: e.target.value });
                                             }}
-                                            defaultValue={this.state.notes}
+                                            value={this.state.notes}
                                         />
                                     </TogglePanel>
                                 </ToggleSection>
@@ -146,10 +217,7 @@ class CreateContact extends React.PureComponent {
                                                                 component={FieldInput}
                                                                 placeholder="Type title"
                                                                 name="title"
-                                                                onBlur={(e) =>
-                                                                    this.setState({ contact_type: e.target.value })
-                                                                }
-                                                                required
+                                                                onBlur={(e) => this.setState({ title: e.target.value })}
                                                             />
                                                         </Form.Group>
                                                     </div>
@@ -164,38 +232,36 @@ class CreateContact extends React.PureComponent {
                                                         />
                                                     </div>
                                                     <div>
-                                                        <AppendChild>
-                                                            <div>
-                                                                <Form.Group controlId="formGroupEmail">
-                                                                    <Form.Control
-                                                                        className="lg"
-                                                                        placeholder="Email"
-                                                                        name="email"
-                                                                        onChange={(e) =>
-                                                                            this.setState({
-                                                                                email: e.target.value
-                                                                            })
-                                                                        }
-                                                                    />
-                                                                </Form.Group>
-                                                            </div>
-                                                        </AppendChild>
+                                                        <FieldArray
+                                                            name="emails"
+                                                            component={renderEmails}
+                                                            onBlurEmail={(event, index) =>
+                                                                this.setState({
+                                                                    emails: { [index]: { email: event.target.value } }
+                                                                })
+                                                            }
+                                                            onChangeType={(event, index) =>
+                                                                this.setState({
+                                                                    emails: { [index]: { type: event.target.value } }
+                                                                })
+                                                            }
+                                                        />
                                                     </div>
                                                     <div>
-                                                        <AppendChild position="button">
-                                                            <Form.Group controlId="formGroupPhone">
-                                                                <NumberFormat
-                                                                    placeholder="Phone"
-                                                                    displayType="input"
-                                                                    format="+34 ### ### ###"
-                                                                    onChange={(e) =>
-                                                                        this.setState({
-                                                                            phone: e.target.value
-                                                                        })
-                                                                    }
-                                                                />
-                                                            </Form.Group>
-                                                        </AppendChild>
+                                                        <FieldArray
+                                                            name="phones"
+                                                            component={renderPhones}
+                                                            onBlurPhone={(event, index) =>
+                                                                this.setState({
+                                                                    phones: { [index]: { number: event.target.value } }
+                                                                })
+                                                            }
+                                                            onChangeType={(event, index) =>
+                                                                this.setState({
+                                                                    phones: { [index]: { type: event.target.value } }
+                                                                })
+                                                            }
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,9 +272,10 @@ class CreateContact extends React.PureComponent {
                                             </div>
                                             <div>
                                                 <div>
-                                                    <Form.Group controlId="formGroupFirstName">
+                                                    <Form.Group controlId="formGrouppgp_fingerprint">
                                                         <NumberFormat
                                                             className="auto"
+                                                            name="pgp_fingerprint"
                                                             displayType="input"
                                                             format="#### #### #### #### #### #### #### #### #### ####"
                                                         />
@@ -325,22 +392,70 @@ class CreateContact extends React.PureComponent {
                     </button>
                 </div>
             </form>
-
         );
     }
 }
 
-const validate = values => {
-	const errors = {};
-	if (!values.title){
-		errors.title = 'The field is required!';
-	}
-	return errors;
+const validate = (values) => {
+    const errors = {};
+    if (!values.title) {
+        errors.title = "* Required!";
+    }
+    if (!values.emails || !values.emails.length) {
+        errors.emails = { _error: "At least one email must be entered" };
+    } else {
+        const emailArrayErrors = [];
+        values.emails.forEach((email, emailIndex) => {
+            const emailErrors = {};
+            if (!email || !email.email) {
+                emailErrors.email = "* Required!";
+                emailArrayErrors[emailIndex] = emailErrors;
+            }
+            if (!email || !email.type) {
+                emailErrors.type = "* Required!";
+                emailArrayErrors[emailIndex] = emailErrors;
+            }
+            return emailErrors;
+        });
+        if (emailArrayErrors.length) {
+            errors.emails = emailArrayErrors;
+        }
+    }
+
+    if (!values.phones || !values.phones.length) {
+        errors.phones = { _error: "At least one phone must be entered" };
+    } else {
+        const phoneArrayErrors = [];
+        values.phones.forEach((phone, phoneIndex) => {
+            const phoneErrors = {};
+            if (!phone || !phone.phone) {
+                phoneErrors.phone = "* Required!";
+                phoneArrayErrors[phoneIndex] = phoneErrors;
+            }
+            if (!phone || !phone.type) {
+                phoneErrors.type = "* Required!";
+                phoneArrayErrors[phoneIndex] = phoneErrors;
+            }
+            return phoneErrors;
+        });
+        if (phoneArrayErrors.length) {
+            errors.phones = phoneArrayErrors;
+        }
+    }
+
+    if (!values.phone) {
+        errors.phone = "* Required!";
+    }
+    if (!values.pgp_fingerprint) {
+        errors.pgp_fingerprint = "* Required!";
+    }
+    return errors;
 };
 
 CreateContact = reduxForm({
     form: "createContact",
-    validate
+    validate,
+    initialValues: { emails: [{ email: "", type: "" }], phones: [{ phone: "", type: "" }] }
 })(CreateContact);
 
 export default withTranslation()(CreateContact);

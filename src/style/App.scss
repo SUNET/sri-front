@@ -1,4 +1,5 @@
 @import "../variables.scss";
+@import "./FieldInput.scss";
 
 * {
     box-sizing: border-box;
@@ -74,30 +75,4 @@ h3 {
 
 .wrapper-svg {
     display: inline-block;
-}
-// INPUTS
-
-.form-group {
-    font-family: Montserrat;
-    color: $secondary-color;
-
-    input, select {
-        font-size: 14px;
-        width: 160px;
-        height: 32px;
-        border-radius: 16px;
-        border: solid 1px $secondary-color-20;
-        padding: 4px 16px;
-
-        &.lg {
-            width: 200px;
-        }
-
-        &.sm {
-            width: 120px;
-        }
-        &.auto{
-            width: auto;
-        }
-    }
 }

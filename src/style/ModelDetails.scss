@@ -44,8 +44,6 @@
                 > div {
                     display: table-cell;
                 }
-
-
             }
 
             > div:last-of-type {
@@ -58,7 +56,8 @@
                     > div {
                         display: table-cell;
                         padding-right: 16px;
-                        &.col-actions{
+
+                        &.col-actions {
                             text-align: right;
                             padding: 0;
                             width: auto;

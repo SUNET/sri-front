@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
+import { Field } from "redux-form";
 
 import environment from "../createRelayEnvironment";
 
@@ -91,7 +92,7 @@ class Dropdown extends React.PureComponent {
                   }
                 : null;
         return (
-            <Form.Group>
+            <Form.Group className="d-inline">
                 {this.props.label && <Form.Label>{this.props.label}</Form.Label>}
                 <QueryRenderer
                     environment={environment}
@@ -109,11 +110,11 @@ class Dropdown extends React.PureComponent {
                             }
 
                             return (
-                                <Form.Control
+                                <Field
                                     className={this.props.className}
-                                    as="select"
+                                    component="select"
                                     onChange={(e) => this.props.onChange(e)}
-                                    name={this.props.type}
+                                    name={this.props.name}
                                     defaultValue={this.props.defaultValue || ""}
                                 >
                                     {this.props.emptyLabel && (
@@ -124,7 +125,7 @@ class Dropdown extends React.PureComponent {
                                     {this.props.model !== undefined
                                         ? this.renderOptionsModel(options)
                                         : this.renderOptions(options)}
-                                </Form.Control>
+                                </Field>
                             );
                         }
                         return <div>Loading</div>;

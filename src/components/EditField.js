@@ -4,6 +4,9 @@ import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import OutsideClick from "../components/OutsideCLick";
+import { Field } from "redux-form";
+
+import FieldInput from "./FieldInput";
 
 import "../style/EditField.scss";
 
@@ -46,9 +49,10 @@ class EditField extends React.Component {
                 <>
                     {this.state.editable ? (
                         <Form.Group controlId="formGroupName" className="d-inline">
-                            <Form.Control
+                            <Field
                                 className="edit-field-title auto"
                                 placeholder="Full Name"
+                                component={FieldInput}
                                 name="full-name"
                                 defaultValue={this.props.children.props.children}
                                 onBlur={(e) => this.editDone(e)}
