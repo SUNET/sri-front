@@ -33,6 +33,7 @@ class EditField extends React.Component {
     };
 
     editDone = (event) => {
+        console.log(event.target);
         this.setState({ editable: false });
         this.props.onChange(event);
     };
@@ -53,16 +54,16 @@ class EditField extends React.Component {
                                 className="edit-field-title auto"
                                 placeholder="Full Name"
                                 component={FieldInput}
-                                name="full-name"
-                                defaultValue={this.props.children.props.children}
-                                onBlur={(e) => this.editDone(e)}
+                                name="fullName"
+                                value={this.props.children.props.children}
+                                onBlur={(e) => this.exitEdition(e)}
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") this.editDone(e);
                                 }}
                             />
                         </Form.Group>
                     ) : (
-                        this.props.children
+                        <>{this.props.children}</>
                     )}
 
                     <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />

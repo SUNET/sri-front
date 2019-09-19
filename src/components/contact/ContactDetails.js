@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Button, Row, Col, Form } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { withTranslation } from "react-i18next";

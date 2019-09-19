@@ -5,6 +5,8 @@ import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Field } from "redux-form";
 
+import FieldSelect from "./FieldSelect";
+
 import environment from "../createRelayEnvironment";
 
 const DropdownQuery = graphql`
@@ -45,6 +47,7 @@ const DropdownRolesQuery = graphql`
 class Dropdown extends React.PureComponent {
     static propTypes = {
         type: PropTypes.string,
+        name: PropTypes.string.isRequired,
         model: PropTypes.string,
         onChange: PropTypes.func.isRequired,
         label: PropTypes.string,
@@ -112,10 +115,10 @@ class Dropdown extends React.PureComponent {
                             return (
                                 <Field
                                     className={this.props.className}
-                                    component="select"
+                                    component={FieldSelect}
                                     onChange={(e) => this.props.onChange(e)}
                                     name={this.props.name}
-                                    defaultValue={this.props.defaultValue || ""}
+                                    value={this.props.defaultValue || ""}
                                 >
                                     {this.props.emptyLabel && (
                                         <option value="" disabled hidden default>

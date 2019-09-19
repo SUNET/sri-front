@@ -6,14 +6,13 @@ import { FieldArray, Field, reduxForm } from "redux-form";
 
 import CreateContactMutation from "../../mutations/CreateContactMutation";
 
-import AppendChild from "../AppendChild";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Dropdown from "../Dropdown";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
 import ComponentFormRow from "../ComponentFormRow";
 
-const renderEmails = ({ fields, onBlurEmail, onChangeType }) => {
+const renderEmails = ({ fields, onBlurEmail, onChangeType, t }) => {
     const pushField = (event) => {
         event.preventDefault();
         if (fields.length < 5) {
@@ -34,7 +33,7 @@ const renderEmails = ({ fields, onBlurEmail, onChangeType }) => {
                         />
                     </Form.Group>
                     <Dropdown
-                        className="auto d-inline"
+                        className="auto"
                         emptyLabel="Type"
                         type="contact_type"
                         name={`${email}.type`}
@@ -43,13 +42,13 @@ const renderEmails = ({ fields, onBlurEmail, onChangeType }) => {
                 </div>
             ))}
             <button className="btn btn-add outline mt-2" onClick={(e) => pushField(e)}>
-                <span>{"actions.add-new"}</span>
+                <span>{t("actions.add-new")}</span>
             </button>
         </>
     );
 };
 
-const renderPhones = ({ fields, onBlurPhone, onChangeType }) => {
+const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
     const pushField = (event) => {
         event.preventDefault();
         if (fields.length < 5) {
@@ -71,7 +70,7 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType }) => {
                         />
                     </Form.Group>
                     <Dropdown
-                        className="auto d-inline"
+                        className="auto"
                         emptyLabel="Type"
                         type="contact_type"
                         name={`${phone}.type`}
@@ -80,8 +79,70 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType }) => {
                 </div>
             ))}
             <button className="btn btn-add outline mt-2" onClick={(e) => pushField(e)}>
-                <span>{"actions.add-new"}</span>
+                <span>{t("actions.add-new")}</span>
             </button>
+        </>
+    );
+};
+
+const renderOrganizations = ({ fields, onChangeRole, onBlurOrganization, onChangeOrganization, t }) => {
+    const pushField = (event) => {
+        event.preventDefault();
+        if (fields.length < 5) {
+            fields.push({});
+        }
+    };
+    return (
+        <>
+            {fields.map((organization, index) => (
+                <ComponentFormRow editable={true} key={index}>
+                    {(editFields) => {
+                        return (
+                            <>
+                                <div>
+                                    <Dropdown
+                                        className="auto"
+                                        emptyLabel="Select role"
+                                        model="roles"
+                                        name={`${organization}.role`}
+                                        onChange={(e) => onChangeRole(e, index)}
+                                    />
+                                </div>
+                                <div>
+                                    <Form.Group>
+                                        <Field
+                                            type="text"
+                                            component={FieldInput}
+                                            placeholder="Type ID"
+                                            name={`${organization}.id`}
+                                            onBlur={(e) => onBlurOrganization(e, index)}
+                                        />
+                                    </Form.Group>
+                                </div>
+                                <div>
+                                    <Dropdown
+                                        className="auto"
+                                        emptyLabel="Select organization"
+                                        model="organization"
+                                        name={`${organization}.organization`}
+                                        onChange={(e) => onChangeOrganization(e, index)}
+                                    />
+                                </div>
+                            </>
+                        );
+                    }}
+                </ComponentFormRow>
+            ))}
+            <div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div className="col-actions">
+                    <button className="btn link mt-2" onClick={(e) => pushField(e)}>
+                        {t("actions.add-new")}
+                    </button>
+                </div>
+            </div>
         </>
     );
 };
@@ -99,14 +160,13 @@ class CreateContact extends React.PureComponent {
             phones: {},
             contact_type: "",
             comment: "",
-            roles: {},
             organizations: {},
             errors: []
         };
     }
 
     handleFieldChange = (event) => {
-        if (event.target.name === "full-name") {
+        if (event.target.name === "fullName") {
             let fullName = event.target.value;
             fullName = fullName.split(" ");
             this.setState({ first_name: fullName[0], last_name: fullName[1] });
@@ -160,6 +220,7 @@ class CreateContact extends React.PureComponent {
 
     render() {
         const { t } = this.props;
+        console.log(this.props);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
@@ -225,6 +286,7 @@ class CreateContact extends React.PureComponent {
                                                         <Dropdown
                                                             className="auto"
                                                             emptyLabel="Type"
+                                                            name="type"
                                                             type="contact_type"
                                                             onChange={(e) =>
                                                                 this.setState({ contact_type: e.target.value })
@@ -234,6 +296,7 @@ class CreateContact extends React.PureComponent {
                                                     <div>
                                                         <FieldArray
                                                             name="emails"
+                                                            t={t}
                                                             component={renderEmails}
                                                             onBlurEmail={(event, index) =>
                                                                 this.setState({
@@ -250,6 +313,7 @@ class CreateContact extends React.PureComponent {
                                                     <div>
                                                         <FieldArray
                                                             name="phones"
+                                                            t={t}
                                                             component={renderPhones}
                                                             onBlurPhone={(event, index) =>
                                                                 this.setState({
@@ -303,53 +367,26 @@ class CreateContact extends React.PureComponent {
                                                 <div></div>
                                             </div>
                                             <div>
-                                                <ComponentFormRow editable={true}>
-                                                    {(editFields) => {
-                                                        return (
-                                                            <>
-                                                                <div>
-                                                                    <Dropdown
-                                                                        className="auto"
-                                                                        emptyLabel="Select role"
-                                                                        model="roles"
-                                                                        onChange={(e) =>
-                                                                            this.setState({
-                                                                                roles: {
-                                                                                    handle_id: e.target.value
-                                                                                }
-                                                                            })
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                                <div>
-                                                                    <Form.Group controlId="formGroupEmail">
-                                                                        <Form.Control
-                                                                            placeholder="Type ID"
-                                                                            name="organization-id"
-                                                                            defaultValue={
-                                                                                this.state.organizations.handle_id
-                                                                            }
-                                                                        />
-                                                                    </Form.Group>
-                                                                </div>
-                                                                <div>
-                                                                    <Dropdown
-                                                                        className="auto"
-                                                                        emptyLabel="Select organization"
-                                                                        model="organization"
-                                                                        onChange={(e) =>
-                                                                            this.setState({
-                                                                                organizations: {
-                                                                                    handle_id: e.target.value
-                                                                                }
-                                                                            })
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                            </>
-                                                        );
-                                                    }}
-                                                </ComponentFormRow>
+                                                <FieldArray
+                                                    name="organizations"
+                                                    component={renderOrganizations}
+                                                    t={t}
+                                                    onChangeRole={(event, index) =>
+                                                        this.setState({
+                                                            organizations: { [index]: { number: event.target.value } }
+                                                        })
+                                                    }
+                                                    onBlurOrganization={(event, index) =>
+                                                        this.setState({
+                                                            organizations: { [index]: { type: event.target.value } }
+                                                        })
+                                                    }
+                                                    onChangeOrganization={(event, index) =>
+                                                        this.setState({
+                                                            organizations: { [index]: { type: event.target.value } }
+                                                        })
+                                                    }
+                                                />
                                             </div>
                                         </div>
                                     </TogglePanel>
@@ -398,6 +435,9 @@ class CreateContact extends React.PureComponent {
 
 const validate = (values) => {
     const errors = {};
+    if (!values.fullName){
+        errors.fullName = "* Required!";
+    }
     if (!values.title) {
         errors.title = "* Required!";
     }
@@ -455,7 +495,11 @@ const validate = (values) => {
 CreateContact = reduxForm({
     form: "createContact",
     validate,
-    initialValues: { emails: [{ email: "", type: "" }], phones: [{ phone: "", type: "" }] }
+    initialValues: {
+        emails: [{ email: "", type: "" }],
+        phones: [{ phone: "", type: "" }],
+        organizations: [{ role: "", id: "", organization: "" }]
+    }
 })(CreateContact);
 
 export default withTranslation()(CreateContact);

@@ -44,6 +44,11 @@ button.btn {
         }
     }
 
+    &.link {
+        color: $tertiary-color;
+        background: none;
+    }
+
     &.outline {
         font-size: 14px;
         color: $secondary-color;
@@ -84,11 +89,6 @@ button.btn {
                     width: 10px;
                 }
             }
-        }
-
-        &.link {
-            color: $tertiary-color;
-            background: none;
         }
 
         &.btn-back {

@@ -8,10 +8,10 @@
     > div {
         display: inline-block;
 
-        &.invalidate {
+        &.has-error {
             width: fit-content;
 
-            input {
+            input, select {
                 color: $alert-color-75;
                 border-color: $alert-color;
             }
