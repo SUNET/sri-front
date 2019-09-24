@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 41ab8bc109f01d2c81f9fc4247e93176
+ * @relayHash 0b5943cccc7fdaed18000387a1fb56c4
  */
 
 /* eslint-disable */
@@ -13,10 +13,6 @@ export type CreateContactInput = {|
   first_name: string,
   last_name: string,
   contact_type: any,
-  mobile?: ?string,
-  phone?: ?string,
-  email?: ?string,
-  other_email?: ?string,
   name?: ?string,
   title?: ?string,
   pgp_fingerprint?: ?string,
@@ -38,8 +34,6 @@ export type CreateContactMutationResponse = {|
       +last_name: string,
       +notes: ?string,
       +contact_type: ?string,
-      +phone: ?string,
-      +email: ?string,
       +pgp_fingerprint: ?string,
       +roles: ?$ReadOnlyArray<?{|
         +name: ?string,
@@ -73,8 +67,6 @@ mutation CreateContactMutation(
       last_name
       notes
       contact_type
-      phone
-      email
       pgp_fingerprint
       roles {
         name
@@ -155,32 +147,18 @@ v7 = {
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "phone",
+  "name": "pgp_fingerprint",
   "args": null,
   "storageKey": null
 },
 v9 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "email",
-  "args": null,
-  "storageKey": null
-},
-v10 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "pgp_fingerprint",
-  "args": null,
-  "storageKey": null
-},
-v11 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "name",
   "args": null,
   "storageKey": null
 },
-v12 = {
+v10 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -221,8 +199,6 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v9/*: any*/),
-              (v10/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -232,7 +208,7 @@ return {
                 "concreteType": "RoleRelation",
                 "plural": true,
                 "selections": [
-                  (v11/*: any*/),
+                  (v9/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -243,7 +219,7 @@ return {
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
-                      (v11/*: any*/)
+                      (v9/*: any*/)
                     ]
                   }
                 ]
@@ -257,7 +233,7 @@ return {
                 "concreteType": "Group",
                 "plural": true,
                 "selections": [
-                  (v11/*: any*/)
+                  (v9/*: any*/)
                 ]
               }
             ]
@@ -296,8 +272,6 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v9/*: any*/),
-              (v10/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -307,7 +281,7 @@ return {
                 "concreteType": "RoleRelation",
                 "plural": true,
                 "selections": [
-                  (v11/*: any*/),
+                  (v9/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -318,8 +292,8 @@ return {
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
-                      (v11/*: any*/),
-                      (v12/*: any*/)
+                      (v9/*: any*/),
+                      (v10/*: any*/)
                     ]
                   }
                 ]
@@ -333,11 +307,11 @@ return {
                 "concreteType": "Group",
                 "plural": true,
                 "selections": [
-                  (v11/*: any*/),
-                  (v12/*: any*/)
+                  (v9/*: any*/),
+                  (v10/*: any*/)
                 ]
               },
-              (v12/*: any*/)
+              (v10/*: any*/)
             ]
           }
         ]
@@ -348,11 +322,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateContactMutation",
     "id": null,
-    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    contact {\n      handle_id\n      title\n      first_name\n      last_name\n      notes\n      contact_type\n      phone\n      email\n      pgp_fingerprint\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    contact {\n      handle_id\n      title\n      first_name\n      last_name\n      notes\n      contact_type\n      pgp_fingerprint\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e99b20408a6db636bd014b2895a5e35e';
+(node/*: any*/).hash = '9383de1539cbad84dbf13b3bdc664be4';
 module.exports = node;

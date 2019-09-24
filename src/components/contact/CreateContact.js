@@ -14,7 +14,6 @@ import ComponentFormRow from "../ComponentFormRow";
 
 const renderEmails = ({ fields, onBlurEmail, onChangeType, t }) => {
     const pushField = (event) => {
-        event.preventDefault();
         if (fields.length < 5) {
             fields.push({});
         }
@@ -22,7 +21,7 @@ const renderEmails = ({ fields, onBlurEmail, onChangeType, t }) => {
     return (
         <>
             {fields.map((email, index) => (
-                <div key={index} className="mt-2">
+                <div key={index} className="input-group">
                     <Form.Group className="d-inline mr-2">
                         <Field
                             name={`${email}.email`}
@@ -35,13 +34,13 @@ const renderEmails = ({ fields, onBlurEmail, onChangeType, t }) => {
                     <Dropdown
                         className="auto"
                         emptyLabel="Type"
-                        type="contact_type"
+                        type="email_type"
                         name={`${email}.type`}
                         onChange={(e) => onChangeType(e, index)}
                     />
                 </div>
             ))}
-            <button className="btn btn-add outline mt-2" onClick={(e) => pushField(e)}>
+            <button type="button" className="btn btn-add outline" onClick={(e) => pushField(e)}>
                 <span>{t("actions.add-new")}</span>
             </button>
         </>
@@ -50,7 +49,6 @@ const renderEmails = ({ fields, onBlurEmail, onChangeType, t }) => {
 
 const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
     const pushField = (event) => {
-        event.preventDefault();
         if (fields.length < 5) {
             fields.push({});
         }
@@ -58,7 +56,7 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
     return (
         <>
             {fields.map((phone, index) => (
-                <div key={index} className="mt-2">
+                <div key={index} className="input-group">
                     <Form.Group className="d-inline mr-2">
                         <Field
                             className="auto"
@@ -72,13 +70,16 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
                     <Dropdown
                         className="auto"
                         emptyLabel="Type"
-                        type="contact_type"
+                        type="phone_type"
                         name={`${phone}.type`}
                         onChange={(e) => onChangeType(e, index)}
                     />
+                    <button type="button" onClick={() => fields.remove(index)}>
+                        del
+                    </button>
                 </div>
             ))}
-            <button className="btn btn-add outline mt-2" onClick={(e) => pushField(e)}>
+            <button type="button" className="btn btn-add outline" onClick={(e) => pushField(e)}>
                 <span>{t("actions.add-new")}</span>
             </button>
         </>
@@ -87,47 +88,51 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
 
 const renderOrganizations = ({ fields, onChangeRole, onBlurOrganization, onChangeOrganization, t }) => {
     const pushField = (event) => {
-        event.preventDefault();
         if (fields.length < 5) {
             fields.push({});
         }
     };
+
     return (
         <>
             {fields.map((organization, index) => (
-                <ComponentFormRow editable={true} key={index}>
+                <ComponentFormRow editable={true} key={index} index={index} fields={fields}>
                     {(editFields) => {
                         return (
                             <>
-                                <div>
-                                    <Dropdown
-                                        className="auto"
-                                        emptyLabel="Select role"
-                                        model="roles"
-                                        name={`${organization}.role`}
-                                        onChange={(e) => onChangeRole(e, index)}
-                                    />
-                                </div>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            component={FieldInput}
-                                            placeholder="Type ID"
-                                            name={`${organization}.id`}
-                                            onBlur={(e) => onBlurOrganization(e, index)}
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div>
-                                    <Dropdown
-                                        className="auto"
-                                        emptyLabel="Select organization"
-                                        model="organization"
-                                        name={`${organization}.organization`}
-                                        onChange={(e) => onChangeOrganization(e, index)}
-                                    />
-                                </div>
+                                {editFields ? (
+                                    <>
+                                        <div>
+                                            <Dropdown
+                                                className="auto"
+                                                emptyLabel="Select role"
+                                                model="roles"
+                                                name={`${organization}.role`}
+                                                onChange={(e) => onChangeRole(e, index)}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Form.Group>
+                                                <Field
+                                                    type="text"
+                                                    component={FieldInput}
+                                                    placeholder="Type ID"
+                                                    name={`${organization}.id`}
+                                                    onBlur={(e) => onBlurOrganization(e, index)}
+                                                />
+                                            </Form.Group>
+                                        </div>
+                                        <div>
+                                            <Dropdown
+                                                className="auto"
+                                                emptyLabel="Select organization"
+                                                model="organization"
+                                                name={`${organization}.organization`}
+                                                onChange={(e) => onChangeOrganization(e, index)}
+                                            />
+                                        </div>
+                                    </>
+                                ) : null}
                             </>
                         );
                     }}
@@ -138,7 +143,7 @@ const renderOrganizations = ({ fields, onChangeRole, onBlurOrganization, onChang
                 <div></div>
                 <div></div>
                 <div className="col-actions">
-                    <button className="btn link mt-2" onClick={(e) => pushField(e)}>
+                    <button type="button" className="btn link mt-2" onClick={(e) => pushField(e)}>
                         {t("actions.add-new")}
                     </button>
                 </div>
@@ -156,6 +161,7 @@ class CreateContact extends React.PureComponent {
             first_name: "New",
             last_name: "Contact",
             notes: "",
+            pgp_fingerprint: "",
             emails: {},
             phones: {},
             contact_type: "",
@@ -179,11 +185,11 @@ class CreateContact extends React.PureComponent {
             first_name,
             last_name,
             notes,
-            email,
-            phone,
+            pgp_fingerprint,
+            emails,
+            phones,
             contact_type,
             comment,
-            roles,
             organizations
         } = this.state;
 
@@ -192,11 +198,11 @@ class CreateContact extends React.PureComponent {
             first_name,
             last_name,
             notes,
-            email,
-            phone,
+            pgp_fingerprint,
             contact_type,
             comment,
-            roles,
+            emails,
+            phones,
             organizations,
             () => this.props.history
         )
@@ -213,14 +219,12 @@ class CreateContact extends React.PureComponent {
     }
 
     handleSubmit = (event) => {
-        console.log(this.props);
         event.preventDefault();
-        // this._handleContact();
+        this._handleContact();
     };
 
     render() {
         const { t } = this.props;
-        console.log(this.props);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
@@ -300,12 +304,24 @@ class CreateContact extends React.PureComponent {
                                                             component={renderEmails}
                                                             onBlurEmail={(event, index) =>
                                                                 this.setState({
-                                                                    emails: { [index]: { email: event.target.value } }
+                                                                    emails: {
+                                                                        ...this.state.emails,
+                                                                        [index]: {
+                                                                            ...this.state.emails[index],
+                                                                            email: event.target.value
+                                                                        }
+                                                                    }
                                                                 })
                                                             }
                                                             onChangeType={(event, index) =>
                                                                 this.setState({
-                                                                    emails: { [index]: { type: event.target.value } }
+                                                                    emails: {
+                                                                        ...this.state.emails,
+                                                                        [index]: {
+                                                                            ...this.state.emails[index],
+                                                                            type: event.target.value
+                                                                        }
+                                                                    }
                                                                 })
                                                             }
                                                         />
@@ -317,12 +333,24 @@ class CreateContact extends React.PureComponent {
                                                             component={renderPhones}
                                                             onBlurPhone={(event, index) =>
                                                                 this.setState({
-                                                                    phones: { [index]: { number: event.target.value } }
+                                                                    phones: {
+                                                                        ...this.state.phones,
+                                                                        [index]: {
+                                                                            ...this.state.phones[index],
+                                                                            number: event.target.value
+                                                                        }
+                                                                    }
                                                                 })
                                                             }
                                                             onChangeType={(event, index) =>
                                                                 this.setState({
-                                                                    phones: { [index]: { type: event.target.value } }
+                                                                    phones: {
+                                                                        ...this.state.phones,
+                                                                        [index]: {
+                                                                            ...this.state.phones[index],
+                                                                            type: event.target.value
+                                                                        }
+                                                                    }
                                                                 })
                                                             }
                                                         />
@@ -342,6 +370,11 @@ class CreateContact extends React.PureComponent {
                                                             name="pgp_fingerprint"
                                                             displayType="input"
                                                             format="#### #### #### #### #### #### #### #### #### ####"
+                                                            onBlur={(e) =>
+                                                                this.setState({
+                                                                    pgp_fingerprint: e.target.value
+                                                                })
+                                                            }
                                                         />
                                                     </Form.Group>
                                                 </div>
@@ -373,17 +406,35 @@ class CreateContact extends React.PureComponent {
                                                     t={t}
                                                     onChangeRole={(event, index) =>
                                                         this.setState({
-                                                            organizations: { [index]: { number: event.target.value } }
+                                                            organizations: {
+                                                                ...this.state.organizations,
+                                                                [index]: {
+                                                                    ...this.state.organizations[index],
+                                                                    role: event.target.value
+                                                                }
+                                                            }
                                                         })
                                                     }
                                                     onBlurOrganization={(event, index) =>
                                                         this.setState({
-                                                            organizations: { [index]: { type: event.target.value } }
+                                                            organizations: {
+                                                                ...this.state.organizations,
+                                                                [index]: {
+                                                                    ...this.state.organizations[index],
+                                                                    handle_id: event.target.value
+                                                                }
+                                                            }
                                                         })
                                                     }
                                                     onChangeOrganization={(event, index) =>
                                                         this.setState({
-                                                            organizations: { [index]: { type: event.target.value } }
+                                                            organizations: {
+                                                                ...this.state.organizations,
+                                                                [index]: {
+                                                                    ...this.state.organizations[index],
+                                                                    id: event.target.value
+                                                                }
+                                                            }
                                                         })
                                                     }
                                                 />
@@ -424,7 +475,11 @@ class CreateContact extends React.PureComponent {
                     >
                         Cancel
                     </button>
-                    <button className="btn primary lg" type="submit" disabled={this.props.submitting}>
+                    <button
+                        className="btn primary lg"
+                        type="submit"
+                        disabled={!this.props.valid || this.props.pristine || this.props.submitting}
+                    >
                         Save
                     </button>
                 </div>
@@ -435,7 +490,7 @@ class CreateContact extends React.PureComponent {
 
 const validate = (values) => {
     const errors = {};
-    if (!values.fullName){
+    if (!values.fullName) {
         errors.fullName = "* Required!";
     }
     if (!values.title) {

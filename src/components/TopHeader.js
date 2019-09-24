@@ -62,7 +62,7 @@ class TopHeader extends React.Component {
                         </Nav.Item>
                         <Nav.Item>
                             <Link to="/personal-area/profile">
-                                <Image src={require("../img/profile.png")} roundedCircle img-fluid="true" />
+                                <Image src={require("../static/img/profile.png")} roundedCircle img-fluid="true" />
                             </Link>
                         </Nav.Item>
                     </Nav>

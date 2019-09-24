@@ -53,10 +53,8 @@ type Contact implements Node {
   title: String
   salutation: String
   contact_type: String
-  phone: String
-  mobile: String
-  email: String
-  other_email: String
+  phones: [Phone]
+  emails: [Email]
   pgp_fingerprint: String
   member_of_groups: [Group]
   roles: [RoleRelation]
@@ -170,62 +168,22 @@ input ContactNestedFilter {
   contact_type_not_ends_with: String
   contact_type_in: [String!]
   contact_type_not_in: [String!]
-  phone: String
-  phone_not: String
-  phone_lt: String
-  phone_lte: String
-  phone_gt: String
-  phone_gte: String
-  phone_contains: String
-  phone_not_contains: String
-  phone_starts_with: String
-  phone_not_starts_with: String
-  phone_ends_with: String
-  phone_not_ends_with: String
-  phone_in: [String!]
-  phone_not_in: [String!]
-  mobile: String
-  mobile_not: String
-  mobile_lt: String
-  mobile_lte: String
-  mobile_gt: String
-  mobile_gte: String
-  mobile_contains: String
-  mobile_not_contains: String
-  mobile_starts_with: String
-  mobile_not_starts_with: String
-  mobile_ends_with: String
-  mobile_not_ends_with: String
-  mobile_in: [String!]
-  mobile_not_in: [String!]
-  email: String
-  email_not: String
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
-  email_in: [String!]
-  email_not_in: [String!]
-  other_email: String
-  other_email_not: String
-  other_email_lt: String
-  other_email_lte: String
-  other_email_gt: String
-  other_email_gte: String
-  other_email_contains: String
-  other_email_not_contains: String
-  other_email_starts_with: String
-  other_email_not_starts_with: String
-  other_email_ends_with: String
-  other_email_not_ends_with: String
-  other_email_in: [String!]
-  other_email_not_in: [String!]
+  phones: PhoneInputField
+  phones_not: PhoneInputField
+  phones_lt: PhoneInputField
+  phones_lte: PhoneInputField
+  phones_gt: PhoneInputField
+  phones_gte: PhoneInputField
+  phones_in: [PhoneInputField!]
+  phones_not_in: [PhoneInputField!]
+  emails: EmailInputField
+  emails_not: EmailInputField
+  emails_lt: EmailInputField
+  emails_lte: EmailInputField
+  emails_gt: EmailInputField
+  emails_gte: EmailInputField
+  emails_in: [EmailInputField!]
+  emails_not_in: [EmailInputField!]
   pgp_fingerprint: String
   pgp_fingerprint_not: String
   pgp_fingerprint_lt: String
@@ -326,14 +284,6 @@ enum ContactOrderBy {
   salutation_DESC
   contact_type_ASC
   contact_type_DESC
-  phone_ASC
-  phone_DESC
-  mobile_ASC
-  mobile_DESC
-  email_ASC
-  email_DESC
-  other_email_ASC
-  other_email_DESC
   pgp_fingerprint_ASC
   pgp_fingerprint_DESC
   notes_ASC
@@ -365,10 +315,6 @@ input CreateContactInput {
   first_name: String!
   last_name: String!
   contact_type: ChoiceScalar!
-  mobile: String
-  phone: String
-  email: String
-  other_email: String
   name: String
   title: String
   pgp_fingerprint: String
@@ -382,6 +328,19 @@ input CreateContactInput {
 type CreateContactPayload {
   errors: [ErrorType]
   contact: Contact
+  clientMutationId: String
+}
+
+input CreateEmailInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  clientMutationId: String
+}
+
+type CreateEmailPayload {
+  errors: [ErrorType]
+  email: Email
   clientMutationId: String
 }
 
@@ -432,6 +391,19 @@ input CreateOrganizationInput {
 type CreateOrganizationPayload {
   errors: [ErrorType]
   organization: Organization
+  clientMutationId: String
+}
+
+input CreatePhoneInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  clientMutationId: String
+}
+
+type CreatePhonePayload {
+  errors: [ErrorType]
+  phone: Phone
   clientMutationId: String
 }
 
@@ -489,6 +461,17 @@ type DeleteContactPayload {
   clientMutationId: String
 }
 
+input DeleteEmailInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteEmailPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteGroupInput {
   handle_id: Int!
   clientMutationId: String
@@ -506,6 +489,17 @@ input DeleteOrganizationInput {
 }
 
 type DeleteOrganizationPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeletePhoneInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeletePhonePayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -566,6 +560,30 @@ type DictRelationType {
 type Dropdown {
   id: ID!
   name: String!
+}
+
+"""Email entity to be used inside contact"""
+type Email implements Node {
+  handle_id: ID!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  type: ChoiceScalar!
+}
+
+input EmailInputField {
+  name: String
+  type: ChoiceScalar
+  handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
 }
 
 type ErrorType {
@@ -742,6 +760,12 @@ type Mutation {
   create_procedure(input: CreateProcedureInput!): CreateProcedurePayload
   update_procedure(input: UpdateProcedureInput!): UpdateProcedurePayload
   delete_procedure(input: DeleteProcedureInput!): DeleteProcedurePayload
+  create_phone(input: CreatePhoneInput!): CreatePhonePayload
+  update_phone(input: UpdatePhoneInput!): UpdatePhonePayload
+  delete_phone(input: DeletePhoneInput!): DeletePhonePayload
+  create_email(input: CreateEmailInput!): CreateEmailPayload
+  update_email(input: UpdateEmailInput!): UpdateEmailPayload
+  delete_email(input: DeleteEmailInput!): DeleteEmailPayload
   create_contact(input: CreateContactInput!): CreateContactPayload
   update_contact(input: UpdateContactInput!): UpdateContactPayload
   delete_contact(input: DeleteContactInput!): DeleteContactPayload
@@ -1053,6 +1077,30 @@ type PageInfo {
   endCursor: String
 }
 
+"""Phone entity to be used inside contact"""
+type Phone implements Node {
+  handle_id: ID!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  type: ChoiceScalar!
+}
+
+input PhoneInputField {
+  name: String
+  type: ChoiceScalar
+  handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
+}
+
 """The group type is used to group contacts"""
 type Procedure implements Node {
   handle_id: ID!
@@ -1270,10 +1318,6 @@ input UpdateContactInput {
   first_name: String!
   last_name: String!
   contact_type: ChoiceScalar!
-  mobile: String
-  phone: String
-  email: String
-  other_email: String
   name: String
   title: String
   pgp_fingerprint: String
@@ -1288,6 +1332,20 @@ input UpdateContactInput {
 type UpdateContactPayload {
   errors: [ErrorType]
   contact: Contact
+  clientMutationId: String
+}
+
+input UpdateEmailInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateEmailPayload {
+  errors: [ErrorType]
+  email: Email
   clientMutationId: String
 }
 
@@ -1329,6 +1387,20 @@ input UpdateOrganizationInput {
 type UpdateOrganizationPayload {
   errors: [ErrorType]
   organization: Organization
+  clientMutationId: String
+}
+
+input UpdatePhoneInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdatePhonePayload {
+  errors: [ErrorType]
+  phone: Phone
   clientMutationId: String
 }
 

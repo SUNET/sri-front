@@ -1,55 +1,48 @@
 /*
  * Colors
  * ========================================================================== */
-
-
-
 $brand-color: #ff500d;
-
 $secondary-color: #003049;
 $secondary-color-30: rgba($secondary-color, .3);
 $secondary-color-20: rgba($secondary-color, .2);
-
 $tertiary-color: #7798ab;
 $tertiary-color-20: rgba($tertiary-color, .2);
 $tertiary-color-3: rgba($tertiary-color, .03);
-
 $complementary-color: #5bc0be;
-
 $alert-color: #D7263D;
 $alert-color-75: rgba($alert-color, .75);
-
 /*
  * Typography
  * ========================================================================== */
-@import url('https://fonts.googleapis.com/css?family=Karla&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@font-face {
+    font-family: "Montserrat";
+    src: url("../static/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Karla";
+    src: url("../static/fonts/Karla/Karla-Regular.ttf");
+}
 
 $font: 'Montserrat', sans-serif;
-
 /*
  * Pretty Checkbox
  * ========================================================================== */
-
- $pretty--class-name: pretty;
-
+$pretty--class-name: pretty;
 // Change my handpicked
-$pretty--color-default:#bdc3c7;
-$pretty--color-primary:#428bca;
-$pretty--color-info:#5bc0de;
-$pretty--color-success:#5cb85c;
-$pretty--color-warning:#f0ad4e;
-$pretty--color-danger:#d9534f;
-$pretty--color-dark:#5a656b;
-
+$pretty--color-default: #bdc3c7;
+$pretty--color-primary: #428bca;
+$pretty--color-info: #5bc0de;
+$pretty--color-success: #5cb85c;
+$pretty--color-warning: #f0ad4e;
+$pretty--color-danger: #d9534f;
+$pretty--color-dark: #5a656b;
 // z-index
-$pretty--z-index-back:0;
-$pretty--z-index-between:1;
-$pretty--z-index-front:2;
-
+$pretty--z-index-back: 0;
+$pretty--z-index-between: 1;
+$pretty--z-index-front: 2;
 // Blocked settings
-$pretty--debug:false;
-$pretty--dev-err:'Invalid input type!';
-
+$pretty--debug: false;
+$pretty--dev-err: 'Invalid input type!';
 // Custom
-$pretty--size-scale:0.6em;
+$pretty--size-scale: 0.6em;

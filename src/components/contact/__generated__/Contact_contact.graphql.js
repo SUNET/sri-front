@@ -17,9 +17,17 @@ export type Contact_contact = {|
   +contact_type: ?string,
   +first_name: string,
   +last_name: string,
-  +email: ?string,
-  +phone: ?string,
   +pgp_fingerprint: ?string,
+  +emails: ?$ReadOnlyArray<?{|
+    +handle_id: string,
+    +name: string,
+    +type: any,
+  |}>,
+  +phones: ?$ReadOnlyArray<?{|
+    +handle_id: string,
+    +name: string,
+    +type: any,
+  |}>,
   +roles: ?$ReadOnlyArray<?{|
     +name: ?string,
     +end: ?{|
@@ -74,7 +82,18 @@ v3 = {
   "name": "name",
   "args": null,
   "storageKey": null
-};
+},
+v4 = [
+  (v0/*: any*/),
+  (v3/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "type",
+    "args": null,
+    "storageKey": null
+  }
+];
 return {
   "kind": "Fragment",
   "name": "Contact_contact",
@@ -102,23 +121,29 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "email",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "phone",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
       "name": "pgp_fingerprint",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "emails",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Email",
+      "plural": true,
+      "selections": (v4/*: any*/)
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "phones",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Phone",
+      "plural": true,
+      "selections": (v4/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -194,5 +219,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '9801f2791144060ce97f0fc0b98b1eab';
+(node/*: any*/).hash = 'c74cbd99774d136f3084395a6fba8656';
 module.exports = node;

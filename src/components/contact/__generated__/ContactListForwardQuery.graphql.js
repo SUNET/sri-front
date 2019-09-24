@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d64c516b65860b785d0f0908041bc8a8
+ * @relayHash 1ac73ee79fe5007871bee47e993eb64c
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type ContactList_contacts$ref = any;
-export type ContactOrderBy = "contact_type_ASC" | "contact_type_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "email_ASC" | "email_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "mobile_ASC" | "mobile_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "other_email_ASC" | "other_email_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phone_ASC" | "phone_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
+export type ContactOrderBy = "contact_type_ASC" | "contact_type_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
 export type ContactListForwardQueryVariables = {|
   count: number,
   cursor?: ?string,

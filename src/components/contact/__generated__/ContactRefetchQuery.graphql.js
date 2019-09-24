@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash dd4e96945d487c3d9a64db6a64e2bf38
+ * @relayHash a69f9d6d018c8da0707090d98d403da2
  */
 
 /* eslint-disable */
@@ -41,9 +41,19 @@ fragment Contact_contact on Contact {
   contact_type
   first_name
   last_name
-  email
-  phone
   pgp_fingerprint
+  emails {
+    handle_id
+    name
+    type
+    id
+  }
+  phones {
+    handle_id
+    name
+    type
+    id
+  }
   roles {
     name
     end {
@@ -115,7 +125,19 @@ v6 = {
   "name": "id",
   "args": null,
   "storageKey": null
-};
+},
+v7 = [
+  (v2/*: any*/),
+  (v5/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "type",
+    "args": null,
+    "storageKey": null
+  },
+  (v6/*: any*/)
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -177,23 +199,29 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "email",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "phone",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
             "name": "pgp_fingerprint",
             "args": null,
             "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "emails",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "Email",
+            "plural": true,
+            "selections": (v7/*: any*/)
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "phones",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "Phone",
+            "plural": true,
+            "selections": (v7/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -270,7 +298,7 @@ return {
     "operationKind": "query",
     "name": "ContactRefetchQuery",
     "id": null,
-    "text": "query ContactRefetchQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  title\n  contact_type\n  first_name\n  last_name\n  email\n  phone\n  pgp_fingerprint\n  roles {\n    name\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query ContactRefetchQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    name\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

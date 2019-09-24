@@ -188,9 +188,7 @@ class Contact extends React.PureComponent {
                                                                                 {!editFields ? (
                                                                                     <>
                                                                                         <div>{role.name}</div>
-                                                                                        <div>
-                                                                                            {role.end.handle_id}
-                                                                                        </div>
+                                                                                        <div>{role.end.handle_id}</div>
                                                                                         <div>{role.end.name}</div>
                                                                                     </>
                                                                                 ) : (
@@ -281,9 +279,17 @@ const ContactFragment = createRefetchContainer(
                 contact_type
                 first_name
                 last_name
-                email
-                phone
                 pgp_fingerprint
+                emails {
+                    handle_id
+                    name
+                    type
+                }
+                phones {
+                    handle_id
+                    name
+                    type
+                }
                 roles {
                     name
                     end {

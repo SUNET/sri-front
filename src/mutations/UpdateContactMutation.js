@@ -10,8 +10,6 @@ const mutation = graphql`
                 contact_type
                 first_name
                 last_name
-                email
-                phone
                 pgp_fingerprint
                 roles {
                     name
@@ -42,7 +40,7 @@ export default function UpdateContactMutation(contact, environment) {
             email: contact.email,
             phone: contact.phone,
             contact_type: contact.contact_type,
-            clientMutationId: "1048"
+            clientMutationId: ""
         }
     };
     commitMutation(environment, {

@@ -11,53 +11,43 @@ class ComponentFormRow extends React.PureComponent {
         this.state = {
             is_saved: false,
             is_editing: false,
-            mount: true
+            is_new: true
         };
     }
 
     saveRow = (event) => {
-        this.setState({ is_saved: true, is_editing: false });
+        this.setState({ is_saved: true, is_editing: false, is_new: false });
     };
 
     editRow = (event) => {
-        this.setState({ is_saved: false, is_editing: true });
-    };
-
-    deleteRow = (event) => {
-        this.setState({ mount: false });
+        this.setState({ is_saved: false, is_editing: true, is_new: false });
     };
 
     render() {
         let { t } = this.props;
         return (
-            <>
-                {this.state.mount && (
-                    <div>
-                        {this.props.children(this.state.is_editing)}
-                        {this.props.editable ? (
-                            <div className="col-actions">
-                                {!this.state.is_editing ? (
-                                    <div>
-                                        <FontAwesomeIcon
-                                            icon={faTrash}
-                                            onClick={(e) => {
-                                                this.deleteRow(e);
-                                            }}
-                                        />
-                                        <FontAwesomeIcon icon={faPen} onClick={(e) => this.editRow(e)} />
-                                    </div>
-                                ) : (
-                                    <div className="ok-check" onClick={(e) => this.saveRow(e)}>
-                                        {t("actions.save")}
-                                    </div>
-                                )}
+            <div>
+                {this.props.children(this.state.is_editing && this.state.is_new)}
+                {this.props.editable ? (
+                    <div className="col-actions">
+                        {!this.state.is_editing && !this.state.is_new ? (
+                            <div>
+                                <FontAwesomeIcon
+                                    icon={faTrash}
+                                    onClick={() => this.props.fields.remove(this.props.index)}
+                                />
+                                <FontAwesomeIcon icon={faPen} onClick={(e) => this.editRow(e)} />
                             </div>
                         ) : (
-                            <div></div>
+                            <div className="ok-check" onClick={(e) => this.saveRow(e)}>
+                                {t("actions.save")}
+                            </div>
                         )}
                     </div>
+                ) : (
+                    <div></div>
                 )}
-            </>
+            </div>
         );
     }
 }

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0b97018461fe181a66d12e38f4b23421
+ * @relayHash 02bb9d2f9e0fadad84352450f4aed692
  */
 
 /* eslint-disable */
@@ -13,10 +13,6 @@ export type UpdateContactInput = {|
   first_name: string,
   last_name: string,
   contact_type: any,
-  mobile?: ?string,
-  phone?: ?string,
-  email?: ?string,
-  other_email?: ?string,
   name?: ?string,
   title?: ?string,
   pgp_fingerprint?: ?string,
@@ -38,8 +34,6 @@ export type UpdateContactMutationResponse = {|
       +contact_type: ?string,
       +first_name: string,
       +last_name: string,
-      +email: ?string,
-      +phone: ?string,
       +pgp_fingerprint: ?string,
       +roles: ?$ReadOnlyArray<?{|
         +name: ?string,
@@ -77,8 +71,6 @@ mutation UpdateContactMutation(
       contact_type
       first_name
       last_name
-      email
-      phone
       pgp_fingerprint
       roles {
         name
@@ -158,46 +150,32 @@ v6 = {
 v7 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "email",
+  "name": "pgp_fingerprint",
   "args": null,
   "storageKey": null
 },
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "phone",
+  "name": "name",
   "args": null,
   "storageKey": null
 },
 v9 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "pgp_fingerprint",
+  "name": "comment",
   "args": null,
   "storageKey": null
 },
 v10 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "name",
-  "args": null,
-  "storageKey": null
-},
-v11 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "comment",
-  "args": null,
-  "storageKey": null
-},
-v12 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "submit_date",
   "args": null,
   "storageKey": null
 },
-v13 = {
+v11 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -237,8 +215,6 @@ return {
               (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -248,7 +224,7 @@ return {
                 "concreteType": "RoleRelation",
                 "plural": true,
                 "selections": [
-                  (v10/*: any*/),
+                  (v8/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -259,7 +235,7 @@ return {
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
-                      (v10/*: any*/)
+                      (v8/*: any*/)
                     ]
                   }
                 ]
@@ -286,8 +262,8 @@ return {
                       (v6/*: any*/)
                     ]
                   },
-                  (v11/*: any*/),
-                  (v12/*: any*/)
+                  (v9/*: any*/),
+                  (v10/*: any*/)
                 ]
               }
             ]
@@ -325,8 +301,6 @@ return {
               (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -336,7 +310,7 @@ return {
                 "concreteType": "RoleRelation",
                 "plural": true,
                 "selections": [
-                  (v10/*: any*/),
+                  (v8/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -347,8 +321,8 @@ return {
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
-                      (v10/*: any*/),
-                      (v13/*: any*/)
+                      (v8/*: any*/),
+                      (v11/*: any*/)
                     ]
                   }
                 ]
@@ -373,15 +347,15 @@ return {
                     "selections": [
                       (v5/*: any*/),
                       (v6/*: any*/),
-                      (v13/*: any*/)
+                      (v11/*: any*/)
                     ]
                   },
-                  (v11/*: any*/),
-                  (v12/*: any*/),
-                  (v13/*: any*/)
+                  (v9/*: any*/),
+                  (v10/*: any*/),
+                  (v11/*: any*/)
                 ]
               },
-              (v13/*: any*/)
+              (v11/*: any*/)
             ]
           }
         ]
@@ -392,11 +366,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactMutation",
     "id": null,
-    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      title\n      contact_type\n      first_name\n      last_name\n      email\n      phone\n      pgp_fingerprint\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      title\n      contact_type\n      first_name\n      last_name\n      pgp_fingerprint\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a753fbd3e8facbf16aa0efdda332df34';
+(node/*: any*/).hash = '9cbc344f8d76d1a3a04190773f6be21b';
 module.exports = node;

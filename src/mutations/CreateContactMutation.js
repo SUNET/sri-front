@@ -4,6 +4,8 @@ import environment from "../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 import CreateComentMutation from "./CreateCommentMutation";
+import CreateEmailMutation from "./CreateEmailMutation";
+import CreatePhoneMutation from "./CreatePhoneMutation";
 
 const mutation = graphql`
     mutation CreateContactMutation($input: CreateContactInput!) {
@@ -15,8 +17,6 @@ const mutation = graphql`
                 last_name
                 notes
                 contact_type
-                phone
-                email
                 pgp_fingerprint
                 roles {
                     name
@@ -40,27 +40,25 @@ function CreateContactMutation(
     first_name,
     last_name,
     notes,
-    email,
-    phone,
     pgp_fingerprint,
     contact_type,
     comment,
-    roles,
+    emails,
+    phones,
     organizations,
     callback
 ) {
+    console.log("Organization", Object.keys(organizations)[0]);
     const variables = {
         input: {
             title,
             first_name,
             last_name,
             notes,
-            email,
-            phone,
             pgp_fingerprint,
             contact_type,
-            relationship_works_for: organizations.handle_id,
-            role: roles.handle_id,
+            relationship_works_for: Object.keys(organizations)[0].id,
+            role: Object.keys(organizations)[0].role,
             clientMutationId: tempID++
         }
     };
@@ -71,8 +69,16 @@ function CreateContactMutation(
             onCompleted: (response, errors) => {
                 console.log(errors);
                 console.log(response, environment);
-                CreateComentMutation(response.create_contact.contact.handle_id, comment);
-                callback().replace("/community/contacts/"+ response.create_contact.contact.handle_id);
+                const contact_id = response.create_contact.contact.handle_id;
+                CreateComentMutation(contact_id, comment);
+                Object.keys(emails).map((email) => {
+                    console.log(email);
+                    return CreateEmailMutation(contact_id, email.email, email.type);
+                });
+                Object.keys(phones).map((phone) => {
+                    return CreatePhoneMutation(contact_id, phone.number, phone.type);
+                });
+                callback().replace("/community/contacts/" + response.create_contact.contact.handle_id);
                 if (errors) {
                     return reject(errors);
                 }

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0ac22d322c4fb6bacfec5faaf75aeb4f
+ * @relayHash b4423618b358a88de3ffec0be781f5bb
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type ContactList_contacts$ref = any;
 type ContactList_organization_types$ref = any;
-export type ContactOrderBy = "contact_type_ASC" | "contact_type_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "email_ASC" | "email_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "mobile_ASC" | "mobile_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "other_email_ASC" | "other_email_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phone_ASC" | "phone_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
+export type ContactOrderBy = "contact_type_ASC" | "contact_type_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
 export type ContactFilter = {|
   AND?: ?$ReadOnlyArray<ContactNestedFilter>,
   OR?: ?$ReadOnlyArray<ContactNestedFilter>,
@@ -101,62 +101,22 @@ export type ContactNestedFilter = {|
   contact_type_not_ends_with?: ?string,
   contact_type_in?: ?$ReadOnlyArray<string>,
   contact_type_not_in?: ?$ReadOnlyArray<string>,
-  phone?: ?string,
-  phone_not?: ?string,
-  phone_lt?: ?string,
-  phone_lte?: ?string,
-  phone_gt?: ?string,
-  phone_gte?: ?string,
-  phone_contains?: ?string,
-  phone_not_contains?: ?string,
-  phone_starts_with?: ?string,
-  phone_not_starts_with?: ?string,
-  phone_ends_with?: ?string,
-  phone_not_ends_with?: ?string,
-  phone_in?: ?$ReadOnlyArray<string>,
-  phone_not_in?: ?$ReadOnlyArray<string>,
-  mobile?: ?string,
-  mobile_not?: ?string,
-  mobile_lt?: ?string,
-  mobile_lte?: ?string,
-  mobile_gt?: ?string,
-  mobile_gte?: ?string,
-  mobile_contains?: ?string,
-  mobile_not_contains?: ?string,
-  mobile_starts_with?: ?string,
-  mobile_not_starts_with?: ?string,
-  mobile_ends_with?: ?string,
-  mobile_not_ends_with?: ?string,
-  mobile_in?: ?$ReadOnlyArray<string>,
-  mobile_not_in?: ?$ReadOnlyArray<string>,
-  email?: ?string,
-  email_not?: ?string,
-  email_lt?: ?string,
-  email_lte?: ?string,
-  email_gt?: ?string,
-  email_gte?: ?string,
-  email_contains?: ?string,
-  email_not_contains?: ?string,
-  email_starts_with?: ?string,
-  email_not_starts_with?: ?string,
-  email_ends_with?: ?string,
-  email_not_ends_with?: ?string,
-  email_in?: ?$ReadOnlyArray<string>,
-  email_not_in?: ?$ReadOnlyArray<string>,
-  other_email?: ?string,
-  other_email_not?: ?string,
-  other_email_lt?: ?string,
-  other_email_lte?: ?string,
-  other_email_gt?: ?string,
-  other_email_gte?: ?string,
-  other_email_contains?: ?string,
-  other_email_not_contains?: ?string,
-  other_email_starts_with?: ?string,
-  other_email_not_starts_with?: ?string,
-  other_email_ends_with?: ?string,
-  other_email_not_ends_with?: ?string,
-  other_email_in?: ?$ReadOnlyArray<string>,
-  other_email_not_in?: ?$ReadOnlyArray<string>,
+  phones?: ?PhoneInputField,
+  phones_not?: ?PhoneInputField,
+  phones_lt?: ?PhoneInputField,
+  phones_lte?: ?PhoneInputField,
+  phones_gt?: ?PhoneInputField,
+  phones_gte?: ?PhoneInputField,
+  phones_in?: ?$ReadOnlyArray<PhoneInputField>,
+  phones_not_in?: ?$ReadOnlyArray<PhoneInputField>,
+  emails?: ?EmailInputField,
+  emails_not?: ?EmailInputField,
+  emails_lt?: ?EmailInputField,
+  emails_lte?: ?EmailInputField,
+  emails_gt?: ?EmailInputField,
+  emails_gte?: ?EmailInputField,
+  emails_in?: ?$ReadOnlyArray<EmailInputField>,
+  emails_not_in?: ?$ReadOnlyArray<EmailInputField>,
   pgp_fingerprint?: ?string,
   pgp_fingerprint_not?: ?string,
   pgp_fingerprint_lt?: ?string,
@@ -242,8 +202,9 @@ export type ContactNestedFilter = {|
   modifier_in?: ?$ReadOnlyArray<UserInputType>,
   modifier_not_in?: ?$ReadOnlyArray<UserInputType>,
 |};
-export type GroupInputField = {|
+export type PhoneInputField = {|
   name?: ?string,
+  type?: ?any,
   handle_id?: ?number,
   created?: ?any,
   modified?: ?any,
@@ -252,6 +213,23 @@ export type GroupInputField = {|
 |};
 export type UserInputType = {|
   username: string
+|};
+export type EmailInputField = {|
+  name?: ?string,
+  type?: ?any,
+  handle_id?: ?number,
+  created?: ?any,
+  modified?: ?any,
+  creator?: ?UserInputType,
+  modifier?: ?UserInputType,
+|};
+export type GroupInputField = {|
+  name?: ?string,
+  handle_id?: ?number,
+  created?: ?any,
+  modified?: ?any,
+  creator?: ?UserInputType,
+  modifier?: ?UserInputType,
 |};
 export type RoleRelationInputField = {|
   relation_id?: ?number,

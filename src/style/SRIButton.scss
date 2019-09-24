@@ -26,7 +26,7 @@ button.btn {
         }
 
         &:disabled {
-            color: $secondary-color-30;
+            background-color: $secondary-color-30;
         }
     }
 
@@ -40,7 +40,7 @@ button.btn {
         }
 
         &:disabled {
-            color: $secondary-color-30;
+            background-color: $secondary-color-30;
         }
     }
 

@@ -16,35 +16,49 @@
                 padding: 25px 0 25px 20px;
                 color: rgba(#fff, .5);
 
-                a{
+                a {
                     text-decoration: none;
                     vertical-align: middle;
                     color: inherit;
                     font-weight: bold;
-                }
-                svg{
-                    margin-right: 8px;
+
+                    &:active {
+                        svg {
+                            g{
+                                opacity: 1;
+                            }
+                        }
+                    }
                 }
 
-                &:hover{
+                svg {
+                    margin-right: 8px;
+                    vertical-align: text-top;
+                }
+
+                &:hover {
                     cursor: pointer;
                 }
-                &[aria-expanded='true']{
+
+                &[aria-expanded='true'] {
                     background-color: rgba(#fff, .1);
                     color: #fff;
                 }
+
                 &[aria-expanded='true']:after,
                 &[aria-selected='true']:after {
                     transform: rotate(45deg);
                 }
             }
         }
-        .accordion__panel{
-            .nav{
-                .nav-link{
+
+        .accordion__panel {
+            .nav {
+                .nav-link {
                     background-color: $tertiary-color;
                     margin-bottom: 4px;
-                    &.active{
+
+                    &.active {
                         background-color: $secondary-color-30;
                     }
                 }
