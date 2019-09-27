@@ -57,8 +57,8 @@ function CreateContactMutation(
             notes,
             pgp_fingerprint,
             contact_type,
-            relationship_works_for: Object.keys(organizations)[0].id,
-            role: Object.keys(organizations)[0].role,
+            relationship_works_for: organizations[0].id,
+            role: organizations[0].role,
             clientMutationId: tempID++
         }
     };
@@ -71,13 +71,15 @@ function CreateContactMutation(
                 console.log(response, environment);
                 const contact_id = response.create_contact.contact.handle_id;
                 CreateComentMutation(contact_id, comment);
-                Object.keys(emails).map((email) => {
-                    console.log(email);
-                    return CreateEmailMutation(contact_id, email.email, email.type);
+
+                Object.keys(emails).forEach(email => {
+                    CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
                 });
-                Object.keys(phones).map((phone) => {
-                    return CreatePhoneMutation(contact_id, phone.number, phone.type);
+
+                Object.keys(phones).forEach(phone => {
+                    CreatePhoneMutation(contact_id, phones[phone].number, emails[phone].type);
                 });
+
                 callback().replace("/community/contacts/" + response.create_contact.contact.handle_id);
                 if (errors) {
                     return reject(errors);

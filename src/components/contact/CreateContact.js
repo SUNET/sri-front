@@ -10,7 +10,7 @@ import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/Togg
 import Dropdown from "../Dropdown";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
-import ComponentFormRow from "../ComponentFormRow";
+import ComponentFormRowContainer from "../../containers/ComponentFormRow";
 
 const renderEmails = ({ fields, onBlurEmail, onChangeType, t }) => {
     const pushField = (event) => {
@@ -21,7 +21,7 @@ const renderEmails = ({ fields, onBlurEmail, onChangeType, t }) => {
     return (
         <>
             {fields.map((email, index) => (
-                <div key={index} className="input-group">
+                <div key={`${index}_${fields.length}`} className="input-group">
                     <Form.Group className="d-inline mr-2">
                         <Field
                             name={`${email}.email`}
@@ -56,7 +56,7 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
     return (
         <>
             {fields.map((phone, index) => (
-                <div key={index} className="input-group">
+                <div key={`${index}_${fields.length}`} className="input-group">
                     <Form.Group className="d-inline mr-2">
                         <Field
                             className="auto"
@@ -86,57 +86,60 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
     );
 };
 
-const renderOrganizations = ({ fields, onChangeRole, onBlurOrganization, onChangeOrganization, t }) => {
+const renderOrganizations = ({ fields, meta, onChangeRole, onBlurOrganization, onChangeOrganization, t, addRow }) => {
+    const uuidv4 = require("uuid/v4");
     const pushField = (event) => {
         if (fields.length < 5) {
-            fields.push({});
+            addRow(fields.length);
+            fields.push({ key: uuidv4() });
         }
     };
-
     return (
         <>
             {fields.map((organization, index) => (
-                <ComponentFormRow editable={true} key={index} index={index} fields={fields}>
-                    {(editFields) => {
-                        return (
-                            <>
-                                {editFields ? (
-                                    <>
-                                        <div>
-                                            <Dropdown
-                                                className="auto"
-                                                emptyLabel="Select role"
-                                                model="roles"
-                                                name={`${organization}.role`}
-                                                onChange={(e) => onChangeRole(e, index)}
+                <>
+                    <span>{`${index}_${fields.length}`}</span>
+                    <span>{organization.key}</span>
+                    <ComponentFormRowContainer editable={true} key={organization.key} index={index} fields={fields}>
+                        {(editFields, isNew) => {
+                            return editFields || isNew ? (
+                                <>
+                                    <div>
+                                        <Dropdown
+                                            className="auto"
+                                            emptyLabel="Select role"
+                                            model="roles"
+                                            name={`${organization}.role`}
+                                            onChange={(e) => onChangeRole(e, index)}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Form.Group>
+                                            <Field
+                                                type="text"
+                                                component={FieldInput}
+                                                placeholder="Type ID"
+                                                name={`${organization}.id`}
+                                                onBlur={(e) => onBlurOrganization(e, index)}
                                             />
-                                        </div>
-                                        <div>
-                                            <Form.Group>
-                                                <Field
-                                                    type="text"
-                                                    component={FieldInput}
-                                                    placeholder="Type ID"
-                                                    name={`${organization}.id`}
-                                                    onBlur={(e) => onBlurOrganization(e, index)}
-                                                />
-                                            </Form.Group>
-                                        </div>
-                                        <div>
-                                            <Dropdown
-                                                className="auto"
-                                                emptyLabel="Select organization"
-                                                model="organization"
-                                                name={`${organization}.organization`}
-                                                onChange={(e) => onChangeOrganization(e, index)}
-                                            />
-                                        </div>
-                                    </>
-                                ) : null}
-                            </>
-                        );
-                    }}
-                </ComponentFormRow>
+                                        </Form.Group>
+                                    </div>
+                                    <div>
+                                        <Dropdown
+                                            className="auto"
+                                            emptyLabel="Select organization"
+                                            model="organization"
+                                            name={`${organization}.organization`}
+                                            onChange={(e) => onChangeOrganization(e, index)}
+                                        />
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            );
+                        }}
+                    </ComponentFormRowContainer>
+                </>
             ))}
             <div>
                 <div></div>
@@ -404,6 +407,7 @@ class CreateContact extends React.PureComponent {
                                                     name="organizations"
                                                     component={renderOrganizations}
                                                     t={t}
+                                                    addRow={this.props.addRow}
                                                     onChangeRole={(event, index) =>
                                                         this.setState({
                                                             organizations: {

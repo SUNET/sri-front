@@ -29,7 +29,7 @@ class ContactRow extends React.PureComponent {
                     <div>
                         {contact.roles.map((role, index) => {
                             return (
-                                <span key={index} >
+                                <span key={index}>
                                     {role.end && (
                                         <>
                                             {role.end.name}

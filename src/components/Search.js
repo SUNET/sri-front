@@ -8,7 +8,8 @@ import { withRouter } from "react-router-dom";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import { CreateContact, ContactDetails } from "./contact";
+import { ContactDetails } from "./contact";
+import CreateContactContainer from "../containers/CreateContact";
 import ContactListContainer from "../containers/ContactList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
@@ -176,7 +177,7 @@ class Search extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/contacts/create`} component={CreateContact} />
+                    <Route path={`${this.props.match.url}/contacts/create`} component={CreateContactContainer} />
                     <Route path={`${this.props.match.url}/contacts/:contactId`} component={ContactDetails} />
                 </Switch>
             </section>

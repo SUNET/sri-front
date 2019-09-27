@@ -5,41 +5,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 class ComponentFormRow extends React.PureComponent {
-    constructor() {
-        super();
 
-        this.state = {
-            is_saved: false,
-            is_editing: false,
-            is_new: true
-        };
-    }
-
-    saveRow = (event) => {
-        this.setState({ is_saved: true, is_editing: false, is_new: false });
-    };
-
-    editRow = (event) => {
-        this.setState({ is_saved: false, is_editing: true, is_new: false });
+    removeRow = (event) => {
+        if (this.props.fields.length !== 1) {
+            this.props.fields.remove(this.props.index);
+            this.props.removeRow();
+        }
     };
 
     render() {
-        let { t } = this.props;
+        let { t, index, addRow, saveRow, editRow, is_editing, is_new } = this.props;
         return (
             <div>
-                {this.props.children(this.state.is_editing && this.state.is_new)}
+                {this.props.children(is_editing, is_new, addRow)}
                 {this.props.editable ? (
                     <div className="col-actions">
-                        {!this.state.is_editing && !this.state.is_new ? (
+                        {!is_editing && !is_new ? (
                             <div>
-                                <FontAwesomeIcon
-                                    icon={faTrash}
-                                    onClick={() => this.props.fields.remove(this.props.index)}
-                                />
-                                <FontAwesomeIcon icon={faPen} onClick={(e) => this.editRow(e)} />
+                                <FontAwesomeIcon icon={faTrash} onClick={(e) => this.removeRow(e)} />
+                                <FontAwesomeIcon icon={faPen} onClick={() => editRow(index)} />
                             </div>
                         ) : (
-                            <div className="ok-check" onClick={(e) => this.saveRow(e)}>
+                            <div className="ok-check" onClick={() => saveRow(index)}>
                                 {t("actions.save")}
                             </div>
                         )}
