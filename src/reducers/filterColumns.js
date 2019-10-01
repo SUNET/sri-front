@@ -6,6 +6,10 @@ const initialState = {
     organization: {
         all_columns: true,
         columns_visible: []
+    },
+    group: {
+        all_columns: true,
+        columns_visible: []
     }
 };
 

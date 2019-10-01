@@ -608,6 +608,7 @@ type Group implements Node {
   outgoing: [DictRelationType]
   comments: [CommentType]
   name: String!
+  description: String
 }
 
 type GroupConnection {
@@ -634,6 +635,7 @@ input GroupFilter {
 
 input GroupInputField {
   name: String
+  description: String
   handle_id: Int
   created: DateTime
   modified: DateTime
@@ -656,6 +658,20 @@ input GroupNestedFilter {
   name_not_ends_with: String
   name_in: [String!]
   name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
   handle_id: Int
   handle_id_not: Int
   handle_id_lt: Int
@@ -702,6 +718,8 @@ input GroupNestedFilter {
 enum GroupOrderBy {
   name_ASC
   name_DESC
+  description_ASC
+  description_DESC
   handle_id_ASC
   handle_id_DESC
   created_ASC

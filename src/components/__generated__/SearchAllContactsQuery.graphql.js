@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b4423618b358a88de3ffec0be781f5bb
+ * @relayHash 9e8b2146a9e116685fed0a217a169093
  */
 
 /* eslint-disable */
@@ -225,6 +225,7 @@ export type EmailInputField = {|
 |};
 export type GroupInputField = {|
   name?: ?string,
+  description?: ?string,
   handle_id?: ?number,
   created?: ?any,
   modified?: ?any,

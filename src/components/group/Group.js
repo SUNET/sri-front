@@ -15,7 +15,7 @@ import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../
 
 import "../../style/ModelDetails.scss";
 
-class Contact extends React.PureComponent {
+class Group extends React.PureComponent {
     static propTypes = {
         onChange: PropTypes.func
     };
@@ -50,119 +50,6 @@ class Contact extends React.PureComponent {
                                     </PanelEditable.Consumer>
                                 </TogglePanel>
                             </ToggleSection>
-                            <hr />
-                            <ToggleSection>
-                                <ToggleHeading>
-                                    <h2>{t("contact-details.general-information")}</h2>
-                                </ToggleHeading>
-                                <TogglePanel>
-                                    <PanelEditable.Consumer>
-                                        {(editable) => {
-                                            return (
-                                                <>
-                                                    <div className="table-details">
-                                                        <div>
-                                                            <div>Title</div>
-                                                            <div>Type</div>
-                                                            <div>E-mails</div>
-                                                            <div>Phone</div>
-                                                        </div>
-                                                        <div>
-                                                            <div>
-                                                                <div>
-                                                                    {!editable ? (
-                                                                        contact.title
-                                                                    ) : (
-                                                                        <Form.Group controlId="formGroupEmail">
-                                                                            <Form.Control
-                                                                                placeholder="Email"
-                                                                                name="email"
-                                                                                defaultValue={contact.title}
-                                                                                onChange={(e) => this.props.onChange(e)}
-                                                                            />
-                                                                        </Form.Group>
-                                                                    )}
-                                                                </div>
-                                                                <div>
-                                                                    {!editable ? (
-                                                                        contact.contact_type
-                                                                    ) : (
-                                                                        <Dropdown
-                                                                            className="auto"
-                                                                            emptyLabel="Select type"
-                                                                            type="contact_type"
-                                                                            onChange={(e) => this.props.onChange(e)}
-                                                                            defaultValue={contact.contact_type}
-                                                                        />
-                                                                    )}
-                                                                </div>
-                                                                <div>
-                                                                    {!editable ? (
-                                                                        <CopyToClipboard>
-                                                                            {contact.email}
-                                                                        </CopyToClipboard>
-                                                                    ) : (
-                                                                        <AppendChild>
-                                                                            <div>
-                                                                                <Form.Group controlId="formGroupEmail">
-                                                                                    <Form.Control
-                                                                                        className="lg"
-                                                                                        placeholder="Email"
-                                                                                        name="email"
-                                                                                        defaultValue={contact.email}
-                                                                                        onChange={(e) =>
-                                                                                            this.props.onChange(e)
-                                                                                        }
-                                                                                    />
-                                                                                </Form.Group>
-                                                                            </div>
-                                                                        </AppendChild>
-                                                                    )}
-                                                                </div>
-                                                                <div>
-                                                                    {!editable ? (
-                                                                        contact.phone
-                                                                    ) : (
-                                                                        <AppendChild position="button">
-                                                                            <Form.Group controlId="formGroupFirstName">
-                                                                                <NumberFormat
-                                                                                    value={contact.phone}
-                                                                                    displayType={
-                                                                                        editable ? "input" : "text"
-                                                                                    }
-                                                                                    format="+34 ### ### ###"
-                                                                                />
-                                                                            </Form.Group>
-                                                                        </AppendChild>
-                                                                    )}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="table-details">
-                                                        <div>
-                                                            <div>PGP Fingerprint</div>
-                                                        </div>
-                                                        <div>
-                                                            <div>
-                                                                <Form.Group controlId="formGroupFirstName">
-                                                                    <NumberFormat
-                                                                        className="auto"
-                                                                        value={contact.pgp_fingerprint}
-                                                                        displayType={editable ? "input" : "text"}
-                                                                        format="#### #### #### #### #### #### #### #### #### ####"
-                                                                    />
-                                                                </Form.Group>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </>
-                                            );
-                                        }}
-                                    </PanelEditable.Consumer>
-                                </TogglePanel>
-                            </ToggleSection>
-                            <hr />
                             <ToggleSection>
                                 <ToggleHeading>
                                     <h2>{t("contact-details.profesional-details")}</h2>
@@ -269,42 +156,29 @@ class Contact extends React.PureComponent {
     }
 }
 
-const ContactFragment = createRefetchContainer(
-    withTranslation()(Contact),
+const GroupFragment = createRefetchContainer(
+    withTranslation()(Group),
     {
-        contact: graphql`
-            fragment Contact_contact on Contact {
+        group: graphql`
+            fragment Group_group on Group {
                 handle_id
-                title
-                contact_type
-                first_name
-                last_name
-                pgp_fingerprint
-                emails {
-                    handle_id
-                    name
-                    type
-                }
-                phones {
-                    handle_id
-                    name
-                    type
-                }
-                roles {
-                    name
-                    end {
-                        handle_id
-                        name
+                name
+                description
+            }
+        `
+    },
+    {
+        members: graphql`
+            fragment Group_members on Query {
+                contacts(filter: { AND: [{ member_of_groups: { handle_id: 1063 } }] }) {
+                    edges {
+                        node {
+                            handle_id
+                            roles {
+                                name
+                            }
+                        }
                     }
-                }
-                comments {
-                    id
-                    user {
-                        first_name
-                        last_name
-                    }
-                    comment
-                    submit_date
                 }
             }
         `
@@ -312,12 +186,12 @@ const ContactFragment = createRefetchContainer(
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-        query ContactRefetchQuery($contactId: Int!) {
-            getContactById(handle_id: $contactId) {
-                ...Contact_contact
+        query GroupRefetchQuery($groupId: Int!) {
+            getGroupById(handle_id: $groupId) {
+                ...Group_group
             }
         }
     `
 );
 
-export default ContactFragment;
+export default GroupFragment;

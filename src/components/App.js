@@ -43,9 +43,7 @@ class App extends Component {
                                         <Breadcrumbs mappedRoutes={Routes} />
                                     </Col>
                                     <Col className="text-right">
-                                        <Switch>
-                                            <Route path="/community/contacts/" component={SubMenuActions} />
-                                        </Switch>
+                                        <SubMenuActions />
                                     </Col>
                                 </Row>
                                 <NotifyContainer />

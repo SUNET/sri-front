@@ -22,9 +22,9 @@ class DashBoardBlockRow extends React.PureComponent {
                 <Row>dasdfsdf
                     <Col className="col-md-auto pr-0 align-self-center">
                         <div>
-                            <Image src={require("../img/profile.png")} roundedCircle img-fluid="true" />
+                            <Image src={require("../static/img/profile.png")} roundedCircle img-fluid="true" />
                         </div>
-                    </Col>asdfasdfasdf
+                    </Col>
                     <Col className="pr-0 align-self-center">
                         <div>
                             <div>

@@ -8,22 +8,21 @@ import { withRouter } from "react-router-dom";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import { ContactDetails } from "./contact";
-import CreateContactContainer from "../containers/CreateContact";
-import ContactListContainer from "../containers/ContactList";
+import { GroupDetails } from "./group";
+import CreateGroupContainer from "../containers/CreateGroup";
+import GroupListContainer from "../containers/GroupList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
 // import { RouteNotFound } from "./NotFound";
 
-const SearchAllContactsQuery = graphql`
-    query SearchAllContactsQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
-        ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
-        ...ContactList_organization_types
+const SearchGroupAllQuery = graphql`
+    query SearchGroupAllQuery($count: Int!, $filter: GroupFilter, $orderBy: GroupOrderBy) {
+        ...GroupList_groups @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
 `;
 
-class Search extends React.Component {
+class SearchGroup extends React.Component {
     constructor(props) {
         super(props);
 
@@ -92,7 +91,7 @@ class Search extends React.Component {
             <QueryLookupRenderer
                 lookup={true}
                 environment={environment}
-                query={SearchAllContactsQuery}
+                query={SearchGroupAllQuery}
                 variables={{
                     count: ITEMS_PER_PAGE,
                     filter: {
@@ -110,9 +109,8 @@ class Search extends React.Component {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <ContactListContainer
-                                contacts={props}
-                                organization_types={props}
+                            <GroupListContainer
+                                groups={props}
                                 changeCount={this._handleOnChangeCount}
                             />
                         );
@@ -129,7 +127,7 @@ class Search extends React.Component {
                 <Switch>
                     <Route
                         exact
-                        path={`${this.props.match.url}/contacts`}
+                        path={`${this.props.match.url}/groups`}
                         render={() => (
                             <>
                                 <Row>
@@ -176,12 +174,12 @@ class Search extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/contacts/create`} component={CreateContactContainer} />
-                    <Route path={`${this.props.match.url}/contacts/:contactId`} component={ContactDetails} />
+                    <Route path={`${this.props.match.url}/groups/create`} component={CreateGroupContainer} />
+                    <Route path={`${this.props.match.url}/groups/:groupId`} component={GroupDetails} />
                 </Switch>
             </section>
         );
     }
 }
 
-export default withRouter(Search);
+export default withRouter(SearchGroup);
