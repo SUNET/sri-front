@@ -17,9 +17,8 @@ import InfoCreatorModifier from "../InfoCreatorModifier";
 const GroupDetailsQuery = graphql`
     query GroupDetailsQuery($groupId: Int!) {
         getGroupById(handle_id: $groupId) {
-            ...Contact_contact
+            ...Group_group
             name
-            contact_type
             created
             creator {
                 email

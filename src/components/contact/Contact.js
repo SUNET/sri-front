@@ -10,7 +10,6 @@ import Worklog from "../Worklog";
 import Dropdown from "../Dropdown";
 import ComponentFormRow from "../ComponentFormRow";
 import CopyToClipboard from "../CopyToClipboard";
-import AppendChild from "../AppendChild";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
@@ -45,7 +44,9 @@ class Contact extends React.PureComponent {
                                 <TogglePanel>
                                     <PanelEditable.Consumer>
                                         {(editable) => {
-                                            return <span>test {editable.toString()}</span>;
+                                            return !editable ? (
+                                                contact.notes
+                                            ) : (null)
                                         }}
                                     </PanelEditable.Consumer>
                                 </TogglePanel>
@@ -97,44 +98,30 @@ class Contact extends React.PureComponent {
                                                                     )}
                                                                 </div>
                                                                 <div>
-                                                                    {!editable ? (
-                                                                        <CopyToClipboard>
-                                                                            {contact.email}
-                                                                        </CopyToClipboard>
-                                                                    ) : (
-                                                                        <AppendChild>
-                                                                            <div>
-                                                                                <Form.Group controlId="formGroupEmail">
-                                                                                    <Form.Control
-                                                                                        className="lg"
-                                                                                        placeholder="Email"
-                                                                                        name="email"
-                                                                                        defaultValue={contact.email}
-                                                                                        onChange={(e) =>
-                                                                                            this.props.onChange(e)
-                                                                                        }
-                                                                                    />
-                                                                                </Form.Group>
-                                                                            </div>
-                                                                        </AppendChild>
-                                                                    )}
+                                                                    <div className="list-items-label">
+                                                                        {contact.emails.map((email, index) => {
+                                                                            return !editable ? (
+                                                                                <div>
+                                                                                    <CopyToClipboard>
+                                                                                        {email.name}
+                                                                                    </CopyToClipboard>
+                                                                                    <div>{email.type}</div>
+                                                                                </div>
+                                                                            ) : null;
+                                                                        })}
+                                                                    </div>
                                                                 </div>
                                                                 <div>
-                                                                    {!editable ? (
-                                                                        contact.phone
-                                                                    ) : (
-                                                                        <AppendChild position="button">
-                                                                            <Form.Group controlId="formGroupFirstName">
-                                                                                <NumberFormat
-                                                                                    value={contact.phone}
-                                                                                    displayType={
-                                                                                        editable ? "input" : "text"
-                                                                                    }
-                                                                                    format="+34 ### ### ###"
-                                                                                />
-                                                                            </Form.Group>
-                                                                        </AppendChild>
-                                                                    )}
+                                                                    <div className="list-items-label">
+                                                                        {contact.phones.map((phone, index) => {
+                                                                            return !editable ? (
+                                                                                <div className="list-items-label">
+                                                                                    <div>{phone.name}</div>
+                                                                                    <div>{phone.type}</div>
+                                                                                </div>
+                                                                            ) : null;
+                                                                        })}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -275,6 +262,7 @@ const ContactFragment = createRefetchContainer(
         contact: graphql`
             fragment Contact_contact on Contact {
                 handle_id
+                notes
                 title
                 contact_type
                 first_name

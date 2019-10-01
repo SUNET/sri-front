@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a69f9d6d018c8da0707090d98d403da2
+ * @relayHash deb2d8b79ca6460de5be0e967aef560b
  */
 
 /* eslint-disable */
@@ -37,6 +37,7 @@ query ContactRefetchQuery(
 
 fragment Contact_contact on Contact {
   handle_id
+  notes
   title
   contact_type
   first_name
@@ -183,6 +184,13 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
+            "name": "notes",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
             "name": "title",
             "args": null,
             "storageKey": null
@@ -298,7 +306,7 @@ return {
     "operationKind": "query",
     "name": "ContactRefetchQuery",
     "id": null,
-    "text": "query ContactRefetchQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    name\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query ContactRefetchQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...Contact_contact\n    id\n  }\n}\n\nfragment Contact_contact on Contact {\n  handle_id\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    name\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

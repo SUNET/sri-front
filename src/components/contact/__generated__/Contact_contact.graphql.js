@@ -13,6 +13,7 @@ declare export opaque type Contact_contact$ref: FragmentReference;
 declare export opaque type Contact_contact$fragmentType: Contact_contact$ref;
 export type Contact_contact = {|
   +handle_id: string,
+  +notes: ?string,
   +title: ?string,
   +contact_type: ?string,
   +first_name: string,
@@ -102,6 +103,13 @@ return {
   "argumentDefinitions": [],
   "selections": [
     (v0/*: any*/),
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "notes",
+      "args": null,
+      "storageKey": null
+    },
     {
       "kind": "ScalarField",
       "alias": null,
@@ -219,5 +227,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c74cbd99774d136f3084395a6fba8656';
+(node/*: any*/).hash = 'e85771a58374a52b83590600f2f81755';
 module.exports = node;

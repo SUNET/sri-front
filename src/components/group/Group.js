@@ -4,13 +4,13 @@ import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import NumberFormat from "react-number-format";
+// import NumberFormat from "react-number-format";
 
 import Worklog from "../Worklog";
-import Dropdown from "../Dropdown";
+// import Dropdown from "../Dropdown";
 import ComponentFormRow from "../ComponentFormRow";
-import CopyToClipboard from "../CopyToClipboard";
-import AppendChild from "../AppendChild";
+// import CopyToClipboard from "../CopyToClipboard";
+// import AppendChild from "../AppendChild";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
@@ -22,7 +22,7 @@ class Group extends React.PureComponent {
 
     refetch = () => {
         this.props.relay.refetch(
-            { contactId: this.props.contact.handle_id }, // Our refetchQuery needs to know the `contactID`
+            { contactId: this.props.contact.handle_id }, // Our refetchQuery needs to know the `groupID`
             null, // We can use the refetchVariables as renderVariables
             () => {
                 console.log("Refetch done");

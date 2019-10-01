@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { addRow } from "../actions/ComponentFormRow";
-import { CreateContact } from "../components/contact";
+import { CreateGroup } from "../components/group";
 
 const mapStateToProps = (state, props) => {
     return {};
@@ -13,9 +13,9 @@ const mapDispatchToProps = (dispatch, props) => {
     };
 };
 
-const CreateContactContainer = connect(
+const CreateGroupContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(CreateContact);
+)(CreateGroup);
 
-export default CreateContactContainer;
+export default CreateGroupContainer;

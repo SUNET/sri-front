@@ -64,8 +64,23 @@
                     }
                 }
             }
+
+            .list-items-label {
+                display: table;
+                > div {
+                    display: table-row;
+                    > div:first-of-type {
+                        display: table-cell;
+                        padding-right: 8px;
+                    }
+
+                    > div:last-of-type {
+                        display: table-cell;
+                        font-family: karla;
+                        color: $secondary-color-30;
+                    }
+                }
+            }
         }
-
-
     }
 }

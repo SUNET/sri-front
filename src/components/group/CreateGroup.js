@@ -1,8 +1,10 @@
 import React from "react";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import NumberFormat from "react-number-format";
-import { FieldArray, Field, reduxForm } from "redux-form";
+import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
+import uuidv4 from "uuid/v4";
+
+import DropdownSearch from "../DropdownSearch";
 
 import CreateContactMutation from "../../mutations/CreateContactMutation";
 
@@ -12,115 +14,32 @@ import EditField from "../EditField";
 import FieldInput from "../FieldInput";
 import ComponentFormRowContainer from "../../containers/ComponentFormRow";
 
-const renderEmails = ({ fields, onBlurEmail, onChangeType, t }) => {
-    const pushField = (event) => {
-        if (fields.length < 5) {
-            fields.push({});
-        }
-    };
-    return (
-        <>
-            {fields.map((email, index) => (
-                <div key={`${index}_${fields.length}`} className="input-group">
-                    <Form.Group className="d-inline mr-2">
-                        <Field
-                            name={`${email}.email`}
-                            type="text"
-                            component={FieldInput}
-                            placeholder="Email"
-                            onBlur={(e) => onBlurEmail(e, index)}
-                        />
-                    </Form.Group>
-                    <Dropdown
-                        className="auto"
-                        emptyLabel="Type"
-                        type="email_type"
-                        name={`${email}.type`}
-                        onChange={(e) => onChangeType(e, index)}
-                    />
-                </div>
-            ))}
-            <button type="button" className="btn btn-add outline" onClick={(e) => pushField(e)}>
-                <span>{t("actions.add-new")}</span>
-            </button>
-        </>
-    );
-};
-
-const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
-    const pushField = (event) => {
-        if (fields.length < 5) {
-            fields.push({});
-        }
-    };
-    return (
-        <>
-            {fields.map((phone, index) => (
-                <div key={`${index}_${fields.length}`} className="input-group">
-                    <Form.Group className="d-inline mr-2">
-                        <Field
-                            className="auto"
-                            name={`${phone}.phone`}
-                            type="text"
-                            component={FieldInput}
-                            placeholder="Phone"
-                            onBlur={(e) => onBlurPhone(e, index)}
-                        />
-                    </Form.Group>
-                    <Dropdown
-                        className="auto"
-                        emptyLabel="Type"
-                        type="phone_type"
-                        name={`${phone}.type`}
-                        onChange={(e) => onChangeType(e, index)}
-                    />
-                    <button type="button" onClick={() => fields.remove(index)}>
-                        del
-                    </button>
-                </div>
-            ))}
-            <button type="button" className="btn btn-add outline" onClick={(e) => pushField(e)}>
-                <span>{t("actions.add-new")}</span>
-            </button>
-        </>
-    );
-};
-
-const renderOrganizations = ({ fields, meta, onChangeRole, onBlurOrganization, onChangeOrganization, t, addRow }) => {
-    const uuidv4 = require("uuid/v4");
+const renderMembers = ({ fields, meta, onChangeRole, onBlurMember, onChangeMember, t, addRow }) => {
     const pushField = (event) => {
         if (fields.length < 5) {
             addRow(fields.length);
             fields.push({ key: uuidv4() });
         }
     };
+    console.log(fields.getAll());
     return (
         <>
-            {fields.map((organization, index) => (
+            {fields.map((member, index) => (
                 <>
                     <span>{`${index}_${fields.length}`}</span>
-                    <span>{organization.key}</span>
-                    <ComponentFormRowContainer editable={true} key={organization.key} index={index} fields={fields}>
+                    <span>{member.key}</span>
+                    <ComponentFormRowContainer editable={true} key={member.key} index={index} fields={fields}>
                         {(editFields, isNew) => {
                             return editFields || isNew ? (
                                 <>
-                                    <div>
-                                        <Dropdown
-                                            className="auto"
-                                            emptyLabel="Select role"
-                                            model="roles"
-                                            name={`${organization}.role`}
-                                            onChange={(e) => onChangeRole(e, index)}
-                                        />
-                                    </div>
                                     <div>
                                         <Form.Group>
                                             <Field
                                                 type="text"
                                                 component={FieldInput}
-                                                placeholder="Type ID"
-                                                name={`${organization}.id`}
-                                                onBlur={(e) => onBlurOrganization(e, index)}
+                                                placeholder="Full Name"
+                                                name={`${member}.name`}
+                                                onBlur={(e) => onBlurMember(e, index)}
                                             />
                                         </Form.Group>
                                     </div>
@@ -129,9 +48,31 @@ const renderOrganizations = ({ fields, meta, onChangeRole, onBlurOrganization, o
                                             className="auto"
                                             emptyLabel="Select organization"
                                             model="organization"
-                                            name={`${organization}.organization`}
-                                            onChange={(e) => onChangeOrganization(e, index)}
+                                            name={`${member}.organization`}
+                                            onChange={(e) => onChangeMember(e, index)}
                                         />
+                                    </div>
+                                    <div>
+                                        <Form.Group>
+                                            <Field
+                                                type="text"
+                                                component={FieldInput}
+                                                placeholder="Email"
+                                                name={`${member}.email`}
+                                                onBlur={(e) => onBlurMember(e, index)}
+                                            />
+                                        </Form.Group>
+                                    </div>
+                                    <div>
+                                        <Form.Group>
+                                            <Field
+                                                type="text"
+                                                component={FieldInput}
+                                                placeholder="Phone"
+                                                name={`${member}.phone`}
+                                                onBlur={(e) => onBlurMember(e, index)}
+                                            />
+                                        </Form.Group>
                                     </div>
                                 </>
                             ) : (
@@ -155,60 +96,28 @@ const renderOrganizations = ({ fields, meta, onChangeRole, onBlurOrganization, o
     );
 };
 
-class CreateContact extends React.PureComponent {
+class CreateGroup extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            title: "",
-            first_name: "New",
-            last_name: "Contact",
-            notes: "",
-            pgp_fingerprint: "",
-            emails: {},
-            phones: {},
-            contact_type: "",
+            name: "New Group",
+            description: "",
+            newMember: {},
+            members: {},
             comment: "",
-            organizations: {},
             errors: []
         };
     }
 
     handleFieldChange = (event) => {
-        if (event.target.name === "fullName") {
-            let fullName = event.target.value;
-            fullName = fullName.split(" ");
-            this.setState({ first_name: fullName[0], last_name: fullName[1] });
-        }
+        this.setState({ name: event.target.value });
     };
 
-    _handleContact() {
-        const {
-            title,
-            first_name,
-            last_name,
-            notes,
-            pgp_fingerprint,
-            emails,
-            phones,
-            contact_type,
-            comment,
-            organizations
-        } = this.state;
+    _handleGroup() {
+        const { name, description } = this.state;
 
-        CreateContactMutation(
-            title,
-            first_name,
-            last_name,
-            notes,
-            pgp_fingerprint,
-            contact_type,
-            comment,
-            emails,
-            phones,
-            organizations,
-            () => this.props.history
-        )
+        CreateContactMutation(name, description, () => this.props.history)
             .then((response) => {
                 console.log(response);
             })
@@ -226,16 +135,31 @@ class CreateContact extends React.PureComponent {
         this._handleContact();
     };
 
+    handleSelectedMember = (selection) => {
+        // this.setState({ newMember: { ...selection.node } });
+        if (selection !== null) {
+
+            const addMember = { ...selection.node };
+            console.log("PUSH",addMember);
+            this.props.dispatch(arrayPush("createGroup", "members", {
+                name: addMember.name,
+                organization: addMember.roles[0].end.handle_id,
+                email: addMember.emails[0].name,
+                phone: addMember.phones[0].name,
+                key: uuidv4(),
+            }));
+        }
+    };
+
     render() {
         const { t } = this.props;
+        console.log(this.props);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
                     <section className="title-section">
                         <EditField onChange={this.handleFieldChange}>
-                            <h1 className="ml-0">
-                                {this.state.first_name} {this.state.last_name}
-                            </h1>
+                            <h1 className="ml-0">{this.state.name}</h1>
                         </EditField>
                     </section>
                     <section className="model-section">
@@ -243,7 +167,7 @@ class CreateContact extends React.PureComponent {
                             <Col>
                                 <ToggleSection defaultEditable={false}>
                                     <ToggleHeading>
-                                        <h2>{t("contact-details.notes")}</h2>
+                                        <h2>{t("group-details.description")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
                                         <Field
@@ -251,7 +175,7 @@ class CreateContact extends React.PureComponent {
                                             component={FieldInput}
                                             as="textarea"
                                             rows="3"
-                                            placeholder={t("contact-details.add-notes")}
+                                            placeholder={t("group-details.add-description")}
                                             onChange={(e) => {
                                                 this.setState({ notes: e.target.value });
                                             }}
@@ -262,185 +186,53 @@ class CreateContact extends React.PureComponent {
                             </Col>
                         </Form.Row>
                         <hr />
+                        <DropdownSearch selection={this.handleSelectedMember} />
                         <Form.Row>
                             <Col>
                                 <ToggleSection defaultEditable={false}>
                                     <ToggleHeading>
-                                        <h2>{t("contact-details.general-information")}</h2>
+                                        <h2>{t("group-details.members")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
                                         <div className="table-details">
                                             <div>
-                                                <div>Title</div>
-                                                <div>Type</div>
-                                                <div>E-mails</div>
-                                                <div>Phone</div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <div>
-                                                        <Form.Group controlId="formGroupTitle">
-                                                            <Field
-                                                                type="text"
-                                                                component={FieldInput}
-                                                                placeholder="Type title"
-                                                                name="title"
-                                                                onBlur={(e) => this.setState({ title: e.target.value })}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
-                                                    <div>
-                                                        <Dropdown
-                                                            className="auto"
-                                                            emptyLabel="Type"
-                                                            name="type"
-                                                            type="contact_type"
-                                                            onChange={(e) =>
-                                                                this.setState({ contact_type: e.target.value })
-                                                            }
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <FieldArray
-                                                            name="emails"
-                                                            t={t}
-                                                            component={renderEmails}
-                                                            onBlurEmail={(event, index) =>
-                                                                this.setState({
-                                                                    emails: {
-                                                                        ...this.state.emails,
-                                                                        [index]: {
-                                                                            ...this.state.emails[index],
-                                                                            email: event.target.value
-                                                                        }
-                                                                    }
-                                                                })
-                                                            }
-                                                            onChangeType={(event, index) =>
-                                                                this.setState({
-                                                                    emails: {
-                                                                        ...this.state.emails,
-                                                                        [index]: {
-                                                                            ...this.state.emails[index],
-                                                                            type: event.target.value
-                                                                        }
-                                                                    }
-                                                                })
-                                                            }
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <FieldArray
-                                                            name="phones"
-                                                            t={t}
-                                                            component={renderPhones}
-                                                            onBlurPhone={(event, index) =>
-                                                                this.setState({
-                                                                    phones: {
-                                                                        ...this.state.phones,
-                                                                        [index]: {
-                                                                            ...this.state.phones[index],
-                                                                            number: event.target.value
-                                                                        }
-                                                                    }
-                                                                })
-                                                            }
-                                                            onChangeType={(event, index) =>
-                                                                this.setState({
-                                                                    phones: {
-                                                                        ...this.state.phones,
-                                                                        [index]: {
-                                                                            ...this.state.phones[index],
-                                                                            type: event.target.value
-                                                                        }
-                                                                    }
-                                                                })
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="table-details">
-                                            <div>
-                                                <div>PGP Fingerprint</div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <Form.Group controlId="formGrouppgp_fingerprint">
-                                                        <NumberFormat
-                                                            className="auto"
-                                                            name="pgp_fingerprint"
-                                                            displayType="input"
-                                                            format="#### #### #### #### #### #### #### #### #### ####"
-                                                            onBlur={(e) =>
-                                                                this.setState({
-                                                                    pgp_fingerprint: e.target.value
-                                                                })
-                                                            }
-                                                        />
-                                                    </Form.Group>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </TogglePanel>
-                                </ToggleSection>
-                            </Col>
-                        </Form.Row>
-                        <hr />
-                        <Form.Row>
-                            <Col>
-                                <ToggleSection defaultEditable={false}>
-                                    <ToggleHeading>
-                                        <h2>{t("contact-details.profesional-details")}</h2>
-                                    </ToggleHeading>
-                                    <TogglePanel>
-                                        <div className="table-details">
-                                            <div>
-                                                <div>Role</div>
-                                                <div>Organization ID</div>
+                                                <div>Name</div>
                                                 <div>Organization</div>
+                                                <div>Email</div>
+                                                <div>Phone</div>
                                                 <div></div>
                                             </div>
                                             <div>
                                                 <FieldArray
-                                                    name="organizations"
-                                                    component={renderOrganizations}
+                                                    name="members"
+                                                    component={renderMembers}
                                                     t={t}
                                                     addRow={this.props.addRow}
-                                                    onChangeRole={(event, index) =>
+                                                    onBlurMember={(event, index) =>
                                                         this.setState({
-                                                            organizations: {
-                                                                ...this.state.organizations,
+                                                            members: {
+                                                                ...this.state.members,
                                                                 [index]: {
-                                                                    ...this.state.organizations[index],
-                                                                    role: event.target.value
+                                                                    ...this.state.members[index],
+                                                                    [event.target.name.split(".")[1]]:
+                                                                        event.target.value
                                                                 }
                                                             }
                                                         })
                                                     }
-                                                    onBlurOrganization={(event, index) =>
+                                                    onChangeMember={(event, index) =>
                                                         this.setState({
-                                                            organizations: {
-                                                                ...this.state.organizations,
+                                                            members: {
+                                                                ...this.state.members,
                                                                 [index]: {
-                                                                    ...this.state.organizations[index],
-                                                                    handle_id: event.target.value
+                                                                    ...this.state.members[index],
+                                                                    [event.target.name.split(".")[1]]:
+                                                                        event.target.value
                                                                 }
                                                             }
                                                         })
                                                     }
-                                                    onChangeOrganization={(event, index) =>
-                                                        this.setState({
-                                                            organizations: {
-                                                                ...this.state.organizations,
-                                                                [index]: {
-                                                                    ...this.state.organizations[index],
-                                                                    id: event.target.value
-                                                                }
-                                                            }
-                                                        })
-                                                    }
+                                                    addMember={this.state.newMember}
                                                 />
                                             </div>
                                         </div>
@@ -551,14 +343,12 @@ const validate = (values) => {
     return errors;
 };
 
-CreateContact = reduxForm({
-    form: "createContact",
+CreateGroup = reduxForm({
+    form: "createGroup",
     validate,
     initialValues: {
-        emails: [{ email: "", type: "" }],
-        phones: [{ phone: "", type: "" }],
-        organizations: [{ role: "", id: "", organization: "" }]
+        members: [{ name: "", organization: "", email: "", phone: "", key: uuidv4() }]
     }
-})(CreateContact);
+})(CreateGroup);
 
-export default withTranslation()(CreateContact);
+export default withTranslation()(CreateGroup);

@@ -3,6 +3,7 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import NumberFormat from "react-number-format";
 import { FieldArray, Field, reduxForm } from "redux-form";
+import uuidv4 from "uuid/v4";
 
 import CreateContactMutation from "../../mutations/CreateContactMutation";
 
@@ -87,13 +88,14 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
 };
 
 const renderOrganizations = ({ fields, meta, onChangeRole, onBlurOrganization, onChangeOrganization, t, addRow }) => {
-    const uuidv4 = require("uuid/v4");
+
     const pushField = (event) => {
         if (fields.length < 5) {
             addRow(fields.length);
             fields.push({ key: uuidv4() });
         }
     };
+    console.log(fields.getAll());
     return (
         <>
             {fields.map((organization, index) => (
@@ -557,7 +559,7 @@ CreateContact = reduxForm({
     initialValues: {
         emails: [{ email: "", type: "" }],
         phones: [{ phone: "", type: "" }],
-        organizations: [{ role: "", id: "", organization: "" }]
+        organizations: [{ role: "", id: "", organization: "", key: uuidv4()}]
     }
 })(CreateContact);
 
