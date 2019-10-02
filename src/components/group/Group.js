@@ -22,7 +22,7 @@ class Group extends React.PureComponent {
 
     refetch = () => {
         this.props.relay.refetch(
-            { contactId: this.props.contact.handle_id }, // Our refetchQuery needs to know the `groupID`
+            { groupId: this.props.group.handle_id }, // Our refetchQuery needs to know the `groupID`
             null, // We can use the refetchVariables as renderVariables
             () => {
                 console.log("Refetch done");
@@ -32,7 +32,7 @@ class Group extends React.PureComponent {
     };
 
     render() {
-        let { contact, t } = this.props;
+        let { group, t } = this.props;
         return (
             <>
                 <section className="model-section">
@@ -50,106 +50,11 @@ class Group extends React.PureComponent {
                                     </PanelEditable.Consumer>
                                 </TogglePanel>
                             </ToggleSection>
-                            <ToggleSection>
-                                <ToggleHeading>
-                                    <h2>{t("contact-details.profesional-details")}</h2>
-                                </ToggleHeading>
-                                <TogglePanel>
-                                    <PanelEditable.Consumer>
-                                        {(editable) => {
-                                            return (
-                                                <div className="table-details">
-                                                    <div>
-                                                        <div>Role</div>
-                                                        <div>Organization ID</div>
-                                                        <div>Organization</div>
-                                                        <div></div>
-                                                    </div>
-                                                    <div>
-                                                        {contact.roles.map((role, index) => {
-                                                            return (
-                                                                <ComponentFormRow editable={editable} key={role.name}>
-                                                                    {(editFields) => {
-                                                                        return (
-                                                                            <>
-                                                                                {!editFields ? (
-                                                                                    <>
-                                                                                        {/* <div>{role.name}</div>
-                                                                                        <div>{role.end.handle_id}</div>
-                                                                                        <div>{role.end.name}</div> */}
-                                                                                    </>
-                                                                                ) : (
-                                                                                    <>
-                                                                                        <div>
-                                                                                            <Form.Group controlId="formGroupEmail">
-                                                                                                <Form.Control
-                                                                                                    placeholder="Email"
-                                                                                                    name="email"
-                                                                                                    defaultValue={
-                                                                                                        role.name
-                                                                                                    }
-                                                                                                    onChange={(e) =>
-                                                                                                        this.props.onChange(
-                                                                                                            e
-                                                                                                        )
-                                                                                                    }
-                                                                                                />
-                                                                                            </Form.Group>
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <Form.Group controlId="formGroupEmail">
-                                                                                                <Form.Control
-                                                                                                    placeholder="Email"
-                                                                                                    name="email"
-                                                                                                    defaultValue={
-                                                                                                        role.end_node
-                                                                                                            .handle_id
-                                                                                                    }
-                                                                                                    onChange={(e) =>
-                                                                                                        this.props.onChange(
-                                                                                                            e
-                                                                                                        )
-                                                                                                    }
-                                                                                                />
-                                                                                            </Form.Group>
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <Form.Group controlId="formGroupEmail">
-                                                                                                <Form.Control
-                                                                                                    placeholder="Email"
-                                                                                                    name="email"
-                                                                                                    defaultValue={
-                                                                                                        role.end_node
-                                                                                                            .name
-                                                                                                    }
-                                                                                                    onChange={(e) =>
-                                                                                                        this.props.onChange(
-                                                                                                            e
-                                                                                                        )
-                                                                                                    }
-                                                                                                />
-                                                                                            </Form.Group>
-                                                                                        </div>
-                                                                                    </>
-                                                                                )}
-                                                                            </>
-                                                                        );
-                                                                    }}
-                                                                </ComponentFormRow>
-                                                            );
-                                                        })}
-                                                    </div>
-                                                </div>
-                                            );
-                                        }}
-                                    </PanelEditable.Consumer>
-                                </TogglePanel>
-                            </ToggleSection>
                         </Col>
                     </Form.Row>
                 </section>
                 <section className="model-section">
-                    <Worklog model={contact} refetch={this.refetch} />
+                    <Worklog model={group} refetch={this.refetch} />
                 </section>
             </>
         );
@@ -169,8 +74,10 @@ const GroupFragment = createRefetchContainer(
     },
     {
         members: graphql`
-            fragment Group_members on Query {
-                contacts(filter: { AND: [{ member_of_groups: { handle_id: 1063 } }] }) {
+            fragment Group_members on Query @argumentDefinitions(
+                filter: { type: ContactFilter }
+            ) {
+                contacts(filter: $filter) {
                     edges {
                         node {
                             handle_id

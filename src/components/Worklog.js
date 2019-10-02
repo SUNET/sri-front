@@ -54,7 +54,7 @@ export class Worklog extends React.Component {
                 <TogglePanel>
                     <div className="worklog">
                         <div>
-                            {model.comments.map((comment, index) => {
+                            {model.comments && model.comments.map((comment, index) => {
                                 return (
                                     <div key={comment.id}>
                                         <header>
