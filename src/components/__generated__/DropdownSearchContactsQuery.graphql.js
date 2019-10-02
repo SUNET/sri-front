@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e4bdc61d0beb2eac38c05597801d0a49
+ * @relayHash 8877205d107d4d45c7fab5b03ab8daae
  */
 
 /* eslint-disable */
@@ -244,6 +244,9 @@ export type DropdownSearchContactsQueryResponse = {|
       +node: ?{|
         +handle_id: string,
         +name: string,
+        +first_name: string,
+        +last_name: string,
+        +contact_type: ?string,
         +emails: ?$ReadOnlyArray<?{|
           +handle_id: string,
           +name: string,
@@ -282,6 +285,9 @@ query DropdownSearchContactsQuery(
       node {
         handle_id
         name
+        first_name
+        last_name
+        contact_type
         emails {
           handle_id
           name
@@ -353,27 +359,48 @@ v3 = {
 v4 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "first_name",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "contact_type",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "type",
   "args": null,
   "storageKey": null
 },
-v5 = [
+v8 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v4/*: any*/)
+  (v7/*: any*/)
 ],
-v6 = {
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
 },
-v7 = [
+v10 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v4/*: any*/),
-  (v6/*: any*/)
+  (v7/*: any*/),
+  (v9/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -413,6 +440,9 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -421,7 +451,7 @@ return {
                     "args": null,
                     "concreteType": "Email",
                     "plural": true,
-                    "selections": (v5/*: any*/)
+                    "selections": (v8/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -431,7 +461,7 @@ return {
                     "args": null,
                     "concreteType": "Phone",
                     "plural": true,
-                    "selections": (v5/*: any*/)
+                    "selections": (v8/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -500,6 +530,9 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -508,7 +541,7 @@ return {
                     "args": null,
                     "concreteType": "Email",
                     "plural": true,
-                    "selections": (v7/*: any*/)
+                    "selections": (v10/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -518,7 +551,7 @@ return {
                     "args": null,
                     "concreteType": "Phone",
                     "plural": true,
-                    "selections": (v7/*: any*/)
+                    "selections": (v10/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -541,12 +574,12 @@ return {
                         "selections": [
                           (v2/*: any*/),
                           (v3/*: any*/),
-                          (v6/*: any*/)
+                          (v9/*: any*/)
                         ]
                       }
                     ]
                   },
-                  (v6/*: any*/)
+                  (v9/*: any*/)
                 ]
               }
             ]
@@ -559,11 +592,11 @@ return {
     "operationKind": "query",
     "name": "DropdownSearchContactsQuery",
     "id": null,
-    "text": "query DropdownSearchContactsQuery(\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  contacts(filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        name\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n",
+    "text": "query DropdownSearchContactsQuery(\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  contacts(filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        name\n        first_name\n        last_name\n        contact_type\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '80636700cd7b022c3732acc074ab2dd5';
+(node/*: any*/).hash = 'ceeccbdc61818978cdec5ebb4a0064c1';
 module.exports = node;

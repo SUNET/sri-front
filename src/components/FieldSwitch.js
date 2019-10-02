@@ -11,7 +11,7 @@ class FieldSwitch extends Component {
         this.state = { checked: this.props.defaultValue || false };
     }
 
-    componentWillUpdate(prevProps) {
+    UNSAFE_componentWillUpdate(prevProps) {
         if (this.props.defaultValue !== prevProps.defaultValue) {
             this.setState({ checked: prevProps.defaultValue });
         }

@@ -9,14 +9,13 @@ import { withTranslation } from "react-i18next";
 
 import Group from "./Group";
 import EditField from "../EditField";
-import DeleteContactMutation from "../../mutations/DeleteContactMutation";
 import UpdateGroupMutation from "../../mutations/UpdateGroupMutation";
+import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
 import environment from "../../createRelayEnvironment";
 import InfoCreatorModifier from "../InfoCreatorModifier";
 
 const GroupDetailsQuery = graphql`
     query GroupDetailsQuery($groupId: Int!, $filter: ContactFilter) {
-        ...Group_members @arguments(count: $count, filter: $filter)
         getGroupById(handle_id: $groupId) {
             ...Group_group
             name
@@ -27,6 +26,32 @@ const GroupDetailsQuery = graphql`
             modified
             modifier {
                 email
+            }
+        }
+        contacts(filter: $filter) {
+            edges {
+                node {
+                    handle_id
+                    first_name
+                    last_name
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    roles {
+                        name
+                        end {
+                            handle_id
+                            name
+                        }
+                    }
+                }
             }
         }
     }
@@ -63,8 +88,9 @@ class GroupDetails extends React.Component {
         UpdateGroupMutation(update_group);
     };
 
-    getGroup = (group) => {
-        this.group = group;
+    _handleDelete = () => {
+        const groupId = this.props.match.params.groupId;
+        DeleteGroupMutation(groupId, () => this.props.history.push(`/community/groups`));
     };
 
     render() {
@@ -89,7 +115,6 @@ class GroupDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        this.group = props.getGroupById;
                         return (
                             <section className="model-details">
                                 <Row>
@@ -114,9 +139,17 @@ class GroupDetails extends React.Component {
                                 <Row>
                                     <Col>
                                         <Form>
-                                            <Group onChange={this._handleGroupChange} group={props.getGroupById} />
+                                            <Group
+                                                onChange={this._handleGroupChange}
+                                                group={props.getGroupById}
+                                                members={props.contacts}
+                                            />
                                             <div className="text-right mt-4">
-                                                <button onClick={() => this._handleDelete()} className="btn link">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => this._handleDelete()}
+                                                    className="btn link"
+                                                >
                                                     {t("actions.delete")}
                                                 </button>
                                                 <button

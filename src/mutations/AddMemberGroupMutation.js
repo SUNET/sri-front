@@ -7,6 +7,13 @@ const mutation = graphql`
         update_contact(input: $input) {
             contact {
                 handle_id
+                first_name
+                last_name
+                contact_type
+                member_of_groups{
+                    handle_id
+                    name
+                }
             }
         }
     }
@@ -18,6 +25,7 @@ export default function AddMemberGroupMutation(contact, group) {
             handle_id: contact.id,
             first_name: contact.first_name,
             last_name: contact.last_name,
+            contact_type: contact.contact_type,
             relationship_member_of: group,
             clientMutationId: ""
         }

@@ -54,7 +54,7 @@ class ContactDetails extends React.Component {
         };
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
         if (this.state.first_name !== nextState.first_name && this.state.last_name !== nextState.last_name) {
             this._handleUpdate(nextState);
         }
@@ -132,16 +132,19 @@ class ContactDetails extends React.Component {
                                                 contact={props.getContactById}
                                             />
                                             <div className="text-right mt-4">
-                                            <button onClick={() => this._handleDelete()} className="btn link">
-                                                {t("actions.delete")}
-                                            </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => this._handleDelete()}
+                                                    className="btn link"
+                                                >
+                                                    {t("actions.delete")}
+                                                </button>
                                                 <button
                                                     onClick={() => this._handleUpdate(props.getContactById)}
                                                     className="btn primary lg"
                                                 >
                                                     {t("actions.save")}
                                                 </button>
-
                                             </div>
                                         </Form>
                                     </Col>

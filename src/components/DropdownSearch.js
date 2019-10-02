@@ -13,6 +13,9 @@ const DropdownSearchContactsQuery = graphql`
                 node {
                     handle_id
                     name
+                    first_name
+                    last_name
+                    contact_type
                     emails{
                         handle_id
                         name

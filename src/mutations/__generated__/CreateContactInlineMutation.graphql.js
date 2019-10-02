@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 67d55f966a59c8b37e16e13a7aa78904
+ * @relayHash 4ad75169f063484431ac0c6059d88a82
  */
 
 /* eslint-disable */
@@ -9,7 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type UpdateContactInput = {|
+export type CreateContactInput = {|
   first_name: string,
   last_name: string,
   contact_type: any,
@@ -20,45 +20,57 @@ export type UpdateContactInput = {|
   relationship_works_for?: ?any,
   relationship_member_of?: ?any,
   role?: ?any,
-  handle_id: number,
   clientMutationId?: ?string,
 |};
-export type AddMemberGroupMutationVariables = {|
-  input: UpdateContactInput
+export type CreateContactInlineMutationVariables = {|
+  input: CreateContactInput
 |};
-export type AddMemberGroupMutationResponse = {|
-  +update_contact: ?{|
+export type CreateContactInlineMutationResponse = {|
+  +create_contact: ?{|
     +contact: ?{|
       +handle_id: string,
       +first_name: string,
       +last_name: string,
       +contact_type: ?string,
+      +roles: ?$ReadOnlyArray<?{|
+        +name: ?string,
+        +end: ?{|
+          +handle_id: string,
+          +name: string,
+        |},
+      |}>,
       +member_of_groups: ?$ReadOnlyArray<?{|
-        +handle_id: string,
-        +name: string,
+        +name: string
       |}>,
     |}
   |}
 |};
-export type AddMemberGroupMutation = {|
-  variables: AddMemberGroupMutationVariables,
-  response: AddMemberGroupMutationResponse,
+export type CreateContactInlineMutation = {|
+  variables: CreateContactInlineMutationVariables,
+  response: CreateContactInlineMutationResponse,
 |};
 */
 
 
 /*
-mutation AddMemberGroupMutation(
-  $input: UpdateContactInput!
+mutation CreateContactInlineMutation(
+  $input: CreateContactInput!
 ) {
-  update_contact(input: $input) {
+  create_contact(input: $input) {
     contact {
       handle_id
       first_name
       last_name
       contact_type
+      roles {
+        name
+        end {
+          handle_id
+          name
+          id
+        }
+      }
       member_of_groups {
-        handle_id
         name
         id
       }
@@ -73,7 +85,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateContactInput!",
+    "type": "CreateContactInput!",
     "defaultValue": null
   }
 ],
@@ -130,7 +142,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "AddMemberGroupMutation",
+    "name": "CreateContactInlineMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -138,10 +150,10 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "update_contact",
+        "name": "create_contact",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateContactPayload",
+        "concreteType": "CreateContactPayload",
         "plural": false,
         "selections": [
           {
@@ -160,13 +172,37 @@ return {
               {
                 "kind": "LinkedField",
                 "alias": null,
+                "name": "roles",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "RoleRelation",
+                "plural": true,
+                "selections": [
+                  (v6/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "end",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v6/*: any*/)
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
                 "name": "member_of_groups",
                 "storageKey": null,
                 "args": null,
                 "concreteType": "Group",
                 "plural": true,
                 "selections": [
-                  (v2/*: any*/),
                   (v6/*: any*/)
                 ]
               }
@@ -178,16 +214,16 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "AddMemberGroupMutation",
+    "name": "CreateContactInlineMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "update_contact",
+        "name": "create_contact",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateContactPayload",
+        "concreteType": "CreateContactPayload",
         "plural": false,
         "selections": [
           {
@@ -206,13 +242,38 @@ return {
               {
                 "kind": "LinkedField",
                 "alias": null,
+                "name": "roles",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "RoleRelation",
+                "plural": true,
+                "selections": [
+                  (v6/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "end",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v6/*: any*/),
+                      (v7/*: any*/)
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
                 "name": "member_of_groups",
                 "storageKey": null,
                 "args": null,
                 "concreteType": "Group",
                 "plural": true,
                 "selections": [
-                  (v2/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/)
                 ]
@@ -226,13 +287,13 @@ return {
   },
   "params": {
     "operationKind": "mutation",
-    "name": "AddMemberGroupMutation",
+    "name": "CreateContactInlineMutation",
     "id": null,
-    "text": "mutation AddMemberGroupMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      member_of_groups {\n        handle_id\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateContactInlineMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e3709780b5884e0b63404d40be029ba0';
+(node/*: any*/).hash = '8fe86f7ab7368fb666afb6addef1ce51';
 module.exports = node;

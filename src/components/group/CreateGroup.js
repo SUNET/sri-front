@@ -6,7 +6,7 @@ import uuidv4 from "uuid/v4";
 
 import DropdownSearch from "../DropdownSearch";
 
-import CreateContactMutation from "../../mutations/CreateContactMutation";
+import CreateGroupMutation from "../../mutations/CreateGroupMutation";
 
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Dropdown from "../Dropdown";
@@ -21,7 +21,6 @@ const renderMembers = ({ fields, meta, onChangeRole, onBlurMember, onChangeMembe
             fields.push({ key: uuidv4() });
         }
     };
-    console.log(fields.getAll());
     return (
         <>
             {fields.map((member, index) => (
@@ -103,7 +102,6 @@ class CreateGroup extends React.PureComponent {
         this.state = {
             name: "New Group",
             description: "",
-            newMember: {},
             members: {},
             comment: "",
             errors: []
@@ -114,10 +112,11 @@ class CreateGroup extends React.PureComponent {
         this.setState({ name: event.target.value });
     };
 
-    _handleGroup() {
-        const { name, description } = this.state;
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const { name, description, members, comment } = this.state;
 
-        CreateContactMutation(name, description, () => this.props.history)
+        CreateGroupMutation(name, description, members, comment, () => this.props.history)
             .then((response) => {
                 console.log(response);
             })
@@ -128,32 +127,41 @@ class CreateGroup extends React.PureComponent {
                     })
                 });
             });
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this._handleContact();
     };
 
     handleSelectedMember = (selection) => {
-        // this.setState({ newMember: { ...selection.node } });
         if (selection !== null) {
-
             const addMember = { ...selection.node };
-            console.log("PUSH",addMember);
-            this.props.dispatch(arrayPush("createGroup", "members", {
+            const newMember = {
                 name: addMember.name,
+                first_name: addMember.first_name,
+                last_name: addMember.last_name,
+                id: addMember.handle_id,
+                contact_type: addMember.contact_type,
                 organization: addMember.roles[0].end.handle_id,
                 email: addMember.emails[0].name,
                 phone: addMember.phones[0].name,
-                key: uuidv4(),
-            }));
+                created: true,
+                key: uuidv4()
+            };
+            console.log("member", newMember);
+            this.setState({
+                members: {
+                    ...this.state.members,
+                    [this.state.members.length || 1]: {
+                        ...newMember,
+                    }
+                }
+            })
+            this.props.dispatch(
+                arrayPush("createGroup", "members", newMember)
+            );
         }
     };
 
     render() {
         const { t } = this.props;
-        console.log(this.props);
+        console.log(this.state);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
@@ -171,15 +179,15 @@ class CreateGroup extends React.PureComponent {
                                     </ToggleHeading>
                                     <TogglePanel>
                                         <Field
-                                            name="notes"
+                                            name="description"
                                             component={FieldInput}
                                             as="textarea"
                                             rows="3"
                                             placeholder={t("group-details.add-description")}
-                                            onChange={(e) => {
-                                                this.setState({ notes: e.target.value });
+                                            onBlur={(e) => {
+                                                this.setState({ description: e.target.value });
                                             }}
-                                            value={this.state.notes}
+                                            value={this.state.description}
                                         />
                                     </TogglePanel>
                                 </ToggleSection>
@@ -232,7 +240,6 @@ class CreateGroup extends React.PureComponent {
                                                             }
                                                         })
                                                     }
-                                                    addMember={this.state.newMember}
                                                 />
                                             </div>
                                         </div>
@@ -252,10 +259,9 @@ class CreateGroup extends React.PureComponent {
                                         as="textarea"
                                         rows="3"
                                         placeholder={t("worklog.add-comment")}
-                                        onChange={(e) => {
+                                        onBlur={(e) => {
                                             this.setState({ comment: e.target.value });
                                         }}
-                                        value={this.state.comment}
                                     />
                                 </Form.Group>
                             </TogglePanel>
@@ -286,59 +292,37 @@ class CreateGroup extends React.PureComponent {
 
 const validate = (values) => {
     const errors = {};
-    if (!values.fullName) {
-        errors.fullName = "* Required!";
-    }
-    if (!values.title) {
-        errors.title = "* Required!";
-    }
-    if (!values.emails || !values.emails.length) {
-        errors.emails = { _error: "At least one email must be entered" };
-    } else {
-        const emailArrayErrors = [];
-        values.emails.forEach((email, emailIndex) => {
-            const emailErrors = {};
-            if (!email || !email.email) {
-                emailErrors.email = "* Required!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            }
-            if (!email || !email.type) {
-                emailErrors.type = "* Required!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            }
-            return emailErrors;
-        });
-        if (emailArrayErrors.length) {
-            errors.emails = emailArrayErrors;
-        }
+    if (!values.name) {
+        errors.name = "* Required!";
     }
 
-    if (!values.phones || !values.phones.length) {
-        errors.phones = { _error: "At least one phone must be entered" };
+    if (!values.members || !values.members.length) {
+        errors.members = { _error: "At least one email must be entered" };
     } else {
-        const phoneArrayErrors = [];
-        values.phones.forEach((phone, phoneIndex) => {
-            const phoneErrors = {};
-            if (!phone || !phone.phone) {
-                phoneErrors.phone = "* Required!";
-                phoneArrayErrors[phoneIndex] = phoneErrors;
+        const memberArrayErrors = [];
+        values.members.forEach((member, memberIndex) => {
+            const memberErrors = {};
+            if (!member || !member.name) {
+                memberErrors.name = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
             }
-            if (!phone || !phone.type) {
-                phoneErrors.type = "* Required!";
-                phoneArrayErrors[phoneIndex] = phoneErrors;
+            if (!member || !member.organization) {
+                memberErrors.organization = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
             }
-            return phoneErrors;
+            if (!member || !member.email) {
+                memberErrors.email = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
+            }
+            if (!member || !member.phone) {
+                memberErrors.phone = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
+            }
+            return memberErrors;
         });
-        if (phoneArrayErrors.length) {
-            errors.phones = phoneArrayErrors;
+        if (memberArrayErrors.length) {
+            errors.members = memberArrayErrors;
         }
-    }
-
-    if (!values.phone) {
-        errors.phone = "* Required!";
-    }
-    if (!values.pgp_fingerprint) {
-        errors.pgp_fingerprint = "* Required!";
     }
     return errors;
 };
@@ -347,7 +331,7 @@ CreateGroup = reduxForm({
     form: "createGroup",
     validate,
     initialValues: {
-        members: [{ name: "", organization: "", email: "", phone: "", key: uuidv4() }]
+        members: [{ name: "", organization: "", email: "", phone: "", key: uuidv4(), created: false }]
     }
 })(CreateGroup);
 

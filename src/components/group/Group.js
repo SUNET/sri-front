@@ -4,11 +4,12 @@ import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+import uuidv4 from "uuid/v4";
 // import NumberFormat from "react-number-format";
 
 import Worklog from "../Worklog";
 // import Dropdown from "../Dropdown";
-import ComponentFormRow from "../ComponentFormRow";
+// import ComponentFormRow from "../ComponentFormRow";
 // import CopyToClipboard from "../CopyToClipboard";
 // import AppendChild from "../AppendChild";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
@@ -32,7 +33,7 @@ class Group extends React.PureComponent {
     };
 
     render() {
-        let { group, t } = this.props;
+        let { group, members, t } = this.props;
         return (
             <>
                 <section className="model-section">
@@ -40,14 +41,62 @@ class Group extends React.PureComponent {
                         <Col>
                             <ToggleSection>
                                 <ToggleHeading>
-                                    <h2>{t("contact-details.notes")}</h2>
+                                    <h2>{t("group-details.description")}</h2>
                                 </ToggleHeading>
                                 <TogglePanel>
                                     <PanelEditable.Consumer>
                                         {(editable) => {
-                                            return <span>test {editable.toString()}</span>;
+                                            return <span>{group.description}</span>;
                                         }}
                                     </PanelEditable.Consumer>
+                                </TogglePanel>
+                            </ToggleSection>
+                        </Col>
+                    </Form.Row>
+                    <hr />
+                    <Form.Row>
+                        <Col>
+                            <ToggleSection>
+                                <ToggleHeading>
+                                    <h2>{t("group-details.members")}</h2>
+                                </ToggleHeading>
+                                <TogglePanel>
+                                    <div className="table-details">
+                                        <div>
+                                            <div>Name</div>
+                                            <div>Organization</div>
+                                            <div>Email</div>
+                                            <div>Phone</div>
+                                            <div></div>
+                                        </div>
+                                        <div>
+                                            {members.edges.map((member, index) => {
+                                                return (
+                                                    <div>
+                                                        <div>
+                                                            {member.node.first_name} {member.node.last_name}
+                                                        </div>
+                                                        <div>
+                                                            {member.node.roles.map((role, index) => {
+                                                                return index === 0 ? role.end.name : null;
+                                                            })}
+                                                        </div>
+                                                        <div>
+                                                            {member.node.emails.map((email, index) => {
+                                                                return index === 0 ?  email.name : null;
+                                                            })}
+                                                        </div>
+                                                        <div>
+                                                            {member.node.phones.map((phone, index) => {
+                                                                return index === 0 ?  phone.name : null;
+                                                            })}
+                                                        </div>
+                                                        <div></div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
                                 </TogglePanel>
                             </ToggleSection>
                         </Col>
@@ -74,14 +123,26 @@ const GroupFragment = createRefetchContainer(
     },
     {
         members: graphql`
-            fragment Group_members on Query @argumentDefinitions(
-                filter: { type: ContactFilter }
-            ) {
-                contacts(filter: $filter) {
-                    edges {
-                        node {
+            fragment Group_members on ContactConnection {
+                edges {
+                    node {
+                        handle_id
+                        first_name
+                        last_name
+                        emails {
                             handle_id
-                            roles {
+                            name
+                            type
+                        }
+                        phones {
+                            handle_id
+                            name
+                            type
+                        }
+                        roles {
+                            name
+                            end {
+                                handle_id
                                 name
                             }
                         }

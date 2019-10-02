@@ -3,7 +3,8 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
-import CreateComentMutation from "./CreateCommentMutation";
+import CreateCommentMutation from "./CreateCommentMutation";
+import CreateContactInlineMutation from "./CreateContactInlineMutation";
 import AddMemberGroupMutation from "./AddMemberGroupMutation";
 
 const mutation = graphql`
@@ -23,8 +24,8 @@ let tempID = 0;
 function CreateGroupMutation(
     name,
     description,
-    comment,
     members,
+    comment,
     callback
 ) {
     const variables = {
@@ -41,14 +42,33 @@ function CreateGroupMutation(
             onCompleted: (response, errors) => {
                 console.log(errors);
                 console.log(response, environment);
-                const group_id = response.create_contact.contact.handle_id;
-                CreateComentMutation(group_id, comment);
+                const group_id = response.create_group.group.handle_id;
+                CreateCommentMutation(group_id, comment);
 
-                Object.keys(members).forEach(member => {
-                    AddMemberGroupMutation(member, group_id);
+                Object.keys(members).forEach(member_key => {
+                    let member = members[member_key];
+                    if(!member.created || member.created === undefined){
+                        let fullName = member.name;
+                        fullName = fullName.split(" ");
+                        member.first_name = fullName[0];
+                        member.last_name = fullName[1];
+
+                        CreateContactInlineMutation(
+                            member.first_name,
+                            member.last_name,
+                            member.email,
+                            member.phone,
+                            member.organization,
+                            group_id
+                        );
+                    }else{
+                        console.log(member);
+                        debugger;
+                        AddMemberGroupMutation(member, group_id);
+                    }
                 });
 
-                callback().replace("/community/groups/" + response.create_group.group.handle_id);
+                callback().push("/community/groups/" + response.create_group.group.handle_id);
                 if (errors) {
                     return reject(errors);
                 }

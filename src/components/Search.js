@@ -62,7 +62,7 @@ class Search extends React.Component {
         this.setState({ filterDateType: event.target.value });
     };
 
-    componentWillUpdate(nextProps, nextState) {
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
         if (this.state.filterDateFrom !== nextState.filterDateFrom || this.state.filterDateTo !== nextState.filterDateTo) {
             this.filterDateUpdate(nextState);
         }

@@ -103,7 +103,7 @@ export class TogglePanel extends React.Component {
         };
     }
 
-    componentWillUpdate(prevProps) {
+    UNSAFE_componentWillUpdate(prevProps) {
         if (this.props.editable !== prevProps.editable) {
             this.setState({ editable: prevProps.editable });
         }

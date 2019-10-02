@@ -30,16 +30,11 @@ function CreateEmailMutation(contact, name, type) {
             clientMutationId: tempID++
         }
     };
-    return new Promise((resolve, reject) => {
         commitMutation(environment, {
             mutation,
             variables,
             onCompleted: (response, errors) => {
                 console.log(response, environment);
-                if (errors) {
-                    return reject(errors);
-                }
-                return resolve(response);
             },
             onError: (errors) => console.error(errors),
             configs: [
@@ -50,7 +45,6 @@ function CreateEmailMutation(contact, name, type) {
                 }
             ]
         });
-    });
 }
 
 export default CreateEmailMutation;
