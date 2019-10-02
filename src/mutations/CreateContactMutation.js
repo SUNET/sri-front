@@ -10,6 +10,10 @@ import CreatePhoneMutation from "./CreatePhoneMutation";
 const mutation = graphql`
     mutation CreateContactMutation($input: CreateContactInput!) {
         create_contact(input: $input) {
+            errors {
+                field
+                messages
+            }
             contact {
                 handle_id
                 title
@@ -48,7 +52,6 @@ function CreateContactMutation(
     organizations,
     callback
 ) {
-    console.log("Organization", Object.keys(organizations)[0]);
     const variables = {
         input: {
             title,
@@ -62,46 +65,41 @@ function CreateContactMutation(
             clientMutationId: tempID++
         }
     };
-    return new Promise((resolve, reject) => {
-        commitMutation(environment, {
-            mutation,
-            variables,
-            onCompleted: (response, errors) => {
-                console.log(errors);
-                console.log(response, environment);
-                const contact_id = response.create_contact.contact.handle_id;
-                CreateComentMutation(contact_id, comment);
+    commitMutation(environment, {
+        mutation,
+        variables,
+        onCompleted: (response, errors) => {
+            console.log(errors);
+            console.log(response, environment);
+            const contact_id = response.create_contact.contact.handle_id;
+            CreateComentMutation(contact_id, comment);
+            console.log("Emails", emails);
+            Object.keys(emails).forEach(email => {
+                CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
+            });
+            console.log("Phones", phones);
+            Object.keys(phones).forEach(phone => {
+                console.log("Phone", phones[phone].number, phones[phone].type);
+                CreatePhoneMutation(contact_id, phones[phone].number, phones[phone].type);
+            });
 
-                Object.keys(emails).forEach(email => {
-                    CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
-                });
-
-                Object.keys(phones).forEach(phone => {
-                    CreatePhoneMutation(contact_id, phones[phone].number, emails[phone].type);
-                });
-
-                callback().replace("/community/contacts/" + response.create_contact.contact.handle_id);
-                if (errors) {
-                    return reject(errors);
-                }
-                return resolve(response);
-            },
-            onError: (errors) => console.error(errors),
-            configs: [
-                {
-                    type: "RANGE_ADD",
-                    parentName: ROOT_ID,
-                    parentID: ROOT_ID,
-                    connectionInfo: [
-                        {
-                            key: "ContactList_contacts",
-                            rangeBehavior: "append"
-                        }
-                    ],
-                    edgeName: "contactEdge"
-                }
-            ]
-        });
+            callback().push("/community/contacts/" + response.create_contact.contact.handle_id);
+        },
+        onError: (errors) => console.error(errors),
+        configs: [
+            {
+                type: "RANGE_ADD",
+                parentName: ROOT_ID,
+                parentID: ROOT_ID,
+                connectionInfo: [
+                    {
+                        key: "ContactList_contacts",
+                        rangeBehavior: "append"
+                    }
+                ],
+                edgeName: "contactEdge"
+            }
+        ]
     });
 }
 

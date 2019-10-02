@@ -8,21 +8,21 @@ import { withRouter } from "react-router-dom";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import { GroupDetails } from "./group";
-import CreateGroupContainer from "../containers/CreateGroup";
-import GroupListContainer from "../containers/GroupList";
+import { OrganizationDetails } from "./organization";
+import CreateOrganizationContainer from "../containers/CreateOrganization";
+import OrganizationListContainer from "../containers/OrganizationList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
 // import { RouteNotFound } from "./NotFound";
 
-const SearchGroupAllQuery = graphql`
-    query SearchGroupAllQuery($count: Int!, $filter: GroupFilter, $orderBy: GroupOrderBy) {
-        ...GroupList_groups @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+const SearchOrganizationAllQuery = graphql`
+    query SearchOrganizationAllQuery($count: Int!, $filter: OrganizationFilter, $orderBy: OrganizationOrderBy) {
+        ...OrganizationList_organizations @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
 `;
 
-class SearchGroup extends React.Component {
+class SearchOrganization extends React.Component {
     constructor(props) {
         super(props);
 
@@ -90,7 +90,7 @@ class SearchGroup extends React.Component {
             <QueryLookupRenderer
                 lookup={true}
                 environment={environment}
-                query={SearchGroupAllQuery}
+                query={SearchOrganizationAllQuery}
                 variables={{
                     count: ITEMS_PER_PAGE,
                     filter: {
@@ -108,8 +108,8 @@ class SearchGroup extends React.Component {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <GroupListContainer
-                                groups={props}
+                            <OrganizationListContainer
+                                organizations={props}
                                 changeCount={this._handleOnChangeCount}
                             />
                         );
@@ -126,7 +126,7 @@ class SearchGroup extends React.Component {
                 <Switch>
                     <Route
                         exact
-                        path={`${this.props.match.url}/groups`}
+                        path={`${this.props.match.url}/organizations`}
                         render={() => (
                             <>
                                 <Row>
@@ -173,12 +173,12 @@ class SearchGroup extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/groups/create`} component={CreateGroupContainer} />
-                    <Route path={`${this.props.match.url}/groups/:groupId`} component={GroupDetails} />
+                    <Route path={`${this.props.match.url}/organizations/create`} component={CreateOrganizationContainer} />
+                    <Route path={`${this.props.match.url}/organizations/:organizationId`} component={OrganizationDetails} />
                 </Switch>
             </section>
         );
     }
 }
 
-export default withRouter(SearchGroup);
+export default withRouter(SearchOrganization);

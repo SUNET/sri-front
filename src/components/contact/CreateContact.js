@@ -184,7 +184,8 @@ class CreateContact extends React.PureComponent {
         }
     };
 
-    _handleContact() {
+    handleSubmit = (event) => {
+        event.preventDefault();
         const {
             title,
             first_name,
@@ -211,21 +212,6 @@ class CreateContact extends React.PureComponent {
             organizations,
             () => this.props.history
         )
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((errors) => {
-                this.setState({
-                    errors: errors.map((message) => {
-                        return message.message;
-                    })
-                });
-            });
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this._handleContact();
     };
 
     render() {

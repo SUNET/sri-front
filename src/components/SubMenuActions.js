@@ -9,6 +9,18 @@ class SubMenuActions extends React.Component {
             <Switch>
                 <Route
                     exact
+                    path="/community/organizations/"
+                    component={() => (
+                        <button
+                            className="btn primary"
+                            onClick={() => this.props.history.push(`/community/organizations/create`)}
+                        >
+                            {t("Add Organizations")}
+                        </button>
+                    )}
+                />
+                <Route
+                    exact
                     path="/community/contacts/"
                     component={() => (
                         <button

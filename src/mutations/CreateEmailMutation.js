@@ -34,7 +34,7 @@ function CreateEmailMutation(contact, name, type) {
             mutation,
             variables,
             onCompleted: (response, errors) => {
-                console.log(response, environment);
+                console.log(response, errors);
             },
             onError: (errors) => console.error(errors),
             configs: [

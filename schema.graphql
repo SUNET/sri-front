@@ -1,3 +1,35 @@
+"""Phone entity to be used inside contact"""
+type Address implements Node {
+  handle_id: ID!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  website: String
+  phone: String
+  street: String
+  postal_code: String
+  postal_area: String
+}
+
+input AddressInputField {
+  name: String
+  website: String
+  phone: String
+  street: String
+  postal_code: String
+  postal_area: String
+  handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
+}
+
 """This class is used for the choices available in a dropdown"""
 type Choice implements KeyValue {
   id: ID!
@@ -300,6 +332,23 @@ enum ContactOrderBy {
   modifier_DESC
 }
 
+input CreateAddressInput {
+  organization: ChoiceScalar
+  name: String!
+  website: String
+  phone: String
+  street: String
+  postal_code: String
+  postal_area: String
+  clientMutationId: String
+}
+
+type CreateAddressPayload {
+  errors: [ErrorType]
+  address: Address
+  clientMutationId: String
+}
+
 input CreateCommentInput {
   object_pk: Int!
   comment: String!
@@ -372,8 +421,6 @@ input CreateOrganizationInput {
   account_id: String
   name: String!
   description: String
-  phone: String
-  website: String
   customer_id: String
   type: ChoiceScalar
   incident_management_info: String
@@ -438,6 +485,17 @@ value as specified by
 [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
 """
 scalar DateTime
+
+input DeleteAddressInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteAddressPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
 
 input DeleteCommentInput {
   id: Int!
@@ -784,6 +842,9 @@ type Mutation {
   create_email(input: CreateEmailInput!): CreateEmailPayload
   update_email(input: UpdateEmailInput!): UpdateEmailPayload
   delete_email(input: DeleteEmailInput!): DeleteEmailPayload
+  create_address(input: CreateAddressInput!): CreateAddressPayload
+  update_address(input: UpdateAddressInput!): UpdateAddressPayload
+  delete_address(input: DeleteAddressInput!): DeleteAddressPayload
   create_contact(input: CreateContactInput!): CreateContactPayload
   update_contact(input: UpdateContactInput!): UpdateContactPayload
   delete_contact(input: DeleteContactInput!): DeleteContactPayload
@@ -886,11 +947,10 @@ type Organization implements Node {
   comments: [CommentType]
   name: String!
   description: String!
-  phone: String
-  website: String
   customer_id: String
   incident_management_info: String
   type: ChoiceScalar
+  addresses: [Address]
 }
 
 type OrganizationConnection {
@@ -944,34 +1004,6 @@ input OrganizationNestedFilter {
   description_not_ends_with: String
   description_in: [String!]
   description_not_in: [String!]
-  phone: String
-  phone_not: String
-  phone_lt: String
-  phone_lte: String
-  phone_gt: String
-  phone_gte: String
-  phone_contains: String
-  phone_not_contains: String
-  phone_starts_with: String
-  phone_not_starts_with: String
-  phone_ends_with: String
-  phone_not_ends_with: String
-  phone_in: [String!]
-  phone_not_in: [String!]
-  website: String
-  website_not: String
-  website_lt: String
-  website_lte: String
-  website_gt: String
-  website_gte: String
-  website_contains: String
-  website_not_contains: String
-  website_starts_with: String
-  website_not_starts_with: String
-  website_ends_with: String
-  website_not_ends_with: String
-  website_in: [String!]
-  website_not_in: [String!]
   customer_id: String
   customer_id_not: String
   customer_id_lt: String
@@ -1008,6 +1040,14 @@ input OrganizationNestedFilter {
   type_gte: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
+  addresses: AddressInputField
+  addresses_not: AddressInputField
+  addresses_lt: AddressInputField
+  addresses_lte: AddressInputField
+  addresses_gt: AddressInputField
+  addresses_gte: AddressInputField
+  addresses_in: [AddressInputField!]
+  addresses_not_in: [AddressInputField!]
   handle_id: Int
   handle_id_not: Int
   handle_id_lt: Int
@@ -1056,10 +1096,6 @@ enum OrganizationOrderBy {
   name_DESC
   description_ASC
   description_DESC
-  phone_ASC
-  phone_DESC
-  website_ASC
-  website_DESC
   customer_id_ASC
   customer_id_DESC
   incident_management_info_ASC
@@ -1321,6 +1357,24 @@ input RoleRelationInputField {
   name: String
 }
 
+input UpdateAddressInput {
+  organization: ChoiceScalar
+  name: String!
+  website: String
+  phone: String
+  street: String
+  postal_code: String
+  postal_area: String
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateAddressPayload {
+  errors: [ErrorType]
+  address: Address
+  clientMutationId: String
+}
+
 input UpdateCommentInput {
   id: Int!
   comment: String!
@@ -1385,8 +1439,6 @@ input UpdateOrganizationInput {
   account_id: String
   name: String!
   description: String
-  phone: String
-  website: String
   customer_id: String
   type: ChoiceScalar
   incident_management_info: String
