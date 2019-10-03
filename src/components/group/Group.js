@@ -146,6 +146,15 @@ const GroupFragment = createRefetchContainer(
                                 name
                             }
                         }
+                        comments {
+                            id
+                            user {
+                                first_name
+                                last_name
+                            }
+                            comment
+                            submit_date
+                        }
                     }
                 }
             }

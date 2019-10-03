@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 83bf61e9bf6c1db12fad5f9208368f59
+ * @relayHash 78239bc0613f5c39f296e4301335c008
  */
 
 /* eslint-disable */
@@ -39,6 +39,16 @@ fragment Organization_organization on Organization {
   handle_id
   name
   type
+  comments {
+    id
+    user {
+      first_name
+      last_name
+      id
+    }
+    comment
+    submit_date
+  }
 }
 */
 
@@ -57,7 +67,14 @@ v1 = [
     "name": "handle_id",
     "variableName": "organizationId"
   }
-];
+],
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -121,12 +138,58 @@ return {
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
-            "name": "id",
+            "name": "comments",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
-          }
+            "concreteType": "CommentType",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "user",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "first_name",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "last_name",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
+                ]
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "comment",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "submit_date",
+                "args": null,
+                "storageKey": null
+              }
+            ]
+          },
+          (v2/*: any*/)
         ]
       }
     ]
@@ -135,7 +198,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationRefetchQuery",
     "id": null,
-    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  type\n}\n",
+    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  type\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

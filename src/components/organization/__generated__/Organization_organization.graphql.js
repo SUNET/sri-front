@@ -15,6 +15,15 @@ export type Organization_organization = {|
   +handle_id: string,
   +name: string,
   +type: ?any,
+  +comments: ?$ReadOnlyArray<?{|
+    +id: string,
+    +user: ?{|
+      +first_name: string,
+      +last_name: string,
+    |},
+    +comment: string,
+    +submit_date: any,
+  |}>,
   +$refType: Organization_organization$ref,
 |};
 export type Organization_organization$data = Organization_organization;
@@ -52,9 +61,66 @@ const node/*: ReaderFragment*/ = {
       "name": "type",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "comments",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "CommentType",
+      "plural": true,
+      "selections": [
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "id",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "user",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "User",
+          "plural": false,
+          "selections": [
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "first_name",
+              "args": null,
+              "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "last_name",
+              "args": null,
+              "storageKey": null
+            }
+          ]
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "comment",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "submit_date",
+          "args": null,
+          "storageKey": null
+        }
+      ]
     }
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = 'c7fdc61127216ce41c2c5149b59eac42';
+(node/*: any*/).hash = 'a9d137e8d8a795814ccd20eb558c3766';
 module.exports = node;

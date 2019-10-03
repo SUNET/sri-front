@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@emotion/core": "^10.0.17",
+        "@emotion/core": "^10.0.20",
         "@emotion/styled": "^10.0.17",
         "@fortawesome/fontawesome-free": "^5.11.2",
         "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -52,7 +52,7 @@
         "prettier": "^1.18.2",
         "prop-types": "^15.7.2",
         "react-addons-test-utils": "^15.6.2",
-        "react-scripts": "3.1.2",
+        "react-scripts": "3.2.0",
         "relay-compiler": "^6.0.0"
     },
     "scripts": {

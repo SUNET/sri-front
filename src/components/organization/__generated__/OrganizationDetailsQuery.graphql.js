@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0916c3157af74655bbaeb012f85b5d9c
+ * @relayHash 3202115c6f1ea9f4e95afd464183e7b8
  */
 
 /* eslint-disable */
@@ -59,6 +59,16 @@ fragment Organization_organization on Organization {
   handle_id
   name
   type
+  comments {
+    id
+    user {
+      first_name
+      last_name
+      id
+    }
+    comment
+    submit_date
+  }
 }
 */
 
@@ -199,6 +209,58 @@ return {
             "args": null,
             "storageKey": null
           },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "comments",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CommentType",
+            "plural": true,
+            "selections": [
+              (v7/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "user",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "first_name",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "last_name",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  (v7/*: any*/)
+                ]
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "comment",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "submit_date",
+                "args": null,
+                "storageKey": null
+              }
+            ]
+          },
           (v3/*: any*/),
           {
             "kind": "LinkedField",
@@ -230,7 +292,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationDetailsQuery",
     "id": null,
-    "text": "query OrganizationDetailsQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  type\n}\n",
+    "text": "query OrganizationDetailsQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  type\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
