@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 91c2a9b2636e50b75deebcee7b27fe1f
+ * @relayHash 3a8b207daaa32158b2e66e6b518b0998
  */
 
 /* eslint-disable */
@@ -39,6 +39,16 @@ fragment Group_group on Group {
   handle_id
   name
   description
+  comments {
+    id
+    user {
+      first_name
+      last_name
+      id
+    }
+    comment
+    submit_date
+  }
 }
 */
 
@@ -57,7 +67,14 @@ v1 = [
     "name": "handle_id",
     "variableName": "groupId"
   }
-];
+],
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -121,12 +138,58 @@ return {
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
-            "name": "id",
+            "name": "comments",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
-          }
+            "concreteType": "CommentType",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "user",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "first_name",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "last_name",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
+                ]
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "comment",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "submit_date",
+                "args": null,
+                "storageKey": null
+              }
+            ]
+          },
+          (v2/*: any*/)
         ]
       }
     ]
@@ -135,7 +198,7 @@ return {
     "operationKind": "query",
     "name": "GroupRefetchQuery",
     "id": null,
-    "text": "query GroupRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...Group_group\n    id\n  }\n}\n\nfragment Group_group on Group {\n  handle_id\n  name\n  description\n}\n",
+    "text": "query GroupRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...Group_group\n    id\n  }\n}\n\nfragment Group_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

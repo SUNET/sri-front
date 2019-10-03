@@ -34,6 +34,7 @@ class Organization extends React.PureComponent {
 
     render() {
         let { organization, contacts, t } = this.props;
+        console.log(this.props);
         return (
             <>
                 <section className="model-section">
@@ -49,6 +50,40 @@ class Organization extends React.PureComponent {
                                             return <span>{organization.description}</span>;
                                         }}
                                     </PanelEditable.Consumer>
+                                </TogglePanel>
+                            </ToggleSection>
+                        </Col>
+                    </Form.Row>
+                    <hr />
+                    <Form.Row>
+                        <Col>
+                            <ToggleSection>
+                                <ToggleHeading>
+                                    <h2>{t("organization-details.address")}</h2>
+                                </ToggleHeading>
+                                <TogglePanel>
+                                    <div className="table-details">
+                                        <div>
+                                            <div>Website</div>
+                                            <div>Street</div>
+                                            <div>Postal Code</div>
+                                            <div>Postal Area</div>
+                                            <div>Phone</div>
+                                        </div>
+                                        <div>
+                                            {organization.addresses.map((address, index) => {
+                                                return (
+                                                    <div>
+                                                        <div>{address.website}</div>
+                                                        <div>{address.street}</div>
+                                                        <div>{address.postal_code}</div>
+                                                        <div>{address.postal_area}</div>
+                                                        <div>{address.phone}</div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
                                 </TogglePanel>
                             </ToggleSection>
                         </Col>
@@ -103,6 +138,24 @@ class Organization extends React.PureComponent {
                     </Form.Row>
                 </section>
                 <section className="model-section">
+                    <Form.Row>
+                        <Col>
+                            <ToggleSection>
+                                <ToggleHeading>
+                                    <h2>{t("organization-details.additional-info")}</h2>
+                                </ToggleHeading>
+                                <TogglePanel>
+                                    <PanelEditable.Consumer>
+                                        {(editable) => {
+                                            return <span>{organization.incident_management_info}</span>;
+                                        }}
+                                    </PanelEditable.Consumer>
+                                </TogglePanel>
+                            </ToggleSection>
+                        </Col>
+                    </Form.Row>
+                </section>
+                <section className="model-section">
                     <Worklog model={organization} refetch={this.refetch} />
                 </section>
             </>
@@ -117,7 +170,28 @@ const OrganizationFragment = createRefetchContainer(
             fragment Organization_organization on Organization {
                 handle_id
                 name
+                description
                 type
+                incident_management_info
+                addresses {
+                    handle_id
+                    website
+                    street
+                    postal_code
+                    postal_area
+                    phone
+                }
+                incoming {
+                    name
+                    relation {
+                        relation_id
+                        type
+                        end {
+                            handle_id
+                            node_name
+                        }
+                    }
+                }
                 comments {
                     id
                     user {

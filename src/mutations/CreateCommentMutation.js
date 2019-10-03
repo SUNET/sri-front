@@ -29,33 +29,27 @@ function CreateCommentMutation(object_pk, comment) {
             clientMutationId: tempID++
         }
     };
-    return new Promise((resolve, reject) => {
-        commitMutation(environment, {
-            mutation,
-            variables,
-            onCompleted: (response, errors) => {
-                console.log(response, environment);
-                if (errors) {
-                    return reject(errors);
-                }
-                return resolve(response);
-            },
-            onError: (errors) => console.error(errors),
-            configs: [
-                {
-                    type: "RANGE_ADD",
-                    parentName: ROOT_ID,
-                    parentID: ROOT_ID,
-                    // connectionInfo: [
-                    //     {
-                    //         key: "ContactList_contacts",
-                    //         rangeBehavior: "append"
-                    //     }
-                    // ],
-                    // edgeName: "contactEdge"
-                }
-            ]
-        });
+    commitMutation(environment, {
+        mutation,
+        variables,
+        onCompleted: (response, errors) => {
+            console.log(response, environment);
+        },
+        onError: (errors) => console.error(errors),
+        configs: [
+            {
+                type: "RANGE_ADD",
+                parentName: ROOT_ID,
+                parentID: ROOT_ID,
+                // connectionInfo: [
+                //     {
+                //         key: "ContactList_contacts",
+                //         rangeBehavior: "append"
+                //     }
+                // ],
+                // edgeName: "contactEdge"
+            }
+        ]
     });
 }
 

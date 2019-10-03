@@ -4,6 +4,7 @@ import environment from "../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 import CreateComentMutation from "./CreateCommentMutation";
+import CreateAddressMutation from "./CreateAddressMutation";
 
 const mutation = graphql`
     mutation CreateOrganizationMutation($input: CreateOrganizationInput!) {
@@ -24,19 +25,19 @@ const mutation = graphql`
 let tempID = 0;
 
 function CreateOrganizationMutation(
-    handle_id,
     name,
+    description,
     type,
     comment,
     contacts,
+    address,
     callback
 ) {
     const variables = {
         input: {
-            handle_id,
             name,
+            description,
             type,
-            comment,
             clientMutationId: tempID++
         }
     };
@@ -48,6 +49,7 @@ function CreateOrganizationMutation(
             console.log(response, environment);
             const organization_id = response.create_organization.organization.handle_id;
             CreateComentMutation(organization_id, comment);
+            CreateAddressMutation(organization_id, address);
 
             callback().push("/community/organizations/" + organization_id);
         },

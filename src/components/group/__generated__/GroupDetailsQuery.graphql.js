@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f073261dea26a4ca15af239deb0d7fc3
+ * @relayHash 09e862b2f709d6e2568cc853fecf4672
  */
 
 /* eslint-disable */
@@ -341,6 +341,16 @@ fragment Group_group on Group {
   handle_id
   name
   description
+  comments {
+    id
+    user {
+      first_name
+      last_name
+      id
+    }
+    comment
+    submit_date
+  }
 }
 */
 
@@ -608,6 +618,46 @@ return {
             "args": null,
             "storageKey": null
           },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "comments",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CommentType",
+            "plural": true,
+            "selections": [
+              (v13/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "user",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": [
+                  (v9/*: any*/),
+                  (v10/*: any*/),
+                  (v13/*: any*/)
+                ]
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "comment",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "submit_date",
+                "args": null,
+                "storageKey": null
+              }
+            ]
+          },
           (v3/*: any*/),
           {
             "kind": "LinkedField",
@@ -722,7 +772,7 @@ return {
     "operationKind": "query",
     "name": "GroupDetailsQuery",
     "id": null,
-    "text": "query GroupDetailsQuery(\n  $groupId: Int!\n  $filter: ContactFilter\n) {\n  getGroupById(handle_id: $groupId) {\n    ...Group_group\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n  contacts(filter: $filter) {\n    edges {\n      node {\n        handle_id\n        first_name\n        last_name\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Group_group on Group {\n  handle_id\n  name\n  description\n}\n",
+    "text": "query GroupDetailsQuery(\n  $groupId: Int!\n  $filter: ContactFilter\n) {\n  getGroupById(handle_id: $groupId) {\n    ...Group_group\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n  contacts(filter: $filter) {\n    edges {\n      node {\n        handle_id\n        first_name\n        last_name\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Group_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

@@ -12,7 +12,7 @@ const ComponentFormRowReducer = (state = initialState, action) => {
         case "ADD_ROW":
             nextState = {
                 ...state,
-                ...state[action.index],
+                ...state[action.model],
                 [action.index]: {
                     is_saved: false,
                     is_editing: false,

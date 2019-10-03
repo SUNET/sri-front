@@ -45,9 +45,9 @@ const renderContacts = ({ fields, meta, onChangeRole, onBlurContact, onChangeCon
                                     <div>
                                         <Dropdown
                                             className="auto"
-                                            emptyLabel="Select organization"
-                                            model="organization"
-                                            name={`${contact}.organization`}
+                                            emptyLabel="Select role"
+                                            model="roles"
+                                            name={`${contact}.role`}
                                             onChange={(e) => onChangeContact(e, index)}
                                         />
                                     </div>
@@ -105,11 +105,11 @@ class CreateOrganization extends React.PureComponent {
             type: "",
             afffiliation: "",
             organizationId: "",
-            organizationParent: "",
+            relationship_parent_of: "",
             address: {},
             contacts: {},
             comment: "",
-            additionalInfo: "",
+            incident_management_info: "",
             errors: []
         };
     }
@@ -120,8 +120,8 @@ class CreateOrganization extends React.PureComponent {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { name, description, contacts, comment } = this.state;
-        CreateOrganizationMutation(name, description, contacts, comment, () => this.props.history);
+        const { name, description, type, contacts, comment, address } = this.state;
+        CreateOrganizationMutation(name, description, type, comment, contacts, address, () => this.props.history);
     };
 
     handleSelectedContact = (selection) => {
@@ -143,13 +143,11 @@ class CreateOrganization extends React.PureComponent {
                 contacts: {
                     ...this.state.contacts,
                     [this.state.contacts.length || 1]: {
-                        ...newContact,
+                        ...newContact
                     }
                 }
-            })
-            this.props.dispatch(
-                arrayPush("createOrganization", "contacts", newContact)
-            );
+            });
+            this.props.dispatch(arrayPush("createOrganization", "contacts", newContact));
         }
     };
 
@@ -192,7 +190,7 @@ class CreateOrganization extends React.PureComponent {
                             <Col>
                                 <ToggleSection defaultEditable={false}>
                                     <ToggleHeading>
-                                        <h2>{t("organization-details.contacts")}</h2>
+                                        <h2>{t("organization-details.general-information")}</h2>
                                     </ToggleHeading>
                                     <TogglePanel>
                                         <div className="table-details">
@@ -220,7 +218,9 @@ class CreateOrganization extends React.PureComponent {
                                                             emptyLabel="Select organization"
                                                             type="organization_types"
                                                             name="type"
-                                                            onChange={(e) => this.setState({ afffiliation: e.target.value })}
+                                                            onChange={(e) =>
+                                                                this.setState({ afffiliation: e.target.value })
+                                                            }
                                                         />
                                                     </div>
                                                     <div>
@@ -230,7 +230,7 @@ class CreateOrganization extends React.PureComponent {
                                                                 component={FieldInput}
                                                                 placeholder={t("contact-details.add-notes")}
                                                                 onBlur={(e) => {
-                                                                    this.setState({ organizationId: e.target.value })
+                                                                    this.setState({ organizationId: e.target.value });
                                                                 }}
                                                             />
                                                         </Form.Group>
@@ -238,11 +238,13 @@ class CreateOrganization extends React.PureComponent {
                                                     <div>
                                                         <Form.Group>
                                                             <Field
-                                                                name="organizationParent"
+                                                                name="relationship_parent_of"
                                                                 component={FieldInput}
                                                                 placeholder={t("contact-details.add-notes")}
                                                                 onBlur={(e) => {
-                                                                    this.setState({ organizationParent: e.target.value })
+                                                                    this.setState({
+                                                                        relationship_parent_of: e.target.value
+                                                                    });
                                                                 }}
                                                             />
                                                         </Form.Group>
@@ -277,14 +279,14 @@ class CreateOrganization extends React.PureComponent {
                                                             <Field
                                                                 name="website"
                                                                 component={FieldInput}
-                                                                placeholder={t("contact-details.add-notes")}
+                                                                placeholder={t("organization-details.add-website")}
                                                                 onBlur={(e) => {
                                                                     this.setState({
                                                                         address: {
                                                                             ...this.state.address,
                                                                             website: e.target.value
                                                                         }
-                                                                    })
+                                                                    });
                                                                 }}
                                                             />
                                                         </Form.Group>
@@ -294,14 +296,14 @@ class CreateOrganization extends React.PureComponent {
                                                             <Field
                                                                 name="street"
                                                                 component={FieldInput}
-                                                                placeholder={t("contact-details.add-notes")}
+                                                                placeholder={t("organization-details.add-street")}
                                                                 onBlur={(e) => {
                                                                     this.setState({
                                                                         address: {
                                                                             ...this.state.address,
                                                                             street: e.target.value
                                                                         }
-                                                                    })
+                                                                    });
                                                                 }}
                                                             />
                                                         </Form.Group>
@@ -309,16 +311,16 @@ class CreateOrganization extends React.PureComponent {
                                                     <div>
                                                         <Form.Group>
                                                             <Field
-                                                                name="postalCode"
+                                                                name="postal_code"
                                                                 component={FieldInput}
-                                                                placeholder={t("contact-details.add-notes")}
+                                                                placeholder={t("organization-details.add-postalCode")}
                                                                 onBlur={(e) => {
                                                                     this.setState({
                                                                         address: {
                                                                             ...this.state.address,
-                                                                            postalCode: e.target.value
+                                                                            postal_code: e.target.value
                                                                         }
-                                                                    })
+                                                                    });
                                                                 }}
                                                             />
                                                         </Form.Group>
@@ -326,16 +328,16 @@ class CreateOrganization extends React.PureComponent {
                                                     <div>
                                                         <Form.Group>
                                                             <Field
-                                                                name="postalArea"
+                                                                name="postal_area"
                                                                 component={FieldInput}
-                                                                placeholder={t("contact-details.add-notes")}
+                                                                placeholder={t("organization-details.add-postalArea")}
                                                                 onBlur={(e) => {
                                                                     this.setState({
                                                                         address: {
                                                                             ...this.state.address,
-                                                                            postalArea: e.target.value
+                                                                            postal_area: e.target.value
                                                                         }
-                                                                    })
+                                                                    });
                                                                 }}
                                                             />
                                                         </Form.Group>
@@ -345,14 +347,14 @@ class CreateOrganization extends React.PureComponent {
                                                             <Field
                                                                 name="phone"
                                                                 component={FieldInput}
-                                                                placeholder={t("contact-details.add-notes")}
+                                                                placeholder={t("organization-details.add-phone")}
                                                                 onBlur={(e) => {
                                                                     this.setState({
                                                                         address: {
                                                                             ...this.state.address,
                                                                             phone: e.target.value
                                                                         }
-                                                                    })
+                                                                    });
                                                                 }}
                                                             />
                                                         </Form.Group>
@@ -426,13 +428,13 @@ class CreateOrganization extends React.PureComponent {
                             </ToggleHeading>
                             <TogglePanel>
                                 <Field
-                                    name="additionalInfo"
+                                    name="incident_management_info"
                                     component={FieldInput}
                                     as="textarea"
                                     rows="3"
                                     placeholder={t("organization-details.add-description")}
                                     onBlur={(e) => {
-                                        this.setState({ additionalInfo: e.target.value });
+                                        this.setState({ incident_management_info: e.target.value });
                                     }}
                                 />
                             </TogglePanel>

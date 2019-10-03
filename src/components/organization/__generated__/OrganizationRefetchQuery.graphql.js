@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 78239bc0613f5c39f296e4301335c008
+ * @relayHash 78c92cc6c7ef7cb16abb5623f0d497c9
  */
 
 /* eslint-disable */
@@ -38,7 +38,31 @@ query OrganizationRefetchQuery(
 fragment Organization_organization on Organization {
   handle_id
   name
+  description
   type
+  incident_management_info
+  addresses {
+    handle_id
+    website
+    street
+    postal_code
+    postal_area
+    phone
+    id
+  }
+  incoming {
+    name
+    relation {
+      relation_id
+      type
+      end {
+        handle_id
+        node_name
+        id
+      }
+      id
+    }
+  }
   comments {
     id
     user {
@@ -69,6 +93,27 @@ v1 = [
   }
 ],
 v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "handle_id",
+  "args": null,
+  "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "type",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -116,26 +161,122 @@ return {
         "concreteType": "Organization",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "handle_id",
+            "name": "description",
+            "args": null,
+            "storageKey": null
+          },
+          (v4/*: any*/),
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "incident_management_info",
             "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
-            "name": "name",
+            "name": "addresses",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
+            "concreteType": "Address",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "website",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "street",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "postal_code",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "postal_area",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "phone",
+                "args": null,
+                "storageKey": null
+              },
+              (v5/*: any*/)
+            ]
           },
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
-            "name": "type",
+            "name": "incoming",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
+            "concreteType": "DictRelationType",
+            "plural": true,
+            "selections": [
+              (v3/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "relation",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "NIRelationType",
+                "plural": false,
+                "selections": [
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "relation_id",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  (v4/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "end",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "NINodeHandlerType",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "node_name",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      (v5/*: any*/)
+                    ]
+                  },
+                  (v5/*: any*/)
+                ]
+              }
+            ]
           },
           {
             "kind": "LinkedField",
@@ -146,7 +287,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
+              (v5/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -170,7 +311,7 @@ return {
                     "args": null,
                     "storageKey": null
                   },
-                  (v2/*: any*/)
+                  (v5/*: any*/)
                 ]
               },
               {
@@ -189,7 +330,7 @@ return {
               }
             ]
           },
-          (v2/*: any*/)
+          (v5/*: any*/)
         ]
       }
     ]
@@ -198,7 +339,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationRefetchQuery",
     "id": null,
-    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  type\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  description\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

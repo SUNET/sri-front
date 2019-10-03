@@ -34,15 +34,6 @@ export type Group_members = {|
           +name: string,
         |},
       |}>,
-      +comments: ?$ReadOnlyArray<?{|
-        +id: string,
-        +user: ?{|
-          +first_name: string,
-          +last_name: string,
-        |},
-        +comment: string,
-        +submit_date: any,
-      |}>,
     |}
   |}>,
   +$refType: Group_members$ref,
@@ -66,27 +57,13 @@ var v0 = {
 v1 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
-  "args": null,
-  "storageKey": null
-},
-v2 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "last_name",
-  "args": null,
-  "storageKey": null
-},
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "name",
   "args": null,
   "storageKey": null
 },
-v4 = [
+v2 = [
   (v0/*: any*/),
-  (v3/*: any*/),
+  (v1/*: any*/),
   {
     "kind": "ScalarField",
     "alias": null,
@@ -121,8 +98,20 @@ return {
           "plural": false,
           "selections": [
             (v0/*: any*/),
-            (v1/*: any*/),
-            (v2/*: any*/),
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "first_name",
+              "args": null,
+              "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "last_name",
+              "args": null,
+              "storageKey": null
+            },
             {
               "kind": "LinkedField",
               "alias": null,
@@ -131,7 +120,7 @@ return {
               "args": null,
               "concreteType": "Email",
               "plural": true,
-              "selections": (v4/*: any*/)
+              "selections": (v2/*: any*/)
             },
             {
               "kind": "LinkedField",
@@ -141,7 +130,7 @@ return {
               "args": null,
               "concreteType": "Phone",
               "plural": true,
-              "selections": (v4/*: any*/)
+              "selections": (v2/*: any*/)
             },
             {
               "kind": "LinkedField",
@@ -152,7 +141,7 @@ return {
               "concreteType": "RoleRelation",
               "plural": true,
               "selections": [
-                (v3/*: any*/),
+                (v1/*: any*/),
                 {
                   "kind": "LinkedField",
                   "alias": null,
@@ -163,53 +152,8 @@ return {
                   "plural": false,
                   "selections": [
                     (v0/*: any*/),
-                    (v3/*: any*/)
+                    (v1/*: any*/)
                   ]
-                }
-              ]
-            },
-            {
-              "kind": "LinkedField",
-              "alias": null,
-              "name": "comments",
-              "storageKey": null,
-              "args": null,
-              "concreteType": "CommentType",
-              "plural": true,
-              "selections": [
-                {
-                  "kind": "ScalarField",
-                  "alias": null,
-                  "name": "id",
-                  "args": null,
-                  "storageKey": null
-                },
-                {
-                  "kind": "LinkedField",
-                  "alias": null,
-                  "name": "user",
-                  "storageKey": null,
-                  "args": null,
-                  "concreteType": "User",
-                  "plural": false,
-                  "selections": [
-                    (v1/*: any*/),
-                    (v2/*: any*/)
-                  ]
-                },
-                {
-                  "kind": "ScalarField",
-                  "alias": null,
-                  "name": "comment",
-                  "args": null,
-                  "storageKey": null
-                },
-                {
-                  "kind": "ScalarField",
-                  "alias": null,
-                  "name": "submit_date",
-                  "args": null,
-                  "storageKey": null
                 }
               ]
             }
@@ -221,5 +165,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e2dfe692e754c88c729432b491b3708b';
+(node/*: any*/).hash = '89f61746cf78a19cb7baa2e095477685';
 module.exports = node;

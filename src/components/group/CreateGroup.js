@@ -21,13 +21,12 @@ const renderMembers = ({ fields, meta, onChangeRole, onBlurMember, onChangeMembe
             fields.push({ key: uuidv4() });
         }
     };
+    console.log(meta);
     return (
         <>
             {fields.map((member, index) => (
                 <>
-                    <span>{`${index}_${fields.length}`}</span>
-                    <span>{member.key}</span>
-                    <ComponentFormRowContainer editable={true} key={member.key} index={index} fields={fields}>
+                    <ComponentFormRowContainer editable={true} key={member.key} fields={fields} index={index}>
                         {(editFields, isNew) => {
                             return editFields || isNew ? (
                                 <>
@@ -75,7 +74,12 @@ const renderMembers = ({ fields, meta, onChangeRole, onBlurMember, onChangeMembe
                                     </div>
                                 </>
                             ) : (
-                                <></>
+                                <>
+                                    <div>{fields.getAll()[index].name}</div>
+                                    <div>{fields.getAll()[index].organization_label}</div>
+                                    <div>{fields.getAll()[index].email}</div>
+                                    <div>{fields.getAll()[index].phone}</div>
+                                </>
                             );
                         }}
                     </ComponentFormRowContainer>
@@ -116,21 +120,12 @@ class CreateGroup extends React.PureComponent {
         event.preventDefault();
         const { name, description, members, comment } = this.state;
 
-        CreateGroupMutation(name, description, members, comment, () => this.props.history)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((errors) => {
-                this.setState({
-                    errors: errors.map((message) => {
-                        return message.message;
-                    })
-                });
-            });
+        CreateGroupMutation(name, description, members, comment, () => this.props.history);
     };
 
     handleSelectedMember = (selection) => {
         if (selection !== null) {
+            let index = this.state.members.length || 1;
             const addMember = { ...selection.node };
             const newMember = {
                 name: addMember.name,
@@ -139,20 +134,21 @@ class CreateGroup extends React.PureComponent {
                 id: addMember.handle_id,
                 contact_type: addMember.contact_type,
                 organization: addMember.roles[0].end.handle_id,
+                organization_label: addMember.roles[0].end.name,
                 email: addMember.emails[0].name,
                 phone: addMember.phones[0].name,
                 created: true,
                 key: uuidv4()
             };
-            console.log("member", newMember);
             this.setState({
                 members: {
                     ...this.state.members,
-                    [this.state.members.length || 1]: {
+                    [index]: {
                         ...newMember,
                     }
                 }
             })
+            this.props.addRow(index);
             this.props.dispatch(
                 arrayPush("createGroup", "members", newMember)
             );
@@ -161,7 +157,7 @@ class CreateGroup extends React.PureComponent {
 
     render() {
         const { t } = this.props;
-        console.log(this.state);
+        console.log(this.props);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
@@ -235,7 +231,8 @@ class CreateGroup extends React.PureComponent {
                                                                 [index]: {
                                                                     ...this.state.members[index],
                                                                     [event.target.name.split(".")[1]]:
-                                                                        event.target.value
+                                                                        event.target.value,
+                                                                        [event.target.name.split(".")[1] + "_label"]: event.target.options[event.target.value].text
                                                                 }
                                                             }
                                                         })
@@ -324,6 +321,7 @@ const validate = (values) => {
             errors.members = memberArrayErrors;
         }
     }
+    console.log("ERRORS", errors);
     return errors;
 };
 

@@ -9,15 +9,15 @@ class ComponentFormRow extends React.PureComponent {
     removeRow = (event) => {
         if (this.props.fields.length !== 1) {
             this.props.fields.remove(this.props.index);
-            this.props.removeRow();
+            this.props.removeRow(this.props.index);
         }
     };
 
     render() {
-        let { t, index, addRow, saveRow, editRow, is_editing, is_new } = this.props;
+        let { t, index, saveRow, editRow, is_editing, is_new } = this.props;
         return (
             <div>
-                {this.props.children(is_editing, is_new, addRow)}
+                {this.props.children(is_editing, is_new)}
                 {this.props.editable ? (
                     <div className="col-actions">
                         {!is_editing && !is_new ? (

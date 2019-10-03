@@ -4,12 +4,15 @@ import { addRow } from "../actions/ComponentFormRow";
 import { CreateGroup } from "../components/group";
 
 const mapStateToProps = (state, props) => {
-    return {};
+    if (state.form !== undefined && state.form.createGroup !== undefined) {
+        let formValues = state.form.createGroup.values;
+        return { formValues };
+    }
 };
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        addRow: (index) => dispatch(addRow(index)),
+        addRow: (index) => dispatch(addRow(index))
     };
 };
 
