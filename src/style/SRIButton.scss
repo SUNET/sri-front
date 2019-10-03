@@ -105,8 +105,20 @@ button.btn {
             }
         }
 
+        &.btn-load {
+            &:before {
+                display: inline-block;
+                content: '\f2f9';
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                margin-right: 8px;
+                color: $complementary-color;
+                vertical-align: middle;
+            }
+        }
+
         &:hover {
-            background-color: $tertiary-color-20;
+            background-color: $tertiary-color-3;
         }
     }
 }

@@ -254,16 +254,16 @@ class CreateGroup extends React.PureComponent {
                                 <h2>{t("contact-details.worklog")}</h2>
                             </ToggleHeading>
                             <TogglePanel>
-                                <Form.Group controlId="textarea">
-                                    <Form.Control
-                                        as="textarea"
-                                        rows="3"
-                                        placeholder={t("worklog.add-comment")}
-                                        onBlur={(e) => {
-                                            this.setState({ comment: e.target.value });
-                                        }}
-                                    />
-                                </Form.Group>
+                                <Field
+                                    name="comment"
+                                    component={FieldInput}
+                                    as="textarea"
+                                    rows="3"
+                                    placeholder={t("worklog.add-comment")}
+                                    onBlur={(e) => {
+                                        this.setState({ comment: e.target.value });
+                                    }}
+                                />
                             </TogglePanel>
                         </ToggleSection>
                     </section>

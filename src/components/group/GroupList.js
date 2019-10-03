@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
@@ -95,9 +94,11 @@ export class GroupList extends React.PureComponent {
                     <div>{this.renderHeaderList()}</div>
                     <div>{this.renderList()}</div>
                 </div>
-                <Button onClick={() => this._loadMore()} variant="outline-primary">
-                    {t("paginator.load_more")}
-                </Button>
+                <div className="mt-1 text-right">
+                    <button onClick={() => this._loadMore()} className="btn outline btn-load">
+                        {t("paginator.load_more")}
+                    </button>
+                </div>
             </>
         );
     }

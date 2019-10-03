@@ -155,6 +155,7 @@ class CreateOrganization extends React.PureComponent {
 
     render() {
         const { t } = this.props;
+        console.log(this.state);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
@@ -207,15 +208,155 @@ class CreateOrganization extends React.PureComponent {
                                                     <div>
                                                         <Dropdown
                                                             className="auto"
-                                                            emptyLabel="Select organization"
+                                                            emptyLabel="Select type"
                                                             type="organization_types"
                                                             name="type"
                                                             onChange={(e) => this.setState({ type: e.target.value })}
                                                         />
                                                     </div>
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
+                                                    <div>
+                                                        <Dropdown
+                                                            className="auto"
+                                                            emptyLabel="Select organization"
+                                                            type="organization_types"
+                                                            name="type"
+                                                            onChange={(e) => this.setState({ afffiliation: e.target.value })}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                name="organizationId"
+                                                                component={FieldInput}
+                                                                placeholder={t("contact-details.add-notes")}
+                                                                onBlur={(e) => {
+                                                                    this.setState({ organizationId: e.target.value })
+                                                                }}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                name="organizationParent"
+                                                                component={FieldInput}
+                                                                placeholder={t("contact-details.add-notes")}
+                                                                onBlur={(e) => {
+                                                                    this.setState({ organizationParent: e.target.value })
+                                                                }}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </TogglePanel>
+                                </ToggleSection>
+                            </Col>
+                        </Form.Row>
+                        <hr />
+                        <Form.Row>
+                            <Col>
+                                <ToggleSection defaultEditable={false}>
+                                    <ToggleHeading>
+                                        <h2>{t("organization-details.address")}</h2>
+                                    </ToggleHeading>
+                                    <TogglePanel>
+                                        <div className="table-details">
+                                            <div>
+                                                <div>Website</div>
+                                                <div>Street</div>
+                                                <div>Postal Code</div>
+                                                <div>Postal Area</div>
+                                                <div>Phone</div>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                name="website"
+                                                                component={FieldInput}
+                                                                placeholder={t("contact-details.add-notes")}
+                                                                onBlur={(e) => {
+                                                                    this.setState({
+                                                                        address: {
+                                                                            ...this.state.address,
+                                                                            website: e.target.value
+                                                                        }
+                                                                    })
+                                                                }}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                name="street"
+                                                                component={FieldInput}
+                                                                placeholder={t("contact-details.add-notes")}
+                                                                onBlur={(e) => {
+                                                                    this.setState({
+                                                                        address: {
+                                                                            ...this.state.address,
+                                                                            street: e.target.value
+                                                                        }
+                                                                    })
+                                                                }}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                name="postalCode"
+                                                                component={FieldInput}
+                                                                placeholder={t("contact-details.add-notes")}
+                                                                onBlur={(e) => {
+                                                                    this.setState({
+                                                                        address: {
+                                                                            ...this.state.address,
+                                                                            postalCode: e.target.value
+                                                                        }
+                                                                    })
+                                                                }}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                name="postalArea"
+                                                                component={FieldInput}
+                                                                placeholder={t("contact-details.add-notes")}
+                                                                onBlur={(e) => {
+                                                                    this.setState({
+                                                                        address: {
+                                                                            ...this.state.address,
+                                                                            postalArea: e.target.value
+                                                                        }
+                                                                    })
+                                                                }}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                name="phone"
+                                                                component={FieldInput}
+                                                                placeholder={t("contact-details.add-notes")}
+                                                                onBlur={(e) => {
+                                                                    this.setState({
+                                                                        address: {
+                                                                            ...this.state.address,
+                                                                            phone: e.target.value
+                                                                        }
+                                                                    })
+                                                                }}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -284,16 +425,16 @@ class CreateOrganization extends React.PureComponent {
                                 <h2>{t("organization-details.additional-info")}</h2>
                             </ToggleHeading>
                             <TogglePanel>
-                                <Form.Group controlId="textarea">
-                                    <Form.Control
-                                        as="textarea"
-                                        rows="3"
-                                        placeholder={t("organization-details.add-description")}
-                                        onBlur={(e) => {
-                                            this.setState({ additionalInfo: e.target.value });
-                                        }}
-                                    />
-                                </Form.Group>
+                                <Field
+                                    name="additionalInfo"
+                                    component={FieldInput}
+                                    as="textarea"
+                                    rows="3"
+                                    placeholder={t("organization-details.add-description")}
+                                    onBlur={(e) => {
+                                        this.setState({ additionalInfo: e.target.value });
+                                    }}
+                                />
                             </TogglePanel>
                         </ToggleSection>
                     </section>
@@ -303,16 +444,16 @@ class CreateOrganization extends React.PureComponent {
                                 <h2>{t("contact-details.worklog")}</h2>
                             </ToggleHeading>
                             <TogglePanel>
-                                <Form.Group controlId="textarea">
-                                    <Form.Control
-                                        as="textarea"
-                                        rows="3"
-                                        placeholder={t("worklog.add-comment")}
-                                        onBlur={(e) => {
-                                            this.setState({ comment: e.target.value });
-                                        }}
-                                    />
-                                </Form.Group>
+                                <Field
+                                    name="comment"
+                                    component={FieldInput}
+                                    as="textarea"
+                                    rows="3"
+                                    placeholder={t("worklog.add-comment")}
+                                    onBlur={(e) => {
+                                        this.setState({ comment: e.target.value });
+                                    }}
+                                />
                             </TogglePanel>
                         </ToggleSection>
                     </section>
