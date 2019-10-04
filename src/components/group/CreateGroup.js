@@ -232,7 +232,7 @@ class CreateGroup extends React.PureComponent {
                                                                     ...this.state.members[index],
                                                                     [event.target.name.split(".")[1]]:
                                                                         event.target.value,
-                                                                        [event.target.name.split(".")[1] + "_label"]: event.target.options[event.target.value].text
+                                                                    [event.target.name.split(".")[1] + "_label"]: event.target.options[event.target.value].text
                                                                 }
                                                             }
                                                         })

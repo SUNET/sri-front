@@ -174,9 +174,9 @@ class Contact extends React.PureComponent {
                                                                             <>
                                                                                 {!editFields ? (
                                                                                     <>
-                                                                                        {/* <div>{role.name}</div>
+                                                                                        <div>{role.name}</div>
                                                                                         <div>{role.end.handle_id}</div>
-                                                                                        <div>{role.end.name}</div> */}
+                                                                                        <div>{role.end.name}</div>
                                                                                     </>
                                                                                 ) : (
                                                                                     <>

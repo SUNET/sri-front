@@ -332,6 +332,12 @@ enum ContactOrderBy {
   modifier_DESC
 }
 
+type ContactWithRolename {
+  contact: Contact
+  role: Role
+  relation_id: Int
+}
+
 input CreateAddressInput {
   organization: ChoiceScalar
   name: String!
@@ -424,6 +430,12 @@ input CreateOrganizationInput {
   customer_id: String
   type: ChoiceScalar
   incident_management_info: String
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
   relationship_parent_of: ChoiceScalar
   relationship_uses_a: ChoiceScalar
   abuse_contact: ChoiceScalar
@@ -951,6 +963,12 @@ type Organization implements Node {
   incident_management_info: String
   type: ChoiceScalar
   addresses: [Address]
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
 }
 
 type OrganizationConnection {
@@ -1295,6 +1313,7 @@ type Query {
   getRelationById(relation_id: Int!): NIRelationType
   getRoleRelationById(relation_id: Int!): RoleRelation
   roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
+  getOrganizationContacts(handle_id: Int!): [ContactWithRolename]
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
   getGroupById(handle_id: Int): Group
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
@@ -1442,6 +1461,12 @@ input UpdateOrganizationInput {
   customer_id: String
   type: ChoiceScalar
   incident_management_info: String
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
   relationship_parent_of: ChoiceScalar
   relationship_uses_a: ChoiceScalar
   abuse_contact: ChoiceScalar

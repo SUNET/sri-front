@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9fd78e21926b0d10d504f354215f07bf
+ * @relayHash de88007416a112d6639ab544e5d14e5c
  */
 
 /* eslint-disable */
@@ -16,6 +16,12 @@ export type UpdateOrganizationInput = {|
   customer_id?: ?string,
   type?: ?any,
   incident_management_info?: ?string,
+  affiliation_customer?: ?boolean,
+  affiliation_end_customer?: ?boolean,
+  affiliation_provider?: ?boolean,
+  affiliation_partner?: ?boolean,
+  affiliation_host_user?: ?boolean,
+  affiliation_site_owner?: ?boolean,
   relationship_parent_of?: ?any,
   relationship_uses_a?: ?any,
   abuse_contact?: ?any,

@@ -16,7 +16,7 @@ import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../
 
 import "../../style/ModelDetails.scss";
 
-class Organization extends React.PureComponent {
+class Organization extends React.Component {
     static propTypes = {
         onChange: PropTypes.func
     };
@@ -33,7 +33,7 @@ class Organization extends React.PureComponent {
     };
 
     render() {
-        let { organization, contacts, t } = this.props;
+        let { organization, t } = this.props;
         console.log(this.props);
         return (
             <>
@@ -105,7 +105,7 @@ class Organization extends React.PureComponent {
                                             <div></div>
                                         </div>
                                         <div>
-                                            {/* {contacts.edges.map((contact, index) => {
+                                            {/* {organization.incoming.edges.map((contact, index) => {
                                                 return (
                                                     <div>
                                                         <div>
@@ -187,6 +187,10 @@ const OrganizationFragment = createRefetchContainer(
                         relation_id
                         type
                         end {
+                            handle_id
+                            node_name
+                        }
+                        start{
                             handle_id
                             node_name
                         }

@@ -18,6 +18,7 @@ const OrganizationDetailsQuery = graphql`
     query OrganizationDetailsQuery($organizationId: Int!) {
         getOrganizationById(handle_id: $organizationId) {
             ...Organization_organization
+            handle_id
             name
             created
             creator {
@@ -69,6 +70,7 @@ class OrganizationDetails extends React.Component {
 
     render() {
         let { t } = this.props;
+        console.log(this.props);
         return (
             <QueryRenderer
                 environment={environment}
@@ -80,6 +82,7 @@ class OrganizationDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
+                        console.log("Details org", props, error);
                         return (
                             <section className="model-details">
                                 <Row>
@@ -105,9 +108,7 @@ class OrganizationDetails extends React.Component {
                                     <Col>
                                         <Form>
                                             <Organization
-                                                onChange={this._handleOrganizationChange}
                                                 organization={props.getOrganizationById}
-                                                members={props.contacts}
                                             />
                                             <div className="text-right mt-4">
                                                 <button

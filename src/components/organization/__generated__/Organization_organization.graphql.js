@@ -34,6 +34,10 @@ export type Organization_organization = {|
         +handle_id: string,
         +node_name: string,
       |},
+      +start: {|
+        +handle_id: string,
+        +node_name: string,
+      |},
     |},
   |}>,
   +comments: ?$ReadOnlyArray<?{|
@@ -76,7 +80,17 @@ v2 = {
   "name": "type",
   "args": null,
   "storageKey": null
-};
+},
+v3 = [
+  (v0/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "node_name",
+    "args": null,
+    "storageKey": null
+  }
+];
 return {
   "kind": "Fragment",
   "name": "Organization_organization",
@@ -183,16 +197,17 @@ return {
               "args": null,
               "concreteType": "NINodeHandlerType",
               "plural": false,
-              "selections": [
-                (v0/*: any*/),
-                {
-                  "kind": "ScalarField",
-                  "alias": null,
-                  "name": "node_name",
-                  "args": null,
-                  "storageKey": null
-                }
-              ]
+              "selections": (v3/*: any*/)
+            },
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "name": "start",
+              "storageKey": null,
+              "args": null,
+              "concreteType": "NINodeHandlerType",
+              "plural": false,
+              "selections": (v3/*: any*/)
             }
           ]
         }
@@ -259,5 +274,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7b4e7effe79d44b3135dc4f63535bd32';
+(node/*: any*/).hash = '36bfe31b818a89a0156cb0f476c8f9e0';
 module.exports = node;

@@ -127,13 +127,14 @@ class CreateOrganization extends React.PureComponent {
     handleSelectedContact = (selection) => {
         if (selection !== null) {
             const addContact = { ...selection.node };
+            console.log(addContact);
             const newContact = {
                 name: addContact.name,
                 first_name: addContact.first_name,
                 last_name: addContact.last_name,
                 id: addContact.handle_id,
                 contact_type: addContact.contact_type,
-                role: addContact.roles[0].handle_id,
+                role: addContact.roles[0].role_data.handle_id,
                 email: addContact.emails[0].name,
                 phone: addContact.phones[0].name,
                 created: true,
@@ -147,13 +148,13 @@ class CreateOrganization extends React.PureComponent {
                     }
                 }
             });
+            console.log(newContact);
             this.props.dispatch(arrayPush("createOrganization", "contacts", newContact));
         }
     };
 
     render() {
         const { t } = this.props;
-        console.log(this.state);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
@@ -520,7 +521,7 @@ const validate = (values) => {
 };
 
 CreateOrganization = reduxForm({
-    form: "createGroup",
+    form: "createOrganization",
     validate,
     initialValues: {
         contacts: [{ name: "", role: "", email: "", phone: "", key: uuidv4(), created: false }]

@@ -41,6 +41,7 @@ export class OrganizationList extends React.PureComponent {
 
     _handleOnClick = (event, data) => {
         // Redirection to organization detail
+        console.log(`${this.props.match.url}/${data.handle_id}`);
         this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
     };
 

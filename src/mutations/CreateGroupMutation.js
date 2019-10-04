@@ -10,6 +10,10 @@ import AddMemberGroupMutation from "./AddMemberGroupMutation";
 const mutation = graphql`
     mutation CreateGroupMutation($input: CreateGroupInput!) {
         create_group(input: $input) {
+            errors {
+                field
+                messages
+            }
             group {
                 handle_id
                 name

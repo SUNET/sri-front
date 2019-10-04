@@ -27,7 +27,10 @@ const DropdownSearchContactsQuery = graphql`
                         type
                     }
                     roles {
-                        name
+                        role_data {
+                            handle_id
+                            name
+                        }
                         end {
                             handle_id
                             name

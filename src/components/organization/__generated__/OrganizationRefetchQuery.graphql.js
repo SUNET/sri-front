@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 78c92cc6c7ef7cb16abb5623f0d497c9
+ * @relayHash 61fd9dde0215cc7e6f803aa386cef939
  */
 
 /* eslint-disable */
@@ -56,6 +56,11 @@ fragment Organization_organization on Organization {
       relation_id
       type
       end {
+        handle_id
+        node_name
+        id
+      }
+      start {
         handle_id
         node_name
         id
@@ -119,7 +124,18 @@ v5 = {
   "name": "id",
   "args": null,
   "storageKey": null
-};
+},
+v6 = [
+  (v2/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "node_name",
+    "args": null,
+    "storageKey": null
+  },
+  (v5/*: any*/)
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -261,17 +277,17 @@ return {
                     "args": null,
                     "concreteType": "NINodeHandlerType",
                     "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "node_name",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      (v5/*: any*/)
-                    ]
+                    "selections": (v6/*: any*/)
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "start",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "NINodeHandlerType",
+                    "plural": false,
+                    "selections": (v6/*: any*/)
                   },
                   (v5/*: any*/)
                 ]
@@ -339,7 +355,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationRefetchQuery",
     "id": null,
-    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  description\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  description\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

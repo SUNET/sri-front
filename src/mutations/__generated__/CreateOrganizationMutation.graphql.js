@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash af852921c8968369df152da21b800aab
+ * @relayHash 4987dcf72fdde0c9563d2b5fa3b39b9a
  */
 
 /* eslint-disable */
@@ -16,6 +16,12 @@ export type CreateOrganizationInput = {|
   customer_id?: ?string,
   type?: ?any,
   incident_management_info?: ?string,
+  affiliation_customer?: ?boolean,
+  affiliation_end_customer?: ?boolean,
+  affiliation_provider?: ?boolean,
+  affiliation_partner?: ?boolean,
+  affiliation_host_user?: ?boolean,
+  affiliation_site_owner?: ?boolean,
   relationship_parent_of?: ?any,
   relationship_uses_a?: ?any,
   abuse_contact?: ?any,

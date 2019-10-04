@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 8877205d107d4d45c7fab5b03ab8daae
+ * @relayHash 939cd8719b821ee898a633755272f923
  */
 
 /* eslint-disable */
@@ -258,7 +258,10 @@ export type DropdownSearchContactsQueryResponse = {|
           +type: any,
         |}>,
         +roles: ?$ReadOnlyArray<?{|
-          +name: ?string,
+          +role_data: ?{|
+            +handle_id: string,
+            +name: string,
+          |},
           +end: ?{|
             +handle_id: string,
             +name: string,
@@ -301,7 +304,10 @@ query DropdownSearchContactsQuery(
           id
         }
         roles {
-          name
+          role_data {
+            handle_id
+            name
+          }
           end {
             handle_id
             name
@@ -389,18 +395,32 @@ v8 = [
   (v3/*: any*/),
   (v7/*: any*/)
 ],
-v9 = {
+v9 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
+],
+v10 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "role_data",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Role",
+  "plural": false,
+  "selections": (v9/*: any*/)
+},
+v11 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
 },
-v10 = [
+v12 = [
   (v2/*: any*/),
   (v3/*: any*/),
   (v7/*: any*/),
-  (v9/*: any*/)
+  (v11/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -472,7 +492,7 @@ return {
                     "concreteType": "RoleRelation",
                     "plural": true,
                     "selections": [
-                      (v3/*: any*/),
+                      (v10/*: any*/),
                       {
                         "kind": "LinkedField",
                         "alias": null,
@@ -481,10 +501,7 @@ return {
                         "args": null,
                         "concreteType": "Organization",
                         "plural": false,
-                        "selections": [
-                          (v2/*: any*/),
-                          (v3/*: any*/)
-                        ]
+                        "selections": (v9/*: any*/)
                       }
                     ]
                   }
@@ -541,7 +558,7 @@ return {
                     "args": null,
                     "concreteType": "Email",
                     "plural": true,
-                    "selections": (v10/*: any*/)
+                    "selections": (v12/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -551,7 +568,7 @@ return {
                     "args": null,
                     "concreteType": "Phone",
                     "plural": true,
-                    "selections": (v10/*: any*/)
+                    "selections": (v12/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -562,7 +579,7 @@ return {
                     "concreteType": "RoleRelation",
                     "plural": true,
                     "selections": [
-                      (v3/*: any*/),
+                      (v10/*: any*/),
                       {
                         "kind": "LinkedField",
                         "alias": null,
@@ -574,12 +591,12 @@ return {
                         "selections": [
                           (v2/*: any*/),
                           (v3/*: any*/),
-                          (v9/*: any*/)
+                          (v11/*: any*/)
                         ]
                       }
                     ]
                   },
-                  (v9/*: any*/)
+                  (v11/*: any*/)
                 ]
               }
             ]
@@ -592,11 +609,11 @@ return {
     "operationKind": "query",
     "name": "DropdownSearchContactsQuery",
     "id": null,
-    "text": "query DropdownSearchContactsQuery(\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  contacts(filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        name\n        first_name\n        last_name\n        contact_type\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n",
+    "text": "query DropdownSearchContactsQuery(\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  contacts(filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        name\n        first_name\n        last_name\n        contact_type\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          role_data {\n            handle_id\n            name\n          }\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ceeccbdc61818978cdec5ebb4a0064c1';
+(node/*: any*/).hash = 'd306b724d81579f7a2731ed029a37553';
 module.exports = node;
