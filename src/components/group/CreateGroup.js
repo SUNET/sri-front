@@ -21,7 +21,6 @@ const renderMembers = ({ fields, meta, onChangeRole, onBlurMember, onChangeMembe
             fields.push({ key: uuidv4() });
         }
     };
-    console.log(meta);
     return (
         <>
             {fields.map((member, index) => (

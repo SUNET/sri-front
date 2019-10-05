@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { withTranslation } from "react-i18next";
 
-import Group from "./Group";
+import Group from "../../containers/Group";
 import EditField from "../EditField";
 import UpdateGroupMutation from "../../mutations/UpdateGroupMutation";
 import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
@@ -17,8 +17,18 @@ import InfoCreatorModifier from "../InfoCreatorModifier";
 const GroupDetailsQuery = graphql`
     query GroupDetailsQuery($groupId: Int!, $filter: ContactFilter) {
         getGroupById(handle_id: $groupId) {
-            ...Group_group
+            handle_id
             name
+            description
+            comments {
+                id
+                user {
+                    first_name
+                    last_name
+                }
+                comment
+                submit_date
+            }
             created
             creator {
                 email
@@ -27,6 +37,7 @@ const GroupDetailsQuery = graphql`
             modifier {
                 email
             }
+            ...Group_group
         }
         contacts(filter: $filter) {
             edges {
@@ -66,15 +77,9 @@ class GroupDetails extends React.Component {
         }).isRequired
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            name: "",
-            description: ""
-        };
+    handleSubmit = (values) => {
+        console.log("values", values);
     }
-
     _handleGroupChange = (event) => {
         this.setState({ name: event.target.value });
     };
@@ -138,28 +143,11 @@ class GroupDetails extends React.Component {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <Form>
                                             <Group
-                                                onChange={this._handleGroupChange}
+                                                onSubmit={this.handleSubmit}
                                                 group={props.getGroupById}
                                                 members={props.contacts}
                                             />
-                                            <div className="text-right mt-4">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => this._handleDelete()}
-                                                    className="btn link"
-                                                >
-                                                    {t("actions.delete")}
-                                                </button>
-                                                <button
-                                                    onClick={() => this._handleUpdate(props.getGroupById)}
-                                                    className="btn primary lg"
-                                                >
-                                                    {t("actions.save")}
-                                                </button>
-                                            </div>
-                                        </Form>
                                     </Col>
                                 </Row>
                             </section>

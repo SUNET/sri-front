@@ -14,7 +14,7 @@ import "../../style/ModelList.scss";
 //mock for when the backend is ready
 const defaultColumns = [
     { name: "Name", value: "name" },
-    { name: "Organization", value: "organization", filter: "order" },
+    { name: "Organization", value: "organization" },
     { name: "Roles", value: "roles" },
     { name: "Contact Type", value: "contact_type" }
 ];

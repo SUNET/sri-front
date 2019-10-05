@@ -64,7 +64,7 @@ export class Worklog extends React.Component {
                                             <div>{this.formatDate(comment.submit_date)}</div>
                                         </header>
                                         <div>{comment.comment}</div>
-                                        <hr></hr>
+                                        <hr />
                                     </div>
                                 );
                             })}
@@ -80,7 +80,7 @@ export class Worklog extends React.Component {
                                 />
                             </Form.Group>
                             <div className="actions">
-                                <Button onClick={() => this.createComment()} className="secundary">
+                                <Button type="button" onClick={() => this.createComment()} className="secundary">
                                     {t("actions.send")}
                                 </Button>
                             </div>

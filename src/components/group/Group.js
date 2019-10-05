@@ -1,26 +1,21 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+
+import FieldInput from "../FieldInput";
+import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 // import uuidv4 from "uuid/v4";
-// import NumberFormat from "react-number-format";
 
 import Worklog from "../Worklog";
-// import Dropdown from "../Dropdown";
-// import ComponentFormRow from "../ComponentFormRow";
-// import CopyToClipboard from "../CopyToClipboard";
-// import AppendChild from "../AppendChild";
+
+import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
 
-class Group extends React.PureComponent {
-    static propTypes = {
-        onChange: PropTypes.func
-    };
-
+class Group extends React.Component {
     refetch = () => {
         this.props.relay.refetch(
             { groupId: this.props.group.handle_id }, // Our refetchQuery needs to know the `groupID`
@@ -33,9 +28,10 @@ class Group extends React.PureComponent {
     };
 
     render() {
-        let { group, members, t } = this.props;
+        let { group, t, handleSubmit } = this.props;
+        console.log(this.props);
         return (
-            <>
+            <form onSubmit={handleSubmit}>
                 <section className="model-section">
                     <Form.Row>
                         <Col>
@@ -46,7 +42,17 @@ class Group extends React.PureComponent {
                                 <TogglePanel>
                                     <PanelEditable.Consumer>
                                         {(editable) => {
-                                            return <span>{group.description}</span>;
+                                            return editable ? (
+                                                <Field
+                                                    name="description"
+                                                    component={FieldInput}
+                                                    as="textarea"
+                                                    rows="3"
+                                                    placeholder={t("group-details.add-description")}
+                                                />
+                                            ) : (
+                                                <span>{group.description}</span>
+                                            );
                                         }}
                                     </PanelEditable.Consumer>
                                 </TogglePanel>
@@ -61,42 +67,28 @@ class Group extends React.PureComponent {
                                     <h2>{t("group-details.members")}</h2>
                                 </ToggleHeading>
                                 <TogglePanel>
-                                    <div className="table-details">
-                                        <div>
-                                            <div>Name</div>
-                                            <div>Organization</div>
-                                            <div>Email</div>
-                                            <div>Phone</div>
-                                            <div></div>
-                                        </div>
-                                        <div>
-                                            {members.edges.map((member, index) => {
-                                                return (
+                                    <PanelEditable.Consumer>
+                                        {(editable) => {
+                                            return (
+                                                <div className="table-details">
                                                     <div>
-                                                        <div>
-                                                            {member.node.first_name} {member.node.last_name}
-                                                        </div>
-                                                        <div>
-                                                            {member.node.roles.map((role, index) => {
-                                                                return index === 0 ? role.end.name : null;
-                                                            })}
-                                                        </div>
-                                                        <div>
-                                                            {member.node.emails.map((email, index) => {
-                                                                return index === 0 ?  email.name : null;
-                                                            })}
-                                                        </div>
-                                                        <div>
-                                                            {member.node.phones.map((phone, index) => {
-                                                                return index === 0 ?  phone.name : null;
-                                                            })}
-                                                        </div>
+                                                        <div>Name</div>
+                                                        <div>Organization</div>
+                                                        <div>Email</div>
+                                                        <div>Phone</div>
                                                         <div></div>
                                                     </div>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
+                                                    <div>
+                                                        <FieldArray
+                                                            name="members"
+                                                            component={FieldArrayMembersGroup}
+                                                            editable={editable}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            );
+                                        }}
+                                    </PanelEditable.Consumer>
                                 </TogglePanel>
                             </ToggleSection>
                         </Col>
@@ -105,10 +97,60 @@ class Group extends React.PureComponent {
                 <section className="model-section">
                     <Worklog model={group} refetch={this.refetch} />
                 </section>
-            </>
+                <div className="text-right mt-4">
+                    <button type="button" className="btn link">
+                        {t("actions.delete")}
+                    </button>
+                    <button type="submit" className="btn primary lg">
+                        {t("actions.save")}
+                    </button>
+                </div>
+            </form>
         );
     }
 }
+
+const validate = (values) => {
+    const errors = {};
+    if (!values.name) {
+        errors.name = "* Required!";
+    }
+
+    if (!values.members || !values.members.length) {
+        errors.members = { _error: "At least one email must be entered" };
+    } else {
+        const memberArrayErrors = [];
+        values.members.forEach((member, memberIndex) => {
+            const memberErrors = {};
+            if (!member || !member.name) {
+                memberErrors.name = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
+            }
+            if (!member || !member.organization) {
+                memberErrors.organization = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
+            }
+            if (!member || !member.email) {
+                memberErrors.email = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
+            }
+            if (!member || !member.phone) {
+                memberErrors.phone = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
+            }
+            return memberErrors;
+        });
+        if (memberArrayErrors.length) {
+            errors.members = memberArrayErrors;
+        }
+    }
+    return errors;
+};
+
+Group = reduxForm({
+    form: "updateGroup",
+    validate
+})(Group);
 
 const GroupFragment = createRefetchContainer(
     withTranslation()(Group),
