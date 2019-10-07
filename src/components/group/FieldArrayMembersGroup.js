@@ -17,6 +17,15 @@ class FieldArrayMembersGroup extends React.Component {
         this.state = {};
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log(this.props.fields);
+        console.log(nextProps.fields);
+        if(this.props.fields !== nextProps.fields){
+            return true;
+        }
+       return false;
+    }
+
     UNSAFE_componentWillMount() {
         const initialState = this.props.fields.map((member, index) => {
             return { is_editing: false, is_save: true };
@@ -39,6 +48,11 @@ class FieldArrayMembersGroup extends React.Component {
         }
     }
 
+    editRow = (index) => {
+        this.props.dispatch(change("updateGroup", `members[${index}].status`, "editing"));
+        this.setState({ [index]: { is_editing: true, is_save: false } });
+    }
+
     removeRow = (index) => {
         this.props.dispatch(change("updateGroup", `members[${index}].delete`, this.props.fields.getAll()[index].handle_id));
         this.props.fields.remove(index);
@@ -46,11 +60,12 @@ class FieldArrayMembersGroup extends React.Component {
 
     render() {
         const { fields, meta, t, editable } = this.props;
+        const values = fields.getAll();
         return (
             <>
                 {fields.map((member, index) => (
                     <div key={index}>
-                        {editable && this.state[index].is_editing ? (
+                        {editable && values[index].status === "editing" ? (
                             <>
                                 <div>
                                     <Form.Group>
@@ -103,16 +118,14 @@ class FieldArrayMembersGroup extends React.Component {
                         <div>
                             {editable && (
                                 <>
-                                    <FontAwesomeIcon icon={faTrash} onClick={() => this.removeRow(index, )} />
-                                    {this.state[index].is_save && (
+                                    <FontAwesomeIcon icon={faTrash} onClick={() => this.removeRow(index)} />
+                                    {values[index].status !== "editing" && (
                                         <FontAwesomeIcon
                                             icon={faPen}
-                                            onClick={() => {
-                                                this.setState({ [index]: { is_editing: true, is_save: false } });
-                                            }}
+                                            onClick={() => this.editRow(index)}
                                         />
                                     )}
-                                    {this.state[index].is_editing && (
+                                    {values[index].status === "editing" && (
                                         <span
                                             className="ok-check"
                                             onClick={() => this.saveRow(index)}
@@ -125,7 +138,7 @@ class FieldArrayMembersGroup extends React.Component {
                         </div>
                     </div>
                 ))}
-                {meta.error && meta.dirty && <div>{meta.error}</div>}
+                {/* {meta.error && meta.dirty && <div>{meta.error}</div>} */}
                 {editable && (
                     <div>
                         <div></div>

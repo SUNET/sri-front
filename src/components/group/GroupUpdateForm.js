@@ -46,32 +46,23 @@ class GroupUpdateForm extends React.Component {
 
     handleSelectedMember = (selection) => {
         if (selection !== null) {
-            let index = this.state.members.length || 1;
             const addMember = { ...selection.node };
             const newMember = {
                 name: addMember.name,
                 first_name: addMember.first_name,
                 last_name: addMember.last_name,
-                id: addMember.handle_id,
+                handle_id: addMember.handle_id,
                 contact_type: addMember.contact_type,
                 organization: addMember.roles[0].end.handle_id,
                 organization_label: addMember.roles[0].end.name,
-                email: addMember.emails[0].name,
-                phone: addMember.phones[0].name,
+                email: addMember.emails[0] ? addMember.emails[0].name : "",
+                phone: addMember.phones[0] ? addMember.phones[0].name : "",
                 created: true,
                 key: uuidv4()
             };
-            this.setState({
-                members: {
-                    ...this.state.members,
-                    [index]: {
-                        ...newMember,
-                    }
-                }
-            })
-            this.props.addRow(index);
+
             this.props.dispatch(
-                arrayPush("createGroup", "members", newMember)
+                arrayPush("updateGroup", "members", newMember)
             );
         }
     };

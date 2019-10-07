@@ -3,6 +3,7 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
 
 import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
+import CreateContactInlineMutation from "./CreateContactInlineMutation";
 import UpdateEmailMutation from "./UpdateEmailMutation";
 import UpdatePhoneMutation from "./UpdatePhoneMutation";
 
@@ -49,15 +50,27 @@ export default function UpdateGroupMutation(group, callback) {
                     member.first_name = fullName[0];
                     member.last_name = fullName[1];
 
-                    UpdateContactInlineMutation(
-                        member.handle_id,
-                        member.first_name,
-                        member.last_name,
-                        member.contact_type,
-                        member.organization,
-                    );
-                    UpdateEmailMutation(member.id, member.email, member.email_obj);
-                    UpdatePhoneMutation(member.id, member.phone, member.phone_obj);
+                    if(!member.created || member.created === undefined){
+                        CreateContactInlineMutation(
+                            member.first_name,
+                            member.last_name,
+                            member.email,
+                            member.phone,
+                            member.organization,
+                            group.id
+                        );
+                    }else{
+                        UpdateContactInlineMutation(
+                            member.handle_id,
+                            member.first_name,
+                            member.last_name,
+                            member.contact_type,
+                            member.organization,
+                        );
+
+                        UpdateEmailMutation(member.id, member.email, member.email_obj);
+                        UpdatePhoneMutation(member.id, member.phone, member.phone_obj);
+                    }
                 }
             });
             // callback.push("/community/groups/" + group.id);
