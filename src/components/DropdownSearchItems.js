@@ -45,12 +45,9 @@ const onAttention = "&:hover, &:focus";
 const Input = styled("input")(
     {
         width: "100%", // full width - icon width/2 - border
-        fontSize: 14,
         wordWrap: "break-word",
-        lineHeight: "1em",
         outline: 0,
         whiteSpace: "normal",
-        minHeight: "2em",
         background: "#fff",
         display: "inline-block",
         padding: "1em 2em 1em 1em",
@@ -76,11 +73,6 @@ const Input = styled("input")(
             : null
 );
 
-const Label = styled("label")({
-    fontWeight: "bold",
-    display: "block",
-    marginBottom: 10
-});
 
 const BaseMenu = styled("ul")(
     {
@@ -167,7 +159,6 @@ export {
     Item,
     ArrowIcon,
     XIcon,
-    Label,
     css,
     itemToString,
 };

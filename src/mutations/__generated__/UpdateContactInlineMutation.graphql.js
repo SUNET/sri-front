@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ed923a691e4cc77c8d41eb5115dc47ef
+ * @relayHash 390d803c1e7a18fabfd9cbf718c87964
  */
 
 /* eslint-disable */
@@ -9,7 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type CreateContactInput = {|
+export type UpdateContactInput = {|
   first_name: string,
   last_name: string,
   contact_type: any,
@@ -20,13 +20,14 @@ export type CreateContactInput = {|
   relationship_works_for?: ?any,
   relationship_member_of?: ?any,
   role?: ?any,
+  handle_id: number,
   clientMutationId?: ?string,
 |};
-export type CreateContactInlineMutationVariables = {|
-  input: CreateContactInput
+export type UpdateContactInlineMutationVariables = {|
+  input: UpdateContactInput
 |};
-export type CreateContactInlineMutationResponse = {|
-  +create_contact: ?{|
+export type UpdateContactInlineMutationResponse = {|
+  +update_contact: ?{|
     +errors: ?$ReadOnlyArray<?{|
       +field: string,
       +messages: $ReadOnlyArray<string>,
@@ -49,18 +50,18 @@ export type CreateContactInlineMutationResponse = {|
     |},
   |}
 |};
-export type CreateContactInlineMutation = {|
-  variables: CreateContactInlineMutationVariables,
-  response: CreateContactInlineMutationResponse,
+export type UpdateContactInlineMutation = {|
+  variables: UpdateContactInlineMutationVariables,
+  response: UpdateContactInlineMutationResponse,
 |};
 */
 
 
 /*
-mutation CreateContactInlineMutation(
-  $input: CreateContactInput!
+mutation UpdateContactInlineMutation(
+  $input: UpdateContactInput!
 ) {
-  create_contact(input: $input) {
+  update_contact(input: $input) {
     errors {
       field
       messages
@@ -93,7 +94,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateContactInput!",
+    "type": "UpdateContactInput!",
     "defaultValue": null
   }
 ],
@@ -175,7 +176,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "CreateContactInlineMutation",
+    "name": "UpdateContactInlineMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -183,10 +184,10 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "create_contact",
+        "name": "update_contact",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateContactPayload",
+        "concreteType": "UpdateContactPayload",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -248,16 +249,16 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "CreateContactInlineMutation",
+    "name": "UpdateContactInlineMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "create_contact",
+        "name": "update_contact",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateContactPayload",
+        "concreteType": "UpdateContactPayload",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -322,13 +323,13 @@ return {
   },
   "params": {
     "operationKind": "mutation",
-    "name": "CreateContactInlineMutation",
+    "name": "UpdateContactInlineMutation",
     "id": null,
-    "text": "mutation CreateContactInlineMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactInlineMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      roles {\n        name\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2b4fa0003eb9d119e358ff69802c2169';
+(node/*: any*/).hash = '59bf1f14cdc853d0625374627a39c1ce';
 module.exports = node;

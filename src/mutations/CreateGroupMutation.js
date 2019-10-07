@@ -44,9 +44,11 @@ function CreateGroupMutation(
         variables,
         onCompleted: (response, errors) => {
             console.log(errors);
-            console.log(response, environment);
+            console.log(response);
             const group_id = response.create_group.group.handle_id;
-            CreateCommentMutation(group_id, comment);
+            if(comment){
+                CreateCommentMutation(group_id, comment);
+            }
 
             Object.keys(members).forEach(member_key => {
                 let member = members[member_key];

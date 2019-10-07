@@ -9,6 +9,10 @@ import CreatePhoneMutation from "./CreatePhoneMutation";
 const mutation = graphql`
     mutation CreateContactInlineMutation($input: CreateContactInput!) {
         create_contact(input: $input) {
+            errors {
+                field
+                messages
+            }
             contact {
                 handle_id
                 first_name

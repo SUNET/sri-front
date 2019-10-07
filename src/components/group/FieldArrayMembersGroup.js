@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 
 import FieldInput from "../FieldInput";
-import { Field } from "redux-form";
+import { Field, change } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import Dropdown from "../Dropdown";
@@ -33,15 +33,19 @@ class FieldArrayMembersGroup extends React.Component {
     };
 
     saveRow = (index) => {
-        console.log("entro");
+        this.props.dispatch(change("updateGroup", `members[${index}].status`, "saved"));
         if(this.props.meta.valid) {
             this.setState({ [index]: { is_editing: false, is_save: true } });
         }
     }
 
+    removeRow = (index) => {
+        this.props.dispatch(change("updateGroup", `members[${index}].delete`, this.props.fields.getAll()[index].handle_id));
+        this.props.fields.remove(index);
+    }
+
     render() {
         const { fields, meta, t, editable } = this.props;
-        console.log(this.props);
         return (
             <>
                 {fields.map((member, index) => (
@@ -99,7 +103,7 @@ class FieldArrayMembersGroup extends React.Component {
                         <div>
                             {editable && (
                                 <>
-                                    <FontAwesomeIcon icon={faTrash} onClick={(e) => fields.remove(index)} />
+                                    <FontAwesomeIcon icon={faTrash} onClick={() => this.removeRow(index, )} />
                                     {this.state[index].is_save && (
                                         <FontAwesomeIcon
                                             icon={faPen}

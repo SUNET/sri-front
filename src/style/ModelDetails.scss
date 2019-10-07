@@ -31,6 +31,8 @@
 
         .table-details {
             display: table;
+            border-collapse: separate;
+            border-spacing: 0 16px;
             width: 100%;
 
             > div:first-of-type {

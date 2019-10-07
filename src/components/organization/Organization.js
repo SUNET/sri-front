@@ -34,7 +34,6 @@ class Organization extends React.Component {
 
     render() {
         let { organization, t } = this.props;
-        console.log(this.props);
         return (
             <>
                 <section className="model-section">
@@ -105,7 +104,7 @@ class Organization extends React.Component {
                                             <div></div>
                                         </div>
                                         <div>
-                                            {/* {organization.incoming.edges.map((contact, index) => {
+                                            {/* {organization.incoming.relation.start.map((contact, index) => {
                                                 return (
                                                     <div>
                                                         <div>

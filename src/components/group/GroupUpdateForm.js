@@ -3,6 +3,8 @@ import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+import uuidv4 from "uuid/v4";
+import DropdownSearch from "../DropdownSearch";
 
 import FieldInput from "../FieldInput";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
@@ -42,9 +44,40 @@ class GroupUpdateForm extends React.Component {
         );
     };
 
+    handleSelectedMember = (selection) => {
+        if (selection !== null) {
+            let index = this.state.members.length || 1;
+            const addMember = { ...selection.node };
+            const newMember = {
+                name: addMember.name,
+                first_name: addMember.first_name,
+                last_name: addMember.last_name,
+                id: addMember.handle_id,
+                contact_type: addMember.contact_type,
+                organization: addMember.roles[0].end.handle_id,
+                organization_label: addMember.roles[0].end.name,
+                email: addMember.emails[0].name,
+                phone: addMember.phones[0].name,
+                created: true,
+                key: uuidv4()
+            };
+            this.setState({
+                members: {
+                    ...this.state.members,
+                    [index]: {
+                        ...newMember,
+                    }
+                }
+            })
+            this.props.addRow(index);
+            this.props.dispatch(
+                arrayPush("createGroup", "members", newMember)
+            );
+        }
+    };
+
     render() {
         let { group, t, handleSubmit } = this.props;
-        console.log("form", this.props);
         return (
             <form onSubmit={handleSubmit}>
                 <section className="model-section">
@@ -80,6 +113,11 @@ class GroupUpdateForm extends React.Component {
                             <ToggleSection>
                                 <ToggleHeading>
                                     <h2>{t("group-details.members")}</h2>
+                                    <PanelEditable.Consumer>
+                                        {(editable) => {
+                                            return editable && <DropdownSearch selection={this.handleSelectedMember} />
+                                        }}
+                                    </PanelEditable.Consumer>
                                 </ToggleHeading>
                                 <TogglePanel>
                                     <PanelEditable.Consumer>
@@ -100,6 +138,7 @@ class GroupUpdateForm extends React.Component {
                                                             component={FieldArrayMembersGroup}
                                                             editable={editable}
                                                             validate={validateMembers}
+                                                            dispatch={this.props.dispatch}
                                                         />
                                                     </div>
                                                 </div>
@@ -197,6 +236,7 @@ const GroupUpdateFragment = createRefetchContainer(
                         handle_id
                         first_name
                         last_name
+                        contact_type
                         emails {
                             handle_id
                             name

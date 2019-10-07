@@ -2,8 +2,7 @@
 
 .toggle-section {
     .toggle-header {
-
-        :first-child {
+        > :first-child {
             margin-right: 8px;
             margin-bottom: 0;
         }
@@ -12,24 +11,33 @@
             display: inline-block;
         }
 
-        &:hover {
-            cursor: pointer;
+        .icon-action{
+            margin: 0 8px;
         }
 
-        &:after {
+        .colapse {
+            width: 20%;
             float: right;
-            display: inline-block;
-            content: '';
-            height: 6px;
-            width: 6px;
-            border-bottom: 2px solid $complementary-color;
-            border-right: 2px solid $complementary-color;
-            vertical-align: middle;
-            transform: rotate(45deg);
-        }
+            text-align: right;
 
-        &[aria-expanded='false']:after {
-            transform: rotate(-45deg);
+            &:hover {
+                cursor: pointer;
+            }
+
+            &:after {
+                display: inline-block;
+                content: '';
+                height: 6px;
+                width: 6px;
+                border-bottom: 2px solid $complementary-color;
+                border-right: 2px solid $complementary-color;
+                vertical-align: middle;
+                transform: rotate(45deg);
+            }
+
+            &[aria-expanded='false']:after {
+                transform: rotate(-45deg);
+            }
         }
     }
 

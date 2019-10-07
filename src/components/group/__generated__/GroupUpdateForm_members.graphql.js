@@ -17,6 +17,7 @@ export type GroupUpdateForm_members = {|
       +handle_id: string,
       +first_name: string,
       +last_name: string,
+      +contact_type: ?string,
       +emails: ?$ReadOnlyArray<?{|
         +handle_id: string,
         +name: string,
@@ -113,6 +114,13 @@ return {
               "storageKey": null
             },
             {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "contact_type",
+              "args": null,
+              "storageKey": null
+            },
+            {
               "kind": "LinkedField",
               "alias": null,
               "name": "emails",
@@ -165,5 +173,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '37e13ba06f364bfe11222e5d872ca1d8';
+(node/*: any*/).hash = '7b534e2bfb0010d84f5565d3d9447d80';
 module.exports = node;

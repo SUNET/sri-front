@@ -10,16 +10,12 @@ const mutation = graphql`
                 first_name
                 last_name
                 contact_type
-                member_of_groups{
-                    handle_id
-                    name
-                }
             }
         }
     }
 `;
 
-export default function AddContactOrganizationMutation(contact, group, organization) {
+export default function AddContactOrganizationMutation(contact, organization) {
     const variables = {
         input: {
             handle_id: contact.id,

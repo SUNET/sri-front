@@ -45,6 +45,7 @@ const GroupDetailsQuery = graphql`
                     handle_id
                     first_name
                     last_name
+                    contact_type
                     emails {
                         handle_id
                         name
@@ -79,6 +80,7 @@ class GroupDetails extends React.Component {
 
     handleSubmit = (group) => {
         group.id = this.props.match.params.groupId;
+        console.log(group);
         UpdateGroupMutation(group, this.props.history);
     }
     _handleGroupChange = (event) => {
@@ -89,7 +91,8 @@ class GroupDetails extends React.Component {
         const update_group = {
             id: this.props.match.params.groupId,
             name: group.name,
-            description: group.description
+            description: group.description,
+            members: group.members
         };
         UpdateGroupMutation(update_group);
     };

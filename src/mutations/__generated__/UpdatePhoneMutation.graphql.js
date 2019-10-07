@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9bc04d7e49e2abc02f20d4756851481c
+ * @relayHash 7f0cf1406a86be52b36a3d7c8594d9c0
  */
 
 /* eslint-disable */
@@ -9,50 +9,49 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type UpdateContactInput = {|
-  first_name: string,
-  last_name: string,
-  contact_type: any,
-  name?: ?string,
-  title?: ?string,
-  pgp_fingerprint?: ?string,
-  notes?: ?string,
-  relationship_works_for?: ?any,
-  relationship_member_of?: ?any,
-  role?: ?any,
+export type UpdatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
   handle_id: number,
   clientMutationId?: ?string,
 |};
-export type AddContactOrganizationMutationVariables = {|
-  input: UpdateContactInput
+export type UpdatePhoneMutationVariables = {|
+  input: UpdatePhoneInput
 |};
-export type AddContactOrganizationMutationResponse = {|
-  +update_contact: ?{|
-    +contact: ?{|
+export type UpdatePhoneMutationResponse = {|
+  +update_phone: ?{|
+    +errors: ?$ReadOnlyArray<?{|
+      +field: string,
+      +messages: $ReadOnlyArray<string>,
+    |}>,
+    +phone: ?{|
       +handle_id: string,
-      +first_name: string,
-      +last_name: string,
-      +contact_type: ?string,
-    |}
+      +name: string,
+      +type: any,
+    |},
   |}
 |};
-export type AddContactOrganizationMutation = {|
-  variables: AddContactOrganizationMutationVariables,
-  response: AddContactOrganizationMutationResponse,
+export type UpdatePhoneMutation = {|
+  variables: UpdatePhoneMutationVariables,
+  response: UpdatePhoneMutationResponse,
 |};
 */
 
 
 /*
-mutation AddContactOrganizationMutation(
-  $input: UpdateContactInput!
+mutation UpdatePhoneMutation(
+  $input: UpdatePhoneInput!
 ) {
-  update_contact(input: $input) {
-    contact {
+  update_phone(input: $input) {
+    errors {
+      field
+      messages
+    }
+    phone {
       handle_id
-      first_name
-      last_name
-      contact_type
+      name
+      type
       id
     }
   }
@@ -64,7 +63,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateContactInput!",
+    "type": "UpdatePhoneInput!",
     "defaultValue": null
   }
 ],
@@ -76,30 +75,48 @@ v1 = [
   }
 ],
 v2 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "errors",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "ErrorType",
+  "plural": true,
+  "selections": [
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "field",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "messages",
+      "args": null,
+      "storageKey": null
+    }
+  ]
+},
+v3 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "handle_id",
   "args": null,
   "storageKey": null
 },
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "first_name",
-  "args": null,
-  "storageKey": null
-},
 v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
+  "name": "name",
   "args": null,
   "storageKey": null
 },
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "contact_type",
+  "name": "type",
   "args": null,
   "storageKey": null
 };
@@ -107,7 +124,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "AddContactOrganizationMutation",
+    "name": "UpdatePhoneMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -115,22 +132,22 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "update_contact",
+        "name": "update_phone",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateContactPayload",
+        "concreteType": "UpdatePhonePayload",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "contact",
+            "name": "phone",
             "storageKey": null,
             "args": null,
-            "concreteType": "Contact",
+            "concreteType": "Phone",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/)
@@ -142,28 +159,28 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "AddContactOrganizationMutation",
+    "name": "UpdatePhoneMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "update_contact",
+        "name": "update_phone",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateContactPayload",
+        "concreteType": "UpdatePhonePayload",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "contact",
+            "name": "phone",
             "storageKey": null,
             "args": null,
-            "concreteType": "Contact",
+            "concreteType": "Phone",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
@@ -182,13 +199,13 @@ return {
   },
   "params": {
     "operationKind": "mutation",
-    "name": "AddContactOrganizationMutation",
+    "name": "UpdatePhoneMutation",
     "id": null,
-    "text": "mutation AddContactOrganizationMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdatePhoneMutation(\n  $input: UpdatePhoneInput!\n) {\n  update_phone(input: $input) {\n    errors {\n      field\n      messages\n    }\n    phone {\n      handle_id\n      name\n      type\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c6f5ffdcc83f1d9b3b764d116dcaee12';
+(node/*: any*/).hash = 'd3a25657af973029992a6e1f440fe35f';
 module.exports = node;

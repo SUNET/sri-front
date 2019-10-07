@@ -60,7 +60,6 @@ class DropdownSearch extends React.Component {
                 {...css({
                     display: "flex",
                     flexDirection: "column",
-                    marginTop: 50
                 })}
             >
                 <Downshift

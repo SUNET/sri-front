@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 8248c011cfb6134f4a49e54ed8ff9f02
+ * @relayHash feb7c228d401171477f771129489a8e0
  */
 
 /* eslint-disable */
@@ -268,6 +268,7 @@ export type GroupDetailsQueryResponse = {|
         +handle_id: string,
         +first_name: string,
         +last_name: string,
+        +contact_type: ?string,
         +emails: ?$ReadOnlyArray<?{|
           +handle_id: string,
           +name: string,
@@ -334,6 +335,7 @@ query GroupDetailsQuery(
         handle_id
         first_name
         last_name
+        contact_type
         emails {
           handle_id
           name
@@ -489,23 +491,30 @@ v14 = [
 v15 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "contact_type",
+  "args": null,
+  "storageKey": null
+},
+v16 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "type",
   "args": null,
   "storageKey": null
 },
-v16 = [
+v17 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v15/*: any*/)
+  (v16/*: any*/)
 ],
-v17 = [
+v18 = [
   (v11/*: any*/),
   (v5/*: any*/)
 ],
-v18 = [
+v19 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v15/*: any*/),
+  (v16/*: any*/),
   (v5/*: any*/)
 ];
 return {
@@ -615,6 +624,7 @@ return {
                   (v2/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
+                  (v15/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -623,7 +633,7 @@ return {
                     "args": null,
                     "concreteType": "Email",
                     "plural": true,
-                    "selections": (v16/*: any*/)
+                    "selections": (v17/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -633,7 +643,7 @@ return {
                     "args": null,
                     "concreteType": "Phone",
                     "plural": true,
-                    "selections": (v16/*: any*/)
+                    "selections": (v17/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -722,7 +732,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v17/*: any*/)
+            "selections": (v18/*: any*/)
           },
           (v13/*: any*/),
           {
@@ -733,7 +743,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v17/*: any*/)
+            "selections": (v18/*: any*/)
           },
           (v5/*: any*/)
         ]
@@ -768,6 +778,7 @@ return {
                   (v2/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
+                  (v15/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -776,7 +787,7 @@ return {
                     "args": null,
                     "concreteType": "Email",
                     "plural": true,
-                    "selections": (v18/*: any*/)
+                    "selections": (v19/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -786,7 +797,7 @@ return {
                     "args": null,
                     "concreteType": "Phone",
                     "plural": true,
-                    "selections": (v18/*: any*/)
+                    "selections": (v19/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -827,11 +838,11 @@ return {
     "operationKind": "query",
     "name": "GroupDetailsQuery",
     "id": null,
-    "text": "query GroupDetailsQuery(\n  $groupId: Int!\n  $filter: ContactFilter\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    handle_id\n    name\n    description\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n  contacts(filter: $filter) {\n    edges {\n      node {\n        handle_id\n        first_name\n        last_name\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query GroupDetailsQuery(\n  $groupId: Int!\n  $filter: ContactFilter\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    handle_id\n    name\n    description\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n  contacts(filter: $filter) {\n    edges {\n      node {\n        handle_id\n        first_name\n        last_name\n        contact_type\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8e7050a767edc0bcf5575186b57efcf9';
+(node/*: any*/).hash = 'ddf09d346bb641ffde78e172d3d59735';
 module.exports = node;

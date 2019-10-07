@@ -120,8 +120,10 @@ class CreateOrganization extends React.PureComponent {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { name, description, type, contacts, comment, address } = this.state;
-        CreateOrganizationMutation(name, description, type, comment, contacts, address, () => this.props.history);
+        const { name, description, type, contacts, incident_management_info, comment, address } = this.state;
+        console.log(contacts);
+        debugger;
+        CreateOrganizationMutation(name, description, type, incident_management_info, comment, contacts, address, () => this.props.history);
     };
 
     handleSelectedContact = (selection) => {

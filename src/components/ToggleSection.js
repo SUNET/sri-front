@@ -39,28 +39,28 @@ class ToggleSection extends React.Component {
     render() {
         return (
             <div className="toggle-section">
-                {React.Children.map(this.props.children, (child, index) => (
-                    <>
-                        {index === 0 && (
-                            <ToggleHeading
-                                {...child.props}
-                                togglePanel={this.handleTogglePanel}
-                                editPanel={this.handleEditPanel}
-                                defaultEditable={this.props.defaultEditable}
-                                aria-expanded={this.state.visible}
-                            >
-                                {child.props.children}
-                            </ToggleHeading>
-                        )}
-                        {index === 1 && (
-                            <PanelEditable.Provider value={this.state.editable}>
+                <PanelEditable.Provider value={this.state.editable}>
+                    {React.Children.map(this.props.children, (child, index) => (
+                        <>
+                            {index === 0 && (
+                                <ToggleHeading
+                                    {...child.props}
+                                    togglePanel={this.handleTogglePanel}
+                                    editPanel={this.handleEditPanel}
+                                    defaultEditable={this.props.defaultEditable}
+                                    aria-expanded={this.state.visible}
+                                >
+                                    {child.props.children}
+                                </ToggleHeading>
+                            )}
+                            {index === 1 && (
                                 <TogglePanel {...child.props} show={this.state.visible} editable={this.state.editable}>
                                     {child.props.children}
                                 </TogglePanel>
-                            </PanelEditable.Provider>
-                        )}
-                    </>
-                ))}
+                            )}
+                        </>
+                    ))}
+                </PanelEditable.Provider>
             </div>
         );
     }
@@ -82,13 +82,14 @@ export class ToggleHeading extends React.Component {
 
     render() {
         return (
-            <div className="toggle-header" aria-expanded={this.props['aria-expanded']} onClick={(e) => this.handleTogglePanel(e)}>
+            <div className="toggle-header">
                 {this.props.children}
                 {this.props.defaultEditable && (
                     <span className="icon-action" onClick={(e) => this.handleEditPanel(e)}>
                         <FontAwesomeIcon icon={faPen} />
                     </span>
                 )}
+                <span className="colapse" aria-expanded={this.props['aria-expanded']} onClick={(e) => this.handleTogglePanel(e)}></span>
             </div>
         );
     }

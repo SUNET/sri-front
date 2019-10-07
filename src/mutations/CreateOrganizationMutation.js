@@ -3,6 +3,7 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
+import CreateContactInlineMutation from "./CreateContactInlineMutation";
 import AddContactOrganizationMutation from "./AddContactOrganizationMutation";
 import CreateComentMutation from "./CreateCommentMutation";
 import CreateAddressMutation from "./CreateAddressMutation";
@@ -29,6 +30,7 @@ function CreateOrganizationMutation(
     name,
     description,
     type,
+    incident_management_info,
     comment,
     contacts,
     address,
@@ -39,6 +41,7 @@ function CreateOrganizationMutation(
             name,
             description,
             type,
+            incident_management_info,
             clientMutationId: tempID++
         }
     };
@@ -46,7 +49,6 @@ function CreateOrganizationMutation(
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(errors);
             console.log(response, environment);
             const organization_id = response.create_organization.organization.handle_id;
             CreateComentMutation(organization_id, comment);
@@ -54,7 +56,23 @@ function CreateOrganizationMutation(
 
             Object.keys(contacts).forEach(contact_key => {
                 let contact = contacts[contact_key];
-                AddContactOrganizationMutation(contact, organization_id);
+                if(!contact.id || contact.id === undefined){
+                    let fullName = contact.name;
+                    fullName = fullName.split(" ");
+                    contact.first_name = fullName[0];
+                    contact.last_name = fullName[1];
+
+                    CreateContactInlineMutation(
+                        contact.first_name,
+                        contact.last_name,
+                        contact.email,
+                        contact.phone,
+                        organization_id,
+                        contact.role
+                    );
+                }else{
+                    AddContactOrganizationMutation(contact, organization_id);
+                }
             });
 
             callback().push("/community/organizations/" + organization_id);
