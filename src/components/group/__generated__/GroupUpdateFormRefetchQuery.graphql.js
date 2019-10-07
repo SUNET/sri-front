@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 3a8b207daaa32158b2e66e6b518b0998
+ * @relayHash 5f10e02673f79da221e9d0104b0b124e
  */
 
 /* eslint-disable */
@@ -9,33 +9,33 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type Group_group$ref = any;
-export type GroupRefetchQueryVariables = {|
+type GroupUpdateForm_group$ref = any;
+export type GroupUpdateFormRefetchQueryVariables = {|
   groupId: number
 |};
-export type GroupRefetchQueryResponse = {|
+export type GroupUpdateFormRefetchQueryResponse = {|
   +getGroupById: ?{|
-    +$fragmentRefs: Group_group$ref
+    +$fragmentRefs: GroupUpdateForm_group$ref
   |}
 |};
-export type GroupRefetchQuery = {|
-  variables: GroupRefetchQueryVariables,
-  response: GroupRefetchQueryResponse,
+export type GroupUpdateFormRefetchQuery = {|
+  variables: GroupUpdateFormRefetchQueryVariables,
+  response: GroupUpdateFormRefetchQueryResponse,
 |};
 */
 
 
 /*
-query GroupRefetchQuery(
+query GroupUpdateFormRefetchQuery(
   $groupId: Int!
 ) {
   getGroupById(handle_id: $groupId) {
-    ...Group_group
+    ...GroupUpdateForm_group
     id
   }
 }
 
-fragment Group_group on Group {
+fragment GroupUpdateForm_group on Group {
   handle_id
   name
   description
@@ -79,7 +79,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "GroupRefetchQuery",
+    "name": "GroupUpdateFormRefetchQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -95,7 +95,7 @@ return {
         "selections": [
           {
             "kind": "FragmentSpread",
-            "name": "Group_group",
+            "name": "GroupUpdateForm_group",
             "args": null
           }
         ]
@@ -104,7 +104,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "GroupRefetchQuery",
+    "name": "GroupUpdateFormRefetchQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -196,13 +196,13 @@ return {
   },
   "params": {
     "operationKind": "query",
-    "name": "GroupRefetchQuery",
+    "name": "GroupUpdateFormRefetchQuery",
     "id": null,
-    "text": "query GroupRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...Group_group\n    id\n  }\n}\n\nfragment Group_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '784cd03e3b35f4d89e9ea315326594a0';
+(node/*: any*/).hash = '828b7afd2d605f9bc543e464c24601fe';
 module.exports = node;

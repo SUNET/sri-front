@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ed12057f18813f77aeea973a7a22c50b
+ * @relayHash 8248c011cfb6134f4a49e54ed8ff9f02
  */
 
 /* eslint-disable */
@@ -9,7 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type Group_group$ref = any;
+type GroupUpdateForm_group$ref = any;
 export type ContactFilter = {|
   AND?: ?$ReadOnlyArray<ContactNestedFilter>,
   OR?: ?$ReadOnlyArray<ContactNestedFilter>,
@@ -260,7 +260,7 @@ export type GroupDetailsQueryResponse = {|
     +modifier: {|
       +email: string
     |},
-    +$fragmentRefs: Group_group$ref,
+    +$fragmentRefs: GroupUpdateForm_group$ref,
   |},
   +contacts: ?{|
     +edges: $ReadOnlyArray<?{|
@@ -302,6 +302,7 @@ query GroupDetailsQuery(
   $filter: ContactFilter
 ) {
   getGroupById(handle_id: $groupId) {
+    ...GroupUpdateForm_group
     handle_id
     name
     description
@@ -325,7 +326,6 @@ query GroupDetailsQuery(
       email
       id
     }
-    ...Group_group
     id
   }
   contacts(filter: $filter) {
@@ -360,7 +360,7 @@ query GroupDetailsQuery(
   }
 }
 
-fragment Group_group on Group {
+fragment GroupUpdateForm_group on Group {
   handle_id
   name
   description
@@ -580,7 +580,7 @@ return {
           },
           {
             "kind": "FragmentSpread",
-            "name": "Group_group",
+            "name": "GroupUpdateForm_group",
             "args": null
           }
         ]
@@ -827,11 +827,11 @@ return {
     "operationKind": "query",
     "name": "GroupDetailsQuery",
     "id": null,
-    "text": "query GroupDetailsQuery(\n  $groupId: Int!\n  $filter: ContactFilter\n) {\n  getGroupById(handle_id: $groupId) {\n    handle_id\n    name\n    description\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    ...Group_group\n    id\n  }\n  contacts(filter: $filter) {\n    edges {\n      node {\n        handle_id\n        first_name\n        last_name\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Group_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query GroupDetailsQuery(\n  $groupId: Int!\n  $filter: ContactFilter\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    handle_id\n    name\n    description\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n  contacts(filter: $filter) {\n    edges {\n      node {\n        handle_id\n        first_name\n        last_name\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          name\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '052d3d4bf3c6ce12fa4b20b1195a21c8';
+(node/*: any*/).hash = '8e7050a767edc0bcf5575186b57efcf9';
 module.exports = node;

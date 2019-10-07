@@ -22,7 +22,7 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateGroupMutation(group) {
+export default function UpdateGroupMutation(group, callback) {
     const variables = {
         input: {
             handle_id: group.id,
@@ -35,6 +35,7 @@ export default function UpdateGroupMutation(group) {
         mutation,
         variables,
         updater: (proxyStore, data) => {
+            callback.push("/community/groups/" + group.id);
             // const payload = proxyStore.get(contact.id, "Contact");
             // console.log(proxyStore.getRoot());
             // console.log(proxyStore.getDataID());

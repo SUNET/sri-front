@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { withTranslation } from "react-i18next";
 
-import Group from "../../containers/Group";
+import GroupUpdateFormContainer from "../../containers/GroupUpdateForm";
 import EditField from "../EditField";
 import UpdateGroupMutation from "../../mutations/UpdateGroupMutation";
 import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
@@ -17,6 +17,7 @@ import InfoCreatorModifier from "../InfoCreatorModifier";
 const GroupDetailsQuery = graphql`
     query GroupDetailsQuery($groupId: Int!, $filter: ContactFilter) {
         getGroupById(handle_id: $groupId) {
+            ...GroupUpdateForm_group
             handle_id
             name
             description
@@ -37,7 +38,6 @@ const GroupDetailsQuery = graphql`
             modifier {
                 email
             }
-            ...Group_group
         }
         contacts(filter: $filter) {
             edges {
@@ -77,8 +77,9 @@ class GroupDetails extends React.Component {
         }).isRequired
     };
 
-    handleSubmit = (values) => {
-        console.log("values", values);
+    handleSubmit = (group) => {
+        group.id = this.props.match.params.groupId;
+        UpdateGroupMutation(group, this.props.history);
     }
     _handleGroupChange = (event) => {
         this.setState({ name: event.target.value });
@@ -143,7 +144,7 @@ class GroupDetails extends React.Component {
                                 </Row>
                                 <Row>
                                     <Col>
-                                            <Group
+                                            <GroupUpdateFormContainer
                                                 onSubmit={this.handleSubmit}
                                                 group={props.getGroupById}
                                                 members={props.contacts}

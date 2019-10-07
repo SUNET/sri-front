@@ -9,9 +9,9 @@
 /*::
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type Group_members$ref: FragmentReference;
-declare export opaque type Group_members$fragmentType: Group_members$ref;
-export type Group_members = {|
+declare export opaque type GroupUpdateForm_members$ref: FragmentReference;
+declare export opaque type GroupUpdateForm_members$fragmentType: GroupUpdateForm_members$ref;
+export type GroupUpdateForm_members = {|
   +edges: $ReadOnlyArray<?{|
     +node: ?{|
       +handle_id: string,
@@ -36,12 +36,12 @@ export type Group_members = {|
       |}>,
     |}
   |}>,
-  +$refType: Group_members$ref,
+  +$refType: GroupUpdateForm_members$ref,
 |};
-export type Group_members$data = Group_members;
-export type Group_members$key = {
-  +$data?: Group_members$data,
-  +$fragmentRefs: Group_members$ref,
+export type GroupUpdateForm_members$data = GroupUpdateForm_members;
+export type GroupUpdateForm_members$key = {
+  +$data?: GroupUpdateForm_members$data,
+  +$fragmentRefs: GroupUpdateForm_members$ref,
 };
 */
 
@@ -74,7 +74,7 @@ v2 = [
 ];
 return {
   "kind": "Fragment",
-  "name": "Group_members",
+  "name": "GroupUpdateForm_members",
   "type": "ContactConnection",
   "metadata": null,
   "argumentDefinitions": [],
@@ -165,5 +165,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '89f61746cf78a19cb7baa2e095477685';
+(node/*: any*/).hash = '37e13ba06f364bfe11222e5d872ca1d8';
 module.exports = node;

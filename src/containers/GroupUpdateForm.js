@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
-import { Group } from "../components/group";
+import { GroupUpdateForm } from "../components/group";
 
 const mapStateToProps = (state, props) => {
     const initialValues = {
+        name: props.group.name,
         description: props.group.description,
-        members: props.members.edges.map((member)=> {
+        members: props.members.edges.map((member) => {
             return {
                 handle_id: member.node.handle_id,
                 name: member.node.first_name + " " + member.node.last_name,
@@ -12,20 +13,19 @@ const mapStateToProps = (state, props) => {
                 organization_label: member.node.roles[0].end.name,
                 email: member.node.emails[0].name,
                 phone: member.node.phones[0].name
-            }
-        }),
+            };
+        })
     };
     return { initialValues };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
-    };
+    return {};
 };
 
-const GroupContainer = connect(
+const GroupUpdateFormContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Group);
+)(GroupUpdateForm);
 
-export default GroupContainer;
+export default GroupUpdateFormContainer;

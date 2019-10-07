@@ -6,7 +6,6 @@ import { withTranslation } from "react-i18next";
 
 import FieldInput from "../FieldInput";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
-// import uuidv4 from "uuid/v4";
 
 import Worklog from "../Worklog";
 
@@ -15,7 +14,23 @@ import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../
 
 import "../../style/ModelDetails.scss";
 
-class Group extends React.Component {
+const validateMembers = (values, allValues, props) => {
+    console.log("props", props);
+    let memberArrayErrors = {};
+    if(values !== undefined){
+        values.forEach((member, memberIndex) => {
+            let memberErrors = "";
+            if (member.name === undefined || member.organization === undefined || member.email === undefined || member.phone === undefined) {
+                memberErrors = "* Invalid Member!";
+            }
+            memberArrayErrors = memberErrors;
+        });
+    }
+    return memberArrayErrors ? memberArrayErrors : undefined;
+}
+
+class GroupUpdateForm extends React.Component {
+
     refetch = () => {
         this.props.relay.refetch(
             { groupId: this.props.group.handle_id }, // Our refetchQuery needs to know the `groupID`
@@ -29,7 +44,7 @@ class Group extends React.Component {
 
     render() {
         let { group, t, handleSubmit } = this.props;
-        console.log(this.props);
+        console.log("form", this.props);
         return (
             <form onSubmit={handleSubmit}>
                 <section className="model-section">
@@ -81,8 +96,10 @@ class Group extends React.Component {
                                                     <div>
                                                         <FieldArray
                                                             name="members"
+                                                            handleSubmit={this.props.handleSubmit}
                                                             component={FieldArrayMembersGroup}
                                                             editable={editable}
+                                                            validate={validateMembers}
                                                         />
                                                     </div>
                                                 </div>
@@ -117,7 +134,7 @@ const validate = (values) => {
     }
 
     if (!values.members || !values.members.length) {
-        errors.members = { _error: "At least one email must be entered" };
+        errors.members = { _error: "At least one member must be entered" };
     } else {
         const memberArrayErrors = [];
         values.members.forEach((member, memberIndex) => {
@@ -147,16 +164,16 @@ const validate = (values) => {
     return errors;
 };
 
-Group = reduxForm({
+GroupUpdateForm = reduxForm({
     form: "updateGroup",
     validate
-})(Group);
+})(GroupUpdateForm);
 
-const GroupFragment = createRefetchContainer(
-    withTranslation()(Group),
+const GroupUpdateFragment = createRefetchContainer(
+    withTranslation()(GroupUpdateForm),
     {
         group: graphql`
-            fragment Group_group on Group {
+            fragment GroupUpdateForm_group on Group {
                 handle_id
                 name
                 description
@@ -174,7 +191,7 @@ const GroupFragment = createRefetchContainer(
     },
     {
         members: graphql`
-            fragment Group_members on ContactConnection {
+            fragment GroupUpdateForm_members on ContactConnection {
                 edges {
                     node {
                         handle_id
@@ -205,12 +222,12 @@ const GroupFragment = createRefetchContainer(
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-        query GroupRefetchQuery($groupId: Int!) {
+        query GroupUpdateFormRefetchQuery($groupId: Int!) {
             getGroupById(handle_id: $groupId) {
-                ...Group_group
+                ...GroupUpdateForm_group
             }
         }
     `
 );
 
-export default GroupFragment;
+export default GroupUpdateFragment;

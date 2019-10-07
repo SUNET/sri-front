@@ -32,8 +32,16 @@ class FieldArrayMembersGroup extends React.Component {
         }
     };
 
+    saveRow = (index) => {
+        console.log("entro");
+        if(this.props.meta.valid) {
+            this.setState({ [index]: { is_editing: false, is_save: true } });
+        }
+    }
+
     render() {
         const { fields, meta, t, editable } = this.props;
+        console.log(this.props);
         return (
             <>
                 {fields.map((member, index) => (
@@ -103,9 +111,7 @@ class FieldArrayMembersGroup extends React.Component {
                                     {this.state[index].is_editing && (
                                         <span
                                             className="ok-check"
-                                            onClick={() => {
-                                                this.setState({ [index]: { is_editing: false, is_save: true } });
-                                            }}
+                                            onClick={() => this.saveRow(index)}
                                         >
                                             {t("actions.save")}
                                         </span>
@@ -115,6 +121,7 @@ class FieldArrayMembersGroup extends React.Component {
                         </div>
                     </div>
                 ))}
+                {meta.error && meta.dirty && <div>{meta.error}</div>}
                 {editable && (
                     <div>
                         <div></div>
