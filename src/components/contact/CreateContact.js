@@ -88,14 +88,12 @@ const renderPhones = ({ fields, onBlurPhone, onChangeType, t }) => {
 };
 
 const renderOrganizations = ({ fields, meta, onChangeRole, onBlurOrganization, onChangeOrganization, t, addRow }) => {
-
     const pushField = (event) => {
         if (fields.length < 5) {
             addRow(fields.length);
             fields.push({ key: uuidv4() });
         }
     };
-    console.log(fields.getAll());
     return (
         <>
             {fields.map((organization, index) => (
@@ -211,7 +209,7 @@ class CreateContact extends React.PureComponent {
             phones,
             organizations,
             () => this.props.history
-        )
+        );
     };
 
     render() {
@@ -544,7 +542,7 @@ CreateContact = reduxForm({
     initialValues: {
         emails: [{ email: "", type: "" }],
         phones: [{ phone: "", type: "" }],
-        organizations: [{ role: "", id: "", organization: "", key: uuidv4()}]
+        organizations: [{ role: "", id: "", organization: "", key: uuidv4() }]
     }
 })(CreateContact);
 

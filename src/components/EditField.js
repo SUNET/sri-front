@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import OutsideClick from "../components/OutsideCLick";
+// import OutsideClick from "../components/OutsideCLick";
 import { Field } from "redux-form";
 
 import FieldInput from "./FieldInput";
@@ -20,8 +20,7 @@ class EditField extends React.Component {
     }
 
     static propTypes = {
-        children: PropTypes.element.isRequired,
-        onChange: PropTypes.func.isRequired
+        children: PropTypes.element.isRequired
     };
 
     setWrapperRef = (node) => {
@@ -33,9 +32,7 @@ class EditField extends React.Component {
     };
 
     editDone = (event) => {
-        console.log(event.target);
         this.setState({ editable: false });
-        this.props.onChange(event);
     };
 
     exitEdition = (event) => {
@@ -46,29 +43,25 @@ class EditField extends React.Component {
 
     render() {
         return (
-            <OutsideClick callback={this.exitEdition}>
-                <>
-                    {this.state.editable ? (
-                        <Form.Group controlId="formGroupName" className="d-inline">
-                            <Field
-                                className="edit-field-title auto"
-                                placeholder="Full Name"
-                                component={FieldInput}
-                                name="fullName"
-                                value={this.props.children.props.children}
-                                onBlur={(e) => this.exitEdition(e)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") this.editDone(e);
-                                }}
-                            />
-                        </Form.Group>
-                    ) : (
-                        <>{this.props.children}</>
-                    )}
+            <>
+                {this.state.editable ? (
+                    <Form.Group className="d-inline">
+                        <Field
+                            className="edit-field-title auto"
+                            placeholder="Full Name"
+                            component={FieldInput}
+                            name="name"
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") this.editDone(e);
+                            }}
+                        />
+                    </Form.Group>
+                ) : (
+                    <>{this.props.children}</>
+                )}
 
-                    <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />
-                </>
-            </OutsideClick>
+                <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />
+            </>
         );
     }
 }

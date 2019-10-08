@@ -52,13 +52,6 @@ class RangeDayPicker extends React.Component {
             this.to.getDayPicker().showMonth(from);
         }
     }
-    //
-    // getSnapshotBeforeUpdate(prevProps, prevState){
-    //     console.log("prevS", prevState);
-    //     console.log("thisS", this.state);
-    //     console.log("prevP", prevProps);
-    //     console.log("thisP", this.props);
-    // }
 
     handleFromChange = (from) => {
         // Change the from date and focus the "to" input field
@@ -90,9 +83,7 @@ class RangeDayPicker extends React.Component {
                         numberOfMonths: 2
                     }}
                     onDayChange={this.handleFromChange}
-                    component={(props) => (
-                        <DateInput {...props} label="From" />
-                    )}
+                    component={(props) => <DateInput {...props} label="From" />}
                 />
                 <span className="InputFromTo-to">
                     <DayPickerInput
@@ -113,9 +104,7 @@ class RangeDayPicker extends React.Component {
                             numberOfMonths: 2
                         }}
                         onDayChange={this.handleToChange}
-                        component={(props) => (
-                            <DateInput {...props} label="To" />
-                        )}
+                        component={(props) => <DateInput {...props} label="To" />}
                     />
                 </span>
             </div>

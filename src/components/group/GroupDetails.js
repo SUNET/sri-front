@@ -2,17 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { withTranslation } from "react-i18next";
 
 import GroupUpdateFormContainer from "../../containers/GroupUpdateForm";
-import EditField from "../EditField";
+
 import UpdateGroupMutation from "../../mutations/UpdateGroupMutation";
 import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
 import environment from "../../createRelayEnvironment";
-import InfoCreatorModifier from "../InfoCreatorModifier";
 
 const GroupDetailsQuery = graphql`
     query GroupDetailsQuery($groupId: Int!, $filter: ContactFilter) {
@@ -79,13 +74,9 @@ class GroupDetails extends React.Component {
     };
 
     handleSubmit = (group) => {
-        group.id = this.props.match.params.groupId;
         console.log(group);
+        group.id = this.props.match.params.groupId;
         UpdateGroupMutation(group, this.props.history);
-    };
-
-    _handleGroupChange = (event) => {
-        this.setState({ name: event.target.value });
     };
 
     _handleDelete = () => {
@@ -94,7 +85,6 @@ class GroupDetails extends React.Component {
     };
 
     render() {
-        let { t } = this.props;
         return (
             <QueryRenderer
                 environment={environment}
@@ -117,34 +107,12 @@ class GroupDetails extends React.Component {
                     } else if (props) {
                         return (
                             <section className="model-details">
-                                <Row>
-                                    <Col>
-                                        <div className="title-section">
-                                            <button
-                                                onClick={() => this.props.history.goBack()}
-                                                className="btn btn-back outline"
-                                            >
-                                                <span>{t("actions.back")}</span>
-                                            </button>
-                                            <EditField onChange={this._handleGroupChange}>
-                                                <h1>{props.getGroupById.name}</h1>
-                                            </EditField>
-                                            <FontAwesomeIcon icon={faStar} />
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <InfoCreatorModifier model={props.getGroupById} />
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <GroupUpdateFormContainer
-                                            onSubmit={this.handleSubmit}
-                                            group={props.getGroupById}
-                                            members={props.contacts}
-                                        />
-                                    </Col>
-                                </Row>
+                                <GroupUpdateFormContainer
+                                    onSubmit={this.handleSubmit}
+                                    group={props.getGroupById}
+                                    members={props.contacts}
+                                    history={this.props.history}
+                                />
                             </section>
                         );
                     }
@@ -155,4 +123,4 @@ class GroupDetails extends React.Component {
     }
 }
 
-export default withTranslation()(GroupDetails);
+export default GroupDetails;

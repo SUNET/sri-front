@@ -17,12 +17,12 @@ class FieldArrayMembersGroup extends React.Component {
         this.state = {};
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.fields !== nextProps.fields) {
-            return true;
-        }
-        return false;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.props.fields.getAll() !== nextProps.fields.getAll()) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     UNSAFE_componentWillMount() {
         const initialState = this.props.fields.map((member, index) => {
@@ -31,17 +31,17 @@ class FieldArrayMembersGroup extends React.Component {
         this.setState(initialState);
     }
 
-    pushField = (event) => {
+    addRow = (event) => {
         const index = this.props.fields.length;
         if (this.props.fields.length < 5) {
-            this.props.fields.push({ key: uuidv4() });
+            this.props.fields.push({ key: uuidv4(), status: "editing" });
             this.setState({ ...this.state, [index]: { is_editing: true, is_save: false } });
         }
     };
 
     saveRow = (index) => {
-        this.props.dispatch(change("updateGroup", `members[${index}].status`, "saved"));
         if (this.props.meta.valid) {
+            this.props.dispatch(change("updateGroup", `members[${index}].status`, "saved"));
             this.setState({ [index]: { is_editing: false, is_save: true } });
         }
     };
@@ -51,11 +51,12 @@ class FieldArrayMembersGroup extends React.Component {
         this.setState({ [index]: { is_editing: true, is_save: false } });
     };
 
-    removeRow = (index) => {
-        this.props.dispatch(
-            change("updateGroup", `members[${index}].delete`, this.props.fields.getAll()[index].handle_id)
-        );
-        this.props.fields.remove(index);
+    removeRow = (index, values) => {
+        if (values[index].origin === "store") {
+            this.props.dispatch(change("updateGroup", `members[${index}].status`, "remove"));
+        } else {
+            this.props.fields.remove(index);
+        }
     };
 
     render() {
@@ -64,7 +65,7 @@ class FieldArrayMembersGroup extends React.Component {
         return (
             <>
                 {fields.map((member, index) => (
-                    <div key={index}>
+                    <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
                         {editable && values[index].status === "editing" ? (
                             <>
                                 <div>
@@ -115,19 +116,23 @@ class FieldArrayMembersGroup extends React.Component {
                                 <div>{fields.getAll()[index].phone}</div>
                             </>
                         )}
-                        <div>
+                        <div className="actions">
                             {editable && (
-                                <>
-                                    <FontAwesomeIcon icon={faTrash} onClick={() => this.removeRow(index)} />
-                                    {values[index].status !== "editing" && (
-                                        <FontAwesomeIcon icon={faPen} onClick={() => this.editRow(index)} />
-                                    )}
-                                    {values[index].status === "editing" && (
-                                        <span className="ok-check" onClick={() => this.saveRow(index)}>
-                                            {t("actions.save")}
-                                        </span>
-                                    )}
-                                </>
+                                <div className="row">
+                                    <div className="col">
+                                        <FontAwesomeIcon icon={faTrash} onClick={() => this.removeRow(index, values)} />
+                                    </div>
+                                    <div className="col">
+                                        {values[index].status !== "editing" && (
+                                            <FontAwesomeIcon icon={faPen} onClick={() => this.editRow(index)} />
+                                        )}
+                                        {values[index].status === "editing" && (
+                                            <span className="ok-check" onClick={() => this.saveRow(index)}>
+                                                {t("actions.save")}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
                             )}
                         </div>
                     </div>
@@ -138,8 +143,9 @@ class FieldArrayMembersGroup extends React.Component {
                         <div></div>
                         <div></div>
                         <div></div>
+                        <div></div>
                         <div className="col-actions">
-                            <button type="button" className="btn link mt-2" onClick={(e) => this.pushField(e)}>
+                            <button type="button" className="btn link mt-2" onClick={(e) => this.addRow(e)}>
                                 {t("actions.add-new")}
                             </button>
                         </div>

@@ -18,7 +18,6 @@ class OrganizationRow extends React.PureComponent {
 
     render() {
         let organization = this.props.organization;
-        console.log(this.props);
         return (
             <article onClick={(e) => this.props.onClick(e, organization)}>
                 {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <div>{organization.name}</div>}

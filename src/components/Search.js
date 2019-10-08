@@ -63,7 +63,10 @@ class Search extends React.Component {
     };
 
     UNSAFE_componentWillUpdate(nextProps, nextState) {
-        if (this.state.filterDateFrom !== nextState.filterDateFrom || this.state.filterDateTo !== nextState.filterDateTo) {
+        if (
+            this.state.filterDateFrom !== nextState.filterDateFrom ||
+            this.state.filterDateTo !== nextState.filterDateTo
+        ) {
             this.filterDateUpdate(nextState);
         }
     }
@@ -84,8 +87,7 @@ class Search extends React.Component {
             this.setState({ filterDate: {} });
             // return {};
         }
-        console.log(nextState);
-    }
+    };
 
     renderModelList() {
         return (
@@ -98,7 +100,7 @@ class Search extends React.Component {
                     filter: {
                         AND: [
                             {
-                                name_contains: this.state.filterValue,
+                                name_contains: this.state.filterValue
                             },
                             this.state.filterDate
                         ]

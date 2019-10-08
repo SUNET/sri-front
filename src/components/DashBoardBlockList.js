@@ -7,11 +7,7 @@ import DashBoardBlockRow from "./DashBoardBlockRow";
 
 const queryContacts = graphql`
     fragment DashBoardBlockList_models on Query
-        @argumentDefinitions(
-            count: { type: "Int" }
-            cursor: { type: "String" }
-            orderBy: { type: ContactOrderBy }
-        ) {
+        @argumentDefinitions(count: { type: "Int" }, cursor: { type: "String" }, orderBy: { type: ContactOrderBy }) {
         contacts(first: $count, after: $cursor, orderBy: $orderBy)
             @connection(key: "DashBoardBlockList_contacts", filters: []) {
             edges {
@@ -25,7 +21,7 @@ const queryContacts = graphql`
 
 class DashBoardBlockList extends React.PureComponent {
     static propTypes = {
-        contacts: PropTypes.object.isRequired,
+        contacts: PropTypes.object.isRequired
     };
 
     _handleOnClick = (event, data) => {
@@ -34,7 +30,6 @@ class DashBoardBlockList extends React.PureComponent {
 
     renderList() {
         let contacts = this.props.contacts;
-        console.log(this.props);
         return (
             <div>
                 {contacts.contacts.edges.map(({ node }) => (
@@ -53,6 +48,6 @@ function createFragment(fragmentSpec) {
     return (Component) => Relay.createFragmentContainer(Component, fragmentSpec);
 }
 
-const withFragmentContainer = createFragment({contacts: queryContacts});
+const withFragmentContainer = createFragment({ contacts: queryContacts });
 
 export default withFragmentContainer(DashBoardBlockList);

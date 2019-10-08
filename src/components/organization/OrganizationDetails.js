@@ -70,7 +70,6 @@ class OrganizationDetails extends React.Component {
 
     render() {
         let { t } = this.props;
-        console.log(this.props);
         return (
             <QueryRenderer
                 environment={environment}
@@ -82,7 +81,6 @@ class OrganizationDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        console.log("Details org", props, error);
                         return (
                             <section className="model-details">
                                 <Row>
@@ -107,9 +105,7 @@ class OrganizationDetails extends React.Component {
                                 <Row>
                                     <Col>
                                         <Form>
-                                            <Organization
-                                                organization={props.getOrganizationById}
-                                            />
+                                            <Organization organization={props.getOrganizationById} />
                                             <div className="text-right mt-4">
                                                 <button
                                                     type="button"

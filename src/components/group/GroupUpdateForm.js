@@ -5,7 +5,10 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import uuidv4 from "uuid/v4";
 import DropdownSearch from "../DropdownSearch";
-
+import EditField from "../EditField";
+import InfoCreatorModifier from "../InfoCreatorModifier";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import FieldInput from "../FieldInput";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 
@@ -17,7 +20,6 @@ import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../
 import "../../style/ModelDetails.scss";
 
 const validateMembers = (values, allValues, props) => {
-    console.log("props", props);
     let memberArrayErrors = {};
     if (values !== undefined) {
         values.forEach((member, memberIndex) => {
@@ -58,10 +60,15 @@ class GroupUpdateForm extends React.Component {
                 handle_id: addMember.handle_id,
                 contact_type: addMember.contact_type,
                 organization: addMember.roles[0].end.handle_id,
+                organization_obj: addMember.roles[0].end,
                 organization_label: addMember.roles[0].end.name,
                 email: addMember.emails[0] ? addMember.emails[0].name : "",
+                email_obj: addMember.emails[0] ? addMember.emails[0] : {},
                 phone: addMember.phones[0] ? addMember.phones[0].name : "",
+                phone_obj: addMember.phones[0] ? addMember.phones[0] : {},
                 created: true,
+                origin: "new",
+                status: "saved",
                 key: uuidv4()
             };
 
@@ -70,9 +77,29 @@ class GroupUpdateForm extends React.Component {
     };
 
     render() {
-        let { group, t, handleSubmit } = this.props;
+        let { group, name, description, t, handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit}>
+                <Form.Row>
+                    <Col>
+                        <div className="title-section">
+                            <button
+                                type="button"
+                                onClick={() => this.props.history.push(`/community/groups`)}
+                                className="btn btn-back outline"
+                            >
+                                <span>{t("actions.back")}</span>
+                            </button>
+                            <EditField error={this.props}>
+                                <h1>{name}</h1>
+                            </EditField>
+                            <FontAwesomeIcon icon={faStar} />
+                        </div>
+                    </Col>
+                    <Col>
+                        <InfoCreatorModifier model={group} />
+                    </Col>
+                </Form.Row>
                 <section className="model-section">
                     <Form.Row>
                         <Col>
@@ -92,7 +119,7 @@ class GroupUpdateForm extends React.Component {
                                                     placeholder={t("group-details.add-description")}
                                                 />
                                             ) : (
-                                                <span>{group.description}</span>
+                                                <span>{description}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>
@@ -192,6 +219,7 @@ const validate = (values) => {
             errors.members = memberArrayErrors;
         }
     }
+    console.log(errors);
     return errors;
 };
 
@@ -208,6 +236,14 @@ const GroupUpdateFragment = createRefetchContainer(
                 handle_id
                 name
                 description
+                created
+                creator {
+                    email
+                }
+                modified
+                modifier {
+                    email
+                }
                 comments {
                     id
                     user {
@@ -220,37 +256,7 @@ const GroupUpdateFragment = createRefetchContainer(
             }
         `
     },
-    {
-        members: graphql`
-            fragment GroupUpdateForm_members on ContactConnection {
-                edges {
-                    node {
-                        handle_id
-                        first_name
-                        last_name
-                        contact_type
-                        emails {
-                            handle_id
-                            name
-                            type
-                        }
-                        phones {
-                            handle_id
-                            name
-                            type
-                        }
-                        roles {
-                            name
-                            end {
-                                handle_id
-                                name
-                            }
-                        }
-                    }
-                }
-            }
-        `
-    },
+
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.

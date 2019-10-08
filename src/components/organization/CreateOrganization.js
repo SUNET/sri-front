@@ -123,13 +123,21 @@ class CreateOrganization extends React.PureComponent {
         const { name, description, type, contacts, incident_management_info, comment, address } = this.state;
         console.log(contacts);
         debugger;
-        CreateOrganizationMutation(name, description, type, incident_management_info, comment, contacts, address, () => this.props.history);
+        CreateOrganizationMutation(
+            name,
+            description,
+            type,
+            incident_management_info,
+            comment,
+            contacts,
+            address,
+            () => this.props.history
+        );
     };
 
     handleSelectedContact = (selection) => {
         if (selection !== null) {
             const addContact = { ...selection.node };
-            console.log(addContact);
             const newContact = {
                 name: addContact.name,
                 first_name: addContact.first_name,
@@ -150,7 +158,6 @@ class CreateOrganization extends React.PureComponent {
                     }
                 }
             });
-            console.log(newContact);
             this.props.dispatch(arrayPush("createOrganization", "contacts", newContact));
         }
     };

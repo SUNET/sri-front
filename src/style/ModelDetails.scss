@@ -12,7 +12,7 @@
             vertical-align: middle;
 
             &:first-of-type {
-                margin-right: 8px;
+                margin: 0 8px;
             }
         }
     }
@@ -32,7 +32,6 @@
         .table-details {
             display: table;
             border-collapse: separate;
-            border-spacing: 0 16px;
             width: 100%;
 
             > div:first-of-type {
@@ -43,6 +42,7 @@
 
                 > div {
                     display: table-cell;
+                    padding-bottom: 8px;
                 }
             }
 
@@ -56,11 +56,17 @@
                     > div {
                         display: table-cell;
                         padding-right: 16px;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
 
                         &.col-actions {
                             text-align: right;
                             padding: 0;
                             width: auto;
+                        }
+                        &.actions{
+                            width: 120px;
+                            text-align: right;
                         }
                     }
                 }

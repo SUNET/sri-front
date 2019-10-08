@@ -15,6 +15,14 @@ export type GroupUpdateForm_group = {|
   +handle_id: string,
   +name: string,
   +description: ?string,
+  +created: any,
+  +creator: {|
+    +email: string
+  |},
+  +modified: any,
+  +modifier: {|
+    +email: string
+  |},
   +comments: ?$ReadOnlyArray<?{|
     +id: string,
     +user: ?{|
@@ -34,7 +42,17 @@ export type GroupUpdateForm_group$key = {
 */
 
 
-const node/*: ReaderFragment*/ = {
+const node/*: ReaderFragment*/ = (function(){
+var v0 = [
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "email",
+    "args": null,
+    "storageKey": null
+  }
+];
+return {
   "kind": "Fragment",
   "name": "GroupUpdateForm_group",
   "type": "Group",
@@ -61,6 +79,40 @@ const node/*: ReaderFragment*/ = {
       "name": "description",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "created",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "creator",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "User",
+      "plural": false,
+      "selections": (v0/*: any*/)
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "modified",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "modifier",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "User",
+      "plural": false,
+      "selections": (v0/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -121,6 +173,7 @@ const node/*: ReaderFragment*/ = {
     }
   ]
 };
+})();
 // prettier-ignore
-(node/*: any*/).hash = 'cbf6eadfc8631f07779d9813f9f94fc7';
+(node/*: any*/).hash = 'c680c09141c8e07f5400d32087ccf593';
 module.exports = node;

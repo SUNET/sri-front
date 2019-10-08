@@ -31,16 +31,13 @@ export default function AddContactOrganizationMutation(contact, organization) {
         mutation,
         variables,
         updater: (proxyStore, data) => {
-            const payload = proxyStore.get(contact.id, "Contact");
-            console.log(payload, data);
-            // console.log(proxyStore.getRoot());
-            // console.log(proxyStore.getDataID());
+            // const payload = proxyStore.get(contact.id, "Contact");
             // contact_node.setValue(contact.first_name, "first_name");
             // contact_node.setValue(contact.last_name, "last_name");
             // contact_node.setValue(contact.email, "email");
             // contact_node.setValue(contact.phone, "phone");
             // contact_node.setValue(contact.contact_type, "contact_type");
         },
-        onError: (err) => console.error(err),
+        onError: (err) => console.error(err)
     });
 }

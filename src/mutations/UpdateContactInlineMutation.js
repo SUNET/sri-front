@@ -32,7 +32,7 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function UpdateContactInlineMutation(handle_id, first_name, last_name, contact_type, organization) {
+function UpdateContactInlineMutation(handle_id, first_name, last_name, contact_type, organization, group) {
     const variables = {
         input: {
             handle_id,
@@ -40,6 +40,7 @@ function UpdateContactInlineMutation(handle_id, first_name, last_name, contact_t
             last_name,
             contact_type,
             relationship_works_for: organization,
+            relationship_member_of: group,
             clientMutationId: tempID++
         }
     };

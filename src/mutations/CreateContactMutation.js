@@ -69,17 +69,12 @@ function CreateContactMutation(
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(errors);
-            console.log(response, environment);
             const contact_id = response.create_contact.contact.handle_id;
             CreateComentMutation(contact_id, comment);
-            console.log("Emails", emails);
-            Object.keys(emails).forEach(email => {
+            Object.keys(emails).forEach((email) => {
                 CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
             });
-            console.log("Phones", phones);
-            Object.keys(phones).forEach(phone => {
-                console.log("Phone", phones[phone].number, phones[phone].type);
+            Object.keys(phones).forEach((phone) => {
                 CreatePhoneMutation(contact_id, phones[phone].number, phones[phone].type);
             });
 

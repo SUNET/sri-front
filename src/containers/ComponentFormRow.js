@@ -4,7 +4,6 @@ import { saveRow, editRow, removeRow } from "../actions/ComponentFormRow";
 import ComponentFormRow from "../components/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
-    console.log(state.componentFormRow);
     if (state.componentFormRow[props.index] !== undefined) {
         let { is_saved, is_editing, is_new } = state.componentFormRow[props.index];
         return { is_saved, is_editing, is_new };

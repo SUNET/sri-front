@@ -26,26 +26,26 @@ function UpdateEmailMutation(contact, name, email) {
         input: {
             contact,
             name,
-            type: email.handle_id,
+            type: email.type,
             handle_id: email.handle_id,
             clientMutationId: tempID++
         }
     };
-        commitMutation(environment, {
-            mutation,
-            variables,
-            onCompleted: (response, errors) => {
-                console.log(response, errors);
-            },
-            onError: (errors) => console.error(errors),
-            configs: [
-                {
-                    type: "RANGE_ADD",
-                    parentName: ROOT_ID,
-                    parentID: ROOT_ID
-                }
-            ]
-        });
+    commitMutation(environment, {
+        mutation,
+        variables,
+        onCompleted: (response, errors) => {
+            console.log(response, errors);
+        },
+        onError: (errors) => console.error(errors),
+        configs: [
+            {
+                type: "RANGE_ADD",
+                parentName: ROOT_ID,
+                parentID: ROOT_ID
+            }
+        ]
+    });
 }
 
 export default UpdateEmailMutation;

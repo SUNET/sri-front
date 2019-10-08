@@ -10,7 +10,7 @@ const mutation = graphql`
                 first_name
                 last_name
                 contact_type
-                member_of_groups{
+                member_of_groups {
                     handle_id
                     name
                 }
@@ -35,14 +35,12 @@ export default function AddMemberGroupMutation(contact, group) {
         variables,
         updater: (proxyStore, data) => {
             // const payload = proxyStore.get(contact.id, "Contact");
-            // console.log(proxyStore.getRoot());
-            // console.log(proxyStore.getDataID());
             // contact_node.setValue(contact.first_name, "first_name");
             // contact_node.setValue(contact.last_name, "last_name");
             // contact_node.setValue(contact.email, "email");
             // contact_node.setValue(contact.phone, "phone");
             // contact_node.setValue(contact.contact_type, "contact_type");
         },
-        onError: (err) => console.error(err),
+        onError: (err) => console.error(err)
     });
 }

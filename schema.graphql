@@ -16,6 +16,28 @@ type Address implements Node {
   postal_area: String
 }
 
+type AddressConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [AddressEdge]!
+}
+
+"""A Relay edge containing a `Address` and its cursor."""
+type AddressEdge {
+  """The item at the end of the edge"""
+  node: Address
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input AddressFilter {
+  AND: [AddressNestedFilter!]
+  OR: [AddressNestedFilter!]
+}
+
 input AddressInputField {
   name: String
   website: String
@@ -28,6 +50,159 @@ input AddressInputField {
   modified: DateTime
   creator: UserInputType
   modifier: UserInputType
+}
+
+input AddressNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  website: String
+  website_not: String
+  website_lt: String
+  website_lte: String
+  website_gt: String
+  website_gte: String
+  website_contains: String
+  website_not_contains: String
+  website_starts_with: String
+  website_not_starts_with: String
+  website_ends_with: String
+  website_not_ends_with: String
+  website_in: [String!]
+  website_not_in: [String!]
+  phone: String
+  phone_not: String
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  street: String
+  street_not: String
+  street_lt: String
+  street_lte: String
+  street_gt: String
+  street_gte: String
+  street_contains: String
+  street_not_contains: String
+  street_starts_with: String
+  street_not_starts_with: String
+  street_ends_with: String
+  street_not_ends_with: String
+  street_in: [String!]
+  street_not_in: [String!]
+  postal_code: String
+  postal_code_not: String
+  postal_code_lt: String
+  postal_code_lte: String
+  postal_code_gt: String
+  postal_code_gte: String
+  postal_code_contains: String
+  postal_code_not_contains: String
+  postal_code_starts_with: String
+  postal_code_not_starts_with: String
+  postal_code_ends_with: String
+  postal_code_not_ends_with: String
+  postal_code_in: [String!]
+  postal_code_not_in: [String!]
+  postal_area: String
+  postal_area_not: String
+  postal_area_lt: String
+  postal_area_lte: String
+  postal_area_gt: String
+  postal_area_gte: String
+  postal_area_contains: String
+  postal_area_not_contains: String
+  postal_area_starts_with: String
+  postal_area_not_starts_with: String
+  postal_area_ends_with: String
+  postal_area_not_ends_with: String
+  postal_area_in: [String!]
+  postal_area_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum AddressOrderBy {
+  name_ASC
+  name_DESC
+  website_ASC
+  website_DESC
+  phone_ASC
+  phone_DESC
+  street_ASC
+  street_DESC
+  postal_code_ASC
+  postal_code_DESC
+  postal_area_ASC
+  postal_area_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
 }
 
 """This class is used for the choices available in a dropdown"""
@@ -646,6 +821,28 @@ type Email implements Node {
   type: ChoiceScalar!
 }
 
+type EmailConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [EmailEdge]!
+}
+
+"""A Relay edge containing a `Email` and its cursor."""
+type EmailEdge {
+  """The item at the end of the edge"""
+  node: Email
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input EmailFilter {
+  AND: [EmailNestedFilter!]
+  OR: [EmailNestedFilter!]
+}
+
 input EmailInputField {
   name: String
   type: ChoiceScalar
@@ -654,6 +851,89 @@ input EmailInputField {
   modified: DateTime
   creator: UserInputType
   modifier: UserInputType
+}
+
+input EmailNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  type: ChoiceScalar
+  type_not: ChoiceScalar
+  type_lt: ChoiceScalar
+  type_lte: ChoiceScalar
+  type_gt: ChoiceScalar
+  type_gte: ChoiceScalar
+  type_in: [ChoiceScalar!]
+  type_not_in: [ChoiceScalar!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum EmailOrderBy {
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
 }
 
 type ErrorType {
@@ -1163,6 +1443,28 @@ type Phone implements Node {
   type: ChoiceScalar!
 }
 
+type PhoneConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [PhoneEdge]!
+}
+
+"""A Relay edge containing a `Phone` and its cursor."""
+type PhoneEdge {
+  """The item at the end of the edge"""
+  node: Phone
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input PhoneFilter {
+  AND: [PhoneNestedFilter!]
+  OR: [PhoneNestedFilter!]
+}
+
 input PhoneInputField {
   name: String
   type: ChoiceScalar
@@ -1171,6 +1473,89 @@ input PhoneInputField {
   modified: DateTime
   creator: UserInputType
   modifier: UserInputType
+}
+
+input PhoneNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  type: ChoiceScalar
+  type_not: ChoiceScalar
+  type_lt: ChoiceScalar
+  type_lte: ChoiceScalar
+  type_gt: ChoiceScalar
+  type_gte: ChoiceScalar
+  type_in: [ChoiceScalar!]
+  type_not_in: [ChoiceScalar!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum PhoneOrderBy {
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
 }
 
 """The group type is used to group contacts"""
@@ -1314,8 +1699,18 @@ type Query {
   getRoleRelationById(relation_id: Int!): RoleRelation
   roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
   getOrganizationContacts(handle_id: Int!): [ContactWithRolename]
+  getGroupContactRelations(group_id: Int!, contact_id: Int!): [NIRelationType]
+  getContactEmailRelations(contact_id: Int!, email_id: Int!): [NIRelationType]
+  getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]
+  getOrganizationAddressRelations(organization_id: Int!, address_id: Int!): [NIRelationType]
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
   getGroupById(handle_id: Int): Group
+  addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): AddressConnection
+  getAddressById(handle_id: Int): Address
+  phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): PhoneConnection
+  getPhoneById(handle_id: Int): Phone
+  emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): EmailConnection
+  getEmailById(handle_id: Int): Email
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
   getContactById(handle_id: Int): Contact
   organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): OrganizationConnection

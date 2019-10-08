@@ -34,6 +34,10 @@ img {
     max-width: 100%;
 }
 
+svg:hover, .ok-check{
+    cursor: pointer;
+}
+
 button {
     background: none;
     border: none;

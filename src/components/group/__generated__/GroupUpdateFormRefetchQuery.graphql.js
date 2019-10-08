@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 5f10e02673f79da221e9d0104b0b124e
+ * @relayHash 819d3b385078ab6b37225758b079b1b8
  */
 
 /* eslint-disable */
@@ -39,6 +39,16 @@ fragment GroupUpdateForm_group on Group {
   handle_id
   name
   description
+  created
+  creator {
+    email
+    id
+  }
+  modified
+  modifier {
+    email
+    id
+  }
   comments {
     id
     user {
@@ -74,7 +84,17 @@ v2 = {
   "name": "id",
   "args": null,
   "storageKey": null
-};
+},
+v3 = [
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "email",
+    "args": null,
+    "storageKey": null
+  },
+  (v2/*: any*/)
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -138,6 +158,40 @@ return {
             "storageKey": null
           },
           {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "created",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "creator",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v3/*: any*/)
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "modified",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "modifier",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v3/*: any*/)
+          },
+          {
             "kind": "LinkedField",
             "alias": null,
             "name": "comments",
@@ -198,7 +252,7 @@ return {
     "operationKind": "query",
     "name": "GroupUpdateFormRefetchQuery",
     "id": null,
-    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

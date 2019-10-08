@@ -143,20 +143,17 @@ class CreateGroup extends React.Component {
                 members: {
                     ...this.state.members,
                     [index]: {
-                        ...newMember,
+                        ...newMember
                     }
                 }
-            })
+            });
             this.props.addRow(index);
-            this.props.dispatch(
-                arrayPush("createGroup", "members", newMember)
-            );
+            this.props.dispatch(arrayPush("createGroup", "members", newMember));
         }
     };
 
     render() {
         const { t } = this.props;
-        console.log(this.props);
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="model-details">
@@ -231,7 +228,8 @@ class CreateGroup extends React.Component {
                                                                     ...this.state.members[index],
                                                                     [event.target.name.split(".")[1]]:
                                                                         event.target.value,
-                                                                    [event.target.name.split(".")[1] + "_label"]: event.target.options[event.target.value].text
+                                                                    [event.target.name.split(".")[1] + "_label"]: event
+                                                                        .target.options[event.target.value].text
                                                                 }
                                                             }
                                                         })
@@ -320,7 +318,6 @@ const validate = (values) => {
             errors.members = memberArrayErrors;
         }
     }
-    console.log("ERRORS", errors);
     return errors;
 };
 
