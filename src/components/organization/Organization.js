@@ -169,7 +169,6 @@ const OrganizationFragment = createRefetchContainer(
             fragment Organization_organization on Organization {
                 handle_id
                 name
-                description
                 type
                 incident_management_info
                 addresses {
@@ -189,7 +188,7 @@ const OrganizationFragment = createRefetchContainer(
                             handle_id
                             node_name
                         }
-                        start{
+                        start {
                             handle_id
                             node_name
                         }

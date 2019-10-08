@@ -14,7 +14,6 @@ declare export opaque type Organization_organization$fragmentType: Organization_
 export type Organization_organization = {|
   +handle_id: string,
   +name: string,
-  +description: string,
   +type: ?any,
   +incident_management_info: ?string,
   +addresses: ?$ReadOnlyArray<?{|
@@ -100,13 +99,6 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "description",
-      "args": null,
-      "storageKey": null
-    },
     (v2/*: any*/),
     {
       "kind": "ScalarField",
@@ -274,5 +266,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '36bfe31b818a89a0156cb0f476c8f9e0';
+(node/*: any*/).hash = '58e9c8046c53822e118bbe8a4f65cc35';
 module.exports = node;

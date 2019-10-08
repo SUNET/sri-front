@@ -19,20 +19,24 @@ import "../../style/ModelDetails.scss";
 const validateMembers = (values, allValues, props) => {
     console.log("props", props);
     let memberArrayErrors = {};
-    if(values !== undefined){
+    if (values !== undefined) {
         values.forEach((member, memberIndex) => {
             let memberErrors = "";
-            if (member.name === undefined || member.organization === undefined || member.email === undefined || member.phone === undefined) {
+            if (
+                member.name === undefined ||
+                member.organization === undefined ||
+                member.email === undefined ||
+                member.phone === undefined
+            ) {
                 memberErrors = "* Invalid Member!";
             }
             memberArrayErrors = memberErrors;
         });
     }
     return memberArrayErrors ? memberArrayErrors : undefined;
-}
+};
 
 class GroupUpdateForm extends React.Component {
-
     refetch = () => {
         this.props.relay.refetch(
             { groupId: this.props.group.handle_id }, // Our refetchQuery needs to know the `groupID`
@@ -61,9 +65,7 @@ class GroupUpdateForm extends React.Component {
                 key: uuidv4()
             };
 
-            this.props.dispatch(
-                arrayPush("updateGroup", "members", newMember)
-            );
+            this.props.dispatch(arrayPush("updateGroup", "members", newMember));
         }
     };
 
@@ -106,7 +108,7 @@ class GroupUpdateForm extends React.Component {
                                     <h2>{t("group-details.members")}</h2>
                                     <PanelEditable.Consumer>
                                         {(editable) => {
-                                            return editable && <DropdownSearch selection={this.handleSelectedMember} />
+                                            return editable && <DropdownSearch selection={this.handleSelectedMember} />;
                                         }}
                                     </PanelEditable.Consumer>
                                 </ToggleHeading>
@@ -125,7 +127,6 @@ class GroupUpdateForm extends React.Component {
                                                     <div>
                                                         <FieldArray
                                                             name="members"
-                                                            handleSubmit={this.props.handleSubmit}
                                                             component={FieldArrayMembersGroup}
                                                             editable={editable}
                                                             validate={validateMembers}

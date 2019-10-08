@@ -82,19 +82,10 @@ class GroupDetails extends React.Component {
         group.id = this.props.match.params.groupId;
         console.log(group);
         UpdateGroupMutation(group, this.props.history);
-    }
-    _handleGroupChange = (event) => {
-        this.setState({ name: event.target.value });
     };
 
-    _handleUpdate = (group) => {
-        const update_group = {
-            id: this.props.match.params.groupId,
-            name: group.name,
-            description: group.description,
-            members: group.members
-        };
-        UpdateGroupMutation(update_group);
+    _handleGroupChange = (event) => {
+        this.setState({ name: event.target.value });
     };
 
     _handleDelete = () => {
@@ -147,11 +138,11 @@ class GroupDetails extends React.Component {
                                 </Row>
                                 <Row>
                                     <Col>
-                                            <GroupUpdateFormContainer
-                                                onSubmit={this.handleSubmit}
-                                                group={props.getGroupById}
-                                                members={props.contacts}
-                                            />
+                                        <GroupUpdateFormContainer
+                                            onSubmit={this.handleSubmit}
+                                            group={props.getGroupById}
+                                            members={props.contacts}
+                                        />
                                     </Col>
                                 </Row>
                             </section>

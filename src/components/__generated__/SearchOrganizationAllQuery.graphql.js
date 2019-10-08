@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9436ee061a845e51f995f2e493477a88
+ * @relayHash 8545060376cbcd29b63a4792416e1bdc
  */
 
 /* eslint-disable */
@@ -191,6 +191,18 @@ fragment OrganizationRow_organization on Organization {
   handle_id
   name
   type
+  incoming {
+    name
+    relation {
+      type
+      start {
+        handle_id
+        node_name
+        id
+      }
+      id
+    }
+  }
 }
 */
 
@@ -233,7 +245,35 @@ v3 = [
     "variableName": "count"
   },
   (v2/*: any*/)
-];
+],
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "handle_id",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "type",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -290,34 +330,55 @@ return {
                 "concreteType": "Organization",
                 "plural": false,
                 "selections": [
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
-                    "kind": "ScalarField",
+                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "handle_id",
+                    "name": "incoming",
+                    "storageKey": null,
                     "args": null,
-                    "storageKey": null
+                    "concreteType": "DictRelationType",
+                    "plural": true,
+                    "selections": [
+                      (v5/*: any*/),
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "relation",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "NIRelationType",
+                        "plural": false,
+                        "selections": [
+                          (v6/*: any*/),
+                          {
+                            "kind": "LinkedField",
+                            "alias": null,
+                            "name": "start",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "NINodeHandlerType",
+                            "plural": false,
+                            "selections": [
+                              (v4/*: any*/),
+                              {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "node_name",
+                                "args": null,
+                                "storageKey": null
+                              },
+                              (v7/*: any*/)
+                            ]
+                          },
+                          (v7/*: any*/)
+                        ]
+                      }
+                    ]
                   },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "name",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "type",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "id",
-                    "args": null,
-                    "storageKey": null
-                  },
+                  (v7/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -378,7 +439,7 @@ return {
     "operationKind": "query",
     "name": "SearchOrganizationAllQuery",
     "id": null,
-    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n}\n",
+    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

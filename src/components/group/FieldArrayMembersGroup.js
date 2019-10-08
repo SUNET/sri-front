@@ -18,12 +18,10 @@ class FieldArrayMembersGroup extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(this.props.fields);
-        console.log(nextProps.fields);
-        if(this.props.fields !== nextProps.fields){
+        if (this.props.fields !== nextProps.fields) {
             return true;
         }
-       return false;
+        return false;
     }
 
     UNSAFE_componentWillMount() {
@@ -43,20 +41,22 @@ class FieldArrayMembersGroup extends React.Component {
 
     saveRow = (index) => {
         this.props.dispatch(change("updateGroup", `members[${index}].status`, "saved"));
-        if(this.props.meta.valid) {
+        if (this.props.meta.valid) {
             this.setState({ [index]: { is_editing: false, is_save: true } });
         }
-    }
+    };
 
     editRow = (index) => {
         this.props.dispatch(change("updateGroup", `members[${index}].status`, "editing"));
         this.setState({ [index]: { is_editing: true, is_save: false } });
-    }
+    };
 
     removeRow = (index) => {
-        this.props.dispatch(change("updateGroup", `members[${index}].delete`, this.props.fields.getAll()[index].handle_id));
+        this.props.dispatch(
+            change("updateGroup", `members[${index}].delete`, this.props.fields.getAll()[index].handle_id)
+        );
         this.props.fields.remove(index);
-    }
+    };
 
     render() {
         const { fields, meta, t, editable } = this.props;
@@ -120,16 +120,10 @@ class FieldArrayMembersGroup extends React.Component {
                                 <>
                                     <FontAwesomeIcon icon={faTrash} onClick={() => this.removeRow(index)} />
                                     {values[index].status !== "editing" && (
-                                        <FontAwesomeIcon
-                                            icon={faPen}
-                                            onClick={() => this.editRow(index)}
-                                        />
+                                        <FontAwesomeIcon icon={faPen} onClick={() => this.editRow(index)} />
                                     )}
                                     {values[index].status === "editing" && (
-                                        <span
-                                            className="ok-check"
-                                            onClick={() => this.saveRow(index)}
-                                        >
+                                        <span className="ok-check" onClick={() => this.saveRow(index)}>
                                             {t("actions.save")}
                                         </span>
                                     )}

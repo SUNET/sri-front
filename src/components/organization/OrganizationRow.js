@@ -18,23 +18,14 @@ class OrganizationRow extends React.PureComponent {
 
     render() {
         let organization = this.props.organization;
+        console.log(this.props);
         return (
             <article onClick={(e) => this.props.onClick(e, organization)}>
-                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && (
-                    <div>
-                        {organization.name}
-                    </div>
-                )}
+                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <div>{organization.name}</div>}
                 {(this.props.columnsVisible["organization_id"] || this.props.showAllColumns) && (
-                    <div>
-                        {organization.handle_id}
-                    </div>
+                    <div>{organization.handle_id}</div>
                 )}
-                {(this.props.columnsVisible["type"] || this.props.showAllColumns) && (
-                    <div>
-                        {organization.type}
-                    </div>
-                )}
+                {(this.props.columnsVisible["type"] || this.props.showAllColumns) && <div>{organization.type}</div>}
                 {(this.props.columnsVisible["afffiliation"] || this.props.showAllColumns) && (
                     <div>
                         TEST
@@ -54,10 +45,15 @@ class OrganizationRow extends React.PureComponent {
                 )}
                 {(this.props.columnsVisible["parent_organization_id"] || this.props.showAllColumns) && (
                     <div>
-                        PARENT ID
+                        {organization.incoming.map((relation) => {
+                            if (relation.name === "Parent_of") {
+                                return relation.start.handle_id;
+                            } else {
+                                return "No parent";
+                            }
+                        })}
                     </div>
                 )}
-                <div></div>
             </article>
         );
     }
@@ -69,6 +65,16 @@ const OrganizationRowFragment = createFragmentContainer(OrganizationRow, {
             handle_id
             name
             type
+            incoming {
+                name
+                relation {
+                    type
+                    start {
+                        handle_id
+                        node_name
+                    }
+                }
+            }
         }
     `
 });

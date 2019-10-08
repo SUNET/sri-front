@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 61fd9dde0215cc7e6f803aa386cef939
+ * @relayHash 385cc048698270f52c95c26826da6582
  */
 
 /* eslint-disable */
@@ -38,7 +38,6 @@ query OrganizationRefetchQuery(
 fragment Organization_organization on Organization {
   handle_id
   name
-  description
   type
   incident_management_info
   addresses {
@@ -179,13 +178,6 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "description",
-            "args": null,
-            "storageKey": null
-          },
           (v4/*: any*/),
           {
             "kind": "ScalarField",
@@ -355,7 +347,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationRefetchQuery",
     "id": null,
-    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  description\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
