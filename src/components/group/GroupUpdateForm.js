@@ -10,7 +10,7 @@ import InfoCreatorModifier from "../InfoCreatorModifier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import FieldInput from "../FieldInput";
-import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
+import { arrayPush, FieldArray, Field, reduxForm, reset } from "redux-form";
 
 import Worklog from "../Worklog";
 import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
@@ -19,25 +19,6 @@ import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
-
-const validateMembers = (values, allValues, props) => {
-    let memberArrayErrors = {};
-    if (values !== undefined) {
-        values.forEach((member, memberIndex) => {
-            let memberErrors = "";
-            if (
-                member.name === undefined ||
-                member.organization === undefined ||
-                member.email === undefined ||
-                member.phone === undefined
-            ) {
-                memberErrors = "* Invalid Member!";
-            }
-            memberArrayErrors = memberErrors;
-        });
-    }
-    return memberArrayErrors ? memberArrayErrors : undefined;
-};
 
 class GroupUpdateForm extends React.Component {
     refetch = () => {
@@ -163,6 +144,8 @@ class GroupUpdateForm extends React.Component {
                                                             component={FieldArrayMembersGroup}
                                                             editable={editable}
                                                             dispatch={this.props.dispatch}
+                                                            errors={this.props.formSyncErrors.members}
+                                                            metaFields={this.props.fields}
                                                         />
                                                     </div>
                                                 </div>
@@ -205,6 +188,9 @@ const validate = (values) => {
             if (!member || !member.name) {
                 memberErrors.name = "* Required!";
                 memberArrayErrors[memberIndex] = memberErrors;
+            } else if (!/^[a-zA-Z0-9]+ ?([a-zA-Z0-9]+$){1}/i.test(member.name)) {
+                memberErrors.name = "* Invalid name!";
+                memberArrayErrors[memberIndex] = memberErrors;
             }
             if (!member || !member.organization) {
                 memberErrors.organization = "* Required!";
@@ -232,7 +218,10 @@ const validate = (values) => {
 
 GroupUpdateForm = reduxForm({
     form: "updateGroup",
-    validate
+    validate,
+    onSubmitSuccess: (result, dispatch, props) => {
+        dispatch(reset("updateGroup"));
+    }
 })(GroupUpdateForm);
 
 const GroupUpdateFragment = createRefetchContainer(

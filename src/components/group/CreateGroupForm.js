@@ -11,25 +11,6 @@ import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/Togg
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
 
-const validateMembers = (values, allValues, props) => {
-    let memberArrayErrors = {};
-    if (values !== undefined) {
-        values.forEach((member, memberIndex) => {
-            let memberErrors = "";
-            if (
-                member.name === undefined ||
-                member.organization === undefined ||
-                member.email === undefined ||
-                member.phone === undefined
-            ) {
-                memberErrors = "* Invalid Member!";
-            }
-            memberArrayErrors = memberErrors;
-        });
-    }
-    return memberArrayErrors ? memberArrayErrors : undefined;
-};
-
 class CreateGroupForm extends React.Component {
     constructor(props) {
         super(props);
@@ -125,6 +106,8 @@ class CreateGroupForm extends React.Component {
                                                     component={FieldArrayMembersGroup}
                                                     editable={true}
                                                     dispatch={this.props.dispatch}
+                                                    errors={this.props.formSyncErrors.members}
+                                                    metaFields={this.props.fields}
                                                 />
                                             </div>
                                         </div>
@@ -186,6 +169,9 @@ const validate = (values, props) => {
             const memberErrors = {};
             if (!member || !member.name) {
                 memberErrors.name = "* Required!";
+                memberArrayErrors[memberIndex] = memberErrors;
+            } else if (!/^[a-zA-Z0-9]+ ?([a-zA-Z0-9]+$){1}/i.test(member.name)) {
+                memberErrors.name = "* Invalid name!";
                 memberArrayErrors[memberIndex] = memberErrors;
             }
             if (!member || !member.organization) {

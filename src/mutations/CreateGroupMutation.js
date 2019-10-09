@@ -42,7 +42,6 @@ function CreateGroupMutation(group, callback) {
         onCompleted: (response, errors) => {
             console.log(errors);
             console.log(response);
-            debugger;
             const group_id = response.create_group.group.handle_id;
             if (group.comment) {
                 CreateCommentMutation(group_id, group.comment);

@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 
 import FieldInput from "../FieldInput";
-import { Field, change } from "redux-form";
+import { Field, change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import Dropdown from "../Dropdown";
@@ -21,34 +21,40 @@ class FieldArrayMembersGroup extends React.Component {
         this.state = {};
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (this.props.fields.getAll() !== nextProps.fields.getAll()) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    validateMember = (index) => {
+        const values = this.props.fields.getAll()[index];
+        const fieldsNotBlank =
+            values.name !== "" && values.organization !== "" && values.email !== "" && values.phone !== "";
+
+        const errors = this.props.errors;
+        console.log("err1", !(errors && errors[index] !== undefined));
+        console.log("err2", fieldsNotBlank && errors === undefined);
+        return !(errors && errors[index] !== undefined) && (fieldsNotBlank && errors === undefined);
+    };
 
     addRow = (event) => {
-        const index = this.props.fields.length;
         if (this.props.fields.length < 5) {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
-            this.setState({ ...this.state, [index]: { is_editing: true, is_save: false } });
         }
     };
 
     saveRow = (index) => {
-        console.log(this.props);
-        if (this.props.meta.valid) {
+        if (this.validateMember(index)) {
+            console.log("VALID");
             this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "saved"));
-            this.props.dispatch(refreshFields());
-            this.setState({ [index]: { is_editing: false, is_save: true } });
+        } else {
+            console.log("INVALID", this.props.meta.form, index);
+            this.props.dispatch(touch(this.props.meta.form, `members[${index}].name`));
+            this.props.dispatch(touch(this.props.meta.form, `members[${index}].organization`));
+            this.props.dispatch(touch(this.props.meta.form, `members[${index}].email`));
+            this.props.dispatch(touch(this.props.meta.form, `members[${index}].phone`));
         }
+        this.props.dispatch(refreshFields());
     };
 
     editRow = (index) => {
         this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "editing"));
         this.props.dispatch(refreshFields());
-        this.setState({ [index]: { is_editing: true, is_save: false } });
     };
 
     removeRow = (index, values) => {
