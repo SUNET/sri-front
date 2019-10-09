@@ -69,7 +69,9 @@ class GroupUpdateForm extends React.Component {
     };
 
     copyAllEmails = () => {
-        const emails = this.props.memberValues.map((member) => member.email);
+        const emails = this.props.memberValues.map((member) => {
+            return member.status === "saved" ? member.email : null;
+        });
         copy(emails.join(" "));
     };
 

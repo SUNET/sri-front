@@ -21,7 +21,7 @@ const mapStateToProps = (state, props) => {
                           email_obj: member.node.emails[0],
                           phone: member.node.phones[0].name,
                           phone_obj: member.node.phones[0],
-                          status: "save",
+                          status: "saved",
                           origin: "store",
                           created: true
                       };
