@@ -10,11 +10,11 @@ import InfoCreatorModifier from "../InfoCreatorModifier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import FieldInput from "../FieldInput";
-import { arrayPush, FieldArray, Field, reduxForm, reset } from "redux-form";
+import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 
+import copy from "clipboard-copy";
 import Worklog from "../Worklog";
 import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
-
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
@@ -30,6 +30,10 @@ class GroupUpdateForm extends React.Component {
             },
             { force: true }
         );
+    };
+
+    _hasBeenAdded = (newMember) => {
+        return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);
     };
 
     handleSelectedMember = (selection) => {
@@ -53,14 +57,20 @@ class GroupUpdateForm extends React.Component {
                 status: "saved",
                 key: uuidv4()
             };
-
-            this.props.dispatch(arrayPush("updateGroup", "members", newMember));
+            if (!this._hasBeenAdded(newMember)) {
+                this.props.dispatch(arrayPush("updateGroup", "members", newMember));
+            }
         }
     };
 
     handleDelete = () => {
         const groupId = this.props.group.handle_id;
         DeleteGroupMutation(groupId, () => this.props.history.push(`/community/groups`));
+    };
+
+    copyAllEmails = () => {
+        const emails = this.props.memberValues.map((member) => member.email);
+        copy(emails.join(" "));
     };
 
     render() {
@@ -134,7 +144,16 @@ class GroupUpdateForm extends React.Component {
                                                     <div>
                                                         <div>Name</div>
                                                         <div>Organization</div>
-                                                        <div>Email</div>
+                                                        <div className="with-icon">
+                                                            <span>Email</span>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => this.copyAllEmails()}
+                                                                className="btn outline btn-copy"
+                                                            >
+                                                                <span>{t("actions.copy-all")}</span>
+                                                            </button>
+                                                        </div>
                                                         <div>Phone</div>
                                                         <div></div>
                                                     </div>
@@ -218,10 +237,7 @@ const validate = (values) => {
 
 GroupUpdateForm = reduxForm({
     form: "updateGroup",
-    validate,
-    onSubmitSuccess: (result, dispatch, props) => {
-        dispatch(reset("updateGroup"));
-    }
+    validate
 })(GroupUpdateForm);
 
 const GroupUpdateFragment = createRefetchContainer(

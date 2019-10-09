@@ -31,7 +31,7 @@ class EditField extends React.Component {
     };
 
     editDone = (event) => {
-        console.log(this.props);
+        event.preventDefault();
         if (!this.props.error) {
             this.setState({ editable: false });
         }

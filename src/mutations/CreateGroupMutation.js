@@ -65,14 +65,7 @@ function CreateGroupMutation(group, callback) {
                     );
                 } else {
                     AddMemberGroupMutation(member, group_id);
-                    UpdateContactInlineMutation(
-                        member.handle_id,
-                        member.first_name,
-                        member.last_name,
-                        member.contact_type,
-                        member.organization,
-                        group_id
-                    );
+                    UpdateContactInlineMutation(member, member.organization, group_id);
                     UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
                     UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
                 }

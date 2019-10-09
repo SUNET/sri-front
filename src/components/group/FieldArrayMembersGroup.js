@@ -6,6 +6,7 @@ import FieldInput from "../FieldInput";
 import { Field, change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 
+import CopyToClipboard from "../CopyToClipboard";
 import Dropdown from "../Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -27,8 +28,6 @@ class FieldArrayMembersGroup extends React.Component {
             values.name !== "" && values.organization !== "" && values.email !== "" && values.phone !== "";
 
         const errors = this.props.errors;
-        console.log("err1", !(errors && errors[index] !== undefined));
-        console.log("err2", fieldsNotBlank && errors === undefined);
         return !(errors && errors[index] !== undefined) && (fieldsNotBlank && errors === undefined);
     };
 
@@ -40,10 +39,8 @@ class FieldArrayMembersGroup extends React.Component {
 
     saveRow = (index) => {
         if (this.validateMember(index)) {
-            console.log("VALID");
             this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "saved"));
         } else {
-            console.log("INVALID", this.props.meta.form, index);
             this.props.dispatch(touch(this.props.meta.form, `members[${index}].name`));
             this.props.dispatch(touch(this.props.meta.form, `members[${index}].organization`));
             this.props.dispatch(touch(this.props.meta.form, `members[${index}].email`));
@@ -63,6 +60,11 @@ class FieldArrayMembersGroup extends React.Component {
         } else {
             this.props.fields.remove(index);
         }
+    };
+
+    saveLabel = (event, index) => {
+        const organization_label = event.target.options[event.target.value].text;
+        this.props.dispatch(change(this.props.meta.form, `members[${index}].organization_label`, organization_label));
     };
 
     render() {
@@ -89,7 +91,9 @@ class FieldArrayMembersGroup extends React.Component {
                                         className="auto"
                                         emptyLabel="Select organization"
                                         model="organization"
-                                        onChange={(e) => {}}
+                                        onChange={(e) => {
+                                            this.saveLabel(e, index);
+                                        }}
                                         name={`${member}.organization`}
                                     />
                                 </div>
@@ -118,7 +122,11 @@ class FieldArrayMembersGroup extends React.Component {
                             <>
                                 <div>{fields.getAll()[index].name}</div>
                                 <div>{fields.getAll()[index].organization_label}</div>
-                                <div>{fields.getAll()[index].email}</div>
+                                {this.props.meta.form === "updateGroup" ? (
+                                    <CopyToClipboard>{fields.getAll()[index].email}</CopyToClipboard>
+                                ) : (
+                                    <div>{fields.getAll()[index].email}</div>
+                                )}
                                 <div>{fields.getAll()[index].phone}</div>
                             </>
                         )}

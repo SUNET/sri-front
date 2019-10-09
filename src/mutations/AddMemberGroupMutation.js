@@ -1,6 +1,7 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
+import { ROOT_ID } from "relay-runtime";
 
 const mutation = graphql`
     mutation AddMemberGroupMutation($input: UpdateContactInput!) {
@@ -22,10 +23,10 @@ const mutation = graphql`
 export default function AddMemberGroupMutation(contact, group) {
     const variables = {
         input: {
-            handle_id: contact.id,
+            handle_id: contact.handle_id,
             first_name: contact.first_name,
             last_name: contact.last_name,
-            contact_type: contact.contact_type,
+            contact_type: contact.contact_type.toLowerCase(),
             relationship_member_of: group,
             clientMutationId: ""
         }
@@ -41,6 +42,20 @@ export default function AddMemberGroupMutation(contact, group) {
             // contact_node.setValue(contact.phone, "phone");
             // contact_node.setValue(contact.contact_type, "contact_type");
         },
-        onError: (err) => console.error(err)
+        onError: (err) => console.error(err),
+        configs: [
+            {
+                type: "RANGE_ADD",
+                parentName: ROOT_ID,
+                parentID: ROOT_ID,
+                connectionInfo: [
+                    {
+                        key: "ContactList_contacts",
+                        rangeBehavior: "append"
+                    }
+                ],
+                edgeName: "contactEdge"
+            }
+        ]
     });
 }

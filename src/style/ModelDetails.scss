@@ -42,7 +42,14 @@
 
                 > div {
                     display: table-cell;
-                    padding-bottom: 8px;
+                    &:not(.with-icon){
+                        padding-bottom: 8px;
+                    }
+                    &.with-icon{
+                        > span{
+                            margin-right: 8px;
+                        }
+                    }
                 }
             }
 

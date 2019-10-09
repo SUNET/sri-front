@@ -1,5 +1,4 @@
 import React from "react";
-import { reset } from "redux-form";
 import CreateGroupFormContainer from "../../containers/CreateGroupForm";
 import CreateGroupMutation from "../../mutations/CreateGroupMutation";
 

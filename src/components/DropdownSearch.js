@@ -16,12 +16,12 @@ const DropdownSearchContactsQuery = graphql`
                     first_name
                     last_name
                     contact_type
-                    emails{
+                    emails {
                         handle_id
                         name
                         type
                     }
-                    phones{
+                    phones {
                         handle_id
                         name
                         type
@@ -52,22 +52,17 @@ class DropdownSearch extends React.Component {
     }
     handleSelectMember = (selection) => {
         this.props.selection(selection);
-    }
+    };
 
     render() {
         return (
             <div
                 {...css({
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: "column"
                 })}
             >
-                <Downshift
-                    onChange={
-                        (selection) => this.handleSelectMember(selection)
-                    }
-                    itemToString={itemToString}
-                >
+                <Downshift onChange={(selection) => this.handleSelectMember(selection)} itemToString={itemToString}>
                     {({
                         getInputProps,
                         getToggleButtonProps,
@@ -98,7 +93,12 @@ class DropdownSearch extends React.Component {
                                 )}
                             </div>
                             <div {...css({ position: "relative" })}>
-                                <Menu {...getMenuProps({ isOpen })}>
+                                <Menu
+                                    {...getMenuProps({ isOpen })}
+                                    onClick={() => {
+                                        document.getElementById("downshift-0-input").value = "";
+                                    }}
+                                >
                                     {isOpen ? (
                                         <QueryRenderer
                                             environment={environment}

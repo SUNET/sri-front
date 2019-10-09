@@ -28,6 +28,10 @@ class CreateGroupForm extends React.Component {
         this.setState({ name: event.target.value });
     };
 
+    _hasBeenAdded = (newMember) => {
+        return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);
+    };
+
     handleSelectedMember = (selection) => {
         if (selection !== null) {
             const addMember = { ...selection.node };
@@ -49,8 +53,9 @@ class CreateGroupForm extends React.Component {
                 status: "saved",
                 key: uuidv4()
             };
-
-            this.props.dispatch(arrayPush("createGroup", "members", newMember));
+            if (!this._hasBeenAdded(newMember)) {
+                this.props.dispatch(arrayPush("createGroup", "members", newMember));
+            }
         }
     };
 
@@ -135,6 +140,7 @@ class CreateGroupForm extends React.Component {
                 </div>
                 <div className="text-right mt-4">
                     <button
+                        type="button"
                         className="mr-2 btn link"
                         onClick={() => {
                             this.props.history.goBack();

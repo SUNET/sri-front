@@ -42,6 +42,7 @@ const mapStateToProps = (state, props) => {
         initialValues,
         name: updateGroupSelector(state, "name"),
         description: updateGroupSelector(state, "description"),
+        memberValues: updateGroupSelector(state, "members"),
         formSyncErrors: getFormSyncErrors("updateGroup")(state),
         fields: getFormMeta("updateGroup")(state),
         refreshFields: state.refreshFields

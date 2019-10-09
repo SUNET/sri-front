@@ -117,6 +117,18 @@ button.btn {
             }
         }
 
+        &.btn-copy {
+            &:before {
+                display: inline-block;
+                content: '\f0c5';
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                margin-right: 8px;
+                color: $complementary-color;
+                vertical-align: middle;
+            }
+        }
+
         &:hover {
             background-color: $tertiary-color-3;
         }

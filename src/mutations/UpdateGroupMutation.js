@@ -62,14 +62,7 @@ export default function UpdateGroupMutation(group, callback) {
                             group.id
                         );
                     } else {
-                        UpdateContactInlineMutation(
-                            member.handle_id,
-                            member.first_name,
-                            member.last_name,
-                            member.contact_type,
-                            member.organization,
-                            group.id
-                        );
+                        UpdateContactInlineMutation(member, member.organization, group.id);
 
                         UpdateEmailMutation(member.id, member.email, member.email_obj);
                         UpdatePhoneMutation(member.id, member.phone, member.phone_obj);
