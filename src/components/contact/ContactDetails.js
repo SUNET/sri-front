@@ -80,10 +80,6 @@ class ContactDetails extends React.Component {
         UpdateContactMutation(update_contact, environment);
     };
 
-    getContact = (contact) => {
-        this.contact = contact;
-    };
-
     _handleDelete = () => {
         const contactId = this.props.match.params.contactId;
         DeleteContactMutation(contactId, () => this.props.history.push(`/community/contacts`));
@@ -114,7 +110,7 @@ class ContactDetails extends React.Component {
                                             >
                                                 <span>{t("actions.back")}</span>
                                             </button>
-                                            <EditField onChange={this._handleContactChange}>
+                                            <EditField onChange={this._handleContactChange} reduxForm={false}>
                                                 <h1>{props.getContactById.name}</h1>
                                             </EditField>
                                             <FontAwesomeIcon icon={faStar} />

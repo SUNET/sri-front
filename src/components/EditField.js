@@ -38,9 +38,9 @@ class EditField extends React.Component {
     };
 
     render() {
-        const { error, meta } = this.props;
+        const { error, meta, reduxForm } = this.props;
         const has_error = meta && meta.touched && error;
-        return (
+        return reduxForm ? (
             <>
                 <Form.Group className={`${!this.state.editable ? "d-none" : "d-inline"}`}>
                     <Field
@@ -57,6 +57,27 @@ class EditField extends React.Component {
                 <span className={`${this.state.editable ? "d-none" : "d-inline"} ${has_error ? "error-title" : ""}`}>
                     {this.props.children}
                 </span>
+                <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />
+            </>
+        ) : (
+            <>
+                {this.state.editable ? (
+                    <Form.Group controlId="formGroupName" className="d-inline">
+                        <Form.Control
+                            className="edit-field-title auto"
+                            placeholder="Full Name"
+                            name="full-name"
+                            defaultValue={this.props.children.props.children}
+                            onBlur={(e) => this.editDone(e)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") this.editDone(e);
+                            }}
+                        />
+                    </Form.Group>
+                ) : (
+                    this.props.children
+                )}
+
                 <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />
             </>
         );
