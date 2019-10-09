@@ -23,43 +23,40 @@ class EditField extends React.Component {
         children: PropTypes.element.isRequired
     };
 
-    setWrapperRef = (node) => {
-        this.wrapperRef = node;
-    };
-
     editField = (event) => {
-        this.setState({ editable: !this.state.editable });
+        console.log(this.props.meta, this.props.error, this.state);
+        if ((this.props.error && !this.state.editable) || this.props.error === undefined) {
+            this.setState({ editable: !this.state.editable });
+        }
     };
 
     editDone = (event) => {
-        this.setState({ editable: false });
-    };
-
-    exitEdition = (event) => {
-        if (this.state.editable) {
+        console.log(this.props);
+        if (!this.props.error) {
             this.setState({ editable: false });
         }
     };
 
     render() {
+        const { error, meta } = this.props;
+        const has_error = meta && meta.touched && error;
         return (
             <>
-                {this.state.editable ? (
-                    <Form.Group className="d-inline">
-                        <Field
-                            className="edit-field-title auto"
-                            placeholder="Full Name"
-                            component={FieldInput}
-                            name="name"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") this.editDone(e);
-                            }}
-                        />
-                    </Form.Group>
-                ) : (
-                    <>{this.props.children}</>
-                )}
-
+                <Form.Group className={`${!this.state.editable ? "d-none" : "d-inline"}`}>
+                    <Field
+                        className="edit-field-title auto"
+                        placeholder="Name"
+                        component={FieldInput}
+                        name="name"
+                        onBlur={(e) => this.editDone(e)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") this.editDone(e);
+                        }}
+                    />
+                </Form.Group>
+                <span className={`${this.state.editable ? "d-none" : "d-inline"} ${has_error ? "error-title" : ""}`}>
+                    {this.props.children}
+                </span>
                 <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />
             </>
         );

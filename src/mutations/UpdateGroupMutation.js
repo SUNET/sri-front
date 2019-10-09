@@ -75,11 +75,7 @@ export default function UpdateGroupMutation(group, callback) {
                         UpdatePhoneMutation(member.id, member.phone, member.phone_obj);
                     }
                 } else if (member.status === "remove") {
-                    const relation_id = RelationshipGroupContactQuery(group.id, member.handle_id);
-                    console.log(relation_id);
-                    if (relation_id) {
-                        DeleteRelationshMutation(relation_id);
-                    }
+                    RelationshipGroupContactQuery(group.id, member.handle_id, DeleteRelationshMutation);
                 }
             });
             callback.push("/community/groups/" + group.id);

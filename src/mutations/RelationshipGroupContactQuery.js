@@ -20,13 +20,13 @@ const query = graphql`
     }
 `;
 
-function RelationshipGroupContactQuery(group, contact) {
+function RelationshipGroupContactQuery(group, contact, mutation) {
     const variables = {
         group_id: group,
         contact_id: contact
     };
-    return fetchQuery(environment, query, variables).then((data) => {
-        return data.relation_id;
+    fetchQuery(environment, query, variables).then((data) => {
+        mutation(data.getGroupContactRelations[0].relation_id);
     });
 }
 

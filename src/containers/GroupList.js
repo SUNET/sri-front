@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { GroupList } from "../components/group";
+import GroupList from "../components/group/GroupList";
 
 const mapStateToProps = (state, props) => {
     let { columns_visible, all_columns } = state.filterColumns.group;

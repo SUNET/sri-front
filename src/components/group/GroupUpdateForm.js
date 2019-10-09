@@ -13,6 +13,7 @@ import FieldInput from "../FieldInput";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 
 import Worklog from "../Worklog";
+import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
 
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
@@ -76,6 +77,11 @@ class GroupUpdateForm extends React.Component {
         }
     };
 
+    handleDelete = () => {
+        const groupId = this.props.group.handle_id;
+        DeleteGroupMutation(groupId, () => this.props.history.push(`/community/groups`));
+    };
+
     render() {
         let { group, name, description, t, handleSubmit } = this.props;
         return (
@@ -90,7 +96,7 @@ class GroupUpdateForm extends React.Component {
                             >
                                 <span>{t("actions.back")}</span>
                             </button>
-                            <EditField error={this.props}>
+                            <EditField error={this.props.formSyncErrors.name} meta={this.props.fields.name}>
                                 <h1>{name}</h1>
                             </EditField>
                             <FontAwesomeIcon icon={faStar} />
@@ -156,7 +162,6 @@ class GroupUpdateForm extends React.Component {
                                                             name="members"
                                                             component={FieldArrayMembersGroup}
                                                             editable={editable}
-                                                            validate={validateMembers}
                                                             dispatch={this.props.dispatch}
                                                         />
                                                     </div>
@@ -173,7 +178,7 @@ class GroupUpdateForm extends React.Component {
                     <Worklog model={group} refetch={this.refetch} />
                 </section>
                 <div className="text-right mt-4">
-                    <button type="button" className="btn link">
+                    <button type="button" className="btn link" onClick={this.handleDelete}>
                         {t("actions.delete")}
                     </button>
                     <button type="submit" className="btn primary lg">
@@ -208,6 +213,9 @@ const validate = (values) => {
             if (!member || !member.email) {
                 memberErrors.email = "* Required!";
                 memberArrayErrors[memberIndex] = memberErrors;
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(member.email)) {
+                memberErrors.email = "* Invalid email!";
+                memberArrayErrors[memberIndex] = memberErrors;
             }
             if (!member || !member.phone) {
                 memberErrors.phone = "* Required!";
@@ -219,7 +227,6 @@ const validate = (values) => {
             errors.members = memberArrayErrors;
         }
     }
-    console.log(errors);
     return errors;
 };
 

@@ -6,6 +6,9 @@ import { ROOT_ID } from "relay-runtime";
 import CreateCommentMutation from "./CreateCommentMutation";
 import CreateContactInlineMutation from "./CreateContactInlineMutation";
 import AddMemberGroupMutation from "./AddMemberGroupMutation";
+import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
+import UpdateEmailMutation from "./UpdateEmailMutation";
+import UpdatePhoneMutation from "./UpdatePhoneMutation";
 
 const mutation = graphql`
     mutation CreateGroupMutation($input: CreateGroupInput!) {
@@ -25,17 +28,11 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function CreateGroupMutation(
-    name,
-    description,
-    members,
-    comment,
-    callback
-) {
+function CreateGroupMutation(group, callback) {
     const variables = {
         input: {
-            name,
-            description,
+            name: group.name,
+            description: group.description,
             clientMutationId: tempID++
         }
     };
@@ -45,14 +42,15 @@ function CreateGroupMutation(
         onCompleted: (response, errors) => {
             console.log(errors);
             console.log(response);
+            debugger;
             const group_id = response.create_group.group.handle_id;
-            if(comment){
-                CreateCommentMutation(group_id, comment);
+            if (group.comment) {
+                CreateCommentMutation(group_id, group.comment);
             }
-
-            Object.keys(members).forEach(member_key => {
+            const members = group.members;
+            Object.keys(members).forEach((member_key) => {
                 let member = members[member_key];
-                if(!member.created || member.created === undefined){
+                if (!member.created || member.created === undefined) {
                     let fullName = member.name;
                     fullName = fullName.split(" ");
                     member.first_name = fullName[0];
@@ -66,12 +64,22 @@ function CreateGroupMutation(
                         member.organization,
                         group_id
                     );
-                }else{
+                } else {
                     AddMemberGroupMutation(member, group_id);
+                    UpdateContactInlineMutation(
+                        member.handle_id,
+                        member.first_name,
+                        member.last_name,
+                        member.contact_type,
+                        member.organization,
+                        group_id
+                    );
+                    UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
+                    UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
                 }
             });
 
-            callback().push("/community/groups/" + response.create_group.group.handle_id);
+            callback.push("/community/groups/" + group_id);
         },
         onError: (errors) => console.error(errors),
         configs: [

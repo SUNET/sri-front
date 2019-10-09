@@ -10,6 +10,10 @@ import Dropdown from "../Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
+const refreshFields = () => {
+    return { type: "REFRESH_FIELDS" };
+};
+
 class FieldArrayMembersGroup extends React.Component {
     constructor(props) {
         super(props);
@@ -24,13 +28,6 @@ class FieldArrayMembersGroup extends React.Component {
     //     return false;
     // }
 
-    UNSAFE_componentWillMount() {
-        const initialState = this.props.fields.map((member, index) => {
-            return { is_editing: false, is_save: true };
-        });
-        this.setState(initialState);
-    }
-
     addRow = (event) => {
         const index = this.props.fields.length;
         if (this.props.fields.length < 5) {
@@ -40,14 +37,17 @@ class FieldArrayMembersGroup extends React.Component {
     };
 
     saveRow = (index) => {
+        console.log(this.props);
         if (this.props.meta.valid) {
-            this.props.dispatch(change("updateGroup", `members[${index}].status`, "saved"));
+            this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "saved"));
+            this.props.dispatch(refreshFields());
             this.setState({ [index]: { is_editing: false, is_save: true } });
         }
     };
 
     editRow = (index) => {
-        this.props.dispatch(change("updateGroup", `members[${index}].status`, "editing"));
+        this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "editing"));
+        this.props.dispatch(refreshFields());
         this.setState({ [index]: { is_editing: true, is_save: false } });
     };
 
@@ -137,7 +137,7 @@ class FieldArrayMembersGroup extends React.Component {
                         </div>
                     </div>
                 ))}
-                {/* {meta.error && meta.dirty && <div>{meta.error}</div>} */}
+                {meta.error && <div>{meta.error}</div>}
                 {editable && (
                     <div>
                         <div></div>

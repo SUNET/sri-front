@@ -8,8 +8,8 @@ import { withRouter } from "react-router-dom";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import { GroupDetails } from "./group";
-import CreateGroupContainer from "../containers/CreateGroup";
+import GroupDetails from "./group/GroupDetails";
+import CreateGroup from "./group/CreateGroup";
 import GroupListContainer from "../containers/GroupList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
@@ -62,7 +62,10 @@ class SearchGroup extends React.Component {
     };
 
     UNSAFE_componentWillUpdate(nextProps, nextState) {
-        if (this.state.filterDateFrom !== nextState.filterDateFrom || this.state.filterDateTo !== nextState.filterDateTo) {
+        if (
+            this.state.filterDateFrom !== nextState.filterDateFrom ||
+            this.state.filterDateTo !== nextState.filterDateTo
+        ) {
             this.filterDateUpdate(nextState);
         }
     }
@@ -83,7 +86,7 @@ class SearchGroup extends React.Component {
             this.setState({ filterDate: {} });
             // return {};
         }
-    }
+    };
 
     renderModelList() {
         return (
@@ -96,7 +99,7 @@ class SearchGroup extends React.Component {
                     filter: {
                         AND: [
                             {
-                                name_contains: this.state.filterValue,
+                                name_contains: this.state.filterValue
                             },
                             this.state.filterDate
                         ]
@@ -107,12 +110,7 @@ class SearchGroup extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        return (
-                            <GroupListContainer
-                                groups={props}
-                                changeCount={this._handleOnChangeCount}
-                            />
-                        );
+                        return <GroupListContainer groups={props} changeCount={this._handleOnChangeCount} />;
                     }
                     return <div>Loading</div>;
                 }}
@@ -173,7 +171,7 @@ class SearchGroup extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/groups/create`} component={CreateGroupContainer} />
+                    <Route path={`${this.props.match.url}/groups/create`} component={CreateGroup} />
                     <Route path={`${this.props.match.url}/groups/:groupId`} component={GroupDetails} />
                 </Switch>
             </section>

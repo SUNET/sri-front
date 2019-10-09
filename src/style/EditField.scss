@@ -17,3 +17,8 @@
         vertical-align: middle;
     }
 }
+.error-title{
+    h1{
+        color: $alert-color !important;
+    }
+}
