@@ -31,20 +31,10 @@ function UpdatePhoneMutation(contact, name, phone) {
             clientMutationId: tempID++
         }
     };
-    const optimisticResponse = {
-        update_phone: {
-            phone: {
-                contact,
-                name,
-                type: phone.type,
-                handle_id: phone.handle_id
-            }
-        }
-    };
+
     commitMutation(environment, {
         mutation,
         variables,
-        optimisticResponse,
         onCompleted: (response, errors) => {
             console.log(response, errors);
         },

@@ -48,11 +48,7 @@ export class GroupList extends React.PureComponent {
                 {defaultColumns.map((column) => {
                     // Hiding the columns passed by props
                     if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
-                        return (
-                            <div key={column.name}>
-                                {column.name}
-                            </div>
-                        );
+                        return <div key={column.name}>{column.name}</div>;
                     } else {
                         return null;
                     }
