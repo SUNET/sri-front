@@ -22,7 +22,6 @@ const mutation = graphql`
 let tempID = 0;
 
 function UpdatePhoneMutation(contact, name, phone) {
-    console.log(phone);
     const variables = {
         input: {
             contact,
@@ -32,21 +31,32 @@ function UpdatePhoneMutation(contact, name, phone) {
             clientMutationId: tempID++
         }
     };
-        commitMutation(environment, {
-            mutation,
-            variables,
-            onCompleted: (response, errors) => {
-                console.log(response, errors);
-            },
-            onError: (errors) => console.error(errors),
-            configs: [
-                {
-                    type: "RANGE_ADD",
-                    parentName: ROOT_ID,
-                    parentID: ROOT_ID
-                }
-            ]
-        });
+    const optimisticResponse = {
+        update_phone: {
+            phone: {
+                contact,
+                name,
+                type: phone.type,
+                handle_id: phone.handle_id
+            }
+        }
+    };
+    commitMutation(environment, {
+        mutation,
+        variables,
+        optimisticResponse,
+        onCompleted: (response, errors) => {
+            console.log(response, errors);
+        },
+        onError: (errors) => console.error(errors),
+        configs: [
+            {
+                type: "RANGE_ADD",
+                parentName: ROOT_ID,
+                parentID: ROOT_ID
+            }
+        ]
+    });
 }
 
 export default UpdatePhoneMutation;

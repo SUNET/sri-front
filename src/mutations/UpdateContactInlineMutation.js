@@ -44,9 +44,22 @@ function UpdateContactInlineMutation(contact, organization, group) {
             clientMutationId: tempID++
         }
     };
+    const optimisticResponse = {
+        update_contact: {
+            contact: {
+                handle_id: contact.handle_id,
+                first_name: contact.first_name,
+                last_name: contact.last_name,
+                contact_type: contact.contact_type.toLowerCase(),
+                relationship_works_for: organization,
+                relationship_member_of: group
+            }
+        }
+    };
     commitMutation(environment, {
         mutation,
         variables,
+        optimisticResponse,
         onCompleted: (response, errors) => {
             console.log(errors);
             console.log(response, environment);
