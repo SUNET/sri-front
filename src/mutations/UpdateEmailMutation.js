@@ -31,20 +31,9 @@ function UpdateEmailMutation(contact, name, email) {
             clientMutationId: tempID++
         }
     };
-    const optimisticResponse = {
-        update_email: {
-            email: {
-                contact,
-                name,
-                type: email.type,
-                handle_id: email.handle_id
-            }
-        }
-    };
     commitMutation(environment, {
         mutation,
         variables,
-        optimisticResponse,
         onCompleted: (response, errors) => {
             console.log(response, errors);
         },

@@ -70,7 +70,7 @@ function CreateGroupMutation(group, callback) {
                     UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
                 }
             });
-            callback.push("/community/groups/" + group_id);
+            callback.push("/community/groups");
         },
         onError: (errors) => console.error(errors),
         configs: [
