@@ -122,7 +122,7 @@ class FieldArrayMembersGroup extends React.Component {
                             <>
                                 <div>{fields.getAll()[index].name}</div>
                                 <div>{fields.getAll()[index].organization_label}</div>
-                                {this.props.meta.form === "updateGroup" ? (
+                                {this.props.meta.form === "updateGroup" && fields.getAll()[index].email ? (
                                     <CopyToClipboard>{fields.getAll()[index].email}</CopyToClipboard>
                                 ) : (
                                     <div>{fields.getAll()[index].email}</div>

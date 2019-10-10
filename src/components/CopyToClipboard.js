@@ -17,20 +17,29 @@ class CopyToClipboard extends Component {
         };
     }
 
-    copyContent = (event) => {
-        copy(event.target.innerText);
+    showCopied = () => {
         this.setState({
             show: true
         });
         setTimeout(() => {
-            this.setState({show: false})
+            this.setState({ show: false });
         }, 2000);
+    };
+
+    copyContent = (event) => {
+        copy(event.target.innerText);
+        this.showCopied();
+    };
+
+    copyContentToIcon = (event) => {
+        copy(event.target.parentElement.nextSibling.innerText);
+        this.showCopied();
     };
 
     render() {
         const { t } = this.props;
         return (
-            <div className="copy-to-clipboard" onClick={(e) => this.copyContent(e)}>
+            <div className="copy-to-clipboard">
                 <Tooltip
                     tooltip={t("actions.copied")}
                     placement="right"
@@ -39,8 +48,10 @@ class CopyToClipboard extends Component {
                     delayHide={200}
                     tooltipShown={this.state.show}
                 >
-                    <FontAwesomeIcon icon={faCopy} />
-                    <span>{this.props.children}</span>
+                    <FontAwesomeIcon icon={faCopy} onClick={(e) => this.copyContentToIcon(e)} />
+                    <span className="element-to-copy" onClick={(e) => this.copyContent(e)}>
+                        {this.props.children}
+                    </span>
                 </Tooltip>
             </div>
         );
