@@ -26,7 +26,9 @@ function RelationshipGroupContactQuery(group, contact, mutation) {
         contact_id: contact
     };
     fetchQuery(environment, query, variables).then((data) => {
-        mutation(data.getGroupContactRelations[0].relation_id);
+        if (data.getGroupContactRelations[0]) {
+            mutation(data.getGroupContactRelations[0].relation_id);
+        }
     });
 }
 

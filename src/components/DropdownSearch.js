@@ -93,12 +93,7 @@ class DropdownSearch extends React.Component {
                                 )}
                             </div>
                             <div {...css({ position: "relative" })}>
-                                <Menu
-                                    {...getMenuProps({ isOpen })}
-                                    onClick={() => {
-                                        document.getElementById("downshift-0-input").value = "";
-                                    }}
-                                >
+                                <Menu {...getMenuProps({ isOpen })} onClick={clearSelection}>
                                     {isOpen ? (
                                         <QueryRenderer
                                             environment={environment}

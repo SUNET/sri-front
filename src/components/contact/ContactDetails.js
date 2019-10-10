@@ -8,7 +8,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { withTranslation } from "react-i18next";
 
 import Contact from "./Contact";
-import EditField from "../EditField";
+import EditFieldNoRedux from "../EditFieldNoRedux";
 import DeleteContactMutation from "../../mutations/DeleteContactMutation";
 import UpdateContactMutation from "../../mutations/UpdateContactMutation";
 import environment from "../../createRelayEnvironment";
@@ -110,9 +110,9 @@ class ContactDetails extends React.Component {
                                             >
                                                 <span>{t("actions.back")}</span>
                                             </button>
-                                            <EditField onChange={this._handleContactChange} reduxForm={false}>
+                                            <EditFieldNoRedux onChange={this._handleContactChange} reduxForm={false}>
                                                 <h1>{props.getContactById.name}</h1>
-                                            </EditField>
+                                            </EditFieldNoRedux>
                                             <FontAwesomeIcon icon={faStar} />
                                         </div>
                                     </Col>

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
-import { Button, Dropdown, Row, Col } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faFilter } from "@fortawesome/free-solid-svg-icons";
 
@@ -53,7 +53,10 @@ class FilterColumns extends React.Component {
                         <Dropdown.Divider />
                         <div>
                             {this.props.columns.map((column) => {
-                                let defaultValue = this.props.columns_visible !== undefined ? this.props.columns_visible[column.value] : false;
+                                let defaultValue =
+                                    this.props.columns_visible !== undefined
+                                        ? this.props.columns_visible[column.value]
+                                        : false;
                                 return (
                                     <FieldSwitch
                                         key={column.value}
@@ -84,17 +87,6 @@ class FilterColumns extends React.Component {
                                 defaultValue={this.props.all_columns}
                                 id="all_columns"
                             />
-                        </div>
-                        <Dropdown.Divider />
-                        <div>
-                            <Row>
-                                <Col>
-                                    <Button onClick={this.cancelFilterColumns()}>{t("actions.cancel")}</Button>
-                                </Col>
-                                <Col>
-                                    <Button onClick={this.applyFilterColumns()}>{t("actions.accept")}</Button>
-                                </Col>
-                            </Row>
                         </div>
                     </Dropdown.Menu>
                 </Dropdown>

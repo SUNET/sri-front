@@ -8,7 +8,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { withTranslation } from "react-i18next";
 
 import Organization from "./Organization";
-import EditField from "../EditField";
+import EditFieldNoRedux from "../EditFieldNoRedux";
 import UpdateOrganizationMutation from "../../mutations/UpdateOrganizationMutation";
 import DeleteOrganizationMutation from "../../mutations/DeleteOrganizationMutation";
 import environment from "../../createRelayEnvironment";
@@ -92,9 +92,9 @@ class OrganizationDetails extends React.Component {
                                             >
                                                 <span>{t("actions.back")}</span>
                                             </button>
-                                            <EditField onChange={this._handleOrganizationChange}>
+                                            <EditFieldNoRedux onChange={this._handleOrganizationChange}>
                                                 <h1>{props.getOrganizationById.name}</h1>
-                                            </EditField>
+                                            </EditFieldNoRedux>
                                             <FontAwesomeIcon icon={faStar} />
                                         </div>
                                     </Col>

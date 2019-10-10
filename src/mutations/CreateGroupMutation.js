@@ -71,7 +71,7 @@ function CreateGroupMutation(group, callback) {
                 }
             });
 
-            callback.push("/community/groups/" + group_id);
+            callback.push("/community/groups");
         },
         onError: (errors) => console.error(errors),
         configs: [

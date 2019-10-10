@@ -11,14 +11,14 @@ class Expire extends React.Component {
             visible: true
         };
     }
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         // reset the timer if children are changed
         if (nextProps.children !== this.props.children) {
             this.setTimer();
             this.setState({ visible: true });
         }
     }
-    
+
     componentDidMount() {
         this.setTimer();
     }

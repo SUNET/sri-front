@@ -84,7 +84,7 @@ class FilterColumns extends React.Component {
                                 id="all_columns"
                             />
                         </div>
-                        <Dropdown.Divider />
+                        {/*<Dropdown.Divider />
                         <div>
                             <Row>
                                 <Col>
@@ -94,7 +94,7 @@ class FilterColumns extends React.Component {
                                     <Button onClick={this.applyFilterColumns()}>{t("actions.accept")}</Button>
                                 </Col>
                             </Row>
-                        </div>
+                        </div>*/}
                     </Dropdown.Menu>
                 </Dropdown>
             </div>

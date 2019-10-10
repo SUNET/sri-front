@@ -10,7 +10,7 @@ import InfoCreatorModifier from "../InfoCreatorModifier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import FieldInput from "../FieldInput";
-import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
+import { arrayPush, FieldArray, Field, reduxForm, reset } from "redux-form";
 
 import copy from "clipboard-copy";
 import Worklog from "../Worklog";
@@ -239,7 +239,10 @@ const validate = (values) => {
 
 GroupUpdateForm = reduxForm({
     form: "updateGroup",
-    validate
+    validate,
+    onSubmitSuccess: (result, dispatch, props) => {
+        dispatch(reset("updateGroup"));
+    }
 })(GroupUpdateForm);
 
 const GroupUpdateFragment = createRefetchContainer(
