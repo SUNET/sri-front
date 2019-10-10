@@ -1,0 +1,31 @@
+@import "../variables.scss";
+
+.model-list {
+    display: table;
+    width: 100%;
+    border-spacing: 0 5px;
+
+    > div:first-of-type {
+        display: table-header-group;
+
+        > div {
+            font-weight: bold;
+            background-color: $secondary-color-20;
+            padding: 10px;
+            text-align: left;
+            display: table-cell;
+
+            &:first-of-type, &:last-of-type {
+                width: 45px;
+            }
+
+            &:last-of-type {
+                text-align: right;
+            }
+        }
+    }
+
+    > div:last-of-type {
+        display: table-row-group;
+    }
+}

@@ -1,0 +1,20 @@
+@import "../variables.scss";
+
+div.copy-to-clipboard {
+    display: inline-block;
+    position: relative;
+
+    svg {
+        color: $complementary-color;
+        margin-right: 8px;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    .tooltip {
+        display: inline;
+        position: relative;
+    }
+}

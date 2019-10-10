@@ -1,0 +1,14 @@
+@import "../variables.scss";
+
+.info-creator-modifier {
+    font-family: karla;
+
+    > div {
+        text-align: right;
+        display: inline-block;
+
+        &:not(:last-child) {
+            margin-right: 30px;
+        }
+    }
+}

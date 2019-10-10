@@ -1,0 +1,45 @@
+@import "../variables.scss";
+
+.model-list article {
+    display: table-row;
+    background-color: white;
+    -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
+    -moz-box-shadow: 0 0 4px -1px #d6d6d6;
+    box-shadow: 0 0 4px -1px #d6d6d6;
+    cursor: pointer;
+
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        bottom: 50%;
+        left: 0;
+        background: $brand-color;
+        width: 4px;
+        -webkit-transition-property: top bottom;
+        transition-property: top bottom;
+        -webkit-transition-duration: 0.1s;
+        transition-duration: 0.1s;
+        -webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
+    }
+
+    &:hover:before {
+        top: 0;
+        bottom: 0;
+    }
+
+    > div {
+        display: table-cell;
+        padding: 20px 10px;
+    }
+}

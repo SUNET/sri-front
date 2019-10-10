@@ -1,5 +1,83 @@
 @import "../variables.scss";
+@import "./FieldInput.scss";
+
+* {
+    box-sizing: border-box;
+    font-size: 14px;
+}
+@media (min-width: 1500px) {
+    .container {
+        max-width: 1450px;
+    }
+}
+
+body,
+html {
+    height: 97%;
+}
 
 .App {
-    background-color: $background-color;
+    background-color: $tertiary-color-3;
+    font-family: $font;
+    color: $secondary-color;
+
+    > div:first-of-type {
+        height: -webkit-fill-available;
+    }
+}
+
+.container {
+    height: auto;
+}
+
+img {
+    max-width: 100%;
+}
+
+svg:hover, .ok-check{
+    cursor: pointer;
+}
+
+button {
+    background: none;
+    border: none;
+}
+
+hr {
+    margin: 24px 0;
+}
+
+::placeholder,
+h1,
+h2,
+h3,
+i {
+    font-family: 'Karla', sans-serif;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: inherit;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: inherit;
+    font-weight: normal;
+}
+
+::placeholder,
+select[disabled] {
+    font-style: italic;
+    color: $secondary-color-20 !important;
+}
+
+.borderless {
+    > div {
+        border: none;
+    }
 }

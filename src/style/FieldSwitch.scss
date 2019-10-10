@@ -1,0 +1,64 @@
+@import "../variables.scss";
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
+
+.field-checkbox {
+    display: inline-block;
+
+    div.pretty {
+        margin-right: 0;
+
+        .state {
+            svg {
+                width: 20px;
+            }
+        }
+
+        &.custom {
+            &.p-switch.p-fill {
+                .state {
+                    &:before {
+                        width: 1.2em;
+                        height: calc(0.6em + 2px);
+                        top: calc((0% - (100% - 1.3em)) - 16%);
+                    }
+
+                    label {
+                        width: calc(0.6em + 2px);
+
+                        &:after,
+                        &:before {
+                            border: 1px solid #cacaca;
+                            width: calc(0.7em + 2px);
+                            height: calc(0.7em + 2px);
+                            top: calc((0% - (100% - 1.26em)) - 8%);
+                            // transform: scale(1);
+                        }
+                    }
+                }
+
+                input:checked ~ .state label:after {
+                    left: 0.6em;
+                }
+            }
+
+            &.icon-right {
+                .state {
+                    label {
+                        text-indent: 0 !important;
+                    }
+                }
+            }
+            &.off-hidden{
+                .state.p-off{
+                    svg{
+                        visibility: hidden;
+                    }
+                }
+            }
+        }
+    }
+
+    label:hover {
+        cursor: pointer;
+    }
+}

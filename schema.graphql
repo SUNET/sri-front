@@ -1,0 +1,1938 @@
+"""Phone entity to be used inside contact"""
+type Address implements Node {
+  handle_id: ID!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  website: String
+  phone: String
+  street: String
+  postal_code: String
+  postal_area: String
+}
+
+type AddressConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [AddressEdge]!
+}
+
+"""A Relay edge containing a `Address` and its cursor."""
+type AddressEdge {
+  """The item at the end of the edge"""
+  node: Address
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input AddressFilter {
+  AND: [AddressNestedFilter!]
+  OR: [AddressNestedFilter!]
+}
+
+input AddressInputField {
+  name: String
+  website: String
+  phone: String
+  street: String
+  postal_code: String
+  postal_area: String
+  handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
+}
+
+input AddressNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  website: String
+  website_not: String
+  website_lt: String
+  website_lte: String
+  website_gt: String
+  website_gte: String
+  website_contains: String
+  website_not_contains: String
+  website_starts_with: String
+  website_not_starts_with: String
+  website_ends_with: String
+  website_not_ends_with: String
+  website_in: [String!]
+  website_not_in: [String!]
+  phone: String
+  phone_not: String
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  street: String
+  street_not: String
+  street_lt: String
+  street_lte: String
+  street_gt: String
+  street_gte: String
+  street_contains: String
+  street_not_contains: String
+  street_starts_with: String
+  street_not_starts_with: String
+  street_ends_with: String
+  street_not_ends_with: String
+  street_in: [String!]
+  street_not_in: [String!]
+  postal_code: String
+  postal_code_not: String
+  postal_code_lt: String
+  postal_code_lte: String
+  postal_code_gt: String
+  postal_code_gte: String
+  postal_code_contains: String
+  postal_code_not_contains: String
+  postal_code_starts_with: String
+  postal_code_not_starts_with: String
+  postal_code_ends_with: String
+  postal_code_not_ends_with: String
+  postal_code_in: [String!]
+  postal_code_not_in: [String!]
+  postal_area: String
+  postal_area_not: String
+  postal_area_lt: String
+  postal_area_lte: String
+  postal_area_gt: String
+  postal_area_gte: String
+  postal_area_contains: String
+  postal_area_not_contains: String
+  postal_area_starts_with: String
+  postal_area_not_starts_with: String
+  postal_area_ends_with: String
+  postal_area_not_ends_with: String
+  postal_area_in: [String!]
+  postal_area_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum AddressOrderBy {
+  name_ASC
+  name_DESC
+  website_ASC
+  website_DESC
+  phone_ASC
+  phone_DESC
+  street_ASC
+  street_DESC
+  postal_code_ASC
+  postal_code_DESC
+  postal_area_ASC
+  postal_area_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
+}
+
+"""This class is used for the choices available in a dropdown"""
+type Choice implements KeyValue {
+  id: ID!
+  dropdown: Dropdown!
+  name: String!
+  value: String!
+}
+
+"""This scalar represents a choice field in query/mutation"""
+scalar ChoiceScalar
+
+type CommentType {
+  id: ID!
+  object_pk: String!
+  user: User
+  user_name: String!
+  user_email: String!
+  user_url: String!
+  comment: String!
+  submit_date: DateTime!
+  ip_address: String
+
+  """
+  Uncheck this box to make the comment effectively disappear from the site.
+  """
+  is_public: Boolean!
+
+  """
+  Check this box if the comment is inappropriate. A "This comment has been removed" message will be displayed instead.
+  """
+  is_removed: Boolean!
+}
+
+"""A contact in the SRI system"""
+type Contact implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  first_name: String!
+  last_name: String!
+  title: String
+  salutation: String
+  contact_type: String
+  phones: [Phone]
+  emails: [Email]
+  pgp_fingerprint: String
+  member_of_groups: [Group]
+  roles: [RoleRelation]
+  notes: String
+}
+
+type ContactConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [ContactEdge]!
+}
+
+"""A Relay edge containing a `Contact` and its cursor."""
+type ContactEdge {
+  """The item at the end of the edge"""
+  node: Contact
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ContactFilter {
+  AND: [ContactNestedFilter!]
+  OR: [ContactNestedFilter!]
+}
+
+input ContactNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  first_name: String
+  first_name_not: String
+  first_name_lt: String
+  first_name_lte: String
+  first_name_gt: String
+  first_name_gte: String
+  first_name_contains: String
+  first_name_not_contains: String
+  first_name_starts_with: String
+  first_name_not_starts_with: String
+  first_name_ends_with: String
+  first_name_not_ends_with: String
+  first_name_in: [String!]
+  first_name_not_in: [String!]
+  last_name: String
+  last_name_not: String
+  last_name_lt: String
+  last_name_lte: String
+  last_name_gt: String
+  last_name_gte: String
+  last_name_contains: String
+  last_name_not_contains: String
+  last_name_starts_with: String
+  last_name_not_starts_with: String
+  last_name_ends_with: String
+  last_name_not_ends_with: String
+  last_name_in: [String!]
+  last_name_not_in: [String!]
+  title: String
+  title_not: String
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  title_in: [String!]
+  title_not_in: [String!]
+  salutation: String
+  salutation_not: String
+  salutation_lt: String
+  salutation_lte: String
+  salutation_gt: String
+  salutation_gte: String
+  salutation_contains: String
+  salutation_not_contains: String
+  salutation_starts_with: String
+  salutation_not_starts_with: String
+  salutation_ends_with: String
+  salutation_not_ends_with: String
+  salutation_in: [String!]
+  salutation_not_in: [String!]
+  contact_type: String
+  contact_type_not: String
+  contact_type_lt: String
+  contact_type_lte: String
+  contact_type_gt: String
+  contact_type_gte: String
+  contact_type_contains: String
+  contact_type_not_contains: String
+  contact_type_starts_with: String
+  contact_type_not_starts_with: String
+  contact_type_ends_with: String
+  contact_type_not_ends_with: String
+  contact_type_in: [String!]
+  contact_type_not_in: [String!]
+  phones: PhoneInputField
+  phones_not: PhoneInputField
+  phones_lt: PhoneInputField
+  phones_lte: PhoneInputField
+  phones_gt: PhoneInputField
+  phones_gte: PhoneInputField
+  phones_in: [PhoneInputField!]
+  phones_not_in: [PhoneInputField!]
+  emails: EmailInputField
+  emails_not: EmailInputField
+  emails_lt: EmailInputField
+  emails_lte: EmailInputField
+  emails_gt: EmailInputField
+  emails_gte: EmailInputField
+  emails_in: [EmailInputField!]
+  emails_not_in: [EmailInputField!]
+  pgp_fingerprint: String
+  pgp_fingerprint_not: String
+  pgp_fingerprint_lt: String
+  pgp_fingerprint_lte: String
+  pgp_fingerprint_gt: String
+  pgp_fingerprint_gte: String
+  pgp_fingerprint_contains: String
+  pgp_fingerprint_not_contains: String
+  pgp_fingerprint_starts_with: String
+  pgp_fingerprint_not_starts_with: String
+  pgp_fingerprint_ends_with: String
+  pgp_fingerprint_not_ends_with: String
+  pgp_fingerprint_in: [String!]
+  pgp_fingerprint_not_in: [String!]
+  member_of_groups: GroupInputField
+  member_of_groups_not: GroupInputField
+  member_of_groups_lt: GroupInputField
+  member_of_groups_lte: GroupInputField
+  member_of_groups_gt: GroupInputField
+  member_of_groups_gte: GroupInputField
+  member_of_groups_in: [GroupInputField!]
+  member_of_groups_not_in: [GroupInputField!]
+  roles: RoleRelationInputField
+  roles_not: RoleRelationInputField
+  roles_lt: RoleRelationInputField
+  roles_lte: RoleRelationInputField
+  roles_gt: RoleRelationInputField
+  roles_gte: RoleRelationInputField
+  roles_in: [RoleRelationInputField!]
+  roles_not_in: [RoleRelationInputField!]
+  notes: String
+  notes_not: String
+  notes_lt: String
+  notes_lte: String
+  notes_gt: String
+  notes_gte: String
+  notes_contains: String
+  notes_not_contains: String
+  notes_starts_with: String
+  notes_not_starts_with: String
+  notes_ends_with: String
+  notes_not_ends_with: String
+  notes_in: [String!]
+  notes_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum ContactOrderBy {
+  name_ASC
+  name_DESC
+  first_name_ASC
+  first_name_DESC
+  last_name_ASC
+  last_name_DESC
+  title_ASC
+  title_DESC
+  salutation_ASC
+  salutation_DESC
+  contact_type_ASC
+  contact_type_DESC
+  pgp_fingerprint_ASC
+  pgp_fingerprint_DESC
+  notes_ASC
+  notes_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
+}
+
+type ContactWithRolename {
+  contact: Contact
+  role: Role
+  relation_id: Int
+}
+
+input CreateAddressInput {
+  organization: ChoiceScalar
+  name: String!
+  website: String
+  phone: String
+  street: String
+  postal_code: String
+  postal_area: String
+  clientMutationId: String
+}
+
+type CreateAddressPayload {
+  errors: [ErrorType]
+  address: Address
+  clientMutationId: String
+}
+
+input CreateCommentInput {
+  object_pk: Int!
+  comment: String!
+  clientMutationId: String
+}
+
+type CreateCommentPayload {
+  comment: CommentType
+  clientMutationId: String
+}
+
+input CreateContactInput {
+  first_name: String!
+  last_name: String!
+  contact_type: ChoiceScalar!
+  name: String
+  title: String
+  pgp_fingerprint: String
+  notes: String
+  relationship_works_for: ChoiceScalar
+  relationship_member_of: ChoiceScalar
+  role: ChoiceScalar
+  clientMutationId: String
+}
+
+type CreateContactPayload {
+  errors: [ErrorType]
+  contact: Contact
+  clientMutationId: String
+}
+
+input CreateEmailInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  clientMutationId: String
+}
+
+type CreateEmailPayload {
+  errors: [ErrorType]
+  email: Email
+  clientMutationId: String
+}
+
+input CreateGroupInput {
+  name: String!
+  description: String
+  clientMutationId: String
+}
+
+type CreateGroupPayload {
+  errors: [ErrorType]
+  group: Group
+  clientMutationId: String
+}
+
+input CreateOptionForDropdownInput {
+  dropdown_name: String!
+  name: String!
+  value: String!
+  clientMutationId: String
+}
+
+type CreateOptionForDropdownPayload {
+  choice: Choice
+  clientMutationId: String
+}
+
+input CreateOrganizationInput {
+  account_id: String
+  name: String!
+  description: String
+  customer_id: String
+  type: ChoiceScalar
+  incident_management_info: String
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
+  relationship_parent_of: ChoiceScalar
+  relationship_uses_a: ChoiceScalar
+  abuse_contact: ChoiceScalar
+  primary_contact: ChoiceScalar
+  secondary_contact: ChoiceScalar
+  it_technical_contact: ChoiceScalar
+  it_security_contact: ChoiceScalar
+  it_manager_contact: ChoiceScalar
+  clientMutationId: String
+}
+
+type CreateOrganizationPayload {
+  errors: [ErrorType]
+  organization: Organization
+  clientMutationId: String
+}
+
+input CreatePhoneInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  clientMutationId: String
+}
+
+type CreatePhonePayload {
+  errors: [ErrorType]
+  phone: Phone
+  clientMutationId: String
+}
+
+input CreateProcedureInput {
+  name: String!
+  description: String
+  clientMutationId: String
+}
+
+type CreateProcedurePayload {
+  errors: [ErrorType]
+  procedure: Procedure
+  clientMutationId: String
+}
+
+input CreateRoleInput {
+  name: String!
+  description: String
+  id: ID
+  clientMutationId: String
+}
+
+type CreateRolePayload {
+  role: Role
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+input DeleteAddressInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteAddressPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteCommentInput {
+  id: Int!
+  clientMutationId: String
+}
+
+type DeleteCommentPayload {
+  success: Boolean!
+  id: Int!
+  clientMutationId: String
+}
+
+input DeleteContactInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteContactPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteEmailInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteEmailPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteGroupInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteGroupPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteOrganizationInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteOrganizationPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeletePhoneInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeletePhonePayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteProcedureInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteProcedurePayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteRelationshipInput {
+  relation_id: Int!
+  clientMutationId: String
+}
+
+type DeleteRelationshipPayload {
+  success: Boolean!
+  relation_id: Int!
+  clientMutationId: String
+}
+
+input DeleteRoleInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteRolePayload {
+  success: Boolean!
+  handle_id: Int!
+  clientMutationId: String
+}
+
+"""
+This type represents an key value pair in a dictionary for the data
+dict of the norduniclient nodes
+"""
+type DictEntryType implements KeyValue {
+  name: String!
+  value: String!
+}
+
+"""
+This type represents an key value pair for a relationship dictionary,
+the key is the name of the relationship and the value the NIRelationType itself
+"""
+type DictRelationType {
+  name: String!
+  relation: NIRelationType!
+}
+
+"""This class represents a dropdown to use in forms"""
+type Dropdown {
+  id: ID!
+  name: String!
+}
+
+"""Email entity to be used inside contact"""
+type Email implements Node {
+  handle_id: ID!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  type: ChoiceScalar!
+}
+
+type EmailConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [EmailEdge]!
+}
+
+"""A Relay edge containing a `Email` and its cursor."""
+type EmailEdge {
+  """The item at the end of the edge"""
+  node: Email
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input EmailFilter {
+  AND: [EmailNestedFilter!]
+  OR: [EmailNestedFilter!]
+}
+
+input EmailInputField {
+  name: String
+  type: ChoiceScalar
+  handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
+}
+
+input EmailNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  type: ChoiceScalar
+  type_not: ChoiceScalar
+  type_lt: ChoiceScalar
+  type_lte: ChoiceScalar
+  type_gt: ChoiceScalar
+  type_gte: ChoiceScalar
+  type_in: [ChoiceScalar!]
+  type_not_in: [ChoiceScalar!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum EmailOrderBy {
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
+}
+
+type ErrorType {
+  field: String!
+  messages: [String!]!
+}
+
+"""The group type is used to group contacts"""
+type Group implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  description: String
+}
+
+type GroupConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [GroupEdge]!
+}
+
+"""A Relay edge containing a `Group` and its cursor."""
+type GroupEdge {
+  """The item at the end of the edge"""
+  node: Group
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input GroupFilter {
+  AND: [GroupNestedFilter!]
+  OR: [GroupNestedFilter!]
+}
+
+input GroupInputField {
+  name: String
+  description: String
+  handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
+}
+
+input GroupNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum GroupOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
+}
+
+"""A host in the SRI system"""
+type Host implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  ip_addresses: IPAddr
+  name: String!
+  operational_state: String!
+  os: String
+  os_version: String
+  vendor: String
+  backup: String
+  managed_by: String
+  description: String
+  responsible_group: String
+  support_group: String
+  security_class: String
+  security_comment: String
+}
+
+"""IPAddr scalar to be matched with the IPAddrField in a django form"""
+scalar IPAddr
+
+interface KeyValue {
+  name: String!
+  value: String!
+}
+
+type Mutation {
+  create_group(input: CreateGroupInput!): CreateGroupPayload
+  update_group(input: UpdateGroupInput!): UpdateGroupPayload
+  delete_group(input: DeleteGroupInput!): DeleteGroupPayload
+  create_procedure(input: CreateProcedureInput!): CreateProcedurePayload
+  update_procedure(input: UpdateProcedureInput!): UpdateProcedurePayload
+  delete_procedure(input: DeleteProcedureInput!): DeleteProcedurePayload
+  create_phone(input: CreatePhoneInput!): CreatePhonePayload
+  update_phone(input: UpdatePhoneInput!): UpdatePhonePayload
+  delete_phone(input: DeletePhoneInput!): DeletePhonePayload
+  create_email(input: CreateEmailInput!): CreateEmailPayload
+  update_email(input: UpdateEmailInput!): UpdateEmailPayload
+  delete_email(input: DeleteEmailInput!): DeleteEmailPayload
+  create_address(input: CreateAddressInput!): CreateAddressPayload
+  update_address(input: UpdateAddressInput!): UpdateAddressPayload
+  delete_address(input: DeleteAddressInput!): DeleteAddressPayload
+  create_contact(input: CreateContactInput!): CreateContactPayload
+  update_contact(input: UpdateContactInput!): UpdateContactPayload
+  delete_contact(input: DeleteContactInput!): DeleteContactPayload
+  create_organization(input: CreateOrganizationInput!): CreateOrganizationPayload
+  update_organization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
+  delete_organization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
+  create_role(input: CreateRoleInput!): CreateRolePayload
+  update_role(input: UpdateRoleInput!): UpdateRolePayload
+  delete_role(input: DeleteRoleInput!): DeleteRolePayload
+  create_comment(input: CreateCommentInput!): CreateCommentPayload
+  update_comment(input: UpdateCommentInput!): UpdateCommentPayload
+  delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
+  delete_relationship(input: DeleteRelationshipInput!): DeleteRelationshipPayload
+  create_option(input: CreateOptionForDropdownInput!): CreateOptionForDropdownPayload
+}
+
+type Neo4jChoice implements KeyValue {
+  name: String!
+  value: String!
+}
+
+type NINodeHandlerType implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+}
+
+"""This class represents a relationship and its properties"""
+type NIRelationType implements Node {
+  """The ID of the object."""
+  id: ID!
+  relation_id: Int!
+  type: String!
+  start: NINodeHandlerType!
+  end: NINodeHandlerType!
+  nidata: [DictEntryType]
+}
+
+"""An object with an ID"""
+interface Node {
+  """The ID of the object."""
+  id: ID!
+}
+
+"""An enumeration."""
+enum NodeHandleNodeMetaType {
+  """Physical"""
+  PHYSICAL
+
+  """Logical"""
+  LOGICAL
+
+  """Relation"""
+  RELATION
+
+  """Location"""
+  LOCATION
+}
+
+type NodeHandler implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+}
+
+"""The group type is used to group contacts"""
+type Organization implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  description: String!
+  customer_id: String
+  incident_management_info: String
+  type: ChoiceScalar
+  addresses: [Address]
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
+}
+
+type OrganizationConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [OrganizationEdge]!
+}
+
+"""A Relay edge containing a `Organization` and its cursor."""
+type OrganizationEdge {
+  """The item at the end of the edge"""
+  node: Organization
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input OrganizationFilter {
+  AND: [OrganizationNestedFilter!]
+  OR: [OrganizationNestedFilter!]
+}
+
+input OrganizationNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  customer_id: String
+  customer_id_not: String
+  customer_id_lt: String
+  customer_id_lte: String
+  customer_id_gt: String
+  customer_id_gte: String
+  customer_id_contains: String
+  customer_id_not_contains: String
+  customer_id_starts_with: String
+  customer_id_not_starts_with: String
+  customer_id_ends_with: String
+  customer_id_not_ends_with: String
+  customer_id_in: [String!]
+  customer_id_not_in: [String!]
+  incident_management_info: String
+  incident_management_info_not: String
+  incident_management_info_lt: String
+  incident_management_info_lte: String
+  incident_management_info_gt: String
+  incident_management_info_gte: String
+  incident_management_info_contains: String
+  incident_management_info_not_contains: String
+  incident_management_info_starts_with: String
+  incident_management_info_not_starts_with: String
+  incident_management_info_ends_with: String
+  incident_management_info_not_ends_with: String
+  incident_management_info_in: [String!]
+  incident_management_info_not_in: [String!]
+  type: ChoiceScalar
+  type_not: ChoiceScalar
+  type_lt: ChoiceScalar
+  type_lte: ChoiceScalar
+  type_gt: ChoiceScalar
+  type_gte: ChoiceScalar
+  type_in: [ChoiceScalar!]
+  type_not_in: [ChoiceScalar!]
+  addresses: AddressInputField
+  addresses_not: AddressInputField
+  addresses_lt: AddressInputField
+  addresses_lte: AddressInputField
+  addresses_gt: AddressInputField
+  addresses_gte: AddressInputField
+  addresses_in: [AddressInputField!]
+  addresses_not_in: [AddressInputField!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum OrganizationOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  customer_id_ASC
+  customer_id_DESC
+  incident_management_info_ASC
+  incident_management_info_DESC
+  type_ASC
+  type_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
+}
+
+"""
+The Relay compliant `PageInfo` type, containing data necessary to paginate this connection.
+"""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""Phone entity to be used inside contact"""
+type Phone implements Node {
+  handle_id: ID!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  type: ChoiceScalar!
+}
+
+type PhoneConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [PhoneEdge]!
+}
+
+"""A Relay edge containing a `Phone` and its cursor."""
+type PhoneEdge {
+  """The item at the end of the edge"""
+  node: Phone
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input PhoneFilter {
+  AND: [PhoneNestedFilter!]
+  OR: [PhoneNestedFilter!]
+}
+
+input PhoneInputField {
+  name: String
+  type: ChoiceScalar
+  handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
+}
+
+input PhoneNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  type: ChoiceScalar
+  type_not: ChoiceScalar
+  type_lt: ChoiceScalar
+  type_lte: ChoiceScalar
+  type_gt: ChoiceScalar
+  type_gte: ChoiceScalar
+  type_in: [ChoiceScalar!]
+  type_not_in: [ChoiceScalar!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum PhoneOrderBy {
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
+}
+
+"""The group type is used to group contacts"""
+type Procedure implements Node {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  name: String!
+  description: String
+}
+
+type ProcedureConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [ProcedureEdge]!
+}
+
+"""A Relay edge containing a `Procedure` and its cursor."""
+type ProcedureEdge {
+  """The item at the end of the edge"""
+  node: Procedure
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ProcedureFilter {
+  AND: [ProcedureNestedFilter!]
+  OR: [ProcedureNestedFilter!]
+}
+
+input ProcedureNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  handle_id: Int
+  handle_id_not: Int
+  handle_id_lt: Int
+  handle_id_lte: Int
+  handle_id_gt: Int
+  handle_id_gte: Int
+  handle_id_in: [Int!]
+  handle_id_not_in: [Int!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum ProcedureOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  handle_id_ASC
+  handle_id_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  creator_ASC
+  creator_DESC
+  modifier_ASC
+  modifier_DESC
+}
+
+type Query {
+  """The ID of the object"""
+  node(id: ID!): Node
+  getNodeById(handle_id: Int): NodeHandler
+  getAvailableDropdowns: [String]
+  getChoicesForDropdown(name: String!): [Choice]
+  getRelationById(relation_id: Int!): NIRelationType
+  getRoleRelationById(relation_id: Int!): RoleRelation
+  roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
+  getOrganizationContacts(handle_id: Int!): [ContactWithRolename]
+  getGroupContactRelations(group_id: Int!, contact_id: Int!): [NIRelationType]
+  getContactEmailRelations(contact_id: Int!, email_id: Int!): [NIRelationType]
+  getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]
+  getOrganizationAddressRelations(organization_id: Int!, address_id: Int!): [NIRelationType]
+  groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
+  getGroupById(handle_id: Int): Group
+  addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): AddressConnection
+  getAddressById(handle_id: Int): Address
+  phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): PhoneConnection
+  getPhoneById(handle_id: Int): Phone
+  emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): EmailConnection
+  getEmailById(handle_id: Int): Email
+  contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
+  getContactById(handle_id: Int): Contact
+  organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): OrganizationConnection
+  getOrganizationById(handle_id: Int): Organization
+  procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
+  getProcedureById(handle_id: Int): Procedure
+}
+
+"""This class represents a Role in the relational db"""
+type Role {
+  handle_id: ID!
+  name: String!
+  slug: String!
+  description: String
+}
+
+type RoleConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [RoleEdge]!
+}
+
+"""A Relay edge containing a `Role` and its cursor."""
+type RoleEdge {
+  """The item at the end of the edge"""
+  node: Role
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input RoleFilter {
+  name: String
+  handle_id: Int
+}
+
+enum RoleOrderBy {
+  name_ASC
+  name_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+type RoleRelation {
+  relation_id: Int!
+  type: String!
+  start: NINodeHandlerType!
+  end: Organization
+  nidata: [DictEntryType]
+  name: String
+  role_data: Role
+}
+
+input RoleRelationInputField {
+  relation_id: Int
+  name: String
+}
+
+input UpdateAddressInput {
+  organization: ChoiceScalar
+  name: String!
+  website: String
+  phone: String
+  street: String
+  postal_code: String
+  postal_area: String
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateAddressPayload {
+  errors: [ErrorType]
+  address: Address
+  clientMutationId: String
+}
+
+input UpdateCommentInput {
+  id: Int!
+  comment: String!
+  clientMutationId: String
+}
+
+type UpdateCommentPayload {
+  comment: CommentType
+  clientMutationId: String
+}
+
+input UpdateContactInput {
+  first_name: String!
+  last_name: String!
+  contact_type: ChoiceScalar!
+  name: String
+  title: String
+  pgp_fingerprint: String
+  notes: String
+  relationship_works_for: ChoiceScalar
+  relationship_member_of: ChoiceScalar
+  role: ChoiceScalar
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateContactPayload {
+  errors: [ErrorType]
+  contact: Contact
+  clientMutationId: String
+}
+
+input UpdateEmailInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateEmailPayload {
+  errors: [ErrorType]
+  email: Email
+  clientMutationId: String
+}
+
+input UpdateGroupInput {
+  name: String!
+  description: String
+  relationship_member_of: ChoiceScalar
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateGroupPayload {
+  errors: [ErrorType]
+  group: Group
+  clientMutationId: String
+}
+
+input UpdateOrganizationInput {
+  account_id: String
+  name: String!
+  description: String
+  customer_id: String
+  type: ChoiceScalar
+  incident_management_info: String
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
+  relationship_parent_of: ChoiceScalar
+  relationship_uses_a: ChoiceScalar
+  abuse_contact: ChoiceScalar
+  primary_contact: ChoiceScalar
+  secondary_contact: ChoiceScalar
+  it_technical_contact: ChoiceScalar
+  it_security_contact: ChoiceScalar
+  it_manager_contact: ChoiceScalar
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateOrganizationPayload {
+  errors: [ErrorType]
+  organization: Organization
+  clientMutationId: String
+}
+
+input UpdatePhoneInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdatePhonePayload {
+  errors: [ErrorType]
+  phone: Phone
+  clientMutationId: String
+}
+
+input UpdateProcedureInput {
+  name: String!
+  description: String
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateProcedurePayload {
+  errors: [ErrorType]
+  procedure: Procedure
+  clientMutationId: String
+}
+
+input UpdateRoleInput {
+  handle_id: Int!
+  name: String!
+  description: String
+  id: ID
+  clientMutationId: String
+}
+
+type UpdateRolePayload {
+  role: Role
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+"""The django user type"""
+type User {
+  id: ID!
+
+  """Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."""
+  username: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+}
+
+input UserInputType {
+  username: String!
+}
+

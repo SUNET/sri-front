@@ -1,39 +1,48 @@
 /*
  * Colors
  * ========================================================================== */
-
-$background-color: #bbded9;
-$text-color: #333;
-$hcolor: #fff;
-
-$lead-color: #3f5c57;
-
-$primary-btn-color: #58b78c;
-$primary-btn-border-color: #1c7430;
-
-$orange: #dd650e;
-$btn-grey: #f8f9fa;
-
-$light-green: #58b78c;
-$light-green-shadow: rgba(88, 183, 140, 0.25);
-$light-green-hover: #4a9c77;
-$light-green-disabled: #8ccbb5;
-
-$dark-green: #629c92;
-
-$link-color: #337ab7;
-$link-hover: #4a679c;
-$link-shadow: rgba(88, 126, 183, 0.25);
-
-$error-red: #b75865;
-$error-red-shadow: rgba(183, 88, 101, 0.25);
-$error-red-hover: #9c4a5e;
-$cancel-color: #fff;
-$cancel-color-hover: #e6e6e6;
-$cancel-color-shadow: rgba(183, 183, 183, 0.25);
-
+$brand-color: #ff500d;
+$secondary-color: #003049;
+$secondary-color-30: rgba($secondary-color, .3);
+$secondary-color-20: rgba($secondary-color, .2);
+$tertiary-color: #7798ab;
+$tertiary-color-20: rgba($tertiary-color, .2);
+$tertiary-color-3: rgba($tertiary-color, .03);
+$complementary-color: #5bc0be;
+$alert-color: #D7263D;
+$alert-color-75: rgba($alert-color, .75);
 /*
  * Typography
  * ========================================================================== */
+@font-face {
+    font-family: "Montserrat";
+    src: url("./static/fonts/Montserrat/Montserrat-Regular.ttf");
+}
 
-$font: "Roboto-Black";
+@font-face {
+    font-family: "Karla";
+    src: url("./static/fonts/Karla/Karla-Regular.ttf");
+}
+
+$font: 'Montserrat', sans-serif;
+/*
+ * Pretty Checkbox
+ * ========================================================================== */
+$pretty--class-name: pretty;
+// Change my handpicked
+$pretty--color-default: #bdc3c7;
+$pretty--color-primary: #428bca;
+$pretty--color-info: #5bc0de;
+$pretty--color-success: #5cb85c;
+$pretty--color-warning: #f0ad4e;
+$pretty--color-danger: #d9534f;
+$pretty--color-dark: #5a656b;
+// z-index
+$pretty--z-index-back: 0;
+$pretty--z-index-between: 1;
+$pretty--z-index-front: 2;
+// Blocked settings
+$pretty--debug: false;
+$pretty--dev-err: 'Invalid input type!';
+// Custom
+$pretty--size-scale: 0.6em;

@@ -1,0 +1,24 @@
+@import "../variables.scss";
+
+.filter {
+    align-items: center;
+    display: -ms-flexbox;/* IE10 */
+    display: inline-flex;
+    position: relative;
+    margin-right: 25px;
+    input {
+        width: 204px;
+        border-radius: 20px;
+        border-width: 2px;
+        height: 32px;
+        padding: 0 10px 0 40px;
+        font-size: 14px;
+    }
+
+    span {
+        position: absolute;
+        left: 14px;
+        color: $complementary-color;
+        text-align: center;
+    }
+}

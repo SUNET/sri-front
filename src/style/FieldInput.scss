@@ -1,0 +1,51 @@
+@import "../variables.scss";
+
+.form-group {
+    font-family: Montserrat;
+    color: $secondary-color;
+
+    > div {
+        display: inline-block;
+
+        &.has-error {
+            width: fit-content;
+
+            input, select {
+                color: $alert-color-75;
+                border-color: $alert-color;
+            }
+
+            span {
+                font-size: 12px;
+                font-family: karla;
+                font-style: italic;
+                display: inline-block;
+                margin-top: 8px;
+                float: right;
+                color: $alert-color-75;
+            }
+        }
+    }
+
+    input,
+    select {
+        font-size: 14px;
+        width: 160px;
+        height: 32px;
+        border-radius: 16px;
+        border: solid 1px $secondary-color-20;
+        padding: 4px 16px;
+
+        &.lg {
+            width: 200px;
+        }
+
+        &.sm {
+            width: 120px;
+        }
+
+        &.auto {
+            width: auto;
+        }
+    }
+}

@@ -1,0 +1,377 @@
+type ChoiceType implements NIRelayNode {
+  """The ID of the object."""
+  id: ID!
+  dropdown: DropdownType!
+  name: String!
+  value: String!
+}
+
+type ChoiceTypeConnection {
+  pageInfo: PageInfo!
+  edges: [ChoiceTypeEdge]!
+}
+
+type ChoiceTypeEdge {
+  """The item at the end of the edge"""
+  node: ChoiceType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type ContactConnection {
+  pageInfo: PageInfo!
+  edges: [ContactEdge]!
+}
+
+type ContactEdge {
+  """The item at the end of the edge"""
+  node: ContactType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type ContactType implements NIRelayNode {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: UserType!
+  created: DateTime!
+  modifier: UserType!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  first_name: String!
+  last_name: String!
+  title: String
+  salutation: String
+  contact_type: String
+  phone: String
+  mobile: String
+  email: String
+  other_email: String
+  PGP_fingerprint: String
+  is_roles: [RoleType]
+  member_of_groups: [GroupType]
+  nidata: [DictEntryType]
+}
+
+type ContactTypeConnection {
+  pageInfo: PageInfo!
+  edges: [ContactTypeEdge]!
+}
+
+type ContactTypeEdge {
+  """The item at the end of the edge"""
+  node: ContactType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type CreateNIContactMutation {
+  nodehandle: ContactType!
+  clientMutationId: String
+}
+
+input CreateNIContactMutationInput {
+  first_name: String!
+  last_name: String!
+  contact_type: String!
+  mobile: String
+  phone: String
+  salutation: String
+  email: String
+  other_email: String
+  name: String
+  title: String
+  PGP_fingerprint: String
+  clientMutationId: String
+}
+
+type CreateNIGroupMutation {
+  nodehandle: GroupType!
+  clientMutationId: String
+}
+
+input CreateNIGroupMutationInput {
+  name: String!
+  clientMutationId: String
+}
+
+type CreateNIRoleMutation {
+  nodehandle: RoleType!
+  clientMutationId: String
+}
+
+input CreateNIRoleMutationInput {
+  name: String!
+  clientMutationId: String
+}
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+type DeleteNIContactMutation {
+  nodehandle: Boolean!
+  clientMutationId: String
+}
+
+input DeleteNIContactMutationInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteNIGroupMutation {
+  nodehandle: Boolean!
+  clientMutationId: String
+}
+
+input DeleteNIGroupMutationInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type DeleteNIRoleMutation {
+  nodehandle: Boolean!
+  clientMutationId: String
+}
+
+input DeleteNIRoleMutationInput {
+  handle_id: Int!
+  clientMutationId: String
+}
+
+"""
+This type represents an key value pair in a dictionary for the data
+dict of the norduniclient nodes
+"""
+type DictEntryType {
+  key: String!
+  value: String!
+}
+
+type DropdownType implements NIRelayNode {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  choice_set(before: String, after: String, first: Int, last: Int): ChoiceTypeConnection
+}
+
+type GroupConnection {
+  pageInfo: PageInfo!
+  edges: [GroupEdge]!
+}
+
+type GroupEdge {
+  """The item at the end of the edge"""
+  node: GroupType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type GroupType implements NIRelayNode {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: UserType!
+  created: DateTime!
+  modifier: UserType!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  nidata: [DictEntryType]
+}
+
+type Mutation {
+  create_role(input: CreateNIRoleMutationInput!): CreateNIRoleMutation
+  update_role(input: UpdateNIRoleMutationInput!): UpdateNIRoleMutation
+  delete_role(input: DeleteNIRoleMutationInput!): DeleteNIRoleMutation
+  create_group(input: CreateNIGroupMutationInput!): CreateNIGroupMutation
+  update_group(input: UpdateNIGroupMutationInput!): UpdateNIGroupMutation
+  delete_group(input: DeleteNIGroupMutationInput!): DeleteNIGroupMutation
+  create_contact(input: CreateNIContactMutationInput!): CreateNIContactMutation
+  update_contact(input: UpdateNIContactMutationInput!): UpdateNIContactMutation
+  delete_contact(input: DeleteNIContactMutationInput!): DeleteNIContactMutation
+}
+
+"""
+from https://docs.graphene-python.org/en/latest/relay/nodes/
+This node may implement the id policies in the graph database
+"""
+interface NIRelayNode {
+  """The ID of the object."""
+  id: ID!
+}
+
+"""An enumeration."""
+enum NodeHandleNodeMetaType {
+  """Physical"""
+  PHYSICAL
+
+  """Logical"""
+  LOGICAL
+
+  """Relation"""
+  RELATION
+
+  """Location"""
+  LOCATION
+}
+
+type NodeHandleType implements NIRelayNode {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: UserType!
+  created: DateTime!
+  modifier: UserType!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  nidata: [DictEntryType]
+}
+
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  """The ID of the object"""
+  node(id: ID!): NIRelayNode
+  getNodeById(handle_id: Int): NodeHandleType
+  getChoicesForDropdown(name: String!): [ChoiceType]
+  roles(before: String, after: String, first: Int, last: Int): RoleConnection
+  getRoleById(handle_id: Int): RoleType
+  groups(before: String, after: String, first: Int, last: Int): GroupConnection
+  getGroupById(handle_id: Int): GroupType
+  contacts(before: String, after: String, first: Int, last: Int): ContactConnection
+  getContactById(handle_id: Int): ContactType
+}
+
+type RoleConnection {
+  pageInfo: PageInfo!
+  edges: [RoleEdge]!
+}
+
+type RoleEdge {
+  """The item at the end of the edge"""
+  node: RoleType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type RoleType implements NIRelayNode {
+  handle_id: ID!
+  node_name: String!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: UserType!
+  created: DateTime!
+  modifier: UserType!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  nidata: [DictEntryType]
+}
+
+type UpdateNIContactMutation {
+  nodehandle: ContactType!
+  clientMutationId: String
+}
+
+input UpdateNIContactMutationInput {
+  first_name: String!
+  last_name: String!
+  contact_type: String!
+  mobile: String
+  phone: String
+  salutation: String
+  email: String
+  other_email: String
+  name: String
+  title: String
+  PGP_fingerprint: String
+  relationship_works_for: String
+  relationship_member_of: String
+  relationship_is: String
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateNIGroupMutation {
+  nodehandle: GroupType!
+  clientMutationId: String
+}
+
+input UpdateNIGroupMutationInput {
+  name: String!
+  description: String
+  relationship_member_of: String
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UpdateNIRoleMutation {
+  nodehandle: RoleType!
+  clientMutationId: String
+}
+
+input UpdateNIRoleMutationInput {
+  name: String!
+  handle_id: Int!
+  clientMutationId: String
+}
+
+type UserType implements NIRelayNode {
+  """The ID of the object."""
+  id: ID!
+  password: String!
+  last_login: DateTime
+
+  """
+  Designates that this user has all permissions without explicitly assigning them.
+  """
+  is_superuser: Boolean!
+
+  """Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."""
+  username: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+
+  """Designates whether the user can log into this admin site."""
+  is_staff: Boolean!
+
+  """
+  Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
+  """
+  is_active: Boolean!
+  date_joined: DateTime!
+  creator(before: String, after: String, first: Int, last: Int): ContactTypeConnection
+  modifier(before: String, after: String, first: Int, last: Int): ContactTypeConnection
+}
+

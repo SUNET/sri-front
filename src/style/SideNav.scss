@@ -1,0 +1,68 @@
+@import "../variables.scss";
+
+.side-nav {
+    height: 784px;
+    object-fit: fill;
+    background-image: linear-gradient(to top, rgba(#3a506b, .7), #3a506b);
+    // background-image: url("../img/sideNavBg.svg");
+    height: 100%;
+
+    .accordion {
+        margin-top: 128px;
+
+        .accordion__item {
+            .accordion__button {
+                margin-bottom: 4px;
+                padding: 25px 0 25px 20px;
+                color: rgba(#fff, .5);
+
+                a {
+                    text-decoration: none;
+                    vertical-align: middle;
+                    color: inherit;
+                    font-weight: bold;
+
+                    &:active {
+                        svg {
+                            g{
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+
+                svg {
+                    margin-right: 8px;
+                    vertical-align: text-top;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                &[aria-expanded='true'] {
+                    background-color: rgba(#fff, .1);
+                    color: #fff;
+                }
+
+                &[aria-expanded='true']:after,
+                &[aria-selected='true']:after {
+                    transform: rotate(45deg);
+                }
+            }
+        }
+
+        .accordion__panel {
+            .nav {
+                .nav-link {
+                    background-color: $tertiary-color;
+                    margin-bottom: 4px;
+
+                    &.active {
+                        background-color: $secondary-color-30;
+                    }
+                }
+            }
+        }
+    }
+}

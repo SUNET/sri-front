@@ -1,0 +1,88 @@
+@import "../variables.scss";
+
+.InputFromTo {
+    display: inline-block;
+
+    .DayPickerInput {
+        .day-picker-wrap {
+            align-items: center;
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            width: 100%;
+            margin-right: 25px;
+
+            label {
+                margin-right: 10px;
+            }
+
+            input {
+                width: 120px;
+                border-radius: 20px;
+                border-width: 2px;
+                height: 32px;
+                padding: 0 10px;
+                font-size: 14px;
+            }
+
+            span {
+                margin-left: -28px;
+                color: $complementary-color;
+                text-align: center;
+            }
+        }
+
+        .DayPickerInput-OverlayWrapper {
+            position: absolute;
+            z-index: 999;
+            margin-top: 8px;
+
+            .DayPicker-Months {
+                flex-wrap: nowrap;
+
+                .DayPicker-Caption {
+                    div {
+                        font-family: karla;
+                        font-weight: bold;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .InputFromTo-to .DayPickerInput-Overlay {
+        position: relative;
+        right: 0;
+    }
+
+    .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+        color: #fff;
+    }
+
+    .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+        background-color: $complementary-color;
+    }
+
+    .DayPicker-Day {
+        border-radius: 0 !important;
+    }
+
+    .DayPicker-Day--start {
+        border-top-left-radius: 50% !important;
+        border-bottom-left-radius: 50% !important;
+    }
+
+    .DayPicker-Day--end {
+        border-top-right-radius: 50% !important;
+        border-bottom-right-radius: 50% !important;
+    }
+
+    .DayPickerInput-Overlay {
+        position: relative;
+    }
+
+    .DayPicker-NavButton--prev {
+        color: $complementary-color;
+    }
+}

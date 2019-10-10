@@ -1,0 +1,100 @@
+@import "../variables.scss";
+
+.model-details {
+    .title-section {
+        h1 {
+            display: inline-block;
+            margin: 0 16px;
+            vertical-align: middle;
+        }
+
+        svg {
+            vertical-align: middle;
+
+            &:first-of-type {
+                margin: 0 8px;
+            }
+        }
+    }
+
+    .info-creator-modifier {
+        text-align: right;
+    }
+
+    .model-section {
+        margin-top: 16px;
+        padding: 32px 24px;
+        background-color: white;
+        -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
+        -moz-box-shadow: 0 0 4px -1px #d6d6d6;
+        box-shadow: 0 0 4px -1px #d6d6d6;
+
+        .table-details {
+            display: table;
+            border-collapse: separate;
+            width: 100%;
+
+            > div:first-of-type {
+                display: table-header-group;
+                font-family: karla;
+                font-weight: bold;
+                color: $secondary-color-30;
+
+                > div {
+                    display: table-cell;
+                    &:not(.with-icon){
+                        padding-bottom: 8px;
+                    }
+                    &.with-icon{
+                        > span{
+                            margin-right: 8px;
+                        }
+                    }
+                }
+            }
+
+            > div:last-of-type {
+                display: table-row-group;
+                font-family: Montserrat;
+
+                > div {
+                    display: table-row;
+
+                    > div {
+                        display: table-cell;
+                        padding-right: 16px;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
+
+                        &.col-actions {
+                            text-align: right;
+                            padding: 0;
+                            width: auto;
+                        }
+                        &.actions{
+                            width: 120px;
+                            text-align: right;
+                        }
+                    }
+                }
+            }
+
+            .list-items-label {
+                display: table;
+                > div {
+                    display: table-row;
+                    > div:first-of-type {
+                        display: table-cell;
+                        padding-right: 8px;
+                    }
+
+                    > div:last-of-type {
+                        display: table-cell;
+                        font-family: karla;
+                        color: $secondary-color-30;
+                    }
+                }
+            }
+        }
+    }
+}

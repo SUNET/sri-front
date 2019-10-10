@@ -1,19 +1,27 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withTranslation } from "react-i18next";
-import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-
-import "bootstrap/scss/bootstrap.scss";
+import Breadcrumbs from "react-router-dynamic-breadcrumbs";
+import { Route, Switch } from "react-router-dom";
 
 import FetchingContext from "../components/FetchingContext";
-
 import SplashContainer from "../containers/Splash";
-import HeaderContainer from "../containers/Header";
-import FooterContainer from "../containers/Footer";
 import NotifyContainer from "../containers/Notify";
+import TopHeader from "./TopHeader";
+import BaseContainer from "../containers/Base";
+import FooterContainer from "../containers/Footer";
 
+import { Row, Col } from "react-bootstrap";
+import SideNavNetwork from "./SideNavNetwork";
+import SideNavCommunity from "./SideNavCommunity";
+import SubMenuActions from "./SubMenuActions";
+
+import Routes from "../Routes";
+
+import "bootstrap/scss/bootstrap.scss";
 import "../style/App.scss";
+import "../style/Breadcrumbs.scss";
+import "../style/SRIButton.scss";
 
 import { history } from "../store";
 
@@ -21,15 +29,30 @@ class App extends Component {
     render() {
         return (
             <FetchingContext.Provider value={this.props.is_fetching}>
-                <div className="App">
-                    <SplashContainer />
-                    <HeaderContainer />
-                    <NotifyContainer />
+                <div className="App container">
                     <ConnectedRouter history={history}>
-                        <Route path="/" />
+                        <TopHeader />
+                        <Row>
+                            <Switch>
+                                <Route path="/network" component={SideNavNetwork} />
+                                <Route path="/community" component={SideNavCommunity} />
+                            </Switch>
+                            <Col>
+                                <Row className="mt-4">
+                                    <Col>
+                                        <Breadcrumbs mappedRoutes={Routes} />
+                                    </Col>
+                                    <Col className="text-right">
+                                        <SubMenuActions />
+                                    </Col>
+                                </Row>
+                                <NotifyContainer />
+                                <SplashContainer />
+                                <BaseContainer />
+                            </Col>
+                        </Row>
+                        <FooterContainer />
                     </ConnectedRouter>
-                    <div className="row" id="main" />
-                    <FooterContainer />
                 </div>
             </FetchingContext.Provider>
         );
@@ -40,4 +63,4 @@ App.propTypes = {
     is_fetching: PropTypes.bool
 };
 
-export default withTranslation()(App);
+export default App;

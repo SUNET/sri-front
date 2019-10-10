@@ -1,0 +1,26 @@
+@import "../variables.scss";
+
+.worklog {
+    header{
+        font-family: karla;
+        margin-bottom: 16px;
+
+        > div:first-of-type{
+            display: inline-block;
+            color: $secondary-color-30;
+            font-weight: bold;
+        }
+        > div:last-of-type{
+            float: right;
+            color: $secondary-color;
+        }
+    }
+    hr{
+        margin-top: 32px;
+        margin-bottom: 24px;
+    }
+    .actions{
+        margin-top: 16px;
+        text-align: right;
+    }
+}
