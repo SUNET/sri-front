@@ -42,6 +42,7 @@
             "filter_columns.header": "Show/Hide Columns",
             "filter_columns.order_asc": "Order A < Z",
             "filter_columns.order_desc": "Order A > Z",
+            "actions.clear": "Clear",
             "actions.cancel": "Cancel",
             "actions.accept": "Accept",
             "actions.back": "Back",

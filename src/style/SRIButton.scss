@@ -53,7 +53,7 @@ button.btn {
         font-size: 14px;
         color: $secondary-color;
         border-radius: 16px;
-        border: solid 1px $secondary-color-20;
+        border: solid 2px $secondary-color-20;
         background: none;
 
         span {
@@ -124,6 +124,17 @@ button.btn {
                 font-family: "Font Awesome 5 Free";
                 font-weight: 900;
                 margin-right: 8px;
+                color: $complementary-color;
+                vertical-align: middle;
+            }
+        }
+
+        &.btn-trash {
+            &:before {
+                display: inline-block;
+                content: '\f12d';
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
                 color: $complementary-color;
                 vertical-align: middle;
             }

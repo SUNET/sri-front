@@ -3,32 +3,33 @@
 .InputFromTo {
     display: inline-block;
 
+    label {
+        margin-right: 8px;
+    }
+
     .DayPickerInput {
-        .day-picker-wrap {
-            align-items: center;
-            display: -ms-flexbox;
-            /* IE10 */
-            display: flex;
-            width: 100%;
-            margin-right: 25px;
+        font-family: Montserrat;
+        color: $secondary-color;
 
-            label {
-                margin-right: 10px;
-            }
+        &:after {
+            display: inline-block;
+            content: '\f073';
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: $complementary-color;
+            position: relative;
+            right: 28px;
+        }
 
-            input {
-                width: 120px;
-                border-radius: 20px;
-                border-width: 2px;
-                height: 32px;
-                padding: 0 10px;
-                font-size: 14px;
-            }
-
-            span {
-                margin-left: -28px;
-                color: $complementary-color;
-                text-align: center;
+        input {
+            width: 110px;
+            border-radius: 16px;
+            border: solid 2px $secondary-color-20;
+            height: 32px;
+            padding: 0 10px;
+            font-size: 14px;
+            &::placeholder{
+                letter-spacing: -1.5px;
             }
         }
 
