@@ -1,8 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import moment from "moment";
-
 import DayPickerInput from "react-day-picker/DayPickerInput";
-
 import MomentLocaleUtils, { formatDate, parseDate } from "react-day-picker/moment";
 
 import "moment/locale/en-gb";
@@ -13,6 +12,10 @@ import "react-day-picker/lib/style.css";
 import "../style/RangeDayPicker.scss";
 
 class RangeDayPicker extends React.Component {
+    static propTypes = {
+        resetDate: PropTypes.func.isRequired
+    };
+
     constructor(props) {
         super(props);
         this.state = {

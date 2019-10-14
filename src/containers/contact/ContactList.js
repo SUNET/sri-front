@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { ContactList } from "../components/contact";
+import ContactList from "../../components/contact/ContactList";
 
 const mapStateToProps = (state, props) => {
     let { columns_visible, all_columns } = state.filterColumns.contact;

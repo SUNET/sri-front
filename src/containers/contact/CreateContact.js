@@ -1,16 +1,13 @@
 import { connect } from "react-redux";
 
-import { addRow } from "../actions/ComponentFormRow";
-import { CreateContact } from "../components/contact";
+import CreateContact from "../../components/contact/CreateContact";
 
 const mapStateToProps = (state, props) => {
     return {};
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
-        addRow: (index) => dispatch(addRow(index)),
-    };
+    return {};
 };
 
 const CreateContactContainer = connect(
