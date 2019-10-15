@@ -59,6 +59,10 @@ class SearchOrganization extends React.Component {
         this.setState({ filterDateFrom: dateFrom });
     };
 
+    handleResetDate = (from, to) => {
+        this.setState({ filterDateFrom: from, filterDateto: to, filterDate: {} });
+    };
+
     changeFilterDateType = (event) => {
         this.setState({ filterDateType: event.target.value });
         let newfilterDate = renameKeys(this.state.filterDate, (key) => {

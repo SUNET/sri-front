@@ -1,6 +1,6 @@
 import React from "react";
-import CreateOrganizationFormContainer from "../../containers/CreateGroupForm";
-import CreateOrganizationMutation from "../../mutations/CreateGroupMutation";
+import CreateOrganizationFormContainer from "../../containers/organization/CreateOrganizationForm";
+import CreateOrganizationMutation from "../../mutations/organization/CreateOrganizationMutation";
 
 class CreateOrganization extends React.Component {
     componentWillUnmount() {}

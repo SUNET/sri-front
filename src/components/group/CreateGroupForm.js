@@ -16,17 +16,9 @@ class CreateGroupForm extends React.Component {
         super(props);
 
         this.state = {
-            name: "New Group",
-            description: "",
-            members: {},
-            comment: "",
             errors: []
         };
     }
-
-    handleFieldChange = (event) => {
-        this.setState({ name: event.target.value });
-    };
 
     _hasBeenAdded = (newMember) => {
         return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);

@@ -4,12 +4,13 @@ import { getFormMeta, getFormSyncErrors, formValueSelector } from "redux-form";
 import CreateOrganizationForm from "../../components/organization/CreateOrganizationForm";
 
 const mapStateToProps = (state, props) => {
-    const updateGroupSelector = formValueSelector("createGroup");
+    const createOrganizationSelector = formValueSelector("createOrganization");
     return {
-        fields: getFormMeta("createGroup")(state),
-        formSyncErrors: getFormSyncErrors("createGroup")(state),
-        memberValues: updateGroupSelector(state, "members"),
-        name: updateGroupSelector(state, "name"),
+        fields: getFormMeta("createOrganization")(state),
+        formSyncErrors: getFormSyncErrors("createOrganization")(state),
+        addressesValues: createOrganizationSelector(state, "addresses"),
+        contactsValues: createOrganizationSelector(state, "contacts"),
+        name: createOrganizationSelector(state, "name"),
         refreshFields: state.refreshFields
     };
 };

@@ -5,132 +5,24 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import DropdownSearch from "../DropdownSearch";
-
-import CreateOrganizationMutation from "../../mutations/CreateOrganizationMutation";
-
+import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
+import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Dropdown from "../Dropdown";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
-import ComponentFormRowContainer from "../../containers/ComponentFormRow";
 
-const renderContacts = ({ fields, meta, onChangeRole, onBlurContact, onChangeContact, t, addRow }) => {
-    const pushField = (event) => {
-        if (fields.length < 5) {
-            addRow(fields.length);
-            fields.push({ key: uuidv4() });
-        }
-    };
-    return (
-        <>
-            {fields.map((contact, index) => (
-                <>
-                    <span>{`${index}_${fields.length}`}</span>
-                    <span>{contact.key}</span>
-                    <ComponentFormRowContainer editable={true} key={contact.key} index={index} fields={fields}>
-                        {(editFields, isNew) => {
-                            return editFields || isNew ? (
-                                <>
-                                    <div>
-                                        <Form.Group>
-                                            <Field
-                                                type="text"
-                                                component={FieldInput}
-                                                placeholder="Full Name"
-                                                name={`${contact}.name`}
-                                                onBlur={(e) => onBlurContact(e, index)}
-                                            />
-                                        </Form.Group>
-                                    </div>
-                                    <div>
-                                        <Dropdown
-                                            className="auto"
-                                            emptyLabel="Select role"
-                                            model="roles"
-                                            name={`${contact}.role`}
-                                            onChange={(e) => onChangeContact(e, index)}
-                                        />
-                                    </div>
-                                    <div>
-                                        <Form.Group>
-                                            <Field
-                                                type="text"
-                                                component={FieldInput}
-                                                placeholder="Email"
-                                                name={`${contact}.email`}
-                                                onBlur={(e) => onBlurContact(e, index)}
-                                            />
-                                        </Form.Group>
-                                    </div>
-                                    <div>
-                                        <Form.Group>
-                                            <Field
-                                                type="text"
-                                                component={FieldInput}
-                                                placeholder="Phone"
-                                                name={`${contact}.phone`}
-                                                onBlur={(e) => onBlurContact(e, index)}
-                                            />
-                                        </Form.Group>
-                                    </div>
-                                </>
-                            ) : (
-                                <></>
-                            );
-                        }}
-                    </ComponentFormRowContainer>
-                </>
-            ))}
-            <div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div className="col-actions">
-                    <button type="button" className="btn link mt-2" onClick={(e) => pushField(e)}>
-                        {t("actions.add-new")}
-                    </button>
-                </div>
-            </div>
-        </>
-    );
-};
-
-class CreateOrganization extends React.PureComponent {
+class CreateOrganization extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            name: "New organization",
-            description: "",
-            type: "",
-            afffiliation: "",
-            organizationId: "",
-            relationship_parent_of: "",
-            address: {},
-            contacts: {},
-            comment: "",
-            incident_management_info: "",
             errors: []
         };
     }
 
-    handleFieldChange = (event) => {
-        this.setState({ name: event.target.value });
-    };
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        const { name, description, type, contacts, incident_management_info, comment, address } = this.state;
-        CreateOrganizationMutation(
-            name,
-            description,
-            type,
-            incident_management_info,
-            comment,
-            contacts,
-            address,
-            () => this.props.history
-        );
+    _hasBeenAdded = (newContact) => {
+        return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
     };
 
     handleSelectedContact = (selection) => {
@@ -140,34 +32,34 @@ class CreateOrganization extends React.PureComponent {
                 name: addContact.name,
                 first_name: addContact.first_name,
                 last_name: addContact.last_name,
-                id: addContact.handle_id,
+                handle_id: addContact.handle_id,
                 contact_type: addContact.contact_type,
                 role: addContact.roles[0].role_data.handle_id,
-                email: addContact.emails[0].name,
-                phone: addContact.phones[0].name,
+                role_obj: addContact.roles[0],
+                role_label: addContact.roles[0].role_data.name,
+                email: addContact.emails[0] ? addContact.emails[0].name : "",
+                email_obj: addContact.emails[0] ? addContact.emails[0] : {},
+                phone: addContact.phones[0] ? addContact.phones[0].name : "",
+                phone_obj: addContact.phones[0] ? addContact.phones[0] : {},
                 created: true,
+                origin: "new",
+                status: "saved",
                 key: uuidv4()
             };
-            this.setState({
-                contacts: {
-                    ...this.state.contacts,
-                    [this.state.contacts.length || 1]: {
-                        ...newContact
-                    }
-                }
-            });
-            this.props.dispatch(arrayPush("createOrganization", "contacts", newContact));
+            if (!this._hasBeenAdded(newContact)) {
+                this.props.dispatch(arrayPush("createOrganization", "contacts", newContact));
+            }
         }
     };
 
     render() {
-        const { t } = this.props;
+        const { handleSubmit, t, name } = this.props;
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div className="model-details">
                     <section className="title-section">
-                        <EditField onChange={this.handleFieldChange}>
-                            <h1 className="ml-0">{this.state.name}</h1>
+                        <EditField error={this.props.formSyncErrors.name} meta={this.props.fields.name}>
+                            <h1 className="ml-0">{name}</h1>
                         </EditField>
                     </section>
                     <section className="model-section">
@@ -183,11 +75,7 @@ class CreateOrganization extends React.PureComponent {
                                             component={FieldInput}
                                             as="textarea"
                                             rows="3"
-                                            placeholder={t("organization-details.add-description")}
-                                            onBlur={(e) => {
-                                                this.setState({ description: e.target.value });
-                                            }}
-                                            value={this.state.description}
+                                            placeholder={t("group-details.add-description")}
                                         />
                                     </TogglePanel>
                                 </ToggleSection>
@@ -205,7 +93,6 @@ class CreateOrganization extends React.PureComponent {
                                             <div>
                                                 <div>Type</div>
                                                 <div>Affiliation</div>
-                                                <div>Organization ID</div>
                                                 <div>Parent Organization ID</div>
                                                 <div></div>
                                             </div>
@@ -217,43 +104,17 @@ class CreateOrganization extends React.PureComponent {
                                                             emptyLabel="Select type"
                                                             type="organization_types"
                                                             name="type"
-                                                            onChange={(e) => this.setState({ type: e.target.value })}
+                                                            onChange={(e) => {}}
                                                         />
                                                     </div>
-                                                    <div>
-                                                        <Dropdown
-                                                            className="auto"
-                                                            emptyLabel="Select organization"
-                                                            type="organization_types"
-                                                            name="type"
-                                                            onChange={(e) =>
-                                                                this.setState({ afffiliation: e.target.value })
-                                                            }
-                                                        />
-                                                    </div>
+                                                    <div>Affiliation</div>
                                                     <div>
                                                         <Form.Group>
                                                             <Field
-                                                                name="organizationId"
-                                                                component={FieldInput}
-                                                                placeholder={t("contact-details.add-notes")}
-                                                                onBlur={(e) => {
-                                                                    this.setState({ organizationId: e.target.value });
-                                                                }}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
+                                                                type="text"
                                                                 name="relationship_parent_of"
                                                                 component={FieldInput}
                                                                 placeholder={t("contact-details.add-notes")}
-                                                                onBlur={(e) => {
-                                                                    this.setState({
-                                                                        relationship_parent_of: e.target.value
-                                                                    });
-                                                                }}
                                                             />
                                                         </Form.Group>
                                                     </div>
@@ -281,93 +142,14 @@ class CreateOrganization extends React.PureComponent {
                                                 <div>Phone</div>
                                             </div>
                                             <div>
-                                                <div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                name="website"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-website")}
-                                                                onBlur={(e) => {
-                                                                    this.setState({
-                                                                        address: {
-                                                                            ...this.state.address,
-                                                                            website: e.target.value
-                                                                        }
-                                                                    });
-                                                                }}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                name="street"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-street")}
-                                                                onBlur={(e) => {
-                                                                    this.setState({
-                                                                        address: {
-                                                                            ...this.state.address,
-                                                                            street: e.target.value
-                                                                        }
-                                                                    });
-                                                                }}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                name="postal_code"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-postalCode")}
-                                                                onBlur={(e) => {
-                                                                    this.setState({
-                                                                        address: {
-                                                                            ...this.state.address,
-                                                                            postal_code: e.target.value
-                                                                        }
-                                                                    });
-                                                                }}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                name="postal_area"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-postalArea")}
-                                                                onBlur={(e) => {
-                                                                    this.setState({
-                                                                        address: {
-                                                                            ...this.state.address,
-                                                                            postal_area: e.target.value
-                                                                        }
-                                                                    });
-                                                                }}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                name="phone"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-phone")}
-                                                                onBlur={(e) => {
-                                                                    this.setState({
-                                                                        address: {
-                                                                            ...this.state.address,
-                                                                            phone: e.target.value
-                                                                        }
-                                                                    });
-                                                                }}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
-                                                </div>
+                                                <FieldArray
+                                                    name="addresses"
+                                                    component={FieldArrayAddressOrganization}
+                                                    editable={true}
+                                                    dispatch={this.props.dispatch}
+                                                    errors={this.props.formSyncErrors.addresses}
+                                                    metaFields={this.props.fields}
+                                                />
                                             </div>
                                         </div>
                                     </TogglePanel>
@@ -375,12 +157,12 @@ class CreateOrganization extends React.PureComponent {
                             </Col>
                         </Form.Row>
                         <hr />
-                        <DropdownSearch selection={this.handleSelectedContact} />
                         <Form.Row>
                             <Col>
                                 <ToggleSection defaultEditable={false}>
                                     <ToggleHeading>
                                         <h2>{t("organization-details.contacts")}</h2>
+                                        <DropdownSearch selection={this.handleSelectedContact} />
                                     </ToggleHeading>
                                     <TogglePanel>
                                         <div className="table-details">
@@ -394,33 +176,11 @@ class CreateOrganization extends React.PureComponent {
                                             <div>
                                                 <FieldArray
                                                     name="contacts"
-                                                    component={renderContacts}
-                                                    t={t}
-                                                    addRow={this.props.addRow}
-                                                    onBlurContact={(event, index) =>
-                                                        this.setState({
-                                                            contacts: {
-                                                                ...this.state.contacts,
-                                                                [index]: {
-                                                                    ...this.state.contacts[index],
-                                                                    [event.target.name.split(".")[1]]:
-                                                                        event.target.value
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onChangeContact={(event, index) =>
-                                                        this.setState({
-                                                            contacts: {
-                                                                ...this.state.contacts,
-                                                                [index]: {
-                                                                    ...this.state.contacts[index],
-                                                                    [event.target.name.split(".")[1]]:
-                                                                        event.target.value
-                                                                }
-                                                            }
-                                                        })
-                                                    }
+                                                    component={FieldArrayContactOrganization}
+                                                    editable={true}
+                                                    dispatch={this.props.dispatch}
+                                                    errors={this.props.formSyncErrors.members}
+                                                    metaFields={this.props.fields}
                                                 />
                                             </div>
                                         </div>
@@ -470,6 +230,7 @@ class CreateOrganization extends React.PureComponent {
                 </div>
                 <div className="text-right mt-4">
                     <button
+                        type="button"
                         className="mr-2 btn link"
                         onClick={() => {
                             this.props.history.goBack();
@@ -480,7 +241,7 @@ class CreateOrganization extends React.PureComponent {
                     <button
                         className="btn primary lg"
                         type="submit"
-                        disabled={!this.props.valid || this.props.pristine || this.props.submitting}
+                        // disabled={!this.props.valid || this.props.pristine || this.props.submitting}
                     >
                         Save
                     </button>
@@ -496,8 +257,41 @@ const validate = (values) => {
         errors.name = "* Required!";
     }
 
+    if (!values.addresses || !values.addresses.length) {
+        errors.addresses = { _error: "At least one address must be entered" };
+    } else {
+        const addressesArrayErrors = [];
+        values.addresses.forEach((address, addressIndex) => {
+            const addressErrors = {};
+            if (!address || !address.website) {
+                addressErrors.website = "* Required!";
+                addressesArrayErrors[addressIndex] = addressErrors;
+            }
+            if (!address || !address.street) {
+                addressErrors.street = "* Required!";
+                addressesArrayErrors[addressIndex] = addressErrors;
+            }
+            if (!address || !address.postal_code) {
+                addressErrors.postal_code = "* Required!";
+                addressesArrayErrors[addressIndex] = addressErrors;
+            }
+            if (!address || !address.postal_area) {
+                addressErrors.postal_area = "* Required!";
+                addressesArrayErrors[addressIndex] = addressErrors;
+            }
+            if (!address || !address.phone) {
+                addressErrors.phone = "* Required!";
+                addressesArrayErrors[addressIndex] = addressErrors;
+            }
+            return addressErrors;
+        });
+        if (addressesArrayErrors.length) {
+            errors.addresses = addressesArrayErrors;
+        }
+    }
+
     if (!values.contacts || !values.contacts.length) {
-        errors.contacts = { _error: "At least one email must be entered" };
+        errors.contacts = { _error: "At least one contact must be entered" };
     } else {
         const contactArrayErrors = [];
         values.contacts.forEach((contact, contactIndex) => {
@@ -512,6 +306,9 @@ const validate = (values) => {
             }
             if (!contact || !contact.email) {
                 contactErrors.email = "* Required!";
+                contactArrayErrors[contactIndex] = contactErrors;
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(contact.email)) {
+                contactErrors.email = "* Invalid email!";
                 contactArrayErrors[contactIndex] = contactErrors;
             }
             if (!contact || !contact.phone) {
@@ -531,7 +328,20 @@ CreateOrganization = reduxForm({
     form: "createOrganization",
     validate,
     initialValues: {
-        contacts: [{ name: "", role: "", email: "", phone: "", key: uuidv4(), created: false }]
+        name: "New organization",
+        contacts: [{ name: "", role: "", email: "", phone: "", key: uuidv4(), created: false, status: "editing" }],
+        addresses: [
+            {
+                website: "",
+                street: "",
+                postal_code: "",
+                postal_area: "",
+                phone: "",
+                key: uuidv4(),
+                created: false,
+                status: "editing"
+            }
+        ]
     }
 })(CreateOrganization);
 

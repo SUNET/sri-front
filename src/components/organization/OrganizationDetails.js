@@ -5,8 +5,8 @@ import graphql from "babel-plugin-relay/macro";
 
 import OrganizationUpdateFormContainer from "../../containers/organization/OrganizationUpdateForm";
 
-import UpdateOrganizationMutation from "../../mutations/UpdateOrganizationMutation";
-import DeleteOrganizationMutation from "../../mutations/DeleteOrganizationMutation";
+import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
+import DeleteOrganizationMutation from "../../mutations/organization/DeleteOrganizationMutation";
 import environment from "../../createRelayEnvironment";
 
 const OrganizationDetailsQuery = graphql`

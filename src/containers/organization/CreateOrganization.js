@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { addRow } from "../actions/ComponentFormRow";
-import CreateOrganization from "../components/organization/CreateOrganization";
+import CreateOrganization from "../../components/organization/CreateOrganization";
 
 const mapStateToProps = (state, props) => {
     return {};
