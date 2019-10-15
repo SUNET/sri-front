@@ -50,7 +50,7 @@ function UpdateContactInlineMutation(contact, organization, group, role) {
         variables,
         onCompleted: (response, errors) => {
             console.log(errors);
-            console.log(response, environment);
+            console.log(response);
         },
         onError: (errors) => console.error(errors),
         configs: [
