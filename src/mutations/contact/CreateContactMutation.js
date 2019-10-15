@@ -72,30 +72,34 @@ function CreateContactMutation(contact, callback) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            const contact_id = response.create_contact.contact.handle_id;
-            if (contact.comment) {
-                CreateComentMutation(contact_id, contact.comment);
-            }
-            const emails = contact.emails;
-            Object.keys(emails).forEach((email) => {
-                CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
-            });
-            const phones = contact.phones;
-            Object.keys(phones).forEach((phone) => {
-                CreatePhoneMutation(contact_id, phones[phone].phone, phones[phone].type);
-            });
-            const organizations = contact.organizations;
-            Object.keys(organizations).forEach((organization_key) => {
-                let organization = organizations[organization_key];
-                UpdateContactInlineMutation(
-                    response.create_contact.contact,
-                    organization.organization,
-                    null,
-                    organization.role
-                );
-            });
+            if (response.create_contact.errors) {
+                return response.create_contact.errors;
+            } else {
+                const contact_id = response.create_contact.contact.handle_id;
+                if (contact.comment) {
+                    CreateComentMutation(contact_id, contact.comment);
+                }
+                const emails = contact.emails;
+                Object.keys(emails).forEach((email) => {
+                    CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
+                });
+                const phones = contact.phones;
+                Object.keys(phones).forEach((phone) => {
+                    CreatePhoneMutation(contact_id, phones[phone].phone, phones[phone].type);
+                });
+                const organizations = contact.organizations;
+                Object.keys(organizations).forEach((organization_key) => {
+                    let organization = organizations[organization_key];
+                    UpdateContactInlineMutation(
+                        response.create_contact.contact,
+                        organization.organization,
+                        null,
+                        organization.role
+                    );
+                });
 
-            callback.push("/community/contacts/" + contact_id);
+                callback.push("/community/contacts/" + contact_id);
+            }
         },
         onError: (errors) => console.error(errors),
         configs: [
