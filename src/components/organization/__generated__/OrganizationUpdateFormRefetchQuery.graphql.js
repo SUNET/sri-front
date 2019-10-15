@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash dc33ab753789aa1326c91fcb8feed97e
+ * @relayHash ad8d8ced8bd2105d2828946003f04e28
  */
 
 /* eslint-disable */
@@ -77,6 +77,16 @@ fragment OrganizationUpdateForm_organization on Organization {
     comment
     submit_date
   }
+  created
+  creator {
+    email
+    id
+  }
+  modified
+  modifier {
+    email
+    id
+  }
 }
 */
 
@@ -130,6 +140,16 @@ v6 = [
     "kind": "ScalarField",
     "alias": null,
     "name": "node_name",
+    "args": null,
+    "storageKey": null
+  },
+  (v5/*: any*/)
+],
+v7 = [
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "email",
     "args": null,
     "storageKey": null
   },
@@ -338,6 +358,40 @@ return {
               }
             ]
           },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "created",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "creator",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v7/*: any*/)
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "modified",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "modifier",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v7/*: any*/)
+          },
           (v5/*: any*/)
         ]
       }
@@ -347,7 +401,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationUpdateFormRefetchQuery",
     "id": null,
-    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  handle_id\n  name\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  handle_id\n  name\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

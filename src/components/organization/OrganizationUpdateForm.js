@@ -8,6 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
+import DropdownSearch from "../DropdownSearch";
+import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
+import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
+import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
+import FieldInput from "../FieldInput";
+import uuidv4 from "uuid/v4";
 // import uuidv4 from "uuid/v4";
 // import NumberFormat from "react-number-format";
 
@@ -36,8 +42,40 @@ class OrganizationUpdateForm extends React.Component {
         );
     };
 
+    _hasBeenAdded = (newContact) => {
+        return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+    };
+
+    handleSelectedContact = (selection) => {
+        if (selection !== null) {
+            const addContact = { ...selection.node };
+            const newContact = {
+                name: addContact.name,
+                first_name: addContact.first_name,
+                last_name: addContact.last_name,
+                handle_id: addContact.handle_id,
+                contact_type: addContact.contact_type,
+                role: addContact.roles[0].role_data.handle_id,
+                role_obj: addContact.roles[0],
+                role_label: addContact.roles[0].role_data.name,
+                email: addContact.emails[0] ? addContact.emails[0].name : "",
+                email_obj: addContact.emails[0] ? addContact.emails[0] : {},
+                phone: addContact.phones[0] ? addContact.phones[0].name : "",
+                phone_obj: addContact.phones[0] ? addContact.phones[0] : {},
+                created: true,
+                origin: "new",
+                status: "saved",
+                key: uuidv4()
+            };
+            if (!this._hasBeenAdded(newContact)) {
+                this.props.dispatch(arrayPush("createOrganization", "contacts", newContact));
+            }
+        }
+    };
+
     render() {
-        let { organization, t, handleSubmit } = this.props;
+        let { organization, name, description, incident_management_info, t, handleSubmit } = this.props;
+        console.log(this.props);
         return (
             <form onSubmit={handleSubmit}>
                 <Form.Row>
@@ -50,7 +88,9 @@ class OrganizationUpdateForm extends React.Component {
                             >
                                 <span>{t("actions.back")}</span>
                             </button>
-                            <EditField onChange={this._handleOrganizationChange}>{/*}<h1>{name}</h1>*/}</EditField>
+                            <EditField error={this.props.formSyncErrors.name} meta={this.props.fields.name}>
+                                <h1>{name}</h1>
+                            </EditField>
                             <FontAwesomeIcon icon={faStar} />
                         </div>
                     </Col>
@@ -68,7 +108,17 @@ class OrganizationUpdateForm extends React.Component {
                                 <TogglePanel>
                                     <PanelEditable.Consumer>
                                         {(editable) => {
-                                            return <span>{organization.description}</span>;
+                                            return editable ? (
+                                                <Field
+                                                    name="description"
+                                                    component={FieldInput}
+                                                    as="textarea"
+                                                    rows="3"
+                                                    placeholder={t("group-details.add-description")}
+                                                />
+                                            ) : (
+                                                <span>{description}</span>
+                                            );
                                         }}
                                     </PanelEditable.Consumer>
                                 </TogglePanel>
@@ -83,28 +133,31 @@ class OrganizationUpdateForm extends React.Component {
                                     <h2>{t("organization-details.address")}</h2>
                                 </ToggleHeading>
                                 <TogglePanel>
-                                    <div className="table-details">
-                                        <div>
-                                            <div>Website</div>
-                                            <div>Street</div>
-                                            <div>Postal Code</div>
-                                            <div>Postal Area</div>
-                                            <div>Phone</div>
-                                        </div>
-                                        <div>
-                                            {organization.addresses.map((address, index) => {
-                                                return (
+                                    <PanelEditable.Consumer>
+                                        {(editable) => {
+                                            return (
+                                                <div className="table-details">
                                                     <div>
-                                                        <div>{address.website}</div>
-                                                        <div>{address.street}</div>
-                                                        <div>{address.postal_code}</div>
-                                                        <div>{address.postal_area}</div>
-                                                        <div>{address.phone}</div>
+                                                        <div>Website</div>
+                                                        <div>Street</div>
+                                                        <div>Postal Code</div>
+                                                        <div>Postal Area</div>
+                                                        <div>Phone</div>
                                                     </div>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
+                                                    <div>
+                                                        <FieldArray
+                                                            name="addresses"
+                                                            component={FieldArrayAddressOrganization}
+                                                            editable={true}
+                                                            dispatch={this.props.dispatch}
+                                                            errors={this.props.formSyncErrors.addresses}
+                                                            metaFields={this.props.fields}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            );
+                                        }}
+                                    </PanelEditable.Consumer>
                                 </TogglePanel>
                             </ToggleSection>
                         </Col>
@@ -115,44 +168,38 @@ class OrganizationUpdateForm extends React.Component {
                             <ToggleSection>
                                 <ToggleHeading>
                                     <h2>{t("organization-details.contacts")}</h2>
+                                    <PanelEditable.Consumer>
+                                        {(editable) => {
+                                            return editable && <DropdownSearch selection={this.handleSelectedMember} />;
+                                        }}
+                                    </PanelEditable.Consumer>
                                 </ToggleHeading>
                                 <TogglePanel>
-                                    <div className="table-details">
-                                        <div>
-                                            <div>Name</div>
-                                            <div>Role</div>
-                                            <div>Email</div>
-                                            <div>Phone</div>
-                                            <div></div>
-                                        </div>
-                                        <div>
-                                            {/* {organization.incoming.relation.start.map((contact, index) => {
-                                                return (
+                                    <PanelEditable.Consumer>
+                                        {(editable) => {
+                                            return (
+                                                <div className="table-details">
                                                     <div>
-                                                        <div>
-                                                            {contact.node.first_name} {contact.node.last_name}
-                                                        </div>
-                                                        <div>
-                                                            {contact.node.roles.map((role, index) => {
-                                                                return index === 0 ? role.name : null;
-                                                            })}
-                                                        </div>
-                                                        <div>
-                                                            {contact.node.emails.map((email, index) => {
-                                                                return index === 0 ?  email.name : null;
-                                                            })}
-                                                        </div>
-                                                        <div>
-                                                            {contact.node.phones.map((phone, index) => {
-                                                                return index === 0 ?  phone.name : null;
-                                                            })}
-                                                        </div>
+                                                        <div>Name</div>
+                                                        <div>Role</div>
+                                                        <div>Email</div>
+                                                        <div>Phone</div>
                                                         <div></div>
                                                     </div>
-                                                );
-                                            })} */}
-                                        </div>
-                                    </div>
+                                                    <div>
+                                                        <FieldArray
+                                                            name="contacts"
+                                                            component={FieldArrayContactOrganization}
+                                                            editable={true}
+                                                            dispatch={this.props.dispatch}
+                                                            errors={this.props.formSyncErrors.members}
+                                                            metaFields={this.props.fields}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            );
+                                        }}
+                                    </PanelEditable.Consumer>
                                 </TogglePanel>
                             </ToggleSection>
                         </Col>
@@ -168,7 +215,17 @@ class OrganizationUpdateForm extends React.Component {
                                 <TogglePanel>
                                     <PanelEditable.Consumer>
                                         {(editable) => {
-                                            return <span>{organization.incident_management_info}</span>;
+                                            return editable ? (
+                                                <Field
+                                                    name="incident_management_info"
+                                                    component={FieldInput}
+                                                    as="textarea"
+                                                    rows="3"
+                                                    placeholder={t("group-details.add-description")}
+                                                />
+                                            ) : (
+                                                <span>{incident_management_info}</span>
+                                            );
                                         }}
                                     </PanelEditable.Consumer>
                                 </TogglePanel>
@@ -191,6 +248,84 @@ class OrganizationUpdateForm extends React.Component {
         );
     }
 }
+
+const validate = (values) => {
+    const errors = {};
+    if (!values.name) {
+        errors.name = "* Required!";
+    }
+
+    if (!values.addresses || !values.addresses.length) {
+        errors.addresses = { _error: "At least one address must be entered" };
+    } else {
+        const addressArrayErrors = [];
+        values.addresses.forEach((address, addressIndex) => {
+            const addressErrors = {};
+            if (!address || !address.website) {
+                addressErrors.website = "* Required!";
+                addressArrayErrors[addressIndex] = addressErrors;
+            }
+            if (!address || !address.street) {
+                addressErrors.street = "* Required!";
+                addressArrayErrors[addressIndex] = addressErrors;
+            }
+            if (!address || !address.postal_code) {
+                addressErrors.postal_code = "* Required!";
+                addressArrayErrors[addressIndex] = addressErrors;
+            }
+            if (!address || !address.postal_area) {
+                addressErrors.postal_area = "* Required!";
+                addressArrayErrors[addressIndex] = addressErrors;
+            }
+            if (!address || !address.phone) {
+                addressErrors.phone = "* Required!";
+                addressArrayErrors[addressIndex] = addressErrors;
+            }
+            return addressErrors;
+        });
+        if (addressArrayErrors.length) {
+            errors.addresses = addressArrayErrors;
+        }
+    }
+
+    if (!values.contacts || !values.contacts.length) {
+        errors.contacts = { _error: "At least one contact must be entered" };
+    } else {
+        const contactArrayErrors = [];
+        values.contacts.forEach((contact, contactIndex) => {
+            const contactErrors = {};
+            if (!contact || !contact.name) {
+                contactErrors.name = "* Required!";
+                contactArrayErrors[contactIndex] = contactErrors;
+            }
+            if (!contact || !contact.role) {
+                contactErrors.role = "* Required!";
+                contactArrayErrors[contactIndex] = contactErrors;
+            }
+            if (!contact || !contact.email) {
+                contactErrors.email = "* Required!";
+                contactArrayErrors[contactIndex] = contactErrors;
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(contact.email)) {
+                contactErrors.email = "* Invalid email!";
+                contactArrayErrors[contactIndex] = contactErrors;
+            }
+            if (!contact || !contact.phone) {
+                contactErrors.phone = "* Required!";
+                contactArrayErrors[contactIndex] = contactErrors;
+            }
+            return contactErrors;
+        });
+        if (contactArrayErrors.length) {
+            errors.contacts = contactArrayErrors;
+        }
+    }
+    return errors;
+};
+
+OrganizationUpdateForm = reduxForm({
+    form: "updateOrganization",
+    validate
+})(OrganizationUpdateForm);
 
 const OrganizationUpdateFormFragment = createRefetchContainer(
     withTranslation()(OrganizationUpdateForm),
@@ -232,6 +367,14 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                     }
                     comment
                     submit_date
+                }
+                created
+                creator {
+                    email
+                }
+                modified
+                modifier {
+                    email
                 }
             }
         `

@@ -48,7 +48,7 @@ class OrganizationRow extends React.PureComponent {
                             if (relation.name === "Parent_of") {
                                 return relation.start.handle_id;
                             } else {
-                                return "No parent";
+                                return "No has parent";
                             }
                         })}
                     </div>

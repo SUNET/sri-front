@@ -22,19 +22,16 @@ class FieldArrayAddressOrganization extends React.Component {
 
     validateAddress = (index) => {
         const values = this.props.fields.getAll()[index];
-        const fieldsNotBlank =
+        const hasBlankfields =
             values.website !== "" &&
             values.website !== undefined &&
-            values.street !== "" &&
-            values.street !== undefined &&
-            values.postal_code !== "" &&
-            values.postal_code !== undefined &&
-            values.postal_area !== "" &&
-            values.postal_area !== undefined &&
-            values.phone !== "" &&
-            values.phone !== undefined;
+            (values.street !== "" && values.street !== undefined) &&
+            (values.postal_code !== "" && values.postal_code !== undefined) &&
+            (values.postal_area !== "" && values.postal_area !== undefined) &&
+            (values.phone !== "" && values.phone !== undefined);
+
         const errors = this.props.errors;
-        return !(errors && errors[index] !== undefined) && (fieldsNotBlank && errors === undefined);
+        return !(errors && errors[index] !== undefined) && (hasBlankfields && errors === undefined);
     };
 
     addRow = (event) => {
@@ -44,7 +41,6 @@ class FieldArrayAddressOrganization extends React.Component {
     };
 
     saveRow = (index) => {
-        console.log(this.props.fields.getAll());
         if (this.validateAddress(index)) {
             this.props.dispatch(change(this.props.meta.form, `addresses[${index}].status`, "saved"));
         } else {
@@ -83,7 +79,7 @@ class FieldArrayAddressOrganization extends React.Component {
                                     <Form.Group>
                                         <Field
                                             type="text"
-                                            name="website"
+                                            name={`${address}.website`}
                                             component={FieldInput}
                                             placeholder={t("organization-details.add-website")}
                                         />
@@ -93,7 +89,7 @@ class FieldArrayAddressOrganization extends React.Component {
                                     <Form.Group>
                                         <Field
                                             type="text"
-                                            name="street"
+                                            name={`${address}.street`}
                                             component={FieldInput}
                                             placeholder={t("organization-details.add-street")}
                                         />
@@ -103,7 +99,7 @@ class FieldArrayAddressOrganization extends React.Component {
                                     <Form.Group>
                                         <Field
                                             type="text"
-                                            name="postal_code"
+                                            name={`${address}.postal_code`}
                                             component={FieldInput}
                                             placeholder={t("organization-details.add-postalCode")}
                                         />
@@ -113,7 +109,7 @@ class FieldArrayAddressOrganization extends React.Component {
                                     <Form.Group>
                                         <Field
                                             type="text"
-                                            name="postal_area"
+                                            name={`${address}.postal_area`}
                                             component={FieldInput}
                                             placeholder={t("organization-details.add-postalArea")}
                                         />
@@ -123,7 +119,7 @@ class FieldArrayAddressOrganization extends React.Component {
                                     <Form.Group>
                                         <Field
                                             type="text"
-                                            name="phone"
+                                            name={`${address}.phone`}
                                             component={FieldInput}
                                             placeholder={t("organization-details.add-phone")}
                                         />

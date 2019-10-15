@@ -15,6 +15,40 @@ const OrganizationDetailsQuery = graphql`
             ...OrganizationUpdateForm_organization
             handle_id
             name
+            type
+            incident_management_info
+            addresses {
+                handle_id
+                website
+                street
+                postal_code
+                postal_area
+                phone
+            }
+            incoming {
+                name
+                relation {
+                    relation_id
+                    type
+                    end {
+                        handle_id
+                        node_name
+                    }
+                    start {
+                        handle_id
+                        node_name
+                    }
+                }
+            }
+            comments {
+                id
+                user {
+                    first_name
+                    last_name
+                }
+                comment
+                submit_date
+            }
             created
             creator {
                 email
@@ -22,6 +56,35 @@ const OrganizationDetailsQuery = graphql`
             modified
             modifier {
                 email
+            }
+        }
+        getOrganizationContacts(handle_id: $organizationId) {
+            contact {
+                handle_id
+                first_name
+                last_name
+                contact_type
+                emails {
+                    handle_id
+                    name
+                    type
+                }
+                phones {
+                    handle_id
+                    name
+                    type
+                }
+                roles {
+                    name
+                    end {
+                        handle_id
+                        name
+                    }
+                }
+            }
+            role {
+                handle_id
+                name
             }
         }
     }
@@ -42,18 +105,14 @@ class OrganizationDetails extends React.Component {
         this.state = {};
     }
 
-    _handleUpdate = (organization) => {
-        const update_organization = {
-            id: this.props.match.params.organizationId,
-            name: organization.name,
-            description: organization.description
-        };
-        UpdateOrganizationMutation(update_organization);
+    handleSubmit = (organization) => {
+        organization.id = this.props.match.params.organizationId;
+        UpdateOrganizationMutation(organization, this.props.history);
     };
 
-    _handleDelete = () => {
-        const organizationId = this.props.match.params.organizationId;
-        DeleteOrganizationMutation(organizationId, () => this.props.history.push(`/community/organizations`));
+    handleDelete = () => {
+        const groupId = this.props.group.handle_id;
+        DeleteOrganizationMutation(groupId, () => this.props.history.push(`/community/groups`));
     };
 
     render() {
@@ -68,9 +127,16 @@ class OrganizationDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
+                        console.log(props);
                         return (
                             <section className="model-details">
-                                <OrganizationUpdateFormContainer organization={props.getOrganizationById} />
+                                <OrganizationUpdateFormContainer
+                                    onSubmit={this.handleSubmit}
+                                    onDelete={this.handleDelete}
+                                    organization={props.getOrganizationById}
+                                    contacts={props.getOrganizationContacts}
+                                    history={this.props.history}
+                                />
                             </section>
                         );
                     }

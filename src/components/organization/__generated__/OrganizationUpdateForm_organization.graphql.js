@@ -48,6 +48,14 @@ export type OrganizationUpdateForm_organization = {|
     +comment: string,
     +submit_date: any,
   |}>,
+  +created: any,
+  +creator: {|
+    +email: string
+  |},
+  +modified: any,
+  +modifier: {|
+    +email: string
+  |},
   +$refType: OrganizationUpdateForm_organization$ref,
 |};
 export type OrganizationUpdateForm_organization$data = OrganizationUpdateForm_organization;
@@ -86,6 +94,15 @@ v3 = [
     "kind": "ScalarField",
     "alias": null,
     "name": "node_name",
+    "args": null,
+    "storageKey": null
+  }
+],
+v4 = [
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "email",
     "args": null,
     "storageKey": null
   }
@@ -261,10 +278,44 @@ return {
           "storageKey": null
         }
       ]
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "created",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "creator",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "User",
+      "plural": false,
+      "selections": (v4/*: any*/)
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "modified",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "modifier",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "User",
+      "plural": false,
+      "selections": (v4/*: any*/)
     }
   ]
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0e718d1a14aebd877f8111780d1cc89b';
+(node/*: any*/).hash = '8f8bbe4a3ef6a6a1244eed605e037dad';
 module.exports = node;

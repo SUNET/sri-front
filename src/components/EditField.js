@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-// import OutsideClick from "../components/OutsideCLick";
-import { Field } from "redux-form";
+import { Field, change } from "redux-form";
 
 import FieldInput from "./FieldInput";
 
@@ -24,9 +23,9 @@ class EditField extends React.Component {
     };
 
     editField = (event) => {
-        console.log(this.props.meta, this.props.error, this.state);
         if ((this.props.error && !this.state.editable) || this.props.error === undefined) {
             this.setState({ editable: !this.state.editable });
+            if (this.props.initialValue) this.deleteInitialValue();
         }
     };
 
@@ -34,6 +33,12 @@ class EditField extends React.Component {
         event.preventDefault();
         if (!this.props.error) {
             this.setState({ editable: false });
+        }
+    };
+
+    deleteInitialValue = () => {
+        if (this.props.value === this.props.initialValue) {
+            this.props.dispatch(change(this.props.form, "name", ""));
         }
     };
 

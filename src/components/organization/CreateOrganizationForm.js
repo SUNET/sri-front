@@ -12,7 +12,7 @@ import Dropdown from "../Dropdown";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
 
-class CreateOrganization extends React.Component {
+class CreateOrganizationForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -58,7 +58,14 @@ class CreateOrganization extends React.Component {
             <form onSubmit={handleSubmit}>
                 <div className="model-details">
                     <section className="title-section">
-                        <EditField error={this.props.formSyncErrors.name} meta={this.props.fields.name}>
+                        <EditField
+                            error={this.props.formSyncErrors.name}
+                            meta={this.props.fields.name}
+                            initialValue="New organization"
+                            form={this.props.form}
+                            dispatch={this.props.dispatch}
+                            value={name}
+                        >
                             <h1 className="ml-0">{name}</h1>
                         </EditField>
                     </section>
@@ -260,33 +267,33 @@ const validate = (values) => {
     if (!values.addresses || !values.addresses.length) {
         errors.addresses = { _error: "At least one address must be entered" };
     } else {
-        const addressesArrayErrors = [];
+        const addressArrayErrors = [];
         values.addresses.forEach((address, addressIndex) => {
             const addressErrors = {};
             if (!address || !address.website) {
                 addressErrors.website = "* Required!";
-                addressesArrayErrors[addressIndex] = addressErrors;
+                addressArrayErrors[addressIndex] = addressErrors;
             }
             if (!address || !address.street) {
                 addressErrors.street = "* Required!";
-                addressesArrayErrors[addressIndex] = addressErrors;
+                addressArrayErrors[addressIndex] = addressErrors;
             }
             if (!address || !address.postal_code) {
                 addressErrors.postal_code = "* Required!";
-                addressesArrayErrors[addressIndex] = addressErrors;
+                addressArrayErrors[addressIndex] = addressErrors;
             }
             if (!address || !address.postal_area) {
                 addressErrors.postal_area = "* Required!";
-                addressesArrayErrors[addressIndex] = addressErrors;
+                addressArrayErrors[addressIndex] = addressErrors;
             }
             if (!address || !address.phone) {
                 addressErrors.phone = "* Required!";
-                addressesArrayErrors[addressIndex] = addressErrors;
+                addressArrayErrors[addressIndex] = addressErrors;
             }
             return addressErrors;
         });
-        if (addressesArrayErrors.length) {
-            errors.addresses = addressesArrayErrors;
+        if (addressArrayErrors.length) {
+            errors.addresses = addressArrayErrors;
         }
     }
 
@@ -324,7 +331,7 @@ const validate = (values) => {
     return errors;
 };
 
-CreateOrganization = reduxForm({
+CreateOrganizationForm = reduxForm({
     form: "createOrganization",
     validate,
     initialValues: {
@@ -343,6 +350,6 @@ CreateOrganization = reduxForm({
             }
         ]
     }
-})(CreateOrganization);
+})(CreateOrganizationForm);
 
-export default withTranslation()(CreateOrganization);
+export default withTranslation()(CreateOrganizationForm);

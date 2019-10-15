@@ -41,7 +41,6 @@ class FieldArrayContactsOrganization extends React.Component {
     };
 
     saveRow = (index) => {
-        console.log(this.props.fields.getAll());
         if (this.validateContact(index)) {
             this.props.dispatch(change(this.props.meta.form, `contacts[${index}].status`, "saved"));
         } else {
