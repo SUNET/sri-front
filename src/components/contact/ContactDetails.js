@@ -77,7 +77,7 @@ class ContactDetails extends React.Component {
         UpdateContactMutation(contact, this.props.history);
     };
 
-    _handleDelete = () => {
+    handleDelete = () => {
         const contactId = this.props.match.params.contactId;
         DeleteContactMutation(contactId, () => this.props.history.push(`/community/contacts`));
     };
@@ -99,6 +99,7 @@ class ContactDetails extends React.Component {
                             <section className="model-details">
                                 <ContactUpdateFormContainer
                                     onSubmit={this.handleSubmit}
+                                    onDelete={this.handleDelete}
                                     contact={props.getContactById}
                                     history={this.props.history}
                                 />

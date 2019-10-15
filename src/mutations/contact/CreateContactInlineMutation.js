@@ -52,10 +52,14 @@ function CreateContactInlineMutation(first_name, last_name, email, phone, organi
         onCompleted: (response, errors) => {
             console.log(errors);
             console.log(response, environment);
-            const contact_id = response.create_contact.contact.handle_id;
+            if (response.create_contact.errors) {
+                return response.create_contact.errors;
+            } else {
+                const contact_id = response.create_contact.contact.handle_id;
 
-            CreateEmailMutation(contact_id, email, "personal");
-            CreatePhoneMutation(contact_id, phone, "personal");
+                CreateEmailMutation(contact_id, email, "personal");
+                CreatePhoneMutation(contact_id, phone, "personal");
+            }
         },
         onError: (errors) => console.error(errors),
         configs: [

@@ -328,7 +328,7 @@ class ContactUpdateForm extends React.PureComponent {
                     <Worklog model={contact} refetch={this.refetch} />
                 </section>
                 <div className="text-right mt-4">
-                    <button type="button" className="btn link" onClick={this.handleDelete}>
+                    <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}
                     </button>
                     <button className="btn primary lg">{t("actions.save")}</button>
