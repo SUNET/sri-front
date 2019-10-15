@@ -4,6 +4,10 @@ import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import InfoCreatorModifier from "../InfoCreatorModifier";
+import EditField from "../EditField";
 // import uuidv4 from "uuid/v4";
 // import NumberFormat from "react-number-format";
 
@@ -16,7 +20,7 @@ import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../
 
 import "../../style/ModelDetails.scss";
 
-class Organization extends React.Component {
+class OrganizationUpdateForm extends React.Component {
     static propTypes = {
         onChange: PropTypes.func
     };
@@ -33,9 +37,27 @@ class Organization extends React.Component {
     };
 
     render() {
-        let { organization, t } = this.props;
+        let { organization, t, handleSubmit } = this.props;
         return (
-            <>
+            <form onSubmit={handleSubmit}>
+                <Form.Row>
+                    <Col>
+                        <div className="title-section">
+                            <button
+                                type="button"
+                                onClick={() => this.props.history.goBack()}
+                                className="btn btn-back outline"
+                            >
+                                <span>{t("actions.back")}</span>
+                            </button>
+                            <EditField onChange={this._handleOrganizationChange}>{/*}<h1>{name}</h1>*/}</EditField>
+                            <FontAwesomeIcon icon={faStar} />
+                        </div>
+                    </Col>
+                    <Col>
+                        <InfoCreatorModifier model={organization} />
+                    </Col>
+                </Form.Row>
                 <section className="model-section">
                     <Form.Row>
                         <Col>
@@ -157,16 +179,24 @@ class Organization extends React.Component {
                 <section className="model-section">
                     <Worklog model={organization} refetch={this.refetch} />
                 </section>
-            </>
+                <div className="text-right mt-4">
+                    <button type="button" onClick={() => this._handleDelete()} className="btn link">
+                        {t("actions.delete")}
+                    </button>
+                    <button onClick={() => {}} className="btn primary lg">
+                        {t("actions.save")}
+                    </button>
+                </div>
+            </form>
         );
     }
 }
 
-const OrganizationFragment = createRefetchContainer(
-    withTranslation()(Organization),
+const OrganizationUpdateFormFragment = createRefetchContainer(
+    withTranslation()(OrganizationUpdateForm),
     {
         organization: graphql`
-            fragment Organization_organization on Organization {
+            fragment OrganizationUpdateForm_organization on Organization {
                 handle_id
                 name
                 type
@@ -209,12 +239,12 @@ const OrganizationFragment = createRefetchContainer(
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-        query OrganizationRefetchQuery($organizationId: Int!) {
+        query OrganizationUpdateFormRefetchQuery($organizationId: Int!) {
             getOrganizationById(handle_id: $organizationId) {
-                ...Organization_organization
+                ...OrganizationUpdateForm_organization
             }
         }
     `
 );
 
-export default OrganizationFragment;
+export default OrganizationUpdateFormFragment;

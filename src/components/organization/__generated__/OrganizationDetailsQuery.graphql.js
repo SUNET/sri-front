@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f8dd0abc245683e6f33efad617084ec8
+ * @relayHash f3ab2006413d460a2329c3d451e37612
  */
 
 /* eslint-disable */
@@ -9,7 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type Organization_organization$ref = any;
+type OrganizationUpdateForm_organization$ref = any;
 export type OrganizationDetailsQueryVariables = {|
   organizationId: number
 |};
@@ -25,7 +25,7 @@ export type OrganizationDetailsQueryResponse = {|
     +modifier: {|
       +email: string
     |},
-    +$fragmentRefs: Organization_organization$ref,
+    +$fragmentRefs: OrganizationUpdateForm_organization$ref,
   |}
 |};
 export type OrganizationDetailsQuery = {|
@@ -40,7 +40,7 @@ query OrganizationDetailsQuery(
   $organizationId: Int!
 ) {
   getOrganizationById(handle_id: $organizationId) {
-    ...Organization_organization
+    ...OrganizationUpdateForm_organization
     handle_id
     name
     created
@@ -57,7 +57,7 @@ query OrganizationDetailsQuery(
   }
 }
 
-fragment Organization_organization on Organization {
+fragment OrganizationUpdateForm_organization on Organization {
   handle_id
   name
   type
@@ -229,7 +229,7 @@ return {
           },
           {
             "kind": "FragmentSpread",
-            "name": "Organization_organization",
+            "name": "OrganizationUpdateForm_organization",
             "args": null
           }
         ]
@@ -443,11 +443,11 @@ return {
     "operationKind": "query",
     "name": "OrganizationDetailsQuery",
     "id": null,
-    "text": "query OrganizationDetailsQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    handle_id\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query OrganizationDetailsQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    handle_id\n    name\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  handle_id\n  name\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a31247b06b3f55c79105ecf6ccb524a8';
+(node/*: any*/).hash = '3af686b40a6ec7063cbf02bfacc48736';
 module.exports = node;

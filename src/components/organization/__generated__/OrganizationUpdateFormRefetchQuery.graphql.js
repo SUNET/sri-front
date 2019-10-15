@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 385cc048698270f52c95c26826da6582
+ * @relayHash dc33ab753789aa1326c91fcb8feed97e
  */
 
 /* eslint-disable */
@@ -9,33 +9,33 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type Organization_organization$ref = any;
-export type OrganizationRefetchQueryVariables = {|
+type OrganizationUpdateForm_organization$ref = any;
+export type OrganizationUpdateFormRefetchQueryVariables = {|
   organizationId: number
 |};
-export type OrganizationRefetchQueryResponse = {|
+export type OrganizationUpdateFormRefetchQueryResponse = {|
   +getOrganizationById: ?{|
-    +$fragmentRefs: Organization_organization$ref
+    +$fragmentRefs: OrganizationUpdateForm_organization$ref
   |}
 |};
-export type OrganizationRefetchQuery = {|
-  variables: OrganizationRefetchQueryVariables,
-  response: OrganizationRefetchQueryResponse,
+export type OrganizationUpdateFormRefetchQuery = {|
+  variables: OrganizationUpdateFormRefetchQueryVariables,
+  response: OrganizationUpdateFormRefetchQueryResponse,
 |};
 */
 
 
 /*
-query OrganizationRefetchQuery(
+query OrganizationUpdateFormRefetchQuery(
   $organizationId: Int!
 ) {
   getOrganizationById(handle_id: $organizationId) {
-    ...Organization_organization
+    ...OrganizationUpdateForm_organization
     id
   }
 }
 
-fragment Organization_organization on Organization {
+fragment OrganizationUpdateForm_organization on Organization {
   handle_id
   name
   type
@@ -139,7 +139,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "OrganizationRefetchQuery",
+    "name": "OrganizationUpdateFormRefetchQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -155,7 +155,7 @@ return {
         "selections": [
           {
             "kind": "FragmentSpread",
-            "name": "Organization_organization",
+            "name": "OrganizationUpdateForm_organization",
             "args": null
           }
         ]
@@ -164,7 +164,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "OrganizationRefetchQuery",
+    "name": "OrganizationUpdateFormRefetchQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -345,13 +345,13 @@ return {
   },
   "params": {
     "operationKind": "query",
-    "name": "OrganizationRefetchQuery",
+    "name": "OrganizationUpdateFormRefetchQuery",
     "id": null,
-    "text": "query OrganizationRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...Organization_organization\n    id\n  }\n}\n\nfragment Organization_organization on Organization {\n  handle_id\n  name\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  handle_id\n  name\n  type\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3a81b47e4c3c28616c7e1c5bedfe17cc';
+(node/*: any*/).hash = '40d11bd5b5f999da0242f72ee82d51ff';
 module.exports = node;

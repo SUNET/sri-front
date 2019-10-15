@@ -9,9 +9,9 @@
 /*::
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type Organization_organization$ref: FragmentReference;
-declare export opaque type Organization_organization$fragmentType: Organization_organization$ref;
-export type Organization_organization = {|
+declare export opaque type OrganizationUpdateForm_organization$ref: FragmentReference;
+declare export opaque type OrganizationUpdateForm_organization$fragmentType: OrganizationUpdateForm_organization$ref;
+export type OrganizationUpdateForm_organization = {|
   +handle_id: string,
   +name: string,
   +type: ?any,
@@ -48,12 +48,12 @@ export type Organization_organization = {|
     +comment: string,
     +submit_date: any,
   |}>,
-  +$refType: Organization_organization$ref,
+  +$refType: OrganizationUpdateForm_organization$ref,
 |};
-export type Organization_organization$data = Organization_organization;
-export type Organization_organization$key = {
-  +$data?: Organization_organization$data,
-  +$fragmentRefs: Organization_organization$ref,
+export type OrganizationUpdateForm_organization$data = OrganizationUpdateForm_organization;
+export type OrganizationUpdateForm_organization$key = {
+  +$data?: OrganizationUpdateForm_organization$data,
+  +$fragmentRefs: OrganizationUpdateForm_organization$ref,
 };
 */
 
@@ -92,7 +92,7 @@ v3 = [
 ];
 return {
   "kind": "Fragment",
-  "name": "Organization_organization",
+  "name": "OrganizationUpdateForm_organization",
   "type": "Organization",
   "metadata": null,
   "argumentDefinitions": [],
@@ -266,5 +266,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '58e9c8046c53822e118bbe8a4f65cc35';
+(node/*: any*/).hash = '0e718d1a14aebd877f8111780d1cc89b';
 module.exports = node;
