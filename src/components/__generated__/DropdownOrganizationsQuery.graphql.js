@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b309cfdd50fb95a8b3707db943b41b90
+ * @relayHash 8e2ef1d072a1e829b2c544c14c230f86
  */
 
 /* eslint-disable */
@@ -29,7 +29,7 @@ export type DropdownOrganizationsQuery = {|
 
 /*
 query DropdownOrganizationsQuery {
-  organizations {
+  organizations(orderBy: handle_id_ASC) {
     edges {
       node {
         handle_id
@@ -42,14 +42,21 @@ query DropdownOrganizationsQuery {
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = {
+var v0 = [
+  {
+    "kind": "Literal",
+    "name": "orderBy",
+    "value": "handle_id_ASC"
+  }
+],
+v1 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "handle_id",
   "args": null,
   "storageKey": null
 },
-v1 = {
+v2 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "name",
@@ -69,8 +76,8 @@ return {
         "kind": "LinkedField",
         "alias": null,
         "name": "organizations",
-        "storageKey": null,
-        "args": null,
+        "storageKey": "organizations(orderBy:\"handle_id_ASC\")",
+        "args": (v0/*: any*/),
         "concreteType": "OrganizationConnection",
         "plural": false,
         "selections": [
@@ -92,8 +99,8 @@ return {
                 "concreteType": "Organization",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
-                  (v1/*: any*/)
+                  (v1/*: any*/),
+                  (v2/*: any*/)
                 ]
               }
             ]
@@ -111,8 +118,8 @@ return {
         "kind": "LinkedField",
         "alias": null,
         "name": "organizations",
-        "storageKey": null,
-        "args": null,
+        "storageKey": "organizations(orderBy:\"handle_id_ASC\")",
+        "args": (v0/*: any*/),
         "concreteType": "OrganizationConnection",
         "plural": false,
         "selections": [
@@ -134,8 +141,8 @@ return {
                 "concreteType": "Organization",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
                   (v1/*: any*/),
+                  (v2/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -155,11 +162,11 @@ return {
     "operationKind": "query",
     "name": "DropdownOrganizationsQuery",
     "id": null,
-    "text": "query DropdownOrganizationsQuery {\n  organizations {\n    edges {\n      node {\n        handle_id\n        name\n        id\n      }\n    }\n  }\n}\n",
+    "text": "query DropdownOrganizationsQuery {\n  organizations(orderBy: handle_id_ASC) {\n    edges {\n      node {\n        handle_id\n        name\n        id\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '31348b9716ec52c88b1b0b331bde73ab';
+(node/*: any*/).hash = '8fca9a920bbeddf789fef8a5bd90f6eb';
 module.exports = node;

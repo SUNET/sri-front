@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
-
-import SearchGroup from "../components/SearchGroup";
+import SearchContact from "../components/SearchContact";
 
 const mapStateToProps = (state, props) => {
     return {};
@@ -10,9 +9,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {};
 };
 
-const SearchContainer = connect(
+const SearchContactContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(SearchGroup);
+)(SearchContact);
 
-export default SearchContainer;
+export default SearchContactContainer;

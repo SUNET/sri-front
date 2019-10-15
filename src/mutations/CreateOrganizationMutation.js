@@ -3,8 +3,8 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
-import CreateContactInlineMutation from "./CreateContactInlineMutation";
-import AddContactOrganizationMutation from "./AddContactOrganizationMutation";
+import CreateContactInlineMutation from "./contact/CreateContactInlineMutation";
+import AddContactOrganizationMutation from "./contact/AddContactOrganizationMutation";
 import CreateComentMutation from "./CreateCommentMutation";
 import CreateAddressMutation from "./CreateAddressMutation";
 
@@ -54,9 +54,9 @@ function CreateOrganizationMutation(
             CreateComentMutation(organization_id, comment);
             CreateAddressMutation(organization_id, address);
 
-            Object.keys(contacts).forEach(contact_key => {
+            Object.keys(contacts).forEach((contact_key) => {
                 let contact = contacts[contact_key];
-                if(!contact.id || contact.id === undefined){
+                if (!contact.id || contact.id === undefined) {
                     let fullName = contact.name;
                     fullName = fullName.split(" ");
                     contact.first_name = fullName[0];
@@ -70,7 +70,7 @@ function CreateOrganizationMutation(
                         organization_id,
                         contact.role
                     );
-                }else{
+                } else {
                     AddContactOrganizationMutation(contact, organization_id);
                 }
             });
