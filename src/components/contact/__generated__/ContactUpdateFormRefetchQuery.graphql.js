@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 663f393e50d08c86b30a5095b3754199
+ * @relayHash c5a7afa250d851e1cc3a26cc8f42ed2e
  */
 
 /* eslint-disable */
@@ -57,6 +57,7 @@ fragment ContactUpdateForm_contact on Contact {
     id
   }
   roles {
+    relation_id
     role_data {
       handle_id
       name
@@ -266,6 +267,13 @@ return {
             "plural": true,
             "selections": [
               {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "relation_id",
+                "args": null,
+                "storageKey": null
+              },
+              {
                 "kind": "LinkedField",
                 "alias": null,
                 "name": "role_data",
@@ -377,7 +385,7 @@ return {
     "operationKind": "query",
     "name": "ContactUpdateFormRefetchQuery",
     "id": null,
-    "text": "query ContactUpdateFormRefetchQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...ContactUpdateForm_contact\n    id\n  }\n}\n\nfragment ContactUpdateForm_contact on Contact {\n  handle_id\n  name\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    role_data {\n      handle_id\n      name\n    }\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query ContactUpdateFormRefetchQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...ContactUpdateForm_contact\n    id\n  }\n}\n\nfragment ContactUpdateForm_contact on Contact {\n  handle_id\n  name\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    relation_id\n    role_data {\n      handle_id\n      name\n    }\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };

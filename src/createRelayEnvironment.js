@@ -1,7 +1,7 @@
 import { Environment, Network, RecordSource, Store, QueryResponseCache } from "relay-runtime";
 
 // CACHING
-const oneMinute = 100;
+const oneMinute = 1;
 const cache = new QueryResponseCache({ size: 100, ttl: oneMinute });
 
 const API_HOST = "http://localhost:8000";

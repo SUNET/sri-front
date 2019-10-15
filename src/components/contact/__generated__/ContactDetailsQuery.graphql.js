@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 5816d0041a8ade8aec2ce74585c144c8
+ * @relayHash 198b282df3611991adf307c0dd08ced8
  */
 
 /* eslint-disable */
@@ -34,6 +34,7 @@ export type ContactDetailsQueryResponse = {|
       +type: any,
     |}>,
     +roles: ?$ReadOnlyArray<?{|
+      +relation_id: number,
       +role_data: ?{|
         +handle_id: string,
         +name: string,
@@ -97,6 +98,7 @@ query ContactDetailsQuery(
       id
     }
     roles {
+      relation_id
       role_data {
         handle_id
         name
@@ -153,6 +155,7 @@ fragment ContactUpdateForm_contact on Contact {
     id
   }
   roles {
+    relation_id
     role_data {
       handle_id
       name
@@ -270,11 +273,18 @@ v11 = [
   (v3/*: any*/),
   (v10/*: any*/)
 ],
-v12 = [
+v12 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "relation_id",
+  "args": null,
+  "storageKey": null
+},
+v13 = [
   (v2/*: any*/),
   (v3/*: any*/)
 ],
-v13 = {
+v14 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "role_data",
@@ -282,62 +292,62 @@ v13 = {
   "args": null,
   "concreteType": "Role",
   "plural": false,
-  "selections": (v12/*: any*/)
+  "selections": (v13/*: any*/)
 },
-v14 = {
+v15 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "created",
   "args": null,
   "storageKey": null
 },
-v15 = {
+v16 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v16 = [
-  (v15/*: any*/)
+v17 = [
+  (v16/*: any*/)
 ],
-v17 = {
+v18 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v18 = {
+v19 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
 },
-v19 = {
+v20 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "comment",
   "args": null,
   "storageKey": null
 },
-v20 = {
+v21 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "submit_date",
   "args": null,
   "storageKey": null
 },
-v21 = [
+v22 = [
   (v2/*: any*/),
   (v3/*: any*/),
   (v10/*: any*/),
-  (v18/*: any*/)
+  (v19/*: any*/)
 ],
-v22 = [
-  (v15/*: any*/),
-  (v18/*: any*/)
+v23 = [
+  (v16/*: any*/),
+  (v19/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -394,7 +404,8 @@ return {
             "concreteType": "RoleRelation",
             "plural": true,
             "selections": [
-              (v13/*: any*/),
+              (v12/*: any*/),
+              (v14/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -403,11 +414,11 @@ return {
                 "args": null,
                 "concreteType": "Organization",
                 "plural": false,
-                "selections": (v12/*: any*/)
+                "selections": (v13/*: any*/)
               }
             ]
           },
-          (v14/*: any*/),
+          (v15/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -416,9 +427,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v16/*: any*/)
+            "selections": (v17/*: any*/)
           },
-          (v17/*: any*/),
+          (v18/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -427,7 +438,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v16/*: any*/)
+            "selections": (v17/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -438,7 +449,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v18/*: any*/),
+              (v19/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -452,8 +463,8 @@ return {
                   (v8/*: any*/)
                 ]
               },
-              (v19/*: any*/),
-              (v20/*: any*/)
+              (v20/*: any*/),
+              (v21/*: any*/)
             ]
           },
           {
@@ -495,7 +506,7 @@ return {
             "args": null,
             "concreteType": "Email",
             "plural": true,
-            "selections": (v21/*: any*/)
+            "selections": (v22/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -505,7 +516,7 @@ return {
             "args": null,
             "concreteType": "Phone",
             "plural": true,
-            "selections": (v21/*: any*/)
+            "selections": (v22/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -516,7 +527,8 @@ return {
             "concreteType": "RoleRelation",
             "plural": true,
             "selections": [
-              (v13/*: any*/),
+              (v12/*: any*/),
+              (v14/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -528,12 +540,12 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
-                  (v18/*: any*/)
+                  (v19/*: any*/)
                 ]
               }
             ]
           },
-          (v14/*: any*/),
+          (v15/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -542,9 +554,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v22/*: any*/)
+            "selections": (v23/*: any*/)
           },
-          (v17/*: any*/),
+          (v18/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -553,7 +565,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v22/*: any*/)
+            "selections": (v23/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -564,7 +576,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v18/*: any*/),
+              (v19/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -576,14 +588,14 @@ return {
                 "selections": [
                   (v7/*: any*/),
                   (v8/*: any*/),
-                  (v18/*: any*/)
+                  (v19/*: any*/)
                 ]
               },
-              (v19/*: any*/),
-              (v20/*: any*/)
+              (v20/*: any*/),
+              (v21/*: any*/)
             ]
           },
-          (v18/*: any*/)
+          (v19/*: any*/)
         ]
       }
     ]
@@ -592,11 +604,11 @@ return {
     "operationKind": "query",
     "name": "ContactDetailsQuery",
     "id": null,
-    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...ContactUpdateForm_contact\n    handle_id\n    name\n    notes\n    title\n    contact_type\n    first_name\n    last_name\n    pgp_fingerprint\n    emails {\n      handle_id\n      name\n      type\n      id\n    }\n    phones {\n      handle_id\n      name\n      type\n      id\n    }\n    roles {\n      role_data {\n        handle_id\n        name\n      }\n      end {\n        handle_id\n        name\n        id\n      }\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    id\n  }\n}\n\nfragment ContactUpdateForm_contact on Contact {\n  handle_id\n  name\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    role_data {\n      handle_id\n      name\n    }\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...ContactUpdateForm_contact\n    handle_id\n    name\n    notes\n    title\n    contact_type\n    first_name\n    last_name\n    pgp_fingerprint\n    emails {\n      handle_id\n      name\n      type\n      id\n    }\n    phones {\n      handle_id\n      name\n      type\n      id\n    }\n    roles {\n      relation_id\n      role_data {\n        handle_id\n        name\n      }\n      end {\n        handle_id\n        name\n        id\n      }\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    id\n  }\n}\n\nfragment ContactUpdateForm_contact on Contact {\n  handle_id\n  name\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    relation_id\n    role_data {\n      handle_id\n      name\n    }\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a2cded1ee309498afa93815e15dc7d8d';
+(node/*: any*/).hash = '82b32fc1ce6885dc9ac256711612a993';
 module.exports = node;

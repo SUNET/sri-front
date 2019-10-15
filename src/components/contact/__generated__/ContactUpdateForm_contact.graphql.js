@@ -31,6 +31,7 @@ export type ContactUpdateForm_contact = {|
     +type: any,
   |}>,
   +roles: ?$ReadOnlyArray<?{|
+    +relation_id: number,
     +role_data: ?{|
       +handle_id: string,
       +name: string,
@@ -189,6 +190,13 @@ return {
       "plural": true,
       "selections": [
         {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "relation_id",
+          "args": null,
+          "storageKey": null
+        },
+        {
           "kind": "LinkedField",
           "alias": null,
           "name": "role_data",
@@ -293,5 +301,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '33cf963f5f410f0a59fc1abe9cdec17d';
+(node/*: any*/).hash = '4dfe129141d63db692a3f66d1c89b525';
 module.exports = node;

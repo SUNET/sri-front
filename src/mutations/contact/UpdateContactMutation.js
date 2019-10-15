@@ -1,8 +1,13 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
+import CreateEmailMutation from "../CreateEmailMutation";
+import CreatePhoneMutation from "../CreatePhoneMutation";
 import UpdateEmailMutation from "../UpdateEmailMutation";
 import UpdatePhoneMutation from "../UpdatePhoneMutation";
+import DeleteEmailMutation from "../DeleteEmailMutation";
+import DeletePhoneMutation from "../DeletePhoneMutation";
 import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
+import DeleteRelationshMutation from "../DeleteRelationshMutation";
 import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
@@ -31,7 +36,11 @@ const mutation = graphql`
                     type
                 }
                 roles {
-                    name
+                    relation_id
+                    role_data {
+                        handle_id
+                        name
+                    }
                     end {
                         handle_id
                         name
@@ -54,6 +63,11 @@ const mutation = graphql`
 `;
 
 export default function UpdateContactMutation(contact, callback) {
+    let fullName = contact.name;
+    fullName = fullName.split(" ");
+    contact.first_name = fullName[0];
+    contact.last_name = fullName[1];
+
     const variables = {
         input: {
             handle_id: contact.id,
@@ -73,32 +87,41 @@ export default function UpdateContactMutation(contact, callback) {
             Object.keys(emails).forEach((email_key) => {
                 let email = emails[email_key];
                 if (email.status === "remove") {
+                    DeleteEmailMutation(email.handle_id);
+                } else if (email.status === "saved") {
+                    UpdateEmailMutation(contact.id, email.email, email);
                 } else {
-                    UpdateEmailMutation(contact.id, email.email, email.type);
+                    CreateEmailMutation(contact.id, email.email, email.type);
                 }
             });
             const phones = contact.phones;
-            Object.keys(phones).forEach((phone) => {
-                UpdatePhoneMutation(contact.id, phones[phone].phone, phones[phone].type);
+            Object.keys(phones).forEach((phone_key) => {
+                let phone = phones[phone_key];
+                if (phone.status === "remove") {
+                    DeletePhoneMutation(phone.handle_id);
+                } else if (phone.status === "saved") {
+                    UpdatePhoneMutation(contact.id, phone.phone, phone);
+                } else {
+                    CreatePhoneMutation(contact.id, phone.phone, phone.type);
+                }
             });
             const organizations = contact.organizations;
             Object.keys(organizations).forEach((organization_key) => {
                 let organization = organizations[organization_key];
-                UpdateContactInlineMutation(
-                    response.create_contact.contact,
-                    organization.organization,
-                    null,
-                    organization.role
-                );
+                if (organization.status === "saved") {
+                    DeleteRelationshMutation(organization.role_obj.relation_id);
+                    UpdateContactInlineMutation(
+                        response.update_contact.contact,
+                        organization.organization,
+                        null,
+                        organization.role
+                    );
+                } else if (organization.status === "remove") {
+                    DeleteRelationshMutation(organization.role_obj.relation_id);
+                }
             });
 
-            callback.push("/community/groups/" + contact.id);
-            // const payload = proxyStore.get(contact.id, "Contact");
-            // contact_node.setValue(contact.first_name, "first_name");
-            // contact_node.setValue(contact.last_name, "last_name");
-            // contact_node.setValue(contact.email, "email");
-            // contact_node.setValue(contact.phone, "phone");
-            // contact_node.setValue(contact.contact_type, "contact_type");
+            callback.push("/community/contacts/" + contact.id);
         },
         updater: (proxyStore, data) => {
             // const payload = proxyStore.get(contact.id, "Contact");

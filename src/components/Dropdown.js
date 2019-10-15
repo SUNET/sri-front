@@ -20,7 +20,7 @@ const DropdownQuery = graphql`
 
 const DropdownOrganizationsQuery = graphql`
     query DropdownOrganizationsQuery {
-        organizations {
+        organizations(orderBy: handle_id_ASC) {
             edges {
                 node {
                     handle_id
@@ -33,7 +33,7 @@ const DropdownOrganizationsQuery = graphql`
 
 const DropdownRolesQuery = graphql`
     query DropdownRolesQuery {
-        roles {
+        roles(orderBy: handle_id_ASC) {
             edges {
                 node {
                     handle_id

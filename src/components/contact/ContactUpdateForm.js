@@ -7,8 +7,7 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-import { FieldArray, Field, reduxForm } from "redux-form";
-
+import { FieldArray, Field, reduxForm, change } from "redux-form";
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
@@ -20,17 +19,25 @@ import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../
 
 import "../../style/ModelDetails.scss";
 
-const renderEmails = ({ fields, t, editable }) => {
+const renderEmails = ({ fields, meta, t, editable, dispatch }) => {
     const pushField = (event) => {
-        if (fields.length < 5) {
+        if (fields.length < 10) {
             fields.push({});
         }
     };
+    const removeRow = (index) => {
+        if (fields.get(index).status === "saved") {
+            dispatch(change(meta.form, `emails[${index}].status`, "remove"));
+        } else {
+            fields.remove(index);
+        }
+    };
+    const values = fields.getAll();
     return (
         <div className={!editable ? "list-items-label" : ""}>
             {fields.map((email, index) =>
                 editable ? (
-                    <div key={index} className="input-group">
+                    <div key={index} className={values[index].status === "remove" ? "d-none" : "input-group"}>
                         <Form.Group className="d-inline">
                             <Field name={`${email}.email`} type="text" component={FieldInput} placeholder="Email" />
                         </Form.Group>
@@ -42,11 +49,11 @@ const renderEmails = ({ fields, t, editable }) => {
                             onChange={(e) => {}}
                         />
                         <div>
-                            <FontAwesomeIcon icon={faTrash} onClick={() => fields.remove(index)} />
+                            <FontAwesomeIcon icon={faTrash} onClick={() => removeRow(index)} />
                         </div>
                     </div>
                 ) : (
-                    <div key={index}>
+                    <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
                         <div>
                             {fields.getAll()[index].email ? (
                                 <CopyToClipboard>{fields.getAll()[index].email}</CopyToClipboard>
@@ -67,17 +74,25 @@ const renderEmails = ({ fields, t, editable }) => {
     );
 };
 
-const renderPhones = ({ fields, t, editable }) => {
+const renderPhones = ({ fields, meta, t, editable, dispatch }) => {
     const pushField = (event) => {
-        if (fields.length < 5) {
+        if (fields.length < 10) {
             fields.push({});
         }
     };
+    const removeRow = (index) => {
+        if (fields.get(index).status === "saved") {
+            dispatch(change(meta.form, `phones[${index}].status`, "remove"));
+        } else {
+            fields.remove(index);
+        }
+    };
+    const values = fields.getAll();
     return (
         <div className={!editable ? "list-items-label" : ""}>
             {fields.map((phone, index) =>
                 editable ? (
-                    <div key={index} className="input-group">
+                    <div key={index} className={values[index].status === "remove" ? "d-none" : "input-group"}>
                         <Form.Group className="d-inline">
                             <Field
                                 className="auto"
@@ -95,11 +110,11 @@ const renderPhones = ({ fields, t, editable }) => {
                             onChange={(e) => {}}
                         />
                         <div>
-                            <FontAwesomeIcon icon={faTrash} onClick={() => fields.remove(index)} />
+                            <FontAwesomeIcon icon={faTrash} onClick={() => removeRow(index)} />
                         </div>
                     </div>
                 ) : (
-                    <div key={index}>
+                    <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
                         <div>{fields.getAll()[index].phone}</div>
                         <div>{fields.getAll()[index].type}</div>
                     </div>
@@ -139,7 +154,7 @@ class ContactUpdateForm extends React.PureComponent {
                         <div className="title-section">
                             <button
                                 type="button"
-                                onClick={() => this.props.history.goBack()}
+                                onClick={() => this.props.history.push(`/community/contacts`)}
                                 className="btn btn-back outline"
                             >
                                 <span>{t("actions.back")}</span>
@@ -231,6 +246,7 @@ class ContactUpdateForm extends React.PureComponent {
                                                                         t={t}
                                                                         component={renderEmails}
                                                                         editable={editable}
+                                                                        dispatch={this.props.dispatch}
                                                                     />
                                                                 </div>
                                                                 <div>
@@ -239,6 +255,7 @@ class ContactUpdateForm extends React.PureComponent {
                                                                         t={t}
                                                                         component={renderPhones}
                                                                         editable={editable}
+                                                                        dispatch={this.props.dispatch}
                                                                     />
                                                                 </div>
                                                             </div>
@@ -432,6 +449,7 @@ const ContactUpdateFormFragment = createRefetchContainer(
                     type
                 }
                 roles {
+                    relation_id
                     role_data {
                         handle_id
                         name

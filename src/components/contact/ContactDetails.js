@@ -32,6 +32,7 @@ const ContactDetailsQuery = graphql`
                 type
             }
             roles {
+                relation_id
                 role_data {
                     handle_id
                     name
