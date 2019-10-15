@@ -2,8 +2,8 @@ import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
 
-import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
-import CreateContactInlineMutation from "./CreateContactInlineMutation";
+import UpdateContactInlineMutation from "./contact/UpdateContactInlineMutation";
+import CreateContactInlineMutation from "./contact/CreateContactInlineMutation";
 import UpdateEmailMutation from "./UpdateEmailMutation";
 import UpdatePhoneMutation from "./UpdatePhoneMutation";
 import DeleteRelationshMutation from "./DeleteRelationshMutation";
@@ -62,7 +62,7 @@ export default function UpdateGroupMutation(group, callback) {
                             group.id
                         );
                     } else {
-                        UpdateContactInlineMutation(member, member.organization, group.id);
+                        UpdateContactInlineMutation(member, member.organization, group.id, null);
 
                         UpdateEmailMutation(member.id, member.email, member.email_obj);
                         UpdatePhoneMutation(member.id, member.phone, member.phone_obj);

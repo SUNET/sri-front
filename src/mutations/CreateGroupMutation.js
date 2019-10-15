@@ -4,9 +4,9 @@ import environment from "../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 import CreateCommentMutation from "./CreateCommentMutation";
-import CreateContactInlineMutation from "./CreateContactInlineMutation";
+import CreateContactInlineMutation from "./contact/CreateContactInlineMutation";
 import AddMemberGroupMutation from "./AddMemberGroupMutation";
-import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
+import UpdateContactInlineMutation from "./contact/UpdateContactInlineMutation";
 import UpdateEmailMutation from "./UpdateEmailMutation";
 import UpdatePhoneMutation from "./UpdatePhoneMutation";
 
@@ -65,7 +65,7 @@ function CreateGroupMutation(group, callback) {
                     );
                 } else {
                     AddMemberGroupMutation(member, group_id);
-                    UpdateContactInlineMutation(member, member.organization, group_id);
+                    UpdateContactInlineMutation(member, member.organization, group_id, null);
                     UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
                     UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
                 }

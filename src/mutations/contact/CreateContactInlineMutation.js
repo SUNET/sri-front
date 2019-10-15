@@ -1,14 +1,13 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
-import CreateComentMutation from "./CreateCommentMutation";
-import CreateEmailMutation from "./CreateEmailMutation";
-import CreatePhoneMutation from "./CreatePhoneMutation";
+import CreateEmailMutation from "../CreateEmailMutation";
+import CreatePhoneMutation from "../CreatePhoneMutation";
 
 const mutation = graphql`
-    mutation CreateContactMutation($input: CreateContactInput!) {
+    mutation CreateContactInlineMutation($input: CreateContactInput!) {
         create_contact(input: $input) {
             errors {
                 field
@@ -16,12 +15,9 @@ const mutation = graphql`
             }
             contact {
                 handle_id
-                title
                 first_name
                 last_name
-                notes
                 contact_type
-                pgp_fingerprint
                 roles {
                     name
                     end {
@@ -39,29 +35,14 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function CreateContactMutation(
-    title,
-    first_name,
-    last_name,
-    notes,
-    pgp_fingerprint,
-    contact_type,
-    comment,
-    emails,
-    phones,
-    organizations,
-    callback
-) {
+function CreateContactInlineMutation(first_name, last_name, email, phone, organization, group) {
     const variables = {
         input: {
-            title,
             first_name,
             last_name,
-            notes,
-            pgp_fingerprint,
-            contact_type,
-            relationship_works_for: organizations[0].id,
-            role: organizations[0].role,
+            contact_type: "person",
+            relationship_works_for: organization,
+            relationship_member_of: group,
             clientMutationId: tempID++
         }
     };
@@ -69,16 +50,12 @@ function CreateContactMutation(
         mutation,
         variables,
         onCompleted: (response, errors) => {
+            console.log(errors);
+            console.log(response, environment);
             const contact_id = response.create_contact.contact.handle_id;
-            CreateComentMutation(contact_id, comment);
-            Object.keys(emails).forEach((email) => {
-                CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
-            });
-            Object.keys(phones).forEach((phone) => {
-                CreatePhoneMutation(contact_id, phones[phone].number, phones[phone].type);
-            });
 
-            callback().push("/community/contacts/" + response.create_contact.contact.handle_id);
+            CreateEmailMutation(contact_id, email, "personal");
+            CreatePhoneMutation(contact_id, phone, "personal");
         },
         onError: (errors) => console.error(errors),
         configs: [
@@ -98,4 +75,4 @@ function CreateContactMutation(
     });
 }
 
-export default CreateContactMutation;
+export default CreateContactInlineMutation;

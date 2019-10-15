@@ -1,6 +1,6 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
     mutation AddContactOrganizationMutation($input: UpdateContactInput!) {

@@ -85,10 +85,6 @@ class SearchGroup extends React.Component {
         }
     }
 
-    resetFilterDate = () => {
-        this.setState({ filterDate: {}, filterDateFrom: "", filterDateTo: "" });
-    };
-
     render() {
         return (
             <section>
