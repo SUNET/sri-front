@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 
 import configureStore from "./store";
 
+import * as actions from "./actions/App";
 import AppContainer from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
 import { API_HOST } from "./createRelayEnvironment.js";
@@ -38,6 +39,8 @@ const initialAction = () => {
                 document.location.href = response.url;
             }
         });
+    } else {
+        store.dispatch(actions.appLoaded());
     }
 };
 
