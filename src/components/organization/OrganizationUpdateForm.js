@@ -15,14 +15,8 @@ import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import FieldInput from "../FieldInput";
 import uuidv4 from "uuid/v4";
-// import uuidv4 from "uuid/v4";
-// import NumberFormat from "react-number-format";
 
 import Worklog from "../Worklog";
-// import Dropdown from "../Dropdown";
-// import ComponentFormRow from "../ComponentFormRow";
-// import CopyToClipboard from "../CopyToClipboard";
-// import AppendChild from "../AppendChild";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
@@ -244,7 +238,7 @@ class OrganizationUpdateForm extends React.Component {
                                                         <FieldArray
                                                             name="addresses"
                                                             component={FieldArrayAddressOrganization}
-                                                            editable={true}
+                                                            editable={editable}
                                                             dispatch={this.props.dispatch}
                                                             errors={this.props.formSyncErrors.addresses}
                                                             metaFields={this.props.fields}
@@ -286,7 +280,7 @@ class OrganizationUpdateForm extends React.Component {
                                                         <FieldArray
                                                             name="contacts"
                                                             component={FieldArrayContactOrganization}
-                                                            editable={true}
+                                                            editable={editable}
                                                             dispatch={this.props.dispatch}
                                                             errors={this.props.formSyncErrors.members}
                                                             metaFields={this.props.fields}
