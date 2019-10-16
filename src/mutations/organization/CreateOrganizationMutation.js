@@ -4,11 +4,8 @@ import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
-import AddContactOrganizationMutation from "../contact/AddContactOrganizationMutation";
 import CreateComentMutation from "../CreateCommentMutation";
 import CreateAddressMutation from "../CreateAddressMutation";
-
-import AddMemberGroupMutation from "../AddMemberGroupMutation";
 import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
 import UpdateEmailMutation from "../UpdateEmailMutation";
 import UpdatePhoneMutation from "../UpdatePhoneMutation";
