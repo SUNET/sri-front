@@ -16,6 +16,7 @@ const OrganizationDetailsQuery = graphql`
             handle_id
             name
             type
+            description
             incident_management_info
             addresses {
                 handle_id

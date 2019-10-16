@@ -15,6 +15,7 @@ export type OrganizationUpdateForm_organization = {|
   +handle_id: string,
   +name: string,
   +type: ?any,
+  +description: string,
   +incident_management_info: ?string,
   +addresses: ?$ReadOnlyArray<?{|
     +handle_id: string,
@@ -117,6 +118,13 @@ return {
     (v0/*: any*/),
     (v1/*: any*/),
     (v2/*: any*/),
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "description",
+      "args": null,
+      "storageKey": null
+    },
     {
       "kind": "ScalarField",
       "alias": null,
@@ -317,5 +325,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8f8bbe4a3ef6a6a1244eed605e037dad';
+(node/*: any*/).hash = 'a2602711d11201b92a47c0f0a6837d1b';
 module.exports = node;
