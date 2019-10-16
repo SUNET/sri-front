@@ -15,7 +15,7 @@ export type OrganizationUpdateForm_organization = {|
   +handle_id: string,
   +name: string,
   +type: ?any,
-  +description: string,
+  +description: ?string,
   +incident_management_info: ?string,
   +addresses: ?$ReadOnlyArray<?{|
     +handle_id: string,
