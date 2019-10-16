@@ -40,8 +40,7 @@ function CreateGroupMutation(group, callback) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(errors);
-            console.log(response);
+            console.log(response, errors);
             if (response.create_group.errors) {
                 return response.create_group.errors;
             } else {

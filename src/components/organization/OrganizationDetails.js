@@ -2,24 +2,54 @@ import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Row, Col, Form } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { withTranslation } from "react-i18next";
 
-import Organization from "./Organization";
-import EditFieldNoRedux from "../EditFieldNoRedux";
-import UpdateOrganizationMutation from "../../mutations/UpdateOrganizationMutation";
-import DeleteOrganizationMutation from "../../mutations/DeleteOrganizationMutation";
+import OrganizationUpdateFormContainer from "../../containers/organization/OrganizationUpdateForm";
+
+import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
+import DeleteOrganizationMutation from "../../mutations/organization/DeleteOrganizationMutation";
 import environment from "../../createRelayEnvironment";
-import InfoCreatorModifier from "../InfoCreatorModifier";
 
 const OrganizationDetailsQuery = graphql`
     query OrganizationDetailsQuery($organizationId: Int!) {
         getOrganizationById(handle_id: $organizationId) {
-            ...Organization_organization
+            ...OrganizationUpdateForm_organization
             handle_id
             name
+            type
+            description
+            incident_management_info
+            addresses {
+                handle_id
+                website
+                street
+                postal_code
+                postal_area
+                phone
+            }
+            incoming {
+                name
+                relation {
+                    relation_id
+                    type
+                    end {
+                        handle_id
+                        node_name
+                    }
+                    start {
+                        handle_id
+                        node_name
+                    }
+                }
+            }
+            comments {
+                id
+                user {
+                    first_name
+                    last_name
+                }
+                comment
+                submit_date
+            }
             created
             creator {
                 email
@@ -27,6 +57,36 @@ const OrganizationDetailsQuery = graphql`
             modified
             modifier {
                 email
+            }
+        }
+        getOrganizationContacts(handle_id: $organizationId) {
+            relation_id
+            contact {
+                handle_id
+                first_name
+                last_name
+                contact_type
+                emails {
+                    handle_id
+                    name
+                    type
+                }
+                phones {
+                    handle_id
+                    name
+                    type
+                }
+                roles {
+                    name
+                    end {
+                        handle_id
+                        name
+                    }
+                }
+            }
+            role {
+                handle_id
+                name
             }
         }
     }
@@ -44,32 +104,20 @@ class OrganizationDetails extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            name: "",
-            description: ""
-        };
+        this.state = {};
     }
 
-    _handleOrganizationChange = (event) => {
-        this.setState({ name: event.target.value });
+    handleSubmit = (organization) => {
+        organization.id = this.props.match.params.organizationId;
+        UpdateOrganizationMutation(organization, this.props.history);
     };
 
-    _handleUpdate = (organization) => {
-        const update_organization = {
-            id: this.props.match.params.organizationId,
-            name: organization.name,
-            description: organization.description
-        };
-        UpdateOrganizationMutation(update_organization);
-    };
-
-    _handleDelete = () => {
+    handleDelete = () => {
         const organizationId = this.props.match.params.organizationId;
         DeleteOrganizationMutation(organizationId, () => this.props.history.push(`/community/organizations`));
     };
 
     render() {
-        let { t } = this.props;
         return (
             <QueryRenderer
                 environment={environment}
@@ -83,47 +131,13 @@ class OrganizationDetails extends React.Component {
                     } else if (props) {
                         return (
                             <section className="model-details">
-                                <Row>
-                                    <Col>
-                                        <div className="title-section">
-                                            <button
-                                                onClick={() => this.props.history.goBack()}
-                                                className="btn btn-back outline"
-                                            >
-                                                <span>{t("actions.back")}</span>
-                                            </button>
-                                            <EditFieldNoRedux onChange={this._handleOrganizationChange}>
-                                                <h1>{props.getOrganizationById.name}</h1>
-                                            </EditFieldNoRedux>
-                                            <FontAwesomeIcon icon={faStar} />
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <InfoCreatorModifier model={props.getOrganizationById} />
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <Form>
-                                            <Organization organization={props.getOrganizationById} />
-                                            <div className="text-right mt-4">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => this._handleDelete()}
-                                                    className="btn link"
-                                                >
-                                                    {t("actions.delete")}
-                                                </button>
-                                                <button
-                                                    onClick={() => this._handleUpdate(props.getOrganizationById)}
-                                                    className="btn primary lg"
-                                                >
-                                                    {t("actions.save")}
-                                                </button>
-                                            </div>
-                                        </Form>
-                                    </Col>
-                                </Row>
+                                <OrganizationUpdateFormContainer
+                                    onSubmit={this.handleSubmit}
+                                    onDelete={this.handleDelete}
+                                    organization={props.getOrganizationById}
+                                    contacts={props.getOrganizationContacts}
+                                    history={this.props.history}
+                                />
                             </section>
                         );
                     }
@@ -134,4 +148,4 @@ class OrganizationDetails extends React.Component {
     }
 }
 
-export default withTranslation()(OrganizationDetails);
+export default OrganizationDetails;

@@ -15,19 +15,21 @@ const refreshFields = () => {
     return { type: "REFRESH_FIELDS" };
 };
 
-class FieldArrayMembersGroup extends React.Component {
+class FieldArrayContactsOrganization extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {};
     }
 
-    validateMember = (index) => {
+    validateContact = (index) => {
         const values = this.props.fields.getAll()[index];
         const fieldsNotBlank =
-            values.name !== "" && values.organization !== "" && values.email !== "" && values.phone !== "";
-
-        console.log(values, fieldsNotBlank);
+            values.name !== "" &&
+            values.name !== undefined &&
+            (values.role !== "" && values.role !== undefined) &&
+            (values.email !== "" && values.email !== undefined) &&
+            (values.phone !== "" && values.phone !== undefined);
         const errors = this.props.errors;
         return !(errors && errors[index] !== undefined) && (fieldsNotBlank && errors === undefined);
     };
@@ -39,33 +41,33 @@ class FieldArrayMembersGroup extends React.Component {
     };
 
     saveRow = (index) => {
-        if (this.validateMember(index)) {
-            this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "saved"));
+        if (this.validateContact(index)) {
+            this.props.dispatch(change(this.props.meta.form, `contacts[${index}].status`, "saved"));
         } else {
-            this.props.dispatch(touch(this.props.meta.form, `members[${index}].name`));
-            this.props.dispatch(touch(this.props.meta.form, `members[${index}].organization`));
-            this.props.dispatch(touch(this.props.meta.form, `members[${index}].email`));
-            this.props.dispatch(touch(this.props.meta.form, `members[${index}].phone`));
+            this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].name`));
+            this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].role`));
+            this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].email`));
+            this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].phone`));
         }
         this.props.dispatch(refreshFields());
     };
 
     editRow = (index) => {
-        this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "editing"));
+        this.props.dispatch(change(this.props.meta.form, `contacts[${index}].status`, "editing"));
         this.props.dispatch(refreshFields());
     };
 
     removeRow = (index, values) => {
         if (values[index].origin === "store") {
-            this.props.dispatch(change("updateGroup", `members[${index}].status`, "remove"));
+            this.props.dispatch(change("updateOrganization", `contacts[${index}].status`, "remove"));
         } else {
             this.props.fields.remove(index);
         }
     };
 
     saveLabel = (event, index) => {
-        const organization_label = event.target.options[event.target.value].text;
-        this.props.dispatch(change(this.props.meta.form, `members[${index}].organization_label`, organization_label));
+        const role_label = event.target.options[event.target.value].text;
+        this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
     };
 
     render() {
@@ -73,7 +75,7 @@ class FieldArrayMembersGroup extends React.Component {
         const values = fields.getAll();
         return (
             <>
-                {fields.map((member, index) => (
+                {fields.map((contact, index) => (
                     <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
                         {editable && values[index].status === "editing" ? (
                             <>
@@ -83,19 +85,19 @@ class FieldArrayMembersGroup extends React.Component {
                                             type="text"
                                             component={FieldInput}
                                             placeholder="Full Name"
-                                            name={`${member}.name`}
+                                            name={`${contact}.name`}
                                         />
                                     </Form.Group>
                                 </div>
                                 <div>
                                     <Dropdown
                                         className="auto"
-                                        emptyLabel="Select organization"
-                                        model="organization"
+                                        emptyLabel="Select role"
+                                        model="roles"
                                         onChange={(e) => {
                                             this.saveLabel(e, index);
                                         }}
-                                        name={`${member}.organization`}
+                                        name={`${contact}.role`}
                                     />
                                 </div>
                                 <div>
@@ -104,7 +106,7 @@ class FieldArrayMembersGroup extends React.Component {
                                             type="text"
                                             component={FieldInput}
                                             placeholder="Email"
-                                            name={`${member}.email`}
+                                            name={`${contact}.email`}
                                         />
                                     </Form.Group>
                                 </div>
@@ -114,7 +116,7 @@ class FieldArrayMembersGroup extends React.Component {
                                             type="text"
                                             component={FieldInput}
                                             placeholder="Phone"
-                                            name={`${member}.phone`}
+                                            name={`${contact}.phone`}
                                         />
                                     </Form.Group>
                                 </div>
@@ -122,8 +124,8 @@ class FieldArrayMembersGroup extends React.Component {
                         ) : (
                             <>
                                 <div>{fields.getAll()[index].name}</div>
-                                <div>{fields.getAll()[index].organization_label}</div>
-                                {this.props.meta.form === "updateGroup" && fields.getAll()[index].email ? (
+                                <div>{fields.getAll()[index].role_label}</div>
+                                {this.props.meta.form === "updateOrganization" && fields.getAll()[index].email ? (
                                     <CopyToClipboard>{fields.getAll()[index].email}</CopyToClipboard>
                                 ) : (
                                     <div>{fields.getAll()[index].email}</div>
@@ -171,4 +173,4 @@ class FieldArrayMembersGroup extends React.Component {
     }
 }
 
-export default withTranslation()(FieldArrayMembersGroup);
+export default withTranslation()(FieldArrayContactsOrganization);
