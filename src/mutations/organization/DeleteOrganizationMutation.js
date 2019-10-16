@@ -1,7 +1,7 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { ROOT_ID } from "relay-runtime";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
     mutation DeleteOrganizationMutation($input: DeleteOrganizationInput!) {

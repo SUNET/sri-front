@@ -13,6 +13,10 @@ import RelationshipGroupContactQuery from "./RelationshipGroupContactQuery";
 const mutation = graphql`
     mutation UpdateGroupMutation($input: UpdateGroupInput!) {
         update_group(input: $input) {
+            errors {
+                field
+                messages
+            }
             group {
                 handle_id
                 name
@@ -42,42 +46,46 @@ export default function UpdateGroupMutation(group, callback) {
     commitMutation(environment, {
         mutation,
         variables,
-        onCompleted: (proxyStore, data) => {
-            const members = group.members;
-            Object.keys(members).forEach((member_key) => {
-                let member = members[member_key];
-                if (member.status === "saved") {
-                    let fullName = member.name;
-                    fullName = fullName.split(" ");
-                    member.first_name = fullName[0];
-                    member.last_name = fullName[1];
+        onCompleted: (response, errors) => {
+            if (response.update_group.errors) {
+                return response.update_group.errors;
+            } else {
+                const members = group.members;
+                Object.keys(members).forEach((member_key) => {
+                    let member = members[member_key];
+                    if (member.status === "saved") {
+                        let fullName = member.name;
+                        fullName = fullName.split(" ");
+                        member.first_name = fullName[0];
+                        member.last_name = fullName[1];
 
-                    if (!member.created || member.created === undefined) {
-                        CreateContactInlineMutation(
-                            member.first_name,
-                            member.last_name,
-                            member.email,
-                            member.phone,
-                            member.organization,
-                            group.id
-                        );
-                    } else {
-                        UpdateContactInlineMutation(member, member.organization, group.id, null);
+                        if (!member.created || member.created === undefined) {
+                            CreateContactInlineMutation(
+                                member.first_name,
+                                member.last_name,
+                                member.email,
+                                member.phone,
+                                member.organization,
+                                group.id
+                            );
+                        } else {
+                            UpdateContactInlineMutation(member, member.organization, group.id, null);
 
-                        UpdateEmailMutation(member.id, member.email, member.email_obj);
-                        UpdatePhoneMutation(member.id, member.phone, member.phone_obj);
+                            UpdateEmailMutation(member.id, member.email, member.email_obj);
+                            UpdatePhoneMutation(member.id, member.phone, member.phone_obj);
+                        }
+                    } else if (member.status === "remove") {
+                        RelationshipGroupContactQuery(group.id, member.handle_id, DeleteRelationshMutation);
                     }
-                } else if (member.status === "remove") {
-                    RelationshipGroupContactQuery(group.id, member.handle_id, DeleteRelationshMutation);
-                }
-            });
-            callback.push("/community/groups/" + group.id);
-            // const payload = proxyStore.get(contact.id, "Contact");
-            // contact_node.setValue(contact.first_name, "first_name");
-            // contact_node.setValue(contact.last_name, "last_name");
-            // contact_node.setValue(contact.email, "email");
-            // contact_node.setValue(contact.phone, "phone");
-            // contact_node.setValue(contact.contact_type, "contact_type");
+                });
+                callback.push("/community/groups/" + group.id);
+                // const payload = proxyStore.get(contact.id, "Contact");
+                // contact_node.setValue(contact.first_name, "first_name");
+                // contact_node.setValue(contact.last_name, "last_name");
+                // contact_node.setValue(contact.email, "email");
+                // contact_node.setValue(contact.phone, "phone");
+                // contact_node.setValue(contact.contact_type, "contact_type");
+            }
         },
         onError: (err) => console.error(err)
     });

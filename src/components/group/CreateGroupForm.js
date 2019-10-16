@@ -16,17 +16,9 @@ class CreateGroupForm extends React.Component {
         super(props);
 
         this.state = {
-            name: "New Group",
-            description: "",
-            members: {},
-            comment: "",
             errors: []
         };
     }
-
-    handleFieldChange = (event) => {
-        this.setState({ name: event.target.value });
-    };
 
     _hasBeenAdded = (newMember) => {
         return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);
@@ -65,7 +57,14 @@ class CreateGroupForm extends React.Component {
             <form onSubmit={handleSubmit}>
                 <div className="model-details">
                     <section className="title-section">
-                        <EditField error={this.props.formSyncErrors.name} meta={this.props.fields.name}>
+                        <EditField
+                            error={this.props.formSyncErrors.name}
+                            meta={this.props.fields.name}
+                            initialValue="New group"
+                            form={this.props.form}
+                            dispatch={this.props.dispatch}
+                            value={name}
+                        >
                             <h1 className="ml-0">{name}</h1>
                         </EditField>
                     </section>

@@ -14,7 +14,6 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 
 import copy from "clipboard-copy";
 import Worklog from "../Worklog";
-import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
@@ -61,11 +60,6 @@ class GroupUpdateForm extends React.Component {
                 this.props.dispatch(arrayPush("updateGroup", "members", newMember));
             }
         }
-    };
-
-    handleDelete = () => {
-        const groupId = this.props.group.handle_id;
-        DeleteGroupMutation(groupId, () => this.props.history.push(`/community/groups`));
     };
 
     copyAllEmails = () => {
@@ -182,7 +176,7 @@ class GroupUpdateForm extends React.Component {
                     <Worklog model={group} refetch={this.refetch} />
                 </section>
                 <div className="text-right mt-4">
-                    <button type="button" className="btn link" onClick={this.handleDelete}>
+                    <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}
                     </button>
                     <button type="submit" className="btn primary lg">

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { OrganizationList } from "../components/organization";
+import OrganizationList from "../../components/organization/OrganizationList";
 
 const mapStateToProps = (state, props) => {
     let { columns_visible, all_columns } = state.filterColumns.organization;

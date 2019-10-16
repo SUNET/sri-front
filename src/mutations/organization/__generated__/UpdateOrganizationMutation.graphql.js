@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash de88007416a112d6639ab544e5d14e5c
+ * @relayHash 1db02c5603a251619a49d42d6cf166bc
  */
 
 /* eslint-disable */
@@ -38,6 +38,10 @@ export type UpdateOrganizationMutationVariables = {|
 |};
 export type UpdateOrganizationMutationResponse = {|
   +update_organization: ?{|
+    +errors: ?$ReadOnlyArray<?{|
+      +field: string,
+      +messages: $ReadOnlyArray<string>,
+    |}>,
     +organization: ?{|
       +handle_id: string,
       +name: string,
@@ -50,7 +54,7 @@ export type UpdateOrganizationMutationResponse = {|
         +comment: string,
         +submit_date: any,
       |}>,
-    |}
+    |},
   |}
 |};
 export type UpdateOrganizationMutation = {|
@@ -65,6 +69,10 @@ mutation UpdateOrganizationMutation(
   $input: UpdateOrganizationInput!
 ) {
   update_organization(input: $input) {
+    errors {
+      field
+      messages
+    }
     organization {
       handle_id
       name
@@ -102,55 +110,80 @@ v1 = [
   }
 ],
 v2 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "errors",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "ErrorType",
+  "plural": true,
+  "selections": [
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "field",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "messages",
+      "args": null,
+      "storageKey": null
+    }
+  ]
+},
+v3 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "handle_id",
   "args": null,
   "storageKey": null
 },
-v3 = {
+v4 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "name",
   "args": null,
   "storageKey": null
 },
-v4 = {
+v5 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "type",
   "args": null,
   "storageKey": null
 },
-v5 = {
+v6 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "first_name",
   "args": null,
   "storageKey": null
 },
-v6 = {
+v7 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "last_name",
   "args": null,
   "storageKey": null
 },
-v7 = {
+v8 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "comment",
   "args": null,
   "storageKey": null
 },
-v8 = {
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "submit_date",
   "args": null,
   "storageKey": null
 },
-v9 = {
+v10 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -175,6 +208,7 @@ return {
         "concreteType": "UpdateOrganizationPayload",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -184,9 +218,9 @@ return {
             "concreteType": "Organization",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
+              (v5/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -205,12 +239,12 @@ return {
                     "concreteType": "User",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
-                      (v6/*: any*/)
+                      (v6/*: any*/),
+                      (v7/*: any*/)
                     ]
                   },
-                  (v7/*: any*/),
-                  (v8/*: any*/)
+                  (v8/*: any*/),
+                  (v9/*: any*/)
                 ]
               }
             ]
@@ -233,6 +267,7 @@ return {
         "concreteType": "UpdateOrganizationPayload",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -242,9 +277,9 @@ return {
             "concreteType": "Organization",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
+              (v5/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -263,17 +298,17 @@ return {
                     "concreteType": "User",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
                       (v6/*: any*/),
-                      (v9/*: any*/)
+                      (v7/*: any*/),
+                      (v10/*: any*/)
                     ]
                   },
-                  (v7/*: any*/),
                   (v8/*: any*/),
-                  (v9/*: any*/)
+                  (v9/*: any*/),
+                  (v10/*: any*/)
                 ]
               },
-              (v9/*: any*/)
+              (v10/*: any*/)
             ]
           }
         ]
@@ -284,11 +319,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateOrganizationMutation",
     "id": null,
-    "text": "mutation UpdateOrganizationMutation(\n  $input: UpdateOrganizationInput!\n) {\n  update_organization(input: $input) {\n    organization {\n      handle_id\n      name\n      type\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateOrganizationMutation(\n  $input: UpdateOrganizationInput!\n) {\n  update_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'baaaad7e9af459f560592dde7689cf63';
+(node/*: any*/).hash = '89fa5d1540fcfce43957687d213dd27f';
 module.exports = node;

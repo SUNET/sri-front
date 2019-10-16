@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { addRow } from "../actions/ComponentFormRow";
-import { CreateOrganization } from "../components/organization";
+import CreateOrganization from "../../components/organization/CreateOrganization";
 
 const mapStateToProps = (state, props) => {
     return {};
@@ -9,7 +9,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        addRow: (index) => dispatch(addRow(index)),
+        addRow: (index) => dispatch(addRow(index))
     };
 };
 
