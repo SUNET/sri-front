@@ -9,18 +9,19 @@ const mapStateToProps = (state, props) => {
         name: props.group.name,
         description: props.group.description,
         members:
-            props.members.edges.length > 0
-                ? props.members.edges.map((member) => {
+            props.members.length > 0
+                ? props.members.map((member) => {
+                      const member_node = member.contact;
                       return {
-                          handle_id: member.node.handle_id,
-                          name: member.node.first_name + " " + member.node.last_name,
-                          contact_type: member.node.contact_type,
-                          organization: member.node.roles[0].end.handle_id,
-                          organization_label: member.node.roles[0].end.name,
-                          email: member.node.emails[0].name,
-                          email_obj: member.node.emails[0],
-                          phone: member.node.phones[0].name,
-                          phone_obj: member.node.phones[0],
+                          handle_id: member_node.handle_id,
+                          name: member_node.first_name + " " + member_node.last_name,
+                          contact_type: member_node.contact_type,
+                          organization: member_node.roles[0].end.handle_id,
+                          organization_label: member_node.roles[0].end.name,
+                          email: member_node.emails[0].name,
+                          email_obj: member_node.emails[0],
+                          phone: member_node.phones[0].name,
+                          phone_obj: member_node.phones[0],
                           status: "saved",
                           origin: "store",
                           created: true

@@ -216,6 +216,10 @@ type Choice implements KeyValue {
 """This scalar represents a choice field in query/mutation"""
 scalar ChoiceScalar
 
+"""
+This type represents a comment in the API, it uses the comments model just
+like the rest of noclook
+"""
 type CommentType {
   id: ID!
   object_pk: String!
@@ -505,6 +509,11 @@ enum ContactOrderBy {
   creator_DESC
   modifier_ASC
   modifier_DESC
+}
+
+type ContactWithRelation {
+  contact: Contact
+  relation_id: Int
 }
 
 type ContactWithRolename {
@@ -941,6 +950,13 @@ type ErrorType {
   messages: [String!]!
 }
 
+"""
+The `GenericScalar` scalar type represents a generic
+GraphQL scalar value that could be:
+String, Boolean, Int, Float, List or Object.
+"""
+scalar GenericScalar
+
 """The group type is used to group contacts"""
 type Group implements Node {
   handle_id: ID!
@@ -1151,6 +1167,11 @@ type Mutation {
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
   delete_relationship(input: DeleteRelationshipInput!): DeleteRelationshipPayload
   create_option(input: CreateOptionForDropdownInput!): CreateOptionForDropdownPayload
+
+  """Obtain JSON Web Token mutation"""
+  token_auth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
+  verify_token(input: VerifyInput!): VerifyPayload
+  refresh_token(input: RefreshInput!): RefreshPayload
 }
 
 type Neo4jChoice implements KeyValue {
@@ -1158,6 +1179,7 @@ type Neo4jChoice implements KeyValue {
   value: String!
 }
 
+"""Generic NodeHandler graphene type"""
 type NINodeHandlerType implements Node {
   handle_id: ID!
   node_name: String!
@@ -1221,6 +1243,18 @@ type NodeHandler implements Node {
   name: String!
 }
 
+input ObtainJSONWebTokenInput {
+  clientMutationId: String
+  username: String!
+  password: String!
+}
+
+"""Obtain JSON Web Token mutation"""
+type ObtainJSONWebTokenPayload {
+  token: String
+  clientMutationId: String
+}
+
 """The group type is used to group contacts"""
 type Organization implements Node {
   handle_id: ID!
@@ -1238,7 +1272,7 @@ type Organization implements Node {
   outgoing: [DictRelationType]
   comments: [CommentType]
   name: String!
-  description: String!
+  description: String
   customer_id: String
   incident_management_info: String
   type: ChoiceScalar
@@ -1699,6 +1733,7 @@ type Query {
   getRoleRelationById(relation_id: Int!): RoleRelation
   roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
   getOrganizationContacts(handle_id: Int!): [ContactWithRolename]
+  getGroupContacts(handle_id: Int!): [ContactWithRelation]
   getGroupContactRelations(group_id: Int!, contact_id: Int!): [NIRelationType]
   getContactEmailRelations(contact_id: Int!, email_id: Int!): [NIRelationType]
   getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]
@@ -1717,6 +1752,17 @@ type Query {
   getOrganizationById(handle_id: Int): Organization
   procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
   getProcedureById(handle_id: Int): Procedure
+}
+
+input RefreshInput {
+  token: String!
+  clientMutationId: String
+}
+
+type RefreshPayload {
+  token: String
+  payload: GenericScalar
+  clientMutationId: String
 }
 
 """This class represents a Role in the relational db"""
@@ -1932,7 +1978,18 @@ type User {
   email: String!
 }
 
+"""This object represents an input for an user used in connections"""
 input UserInputType {
   username: String!
+}
+
+input VerifyInput {
+  token: String!
+  clientMutationId: String
+}
+
+type VerifyPayload {
+  payload: GenericScalar
+  clientMutationId: String
 }
 

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e3382a944304210682ba099141593d12
+ * @relayHash 16aeb9041e2cdeac6b996270c3808e80
  */
 
 /* eslint-disable */
@@ -18,7 +18,7 @@ export type OrganizationDetailsQueryResponse = {|
     +handle_id: string,
     +name: string,
     +type: ?any,
-    +description: string,
+    +description: ?string,
     +incident_management_info: ?string,
     +addresses: ?$ReadOnlyArray<?{|
       +handle_id: string,
