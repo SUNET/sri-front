@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Cookies from "js-cookie";
 
 import { Provider } from "react-redux";
 
 import configureStore from "./store";
 
 import AppContainer from "./containers/App";
-import * as actions from "./actions/App";
 import * as serviceWorker from "./serviceWorker";
+import { API_HOST } from "./createRelayEnvironment.js";
 
 import "./i18n";
 
@@ -26,8 +27,18 @@ const app = (
     </Provider>
 );
 
+
 const initialAction = () => {
-    store.dispatch(actions.appLoaded());
+    if (!Cookies.get('JWT')) {
+        return fetch(`${API_HOST}/authn?next=${document.location.href}`, {
+            method: "GET",
+        })
+        .then( (response) => {
+            if (response.redirected) {
+                document.location.href = response.url;
+            }
+        });
+    }
 };
 
 ReactDOM.render(app, document.getElementById("root"), initialAction);

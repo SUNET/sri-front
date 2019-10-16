@@ -4,7 +4,7 @@ import { Environment, Network, RecordSource, Store, QueryResponseCache } from "r
 const oneMinute = 1;
 const cache = new QueryResponseCache({ size: 100, ttl: oneMinute });
 
-const API_HOST = "http://localhost:8000";
+export const API_HOST = "http://localhost:8000";
 
 let _csrfToken = null;
 
