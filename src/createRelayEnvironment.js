@@ -1,33 +1,7 @@
-import {
-    Environment,
-    Network,
-    RecordSource,
-    Store,
-    QueryResponseCache
-} from "relay-runtime";
-// import $ from "jquery";
-
-// function getCookie(name) {
-//     var cookieValue = null;
-//     if (document.cookie && document.cookie !== "") {
-//         var cookies = document.cookie.split(";");
-//         for (var i = 0; i < cookies.length; i++) {
-//             var cookie = $.trim(cookies[i]);
-//             if (cookie.substring(0, name.length + 1) === name + "=") {
-//                 cookieValue = decodeURIComponent(
-//                     cookie.substring(name.length + 1)
-//                 );
-//                 break;
-//             }
-//         }
-//     }
-//     return cookieValue;
-// }
-//
-// var csrftoken = getCookie("csrftoken");
+import { Environment, Network, RecordSource, Store, QueryResponseCache } from "relay-runtime";
 
 // CACHING
-const oneMinute = 60 * 1000;
+const oneMinute = 1;
 const cache = new QueryResponseCache({ size: 100, ttl: oneMinute });
 
 const API_HOST = "http://localhost:8000";

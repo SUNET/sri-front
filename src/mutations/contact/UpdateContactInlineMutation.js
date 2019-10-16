@@ -1,6 +1,6 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 const mutation = graphql`
@@ -32,7 +32,7 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function UpdateContactInlineMutation(contact, organization, group) {
+function UpdateContactInlineMutation(contact, organization, group, role) {
     const variables = {
         input: {
             handle_id: contact.handle_id,
@@ -41,6 +41,7 @@ function UpdateContactInlineMutation(contact, organization, group) {
             contact_type: contact.contact_type.toLowerCase(),
             relationship_works_for: organization,
             relationship_member_of: group,
+            role: role,
             clientMutationId: tempID++
         }
     };
@@ -49,7 +50,7 @@ function UpdateContactInlineMutation(contact, organization, group) {
         variables,
         onCompleted: (response, errors) => {
             console.log(errors);
-            console.log(response, environment);
+            console.log(response);
         },
         onError: (errors) => console.error(errors),
         configs: [

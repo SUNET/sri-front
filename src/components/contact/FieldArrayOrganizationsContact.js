@@ -2,11 +2,9 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 
-import FieldInput from "../FieldInput";
-import { Field, change, touch } from "redux-form";
+import { change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 
-import CopyToClipboard from "../CopyToClipboard";
 import Dropdown from "../Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -15,17 +13,16 @@ const refreshFields = () => {
     return { type: "REFRESH_FIELDS" };
 };
 
-class FieldArrayMembersGroup extends React.Component {
+class FieldArrayOrganizationsContact extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {};
     }
 
-    validateMember = (index) => {
+    validateOrganization = (index) => {
         const values = this.props.fields.getAll()[index];
-        const fieldsNotBlank =
-            values.name !== "" && values.organization !== "" && values.email !== "" && values.phone !== "";
+        const fieldsNotBlank = values.role !== "" && values.organization !== "";
 
         const errors = this.props.errors;
         return !(errors && errors[index] !== undefined) && (fieldsNotBlank && errors === undefined);
@@ -38,33 +35,32 @@ class FieldArrayMembersGroup extends React.Component {
     };
 
     saveRow = (index) => {
-        if (this.validateMember(index)) {
-            this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "saved"));
+        if (this.validateOrganization(index)) {
+            this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
         } else {
-            this.props.dispatch(touch(this.props.meta.form, `members[${index}].name`));
-            this.props.dispatch(touch(this.props.meta.form, `members[${index}].organization`));
-            this.props.dispatch(touch(this.props.meta.form, `members[${index}].email`));
-            this.props.dispatch(touch(this.props.meta.form, `members[${index}].phone`));
+            this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].role`));
+            this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].organization`));
         }
         this.props.dispatch(refreshFields());
     };
 
     editRow = (index) => {
-        this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "editing"));
+        this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "editing"));
         this.props.dispatch(refreshFields());
     };
 
     removeRow = (index, values) => {
         if (values[index].origin === "store") {
-            this.props.dispatch(change("updateGroup", `members[${index}].status`, "remove"));
+            this.props.dispatch(change("updateContact", `organizations[${index}].status`, "remove"));
         } else {
             this.props.fields.remove(index);
         }
     };
 
     saveLabel = (event, index) => {
-        const organization_label = event.target.options[event.target.value].text;
-        this.props.dispatch(change(this.props.meta.form, `members[${index}].organization_label`, organization_label));
+        const input_label = event.target.options[event.target.value].text;
+        const input_name = event.target.name.split(".")[1];
+        this.props.dispatch(change(this.props.meta.form, `organizations[${index}].${input_name}_label`, input_label));
     };
 
     render() {
@@ -77,57 +73,45 @@ class FieldArrayMembersGroup extends React.Component {
                         {editable && values[index].status === "editing" ? (
                             <>
                                 <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            component={FieldInput}
-                                            placeholder="Full Name"
-                                            name={`${member}.name`}
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div>
                                     <Dropdown
                                         className="auto"
-                                        emptyLabel="Select organization"
-                                        model="organization"
+                                        emptyLabel="Select role"
+                                        model="roles"
                                         onChange={(e) => {
                                             this.saveLabel(e, index);
                                         }}
-                                        name={`${member}.organization`}
+                                        name={`${member}.role`}
                                     />
                                 </div>
                                 <div>
                                     <Form.Group>
-                                        <Field
+                                        <input
                                             type="text"
-                                            component={FieldInput}
-                                            placeholder="Email"
-                                            name={`${member}.email`}
+                                            disabled
+                                            placeholder="Type ID"
+                                            value={fields.getAll()[index].organization}
                                         />
                                     </Form.Group>
                                 </div>
                                 <div>
                                     <Form.Group>
-                                        <Field
-                                            type="text"
-                                            component={FieldInput}
-                                            placeholder="Phone"
-                                            name={`${member}.phone`}
+                                        <Dropdown
+                                            className="auto"
+                                            emptyLabel="Select organization"
+                                            model="organization"
+                                            onChange={(e) => {
+                                                this.saveLabel(e, index);
+                                            }}
+                                            name={`${member}.organization`}
                                         />
                                     </Form.Group>
                                 </div>
                             </>
                         ) : (
                             <>
-                                <div>{fields.getAll()[index].name}</div>
+                                <div>{fields.getAll()[index].role_label}</div>
+                                <div>{fields.getAll()[index].organization}</div>
                                 <div>{fields.getAll()[index].organization_label}</div>
-                                {this.props.meta.form === "updateGroup" && fields.getAll()[index].email ? (
-                                    <CopyToClipboard>{fields.getAll()[index].email}</CopyToClipboard>
-                                ) : (
-                                    <div>{fields.getAll()[index].email}</div>
-                                )}
-                                <div>{fields.getAll()[index].phone}</div>
                             </>
                         )}
                         <div className="actions">
@@ -157,7 +141,6 @@ class FieldArrayMembersGroup extends React.Component {
                         <div></div>
                         <div></div>
                         <div></div>
-                        <div></div>
                         <div className="col-actions">
                             <button type="button" className="btn link mt-2" onClick={(e) => this.addRow(e)}>
                                 {t("actions.add-new")}
@@ -170,4 +153,4 @@ class FieldArrayMembersGroup extends React.Component {
     }
 }
 
-export default withTranslation()(FieldArrayMembersGroup);
+export default withTranslation()(FieldArrayOrganizationsContact);

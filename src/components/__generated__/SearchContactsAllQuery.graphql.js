@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9e8b2146a9e116685fed0a217a169093
+ * @relayHash 5f0f543b71d5ec5486953b20911a8ce8
  */
 
 /* eslint-disable */
@@ -236,23 +236,23 @@ export type RoleRelationInputField = {|
   relation_id?: ?number,
   name?: ?string,
 |};
-export type SearchAllContactsQueryVariables = {|
+export type SearchContactsAllQueryVariables = {|
   count: number,
   filter?: ?ContactFilter,
   orderBy?: ?ContactOrderBy,
 |};
-export type SearchAllContactsQueryResponse = {|
+export type SearchContactsAllQueryResponse = {|
   +$fragmentRefs: ContactList_contacts$ref & ContactList_organization_types$ref
 |};
-export type SearchAllContactsQuery = {|
-  variables: SearchAllContactsQueryVariables,
-  response: SearchAllContactsQueryResponse,
+export type SearchContactsAllQuery = {|
+  variables: SearchContactsAllQueryVariables,
+  response: SearchContactsAllQueryResponse,
 |};
 */
 
 
 /*
-query SearchAllContactsQuery(
+query SearchContactsAllQuery(
   $count: Int!
   $filter: ContactFilter
   $orderBy: ContactOrderBy
@@ -361,7 +361,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "SearchAllContactsQuery",
+    "name": "SearchContactsAllQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -388,7 +388,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "SearchAllContactsQuery",
+    "name": "SearchContactsAllQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -563,13 +563,13 @@ return {
   },
   "params": {
     "operationKind": "query",
-    "name": "SearchAllContactsQuery",
+    "name": "SearchContactsAllQuery",
     "id": null,
-    "text": "query SearchAllContactsQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
+    "text": "query SearchContactsAllQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8cc2554d3789a35564c1bc8d80ef970d';
+(node/*: any*/).hash = '45ef4607ac0a3dceb51d8535ad3d17b8';
 module.exports = node;

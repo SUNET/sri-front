@@ -9,10 +9,11 @@
 /*::
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type Contact_contact$ref: FragmentReference;
-declare export opaque type Contact_contact$fragmentType: Contact_contact$ref;
-export type Contact_contact = {|
+declare export opaque type ContactUpdateForm_contact$ref: FragmentReference;
+declare export opaque type ContactUpdateForm_contact$fragmentType: ContactUpdateForm_contact$ref;
+export type ContactUpdateForm_contact = {|
   +handle_id: string,
+  +name: string,
   +notes: ?string,
   +title: ?string,
   +contact_type: ?string,
@@ -30,12 +31,24 @@ export type Contact_contact = {|
     +type: any,
   |}>,
   +roles: ?$ReadOnlyArray<?{|
-    +name: ?string,
+    +relation_id: number,
+    +role_data: ?{|
+      +handle_id: string,
+      +name: string,
+    |},
     +end: ?{|
       +handle_id: string,
       +name: string,
     |},
   |}>,
+  +created: any,
+  +creator: {|
+    +email: string
+  |},
+  +modified: any,
+  +modifier: {|
+    +email: string
+  |},
   +comments: ?$ReadOnlyArray<?{|
     +id: string,
     +user: ?{|
@@ -45,12 +58,12 @@ export type Contact_contact = {|
     +comment: string,
     +submit_date: any,
   |}>,
-  +$refType: Contact_contact$ref,
+  +$refType: ContactUpdateForm_contact$ref,
 |};
-export type Contact_contact$data = Contact_contact;
-export type Contact_contact$key = {
-  +$data?: Contact_contact$data,
-  +$fragmentRefs: Contact_contact$ref,
+export type ContactUpdateForm_contact$data = ContactUpdateForm_contact;
+export type ContactUpdateForm_contact$key = {
+  +$data?: ContactUpdateForm_contact$data,
+  +$fragmentRefs: ContactUpdateForm_contact$ref,
 };
 */
 
@@ -66,27 +79,27 @@ var v0 = {
 v1 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
+  "name": "name",
   "args": null,
   "storageKey": null
 },
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
+  "name": "first_name",
   "args": null,
   "storageKey": null
 },
 v3 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "name",
+  "name": "last_name",
   "args": null,
   "storageKey": null
 },
 v4 = [
   (v0/*: any*/),
-  (v3/*: any*/),
+  (v1/*: any*/),
   {
     "kind": "ScalarField",
     "alias": null,
@@ -94,15 +107,29 @@ v4 = [
     "args": null,
     "storageKey": null
   }
+],
+v5 = [
+  (v0/*: any*/),
+  (v1/*: any*/)
+],
+v6 = [
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "email",
+    "args": null,
+    "storageKey": null
+  }
 ];
 return {
   "kind": "Fragment",
-  "name": "Contact_contact",
+  "name": "ContactUpdateForm_contact",
   "type": "Contact",
   "metadata": null,
   "argumentDefinitions": [],
   "selections": [
     (v0/*: any*/),
+    (v1/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -124,8 +151,8 @@ return {
       "args": null,
       "storageKey": null
     },
-    (v1/*: any*/),
     (v2/*: any*/),
+    (v3/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -162,7 +189,23 @@ return {
       "concreteType": "RoleRelation",
       "plural": true,
       "selections": [
-        (v3/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "relation_id",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "role_data",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "Role",
+          "plural": false,
+          "selections": (v5/*: any*/)
+        },
         {
           "kind": "LinkedField",
           "alias": null,
@@ -171,12 +214,43 @@ return {
           "args": null,
           "concreteType": "Organization",
           "plural": false,
-          "selections": [
-            (v0/*: any*/),
-            (v3/*: any*/)
-          ]
+          "selections": (v5/*: any*/)
         }
       ]
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "created",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "creator",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "User",
+      "plural": false,
+      "selections": (v6/*: any*/)
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "modified",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "modifier",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "User",
+      "plural": false,
+      "selections": (v6/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -203,8 +277,8 @@ return {
           "concreteType": "User",
           "plural": false,
           "selections": [
-            (v1/*: any*/),
-            (v2/*: any*/)
+            (v2/*: any*/),
+            (v3/*: any*/)
           ]
         },
         {
@@ -227,5 +301,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e85771a58374a52b83590600f2f81755';
+(node/*: any*/).hash = '4dfe129141d63db692a3f66d1c89b525';
 module.exports = node;

@@ -1,9 +1,11 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
-import QueryLookupRenderer from "relay-query-lookup-renderer";
+import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
+
+import renameKeys from "rename-keys";
 
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
@@ -30,8 +32,8 @@ class SearchGroup extends React.Component {
             countList: ITEMS_PER_PAGE,
             filterValue: "",
             filterDateType: "created",
-            filterDateFrom: "",
-            filterDateTo: "",
+            filterDateFrom: undefined,
+            filterDateTo: undefined,
             filterDate: {},
             orderBy: "handle_id_DESC"
         };
@@ -57,65 +59,30 @@ class SearchGroup extends React.Component {
         this.setState({ filterDateFrom: dateFrom });
     };
 
+    handleResetDate = (from, to) => {
+        this.setState({ filterDateFrom: from, filterDateto: to, filterDate: {} });
+    };
+
     changeFilterDateType = (event) => {
         this.setState({ filterDateType: event.target.value });
+        let newfilterDate = renameKeys(this.state.filterDate, (key) => {
+            return key.replace(this.state.filterDateType, event.target.value);
+        });
+        this.setState({ filterDate: { ...newfilterDate } });
     };
 
     UNSAFE_componentWillUpdate(nextProps, nextState) {
-        if (
-            this.state.filterDateFrom !== nextState.filterDateFrom ||
-            this.state.filterDateTo !== nextState.filterDateTo
-        ) {
-            this.filterDateUpdate(nextState);
-        }
-    }
-
-    filterDateUpdate = (nextState) => {
-        if (nextState.filterDateFrom && nextState.filterDateTo) {
+        const filterDateType = this.state.filterDateType;
+        if (nextState.filterDateFrom !== undefined && this.state.filterDateFrom !== nextState.filterDateFrom) {
             this.setState({
-                filterDate: { created_gte: nextState.filterDateFrom, created_lte: nextState.filterDateTo }
+                filterDate: { ...this.state.filterDate, [filterDateType + "_gte"]: nextState.filterDateFrom }
             });
-            // return { created_gte: this.state.filterDateFrom, created_lte: this.state.filterDateTo };
-        } else if (nextState.filterDateFrom) {
-            this.setState({ filterDate: { created_gte: nextState.filterDateFrom } });
-            // return { created_gte: this.state.filterDateFrom };
-        } else if (nextState.filterDateTo) {
-            this.setState({ filterDate: { created_lte: nextState.filterDateTo } });
-            // return { created_lte: this.state.filterDateTo };
-        } else {
-            this.setState({ filterDate: {} });
-            // return {};
         }
-    };
-
-    renderModelList() {
-        return (
-            <QueryLookupRenderer
-                lookup={true}
-                environment={environment}
-                query={SearchGroupAllQuery}
-                variables={{
-                    count: ITEMS_PER_PAGE,
-                    filter: {
-                        AND: [
-                            {
-                                name_contains: this.state.filterValue
-                            },
-                            this.state.filterDate
-                        ]
-                    },
-                    orderBy: this.state.orderBy
-                }}
-                render={({ error, props }) => {
-                    if (error) {
-                        return <div>{error.message}</div>;
-                    } else if (props) {
-                        return <GroupListContainer groups={props} changeCount={this._handleOnChangeCount} />;
-                    }
-                    return <div>Loading</div>;
-                }}
-            />
-        );
+        if (nextState.filterDateTo !== undefined && this.state.filterDateTo !== nextState.filterDateTo) {
+            this.setState({
+                filterDate: { ...this.state.filterDate, [filterDateType + "_lte"]: nextState.filterDateTo }
+            });
+        }
     }
 
     render() {
@@ -148,8 +115,8 @@ class SearchGroup extends React.Component {
                                             <input
                                                 type="radio"
                                                 name="filterDateType"
-                                                checked={this.state.filterDateType === "updated"}
-                                                value="updated"
+                                                checked={this.state.filterDateType === "modified"}
+                                                value="modified"
                                                 onChange={(e) => {
                                                     this.changeFilterDateType(e);
                                                 }}
@@ -158,15 +125,47 @@ class SearchGroup extends React.Component {
                                                 <label>Updated</label>
                                             </div>
                                         </div>
-                                        <RangeDayPicker dateTo={this.handleDateTo} dateFrom={this.handleDateFrom} />
+                                        <RangeDayPicker
+                                            dateTo={this.handleDateTo}
+                                            dateFrom={this.handleDateFrom}
+                                            resetDate={this.handleResetDate}
+                                        />
                                     </Col>
-                                    <Col className="text-right">
+                                    <Col className="text-right" sm={4}>
                                         <Filter changeFilter={this._handleOnChangeFilter} />
                                         <OrderBy changeOrderBy={this._handleOnChangeOrderBy} />
                                     </Col>
                                 </Row>
                                 <Row className="mt-3">
-                                    <Col>{this.renderModelList()}</Col>
+                                    <Col>
+                                        <QueryRenderer
+                                            environment={environment}
+                                            query={SearchGroupAllQuery}
+                                            variables={{
+                                                count: ITEMS_PER_PAGE,
+                                                orderBy: this.state.orderBy,
+                                                filter: {
+                                                    AND: [
+                                                        this.state.filterDate,
+                                                        { name_contains: this.state.filterValue }
+                                                    ]
+                                                }
+                                            }}
+                                            render={({ error, props }) => {
+                                                if (error) {
+                                                    return <div>{error.message}</div>;
+                                                } else if (props) {
+                                                    return (
+                                                        <GroupListContainer
+                                                            groups={props}
+                                                            changeCount={this._handleOnChangeCount}
+                                                        />
+                                                    );
+                                                }
+                                                return <div>Loading</div>;
+                                            }}
+                                        />
+                                    </Col>
                                 </Row>
                             </>
                         )}

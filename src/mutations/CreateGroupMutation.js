@@ -4,9 +4,9 @@ import environment from "../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 import CreateCommentMutation from "./CreateCommentMutation";
-import CreateContactInlineMutation from "./CreateContactInlineMutation";
+import CreateContactInlineMutation from "./contact/CreateContactInlineMutation";
 import AddMemberGroupMutation from "./AddMemberGroupMutation";
-import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
+import UpdateContactInlineMutation from "./contact/UpdateContactInlineMutation";
 import UpdateEmailMutation from "./UpdateEmailMutation";
 import UpdatePhoneMutation from "./UpdatePhoneMutation";
 
@@ -42,36 +42,39 @@ function CreateGroupMutation(group, callback) {
         onCompleted: (response, errors) => {
             console.log(errors);
             console.log(response);
-            const group_id = response.create_group.group.handle_id;
-            if (group.comment) {
-                CreateCommentMutation(group_id, group.comment);
-            }
-            const members = group.members;
-            Object.keys(members).forEach((member_key) => {
-                let member = members[member_key];
-                if (!member.created || member.created === undefined) {
-                    let fullName = member.name;
-                    fullName = fullName.split(" ");
-                    member.first_name = fullName[0];
-                    member.last_name = fullName[1];
-
-                    CreateContactInlineMutation(
-                        member.first_name,
-                        member.last_name,
-                        member.email,
-                        member.phone,
-                        member.organization,
-                        group_id
-                    );
-                } else {
-                    AddMemberGroupMutation(member, group_id);
-                    UpdateContactInlineMutation(member, member.organization, group_id);
-                    UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
-                    UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
+            if (response.create_group.errors) {
+                return response.create_group.errors;
+            } else {
+                const group_id = response.create_group.group.handle_id;
+                if (group.comment) {
+                    CreateCommentMutation(group_id, group.comment);
                 }
-            });
+                const members = group.members;
+                Object.keys(members).forEach((member_key) => {
+                    let member = members[member_key];
+                    if (!member.created || member.created === undefined) {
+                        let fullName = member.name;
+                        fullName = fullName.split(" ");
+                        member.first_name = fullName[0];
+                        member.last_name = fullName[1];
 
-            callback.push("/community/groups");
+                        CreateContactInlineMutation(
+                            member.first_name,
+                            member.last_name,
+                            member.email,
+                            member.phone,
+                            member.organization,
+                            group_id
+                        );
+                    } else {
+                        AddMemberGroupMutation(member, group_id);
+                        UpdateContactInlineMutation(member, member.organization, group_id, null);
+                        UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
+                        UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
+                    }
+                });
+                callback.push("/community/groups");
+            }
         },
         onError: (errors) => console.error(errors),
         configs: [

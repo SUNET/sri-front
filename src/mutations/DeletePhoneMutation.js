@@ -4,14 +4,14 @@ import { ROOT_ID } from "relay-runtime";
 import environment from "../createRelayEnvironment";
 
 const mutation = graphql`
-    mutation DeleteContactMutation($input: DeleteContactInput!) {
-        delete_contact(input: $input) {
+    mutation DeletePhoneMutation($input: DeletePhoneInput!) {
+        delete_phone(input: $input) {
             success
         }
     }
 `;
 
-export default function DeleteContactMutation(handle_id, callback) {
+export default function DeletePhoneMutation(handle_id, callback) {
     const variables = {
         input: {
             handle_id: handle_id,
@@ -24,20 +24,11 @@ export default function DeleteContactMutation(handle_id, callback) {
         onError: (err) => console.error(err),
         onCompleted: (response) => {
             console.log(response, environment);
-            callback();
         },
         configs: [
             {
-                type: "RANGE_DELETE",
                 parentName: ROOT_ID,
                 parentID: ROOT_ID,
-                connectionKeys: [
-                    {
-                        key: "ContactList_contacts",
-                        rangeBehavior: "append"
-                    }
-                ],
-                pathToConnection: ["client:root", "contacts"],
                 deletedIDFieldName: "handle_id"
             }
         ]
