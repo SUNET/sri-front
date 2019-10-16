@@ -4,6 +4,7 @@
     display: table;
     width: 100%;
     border-spacing: 0 5px;
+    table-layout: fixed;
 
     > div:first-of-type {
         display: table-header-group;

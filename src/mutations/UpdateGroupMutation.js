@@ -13,6 +13,10 @@ import RelationshipGroupContactQuery from "./RelationshipGroupContactQuery";
 const mutation = graphql`
     mutation UpdateGroupMutation($input: UpdateGroupInput!) {
         update_group(input: $input) {
+            errors {
+                field
+                messages
+            }
             group {
                 handle_id
                 name

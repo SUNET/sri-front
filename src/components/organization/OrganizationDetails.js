@@ -59,6 +59,7 @@ const OrganizationDetailsQuery = graphql`
             }
         }
         getOrganizationContacts(handle_id: $organizationId) {
+            relation_id
             contact {
                 handle_id
                 first_name
@@ -111,8 +112,8 @@ class OrganizationDetails extends React.Component {
     };
 
     handleDelete = () => {
-        const groupId = this.props.group.handle_id;
-        DeleteOrganizationMutation(groupId, () => this.props.history.push(`/community/groups`));
+        const organizationId = this.props.match.params.organizationId;
+        DeleteOrganizationMutation(organizationId, () => this.props.history.push(`/community/organizations`));
     };
 
     render() {
@@ -127,7 +128,6 @@ class OrganizationDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        console.log(props);
                         return (
                             <section className="model-details">
                                 <OrganizationUpdateFormContainer

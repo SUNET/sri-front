@@ -71,6 +71,7 @@ function CreateOrganizationMutation(organization, callback) {
             description: organization.description,
             type: organization.type,
             incident_management_info: organization.incident_management_info,
+            relationship_parent_of: organization.relationship_parent_of,
             clientMutationId: tempID++
         }
     };

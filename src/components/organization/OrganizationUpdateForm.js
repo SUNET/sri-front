@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
+import Dropdown from "../Dropdown";
 import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
@@ -74,8 +75,17 @@ class OrganizationUpdateForm extends React.Component {
     };
 
     render() {
-        let { organization, name, description, incident_management_info, t, handleSubmit } = this.props;
-        console.log(this.props);
+        let {
+            organization,
+            name,
+            type,
+            description,
+            handle_id,
+            incident_management_info,
+            relationship_parent_of,
+            t,
+            handleSubmit
+        } = this.props;
         return (
             <form onSubmit={handleSubmit}>
                 <Form.Row>
@@ -83,7 +93,7 @@ class OrganizationUpdateForm extends React.Component {
                         <div className="title-section">
                             <button
                                 type="button"
-                                onClick={() => this.props.history.goBack()}
+                                onClick={() => this.props.history.push("/community/organizations")}
                                 className="btn btn-back outline"
                             >
                                 <span>{t("actions.back")}</span>
@@ -118,6 +128,92 @@ class OrganizationUpdateForm extends React.Component {
                                                 />
                                             ) : (
                                                 <span>{description}</span>
+                                            );
+                                        }}
+                                    </PanelEditable.Consumer>
+                                </TogglePanel>
+                            </ToggleSection>
+                        </Col>
+                    </Form.Row>
+                    <hr />
+                    <Form.Row>
+                        <Col>
+                            <ToggleSection>
+                                <ToggleHeading>
+                                    <h2>{t("organization-details.general-information")}</h2>
+                                </ToggleHeading>
+                                <TogglePanel>
+                                    <PanelEditable.Consumer>
+                                        {(editable) => {
+                                            return (
+                                                <div className="table-details">
+                                                    <div>
+                                                        <div>Type</div>
+                                                        <div>Affiliation</div>
+                                                        <div>Organization ID</div>
+                                                        <div>Parent Organization ID</div>
+                                                    </div>
+                                                    <div>
+                                                        <div>
+                                                            <div>
+                                                                {!editable ? (
+                                                                    type
+                                                                ) : (
+                                                                    <Dropdown
+                                                                        className="auto"
+                                                                        emptyLabel="Select type"
+                                                                        type="organization_types"
+                                                                        name="type"
+                                                                        onChange={(e) => {}}
+                                                                    />
+                                                                )}
+                                                            </div>
+                                                            <div>
+                                                                {!editable ? (
+                                                                    relationship_parent_of
+                                                                ) : (
+                                                                    <Form.Group>
+                                                                        <Field
+                                                                            type="text"
+                                                                            name="relationship_parent_of"
+                                                                            component={FieldInput}
+                                                                            placeholder={t("contact-details.add-notes")}
+                                                                        />
+                                                                    </Form.Group>
+                                                                )}
+                                                            </div>
+                                                            <div>
+                                                                {!editable ? (
+                                                                    handle_id
+                                                                ) : (
+                                                                    <Form.Group>
+                                                                        <Field
+                                                                            type="text"
+                                                                            name="handle_id"
+                                                                            component={FieldInput}
+                                                                            disabled
+                                                                            value={handle_id}
+                                                                        />
+                                                                    </Form.Group>
+                                                                )}
+                                                            </div>
+                                                            <div>
+                                                                {!editable ? (
+                                                                    relationship_parent_of
+                                                                ) : (
+                                                                    <Form.Group>
+                                                                        <Field
+                                                                            type="text"
+                                                                            name="relationship_parent_of"
+                                                                            component={FieldInput}
+                                                                            placeholder={t("contact-details.add-notes")}
+                                                                        />
+                                                                    </Form.Group>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             );
                                         }}
                                     </PanelEditable.Consumer>

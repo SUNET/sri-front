@@ -46,10 +46,9 @@ class OrganizationRow extends React.PureComponent {
                     <div>
                         {organization.incoming.map((relation) => {
                             if (relation.name === "Parent_of") {
-                                return relation.start.handle_id;
-                            } else {
-                                return "No has parent";
+                                return relation.relation.start.handle_id;
                             }
+                            return null;
                         })}
                     </div>
                 )}

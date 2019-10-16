@@ -5,9 +5,12 @@ import uuidv4 from "uuid/v4";
 
 const mapStateToProps = (state, props) => {
     const updateOrganizationSelector = formValueSelector("updateOrganization");
-    console.log(props);
+    const parent_node = props.organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
+        handle_id: props.organization.handle_id,
+        relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
         name: props.organization.name,
+        type: props.organization.type,
         description: props.organization.description,
         incident_management_info: props.organization.incident_management_info,
         contacts:
@@ -21,6 +24,7 @@ const mapStateToProps = (state, props) => {
                           contact_type: contact_node.contact_type,
                           role: role_node.handle_id,
                           role_label: role_node.name,
+                          role_relation_id: contact.relation_id,
                           email: contact_node.emails[0].name,
                           email_obj: contact_node.emails[0],
                           phone: contact_node.phones[0].name,
@@ -70,7 +74,10 @@ const mapStateToProps = (state, props) => {
     return {
         initialValues,
         name: updateOrganizationSelector(state, "name"),
+        type: updateOrganizationSelector(state, "type"),
         description: updateOrganizationSelector(state, "description"),
+        relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),
+        handle_id: updateOrganizationSelector(state, "handle_id"),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
         memberValues: updateOrganizationSelector(state, "contacts"),
         formSyncErrors: getFormSyncErrors("updateOrganization")(state),
