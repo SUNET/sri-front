@@ -11,7 +11,9 @@ class FieldArrayCheckbox extends React.Component {
                     {React.Children.map(
                         this.props.children,
                         (child, index) =>
-                            console.log(child) && <div>{child.checked && <FieldCheckbox {...child.props} />}</div>
+                            console.log("checked", child) && (
+                                <div>{child.checked && <FieldCheckbox {...child.props} />}</div>
+                            )
                     )}
                 </div>
                 <hr />

@@ -17,7 +17,7 @@ class FieldCheckbox extends React.Component {
         return (
             <>
                 {this.props.label}
-                <Field className="mr-2" type="checkbox" name={name} component="input" />
+                <input type="checkbox" name={name} />
             </>
         );
     }

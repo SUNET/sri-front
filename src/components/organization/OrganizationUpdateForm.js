@@ -166,30 +166,50 @@ class OrganizationUpdateForm extends React.Component {
                                                                 )}
                                                             </div>
                                                             <div>
-                                                                <FieldCheckbox
-                                                                    name="affiliation_customer"
-                                                                    label="Customer"
-                                                                />
-                                                                <FieldCheckbox
-                                                                    name="affiliation_end_customer"
-                                                                    label="End user"
-                                                                />
-                                                                <FieldCheckbox
-                                                                    name="affiliation_provider"
-                                                                    label="Provider"
-                                                                />
-                                                                <FieldCheckbox
-                                                                    name="affiliation_partner"
-                                                                    label="Partner"
-                                                                />
-                                                                <FieldCheckbox
-                                                                    name="affiliation_host_user"
-                                                                    label="Host user"
-                                                                />
-                                                                <FieldCheckbox
-                                                                    name="affiliation_site_owner"
-                                                                    label="Site owner"
-                                                                />
+                                                                <FieldArrayCheckbox>
+                                                                    <Field
+                                                                        className="mr-2"
+                                                                        label="Customer"
+                                                                        name="affiliation_customer"
+                                                                        component={FieldCheckbox}
+                                                                    />
+                                                                    <Field
+                                                                        className="mr-2"
+                                                                        name="affiliation_provider"
+                                                                        label="Provider"
+                                                                        component={FieldCheckbox}
+                                                                    />
+                                                                    <Field
+                                                                        className="mr-2"
+                                                                        name="affiliation_partner"
+                                                                        label="Partner"
+                                                                        component={FieldCheckbox}
+                                                                    />
+                                                                    {/*<FieldCheckbox
+                                                                        name="affiliation_customer"
+                                                                        label="Customer"
+                                                                    />
+                                                                    <FieldCheckbox
+                                                                        name="affiliation_end_customer"
+                                                                        label="End user"
+                                                                    />
+                                                                    <FieldCheckbox
+                                                                        name="affiliation_provider"
+                                                                        label="Provider"
+                                                                    />
+                                                                    <FieldCheckbox
+                                                                        name="affiliation_partner"
+                                                                        label="Partner"
+                                                                    />
+                                                                    <FieldCheckbox
+                                                                        name="affiliation_host_user"
+                                                                        label="Host user"
+                                                                    />
+                                                                    <FieldCheckbox
+                                                                        name="affiliation_site_owner"
+                                                                        label="Site owner"
+                                                                    />*/}
+                                                                </FieldArrayCheckbox>
                                                             </div>
                                                             <div>
                                                                 {!editable ? (
