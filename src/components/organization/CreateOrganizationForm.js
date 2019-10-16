@@ -114,7 +114,7 @@ class CreateOrganizationForm extends React.Component {
                                                             onChange={(e) => {}}
                                                         />
                                                     </div>
-                                                    <div>Affiliation</div>
+                                                    <div></div>
                                                     <div>
                                                         <Form.Group>
                                                             <Field

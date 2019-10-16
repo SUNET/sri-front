@@ -109,7 +109,8 @@ class OrganizationDetails extends React.Component {
 
     handleSubmit = (organization) => {
         organization.id = this.props.match.params.organizationId;
-        UpdateOrganizationMutation(organization, this.props.history);
+        console.log(organization);
+        // UpdateOrganizationMutation(organization, this.props.history);
     };
 
     handleDelete = () => {

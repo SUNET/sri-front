@@ -16,6 +16,9 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import FieldInput from "../FieldInput";
 import uuidv4 from "uuid/v4";
 
+import FieldCheckbox from "../FieldCheckbox";
+import FieldArrayCheckbox from "../FieldArrayCheckbox";
+
 import Worklog from "../Worklog";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
@@ -163,18 +166,30 @@ class OrganizationUpdateForm extends React.Component {
                                                                 )}
                                                             </div>
                                                             <div>
-                                                                {!editable ? (
-                                                                    relationship_parent_of
-                                                                ) : (
-                                                                    <Form.Group>
-                                                                        <Field
-                                                                            type="text"
-                                                                            name="relationship_parent_of"
-                                                                            component={FieldInput}
-                                                                            placeholder={t("contact-details.add-notes")}
-                                                                        />
-                                                                    </Form.Group>
-                                                                )}
+                                                                <FieldCheckbox
+                                                                    name="affiliation_customer"
+                                                                    label="Customer"
+                                                                />
+                                                                <FieldCheckbox
+                                                                    name="affiliation_end_customer"
+                                                                    label="End user"
+                                                                />
+                                                                <FieldCheckbox
+                                                                    name="affiliation_provider"
+                                                                    label="Provider"
+                                                                />
+                                                                <FieldCheckbox
+                                                                    name="affiliation_partner"
+                                                                    label="Partner"
+                                                                />
+                                                                <FieldCheckbox
+                                                                    name="affiliation_host_user"
+                                                                    label="Host user"
+                                                                />
+                                                                <FieldCheckbox
+                                                                    name="affiliation_site_owner"
+                                                                    label="Site owner"
+                                                                />
                                                             </div>
                                                             <div>
                                                                 {!editable ? (
