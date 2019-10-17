@@ -77,7 +77,7 @@ class GroupDetails extends React.Component {
     };
 
     handleDelete = () => {
-        const groupId = this.props.group.handle_id;
+        const groupId = this.props.match.params.groupId;
         DeleteGroupMutation(groupId, () => this.props.history.push(`/community/groups`));
     };
 

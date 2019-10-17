@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Col } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
@@ -142,7 +143,7 @@ class CreateGroupForm extends React.Component {
                         type="button"
                         className="mr-2 btn link"
                         onClick={() => {
-                            this.props.history.goBack();
+                            this.props.history.push("/community/groups");
                         }}
                     >
                         Cancel
@@ -214,4 +215,4 @@ CreateGroupForm = reduxForm({
     }
 })(CreateGroupForm);
 
-export default withTranslation()(CreateGroupForm);
+export default withTranslation()(withRouter(CreateGroupForm));

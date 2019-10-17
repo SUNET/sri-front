@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Col } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
@@ -48,7 +49,7 @@ class CreateOrganizationForm extends React.Component {
                 key: uuidv4()
             };
             if (!this._hasBeenAdded(newContact)) {
-                this.props.dispatch(arrayPush("createOrganization", "contacts", newContact));
+                this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
             }
         }
     };
@@ -248,7 +249,7 @@ class CreateOrganizationForm extends React.Component {
                         type="button"
                         className="mr-2 btn link"
                         onClick={() => {
-                            this.props.history.goBack();
+                            this.props.history.push("/community/organizations");
                         }}
                     >
                         Cancel
@@ -360,4 +361,4 @@ CreateOrganizationForm = reduxForm({
     }
 })(CreateOrganizationForm);
 
-export default withTranslation()(CreateOrganizationForm);
+export default withTranslation()(withRouter(CreateOrganizationForm));

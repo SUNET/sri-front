@@ -12,6 +12,18 @@
 
         a {
             text-decoration: none;
+            text-decoration: none;
+            vertical-align: middle;
+            color: inherit;
+            font-weight: bold;
+
+            &:active {
+                svg {
+                    g {
+                        opacity: 1;
+                    }
+                }
+            }
         }
 
         .accordion__item {
@@ -19,21 +31,6 @@
                 margin-bottom: 4px;
                 padding: 25px 0 25px 20px;
                 color: rgba(#fff, .5);
-
-                a {
-                    text-decoration: none;
-                    vertical-align: middle;
-                    color: inherit;
-                    font-weight: bold;
-
-                    &:active {
-                        svg {
-                            g {
-                                opacity: 1;
-                            }
-                        }
-                    }
-                }
 
                 svg {
                     margin-right: 8px;

@@ -93,7 +93,7 @@ const mapStateToProps = (state, props) => {
         relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),
         handle_id: updateOrganizationSelector(state, "handle_id"),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
-        memberValues: updateOrganizationSelector(state, "contacts"),
+        contactsValues: updateOrganizationSelector(state, "contacts"),
         formSyncErrors: getFormSyncErrors("updateOrganization")(state),
         fields: getFormMeta("updateOrganization")(state),
         refreshFields: state.refreshFields,
