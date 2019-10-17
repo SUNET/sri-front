@@ -15,6 +15,12 @@ export type OrganizationRow_organization = {|
   +handle_id: string,
   +name: string,
   +type: ?any,
+  +affiliation_customer: ?boolean,
+  +affiliation_end_customer: ?boolean,
+  +affiliation_host_user: ?boolean,
+  +affiliation_partner: ?boolean,
+  +affiliation_provider: ?boolean,
+  +affiliation_site_owner: ?boolean,
   +incoming: ?$ReadOnlyArray<?{|
     +name: string,
     +relation: {|
@@ -68,6 +74,48 @@ return {
     (v1/*: any*/),
     (v2/*: any*/),
     {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "affiliation_customer",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "affiliation_end_customer",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "affiliation_host_user",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "affiliation_partner",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "affiliation_provider",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "affiliation_site_owner",
+      "args": null,
+      "storageKey": null
+    },
+    {
       "kind": "LinkedField",
       "alias": null,
       "name": "incoming",
@@ -114,5 +162,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ba8d2b4093ce3b6f3cb804ad3bce6aa2';
+(node/*: any*/).hash = '3ac1754275edc015f4c65943027b6de5';
 module.exports = node;

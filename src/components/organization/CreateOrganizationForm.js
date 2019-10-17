@@ -11,6 +11,7 @@ import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/Togg
 import Dropdown from "../Dropdown";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
+import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 
 class CreateOrganizationForm extends React.Component {
     constructor(props) {
@@ -101,7 +102,6 @@ class CreateOrganizationForm extends React.Component {
                                                 <div>Type</div>
                                                 <div>Affiliation</div>
                                                 <div>Parent Organization ID</div>
-                                                <div></div>
                                             </div>
                                             <div>
                                                 <div>
@@ -114,7 +114,15 @@ class CreateOrganizationForm extends React.Component {
                                                             onChange={(e) => {}}
                                                         />
                                                     </div>
-                                                    <div></div>
+                                                    <div>
+                                                        <FiledArrayCheckbox
+                                                            data={INPUTS}
+                                                            form={this.props.form}
+                                                            dispatch={this.props.dispatch}
+                                                            editable={true}
+                                                            initialValues={this.props.initialValues.affiliation}
+                                                        />
+                                                    </div>
                                                     <div>
                                                         <Form.Group>
                                                             <Field

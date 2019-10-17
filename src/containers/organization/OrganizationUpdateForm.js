@@ -11,6 +11,20 @@ const mapStateToProps = (state, props) => {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
         name: props.organization.name,
         type: props.organization.type,
+        affiliation: {
+            customer: props.organization.affiliation_customer,
+            end_customer: props.organization.affiliation_end_customer,
+            host_user: props.organization.affiliation_host_user,
+            partner: props.organization.affiliation_partner,
+            provider: props.organization.affiliation_provider,
+            site_owner: props.organization.affiliation_site_owner
+        },
+        affiliation_customer: props.organization.affiliation_customer,
+        affiliation_end_customer: props.organization.affiliation_end_customer,
+        affiliation_host_user: props.organization.affiliation_host_user,
+        affiliation_partner: props.organization.affiliation_partner,
+        affiliation_provider: props.organization.affiliation_provider,
+        affiliation_site_owner: props.organization.affiliation_site_owner,
         description: props.organization.description,
         incident_management_info: props.organization.incident_management_info,
         contacts:
@@ -82,7 +96,15 @@ const mapStateToProps = (state, props) => {
         memberValues: updateOrganizationSelector(state, "contacts"),
         formSyncErrors: getFormSyncErrors("updateOrganization")(state),
         fields: getFormMeta("updateOrganization")(state),
-        refreshFields: state.refreshFields
+        refreshFields: state.refreshFields,
+        affiliation: {
+            customer: updateOrganizationSelector(state, "affiliation_customer"),
+            end_customer: updateOrganizationSelector(state, "affiliation_end_customer"),
+            host_user: updateOrganizationSelector(state, "affiliation_host_user"),
+            partner: updateOrganizationSelector(state, "affiliation_partner"),
+            provider: updateOrganizationSelector(state, "affiliation_provider"),
+            site_owner: updateOrganizationSelector(state, "affiliation_site_owner")
+        }
     };
 };
 

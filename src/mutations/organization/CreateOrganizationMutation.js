@@ -22,6 +22,12 @@ const mutation = graphql`
                 name
                 type
                 incident_management_info
+                affiliation_customer
+                affiliation_end_customer
+                affiliation_host_user
+                affiliation_partner
+                affiliation_provider
+                affiliation_site_owner
                 addresses {
                     handle_id
                     website
@@ -67,6 +73,12 @@ function CreateOrganizationMutation(organization, callback) {
             name: organization.name,
             description: organization.description,
             type: organization.type,
+            affiliation_customer: organization.affiliation_customer,
+            affiliation_end_customer: organization.affiliation_end_customer,
+            affiliation_host_user: organization.affiliation_host_user,
+            affiliation_partner: organization.affiliation_partner,
+            affiliation_provider: organization.affiliation_provider,
+            affiliation_site_owner: organization.affiliation_site_owner,
             incident_management_info: organization.incident_management_info,
             relationship_parent_of: organization.relationship_parent_of,
             clientMutationId: tempID++
@@ -76,7 +88,7 @@ function CreateOrganizationMutation(organization, callback) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(response);
+            console.log(response, errors);
 
             if (response.create_organization.errors) {
                 return response.create_organization.errors;

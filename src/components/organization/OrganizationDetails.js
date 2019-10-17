@@ -18,6 +18,12 @@ const OrganizationDetailsQuery = graphql`
             type
             description
             incident_management_info
+            affiliation_customer
+            affiliation_end_customer
+            affiliation_host_user
+            affiliation_partner
+            affiliation_provider
+            affiliation_site_owner
             addresses {
                 handle_id
                 website
@@ -109,8 +115,7 @@ class OrganizationDetails extends React.Component {
 
     handleSubmit = (organization) => {
         organization.id = this.props.match.params.organizationId;
-        console.log(organization);
-        // UpdateOrganizationMutation(organization, this.props.history);
+        UpdateOrganizationMutation(organization, this.props.history);
     };
 
     handleDelete = () => {
