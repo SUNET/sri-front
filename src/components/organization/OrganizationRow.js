@@ -18,11 +18,6 @@ class OrganizationRow extends React.PureComponent {
         this.state = { affiliation_list: [] };
     }
 
-    formatDate = (dateString) => {
-        let date = new Date(dateString);
-        return date.toISOString("YYYY-MM-DD");
-    };
-
     componentDidMount() {
         const organization = this.props.organization;
         const affiliation_list = [];
