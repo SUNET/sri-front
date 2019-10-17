@@ -61,6 +61,7 @@ class OrganizationRow extends React.PureComponent {
                         })}
                     </div>
                 )}
+                <div></div>
             </article>
         );
     }
