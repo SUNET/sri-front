@@ -55,9 +55,14 @@ export default function UpdateGroupMutation(group, callback) {
                     let member = members[member_key];
                     if (member.status === "saved") {
                         let fullName = member.name;
-                        fullName = fullName.split(" ");
-                        member.first_name = fullName[0];
-                        member.last_name = fullName[1];
+                        if (fullName.includes(' ')) {
+                            fullName = fullName.split(" ");
+                            member.first_name = fullName[0];
+                            member.last_name = fullName[1];
+                        } else {
+                            member.first_name = fullName;
+                            member.last_name = fullName;
+                        }
 
                         if (!member.created || member.created === undefined) {
                             CreateContactInlineMutation(
