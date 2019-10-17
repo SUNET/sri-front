@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f40df8f21c5827fd9574c1fb5d565a68
+ * @relayHash a6f7fb9cf2521c563f531e69edca6cc2
  */
 
 /* eslint-disable */
@@ -46,6 +46,12 @@ export type CreateOrganizationMutationResponse = {|
       +name: string,
       +type: ?any,
       +incident_management_info: ?string,
+      +affiliation_customer: ?boolean,
+      +affiliation_end_customer: ?boolean,
+      +affiliation_host_user: ?boolean,
+      +affiliation_partner: ?boolean,
+      +affiliation_provider: ?boolean,
+      +affiliation_site_owner: ?boolean,
       +addresses: ?$ReadOnlyArray<?{|
         +handle_id: string,
         +website: ?string,
@@ -102,6 +108,12 @@ mutation CreateOrganizationMutation(
       name
       type
       incident_management_info
+      affiliation_customer
+      affiliation_end_customer
+      affiliation_host_user
+      affiliation_partner
+      affiliation_provider
+      affiliation_site_owner
       addresses {
         handle_id
         website
@@ -217,95 +229,137 @@ v6 = {
 v7 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "website",
+  "name": "affiliation_customer",
   "args": null,
   "storageKey": null
 },
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "street",
+  "name": "affiliation_end_customer",
   "args": null,
   "storageKey": null
 },
 v9 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "postal_code",
+  "name": "affiliation_host_user",
   "args": null,
   "storageKey": null
 },
 v10 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "postal_area",
+  "name": "affiliation_partner",
   "args": null,
   "storageKey": null
 },
 v11 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "phone",
+  "name": "affiliation_provider",
   "args": null,
   "storageKey": null
 },
 v12 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "relation_id",
+  "name": "affiliation_site_owner",
   "args": null,
   "storageKey": null
 },
 v13 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "node_name",
+  "name": "website",
   "args": null,
   "storageKey": null
 },
-v14 = [
-  (v3/*: any*/),
-  (v13/*: any*/)
-],
+v14 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "street",
+  "args": null,
+  "storageKey": null
+},
 v15 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "id",
+  "name": "postal_code",
   "args": null,
   "storageKey": null
 },
 v16 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
+  "name": "postal_area",
   "args": null,
   "storageKey": null
 },
 v17 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
+  "name": "phone",
   "args": null,
   "storageKey": null
 },
 v18 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "comment",
+  "name": "relation_id",
   "args": null,
   "storageKey": null
 },
 v19 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "submit_date",
+  "name": "node_name",
   "args": null,
   "storageKey": null
 },
 v20 = [
   (v3/*: any*/),
-  (v13/*: any*/),
-  (v15/*: any*/)
+  (v19/*: any*/)
+],
+v21 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v22 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "first_name",
+  "args": null,
+  "storageKey": null
+},
+v23 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v24 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "comment",
+  "args": null,
+  "storageKey": null
+},
+v25 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "submit_date",
+  "args": null,
+  "storageKey": null
+},
+v26 = [
+  (v3/*: any*/),
+  (v19/*: any*/),
+  (v21/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -339,6 +393,12 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/),
+              (v11/*: any*/),
+              (v12/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -349,11 +409,11 @@ return {
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
-                  (v7/*: any*/),
-                  (v8/*: any*/),
-                  (v9/*: any*/),
-                  (v10/*: any*/),
-                  (v11/*: any*/)
+                  (v13/*: any*/),
+                  (v14/*: any*/),
+                  (v15/*: any*/),
+                  (v16/*: any*/),
+                  (v17/*: any*/)
                 ]
               },
               {
@@ -375,7 +435,7 @@ return {
                     "concreteType": "NIRelationType",
                     "plural": false,
                     "selections": [
-                      (v12/*: any*/),
+                      (v18/*: any*/),
                       (v5/*: any*/),
                       {
                         "kind": "LinkedField",
@@ -385,7 +445,7 @@ return {
                         "args": null,
                         "concreteType": "NINodeHandlerType",
                         "plural": false,
-                        "selections": (v14/*: any*/)
+                        "selections": (v20/*: any*/)
                       },
                       {
                         "kind": "LinkedField",
@@ -395,7 +455,7 @@ return {
                         "args": null,
                         "concreteType": "NINodeHandlerType",
                         "plural": false,
-                        "selections": (v14/*: any*/)
+                        "selections": (v20/*: any*/)
                       }
                     ]
                   }
@@ -410,7 +470,7 @@ return {
                 "concreteType": "CommentType",
                 "plural": true,
                 "selections": [
-                  (v15/*: any*/),
+                  (v21/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -420,12 +480,12 @@ return {
                     "concreteType": "User",
                     "plural": false,
                     "selections": [
-                      (v16/*: any*/),
-                      (v17/*: any*/)
+                      (v22/*: any*/),
+                      (v23/*: any*/)
                     ]
                   },
-                  (v18/*: any*/),
-                  (v19/*: any*/)
+                  (v24/*: any*/),
+                  (v25/*: any*/)
                 ]
               }
             ]
@@ -462,6 +522,12 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/),
+              (v11/*: any*/),
+              (v12/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -472,12 +538,12 @@ return {
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
-                  (v7/*: any*/),
-                  (v8/*: any*/),
-                  (v9/*: any*/),
-                  (v10/*: any*/),
-                  (v11/*: any*/),
-                  (v15/*: any*/)
+                  (v13/*: any*/),
+                  (v14/*: any*/),
+                  (v15/*: any*/),
+                  (v16/*: any*/),
+                  (v17/*: any*/),
+                  (v21/*: any*/)
                 ]
               },
               {
@@ -499,7 +565,7 @@ return {
                     "concreteType": "NIRelationType",
                     "plural": false,
                     "selections": [
-                      (v12/*: any*/),
+                      (v18/*: any*/),
                       (v5/*: any*/),
                       {
                         "kind": "LinkedField",
@@ -509,7 +575,7 @@ return {
                         "args": null,
                         "concreteType": "NINodeHandlerType",
                         "plural": false,
-                        "selections": (v20/*: any*/)
+                        "selections": (v26/*: any*/)
                       },
                       {
                         "kind": "LinkedField",
@@ -519,9 +585,9 @@ return {
                         "args": null,
                         "concreteType": "NINodeHandlerType",
                         "plural": false,
-                        "selections": (v20/*: any*/)
+                        "selections": (v26/*: any*/)
                       },
-                      (v15/*: any*/)
+                      (v21/*: any*/)
                     ]
                   }
                 ]
@@ -535,7 +601,7 @@ return {
                 "concreteType": "CommentType",
                 "plural": true,
                 "selections": [
-                  (v15/*: any*/),
+                  (v21/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -545,16 +611,16 @@ return {
                     "concreteType": "User",
                     "plural": false,
                     "selections": [
-                      (v16/*: any*/),
-                      (v17/*: any*/),
-                      (v15/*: any*/)
+                      (v22/*: any*/),
+                      (v23/*: any*/),
+                      (v21/*: any*/)
                     ]
                   },
-                  (v18/*: any*/),
-                  (v19/*: any*/)
+                  (v24/*: any*/),
+                  (v25/*: any*/)
                 ]
               },
-              (v15/*: any*/)
+              (v21/*: any*/)
             ]
           }
         ]
@@ -565,11 +631,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateOrganizationMutation",
     "id": null,
-    "text": "mutation CreateOrganizationMutation(\n  $input: CreateOrganizationInput!\n) {\n  create_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      incident_management_info\n      addresses {\n        handle_id\n        website\n        street\n        postal_code\n        postal_area\n        phone\n        id\n      }\n      incoming {\n        name\n        relation {\n          relation_id\n          type\n          end {\n            handle_id\n            node_name\n            id\n          }\n          start {\n            handle_id\n            node_name\n            id\n          }\n          id\n        }\n      }\n      comments {\n        id\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateOrganizationMutation(\n  $input: CreateOrganizationInput!\n) {\n  create_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      incident_management_info\n      affiliation_customer\n      affiliation_end_customer\n      affiliation_host_user\n      affiliation_partner\n      affiliation_provider\n      affiliation_site_owner\n      addresses {\n        handle_id\n        website\n        street\n        postal_code\n        postal_area\n        phone\n        id\n      }\n      incoming {\n        name\n        relation {\n          relation_id\n          type\n          end {\n            handle_id\n            node_name\n            id\n          }\n          start {\n            handle_id\n            node_name\n            id\n          }\n          id\n        }\n      }\n      comments {\n        id\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6eebced49a44137cf8539f867977dc38';
+(node/*: any*/).hash = '20374ec29065219bdc855e157a8b9159';
 module.exports = node;

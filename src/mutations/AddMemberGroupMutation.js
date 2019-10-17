@@ -35,8 +35,6 @@ export default function AddMemberGroupMutation(contact, group) {
         mutation,
         variables,
         updater: (proxyStore, data) => {
-            console.log(proxyStore);
-            console.log(data);
             // const payload = proxyStore.get(contact.id, "Contact");
             // contact_node.setValue(contact.first_name, "first_name");
             // contact_node.setValue(contact.last_name, "last_name");

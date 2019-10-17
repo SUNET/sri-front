@@ -32,6 +32,7 @@
         .table-details {
             display: table;
             border-collapse: separate;
+            table-layout: auto;
             width: 100%;
 
             > div:first-of-type {
