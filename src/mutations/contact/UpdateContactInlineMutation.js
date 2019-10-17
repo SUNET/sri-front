@@ -49,8 +49,7 @@ function UpdateContactInlineMutation(contact, organization, group, role) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(errors);
-            console.log(response);
+            console.log(response, errors);
         },
         onError: (errors) => console.error(errors),
         configs: [

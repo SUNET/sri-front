@@ -38,7 +38,6 @@ class OrganizationRow extends React.PureComponent {
 
     render() {
         const organization = this.props.organization;
-        console.log(this.state);
         return (
             <article onClick={(e) => this.props.onClick(e, organization)}>
                 {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <div>{organization.name}</div>}
@@ -50,9 +49,9 @@ class OrganizationRow extends React.PureComponent {
                     <div>
                         {this.state.affiliation_list.map((affiliation, index) => {
                             return (
-                                <>
+                                <span key={index}>
                                     {INPUTS[affiliation].label} {this.state.affiliation_list[index + 1] ? ", " : ""}
-                                </>
+                                </span>
                             );
                         })}
                     </div>

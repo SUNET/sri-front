@@ -27,7 +27,6 @@ class FieldArrayMembersGroup extends React.Component {
         const fieldsNotBlank =
             values.name !== "" && values.organization !== "" && values.email !== "" && values.phone !== "";
 
-        console.log(values, fieldsNotBlank);
         const errors = this.props.errors;
         return !(errors && errors[index] !== undefined) && (fieldsNotBlank && errors === undefined);
     };
