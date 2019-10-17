@@ -18,6 +18,12 @@ const OrganizationDetailsQuery = graphql`
             type
             description
             incident_management_info
+            affiliation_customer
+            affiliation_end_customer
+            affiliation_host_user
+            affiliation_partner
+            affiliation_provider
+            affiliation_site_owner
             addresses {
                 handle_id
                 website

@@ -50,8 +50,7 @@ function CreateContactInlineMutation(first_name, last_name, email, phone, organi
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(errors);
-            console.log(response, environment);
+            console.log(response, errors);
             if (response.create_contact.errors) {
                 return response.create_contact.errors;
             } else {

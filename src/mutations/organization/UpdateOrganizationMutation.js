@@ -20,6 +20,12 @@ const mutation = graphql`
                 handle_id
                 name
                 type
+                affiliation_customer
+                affiliation_end_customer
+                affiliation_host_user
+                affiliation_partner
+                affiliation_provider
+                affiliation_site_owner
                 comments {
                     user {
                         first_name
@@ -40,6 +46,12 @@ export default function UpdateOrganizationMutation(organization, callback) {
             name: organization.name,
             description: organization.description,
             type: organization.type,
+            affiliation_customer: organization.affiliation_customer,
+            affiliation_end_customer: organization.affiliation_end_customer,
+            affiliation_host_user: organization.affiliation_host_user,
+            affiliation_partner: organization.affiliation_partner,
+            affiliation_provider: organization.affiliation_provider,
+            affiliation_site_owner: organization.affiliation_site_owner,
             incident_management_info: organization.incident_management_info,
             relationship_parent_of: organization.relationship_parent_of,
             clientMutationId: ""

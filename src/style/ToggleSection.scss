@@ -16,7 +16,7 @@
         }
 
         .colapse {
-            width: 20%;
+            width: 10%;
             float: right;
             text-align: right;
 
@@ -32,11 +32,11 @@
                 border-bottom: 2px solid $complementary-color;
                 border-right: 2px solid $complementary-color;
                 vertical-align: middle;
-                transform: rotate(45deg);
+                transform: rotate(-135deg);
             }
 
             &[aria-expanded='false']:after {
-                transform: rotate(-45deg);
+                transform: rotate(45deg);
             }
         }
     }

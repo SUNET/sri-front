@@ -1,0 +1,57 @@
+@import "../variables.scss";
+
+.field-array-checkbox {
+    * {
+        box-sizing: border-box;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    li {
+        position: relative;
+        list-style: none;
+        display: inline-block;
+        margin: 2px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .InputList{
+        ul{
+            li{
+                background-color: $complementary-color;
+                color: white;
+                font-family: karla;
+                padding: 6px 8px;
+                border-radius: 13px;
+            }
+        }
+    }
+    .checkedInputs {
+        margin-bottom: 8px;
+        ul{
+            li{
+                font-size: 14px;
+                color: $secondary-color;
+                border-radius: 16px;
+                border: solid 1px $secondary-color-20;
+                padding: 8px 16px 8px 8px;
+                background: none;
+
+                &:before {
+                    content: '\00D7';
+                    z-index: 2;
+                    text-align: center;
+                    line-height: 1;
+                    font-size: 0.7rem;
+                    margin-right: 6px;
+                    vertical-align: middle;
+                    color: $secondary-color-30;
+                }
+            }
+        }
+    }
+}
