@@ -55,7 +55,7 @@
             "actions.copy-all": "Copy all",
             "contact-details.notes": "Notes",
             "contact-details.general-information": "General information",
-            "contact-details.profesional-details": "Profesional details",
+            "contact-details.profesional-details": "Professional details",
             "contact-details.worklog": "Worklog",
             "contact-details.add-notes": "Add notes",
             "contact-details.add-pgp": "Write website",
@@ -76,7 +76,8 @@
             "info.created": "Created",
             "info.last_update": "Last update",
             "worklog.wrote": "wrote",
-            "worklog.add-comment": "Add commnet"
+            "worklog.add-comment": "Add commnet",
+            "worklog.add": "Add"
         }
     }
 }

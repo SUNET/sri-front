@@ -52,12 +52,12 @@ class OrganizationUpdateForm extends React.Component {
                 last_name: addContact.last_name,
                 handle_id: addContact.handle_id,
                 contact_type: addContact.contact_type,
-                role: addContact.roles[0].role_data.handle_id,
+                role: addContact.roles[0] ? addContact.roles[0].role_data.handle_id : undefined,
                 role_obj: addContact.roles[0],
-                role_label: addContact.roles[0].role_data.name,
-                email: addContact.emails[0] ? addContact.emails[0].name : "",
+                role_label: addContact.roles[0] ? addContact.roles[0].role_data.name : undefined,
+                email: addContact.emails[0] ? addContact.emails[0].name : undefined,
                 email_obj: addContact.emails[0] ? addContact.emails[0] : {},
-                phone: addContact.phones[0] ? addContact.phones[0].name : "",
+                phone: addContact.phones[0] ? addContact.phones[0].name : undefined,
                 phone_obj: addContact.phones[0] ? addContact.phones[0] : {},
                 created: true,
                 origin: "new",
@@ -65,7 +65,7 @@ class OrganizationUpdateForm extends React.Component {
                 key: uuidv4()
             };
             if (!this._hasBeenAdded(newContact)) {
-                this.props.dispatch(arrayPush("createOrganization", "contacts", newContact));
+                this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
             }
         }
     };
@@ -257,7 +257,9 @@ class OrganizationUpdateForm extends React.Component {
                                     <h2>{t("organization-details.contacts")}</h2>
                                     <PanelEditable.Consumer>
                                         {(editable) => {
-                                            return editable && <DropdownSearch selection={this.handleSelectedMember} />;
+                                            return (
+                                                editable && <DropdownSearch selection={this.handleSelectedContact} />
+                                            );
                                         }}
                                     </PanelEditable.Consumer>
                                 </ToggleHeading>
@@ -324,7 +326,7 @@ class OrganizationUpdateForm extends React.Component {
                     <Worklog model={organization} refetch={this.refetch} />
                 </section>
                 <div className="text-right mt-4">
-                    <button type="button" onClick={() => this._handleDelete()} className="btn link">
+                    <button type="button" onClick={() => this.props.onDelete()} className="btn link">
                         {t("actions.delete")}
                     </button>
                     <button onClick={() => {}} className="btn primary lg">

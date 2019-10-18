@@ -39,7 +39,7 @@ export class Worklog extends React.Component {
     };
 
     createComment = () => {
-        if (this.state.comment){
+        if (this.state.comment) {
             CreateCommentMutation(this.props.model.handle_id, this.state.comment);
             this.setState({ comment: "" });
             this.props.refetch();
@@ -56,20 +56,22 @@ export class Worklog extends React.Component {
                 <TogglePanel>
                     <div className="worklog">
                         <div>
-                            {model.comments && model.comments.map((comment, index) => {
-                                return (
-                                    <div key={comment.id}>
-                                        <header>
-                                            <div>
-                                                {comment.user.first_name} {comment.user.last_name} {t("worklog.wrote")}:
-                                            </div>
-                                            <div>{this.formatDate(comment.submit_date)}</div>
-                                        </header>
-                                        <div>{comment.comment}</div>
-                                        <hr />
-                                    </div>
-                                );
-                            })}
+                            {model.comments &&
+                                model.comments.map((comment, index) => {
+                                    return (
+                                        <div key={comment.id}>
+                                            <header>
+                                                <div>
+                                                    {comment.user.first_name} {comment.user.last_name}{" "}
+                                                    {t("worklog.wrote")}:
+                                                </div>
+                                                <div>{this.formatDate(comment.submit_date)}</div>
+                                            </header>
+                                            <div>{comment.comment}</div>
+                                            <hr />
+                                        </div>
+                                    );
+                                })}
                             <Form.Group controlId="textarea">
                                 <Form.Control
                                     as="textarea"
@@ -83,7 +85,7 @@ export class Worklog extends React.Component {
                             </Form.Group>
                             <div className="actions">
                                 <Button type="button" onClick={() => this.createComment()} className="secundary">
-                                    {t("actions.send")}
+                                    {t("worklog.add")}
                                 </Button>
                             </div>
                         </div>

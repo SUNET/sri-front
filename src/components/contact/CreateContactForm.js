@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Col } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
@@ -247,7 +248,7 @@ class CreateContactForm extends React.Component {
                         type="button"
                         className="mr-2 btn link"
                         onClick={() => {
-                            this.props.history.goBack();
+                            this.props.history.push("/community/contacts");
                         }}
                     >
                         Cancel
@@ -358,4 +359,4 @@ CreateContactForm = reduxForm({
     }
 })(CreateContactForm);
 
-export default withTranslation()(CreateContactForm);
+export default withTranslation()(withRouter(CreateContactForm));
