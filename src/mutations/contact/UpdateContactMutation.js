@@ -113,13 +113,24 @@ export default function UpdateContactMutation(contact, callback) {
                 Object.keys(organizations).forEach((organization_key) => {
                     let organization = organizations[organization_key];
                     if (organization.status === "saved") {
-                        DeleteRelationshMutation(organization.role_obj.relation_id);
-                        UpdateContactInlineMutation(
-                            response.update_contact.contact,
-                            organization.organization,
-                            null,
-                            organization.role
-                        );
+                        if (organization.origin === "store") {
+                            if (organization.role_obj) {
+                                DeleteRelationshMutation(organization.role_obj.relation_id);
+                            }
+                            UpdateContactInlineMutation(
+                                response.update_contact.contact,
+                                organization.organization,
+                                null,
+                                organization.role
+                            );
+                        } else {
+                            UpdateContactInlineMutation(
+                                response.update_contact.contact,
+                                organization.organization,
+                                null,
+                                organization.role
+                            );
+                        }
                     } else if (organization.status === "remove") {
                         DeleteRelationshMutation(organization.role_obj.relation_id);
                     }

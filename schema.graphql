@@ -1738,18 +1738,25 @@ type Query {
   getContactEmailRelations(contact_id: Int!, email_id: Int!): [NIRelationType]
   getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]
   getOrganizationAddressRelations(organization_id: Int!, address_id: Int!): [NIRelationType]
+  all_groups: [Group]
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
   getGroupById(handle_id: Int): Group
+  all_addresss: [Address]
   addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): AddressConnection
   getAddressById(handle_id: Int): Address
+  all_phones: [Phone]
   phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): PhoneConnection
   getPhoneById(handle_id: Int): Phone
+  all_emails: [Email]
   emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): EmailConnection
   getEmailById(handle_id: Int): Email
+  all_contacts: [Contact]
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
   getContactById(handle_id: Int): Contact
+  all_organizations: [Organization]
   organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): OrganizationConnection
   getOrganizationById(handle_id: Int): Organization
+  all_procedures: [Procedure]
   procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
   getProcedureById(handle_id: Int): Procedure
 }

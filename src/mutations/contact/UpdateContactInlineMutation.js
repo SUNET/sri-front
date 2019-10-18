@@ -39,9 +39,9 @@ function UpdateContactInlineMutation(contact, organization, group, role) {
             first_name: contact.first_name,
             last_name: contact.last_name,
             contact_type: contact.contact_type.toLowerCase(),
-            relationship_works_for: organization,
-            relationship_member_of: group,
-            role: role,
+            relationship_works_for: organization ? organization : "",
+            // relationship_member_of: group ? group : "",
+            role: role ? role : "",
             clientMutationId: tempID++
         }
     };
