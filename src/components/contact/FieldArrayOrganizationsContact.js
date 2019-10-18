@@ -58,7 +58,7 @@ class FieldArrayOrganizationsContact extends React.Component {
     };
 
     saveLabel = (event, index) => {
-        const input_label = event.target.options[event.target.value].text;
+        const input_label = event.target.options[event.target.selectedIndex].text;
         const input_name = event.target.name.split(".")[1];
         this.props.dispatch(change(this.props.meta.form, `organizations[${index}].${input_name}_label`, input_label));
     };

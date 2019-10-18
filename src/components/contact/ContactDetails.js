@@ -94,7 +94,6 @@ class ContactDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        this.contact = props.getContactById;
                         return (
                             <section className="model-details">
                                 <ContactUpdateFormContainer

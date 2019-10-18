@@ -113,13 +113,24 @@ export default function UpdateContactMutation(contact, callback) {
                 Object.keys(organizations).forEach((organization_key) => {
                     let organization = organizations[organization_key];
                     if (organization.status === "saved") {
-                        DeleteRelationshMutation(organization.role_obj.relation_id);
-                        UpdateContactInlineMutation(
-                            response.update_contact.contact,
-                            organization.organization,
-                            null,
-                            organization.role
-                        );
+                        if (organization.origin === "store") {
+                            if (organization.role_obj) {
+                                DeleteRelationshMutation(organization.role_obj.relation_id);
+                            }
+                            UpdateContactInlineMutation(
+                                response.update_contact.contact,
+                                organization.organization,
+                                null,
+                                organization.role
+                            );
+                        } else {
+                            UpdateContactInlineMutation(
+                                response.update_contact.contact,
+                                organization.organization,
+                                null,
+                                organization.role
+                            );
+                        }
                     } else if (organization.status === "remove") {
                         DeleteRelationshMutation(organization.role_obj.relation_id);
                     }
@@ -128,7 +139,7 @@ export default function UpdateContactMutation(contact, callback) {
             }
         },
         updater: (proxyStore, data) => {
-            // const payload = proxyStore.get(contact.id, "Contact");
+            // const payload = proxyStore.get(contact.id, "update_contact");
             // contact_node.setValue(contact.first_name, "first_name");
             // contact_node.setValue(contact.last_name, "last_name");
             // contact_node.setValue(contact.email, "email");

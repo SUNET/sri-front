@@ -128,7 +128,7 @@ function CreateOrganizationMutation(organization, callback) {
                     }
                 });
 
-                callback.push("/community/organizations/" + organization_id);
+                callback.push("/community/organizations");
             }
         },
         onError: (errors) => console.error(errors),
