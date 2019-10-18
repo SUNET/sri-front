@@ -18,15 +18,11 @@ const DropdownQuery = graphql`
     }
 `;
 
-const DropdownOrganizationsQuery = graphql`
-    query DropdownOrganizationsQuery {
-        organizations(orderBy: handle_id_ASC) {
-            edges {
-                node {
-                    handle_id
-                    name
-                }
-            }
+const DropdownOrganizationsAllQuery = graphql`
+    query DropdownOrganizationsAllQuery {
+        all_organizations {
+            handle_id
+            node_name
         }
     }
 `;
@@ -75,11 +71,21 @@ class Dropdown extends React.PureComponent {
         });
     };
 
+    renderOptionsModelOptimized = (options) => {
+        return options.map((option) => {
+            return (
+                <option key={option.handle_id} value={option.handle_id}>
+                    {option.node_name}
+                </option>
+            );
+        });
+    };
+
     render() {
         let dropdownQuery = undefined;
         switch (this.props.model) {
             case "organization":
-                dropdownQuery = DropdownOrganizationsQuery;
+                dropdownQuery = DropdownOrganizationsAllQuery;
                 break;
             case "roles":
                 dropdownQuery = DropdownRolesQuery;
@@ -125,9 +131,9 @@ class Dropdown extends React.PureComponent {
                                             {this.props.emptyLabel}
                                         </option>
                                     )}
-                                    {this.props.model !== undefined
-                                        ? this.renderOptionsModel(options)
-                                        : this.renderOptions(options)}
+                                    {this.props.model === "organization" && this.renderOptionsModelOptimized(options)}
+                                    {this.props.model === "roles" && this.renderOptionsModel(options)}
+                                    {this.props.model === undefined && this.renderOptions(options)}
                                 </Field>
                             );
                         }
