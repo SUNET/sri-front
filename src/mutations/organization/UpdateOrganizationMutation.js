@@ -7,7 +7,6 @@ import CreateContactInlineMutation from "../contact/CreateContactInlineMutation"
 import UpdateEmailMutation from "../UpdateEmailMutation";
 import UpdatePhoneMutation from "../UpdatePhoneMutation";
 import DeleteRelationshMutation from "../DeleteRelationshMutation";
-import RelationshipGroupContactQuery from "../RelationshipGroupContactQuery";
 
 const mutation = graphql`
     mutation UpdateOrganizationMutation($input: UpdateOrganizationInput!) {
@@ -95,7 +94,7 @@ export default function UpdateOrganizationMutation(organization, callback) {
                             UpdatePhoneMutation(contact.handle_id, contact.phone, contact.phone_obj);
                         }
                     } else if (contact.status === "remove") {
-                        RelationshipGroupContactQuery(organization.id, contact.handle_id, DeleteRelationshMutation);
+                        DeleteRelationshMutation(contact.role_relation_id);
                     }
                 });
                 callback.push("/community/organizations/" + organization.id);
