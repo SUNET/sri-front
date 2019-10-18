@@ -72,6 +72,7 @@ function CreateContactMutation(contact, callback) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
+            console.log(response, errors);
             if (response.create_contact.errors) {
                 return response.create_contact.errors;
             } else {

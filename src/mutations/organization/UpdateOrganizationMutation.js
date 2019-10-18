@@ -86,7 +86,9 @@ export default function UpdateOrganizationMutation(organization, callback) {
                             if (contact.origin === "store") {
                                 DeleteRelationshMutation(contact.role_relation_id);
                             } else if (contact.origin === "new") {
-                                DeleteRelationshMutation(contact.role_obj.relation_id);
+                                if (contact.role_obj.relation_id) {
+                                    DeleteRelationshMutation(contact.role_obj.relation_id);
+                                }
                             }
                             UpdateContactInlineMutation(contact, organization.id, null, contact.role);
                             UpdateEmailMutation(contact.handle_id, contact.email, contact.email_obj);

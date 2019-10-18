@@ -9,7 +9,7 @@ const mapStateToProps = (state, props) => {
         name: props.group.name,
         description: props.group.description,
         members:
-            props.members.length > 0
+            props.members
                 ? props.members.map((member) => {
                       const member_node = member.contact;
                       return {

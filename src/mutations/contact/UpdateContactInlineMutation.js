@@ -40,7 +40,7 @@ function UpdateContactInlineMutation(contact, organization, group, role) {
             last_name: contact.last_name,
             contact_type: contact.contact_type.toLowerCase(),
             relationship_works_for: organization,
-            relationship_member_of: group,
+            relationship_member_of: group ? group : "",
             role: role,
             clientMutationId: tempID++
         }
