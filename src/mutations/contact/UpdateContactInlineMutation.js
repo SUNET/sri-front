@@ -15,8 +15,22 @@ const mutation = graphql`
                 first_name
                 last_name
                 contact_type
-                roles {
+                emails {
+                    handle_id
                     name
+                    type
+                }
+                phones {
+                    handle_id
+                    name
+                    type
+                }
+                roles {
+                    relation_id
+                    role_data {
+                        handle_id
+                        name
+                    }
                     end {
                         handle_id
                         name
@@ -32,16 +46,16 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function UpdateContactInlineMutation(contact, organization, group, role) {
+function UpdateContactInlineMutation(contact, organization_id, group_id, role_id) {
     const variables = {
         input: {
             handle_id: contact.handle_id,
             first_name: contact.first_name,
             last_name: contact.last_name,
             contact_type: contact.contact_type.toLowerCase(),
-            relationship_works_for: organization ? organization : "",
-            // relationship_member_of: group ? group : "",
-            role: role ? role : "",
+            relationship_works_for: organization_id ? organization_id : "",
+            relationship_member_of: group_id ? group_id : "",
+            role: role_id ? role_id : "",
             clientMutationId: tempID++
         }
     };

@@ -63,7 +63,7 @@ class FieldArrayMembersGroup extends React.Component {
     };
 
     saveLabel = (event, index) => {
-        const organization_label = event.target.options[event.target.value].text;
+        const organization_label = event.target.options[event.target.selectedIndex].text;
         this.props.dispatch(change(this.props.meta.form, `members[${index}].organization_label`, organization_label));
     };
 

@@ -41,8 +41,8 @@ const mapStateToProps = (state, props) => {
             ? props.contact.roles.map((role) => {
                   const role_node = role.role_data;
                   return {
-                      role: role_node.handle_id,
-                      role_label: role_node.name,
+                      role: role_node ? role_node.handle_id : "",
+                      role_label: role_node ? role_node.name : "",
                       role_obj: role,
                       organization: role.end.handle_id,
                       organization_label: role.end.name,

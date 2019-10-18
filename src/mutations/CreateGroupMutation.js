@@ -53,7 +53,7 @@ function CreateGroupMutation(group, callback) {
                     let member = members[member_key];
                     if (!member.created || member.created === undefined) {
                         let fullName = member.name;
-                        if (fullName.includes(' ')) {
+                        if (fullName.includes(" ")) {
                             fullName = fullName.split(" ");
                             member.first_name = fullName[0];
                             member.last_name = fullName[1];
@@ -77,7 +77,7 @@ function CreateGroupMutation(group, callback) {
                         UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
                     }
                 });
-                callback.push("/community/groups/" + group_id);
+                callback.push("/community/groups");
             }
         },
         onError: (errors) => console.error(errors),

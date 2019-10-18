@@ -139,7 +139,7 @@ export default function UpdateContactMutation(contact, callback) {
             }
         },
         updater: (proxyStore, data) => {
-            // const payload = proxyStore.get(contact.id, "Contact");
+            // const payload = proxyStore.get(contact.id, "update_contact");
             // contact_node.setValue(contact.first_name, "first_name");
             // contact_node.setValue(contact.last_name, "last_name");
             // contact_node.setValue(contact.email, "email");
