@@ -37,28 +37,29 @@ class GroupUpdateForm extends React.Component {
 
     handleSelectedMember = (selection) => {
         if (selection !== null) {
-            const addMember = { ...selection.node };
-            const newMember = {
-                name: addMember.name,
-                first_name: addMember.first_name,
-                last_name: addMember.last_name,
-                handle_id: addMember.handle_id,
-                contact_type: addMember.contact_type,
-                organization: addMember.roles[0] ? addMember.roles[0].end.handle_id : "",
-                organization_obj: addMember.roles[0] ? addMember.roles[0].end : {},
-                organization_label: addMember.roles[0] ? addMember.roles[0].end.name : "",
-                email: addMember.emails[0] ? addMember.emails[0].name : "",
-                email_obj: addMember.emails[0] ? addMember.emails[0] : {},
-                phone: addMember.phones[0] ? addMember.phones[0].name : "",
-                phone_obj: addMember.phones[0] ? addMember.phones[0] : {},
-                created: true,
-                origin: "new",
-                status: "saved",
-                key: uuidv4()
-            };
-            if (!this._hasBeenAdded(newMember)) {
-                this.props.dispatch(arrayPush("updateGroup", "members", newMember));
-            }
+            this.props.getContact(selection.handle_id).then((member) => {
+                const newMember = {
+                    name: member.name,
+                    first_name: member.first_name,
+                    last_name: member.last_name,
+                    handle_id: member.handle_id,
+                    contact_type: member.contact_type,
+                    organization: member.roles[0] ? member.roles[0].end.handle_id : "",
+                    organization_obj: member.roles[0] ? member.roles[0].end : {},
+                    organization_label: member.roles[0] ? member.roles[0].end.name : "",
+                    email: member.emails[0] ? member.emails[0].name : "",
+                    email_obj: member.emails[0] ? member.emails[0] : {},
+                    phone: member.phones[0] ? member.phones[0].name : "",
+                    phone_obj: member.phones[0] ? member.phones[0] : {},
+                    created: true,
+                    origin: "new",
+                    status: "saved",
+                    key: uuidv4()
+                };
+                if (!this._hasBeenAdded(newMember)) {
+                    this.props.dispatch(arrayPush(this.props.form, "members", newMember));
+                }
+            });
         }
     };
 

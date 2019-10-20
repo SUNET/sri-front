@@ -45,28 +45,29 @@ class OrganizationUpdateForm extends React.Component {
 
     handleSelectedContact = (selection) => {
         if (selection !== null) {
-            const addContact = { ...selection.node };
-            const newContact = {
-                name: addContact.name,
-                first_name: addContact.first_name,
-                last_name: addContact.last_name,
-                handle_id: addContact.handle_id,
-                contact_type: addContact.contact_type,
-                role: addContact.roles[0] ? addContact.roles[0].role_data.handle_id : undefined,
-                role_obj: addContact.roles[0],
-                role_label: addContact.roles[0] ? addContact.roles[0].role_data.name : undefined,
-                email: addContact.emails[0] ? addContact.emails[0].name : undefined,
-                email_obj: addContact.emails[0] ? addContact.emails[0] : {},
-                phone: addContact.phones[0] ? addContact.phones[0].name : undefined,
-                phone_obj: addContact.phones[0] ? addContact.phones[0] : {},
-                created: true,
-                origin: "new",
-                status: "saved",
-                key: uuidv4()
-            };
-            if (!this._hasBeenAdded(newContact)) {
-                this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
-            }
+            this.props.getContact(selection.handle_id).then((contact) => {
+                const newContact = {
+                    name: contact.name,
+                    first_name: contact.first_name,
+                    last_name: contact.last_name,
+                    handle_id: contact.handle_id,
+                    contact_type: contact.contact_type,
+                    role: contact.roles[0] ? contact.roles[0].role_data.handle_id : "",
+                    role_obj: contact.roles[0],
+                    role_label: contact.roles[0] ? contact.roles[0].role_data.name : "",
+                    email: contact.emails[0] ? contact.emails[0].name : "",
+                    email_obj: contact.emails[0] ? contact.emails[0] : {},
+                    phone: contact.phones[0] ? contact.phones[0].name : "",
+                    phone_obj: contact.phones[0] ? contact.phones[0] : {},
+                    created: true,
+                    origin: "new",
+                    status: "saved",
+                    key: uuidv4()
+                };
+                if (!this._hasBeenAdded(newContact)) {
+                    this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
+                }
+            });
         }
     };
 
