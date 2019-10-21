@@ -129,7 +129,14 @@ class GroupUpdateForm extends React.Component {
                                     <h2>{t("group-details.members")}</h2>
                                     <PanelEditable.Consumer>
                                         {(editable) => {
-                                            return editable && <DropdownSearch selection={this.handleSelectedMember} />;
+                                            return (
+                                                editable && (
+                                                    <DropdownSearch
+                                                        selection={this.handleSelectedMember}
+                                                        placeholder={t("search-filter.search-member")}
+                                                    />
+                                                )
+                                            );
                                         }}
                                     </PanelEditable.Consumer>
                                 </ToggleHeading>

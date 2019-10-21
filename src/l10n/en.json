@@ -77,7 +77,9 @@
             "info.last_update": "Last update",
             "worklog.wrote": "wrote",
             "worklog.add-comment": "Add commnet",
-            "worklog.add": "Add"
+            "worklog.add": "Add",
+            "search-filter.search-member": "Search member",
+            "search-filter.search-contact": "Search contact"
         }
     }
 }

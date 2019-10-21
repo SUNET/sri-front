@@ -95,7 +95,10 @@ class CreateGroupForm extends React.Component {
                                 <ToggleSection defaultEditable={false}>
                                     <ToggleHeading>
                                         <h2>{t("group-details.members")}</h2>
-                                        <DropdownSearch selection={this.handleSelectedMember} />
+                                        <DropdownSearch
+                                            selection={this.handleSelectedMember}
+                                            placeholder={t("search-filter.search-member")}
+                                        />
                                     </ToggleHeading>
                                     <TogglePanel>
                                         <div className="table-details">

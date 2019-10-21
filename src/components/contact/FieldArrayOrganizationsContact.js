@@ -27,7 +27,7 @@ class FieldArrayOrganizationsContact extends React.Component {
     };
 
     addRow = (event) => {
-        if (this.props.fields.length < 5) {
+        if (this.props.fields.length < 10) {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
         }
     };

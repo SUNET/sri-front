@@ -102,19 +102,7 @@ const ControllerButton = styled("button")({
 });
 
 function ArrowIcon({ isOpen }) {
-    return (
-        <svg
-            viewBox="0 0 20 20"
-            preserveAspectRatio="none"
-            width={16}
-            fill="transparent"
-            stroke="#979797"
-            strokeWidth="1.1px"
-            transform={isOpen ? "rotate(180)" : undefined}
-        >
-            <path d="M1,6 L10,15 L19,6" />
-        </svg>
-    );
+    return <i class="icon-arrow" transform={isOpen ? "rotate(180)" : undefined}></i>;
 }
 
 function XIcon() {

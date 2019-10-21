@@ -30,7 +30,7 @@ class FieldArrayMembersGroup extends React.Component {
     };
 
     addRow = (event) => {
-        if (this.props.fields.length < 5) {
+        if (this.props.fields.length < 20) {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
         }
     };

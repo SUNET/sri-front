@@ -50,7 +50,6 @@ hr {
     margin: 24px 0;
 }
 
-::placeholder,
 h1,
 h2,
 h3,
@@ -71,6 +70,10 @@ h2 {
 h3 {
     font-size: inherit;
     font-weight: normal;
+}
+
+::placeholder{
+    font-family: 'Montserrat', sans-serif;
 }
 
 ::placeholder,
