@@ -5,7 +5,7 @@ import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 import { FieldArray, Field, reduxForm, change } from "redux-form";
 import InfoCreatorModifier from "../InfoCreatorModifier";
@@ -38,7 +38,7 @@ const renderEmails = ({ fields, meta, t, editable, dispatch }) => {
             {fields.map((email, index) =>
                 editable ? (
                     <div key={index} className={values[index].status === "remove" ? "d-none" : "input-group"}>
-                        <Form.Group className="d-inline">
+                        <Form.Group>
                             <Field name={`${email}.email`} type="text" component={FieldInput} placeholder="Email" />
                         </Form.Group>
                         <Dropdown
@@ -49,7 +49,7 @@ const renderEmails = ({ fields, meta, t, editable, dispatch }) => {
                             onChange={(e) => {}}
                         />
                         <div>
-                            <FontAwesomeIcon icon={faTrash} onClick={() => removeRow(index)} />
+                            <i className="icon-trash" onClick={() => removeRow(index)}></i>
                         </div>
                     </div>
                 ) : (
@@ -93,7 +93,7 @@ const renderPhones = ({ fields, meta, t, editable, dispatch }) => {
             {fields.map((phone, index) =>
                 editable ? (
                     <div key={index} className={values[index].status === "remove" ? "d-none" : "input-group"}>
-                        <Form.Group className="d-inline">
+                        <Form.Group>
                             <Field
                                 className="auto"
                                 name={`${phone}.phone`}
@@ -110,7 +110,7 @@ const renderPhones = ({ fields, meta, t, editable, dispatch }) => {
                             onChange={(e) => {}}
                         />
                         <div>
-                            <FontAwesomeIcon icon={faTrash} onClick={() => removeRow(index)} />
+                            <i className="icon-trash" onClick={() => removeRow(index)}></i>
                         </div>
                     </div>
                 ) : (

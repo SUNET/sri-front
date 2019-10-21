@@ -1,11 +1,21 @@
 @import "../variables.scss";
 
 .filter {
-    align-items: center;
-    display: -ms-flexbox;/* IE10 */
-    display: inline-flex;
     position: relative;
-    margin-right: 25px;
+    margin-right: 16px;
+    display: inline-block;
+
+    &:before {
+        display: inline-block;
+        content: "\e90b";
+        font-family: "sunet-icons";
+        color: $complementary-color;
+        position: absolute;
+        font-size: 20px;
+        left: 14px;
+        top: 4px;
+    }
+
     input {
         width: 204px;
         border-radius: 20px;
@@ -13,12 +23,5 @@
         height: 32px;
         padding: 0 10px 0 40px;
         font-size: 14px;
-    }
-
-    span {
-        position: absolute;
-        left: 14px;
-        color: $complementary-color;
-        text-align: center;
     }
 }

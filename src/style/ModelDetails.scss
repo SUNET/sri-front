@@ -9,11 +9,10 @@
         }
 
         svg {
-            vertical-align: middle;
-
-            &:first-of-type {
-                margin: 0 8px;
-            }
+            vertical-align: initial;
+            color: $complementary-color;
+            margin-left: 8px;
+            font-size: 11px;
         }
     }
 
@@ -43,11 +42,13 @@
 
                 > div {
                     display: table-cell;
-                    &:not(.with-icon){
+
+                    &:not(.with-icon) {
                         padding-bottom: 8px;
                     }
-                    &.with-icon{
-                        > span{
+
+                    &.with-icon {
+                        > span {
                             margin-right: 8px;
                         }
                     }
@@ -69,12 +70,45 @@
 
                         &.col-actions {
                             text-align: right;
-                            padding: 0;
+                            padding: 16px 0 0;
                             width: auto;
+
+                            .btn {
+                                padding-right: 0;
+                            }
                         }
-                        &.actions{
-                            width: 120px;
+
+                        &.actions {
+                            padding: 0;
+                            width: 100px;
                             text-align: right;
+                            color: $secondary-color-30;
+
+                            > div {
+                                display: table;
+                                width: 100%;
+
+                                > div {
+                                    display: table-cell;
+                                    vertical-align: middle;
+                                }
+
+                                div:first-of-type {}
+
+                                div:last-of-type {
+                                    width: 50px;
+                                }
+                            }
+
+                            .icon-pencil {
+                                font-size: 18px;
+                            }
+
+                            .icon-tick {
+                                margin-right: 1px;
+                                vertical-align: middle;
+                                color: $secondary-color-20;
+                            }
                         }
                     }
                 }
@@ -82,8 +116,16 @@
 
             .list-items-label {
                 display: table;
+
                 > div {
                     display: table-row;
+
+                    &:first-of-type {
+                        > div:first-of-type {
+                            padding-top: 0;
+                        }
+                    }
+
                     > div:first-of-type {
                         display: table-cell;
                         padding-right: 8px;

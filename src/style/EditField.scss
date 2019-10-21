@@ -1,24 +1,32 @@
 @import "../variables.scss";
 
-.form-group {
+.edit-field {
+    .form-group {
+        .edit-field-title {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Karla', sans-serif;
+            display: inline-block;
+            color: $secondary-color;
+            margin: 0 16px;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background: none;
+            border-bottom: 2px solid $secondary-color-20;
+            vertical-align: middle;
+        }
+    }
 
-    .edit-field-title {
-        font-size: 24px;
-        font-weight: bold;
-        font-family: 'Karla', sans-serif;
-        display: inline-block;
-        color: $secondary-color;
-        margin: 0 16px;
-        padding: 0;
-        border: none;
-        border-radius: 0;
-        background: none;
-        border-bottom: 2px solid $secondary-color-20;
+    .icon-pencil {
+        color: $complementary-color;
+        font-size: 18px;
         vertical-align: middle;
     }
-}
-.error-title{
-    h1{
-        color: $alert-color !important;
+
+    .error-title {
+        h1 {
+            color: $alert-color !important;
+        }
     }
 }

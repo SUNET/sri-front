@@ -2,6 +2,13 @@
 
 .input-group{
     margin-bottom: 8px;
+    display: table;
+    > div {
+        display: table-cell;
+        .icon-trash{
+            color: $secondary-color-30;
+        }
+    }
 }
 
 .form-group {

@@ -34,7 +34,10 @@ img {
     max-width: 100%;
 }
 
-svg:hover, .ok-check{
+.ok-check,
+[class^="icon-"],
+[class*=" icon-"],
+svg:hover {
     cursor: pointer;
 }
 

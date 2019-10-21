@@ -81,13 +81,15 @@ export class ContactList extends React.PureComponent {
             <>
                 {models.contacts.edges.map(({ node }) => {
                     return (
-                        <ContactRow
-                            key={node.handle_id}
-                            contact={node}
-                            onClick={this._handleOnClick}
-                            columnsVisible={this.props.columns_visible}
-                            showAllColumns={this.props.all_columns}
-                        />
+                        node && (
+                            <ContactRow
+                                key={node.handle_id}
+                                contact={node}
+                                onClick={this._handleOnClick}
+                                columnsVisible={this.props.columns_visible}
+                                showAllColumns={this.props.all_columns}
+                            />
+                        )
                     );
                 })}
             </>

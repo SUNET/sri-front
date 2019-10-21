@@ -4,7 +4,7 @@ div.copy-to-clipboard {
     display: inline-block;
     position: relative;
 
-    svg {
+    .icon-copy {
         color: $complementary-color;
         margin-right: 8px;
     }

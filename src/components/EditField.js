@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Field, change } from "redux-form";
 
 import FieldInput from "./FieldInput";
@@ -46,7 +44,7 @@ class EditField extends React.Component {
         const { error, meta } = this.props;
         const has_error = meta && meta.touched && error;
         return (
-            <>
+            <span className="edit-field">
                 <Form.Group className={`${!this.state.editable ? "d-none" : "d-inline"}`}>
                     <Field
                         className="edit-field-title auto"
@@ -62,8 +60,8 @@ class EditField extends React.Component {
                 <span className={`${this.state.editable ? "d-none" : "d-inline"} ${has_error ? "error-title" : ""}`}>
                     {this.props.children}
                 </span>
-                <FontAwesomeIcon icon={faPen} onClick={(e) => this.editField(e)} />
-            </>
+                <i className="icon-pencil" onClick={(e) => this.editField(e)}></i>
+            </span>
         );
     }
 }

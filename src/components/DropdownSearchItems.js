@@ -22,7 +22,7 @@ const Item = styled("li")(
         padding: ".8rem 1.1rem",
         whiteSpace: "normal",
         wordWrap: "normal",
-        zIndex: 999,
+        zIndex: 999
     },
     ({ isActive, isSelected }) => {
         const styles = [];
@@ -41,38 +41,20 @@ const Item = styled("li")(
         return styles;
     }
 );
-const onAttention = "&:hover, &:focus";
 const Input = styled("input")(
     {
         width: "100%", // full width - icon width/2 - border
-        wordWrap: "break-word",
-        outline: 0,
+        fontSize: "14px",
         whiteSpace: "normal",
         background: "#fff",
         display: "inline-block",
-        padding: "1em 2em 1em 1em",
-        color: "rgba(0,0,0,.87)",
+        padding: "6px 16px",
         boxShadow: "none",
-        border: "1px solid rgba(34,36,38,.15)",
-        borderRadius: ".30rem",
-        transition: "box-shadow .1s ease,width .1s ease",
-        [onAttention]: {
-            borderColor: "#96c8da",
-            boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)"
-        }
+        border: "solid 1px rgba(0, 48, 73, 0.2)",
+        borderRadius: "16px"
     },
-    ({ isOpen }) =>
-        isOpen
-            ? {
-                  borderBottomLeftRadius: "0",
-                  borderBottomRightRadius: "0",
-                  [onAttention]: {
-                      boxShadow: "none"
-                  }
-              }
-            : null
+    ({ isOpen }) => (isOpen ? {} : null)
 );
-
 
 const BaseMenu = styled("ul")(
     {
@@ -88,13 +70,13 @@ const BaseMenu = styled("ul")(
         transition: "opacity .1s ease",
         borderRadius: "0 0 .28571429rem .28571429rem",
         boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)",
-        borderColor: "#96c8da",
+        borderColor: "rgba(0, 48, 73, 0.2)",
         borderTopWidth: "0",
         borderRightWidth: 1,
         borderBottomWidth: 1,
         borderLeftWidth: 1,
         borderStyle: "solid",
-        zIndex: 999,
+        zIndex: 999
     },
     ({ isOpen }) => ({
         border: isOpen ? null : "none"
@@ -152,13 +134,4 @@ function XIcon() {
 
 const itemToString = (i) => (i ? i.name : "");
 
-export {
-    Menu,
-    ControllerButton,
-    Input,
-    Item,
-    ArrowIcon,
-    XIcon,
-    css,
-    itemToString,
-};
+export { Menu, ControllerButton, Input, Item, ArrowIcon, XIcon, css, itemToString };

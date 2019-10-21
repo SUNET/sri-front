@@ -79,7 +79,7 @@ class DropdownSearch extends React.Component {
                                 <Input
                                     {...getInputProps({
                                         isOpen,
-                                        placeholder: "Enter a name"
+                                        placeholder: this.props.placeholder
                                     })}
                                 />
                                 {selectedItem ? (
