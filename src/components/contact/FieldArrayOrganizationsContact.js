@@ -6,8 +6,6 @@ import { change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import Dropdown from "../Dropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const refreshFields = () => {
     return { type: "REFRESH_FIELDS" };
@@ -29,7 +27,7 @@ class FieldArrayOrganizationsContact extends React.Component {
     };
 
     addRow = (event) => {
-        if (this.props.fields.length < 5) {
+        if (this.props.fields.length < 10) {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
         }
     };
@@ -116,16 +114,17 @@ class FieldArrayOrganizationsContact extends React.Component {
                         )}
                         <div className="actions">
                             {editable && (
-                                <div className="row">
-                                    <div className="col">
-                                        <FontAwesomeIcon icon={faTrash} onClick={() => this.removeRow(index, values)} />
+                                <div>
+                                    <div>
+                                        <i className="icon-trash" onClick={() => this.removeRow(index, values)}></i>
                                     </div>
-                                    <div className="col">
+                                    <div>
                                         {values[index].status !== "editing" && (
-                                            <FontAwesomeIcon icon={faPen} onClick={() => this.editRow(index)} />
+                                            <i className="icon-pencil" onClick={() => this.editRow(index)}></i>
                                         )}
                                         {values[index].status === "editing" && (
                                             <span className="ok-check" onClick={() => this.saveRow(index)}>
+                                                <i className="icon-tick"></i>
                                                 {t("actions.save")}
                                             </span>
                                         )}
@@ -142,7 +141,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                         <div></div>
                         <div></div>
                         <div className="col-actions">
-                            <button type="button" className="btn link mt-2" onClick={(e) => this.addRow(e)}>
+                            <button type="button" className="btn link add mt-2" onClick={(e) => this.addRow(e)}>
                                 {t("actions.add-new")}
                             </button>
                         </div>

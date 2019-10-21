@@ -24,6 +24,13 @@ $alert-color-75: rgba($alert-color, .75);
     src: url("./static/fonts/Karla/Karla-Regular.ttf");
 }
 
+@font-face {
+    font-family: "sunet-icons";
+    src: url("./static/fonts/Sunet-icons/sunet-icons.ttf");
+}
+
+@import "../static/fonts/Sunet-icons/style.css";
+
 $font: 'Montserrat', sans-serif;
 /*
  * Pretty Checkbox

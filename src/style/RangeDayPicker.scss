@@ -13,11 +13,12 @@
 
         &:after {
             display: inline-block;
-            content: '\f073';
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
+            content: "\e907";
+            font-family: "sunet-icons";
             color: $complementary-color;
             position: relative;
+            font-size: 18px;
+            top: 2px;
             right: 28px;
         }
 
@@ -25,10 +26,10 @@
             width: 110px;
             border-radius: 16px;
             border: solid 1px $secondary-color-20;
-            height: 32px;
-            padding: 0 10px;
+            padding: 6px 10px;
             font-size: 14px;
-            &::placeholder{
+
+            &::placeholder {
                 letter-spacing: -1.5px;
             }
         }

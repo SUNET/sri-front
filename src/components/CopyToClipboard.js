@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
 
 import Tooltip from "./Tooltip";
 import copy from "clipboard-copy";
@@ -48,7 +46,11 @@ class CopyToClipboard extends Component {
                     delayHide={200}
                     tooltipShown={this.state.show}
                 >
-                    <FontAwesomeIcon icon={faCopy} onClick={(e) => this.copyContentToIcon(e)} />
+                    <i className="icon-copy" onClick={(e) => this.copyContentToIcon(e)}>
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                        <span className="path3"></span>
+                    </i>
                     <span className="element-to-copy" onClick={(e) => this.copyContent(e)}>
                         {this.props.children}
                     </span>

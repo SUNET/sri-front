@@ -179,7 +179,10 @@ class CreateOrganizationForm extends React.Component {
                                 <ToggleSection defaultEditable={false}>
                                     <ToggleHeading>
                                         <h2>{t("organization-details.contacts")}</h2>
-                                        <DropdownSearch selection={this.handleSelectedContact} />
+                                        <DropdownSearch
+                                            selection={this.handleSelectedContact}
+                                            placeholder={t("search-filter.search-contact")}
+                                        />
                                     </ToggleHeading>
                                     <TogglePanel>
                                         <div className="table-details">

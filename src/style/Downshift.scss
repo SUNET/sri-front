@@ -1,0 +1,25 @@
+@import "../variables.scss";
+
+.downshift {
+    position: relative;
+    display: inline-block;
+
+    > div:first-of-type {
+        &:before {
+            display: inline-block;
+            content: "\e90b";
+            font-family: "sunet-icons";
+            color: $complementary-color;
+            position: absolute;
+            font-size: 20px;
+            left: 14px;
+            top: 4px;
+        }
+        input {
+            border-radius: 20px;
+            border-width: 1px;
+            height: 32px;
+            padding: 0 10px 0 40px;
+        }
+    }
+}

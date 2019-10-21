@@ -2,11 +2,13 @@ import React from "react";
 import graphql from "babel-plugin-relay/macro";
 import Downshift from "downshift";
 import matchSorter from "match-sorter";
-import { Menu, ControllerButton, Input, Item, ArrowIcon, XIcon, css, itemToString } from "./DropdownSearchItems";
+import { Menu, Input, Item, css, itemToString } from "./DropdownSearchItems";
 
 import { fetchQuery } from "relay-runtime";
 
 import environment from "../createRelayEnvironment";
+
+import "../style/Downshift.scss";
 
 const DropdownSearchAllContactsQuery = graphql`
     query DropdownSearchAllContactsQuery {
@@ -42,12 +44,10 @@ class DropdownSearch extends React.Component {
     };
 
     handleSelectMember = (selection) => {
-        console.log(selection);
         this.props.selection(selection);
     };
 
     render() {
-        console.log(this.state);
         return (
             <div
                 {...css({
@@ -67,15 +67,15 @@ class DropdownSearch extends React.Component {
                         inputValue,
                         highlightedIndex
                     }) => (
-                        <div {...css({ width: 250, margin: "auto" })}>
+                        <div {...css({ margin: "auto" })} className="downshift">
                             <div {...css({ position: "relative" })}>
                                 <Input
                                     {...getInputProps({
                                         isOpen,
-                                        placeholder: "Enter a name"
+                                        placeholder: this.props.placeholder
                                     })}
                                 />
-                                {selectedItem ? (
+                                {/*selectedItem ? (
                                     <ControllerButton onClick={clearSelection} aria-label="clear selection">
                                         <XIcon />
                                     </ControllerButton>
@@ -83,7 +83,7 @@ class DropdownSearch extends React.Component {
                                     <ControllerButton {...getToggleButtonProps()}>
                                         <ArrowIcon isOpen={isOpen} />
                                     </ControllerButton>
-                                )}
+                                )*/}
                             </div>
                             <div {...css({ position: "relative" })}>
                                 <Menu {...getMenuProps({ isOpen })} onClick={clearSelection}>

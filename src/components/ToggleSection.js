@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/ToggleSection.scss";
 
@@ -20,12 +18,12 @@ class ToggleSection extends React.Component {
     static propTypes = {
         defaultEditable: PropTypes.bool,
         handleTogglePanel: PropTypes.func,
-        handleEditPanel: PropTypes.func,
+        handleEditPanel: PropTypes.func
     };
 
     static defaultProps = {
-        defaultEditable: true,
-    }
+        defaultEditable: true
+    };
 
     handleTogglePanel = (event) => {
         this.setState({ visible: !this.state.visible });
@@ -86,10 +84,14 @@ export class ToggleHeading extends React.Component {
                 {this.props.children}
                 {this.props.defaultEditable && (
                     <span className="icon-action" onClick={(e) => this.handleEditPanel(e)}>
-                        <FontAwesomeIcon icon={faPen} />
+                        <i className="icon-pencil"></i>
                     </span>
                 )}
-                <span className="colapse" aria-expanded={this.props['aria-expanded']} onClick={(e) => this.handleTogglePanel(e)}></span>
+                <span
+                    className="colapse"
+                    aria-expanded={this.props["aria-expanded"]}
+                    onClick={(e) => this.handleTogglePanel(e)}
+                ></span>
             </div>
         );
     }

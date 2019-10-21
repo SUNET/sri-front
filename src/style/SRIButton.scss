@@ -47,6 +47,30 @@ button.btn {
     &.link {
         color: $tertiary-color;
         background: none;
+
+        &.add {
+            &:after,
+            &:before {
+                content: "";
+                display: inline-block;
+                background-color: $complementary-color;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                left: 0;
+                transform: translate(-50%, -50%);
+            }
+
+            &:before {
+                height: 10px;
+                width: 2px;
+            }
+
+            &:after {
+                height: 2px;
+                width: 10px;
+            }
+        }
     }
 
     &.outline {
@@ -107,10 +131,8 @@ button.btn {
 
         &.btn-load {
             &:before {
-                display: inline-block;
-                content: '\f2f9';
-                font-family: "Font Awesome 5 Free";
-                font-weight: 900;
+                content: '\e90d';
+                font-family: "sunet-icons";
                 margin-right: 8px;
                 color: $complementary-color;
                 vertical-align: middle;
@@ -119,13 +141,10 @@ button.btn {
 
         &.btn-copy {
             &:before {
-                display: inline-block;
-                content: '\f0c5';
-                font-family: "Font Awesome 5 Free";
-                font-weight: 900;
-                margin-right: 8px;
-                color: $complementary-color;
-                vertical-align: middle;
+                position: relative;
+                top: 3px;
+                margin-right: 4px;
+                content: url("../static/img/copy.svg");
             }
         }
 

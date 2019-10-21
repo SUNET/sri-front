@@ -15,6 +15,7 @@ import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import FieldInput from "../FieldInput";
 import uuidv4 from "uuid/v4";
+import copy from "clipboard-copy";
 
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 
@@ -69,6 +70,13 @@ class OrganizationUpdateForm extends React.Component {
                 }
             });
         }
+    };
+
+    copyAllEmails = () => {
+        const emails = this.props.contactsValues.map((contact) => {
+            return contact.status === "saved" ? contact.email : null;
+        });
+        copy(emails.join(" "));
     };
 
     render() {
@@ -259,7 +267,12 @@ class OrganizationUpdateForm extends React.Component {
                                     <PanelEditable.Consumer>
                                         {(editable) => {
                                             return (
-                                                editable && <DropdownSearch selection={this.handleSelectedContact} />
+                                                editable && (
+                                                    <DropdownSearch
+                                                        selection={this.handleSelectedContact}
+                                                        placeholder={t("search-filter.search-contact")}
+                                                    />
+                                                )
                                             );
                                         }}
                                     </PanelEditable.Consumer>
@@ -272,7 +285,16 @@ class OrganizationUpdateForm extends React.Component {
                                                     <div>
                                                         <div>Name</div>
                                                         <div>Role</div>
-                                                        <div>Email</div>
+                                                        <div className="with-icon">
+                                                            <span>Email</span>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => this.copyAllEmails()}
+                                                                className="btn outline btn-copy"
+                                                            >
+                                                                <span>{t("actions.copy-all")}</span>
+                                                            </button>
+                                                        </div>
                                                         <div>Phone</div>
                                                         <div></div>
                                                     </div>

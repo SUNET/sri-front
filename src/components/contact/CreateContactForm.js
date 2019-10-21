@@ -5,9 +5,6 @@ import { withTranslation } from "react-i18next";
 import { FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-
 import FieldArrayOrganizationsContact from "./FieldArrayOrganizationsContact";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Dropdown from "../Dropdown";
@@ -24,7 +21,7 @@ const renderEmails = ({ fields, t }) => {
         <>
             {fields.map((email, index) => (
                 <div key={index} className="input-group">
-                    <Form.Group className="d-inline">
+                    <Form.Group>
                         <Field name={`${email}.email`} type="text" component={FieldInput} placeholder="Email" />
                     </Form.Group>
                     <Dropdown
@@ -35,7 +32,7 @@ const renderEmails = ({ fields, t }) => {
                         onChange={(e) => {}}
                     />
                     <div>
-                        <FontAwesomeIcon icon={faTrash} onClick={() => fields.remove(index)} />
+                        <i className="icon-trash" onClick={() => fields.remove(index)}></i>
                     </div>
                 </div>
             ))}
@@ -56,7 +53,7 @@ const renderPhones = ({ fields, t }) => {
         <>
             {fields.map((phone, index) => (
                 <div key={index} className="input-group">
-                    <Form.Group className="d-inline">
+                    <Form.Group>
                         <Field
                             className="auto"
                             name={`${phone}.phone`}
@@ -73,7 +70,7 @@ const renderPhones = ({ fields, t }) => {
                         onChange={(e) => {}}
                     />
                     <div>
-                        <FontAwesomeIcon icon={faTrash} onClick={() => fields.remove(index)} />
+                        <i className="icon-trash" onClick={() => fields.remove(index)}></i>
                     </div>
                 </div>
             ))}
