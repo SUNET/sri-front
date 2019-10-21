@@ -2,42 +2,42 @@ import { connect } from "react-redux";
 import GroupUpdateForm from "../components/group/GroupUpdateForm";
 import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
 import uuidv4 from "uuid/v4";
+import { getContact } from "../components/contact/Contact";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("updateGroup");
     const initialValues = {
         name: props.group.name,
         description: props.group.description,
-        members:
-            props.members
-                ? props.members.map((member) => {
-                      const member_node = member.contact;
-                      return {
-                          handle_id: member_node.handle_id,
-                          name: member_node.first_name + " " + member_node.last_name,
-                          contact_type: member_node.contact_type,
-                          organization: member_node.roles[0] ? member_node.roles[0].end.handle_id : "",
-                          organization_label: member_node.roles[0] ? member_node.roles[0].end.name : "",
-                          email: member_node.emails[0] ? member_node.emails[0].name : "",
-                          email_obj: member_node.emails[0],
-                          phone: member_node.phones[0] ? member_node.phones[0].name : "",
-                          phone_obj: member_node.phones[0],
-                          status: "saved",
-                          origin: "store",
-                          created: true
-                      };
-                  })
-                : [
-                      {
-                          name: "",
-                          organization: "",
-                          email: "",
-                          phone: "",
-                          key: uuidv4(),
-                          created: false,
-                          status: "editing"
-                      }
-                  ]
+        members: props.members
+            ? props.members.map((member) => {
+                  const member_node = member.contact;
+                  return {
+                      handle_id: member_node.handle_id,
+                      name: member_node.first_name + " " + member_node.last_name,
+                      contact_type: member_node.contact_type,
+                      organization: member_node.roles[0] ? member_node.roles[0].end.handle_id : "",
+                      organization_label: member_node.roles[0] ? member_node.roles[0].end.name : "",
+                      email: member_node.emails[0] ? member_node.emails[0].name : "",
+                      email_obj: member_node.emails[0],
+                      phone: member_node.phones[0] ? member_node.phones[0].name : "",
+                      phone_obj: member_node.phones[0],
+                      status: "saved",
+                      origin: "store",
+                      created: true
+                  };
+              })
+            : [
+                  {
+                      name: "",
+                      organization: "",
+                      email: "",
+                      phone: "",
+                      key: uuidv4(),
+                      created: false,
+                      status: "editing"
+                  }
+              ]
     };
     return {
         initialValues,
@@ -46,7 +46,8 @@ const mapStateToProps = (state, props) => {
         memberValues: updateGroupSelector(state, "members"),
         formSyncErrors: getFormSyncErrors("updateGroup")(state),
         fields: getFormMeta("updateGroup")(state),
-        refreshFields: state.refreshFields
+        refreshFields: state.refreshFields,
+        getContact: (handle_id) => getContact(handle_id)
     };
 };
 

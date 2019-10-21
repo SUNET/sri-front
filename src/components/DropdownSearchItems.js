@@ -46,6 +46,7 @@ const Input = styled("input")(
         width: "100%", // full width - icon width/2 - border
         fontSize: "14px",
         whiteSpace: "normal",
+        minHeight: "2em",
         background: "#fff",
         display: "inline-block",
         padding: "6px 16px",

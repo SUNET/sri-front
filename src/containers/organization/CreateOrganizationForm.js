@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { getFormMeta, getFormSyncErrors, formValueSelector } from "redux-form";
-
+import { getContact } from "../../components/contact/Contact";
 import CreateOrganizationForm from "../../components/organization/CreateOrganizationForm";
 
 const mapStateToProps = (state, props) => {
@@ -19,7 +19,8 @@ const mapStateToProps = (state, props) => {
             partner: createOrganizationSelector(state, "affiliation_partner"),
             provider: createOrganizationSelector(state, "affiliation_provider"),
             site_owner: createOrganizationSelector(state, "affiliation_site_owner")
-        }
+        },
+        getContact: (handle_id) => getContact(handle_id)
     };
 };
 
