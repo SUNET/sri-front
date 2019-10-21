@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { getFormMeta, getFormSyncErrors, formValueSelector } from "redux-form";
+import { getContact } from "../components/contact/Contact";
 
 import CreateGroupForm from "../components/group/CreateGroupForm";
 
@@ -10,7 +11,8 @@ const mapStateToProps = (state, props) => {
         formSyncErrors: getFormSyncErrors("createGroup")(state),
         memberValues: updateGroupSelector(state, "members"),
         name: updateGroupSelector(state, "name"),
-        refreshFields: state.refreshFields
+        refreshFields: state.refreshFields,
+        getContact: (handle_id) => getContact(handle_id)
     };
 };
 

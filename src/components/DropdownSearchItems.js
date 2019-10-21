@@ -21,8 +21,7 @@ const Item = styled("li")(
         boxShadow: "none",
         padding: ".8rem 1.1rem",
         whiteSpace: "normal",
-        wordWrap: "normal",
-        zIndex: 999,
+        wordWrap: "normal"
     },
     ({ isActive, isSelected }) => {
         const styles = [];
@@ -45,9 +44,12 @@ const onAttention = "&:hover, &:focus";
 const Input = styled("input")(
     {
         width: "100%", // full width - icon width/2 - border
+        fontSize: 14,
         wordWrap: "break-word",
+        lineHeight: "1em",
         outline: 0,
         whiteSpace: "normal",
+        minHeight: "2em",
         background: "#fff",
         display: "inline-block",
         padding: "1em 2em 1em 1em",
@@ -73,6 +75,11 @@ const Input = styled("input")(
             : null
 );
 
+const Label = styled("label")({
+    fontWeight: "bold",
+    display: "block",
+    marginBottom: 10
+});
 
 const BaseMenu = styled("ul")(
     {
@@ -93,8 +100,7 @@ const BaseMenu = styled("ul")(
         borderRightWidth: 1,
         borderBottomWidth: 1,
         borderLeftWidth: 1,
-        borderStyle: "solid",
-        zIndex: 999,
+        borderStyle: "solid"
     },
     ({ isOpen }) => ({
         border: isOpen ? null : "none"
@@ -152,13 +158,4 @@ function XIcon() {
 
 const itemToString = (i) => (i ? i.name : "");
 
-export {
-    Menu,
-    ControllerButton,
-    Input,
-    Item,
-    ArrowIcon,
-    XIcon,
-    css,
-    itemToString,
-};
+export { Menu, ControllerButton, Input, Item, ArrowIcon, XIcon, Label, css, itemToString };

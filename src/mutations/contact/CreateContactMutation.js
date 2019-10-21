@@ -34,7 +34,11 @@ const mutation = graphql`
                     type
                 }
                 roles {
-                    name
+                    relation_id
+                    role_data {
+                        handle_id
+                        name
+                    }
                     end {
                         handle_id
                         name
@@ -99,7 +103,7 @@ function CreateContactMutation(contact, callback) {
                     );
                 });
 
-                callback.push("/community/contacts/" + contact_id);
+                callback.push("/community/contacts");
             }
         },
         onError: (errors) => console.error(errors),

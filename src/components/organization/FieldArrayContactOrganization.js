@@ -66,7 +66,7 @@ class FieldArrayContactsOrganization extends React.Component {
     };
 
     saveLabel = (event, index) => {
-        const role_label = event.target.options[event.target.value].text;
+        const role_label = event.target.options[event.target.selectedIndex].text;
         this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
     };
 
