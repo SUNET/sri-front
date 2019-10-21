@@ -37,13 +37,12 @@ class RangeDayPicker extends React.Component {
     handleFromChange = (from) => {
         // Change the from date and focus the "to" input field
         this.setState({ from }, this.props.dateFrom(from));
-        // this.setState({ from });
     };
 
     handleToChange = (to) => {
         this.setState({ to }, this.showFromMonth, this.props.dateTo(to));
-        // this.setState({ to });
     };
+
     handleResetClick = () => {
         this.setState({ from: undefined, to: undefined }, this.props.resetDate(undefined, undefined));
     };
