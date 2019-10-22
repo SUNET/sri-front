@@ -1,6 +1,10 @@
 @import "../variables.scss";
 /* generic styles for all buttons
 (incl. :hover, :active, :focus and :disabled) */
+button:focus {
+    outline: none;
+}
+
 button.btn {
     line-height: normal;
     position: relative;

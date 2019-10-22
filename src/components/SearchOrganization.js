@@ -30,12 +30,12 @@ class SearchOrganization extends React.Component {
 
         this.state = {
             countList: ITEMS_PER_PAGE,
-            filterValue: "",
+            filterValue: {},
             filterDateType: "created",
             filterDateFrom: "",
             filterDateTo: "",
             filterDate: {},
-            orderBy: "handle_id_DESC"
+            orderBy: { orderBy: "handle_id_DESC" }
         };
     }
 
@@ -44,11 +44,11 @@ class SearchOrganization extends React.Component {
     };
 
     _handleOnChangeFilter = (event) => {
-        this.setState({ filterValue: event.target.value });
+        this.setState({ filterValue: { name_contains: event.target.value } });
     };
 
     _handleOnChangeOrderBy = (orderBy) => {
-        this.setState({ orderBy: orderBy });
+        this.setState({ orderBy: { orderBy: orderBy } });
     };
 
     handleDateTo = (dateTo) => {
@@ -143,12 +143,9 @@ class SearchOrganization extends React.Component {
                                             query={SearchOrganizationAllQuery}
                                             variables={{
                                                 count: ITEMS_PER_PAGE,
-                                                orderBy: this.state.orderBy,
+                                                ...this.state.orderBy,
                                                 filter: {
-                                                    AND: [
-                                                        this.state.filterDate,
-                                                        { name_contains: this.state.filterValue }
-                                                    ]
+                                                    AND: [this.state.filterDate, this.state.filterValue]
                                                 }
                                             }}
                                             render={({ error, props }) => {

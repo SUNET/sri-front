@@ -6,6 +6,29 @@
     border-spacing: 0 5px;
     table-layout: fixed;
 
+    &.default {
+        > div:first-of-type {
+            div {
+                width: 100% !important;
+                height: 32px;
+            }
+        }
+        > div:last-of-type {
+            article {
+                display: table-row;
+                background-color: white;
+                -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
+                -moz-box-shadow: 0 0 4px -1px #d6d6d6;
+                box-shadow: 0 0 4px -1px #d6d6d6;
+
+                > div {
+                    display: table-cell;
+                    height: 54px;
+                }
+            }
+        }
+    }
+
     > div:first-of-type {
         display: table-header-group;
 
@@ -16,7 +39,8 @@
             text-align: left;
             display: table-cell;
 
-            &:first-of-type, &:last-of-type {
+            &:first-of-type,
+            &:last-of-type {
                 width: 45px;
             }
 

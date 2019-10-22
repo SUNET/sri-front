@@ -29,7 +29,7 @@ const DropdownOrganizationsAllQuery = graphql`
 
 const DropdownRolesQuery = graphql`
     query DropdownRolesQuery {
-        roles(orderBy: handle_id_ASC) {
+        roles {
             edges {
                 node {
                     handle_id
@@ -137,7 +137,13 @@ class Dropdown extends React.PureComponent {
                                 </Field>
                             );
                         }
-                        return <div>Loading</div>;
+                        return (
+                            <div>
+                                <select className={this.props.className}>
+                                    <option value="default">{this.props.emptyLabel}</option>
+                                </select>
+                            </div>
+                        );
                     }}
                 />
             </Form.Group>
