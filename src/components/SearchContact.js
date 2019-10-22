@@ -31,12 +31,12 @@ class Search extends React.Component {
 
         this.state = {
             countList: ITEMS_PER_PAGE,
-            filterValue: "",
+            filterValue: {},
             filterDateType: "created",
             filterDateFrom: undefined,
             filterDateTo: undefined,
             filterDate: {},
-            orderBy: "handle_id_DESC"
+            orderBy: {}
         };
     }
 
@@ -45,11 +45,11 @@ class Search extends React.Component {
     };
 
     _handleOnChangeFilter = (event) => {
-        this.setState({ filterValue: event.target.value });
+        this.setState({ filterValue: { name_contains: event.target.value } });
     };
 
     _handleOnChangeOrderBy = (orderBy) => {
-        this.setState({ orderBy: orderBy });
+        this.setState({ orderBy: { orderBy: orderBy } });
     };
 
     handleDateTo = (dateTo) => {
@@ -85,6 +85,19 @@ class Search extends React.Component {
             });
         }
     }
+
+    createTable = () => {
+        let table = [];
+
+        for (let i = 1; i < ITEMS_PER_PAGE; i++) {
+            table.push(
+                <article>
+                    <div></div>
+                </article>
+            );
+        }
+        return table;
+    };
 
     render() {
         return (
@@ -144,12 +157,9 @@ class Search extends React.Component {
                                             query={SearchContactsAllQuery}
                                             variables={{
                                                 count: ITEMS_PER_PAGE,
-                                                orderBy: this.state.orderBy,
+                                                ...this.state.orderBy,
                                                 filter: {
-                                                    AND: [
-                                                        this.state.filterDate,
-                                                        { name_contains: this.state.filterValue }
-                                                    ]
+                                                    AND: [this.state.filterDate, this.state.filterValue]
                                                 }
                                             }}
                                             render={({ error, props }) => {
@@ -164,7 +174,17 @@ class Search extends React.Component {
                                                         />
                                                     );
                                                 }
-                                                return <div>Loading</div>;
+                                                return (
+                                                    <div>
+                                                        {/*<div className="model-list default">
+                                                            <div>
+                                                                <div></div>
+                                                            </div>
+                                                            <div>{this.createTable()}</div>
+                                                        </div>*/}
+                                                        <div>Loading</div>
+                                                    </div>
+                                                );
                                             }}
                                         />
                                     </Col>
