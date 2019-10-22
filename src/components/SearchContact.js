@@ -36,7 +36,7 @@ class Search extends React.Component {
             filterDateFrom: undefined,
             filterDateTo: undefined,
             filterDate: {},
-            orderBy: {}
+            orderBy: { orderBy: "handle_id_DESC" }
         };
     }
 

@@ -35,7 +35,7 @@ class SearchOrganization extends React.Component {
             filterDateFrom: "",
             filterDateTo: "",
             filterDate: {},
-            orderBy: {}
+            orderBy: { orderBy: "handle_id_DESC" }
         };
     }
 
