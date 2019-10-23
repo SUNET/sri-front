@@ -138,11 +138,9 @@ class Dropdown extends React.PureComponent {
                             );
                         }
                         return (
-                            <div>
-                                <select className={this.props.className}>
-                                    <option value="default">{this.props.emptyLabel}</option>
-                                </select>
-                            </div>
+                            <select className={this.props.className}>
+                                <option value="">{this.props.emptyLabel}</option>
+                            </select>
                         );
                     }}
                 />

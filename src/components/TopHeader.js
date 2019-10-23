@@ -3,7 +3,7 @@ import { withTranslation } from "react-i18next";
 import { Dropdown, Form, Nav, Navbar, Image } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/TopHeader.scss";
 
@@ -11,7 +11,7 @@ class TopHeader extends React.Component {
     render() {
         const { t } = this.props;
         return (
-            <header className="">
+            <header>
                 <Navbar id="top-header">
                     <Navbar.Brand as={Link} to="/">
                         {t("header.welcome")}
@@ -33,7 +33,9 @@ class TopHeader extends React.Component {
                     <Nav>
                         <Nav.Item>
                             <Form inline>
-                                <Form.Control type="text" placeholder="Search" className="mr-sm-2" />
+                                <Form.Group className="search-global">
+                                    <Form.Control type="text" placeholder="Search" />
+                                </Form.Group>
                             </Form>
                         </Nav.Item>
                         <Nav.Item>
@@ -41,7 +43,7 @@ class TopHeader extends React.Component {
                                 <Dropdown.Toggle as="span">
                                     <FontAwesomeIcon icon={faBell} />
                                 </Dropdown.Toggle>
-                                <Dropdown.Menu>
+                                <Dropdown.Menu className="dropdown-menu-right">
                                     <Dropdown.Item href="#/notification-1">Notification 1</Dropdown.Item>
                                     <Dropdown.Item href="#/notification-2">Notification 2</Dropdown.Item>
                                     <Dropdown.Item href="#/notification-3">Notification 3</Dropdown.Item>
@@ -51,9 +53,9 @@ class TopHeader extends React.Component {
                         <Nav.Item>
                             <Dropdown>
                                 <Dropdown.Toggle as="span">
-                                    <FontAwesomeIcon icon={faEllipsisV} />
+                                    <i className="icon-more"></i>
                                 </Dropdown.Toggle>
-                                <Dropdown.Menu>
+                                <Dropdown.Menu className="dropdown-menu-right">
                                     <Dropdown.Item href="#/notification-1">Notification 1</Dropdown.Item>
                                     <Dropdown.Item href="#/notification-2">Notification 2</Dropdown.Item>
                                     <Dropdown.Item href="#/notification-3">Notification 3</Dropdown.Item>

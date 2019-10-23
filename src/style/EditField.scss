@@ -2,13 +2,15 @@
 
 .edit-field {
     .form-group {
-        .edit-field-title {
+        margin-right: 8px;
+
+        input.edit-field-title {
             font-size: 24px;
             font-weight: bold;
             font-family: 'Karla', sans-serif;
             display: inline-block;
             color: $secondary-color;
-            margin: 0 16px;
+            margin: 0 4px 0 0;
             padding: 0;
             border: none;
             border-radius: 0;

@@ -27,7 +27,7 @@ class SideNavNetwork extends React.Component {
     render() {
         const { t } = this.props;
         return (
-            <Col sm={2}>
+            <Col sm={2} className="pl-0">
                 <Nav className="flex-column side-nav">
                     <Accordion preExpanded={[this.matchUrl()]}>
                         <AccordionItem uuid="physical">

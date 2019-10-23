@@ -1,11 +1,13 @@
 @import "../variables.scss";
 
-.input-group{
+.input-group {
     margin-bottom: 8px;
     display: table;
+
     > div {
         display: table-cell;
-        .icon-trash{
+
+        .icon-trash {
             color: $secondary-color-30;
         }
     }
@@ -21,9 +23,11 @@
         &.has-error {
             width: fit-content;
 
-            input, select {
-                color: $alert-color-75;
-                border-color: $alert-color;
+            ::placeholder,
+            input,
+            select {
+                color: $alert-color-75 !important;
+                border-color: $alert-color !important;
             }
 
             span {
@@ -45,6 +49,8 @@
         height: 32px;
         border-radius: 16px;
         border: solid 1px $secondary-color-20;
+        background-color: transparent;
+        color: $secondary-color;
         padding: 4px 16px;
 
         &.lg {
@@ -57,6 +63,53 @@
 
         &.auto {
             width: auto;
+        }
+    }
+
+    select {
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("../static/img/arrow.svg");
+        background-repeat: no-repeat, repeat;
+        background-position: right 0.3em top 55%, 0 0;
+        background-size: 10px auto, 100%;
+
+        option:hover {
+            box-shadow: 0 0 10px 100px #1882A8 inset;
+        }
+    }
+
+    select::-ms-expand {
+        display: none;
+        /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+    }
+
+    &.search-global {
+        position: relative;
+
+        &:before {
+            display: inline-block;
+            content: "\e90b";
+            font-family: "sunet-icons";
+            color: $secondary-color-20;
+            position: absolute;
+            font-size: 20px;
+            left: 2px;
+            top: 4px;
+        }
+
+        input {
+            font-family: 'Karla', sans-serif;
+            display: inline-block;
+            color: $secondary-color;
+            border: none;
+            padding-left: 32px;
+            border-radius: 0;
+            background: none;
+            border-bottom: 2px solid $secondary-color-20;
+            vertical-align: middle;
         }
     }
 }

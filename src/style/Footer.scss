@@ -1,6 +1,15 @@
 @import "../variables.scss";
 
 footer {
-    width: 100%;
-    text-align: center;
+    position: relative;
+    font-family: Karla;
+    font-size: 12px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 8px 32px !important;
+    background-color: #efefef;
+    text-align: right;
+    color: #fff;
+    background-color: #051d2a;
 }

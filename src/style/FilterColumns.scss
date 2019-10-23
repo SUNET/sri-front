@@ -2,9 +2,12 @@
 
 .filter-columns {
     display: inline-block;
+
     .dropdown {
         span.dropdown-toggle {
             cursor: pointer;
+            color: $secondary-color-20;
+            font-size: 12px;
 
             &:after {
                 display: none;

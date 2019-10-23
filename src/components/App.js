@@ -31,13 +31,17 @@ class App extends Component {
             <FetchingContext.Provider value={this.props.is_fetching}>
                 <div className="App container">
                     <ConnectedRouter history={history}>
-                        <TopHeader />
+                        <Row>
+                            <Col className="px-0">
+                                <TopHeader />
+                            </Col>
+                        </Row>
                         <Row>
                             <Switch>
                                 <Route path="/network" component={SideNavNetwork} />
                                 <Route path="/community" component={SideNavCommunity} />
                             </Switch>
-                            <Col>
+                            <Col className="fixed-adaptative">
                                 <Row className="mt-4">
                                     <Col>
                                         <Breadcrumbs mappedRoutes={Routes} />
@@ -51,7 +55,11 @@ class App extends Component {
                                 <BaseContainer />
                             </Col>
                         </Row>
-                        <FooterContainer />
+                        <Row>
+                            <Col className="px-0">
+                                <FooterContainer />
+                            </Col>
+                        </Row>
                     </ConnectedRouter>
                 </div>
             </FetchingContext.Provider>
