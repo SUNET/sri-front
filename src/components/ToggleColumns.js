@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
-import { Button, Dropdown, Row, Col } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faFilter } from "@fortawesome/free-solid-svg-icons";
 

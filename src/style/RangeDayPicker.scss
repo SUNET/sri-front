@@ -5,6 +5,7 @@
 
     label {
         margin-right: 8px;
+        font-family: Karla;
     }
 
     .DayPickerInput {
@@ -23,10 +24,10 @@
         }
 
         input {
-            width: 110px;
+            width: 116px;
             border-radius: 16px;
             border: solid 1px $secondary-color-20;
-            padding: 6px 10px;
+            padding: 6px 16px;
             font-size: 14px;
 
             &::placeholder {

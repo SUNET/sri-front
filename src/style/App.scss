@@ -20,10 +20,6 @@ html {
     background-color: $tertiary-color-3;
     font-family: $font;
     color: $secondary-color;
-
-    > div:first-of-type {
-        height: -webkit-fill-available;
-    }
 }
 
 .container {
@@ -72,7 +68,7 @@ h3 {
     font-weight: normal;
 }
 
-::placeholder{
+::placeholder {
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -80,6 +76,11 @@ h3 {
 select[disabled] {
     font-style: italic;
     color: $secondary-color-20 !important;
+}
+
+.padding-r-24 {
+    padding-right: 24px !important;
+    padding-bottom: 4px;
 }
 
 .borderless {

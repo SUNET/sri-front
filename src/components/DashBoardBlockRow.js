@@ -19,7 +19,7 @@ class DashBoardBlockRow extends React.PureComponent {
         let contact = this.props.contact;
         return (
             <article>
-                <Row>dasdfsdf
+                <Row>
                     <Col className="col-md-auto pr-0 align-self-center">
                         <div>
                             <Image src={require("../static/img/profile.png")} roundedCircle img-fluid="true" />

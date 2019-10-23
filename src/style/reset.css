@@ -156,7 +156,7 @@ button:focus,
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     outline: none;
     box-shadow: none !important;
 }

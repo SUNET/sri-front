@@ -4,6 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
+import { withTranslation } from "react-i18next";
 
 import renameKeys from "rename-keys";
 
@@ -86,8 +87,9 @@ class SearchOrganization extends React.Component {
     }
 
     render() {
+        const { t } = this.props;
         return (
-            <section>
+            <section className="mt-3">
                 <Switch>
                     <Route
                         exact
@@ -96,33 +98,35 @@ class SearchOrganization extends React.Component {
                             <>
                                 <Row>
                                     <Col>
-                                        <div className="pretty p-default p-round">
-                                            <input
-                                                type="radio"
-                                                name="filterDateType"
-                                                checked={this.state.filterDateType === "created"}
-                                                value="created"
-                                                onChange={(e) => {
-                                                    this.changeFilterDateType(e);
-                                                }}
-                                            />
-                                            <div className="state p-info-o">
-                                                <label>Created</label>
+                                        <div className="filter-date d-inline">
+                                            <div className="pretty p-default p-round">
+                                                <input
+                                                    type="radio"
+                                                    name="filterDateType"
+                                                    checked={this.state.filterDateType === "created"}
+                                                    value="created"
+                                                    onChange={(e) => {
+                                                        this.changeFilterDateType(e);
+                                                    }}
+                                                />
+                                                <div className="state p-info-o">
+                                                    <label>{t("filter.date.created")}</label>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="pretty p-default p-round">
-                                            <input
-                                                type="radio"
-                                                name="filterDateType"
-                                                checked={this.state.filterDateType === "modified"}
-                                                value="modified"
-                                                onChange={(e) => {
-                                                    this.changeFilterDateType(e);
-                                                }}
-                                            />
-                                            <div className="state p-info-o">
-                                                <label>Updated</label>
+                                            <div className="pretty p-default p-round">
+                                                <input
+                                                    type="radio"
+                                                    name="filterDateType"
+                                                    checked={this.state.filterDateType === "modified"}
+                                                    value="modified"
+                                                    onChange={(e) => {
+                                                        this.changeFilterDateType(e);
+                                                    }}
+                                                />
+                                                <div className="state p-info-o">
+                                                    <label>{t("filter.date.updated")}</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <RangeDayPicker
@@ -178,4 +182,4 @@ class SearchOrganization extends React.Component {
     }
 }
 
-export default withRouter(SearchOrganization);
+export default withTranslation()(withRouter(SearchOrganization));

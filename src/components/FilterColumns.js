@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import { Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 import FieldSwitch from "./FieldSwitch";
 
@@ -38,7 +38,7 @@ class FilterColumns extends React.Component {
                 <Dropdown alignRight>
                     <Dropdown.Toggle as="span">
                         {this.props.type === "order" && <FontAwesomeIcon icon={faFilter} />}
-                        {this.props.type === "hidden-col" && <FontAwesomeIcon icon={faBars} />}
+                        {this.props.type === "hidden-col" && <i className="icon-column"></i>}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {this.props.type === "order" && (

@@ -3,12 +3,17 @@
 .breadcrumb{
     padding-left: 0;
     font-family: karla;
+    font-style: italic;
     background-color: transparent;
     .breadcrumb-item{
         &:not(:first-child){
             &:before {
                 content: ">";
+                color: rgba($secondary-color, .75);
             }
+        }
+        &.active, a{
+            color: rgba($secondary-color, .75);
         }
     }
 }

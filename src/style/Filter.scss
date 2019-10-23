@@ -25,3 +25,20 @@
         font-size: 14px;
     }
 }
+
+.filter-date {
+    .pretty {
+        margin-right: 24px;
+
+        label {
+            text-indent: 16px !important;
+            font-family: Karla;
+
+            &:after,
+            &:before {
+                top: calc((0% - (100% - 18px)) - 8%) !important;
+                font-size: 10px;
+            }
+        }
+    }
+}

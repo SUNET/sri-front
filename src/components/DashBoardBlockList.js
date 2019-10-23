@@ -32,9 +32,10 @@ class DashBoardBlockList extends React.PureComponent {
         let contacts = this.props.contacts;
         return (
             <div>
-                {contacts.contacts.edges.map(({ node }) => (
-                    <DashBoardBlockRow key={node.__id} contact={node} onClick={this._handleOnClick} />
-                ))}
+                {contacts.contacts.edges.map(
+                    ({ node, index }) =>
+                        node && <DashBoardBlockRow key={index} contact={node} onClick={this._handleOnClick} />
+                )}
             </div>
         );
     }
