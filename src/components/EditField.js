@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "react-bootstrap";
-import { Field, change } from "redux-form";
+import { Field, change, touch } from "redux-form";
 
 import FieldInput from "./FieldInput";
 
@@ -31,6 +31,8 @@ class EditField extends React.Component {
         event.preventDefault();
         if (!this.props.error) {
             this.setState({ editable: false });
+        } else {
+            this.props.dispatch(touch(this.props.form, "name"));
         }
     };
 

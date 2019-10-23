@@ -78,9 +78,10 @@ select[disabled] {
     color: $secondary-color-20 !important;
 }
 
-.padding-r-24 {
+.fixed-adaptative {
     padding-right: 24px !important;
     padding-bottom: 4px;
+    min-height: 90vh;
 }
 
 .borderless {

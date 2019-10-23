@@ -23,10 +23,11 @@
         &.has-error {
             width: fit-content;
 
+            ::placeholder,
             input,
             select {
-                color: $alert-color-75;
-                border-color: $alert-color;
+                color: $alert-color-75 !important;
+                border-color: $alert-color !important;
             }
 
             span {

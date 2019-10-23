@@ -159,7 +159,12 @@ class ContactUpdateForm extends React.PureComponent {
                             >
                                 <span>{t("actions.back")}</span>
                             </button>
-                            <EditField error={this.props.formSyncErrors.name} meta={this.props.fields.name}>
+                            <EditField
+                                error={this.props.formSyncErrors.name}
+                                meta={this.props.fields.name}
+                                form={this.props.form}
+                                dispatch={this.props.dispatch}
+                            >
                                 <h1>{name}</h1>
                             </EditField>
                             <FontAwesomeIcon icon={faStar} />

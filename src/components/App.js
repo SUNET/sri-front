@@ -41,7 +41,7 @@ class App extends Component {
                                 <Route path="/network" component={SideNavNetwork} />
                                 <Route path="/community" component={SideNavCommunity} />
                             </Switch>
-                            <Col className="padding-r-24">
+                            <Col className="fixed-adaptative">
                                 <Row className="mt-4">
                                     <Col>
                                         <Breadcrumbs mappedRoutes={Routes} />

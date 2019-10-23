@@ -2,9 +2,14 @@
 
 .model-details {
     .title-section {
+        > button{
+            margin-right: 16px;
+        }
+
         h1 {
             display: inline-block;
-            margin: 0 16px;
+            margin-right: 16px;
+            margin-bottom: 0;
             vertical-align: middle;
         }
 
