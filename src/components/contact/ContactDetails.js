@@ -40,6 +40,7 @@ const ContactDetailsQuery = graphql`
                 end {
                     handle_id
                     name
+                    customer_id
                 }
             }
             created
@@ -74,7 +75,7 @@ class ContactDetails extends React.Component {
 
     handleSubmit = (contact) => {
         contact.id = this.props.match.params.contactId;
-        UpdateContactMutation(contact, this.props.history);
+        UpdateContactMutation(contact);
     };
 
     handleDelete = () => {

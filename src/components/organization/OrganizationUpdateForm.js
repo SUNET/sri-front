@@ -84,8 +84,8 @@ class OrganizationUpdateForm extends React.Component {
             organization,
             name,
             type,
+            customer_id,
             description,
-            handle_id,
             incident_management_info,
             relationship_parent_of,
             t,
@@ -189,15 +189,16 @@ class OrganizationUpdateForm extends React.Component {
                                                             </div>
                                                             <div>
                                                                 {!editable ? (
-                                                                    handle_id
+                                                                    customer_id
                                                                 ) : (
                                                                     <Form.Group>
                                                                         <Field
                                                                             type="text"
-                                                                            name="handle_id"
+                                                                            name="customer_id"
                                                                             component={FieldInput}
-                                                                            disabled
-                                                                            value={handle_id}
+                                                                            placeholder={t(
+                                                                                "organization-details.add-id"
+                                                                            )}
                                                                         />
                                                                     </Form.Group>
                                                                 )}
@@ -211,7 +212,9 @@ class OrganizationUpdateForm extends React.Component {
                                                                             type="text"
                                                                             name="relationship_parent_of"
                                                                             component={FieldInput}
-                                                                            placeholder={t("contact-details.add-notes")}
+                                                                            placeholder={t(
+                                                                                "organization-details.add-id"
+                                                                            )}
                                                                         />
                                                                     </Form.Group>
                                                                 )}
@@ -366,15 +369,24 @@ class OrganizationUpdateForm extends React.Component {
     }
 }
 
-const validate = (values) => {
+const validate = (values, props) => {
     const errors = {};
     if (!values.name) {
         errors.name = "* Required!";
     }
 
-    if (!values.addresses || !values.addresses.length) {
-        errors.addresses = { _error: "At least one address must be entered" };
-    } else {
+    if (
+        props.affiliation.customer === false &&
+        props.affiliation.end_customer === false &&
+        props.affiliation.host_user === false &&
+        props.affiliation.partner === false &&
+        props.affiliation.provider === false &&
+        props.affiliation.site_owner === false
+    ) {
+        errors.affiliation = "* Required!";
+    }
+
+    if (values.addresses) {
         const addressArrayErrors = [];
         values.addresses.forEach((address, addressIndex) => {
             const addressErrors = {};
@@ -405,9 +417,7 @@ const validate = (values) => {
         }
     }
 
-    if (!values.contacts || !values.contacts.length) {
-        errors.contacts = { _error: "At least one contact must be entered" };
-    } else {
+    if (values.contacts) {
         const contactArrayErrors = [];
         values.contacts.forEach((contact, contactIndex) => {
             const contactErrors = {};
@@ -452,10 +462,12 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                 handle_id
                 name
                 type
+                customer_id
                 description
                 incident_management_info
                 addresses {
                     handle_id
+                    name
                     website
                     street
                     postal_code

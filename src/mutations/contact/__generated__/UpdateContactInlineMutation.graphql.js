@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0249e45ab3cd1f952f01cab1d4e3272c
+ * @relayHash 0f109dd75deeca4122a58690d8f9d414
  */
 
 /* eslint-disable */
@@ -56,6 +56,7 @@ export type UpdateContactInlineMutationResponse = {|
         +end: ?{|
           +handle_id: string,
           +name: string,
+          +customer_id: ?string,
         |},
       |}>,
       +member_of_groups: ?$ReadOnlyArray<?{|
@@ -106,6 +107,7 @@ mutation UpdateContactInlineMutation(
         end {
           handle_id
           name
+          customer_id
           id
         }
       }
@@ -214,11 +216,7 @@ v10 = {
   "args": null,
   "storageKey": null
 },
-v11 = [
-  (v3/*: any*/),
-  (v7/*: any*/)
-],
-v12 = {
+v11 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "role_data",
@@ -226,7 +224,17 @@ v12 = {
   "args": null,
   "concreteType": "Role",
   "plural": false,
-  "selections": (v11/*: any*/)
+  "selections": [
+    (v3/*: any*/),
+    (v7/*: any*/)
+  ]
+},
+v12 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "customer_id",
+  "args": null,
+  "storageKey": null
 },
 v13 = {
   "kind": "ScalarField",
@@ -303,7 +311,7 @@ return {
                 "plural": true,
                 "selections": [
                   (v10/*: any*/),
-                  (v12/*: any*/),
+                  (v11/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -312,7 +320,11 @@ return {
                     "args": null,
                     "concreteType": "Organization",
                     "plural": false,
-                    "selections": (v11/*: any*/)
+                    "selections": [
+                      (v3/*: any*/),
+                      (v7/*: any*/),
+                      (v12/*: any*/)
+                    ]
                   }
                 ]
               },
@@ -392,7 +404,7 @@ return {
                 "plural": true,
                 "selections": [
                   (v10/*: any*/),
-                  (v12/*: any*/),
+                  (v11/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -404,6 +416,7 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v7/*: any*/),
+                      (v12/*: any*/),
                       (v13/*: any*/)
                     ]
                   }
@@ -433,11 +446,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactInlineMutation",
     "id": null,
-    "text": "mutation UpdateContactInlineMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactInlineMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          customer_id\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c2a86ec6e91127a16e00605b11d6895d';
+(node/*: any*/).hash = '06f8844671211b52103976741b5d4586';
 module.exports = node;

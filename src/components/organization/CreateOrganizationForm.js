@@ -57,6 +57,7 @@ class CreateOrganizationForm extends React.Component {
 
     render() {
         const { handleSubmit, t, name } = this.props;
+        console.log(this.props);
         return (
             <form onSubmit={handleSubmit}>
                 <div className="model-details">
@@ -103,6 +104,7 @@ class CreateOrganizationForm extends React.Component {
                                             <div>
                                                 <div>Type</div>
                                                 <div>Affiliation</div>
+                                                <div>Organization ID</div>
                                                 <div>Parent Organization ID</div>
                                             </div>
                                             <div>
@@ -123,7 +125,19 @@ class CreateOrganizationForm extends React.Component {
                                                             dispatch={this.props.dispatch}
                                                             editable={true}
                                                             initialValues={this.props.initialValues.affiliation}
+                                                            error={this.props.formSyncErrors.affiliation}
+                                                            touched={this.props.fields}
                                                         />
+                                                    </div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                type="text"
+                                                                name="customer_id"
+                                                                component={FieldInput}
+                                                                placeholder={t("organization-details.add-id")}
+                                                            />
+                                                        </Form.Group>
                                                     </div>
                                                     <div>
                                                         <Form.Group>
@@ -131,7 +145,7 @@ class CreateOrganizationForm extends React.Component {
                                                                 type="text"
                                                                 name="relationship_parent_of"
                                                                 component={FieldInput}
-                                                                placeholder={t("contact-details.add-notes")}
+                                                                placeholder={t("organization-details.add-id")}
                                                             />
                                                         </Form.Group>
                                                     </div>
@@ -271,15 +285,32 @@ class CreateOrganizationForm extends React.Component {
     }
 }
 
-const validate = (values) => {
+const validate = (values, props) => {
     const errors = {};
-    if (!values.name) {
+    if (!values.name || values.name === "New organization") {
         errors.name = "* Required!";
     }
 
-    if (!values.addresses || !values.addresses.length) {
-        errors.addresses = { _error: "At least one address must be entered" };
-    } else {
+    if (!values.type) {
+        errors.type = "* Required!";
+    }
+    if (
+        ((props.affiliation.customer === undefined || props.affiliation.customer === false) &&
+            (props.affiliation.end_customer === undefined || props.affiliation.end_customer === false) &&
+            (props.affiliation.host_user === undefined || props.affiliation.host_user === false) &&
+            (props.affiliation.partner === undefined || props.affiliation.partner === false) &&
+            (props.affiliation.provider === undefined || props.affiliation.provider === false) &&
+            props.affiliation.site_owner === undefined) ||
+        props.affiliation.site_owner === false
+    ) {
+        errors.affiliation = "* Required!";
+    }
+
+    if (!values.customer_id) {
+        errors.customer_id = "* Required!";
+    }
+
+    if (values.addresses) {
         const addressArrayErrors = [];
         values.addresses.forEach((address, addressIndex) => {
             const addressErrors = {};
@@ -310,9 +341,7 @@ const validate = (values) => {
         }
     }
 
-    if (!values.contacts || !values.contacts.length) {
-        errors.contacts = { _error: "At least one contact must be entered" };
-    } else {
+    if (values.contacts) {
         const contactArrayErrors = [];
         values.contacts.forEach((contact, contactIndex) => {
             const contactErrors = {};
@@ -349,19 +378,7 @@ CreateOrganizationForm = reduxForm({
     validate,
     initialValues: {
         name: "New organization",
-        contacts: [{ name: "", role: "", email: "", phone: "", key: uuidv4(), created: false, status: "editing" }],
-        addresses: [
-            {
-                website: "",
-                street: "",
-                postal_code: "",
-                postal_area: "",
-                phone: "",
-                key: uuidv4(),
-                created: false,
-                status: "editing"
-            }
-        ]
+        affiliation: false
     }
 })(CreateOrganizationForm);
 

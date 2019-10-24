@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { change } from "redux-form";
+import { change, touch } from "redux-form";
 
 import "../style/FieldArrayCheckbox.scss";
 
@@ -64,6 +64,7 @@ class FiledArrayCheckbox extends Component {
     checkInput(id) {
         const newSet = this.state.checkedInputs.concat([id]);
         this.props.dispatch(change(this.props.form, this.props.data[id].name, true));
+        this.props.dispatch(touch(this.props.form, "affiliation"));
         this.setState({
             checkedInputs: newSet
         });
@@ -81,9 +82,11 @@ class FiledArrayCheckbox extends Component {
     }
 
     render() {
-        const { editable } = this.props;
+        const { editable, error, touched } = this.props;
+        console.log(this.props);
+        const has_error = error && touched && touched.affiliation;
         return (
-            <div className="field-array-checkbox">
+            <div className={(has_error ? "has-error" : "") + " field-array-checkbox"}>
                 {editable ? (
                     <>
                         <CheckedList
@@ -97,6 +100,7 @@ class FiledArrayCheckbox extends Component {
                             checkedInputs={this.state.checkedInputs}
                             checkInput={this.checkInput.bind(this)}
                         />
+                        <span>{has_error ? error : null}</span>
                     </>
                 ) : (
                     this.state.checkedInputs.map((input, index) => {

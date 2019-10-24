@@ -15,6 +15,7 @@ export type OrganizationRow_organization = {|
   +handle_id: string,
   +name: string,
   +type: ?any,
+  +customer_id: ?string,
   +affiliation_customer: ?boolean,
   +affiliation_end_customer: ?boolean,
   +affiliation_host_user: ?boolean,
@@ -73,6 +74,13 @@ return {
     (v0/*: any*/),
     (v1/*: any*/),
     (v2/*: any*/),
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "customer_id",
+      "args": null,
+      "storageKey": null
+    },
     {
       "kind": "ScalarField",
       "alias": null,
@@ -162,5 +170,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3ac1754275edc015f4c65943027b6de5';
+(node/*: any*/).hash = '2ab5100969db8bef2121ec5b8490d1ba';
 module.exports = node;

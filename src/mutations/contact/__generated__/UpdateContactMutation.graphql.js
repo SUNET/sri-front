@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash fc7f05d5c4ed69ff12e460085d1d7f6f
+ * @relayHash 9e4e9d31f86fb149120c56d9caf469ed
  */
 
 /* eslint-disable */
@@ -59,6 +59,7 @@ export type UpdateContactMutationResponse = {|
         +end: ?{|
           +handle_id: string,
           +name: string,
+          +customer_id: ?string,
         |},
       |}>,
       +comments: ?$ReadOnlyArray<?{|
@@ -120,6 +121,7 @@ mutation UpdateContactMutation(
         end {
           handle_id
           name
+          customer_id
           id
         }
       }
@@ -259,11 +261,7 @@ v13 = {
   "args": null,
   "storageKey": null
 },
-v14 = [
-  (v3/*: any*/),
-  (v10/*: any*/)
-],
-v15 = {
+v14 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "role_data",
@@ -271,7 +269,17 @@ v15 = {
   "args": null,
   "concreteType": "Role",
   "plural": false,
-  "selections": (v14/*: any*/)
+  "selections": [
+    (v3/*: any*/),
+    (v10/*: any*/)
+  ]
+},
+v15 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "customer_id",
+  "args": null,
+  "storageKey": null
 },
 v16 = {
   "kind": "ScalarField",
@@ -365,7 +373,7 @@ return {
                 "plural": true,
                 "selections": [
                   (v13/*: any*/),
-                  (v15/*: any*/),
+                  (v14/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -374,7 +382,11 @@ return {
                     "args": null,
                     "concreteType": "Organization",
                     "plural": false,
-                    "selections": (v14/*: any*/)
+                    "selections": [
+                      (v3/*: any*/),
+                      (v10/*: any*/),
+                      (v15/*: any*/)
+                    ]
                   }
                 ]
               },
@@ -483,7 +495,7 @@ return {
                 "plural": true,
                 "selections": [
                   (v13/*: any*/),
-                  (v15/*: any*/),
+                  (v14/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -495,6 +507,7 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v10/*: any*/),
+                      (v15/*: any*/),
                       (v18/*: any*/)
                     ]
                   }
@@ -552,11 +565,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactMutation",
     "id": null,
-    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      title\n      notes\n      contact_type\n      first_name\n      last_name\n      pgp_fingerprint\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      title\n      notes\n      contact_type\n      first_name\n      last_name\n      pgp_fingerprint\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          customer_id\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '1c022b1563950b0ea9f2e82051c8cf98';
+(node/*: any*/).hash = '7478d63995814f4d3cf2a32017dc7d2b';
 module.exports = node;

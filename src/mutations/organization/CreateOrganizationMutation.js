@@ -28,6 +28,7 @@ const mutation = graphql`
                 affiliation_partner
                 affiliation_provider
                 affiliation_site_owner
+                customer_id
                 addresses {
                     handle_id
                     website
@@ -73,6 +74,7 @@ function CreateOrganizationMutation(organization, callback) {
             name: organization.name,
             description: organization.description,
             type: organization.type,
+            customer_id: organization.customer_id,
             affiliation_customer: organization.affiliation_customer,
             affiliation_end_customer: organization.affiliation_end_customer,
             affiliation_host_user: organization.affiliation_host_user,
@@ -99,34 +101,38 @@ function CreateOrganizationMutation(organization, callback) {
                 }
 
                 const addresses = organization.addresses;
-                Object.keys(addresses).forEach((address_key) => {
-                    let address = addresses[address_key];
-                    CreateAddressMutation(organization_id, address);
-                });
+                if (addresses) {
+                    Object.keys(addresses).forEach((address_key) => {
+                        let address = addresses[address_key];
+                        CreateAddressMutation(organization_id, address);
+                    });
+                }
 
                 const contacts = organization.contacts;
-                Object.keys(contacts).forEach((contact_key) => {
-                    let contact = contacts[contact_key];
-                    if (!contact.created || contact.created === undefined) {
-                        let fullName = contact.name;
-                        fullName = fullName.split(" ");
-                        contact.first_name = fullName[0];
-                        contact.last_name = fullName[1];
+                if (contacts) {
+                    Object.keys(contacts).forEach((contact_key) => {
+                        let contact = contacts[contact_key];
+                        if (!contact.created || contact.created === undefined) {
+                            let fullName = contact.name;
+                            fullName = fullName.split(" ");
+                            contact.first_name = fullName[0];
+                            contact.last_name = fullName[1];
 
-                        CreateContactInlineMutation(
-                            contact.first_name,
-                            contact.last_name,
-                            contact.email,
-                            contact.phone,
-                            organization_id,
-                            null
-                        );
-                    } else {
-                        UpdateContactInlineMutation(contact, organization_id, null, contact.role);
-                        UpdateEmailMutation(contact.handle_id, contact.email, contact.email_obj);
-                        UpdatePhoneMutation(contact.handle_id, contact.phone, contact.phone_obj);
-                    }
-                });
+                            CreateContactInlineMutation(
+                                contact.first_name,
+                                contact.last_name,
+                                contact.email,
+                                contact.phone,
+                                organization_id,
+                                null
+                            );
+                        } else {
+                            UpdateContactInlineMutation(contact, organization_id, null, contact.role);
+                            UpdateEmailMutation(contact.handle_id, contact.email, contact.email_obj);
+                            UpdatePhoneMutation(contact.handle_id, contact.phone, contact.phone_obj);
+                        }
+                    });
+                }
 
                 callback.push("/community/organizations");
             }

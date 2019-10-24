@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash deea42be420ddbbd26732f4de78aa120
+ * @relayHash 0ec3757dd2f27174d6eea75bc576a1fb
  */
 
 /* eslint-disable */
@@ -39,10 +39,12 @@ fragment OrganizationUpdateForm_organization on Organization {
   handle_id
   name
   type
+  customer_id
   description
   incident_management_info
   addresses {
     handle_id
+    name
     website
     street
     postal_code
@@ -203,6 +205,13 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
+            "name": "customer_id",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
             "name": "description",
             "args": null,
             "storageKey": null
@@ -224,6 +233,7 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "kind": "ScalarField",
                 "alias": null,
@@ -409,7 +419,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationUpdateFormRefetchQuery",
     "id": null,
-    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  handle_id\n  name\n  type\n  description\n  incident_management_info\n  addresses {\n    handle_id\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  handle_id\n  name\n  type\n  customer_id\n  description\n  incident_management_info\n  addresses {\n    handle_id\n    name\n    website\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

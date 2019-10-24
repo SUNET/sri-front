@@ -354,9 +354,7 @@ const validate = (values) => {
     if (!values.contact_type) {
         errors.contact_type = "* Required!";
     }
-    if (!values.emails || !values.emails.length) {
-        errors.emails = { _error: "At least one email must be entered" };
-    } else {
+    if (values.emails) {
         const emailArrayErrors = [];
         values.emails.forEach((email, emailIndex) => {
             const emailErrors = {};
@@ -378,9 +376,7 @@ const validate = (values) => {
         }
     }
 
-    if (!values.phones || !values.phones.length) {
-        errors.phones = { _error: "At least one phone must be entered" };
-    } else {
+    if (values.phones) {
         const phoneArrayErrors = [];
         values.phones.forEach((phone, phoneIndex) => {
             const phoneErrors = {};
@@ -399,9 +395,7 @@ const validate = (values) => {
         }
     }
 
-    if (!values.organizations || !values.organizations.length) {
-        errors.organizations = { _error: "At least one organization must be entered" };
-    } else {
+    if (values.organizations) {
         const organizationArrayErrors = [];
         values.organizations.forEach((organization, organizationIndex) => {
             const organizationErrors = {};
@@ -418,9 +412,6 @@ const validate = (values) => {
         if (organizationArrayErrors.length) {
             errors.organizations = organizationArrayErrors;
         }
-    }
-    if (!values.pgp_fingerprint) {
-        errors.pgp_fingerprint = "* Required!";
     }
     return errors;
 };

@@ -16,6 +16,7 @@ const OrganizationDetailsQuery = graphql`
             handle_id
             name
             type
+            customer_id
             description
             incident_management_info
             affiliation_customer
@@ -26,6 +27,7 @@ const OrganizationDetailsQuery = graphql`
             affiliation_site_owner
             addresses {
                 handle_id
+                name
                 website
                 street
                 postal_code
@@ -115,6 +117,7 @@ class OrganizationDetails extends React.Component {
 
     handleSubmit = (organization) => {
         organization.id = this.props.match.params.organizationId;
+        console.log(organization);
         UpdateOrganizationMutation(organization, this.props.history);
     };
 
