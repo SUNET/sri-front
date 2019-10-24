@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import OrganizationUpdateForm from "../../components/organization/OrganizationUpdateForm";
-import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
+import { formValueSelector, getFormMeta, getFormSyncErrors, registerField } from "redux-form";
 import { getContact } from "../../components/contact/Contact";
 import uuidv4 from "uuid/v4";
 
@@ -8,10 +8,10 @@ const mapStateToProps = (state, props) => {
     const updateOrganizationSelector = formValueSelector("updateOrganization");
     const parent_node = props.organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
-        handle_id: props.organization.handle_id,
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
         name: props.organization.name,
         type: props.organization.type,
+        customer_id: props.organization.customer_id,
         affiliation: {
             customer: props.organization.affiliation_customer,
             end_customer: props.organization.affiliation_end_customer,
@@ -63,6 +63,8 @@ const mapStateToProps = (state, props) => {
             props.organization.addresses.length > 0
                 ? props.organization.addresses.map((address) => {
                       return {
+                          handle_id: address.handle_id,
+                          name: address.name,
                           website: address.website,
                           street: address.street,
                           postal_code: address.postal_code,
@@ -89,9 +91,9 @@ const mapStateToProps = (state, props) => {
         initialValues,
         name: updateOrganizationSelector(state, "name"),
         type: updateOrganizationSelector(state, "type"),
+        customer_id: updateOrganizationSelector(state, "customer_id"),
         description: updateOrganizationSelector(state, "description"),
         relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),
-        handle_id: updateOrganizationSelector(state, "handle_id"),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
         contactsValues: updateOrganizationSelector(state, "contacts"),
         formSyncErrors: getFormSyncErrors("updateOrganization")(state),
@@ -110,6 +112,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => {
+    dispatch(registerField("updateOrganization", "affiliation", "Field"));
     return {};
 };
 

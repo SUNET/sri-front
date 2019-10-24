@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 198b282df3611991adf307c0dd08ced8
+ * @relayHash 6e77c9160c908f911c88356d36ffd87c
  */
 
 /* eslint-disable */
@@ -42,6 +42,7 @@ export type ContactDetailsQueryResponse = {|
       +end: ?{|
         +handle_id: string,
         +name: string,
+        +customer_id: ?string,
       |},
     |}>,
     +created: any,
@@ -106,6 +107,7 @@ query ContactDetailsQuery(
       end {
         handle_id
         name
+        customer_id
         id
       }
     }
@@ -280,11 +282,7 @@ v12 = {
   "args": null,
   "storageKey": null
 },
-v13 = [
-  (v2/*: any*/),
-  (v3/*: any*/)
-],
-v14 = {
+v13 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "role_data",
@@ -292,7 +290,17 @@ v14 = {
   "args": null,
   "concreteType": "Role",
   "plural": false,
-  "selections": (v13/*: any*/)
+  "selections": [
+    (v2/*: any*/),
+    (v3/*: any*/)
+  ]
+},
+v14 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "customer_id",
+  "args": null,
+  "storageKey": null
 },
 v15 = {
   "kind": "ScalarField",
@@ -405,7 +413,7 @@ return {
             "plural": true,
             "selections": [
               (v12/*: any*/),
-              (v14/*: any*/),
+              (v13/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -414,7 +422,11 @@ return {
                 "args": null,
                 "concreteType": "Organization",
                 "plural": false,
-                "selections": (v13/*: any*/)
+                "selections": [
+                  (v2/*: any*/),
+                  (v3/*: any*/),
+                  (v14/*: any*/)
+                ]
               }
             ]
           },
@@ -528,7 +540,7 @@ return {
             "plural": true,
             "selections": [
               (v12/*: any*/),
-              (v14/*: any*/),
+              (v13/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -540,7 +552,8 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
-                  (v19/*: any*/)
+                  (v19/*: any*/),
+                  (v14/*: any*/)
                 ]
               }
             ]
@@ -604,11 +617,11 @@ return {
     "operationKind": "query",
     "name": "ContactDetailsQuery",
     "id": null,
-    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...ContactUpdateForm_contact\n    handle_id\n    name\n    notes\n    title\n    contact_type\n    first_name\n    last_name\n    pgp_fingerprint\n    emails {\n      handle_id\n      name\n      type\n      id\n    }\n    phones {\n      handle_id\n      name\n      type\n      id\n    }\n    roles {\n      relation_id\n      role_data {\n        handle_id\n        name\n      }\n      end {\n        handle_id\n        name\n        id\n      }\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    id\n  }\n}\n\nfragment ContactUpdateForm_contact on Contact {\n  handle_id\n  name\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    relation_id\n    role_data {\n      handle_id\n      name\n    }\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...ContactUpdateForm_contact\n    handle_id\n    name\n    notes\n    title\n    contact_type\n    first_name\n    last_name\n    pgp_fingerprint\n    emails {\n      handle_id\n      name\n      type\n      id\n    }\n    phones {\n      handle_id\n      name\n      type\n      id\n    }\n    roles {\n      relation_id\n      role_data {\n        handle_id\n        name\n      }\n      end {\n        handle_id\n        name\n        customer_id\n        id\n      }\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    id\n  }\n}\n\nfragment ContactUpdateForm_contact on Contact {\n  handle_id\n  name\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    relation_id\n    role_data {\n      handle_id\n      name\n    }\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '82b32fc1ce6885dc9ac256711612a993';
+(node/*: any*/).hash = '48117b629a5ade31e28f24c790325a26';
 module.exports = node;

@@ -44,6 +44,7 @@ const mutation = graphql`
                     end {
                         handle_id
                         name
+                        customer_id
                     }
                 }
                 comments {
@@ -62,7 +63,7 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateContactMutation(contact, callback) {
+export default function UpdateContactMutation(contact) {
     let fullName = contact.name;
     fullName = fullName.split(" ");
     contact.first_name = fullName[0];
@@ -76,6 +77,7 @@ export default function UpdateContactMutation(contact, callback) {
             first_name: contact.first_name,
             last_name: contact.last_name,
             contact_type: contact.contact_type,
+            pgp_fingerprint: contact.pgp_fingerprint,
             clientMutationId: ""
         }
     };
@@ -84,58 +86,68 @@ export default function UpdateContactMutation(contact, callback) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
+            console.log(response, errors);
             if (response.update_contact.errors) {
                 return response.update_contact.errors;
             } else {
                 const emails = contact.emails;
-                Object.keys(emails).forEach((email_key) => {
-                    let email = emails[email_key];
-                    if (email.status === "remove") {
-                        DeleteEmailMutation(email.handle_id);
-                    } else if (email.status === "saved") {
-                        UpdateEmailMutation(contact.id, email.email, email);
-                    } else {
-                        CreateEmailMutation(contact.id, email.email, email.type);
-                    }
-                });
-                const phones = contact.phones;
-                Object.keys(phones).forEach((phone_key) => {
-                    let phone = phones[phone_key];
-                    if (phone.status === "remove") {
-                        DeletePhoneMutation(phone.handle_id);
-                    } else if (phone.status === "saved") {
-                        UpdatePhoneMutation(contact.id, phone.phone, phone);
-                    } else {
-                        CreatePhoneMutation(contact.id, phone.phone, phone.type);
-                    }
-                });
-                const organizations = contact.organizations;
-                Object.keys(organizations).forEach((organization_key) => {
-                    let organization = organizations[organization_key];
-                    if (organization.status === "saved") {
-                        if (organization.origin === "store") {
-                            if (organization.role_obj) {
-                                DeleteRelationshMutation(organization.role_obj.relation_id);
+                if (emails) {
+                    Object.keys(emails).forEach((email_key) => {
+                        let email = emails[email_key];
+                        if (email.status === "remove") {
+                            DeleteEmailMutation(email.handle_id);
+                        } else if (email.status === "saved") {
+                            if (email.origin === "store") {
+                                UpdateEmailMutation(contact.id, email.email, email);
+                            } else {
+                                CreateEmailMutation(contact.id, email.email, email.type);
                             }
-                            UpdateContactInlineMutation(
-                                response.update_contact.contact,
-                                organization.organization,
-                                null,
-                                organization.role
-                            );
-                        } else {
-                            UpdateContactInlineMutation(
-                                response.update_contact.contact,
-                                organization.organization,
-                                null,
-                                organization.role
-                            );
                         }
-                    } else if (organization.status === "remove") {
-                        DeleteRelationshMutation(organization.role_obj.relation_id);
-                    }
-                });
-                callback.push("/community/contacts/" + contact.id);
+                    });
+                }
+
+                const phones = contact.phones;
+                if (phones) {
+                    Object.keys(phones).forEach((phone_key) => {
+                        let phone = phones[phone_key];
+                        if (phone.status === "remove") {
+                            DeletePhoneMutation(phone.handle_id);
+                        } else if (phone.status === "saved") {
+                            UpdatePhoneMutation(contact.id, phone.phone, phone);
+                        } else {
+                            CreatePhoneMutation(contact.id, phone.phone, phone.type);
+                        }
+                    });
+                }
+
+                const organizations = contact.organizations;
+                if (organizations) {
+                    Object.keys(organizations).forEach((organization_key) => {
+                        let organization = organizations[organization_key];
+                        if (organization.status === "saved") {
+                            if (organization.origin === "store") {
+                                if (organization.role_obj) {
+                                    DeleteRelationshMutation(organization.role_obj.relation_id);
+                                }
+                                UpdateContactInlineMutation(
+                                    response.update_contact.contact,
+                                    organization.organization,
+                                    null,
+                                    organization.role
+                                );
+                            } else {
+                                UpdateContactInlineMutation(
+                                    response.update_contact.contact,
+                                    organization.organization,
+                                    null,
+                                    organization.role
+                                );
+                            }
+                        } else if (organization.status === "remove") {
+                            DeleteRelationshMutation(organization.role_obj.relation_id);
+                        }
+                    });
+                }
             }
         },
         updater: (proxyStore, data) => {

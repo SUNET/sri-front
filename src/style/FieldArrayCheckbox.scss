@@ -5,6 +5,26 @@
         box-sizing: border-box;
     }
 
+    &.has-error {
+        .InputList {
+            ul {
+                li {
+                    border: solid 1px $alert-color;
+                }
+            }
+        }
+
+        span {
+            font-size: 12px;
+            font-family: karla;
+            font-style: italic;
+            display: inline-block;
+            margin-top: 8px;
+            float: right;
+            color: rgba(215, 38, 61, 0.75);
+        }
+    }
+
     ul {
         padding: 0;
     }
@@ -19,9 +39,10 @@
             cursor: pointer;
         }
     }
-    .InputList{
-        ul{
-            li{
+
+    .InputList {
+        ul {
+            li {
                 background-color: $complementary-color;
                 color: white;
                 font-family: karla;
@@ -29,11 +50,21 @@
                 border-radius: 13px;
             }
         }
+
+        &.has-error {
+            ul {
+                li {
+                    border: solid 1px $alert-color;
+                }
+            }
+        }
     }
+
     .checkedInputs {
         margin-bottom: 8px;
-        ul{
-            li{
+
+        ul {
+            li {
                 font-size: 14px;
                 color: $secondary-color;
                 border-radius: 16px;

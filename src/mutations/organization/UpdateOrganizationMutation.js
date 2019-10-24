@@ -6,6 +6,9 @@ import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation"
 import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
 import UpdateEmailMutation from "../UpdateEmailMutation";
 import UpdatePhoneMutation from "../UpdatePhoneMutation";
+import CreateAddressMutation from "../CreateAddressMutation";
+import UpdateAddressMutation from "../UpdateAddressMutation";
+import DeleteAddressMutation from "../DeleteAddressMutation";
 import DeleteRelationshMutation from "../DeleteRelationshMutation";
 
 const mutation = graphql`
@@ -19,6 +22,7 @@ const mutation = graphql`
                 handle_id
                 name
                 type
+                customer_id
                 affiliation_customer
                 affiliation_end_customer
                 affiliation_host_user
@@ -44,6 +48,7 @@ export default function UpdateOrganizationMutation(organization, callback) {
             handle_id: organization.id,
             name: organization.name,
             description: organization.description,
+            customer_id: organization.customer_id,
             type: organization.type,
             affiliation_customer: organization.affiliation_customer,
             affiliation_end_customer: organization.affiliation_end_customer,
@@ -60,43 +65,62 @@ export default function UpdateOrganizationMutation(organization, callback) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
+            console.log(response, errors);
             if (response.update_organization.errors) {
                 return response.update_organization.errors;
             } else {
-                const contacts = organization.contacts;
-                Object.keys(contacts).forEach((contact_key) => {
-                    let contact = contacts[contact_key];
-                    if (contact.status === "saved") {
-                        let fullName = contact.name;
-                        fullName = fullName.split(" ");
-                        contact.first_name = fullName[0];
-                        contact.last_name = fullName[1];
-
-                        if (!contact.created || contact.created === undefined) {
-                            CreateContactInlineMutation(
-                                contact.first_name,
-                                contact.last_name,
-                                contact.email,
-                                contact.phone,
-                                contact.organization,
-                                null
-                            );
-                        } else {
-                            if (contact.origin === "store") {
-                                DeleteRelationshMutation(contact.role_relation_id);
-                            } else if (contact.origin === "new") {
-                                if (contact.role_obj.relation_id) {
-                                    DeleteRelationshMutation(contact.role_obj.relation_id);
-                                }
+                const addresses = organization.addresses;
+                if (addresses) {
+                    Object.keys(addresses).forEach((address_key) => {
+                        let address = addresses[address_key];
+                        if (address.status === "saved") {
+                            if (address.origin === "store") {
+                                UpdateAddressMutation(organization.id, address);
+                            } else {
+                                CreateAddressMutation(organization.id, address);
                             }
-                            UpdateContactInlineMutation(contact, organization.id, null, contact.role);
-                            UpdateEmailMutation(contact.handle_id, contact.email, contact.email_obj);
-                            UpdatePhoneMutation(contact.handle_id, contact.phone, contact.phone_obj);
+                        } else if (address.status === "remove") {
+                            DeleteAddressMutation(address.handle_id);
                         }
-                    } else if (contact.status === "remove") {
-                        DeleteRelationshMutation(contact.role_relation_id);
-                    }
-                });
+                    });
+                }
+
+                const contacts = organization.contacts;
+                if (contacts) {
+                    Object.keys(contacts).forEach((contact_key) => {
+                        let contact = contacts[contact_key];
+                        if (contact.status === "saved") {
+                            let fullName = contact.name;
+                            fullName = fullName.split(" ");
+                            contact.first_name = fullName[0];
+                            contact.last_name = fullName[1];
+
+                            if (!contact.created || contact.created === undefined) {
+                                CreateContactInlineMutation(
+                                    contact.first_name,
+                                    contact.last_name,
+                                    contact.email,
+                                    contact.phone,
+                                    contact.organization,
+                                    null
+                                );
+                            } else {
+                                if (contact.origin === "store") {
+                                    DeleteRelationshMutation(contact.role_relation_id);
+                                } else if (contact.origin === "new") {
+                                    if (contact.role && contact.role_obj.relation_id) {
+                                        DeleteRelationshMutation(contact.role_obj.relation_id);
+                                    }
+                                }
+                                UpdateContactInlineMutation(contact, organization.id, null, contact.role);
+                                UpdateEmailMutation(contact.handle_id, contact.email, contact.email_obj);
+                                UpdatePhoneMutation(contact.handle_id, contact.phone, contact.phone_obj);
+                            }
+                        } else if (contact.status === "remove") {
+                            DeleteRelationshMutation(contact.role_relation_id);
+                        }
+                    });
+                }
                 callback.push("/community/organizations/" + organization.id);
                 // const payload = proxyStore.get(contact.id, "Contact");
                 // contact_node.setValue(contact.first_name, "first_name");

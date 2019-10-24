@@ -34,6 +34,7 @@ const mutation = graphql`
                     end {
                         handle_id
                         name
+                        customer_id
                     }
                 }
                 member_of_groups {

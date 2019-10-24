@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 040247cdf561d97771c593e55ebf9742
+ * @relayHash 86fa8b5749827fac85eeee1e199ce684
  */
 
 /* eslint-disable */
@@ -29,7 +29,7 @@ export type DropdownRolesQuery = {|
 
 /*
 query DropdownRolesQuery {
-  roles(orderBy: handle_id_ASC) {
+  roles(orderBy: name_ASC) {
     edges {
       node {
         handle_id
@@ -46,12 +46,12 @@ var v0 = [
     "kind": "LinkedField",
     "alias": null,
     "name": "roles",
-    "storageKey": "roles(orderBy:\"handle_id_ASC\")",
+    "storageKey": "roles(orderBy:\"name_ASC\")",
     "args": [
       {
         "kind": "Literal",
         "name": "orderBy",
-        "value": "handle_id_ASC"
+        "value": "name_ASC"
       }
     ],
     "concreteType": "RoleConnection",
@@ -116,11 +116,11 @@ return {
     "operationKind": "query",
     "name": "DropdownRolesQuery",
     "id": null,
-    "text": "query DropdownRolesQuery {\n  roles(orderBy: handle_id_ASC) {\n    edges {\n      node {\n        handle_id\n        name\n      }\n    }\n  }\n}\n",
+    "text": "query DropdownRolesQuery {\n  roles(orderBy: name_ASC) {\n    edges {\n      node {\n        handle_id\n        name\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b34eaede1348909609384445cdca0e4e';
+(node/*: any*/).hash = '800e8490f2fe0fc4299da688f6050334';
 module.exports = node;

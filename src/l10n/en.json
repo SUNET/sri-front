@@ -70,6 +70,7 @@
             "organization-details.address": "Address",
             "organization-details.contacts": "Contacts",
             "organization-details.additional-info": "Additional information for incident management",
+            "organization-details.add-id": "Write id",
             "organization-details.add-website": "Write website",
             "organization-details.add-street": "Write street",
             "organization-details.add-postalCode": "Write postal code",
