@@ -185,6 +185,8 @@ class OrganizationUpdateForm extends React.Component {
                                                                     dispatch={this.props.dispatch}
                                                                     editable={editable}
                                                                     initialValues={this.props.initialValues.affiliation}
+                                                                    error={this.props.formSyncErrors.affiliation}
+                                                                    touched={this.props.fields}
                                                                 />
                                                             </div>
                                                             <div>
