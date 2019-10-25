@@ -90,6 +90,22 @@ class SearchGroup extends React.Component {
         this.handleResetDate(undefined, undefined);
     }
 
+    getFilters = () => {
+        const filterArray = [];
+        let filters = {};
+
+        if (!(Object.keys(this.state.filterDate).length === 0 && this.state.filterDate.constructor === Object)) {
+            filterArray.push(this.state.filterDate);
+        }
+
+        if (!(Object.keys(this.state.filterValue).length === 0 && this.state.filterValue.constructor === Object)) {
+            filterArray.push(this.state.filterValue);
+        }
+
+        if (filterArray.length > 0) filters = { AND: filterArray };
+        return filters;
+    };
+
     createTable = () => {
         let table = [];
 
@@ -165,9 +181,7 @@ class SearchGroup extends React.Component {
                                             variables={{
                                                 count: ITEMS_PER_PAGE,
                                                 ...this.state.orderBy,
-                                                filter: {
-                                                    AND: [this.state.filterDate, this.state.filterValue]
-                                                }
+                                                filter: this.getFilters()
                                             }}
                                             render={({ error, props }) => {
                                                 if (error) {
