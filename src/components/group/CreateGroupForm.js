@@ -103,10 +103,10 @@ class CreateGroupForm extends React.Component {
                                     <TogglePanel>
                                         <div className="table-details">
                                             <div>
-                                                <div>Name</div>
-                                                <div>Organization</div>
-                                                <div>Email</div>
-                                                <div>Phone</div>
+                                                <div className="w-20">Name</div>
+                                                <div className="w-20">Organization</div>
+                                                <div className="w-25">Email</div>
+                                                <div className="w-20">Phone</div>
                                                 <div></div>
                                             </div>
                                             <div>
@@ -171,9 +171,7 @@ const validate = (values, props) => {
         errors.name = "* Required!";
     }
 
-    if (!values.members || !values.members.length) {
-        errors.members = { _error: "At least one member must be entered" };
-    } else {
+    if (values.members) {
         const memberArrayErrors = [];
         values.members.forEach((member, memberIndex) => {
             const memberErrors = {};
@@ -212,10 +210,7 @@ CreateGroupForm = reduxForm({
     form: "createGroup",
     validate,
     initialValues: {
-        name: "New group",
-        members: [
-            { name: "", organization: "", email: "", phone: "", key: uuidv4(), created: false, status: "editing" }
-        ]
+        name: "New group"
     }
 })(CreateGroupForm);
 

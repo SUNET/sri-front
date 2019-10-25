@@ -151,9 +151,9 @@ class GroupUpdateForm extends React.Component {
                                             return (
                                                 <div className="table-details">
                                                     <div>
-                                                        <div>Name</div>
-                                                        <div>Organization</div>
-                                                        <div className="with-icon">
+                                                        <div className="w-20">Name</div>
+                                                        <div className="w-20">Organization</div>
+                                                        <div className="with-icon w-25">
                                                             <span>Email</span>
                                                             <button
                                                                 type="button"
@@ -163,7 +163,7 @@ class GroupUpdateForm extends React.Component {
                                                                 <span>{t("actions.copy-all")}</span>
                                                             </button>
                                                         </div>
-                                                        <div>Phone</div>
+                                                        <div className="w-20">Phone</div>
                                                         <div></div>
                                                     </div>
                                                     <div>
@@ -207,9 +207,7 @@ const validate = (values) => {
         errors.name = "* Required!";
     }
 
-    if (!values.members || !values.members.length) {
-        errors.members = { _error: "At least one member must be entered" };
-    } else {
+    if (values.members) {
         const memberArrayErrors = [];
         values.members.forEach((member, memberIndex) => {
             const memberErrors = {};

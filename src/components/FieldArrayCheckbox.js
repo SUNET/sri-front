@@ -83,7 +83,6 @@ class FiledArrayCheckbox extends Component {
 
     render() {
         const { editable, error, touched } = this.props;
-        console.log(this.props);
         const has_error = error && touched && touched.affiliation;
         return (
             <div className={(has_error ? "has-error" : "") + " field-array-checkbox"}>

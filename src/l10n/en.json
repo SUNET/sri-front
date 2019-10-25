@@ -58,6 +58,7 @@
             "contact-details.notes": "Notes",
             "contact-details.general-information": "General information",
             "contact-details.profesional-details": "Professional details",
+            "contact-details.pgp-fingerprint": "Enter pgp code",
             "contact-details.worklog": "Worklog",
             "contact-details.add-notes": "Add notes",
             "contact-details.add-pgp": "Write website",

@@ -22,7 +22,7 @@ import "../../style/ModelDetails.scss";
 const renderEmails = ({ fields, meta, t, editable, dispatch }) => {
     const pushField = (event) => {
         if (fields.length < 10) {
-            fields.push({});
+            fields.push({ status: "saved", origin: "new" });
         }
     };
     const removeRow = (index) => {
@@ -39,7 +39,13 @@ const renderEmails = ({ fields, meta, t, editable, dispatch }) => {
                 editable ? (
                     <div key={index} className={values[index].status === "remove" ? "d-none" : "input-group"}>
                         <Form.Group>
-                            <Field name={`${email}.email`} type="text" component={FieldInput} placeholder="Email" />
+                            <Field
+                                className="auto"
+                                name={`${email}.email`}
+                                type="text"
+                                component={FieldInput}
+                                placeholder="Email"
+                            />
                         </Form.Group>
                         <Dropdown
                             className="auto"
@@ -77,7 +83,7 @@ const renderEmails = ({ fields, meta, t, editable, dispatch }) => {
 const renderPhones = ({ fields, meta, t, editable, dispatch }) => {
     const pushField = (event) => {
         if (fields.length < 10) {
-            fields.push({});
+            fields.push({ status: "saved", origin: "new" });
         }
     };
     const removeRow = (index) => {
@@ -211,14 +217,14 @@ class ContactUpdateForm extends React.PureComponent {
                                                 <>
                                                     <div className="table-details">
                                                         <div>
-                                                            <div>Title</div>
-                                                            <div>Type</div>
-                                                            <div>E-mails</div>
-                                                            <div>Phone</div>
+                                                            <div className="w-15">Title</div>
+                                                            <div className="w-15">Type</div>
+                                                            <div className="w-35">E-mails</div>
+                                                            <div className="w-35">Phone</div>
                                                         </div>
                                                         <div>
                                                             <div>
-                                                                <div>
+                                                                <div className="w-20">
                                                                     {!editable ? (
                                                                         title
                                                                     ) : (
@@ -266,7 +272,7 @@ class ContactUpdateForm extends React.PureComponent {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="table-details">
+                                                    <div className="table-details mt-4">
                                                         <div>
                                                             <div>PGP Fingerprint</div>
                                                         </div>
@@ -279,8 +285,10 @@ class ContactUpdateForm extends React.PureComponent {
                                                                         <Field
                                                                             type="text"
                                                                             component={FieldInput}
-                                                                            className="auto"
-                                                                            placeholder={t("contact-details.add-pgp")}
+                                                                            className="xlg"
+                                                                            placeholder={t(
+                                                                                "contact-details.pgp-fingerprint"
+                                                                            )}
                                                                             name="pgp_fingerprint"
                                                                         />
                                                                     </Form.Group>
@@ -305,9 +313,9 @@ class ContactUpdateForm extends React.PureComponent {
                                             return (
                                                 <div className="table-details">
                                                     <div>
-                                                        <div>Role</div>
-                                                        <div>Organization ID</div>
-                                                        <div>Organization</div>
+                                                        <div className="w-35">Role</div>
+                                                        <div className="w-25">Organization ID</div>
+                                                        <div className="w-25">Organization</div>
                                                         <div></div>
                                                     </div>
                                                     <div>
@@ -348,9 +356,7 @@ const validate = (values) => {
     if (!values.name || values.name === "New contact") {
         errors.name = "* Required!";
     }
-    if (!values.title) {
-        errors.title = "* Required!";
-    }
+
     if (!values.contact_type) {
         errors.contact_type = "* Required!";
     }

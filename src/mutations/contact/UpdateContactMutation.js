@@ -113,9 +113,11 @@ export default function UpdateContactMutation(contact) {
                         if (phone.status === "remove") {
                             DeletePhoneMutation(phone.handle_id);
                         } else if (phone.status === "saved") {
-                            UpdatePhoneMutation(contact.id, phone.phone, phone);
-                        } else {
-                            CreatePhoneMutation(contact.id, phone.phone, phone.type);
+                            if (phone.origin === "store") {
+                                UpdatePhoneMutation(contact.id, phone.phone, phone);
+                            } else {
+                                CreatePhoneMutation(contact.id, phone.phone, phone.type);
+                            }
                         }
                     });
                 }

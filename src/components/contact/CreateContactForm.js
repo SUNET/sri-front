@@ -3,7 +3,6 @@ import { Form, Col } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { FieldArray, Field, reduxForm } from "redux-form";
-import uuidv4 from "uuid/v4";
 
 import FieldArrayOrganizationsContact from "./FieldArrayOrganizationsContact";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
@@ -22,7 +21,13 @@ const renderEmails = ({ fields, t }) => {
             {fields.map((email, index) => (
                 <div key={index} className="input-group">
                     <Form.Group>
-                        <Field name={`${email}.email`} type="text" component={FieldInput} placeholder="Email" />
+                        <Field
+                            className="auto"
+                            name={`${email}.email`}
+                            type="text"
+                            component={FieldInput}
+                            placeholder="Email"
+                        />
                     </Form.Group>
                     <Dropdown
                         className="auto"
@@ -136,10 +141,10 @@ class CreateContactForm extends React.Component {
                                     <TogglePanel>
                                         <div className="table-details">
                                             <div>
-                                                <div>Title</div>
-                                                <div>Type</div>
-                                                <div>E-mails</div>
-                                                <div>Phone</div>
+                                                <div className="w-15">Title</div>
+                                                <div className="w-15">Type</div>
+                                                <div className="w-35">E-mails</div>
+                                                <div className="w-35">Phone</div>
                                             </div>
                                             <div>
                                                 <div>
@@ -171,7 +176,7 @@ class CreateContactForm extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="table-details">
+                                        <div className="table-details mt-4">
                                             <div>
                                                 <div>PGP Fingerprint</div>
                                             </div>
@@ -180,7 +185,7 @@ class CreateContactForm extends React.Component {
                                                     <Form.Group>
                                                         <Field
                                                             name="pgp_fingerprint"
-                                                            className="auto"
+                                                            className="xlg"
                                                             component={FieldInput}
                                                             placeholder={t("contact-details.pgp-fingerprint")}
                                                         />
@@ -202,9 +207,9 @@ class CreateContactForm extends React.Component {
                                     <TogglePanel>
                                         <div className="table-details">
                                             <div>
-                                                <div>Role</div>
-                                                <div>Organization ID</div>
-                                                <div>Organization</div>
+                                                <div className="w-35">Role</div>
+                                                <div className="w-25">Organization ID</div>
+                                                <div className="w-25">Organization</div>
                                                 <div></div>
                                             </div>
                                             <div>
@@ -268,15 +273,12 @@ const validate = (values) => {
     if (!values.name || values.name === "New contact") {
         errors.name = "* Required!";
     }
-    if (!values.title) {
-        errors.title = "* Required!";
-    }
+
     if (!values.contact_type) {
         errors.contact_type = "* Required!";
     }
-    if (!values.emails || !values.emails.length) {
-        errors.emails = { _error: "At least one email must be entered" };
-    } else {
+
+    if (values.emails) {
         const emailArrayErrors = [];
         values.emails.forEach((email, emailIndex) => {
             const emailErrors = {};
@@ -298,9 +300,7 @@ const validate = (values) => {
         }
     }
 
-    if (!values.phones || !values.phones.length) {
-        errors.phones = { _error: "At least one phone must be entered" };
-    } else {
+    if (values.phones) {
         const phoneArrayErrors = [];
         values.phones.forEach((phone, phoneIndex) => {
             const phoneErrors = {};
@@ -319,9 +319,7 @@ const validate = (values) => {
         }
     }
 
-    if (!values.organizations || !values.organizations.length) {
-        errors.organizations = { _error: "At least one organization must be entered" };
-    } else {
+    if (values.organizations) {
         const organizationArrayErrors = [];
         values.organizations.forEach((organization, organizationIndex) => {
             const organizationErrors = {};
@@ -339,9 +337,7 @@ const validate = (values) => {
             errors.organizations = organizationArrayErrors;
         }
     }
-    if (!values.pgp_fingerprint) {
-        errors.pgp_fingerprint = "* Required!";
-    }
+
     return errors;
 };
 
@@ -349,10 +345,7 @@ CreateContactForm = reduxForm({
     form: "createContact",
     validate,
     initialValues: {
-        name: "New contact",
-        emails: [{ email: "", type: "" }],
-        phones: [{ phone: "", type: "" }],
-        organizations: [{ role: "", organization: "", key: uuidv4(), created: false, status: "editing" }]
+        name: "New contact"
     }
 })(CreateContactForm);
 
