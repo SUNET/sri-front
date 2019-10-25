@@ -294,13 +294,12 @@ const validate = (values, props) => {
         errors.type = "* Required!";
     }
     if (
-        ((props.affiliation.customer === undefined || props.affiliation.customer === false) &&
-            (props.affiliation.end_customer === undefined || props.affiliation.end_customer === false) &&
-            (props.affiliation.host_user === undefined || props.affiliation.host_user === false) &&
-            (props.affiliation.partner === undefined || props.affiliation.partner === false) &&
-            (props.affiliation.provider === undefined || props.affiliation.provider === false) &&
-            props.affiliation.site_owner === undefined) ||
-        props.affiliation.site_owner === false
+        (props.affiliation.customer === undefined || props.affiliation.customer === false) &&
+        (props.affiliation.end_customer === undefined || props.affiliation.end_customer === false) &&
+        (props.affiliation.host_user === undefined || props.affiliation.host_user === false) &&
+        (props.affiliation.partner === undefined || props.affiliation.partner === false) &&
+        (props.affiliation.provider === undefined || props.affiliation.provider === false) &&
+        (props.affiliation.site_owner === undefined || props.affiliation.site_owner === false)
     ) {
         errors.affiliation = "* Required!";
     }
