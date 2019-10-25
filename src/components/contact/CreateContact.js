@@ -5,7 +5,6 @@ import CreateContactMutation from "../../mutations/contact/CreateContactMutation
 class CreateContact extends React.Component {
     componentWillUnmount() {}
     handleSubmit = (contact) => {
-        console.log(contact);
         CreateContactMutation(contact, this.props.history);
     };
 

@@ -57,7 +57,6 @@ class CreateOrganizationForm extends React.Component {
 
     render() {
         const { handleSubmit, t, name } = this.props;
-        console.log(this.props);
         return (
             <form onSubmit={handleSubmit}>
                 <div className="model-details">
@@ -102,10 +101,10 @@ class CreateOrganizationForm extends React.Component {
                                     <TogglePanel>
                                         <div className="table-details">
                                             <div>
-                                                <div>Type</div>
-                                                <div>Affiliation</div>
-                                                <div>Organization ID</div>
-                                                <div>Parent Organization ID</div>
+                                                <div className="w-25">Type</div>
+                                                <div className="w-25">Affiliation</div>
+                                                <div className="w-25">Organization ID</div>
+                                                <div className="w-25">Parent Organization ID</div>
                                             </div>
                                             <div>
                                                 <div>
@@ -166,11 +165,11 @@ class CreateOrganizationForm extends React.Component {
                                     <TogglePanel>
                                         <div className="table-details">
                                             <div>
-                                                <div>Website</div>
-                                                <div>Street</div>
-                                                <div>Postal Code</div>
-                                                <div>Postal Area</div>
-                                                <div>Phone</div>
+                                                <div className="w-18">Website</div>
+                                                <div className="w-18">Street</div>
+                                                <div className="w-18">Postal Code</div>
+                                                <div className="w-18">Postal Area</div>
+                                                <div className="w-18">Phone</div>
                                             </div>
                                             <div>
                                                 <FieldArray
@@ -201,8 +200,8 @@ class CreateOrganizationForm extends React.Component {
                                     <TogglePanel>
                                         <div className="table-details">
                                             <div>
-                                                <div>Name</div>
-                                                <div>Role</div>
+                                                <div className="w-18">Name</div>
+                                                <div className="w-30">Role</div>
                                                 <div>Email</div>
                                                 <div>Phone</div>
                                                 <div></div>

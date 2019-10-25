@@ -87,7 +87,6 @@ class SearchGroup extends React.Component {
     }
 
     componentWillUnmount(nextProps, nextState) {
-        console.log("entro");
         this.handleResetDate(undefined, undefined);
     }
 
