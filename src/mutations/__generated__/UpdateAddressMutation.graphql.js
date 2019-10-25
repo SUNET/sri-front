@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash eedfba6e94a414afa60b8e6c0ed272da
+ * @relayHash 60aaceb5091b96273687db7b7f50f740
  */
 
 /* eslint-disable */
@@ -12,7 +12,6 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type UpdateAddressInput = {|
   organization?: ?any,
   name: string,
-  website?: ?string,
   phone?: ?string,
   street?: ?string,
   postal_code?: ?string,

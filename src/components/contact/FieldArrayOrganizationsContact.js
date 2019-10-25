@@ -19,11 +19,8 @@ class FieldArrayOrganizationsContact extends React.Component {
     }
 
     validateOrganization = (index) => {
-        const values = this.props.fields.getAll()[index];
-        const fieldsNotBlank = values.role !== "" && values.organization !== "";
-
         const errors = this.props.errors;
-        return !(errors && errors[index] !== undefined) && (fieldsNotBlank && errors === undefined);
+        return (errors && errors[index] === undefined) || errors === undefined;
     };
 
     addRow = (event) => {

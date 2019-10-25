@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1f0481b76e555863af37a477e3e22c3e
+ * @relayHash 39a6dd33f99030274f7932078f4f9d3e
  */
 
 /* eslint-disable */
@@ -13,6 +13,7 @@ export type UpdateOrganizationInput = {|
   account_id?: ?string,
   name: string,
   description?: ?string,
+  website?: ?string,
   customer_id?: ?string,
   type?: ?any,
   incident_management_info?: ?string,

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 8c6cbf55905775858703305d1696d3ac
+ * @relayHash 6fa60a6a7e769ab1b875e8779e1adc6e
  */
 
 /* eslint-disable */
@@ -13,6 +13,7 @@ export type CreateOrganizationInput = {|
   account_id?: ?string,
   name: string,
   description?: ?string,
+  website?: ?string,
   customer_id?: ?string,
   type?: ?any,
   incident_management_info?: ?string,
@@ -45,6 +46,7 @@ export type CreateOrganizationMutationResponse = {|
       +handle_id: string,
       +name: string,
       +type: ?any,
+      +website: ?string,
       +incident_management_info: ?string,
       +affiliation_customer: ?boolean,
       +affiliation_end_customer: ?boolean,
@@ -55,7 +57,6 @@ export type CreateOrganizationMutationResponse = {|
       +customer_id: ?string,
       +addresses: ?$ReadOnlyArray<?{|
         +handle_id: string,
-        +website: ?string,
         +street: ?string,
         +postal_code: ?string,
         +postal_area: ?string,
@@ -108,6 +109,7 @@ mutation CreateOrganizationMutation(
       handle_id
       name
       type
+      website
       incident_management_info
       affiliation_customer
       affiliation_end_customer
@@ -118,7 +120,6 @@ mutation CreateOrganizationMutation(
       customer_id
       addresses {
         handle_id
-        website
         street
         postal_code
         postal_area
@@ -224,63 +225,63 @@ v5 = {
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "incident_management_info",
+  "name": "website",
   "args": null,
   "storageKey": null
 },
 v7 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_customer",
+  "name": "incident_management_info",
   "args": null,
   "storageKey": null
 },
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_end_customer",
+  "name": "affiliation_customer",
   "args": null,
   "storageKey": null
 },
 v9 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_host_user",
+  "name": "affiliation_end_customer",
   "args": null,
   "storageKey": null
 },
 v10 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_partner",
+  "name": "affiliation_host_user",
   "args": null,
   "storageKey": null
 },
 v11 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_provider",
+  "name": "affiliation_partner",
   "args": null,
   "storageKey": null
 },
 v12 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_site_owner",
+  "name": "affiliation_provider",
   "args": null,
   "storageKey": null
 },
 v13 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "customer_id",
+  "name": "affiliation_site_owner",
   "args": null,
   "storageKey": null
 },
 v14 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "website",
+  "name": "customer_id",
   "args": null,
   "storageKey": null
 },
@@ -409,6 +410,7 @@ return {
               (v11/*: any*/),
               (v12/*: any*/),
               (v13/*: any*/),
+              (v14/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -419,7 +421,6 @@ return {
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
-                  (v14/*: any*/),
                   (v15/*: any*/),
                   (v16/*: any*/),
                   (v17/*: any*/),
@@ -539,6 +540,7 @@ return {
               (v11/*: any*/),
               (v12/*: any*/),
               (v13/*: any*/),
+              (v14/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -549,7 +551,6 @@ return {
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
-                  (v14/*: any*/),
                   (v15/*: any*/),
                   (v16/*: any*/),
                   (v17/*: any*/),
@@ -642,11 +643,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateOrganizationMutation",
     "id": null,
-    "text": "mutation CreateOrganizationMutation(\n  $input: CreateOrganizationInput!\n) {\n  create_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      incident_management_info\n      affiliation_customer\n      affiliation_end_customer\n      affiliation_host_user\n      affiliation_partner\n      affiliation_provider\n      affiliation_site_owner\n      customer_id\n      addresses {\n        handle_id\n        website\n        street\n        postal_code\n        postal_area\n        phone\n        id\n      }\n      incoming {\n        name\n        relation {\n          relation_id\n          type\n          end {\n            handle_id\n            node_name\n            id\n          }\n          start {\n            handle_id\n            node_name\n            id\n          }\n          id\n        }\n      }\n      comments {\n        id\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateOrganizationMutation(\n  $input: CreateOrganizationInput!\n) {\n  create_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      website\n      incident_management_info\n      affiliation_customer\n      affiliation_end_customer\n      affiliation_host_user\n      affiliation_partner\n      affiliation_provider\n      affiliation_site_owner\n      customer_id\n      addresses {\n        handle_id\n        street\n        postal_code\n        postal_area\n        phone\n        id\n      }\n      incoming {\n        name\n        relation {\n          relation_id\n          type\n          end {\n            handle_id\n            node_name\n            id\n          }\n          start {\n            handle_id\n            node_name\n            id\n          }\n          id\n        }\n      }\n      comments {\n        id\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'bd850d615f53b9fc31ca334a25925abb';
+(node/*: any*/).hash = '19a17a2cf599218d9fb74b409b36562f';
 module.exports = node;

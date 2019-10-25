@@ -11,6 +11,7 @@ const mapStateToProps = (state, props) => {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
         name: props.organization.name,
         type: props.organization.type,
+        website: props.organization.website,
         customer_id: props.organization.customer_id,
         affiliation: {
             customer: props.organization.affiliation_customer,
@@ -91,6 +92,7 @@ const mapStateToProps = (state, props) => {
         initialValues,
         name: updateOrganizationSelector(state, "name"),
         type: updateOrganizationSelector(state, "type"),
+        website: updateOrganizationSelector(state, "website"),
         customer_id: updateOrganizationSelector(state, "customer_id"),
         description: updateOrganizationSelector(state, "description"),
         relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),

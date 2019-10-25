@@ -13,7 +13,6 @@ const mutation = graphql`
             address {
                 handle_id
                 name
-                website
                 phone
                 street
                 postal_code
@@ -30,7 +29,6 @@ function CreateAddressMutation(organization, address) {
         input: {
             organization: organization,
             name: "main",
-            website: address.website,
             phone: address.phone,
             street: address.street,
             postal_code: address.postal_code,

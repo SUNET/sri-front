@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a351860160f7451867a0795f06a8822c
+ * @relayHash c6c257daacd87e9fe0da50eace09cc7f
  */
 
 /* eslint-disable */
@@ -12,7 +12,6 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type CreateAddressInput = {|
   organization?: ?any,
   name: string,
-  website?: ?string,
   phone?: ?string,
   street?: ?string,
   postal_code?: ?string,
@@ -31,7 +30,6 @@ export type CreateAddressMutationResponse = {|
     +address: ?{|
       +handle_id: string,
       +name: string,
-      +website: ?string,
       +phone: ?string,
       +street: ?string,
       +postal_code: ?string,
@@ -58,7 +56,6 @@ mutation CreateAddressMutation(
     address {
       handle_id
       name
-      website
       phone
       street
       postal_code
@@ -127,32 +124,25 @@ v4 = {
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "website",
+  "name": "phone",
   "args": null,
   "storageKey": null
 },
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "phone",
+  "name": "street",
   "args": null,
   "storageKey": null
 },
 v7 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "street",
-  "args": null,
-  "storageKey": null
-},
-v8 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "postal_code",
   "args": null,
   "storageKey": null
 },
-v9 = {
+v8 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "postal_area",
@@ -192,8 +182,7 @@ return {
               (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/)
+              (v8/*: any*/)
             ]
           }
         ]
@@ -230,7 +219,6 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v9/*: any*/),
               {
                 "kind": "ScalarField",
                 "alias": null,
@@ -248,11 +236,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateAddressMutation",
     "id": null,
-    "text": "mutation CreateAddressMutation(\n  $input: CreateAddressInput!\n) {\n  create_address(input: $input) {\n    errors {\n      field\n      messages\n    }\n    address {\n      handle_id\n      name\n      website\n      phone\n      street\n      postal_code\n      postal_area\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateAddressMutation(\n  $input: CreateAddressInput!\n) {\n  create_address(input: $input) {\n    errors {\n      field\n      messages\n    }\n    address {\n      handle_id\n      name\n      phone\n      street\n      postal_code\n      postal_area\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'bd3a08d322719dbc975dd1b3afb05cb8';
+(node/*: any*/).hash = 'accd7286e1a6efdbe503167410f0e85d';
 module.exports = node;

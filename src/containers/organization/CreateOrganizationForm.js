@@ -11,7 +11,6 @@ const mapStateToProps = (state, props) => {
         addressesValues: createOrganizationSelector(state, "addresses"),
         contactsValues: createOrganizationSelector(state, "contacts"),
         name: createOrganizationSelector(state, "name"),
-        customer_id: createOrganizationSelector(state, "customer_id"),
         refreshFields: state.refreshFields,
         affiliation: {
             customer: createOrganizationSelector(state, "affiliation_customer"),

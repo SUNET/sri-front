@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2750bbe995e09401eae4b95f9c7eefaf
+ * @relayHash 2559234d0b92ef1a44e7d1f54d8f229b
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type OrganizationList_organizations$ref = any;
-export type OrganizationOrderBy = "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "customer_id_ASC" | "customer_id_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "type_ASC" | "type_DESC" | "%future added value";
+export type OrganizationOrderBy = "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "customer_id_ASC" | "customer_id_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "type_ASC" | "type_DESC" | "website_ASC" | "website_DESC" | "%future added value";
 export type OrganizationFilter = {|
   AND?: ?$ReadOnlyArray<OrganizationNestedFilter>,
   OR?: ?$ReadOnlyArray<OrganizationNestedFilter>,
@@ -80,6 +80,20 @@ export type OrganizationNestedFilter = {|
   type_gte?: ?any,
   type_in?: ?$ReadOnlyArray<any>,
   type_not_in?: ?$ReadOnlyArray<any>,
+  website?: ?string,
+  website_not?: ?string,
+  website_lt?: ?string,
+  website_lte?: ?string,
+  website_gt?: ?string,
+  website_gte?: ?string,
+  website_contains?: ?string,
+  website_not_contains?: ?string,
+  website_starts_with?: ?string,
+  website_not_starts_with?: ?string,
+  website_ends_with?: ?string,
+  website_not_ends_with?: ?string,
+  website_in?: ?$ReadOnlyArray<string>,
+  website_not_in?: ?$ReadOnlyArray<string>,
   addresses?: ?AddressInputField,
   addresses_not?: ?AddressInputField,
   addresses_lt?: ?AddressInputField,
