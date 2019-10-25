@@ -86,23 +86,29 @@ function CreateContactMutation(contact, callback) {
                     CreateComentMutation(contact_id, contact.comment);
                 }
                 const emails = contact.emails;
-                Object.keys(emails).forEach((email) => {
-                    CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
-                });
+                if (emails) {
+                    Object.keys(emails).forEach((email) => {
+                        CreateEmailMutation(contact_id, emails[email].email, emails[email].type);
+                    });
+                }
                 const phones = contact.phones;
-                Object.keys(phones).forEach((phone) => {
-                    CreatePhoneMutation(contact_id, phones[phone].phone, phones[phone].type);
-                });
+                if (phones) {
+                    Object.keys(phones).forEach((phone) => {
+                        CreatePhoneMutation(contact_id, phones[phone].phone, phones[phone].type);
+                    });
+                }
                 const organizations = contact.organizations;
-                Object.keys(organizations).forEach((organization_key) => {
-                    let organization = organizations[organization_key];
-                    UpdateContactInlineMutation(
-                        response.create_contact.contact,
-                        organization.organization,
-                        null,
-                        organization.role
-                    );
-                });
+                if (organizations) {
+                    Object.keys(organizations).forEach((organization_key) => {
+                        let organization = organizations[organization_key];
+                        UpdateContactInlineMutation(
+                            response.create_contact.contact,
+                            organization.organization,
+                            null,
+                            organization.role
+                        );
+                    });
+                }
 
                 callback.push("/community/contacts");
             }

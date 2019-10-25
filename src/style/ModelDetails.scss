@@ -2,7 +2,7 @@
 
 .model-details {
     .title-section {
-        > button{
+        > button {
             margin-right: 16px;
         }
 
@@ -46,6 +46,21 @@
                 color: $secondary-color-30;
 
                 > div {
+                    &.w-15 {
+                        width: 15%;
+                    }
+
+                    &.w-20 {
+                        width: 20%;
+                    }
+
+                    &.w-25 {
+                        width: 25%;
+                    }
+
+                    &.w-35 {
+                        width: 35%;
+                    }
                     display: table-cell;
 
                     &:not(.with-icon) {

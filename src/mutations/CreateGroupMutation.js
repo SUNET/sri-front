@@ -49,34 +49,36 @@ function CreateGroupMutation(group, callback) {
                     CreateCommentMutation(group_id, group.comment);
                 }
                 const members = group.members;
-                Object.keys(members).forEach((member_key) => {
-                    let member = members[member_key];
-                    if (!member.created || member.created === undefined) {
-                        let fullName = member.name;
-                        if (fullName.includes(" ")) {
-                            fullName = fullName.split(" ");
-                            member.first_name = fullName[0];
-                            member.last_name = fullName[1];
-                        } else {
-                            member.first_name = fullName;
-                            member.last_name = fullName;
-                        }
+                if (members) {
+                    Object.keys(members).forEach((member_key) => {
+                        let member = members[member_key];
+                        if (!member.created || member.created === undefined) {
+                            let fullName = member.name;
+                            if (fullName.includes(" ")) {
+                                fullName = fullName.split(" ");
+                                member.first_name = fullName[0];
+                                member.last_name = fullName[1];
+                            } else {
+                                member.first_name = fullName;
+                                member.last_name = fullName;
+                            }
 
-                        CreateContactInlineMutation(
-                            member.first_name,
-                            member.last_name,
-                            member.email,
-                            member.phone,
-                            member.organization,
-                            group_id
-                        );
-                    } else {
-                        AddMemberGroupMutation(member, group_id);
-                        UpdateContactInlineMutation(member, member.organization, group_id, null);
-                        UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
-                        UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
-                    }
-                });
+                            CreateContactInlineMutation(
+                                member.first_name,
+                                member.last_name,
+                                member.email,
+                                member.phone,
+                                member.organization,
+                                group_id
+                            );
+                        } else {
+                            AddMemberGroupMutation(member, group_id);
+                            UpdateContactInlineMutation(member, member.organization, group_id, null);
+                            UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
+                            UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
+                        }
+                    });
+                }
                 callback.push("/community/groups");
             }
         },

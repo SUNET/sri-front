@@ -52,6 +52,10 @@
         color: $secondary-color;
         padding: 4px 16px;
 
+        &.xlg {
+            width: 350px;
+        }
+
         &.lg {
             width: 200px;
         }
