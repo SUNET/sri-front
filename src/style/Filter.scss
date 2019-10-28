@@ -24,6 +24,18 @@
         padding: 0 10px 0 40px;
         font-size: 14px;
     }
+
+    .clear-input {
+        position: absolute;
+        right: 14px;
+        top: 9px;
+        color: $secondary-color-30;
+        cursor: pointer;
+
+        &:hover {
+            color: $complementary-color;
+        }
+    }
 }
 
 .filter-date {

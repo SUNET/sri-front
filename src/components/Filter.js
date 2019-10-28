@@ -1,5 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/Filter.scss";
 
@@ -12,14 +14,30 @@ class Filter extends React.Component {
         };
     }
 
+    changeFilter = (event) => {
+        this.setState({ filterValue: event.target.value });
+        this.props.changeFilter(event.target.value);
+    };
+
+    clearFilter = () => {
+        this.input.value = "";
+        this.setState({ filterValue: "" });
+        this.props.changeFilter("");
+    };
+
     render() {
         return (
             <div className="filter">
                 <Form.Control
                     placeholder="Filter by word"
-                    defaultValue={this.state.filterValue}
-                    onChange={(e) => this.props.changeFilter(e)}
+                    name="filter"
+                    type="text"
+                    onChange={(e) => this.changeFilter(e)}
+                    ref={(input) => (this.input = input)}
                 />
+                {this.state.filterValue && (
+                    <FontAwesomeIcon className="clear-input" icon={faTimes} onClick={this.clearFilter} />
+                )}
             </div>
         );
     }

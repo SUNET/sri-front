@@ -44,8 +44,8 @@ class SearchGroup extends React.Component {
         this.setState({ countList: this.state.countList + count });
     };
 
-    _handleOnChangeFilter = (event) => {
-        this.setState({ filterValue: { name_contains: event.target.value } });
+    _handleOnChangeFilter = (filterValue) => {
+        this.setState({ filterValue: { name_contains: filterValue } });
     };
 
     _handleOnChangeOrderBy = (orderBy) => {
