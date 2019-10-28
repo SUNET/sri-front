@@ -16,6 +16,7 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import FieldInput from "../FieldInput";
 import uuidv4 from "uuid/v4";
 import copy from "clipboard-copy";
+import urlRegex from "url-regex";
 
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 
@@ -28,6 +29,11 @@ class OrganizationUpdateForm extends React.Component {
     static propTypes = {
         onChange: PropTypes.func
     };
+
+    componentDidMount() {
+        //register vitual field for affiliation for checked if it has errors (improve in backend)
+        this.props.registerFieldAffiliation();
+    }
 
     refetch = () => {
         this.props.relay.refetch(
@@ -79,12 +85,20 @@ class OrganizationUpdateForm extends React.Component {
         copy(emails.join(" "));
     };
 
+    generateURL = (url) => {
+        if (!/^(?:f|ht)tps?:\/\//.test(url)) {
+            url = "http://" + url;
+        }
+        return url;
+    };
+
     render() {
         let {
             organization,
             name,
             type,
             customer_id,
+            website,
             description,
             incident_management_info,
             relationship_parent_of,
@@ -156,74 +170,110 @@ class OrganizationUpdateForm extends React.Component {
                                     <PanelEditable.Consumer>
                                         {(editable) => {
                                             return (
-                                                <div className="table-details">
-                                                    <div>
-                                                        <div className="w-25">Type</div>
-                                                        <div className="w-25">Affiliation</div>
-                                                        <div className="w-25">Organization ID</div>
-                                                        <div className="w-25">Parent Organization ID</div>
-                                                    </div>
-                                                    <div>
+                                                <>
+                                                    <div className="table-details">
+                                                        <div>
+                                                            <div className="w-25">Type</div>
+                                                            <div className="w-25">Affiliation</div>
+                                                            <div className="w-25">Organization ID</div>
+                                                            <div className="w-25">Parent Organization ID</div>
+                                                        </div>
                                                         <div>
                                                             <div>
-                                                                {!editable ? (
-                                                                    type
-                                                                ) : (
-                                                                    <Dropdown
-                                                                        className="auto"
-                                                                        emptyLabel="Select type"
-                                                                        type="organization_types"
-                                                                        name="type"
-                                                                        onChange={(e) => {}}
+                                                                <div>
+                                                                    {!editable ? (
+                                                                        type
+                                                                    ) : (
+                                                                        <Dropdown
+                                                                            className="auto"
+                                                                            emptyLabel="Select type"
+                                                                            type="organization_types"
+                                                                            name="type"
+                                                                            onChange={(e) => {}}
+                                                                        />
+                                                                    )}
+                                                                </div>
+                                                                <div>
+                                                                    <FiledArrayCheckbox
+                                                                        data={INPUTS}
+                                                                        form={this.props.form}
+                                                                        dispatch={this.props.dispatch}
+                                                                        editable={editable}
+                                                                        initialValues={
+                                                                            this.props.initialValues.affiliation
+                                                                        }
+                                                                        error={this.props.formSyncErrors.affiliation}
+                                                                        touched={this.props.fields}
                                                                     />
-                                                                )}
-                                                            </div>
-                                                            <div>
-                                                                <FiledArrayCheckbox
-                                                                    data={INPUTS}
-                                                                    form={this.props.form}
-                                                                    dispatch={this.props.dispatch}
-                                                                    editable={editable}
-                                                                    initialValues={this.props.initialValues.affiliation}
-                                                                    error={this.props.formSyncErrors.affiliation}
-                                                                    touched={this.props.fields}
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                {!editable ? (
-                                                                    customer_id
-                                                                ) : (
-                                                                    <Form.Group>
-                                                                        <Field
-                                                                            type="text"
-                                                                            name="customer_id"
-                                                                            component={FieldInput}
-                                                                            placeholder={t(
-                                                                                "organization-details.add-id"
-                                                                            )}
-                                                                        />
-                                                                    </Form.Group>
-                                                                )}
-                                                            </div>
-                                                            <div>
-                                                                {!editable ? (
-                                                                    relationship_parent_of
-                                                                ) : (
-                                                                    <Form.Group>
-                                                                        <Field
-                                                                            type="text"
-                                                                            name="relationship_parent_of"
-                                                                            component={FieldInput}
-                                                                            placeholder={t(
-                                                                                "organization-details.add-id"
-                                                                            )}
-                                                                        />
-                                                                    </Form.Group>
-                                                                )}
+                                                                </div>
+                                                                <div>
+                                                                    {!editable ? (
+                                                                        customer_id
+                                                                    ) : (
+                                                                        <Form.Group>
+                                                                            <Field
+                                                                                type="text"
+                                                                                name="customer_id"
+                                                                                component={FieldInput}
+                                                                                placeholder={t(
+                                                                                    "organization-details.add-id"
+                                                                                )}
+                                                                            />
+                                                                        </Form.Group>
+                                                                    )}
+                                                                </div>
+                                                                <div>
+                                                                    {!editable ? (
+                                                                        relationship_parent_of
+                                                                    ) : (
+                                                                        <Form.Group>
+                                                                            <Field
+                                                                                type="text"
+                                                                                name="relationship_parent_of"
+                                                                                component={FieldInput}
+                                                                                placeholder={t(
+                                                                                    "organization-details.add-id"
+                                                                                )}
+                                                                            />
+                                                                        </Form.Group>
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <div className="table-details mt-4">
+                                                        <div>
+                                                            <div className="w-20">Website</div>
+                                                        </div>
+                                                        <div>
+                                                            <div>
+                                                                <div>
+                                                                    {!editable ? (
+                                                                        <a
+                                                                            href={this.generateURL(website)}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                        >
+                                                                            {website}
+                                                                        </a>
+                                                                    ) : (
+                                                                        <Form.Group>
+                                                                            <Field
+                                                                                type="text"
+                                                                                className="xlg"
+                                                                                name="website"
+                                                                                component={FieldInput}
+                                                                                placeholder={t(
+                                                                                    "organization-details.add-website"
+                                                                                )}
+                                                                            />
+                                                                        </Form.Group>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
                                             );
                                         }}
                                     </PanelEditable.Consumer>
@@ -244,11 +294,10 @@ class OrganizationUpdateForm extends React.Component {
                                             return (
                                                 <div className="table-details">
                                                     <div>
-                                                        <div className="w-18">Website</div>
-                                                        <div className="w-18">Street</div>
-                                                        <div className="w-18">Postal Code</div>
-                                                        <div className="w-18">Postal Area</div>
-                                                        <div className="w-18">Phone</div>
+                                                        <div className="w-23">Street</div>
+                                                        <div className="w-23">Postal Code</div>
+                                                        <div className="w-23">Postal Area</div>
+                                                        <div className="w-23">Phone</div>
                                                     </div>
                                                     <div>
                                                         <FieldArray
@@ -314,7 +363,7 @@ class OrganizationUpdateForm extends React.Component {
                                                             component={FieldArrayContactOrganization}
                                                             editable={editable}
                                                             dispatch={this.props.dispatch}
-                                                            errors={this.props.formSyncErrors.members}
+                                                            errors={this.props.formSyncErrors.contacts}
                                                             metaFields={this.props.fields}
                                                         />
                                                     </div>
@@ -377,6 +426,12 @@ const validate = (values, props) => {
         errors.name = "* Required!";
     }
 
+    if (values.website) {
+        if (!urlRegex({ exact: true, strict: false }).test(values.website)) {
+            errors.website = "* Invalid url!";
+        }
+    }
+
     if (
         props.affiliation.customer === false &&
         props.affiliation.end_customer === false &&
@@ -392,10 +447,6 @@ const validate = (values, props) => {
         const addressArrayErrors = [];
         values.addresses.forEach((address, addressIndex) => {
             const addressErrors = {};
-            if (!address || !address.website) {
-                addressErrors.website = "* Required!";
-                addressArrayErrors[addressIndex] = addressErrors;
-            }
             if (!address || !address.street) {
                 addressErrors.street = "* Required!";
                 addressArrayErrors[addressIndex] = addressErrors;
@@ -464,13 +515,13 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                 handle_id
                 name
                 type
+                website
                 customer_id
                 description
                 incident_management_info
                 addresses {
                     handle_id
                     name
-                    website
                     street
                     postal_code
                     postal_area

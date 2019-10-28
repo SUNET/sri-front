@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
+import urlRegex from "url-regex";
 
 import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
@@ -108,36 +109,30 @@ class CreateOrganizationForm extends React.Component {
                                             </div>
                                             <div>
                                                 <div>
-                                                    <div>
-                                                        <Dropdown
-                                                            className="auto"
-                                                            emptyLabel="Select type"
-                                                            type="organization_types"
-                                                            name="type"
-                                                            onChange={(e) => {}}
+                                                    <Dropdown
+                                                        className="auto"
+                                                        emptyLabel="Select type"
+                                                        type="organization_types"
+                                                        name="type"
+                                                        onChange={(e) => {}}
+                                                    />
+                                                    <FiledArrayCheckbox
+                                                        data={INPUTS}
+                                                        form={this.props.form}
+                                                        dispatch={this.props.dispatch}
+                                                        editable={true}
+                                                        initialValues={this.props.initialValues.affiliation}
+                                                        error={this.props.formSyncErrors.affiliation}
+                                                        touched={this.props.fields}
+                                                    />
+                                                    <Form.Group>
+                                                        <Field
+                                                            type="text"
+                                                            name="customer_id"
+                                                            component={FieldInput}
+                                                            placeholder={t("organization-details.add-id")}
                                                         />
-                                                    </div>
-                                                    <div>
-                                                        <FiledArrayCheckbox
-                                                            data={INPUTS}
-                                                            form={this.props.form}
-                                                            dispatch={this.props.dispatch}
-                                                            editable={true}
-                                                            initialValues={this.props.initialValues.affiliation}
-                                                            error={this.props.formSyncErrors.affiliation}
-                                                            touched={this.props.fields}
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                type="text"
-                                                                name="customer_id"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-id")}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
+                                                    </Form.Group>
                                                     <div>
                                                         <Form.Group>
                                                             <Field
@@ -145,6 +140,26 @@ class CreateOrganizationForm extends React.Component {
                                                                 name="relationship_parent_of"
                                                                 component={FieldInput}
                                                                 placeholder={t("organization-details.add-id")}
+                                                            />
+                                                        </Form.Group>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="table-details mt-4">
+                                            <div>
+                                                <div className="w-20">Website</div>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <div>
+                                                        <Form.Group>
+                                                            <Field
+                                                                type="text"
+                                                                className="xlg"
+                                                                name="website"
+                                                                component={FieldInput}
+                                                                placeholder={t("organization-details.add-website")}
                                                             />
                                                         </Form.Group>
                                                     </div>
@@ -165,11 +180,10 @@ class CreateOrganizationForm extends React.Component {
                                     <TogglePanel>
                                         <div className="table-details">
                                             <div>
-                                                <div className="w-18">Website</div>
-                                                <div className="w-18">Street</div>
-                                                <div className="w-18">Postal Code</div>
-                                                <div className="w-18">Postal Area</div>
-                                                <div className="w-18">Phone</div>
+                                                <div className="w-23">Street</div>
+                                                <div className="w-23">Postal Code</div>
+                                                <div className="w-23">Postal Area</div>
+                                                <div className="w-23">Phone</div>
                                             </div>
                                             <div>
                                                 <FieldArray
@@ -201,8 +215,8 @@ class CreateOrganizationForm extends React.Component {
                                         <div className="table-details">
                                             <div>
                                                 <div className="w-18">Name</div>
-                                                <div className="w-30">Role</div>
-                                                <div>Email</div>
+                                                <div className="w-32">Role</div>
+                                                <div className="w-18">Email</div>
                                                 <div>Phone</div>
                                                 <div></div>
                                             </div>
@@ -212,7 +226,7 @@ class CreateOrganizationForm extends React.Component {
                                                     component={FieldArrayContactOrganization}
                                                     editable={true}
                                                     dispatch={this.props.dispatch}
-                                                    errors={this.props.formSyncErrors.members}
+                                                    errors={this.props.formSyncErrors.contacts}
                                                     metaFields={this.props.fields}
                                                 />
                                             </div>
@@ -293,6 +307,13 @@ const validate = (values, props) => {
     if (!values.type) {
         errors.type = "* Required!";
     }
+
+    if (values.website) {
+        if (!urlRegex({ exact: true, strict: false }).test(values.website)) {
+            errors.website = "* Invalid url!";
+        }
+    }
+
     if (
         (props.affiliation.customer === undefined || props.affiliation.customer === false) &&
         (props.affiliation.end_customer === undefined || props.affiliation.end_customer === false) &&
@@ -312,10 +333,6 @@ const validate = (values, props) => {
         const addressArrayErrors = [];
         values.addresses.forEach((address, addressIndex) => {
             const addressErrors = {};
-            if (!address || !address.website) {
-                addressErrors.website = "* Required!";
-                addressArrayErrors[addressIndex] = addressErrors;
-            }
             if (!address || !address.street) {
                 addressErrors.street = "* Required!";
                 addressArrayErrors[addressIndex] = addressErrors;

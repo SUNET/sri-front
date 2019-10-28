@@ -43,6 +43,7 @@
         "redux-form": "^8.2.6",
         "relay-query-lookup-renderer": "^5.0.0",
         "rename-keys": "^2.0.1",
+        "url-regex": "^5.0.0",
         "uuid": "^3.3.3"
     },
     "devDependencies": {

@@ -17,18 +17,30 @@ class FieldArrayAddressOrganization extends React.Component {
         this.state = {};
     }
 
-    validateAddress = (index) => {
-        const values = this.props.fields.getAll()[index];
-        const hasBlankfields =
-            values.website !== "" &&
-            values.website !== undefined &&
-            (values.street !== "" && values.street !== undefined) &&
-            (values.postal_code !== "" && values.postal_code !== undefined) &&
-            (values.postal_area !== "" && values.postal_area !== undefined) &&
-            (values.phone !== "" && values.phone !== undefined);
+    // UNSAFE_componentWillMount() {
+    //     this.props.fields.forEach((address, index) => {
+    //         if (this.validateAddress(index)) {
+    //             this.props.dispatch(change(this.props.meta.form, `addresses[${index}].valid`, "valid"));
+    //         } else {
+    //             this.props.dispatch(change(this.props.meta.form, `addresses[${index}].valid`, "invalid"));
+    //         }
+    //         return;
+    //     });
+    //     console.log(this.props.fields.getAll());
+    // }
 
+    validateAddress = (index) => {
         const errors = this.props.errors;
-        return !(errors && errors[index] !== undefined) && (hasBlankfields && errors === undefined);
+        const values = this.props.fields.getAll();
+        // when component is colapse, it need to check if the data are empty
+        const hasBlankFields =
+            values[index].street === "" ||
+            values[index].street === undefined ||
+            (values[index].postal_code === "" || values[index].postal_code === undefined) ||
+            (values[index].postal_area === "" || values[index].postal_area === undefined) ||
+            (values[index].phone === "" || values[index].phone === undefined);
+
+        return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
 
     addRow = (event) => {
@@ -41,7 +53,6 @@ class FieldArrayAddressOrganization extends React.Component {
         if (this.validateAddress(index)) {
             this.props.dispatch(change(this.props.meta.form, `addresses[${index}].status`, "saved"));
         } else {
-            this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].website`));
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].street`));
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].postal_code`));
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].postal_area`));
@@ -72,60 +83,41 @@ class FieldArrayAddressOrganization extends React.Component {
                     <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
                         {editable && values[index].status === "editing" ? (
                             <>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            name={`${address}.website`}
-                                            component={FieldInput}
-                                            placeholder={t("organization-details.add-website")}
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            name={`${address}.street`}
-                                            component={FieldInput}
-                                            placeholder={t("organization-details.add-street")}
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            name={`${address}.postal_code`}
-                                            component={FieldInput}
-                                            placeholder={t("organization-details.add-postalCode")}
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            name={`${address}.postal_area`}
-                                            component={FieldInput}
-                                            placeholder={t("organization-details.add-postalArea")}
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            name={`${address}.phone`}
-                                            component={FieldInput}
-                                            placeholder={t("organization-details.add-phone")}
-                                        />
-                                    </Form.Group>
-                                </div>
+                                <Form.Group>
+                                    <Field
+                                        type="text"
+                                        name={`${address}.street`}
+                                        component={FieldInput}
+                                        placeholder={t("organization-details.add-street")}
+                                    />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Field
+                                        type="text"
+                                        name={`${address}.postal_code`}
+                                        component={FieldInput}
+                                        placeholder={t("organization-details.add-postalCode")}
+                                    />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Field
+                                        type="text"
+                                        name={`${address}.postal_area`}
+                                        component={FieldInput}
+                                        placeholder={t("organization-details.add-postalArea")}
+                                    />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Field
+                                        type="text"
+                                        name={`${address}.phone`}
+                                        component={FieldInput}
+                                        placeholder={t("organization-details.add-phone")}
+                                    />
+                                </Form.Group>
                             </>
                         ) : (
                             <>
-                                <div>{fields.getAll()[index].website}</div>
                                 <div>{fields.getAll()[index].street}</div>
                                 <div>{fields.getAll()[index].postal_code}</div>
                                 <div>{fields.getAll()[index].postal_area}</div>
@@ -144,7 +136,7 @@ class FieldArrayAddressOrganization extends React.Component {
                                         )}
                                         {values[index].status === "editing" && (
                                             <span className="ok-check" onClick={() => this.saveRow(index)}>
-                                                <i className="icon-tick"></i>
+                                                <i className={`icon-tick ${values[index].valid}`}></i>
                                                 {t("actions.save")}
                                             </span>
                                         )}
@@ -157,7 +149,6 @@ class FieldArrayAddressOrganization extends React.Component {
                 {meta.error && <div>{meta.error}</div>}
                 {editable && (
                     <div>
-                        <div></div>
                         <div></div>
                         <div></div>
                         <div></div>

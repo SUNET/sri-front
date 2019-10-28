@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1f0481b76e555863af37a477e3e22c3e
+ * @relayHash f18e145ff254452c9c7ff442a393a48d
  */
 
 /* eslint-disable */
@@ -13,6 +13,7 @@ export type UpdateOrganizationInput = {|
   account_id?: ?string,
   name: string,
   description?: ?string,
+  website?: ?string,
   customer_id?: ?string,
   type?: ?any,
   incident_management_info?: ?string,
@@ -46,6 +47,7 @@ export type UpdateOrganizationMutationResponse = {|
       +handle_id: string,
       +name: string,
       +type: ?any,
+      +website: ?string,
       +customer_id: ?string,
       +affiliation_customer: ?boolean,
       +affiliation_end_customer: ?boolean,
@@ -84,6 +86,7 @@ mutation UpdateOrganizationMutation(
       handle_id
       name
       type
+      website
       customer_id
       affiliation_customer
       affiliation_end_customer
@@ -172,81 +175,88 @@ v5 = {
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "customer_id",
+  "name": "website",
   "args": null,
   "storageKey": null
 },
 v7 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_customer",
+  "name": "customer_id",
   "args": null,
   "storageKey": null
 },
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_end_customer",
+  "name": "affiliation_customer",
   "args": null,
   "storageKey": null
 },
 v9 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_host_user",
+  "name": "affiliation_end_customer",
   "args": null,
   "storageKey": null
 },
 v10 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_partner",
+  "name": "affiliation_host_user",
   "args": null,
   "storageKey": null
 },
 v11 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_provider",
+  "name": "affiliation_partner",
   "args": null,
   "storageKey": null
 },
 v12 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_site_owner",
+  "name": "affiliation_provider",
   "args": null,
   "storageKey": null
 },
 v13 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
+  "name": "affiliation_site_owner",
   "args": null,
   "storageKey": null
 },
 v14 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
+  "name": "first_name",
   "args": null,
   "storageKey": null
 },
 v15 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "comment",
+  "name": "last_name",
   "args": null,
   "storageKey": null
 },
 v16 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "submit_date",
+  "name": "comment",
   "args": null,
   "storageKey": null
 },
 v17 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "submit_date",
+  "args": null,
+  "storageKey": null
+},
+v18 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -291,6 +301,7 @@ return {
               (v10/*: any*/),
               (v11/*: any*/),
               (v12/*: any*/),
+              (v13/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -309,12 +320,12 @@ return {
                     "concreteType": "User",
                     "plural": false,
                     "selections": [
-                      (v13/*: any*/),
-                      (v14/*: any*/)
+                      (v14/*: any*/),
+                      (v15/*: any*/)
                     ]
                   },
-                  (v15/*: any*/),
-                  (v16/*: any*/)
+                  (v16/*: any*/),
+                  (v17/*: any*/)
                 ]
               }
             ]
@@ -357,6 +368,7 @@ return {
               (v10/*: any*/),
               (v11/*: any*/),
               (v12/*: any*/),
+              (v13/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -375,17 +387,17 @@ return {
                     "concreteType": "User",
                     "plural": false,
                     "selections": [
-                      (v13/*: any*/),
                       (v14/*: any*/),
-                      (v17/*: any*/)
+                      (v15/*: any*/),
+                      (v18/*: any*/)
                     ]
                   },
-                  (v15/*: any*/),
                   (v16/*: any*/),
-                  (v17/*: any*/)
+                  (v17/*: any*/),
+                  (v18/*: any*/)
                 ]
               },
-              (v17/*: any*/)
+              (v18/*: any*/)
             ]
           }
         ]
@@ -396,11 +408,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateOrganizationMutation",
     "id": null,
-    "text": "mutation UpdateOrganizationMutation(\n  $input: UpdateOrganizationInput!\n) {\n  update_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      customer_id\n      affiliation_customer\n      affiliation_end_customer\n      affiliation_host_user\n      affiliation_partner\n      affiliation_provider\n      affiliation_site_owner\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateOrganizationMutation(\n  $input: UpdateOrganizationInput!\n) {\n  update_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      website\n      customer_id\n      affiliation_customer\n      affiliation_end_customer\n      affiliation_host_user\n      affiliation_partner\n      affiliation_provider\n      affiliation_site_owner\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e783aa58810c39fff0289f30c426d1af';
+(node/*: any*/).hash = 'c677584214152489e7489a2e3cd6d567';
 module.exports = node;

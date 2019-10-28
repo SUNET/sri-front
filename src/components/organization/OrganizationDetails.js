@@ -16,6 +16,7 @@ const OrganizationDetailsQuery = graphql`
             handle_id
             name
             type
+            website
             customer_id
             description
             incident_management_info
@@ -28,7 +29,6 @@ const OrganizationDetailsQuery = graphql`
             addresses {
                 handle_id
                 name
-                website
                 street
                 postal_code
                 postal_area

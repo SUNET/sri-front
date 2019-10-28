@@ -525,7 +525,6 @@ type ContactWithRolename {
 input CreateAddressInput {
   organization: ChoiceScalar
   name: String!
-  website: String
   phone: String
   street: String
   postal_code: String
@@ -611,6 +610,7 @@ input CreateOrganizationInput {
   account_id: String
   name: String!
   description: String
+  website: String
   customer_id: String
   type: ChoiceScalar
   incident_management_info: String
@@ -1137,6 +1137,54 @@ interface KeyValue {
   value: String!
 }
 
+input MultipleContactInput {
+  create_inputs: [SingleCreateContactInput]
+  update_inputs: [SingleUpdateContactInput]
+  delete_inputs: [SingleDeleteContactInput]
+  detach_inputs: [DeleteRelationshipInput]
+  clientMutationId: String
+}
+
+type MultipleContactPayload {
+  created: [CreateContactPayload]
+  updated: [UpdateContactPayload]
+  deleted: [DeleteContactPayload]
+  detached: [DeleteRelationshipPayload]
+  clientMutationId: String
+}
+
+input MultipleEmailInput {
+  create_inputs: [SingleCreateEmailInput]
+  update_inputs: [SingleUpdateEmailInput]
+  delete_inputs: [SingleDeleteEmailInput]
+  detach_inputs: [DeleteRelationshipInput]
+  clientMutationId: String
+}
+
+type MultipleEmailPayload {
+  created: [CreateEmailPayload]
+  updated: [UpdateEmailPayload]
+  deleted: [DeleteEmailPayload]
+  detached: [DeleteRelationshipPayload]
+  clientMutationId: String
+}
+
+input MultiplePhoneInput {
+  create_inputs: [SingleCreatePhoneInput]
+  update_inputs: [SingleUpdatePhoneInput]
+  delete_inputs: [SingleDeletePhoneInput]
+  detach_inputs: [DeleteRelationshipInput]
+  clientMutationId: String
+}
+
+type MultiplePhonePayload {
+  created: [CreatePhonePayload]
+  updated: [UpdatePhonePayload]
+  deleted: [DeletePhonePayload]
+  detached: [DeleteRelationshipPayload]
+  clientMutationId: String
+}
+
 type Mutation {
   create_group(input: CreateGroupInput!): CreateGroupPayload
   update_group(input: UpdateGroupInput!): UpdateGroupPayload
@@ -1147,15 +1195,18 @@ type Mutation {
   create_phone(input: CreatePhoneInput!): CreatePhonePayload
   update_phone(input: UpdatePhoneInput!): UpdatePhonePayload
   delete_phone(input: DeletePhoneInput!): DeletePhonePayload
+  multiple_phone(input: MultiplePhoneInput!): MultiplePhonePayload
   create_email(input: CreateEmailInput!): CreateEmailPayload
   update_email(input: UpdateEmailInput!): UpdateEmailPayload
   delete_email(input: DeleteEmailInput!): DeleteEmailPayload
+  multiple_email(input: MultipleEmailInput!): MultipleEmailPayload
   create_address(input: CreateAddressInput!): CreateAddressPayload
   update_address(input: UpdateAddressInput!): UpdateAddressPayload
   delete_address(input: DeleteAddressInput!): DeleteAddressPayload
   create_contact(input: CreateContactInput!): CreateContactPayload
   update_contact(input: UpdateContactInput!): UpdateContactPayload
   delete_contact(input: DeleteContactInput!): DeleteContactPayload
+  multiple_contact(input: MultipleContactInput!): MultipleContactPayload
   create_organization(input: CreateOrganizationInput!): CreateOrganizationPayload
   update_organization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
   delete_organization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
@@ -1276,6 +1327,7 @@ type Organization implements Node {
   customer_id: String
   incident_management_info: String
   type: ChoiceScalar
+  website: String
   addresses: [Address]
   affiliation_customer: Boolean
   affiliation_end_customer: Boolean
@@ -1372,6 +1424,20 @@ input OrganizationNestedFilter {
   type_gte: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
+  website: String
+  website_not: String
+  website_lt: String
+  website_lte: String
+  website_gt: String
+  website_gte: String
+  website_contains: String
+  website_not_contains: String
+  website_starts_with: String
+  website_not_starts_with: String
+  website_ends_with: String
+  website_not_ends_with: String
+  website_in: [String!]
+  website_not_in: [String!]
   addresses: AddressInputField
   addresses_not: AddressInputField
   addresses_lt: AddressInputField
@@ -1434,6 +1500,8 @@ enum OrganizationOrderBy {
   incident_management_info_DESC
   type_ASC
   type_DESC
+  website_ASC
+  website_DESC
   handle_id_ASC
   handle_id_DESC
   created_ASC
@@ -1824,10 +1892,74 @@ input RoleRelationInputField {
   name: String
 }
 
+input SingleCreateContactInput {
+  first_name: String!
+  last_name: String!
+  contact_type: ChoiceScalar!
+  name: String
+  title: String
+  pgp_fingerprint: String
+  notes: String
+  relationship_works_for: ChoiceScalar
+  relationship_member_of: ChoiceScalar
+  role: ChoiceScalar
+}
+
+input SingleCreateEmailInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+}
+
+input SingleCreatePhoneInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+}
+
+input SingleDeleteContactInput {
+  handle_id: Int!
+}
+
+input SingleDeleteEmailInput {
+  handle_id: Int!
+}
+
+input SingleDeletePhoneInput {
+  handle_id: Int!
+}
+
+input SingleUpdateContactInput {
+  first_name: String!
+  last_name: String!
+  contact_type: ChoiceScalar!
+  name: String
+  title: String
+  pgp_fingerprint: String
+  notes: String
+  relationship_works_for: ChoiceScalar
+  relationship_member_of: ChoiceScalar
+  role: ChoiceScalar
+  handle_id: Int!
+}
+
+input SingleUpdateEmailInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  handle_id: Int!
+}
+
+input SingleUpdatePhoneInput {
+  contact: ChoiceScalar
+  name: String!
+  type: ChoiceScalar!
+  handle_id: Int!
+}
+
 input UpdateAddressInput {
   organization: ChoiceScalar
   name: String!
-  website: String
   phone: String
   street: String
   postal_code: String
@@ -1906,6 +2038,7 @@ input UpdateOrganizationInput {
   account_id: String
   name: String!
   description: String
+  website: String
   customer_id: String
   type: ChoiceScalar
   incident_management_info: String
