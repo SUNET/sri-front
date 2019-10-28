@@ -114,8 +114,9 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    dispatch(registerField("updateOrganization", "affiliation", "Field"));
-    return {};
+    return {
+        registerFieldAffiliation: () => dispatch(registerField("updateOrganization", "affiliation", "Field"))
+    };
 };
 
 const OrganizationUpdateFormContainer = connect(

@@ -22,6 +22,7 @@ const mutation = graphql`
                 handle_id
                 name
                 type
+                website
                 customer_id
                 affiliation_customer
                 affiliation_end_customer
@@ -43,6 +44,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateOrganizationMutation(organization, callback) {
+    console.log(organization);
     const variables = {
         input: {
             handle_id: organization.id,
@@ -50,6 +52,7 @@ export default function UpdateOrganizationMutation(organization, callback) {
             description: organization.description,
             customer_id: organization.customer_id,
             type: organization.type,
+            website: organization.website,
             affiliation_customer: organization.affiliation_customer,
             affiliation_end_customer: organization.affiliation_end_customer,
             affiliation_host_user: organization.affiliation_host_user,

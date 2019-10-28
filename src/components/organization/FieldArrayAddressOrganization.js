@@ -26,12 +26,21 @@ class FieldArrayAddressOrganization extends React.Component {
     //         }
     //         return;
     //     });
-    //     console.log(this.props.fields);
+    //     console.log(this.props.fields.getAll());
     // }
 
     validateAddress = (index) => {
         const errors = this.props.errors;
-        return (errors && errors[index] === undefined) || errors === undefined;
+        const values = this.props.fields.getAll();
+        // when component is colapse, it need to check if the data are empty
+        const hasBlankFields =
+            values[index].street === "" ||
+            values[index].street === undefined ||
+            (values[index].postal_code === "" || values[index].postal_code === undefined) ||
+            (values[index].postal_area === "" || values[index].postal_area === undefined) ||
+            (values[index].phone === "" || values[index].phone === undefined);
+
+        return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
 
     addRow = (event) => {
@@ -44,7 +53,6 @@ class FieldArrayAddressOrganization extends React.Component {
         if (this.validateAddress(index)) {
             this.props.dispatch(change(this.props.meta.form, `addresses[${index}].status`, "saved"));
         } else {
-            this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].website`));
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].street`));
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].postal_code`));
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].postal_area`));

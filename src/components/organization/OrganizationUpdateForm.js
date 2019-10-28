@@ -16,6 +16,7 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import FieldInput from "../FieldInput";
 import uuidv4 from "uuid/v4";
 import copy from "clipboard-copy";
+import urlRegex from "url-regex";
 
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 
@@ -28,6 +29,11 @@ class OrganizationUpdateForm extends React.Component {
     static propTypes = {
         onChange: PropTypes.func
     };
+
+    componentDidMount() {
+        //register vitual field for affiliation for checked if it has errors (improve in backend)
+        this.props.registerFieldAffiliation();
+    }
 
     refetch = () => {
         this.props.relay.refetch(
@@ -77,6 +83,13 @@ class OrganizationUpdateForm extends React.Component {
             return contact.status === "saved" ? contact.email : null;
         });
         copy(emails.join(" "));
+    };
+
+    generateURL = (url) => {
+        if (!/^(?:f|ht)tps?:\/\//.test(url)) {
+            url = "http://" + url;
+        }
+        return url;
     };
 
     render() {
@@ -236,7 +249,13 @@ class OrganizationUpdateForm extends React.Component {
                                                             <div>
                                                                 <div>
                                                                     {!editable ? (
-                                                                        <a href={website}>{website}</a>
+                                                                        <a
+                                                                            href={this.generateURL(website)}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                        >
+                                                                            {website}
+                                                                        </a>
                                                                     ) : (
                                                                         <Form.Group>
                                                                             <Field
@@ -275,10 +294,10 @@ class OrganizationUpdateForm extends React.Component {
                                             return (
                                                 <div className="table-details">
                                                     <div>
-                                                        <div className="w-18">Street</div>
-                                                        <div className="w-18">Postal Code</div>
-                                                        <div className="w-18">Postal Area</div>
-                                                        <div className="w-18">Phone</div>
+                                                        <div className="w-23">Street</div>
+                                                        <div className="w-23">Postal Code</div>
+                                                        <div className="w-23">Postal Area</div>
+                                                        <div className="w-23">Phone</div>
                                                     </div>
                                                     <div>
                                                         <FieldArray
@@ -405,6 +424,12 @@ const validate = (values, props) => {
     const errors = {};
     if (!values.name) {
         errors.name = "* Required!";
+    }
+
+    if (values.website) {
+        if (!urlRegex({ exact: true, strict: false }).test(values.website)) {
+            errors.website = "* Invalid url!";
+        }
     }
 
     if (
