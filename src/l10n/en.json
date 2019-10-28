@@ -44,6 +44,7 @@
             "filter_columns.order_desc": "Order A > Z",
             "filter.date.created": "Created",
             "filter.date.updated": "Updated",
+            "filter.date.clear": "Reset dates",
             "actions.clear": "Clear",
             "actions.cancel": "Cancel",
             "actions.accept": "Accept",

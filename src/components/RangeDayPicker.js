@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withTranslation } from "react-i18next";
 import moment from "moment";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import MomentLocaleUtils, { formatDate, parseDate } from "react-day-picker/moment";
@@ -49,6 +50,7 @@ class RangeDayPicker extends React.Component {
 
     render() {
         const { from, to } = this.state;
+        const { t } = this.props;
         const modifiers = { start: from, end: to };
         return (
             <>
@@ -96,10 +98,12 @@ class RangeDayPicker extends React.Component {
                         />
                     </span>
                 </div>
-                <button type="button" onClick={this.handleResetClick} className="btn outline btn-trash"></button>
+                <button type="button" onClick={this.handleResetClick} className="btn outline btn-remove">
+                    {t("filter.date.clear")}
+                </button>
             </>
         );
     }
 }
 
-export default RangeDayPicker;
+export default withTranslation()(RangeDayPicker);
