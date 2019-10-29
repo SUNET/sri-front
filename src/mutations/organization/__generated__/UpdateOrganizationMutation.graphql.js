@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f18e145ff254452c9c7ff442a393a48d
+ * @relayHash fc339e9dfb911561ea638a2cbc16308e
  */
 
 /* eslint-disable */
@@ -63,6 +63,14 @@ export type UpdateOrganizationMutationResponse = {|
         +comment: string,
         +submit_date: any,
       |}>,
+      +created: any,
+      +creator: {|
+        +email: string
+      |},
+      +modified: any,
+      +modifier: {|
+        +email: string
+      |},
     |},
   |}
 |};
@@ -102,6 +110,16 @@ mutation UpdateOrganizationMutation(
         }
         comment
         submit_date
+        id
+      }
+      created
+      creator {
+        email
+        id
+      }
+      modified
+      modifier {
+        email
         id
       }
       id
@@ -259,10 +277,38 @@ v17 = {
 v18 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "created",
+  "args": null,
+  "storageKey": null
+},
+v19 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "email",
+  "args": null,
+  "storageKey": null
+},
+v20 = [
+  (v19/*: any*/)
+],
+v21 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "modified",
+  "args": null,
+  "storageKey": null
+},
+v22 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
-};
+},
+v23 = [
+  (v19/*: any*/),
+  (v22/*: any*/)
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -327,6 +373,28 @@ return {
                   (v16/*: any*/),
                   (v17/*: any*/)
                 ]
+              },
+              (v18/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "creator",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": (v20/*: any*/)
+              },
+              (v21/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "modifier",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": (v20/*: any*/)
               }
             ]
           }
@@ -389,15 +457,37 @@ return {
                     "selections": [
                       (v14/*: any*/),
                       (v15/*: any*/),
-                      (v18/*: any*/)
+                      (v22/*: any*/)
                     ]
                   },
                   (v16/*: any*/),
                   (v17/*: any*/),
-                  (v18/*: any*/)
+                  (v22/*: any*/)
                 ]
               },
-              (v18/*: any*/)
+              (v18/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "creator",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": (v23/*: any*/)
+              },
+              (v21/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "modifier",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": (v23/*: any*/)
+              },
+              (v22/*: any*/)
             ]
           }
         ]
@@ -408,11 +498,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateOrganizationMutation",
     "id": null,
-    "text": "mutation UpdateOrganizationMutation(\n  $input: UpdateOrganizationInput!\n) {\n  update_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      website\n      customer_id\n      affiliation_customer\n      affiliation_end_customer\n      affiliation_host_user\n      affiliation_partner\n      affiliation_provider\n      affiliation_site_owner\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateOrganizationMutation(\n  $input: UpdateOrganizationInput!\n) {\n  update_organization(input: $input) {\n    errors {\n      field\n      messages\n    }\n    organization {\n      handle_id\n      name\n      type\n      website\n      customer_id\n      affiliation_customer\n      affiliation_end_customer\n      affiliation_host_user\n      affiliation_partner\n      affiliation_provider\n      affiliation_site_owner\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      created\n      creator {\n        email\n        id\n      }\n      modified\n      modifier {\n        email\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c677584214152489e7489a2e3cd6d567';
+(node/*: any*/).hash = 'ecd6c7caa6f5bd24a2e21fbf3afae5fe';
 module.exports = node;

@@ -303,6 +303,7 @@ class OrganizationUpdateForm extends React.Component {
                                                         <FieldArray
                                                             name="addresses"
                                                             component={FieldArrayAddressOrganization}
+                                                            rerenderOnEveryChange={true}
                                                             editable={editable}
                                                             dispatch={this.props.dispatch}
                                                             errors={this.props.formSyncErrors.addresses}
@@ -504,7 +505,19 @@ const validate = (values, props) => {
 
 OrganizationUpdateForm = reduxForm({
     form: "updateOrganization",
-    validate
+    validate,
+    onSubmitSuccess: (values, dispatch, props) => {
+        console.log(values);
+        // UpdateOrganizationMutation(result);
+        // props.relay.refetch(
+        //     { organizationId: props.organization.handle_id }, // Our refetchQuery needs to know the `organizationID`
+        //     null, // We can use the refetchVariables as renderVariables
+        //     () => {
+        //         console.log("Refetch done");
+        //     },
+        //     { force: true }
+        // );
+    }
 })(OrganizationUpdateForm);
 
 const OrganizationUpdateFormFragment = createRefetchContainer(

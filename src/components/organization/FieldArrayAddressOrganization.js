@@ -17,17 +17,13 @@ class FieldArrayAddressOrganization extends React.Component {
         this.state = {};
     }
 
-    // UNSAFE_componentWillMount() {
-    //     this.props.fields.forEach((address, index) => {
-    //         if (this.validateAddress(index)) {
-    //             this.props.dispatch(change(this.props.meta.form, `addresses[${index}].valid`, "valid"));
-    //         } else {
-    //             this.props.dispatch(change(this.props.meta.form, `addresses[${index}].valid`, "invalid"));
-    //         }
-    //         return;
-    //     });
-    //     console.log(this.props.fields.getAll());
-    // }
+    validRowCheck(index) {
+        if (this.validateAddress(index)) {
+            this.props.dispatch(change(this.props.meta.form, `addresses[${index}].valid`, "valid"));
+        } else {
+            this.props.dispatch(change(this.props.meta.form, `addresses[${index}].valid`, "invalid"));
+        }
+    }
 
     validateAddress = (index) => {
         const errors = this.props.errors;
@@ -58,12 +54,12 @@ class FieldArrayAddressOrganization extends React.Component {
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].postal_area`));
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].phone`));
         }
-        this.props.dispatch(refreshFields());
+        // this.props.dispatch(refreshFields());
     };
 
     editRow = (index) => {
         this.props.dispatch(change(this.props.meta.form, `addresses[${index}].status`, "editing"));
-        this.props.dispatch(refreshFields());
+        // this.props.dispatch(refreshFields());
     };
 
     removeRow = (index, values) => {
@@ -79,73 +75,76 @@ class FieldArrayAddressOrganization extends React.Component {
         const values = fields.getAll();
         return (
             <>
-                {fields.map((address, index) => (
-                    <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
-                        {editable && values[index].status === "editing" ? (
-                            <>
-                                <Form.Group>
-                                    <Field
-                                        type="text"
-                                        name={`${address}.street`}
-                                        component={FieldInput}
-                                        placeholder={t("organization-details.add-street")}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Field
-                                        type="text"
-                                        name={`${address}.postal_code`}
-                                        component={FieldInput}
-                                        placeholder={t("organization-details.add-postalCode")}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Field
-                                        type="text"
-                                        name={`${address}.postal_area`}
-                                        component={FieldInput}
-                                        placeholder={t("organization-details.add-postalArea")}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Field
-                                        type="text"
-                                        name={`${address}.phone`}
-                                        component={FieldInput}
-                                        placeholder={t("organization-details.add-phone")}
-                                    />
-                                </Form.Group>
-                            </>
-                        ) : (
-                            <>
-                                <div>{fields.getAll()[index].street}</div>
-                                <div>{fields.getAll()[index].postal_code}</div>
-                                <div>{fields.getAll()[index].postal_area}</div>
-                                <div>{fields.getAll()[index].phone}</div>
-                            </>
-                        )}
-                        <div className="actions">
-                            {editable && (
-                                <div>
-                                    <div>
-                                        <i className="icon-trash" onClick={() => this.removeRow(index, values)}></i>
-                                    </div>
-                                    <div>
-                                        {values[index].status !== "editing" && (
-                                            <i className="icon-pencil" onClick={() => this.editRow(index)}></i>
-                                        )}
-                                        {values[index].status === "editing" && (
-                                            <span className="ok-check" onClick={() => this.saveRow(index)}>
-                                                <i className={`icon-tick ${values[index].valid}`}></i>
-                                                {t("actions.save")}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
+                {fields.map((address, index) => {
+                    this.validRowCheck(index);
+                    return (
+                        <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
+                            {editable && values[index].status === "editing" ? (
+                                <>
+                                    <Form.Group>
+                                        <Field
+                                            type="text"
+                                            name={`${address}.street`}
+                                            component={FieldInput}
+                                            placeholder={t("organization-details.add-street")}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Field
+                                            type="text"
+                                            name={`${address}.postal_code`}
+                                            component={FieldInput}
+                                            placeholder={t("organization-details.add-postalCode")}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Field
+                                            type="text"
+                                            name={`${address}.postal_area`}
+                                            component={FieldInput}
+                                            placeholder={t("organization-details.add-postalArea")}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Field
+                                            type="text"
+                                            name={`${address}.phone`}
+                                            component={FieldInput}
+                                            placeholder={t("organization-details.add-phone")}
+                                        />
+                                    </Form.Group>
+                                </>
+                            ) : (
+                                <>
+                                    <div>{fields.getAll()[index].street}</div>
+                                    <div>{fields.getAll()[index].postal_code}</div>
+                                    <div>{fields.getAll()[index].postal_area}</div>
+                                    <div>{fields.getAll()[index].phone}</div>
+                                </>
                             )}
+                            <div className="actions">
+                                {editable && (
+                                    <div>
+                                        <div>
+                                            <i className="icon-trash" onClick={() => this.removeRow(index, values)}></i>
+                                        </div>
+                                        <div>
+                                            {values[index].status !== "editing" && (
+                                                <i className="icon-pencil" onClick={() => this.editRow(index)}></i>
+                                            )}
+                                            {values[index].status === "editing" && (
+                                                <span className="ok-check" onClick={() => this.saveRow(index)}>
+                                                    <i className={`icon-tick ${values[index].valid}`}></i>
+                                                    {t("actions.save")}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
                 {meta.error && <div>{meta.error}</div>}
                 {editable && (
                     <div>

@@ -38,13 +38,20 @@ const mutation = graphql`
                     comment
                     submit_date
                 }
+                created
+                creator {
+                    email
+                }
+                modified
+                modifier {
+                    email
+                }
             }
         }
     }
 `;
 
 export default function UpdateOrganizationMutation(organization, callback) {
-    console.log(organization);
     const variables = {
         input: {
             handle_id: organization.id,
@@ -124,7 +131,7 @@ export default function UpdateOrganizationMutation(organization, callback) {
                         }
                     });
                 }
-                callback.push("/community/organizations/" + organization.id);
+                // callback.push("/community/organizations/" + organization.id);
                 // const payload = proxyStore.get(contact.id, "Contact");
                 // contact_node.setValue(contact.first_name, "first_name");
                 // contact_node.setValue(contact.last_name, "last_name");
@@ -132,6 +139,12 @@ export default function UpdateOrganizationMutation(organization, callback) {
                 // contact_node.setValue(contact.phone, "phone");
                 // contact_node.setValue(contact.contact_type, "contact_type");
             }
+        },
+        updater: (proxyStore) => {
+            // Get the payload returned from the server
+            const payload = proxyStore.get(organization.id, "Organization");
+            console.log("pp", payload);
+            // Add it to the user's todo list
         },
         onError: (err) => console.error(err)
     });
