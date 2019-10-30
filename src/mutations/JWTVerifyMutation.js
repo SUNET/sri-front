@@ -9,15 +9,6 @@ const mutation = graphql`
         }
     }
 `;
-//
-// const jwtRefreshMutation = graphql`
-//     mutation JWTRefreshMutation($input: RefreshInput!) {
-//         refresh_token(input: $input) {
-//             token
-//             payload
-//         }
-//     }
-// `;
 
 function JWTVerifyMutation(token) {
     const variables = {
@@ -38,18 +29,5 @@ function JWTVerifyMutation(token) {
         });
     });
 }
-//
-// export function refresh_token(token) {
-//     const variables = {
-//         input: { token: token }
-//     };
-//     return commitMutation(environment, {
-//         jwtRefreshMutation,
-//         variables,
-//         onCompleted: (response, errors) => {
-//             console.log(response, errors);
-//         },
-//         onError: (errors) => console.error(errors)
-//     });
-// }
+
 export default JWTVerifyMutation;
