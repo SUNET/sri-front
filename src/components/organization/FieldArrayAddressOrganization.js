@@ -76,7 +76,6 @@ class FieldArrayAddressOrganization extends React.Component {
         return (
             <>
                 {fields.map((address, index) => {
-                    this.validRowCheck(index);
                     return (
                         <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
                             {editable && values[index].status === "editing" ? (
