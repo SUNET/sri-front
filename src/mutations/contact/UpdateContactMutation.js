@@ -8,6 +8,8 @@ import DeleteEmailMutation from "../DeleteEmailMutation";
 import DeletePhoneMutation from "../DeletePhoneMutation";
 import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
 import DeleteRelationshMutation from "../DeleteRelationshMutation";
+
+import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
@@ -63,7 +65,7 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateContactMutation(contact) {
+export default function UpdateContactMutation(contact, notifications) {
     let fullName = contact.name;
     fullName = fullName.split(" ");
     contact.first_name = fullName[0];
@@ -150,6 +152,7 @@ export default function UpdateContactMutation(contact) {
                         }
                     });
                 }
+                notifications(i18n.t("notify.changes-saved"), "success");
             }
         },
         updater: (proxyStore, data) => {

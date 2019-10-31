@@ -1,5 +1,5 @@
 import React from "react";
-import CreateGroupFormContainer from "../../containers/CreateGroupForm";
+import CreateGroupFormContainer from "../../containers/group/CreateGroupForm";
 import CreateGroupMutation from "../../mutations/CreateGroupMutation";
 
 class CreateGroup extends React.Component {

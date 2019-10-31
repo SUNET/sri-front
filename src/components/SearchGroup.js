@@ -11,9 +11,9 @@ import renameKeys from "rename-keys";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import GroupDetails from "./group/GroupDetails";
+import GroupDetailsContainer from "../containers/group/GroupDetails";
 import CreateGroup from "./group/CreateGroup";
-import GroupListContainer from "../containers/GroupList";
+import GroupListContainer from "../containers/group/GroupList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
@@ -212,7 +212,7 @@ class SearchGroup extends React.Component {
                         )}
                     />
                     <Route path={`${this.props.match.url}/groups/create`} component={CreateGroup} />
-                    <Route path={`${this.props.match.url}/groups/:groupId`} component={GroupDetails} />
+                    <Route path={`${this.props.match.url}/groups/:groupId`} component={GroupDetailsContainer} />
                 </Switch>
             </section>
         );

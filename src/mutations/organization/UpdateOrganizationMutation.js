@@ -1,6 +1,5 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../../createRelayEnvironment";
 
 import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
 import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
@@ -10,6 +9,9 @@ import CreateAddressMutation from "../CreateAddressMutation";
 import UpdateAddressMutation from "../UpdateAddressMutation";
 import DeleteAddressMutation from "../DeleteAddressMutation";
 import DeleteRelationshMutation from "../DeleteRelationshMutation";
+
+import i18n from "../../i18n";
+import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
     mutation UpdateOrganizationMutation($input: UpdateOrganizationInput!) {
@@ -43,8 +45,7 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateOrganizationMutation(organization, callback) {
-    console.log(organization);
+export default function UpdateOrganizationMutation(organization, notifications) {
     const variables = {
         input: {
             handle_id: organization.id,
@@ -124,7 +125,7 @@ export default function UpdateOrganizationMutation(organization, callback) {
                         }
                     });
                 }
-                callback.push("/community/organizations/" + organization.id);
+                notifications(i18n.t("notify.changes-saved"), "success");
                 // const payload = proxyStore.get(contact.id, "Contact");
                 // contact_node.setValue(contact.first_name, "first_name");
                 // contact_node.setValue(contact.last_name, "last_name");

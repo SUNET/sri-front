@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import GroupUpdateFormContainer from "../../containers/GroupUpdateForm";
+import GroupUpdateFormContainer from "../../containers/group/GroupUpdateForm";
 import UpdateGroupMutation from "../../mutations/UpdateGroupMutation";
 import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
 import environment from "../../createRelayEnvironment";
