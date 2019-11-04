@@ -2,8 +2,6 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import { Dropdown, Form, Nav, Navbar, Image } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/TopHeader.scss";
 
@@ -41,7 +39,7 @@ class TopHeader extends React.Component {
                         <Nav.Item>
                             <Dropdown>
                                 <Dropdown.Toggle as="span">
-                                    <FontAwesomeIcon icon={faBell} />
+                                    <i className="icon-notification"></i>
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className="dropdown-menu-right">
                                     <Dropdown.Item href="#/notification-1">Notification 1</Dropdown.Item>

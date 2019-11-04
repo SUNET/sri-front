@@ -37,11 +37,13 @@ class App extends Component {
                             </Col>
                         </Row>
                         <Row>
+                            <SplashContainer />
                             <Switch>
                                 <Route path="/network" component={SideNavNetwork} />
                                 <Route path="/community" component={SideNavCommunity} />
                             </Switch>
                             <Col className="fixed-adaptative">
+                                <NotifyContainer />
                                 <Row className="mt-4">
                                     <Col>
                                         <Breadcrumbs mappedRoutes={Routes} />
@@ -50,8 +52,6 @@ class App extends Component {
                                         <SubMenuActions />
                                     </Col>
                                 </Row>
-                                <NotifyContainer />
-                                <SplashContainer />
                                 <BaseContainer />
                             </Col>
                         </Row>

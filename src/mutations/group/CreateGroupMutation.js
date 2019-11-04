@@ -1,14 +1,14 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
-import CreateCommentMutation from "./CreateCommentMutation";
-import CreateContactInlineMutation from "./contact/CreateContactInlineMutation";
-import AddMemberGroupMutation from "./AddMemberGroupMutation";
-import UpdateContactInlineMutation from "./contact/UpdateContactInlineMutation";
-import UpdateEmailMutation from "./UpdateEmailMutation";
-import UpdatePhoneMutation from "./UpdatePhoneMutation";
+import CreateCommentMutation from "../CreateCommentMutation";
+import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
+import AddMemberGroupMutation from "../contact/AddMemberGroupMutation";
+import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
+import UpdateEmailMutation from "../email/UpdateEmailMutation";
+import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
 
 const mutation = graphql`
     mutation CreateGroupMutation($input: CreateGroupInput!) {

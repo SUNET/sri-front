@@ -11,7 +11,7 @@ import renameKeys from "rename-keys";
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
 
-import OrganizationDetails from "./organization/OrganizationDetails";
+import OrganizationDetailsContainer from "../containers/organization/OrganizationDetails";
 import CreateOrganization from "./organization/CreateOrganization";
 import OrganizationListContainer from "../containers/organization/OrganizationList";
 import Filter from "./Filter";
@@ -188,7 +188,7 @@ class SearchOrganization extends React.Component {
                     <Route path={`${this.props.match.url}/organizations/create`} component={CreateOrganization} />
                     <Route
                         path={`${this.props.match.url}/organizations/:organizationId`}
-                        component={OrganizationDetails}
+                        component={OrganizationDetailsContainer}
                     />
                 </Switch>
             </section>

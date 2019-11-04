@@ -103,7 +103,9 @@ class OrganizationUpdateForm extends React.Component {
             incident_management_info,
             relationship_parent_of,
             t,
-            handleSubmit
+            handleSubmit,
+            pristine,
+            submitting
         } = this.props;
         return (
             <form onSubmit={handleSubmit}>
@@ -412,7 +414,14 @@ class OrganizationUpdateForm extends React.Component {
                     <button type="button" onClick={() => this.props.onDelete()} className="btn link">
                         {t("actions.delete")}
                     </button>
-                    <button onClick={() => {}} className="btn primary lg">
+                    <button
+                        onClick={() => {
+                            document.documentElement.scrollTop = 0;
+                        }}
+                        type="submit"
+                        className="btn primary lg"
+                        disabled={pristine || submitting}
+                    >
                         {t("actions.save")}
                     </button>
                 </div>
@@ -505,19 +514,7 @@ const validate = (values, props) => {
 
 OrganizationUpdateForm = reduxForm({
     form: "updateOrganization",
-    validate,
-    onSubmitSuccess: (values, dispatch, props) => {
-        console.log(values);
-        // UpdateOrganizationMutation(result);
-        // props.relay.refetch(
-        //     { organizationId: props.organization.handle_id }, // Our refetchQuery needs to know the `organizationID`
-        //     null, // We can use the refetchVariables as renderVariables
-        //     () => {
-        //         console.log("Refetch done");
-        //     },
-        //     { force: true }
-        // );
-    }
+    validate
 })(OrganizationUpdateForm);
 
 const OrganizationUpdateFormFragment = createRefetchContainer(

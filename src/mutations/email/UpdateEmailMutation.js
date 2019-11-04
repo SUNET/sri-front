@@ -1,17 +1,19 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 const mutation = graphql`
-    mutation UpdateAddressMutation($input: UpdateAddressInput!) {
-        update_address(input: $input) {
+    mutation UpdateEmailMutation($input: UpdateEmailInput!) {
+        update_email(input: $input) {
             errors {
                 field
                 messages
             }
-            address {
+            email {
                 handle_id
+                name
+                type
             }
         }
     }
@@ -19,16 +21,13 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function UpdateAddressMutation(organization, address) {
+function UpdateEmailMutation(contact, name, email) {
     const variables = {
         input: {
-            organization,
-            name: address.name,
-            handle_id: address.handle_id,
-            street: address.street,
-            postal_code: address.postal_code,
-            postal_area: address.postal_area,
-            phone: address.phone,
+            contact,
+            name,
+            type: email.type,
+            handle_id: email.handle_id,
             clientMutationId: tempID++
         }
     };
@@ -49,4 +48,4 @@ function UpdateAddressMutation(organization, address) {
     });
 }
 
-export default UpdateAddressMutation;
+export default UpdateEmailMutation;

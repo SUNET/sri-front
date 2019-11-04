@@ -1,13 +1,15 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import CreateEmailMutation from "../CreateEmailMutation";
-import CreatePhoneMutation from "../CreatePhoneMutation";
-import UpdateEmailMutation from "../UpdateEmailMutation";
-import UpdatePhoneMutation from "../UpdatePhoneMutation";
-import DeleteEmailMutation from "../DeleteEmailMutation";
-import DeletePhoneMutation from "../DeletePhoneMutation";
+import CreateEmailMutation from "../email/CreateEmailMutation";
+import CreatePhoneMutation from "../phone/CreatePhoneMutation";
+import UpdateEmailMutation from "../email/UpdateEmailMutation";
+import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
+import DeleteEmailMutation from "../email/DeleteEmailMutation";
+import DeletePhoneMutation from "../phone/DeletePhoneMutation";
 import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
-import DeleteRelationshMutation from "../DeleteRelationshMutation";
+import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
+
+import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
@@ -63,7 +65,7 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateContactMutation(contact) {
+export default function UpdateContactMutation(contact, notifications) {
     let fullName = contact.name;
     fullName = fullName.split(" ");
     contact.first_name = fullName[0];
@@ -129,7 +131,7 @@ export default function UpdateContactMutation(contact) {
                         if (organization.status === "saved") {
                             if (organization.origin === "store") {
                                 if (organization.role_obj) {
-                                    DeleteRelationshMutation(organization.role_obj.relation_id);
+                                    DeleteRelationshipMutation(organization.role_obj.relation_id);
                                 }
                                 UpdateContactInlineMutation(
                                     response.update_contact.contact,
@@ -146,10 +148,11 @@ export default function UpdateContactMutation(contact) {
                                 );
                             }
                         } else if (organization.status === "remove") {
-                            DeleteRelationshMutation(organization.role_obj.relation_id);
+                            DeleteRelationshipMutation(organization.role_obj.relation_id);
                         }
                     });
                 }
+                notifications(i18n.t("notify.changes-saved"), "success");
             }
         },
         updater: (proxyStore, data) => {

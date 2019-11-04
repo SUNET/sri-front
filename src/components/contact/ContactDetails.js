@@ -75,7 +75,7 @@ class ContactDetails extends React.Component {
 
     handleSubmit = (contact) => {
         contact.id = this.props.match.params.contactId;
-        UpdateContactMutation(contact);
+        UpdateContactMutation(contact, this.props.notify);
     };
 
     handleDelete = () => {
