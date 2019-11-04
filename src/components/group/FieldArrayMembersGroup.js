@@ -8,10 +8,7 @@ import uuidv4 from "uuid/v4";
 
 import CopyToClipboard from "../CopyToClipboard";
 import Dropdown from "../Dropdown";
-
-const refreshFields = () => {
-    return { type: "REFRESH_FIELDS" };
-};
+import { LIMIT_NEW_CONTACTS } from "../../constants";
 
 class FieldArrayMembersGroup extends React.Component {
     constructor(props) {
@@ -23,16 +20,17 @@ class FieldArrayMembersGroup extends React.Component {
     validateMember = (index) => {
         const errors = this.props.errors;
         const values = this.props.fields.getAll();
-        console.log("errors", errors);
         const hasBlankFields =
-            values[index].role === "" ||
-            values[index].role === undefined ||
-            (values[index].organization === "" || values[index].organization === undefined);
+            values[index].name === "" ||
+            values[index].name === undefined ||
+            (values[index].organization === "" || values[index].organization === undefined) ||
+            (values[index].email === "" || values[index].email === undefined) ||
+            (values[index].phone === "" || values[index].phone === undefined);
         return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
 
     addRow = (event) => {
-        if (this.props.fields.length < 20) {
+        if (this.props.fields.length < LIMIT_NEW_CONTACTS) {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
         }
     };
@@ -46,12 +44,10 @@ class FieldArrayMembersGroup extends React.Component {
             this.props.dispatch(touch(this.props.meta.form, `members[${index}].email`));
             this.props.dispatch(touch(this.props.meta.form, `members[${index}].phone`));
         }
-        this.props.dispatch(refreshFields());
     };
 
     editRow = (index) => {
         this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "editing"));
-        this.props.dispatch(refreshFields());
     };
 
     removeRow = (index, values) => {

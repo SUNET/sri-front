@@ -46,7 +46,6 @@ const mapStateToProps = (state, props) => {
         memberValues: updateGroupSelector(state, "members"),
         formSyncErrors: getFormSyncErrors("updateGroup")(state),
         fields: getFormMeta("updateGroup")(state),
-        refreshFields: state.refreshFields,
         getContact: (handle_id) => getContact(handle_id)
     };
 };

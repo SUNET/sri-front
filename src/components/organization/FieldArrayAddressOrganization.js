@@ -5,10 +5,7 @@ import { withTranslation } from "react-i18next";
 import FieldInput from "../FieldInput";
 import { Field, change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
-
-const refreshFields = () => {
-    return { type: "REFRESH_FIELDS" };
-};
+import { LIMIT_NEW_CONTACTS } from "../../constants";
 
 class FieldArrayAddressOrganization extends React.Component {
     constructor(props) {
@@ -40,7 +37,7 @@ class FieldArrayAddressOrganization extends React.Component {
     };
 
     addRow = (event) => {
-        if (this.props.fields.length < 20) {
+        if (this.props.fields.length < LIMIT_NEW_CONTACTS) {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
         }
     };
@@ -54,12 +51,10 @@ class FieldArrayAddressOrganization extends React.Component {
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].postal_area`));
             this.props.dispatch(touch(this.props.meta.form, `addresses[${index}].phone`));
         }
-        // this.props.dispatch(refreshFields());
     };
 
     editRow = (index) => {
         this.props.dispatch(change(this.props.meta.form, `addresses[${index}].status`, "editing"));
-        // this.props.dispatch(refreshFields());
     };
 
     removeRow = (index, values) => {

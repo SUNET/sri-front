@@ -6,10 +6,7 @@ import { change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import Dropdown from "../Dropdown";
-
-const refreshFields = () => {
-    return { type: "REFRESH_FIELDS" };
-};
+import { LIMIT_NEW_CONTACTS } from "../../constants";
 
 class FieldArrayOrganizationsContact extends React.Component {
     constructor(props) {
@@ -29,7 +26,7 @@ class FieldArrayOrganizationsContact extends React.Component {
     };
 
     addRow = (event) => {
-        if (this.props.fields.length < 10) {
+        if (this.props.fields.length < LIMIT_NEW_CONTACTS) {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
         }
     };
@@ -41,12 +38,10 @@ class FieldArrayOrganizationsContact extends React.Component {
             this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].role`));
             this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].organization`));
         }
-        this.props.dispatch(refreshFields());
     };
 
     editRow = (index) => {
         this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "editing"));
-        this.props.dispatch(refreshFields());
     };
 
     removeRow = (index, values) => {
