@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'sunet-icons';
-  src:  url('sunet-icons.eot?qnym4k');
-  src:  url('sunet-icons.eot?qnym4k#iefix') format('embedded-opentype'),
-    url('sunet-icons.ttf?qnym4k') format('truetype'),
-    url('sunet-icons.woff?qnym4k') format('woff'),
-    url('sunet-icons.svg?qnym4k#sunet-icons') format('svg');
+  src:  url('sunet-icons.eot?tgu507');
+  src:  url('sunet-icons.eot?tgu507#iefix') format('embedded-opentype'),
+    url('sunet-icons.ttf?tgu507') format('truetype'),
+    url('sunet-icons.woff?tgu507') format('woff'),
+    url('sunet-icons.svg?tgu507#sunet-icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,53 +25,54 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-contact:before {
+.icon-warning:before {
   content: "\e900";
 }
-.icon-organization:before {
+.icon-groups:before {
   content: "\e901";
 }
-.icon-trash:before {
+.icon-arrow:before {
   content: "\e902";
 }
-.icon-copy .path1:before {
+.icon-copy:before {
   content: "\e903";
-  color: ;
 }
-.icon-copy .path2:before {
+.icon-confgi:before {
   content: "\e904";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
 }
-.icon-copy .path3:before {
+.icon-contact:before {
   content: "\e905";
-  margin-left: -1em;
-  color: ;
 }
-.icon-arrow:before {
+.icon-organization:before {
   content: "\e906";
 }
-.icon-calendar:before {
+.icon-trash:before {
   content: "\e907";
 }
-.icon-filter:before {
+.icon-calendar:before {
   content: "\e908";
 }
-.icon-pencil:before {
+.icon-filter:before {
   content: "\e909";
 }
-.icon-column:before {
+.icon-pencil:before {
   content: "\e90a";
 }
-.icon-magn:before {
+.icon-column:before {
   content: "\e90b";
 }
-.icon-more:before {
+.icon-magn:before {
   content: "\e90c";
 }
-.icon-load:before {
+.icon-more:before {
   content: "\e90d";
 }
-.icon-tick:before {
+.icon-load:before {
   content: "\e90e";
+}
+.icon-tick:before {
+  content: "\e90f";
+}
+.icon-notification:before {
+  content: "\e910";
 }

@@ -1,14 +1,15 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../createRelayEnvironment";
 
-import UpdateContactInlineMutation from "./contact/UpdateContactInlineMutation";
-import CreateContactInlineMutation from "./contact/CreateContactInlineMutation";
-import UpdateEmailMutation from "./UpdateEmailMutation";
-import UpdatePhoneMutation from "./UpdatePhoneMutation";
-import DeleteRelationshMutation from "./DeleteRelationshMutation";
+import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
+import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
+import UpdateEmailMutation from "../email/UpdateEmailMutation";
+import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
+import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
+import RelationshipGroupContactQuery from "../group/RelationshipGroupContactQuery";
 
-import RelationshipGroupContactQuery from "./RelationshipGroupContactQuery";
+import i18n from "../../i18n";
+import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
     mutation UpdateGroupMutation($input: UpdateGroupInput!) {
@@ -34,7 +35,7 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateGroupMutation(group, callback) {
+export default function UpdateGroupMutation(group, notifications) {
     const variables = {
         input: {
             handle_id: group.id,
@@ -81,11 +82,11 @@ export default function UpdateGroupMutation(group, callback) {
                                 UpdatePhoneMutation(member.id, member.phone, member.phone_obj);
                             }
                         } else if (member.status === "remove") {
-                            RelationshipGroupContactQuery(group.id, member.handle_id, DeleteRelationshMutation);
+                            RelationshipGroupContactQuery(group.id, member.handle_id, DeleteRelationshipMutation);
                         }
                     });
                 }
-                callback.push("/community/groups/" + group.id);
+                notifications(i18n.t("notify.changes-saved"), "success");
                 // const payload = proxyStore.get(contact.id, "Contact");
                 // contact_node.setValue(contact.first_name, "first_name");
                 // contact_node.setValue(contact.last_name, "last_name");

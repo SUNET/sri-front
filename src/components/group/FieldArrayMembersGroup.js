@@ -23,6 +23,7 @@ class FieldArrayMembersGroup extends React.Component {
     validateMember = (index) => {
         const errors = this.props.errors;
         const values = this.props.fields.getAll();
+        console.log("errors", errors);
         const hasBlankFields =
             values[index].role === "" ||
             values[index].role === undefined ||

@@ -135,7 +135,7 @@ button.btn {
 
         &.btn-load {
             &:before {
-                content: '\e90d';
+                content: '\e90e';
                 font-family: "sunet-icons";
                 margin-right: 8px;
                 color: $complementary-color;
@@ -166,6 +166,7 @@ button.btn {
         &.btn-remove {
             vertical-align: bottom;
             padding: 6.5px 12px;
+
             &:before {
                 content: '\f00d';
                 margin-right: 4px;

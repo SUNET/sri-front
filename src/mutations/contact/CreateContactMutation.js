@@ -5,8 +5,8 @@ import { ROOT_ID } from "relay-runtime";
 
 import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
 import CreateComentMutation from "../CreateCommentMutation";
-import CreateEmailMutation from "../CreateEmailMutation";
-import CreatePhoneMutation from "../CreatePhoneMutation";
+import CreateEmailMutation from "../email/CreateEmailMutation";
+import CreatePhoneMutation from "../phone/CreatePhoneMutation";
 
 const mutation = graphql`
     mutation CreateContactMutation($input: CreateContactInput!) {

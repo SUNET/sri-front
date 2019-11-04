@@ -1,6 +1,6 @@
 import { fetchQuery } from "relay-runtime";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 
 const query = graphql`
     query RelationshipGroupContactQuery($group_id: Int!, $contact_id: Int!) {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Alert from "react-bootstrap/Alert";
+import Expire from "./Expire";
 
 import "../style/Notify.scss";
 
@@ -15,15 +15,11 @@ class Notify extends Component {
                             message = msg(msg.values);
                         }
                         return (
-                            <Alert
-                                dismissible
-                                className="sri-notification"
-                                key={message}
-                                variant={msg.level}
-                                onClose={this.props.rmNotification}
-                            >
-                                {message}
-                            </Alert>
+                            <Expire delay={4000} callback={this.props.rmNotification} key={message}>
+                                <div className={"notification " + msg.level} onClick={this.props.rmNotification}>
+                                    <span>{message}</span>
+                                </div>
+                            </Expire>
                         );
                     })}
                 </div>

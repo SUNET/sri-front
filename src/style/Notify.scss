@@ -1,14 +1,59 @@
 @import "../variables.scss";
 
 .notify-area {
-    position: relative;
-    height: 5em;
-    width: 100%;
-}
-
-.sri-notification {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+    text-align: center;
+    text-align: -webkit-center;
+    width: 100%;
+
+    .notification {
+        position: relative;
+        cursor: pointer;
+        font-family: Karla;
+        width: auto;
+        padding: 0 16px;
+        height: 32px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        z-index: 1000;
+        display: table;
+        border: 1px solid;
+        border-top: none;
+
+        > span {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+
+            &:before {
+                font-family: "sunet-icons";
+                margin-right: 8px;
+                vertical-align: middle;
+            }
+        }
+
+        &.success {
+            border-color: $complementary-color;
+            background-color: $complementary-color-30;
+            color: $success-color;
+
+            span {
+                &:before {
+                    content: '\e90f';
+                }
+            }
+        }
+
+        &.error {
+            border-color: $alert-color;
+            background-color: $alert-color-30;
+            color: $alert-color;
+
+            span {
+                &:before {
+                    content: '\e900';
+                }
+            }
+        }
+    }
 }

@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { getFormMeta, getFormSyncErrors, formValueSelector } from "redux-form";
-import { getContact } from "../components/contact/Contact";
+import { getContact } from "../../components/contact/Contact";
 
-import CreateGroupForm from "../components/group/CreateGroupForm";
+import CreateGroupForm from "../../components/group/CreateGroupForm";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("createGroup");

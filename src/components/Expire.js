@@ -31,6 +31,7 @@ class Expire extends React.Component {
         this._timer = setTimeout(() => {
             this.setState({ visible: false });
             this._timer = null;
+            this.props.callback();
         }, this.props.delay);
     }
     componentWillUnmount() {
