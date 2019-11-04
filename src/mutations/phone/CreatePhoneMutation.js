@@ -1,11 +1,11 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 const mutation = graphql`
-    mutation UpdatePhoneMutation($input: UpdatePhoneInput!) {
-        update_phone(input: $input) {
+    mutation CreatePhoneMutation($input: CreatePhoneInput!) {
+        create_phone(input: $input) {
             errors {
                 field
                 messages
@@ -21,17 +21,15 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function UpdatePhoneMutation(contact, name, phone) {
+function CreatePhoneMutation(contact, name, type) {
     const variables = {
         input: {
             contact,
             name,
-            type: phone.type,
-            handle_id: phone.handle_id,
+            type,
             clientMutationId: tempID++
         }
     };
-
     commitMutation(environment, {
         mutation,
         variables,
@@ -49,4 +47,4 @@ function UpdatePhoneMutation(contact, name, phone) {
     });
 }
 
-export default UpdatePhoneMutation;
+export default CreatePhoneMutation;

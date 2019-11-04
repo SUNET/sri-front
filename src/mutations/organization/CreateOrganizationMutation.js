@@ -5,10 +5,10 @@ import { ROOT_ID } from "relay-runtime";
 
 import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
 import CreateComentMutation from "../CreateCommentMutation";
-import CreateAddressMutation from "../CreateAddressMutation";
+import CreateAddressMutation from "../address/CreateAddressMutation";
 import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
-import UpdateEmailMutation from "../UpdateEmailMutation";
-import UpdatePhoneMutation from "../UpdatePhoneMutation";
+import UpdateEmailMutation from "../email/UpdateEmailMutation";
+import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
 
 const mutation = graphql`
     mutation CreateOrganizationMutation($input: CreateOrganizationInput!) {

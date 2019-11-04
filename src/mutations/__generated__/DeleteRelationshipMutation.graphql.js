@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 45b80dd05794e9b49c4cd8e5a07f472a
+ * @relayHash 250e3506c09ce214eee6b894fba78bc7
  */
 
 /* eslint-disable */
@@ -13,23 +13,23 @@ export type DeleteRelationshipInput = {|
   relation_id: number,
   clientMutationId?: ?string,
 |};
-export type DeleteRelationshMutationVariables = {|
+export type DeleteRelationshipMutationVariables = {|
   input: DeleteRelationshipInput
 |};
-export type DeleteRelationshMutationResponse = {|
+export type DeleteRelationshipMutationResponse = {|
   +delete_relationship: ?{|
     +success: boolean
   |}
 |};
-export type DeleteRelationshMutation = {|
-  variables: DeleteRelationshMutationVariables,
-  response: DeleteRelationshMutationResponse,
+export type DeleteRelationshipMutation = {|
+  variables: DeleteRelationshipMutationVariables,
+  response: DeleteRelationshipMutationResponse,
 |};
 */
 
 
 /*
-mutation DeleteRelationshMutation(
+mutation DeleteRelationshipMutation(
   $input: DeleteRelationshipInput!
 ) {
   delete_relationship(input: $input) {
@@ -77,7 +77,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "DeleteRelationshMutation",
+    "name": "DeleteRelationshipMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -85,19 +85,19 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "DeleteRelationshMutation",
+    "name": "DeleteRelationshipMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "mutation",
-    "name": "DeleteRelationshMutation",
+    "name": "DeleteRelationshipMutation",
     "id": null,
-    "text": "mutation DeleteRelationshMutation(\n  $input: DeleteRelationshipInput!\n) {\n  delete_relationship(input: $input) {\n    success\n  }\n}\n",
+    "text": "mutation DeleteRelationshipMutation(\n  $input: DeleteRelationshipInput!\n) {\n  delete_relationship(input: $input) {\n    success\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a729ec134efba947c5412ee5db9c98d3';
+(node/*: any*/).hash = '756617b62fee99e75331801879827fcc';
 module.exports = node;

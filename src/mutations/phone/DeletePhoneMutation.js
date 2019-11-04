@@ -1,17 +1,17 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { ROOT_ID } from "relay-runtime";
-import environment from "../createRelayEnvironment";
+import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
-    mutation DeleteAddressMutation($input: DeleteAddressInput!) {
-        delete_address(input: $input) {
+    mutation DeletePhoneMutation($input: DeletePhoneInput!) {
+        delete_phone(input: $input) {
             success
         }
     }
 `;
 
-export default function DeleteAddressMutation(handle_id, callback) {
+export default function DeletePhoneMutation(handle_id, callback) {
     const variables = {
         input: {
             handle_id: handle_id,

@@ -86,10 +86,6 @@ class SearchGroup extends React.Component {
         }
     }
 
-    componentWillUnmount(nextProps, nextState) {
-        this.handleResetDate(undefined, undefined);
-    }
-
     getFilters = () => {
         const filterArray = [];
         let filters = {};

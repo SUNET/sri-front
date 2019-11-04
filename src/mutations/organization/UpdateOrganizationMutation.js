@@ -3,12 +3,12 @@ import graphql from "babel-plugin-relay/macro";
 
 import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
 import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
-import UpdateEmailMutation from "../UpdateEmailMutation";
-import UpdatePhoneMutation from "../UpdatePhoneMutation";
-import CreateAddressMutation from "../CreateAddressMutation";
-import UpdateAddressMutation from "../UpdateAddressMutation";
-import DeleteAddressMutation from "../DeleteAddressMutation";
-import DeleteRelationshMutation from "../DeleteRelationshMutation";
+import UpdateEmailMutation from "../email/UpdateEmailMutation";
+import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
+import CreateAddressMutation from "../address/CreateAddressMutation";
+import UpdateAddressMutation from "../address/UpdateAddressMutation";
+import DeleteAddressMutation from "../address/DeleteAddressMutation";
+import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
 
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
@@ -110,10 +110,10 @@ export default function UpdateOrganizationMutation(organization, notifications) 
                                 );
                             } else {
                                 if (contact.origin === "store") {
-                                    DeleteRelationshMutation(contact.role_relation_id);
+                                    DeleteRelationshipMutation(contact.role_relation_id);
                                 } else if (contact.origin === "new") {
                                     if (contact.role && contact.role_obj.relation_id) {
-                                        DeleteRelationshMutation(contact.role_obj.relation_id);
+                                        DeleteRelationshipMutation(contact.role_obj.relation_id);
                                     }
                                 }
                                 UpdateContactInlineMutation(contact, organization.id, null, contact.role);
@@ -121,7 +121,7 @@ export default function UpdateOrganizationMutation(organization, notifications) 
                                 UpdatePhoneMutation(contact.handle_id, contact.phone, contact.phone_obj);
                             }
                         } else if (contact.status === "remove") {
-                            DeleteRelationshMutation(contact.role_relation_id);
+                            DeleteRelationshipMutation(contact.role_relation_id);
                         }
                     });
                 }

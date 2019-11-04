@@ -103,7 +103,9 @@ class OrganizationUpdateForm extends React.Component {
             incident_management_info,
             relationship_parent_of,
             t,
-            handleSubmit
+            handleSubmit,
+            pristine,
+            submitting
         } = this.props;
         return (
             <form onSubmit={handleSubmit}>
@@ -411,7 +413,14 @@ class OrganizationUpdateForm extends React.Component {
                     <button type="button" onClick={() => this.props.onDelete()} className="btn link">
                         {t("actions.delete")}
                     </button>
-                    <button onClick={() => {}} className="btn primary lg">
+                    <button
+                        onClick={() => {
+                            document.documentElement.scrollTop = 0;
+                        }}
+                        type="submit"
+                        className="btn primary lg"
+                        disabled={pristine || submitting}
+                    >
                         {t("actions.save")}
                     </button>
                 </div>

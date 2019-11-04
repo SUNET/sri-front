@@ -3,8 +3,8 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
-import CreateEmailMutation from "../CreateEmailMutation";
-import CreatePhoneMutation from "../CreatePhoneMutation";
+import CreateEmailMutation from "../email/CreateEmailMutation";
+import CreatePhoneMutation from "../phone/CreatePhoneMutation";
 
 const mutation = graphql`
     mutation CreateContactInlineMutation($input: CreateContactInput!) {
