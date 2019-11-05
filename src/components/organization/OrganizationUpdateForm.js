@@ -153,7 +153,7 @@ class OrganizationUpdateForm extends React.Component {
                                                     placeholder={t("group-details.add-description")}
                                                 />
                                             ) : (
-                                                <span>{description}</span>
+                                                <span className="pre-text">{description}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>
@@ -398,7 +398,7 @@ class OrganizationUpdateForm extends React.Component {
                                                     placeholder={t("group-details.add-description")}
                                                 />
                                             ) : (
-                                                <span>{incident_management_info}</span>
+                                                <span className="pre-text">{incident_management_info}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>

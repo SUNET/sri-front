@@ -67,7 +67,7 @@ export class Worklog extends React.Component {
                                                 </div>
                                                 <div>{this.formatDate(comment.submit_date)}</div>
                                             </header>
-                                            <div>{comment.comment}</div>
+                                            <div className="pre-text">{comment.comment}</div>
                                             <hr />
                                         </div>
                                     );

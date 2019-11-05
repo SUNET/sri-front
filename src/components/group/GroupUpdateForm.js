@@ -118,7 +118,7 @@ class GroupUpdateForm extends React.Component {
                                                     placeholder={t("group-details.add-description")}
                                                 />
                                             ) : (
-                                                <span>{description}</span>
+                                                <span className="pre-text">{description}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>

@@ -144,8 +144,7 @@ export default function UpdateOrganizationMutation(organization, notifications) 
         },
         updater: (proxyStore) => {
             // Get the payload returned from the server
-            const payload = proxyStore.get(organization.id, "Organization");
-            console.log("pp", payload);
+            // const payload = proxyStore.get(organization.id, "Organization");
             // Add it to the user's todo list
         },
         onError: (err) => console.error(err)

@@ -210,7 +210,7 @@ class ContactUpdateForm extends React.PureComponent {
                                                     placeholder={t("contact-details.add-notes")}
                                                 />
                                             ) : (
-                                                <span>{notes}</span>
+                                                <span className="pre-text">{notes}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>
