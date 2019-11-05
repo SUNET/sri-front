@@ -19,6 +19,7 @@ class RangeDayPicker extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handleResetClick = this.handleResetClick.bind(this);
         this.state = {
             from: undefined,
             to: undefined
@@ -35,17 +36,20 @@ class RangeDayPicker extends React.Component {
         }
     }
 
-    handleFromChange = (from) => {
+    handleFromChange = (from, modifiers, dayPickerInput) => {
         // Change the from date and focus the "to" input field
         this.setState({ from }, this.props.dateFrom(from));
     };
 
-    handleToChange = (to) => {
+    handleToChange = (to, modifiers, dayPickerInput) => {
         this.setState({ to }, this.showFromMonth, this.props.dateTo(to));
     };
 
     handleResetClick = () => {
         this.setState({ from: undefined, to: undefined }, this.props.resetDate(undefined, undefined));
+        // this fixed the encapsulated input uncontrolled bug
+        this.from.setState({ value: "", typedValue: "" });
+        this.to.setState({ value: "", typedValue: "" });
     };
 
     render() {
@@ -58,6 +62,7 @@ class RangeDayPicker extends React.Component {
                     <label>From</label>
                     <DayPickerInput
                         value={from}
+                        ref={(el) => (this.from = el)}
                         placeholder="dd/mm/yy"
                         format="MM/DD/YY"
                         formatDate={formatDate}
