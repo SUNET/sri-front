@@ -27,7 +27,6 @@ export default function DeleteEmailMutation(handle_id, callback) {
         },
         configs: [
             {
-                type: "RANGE_DELETE",
                 parentName: ROOT_ID,
                 parentID: ROOT_ID,
                 deletedIDFieldName: "handle_id"
