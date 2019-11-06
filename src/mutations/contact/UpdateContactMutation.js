@@ -128,25 +128,20 @@ export default function UpdateContactMutation(contact, notifications) {
                 if (organizations) {
                     Object.keys(organizations).forEach((organization_key) => {
                         let organization = organizations[organization_key];
+                        debugger;
                         if (organization.status === "saved") {
                             if (organization.origin === "store") {
                                 if (organization.role_obj) {
                                     DeleteRelationshipMutation(organization.role_obj.relation_id);
                                 }
-                                UpdateContactInlineMutation(
-                                    response.update_contact.contact,
-                                    organization.organization,
-                                    null,
-                                    organization.role
-                                );
-                            } else {
-                                UpdateContactInlineMutation(
-                                    response.update_contact.contact,
-                                    organization.organization,
-                                    null,
-                                    organization.role
-                                );
                             }
+
+                            UpdateContactInlineMutation(
+                                response.update_contact.contact,
+                                organization.organization,
+                                null,
+                                organization.role
+                            );
                         } else if (organization.status === "remove") {
                             DeleteRelationshipMutation(organization.role_obj.relation_id);
                         }
