@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import GroupUpdateForm from "../components/group/GroupUpdateForm";
+import GroupUpdateForm from "../../components/group/GroupUpdateForm";
 import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
 import uuidv4 from "uuid/v4";
-import { getContact } from "../components/contact/Contact";
+import { getContact } from "../../components/contact/Contact";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("updateGroup");
@@ -46,7 +46,6 @@ const mapStateToProps = (state, props) => {
         memberValues: updateGroupSelector(state, "members"),
         formSyncErrors: getFormSyncErrors("updateGroup")(state),
         fields: getFormMeta("updateGroup")(state),
-        refreshFields: state.refreshFields,
         getContact: (handle_id) => getContact(handle_id)
     };
 };

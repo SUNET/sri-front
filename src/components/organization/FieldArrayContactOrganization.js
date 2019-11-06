@@ -8,10 +8,7 @@ import uuidv4 from "uuid/v4";
 
 import CopyToClipboard from "../CopyToClipboard";
 import Dropdown from "../Dropdown";
-
-const refreshFields = () => {
-    return { type: "REFRESH_FIELDS" };
-};
+import { LIMIT_NEW_CONTACTS } from "../../constants";
 
 class FieldArrayContactsOrganization extends React.Component {
     constructor(props) {
@@ -33,7 +30,7 @@ class FieldArrayContactsOrganization extends React.Component {
     };
 
     addRow = (event) => {
-        if (this.props.fields.length < 20) {
+        if (this.props.fields.length < LIMIT_NEW_CONTACTS) {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
         }
     };
@@ -47,12 +44,10 @@ class FieldArrayContactsOrganization extends React.Component {
             this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].email`));
             this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].phone`));
         }
-        this.props.dispatch(refreshFields());
     };
 
     editRow = (index) => {
         this.props.dispatch(change(this.props.meta.form, `contacts[${index}].status`, "editing"));
-        this.props.dispatch(refreshFields());
     };
 
     removeRow = (index, values) => {

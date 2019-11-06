@@ -100,7 +100,6 @@ const mapStateToProps = (state, props) => {
         contactsValues: updateOrganizationSelector(state, "contacts"),
         formSyncErrors: getFormSyncErrors("updateOrganization")(state),
         fields: getFormMeta("updateOrganization")(state),
-        refreshFields: state.refreshFields,
         affiliation: {
             customer: updateOrganizationSelector(state, "affiliation_customer"),
             end_customer: updateOrganizationSelector(state, "affiliation_end_customer"),

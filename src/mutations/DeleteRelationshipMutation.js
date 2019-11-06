@@ -3,14 +3,14 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../createRelayEnvironment";
 
 const mutation = graphql`
-    mutation DeleteRelationshMutation($input: DeleteRelationshipInput!) {
+    mutation DeleteRelationshipMutation($input: DeleteRelationshipInput!) {
         delete_relationship(input: $input) {
             success
         }
     }
 `;
 
-export default function DeleteRelationshMutation(relation_id) {
+export default function DeleteRelationshipMutation(relation_id) {
     const variables = {
         input: {
             relation_id: relation_id,

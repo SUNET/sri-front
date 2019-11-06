@@ -152,7 +152,18 @@ class ContactUpdateForm extends React.PureComponent {
     };
 
     render() {
-        let { contact, t, name, notes, title, contact_type, pgp_fingerprint, handleSubmit } = this.props;
+        let {
+            contact,
+            t,
+            name,
+            notes,
+            title,
+            contact_type,
+            pgp_fingerprint,
+            handleSubmit,
+            pristine,
+            submitting
+        } = this.props;
         return (
             <form onSubmit={handleSubmit}>
                 <Form.Row>
@@ -199,7 +210,7 @@ class ContactUpdateForm extends React.PureComponent {
                                                     placeholder={t("contact-details.add-notes")}
                                                 />
                                             ) : (
-                                                <span>{notes}</span>
+                                                <span className="pre-text">{notes}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>
@@ -344,7 +355,16 @@ class ContactUpdateForm extends React.PureComponent {
                     <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}
                     </button>
-                    <button className="btn primary lg">{t("actions.save")}</button>
+                    <button
+                        onClick={() => {
+                            document.documentElement.scrollTop = 0;
+                        }}
+                        type="submit"
+                        className="btn primary lg"
+                        disabled={pristine || submitting}
+                    >
+                        {t("actions.save")}
+                    </button>
                 </div>
             </form>
         );

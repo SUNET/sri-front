@@ -1,15 +1,17 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../../createRelayEnvironment";
 
 import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
 import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
-import UpdateEmailMutation from "../UpdateEmailMutation";
-import UpdatePhoneMutation from "../UpdatePhoneMutation";
-import CreateAddressMutation from "../CreateAddressMutation";
-import UpdateAddressMutation from "../UpdateAddressMutation";
-import DeleteAddressMutation from "../DeleteAddressMutation";
-import DeleteRelationshMutation from "../DeleteRelationshMutation";
+import UpdateEmailMutation from "../email/UpdateEmailMutation";
+import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
+import CreateAddressMutation from "../address/CreateAddressMutation";
+import UpdateAddressMutation from "../address/UpdateAddressMutation";
+import DeleteAddressMutation from "../address/DeleteAddressMutation";
+import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
+
+import i18n from "../../i18n";
+import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
     mutation UpdateOrganizationMutation($input: UpdateOrganizationInput!) {
@@ -38,13 +40,20 @@ const mutation = graphql`
                     comment
                     submit_date
                 }
+                created
+                creator {
+                    email
+                }
+                modified
+                modifier {
+                    email
+                }
             }
         }
     }
 `;
 
-export default function UpdateOrganizationMutation(organization, callback) {
-    console.log(organization);
+export default function UpdateOrganizationMutation(organization, notifications) {
     const variables = {
         input: {
             handle_id: organization.id,
@@ -109,10 +118,10 @@ export default function UpdateOrganizationMutation(organization, callback) {
                                 );
                             } else {
                                 if (contact.origin === "store") {
-                                    DeleteRelationshMutation(contact.role_relation_id);
+                                    DeleteRelationshipMutation(contact.role_relation_id);
                                 } else if (contact.origin === "new") {
                                     if (contact.role && contact.role_obj.relation_id) {
-                                        DeleteRelationshMutation(contact.role_obj.relation_id);
+                                        DeleteRelationshipMutation(contact.role_obj.relation_id);
                                     }
                                 }
                                 UpdateContactInlineMutation(contact, organization.id, null, contact.role);
@@ -120,11 +129,11 @@ export default function UpdateOrganizationMutation(organization, callback) {
                                 UpdatePhoneMutation(contact.handle_id, contact.phone, contact.phone_obj);
                             }
                         } else if (contact.status === "remove") {
-                            DeleteRelationshMutation(contact.role_relation_id);
+                            DeleteRelationshipMutation(contact.role_relation_id);
                         }
                     });
                 }
-                callback.push("/community/organizations/" + organization.id);
+                notifications(i18n.t("notify.changes-saved"), "success");
                 // const payload = proxyStore.get(contact.id, "Contact");
                 // contact_node.setValue(contact.first_name, "first_name");
                 // contact_node.setValue(contact.last_name, "last_name");
@@ -132,6 +141,11 @@ export default function UpdateOrganizationMutation(organization, callback) {
                 // contact_node.setValue(contact.phone, "phone");
                 // contact_node.setValue(contact.contact_type, "contact_type");
             }
+        },
+        updater: (proxyStore) => {
+            // Get the payload returned from the server
+            // const payload = proxyStore.get(organization.id, "Organization");
+            // Add it to the user's todo list
         },
         onError: (err) => console.error(err)
     });

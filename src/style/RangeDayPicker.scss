@@ -14,7 +14,7 @@
 
         &:after {
             display: inline-block;
-            content: "\e907";
+            content: "\e908";
             font-family: "sunet-icons";
             color: $complementary-color;
             position: relative;
@@ -27,7 +27,7 @@
             width: 116px;
             border-radius: 16px;
             border: solid 1px $secondary-color-20;
-            padding: 6px 16px;
+            padding: 6px 32px 6px 16px;
             font-size: 14px;
 
             &::placeholder {

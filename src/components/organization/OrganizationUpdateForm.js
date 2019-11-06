@@ -103,7 +103,9 @@ class OrganizationUpdateForm extends React.Component {
             incident_management_info,
             relationship_parent_of,
             t,
-            handleSubmit
+            handleSubmit,
+            pristine,
+            submitting
         } = this.props;
         return (
             <form onSubmit={handleSubmit}>
@@ -151,7 +153,7 @@ class OrganizationUpdateForm extends React.Component {
                                                     placeholder={t("group-details.add-description")}
                                                 />
                                             ) : (
-                                                <span>{description}</span>
+                                                <span className="pre-text">{description}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>
@@ -303,6 +305,7 @@ class OrganizationUpdateForm extends React.Component {
                                                         <FieldArray
                                                             name="addresses"
                                                             component={FieldArrayAddressOrganization}
+                                                            rerenderOnEveryChange={true}
                                                             editable={editable}
                                                             dispatch={this.props.dispatch}
                                                             errors={this.props.formSyncErrors.addresses}
@@ -395,7 +398,7 @@ class OrganizationUpdateForm extends React.Component {
                                                     placeholder={t("group-details.add-description")}
                                                 />
                                             ) : (
-                                                <span>{incident_management_info}</span>
+                                                <span className="pre-text">{incident_management_info}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>
@@ -411,7 +414,14 @@ class OrganizationUpdateForm extends React.Component {
                     <button type="button" onClick={() => this.props.onDelete()} className="btn link">
                         {t("actions.delete")}
                     </button>
-                    <button onClick={() => {}} className="btn primary lg">
+                    <button
+                        onClick={() => {
+                            document.documentElement.scrollTop = 0;
+                        }}
+                        type="submit"
+                        className="btn primary lg"
+                        disabled={pristine || submitting}
+                    >
                         {t("actions.save")}
                     </button>
                 </div>

@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import ContactUpdateForm from "../../components/contact/ContactUpdateForm";
 import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
 import uuidv4 from "uuid/v4";
+import * as actions from "../../actions/Notify";
 
 const mapStateToProps = (state, props) => {
     const updateContactSelector = formValueSelector("updateContact");
@@ -72,13 +73,16 @@ const mapStateToProps = (state, props) => {
         phoneValues: updateContactSelector(state, "phones"),
         organizationValues: updateContactSelector(state, "organizations"),
         formSyncErrors: getFormSyncErrors("updateContact")(state),
-        fields: getFormMeta("updateContact")(state),
-        refreshFields: state.refreshFields
+        fields: getFormMeta("updateContact")(state)
     };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+    return {
+        notify: (msg, level) => {
+            dispatch(actions.notify(msg, level));
+        }
+    };
 };
 
 const ContactUpdateFormContainer = connect(

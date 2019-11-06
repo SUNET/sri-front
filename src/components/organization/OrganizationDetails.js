@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-
 import OrganizationUpdateFormContainer from "../../containers/organization/OrganizationUpdateForm";
-
 import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
 import DeleteOrganizationMutation from "../../mutations/organization/DeleteOrganizationMutation";
 import environment from "../../createRelayEnvironment";
@@ -117,7 +115,7 @@ class OrganizationDetails extends React.Component {
 
     handleSubmit = (organization) => {
         organization.id = this.props.match.params.organizationId;
-        UpdateOrganizationMutation(organization, this.props.history);
+        UpdateOrganizationMutation(organization, this.props.notify);
     };
 
     handleDelete = () => {

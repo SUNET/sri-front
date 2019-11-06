@@ -8,7 +8,6 @@ import searchReducer from "./search";
 import filterColumnsReducer from "./filterColumns";
 import componentFormRowReducer from "./ComponentFormRow";
 import notifyReducer from "./Notify";
-import refreshFieldsReducer from "./refreshFields";
 
 const reducers = (history) =>
     combineReducers({
@@ -18,8 +17,7 @@ const reducers = (history) =>
         componentFormRow: componentFormRowReducer,
         form: formReducer,
         notify: notifyReducer,
-        router: connectRouter(history),
-        refreshFields: refreshFieldsReducer
+        router: connectRouter(history)
     });
 
 export default reducers;

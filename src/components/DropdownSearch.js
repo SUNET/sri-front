@@ -36,11 +36,19 @@ class DropdownSearch extends React.Component {
     }
 
     getItems = (filter) => {
-        return filter
-            ? matchSorter(this.state.allItems, filter, {
-                  keys: ["name"]
-              })
-            : this.state.allItems;
+        const itemList = this.state.allItems;
+        if (Object.keys(itemList).length === 0 && itemList.constructor === Object) {
+            return [{ handle_id: "", name: "Loading..." }];
+        } else {
+            const filteredItemList = matchSorter(itemList, filter, {
+                keys: ["name"]
+            });
+            if (filteredItemList.length > 0) {
+                return filteredItemList;
+            } else {
+                return [{ handle_id: "", name: "No matches" }];
+            }
+        }
     };
 
     handleSelectMember = (selection) => {

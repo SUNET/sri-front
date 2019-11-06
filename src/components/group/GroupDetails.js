@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import GroupUpdateFormContainer from "../../containers/GroupUpdateForm";
-import UpdateGroupMutation from "../../mutations/UpdateGroupMutation";
-import DeleteGroupMutation from "../../mutations/DeleteGroupMutation";
+import GroupUpdateFormContainer from "../../containers/group/GroupUpdateForm";
+import UpdateGroupMutation from "../../mutations/group/UpdateGroupMutation";
+import DeleteGroupMutation from "../../mutations/group/DeleteGroupMutation";
 import environment from "../../createRelayEnvironment";
 
 const GroupDetailsQuery = graphql`
@@ -73,7 +73,7 @@ class GroupDetails extends React.Component {
 
     handleSubmit = (group) => {
         group.id = this.props.match.params.groupId;
-        UpdateGroupMutation(group, this.props.history);
+        UpdateGroupMutation(group, this.props.notify);
     };
 
     handleDelete = () => {

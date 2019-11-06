@@ -71,7 +71,7 @@ class GroupUpdateForm extends React.Component {
     };
 
     render() {
-        let { group, name, description, t, handleSubmit } = this.props;
+        let { group, name, description, t, handleSubmit, pristine, submitting } = this.props;
         return (
             <form onSubmit={handleSubmit}>
                 <Form.Row>
@@ -118,7 +118,7 @@ class GroupUpdateForm extends React.Component {
                                                     placeholder={t("group-details.add-description")}
                                                 />
                                             ) : (
-                                                <span>{description}</span>
+                                                <span className="pre-text">{description}</span>
                                             );
                                         }}
                                     </PanelEditable.Consumer>
@@ -192,7 +192,14 @@ class GroupUpdateForm extends React.Component {
                     <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}
                     </button>
-                    <button type="submit" className="btn primary lg">
+                    <button
+                        onClick={() => {
+                            document.documentElement.scrollTop = 0;
+                        }}
+                        type="submit"
+                        className="btn primary lg"
+                        disabled={pristine || submitting}
+                    >
                         {t("actions.save")}
                     </button>
                 </div>
