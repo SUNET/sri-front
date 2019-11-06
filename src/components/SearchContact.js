@@ -41,15 +41,18 @@ class Search extends React.Component {
         };
     }
 
-    _handleOnChangeCount = (count) => {
+    //save in the state the number of pages shown
+    handleOnChangeCount = (count) => {
         this.setState({ countList: this.state.countList + count });
     };
 
-    _handleOnChangeFilter = (filterValue) => {
+    // save in the state the filter box
+    handleOnChangeFilter = (filterValue) => {
         this.setState({ filterValue: { name_contains: filterValue } });
     };
 
-    _handleOnChangeOrderBy = (orderBy) => {
+    // save in the state the orderby
+    handleOnChangeOrderBy = (orderBy) => {
         this.setState({ orderBy: { orderBy: orderBy } });
     };
 
@@ -61,10 +64,12 @@ class Search extends React.Component {
         this.setState({ filterDateFrom: dateFrom });
     };
 
+    // reset the date status by clicking on the button
     handleResetDate = (from, to) => {
         this.setState({ filterDateFrom: from, filterDateto: to, filterDate: {} });
     };
 
+    // changes the keys of the state object between created or modified
     changeFilterDateType = (event) => {
         this.setState({ filterDateType: event.target.value });
         let newfilterDate = renameKeys(this.state.filterDate, (key) => {
@@ -74,6 +79,7 @@ class Search extends React.Component {
     };
 
     UNSAFE_componentWillUpdate(nextProps, nextState) {
+        // updates the component if you see changes in the date status
         const filterDateType = this.state.filterDateType;
         if (nextState.filterDateFrom !== undefined && this.state.filterDateFrom !== nextState.filterDateFrom) {
             this.setState({
@@ -87,6 +93,7 @@ class Search extends React.Component {
         }
     }
 
+    // mount the filter object to pass it to the QueryRender
     getFilters = () => {
         const filterArray = [];
         let filters = {};
@@ -103,6 +110,7 @@ class Search extends React.Component {
         return filters;
     };
 
+    // effect of showing empty structure while loading the QueryRender
     createTable = () => {
         let table = [];
 
@@ -167,8 +175,8 @@ class Search extends React.Component {
                                         />
                                     </Col>
                                     <Col className="text-right" sm={4}>
-                                        <Filter changeFilter={this._handleOnChangeFilter} />
-                                        <OrderBy changeOrderBy={this._handleOnChangeOrderBy} />
+                                        <Filter changeFilter={this.handleOnChangeFilter} />
+                                        <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
                                     </Col>
                                 </Row>
                                 <Row className="mt-3">
