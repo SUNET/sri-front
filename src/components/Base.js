@@ -15,6 +15,7 @@ class Base extends React.Component {
             <>
                 <CaptureRouteNotFound>
                     <Switch>
+                        <Route exact path="/" component={Home} />
                         <Route path="/dashboard" component={Home} />
                         <Route path="/network" component={Network} />
                         <Route path="/community" component={Community} />

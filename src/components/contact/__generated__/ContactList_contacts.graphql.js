@@ -21,8 +21,10 @@ export type ContactList_contacts = {|
       |}
     |}>,
     +pageInfo: {|
-      +hasNextPage: boolean,
       +endCursor: ?string,
+      +hasNextPage: boolean,
+      +hasPreviousPage: boolean,
+      +startCursor: ?string,
     |},
   |},
   +$refType: ContactList_contacts$ref,
@@ -147,6 +149,13 @@ const node/*: ReaderFragment*/ = {
             {
               "kind": "ScalarField",
               "alias": null,
+              "name": "endCursor",
+              "args": null,
+              "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
               "name": "hasNextPage",
               "args": null,
               "storageKey": null
@@ -154,7 +163,14 @@ const node/*: ReaderFragment*/ = {
             {
               "kind": "ScalarField",
               "alias": null,
-              "name": "endCursor",
+              "name": "hasPreviousPage",
+              "args": null,
+              "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "startCursor",
               "args": null,
               "storageKey": null
             }
@@ -165,5 +181,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = 'dcfc2bb6c31ccb1c1b57ae2fa5cc0d6b';
+(node/*: any*/).hash = '17d4e25e576ba60485a80f9049d052a0';
 module.exports = node;

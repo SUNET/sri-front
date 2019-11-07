@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-
+import { getOrganization } from "../organization/Organization";
 import { change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 
@@ -56,6 +56,19 @@ class FieldArrayOrganizationsContact extends React.Component {
         const input_label = event.target.options[event.target.selectedIndex].text;
         const input_name = event.target.name.split(".")[1];
         this.props.dispatch(change(this.props.meta.form, `organizations[${index}].${input_name}_label`, input_label));
+        if (input_name === "organization") {
+            getOrganization(event.target.value).then((organization) => {
+                if (organization) {
+                    this.props.dispatch(
+                        change(
+                            this.props.meta.form,
+                            `organizations[${index}].organization_id`,
+                            organization.customer_id
+                        )
+                    );
+                }
+            });
+        }
     };
 
     render() {
@@ -84,7 +97,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                                             type="text"
                                             disabled
                                             placeholder="Type ID"
-                                            value={fields.getAll()[index].organization}
+                                            defaultValue={fields.getAll()[index].organization_id}
                                         />
                                     </Form.Group>
                                 </div>
@@ -105,7 +118,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                         ) : (
                             <>
                                 <div>{fields.getAll()[index].role_label}</div>
-                                <div>{fields.getAll()[index].organization}</div>
+                                <div>{fields.getAll()[index].organization_id}</div>
                                 <div>{fields.getAll()[index].organization_label}</div>
                             </>
                         )}

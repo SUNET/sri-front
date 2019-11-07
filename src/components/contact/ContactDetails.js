@@ -91,7 +91,7 @@ class ContactDetails extends React.Component {
                 variables={{
                     contactId: this.props.match.params.contactId
                 }}
-                render={({ error, props }) => {
+                render={({ error, props, retry }) => {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
@@ -102,6 +102,7 @@ class ContactDetails extends React.Component {
                                     onDelete={this.handleDelete}
                                     contact={props.getContactById}
                                     history={this.props.history}
+                                    refetch={retry}
                                 />
                             </section>
                         );

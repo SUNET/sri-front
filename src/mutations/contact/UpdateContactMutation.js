@@ -133,20 +133,14 @@ export default function UpdateContactMutation(contact, notifications) {
                                 if (organization.role_obj) {
                                     DeleteRelationshipMutation(organization.role_obj.relation_id);
                                 }
-                                UpdateContactInlineMutation(
-                                    response.update_contact.contact,
-                                    organization.organization,
-                                    null,
-                                    organization.role
-                                );
-                            } else {
-                                UpdateContactInlineMutation(
-                                    response.update_contact.contact,
-                                    organization.organization,
-                                    null,
-                                    organization.role
-                                );
                             }
+
+                            UpdateContactInlineMutation(
+                                response.update_contact.contact,
+                                organization.organization,
+                                null,
+                                organization.role
+                            );
                         } else if (organization.status === "remove") {
                             DeleteRelationshipMutation(organization.role_obj.relation_id);
                         }

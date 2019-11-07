@@ -46,6 +46,7 @@ const mapStateToProps = (state, props) => {
                       role_label: role_node ? role_node.name : "",
                       role_obj: role,
                       organization: role.end ? role.end.handle_id : "",
+                      organization_id: role.end ? role.end.customer_id : "",
                       organization_label: role.end ? role.end.name : "",
                       status: "saved",
                       origin: "store",
