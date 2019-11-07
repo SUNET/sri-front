@@ -21,8 +21,8 @@ import RangeDayPicker from "./RangeDayPicker";
 
 //mock for when the backend is ready
 const defaultColumns = [
-    { name: "Name", value: "name" },
-    { name: "Description", value: "description", filter: "order" }
+    { name: "Name", value: "name", filter: "order" },
+    { name: "Description", value: "description" }
 ];
 
 const SearchGroupAllQuery = graphql`
@@ -36,6 +36,7 @@ class SearchGroup extends React.Component {
         super(props);
 
         this.state = {
+            itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
             filterValue: {},
             filterDateType: "created",
@@ -45,6 +46,17 @@ class SearchGroup extends React.Component {
             orderBy: { orderBy: "handle_id_DESC" }
         };
     }
+
+    // save in the state the column orderby
+    handleColumnChangeOrderBy = (event, orderBy) => {
+        if (event.target.checked) {
+            orderBy = orderBy.concat("_ASC");
+        } else {
+            orderBy = orderBy.concat("_DESC");
+        }
+
+        this.setState({ orderBy: { orderBy: orderBy } });
+    };
 
     //save in the state the number of pages shown
     handleOnChangeCount = (count) => {
@@ -195,7 +207,7 @@ class SearchGroup extends React.Component {
                                             environment={environment}
                                             query={SearchGroupAllQuery}
                                             variables={{
-                                                count: ITEMS_PER_PAGE,
+                                                count: this.state.itemsPerPage,
                                                 ...this.state.orderBy,
                                                 filter: this.getFilters()
                                             }}
@@ -207,6 +219,8 @@ class SearchGroup extends React.Component {
                                                         <GroupListContainer
                                                             groups={props}
                                                             changeCount={this.handleOnChangeCount}
+                                                            columnChangeOrderBy={this.handleColumnChangeOrderBy}
+                                                            orderBy={this.state.orderBy.orderBy}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />

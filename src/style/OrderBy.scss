@@ -9,3 +9,21 @@
         padding: 8px 11px;
     }
 }
+
+.order-col {
+    .state {
+        label {
+            span {
+                font-weight: bold;
+
+
+            }
+            .svg-inline--fa {
+                margin-left: 2px;
+                vertical-align: bottom;
+                font-size: 12px;
+                color: $complementary-color;
+            }
+        }
+    }
+}

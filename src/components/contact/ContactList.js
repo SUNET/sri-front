@@ -4,6 +4,8 @@ import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../constants";
 import ContactRow from "./ContactRow";
@@ -51,13 +53,36 @@ export class ContactList extends React.PureComponent {
                     if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
                         return (
                             <div key={column.name}>
-                                {column.name}
-                                {column.filter === "order" && (
+                                {column.filter === "order" ? (
+                                    <div className="pretty custom p-icon p-toggle p-plain order-col">
+                                        <input
+                                            type="checkbox"
+                                            name={"orderby-" + column.value}
+                                            checked={this.props.orderBy.includes(column.value + "_ASC")}
+                                            onChange={(e) => {
+                                                this.props.columnChangeOrderBy(e, column.value);
+                                            }}
+                                        />
+                                        <div className="state p-on">
+                                            <label>
+                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleUp} />
+                                            </label>
+                                        </div>
+                                        <div className="state p-off">
+                                            <label>
+                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleDown} />
+                                            </label>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    column.name
+                                )}
+                                {/*column.filter === "order" && (
                                     <FilterColumnsContainer
                                         type="order"
                                         columns={this.props.organization_types.getChoicesForDropdown}
                                     />
-                                )}
+                                )*/}
                             </div>
                         );
                     } else {

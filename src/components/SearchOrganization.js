@@ -21,11 +21,11 @@ import RangeDayPicker from "./RangeDayPicker";
 
 //mock for when the backend is ready
 const defaultColumns = [
-    { name: "Name", value: "name" },
-    { name: "Organization ID", value: "organization_id" },
-    { name: "Type", value: "type", filter: "order" },
-    { name: "Affiliation", value: "afffiliation", filter: "order" },
-    { name: "Parent Organization ID", value: "parent_organization_id", filter: "order" }
+    { name: "Name", value: "name", filter: "order" },
+    { name: "Organization ID", value: "organization_id", filter: "order" },
+    { name: "Type", value: "type" },
+    { name: "Affiliation", value: "afffiliation" },
+    { name: "Parent Organization ID", value: "parent_organization_id" }
 ];
 
 const SearchOrganizationAllQuery = graphql`
@@ -48,6 +48,18 @@ class SearchOrganization extends React.Component {
             orderBy: { orderBy: "handle_id_DESC" }
         };
     }
+
+    // save in the state the column orderby
+    handleColumnChangeOrderBy = (event, orderBy) => {
+        if (orderBy === "organization_id") orderBy = "customer_id";
+        if (event.target.checked) {
+            orderBy = orderBy.concat("_ASC");
+        } else {
+            orderBy = orderBy.concat("_DESC");
+        }
+
+        this.setState({ orderBy: { orderBy: orderBy } });
+    };
 
     //save in the state the number of pages shown
     handleOnChangeCount = (count) => {
@@ -199,6 +211,8 @@ class SearchOrganization extends React.Component {
                                                         <OrganizationListContainer
                                                             organizations={props}
                                                             changeCount={this.handleOnChangeCount}
+                                                            columnChangeOrderBy={this.handleColumnChangeOrderBy}
+                                                            orderBy={this.state.orderBy.orderBy}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
