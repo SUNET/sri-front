@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1ac73ee79fe5007871bee47e993eb64c
+ * @relayHash cb8b6d0d4f12486d6c447ae719483221
  */
 
 /* eslint-disable */
@@ -47,8 +47,10 @@ fragment ContactList_contacts_32czeo on Query {
       cursor
     }
     pageInfo {
-      hasNextPage
       endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
     }
   }
 }
@@ -273,6 +275,13 @@ return {
               {
                 "kind": "ScalarField",
                 "alias": null,
+                "name": "endCursor",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
                 "name": "hasNextPage",
                 "args": null,
                 "storageKey": null
@@ -280,7 +289,14 @@ return {
               {
                 "kind": "ScalarField",
                 "alias": null,
-                "name": "endCursor",
+                "name": "hasPreviousPage",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "startCursor",
                 "args": null,
                 "storageKey": null
               }
@@ -303,7 +319,7 @@ return {
     "operationKind": "query",
     "name": "ContactListForwardQuery",
     "id": null,
-    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
+    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

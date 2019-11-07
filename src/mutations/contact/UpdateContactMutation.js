@@ -128,7 +128,6 @@ export default function UpdateContactMutation(contact, notifications) {
                 if (organizations) {
                     Object.keys(organizations).forEach((organization_key) => {
                         let organization = organizations[organization_key];
-                        debugger;
                         if (organization.status === "saved") {
                             if (organization.origin === "store") {
                                 if (organization.role_obj) {

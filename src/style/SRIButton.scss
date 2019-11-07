@@ -1,4 +1,49 @@
 @import "../variables.scss";
+@-webkit-keyframes spinner-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spinner-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes spinner-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-ms-keyframes spinner-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spinner-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
 /* generic styles for all buttons
 (incl. :hover, :active, :focus and :disabled) */
 button:focus {
@@ -175,6 +220,12 @@ button.btn {
                 color: $complementary-color;
                 vertical-align: middle;
             }
+        }
+
+        .icon-load {
+            margin-right: 8px;
+            color: $complementary-color;
+            vertical-align: middle;
         }
 
         &:hover {

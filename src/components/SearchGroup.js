@@ -179,7 +179,7 @@ class SearchGroup extends React.Component {
                                                 ...this.state.orderBy,
                                                 filter: this.getFilters()
                                             }}
-                                            render={({ error, props }) => {
+                                            render={({ error, props, retry }) => {
                                                 if (error) {
                                                     return <div>{error.message}</div>;
                                                 } else if (props) {
@@ -187,6 +187,7 @@ class SearchGroup extends React.Component {
                                                         <GroupListContainer
                                                             groups={props}
                                                             changeCount={this._handleOnChangeCount}
+                                                            refetch={retry}
                                                         />
                                                     );
                                                 }
