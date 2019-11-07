@@ -6,6 +6,7 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 import urlRegex from "url-regex";
 
+import { getOrganization } from "../../components/organization/Organization";
 import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
@@ -128,41 +129,46 @@ class CreateOrganizationForm extends React.Component {
                                                     <Form.Group>
                                                         <Field
                                                             type="text"
-                                                            name="customer_id"
+                                                            name="organization_id"
                                                             component={FieldInput}
                                                             placeholder={t("organization-details.add-id")}
                                                         />
                                                     </Form.Group>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                type="text"
-                                                                name="relationship_parent_of"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-id")}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
+                                                    <Form.Group>
+                                                        <Field
+                                                            type="text"
+                                                            name="relationship_parent_of"
+                                                            component={FieldInput}
+                                                            placeholder={t("organization-details.add-id")}
+                                                        />
+                                                    </Form.Group>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="table-details mt-4">
                                             <div>
                                                 <div className="w-20">Website</div>
+                                                <div>Organization Number</div>
                                             </div>
                                             <div>
                                                 <div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                type="text"
-                                                                className="xlg"
-                                                                name="website"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-website")}
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
+                                                    <Form.Group>
+                                                        <Field
+                                                            type="text"
+                                                            className="xlg"
+                                                            name="website"
+                                                            component={FieldInput}
+                                                            placeholder={t("organization-details.add-website")}
+                                                        />
+                                                    </Form.Group>
+                                                    <Form.Group>
+                                                        <Field
+                                                            type="text"
+                                                            name="organization_number"
+                                                            component={FieldInput}
+                                                            placeholder={t("organization-details.add-number")}
+                                                        />
+                                                    </Form.Group>
                                                 </div>
                                             </div>
                                         </div>
@@ -298,6 +304,14 @@ class CreateOrganizationForm extends React.Component {
     }
 }
 
+const asyncValidate = (values, dispatch) => {
+    return getOrganization(3000).then((data) => {
+        if (data) {
+            throw { organization_id: "Already exist!" };
+        }
+    });
+};
+
 const validate = (values, props) => {
     const errors = {};
     if (!values.name || values.name === "New organization") {
@@ -325,8 +339,8 @@ const validate = (values, props) => {
         errors.affiliation = "* Required!";
     }
 
-    if (!values.customer_id) {
-        errors.customer_id = "* Required!";
+    if (!values.organization_id) {
+        errors.organization_id = "* Required!";
     }
 
     if (values.addresses) {
@@ -391,6 +405,8 @@ const validate = (values, props) => {
 CreateOrganizationForm = reduxForm({
     form: "createOrganization",
     validate,
+    asyncValidate,
+    asyncChangeFields: ["organization_id"],
     initialValues: {
         name: "New organization",
         affiliation: false

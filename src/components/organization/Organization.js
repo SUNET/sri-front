@@ -9,7 +9,8 @@ const OrganizationQuery = graphql`
             name
             type
             website
-            customer_id
+            organization_id
+            organization_number
             description
             incident_management_info
             addresses {

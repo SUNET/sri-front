@@ -37,7 +37,7 @@ class OrganizationRow extends React.PureComponent {
             <article onClick={(e) => this.props.onClick(e, organization)}>
                 {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <div>{organization.name}</div>}
                 {(this.props.columnsVisible["organization_id"] || this.props.showAllColumns) && (
-                    <div>{organization.customer_id}</div>
+                    <div>{organization.organization_id}</div>
                 )}
                 {(this.props.columnsVisible["type"] || this.props.showAllColumns) && <div>{organization.type}</div>}
                 {(this.props.columnsVisible["afffiliation"] || this.props.showAllColumns) && (
@@ -73,7 +73,7 @@ const OrganizationRowFragment = createFragmentContainer(OrganizationRow, {
             handle_id
             name
             type
-            customer_id
+            organization_id
             affiliation_customer
             affiliation_end_customer
             affiliation_host_user

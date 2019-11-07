@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0f109dd75deeca4122a58690d8f9d414
+ * @relayHash 1ec9cfc3d93029a4cbc167ffc6d11673
  */
 
 /* eslint-disable */
@@ -56,7 +56,7 @@ export type UpdateContactInlineMutationResponse = {|
         +end: ?{|
           +handle_id: string,
           +name: string,
-          +customer_id: ?string,
+          +organization_id: ?string,
         |},
       |}>,
       +member_of_groups: ?$ReadOnlyArray<?{|
@@ -107,7 +107,7 @@ mutation UpdateContactInlineMutation(
         end {
           handle_id
           name
-          customer_id
+          organization_id
           id
         }
       }
@@ -232,7 +232,7 @@ v11 = {
 v12 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "customer_id",
+  "name": "organization_id",
   "args": null,
   "storageKey": null
 },
@@ -446,11 +446,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactInlineMutation",
     "id": null,
-    "text": "mutation UpdateContactInlineMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          customer_id\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactInlineMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          organization_id\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '06f8844671211b52103976741b5d4586';
+(node/*: any*/).hash = '4a2d112c3e497657e73d490556859b0c';
 module.exports = node;

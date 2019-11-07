@@ -18,8 +18,8 @@ import uuidv4 from "uuid/v4";
 import copy from "clipboard-copy";
 import urlRegex from "url-regex";
 
+import { getOrganization } from "../../components/organization/Organization";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
-
 import Worklog from "../Worklog";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
@@ -97,7 +97,8 @@ class OrganizationUpdateForm extends React.Component {
             organization,
             name,
             type,
-            customer_id,
+            organization_id,
+            organization_number,
             website,
             description,
             incident_management_info,
@@ -210,12 +211,12 @@ class OrganizationUpdateForm extends React.Component {
                                                                 </div>
                                                                 <div>
                                                                     {!editable ? (
-                                                                        customer_id
+                                                                        organization_id
                                                                     ) : (
                                                                         <Form.Group>
                                                                             <Field
                                                                                 type="text"
-                                                                                name="customer_id"
+                                                                                name="organization_id"
                                                                                 component={FieldInput}
                                                                                 placeholder={t(
                                                                                     "organization-details.add-id"
@@ -245,7 +246,8 @@ class OrganizationUpdateForm extends React.Component {
                                                     </div>
                                                     <div className="table-details mt-4">
                                                         <div>
-                                                            <div className="w-20">Website</div>
+                                                            <div className="w-35">Website</div>
+                                                            <div>Organization Number</div>
                                                         </div>
                                                         <div>
                                                             <div>
@@ -267,6 +269,22 @@ class OrganizationUpdateForm extends React.Component {
                                                                                 component={FieldInput}
                                                                                 placeholder={t(
                                                                                     "organization-details.add-website"
+                                                                                )}
+                                                                            />
+                                                                        </Form.Group>
+                                                                    )}
+                                                                </div>
+                                                                <div>
+                                                                    {!editable ? (
+                                                                        organization_number
+                                                                    ) : (
+                                                                        <Form.Group>
+                                                                            <Field
+                                                                                type="text"
+                                                                                name="organization_number"
+                                                                                component={FieldInput}
+                                                                                placeholder={t(
+                                                                                    "organization-details.add-number"
                                                                                 )}
                                                                             />
                                                                         </Form.Group>
@@ -430,6 +448,14 @@ class OrganizationUpdateForm extends React.Component {
     }
 }
 
+const asyncValidate = (values, dispatch) => {
+    return getOrganization(3000).then((data) => {
+        if (data) {
+            throw { organization_id: "Already exist!" };
+        }
+    });
+};
+
 const validate = (values, props) => {
     const errors = {};
     if (!values.name) {
@@ -514,7 +540,9 @@ const validate = (values, props) => {
 
 OrganizationUpdateForm = reduxForm({
     form: "updateOrganization",
-    validate
+    validate,
+    asyncValidate,
+    asyncChangeFields: ["organization_id"]
 })(OrganizationUpdateForm);
 
 const OrganizationUpdateFormFragment = createRefetchContainer(
@@ -526,7 +554,8 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                 name
                 type
                 website
-                customer_id
+                organization_id
+                organization_number
                 description
                 incident_management_info
                 addresses {

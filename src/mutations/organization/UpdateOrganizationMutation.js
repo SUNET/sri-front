@@ -25,7 +25,8 @@ const mutation = graphql`
                 name
                 type
                 website
-                customer_id
+                organization_id
+                organization_number
                 affiliation_customer
                 affiliation_end_customer
                 affiliation_host_user
@@ -59,7 +60,8 @@ export default function UpdateOrganizationMutation(organization, notifications) 
             handle_id: organization.id,
             name: organization.name,
             description: organization.description,
-            customer_id: organization.customer_id,
+            organization_id: organization.organization_id,
+            organization_number: organization.organization_number,
             type: organization.type,
             website: organization.website,
             affiliation_customer: organization.affiliation_customer,

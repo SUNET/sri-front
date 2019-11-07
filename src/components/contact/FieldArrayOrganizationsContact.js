@@ -63,7 +63,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                         change(
                             this.props.meta.form,
                             `organizations[${index}].organization_id`,
-                            organization.customer_id
+                            organization.organization_id
                         )
                     );
                 }

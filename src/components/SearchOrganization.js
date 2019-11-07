@@ -60,7 +60,7 @@ class SearchOrganization extends React.Component {
         this.setState({
             filterValue: [
                 { name_contains: filterValue },
-                { customer_id_contains: filterValue },
+                { organization_id_contains: filterValue },
                 { type_contains: filterValue }
             ]
         });
