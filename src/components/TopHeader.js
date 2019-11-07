@@ -1,6 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { Dropdown, Form, Nav, Navbar, Image } from "react-bootstrap";
+import { Dropdown, Nav, Navbar, Image } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 
 import Logout from "./Logout";
