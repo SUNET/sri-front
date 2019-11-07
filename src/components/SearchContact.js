@@ -223,7 +223,7 @@ class Search extends React.Component {
                                                         <ContactListContainer
                                                             contacts={props}
                                                             organization_types={props}
-                                                            changeCount={this._handleOnChangeCount}
+                                                            changeCount={this.handleOnChangeCount}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />

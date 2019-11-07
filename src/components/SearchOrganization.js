@@ -58,7 +58,11 @@ class SearchOrganization extends React.Component {
     // these filters cannot be generalized by backend implementation
     handleOnChangeFilter = (filterValue) => {
         this.setState({
-            filterValue: [{ name_contains: filterValue }, { customer_id_contains: filterValue }]
+            filterValue: [
+                { name_contains: filterValue },
+                { customer_id_contains: filterValue },
+                { type_contains: filterValue }
+            ]
         });
     };
 
@@ -194,7 +198,7 @@ class SearchOrganization extends React.Component {
                                                     return (
                                                         <OrganizationListContainer
                                                             organizations={props}
-                                                            changeCount={this._handleOnChangeCount}
+                                                            changeCount={this.handleOnChangeCount}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />

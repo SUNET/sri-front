@@ -275,7 +275,7 @@ type Contact implements Node {
   last_name: String!
   title: String
   salutation: String
-  contact_type: String
+  contact_type: ChoiceScalar
   phones: [Phone]
   emails: [Email]
   pgp_fingerprint: String
@@ -377,20 +377,20 @@ input ContactNestedFilter {
   salutation_not_ends_with: String
   salutation_in: [String!]
   salutation_not_in: [String!]
-  contact_type: String
-  contact_type_not: String
-  contact_type_lt: String
-  contact_type_lte: String
-  contact_type_gt: String
-  contact_type_gte: String
-  contact_type_contains: String
-  contact_type_not_contains: String
-  contact_type_starts_with: String
-  contact_type_not_starts_with: String
-  contact_type_ends_with: String
-  contact_type_not_ends_with: String
-  contact_type_in: [String!]
-  contact_type_not_in: [String!]
+  contact_type: ChoiceScalar
+  contact_type_not: ChoiceScalar
+  contact_type_lt: ChoiceScalar
+  contact_type_lte: ChoiceScalar
+  contact_type_gt: ChoiceScalar
+  contact_type_gte: ChoiceScalar
+  contact_type_contains: ChoiceScalar
+  contact_type_not_contains: ChoiceScalar
+  contact_type_starts_with: ChoiceScalar
+  contact_type_not_starts_with: ChoiceScalar
+  contact_type_ends_with: ChoiceScalar
+  contact_type_not_ends_with: ChoiceScalar
+  contact_type_in: [ChoiceScalar!]
+  contact_type_not_in: [ChoiceScalar!]
   phones: PhoneInputField
   phones_not: PhoneInputField
   phones_lt: PhoneInputField
@@ -931,6 +931,12 @@ input EmailNestedFilter {
   type_lte: ChoiceScalar
   type_gt: ChoiceScalar
   type_gte: ChoiceScalar
+  type_contains: ChoiceScalar
+  type_not_contains: ChoiceScalar
+  type_starts_with: ChoiceScalar
+  type_not_starts_with: ChoiceScalar
+  type_ends_with: ChoiceScalar
+  type_not_ends_with: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
   handle_id: Int
@@ -1494,6 +1500,12 @@ input OrganizationNestedFilter {
   type_lte: ChoiceScalar
   type_gt: ChoiceScalar
   type_gte: ChoiceScalar
+  type_contains: ChoiceScalar
+  type_not_contains: ChoiceScalar
+  type_starts_with: ChoiceScalar
+  type_not_starts_with: ChoiceScalar
+  type_ends_with: ChoiceScalar
+  type_not_ends_with: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
   website: String
@@ -1748,6 +1760,12 @@ input PhoneNestedFilter {
   type_lte: ChoiceScalar
   type_gt: ChoiceScalar
   type_gte: ChoiceScalar
+  type_contains: ChoiceScalar
+  type_not_contains: ChoiceScalar
+  type_starts_with: ChoiceScalar
+  type_not_starts_with: ChoiceScalar
+  type_ends_with: ChoiceScalar
+  type_not_ends_with: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
   handle_id: Int
@@ -1981,24 +1999,31 @@ type Query {
   getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]
   getOrganizationAddressRelations(organization_id: Int!, address_id: Int!): [NIRelationType]
   all_groups: [Group]
+  count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
   getGroupById(handle_id: Int): Group
   all_addresss: [Address]
+  count_addresss: Int
   addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): AddressConnection
   getAddressById(handle_id: Int): Address
   all_phones: [Phone]
+  count_phones: Int
   phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): PhoneConnection
   getPhoneById(handle_id: Int): Phone
   all_emails: [Email]
+  count_emails: Int
   emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): EmailConnection
   getEmailById(handle_id: Int): Email
   all_contacts: [Contact]
+  count_contacts: Int
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
   getContactById(handle_id: Int): Contact
   all_organizations: [Organization]
+  count_organizations: Int
   organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): OrganizationConnection
   getOrganizationById(handle_id: Int): Organization
   all_procedures: [Procedure]
+  count_procedures: Int
   procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
   getProcedureById(handle_id: Int): Procedure
 }

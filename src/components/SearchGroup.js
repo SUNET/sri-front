@@ -206,7 +206,7 @@ class SearchGroup extends React.Component {
                                                     return (
                                                         <GroupListContainer
                                                             groups={props}
-                                                            changeCount={this._handleOnChangeCount}
+                                                            changeCount={this.handleOnChangeCount}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
