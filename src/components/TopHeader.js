@@ -3,6 +3,8 @@ import { withTranslation } from "react-i18next";
 import { Dropdown, Form, Nav, Navbar, Image } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 
+import Logout from "./Logout";
+
 import "../style/TopHeader.scss";
 
 class TopHeader extends React.Component {
@@ -12,30 +14,32 @@ class TopHeader extends React.Component {
             <header>
                 <Navbar id="top-header">
                     <Navbar.Brand as={Link} to="/">
-                        {t("header.welcome")}
+                        <Image src={require("../static/img/logo.svg")} img-fluid="true" />
                     </Navbar.Brand>
+                    {/* Hidden because it need to implement the logic  */}
                     <Nav className="mx-auto">
                         <Nav.Link as={NavLink} activeClassName="active" to="/dashboard">
                             {t("header.main-menu.home")}
                         </Nav.Link>
-                        <Nav.Link as={NavLink} activeClassName="active" to="/network">
+                        {/*<Nav.Link as={NavLink} activeClassName="active" to="/network">
                             {t("header.main-menu.network")}
-                        </Nav.Link>
+                        </Nav.Link>*/}
                         <Nav.Link as={NavLink} activeClassName="active" to="/community">
                             {t("header.main-menu.community")}
                         </Nav.Link>
-                        <Nav.Link as={NavLink} activeClassName="active" to="/contracts">
+                        {/*<Nav.Link as={NavLink} activeClassName="active" to="/contracts">
                             {t("header.main-menu.contracts")}
-                        </Nav.Link>
+                        </Nav.Link>*/}
                     </Nav>
                     <Nav>
-                        <Nav.Item>
+                        {/* Hidden because it need to implement the logic  */}
+                        {/*<Nav.Item>
                             <Form inline>
                                 <Form.Group className="search-global">
                                     <Form.Control type="text" placeholder="Search" />
                                 </Form.Group>
                             </Form>
-                        </Nav.Item>
+                        </Nav.Item>*/}
                         <Nav.Item>
                             <Dropdown>
                                 <Dropdown.Toggle as="span">
@@ -60,10 +64,13 @@ class TopHeader extends React.Component {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Nav.Item>
-                        <Nav.Item>
+                        <Nav.Item className="px-0">
                             <Link to="/personal-area/profile">
                                 <Image src={require("../static/img/profile.png")} roundedCircle img-fluid="true" />
                             </Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Logout />
                         </Nav.Item>
                     </Nav>
                 </Navbar>

@@ -17,7 +17,7 @@ describe("Notifications Component", () => {
                 component: <NotifyContainer />,
                 overrides: state
             }),
-            alertElem = wrapper.find("Alert");
+            alertElem = wrapper.find(".notification");
 
         expect(alertElem.length).toEqual(1);
         expect(alertElem.text()).toContain("dummy message");
@@ -34,7 +34,7 @@ describe("Notifications Component", () => {
                 component: <NotifyContainer />,
                 overrides: errorState
             }),
-            alertElem = wrapper.find("Alert");
+            alertElem = wrapper.find(".notification");
 
         expect(alertElem.length).toEqual(1);
         expect(alertElem.text()).toContain("dummy error");
@@ -51,9 +51,7 @@ describe("Notification Actions", () => {
                 values: null
             }
         };
-        expect(actions.notify("dummy message", "dummy level")).toEqual(
-            expectedAction
-        );
+        expect(actions.notify("dummy message", "dummy level")).toEqual(expectedAction);
     });
 
     it("Should remove a notification ", () => {
@@ -91,10 +89,12 @@ describe("Test Notifications Container", () => {
 
     it("Clicks a language selector button", () => {
         const numCalls = dispatch.mock.calls.length;
+
         wrapper
-            .find("button")
+            .find(".notification")
             .props()
             .onClick();
+        console.log(wrapper.debug());
         expect(dispatch.mock.calls.length).toEqual(numCalls + 1);
     });
 });

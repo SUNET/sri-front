@@ -5,7 +5,7 @@ import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
-import { ITEMS_PER_PAGE } from "../../constants";
+import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../constants";
 import OrganizationRow from "./OrganizationRow";
 import FilterColumnsContainer from "../../containers/FilterColumns";
 
@@ -16,7 +16,11 @@ export class OrganizationList extends React.PureComponent {
         organizations: PropTypes.object.isRequired
     };
 
-    _loadMore = () => {
+    _loadMore = (type) => {
+        let itemsPerLoad = ITEMS_PER_PAGE;
+        if (type === "all") {
+            itemsPerLoad = ALL_ITEMS;
+        }
         if (!this.props.relay.hasMore()) {
             console.log(`Nothing more to load`);
             return;
@@ -24,8 +28,11 @@ export class OrganizationList extends React.PureComponent {
             console.log(`Request is already pending`);
             return;
         }
-        this.props.changeCount(ITEMS_PER_PAGE);
-        this.props.relay.loadMore(ITEMS_PER_PAGE);
+
+        this.props.changeCount(itemsPerLoad);
+        this.props.relay.loadMore(itemsPerLoad, () => {
+            this.forceUpdate(); // this fixed updated props because relay doesn't do it.
+        });
     };
 
     handleFilterColumns = () => {};
@@ -84,10 +91,23 @@ export class OrganizationList extends React.PureComponent {
                     <div>{this.renderHeaderList()}</div>
                     <div>{this.renderList()}</div>
                 </div>
-                <div className="mt-1 text-right">
-                    <button onClick={() => this._loadMore()} className="btn outline btn-load">
-                        {t("paginator.load_more")}
-                    </button>
+                <div className="text-right mt-1">
+                    {this.props.relay.hasMore() ? (
+                        <>
+                            <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">
+                                {t("paginator.load_more")}
+                            </button>
+
+                            <button onClick={() => this._loadMore("all")} className="btn outline">
+                                <i className={"fa icon-load" + (this.props.relay.isLoading() ? " fa-spin" : "")}></i>
+                                {t("paginator.load_all")}
+                            </button>
+                        </>
+                    ) : this.props.organizations.organizations.edges.length > ITEMS_PER_PAGE ? (
+                        <button onClick={() => this.props.refetch()} className="btn outline btn-load mr-2">
+                            {t("paginator.load_less")}
+                        </button>
+                    ) : null}
                 </div>
             </>
         );

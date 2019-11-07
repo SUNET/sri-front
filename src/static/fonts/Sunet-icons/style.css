@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'sunet-icons';
-  src:  url('sunet-icons.eot?tgu507');
-  src:  url('sunet-icons.eot?tgu507#iefix') format('embedded-opentype'),
-    url('sunet-icons.ttf?tgu507') format('truetype'),
-    url('sunet-icons.woff?tgu507') format('woff'),
-    url('sunet-icons.svg?tgu507#sunet-icons') format('svg');
+  src:  url('sunet-icons.eot?dlx5ns');
+  src:  url('sunet-icons.eot?dlx5ns#iefix') format('embedded-opentype'),
+    url('sunet-icons.ttf?dlx5ns') format('truetype'),
+    url('sunet-icons.woff?dlx5ns') format('woff'),
+    url('sunet-icons.svg?dlx5ns#sunet-icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -75,4 +75,7 @@ i {
 }
 .icon-notification:before {
   content: "\e910";
+}
+.icon-logout:before {
+  content: "\e911";
 }

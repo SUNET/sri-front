@@ -31,6 +31,7 @@ class Search extends React.Component {
         super(props);
 
         this.state = {
+            itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
             filterValue: {},
             filterDateType: "created",
@@ -76,6 +77,10 @@ class Search extends React.Component {
             return key.replace(this.state.filterDateType, event.target.value);
         });
         this.setState({ filterDate: { ...newfilterDate } });
+    };
+
+    handleResetPage = () => {
+        // this.setState({ itemsPerPage: ITEMS_PER_PAGE - 1 });
     };
 
     UNSAFE_componentWillUpdate(nextProps, nextState) {
@@ -185,11 +190,11 @@ class Search extends React.Component {
                                             environment={environment}
                                             query={SearchContactsAllQuery}
                                             variables={{
-                                                count: ITEMS_PER_PAGE,
+                                                count: this.state.itemsPerPage,
                                                 ...this.state.orderBy,
                                                 filter: this.getFilters()
                                             }}
-                                            render={({ error, props }) => {
+                                            render={({ error, props, retry }) => {
                                                 if (error) {
                                                     return <div>{error.message}</div>;
                                                 } else if (props) {
@@ -198,6 +203,7 @@ class Search extends React.Component {
                                                             contacts={props}
                                                             organization_types={props}
                                                             changeCount={this._handleOnChangeCount}
+                                                            refetch={retry}
                                                         />
                                                     );
                                                 }

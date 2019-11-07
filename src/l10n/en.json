@@ -39,6 +39,8 @@
             "community.sub-menu.groups": "Groups",
             "footer.copyright": "Sunet",
             "paginator.load_more": "Load More",
+            "paginator.load_less": "Load Less",
+            "paginator.load_all": "Load All",
             "filter_columns.header": "Show/Hide Columns",
             "filter_columns.order_asc": "Order A < Z",
             "filter_columns.order_desc": "Order A > Z",

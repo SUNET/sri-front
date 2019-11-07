@@ -188,7 +188,7 @@ class SearchOrganization extends React.Component {
                                                 ...this.state.orderBy,
                                                 filter: this.getFilters()
                                             }}
-                                            render={({ error, props }) => {
+                                            render={({ error, props, retry }) => {
                                                 if (error) {
                                                     return <div>{error.message}</div>;
                                                 } else if (props) {
@@ -197,6 +197,7 @@ class SearchOrganization extends React.Component {
                                                             organizations={props}
                                                             changeCount={this._handleOnChangeCount}
                                                             defaultColumns={defaultColumns}
+                                                            refetch={retry}
                                                         />
                                                     );
                                                 }
