@@ -1,0 +1,37 @@
+@import "../variables.scss";
+
+.not-found {
+    height: 100%;
+
+    .page-404 {
+        .content {
+            -ms-transform: translateY(50%);
+            transform: translateY(50%);
+            h1 {
+                font-size: 64px;
+                display: inline-block;
+            }
+
+            .text {
+                font-size: 16px;
+            }
+
+            button {
+                margin-top: 16px;
+            }
+        }
+        position: relative;
+        height: 70%;
+        -ms-transform: translateY(20%);
+        transform: translateY(20%);
+        margin: 0 auto;
+        text-align: center;
+        background-image: url("../static/img/404.png");
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
