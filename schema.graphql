@@ -167,6 +167,12 @@ input AddressNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -175,6 +181,12 @@ input AddressNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -385,6 +397,12 @@ input ContactNestedFilter {
   phones_lte: PhoneInputField
   phones_gt: PhoneInputField
   phones_gte: PhoneInputField
+  phones_contains: PhoneInputField
+  phones_not_contains: PhoneInputField
+  phones_starts_with: PhoneInputField
+  phones_not_starts_with: PhoneInputField
+  phones_ends_with: PhoneInputField
+  phones_not_ends_with: PhoneInputField
   phones_in: [PhoneInputField!]
   phones_not_in: [PhoneInputField!]
   emails: EmailInputField
@@ -393,6 +411,12 @@ input ContactNestedFilter {
   emails_lte: EmailInputField
   emails_gt: EmailInputField
   emails_gte: EmailInputField
+  emails_contains: EmailInputField
+  emails_not_contains: EmailInputField
+  emails_starts_with: EmailInputField
+  emails_not_starts_with: EmailInputField
+  emails_ends_with: EmailInputField
+  emails_not_ends_with: EmailInputField
   emails_in: [EmailInputField!]
   emails_not_in: [EmailInputField!]
   pgp_fingerprint: String
@@ -415,6 +439,12 @@ input ContactNestedFilter {
   member_of_groups_lte: GroupInputField
   member_of_groups_gt: GroupInputField
   member_of_groups_gte: GroupInputField
+  member_of_groups_contains: GroupInputField
+  member_of_groups_not_contains: GroupInputField
+  member_of_groups_starts_with: GroupInputField
+  member_of_groups_not_starts_with: GroupInputField
+  member_of_groups_ends_with: GroupInputField
+  member_of_groups_not_ends_with: GroupInputField
   member_of_groups_in: [GroupInputField!]
   member_of_groups_not_in: [GroupInputField!]
   roles: RoleRelationInputField
@@ -423,6 +453,12 @@ input ContactNestedFilter {
   roles_lte: RoleRelationInputField
   roles_gt: RoleRelationInputField
   roles_gte: RoleRelationInputField
+  roles_contains: RoleRelationInputField
+  roles_not_contains: RoleRelationInputField
+  roles_starts_with: RoleRelationInputField
+  roles_not_starts_with: RoleRelationInputField
+  roles_ends_with: RoleRelationInputField
+  roles_not_ends_with: RoleRelationInputField
   roles_in: [RoleRelationInputField!]
   roles_not_in: [RoleRelationInputField!]
   notes: String
@@ -469,6 +505,12 @@ input ContactNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -477,6 +519,12 @@ input ContactNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -915,6 +963,12 @@ input EmailNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -923,6 +977,12 @@ input EmailNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1068,6 +1128,12 @@ input GroupNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -1076,6 +1142,12 @@ input GroupNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1444,8 +1516,62 @@ input OrganizationNestedFilter {
   addresses_lte: AddressInputField
   addresses_gt: AddressInputField
   addresses_gte: AddressInputField
+  addresses_contains: AddressInputField
+  addresses_not_contains: AddressInputField
+  addresses_starts_with: AddressInputField
+  addresses_not_starts_with: AddressInputField
+  addresses_ends_with: AddressInputField
+  addresses_not_ends_with: AddressInputField
   addresses_in: [AddressInputField!]
   addresses_not_in: [AddressInputField!]
+  affiliation_customer: Boolean
+  affiliation_customer_not: Boolean
+  affiliation_customer_lt: Boolean
+  affiliation_customer_lte: Boolean
+  affiliation_customer_gt: Boolean
+  affiliation_customer_gte: Boolean
+  affiliation_customer_in: [Boolean!]
+  affiliation_customer_not_in: [Boolean!]
+  affiliation_end_customer: Boolean
+  affiliation_end_customer_not: Boolean
+  affiliation_end_customer_lt: Boolean
+  affiliation_end_customer_lte: Boolean
+  affiliation_end_customer_gt: Boolean
+  affiliation_end_customer_gte: Boolean
+  affiliation_end_customer_in: [Boolean!]
+  affiliation_end_customer_not_in: [Boolean!]
+  affiliation_provider: Boolean
+  affiliation_provider_not: Boolean
+  affiliation_provider_lt: Boolean
+  affiliation_provider_lte: Boolean
+  affiliation_provider_gt: Boolean
+  affiliation_provider_gte: Boolean
+  affiliation_provider_in: [Boolean!]
+  affiliation_provider_not_in: [Boolean!]
+  affiliation_partner: Boolean
+  affiliation_partner_not: Boolean
+  affiliation_partner_lt: Boolean
+  affiliation_partner_lte: Boolean
+  affiliation_partner_gt: Boolean
+  affiliation_partner_gte: Boolean
+  affiliation_partner_in: [Boolean!]
+  affiliation_partner_not_in: [Boolean!]
+  affiliation_host_user: Boolean
+  affiliation_host_user_not: Boolean
+  affiliation_host_user_lt: Boolean
+  affiliation_host_user_lte: Boolean
+  affiliation_host_user_gt: Boolean
+  affiliation_host_user_gte: Boolean
+  affiliation_host_user_in: [Boolean!]
+  affiliation_host_user_not_in: [Boolean!]
+  affiliation_site_owner: Boolean
+  affiliation_site_owner_not: Boolean
+  affiliation_site_owner_lt: Boolean
+  affiliation_site_owner_lte: Boolean
+  affiliation_site_owner_gt: Boolean
+  affiliation_site_owner_gte: Boolean
+  affiliation_site_owner_in: [Boolean!]
+  affiliation_site_owner_not_in: [Boolean!]
   handle_id: Int
   handle_id_not: Int
   handle_id_lt: Int
@@ -1476,6 +1602,12 @@ input OrganizationNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -1484,6 +1616,12 @@ input OrganizationNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1502,6 +1640,18 @@ enum OrganizationOrderBy {
   type_DESC
   website_ASC
   website_DESC
+  affiliation_customer_ASC
+  affiliation_customer_DESC
+  affiliation_end_customer_ASC
+  affiliation_end_customer_DESC
+  affiliation_provider_ASC
+  affiliation_provider_DESC
+  affiliation_partner_ASC
+  affiliation_partner_DESC
+  affiliation_host_user_ASC
+  affiliation_host_user_DESC
+  affiliation_site_owner_ASC
+  affiliation_site_owner_DESC
   handle_id_ASC
   handle_id_DESC
   created_ASC
@@ -1630,6 +1780,12 @@ input PhoneNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -1638,6 +1794,12 @@ input PhoneNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1761,6 +1923,12 @@ input ProcedureNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -1769,6 +1937,12 @@ input ProcedureNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }

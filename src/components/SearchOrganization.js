@@ -55,11 +55,10 @@ class SearchOrganization extends React.Component {
     };
 
     // save in the state the filter box
+    // these filters cannot be generalized by backend implementation
     handleOnChangeFilter = (filterValue) => {
         this.setState({
-            filterValue: defaultColumns.map((column) => {
-                return { [column.value + "_contains"]: filterValue };
-            })
+            filterValue: [{ name_contains: filterValue }, { customer_id_contains: filterValue }]
         });
     };
 

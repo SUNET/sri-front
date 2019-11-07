@@ -19,6 +19,14 @@ import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
 // import { RouteNotFound } from "./NotFound";
 
+//mock for when the backend is ready
+const defaultColumns = [
+    { name: "Name", value: "name" },
+    { name: "Organization", value: "organization" },
+    { name: "Roles", value: "roles" },
+    { name: "Contact Type", value: "contact_type" }
+];
+
 const SearchContactsAllQuery = graphql`
     query SearchContactsAllQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
         ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
@@ -48,8 +56,19 @@ class Search extends React.Component {
     };
 
     // save in the state the filter box
+    // these filters cannot be generalized by backend implementation
     handleOnChangeFilter = (filterValue) => {
-        this.setState({ filterValue: { name_contains: filterValue } });
+        this.setState({
+            filterValue: [
+                { name_contains: filterValue },
+                {
+                    roles_contains: {
+                        name: filterValue
+                    }
+                },
+                { contact_type_contains: filterValue }
+            ]
+        });
     };
 
     // save in the state the orderby
@@ -100,18 +119,20 @@ class Search extends React.Component {
 
     // mount the filter object to pass it to the QueryRender
     getFilters = () => {
-        const filterArray = [];
+        const filterArrayAND = [];
+        let filterArrayOR = [];
         let filters = {};
 
         if (!(Object.keys(this.state.filterDate).length === 0 && this.state.filterDate.constructor === Object)) {
-            filterArray.push(this.state.filterDate);
+            filterArrayAND.push(this.state.filterDate);
         }
 
         if (!(Object.keys(this.state.filterValue).length === 0 && this.state.filterValue.constructor === Object)) {
-            filterArray.push(this.state.filterValue);
+            filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
 
-        if (filterArray.length > 0) filters = { AND: filterArray };
+        if (filterArrayAND.length > 0) filters.AND = filterArrayAND;
+        if (filterArrayOR.length > 0) filters.OR = filterArrayOR;
         return filters;
     };
 
@@ -203,6 +224,7 @@ class Search extends React.Component {
                                                             contacts={props}
                                                             organization_types={props}
                                                             changeCount={this._handleOnChangeCount}
+                                                            defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
                                                     );

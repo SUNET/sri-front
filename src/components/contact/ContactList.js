@@ -11,14 +11,6 @@ import FilterColumnsContainer from "../../containers/FilterColumns";
 
 import "../../style/ModelList.scss";
 
-//mock for when the backend is ready
-const defaultColumns = [
-    { name: "Name", value: "name" },
-    { name: "Organization", value: "organization" },
-    { name: "Roles", value: "roles" },
-    { name: "Contact Type", value: "contact_type" }
-];
-
 export class ContactList extends React.PureComponent {
     static propTypes = {
         contacts: PropTypes.object.isRequired
@@ -54,7 +46,7 @@ export class ContactList extends React.PureComponent {
         return (
             <>
                 <div></div>
-                {defaultColumns.map((column) => {
+                {this.props.defaultColumns.map((column) => {
                     // Hiding the columns passed by props
                     if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
                         return (
@@ -74,7 +66,7 @@ export class ContactList extends React.PureComponent {
                 })}
                 <FilterColumnsContainer
                     type="hidden-col"
-                    columns={defaultColumns}
+                    columns={this.props.defaultColumns}
                     model="contact"
                     filterColumns={this.handleFilterColumns}
                 />
