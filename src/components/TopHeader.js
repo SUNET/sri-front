@@ -64,7 +64,7 @@ class TopHeader extends React.Component {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Nav.Item>
-                        <Nav.Item>
+                        <Nav.Item className="px-0">
                             <Link to="/personal-area/profile">
                                 <Image src={require("../static/img/profile.png")} roundedCircle img-fluid="true" />
                             </Link>
