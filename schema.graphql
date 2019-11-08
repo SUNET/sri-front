@@ -167,6 +167,12 @@ input AddressNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -175,6 +181,12 @@ input AddressNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -263,7 +275,7 @@ type Contact implements Node {
   last_name: String!
   title: String
   salutation: String
-  contact_type: String
+  contact_type: ChoiceScalar
   phones: [Phone]
   emails: [Email]
   pgp_fingerprint: String
@@ -365,26 +377,32 @@ input ContactNestedFilter {
   salutation_not_ends_with: String
   salutation_in: [String!]
   salutation_not_in: [String!]
-  contact_type: String
-  contact_type_not: String
-  contact_type_lt: String
-  contact_type_lte: String
-  contact_type_gt: String
-  contact_type_gte: String
-  contact_type_contains: String
-  contact_type_not_contains: String
-  contact_type_starts_with: String
-  contact_type_not_starts_with: String
-  contact_type_ends_with: String
-  contact_type_not_ends_with: String
-  contact_type_in: [String!]
-  contact_type_not_in: [String!]
+  contact_type: ChoiceScalar
+  contact_type_not: ChoiceScalar
+  contact_type_lt: ChoiceScalar
+  contact_type_lte: ChoiceScalar
+  contact_type_gt: ChoiceScalar
+  contact_type_gte: ChoiceScalar
+  contact_type_contains: ChoiceScalar
+  contact_type_not_contains: ChoiceScalar
+  contact_type_starts_with: ChoiceScalar
+  contact_type_not_starts_with: ChoiceScalar
+  contact_type_ends_with: ChoiceScalar
+  contact_type_not_ends_with: ChoiceScalar
+  contact_type_in: [ChoiceScalar!]
+  contact_type_not_in: [ChoiceScalar!]
   phones: PhoneInputField
   phones_not: PhoneInputField
   phones_lt: PhoneInputField
   phones_lte: PhoneInputField
   phones_gt: PhoneInputField
   phones_gte: PhoneInputField
+  phones_contains: PhoneInputField
+  phones_not_contains: PhoneInputField
+  phones_starts_with: PhoneInputField
+  phones_not_starts_with: PhoneInputField
+  phones_ends_with: PhoneInputField
+  phones_not_ends_with: PhoneInputField
   phones_in: [PhoneInputField!]
   phones_not_in: [PhoneInputField!]
   emails: EmailInputField
@@ -393,6 +411,12 @@ input ContactNestedFilter {
   emails_lte: EmailInputField
   emails_gt: EmailInputField
   emails_gte: EmailInputField
+  emails_contains: EmailInputField
+  emails_not_contains: EmailInputField
+  emails_starts_with: EmailInputField
+  emails_not_starts_with: EmailInputField
+  emails_ends_with: EmailInputField
+  emails_not_ends_with: EmailInputField
   emails_in: [EmailInputField!]
   emails_not_in: [EmailInputField!]
   pgp_fingerprint: String
@@ -415,6 +439,12 @@ input ContactNestedFilter {
   member_of_groups_lte: GroupInputField
   member_of_groups_gt: GroupInputField
   member_of_groups_gte: GroupInputField
+  member_of_groups_contains: GroupInputField
+  member_of_groups_not_contains: GroupInputField
+  member_of_groups_starts_with: GroupInputField
+  member_of_groups_not_starts_with: GroupInputField
+  member_of_groups_ends_with: GroupInputField
+  member_of_groups_not_ends_with: GroupInputField
   member_of_groups_in: [GroupInputField!]
   member_of_groups_not_in: [GroupInputField!]
   roles: RoleRelationInputField
@@ -423,6 +453,12 @@ input ContactNestedFilter {
   roles_lte: RoleRelationInputField
   roles_gt: RoleRelationInputField
   roles_gte: RoleRelationInputField
+  roles_contains: RoleRelationInputField
+  roles_not_contains: RoleRelationInputField
+  roles_starts_with: RoleRelationInputField
+  roles_not_starts_with: RoleRelationInputField
+  roles_ends_with: RoleRelationInputField
+  roles_not_ends_with: RoleRelationInputField
   roles_in: [RoleRelationInputField!]
   roles_not_in: [RoleRelationInputField!]
   notes: String
@@ -469,6 +505,12 @@ input ContactNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -477,6 +519,12 @@ input ContactNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -883,6 +931,12 @@ input EmailNestedFilter {
   type_lte: ChoiceScalar
   type_gt: ChoiceScalar
   type_gte: ChoiceScalar
+  type_contains: ChoiceScalar
+  type_not_contains: ChoiceScalar
+  type_starts_with: ChoiceScalar
+  type_not_starts_with: ChoiceScalar
+  type_ends_with: ChoiceScalar
+  type_not_ends_with: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
   handle_id: Int
@@ -915,6 +969,12 @@ input EmailNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -923,6 +983,12 @@ input EmailNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1068,6 +1134,12 @@ input GroupNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -1076,6 +1148,12 @@ input GroupNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1169,6 +1247,22 @@ type MultipleEmailPayload {
   clientMutationId: String
 }
 
+input MultipleOrganizationInput {
+  create_inputs: [SingleCreateOrganizationInput]
+  update_inputs: [SingleUpdateOrganizationInput]
+  delete_inputs: [SingleDeleteOrganizationInput]
+  detach_inputs: [DeleteRelationshipInput]
+  clientMutationId: String
+}
+
+type MultipleOrganizationPayload {
+  created: [CreateOrganizationPayload]
+  updated: [UpdateOrganizationPayload]
+  deleted: [DeleteOrganizationPayload]
+  detached: [DeleteRelationshipPayload]
+  clientMutationId: String
+}
+
 input MultiplePhoneInput {
   create_inputs: [SingleCreatePhoneInput]
   update_inputs: [SingleUpdatePhoneInput]
@@ -1210,6 +1304,7 @@ type Mutation {
   create_organization(input: CreateOrganizationInput!): CreateOrganizationPayload
   update_organization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
   delete_organization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
+  multiple_organization(input: MultipleOrganizationInput!): MultipleOrganizationPayload
   create_role(input: CreateRoleInput!): CreateRolePayload
   update_role(input: UpdateRoleInput!): UpdateRolePayload
   delete_role(input: DeleteRoleInput!): DeleteRolePayload
@@ -1437,6 +1532,12 @@ input OrganizationNestedFilter {
   type_lte: ChoiceScalar
   type_gt: ChoiceScalar
   type_gte: ChoiceScalar
+  type_contains: ChoiceScalar
+  type_not_contains: ChoiceScalar
+  type_starts_with: ChoiceScalar
+  type_not_starts_with: ChoiceScalar
+  type_ends_with: ChoiceScalar
+  type_not_ends_with: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
   website: String
@@ -1459,8 +1560,62 @@ input OrganizationNestedFilter {
   addresses_lte: AddressInputField
   addresses_gt: AddressInputField
   addresses_gte: AddressInputField
+  addresses_contains: AddressInputField
+  addresses_not_contains: AddressInputField
+  addresses_starts_with: AddressInputField
+  addresses_not_starts_with: AddressInputField
+  addresses_ends_with: AddressInputField
+  addresses_not_ends_with: AddressInputField
   addresses_in: [AddressInputField!]
   addresses_not_in: [AddressInputField!]
+  affiliation_customer: Boolean
+  affiliation_customer_not: Boolean
+  affiliation_customer_lt: Boolean
+  affiliation_customer_lte: Boolean
+  affiliation_customer_gt: Boolean
+  affiliation_customer_gte: Boolean
+  affiliation_customer_in: [Boolean!]
+  affiliation_customer_not_in: [Boolean!]
+  affiliation_end_customer: Boolean
+  affiliation_end_customer_not: Boolean
+  affiliation_end_customer_lt: Boolean
+  affiliation_end_customer_lte: Boolean
+  affiliation_end_customer_gt: Boolean
+  affiliation_end_customer_gte: Boolean
+  affiliation_end_customer_in: [Boolean!]
+  affiliation_end_customer_not_in: [Boolean!]
+  affiliation_provider: Boolean
+  affiliation_provider_not: Boolean
+  affiliation_provider_lt: Boolean
+  affiliation_provider_lte: Boolean
+  affiliation_provider_gt: Boolean
+  affiliation_provider_gte: Boolean
+  affiliation_provider_in: [Boolean!]
+  affiliation_provider_not_in: [Boolean!]
+  affiliation_partner: Boolean
+  affiliation_partner_not: Boolean
+  affiliation_partner_lt: Boolean
+  affiliation_partner_lte: Boolean
+  affiliation_partner_gt: Boolean
+  affiliation_partner_gte: Boolean
+  affiliation_partner_in: [Boolean!]
+  affiliation_partner_not_in: [Boolean!]
+  affiliation_host_user: Boolean
+  affiliation_host_user_not: Boolean
+  affiliation_host_user_lt: Boolean
+  affiliation_host_user_lte: Boolean
+  affiliation_host_user_gt: Boolean
+  affiliation_host_user_gte: Boolean
+  affiliation_host_user_in: [Boolean!]
+  affiliation_host_user_not_in: [Boolean!]
+  affiliation_site_owner: Boolean
+  affiliation_site_owner_not: Boolean
+  affiliation_site_owner_lt: Boolean
+  affiliation_site_owner_lte: Boolean
+  affiliation_site_owner_gt: Boolean
+  affiliation_site_owner_gte: Boolean
+  affiliation_site_owner_in: [Boolean!]
+  affiliation_site_owner_not_in: [Boolean!]
   handle_id: Int
   handle_id_not: Int
   handle_id_lt: Int
@@ -1491,6 +1646,12 @@ input OrganizationNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -1499,6 +1660,12 @@ input OrganizationNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1519,6 +1686,18 @@ enum OrganizationOrderBy {
   type_DESC
   website_ASC
   website_DESC
+  affiliation_customer_ASC
+  affiliation_customer_DESC
+  affiliation_end_customer_ASC
+  affiliation_end_customer_DESC
+  affiliation_provider_ASC
+  affiliation_provider_DESC
+  affiliation_partner_ASC
+  affiliation_partner_DESC
+  affiliation_host_user_ASC
+  affiliation_host_user_DESC
+  affiliation_site_owner_ASC
+  affiliation_site_owner_DESC
   handle_id_ASC
   handle_id_DESC
   created_ASC
@@ -1615,6 +1794,12 @@ input PhoneNestedFilter {
   type_lte: ChoiceScalar
   type_gt: ChoiceScalar
   type_gte: ChoiceScalar
+  type_contains: ChoiceScalar
+  type_not_contains: ChoiceScalar
+  type_starts_with: ChoiceScalar
+  type_not_starts_with: ChoiceScalar
+  type_ends_with: ChoiceScalar
+  type_not_ends_with: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
   handle_id: Int
@@ -1647,6 +1832,12 @@ input PhoneNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -1655,6 +1846,12 @@ input PhoneNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1778,6 +1975,12 @@ input ProcedureNestedFilter {
   creator_lte: UserInputType
   creator_gt: UserInputType
   creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
   creator_in: [UserInputType!]
   creator_not_in: [UserInputType!]
   modifier: UserInputType
@@ -1786,6 +1989,12 @@ input ProcedureNestedFilter {
   modifier_lte: UserInputType
   modifier_gt: UserInputType
   modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
   modifier_in: [UserInputType!]
   modifier_not_in: [UserInputType!]
 }
@@ -1824,25 +2033,34 @@ type Query {
   getContactEmailRelations(contact_id: Int!, email_id: Int!): [NIRelationType]
   getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]
   getOrganizationAddressRelations(organization_id: Int!, address_id: Int!): [NIRelationType]
+  getAvailableRoleGroups: [RoleGroup]
+  getRolesFromRoleGroup(name: String): [Role]
   all_groups: [Group]
+  count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
   getGroupById(handle_id: Int): Group
   all_addresss: [Address]
+  count_addresss: Int
   addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): AddressConnection
   getAddressById(handle_id: Int): Address
   all_phones: [Phone]
+  count_phones: Int
   phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): PhoneConnection
   getPhoneById(handle_id: Int): Phone
   all_emails: [Email]
+  count_emails: Int
   emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): EmailConnection
   getEmailById(handle_id: Int): Email
   all_contacts: [Contact]
+  count_contacts: Int
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
   getContactById(handle_id: Int): Contact
   all_organizations: [Organization]
+  count_organizations: Int
   organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): OrganizationConnection
   getOrganizationById(handle_id: Int): Organization
   all_procedures: [Procedure]
+  count_procedures: Int
   procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
   getProcedureById(handle_id: Int): Procedure
 }
@@ -1864,6 +2082,7 @@ type Role {
   name: String!
   slug: String!
   description: String
+  role_group: RoleGroup
 }
 
 type RoleConnection {
@@ -1886,6 +2105,14 @@ type RoleEdge {
 input RoleFilter {
   name: String
   handle_id: Int
+}
+
+"""This class represents a Role in the relational db"""
+type RoleGroup {
+  id: ID!
+  name: String!
+  hidden: Boolean!
+  role_set: [Role!]!
 }
 
 enum RoleOrderBy {
@@ -1929,6 +2156,30 @@ input SingleCreateEmailInput {
   type: ChoiceScalar!
 }
 
+input SingleCreateOrganizationInput {
+  organization_number: String
+  name: String!
+  description: String
+  website: String
+  organization_id: String
+  type: ChoiceScalar
+  incident_management_info: String
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
+  relationship_parent_of: ChoiceScalar
+  relationship_uses_a: ChoiceScalar
+  abuse_contact: ChoiceScalar
+  primary_contact: ChoiceScalar
+  secondary_contact: ChoiceScalar
+  it_technical_contact: ChoiceScalar
+  it_security_contact: ChoiceScalar
+  it_manager_contact: ChoiceScalar
+}
+
 input SingleCreatePhoneInput {
   contact: ChoiceScalar
   name: String!
@@ -1940,6 +2191,10 @@ input SingleDeleteContactInput {
 }
 
 input SingleDeleteEmailInput {
+  handle_id: Int!
+}
+
+input SingleDeleteOrganizationInput {
   handle_id: Int!
 }
 
@@ -1965,6 +2220,31 @@ input SingleUpdateEmailInput {
   contact: ChoiceScalar
   name: String!
   type: ChoiceScalar!
+  handle_id: Int!
+}
+
+input SingleUpdateOrganizationInput {
+  organization_number: String
+  name: String!
+  description: String
+  website: String
+  organization_id: String
+  type: ChoiceScalar
+  incident_management_info: String
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
+  relationship_parent_of: ChoiceScalar
+  relationship_uses_a: ChoiceScalar
+  abuse_contact: ChoiceScalar
+  primary_contact: ChoiceScalar
+  secondary_contact: ChoiceScalar
+  it_technical_contact: ChoiceScalar
+  it_security_contact: ChoiceScalar
+  it_manager_contact: ChoiceScalar
   handle_id: Int!
 }
 
