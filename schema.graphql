@@ -1819,6 +1819,7 @@ type Query {
   roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
   getOrganizationContacts(handle_id: Int!): [ContactWithRolename]
   getGroupContacts(handle_id: Int!): [ContactWithRelation]
+  checkExistentOrganizationId(organization_id: String!, handle_id: Int): Boolean
   getGroupContactRelations(group_id: Int!, contact_id: Int!): [NIRelationType]
   getContactEmailRelations(contact_id: Int!, email_id: Int!): [NIRelationType]
   getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]

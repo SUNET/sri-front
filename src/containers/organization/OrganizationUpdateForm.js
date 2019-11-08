@@ -9,6 +9,7 @@ const mapStateToProps = (state, props) => {
     const parent_node = props.organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
+        handle_id: props.organization.handle_id,
         name: props.organization.name,
         type: props.organization.type,
         website: props.organization.website,

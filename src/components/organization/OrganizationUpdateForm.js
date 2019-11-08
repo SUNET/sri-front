@@ -18,7 +18,7 @@ import uuidv4 from "uuid/v4";
 import copy from "clipboard-copy";
 import urlRegex from "url-regex";
 
-import { getOrganization } from "../../components/organization/Organization";
+import { checkOrganization } from "../../components/organization/Organization";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 import Worklog from "../Worklog";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
@@ -449,8 +449,8 @@ class OrganizationUpdateForm extends React.Component {
 }
 
 const asyncValidate = (values, dispatch) => {
-    return getOrganization(3000).then((data) => {
-        if (data) {
+    return checkOrganization(values.organization_id, values.handle_id).then((exists) => {
+        if (exists) {
             throw { organization_id: "Already exist!" };
         }
     });

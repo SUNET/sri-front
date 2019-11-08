@@ -57,10 +57,27 @@ const OrganizationQuery = graphql`
     }
 `;
 
+const OrganizationCheckExistQuery = graphql`
+    query OrganizationCheckExistQuery($organization_id: String!, $handle_id: Int) {
+        checkExistentOrganizationId(organization_id: $organization_id, handle_id: $handle_id)
+    }
+`;
+
 export const getOrganization = (handle_id) => {
     return fetchQuery(environment, OrganizationQuery, {
         organizationId: handle_id
     }).then((data) => {
         return data.getOrganizationById;
+    });
+};
+
+export const checkOrganization = (organization_id, handle_id) => {
+    let variables = {
+        organization_id: organization_id
+    };
+    if (handle_id) variables.handle_id = handle_id;
+    console.log(variables);
+    return fetchQuery(environment, OrganizationCheckExistQuery, variables).then((data) => {
+        return data.checkExistentOrganizationId;
     });
 };

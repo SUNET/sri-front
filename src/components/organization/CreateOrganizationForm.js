@@ -6,7 +6,7 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 import urlRegex from "url-regex";
 
-import { getOrganization } from "../../components/organization/Organization";
+import { checkOrganization } from "../../components/organization/Organization";
 import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
@@ -305,7 +305,7 @@ class CreateOrganizationForm extends React.Component {
 }
 
 const asyncValidate = (values, dispatch) => {
-    return getOrganization(3000).then((data) => {
+    return checkOrganization(values.organization_id).then((data) => {
         if (data) {
             throw { organization_id: "Already exist!" };
         }
