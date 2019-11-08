@@ -40,7 +40,8 @@ const ContactDetailsQuery = graphql`
                 end {
                     handle_id
                     name
-                    customer_id
+                    organization_id
+                    organization_number
                 }
             }
             created

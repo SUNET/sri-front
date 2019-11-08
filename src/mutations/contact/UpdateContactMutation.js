@@ -46,7 +46,7 @@ const mutation = graphql`
                     end {
                         handle_id
                         name
-                        customer_id
+                        organization_id
                     }
                 }
                 comments {

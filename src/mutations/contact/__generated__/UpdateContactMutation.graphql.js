@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9e4e9d31f86fb149120c56d9caf469ed
+ * @relayHash 19f9c9790e4ffa7661005ae07d0421af
  */
 
 /* eslint-disable */
@@ -59,7 +59,7 @@ export type UpdateContactMutationResponse = {|
         +end: ?{|
           +handle_id: string,
           +name: string,
-          +customer_id: ?string,
+          +organization_id: ?string,
         |},
       |}>,
       +comments: ?$ReadOnlyArray<?{|
@@ -121,7 +121,7 @@ mutation UpdateContactMutation(
         end {
           handle_id
           name
-          customer_id
+          organization_id
           id
         }
       }
@@ -277,7 +277,7 @@ v14 = {
 v15 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "customer_id",
+  "name": "organization_id",
   "args": null,
   "storageKey": null
 },
@@ -565,11 +565,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactMutation",
     "id": null,
-    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      title\n      notes\n      contact_type\n      first_name\n      last_name\n      pgp_fingerprint\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          customer_id\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      title\n      notes\n      contact_type\n      first_name\n      last_name\n      pgp_fingerprint\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          organization_id\n          id\n        }\n      }\n      comments {\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n        id\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7478d63995814f4d3cf2a32017dc7d2b';
+(node/*: any*/).hash = 'f8ee5789ccb7fad66bd19f6e0f71948d';
 module.exports = node;

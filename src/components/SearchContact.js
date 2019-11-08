@@ -19,6 +19,14 @@ import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
 // import { RouteNotFound } from "./NotFound";
 
+//mock for when the backend is ready
+const defaultColumns = [
+    { name: "Name", value: "name" },
+    { name: "Organization", value: "organization" },
+    { name: "Roles", value: "roles" },
+    { name: "Contact Type", value: "contact_type" }
+];
+
 const SearchContactsAllQuery = graphql`
     query SearchContactsAllQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
         ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
@@ -42,15 +50,29 @@ class Search extends React.Component {
         };
     }
 
-    _handleOnChangeCount = (count) => {
+    //save in the state the number of pages shown
+    handleOnChangeCount = (count) => {
         this.setState({ countList: this.state.countList + count });
     };
 
-    _handleOnChangeFilter = (filterValue) => {
-        this.setState({ filterValue: { name_contains: filterValue } });
+    // save in the state the filter box
+    // these filters cannot be generalized by backend implementation
+    handleOnChangeFilter = (filterValue) => {
+        this.setState({
+            filterValue: [
+                { name_contains: filterValue },
+                {
+                    roles_contains: {
+                        name: filterValue
+                    }
+                },
+                { contact_type_contains: filterValue }
+            ]
+        });
     };
 
-    _handleOnChangeOrderBy = (orderBy) => {
+    // save in the state the orderby
+    handleOnChangeOrderBy = (orderBy) => {
         this.setState({ orderBy: { orderBy: orderBy } });
     };
 
@@ -62,10 +84,12 @@ class Search extends React.Component {
         this.setState({ filterDateFrom: dateFrom });
     };
 
+    // reset the date status by clicking on the button
     handleResetDate = (from, to) => {
         this.setState({ filterDateFrom: from, filterDateto: to, filterDate: {} });
     };
 
+    // changes the keys of the state object between created or modified
     changeFilterDateType = (event) => {
         this.setState({ filterDateType: event.target.value });
         let newfilterDate = renameKeys(this.state.filterDate, (key) => {
@@ -79,6 +103,7 @@ class Search extends React.Component {
     };
 
     UNSAFE_componentWillUpdate(nextProps, nextState) {
+        // updates the component if you see changes in the date status
         const filterDateType = this.state.filterDateType;
         if (nextState.filterDateFrom !== undefined && this.state.filterDateFrom !== nextState.filterDateFrom) {
             this.setState({
@@ -92,22 +117,26 @@ class Search extends React.Component {
         }
     }
 
+    // mount the filter object to pass it to the QueryRender
     getFilters = () => {
-        const filterArray = [];
+        const filterArrayAND = [];
+        let filterArrayOR = [];
         let filters = {};
 
         if (!(Object.keys(this.state.filterDate).length === 0 && this.state.filterDate.constructor === Object)) {
-            filterArray.push(this.state.filterDate);
+            filterArrayAND.push(this.state.filterDate);
         }
 
         if (!(Object.keys(this.state.filterValue).length === 0 && this.state.filterValue.constructor === Object)) {
-            filterArray.push(this.state.filterValue);
+            filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
 
-        if (filterArray.length > 0) filters = { AND: filterArray };
+        if (filterArrayAND.length > 0) filters.AND = filterArrayAND;
+        if (filterArrayOR.length > 0) filters.OR = filterArrayOR;
         return filters;
     };
 
+    // effect of showing empty structure while loading the QueryRender
     createTable = () => {
         let table = [];
 
@@ -172,8 +201,8 @@ class Search extends React.Component {
                                         />
                                     </Col>
                                     <Col className="text-right" sm={4}>
-                                        <Filter changeFilter={this._handleOnChangeFilter} />
-                                        <OrderBy changeOrderBy={this._handleOnChangeOrderBy} />
+                                        <Filter changeFilter={this.handleOnChangeFilter} />
+                                        <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
                                     </Col>
                                 </Row>
                                 <Row className="mt-3">
@@ -194,7 +223,8 @@ class Search extends React.Component {
                                                         <ContactListContainer
                                                             contacts={props}
                                                             organization_types={props}
-                                                            changeCount={this._handleOnChangeCount}
+                                                            changeCount={this.handleOnChangeCount}
+                                                            defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
                                                     );

@@ -9,10 +9,12 @@ const mapStateToProps = (state, props) => {
     const parent_node = props.organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
+        handle_id: props.organization.handle_id,
         name: props.organization.name,
         type: props.organization.type,
         website: props.organization.website,
-        customer_id: props.organization.customer_id,
+        organization_id: props.organization.organization_id,
+        organization_number: props.organization.organization_number,
         affiliation: {
             customer: props.organization.affiliation_customer,
             end_customer: props.organization.affiliation_end_customer,
@@ -93,7 +95,8 @@ const mapStateToProps = (state, props) => {
         name: updateOrganizationSelector(state, "name"),
         type: updateOrganizationSelector(state, "type"),
         website: updateOrganizationSelector(state, "website"),
-        customer_id: updateOrganizationSelector(state, "customer_id"),
+        organization_id: updateOrganizationSelector(state, "organization_id"),
+        organization_number: updateOrganizationSelector(state, "organization_number"),
         description: updateOrganizationSelector(state, "description"),
         relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),

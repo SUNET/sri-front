@@ -6,12 +6,9 @@ import "../style/Splash.scss";
 
 class Logout extends Component {
     logout = () => {
-        localStorage.clear();
-        Cookies.remove("JWT");
+        // localStorage.clear();
         Cookies.remove("csrftoken");
-        Cookies.remove("sessionid");
-        this.setState({ navigate: true });
-        document.location.href = API_HOST;
+        document.location.href = API_HOST + "/logout";
     };
 
     render() {
