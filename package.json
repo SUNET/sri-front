@@ -75,10 +75,7 @@
         "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions js jsx"
     },
     "eslintConfig": {
-        "extends": "react-app",
-        "rules": {
-            "no-throw-literal": 0
-        }
+        "extends": "react-app"
     },
     "browserslist": {
         "production": [

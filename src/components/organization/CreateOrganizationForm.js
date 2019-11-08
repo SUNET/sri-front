@@ -307,7 +307,9 @@ class CreateOrganizationForm extends React.Component {
 const asyncValidate = (values, dispatch) => {
     return checkOrganization(values.organization_id).then((exists) => {
         if (exists) {
-            throw { organization_id: "Already exist!" };
+            // this absurdity, is by the error of non-throw-literal
+            const error = { organization_id: "Already exist!" };
+            throw error;
         }
     });
 };
