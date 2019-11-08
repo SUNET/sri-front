@@ -16,7 +16,7 @@ export type ContactUpdateForm_contact = {|
   +name: string,
   +notes: ?string,
   +title: ?string,
-  +contact_type: ?string,
+  +contact_type: ?any,
   +first_name: string,
   +last_name: string,
   +pgp_fingerprint: ?string,

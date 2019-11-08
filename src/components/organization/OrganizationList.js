@@ -76,6 +76,14 @@ export class OrganizationList extends React.PureComponent {
                                             </label>
                                         </div>
                                     </div>
+                                ) : column.filter === "order-filter" ? (
+                                    <span>
+                                        {column.name}
+                                        <FilterColumnsContainer
+                                            type="order"
+                                            columns={this.props.organization_types.getChoicesForDropdown}
+                                        />
+                                    </span>
                                 ) : (
                                     column.name
                                 )}
@@ -168,6 +176,14 @@ export default createPaginationContainer(
                         hasNextPage
                         endCursor
                     }
+                }
+            }
+        `,
+        organization_types: graphql`
+            fragment OrganizationList_organization_types on Query {
+                getChoicesForDropdown(name: "organization_types") {
+                    name
+                    value
                 }
             }
         `

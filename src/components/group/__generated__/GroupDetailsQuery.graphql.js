@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2a7c6fabfeea1d407138cec2a78f2777
+ * @relayHash 45ce192514465ebbb441ed77c619197b
  */
 
 /* eslint-disable */
@@ -43,7 +43,7 @@ export type GroupDetailsQueryResponse = {|
       +handle_id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?string,
+      +contact_type: ?any,
       +emails: ?$ReadOnlyArray<?{|
         +handle_id: string,
         +name: string,

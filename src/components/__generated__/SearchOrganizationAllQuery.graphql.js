@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2559234d0b92ef1a44e7d1f54d8f229b
+ * @relayHash 2b31089b8b8cdb412cb27e13bf68aa6e
  */
 
 /* eslint-disable */
@@ -9,8 +9,9 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type OrganizationList_organization_types$ref = any;
 type OrganizationList_organizations$ref = any;
-export type OrganizationOrderBy = "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "customer_id_ASC" | "customer_id_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "type_ASC" | "type_DESC" | "website_ASC" | "website_DESC" | "%future added value";
+export type OrganizationOrderBy = "affiliation_customer_ASC" | "affiliation_customer_DESC" | "affiliation_end_customer_ASC" | "affiliation_end_customer_DESC" | "affiliation_host_user_ASC" | "affiliation_host_user_DESC" | "affiliation_partner_ASC" | "affiliation_partner_DESC" | "affiliation_provider_ASC" | "affiliation_provider_DESC" | "affiliation_site_owner_ASC" | "affiliation_site_owner_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "customer_id_ASC" | "customer_id_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "type_ASC" | "type_DESC" | "website_ASC" | "website_DESC" | "%future added value";
 export type OrganizationFilter = {|
   AND?: ?$ReadOnlyArray<OrganizationNestedFilter>,
   OR?: ?$ReadOnlyArray<OrganizationNestedFilter>,
@@ -78,6 +79,12 @@ export type OrganizationNestedFilter = {|
   type_lte?: ?any,
   type_gt?: ?any,
   type_gte?: ?any,
+  type_contains?: ?any,
+  type_not_contains?: ?any,
+  type_starts_with?: ?any,
+  type_not_starts_with?: ?any,
+  type_ends_with?: ?any,
+  type_not_ends_with?: ?any,
   type_in?: ?$ReadOnlyArray<any>,
   type_not_in?: ?$ReadOnlyArray<any>,
   website?: ?string,
@@ -100,8 +107,62 @@ export type OrganizationNestedFilter = {|
   addresses_lte?: ?AddressInputField,
   addresses_gt?: ?AddressInputField,
   addresses_gte?: ?AddressInputField,
+  addresses_contains?: ?AddressInputField,
+  addresses_not_contains?: ?AddressInputField,
+  addresses_starts_with?: ?AddressInputField,
+  addresses_not_starts_with?: ?AddressInputField,
+  addresses_ends_with?: ?AddressInputField,
+  addresses_not_ends_with?: ?AddressInputField,
   addresses_in?: ?$ReadOnlyArray<AddressInputField>,
   addresses_not_in?: ?$ReadOnlyArray<AddressInputField>,
+  affiliation_customer?: ?boolean,
+  affiliation_customer_not?: ?boolean,
+  affiliation_customer_lt?: ?boolean,
+  affiliation_customer_lte?: ?boolean,
+  affiliation_customer_gt?: ?boolean,
+  affiliation_customer_gte?: ?boolean,
+  affiliation_customer_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_customer_not_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_end_customer?: ?boolean,
+  affiliation_end_customer_not?: ?boolean,
+  affiliation_end_customer_lt?: ?boolean,
+  affiliation_end_customer_lte?: ?boolean,
+  affiliation_end_customer_gt?: ?boolean,
+  affiliation_end_customer_gte?: ?boolean,
+  affiliation_end_customer_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_end_customer_not_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_provider?: ?boolean,
+  affiliation_provider_not?: ?boolean,
+  affiliation_provider_lt?: ?boolean,
+  affiliation_provider_lte?: ?boolean,
+  affiliation_provider_gt?: ?boolean,
+  affiliation_provider_gte?: ?boolean,
+  affiliation_provider_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_provider_not_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_partner?: ?boolean,
+  affiliation_partner_not?: ?boolean,
+  affiliation_partner_lt?: ?boolean,
+  affiliation_partner_lte?: ?boolean,
+  affiliation_partner_gt?: ?boolean,
+  affiliation_partner_gte?: ?boolean,
+  affiliation_partner_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_partner_not_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_host_user?: ?boolean,
+  affiliation_host_user_not?: ?boolean,
+  affiliation_host_user_lt?: ?boolean,
+  affiliation_host_user_lte?: ?boolean,
+  affiliation_host_user_gt?: ?boolean,
+  affiliation_host_user_gte?: ?boolean,
+  affiliation_host_user_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_host_user_not_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_site_owner?: ?boolean,
+  affiliation_site_owner_not?: ?boolean,
+  affiliation_site_owner_lt?: ?boolean,
+  affiliation_site_owner_lte?: ?boolean,
+  affiliation_site_owner_gt?: ?boolean,
+  affiliation_site_owner_gte?: ?boolean,
+  affiliation_site_owner_in?: ?$ReadOnlyArray<boolean>,
+  affiliation_site_owner_not_in?: ?$ReadOnlyArray<boolean>,
   handle_id?: ?number,
   handle_id_not?: ?number,
   handle_id_lt?: ?number,
@@ -132,6 +193,12 @@ export type OrganizationNestedFilter = {|
   creator_lte?: ?UserInputType,
   creator_gt?: ?UserInputType,
   creator_gte?: ?UserInputType,
+  creator_contains?: ?UserInputType,
+  creator_not_contains?: ?UserInputType,
+  creator_starts_with?: ?UserInputType,
+  creator_not_starts_with?: ?UserInputType,
+  creator_ends_with?: ?UserInputType,
+  creator_not_ends_with?: ?UserInputType,
   creator_in?: ?$ReadOnlyArray<UserInputType>,
   creator_not_in?: ?$ReadOnlyArray<UserInputType>,
   modifier?: ?UserInputType,
@@ -140,6 +207,12 @@ export type OrganizationNestedFilter = {|
   modifier_lte?: ?UserInputType,
   modifier_gt?: ?UserInputType,
   modifier_gte?: ?UserInputType,
+  modifier_contains?: ?UserInputType,
+  modifier_not_contains?: ?UserInputType,
+  modifier_starts_with?: ?UserInputType,
+  modifier_not_starts_with?: ?UserInputType,
+  modifier_ends_with?: ?UserInputType,
+  modifier_not_ends_with?: ?UserInputType,
   modifier_in?: ?$ReadOnlyArray<UserInputType>,
   modifier_not_in?: ?$ReadOnlyArray<UserInputType>,
 |};
@@ -165,7 +238,7 @@ export type SearchOrganizationAllQueryVariables = {|
   orderBy?: ?OrganizationOrderBy,
 |};
 export type SearchOrganizationAllQueryResponse = {|
-  +$fragmentRefs: OrganizationList_organizations$ref
+  +$fragmentRefs: OrganizationList_organizations$ref & OrganizationList_organization_types$ref
 |};
 export type SearchOrganizationAllQuery = {|
   variables: SearchOrganizationAllQueryVariables,
@@ -181,6 +254,15 @@ query SearchOrganizationAllQuery(
   $orderBy: OrganizationOrderBy
 ) {
   ...OrganizationList_organizations_1tT5Hu
+  ...OrganizationList_organization_types
+}
+
+fragment OrganizationList_organization_types on Query {
+  getChoicesForDropdown(name: "organization_types") {
+    name
+    value
+    id
+  }
 }
 
 fragment OrganizationList_organizations_1tT5Hu on Query {
@@ -316,6 +398,11 @@ return {
           (v1/*: any*/),
           (v2/*: any*/)
         ]
+      },
+      {
+        "kind": "FragmentSpread",
+        "name": "OrganizationList_organization_types",
+        "args": null
       }
     ]
   },
@@ -502,6 +589,32 @@ return {
         "handle": "connection",
         "key": "OrganizationList_organizations",
         "filters": []
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "getChoicesForDropdown",
+        "storageKey": "getChoicesForDropdown(name:\"organization_types\")",
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "name",
+            "value": "organization_types"
+          }
+        ],
+        "concreteType": "Choice",
+        "plural": true,
+        "selections": [
+          (v5/*: any*/),
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "value",
+            "args": null,
+            "storageKey": null
+          },
+          (v7/*: any*/)
+        ]
       }
     ]
   },
@@ -509,11 +622,11 @@ return {
     "operationKind": "query",
     "name": "SearchOrganizationAllQuery",
     "id": null,
-    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  customer_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n  ...OrganizationList_organization_types\n}\n\nfragment OrganizationList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  customer_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2300e2c0432b06514d93bbdae5f9ec98';
+(node/*: any*/).hash = 'b01c2ccc58105025fff94546bb7d85ff';
 module.exports = node;

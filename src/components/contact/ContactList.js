@@ -74,15 +74,9 @@ export class ContactList extends React.PureComponent {
                                             </label>
                                         </div>
                                     </div>
-                                ) : (
+                                ) : column.filter === "order-filter" ? null /* backend needs to implement it */ : (
                                     column.name
                                 )}
-                                {/*column.filter === "order" && (
-                                    <FilterColumnsContainer
-                                        type="order"
-                                        columns={this.props.organization_types.getChoicesForDropdown}
-                                    />
-                                )*/}
                             </div>
                         );
                     } else {

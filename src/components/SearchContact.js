@@ -19,7 +19,7 @@ import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
 // import { RouteNotFound } from "./NotFound";
 
-//mock for when the backend is ready
+//mock - This should be returned to the backend in the future.
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
     { name: "Organization", value: "organization" },

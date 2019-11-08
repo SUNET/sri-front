@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import { Dropdown } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 import FieldSwitch from "./FieldSwitch";
 
@@ -37,7 +35,7 @@ class FilterColumns extends React.Component {
             <div className={`filter-columns ${this.props.type}`}>
                 <Dropdown alignRight>
                     <Dropdown.Toggle as="span">
-                        {this.props.type === "order" && <FontAwesomeIcon icon={faFilter} />}
+                        {this.props.type === "order" && <i className="icon-filter"></i>}
                         {this.props.type === "hidden-col" && <i className="icon-column"></i>}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>

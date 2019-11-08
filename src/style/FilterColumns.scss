@@ -3,6 +3,14 @@
 .filter-columns {
     display: inline-block;
 
+    &.order{
+        .icon-filter{
+            vertical-align: middle;
+            margin-left: 4px;
+            color: $complementary-color;
+        }
+    }
+
     .dropdown {
         span.dropdown-toggle {
             cursor: pointer;

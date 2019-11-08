@@ -19,11 +19,11 @@ import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
 // import { RouteNotFound } from "./NotFound";
 
-//mock for when the backend is ready
+//mock - This should be returned to the backend in the future.
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
     { name: "Organization ID", value: "organization_id", filter: "order" },
-    { name: "Type", value: "type" },
+    { name: "Type", value: "type", filter: "order-filter" },
     { name: "Affiliation", value: "afffiliation" },
     { name: "Parent Organization ID", value: "parent_organization_id" }
 ];
@@ -31,6 +31,7 @@ const defaultColumns = [
 const SearchOrganizationAllQuery = graphql`
     query SearchOrganizationAllQuery($count: Int!, $filter: OrganizationFilter, $orderBy: OrganizationOrderBy) {
         ...OrganizationList_organizations @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+        ...OrganizationList_organization_types
     }
 `;
 
@@ -207,9 +208,11 @@ class SearchOrganization extends React.Component {
                                                 if (error) {
                                                     return <div>{error.message}</div>;
                                                 } else if (props) {
+                                                    console.log("props", props);
                                                     return (
                                                         <OrganizationListContainer
                                                             organizations={props}
+                                                            organization_types={props}
                                                             changeCount={this.handleOnChangeCount}
                                                             columnChangeOrderBy={this.handleColumnChangeOrderBy}
                                                             orderBy={this.state.orderBy.orderBy}
