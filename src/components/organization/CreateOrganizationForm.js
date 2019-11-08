@@ -305,8 +305,8 @@ class CreateOrganizationForm extends React.Component {
 }
 
 const asyncValidate = (values, dispatch) => {
-    return checkOrganization(values.organization_id).then((data) => {
-        if (data) {
+    return checkOrganization(values.organization_id).then((exists) => {
+        if (exists) {
             throw { organization_id: "Already exist!" };
         }
     });

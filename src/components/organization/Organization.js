@@ -76,7 +76,6 @@ export const checkOrganization = (organization_id, handle_id) => {
         organization_id: organization_id
     };
     if (handle_id) variables.handle_id = handle_id;
-    console.log(variables);
     return fetchQuery(environment, OrganizationCheckExistQuery, variables).then((data) => {
         return data.checkExistentOrganizationId;
     });
