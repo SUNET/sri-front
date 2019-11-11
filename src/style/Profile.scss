@@ -25,13 +25,25 @@
         box-shadow: 0 0 4px -1px #d6d6d6;
 
         .profile-picture {
-            margin-bottom: 24px;
+            display: inline-block;
+            position: relative;
+
+            &:hover{
+                cursor: pointer;
+            }
+            &::after {
+                content: url("../static/img/edit-img.svg");
+                position: absolute;
+                bottom: 0;
+                right: 4px;
+            }
 
             img {
                 border: solid 1px $secondary-color-20;
             }
         }
-        .form-group{
+
+        .form-group {
             margin-bottom: 16px;
         }
     }
