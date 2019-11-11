@@ -5,6 +5,8 @@ import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation"
 import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
 import UpdateEmailMutation from "../email/UpdateEmailMutation";
 import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
+import CreateEmailMutation from "../email/CreateEmailMutation";
+import CreatePhoneMutation from "../phone/CreatePhoneMutation";
 import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
 import RelationshipGroupContactQuery from "../group/RelationshipGroupContactQuery";
 
@@ -49,6 +51,7 @@ export default function UpdateGroupMutation(group, notifications) {
         variables,
         onCompleted: (response, errors) => {
             if (response.update_group.errors) {
+                notifications(i18n.t("notify.error"), "error");
                 return response.update_group.errors;
             } else {
                 const members = group.members;
@@ -76,10 +79,18 @@ export default function UpdateGroupMutation(group, notifications) {
                                     group.id
                                 );
                             } else {
-                                UpdateContactInlineMutation(member, member.organization, group.id, null);
+                                if (member.email_obj) {
+                                    UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
+                                } else {
+                                    CreateEmailMutation(member.handle_id, member.email, "personal");
+                                }
+                                if (member.phone_obj) {
+                                    UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
+                                } else {
+                                    CreatePhoneMutation(member.handle_id, member.phone, "personal");
+                                }
 
-                                UpdateEmailMutation(member.id, member.email, member.email_obj);
-                                UpdatePhoneMutation(member.id, member.phone, member.phone_obj);
+                                UpdateContactInlineMutation(member, member.organization, group.id, null);
                             }
                         } else if (member.status === "remove") {
                             RelationshipGroupContactQuery(group.id, member.handle_id, DeleteRelationshipMutation);

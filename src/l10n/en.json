@@ -84,6 +84,7 @@
             "info.created": "Created",
             "info.last_update": "Last update",
             "notify.changes-saved": "Changes saved",
+            "notify.error": "An error has occurred",
             "worklog.wrote": "wrote",
             "worklog.add-comment": "Add comment",
             "worklog.add": "Add",
