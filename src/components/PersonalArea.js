@@ -1,46 +1,171 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { Route, Switch } from "react-router-dom";
 
-import SubMenu from "./SubMenu";
-import Profile from "./Profile";
-import Settings from "./Settings";
+import { Field, reduxForm } from "redux-form";
+import { ListGroup, Form, Row, Col, Image } from "react-bootstrap";
 
-import { RouteNotFound } from "./NotFound";
+import FieldInput from "./FieldInput";
+import Dropdown from "./Dropdown";
+import FieldSwitch from "./FieldSwitch";
 
-import "../style/Footer.scss";
+import "../style/Profile.scss";
 
-class PersonalArea extends React.Component {
+class PersonalAreaForm extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            default_page: ""
+        };
+    }
+
+    _handleChangePage = (event) => {
+        this.setState({ default_page: event.target.value });
+    };
+
     render() {
-        const t = this.props.t;
+        const { t, handleSubmit } = this.props;
+        console.log(this.props);
         return (
-            <div>
-                <SubMenu
-                    links={[
-                        {
-                            link: `${this.props.match.url}/profile`,
-                            label: t("submenu.profile")
-                        },
-                        {
-                            link: `${this.props.match.url}/settings`,
-                            label: t("submenu.settings")
-                        }
-                    ]}
-                />
-                <Switch>
-                    <Route
-                        path={`${this.props.match.url}/profile`}
-                        component={Profile}
-                    />
-                    <Route
-                        path={`${this.props.match.url}/settings`}
-                        component={Settings}
-                    />
-                    <RouteNotFound />
-                </Switch>
-            </div>
+            <section className="profile">
+                <form onSubmit={handleSubmit}>
+                    <Row>
+                        <Col>
+                            <div className="title-section">
+                                <button
+                                    type="button"
+                                    onClick={() => this.props.history.goBack()}
+                                    className="btn btn-back outline"
+                                >
+                                    <span>{t("actions.back")}</span>
+                                </button>
+                                <h1>{t("profile-settings.title")}</h1>
+                            </div>
+                        </Col>
+                    </Row>
+                    <section>
+                        <Row>
+                            <Col sm={3}>
+                                <div className="profile-section text-center">
+                                    <div>
+                                        <h2>{t("profile-settings.profile-picture")}</h2>
+                                        <div className="profile-picture">
+                                            <Image
+                                                src={require("../static/img/profile.png")}
+                                                roundedCircle
+                                                img-fluid="true"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h2>{t("profile-settings.personal-info")}</h2>
+                                        <Form.Group>
+                                            <Field
+                                                type="text"
+                                                component={FieldInput}
+                                                placeholder="Write name"
+                                                name="name"
+                                                className="lg"
+                                            />
+                                        </Form.Group>
+
+                                        <Form.Group>
+                                            <Field
+                                                type="text"
+                                                component={FieldInput}
+                                                placeholder="Write email"
+                                                name="email"
+                                                className="lg"
+                                            />
+                                        </Form.Group>
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="profile-section">
+                                    <h2>{t("Default home page")}</h2>
+                                    <Dropdown
+                                        className="auto"
+                                        emptyLabel="Type"
+                                        type="email_type"
+                                        name="main_pages"
+                                        onChange={(e) => {}}
+                                    />
+                                    <hr />
+                                    <h2>{t("profile-settings.visualization-options")}</h2>
+                                    <ListGroup className="borderless">
+                                        <ListGroup.Item>
+                                            <div className="pretty custom p-switch">
+                                                <Field component="input" type="checkbox" name="network" />
+                                                <div className="state p-primary">
+                                                    <label>{t("settings.network")}</label>
+                                                </div>
+                                            </div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            <div className="pretty custom p-switch">
+                                                <Field component="input" type="checkbox" name="services" />
+                                                <div className="state p-primary">
+                                                    <label>{t("settings.services")}</label>
+                                                </div>
+                                            </div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            <div className="pretty custom p-switch">
+                                                <Field component="input" type="checkbox" name="community" />
+                                                <div className="state p-primary">
+                                                    <label>{t("settings.community")}</label>
+                                                </div>
+                                            </div>
+                                        </ListGroup.Item>
+                                    </ListGroup>
+                                    <hr />
+                                    <h2>{t("profile-settings.notification-panel")}</h2>
+                                    <ListGroup className="borderless">
+                                        <ListGroup.Item>
+                                            <div className="pretty custom p-switch">
+                                                <Field component="input" type="checkbox" name="notifications" />
+                                                <div className="state p-primary">
+                                                    <label>{t("settings.notifications")}</label>
+                                                </div>
+                                            </div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            <div className="pretty custom p-switch">
+                                                <Field component="input" type="checkbox" name="emails-notification" />
+                                                <div className="state p-primary">
+                                                    <label>{t("settings.emails")}</label>
+                                                </div>
+                                            </div>
+                                        </ListGroup.Item>
+                                    </ListGroup>
+                                </div>
+                            </Col>
+                        </Row>
+                    </section>
+                </form>
+            </section>
         );
     }
 }
 
-export default withTranslation()(PersonalArea);
+const validate = (values) => {
+    const errors = {};
+    if (!values.name) {
+        errors.name = "* Required!";
+    }
+    if (!values.email) {
+        errors.email = "* Required!";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = "* Invalid email!";
+    }
+
+    return errors;
+};
+
+PersonalAreaForm = reduxForm({
+    form: "profile",
+    validate
+})(PersonalAreaForm);
+
+export default withTranslation()(PersonalAreaForm);

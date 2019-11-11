@@ -29,8 +29,7 @@ const Routes = {
     "/community/contacts/:contactId": ":contactId",
     "/contracts": "Contracts",
     "/personal-area": "Personal Area",
-    "/personal-area/profile": "Profile",
-    "/personal-area/settings": "Settings"
+    "/personal-area/profile-settings": "Profile & settings"
 };
 
 export default Routes;

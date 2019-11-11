@@ -40,8 +40,8 @@ $font: 'Montserrat', sans-serif;
  * ========================================================================== */
 $pretty--class-name: pretty;
 // Change my handpicked
-$pretty--color-default: #bdc3c7;
-$pretty--color-primary: #428bca;
+$pretty--color-default: $tertiary-color;
+$pretty--color-primary: $complementary-color;
 $pretty--color-info: $complementary-color;
 $pretty--color-success: #5cb85c;
 $pretty--color-warning: #f0ad4e;
