@@ -10,7 +10,6 @@ import renameKeys from "rename-keys";
 
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
-
 import OrganizationDetailsContainer from "../containers/organization/OrganizationDetails";
 import CreateOrganization from "./organization/CreateOrganization";
 import OrganizationListContainer from "../containers/organization/OrganizationList";

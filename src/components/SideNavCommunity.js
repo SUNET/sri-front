@@ -11,6 +11,7 @@ import {
 } from "react-accessible-accordion";
 import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import { path } from "../Routes";
 
 import "../style/SideNav.scss";
 
@@ -35,7 +36,7 @@ class SideNavCommunity extends React.Component {
                         <AccordionItem uuid="organizations">
                             <AccordionItemState>
                                 {({ expanded }) => (
-                                    <NavLink to={`${this.props.match.url}/organizations`}>
+                                    <NavLink to={`${path(this.props.match.url)}/organizations`}>
                                         <AccordionItemHeading>
                                             <AccordionItemButton>
                                                 <ReactSVG
@@ -52,7 +53,7 @@ class SideNavCommunity extends React.Component {
                         <AccordionItem uuid="contacts">
                             <AccordionItemState>
                                 {({ expanded }) => (
-                                    <NavLink to={`${this.props.match.url}/contacts`}>
+                                    <NavLink to={`${path(this.props.match.url)}/contacts`}>
                                         <AccordionItemHeading>
                                             <AccordionItemButton>
                                                 <ReactSVG
@@ -69,7 +70,7 @@ class SideNavCommunity extends React.Component {
                         <AccordionItem uuid="groups">
                             <AccordionItemState>
                                 {({ expanded }) => (
-                                    <NavLink to={`${this.props.match.url}/groups`}>
+                                    <NavLink to={`${path(this.props.match.url)}/groups`}>
                                         <AccordionItemHeading>
                                             <AccordionItemButton>
                                                 <ReactSVG
