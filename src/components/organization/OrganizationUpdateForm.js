@@ -545,7 +545,8 @@ OrganizationUpdateForm = reduxForm({
     form: "updateOrganization",
     validate,
     asyncValidate,
-    asyncChangeFields: ["organization_id"]
+    asyncChangeFields: ["organization_id"],
+    onSubmitSuccess: (result, dispatch, props) => {}
 })(OrganizationUpdateForm);
 
 const OrganizationUpdateFormFragment = createRefetchContainer(

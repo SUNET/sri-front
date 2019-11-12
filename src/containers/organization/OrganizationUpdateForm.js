@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import OrganizationUpdateForm from "../../components/organization/OrganizationUpdateForm";
-import { formValueSelector, getFormMeta, getFormSyncErrors, registerField } from "redux-form";
+import { formValueSelector, getFormMeta, getFormSyncErrors, registerField, isDirty } from "redux-form";
 import { getContact } from "../../components/contact/Contact";
 import uuidv4 from "uuid/v4";
 
@@ -9,6 +9,7 @@ const mapStateToProps = (state, props) => {
     const parent_node = props.organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
+        relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",
         handle_id: props.organization.handle_id,
         name: props.organization.name,
         type: props.organization.type,
@@ -99,6 +100,7 @@ const mapStateToProps = (state, props) => {
         organization_number: updateOrganizationSelector(state, "organization_number"),
         description: updateOrganizationSelector(state, "description"),
         relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),
+        isDirty_relationship_parent_of: isDirty("updateOrganization")(state, ["relationship_parent_of"]),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
         contactsValues: updateOrganizationSelector(state, "contacts"),
         formSyncErrors: getFormSyncErrors("updateOrganization")(state),
