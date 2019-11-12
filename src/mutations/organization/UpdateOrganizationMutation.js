@@ -57,7 +57,7 @@ const mutation = graphql`
 export default function UpdateOrganizationMutation(organization, notifications) {
     const variables = {
         input: {
-            handle_id: organization.id,
+            handle_id: organization.handle_id,
             name: organization.name,
             description: organization.description,
             organization_id: organization.organization_id,
@@ -83,15 +83,18 @@ export default function UpdateOrganizationMutation(organization, notifications) 
             if (response.update_organization.errors) {
                 return response.update_organization.errors;
             } else {
+                if (organization.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
+                    DeleteRelationshipMutation(organization.relationship_parent_of_relation_id);
+                }
                 const addresses = organization.addresses;
                 if (addresses) {
                     Object.keys(addresses).forEach((address_key) => {
                         let address = addresses[address_key];
                         if (address.status === "saved") {
                             if (address.origin === "store") {
-                                UpdateAddressMutation(organization.id, address);
+                                UpdateAddressMutation(organization.handle_id, address);
                             } else {
-                                CreateAddressMutation(organization.id, address);
+                                CreateAddressMutation(organization.handle_id, address);
                             }
                         } else if (address.status === "remove") {
                             DeleteAddressMutation(address.handle_id);
@@ -126,7 +129,7 @@ export default function UpdateOrganizationMutation(organization, notifications) 
                                         DeleteRelationshipMutation(contact.role_obj.relation_id);
                                     }
                                 }
-                                UpdateContactInlineMutation(contact, organization.id, null, contact.role);
+                                UpdateContactInlineMutation(contact, organization.handle_id, null, contact.role);
                                 UpdateEmailMutation(contact.handle_id, contact.email, contact.email_obj);
                                 UpdatePhoneMutation(contact.handle_id, contact.phone, contact.phone_obj);
                             }
@@ -146,7 +149,7 @@ export default function UpdateOrganizationMutation(organization, notifications) 
         },
         updater: (proxyStore) => {
             // Get the payload returned from the server
-            // const payload = proxyStore.get(organization.id, "Organization");
+            // const payload = proxyStore.get(organization.handle_id, "Organization");
             // Add it to the user's todo list
         },
         onError: (err) => console.error(err)
