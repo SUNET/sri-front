@@ -2,26 +2,29 @@ import { connect } from "react-redux";
 import GroupUpdateForm from "../../components/group/GroupUpdateForm";
 import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
 import uuidv4 from "uuid/v4";
+import * as actions from "../../actions/Notify";
 import { getContact } from "../../components/contact/Contact";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("updateGroup");
+    const group = props.group;
+    console.log("New PROPS", props);
     const initialValues = {
-        name: props.group.name,
-        description: props.group.description,
-        members: props.members
-            ? props.members.map((member) => {
-                  const member_node = member.contact;
+        handle_id: group.handle_id,
+        name: group.name,
+        description: group.description,
+        members: group.contacts
+            ? group.contacts.map((member) => {
                   return {
-                      handle_id: member_node.handle_id,
-                      name: member_node.first_name + " " + member_node.last_name,
-                      contact_type: member_node.contact_type,
-                      organization: member_node.roles[0] ? member_node.roles[0].end.handle_id : "",
-                      organization_label: member_node.roles[0] ? member_node.roles[0].end.name : "",
-                      email: member_node.emails[0] ? member_node.emails[0].name : "",
-                      email_obj: member_node.emails[0],
-                      phone: member_node.phones[0] ? member_node.phones[0].name : "",
-                      phone_obj: member_node.phones[0],
+                      handle_id: member.handle_id,
+                      name: member.first_name + " " + member.last_name,
+                      contact_type: member.contact_type,
+                      organization: member.roles[0] ? member.roles[0].end.handle_id : "",
+                      organization_label: member.roles[0] ? member.roles[0].end.name : "",
+                      email: member.emails[0] ? member.emails[0].name : "",
+                      email_obj: member.emails.length > 0 ? member.emails[0] : undefined,
+                      phone: member.phones[0] ? member.phones[0].name : "",
+                      phone_obj: member.phones.length > 0 ? member.phones[0] : undefined,
                       status: "saved",
                       origin: "store",
                       created: true
@@ -51,7 +54,11 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+    return {
+        notify: (msg, level) => {
+            dispatch(actions.notify(msg, level));
+        }
+    };
 };
 
 const GroupUpdateFormContainer = connect(

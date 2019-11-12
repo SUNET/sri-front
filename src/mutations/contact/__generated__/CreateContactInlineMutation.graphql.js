@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ed923a691e4cc77c8d41eb5115dc47ef
+ * @relayHash 0791bbeaa31702112c097ca37a43022a
  */
 
 /* eslint-disable */
@@ -20,6 +20,12 @@ export type CreateContactInput = {|
   relationship_works_for?: ?any,
   relationship_member_of?: ?any,
   role?: ?any,
+  email_handle_id?: ?number,
+  email?: ?string,
+  email_type?: ?any,
+  phone_handle_id?: ?number,
+  phone?: ?string,
+  phone_type?: ?any,
   clientMutationId?: ?string,
 |};
 export type CreateContactInlineMutationVariables = {|
@@ -35,7 +41,7 @@ export type CreateContactInlineMutationResponse = {|
       +handle_id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?string,
+      +contact_type: ?any,
       +roles: ?$ReadOnlyArray<?{|
         +name: ?string,
         +end: ?{|

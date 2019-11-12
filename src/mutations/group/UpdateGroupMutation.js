@@ -1,4 +1,5 @@
 import { commitMutation } from "react-relay";
+import { ConnectionHandler } from "relay-runtime";
 import graphql from "babel-plugin-relay/macro";
 
 import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
@@ -24,6 +25,32 @@ const mutation = graphql`
                 handle_id
                 name
                 description
+                contacts {
+                    handle_id
+                    first_name
+                    last_name
+                    contact_type
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    roles {
+                        role_data {
+                            handle_id
+                            name
+                        }
+                        end {
+                            handle_id
+                            name
+                        }
+                    }
+                }
                 comments {
                     user {
                         first_name
@@ -37,10 +64,10 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateGroupMutation(group, notifications) {
+export default function UpdateGroupMutation(group, notifications, callback, reset) {
     const variables = {
         input: {
-            handle_id: group.id,
+            handle_id: group.handle_id,
             name: group.name,
             description: group.description,
             clientMutationId: ""
@@ -68,7 +95,7 @@ export default function UpdateGroupMutation(group, notifications) {
                                 member.first_name = fullName;
                                 member.last_name = fullName;
                             }
-
+                            debugger;
                             if (!member.created || member.created === undefined) {
                                 CreateContactInlineMutation(
                                     member.first_name,
@@ -76,35 +103,47 @@ export default function UpdateGroupMutation(group, notifications) {
                                     member.email,
                                     member.phone,
                                     member.organization,
-                                    group.id
+                                    group.handle_id
                                 );
                             } else {
-                                if (member.email_obj) {
+                                if (member.email_obj.handle_id) {
                                     UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
                                 } else {
-                                    CreateEmailMutation(member.handle_id, member.email, "personal");
+                                    if (member.email) {
+                                        CreateEmailMutation(member.handle_id, member.email, "personal");
+                                    }
                                 }
-                                if (member.phone_obj) {
+                                if (member.phone_obj.handle_id) {
                                     UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
                                 } else {
-                                    CreatePhoneMutation(member.handle_id, member.phone, "personal");
+                                    if (member.phone) {
+                                        CreatePhoneMutation(member.handle_id, member.phone, "personal");
+                                    }
                                 }
 
-                                UpdateContactInlineMutation(member, member.organization, group.id, null);
+                                UpdateContactInlineMutation(member, member.organization, group.handle_id, null);
                             }
                         } else if (member.status === "remove") {
-                            RelationshipGroupContactQuery(group.id, member.handle_id, DeleteRelationshipMutation);
+                            RelationshipGroupContactQuery(
+                                group.handle_id,
+                                member.handle_id,
+                                DeleteRelationshipMutation
+                            );
                         }
                     });
                 }
                 notifications(i18n.t("notify.changes-saved"), "success");
-                // const payload = proxyStore.get(contact.id, "Contact");
-                // contact_node.setValue(contact.first_name, "first_name");
-                // contact_node.setValue(contact.last_name, "last_name");
-                // contact_node.setValue(contact.email, "email");
-                // contact_node.setValue(contact.phone, "phone");
-                // contact_node.setValue(contact.contact_type, "contact_type");
+                reset();
+                callback();
             }
+        },
+
+        updater: (store) => {
+            console.log("store", store);
+            console.log("root", store.getRoot());
+            // Get the payload returned from the server
+            // const payload = store.getRootField("update_group");
+            console.log("Conn", ConnectionHandler.getConnection(store.getRoot(), "GroupList_groups", {}));
         },
         onError: (err) => console.error(err)
     });

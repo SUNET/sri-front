@@ -4,7 +4,6 @@ import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
 import GroupUpdateFormContainer from "../../containers/group/GroupUpdateForm";
-import UpdateGroupMutation from "../../mutations/group/UpdateGroupMutation";
 import DeleteGroupMutation from "../../mutations/group/DeleteGroupMutation";
 import environment from "../../createRelayEnvironment";
 
@@ -15,6 +14,32 @@ const GroupDetailsQuery = graphql`
             handle_id
             name
             description
+            contacts {
+                handle_id
+                first_name
+                last_name
+                contact_type
+                emails {
+                    handle_id
+                    name
+                    type
+                }
+                phones {
+                    handle_id
+                    name
+                    type
+                }
+                roles {
+                    role_data {
+                        handle_id
+                        name
+                    }
+                    end {
+                        handle_id
+                        name
+                    }
+                }
+            }
             comments {
                 id
                 user {
@@ -33,32 +58,6 @@ const GroupDetailsQuery = graphql`
                 email
             }
         }
-        getGroupContacts(handle_id: $groupId) {
-            relation_id
-            contact {
-                handle_id
-                first_name
-                last_name
-                contact_type
-                emails {
-                    handle_id
-                    name
-                    type
-                }
-                phones {
-                    handle_id
-                    name
-                    type
-                }
-                roles {
-                    name
-                    end {
-                        handle_id
-                        name
-                    }
-                }
-            }
-        }
     }
 `;
 
@@ -69,11 +68,6 @@ class GroupDetails extends React.Component {
                 id: PropTypes.node
             }).isRequired
         }).isRequired
-    };
-
-    handleSubmit = (group) => {
-        group.id = this.props.match.params.groupId;
-        UpdateGroupMutation(group, this.props.notify);
     };
 
     handleDelete = () => {
@@ -89,18 +83,17 @@ class GroupDetails extends React.Component {
                 variables={{
                     groupId: this.props.match.params.groupId
                 }}
-                render={({ error, props }) => {
+                render={({ error, props, retry }) => {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
                             <section className="model-details">
                                 <GroupUpdateFormContainer
-                                    onSubmit={this.handleSubmit}
                                     onDelete={this.handleDelete}
                                     group={props.getGroupById}
-                                    members={props.getGroupContacts}
                                     history={this.props.history}
+                                    refetch={retry}
                                 />
                             </section>
                         );

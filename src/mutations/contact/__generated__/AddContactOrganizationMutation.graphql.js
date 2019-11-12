@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9bc04d7e49e2abc02f20d4756851481c
+ * @relayHash 2b1bcac2468cedaff58a1f802c299ce3
  */
 
 /* eslint-disable */
@@ -20,6 +20,12 @@ export type UpdateContactInput = {|
   relationship_works_for?: ?any,
   relationship_member_of?: ?any,
   role?: ?any,
+  email_handle_id?: ?number,
+  email?: ?string,
+  email_type?: ?any,
+  phone_handle_id?: ?number,
+  phone?: ?string,
+  phone_type?: ?any,
   handle_id: number,
   clientMutationId?: ?string,
 |};
@@ -32,7 +38,7 @@ export type AddContactOrganizationMutationResponse = {|
       +handle_id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?string,
+      +contact_type: ?any,
     |}
   |}
 |};

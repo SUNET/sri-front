@@ -17,6 +17,8 @@ import Worklog from "../Worklog";
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
+import UpdateGroupMutation from "../../mutations/group/UpdateGroupMutation";
+
 import "../../style/ModelDetails.scss";
 
 class GroupUpdateForm extends React.Component {
@@ -70,10 +72,14 @@ class GroupUpdateForm extends React.Component {
         copy(emails.join(" "));
     };
 
+    handleSubmit = (group) => {
+        UpdateGroupMutation(group, this.props.notify, () => this.props.refetch(), () => this.props.reset());
+    };
+
     render() {
         let { group, name, description, t, handleSubmit, pristine, submitting } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <Form.Row>
                     <Col>
                         <div className="title-section">
@@ -251,7 +257,8 @@ const validate = (values) => {
 
 GroupUpdateForm = reduxForm({
     form: "updateGroup",
-    validate
+    validate,
+    enableReinitialize: true
 })(GroupUpdateForm);
 
 const GroupUpdateFragment = createRefetchContainer(
@@ -262,13 +269,31 @@ const GroupUpdateFragment = createRefetchContainer(
                 handle_id
                 name
                 description
-                created
-                creator {
-                    email
-                }
-                modified
-                modifier {
-                    email
+                contacts {
+                    handle_id
+                    first_name
+                    last_name
+                    contact_type
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    roles {
+                        role_data {
+                            handle_id
+                            name
+                        }
+                        end {
+                            handle_id
+                            name
+                        }
+                    }
                 }
                 comments {
                     id
@@ -278,6 +303,14 @@ const GroupUpdateFragment = createRefetchContainer(
                     }
                     comment
                     submit_date
+                }
+                created
+                creator {
+                    email
+                }
+                modified
+                modifier {
+                    email
                 }
             }
         `

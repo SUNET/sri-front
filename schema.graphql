@@ -254,6 +254,24 @@ type CommentType {
   is_removed: Boolean!
 }
 
+input CompositeGroupMutationInput {
+  create_input: CreateGroupInput
+  update_input: UpdateGroupInput
+  create_subinputs: [CreateContactInput]
+  update_subinputs: [UpdateContactInput]
+  delete_subinputs: [DeleteContactInput]
+  clientMutationId: String
+}
+
+type CompositeGroupMutationPayload {
+  created: CreateGroupPayload
+  updated: UpdateGroupPayload
+  subcreated: [CreateContactPayload]
+  subupdated: [UpdateContactPayload]
+  subdeleted: [DeleteContactPayload]
+  clientMutationId: String
+}
+
 """A contact in the SRI system"""
 type Contact implements Node {
   handle_id: ID!
@@ -623,6 +641,12 @@ input CreateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
+  email_handle_id: Int
+  email: String
+  email_type: ChoiceScalar
+  phone_handle_id: Int
+  phone: String
+  phone_type: ChoiceScalar
   clientMutationId: String
 }
 
@@ -1056,6 +1080,7 @@ type Group implements Node {
   comments: [CommentType]
   name: String!
   description: String
+  contacts: [Contact]
 }
 
 type GroupConnection {
@@ -1298,6 +1323,7 @@ type Mutation {
   create_group(input: CreateGroupInput!): CreateGroupPayload
   update_group(input: UpdateGroupInput!): UpdateGroupPayload
   delete_group(input: DeleteGroupInput!): DeleteGroupPayload
+  composite_group(input: CompositeGroupMutationInput!): CompositeGroupMutationPayload
   create_procedure(input: CreateProcedureInput!): CreateProcedurePayload
   update_procedure(input: UpdateProcedureInput!): UpdateProcedurePayload
   delete_procedure(input: DeleteProcedureInput!): DeleteProcedurePayload
@@ -2186,6 +2212,12 @@ input SingleCreateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
+  email_handle_id: Int
+  email: String
+  email_type: ChoiceScalar
+  phone_handle_id: Int
+  phone: String
+  phone_type: ChoiceScalar
 }
 
 input SingleCreateEmailInput {
@@ -2251,6 +2283,12 @@ input SingleUpdateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
+  email_handle_id: Int
+  email: String
+  email_type: ChoiceScalar
+  phone_handle_id: Int
+  phone: String
+  phone_type: ChoiceScalar
   handle_id: Int!
 }
 
@@ -2332,6 +2370,12 @@ input UpdateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
+  email_handle_id: Int
+  email: String
+  email_type: ChoiceScalar
+  phone_handle_id: Int
+  phone: String
+  phone_type: ChoiceScalar
   handle_id: Int!
   clientMutationId: String
 }
