@@ -29,8 +29,13 @@ const Routes = {
     "/community/contacts/:contactId": ":contactId",
     "/contracts": "Contracts",
     "/personal-area": "Personal Area",
-    "/personal-area/profile": "Profile",
-    "/personal-area/settings": "Settings"
+    "/personal-area/profile-settings": "Profile & settings"
+};
+
+export const path = (url) => {
+    const fixedPath = url.endsWith("/") ? path(url.substring(0, url.length - 1)) : url;
+
+    return fixedPath;
 };
 
 export default Routes;

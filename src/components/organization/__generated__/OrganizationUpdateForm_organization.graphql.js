@@ -16,7 +16,8 @@ export type OrganizationUpdateForm_organization = {|
   +name: string,
   +type: ?any,
   +website: ?string,
-  +customer_id: ?string,
+  +organization_id: ?string,
+  +organization_number: ?string,
   +description: ?string,
   +incident_management_info: ?string,
   +addresses: ?$ReadOnlyArray<?{|
@@ -130,7 +131,14 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "customer_id",
+      "name": "organization_id",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "organization_number",
       "args": null,
       "storageKey": null
     },
@@ -335,5 +343,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a3f6a32e9dea579c487ef144c26d6a60';
+(node/*: any*/).hash = '352d57c791f38d746cdd7893dc18af58';
 module.exports = node;

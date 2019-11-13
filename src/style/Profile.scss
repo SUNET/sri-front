@@ -1,0 +1,50 @@
+@import "../variables.scss";
+
+.profile {
+    .title-section {
+        margin-bottom: 16px;
+
+        > button {
+            margin-right: 16px;
+        }
+
+        h1 {
+            display: inline-block;
+            margin-right: 16px;
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+    }
+
+    .profile-section {
+        height: 100%;
+        padding: 24px 32px;
+        background-color: white;
+        -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
+        -moz-box-shadow: 0 0 4px -1px #d6d6d6;
+        box-shadow: 0 0 4px -1px #d6d6d6;
+
+        .profile-picture {
+            display: inline-block;
+            position: relative;
+
+            &:hover{
+                cursor: pointer;
+            }
+            &::after {
+                content: url("../static/img/edit-img.svg");
+                position: absolute;
+                bottom: 0;
+                right: 4px;
+            }
+
+            img {
+                border: solid 1px $secondary-color-20;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+    }
+}

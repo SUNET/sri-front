@@ -15,7 +15,8 @@ const OrganizationDetailsQuery = graphql`
             name
             type
             website
-            customer_id
+            organization_id
+            organization_number
             description
             incident_management_info
             affiliation_customer
@@ -113,8 +114,8 @@ class OrganizationDetails extends React.Component {
         this.state = {};
     }
 
-    handleSubmit = (organization) => {
-        organization.id = this.props.match.params.organizationId;
+    handleSubmit = (organization, dispatch, props) => {
+        organization.isDirty_relationship_parent_of = props.isDirty_relationship_parent_of;
         UpdateOrganizationMutation(organization, this.props.notify);
     };
 

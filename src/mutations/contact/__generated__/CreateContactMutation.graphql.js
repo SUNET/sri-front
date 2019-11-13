@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9592e94a32b2becb9e682bc24bf2e037
+ * @relayHash 2b555d616d17d9c69fccbdc3c2214a99
  */
 
 /* eslint-disable */
@@ -58,7 +58,7 @@ export type CreateContactMutationResponse = {|
         +end: ?{|
           +handle_id: string,
           +name: string,
-          +customer_id: ?string,
+          +organization_id: ?string,
         |},
       |}>,
       +member_of_groups: ?$ReadOnlyArray<?{|
@@ -112,7 +112,7 @@ mutation CreateContactMutation(
         end {
           handle_id
           name
-          customer_id
+          organization_id
           id
         }
       }
@@ -258,7 +258,7 @@ v14 = {
 v15 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "customer_id",
+  "name": "organization_id",
   "args": null,
   "storageKey": null
 },
@@ -478,11 +478,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateContactMutation",
     "id": null,
-    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      title\n      first_name\n      last_name\n      notes\n      contact_type\n      pgp_fingerprint\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          customer_id\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateContactMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      title\n      first_name\n      last_name\n      notes\n      contact_type\n      pgp_fingerprint\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          organization_id\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e20ff1e9eef38bd1df4f29b0c6cdd5b4';
+(node/*: any*/).hash = '938531e9207c49e15e242d0a3ab605fa';
 module.exports = node;

@@ -1,10 +1,11 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { getOrganization } from "../organization/Organization";
-import { change, touch } from "redux-form";
+import { Field, change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 
+import FieldInput from "../FieldInput";
+import { getOrganization } from "../organization/Organization";
 import Dropdown from "../Dropdown";
 import { LIMIT_NEW_CONTACTS } from "../../constants";
 
@@ -63,7 +64,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                         change(
                             this.props.meta.form,
                             `organizations[${index}].organization_id`,
-                            organization.customer_id
+                            organization.organization_id
                         )
                     );
                 }
@@ -93,11 +94,12 @@ class FieldArrayOrganizationsContact extends React.Component {
                                 </div>
                                 <div>
                                     <Form.Group>
-                                        <input
+                                        <Field
                                             type="text"
                                             disabled
+                                            component={FieldInput}
+                                            name={`${member}.organization_id`}
                                             placeholder="Type ID"
-                                            defaultValue={fields.getAll()[index].organization_id}
                                         />
                                     </Form.Group>
                                 </div>

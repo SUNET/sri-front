@@ -26,7 +26,7 @@ function UpdatePhoneMutation(contact, name, phone) {
         input: {
             contact,
             name,
-            type: phone.type,
+            type: phone ? phone.type : "personal",
             handle_id: phone.handle_id,
             clientMutationId: tempID++
         }

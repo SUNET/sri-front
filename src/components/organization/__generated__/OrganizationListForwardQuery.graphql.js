@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 61b358b1ba7c1f03bf0a22ad9d627ded
+ * @relayHash 36165cbf86a3aa22456096a7a395e7db
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type OrganizationList_organizations$ref = any;
-export type OrganizationOrderBy = "affiliation_customer_ASC" | "affiliation_customer_DESC" | "affiliation_end_customer_ASC" | "affiliation_end_customer_DESC" | "affiliation_host_user_ASC" | "affiliation_host_user_DESC" | "affiliation_partner_ASC" | "affiliation_partner_DESC" | "affiliation_provider_ASC" | "affiliation_provider_DESC" | "affiliation_site_owner_ASC" | "affiliation_site_owner_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "customer_id_ASC" | "customer_id_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "type_ASC" | "type_DESC" | "website_ASC" | "website_DESC" | "%future added value";
+export type OrganizationOrderBy = "affiliation_customer_ASC" | "affiliation_customer_DESC" | "affiliation_end_customer_ASC" | "affiliation_end_customer_DESC" | "affiliation_host_user_ASC" | "affiliation_host_user_DESC" | "affiliation_partner_ASC" | "affiliation_partner_DESC" | "affiliation_provider_ASC" | "affiliation_provider_DESC" | "affiliation_site_owner_ASC" | "affiliation_site_owner_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "organization_id_ASC" | "organization_id_DESC" | "organization_number_ASC" | "organization_number_DESC" | "type_ASC" | "type_DESC" | "website_ASC" | "website_DESC" | "%future added value";
 export type OrganizationListForwardQueryVariables = {|
   count: number,
   cursor?: ?string,
@@ -57,7 +57,7 @@ fragment OrganizationRow_organization on Organization {
   handle_id
   name
   type
-  customer_id
+  organization_id
   affiliation_customer
   affiliation_end_customer
   affiliation_host_user
@@ -212,7 +212,7 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "customer_id",
+                    "name": "organization_id",
                     "args": null,
                     "storageKey": null
                   },
@@ -364,7 +364,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationListForwardQuery",
     "id": null,
-    "text": "query OrganizationListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_32czeo\n}\n\nfragment OrganizationList_organizations_32czeo on Query {\n  organizations(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  customer_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "query OrganizationListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_32czeo\n}\n\nfragment OrganizationList_organizations_32czeo on Query {\n  organizations(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

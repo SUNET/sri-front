@@ -26,7 +26,7 @@ function UpdateEmailMutation(contact, name, email) {
         input: {
             contact,
             name,
-            type: email.type,
+            type: email ? email.type : "personal",
             handle_id: email.handle_id,
             clientMutationId: tempID++
         }

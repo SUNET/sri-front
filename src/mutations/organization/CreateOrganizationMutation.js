@@ -29,7 +29,8 @@ const mutation = graphql`
                 affiliation_partner
                 affiliation_provider
                 affiliation_site_owner
-                customer_id
+                organization_id
+                organization_number
                 addresses {
                     handle_id
                     street
@@ -74,7 +75,8 @@ function CreateOrganizationMutation(organization, callback) {
             name: organization.name,
             description: organization.description,
             type: organization.type,
-            customer_id: organization.customer_id,
+            organization_id: organization.organization_id,
+            organization_number: organization.organization_number,
             website: organization.website,
             affiliation_customer: organization.affiliation_customer,
             affiliation_end_customer: organization.affiliation_end_customer,

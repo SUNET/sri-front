@@ -655,11 +655,11 @@ type CreateOptionForDropdownPayload {
 }
 
 input CreateOrganizationInput {
-  account_id: String
+  organization_number: String
   name: String!
   description: String
   website: String
-  customer_id: String
+  organization_id: String
   type: ChoiceScalar
   incident_management_info: String
   affiliation_customer: Boolean
@@ -1247,6 +1247,22 @@ type MultipleEmailPayload {
   clientMutationId: String
 }
 
+input MultipleOrganizationInput {
+  create_inputs: [SingleCreateOrganizationInput]
+  update_inputs: [SingleUpdateOrganizationInput]
+  delete_inputs: [SingleDeleteOrganizationInput]
+  detach_inputs: [DeleteRelationshipInput]
+  clientMutationId: String
+}
+
+type MultipleOrganizationPayload {
+  created: [CreateOrganizationPayload]
+  updated: [UpdateOrganizationPayload]
+  deleted: [DeleteOrganizationPayload]
+  detached: [DeleteRelationshipPayload]
+  clientMutationId: String
+}
+
 input MultiplePhoneInput {
   create_inputs: [SingleCreatePhoneInput]
   update_inputs: [SingleUpdatePhoneInput]
@@ -1288,6 +1304,7 @@ type Mutation {
   create_organization(input: CreateOrganizationInput!): CreateOrganizationPayload
   update_organization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
   delete_organization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
+  multiple_organization(input: MultipleOrganizationInput!): MultipleOrganizationPayload
   create_role(input: CreateRoleInput!): CreateRolePayload
   update_role(input: UpdateRoleInput!): UpdateRolePayload
   delete_role(input: DeleteRoleInput!): DeleteRolePayload
@@ -1402,7 +1419,8 @@ type Organization implements Node {
   comments: [CommentType]
   name: String!
   description: String
-  customer_id: String
+  organization_number: String
+  organization_id: String
   incident_management_info: String
   type: ChoiceScalar
   website: String
@@ -1466,20 +1484,34 @@ input OrganizationNestedFilter {
   description_not_ends_with: String
   description_in: [String!]
   description_not_in: [String!]
-  customer_id: String
-  customer_id_not: String
-  customer_id_lt: String
-  customer_id_lte: String
-  customer_id_gt: String
-  customer_id_gte: String
-  customer_id_contains: String
-  customer_id_not_contains: String
-  customer_id_starts_with: String
-  customer_id_not_starts_with: String
-  customer_id_ends_with: String
-  customer_id_not_ends_with: String
-  customer_id_in: [String!]
-  customer_id_not_in: [String!]
+  organization_number: String
+  organization_number_not: String
+  organization_number_lt: String
+  organization_number_lte: String
+  organization_number_gt: String
+  organization_number_gte: String
+  organization_number_contains: String
+  organization_number_not_contains: String
+  organization_number_starts_with: String
+  organization_number_not_starts_with: String
+  organization_number_ends_with: String
+  organization_number_not_ends_with: String
+  organization_number_in: [String!]
+  organization_number_not_in: [String!]
+  organization_id: String
+  organization_id_not: String
+  organization_id_lt: String
+  organization_id_lte: String
+  organization_id_gt: String
+  organization_id_gte: String
+  organization_id_contains: String
+  organization_id_not_contains: String
+  organization_id_starts_with: String
+  organization_id_not_starts_with: String
+  organization_id_ends_with: String
+  organization_id_not_ends_with: String
+  organization_id_in: [String!]
+  organization_id_not_in: [String!]
   incident_management_info: String
   incident_management_info_not: String
   incident_management_info_lt: String
@@ -1644,8 +1676,10 @@ enum OrganizationOrderBy {
   name_DESC
   description_ASC
   description_DESC
-  customer_id_ASC
-  customer_id_DESC
+  organization_number_ASC
+  organization_number_DESC
+  organization_id_ASC
+  organization_id_DESC
   incident_management_info_ASC
   incident_management_info_DESC
   type_ASC
@@ -1994,10 +2028,13 @@ type Query {
   roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
   getOrganizationContacts(handle_id: Int!): [ContactWithRolename]
   getGroupContacts(handle_id: Int!): [ContactWithRelation]
+  checkExistentOrganizationId(organization_id: String!, handle_id: Int): Boolean
   getGroupContactRelations(group_id: Int!, contact_id: Int!): [NIRelationType]
   getContactEmailRelations(contact_id: Int!, email_id: Int!): [NIRelationType]
   getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]
   getOrganizationAddressRelations(organization_id: Int!, address_id: Int!): [NIRelationType]
+  getAvailableRoleGroups: [RoleGroup]
+  getRolesFromRoleGroup(name: String): [Role]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
@@ -2045,6 +2082,7 @@ type Role {
   name: String!
   slug: String!
   description: String
+  role_group: RoleGroup
 }
 
 type RoleConnection {
@@ -2067,6 +2105,14 @@ type RoleEdge {
 input RoleFilter {
   name: String
   handle_id: Int
+}
+
+"""This class represents a Role in the relational db"""
+type RoleGroup {
+  id: ID!
+  name: String!
+  hidden: Boolean!
+  role_set: [Role!]!
 }
 
 enum RoleOrderBy {
@@ -2110,6 +2156,30 @@ input SingleCreateEmailInput {
   type: ChoiceScalar!
 }
 
+input SingleCreateOrganizationInput {
+  organization_number: String
+  name: String!
+  description: String
+  website: String
+  organization_id: String
+  type: ChoiceScalar
+  incident_management_info: String
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
+  relationship_parent_of: ChoiceScalar
+  relationship_uses_a: ChoiceScalar
+  abuse_contact: ChoiceScalar
+  primary_contact: ChoiceScalar
+  secondary_contact: ChoiceScalar
+  it_technical_contact: ChoiceScalar
+  it_security_contact: ChoiceScalar
+  it_manager_contact: ChoiceScalar
+}
+
 input SingleCreatePhoneInput {
   contact: ChoiceScalar
   name: String!
@@ -2121,6 +2191,10 @@ input SingleDeleteContactInput {
 }
 
 input SingleDeleteEmailInput {
+  handle_id: Int!
+}
+
+input SingleDeleteOrganizationInput {
   handle_id: Int!
 }
 
@@ -2146,6 +2220,31 @@ input SingleUpdateEmailInput {
   contact: ChoiceScalar
   name: String!
   type: ChoiceScalar!
+  handle_id: Int!
+}
+
+input SingleUpdateOrganizationInput {
+  organization_number: String
+  name: String!
+  description: String
+  website: String
+  organization_id: String
+  type: ChoiceScalar
+  incident_management_info: String
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
+  relationship_parent_of: ChoiceScalar
+  relationship_uses_a: ChoiceScalar
+  abuse_contact: ChoiceScalar
+  primary_contact: ChoiceScalar
+  secondary_contact: ChoiceScalar
+  it_technical_contact: ChoiceScalar
+  it_security_contact: ChoiceScalar
+  it_manager_contact: ChoiceScalar
   handle_id: Int!
 }
 
@@ -2234,11 +2333,11 @@ type UpdateGroupPayload {
 }
 
 input UpdateOrganizationInput {
-  account_id: String
+  organization_number: String
   name: String!
   description: String
   website: String
-  customer_id: String
+  organization_id: String
   type: ChoiceScalar
   incident_management_info: String
   affiliation_customer: Boolean

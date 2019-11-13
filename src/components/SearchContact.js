@@ -77,6 +77,11 @@ class Search extends React.Component {
                         name: filterValue
                     }
                 },
+                {
+                    organizations_contains: {
+                        name: filterValue
+                    }
+                },
                 { contact_type_contains: filterValue }
             ]
         });

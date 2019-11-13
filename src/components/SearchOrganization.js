@@ -10,7 +10,6 @@ import renameKeys from "rename-keys";
 
 import environment from "../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../constants";
-
 import OrganizationDetailsContainer from "../containers/organization/OrganizationDetails";
 import CreateOrganization from "./organization/CreateOrganization";
 import OrganizationListContainer from "../containers/organization/OrganizationList";
@@ -73,7 +72,7 @@ class SearchOrganization extends React.Component {
         this.setState({
             filterValue: [
                 { name_contains: filterValue },
-                { customer_id_contains: filterValue },
+                { organization_id_contains: filterValue },
                 { type_contains: filterValue }
             ]
         });

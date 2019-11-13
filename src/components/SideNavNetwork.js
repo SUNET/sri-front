@@ -10,6 +10,7 @@ import {
 } from "react-accessible-accordion";
 import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import { path } from "../Routes";
 
 import "../style/SideNav.scss";
 
@@ -33,7 +34,7 @@ class SideNavNetwork extends React.Component {
                         <AccordionItem uuid="physical">
                             <AccordionItemHeading>
                                 <AccordionItemButton>
-                                    <NavLink to={`${this.props.match.url}/physical`}>
+                                    <NavLink to={`${path(this.props.match.url)}/physical`}>
                                         {t("network.sub-menu.physical")}
                                     </NavLink>
                                 </AccordionItemButton>
@@ -43,49 +44,49 @@ class SideNavNetwork extends React.Component {
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/physical/cables`}
+                                        to={`${path(this.props.match.url)}/physical/cables`}
                                     >
                                         {t("network.sub-menu.physical.cables")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/physical/external-equipment`}
+                                        to={`${path(this.props.match.url)}/physical/external-equipment`}
                                     >
                                         {t("network.sub-menu.physical.external-equipment")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/physical/firewalls`}
+                                        to={`${path(this.props.match.url)}/physical/firewalls`}
                                     >
                                         {t("network.sub-menu.physical.firewalls")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/physical/hosts`}
+                                        to={`${path(this.props.match.url)}/physical/hosts`}
                                     >
                                         {t("network.sub-menu.physical.hosts")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/physical/odfs`}
+                                        to={`${path(this.props.match.url)}/physical/odfs`}
                                     >
                                         {t("network.sub-menu.physical.odfs")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/physical/optical-nodes`}
+                                        to={`${path(this.props.match.url)}/physical/optical-nodes`}
                                     >
                                         {t("network.sub-menu.physical.optical-nodes")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/physical/routers`}
+                                        to={`${path(this.props.match.url)}/physical/routers`}
                                     >
                                         {t("network.sub-menu.physical.routers")}
                                     </Nav.Link>
@@ -95,7 +96,7 @@ class SideNavNetwork extends React.Component {
                         <AccordionItem uuid="logical">
                             <AccordionItemHeading>
                                 <AccordionItemButton>
-                                    <NavLink to={`${this.props.match.url}/logical`}>
+                                    <NavLink to={`${path(this.props.match.url)}/logical`}>
                                         {t("network.sub-menu.logical")}
                                     </NavLink>
                                 </AccordionItemButton>
@@ -105,28 +106,28 @@ class SideNavNetwork extends React.Component {
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/logical/hosts`}
+                                        to={`${path(this.props.match.url)}/logical/hosts`}
                                     >
                                         {t("network.sub-menu.logical.hosts")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/logical/optical-links`}
+                                        to={`${path(this.props.match.url)}/logical/optical-links`}
                                     >
                                         {t("network.sub-menu.logical.optical-links")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/logical/optical-multiplex`}
+                                        to={`${path(this.props.match.url)}/logical/optical-multiplex`}
                                     >
                                         {t("network.sub-menu.logical.optical-multiplex")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/logical/optical-paths`}
+                                        to={`${path(this.props.match.url)}/logical/optical-paths`}
                                     >
                                         {t("network.sub-menu.logical.optical-paths")}
                                     </Nav.Link>
@@ -136,7 +137,7 @@ class SideNavNetwork extends React.Component {
                         <AccordionItem uuid="locations">
                             <AccordionItemHeading>
                                 <AccordionItemButton>
-                                    <NavLink to={`${this.props.match.url}/locations`}>
+                                    <NavLink to={`${path(this.props.match.url)}/locations`}>
                                         {t("network.sub-menu.locations")}
                                     </NavLink>
                                 </AccordionItemButton>
@@ -146,14 +147,14 @@ class SideNavNetwork extends React.Component {
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/locations/racks`}
+                                        to={`${path(this.props.match.url)}/locations/racks`}
                                     >
                                         {t("network.sub-menu.locations.racks")}
                                     </Nav.Link>
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${this.props.match.url}/locations/sites`}
+                                        to={`${path(this.props.match.url)}/locations/sites`}
                                     >
                                         {t("network.sub-menu.locations.sites")}
                                     </Nav.Link>
