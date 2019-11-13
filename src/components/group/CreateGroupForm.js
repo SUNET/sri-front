@@ -22,7 +22,10 @@ class CreateGroupForm extends React.Component {
     }
 
     _hasBeenAdded = (newMember) => {
-        return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);
+        if (this.props.memberValues) {
+            return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);
+        }
+        return false;
     };
 
     handleSelectedMember = (selection) => {

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 19f9c9790e4ffa7661005ae07d0421af
+ * @relayHash 7efe02c07a608fa7f333f7fda9c37b5e
  */
 
 /* eslint-disable */
@@ -36,7 +36,7 @@ export type UpdateContactMutationResponse = {|
       +handle_id: string,
       +title: ?string,
       +notes: ?string,
-      +contact_type: ?string,
+      +contact_type: ?any,
       +first_name: string,
       +last_name: string,
       +pgp_fingerprint: ?string,

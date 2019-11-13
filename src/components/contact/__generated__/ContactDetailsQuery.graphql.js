@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0e1dd4e0d810fbec7aa7aa8db2ea796c
+ * @relayHash a7e12ee330c1be81332d40b5322e1d7d
  */
 
 /* eslint-disable */
@@ -19,7 +19,7 @@ export type ContactDetailsQueryResponse = {|
     +name: string,
     +notes: ?string,
     +title: ?string,
-    +contact_type: ?string,
+    +contact_type: ?any,
     +first_name: string,
     +last_name: string,
     +pgp_fingerprint: ?string,

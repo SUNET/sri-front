@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 75cd02a15fb9cc0421cf2c28e6785b55
+ * @relayHash 7bdb4f2931c5c7149f653052fa948292
  */
 
 /* eslint-disable */
@@ -77,7 +77,7 @@ export type OrganizationDetailsQueryResponse = {|
       +handle_id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?string,
+      +contact_type: ?any,
       +emails: ?$ReadOnlyArray<?{|
         +handle_id: string,
         +name: string,

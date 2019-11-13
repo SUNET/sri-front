@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9bc04d7e49e2abc02f20d4756851481c
+ * @relayHash dbfefd4c3641569d44e31e2d7bc113a6
  */
 
 /* eslint-disable */
@@ -32,7 +32,7 @@ export type AddContactOrganizationMutationResponse = {|
       +handle_id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?string,
+      +contact_type: ?any,
     |}
   |}
 |};
