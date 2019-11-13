@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 67d55f966a59c8b37e16e13a7aa78904
+ * @relayHash 3a8a47a9fd1249f1444abfb219c83d64
  */
 
 /* eslint-disable */
@@ -32,7 +32,7 @@ export type AddMemberGroupMutationResponse = {|
       +handle_id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?string,
+      +contact_type: ?any,
       +member_of_groups: ?$ReadOnlyArray<?{|
         +handle_id: string,
         +name: string,

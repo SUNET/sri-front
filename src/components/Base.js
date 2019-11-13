@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 
 import Home from "./Home";
 import Network from "./Network";
@@ -15,6 +15,8 @@ class Base extends React.Component {
             <>
                 <CaptureRouteNotFound>
                     <Switch>
+                        <Redirect exact from={"/community"} to={"/community/organizations"} />
+                        <Redirect exact from={"/personal-area"} to={"/personal-area/profile-settings"} />
                         <Route exact path="/" component={Home} />
                         <Route path="/dashboard" component={Home} />
                         <Route path="/network" component={Network} />

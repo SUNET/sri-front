@@ -281,7 +281,6 @@ type Contact implements Node {
   pgp_fingerprint: String
   member_of_groups: [Group]
   roles: [RoleRelation]
-  organizations: [Organization]
   notes: String
 }
 
@@ -462,20 +461,6 @@ input ContactNestedFilter {
   roles_not_ends_with: RoleRelationInputField
   roles_in: [RoleRelationInputField!]
   roles_not_in: [RoleRelationInputField!]
-  organizations: OrganizationInputField
-  organizations_not: OrganizationInputField
-  organizations_lt: OrganizationInputField
-  organizations_lte: OrganizationInputField
-  organizations_gt: OrganizationInputField
-  organizations_gte: OrganizationInputField
-  organizations_contains: OrganizationInputField
-  organizations_not_contains: OrganizationInputField
-  organizations_starts_with: OrganizationInputField
-  organizations_not_starts_with: OrganizationInputField
-  organizations_ends_with: OrganizationInputField
-  organizations_not_ends_with: OrganizationInputField
-  organizations_in: [OrganizationInputField!]
-  organizations_not_in: [OrganizationInputField!]
   notes: String
   notes_not: String
   notes_lt: String
@@ -1446,7 +1431,6 @@ type Organization implements Node {
   affiliation_partner: Boolean
   affiliation_host_user: Boolean
   affiliation_site_owner: Boolean
-  parent_organization: [Organization]
 }
 
 type OrganizationConnection {
@@ -1469,28 +1453,6 @@ type OrganizationEdge {
 input OrganizationFilter {
   AND: [OrganizationNestedFilter!]
   OR: [OrganizationNestedFilter!]
-}
-
-input OrganizationInputField {
-  name: String
-  description: String
-  organization_number: String
-  organization_id: String
-  incident_management_info: String
-  type: ChoiceScalar
-  website: String
-  addresses: AddressInputField
-  affiliation_customer: Boolean
-  affiliation_end_customer: Boolean
-  affiliation_provider: Boolean
-  affiliation_partner: Boolean
-  affiliation_host_user: Boolean
-  affiliation_site_owner: Boolean
-  handle_id: Int
-  created: DateTime
-  modified: DateTime
-  creator: UserInputType
-  modifier: UserInputType
 }
 
 input OrganizationNestedFilter {

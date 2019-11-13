@@ -32,4 +32,10 @@ const Routes = {
     "/personal-area/profile-settings": "Profile & settings"
 };
 
+export const path = (url) => {
+    const fixedPath = url.endsWith("/") ? path(url.substring(0, url.length - 1)) : url;
+
+    return fixedPath;
+};
+
 export default Routes;

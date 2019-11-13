@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 69a1457fd7a8d18041f7905bea5df349
+ * @relayHash 874f1722e58ae46448387202c497c018
  */
 
 /* eslint-disable */
@@ -74,6 +74,12 @@ export type GroupNestedFilter = {|
   creator_lte?: ?UserInputType,
   creator_gt?: ?UserInputType,
   creator_gte?: ?UserInputType,
+  creator_contains?: ?UserInputType,
+  creator_not_contains?: ?UserInputType,
+  creator_starts_with?: ?UserInputType,
+  creator_not_starts_with?: ?UserInputType,
+  creator_ends_with?: ?UserInputType,
+  creator_not_ends_with?: ?UserInputType,
   creator_in?: ?$ReadOnlyArray<UserInputType>,
   creator_not_in?: ?$ReadOnlyArray<UserInputType>,
   modifier?: ?UserInputType,
@@ -82,6 +88,12 @@ export type GroupNestedFilter = {|
   modifier_lte?: ?UserInputType,
   modifier_gt?: ?UserInputType,
   modifier_gte?: ?UserInputType,
+  modifier_contains?: ?UserInputType,
+  modifier_not_contains?: ?UserInputType,
+  modifier_starts_with?: ?UserInputType,
+  modifier_not_starts_with?: ?UserInputType,
+  modifier_ends_with?: ?UserInputType,
+  modifier_not_ends_with?: ?UserInputType,
   modifier_in?: ?$ReadOnlyArray<UserInputType>,
   modifier_not_in?: ?$ReadOnlyArray<UserInputType>,
 |};
