@@ -8,7 +8,6 @@ import { getContact } from "../../components/contact/Contact";
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("updateGroup");
     const group = props.group;
-    console.log("New PROPS", props);
     const initialValues = {
         handle_id: group.handle_id,
         name: group.name,

@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { getFormMeta, getFormSyncErrors, formValueSelector } from "redux-form";
 import { getContact } from "../../components/contact/Contact";
 
+import * as actions from "../../actions/Notify";
 import CreateGroupForm from "../../components/group/CreateGroupForm";
 
 const mapStateToProps = (state, props) => {
@@ -16,7 +17,11 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+    return {
+        notify: (msg, level) => {
+            dispatch(actions.notify(msg, level));
+        }
+    };
 };
 
 const CreateGroupFormContainer = connect(

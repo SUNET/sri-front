@@ -6,7 +6,7 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import DropdownSearch from "../DropdownSearch";
-
+import CreateGroupMutation from "../../mutations/group/CreateGroupMutation";
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import EditField from "../EditField";
@@ -56,10 +56,14 @@ class CreateGroupForm extends React.Component {
         }
     };
 
+    handleSubmit = (group) => {
+        CreateGroupMutation(group, this.props.notify, this.props.history);
+    };
+
     render() {
         const { handleSubmit, t, name } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="model-details">
                     <section className="title-section">
                         <EditField
