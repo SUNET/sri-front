@@ -47,7 +47,10 @@ class OrganizationUpdateForm extends React.Component {
     };
 
     _hasBeenAdded = (newContact) => {
-        return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+        if (this.props.contactsValues) {
+            return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+        }
+        return false;
     };
 
     handleSelectedContact = (selection) => {
@@ -364,17 +367,8 @@ class OrganizationUpdateForm extends React.Component {
                                                 <div className="table-details">
                                                     <div>
                                                         <div className="w-18">Name</div>
-                                                        <div className="w-30">Role</div>
-                                                        <div className="with-icon">
-                                                            <span>Email</span>
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => this.copyAllEmails()}
-                                                                className="btn outline btn-copy"
-                                                            >
-                                                                <span>{t("actions.copy-all")}</span>
-                                                            </button>
-                                                        </div>
+                                                        <div className="w-32">Role</div>
+                                                        <div className="w-18">Email</div>
                                                         <div>Phone</div>
                                                         <div></div>
                                                     </div>

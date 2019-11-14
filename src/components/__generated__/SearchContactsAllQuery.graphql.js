@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d53d6d371a993851531f62b8f622cb32
+ * @relayHash 85722288c3756acc1758d0964dbbd0ee
  */
 
 /* eslint-disable */
@@ -171,20 +171,6 @@ export type ContactNestedFilter = {|
   roles_not_ends_with?: ?RoleRelationInputField,
   roles_in?: ?$ReadOnlyArray<RoleRelationInputField>,
   roles_not_in?: ?$ReadOnlyArray<RoleRelationInputField>,
-  organizations?: ?OrganizationInputField,
-  organizations_not?: ?OrganizationInputField,
-  organizations_lt?: ?OrganizationInputField,
-  organizations_lte?: ?OrganizationInputField,
-  organizations_gt?: ?OrganizationInputField,
-  organizations_gte?: ?OrganizationInputField,
-  organizations_contains?: ?OrganizationInputField,
-  organizations_not_contains?: ?OrganizationInputField,
-  organizations_starts_with?: ?OrganizationInputField,
-  organizations_not_starts_with?: ?OrganizationInputField,
-  organizations_ends_with?: ?OrganizationInputField,
-  organizations_not_ends_with?: ?OrganizationInputField,
-  organizations_in?: ?$ReadOnlyArray<OrganizationInputField>,
-  organizations_not_in?: ?$ReadOnlyArray<OrganizationInputField>,
   notes?: ?string,
   notes_not?: ?string,
   notes_lt?: ?string,
@@ -285,40 +271,6 @@ export type GroupInputField = {|
 export type RoleRelationInputField = {|
   relation_id?: ?number,
   name?: ?string,
-|};
-export type OrganizationInputField = {|
-  name?: ?string,
-  description?: ?string,
-  organization_number?: ?string,
-  organization_id?: ?string,
-  incident_management_info?: ?string,
-  type?: ?any,
-  website?: ?string,
-  addresses?: ?AddressInputField,
-  affiliation_customer?: ?boolean,
-  affiliation_end_customer?: ?boolean,
-  affiliation_provider?: ?boolean,
-  affiliation_partner?: ?boolean,
-  affiliation_host_user?: ?boolean,
-  affiliation_site_owner?: ?boolean,
-  handle_id?: ?number,
-  created?: ?any,
-  modified?: ?any,
-  creator?: ?UserInputType,
-  modifier?: ?UserInputType,
-|};
-export type AddressInputField = {|
-  name?: ?string,
-  website?: ?string,
-  phone?: ?string,
-  street?: ?string,
-  postal_code?: ?string,
-  postal_area?: ?string,
-  handle_id?: ?number,
-  created?: ?any,
-  modified?: ?any,
-  creator?: ?UserInputType,
-  modifier?: ?UserInputType,
 |};
 export type SearchContactsAllQueryVariables = {|
   count: number,
