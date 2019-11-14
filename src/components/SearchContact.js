@@ -17,6 +17,7 @@ import ContactListContainer from "../containers/contact/ContactList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
+import { isEmpty } from "../utils";
 // import { RouteNotFound } from "./NotFound";
 
 //mock - This should be returned to the backend in the future.
@@ -135,11 +136,11 @@ class Search extends React.Component {
         let filterArrayOR = [];
         let filters = {};
 
-        if (!(Object.keys(this.state.filterDate).length === 0 && this.state.filterDate.constructor === Object)) {
+        if (!isEmpty(this.state.filterDate)) {
             filterArrayAND.push(this.state.filterDate);
         }
 
-        if (!(Object.keys(this.state.filterValue).length === 0 && this.state.filterValue.constructor === Object)) {
+        if (!isEmpty(this.state.filterValue)) {
             filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
 

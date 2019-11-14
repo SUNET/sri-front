@@ -16,6 +16,7 @@ import OrganizationListContainer from "../containers/organization/OrganizationLi
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
+import { isEmpty } from "../utils";
 // import { RouteNotFound } from "./NotFound";
 
 //mock - This should be returned to the backend in the future.
@@ -41,6 +42,7 @@ class SearchOrganization extends React.Component {
         this.state = {
             countList: ITEMS_PER_PAGE,
             filterValue: {},
+            filterColumnValue: {},
             filterDateType: "created",
             filterDateFrom: "",
             filterDateTo: "",
@@ -51,7 +53,6 @@ class SearchOrganization extends React.Component {
 
     // save in the state the column orderby
     handleColumnChangeOrderBy = (event, orderBy) => {
-        if (orderBy === "organization_id") orderBy = "customer_id";
         if (event.target.checked) {
             orderBy = orderBy.concat("_ASC");
         } else {
@@ -59,6 +60,20 @@ class SearchOrganization extends React.Component {
         }
 
         this.setState({ orderBy: { orderBy: orderBy } });
+    };
+
+    // update state for order filter columns
+    handleChangeOrderFilterColumns = (orderFilter) => {
+        if (orderFilter.orderBy) {
+            this.setState({ orderBy: { orderBy: orderFilter.orderBy } });
+        }
+        if (orderFilter.filters.length > 0) {
+            this.setState({
+                filterColumnValue: { [orderFilter.column + "_in"]: orderFilter.filters }
+            });
+        } else {
+            this.setState({ filterColumnValue: {} });
+        }
     };
 
     //save in the state the number of pages shown
@@ -126,11 +141,15 @@ class SearchOrganization extends React.Component {
         let filterArrayOR = [];
         let filters = {};
 
-        if (!(Object.keys(this.state.filterDate).length === 0 && this.state.filterDate.constructor === Object)) {
+        if (!isEmpty(this.state.filterDate)) {
             filterArrayAND.push(this.state.filterDate);
         }
 
-        if (!(Object.keys(this.state.filterValue).length === 0 && this.state.filterValue.constructor === Object)) {
+        if (!isEmpty(this.state.filterColumnValue)) {
+            filterArrayAND.push(this.state.filterColumnValue);
+        }
+
+        if (!isEmpty(this.state.filterValue)) {
             filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
 
@@ -207,7 +226,6 @@ class SearchOrganization extends React.Component {
                                                 if (error) {
                                                     return <div>{error.message}</div>;
                                                 } else if (props) {
-                                                    console.log("props", props);
                                                     return (
                                                         <OrganizationListContainer
                                                             organizations={props}
@@ -215,6 +233,10 @@ class SearchOrganization extends React.Component {
                                                             changeCount={this.handleOnChangeCount}
                                                             columnChangeOrderBy={this.handleColumnChangeOrderBy}
                                                             orderBy={this.state.orderBy.orderBy}
+                                                            changeOrderFilterColumns={
+                                                                this.handleChangeOrderFilterColumns
+                                                            }
+                                                            filterColumn={this.state.filterColumnValue.type_in}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />

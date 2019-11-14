@@ -10,6 +10,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../constants";
 import OrganizationRow from "./OrganizationRow";
 import FilterColumnsContainer from "../../containers/FilterColumns";
+import OrderFilterColumns from "../OrderFilterColumns";
 
 import "../../style/ModelList.scss";
 
@@ -51,16 +52,14 @@ export class OrganizationList extends React.PureComponent {
                 {this.props.defaultColumns.map((column) => {
                     // Hiding the columns passed by props
                     if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
-                        let colValue = column.value;
-                        if (colValue === "organization_id") colValue = "customer_id";
                         return (
                             <div key={column.name}>
                                 {column.filter === "order" ? (
-                                    <div className="pretty custom p-icon p-toggle p-plain order-col">
+                                    <div className="pretty custom p-icon p-toggle p-plain order-col icon-right">
                                         <input
                                             type="checkbox"
                                             name={"orderby-" + column.value}
-                                            checked={this.props.orderBy.includes(colValue + "_ASC")}
+                                            checked={this.props.orderBy.includes(column.value + "_ASC")}
                                             onChange={(e) => {
                                                 this.props.columnChangeOrderBy(e, column.value);
                                             }}
@@ -79,9 +78,13 @@ export class OrganizationList extends React.PureComponent {
                                 ) : column.filter === "order-filter" ? (
                                     <span>
                                         {column.name}
-                                        <FilterColumnsContainer
+                                        <OrderFilterColumns
                                             type="order"
+                                            column={column.value}
                                             columns={this.props.organization_types.getChoicesForDropdown}
+                                            orderFilterColumns={this.props.changeOrderFilterColumns}
+                                            orderBy={this.props.orderBy}
+                                            filterColumn={this.props.filterColumn}
                                         />
                                     </span>
                                 ) : (
