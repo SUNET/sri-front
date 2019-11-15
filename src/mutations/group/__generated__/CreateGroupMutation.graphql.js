@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7a496ae2e3842b9eff179b2b19f4abe1
+ * @relayHash 4ea3f6c3e1ace24875ffb1551cb37b74
  */
 
 /* eslint-disable */
@@ -46,6 +46,7 @@ export type CreateContactInput = {|
   phone_handle_id?: ?number,
   phone?: ?string,
   phone_type?: ?any,
+  role_handle_id?: ?number,
   clientMutationId?: ?string,
 |};
 export type UpdateContactInput = {|
@@ -65,6 +66,7 @@ export type UpdateContactInput = {|
   phone_handle_id?: ?number,
   phone?: ?string,
   phone_type?: ?any,
+  role_handle_id?: ?number,
   handle_id: number,
   clientMutationId?: ?string,
 |};

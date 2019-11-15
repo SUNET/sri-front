@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 924234ad50879517d851ca88e4a679c0
+ * @relayHash 9eb7fd12ddf22094eef77034106ea7cd
  */
 
 /* eslint-disable */
@@ -26,6 +26,7 @@ export type UpdateContactInput = {|
   phone_handle_id?: ?number,
   phone?: ?string,
   phone_type?: ?any,
+  role_handle_id?: ?number,
   handle_id: number,
   clientMutationId?: ?string,
 |};
