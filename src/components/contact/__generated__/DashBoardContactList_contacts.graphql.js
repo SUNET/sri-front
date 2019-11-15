@@ -8,31 +8,37 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
-type DashBoardBlockRow_contact$ref = any;
+type DashBoardContactRow_contact$ref = any;
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type DashBoardBlockList_models$ref: FragmentReference;
-declare export opaque type DashBoardBlockList_models$fragmentType: DashBoardBlockList_models$ref;
-export type DashBoardBlockList_models = {|
+declare export opaque type DashBoardContactList_contacts$ref: FragmentReference;
+declare export opaque type DashBoardContactList_contacts$fragmentType: DashBoardContactList_contacts$ref;
+export type DashBoardContactList_contacts = {|
   +contacts: ?{|
     +edges: $ReadOnlyArray<?{|
       +node: ?{|
-        +$fragmentRefs: DashBoardBlockRow_contact$ref
+        +$fragmentRefs: DashBoardContactRow_contact$ref
       |}
-    |}>
+    |}>,
+    +pageInfo: {|
+      +endCursor: ?string,
+      +hasNextPage: boolean,
+      +hasPreviousPage: boolean,
+      +startCursor: ?string,
+    |},
   |},
-  +$refType: DashBoardBlockList_models$ref,
+  +$refType: DashBoardContactList_contacts$ref,
 |};
-export type DashBoardBlockList_models$data = DashBoardBlockList_models;
-export type DashBoardBlockList_models$key = {
-  +$data?: DashBoardBlockList_models$data,
-  +$fragmentRefs: DashBoardBlockList_models$ref,
+export type DashBoardContactList_contacts$data = DashBoardContactList_contacts;
+export type DashBoardContactList_contacts$key = {
+  +$data?: DashBoardContactList_contacts$data,
+  +$fragmentRefs: DashBoardContactList_contacts$ref,
 };
 */
 
 
 const node/*: ReaderFragment*/ = {
   "kind": "Fragment",
-  "name": "DashBoardBlockList_models",
+  "name": "DashBoardContactList_contacts",
   "type": "Query",
   "metadata": {
     "connection": [
@@ -70,7 +76,7 @@ const node/*: ReaderFragment*/ = {
     {
       "kind": "LinkedField",
       "alias": "contacts",
-      "name": "__DashBoardBlockList_contacts_connection",
+      "name": "__DashBoardContactList_contacts_connection",
       "storageKey": null,
       "args": null,
       "concreteType": "ContactConnection",
@@ -103,7 +109,7 @@ const node/*: ReaderFragment*/ = {
                 },
                 {
                   "kind": "FragmentSpread",
-                  "name": "DashBoardBlockRow_contact",
+                  "name": "DashBoardContactRow_contact",
                   "args": null
                 }
               ]
@@ -139,6 +145,20 @@ const node/*: ReaderFragment*/ = {
               "name": "hasNextPage",
               "args": null,
               "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "hasPreviousPage",
+              "args": null,
+              "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "startCursor",
+              "args": null,
+              "storageKey": null
             }
           ]
         }
@@ -147,5 +167,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '708f3113a96ebac3dfbb3a763b121f95';
+(node/*: any*/).hash = '5613f2da169798e3743198669719cce8';
 module.exports = node;
