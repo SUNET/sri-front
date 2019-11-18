@@ -264,6 +264,7 @@ export default function CreateOrganizationMutation(organization, form) {
         onCompleted: (response, errors) => {
             console.log(response, errors);
             if (response.composite_organization.created.errors) {
+                form.props.notify(i18n.t("notify.error"), "error");
                 return response.create_organization.created.errors;
             } else {
                 const organization_id = response.composite_organization.created.organization.handle_id;
@@ -271,7 +272,7 @@ export default function CreateOrganizationMutation(organization, form) {
                     CreateComentMutation(organization_id, organization.comment);
                 }
                 form.props.history.push("/community/organizations/" + organization_id);
-                form.props.notify(i18n.t("notify.changes-saved"), "success");
+                form.props.notify(i18n.t("notify.organization-created-success"), "success");
             }
         },
         updater: (proxyStore) => {},

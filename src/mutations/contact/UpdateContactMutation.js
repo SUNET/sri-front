@@ -1,86 +1,235 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import CreateEmailMutation from "../email/CreateEmailMutation";
-import CreatePhoneMutation from "../phone/CreatePhoneMutation";
-import UpdateEmailMutation from "../email/UpdateEmailMutation";
-import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
-import DeleteEmailMutation from "../email/DeleteEmailMutation";
-import DeletePhoneMutation from "../phone/DeletePhoneMutation";
-import UpdateContactInlineMutation from "./UpdateContactInlineMutation";
-import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
 
+import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
-    mutation UpdateContactMutation($input: UpdateContactInput!) {
-        update_contact(input: $input) {
-            errors {
-                field
-                messages
-            }
-            contact {
-                handle_id
-                title
-                notes
-                contact_type
-                first_name
-                last_name
-                pgp_fingerprint
-                emails {
-                    handle_id
-                    name
-                    type
+    mutation UpdateContactMutation($input: CompositeContactMutationInput!) {
+        composite_contact(input: $input) {
+            updated {
+                errors {
+                    field
+                    messages
                 }
-                phones {
+                contact {
                     handle_id
-                    name
-                    type
-                }
-                roles {
-                    relation_id
-                    role_data {
+                    title
+                    notes
+                    contact_type
+                    first_name
+                    last_name
+                    pgp_fingerprint
+                    emails {
                         handle_id
                         name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    roles {
+                        relation_id
+                        role_data {
+                            handle_id
+                            name
+                        }
+                        end {
+                            handle_id
+                            name
+                            organization_id
+                        }
+                    }
+                    comments {
+                        user {
+                            first_name
+                            last_name
+                        }
+                        comment
+                        submit_date
+                    }
+                    member_of_groups {
+                        name
+                    }
+                }
+            }
+            subcreated {
+                errors {
+                    field
+                    messages
+                }
+                email {
+                    handle_id
+                    name
+                    type
+                }
+            }
+            subupdated {
+                errors {
+                    field
+                    messages
+                }
+                email {
+                    handle_id
+                    name
+                    type
+                }
+            }
+            phones_created {
+                errors {
+                    field
+                    messages
+                }
+                phone {
+                    handle_id
+                    name
+                    type
+                }
+            }
+            phones_updated {
+                errors {
+                    field
+                    messages
+                }
+                phone {
+                    handle_id
+                    name
+                    type
+                }
+            }
+            rolerelations {
+                errors {
+                    field
+                    messages
+                }
+                rolerelation {
+                    relation_id
+                    type
+                    start {
+                        handle_id
+                        first_name
+                        last_name
                     }
                     end {
                         handle_id
                         name
-                        organization_id
                     }
-                }
-                comments {
-                    user {
-                        first_name
-                        last_name
-                    }
-                    comment
-                    submit_date
-                }
-                member_of_groups {
-                    name
                 }
             }
         }
     }
 `;
 
-export default function UpdateContactMutation(contact, notifications) {
-    let fullName = contact.name;
-    fullName = fullName.split(" ");
-    contact.first_name = fullName[0];
-    contact.last_name = fullName[1];
+export default function UpdateContactMutation(contact, form) {
+    const newEmails = [];
+    const updateEmails = [];
+    const deleteEmails = [];
+
+    const newPhones = [];
+    const updatePhones = [];
+    const deletePhones = [];
+
+    const roles = [];
+    const deleteRoles = [];
+
+    let fullName = contact.name.trim();
+    if (fullName.includes(" ")) {
+        fullName = fullName.split(" ");
+        contact.first_name = fullName[0];
+        contact.last_name = fullName[1];
+    } else {
+        contact.first_name = fullName;
+        contact.last_name = fullName;
+    }
+
+    const emails = contact.emails;
+    if (emails) {
+        Object.keys(emails).forEach((email_key) => {
+            let email = emails[email_key];
+            if (email.status === "remove") {
+                deleteEmails.push(email.handle_id);
+            } else if (email.status === "saved") {
+                if (email.origin === "store") {
+                    updateEmails.push({
+                        handle_id: email.handle_id,
+                        name: email.email,
+                        type: email.type
+                    });
+                } else {
+                    newEmails.push({
+                        name: email.name,
+                        type: email.type
+                    });
+                }
+            }
+        });
+    }
+
+    const phones = contact.phones;
+    if (phones) {
+        Object.keys(phones).forEach((phone_key) => {
+            let phone = phones[phone_key];
+            if (phone.status === "remove") {
+                deleteEmails.push(phone.handle_id);
+            } else if (phone.status === "saved") {
+                if (phone.origin === "store") {
+                    updateEmails.push({
+                        handle_id: phone.handle_id,
+                        name: phone.phone,
+                        type: phone.type
+                    });
+                } else {
+                    newEmails.push({
+                        name: phone.name,
+                        type: phone.type
+                    });
+                }
+            }
+        });
+    }
+
+    const organizations = contact.organizations;
+    if (organizations) {
+        Object.keys(organizations).forEach((organization_key) => {
+            let organization = organizations[organization_key];
+            if (organization.status === "saved") {
+                if (organization.origin === "store") {
+                    if (organization.role_obj) {
+                        DeleteRelationshipMutation(organization.role_obj.relation_id);
+                    }
+                }
+                roles.push({
+                    role_handle_id: organization.role,
+                    organization_handle_id: organization.organization
+                });
+            } else if (organization.status === "remove") {
+                deleteRoles.push(organization.role_obj.relation_id);
+            }
+        });
+    }
 
     const variables = {
         input: {
-            handle_id: contact.id,
-            notes: contact.notes,
-            title: contact.title,
-            first_name: contact.first_name,
-            last_name: contact.last_name,
-            contact_type: contact.contact_type,
-            pgp_fingerprint: contact.pgp_fingerprint,
-            clientMutationId: ""
+            update_input: {
+                handle_id: contact.handle_id,
+                notes: contact.notes,
+                title: contact.title,
+                first_name: contact.first_name,
+                last_name: contact.last_name,
+                contact_type: contact.contact_type,
+                pgp_fingerprint: contact.pgp_fingerprint,
+                clientMutationId: ""
+            },
+            create_subinputs: newEmails,
+            update_subinputs: updateEmails,
+            delete_subinputs: deleteEmails,
+            create_phones: newPhones,
+            update_phones: updatePhones,
+            delete_phones: deletePhones,
+            link_rolerelations: roles
         }
     };
 
@@ -89,74 +238,20 @@ export default function UpdateContactMutation(contact, notifications) {
         variables,
         onCompleted: (response, errors) => {
             console.log(response, errors);
-            if (response.update_contact.errors) {
-                return response.update_contact.errors;
+            if (response.composite_contact.updated.errors) {
+                return response.composite_contact.update.errors;
             } else {
-                const emails = contact.emails;
-                if (emails) {
-                    Object.keys(emails).forEach((email_key) => {
-                        let email = emails[email_key];
-                        if (email.status === "remove") {
-                            DeleteEmailMutation(email.handle_id);
-                        } else if (email.status === "saved") {
-                            if (email.origin === "store") {
-                                UpdateEmailMutation(contact.id, email.email, email);
-                            } else {
-                                CreateEmailMutation(contact.id, email.email, email.type);
-                            }
-                        }
+                if (deleteRoles.length > 0) {
+                    deleteRoles.map((role) => {
+                        return DeleteRelationshipMutation(role);
                     });
                 }
-
-                const phones = contact.phones;
-                if (phones) {
-                    Object.keys(phones).forEach((phone_key) => {
-                        let phone = phones[phone_key];
-                        if (phone.status === "remove") {
-                            DeletePhoneMutation(phone.handle_id);
-                        } else if (phone.status === "saved") {
-                            if (phone.origin === "store") {
-                                UpdatePhoneMutation(contact.id, phone.phone, phone);
-                            } else {
-                                CreatePhoneMutation(contact.id, phone.phone, phone.type);
-                            }
-                        }
-                    });
-                }
-
-                const organizations = contact.organizations;
-                if (organizations) {
-                    Object.keys(organizations).forEach((organization_key) => {
-                        let organization = organizations[organization_key];
-                        if (organization.status === "saved") {
-                            if (organization.origin === "store") {
-                                if (organization.role_obj) {
-                                    DeleteRelationshipMutation(organization.role_obj.relation_id);
-                                }
-                            }
-
-                            UpdateContactInlineMutation(
-                                response.update_contact.contact,
-                                organization.organization,
-                                null,
-                                organization.role
-                            );
-                        } else if (organization.status === "remove") {
-                            DeleteRelationshipMutation(organization.role_obj.relation_id);
-                        }
-                    });
-                }
-                notifications(i18n.t("notify.changes-saved"), "success");
+                form.props.reset();
+                form.refetch();
+                form.props.notify(i18n.t("notify.changes-saved"), "success");
             }
         },
-        updater: (proxyStore, data) => {
-            // const payload = proxyStore.get(contact.id, "update_contact");
-            // contact_node.setValue(contact.first_name, "first_name");
-            // contact_node.setValue(contact.last_name, "last_name");
-            // contact_node.setValue(contact.email, "email");
-            // contact_node.setValue(contact.phone, "phone");
-            // contact_node.setValue(contact.contact_type, "contact_type");
-        },
+        updater: (proxyStore, data) => {},
         onError: (err) => console.error(err)
     });
 }

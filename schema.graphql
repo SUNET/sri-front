@@ -236,6 +236,32 @@ type CommentType {
   is_removed: Boolean!
 }
 
+input CompositeContactMutationInput {
+  create_input: CreateContactInput
+  update_input: UpdateContactInput
+  create_subinputs: [CreateEmailInput]
+  update_subinputs: [UpdateEmailInput]
+  delete_subinputs: [DeleteEmailInput]
+  create_phones: [CreatePhoneInput]
+  update_phones: [UpdatePhoneInput]
+  delete_phones: [DeletePhoneInput]
+  link_rolerelations: [RoleRelationMutationInput]
+  clientMutationId: String
+}
+
+type CompositeContactMutationPayload {
+  created: CreateContactPayload
+  updated: UpdateContactPayload
+  subcreated: [CreateEmailPayload]
+  subupdated: [UpdateEmailPayload]
+  subdeleted: [DeleteEmailPayload]
+  phones_created: [CreatePhonePayload]
+  phones_updated: [UpdatePhonePayload]
+  phones_deleted: [DeletePhonePayload]
+  rolerelations: [RoleRelationMutationPayload]
+  clientMutationId: String
+}
+
 input CompositeGroupMutationInput {
   create_input: CreateGroupInput
   update_input: UpdateGroupInput
@@ -1349,6 +1375,7 @@ type Mutation {
   update_contact(input: UpdateContactInput!): UpdateContactPayload
   delete_contact(input: DeleteContactInput!): DeleteContactPayload
   multiple_contact(input: MultipleContactInput!): MultipleContactPayload
+  composite_contact(input: CompositeContactMutationInput!): CompositeContactMutationPayload
   create_organization(input: CreateOrganizationInput!): CreateOrganizationPayload
   update_organization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
   delete_organization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
@@ -2198,7 +2225,7 @@ enum RoleOrderBy {
 type RoleRelation {
   relation_id: Int!
   type: String!
-  start: NINodeHandlerType!
+  start: Contact
   end: Organization
   nidata: [DictEntryType]
   name: String
@@ -2208,6 +2235,18 @@ type RoleRelation {
 input RoleRelationInputField {
   relation_id: Int
   name: String
+}
+
+input RoleRelationMutationInput {
+  role_handle_id: Int!
+  organization_handle_id: Int!
+  clientMutationId: String
+}
+
+type RoleRelationMutationPayload {
+  errors: [ErrorType]
+  rolerelation: RoleRelation
+  clientMutationId: String
 }
 
 input SingleCreateContactInput {

@@ -146,8 +146,8 @@ export default function UpdateGroupMutation(group, form) {
                 if (group.comment) {
                     CreateComentMutation(group_id, group.comment);
                 }
-                form.props.notify(i18n.t("notify.group-created-success"), "success");
                 form.props.history.push("/community/groups/" + group_id);
+                form.props.notify(i18n.t("notify.group-created-success"), "success");
             }
         },
         updater: (store) => {},
