@@ -6,18 +6,19 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
+import uuidv4 from "uuid/v4";
+import copy from "clipboard-copy";
+import urlRegex from "url-regex";
+
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import Dropdown from "../Dropdown";
 import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
-import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import FieldInput from "../FieldInput";
-import uuidv4 from "uuid/v4";
-import copy from "clipboard-copy";
-import urlRegex from "url-regex";
-
+import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
 import { checkOrganization } from "../../components/organization/Organization";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 import Worklog from "../Worklog";
@@ -95,8 +96,12 @@ class OrganizationUpdateForm extends React.Component {
         return url;
     };
 
+    handleSubmit = (organization) => {
+        UpdateOrganizationMutation(organization, this);
+    };
+
     render() {
-        let {
+        const {
             organization,
             name,
             type,
@@ -112,7 +117,7 @@ class OrganizationUpdateForm extends React.Component {
             submitting
         } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <Form.Row>
                     <Col>
                         <div className="title-section">
@@ -459,6 +464,14 @@ const validate = (values, props) => {
         errors.name = "* Required!";
     }
 
+    if (!values.type) {
+        errors.type = "* Required!";
+    }
+
+    if (!values.organization_id) {
+        errors.organization_id = "* Required!";
+    }
+
     if (values.website) {
         if (!urlRegex({ exact: true, strict: false }).test(values.website)) {
             errors.website = "* Invalid url!";
@@ -576,6 +589,33 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                         start {
                             handle_id
                             node_name
+                        }
+                    }
+                }
+                contacts {
+                    handle_id
+                    first_name
+                    last_name
+                    contact_type
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    roles {
+                        relation_id
+                        role_data {
+                            handle_id
+                            name
+                        }
+                        end {
+                            handle_id
+                            name
                         }
                     }
                 }

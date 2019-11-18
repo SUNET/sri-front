@@ -74,7 +74,7 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateGroupMutation(group, notifications, callback) {
+export default function UpdateGroupMutation(group, form) {
     const newMembers = [];
     const updateMembers = [];
 
@@ -139,15 +139,15 @@ export default function UpdateGroupMutation(group, notifications, callback) {
         variables,
         onCompleted: (response, errors) => {
             if (response.composite_group.created.errors) {
-                notifications(i18n.t("notify.error"), "error");
+                form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_group.created.errors;
             } else {
                 const group_id = response.composite_group.created.group.handle_id;
                 if (group.comment) {
                     CreateComentMutation(group_id, group.comment);
                 }
-                notifications(i18n.t("notify.group-created-success"), "success");
-                callback.push("/community/groups/" + group_id);
+                form.props.notify(i18n.t("notify.group-created-success"), "success");
+                form.props.history.push("/community/groups/" + group_id);
             }
         },
         updater: (store) => {},

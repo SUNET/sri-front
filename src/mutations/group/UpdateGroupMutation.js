@@ -76,7 +76,7 @@ const mutation = graphql`
     }
 `;
 
-export default function UpdateGroupMutation(group, notifications, callback, reset) {
+export default function UpdateGroupMutation(group, form) {
     const newMembers = [];
     const updateMembers = [];
     const deleteMembers = [];
@@ -146,12 +146,12 @@ export default function UpdateGroupMutation(group, notifications, callback, rese
         variables,
         onCompleted: (response, errors) => {
             if (response.composite_group.updated.errors) {
-                notifications(i18n.t("notify.error"), "error");
+                form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_group.updated.errors;
             } else {
-                notifications(i18n.t("notify.changes-saved"), "success");
-                reset();
-                callback();
+                form.props.reset();
+                form.refetch();
+                form.props.notify(i18n.t("notify.changes-saved"), "success");
             }
         },
         updater: (store) => {},

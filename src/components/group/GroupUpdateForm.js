@@ -76,7 +76,7 @@ class GroupUpdateForm extends React.Component {
     };
 
     handleSubmit = (group) => {
-        UpdateGroupMutation(group, this.props.notify, () => this.props.refetch(), () => this.props.reset());
+        UpdateGroupMutation(group, this);
     };
 
     render() {

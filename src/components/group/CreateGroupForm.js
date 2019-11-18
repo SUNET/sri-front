@@ -57,7 +57,7 @@ class CreateGroupForm extends React.Component {
     };
 
     handleSubmit = (group) => {
-        CreateGroupMutation(group, this.props.notify, this.props.history);
+        CreateGroupMutation(group, this);
     };
 
     render() {
