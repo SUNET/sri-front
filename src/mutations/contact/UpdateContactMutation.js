@@ -160,7 +160,7 @@ export default function UpdateContactMutation(contact, form) {
                     });
                 } else {
                     newEmails.push({
-                        name: email.name,
+                        name: email.email,
                         type: email.type
                     });
                 }
@@ -176,14 +176,14 @@ export default function UpdateContactMutation(contact, form) {
                 deleteEmails.push(phone.handle_id);
             } else if (phone.status === "saved") {
                 if (phone.origin === "store") {
-                    updateEmails.push({
+                    updatePhones.push({
                         handle_id: phone.handle_id,
                         name: phone.phone,
                         type: phone.type
                     });
                 } else {
-                    newEmails.push({
-                        name: phone.name,
+                    newPhones.push({
+                        name: phone.phone,
                         type: phone.type
                     });
                 }
@@ -239,7 +239,7 @@ export default function UpdateContactMutation(contact, form) {
         onCompleted: (response, errors) => {
             console.log(response, errors);
             if (response.composite_contact.updated.errors) {
-                return response.composite_contact.update.errors;
+                return response.composite_contact.updated.errors;
             } else {
                 if (deleteRoles.length > 0) {
                     deleteRoles.map((role) => {

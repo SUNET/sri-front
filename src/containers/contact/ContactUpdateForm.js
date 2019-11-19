@@ -8,6 +8,7 @@ const mapStateToProps = (state, props) => {
     const updateContactSelector = formValueSelector("updateContact");
     const initialValues = {
         name: props.contact.first_name + " " + props.contact.last_name,
+        handle_id: props.contact.handle_id,
         notes: props.contact.notes,
         title: props.contact.title,
         contact_type: props.contact.contact_type,

@@ -185,7 +185,7 @@ export default function CreateContactMutation(contact, form) {
                 return response.composite_contact.created.errors;
             } else {
                 const contact_id = response.composite_contact.created.contact.handle_id;
-                if (contact_id.comment) {
+                if (contact.comment) {
                     CreateComentMutation(contact_id, contact.comment);
                 }
                 form.props.history.push("/community/contacts/" + contact_id);
