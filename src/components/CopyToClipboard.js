@@ -30,7 +30,7 @@ class CopyToClipboard extends Component {
     };
 
     copyContentToIcon = (event) => {
-        copy(event.target.parentElement.nextSibling.innerText);
+        copy(event.target.parentElement.getElementsByClassName("element-to-copy")[0].innerText);
         this.showCopied();
     };
 
