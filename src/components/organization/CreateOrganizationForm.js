@@ -26,7 +26,10 @@ class CreateOrganizationForm extends React.Component {
     }
 
     _hasBeenAdded = (newContact) => {
-        return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+        if (this.props.contactsValues) {
+            return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+        }
+        return false;
     };
 
     handleSelectedContact = (selection) => {

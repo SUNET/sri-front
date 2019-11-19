@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f2a440ab90e408faae070501b4c2a01e
+ * @relayHash e6563fc585961cb88e44f8ff6426e110
  */
 
 /* eslint-disable */
@@ -18,7 +18,7 @@ export type ContactQueryResponse = {|
     +name: string,
     +first_name: string,
     +last_name: string,
-    +contact_type: ?string,
+    +contact_type: ?any,
     +emails: ?$ReadOnlyArray<?{|
       +handle_id: string,
       +name: string,

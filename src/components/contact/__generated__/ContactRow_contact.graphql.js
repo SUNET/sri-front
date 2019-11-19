@@ -15,7 +15,7 @@ export type ContactRow_contact = {|
   +handle_id: string,
   +first_name: string,
   +last_name: string,
-  +contact_type: ?string,
+  +contact_type: ?any,
   +modified: any,
   +roles: ?$ReadOnlyArray<?{|
     +name: ?string,

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7135fc85fce549174c4604a6b28d4fb8
+ * @relayHash 2b555d616d17d9c69fccbdc3c2214a99
  */
 
 /* eslint-disable */
@@ -37,7 +37,7 @@ export type CreateContactMutationResponse = {|
       +first_name: string,
       +last_name: string,
       +notes: ?string,
-      +contact_type: ?string,
+      +contact_type: ?any,
       +pgp_fingerprint: ?string,
       +emails: ?$ReadOnlyArray<?{|
         +handle_id: string,
