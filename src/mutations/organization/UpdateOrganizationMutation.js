@@ -211,9 +211,9 @@ export default function UpdateOrganizationMutation(organization, form) {
                         last_name: contact.last_name,
                         contact_type: "person",
                         email: contact.email,
-                        email_type: "personal",
+                        email_type: contact.email ? "personal" : "",
                         phone: contact.phone,
-                        phone_type: "personal",
+                        phone_type: contact.phone ? "personal" : "",
                         role_handle_id: contact.role
                     });
                 } else {
