@@ -65,6 +65,7 @@ class ProfileForm extends React.Component {
                                                 placeholder="Write name"
                                                 name="name"
                                                 className="lg"
+                                                value={this.props.user.display_name}
                                             />
                                         </Form.Group>
 
@@ -75,6 +76,7 @@ class ProfileForm extends React.Component {
                                                 placeholder="Write email"
                                                 name="email"
                                                 className="lg"
+                                                value={this.props.user.email}
                                             />
                                         </Form.Group>
                                     </div>

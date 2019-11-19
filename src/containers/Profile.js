@@ -10,7 +10,8 @@ const mapStateToProps = (state, props) => {
         name: updateGroupSelector(state, "name"),
         email: updateGroupSelector(state, "email"),
         formSyncErrors: getFormSyncErrors("profile")(state),
-        fields: getFormMeta("profile")(state)
+        fields: getFormMeta("profile")(state),
+        user: state.app.user
     };
 };
 
