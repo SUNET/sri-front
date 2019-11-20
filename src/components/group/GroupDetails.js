@@ -39,6 +39,17 @@ const GroupDetailsQuery = graphql`
                         name
                     }
                 }
+                outgoing {
+                    name
+                    relation {
+                        relation_id
+                        type
+                        end {
+                            handle_id
+                            node_name
+                        }
+                    }
+                }
             }
             comments {
                 id

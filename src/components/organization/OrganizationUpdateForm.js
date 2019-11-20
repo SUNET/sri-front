@@ -551,6 +551,7 @@ const validate = (values, props) => {
 OrganizationUpdateForm = reduxForm({
     form: "updateOrganization",
     validate,
+    enableReinitialize: true,
     asyncValidate,
     asyncChangeFields: ["organization_id"],
     onSubmitSuccess: (result, dispatch, props) => {}

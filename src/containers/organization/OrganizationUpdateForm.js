@@ -9,7 +9,8 @@ const mapStateToProps = (state, props) => {
     const updateOrganizationSelector = formValueSelector("updateOrganization");
 
     const organization = props.organization;
-    const parent_node = organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
+    const parent_node =
+        organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
         relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",

@@ -3,7 +3,6 @@ import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
 import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
-import RelationshipGroupContactQuery from "../group/RelationshipGroupContactQuery";
 
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
@@ -20,6 +19,43 @@ const mutation = graphql`
                     handle_id
                     name
                     description
+                    contacts {
+                        handle_id
+                        first_name
+                        last_name
+                        contact_type
+                        emails {
+                            handle_id
+                            name
+                            type
+                        }
+                        phones {
+                            handle_id
+                            name
+                            type
+                        }
+                        roles {
+                            role_data {
+                                handle_id
+                                name
+                            }
+                            end {
+                                handle_id
+                                name
+                            }
+                        }
+                        outgoing {
+                            name
+                            relation {
+                                relation_id
+                                type
+                                end {
+                                    handle_id
+                                    node_name
+                                }
+                            }
+                        }
+                    }
                 }
             }
             subcreated {
@@ -81,6 +117,8 @@ export default function UpdateGroupMutation(group, form) {
     const updateMembers = [];
     const deleteMembers = [];
 
+    const removeRelationsMembers = [];
+
     const members = group.members;
     if (members) {
         Object.keys(members).forEach((member_key) => {
@@ -123,7 +161,7 @@ export default function UpdateGroupMutation(group, form) {
                     });
                 }
             } else if (member.status === "remove") {
-                RelationshipGroupContactQuery(group.handle_id, member.handle_id, DeleteRelationshipMutation);
+                removeRelationsMembers.push(member.group_relation_id);
             }
         });
     }
@@ -149,6 +187,12 @@ export default function UpdateGroupMutation(group, form) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_group.updated.errors;
             } else {
+                if (removeRelationsMembers.length > 0) {
+                    removeRelationsMembers.map((relation_id) => {
+                        return DeleteRelationshipMutation(relation_id);
+                    });
+                }
+
                 form.props.reset();
                 form.refetch();
                 form.props.notify(i18n.t("notify.changes-saved"), "success");

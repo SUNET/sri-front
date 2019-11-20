@@ -449,7 +449,8 @@ const validate = (values) => {
 
 ContactUpdateForm = reduxForm({
     form: "updateContact",
-    validate
+    validate,
+    enableReinitialize: true
 })(ContactUpdateForm);
 
 const ContactUpdateFormFragment = createRefetchContainer(

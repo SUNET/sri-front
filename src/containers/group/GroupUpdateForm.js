@@ -14,6 +14,14 @@ const mapStateToProps = (state, props) => {
         description: group.description,
         members: group.contacts
             ? group.contacts.map((member) => {
+                  let group_relation_id_obj =
+                      member.outgoing &&
+                      member.outgoing.find((relation_node) => {
+                          return (
+                              relation_node.relation.type === "Member_of" &&
+                              relation_node.relation.end.handle_id === group.handle_id
+                          );
+                      });
                   return {
                       handle_id: member.handle_id,
                       name: member.first_name + " " + member.last_name,
@@ -24,6 +32,7 @@ const mapStateToProps = (state, props) => {
                       email_obj: member.emails.length > 0 ? member.emails[0] : undefined,
                       phone: member.phones[0] ? member.phones[0].name : "",
                       phone_obj: member.phones.length > 0 ? member.phones[0] : undefined,
+                      group_relation_id: group_relation_id_obj && group_relation_id_obj.relation.relation_id,
                       status: "saved",
                       origin: "store",
                       created: true

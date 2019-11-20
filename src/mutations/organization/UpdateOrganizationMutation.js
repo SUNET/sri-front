@@ -27,6 +27,36 @@ const mutation = graphql`
                     affiliation_partner
                     affiliation_provider
                     affiliation_site_owner
+                    contacts {
+                        handle_id
+                        first_name
+                        last_name
+                        contact_type
+                        emails {
+                            handle_id
+                            name
+                            type
+                        }
+                        phones {
+                            handle_id
+                            name
+                            type
+                        }
+                        roles {
+                            relation_id
+                            role_data {
+                                handle_id
+                                name
+                            }
+                            end {
+                                handle_id
+                                name
+                            }
+                        }
+                        member_of_groups {
+                            name
+                        }
+                    }
                     comments {
                         user {
                             first_name

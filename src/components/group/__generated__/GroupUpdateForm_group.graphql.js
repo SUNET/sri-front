@@ -40,6 +40,17 @@ export type GroupUpdateForm_group = {|
         +name: string,
       |},
     |}>,
+    +outgoing: ?$ReadOnlyArray<?{|
+      +name: string,
+      +relation: {|
+        +relation_id: number,
+        +type: string,
+        +end: {|
+          +handle_id: string,
+          +node_name: string,
+        |},
+      |},
+    |}>,
   |}>,
   +comments: ?$ReadOnlyArray<?{|
     +id: string,
@@ -97,22 +108,23 @@ v3 = {
   "args": null,
   "storageKey": null
 },
-v4 = [
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "type",
+  "args": null,
+  "storageKey": null
+},
+v5 = [
   (v0/*: any*/),
   (v1/*: any*/),
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "type",
-    "args": null,
-    "storageKey": null
-  }
+  (v4/*: any*/)
 ],
-v5 = [
+v6 = [
   (v0/*: any*/),
   (v1/*: any*/)
 ],
-v6 = [
+v7 = [
   {
     "kind": "ScalarField",
     "alias": null,
@@ -164,7 +176,7 @@ return {
           "args": null,
           "concreteType": "Email",
           "plural": true,
-          "selections": (v4/*: any*/)
+          "selections": (v5/*: any*/)
         },
         {
           "kind": "LinkedField",
@@ -174,7 +186,7 @@ return {
           "args": null,
           "concreteType": "Phone",
           "plural": true,
-          "selections": (v4/*: any*/)
+          "selections": (v5/*: any*/)
         },
         {
           "kind": "LinkedField",
@@ -193,7 +205,7 @@ return {
               "args": null,
               "concreteType": "Role",
               "plural": false,
-              "selections": (v5/*: any*/)
+              "selections": (v6/*: any*/)
             },
             {
               "kind": "LinkedField",
@@ -203,7 +215,57 @@ return {
               "args": null,
               "concreteType": "Organization",
               "plural": false,
-              "selections": (v5/*: any*/)
+              "selections": (v6/*: any*/)
+            }
+          ]
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "outgoing",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "DictRelationType",
+          "plural": true,
+          "selections": [
+            (v1/*: any*/),
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "name": "relation",
+              "storageKey": null,
+              "args": null,
+              "concreteType": "NIRelationType",
+              "plural": false,
+              "selections": [
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "relation_id",
+                  "args": null,
+                  "storageKey": null
+                },
+                (v4/*: any*/),
+                {
+                  "kind": "LinkedField",
+                  "alias": null,
+                  "name": "end",
+                  "storageKey": null,
+                  "args": null,
+                  "concreteType": "NINodeHandlerType",
+                  "plural": false,
+                  "selections": [
+                    (v0/*: any*/),
+                    {
+                      "kind": "ScalarField",
+                      "alias": null,
+                      "name": "node_name",
+                      "args": null,
+                      "storageKey": null
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -269,7 +331,7 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v6/*: any*/)
+      "selections": (v7/*: any*/)
     },
     {
       "kind": "ScalarField",
@@ -286,11 +348,11 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v6/*: any*/)
+      "selections": (v7/*: any*/)
     }
   ]
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '903acfd0fe0958631a4e0fa1f4a34de6';
+(node/*: any*/).hash = '516e2ad2857ab65f6a82008e1b7f4b6b';
 module.exports = node;
