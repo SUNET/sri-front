@@ -4,7 +4,14 @@ import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("profile");
-    const initialValues = {};
+    const user_profile = state.app.user;
+    const initialValues = {
+        name: user_profile.name,
+        email: user_profile.email,
+        network: user_profile.view_network,
+        services: user_profile.view_services,
+        community: user_profile.view_community
+    };
     return {
         initialValues,
         name: updateGroupSelector(state, "name"),

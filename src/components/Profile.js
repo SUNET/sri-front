@@ -18,16 +18,19 @@ class ProfileForm extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.props.initialize();
+    }
+
     _handleChangePage = (event) => {
         this.setState({ default_page: event.target.value });
     };
 
     render() {
         const { t, handleSubmit } = this.props;
-        console.log(this.props);
         return (
             <section className="profile">
-                <form enctype="multipart/form-data" onSubmit={handleSubmit}>
+                <form encType="multipart/form-data" onSubmit={handleSubmit}>
                     <Row>
                         <Col>
                             <div className="title-section">
@@ -65,7 +68,6 @@ class ProfileForm extends React.Component {
                                                 placeholder="Write name"
                                                 name="name"
                                                 className="lg"
-                                                value={this.props.user.display_name}
                                             />
                                         </Form.Group>
 
@@ -76,7 +78,6 @@ class ProfileForm extends React.Component {
                                                 placeholder="Write email"
                                                 name="email"
                                                 className="lg"
-                                                value={this.props.user.email}
                                             />
                                         </Form.Group>
                                     </div>
