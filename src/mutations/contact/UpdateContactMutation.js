@@ -1,7 +1,6 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
@@ -150,7 +149,7 @@ export default function UpdateContactMutation(contact, form) {
         Object.keys(emails).forEach((email_key) => {
             let email = emails[email_key];
             if (email.status === "remove") {
-                deleteEmails.push(email.handle_id);
+                deleteEmails.push({ handle_id: email.handle_id });
             } else if (email.status === "saved") {
                 if (email.origin === "store") {
                     updateEmails.push({
@@ -173,7 +172,7 @@ export default function UpdateContactMutation(contact, form) {
         Object.keys(phones).forEach((phone_key) => {
             let phone = phones[phone_key];
             if (phone.status === "remove") {
-                deleteEmails.push(phone.handle_id);
+                deleteEmails.push({ handle_id: phone.handle_id });
             } else if (phone.status === "saved") {
                 if (phone.origin === "store") {
                     updatePhones.push({
@@ -196,17 +195,12 @@ export default function UpdateContactMutation(contact, form) {
         Object.keys(organizations).forEach((organization_key) => {
             let organization = organizations[organization_key];
             if (organization.status === "saved") {
-                if (organization.origin === "store") {
-                    if (organization.role_obj) {
-                        DeleteRelationshipMutation(organization.role_obj.relation_id);
-                    }
-                }
                 roles.push({
                     role_handle_id: organization.role,
                     organization_handle_id: organization.organization
                 });
             } else if (organization.status === "remove") {
-                deleteRoles.push(organization.role_obj.relation_id);
+                deleteRoles.push({ relation_id: organization.role_obj.relation_id });
             }
         });
     }
@@ -229,7 +223,8 @@ export default function UpdateContactMutation(contact, form) {
             create_phones: newPhones,
             update_phones: updatePhones,
             delete_phones: deletePhones,
-            link_rolerelations: roles
+            link_rolerelations: roles,
+            unlink_subinputs: deleteRoles
         }
     };
 
@@ -241,11 +236,6 @@ export default function UpdateContactMutation(contact, form) {
             if (response.composite_contact.updated.errors) {
                 return response.composite_contact.updated.errors;
             } else {
-                if (deleteRoles.length > 0) {
-                    deleteRoles.map((role) => {
-                        return DeleteRelationshipMutation(role);
-                    });
-                }
                 form.props.reset();
                 form.refetch();
                 form.props.notify(i18n.t("notify.changes-saved"), "success");

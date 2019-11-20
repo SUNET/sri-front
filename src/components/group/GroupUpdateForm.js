@@ -58,7 +58,7 @@ class GroupUpdateForm extends React.Component {
                     phone_obj: member.phones[0] ? member.phones[0] : {},
                     created: true,
                     origin: "new",
-                    status: "saved",
+                    status: "editing",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newMember)) {
@@ -201,14 +201,7 @@ class GroupUpdateForm extends React.Component {
                     <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}
                     </button>
-                    <button
-                        onClick={() => {
-                            document.documentElement.scrollTop = 0;
-                        }}
-                        type="submit"
-                        className="btn primary lg"
-                        disabled={pristine || submitting}
-                    >
+                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                         {t("actions.save")}
                     </button>
                 </div>
@@ -261,7 +254,10 @@ const validate = (values) => {
 GroupUpdateForm = reduxForm({
     form: "updateGroup",
     validate,
-    enableReinitialize: true
+    enableReinitialize: true,
+    onSubmitSuccess: (result, dispatch, props) => {
+        document.documentElement.scrollTop = 0;
+    }
 })(GroupUpdateForm);
 
 const GroupUpdateFragment = createRefetchContainer(

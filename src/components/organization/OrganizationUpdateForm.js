@@ -72,7 +72,7 @@ class OrganizationUpdateForm extends React.Component {
                     phone_obj: contact.phones[0] ? contact.phones[0] : {},
                     created: true,
                     origin: "new",
-                    status: "saved",
+                    status: "editing",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newContact)) {
@@ -432,14 +432,7 @@ class OrganizationUpdateForm extends React.Component {
                     <button type="button" onClick={() => this.props.onDelete()} className="btn link">
                         {t("actions.delete")}
                     </button>
-                    <button
-                        onClick={() => {
-                            document.documentElement.scrollTop = 0;
-                        }}
-                        type="submit"
-                        className="btn primary lg"
-                        disabled={pristine || submitting}
-                    >
+                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                         {t("actions.save")}
                     </button>
                 </div>
@@ -554,7 +547,9 @@ OrganizationUpdateForm = reduxForm({
     enableReinitialize: true,
     asyncValidate,
     asyncChangeFields: ["organization_id"],
-    onSubmitSuccess: (result, dispatch, props) => {}
+    onSubmitSuccess: (result, dispatch, props) => {
+        document.documentElement.scrollTop = 0;
+    }
 })(OrganizationUpdateForm);
 
 const OrganizationUpdateFormFragment = createRefetchContainer(

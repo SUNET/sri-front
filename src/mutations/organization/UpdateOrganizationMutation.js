@@ -216,7 +216,7 @@ export default function UpdateOrganizationMutation(organization, form) {
                     });
                 }
             } else if (address.status === "remove") {
-                deleteAddress.push(address.handle_id);
+                deleteAddress.push({ handle_id: address.handle_id });
             }
         });
     }
@@ -235,6 +235,12 @@ export default function UpdateOrganizationMutation(organization, form) {
                     contact.last_name = fullName;
                 }
 
+                if (form.props.isDirty_contacts_roles[contact_key]) {
+                    if (contact.role_obj) {
+                        deleteRoles.push({ relation_id: contact.role_obj.relation_id });
+                    }
+                }
+
                 if (!contact.created || contact.created === undefined) {
                     newContacts.push({
                         first_name: contact.first_name,
@@ -247,9 +253,6 @@ export default function UpdateOrganizationMutation(organization, form) {
                         role_handle_id: contact.role
                     });
                 } else {
-                    if (form.props.isDirty_contacts_roles[contact_key]) {
-                        deleteRoles.push(contact.role_obj.relation_id);
-                    }
                     updateContacts.push({
                         handle_id: contact.handle_id,
                         first_name: contact.first_name,
@@ -265,7 +268,7 @@ export default function UpdateOrganizationMutation(organization, form) {
                     });
                 }
             } else if (contact.status === "remove") {
-                deleteRoles.push(contact.role_relation_id);
+                deleteRoles.push({ relation_id: contact.role_relation_id });
             }
         });
     }
@@ -295,7 +298,8 @@ export default function UpdateOrganizationMutation(organization, form) {
             delete_subinputs: deleteContacts,
             create_address: newAddress,
             update_address: updateAddress,
-            delete_address: deleteAddress
+            delete_address: deleteAddress,
+            unlink_subinputs: deleteRoles
         }
     };
     commitMutation(environment, {
@@ -308,11 +312,6 @@ export default function UpdateOrganizationMutation(organization, form) {
             } else {
                 if (form.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
                     DeleteRelationshipMutation(organization.relationship_parent_of_relation_id);
-                }
-                if (deleteRoles.length > 0) {
-                    deleteRoles.map((role) => {
-                        return DeleteRelationshipMutation(role);
-                    });
                 }
                 form.props.reset();
                 form.refetch();

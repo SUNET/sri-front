@@ -360,14 +360,7 @@ class ContactUpdateForm extends React.PureComponent {
                     <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}
                     </button>
-                    <button
-                        onClick={() => {
-                            document.documentElement.scrollTop = 0;
-                        }}
-                        type="submit"
-                        className="btn primary lg"
-                        disabled={pristine || submitting}
-                    >
+                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                         {t("actions.save")}
                     </button>
                 </div>
@@ -450,7 +443,10 @@ const validate = (values) => {
 ContactUpdateForm = reduxForm({
     form: "updateContact",
     validate,
-    enableReinitialize: true
+    enableReinitialize: true,
+    onSubmitSuccess: (result, dispatch, props) => {
+        document.documentElement.scrollTop = 0;
+    }
 })(ContactUpdateForm);
 
 const ContactUpdateFormFragment = createRefetchContainer(

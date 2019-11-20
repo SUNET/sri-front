@@ -2,8 +2,6 @@ import { commitMutation } from "react-relay";
 // import { ConnectionHandler } from "relay-runtime";
 import graphql from "babel-plugin-relay/macro";
 
-import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
-
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
@@ -142,7 +140,6 @@ export default function UpdateGroupMutation(group, form) {
                         email_type: "personal",
                         phone: member.phone,
                         phone_type: "personal",
-                        relationship_member_of: group.handle_id,
                         relationship_works_for: member.organization
                     });
                 } else {
@@ -161,7 +158,7 @@ export default function UpdateGroupMutation(group, form) {
                     });
                 }
             } else if (member.status === "remove") {
-                removeRelationsMembers.push(member.group_relation_id);
+                removeRelationsMembers.push({ relation_id: member.group_relation_id });
             }
         });
     }
@@ -176,23 +173,19 @@ export default function UpdateGroupMutation(group, form) {
             },
             create_subinputs: newMembers,
             update_subinputs: updateMembers,
-            delete_subinputs: deleteMembers
+            delete_subinputs: deleteMembers,
+            unlink_subinputs: removeRelationsMembers
         }
     };
     commitMutation(environment, {
         mutation,
         variables,
         onCompleted: (response, errors) => {
+            console.log(response, errors);
             if (response.composite_group.updated.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_group.updated.errors;
             } else {
-                if (removeRelationsMembers.length > 0) {
-                    removeRelationsMembers.map((relation_id) => {
-                        return DeleteRelationshipMutation(relation_id);
-                    });
-                }
-
                 form.props.reset();
                 form.refetch();
                 form.props.notify(i18n.t("notify.changes-saved"), "success");

@@ -67,33 +67,32 @@ const mapStateToProps = (state, props) => {
                       status: "editing"
                   }
               ],
-        addresses:
-            organization.addresses.length > 0
-                ? organization.addresses.map((address) => {
-                      return {
-                          handle_id: address.handle_id,
-                          name: address.name,
-                          website: address.website,
-                          street: address.street,
-                          postal_code: address.postal_code,
-                          postal_area: address.postal_area,
-                          phone: address.phone,
-                          status: "saved",
-                          origin: "store",
-                          created: true
-                      };
-                  })
-                : [
-                      {
-                          name: "",
-                          role: "",
-                          email: "",
-                          phone: "",
-                          key: uuidv4(),
-                          created: false,
-                          status: "editing"
-                      }
-                  ]
+        addresses: organization.addresses
+            ? organization.addresses.map((address) => {
+                  return {
+                      handle_id: address.handle_id,
+                      name: address.name,
+                      street: address.street,
+                      postal_code: address.postal_code,
+                      postal_area: address.postal_area,
+                      phone: address.phone,
+                      status: "saved",
+                      origin: "store",
+                      created: true
+                  };
+              })
+            : [
+                  {
+                      name: "main",
+                      street: "",
+                      postal_code: "",
+                      postal_area: "",
+                      phone: "",
+                      key: uuidv4(),
+                      created: false,
+                      status: "editing"
+                  }
+              ]
     };
     const contactsValues = updateOrganizationSelector(state, "contacts");
     return {

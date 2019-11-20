@@ -242,6 +242,7 @@ input CompositeContactMutationInput {
   create_subinputs: [CreateEmailInput]
   update_subinputs: [UpdateEmailInput]
   delete_subinputs: [DeleteEmailInput]
+  unlink_subinputs: [DeleteRelationshipInput]
   create_phones: [CreatePhoneInput]
   update_phones: [UpdatePhoneInput]
   delete_phones: [DeletePhoneInput]
@@ -255,6 +256,7 @@ type CompositeContactMutationPayload {
   subcreated: [CreateEmailPayload]
   subupdated: [UpdateEmailPayload]
   subdeleted: [DeleteEmailPayload]
+  unlinked: [DeleteRelationshipPayload]
   phones_created: [CreatePhonePayload]
   phones_updated: [UpdatePhonePayload]
   phones_deleted: [DeletePhonePayload]
@@ -268,6 +270,7 @@ input CompositeGroupMutationInput {
   create_subinputs: [CreateContactInput]
   update_subinputs: [UpdateContactInput]
   delete_subinputs: [DeleteContactInput]
+  unlink_subinputs: [DeleteRelationshipInput]
   clientMutationId: String
 }
 
@@ -277,6 +280,7 @@ type CompositeGroupMutationPayload {
   subcreated: [CreateContactPayload]
   subupdated: [UpdateContactPayload]
   subdeleted: [DeleteContactPayload]
+  unlinked: [DeleteRelationshipPayload]
   clientMutationId: String
 }
 
@@ -286,6 +290,7 @@ input CompositeOrganizationMutationInput {
   create_subinputs: [CreateContactInput]
   update_subinputs: [UpdateContactInput]
   delete_subinputs: [DeleteContactInput]
+  unlink_subinputs: [DeleteRelationshipInput]
   create_address: [CreateAddressInput]
   update_address: [UpdateAddressInput]
   delete_address: [DeleteAddressInput]
@@ -298,6 +303,7 @@ type CompositeOrganizationMutationPayload {
   subcreated: [CreateContactPayload]
   subupdated: [UpdateContactPayload]
   subdeleted: [DeleteContactPayload]
+  unlinked: [DeleteRelationshipPayload]
   address_created: [CreateAddressPayload]
   address_updated: [UpdateAddressPayload]
   address_deleted: [DeleteAddressPayload]
