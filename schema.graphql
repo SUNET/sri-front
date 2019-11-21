@@ -189,14 +189,6 @@ enum AddressOrderBy {
   postal_area_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 """This class is used for the choices available in a dropdown"""
@@ -612,22 +604,22 @@ enum ContactOrderBy {
   title_DESC
   salutation_ASC
   salutation_DESC
-  contact_type_ASC
-  contact_type_DESC
+  phones_ASC
+  phones_DESC
+  emails_ASC
+  emails_DESC
   pgp_fingerprint_ASC
   pgp_fingerprint_DESC
+  member_of_groups_ASC
+  member_of_groups_DESC
+  roles_ASC
+  roles_DESC
+  organizations_ASC
+  organizations_DESC
   notes_ASC
   notes_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 type ContactWithRelation {
@@ -1075,18 +1067,8 @@ input EmailNestedFilter {
 enum EmailOrderBy {
   name_ASC
   name_DESC
-  type_ASC
-  type_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 type ErrorType {
@@ -1245,14 +1227,6 @@ enum GroupOrderBy {
   description_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 """A host in the SRI system"""
@@ -1788,32 +1762,12 @@ enum OrganizationOrderBy {
   organization_id_DESC
   incident_management_info_ASC
   incident_management_info_DESC
-  type_ASC
-  type_DESC
   website_ASC
   website_DESC
-  affiliation_customer_ASC
-  affiliation_customer_DESC
-  affiliation_end_customer_ASC
-  affiliation_end_customer_DESC
-  affiliation_provider_ASC
-  affiliation_provider_DESC
-  affiliation_partner_ASC
-  affiliation_partner_DESC
-  affiliation_host_user_ASC
-  affiliation_host_user_DESC
-  affiliation_site_owner_ASC
-  affiliation_site_owner_DESC
+  addresses_ASC
+  addresses_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 """
@@ -1966,18 +1920,8 @@ input PhoneNestedFilter {
 enum PhoneOrderBy {
   name_ASC
   name_DESC
-  type_ASC
-  type_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 """The group type is used to group contacts"""
@@ -2113,14 +2057,6 @@ enum ProcedureOrderBy {
   description_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 type Query {

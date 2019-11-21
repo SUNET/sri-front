@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 97bd36a4060bbe2c28cc99128cba3fdf
+ * @relayHash 1265959fbe8a9feebb2a4a6112197ebe
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type GroupList_groups$ref = any;
-export type GroupOrderBy = "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "%future added value";
+export type GroupOrderBy = "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "name_ASC" | "name_DESC" | "%future added value";
 export type GroupListForwardQueryVariables = {|
   count: number,
   cursor?: ?string,
