@@ -11,6 +11,7 @@ const mapStateToProps = (state, props) => {
     const organization = props.organization;
     const parent_node =
         organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
+
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
         relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",
@@ -38,15 +39,18 @@ const mapStateToProps = (state, props) => {
         incident_management_info: organization.incident_management_info,
         contacts: organization.contacts
             ? organization.contacts.map((contact) => {
+                  const contact_relation_id_obj = contact.roles.find((relation_node) => {
+                      return relation_node.end.handle_id === organization.handle_id;
+                  });
                   const contact_node = contact;
                   return {
                       handle_id: contact_node.handle_id,
                       name: contact_node.first_name + " " + contact_node.last_name,
                       contact_type: contact_node.contact_type,
-                      role: contact_node.roles[0] ? contact_node.roles[0].role_data.handle_id : "",
-                      role_label: contact_node.roles[0] ? contact_node.roles[0].role_data.name : "",
-                      role_obj: contact_node.roles[0],
-                      role_relation_id: contact_node.roles[0] ? contact_node.roles[0].relation_id : "",
+                      role: contact_relation_id_obj ? contact_relation_id_obj.role_data.handle_id : "",
+                      role_label: contact_relation_id_obj ? contact_relation_id_obj.role_data.name : "",
+                      role_obj: contact_relation_id_obj,
+                      role_relation_id: contact_relation_id_obj ? contact_relation_id_obj.relation_id : "",
                       email: contact_node.emails[0] ? contact_node.emails[0].name : "",
                       email_obj: contact_node.emails.length > 0 ? contact_node.emails[0] : undefined,
                       phone: contact_node.phones[0] ? contact_node.phones[0].name : "",

@@ -235,9 +235,11 @@ export default function UpdateOrganizationMutation(organization, form) {
                     contact.last_name = fullName;
                 }
                 // the backend should update the relationship when a node changes, not delete it to create a new one
-                if (form.props.isDirty_contacts_roles[contact_key]) {
-                    if (contact.role_obj) {
-                        deleteRoles.push({ relation_id: contact.role_obj.relation_id });
+                if (contact.origin === "store") {
+                    if (form.props.isDirty_contacts_roles[contact_key]) {
+                        if (contact.role_obj) {
+                            deleteRoles.push({ relation_id: contact.role_obj.relation_id });
+                        }
                     }
                 }
 
