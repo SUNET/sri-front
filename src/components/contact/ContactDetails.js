@@ -6,7 +6,6 @@ import { withTranslation } from "react-i18next";
 
 import ContactUpdateFormContainer from "../../containers/contact/ContactUpdateForm";
 import DeleteContactMutation from "../../mutations/contact/DeleteContactMutation";
-import UpdateContactMutation from "../../mutations/contact/UpdateContactMutation";
 import environment from "../../createRelayEnvironment";
 
 const ContactDetailsQuery = graphql`
@@ -74,11 +73,6 @@ class ContactDetails extends React.Component {
         }).isRequired
     };
 
-    handleSubmit = (contact) => {
-        contact.id = this.props.match.params.contactId;
-        UpdateContactMutation(contact, this.props.notify);
-    };
-
     handleDelete = () => {
         const contactId = this.props.match.params.contactId;
         DeleteContactMutation(contactId, () => this.props.history.push(`/community/contacts`));
@@ -99,7 +93,6 @@ class ContactDetails extends React.Component {
                         return (
                             <section className="model-details">
                                 <ContactUpdateFormContainer
-                                    onSubmit={this.handleSubmit}
                                     onDelete={this.handleDelete}
                                     contact={props.getContactById}
                                     history={this.props.history}

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 819d3b385078ab6b37225758b079b1b8
+ * @relayHash d2d915c672efbf7c19edb2bfb7679846
  */
 
 /* eslint-disable */
@@ -39,14 +39,47 @@ fragment GroupUpdateForm_group on Group {
   handle_id
   name
   description
-  created
-  creator {
-    email
-    id
-  }
-  modified
-  modifier {
-    email
+  contacts {
+    handle_id
+    first_name
+    last_name
+    contact_type
+    emails {
+      handle_id
+      name
+      type
+      id
+    }
+    phones {
+      handle_id
+      name
+      type
+      id
+    }
+    roles {
+      role_data {
+        handle_id
+        name
+      }
+      end {
+        handle_id
+        name
+        id
+      }
+    }
+    outgoing {
+      name
+      relation {
+        relation_id
+        type
+        end {
+          handle_id
+          node_name
+          id
+        }
+        id
+      }
+    }
     id
   }
   comments {
@@ -58,6 +91,16 @@ fragment GroupUpdateForm_group on Group {
     }
     comment
     submit_date
+  }
+  created
+  creator {
+    email
+    id
+  }
+  modified
+  modifier {
+    email
+    id
   }
 }
 */
@@ -81,11 +124,52 @@ v1 = [
 v2 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "handle_id",
+  "args": null,
+  "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "first_name",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "type",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
 },
-v3 = [
+v8 = [
+  (v2/*: any*/),
+  (v3/*: any*/),
+  (v6/*: any*/),
+  (v7/*: any*/)
+],
+v9 = [
   {
     "kind": "ScalarField",
     "alias": null,
@@ -93,7 +177,7 @@ v3 = [
     "args": null,
     "storageKey": null
   },
-  (v2/*: any*/)
+  (v7/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -136,20 +220,8 @@ return {
         "concreteType": "Group",
         "plural": false,
         "selections": [
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "handle_id",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "name",
-            "args": null,
-            "storageKey": null
-          },
+          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
@@ -158,38 +230,136 @@ return {
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "created",
-            "args": null,
-            "storageKey": null
-          },
-          {
             "kind": "LinkedField",
             "alias": null,
-            "name": "creator",
+            "name": "contacts",
             "storageKey": null,
             "args": null,
-            "concreteType": "User",
-            "plural": false,
-            "selections": (v3/*: any*/)
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "modified",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "modifier",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "User",
-            "plural": false,
-            "selections": (v3/*: any*/)
+            "concreteType": "Contact",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "contact_type",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "emails",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Email",
+                "plural": true,
+                "selections": (v8/*: any*/)
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "phones",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Phone",
+                "plural": true,
+                "selections": (v8/*: any*/)
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "roles",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "RoleRelation",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "role_data",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Role",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v3/*: any*/)
+                    ]
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "end",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v3/*: any*/),
+                      (v7/*: any*/)
+                    ]
+                  }
+                ]
+              },
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "outgoing",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "DictRelationType",
+                "plural": true,
+                "selections": [
+                  (v3/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "relation",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "NIRelationType",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "relation_id",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      (v6/*: any*/),
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "end",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "NINodeHandlerType",
+                        "plural": false,
+                        "selections": [
+                          (v2/*: any*/),
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "node_name",
+                            "args": null,
+                            "storageKey": null
+                          },
+                          (v7/*: any*/)
+                        ]
+                      },
+                      (v7/*: any*/)
+                    ]
+                  }
+                ]
+              },
+              (v7/*: any*/)
+            ]
           },
           {
             "kind": "LinkedField",
@@ -200,7 +370,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
+              (v7/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -210,21 +380,9 @@ return {
                 "concreteType": "User",
                 "plural": false,
                 "selections": [
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "first_name",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "last_name",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  (v2/*: any*/)
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v7/*: any*/)
                 ]
               },
               {
@@ -243,7 +401,41 @@ return {
               }
             ]
           },
-          (v2/*: any*/)
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "created",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "creator",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v9/*: any*/)
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "modified",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "modifier",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "User",
+            "plural": false,
+            "selections": (v9/*: any*/)
+          },
+          (v7/*: any*/)
         ]
       }
     ]
@@ -252,7 +444,7 @@ return {
     "operationKind": "query",
     "name": "GroupUpdateFormRefetchQuery",
     "id": null,
-    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  contacts {\n    handle_id\n    first_name\n    last_name\n    contact_type\n    emails {\n      handle_id\n      name\n      type\n      id\n    }\n    phones {\n      handle_id\n      name\n      type\n      id\n    }\n    roles {\n      role_data {\n        handle_id\n        name\n      }\n      end {\n        handle_id\n        name\n        id\n      }\n    }\n    outgoing {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          handle_id\n          node_name\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

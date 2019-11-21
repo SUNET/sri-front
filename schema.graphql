@@ -9,7 +9,6 @@ type Address implements Node {
   outgoing: [DictRelationType]
   comments: [CommentType]
   name: String!
-  website: String
   phone: String
   street: String
   postal_code: String
@@ -40,7 +39,6 @@ input AddressFilter {
 
 input AddressInputField {
   name: String
-  website: String
   phone: String
   street: String
   postal_code: String
@@ -67,20 +65,6 @@ input AddressNestedFilter {
   name_not_ends_with: String
   name_in: [String!]
   name_not_in: [String!]
-  website: String
-  website_not: String
-  website_lt: String
-  website_lte: String
-  website_gt: String
-  website_gte: String
-  website_contains: String
-  website_not_contains: String
-  website_starts_with: String
-  website_not_starts_with: String
-  website_ends_with: String
-  website_not_ends_with: String
-  website_in: [String!]
-  website_not_in: [String!]
   phone: String
   phone_not: String
   phone_lt: String
@@ -195,8 +179,6 @@ input AddressNestedFilter {
 enum AddressOrderBy {
   name_ASC
   name_DESC
-  website_ASC
-  website_DESC
   phone_ASC
   phone_DESC
   street_ASC
@@ -207,14 +189,6 @@ enum AddressOrderBy {
   postal_area_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 """This class is used for the choices available in a dropdown"""
@@ -254,6 +228,80 @@ type CommentType {
   is_removed: Boolean!
 }
 
+input CompositeContactMutationInput {
+  create_input: CreateContactInput
+  update_input: UpdateContactInput
+  create_subinputs: [CreateEmailInput]
+  update_subinputs: [UpdateEmailInput]
+  delete_subinputs: [DeleteEmailInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_phones: [CreatePhoneInput]
+  update_phones: [UpdatePhoneInput]
+  delete_phones: [DeletePhoneInput]
+  link_rolerelations: [RoleRelationMutationInput]
+  clientMutationId: String
+}
+
+type CompositeContactMutationPayload {
+  created: CreateContactPayload
+  updated: UpdateContactPayload
+  subcreated: [CreateEmailPayload]
+  subupdated: [UpdateEmailPayload]
+  subdeleted: [DeleteEmailPayload]
+  unlinked: [DeleteRelationshipPayload]
+  phones_created: [CreatePhonePayload]
+  phones_updated: [UpdatePhonePayload]
+  phones_deleted: [DeletePhonePayload]
+  rolerelations: [RoleRelationMutationPayload]
+  clientMutationId: String
+}
+
+input CompositeGroupMutationInput {
+  create_input: CreateGroupInput
+  update_input: UpdateGroupInput
+  create_subinputs: [CreateContactInput]
+  update_subinputs: [UpdateContactInput]
+  delete_subinputs: [DeleteContactInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  clientMutationId: String
+}
+
+type CompositeGroupMutationPayload {
+  created: CreateGroupPayload
+  updated: UpdateGroupPayload
+  subcreated: [CreateContactPayload]
+  subupdated: [UpdateContactPayload]
+  subdeleted: [DeleteContactPayload]
+  unlinked: [DeleteRelationshipPayload]
+  clientMutationId: String
+}
+
+input CompositeOrganizationMutationInput {
+  create_input: CreateOrganizationInput
+  update_input: UpdateOrganizationInput
+  create_subinputs: [CreateContactInput]
+  update_subinputs: [UpdateContactInput]
+  delete_subinputs: [DeleteContactInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_address: [CreateAddressInput]
+  update_address: [UpdateAddressInput]
+  delete_address: [DeleteAddressInput]
+  clientMutationId: String
+}
+
+type CompositeOrganizationMutationPayload {
+  created: CreateOrganizationPayload
+  updated: UpdateOrganizationPayload
+  subcreated: [CreateContactPayload]
+  subupdated: [UpdateContactPayload]
+  subdeleted: [DeleteContactPayload]
+  unlinked: [DeleteRelationshipPayload]
+  address_created: [CreateAddressPayload]
+  address_updated: [UpdateAddressPayload]
+  address_deleted: [DeleteAddressPayload]
+  clientMutationId: String
+}
+
 """A contact in the SRI system"""
 type Contact implements Node {
   handle_id: ID!
@@ -281,6 +329,7 @@ type Contact implements Node {
   pgp_fingerprint: String
   member_of_groups: [Group]
   roles: [RoleRelation]
+  organizations: [Organization]
   notes: String
 }
 
@@ -461,6 +510,20 @@ input ContactNestedFilter {
   roles_not_ends_with: RoleRelationInputField
   roles_in: [RoleRelationInputField!]
   roles_not_in: [RoleRelationInputField!]
+  organizations: OrganizationInputField
+  organizations_not: OrganizationInputField
+  organizations_lt: OrganizationInputField
+  organizations_lte: OrganizationInputField
+  organizations_gt: OrganizationInputField
+  organizations_gte: OrganizationInputField
+  organizations_contains: OrganizationInputField
+  organizations_not_contains: OrganizationInputField
+  organizations_starts_with: OrganizationInputField
+  organizations_not_starts_with: OrganizationInputField
+  organizations_ends_with: OrganizationInputField
+  organizations_not_ends_with: OrganizationInputField
+  organizations_in: [OrganizationInputField!]
+  organizations_not_in: [OrganizationInputField!]
   notes: String
   notes_not: String
   notes_lt: String
@@ -541,22 +604,22 @@ enum ContactOrderBy {
   title_DESC
   salutation_ASC
   salutation_DESC
-  contact_type_ASC
-  contact_type_DESC
+  phones_ASC
+  phones_DESC
+  emails_ASC
+  emails_DESC
   pgp_fingerprint_ASC
   pgp_fingerprint_DESC
+  member_of_groups_ASC
+  member_of_groups_DESC
+  roles_ASC
+  roles_DESC
+  organizations_ASC
+  organizations_DESC
   notes_ASC
   notes_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 type ContactWithRelation {
@@ -608,6 +671,13 @@ input CreateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
+  email_handle_id: Int
+  email: String
+  email_type: ChoiceScalar
+  phone_handle_id: Int
+  phone: String
+  phone_type: ChoiceScalar
+  role_handle_id: Int
   clientMutationId: String
 }
 
@@ -997,18 +1067,8 @@ input EmailNestedFilter {
 enum EmailOrderBy {
   name_ASC
   name_DESC
-  type_ASC
-  type_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 type ErrorType {
@@ -1041,6 +1101,7 @@ type Group implements Node {
   comments: [CommentType]
   name: String!
   description: String
+  contacts: [Contact]
 }
 
 type GroupConnection {
@@ -1166,14 +1227,6 @@ enum GroupOrderBy {
   description_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 """A host in the SRI system"""
@@ -1283,6 +1336,7 @@ type Mutation {
   create_group(input: CreateGroupInput!): CreateGroupPayload
   update_group(input: UpdateGroupInput!): UpdateGroupPayload
   delete_group(input: DeleteGroupInput!): DeleteGroupPayload
+  composite_group(input: CompositeGroupMutationInput!): CompositeGroupMutationPayload
   create_procedure(input: CreateProcedureInput!): CreateProcedurePayload
   update_procedure(input: UpdateProcedureInput!): UpdateProcedurePayload
   delete_procedure(input: DeleteProcedureInput!): DeleteProcedurePayload
@@ -1301,10 +1355,12 @@ type Mutation {
   update_contact(input: UpdateContactInput!): UpdateContactPayload
   delete_contact(input: DeleteContactInput!): DeleteContactPayload
   multiple_contact(input: MultipleContactInput!): MultipleContactPayload
+  composite_contact(input: CompositeContactMutationInput!): CompositeContactMutationPayload
   create_organization(input: CreateOrganizationInput!): CreateOrganizationPayload
   update_organization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
   delete_organization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
   multiple_organization(input: MultipleOrganizationInput!): MultipleOrganizationPayload
+  composite_organization(input: CompositeOrganizationMutationInput!): CompositeOrganizationMutationPayload
   create_role(input: CreateRoleInput!): CreateRolePayload
   update_role(input: UpdateRoleInput!): UpdateRolePayload
   delete_role(input: DeleteRoleInput!): DeleteRolePayload
@@ -1431,6 +1487,8 @@ type Organization implements Node {
   affiliation_partner: Boolean
   affiliation_host_user: Boolean
   affiliation_site_owner: Boolean
+  parent_organization: [Organization]
+  contacts: [Contact]
 }
 
 type OrganizationConnection {
@@ -1453,6 +1511,28 @@ type OrganizationEdge {
 input OrganizationFilter {
   AND: [OrganizationNestedFilter!]
   OR: [OrganizationNestedFilter!]
+}
+
+input OrganizationInputField {
+  name: String
+  description: String
+  organization_number: String
+  organization_id: String
+  incident_management_info: String
+  type: ChoiceScalar
+  website: String
+  addresses: AddressInputField
+  affiliation_customer: Boolean
+  affiliation_end_customer: Boolean
+  affiliation_provider: Boolean
+  affiliation_partner: Boolean
+  affiliation_host_user: Boolean
+  affiliation_site_owner: Boolean
+  handle_id: Int
+  created: DateTime
+  modified: DateTime
+  creator: UserInputType
+  modifier: UserInputType
 }
 
 input OrganizationNestedFilter {
@@ -1682,32 +1762,12 @@ enum OrganizationOrderBy {
   organization_id_DESC
   incident_management_info_ASC
   incident_management_info_DESC
-  type_ASC
-  type_DESC
   website_ASC
   website_DESC
-  affiliation_customer_ASC
-  affiliation_customer_DESC
-  affiliation_end_customer_ASC
-  affiliation_end_customer_DESC
-  affiliation_provider_ASC
-  affiliation_provider_DESC
-  affiliation_partner_ASC
-  affiliation_partner_DESC
-  affiliation_host_user_ASC
-  affiliation_host_user_DESC
-  affiliation_site_owner_ASC
-  affiliation_site_owner_DESC
+  addresses_ASC
+  addresses_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 """
@@ -1860,18 +1920,8 @@ input PhoneNestedFilter {
 enum PhoneOrderBy {
   name_ASC
   name_DESC
-  type_ASC
-  type_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 """The group type is used to group contacts"""
@@ -2007,14 +2057,6 @@ enum ProcedureOrderBy {
   description_DESC
   handle_id_ASC
   handle_id_DESC
-  created_ASC
-  created_DESC
-  modified_ASC
-  modified_DESC
-  creator_ASC
-  creator_DESC
-  modifier_ASC
-  modifier_DESC
 }
 
 type Query {
@@ -2125,7 +2167,7 @@ enum RoleOrderBy {
 type RoleRelation {
   relation_id: Int!
   type: String!
-  start: NINodeHandlerType!
+  start: Contact
   end: Organization
   nidata: [DictEntryType]
   name: String
@@ -2135,6 +2177,18 @@ type RoleRelation {
 input RoleRelationInputField {
   relation_id: Int
   name: String
+}
+
+input RoleRelationMutationInput {
+  role_handle_id: Int!
+  organization_handle_id: Int!
+  clientMutationId: String
+}
+
+type RoleRelationMutationPayload {
+  errors: [ErrorType]
+  rolerelation: RoleRelation
+  clientMutationId: String
 }
 
 input SingleCreateContactInput {
@@ -2148,6 +2202,13 @@ input SingleCreateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
+  email_handle_id: Int
+  email: String
+  email_type: ChoiceScalar
+  phone_handle_id: Int
+  phone: String
+  phone_type: ChoiceScalar
+  role_handle_id: Int
 }
 
 input SingleCreateEmailInput {
@@ -2213,6 +2274,13 @@ input SingleUpdateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
+  email_handle_id: Int
+  email: String
+  email_type: ChoiceScalar
+  phone_handle_id: Int
+  phone: String
+  phone_type: ChoiceScalar
+  role_handle_id: Int
   handle_id: Int!
 }
 
@@ -2294,6 +2362,13 @@ input UpdateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
+  email_handle_id: Int
+  email: String
+  email_type: ChoiceScalar
+  phone_handle_id: Int
+  phone: String
+  phone_type: ChoiceScalar
+  role_handle_id: Int
   handle_id: Int!
   clientMutationId: String
 }

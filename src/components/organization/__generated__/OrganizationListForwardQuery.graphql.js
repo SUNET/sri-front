@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 36165cbf86a3aa22456096a7a395e7db
+ * @relayHash bf270aafb1befc96d4197d17727f2bb7
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type OrganizationList_organizations$ref = any;
-export type OrganizationOrderBy = "affiliation_customer_ASC" | "affiliation_customer_DESC" | "affiliation_end_customer_ASC" | "affiliation_end_customer_DESC" | "affiliation_host_user_ASC" | "affiliation_host_user_DESC" | "affiliation_partner_ASC" | "affiliation_partner_DESC" | "affiliation_provider_ASC" | "affiliation_provider_DESC" | "affiliation_site_owner_ASC" | "affiliation_site_owner_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "organization_id_ASC" | "organization_id_DESC" | "organization_number_ASC" | "organization_number_DESC" | "type_ASC" | "type_DESC" | "website_ASC" | "website_DESC" | "%future added value";
+export type OrganizationOrderBy = "addresses_ASC" | "addresses_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "name_ASC" | "name_DESC" | "organization_id_ASC" | "organization_id_DESC" | "organization_number_ASC" | "organization_number_DESC" | "website_ASC" | "website_DESC" | "%future added value";
 export type OrganizationListForwardQueryVariables = {|
   count: number,
   cursor?: ?string,
@@ -64,6 +64,10 @@ fragment OrganizationRow_organization on Organization {
   affiliation_partner
   affiliation_provider
   affiliation_site_owner
+  parent_organization {
+    organization_id
+    id
+  }
   incoming {
     name
     relation {
@@ -142,6 +146,13 @@ v5 = {
 v6 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "organization_id",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
@@ -209,13 +220,7 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "organization_id",
-                    "args": null,
-                    "storageKey": null
-                  },
+                  (v6/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -261,6 +266,19 @@ return {
                   {
                     "kind": "LinkedField",
                     "alias": null,
+                    "name": "parent_organization",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": true,
+                    "selections": [
+                      (v6/*: any*/),
+                      (v7/*: any*/)
+                    ]
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
                     "name": "incoming",
                     "storageKey": null,
                     "args": null,
@@ -295,15 +313,15 @@ return {
                                 "args": null,
                                 "storageKey": null
                               },
-                              (v6/*: any*/)
+                              (v7/*: any*/)
                             ]
                           },
-                          (v6/*: any*/)
+                          (v7/*: any*/)
                         ]
                       }
                     ]
                   },
-                  (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -364,7 +382,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationListForwardQuery",
     "id": null,
-    "text": "query OrganizationListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_32czeo\n}\n\nfragment OrganizationList_organizations_32czeo on Query {\n  organizations(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "query OrganizationListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_32czeo\n}\n\nfragment OrganizationList_organizations_32czeo on Query {\n  organizations(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

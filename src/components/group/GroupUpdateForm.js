@@ -17,6 +17,8 @@ import Worklog from "../Worklog";
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
+import UpdateGroupMutation from "../../mutations/group/UpdateGroupMutation";
+
 import "../../style/ModelDetails.scss";
 
 class GroupUpdateForm extends React.Component {
@@ -56,7 +58,7 @@ class GroupUpdateForm extends React.Component {
                     phone_obj: member.phones[0] ? member.phones[0] : {},
                     created: true,
                     origin: "new",
-                    status: "saved",
+                    status: "editing",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newMember)) {
@@ -73,10 +75,14 @@ class GroupUpdateForm extends React.Component {
         copy(emails.join(" "));
     };
 
+    handleSubmit = (group) => {
+        UpdateGroupMutation(group, this);
+    };
+
     render() {
         let { group, name, description, t, handleSubmit, pristine, submitting } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <Form.Row>
                     <Col>
                         <div className="title-section">
@@ -195,14 +201,7 @@ class GroupUpdateForm extends React.Component {
                     <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}
                     </button>
-                    <button
-                        onClick={() => {
-                            document.documentElement.scrollTop = 0;
-                        }}
-                        type="submit"
-                        className="btn primary lg"
-                        disabled={pristine || submitting}
-                    >
+                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                         {t("actions.save")}
                     </button>
                 </div>
@@ -254,7 +253,11 @@ const validate = (values) => {
 
 GroupUpdateForm = reduxForm({
     form: "updateGroup",
-    validate
+    validate,
+    enableReinitialize: true,
+    onSubmitSuccess: (result, dispatch, props) => {
+        document.documentElement.scrollTop = 0;
+    }
 })(GroupUpdateForm);
 
 const GroupUpdateFragment = createRefetchContainer(
@@ -265,13 +268,42 @@ const GroupUpdateFragment = createRefetchContainer(
                 handle_id
                 name
                 description
-                created
-                creator {
-                    email
-                }
-                modified
-                modifier {
-                    email
+                contacts {
+                    handle_id
+                    first_name
+                    last_name
+                    contact_type
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    roles {
+                        role_data {
+                            handle_id
+                            name
+                        }
+                        end {
+                            handle_id
+                            name
+                        }
+                    }
+                    outgoing {
+                        name
+                        relation {
+                            relation_id
+                            type
+                            end {
+                                handle_id
+                                node_name
+                            }
+                        }
+                    }
                 }
                 comments {
                     id
@@ -281,6 +313,14 @@ const GroupUpdateFragment = createRefetchContainer(
                     }
                     comment
                     submit_date
+                }
+                created
+                creator {
+                    email
+                }
+                modified
+                modifier {
+                    email
                 }
             }
         `

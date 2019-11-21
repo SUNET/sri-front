@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 85722288c3756acc1758d0964dbbd0ee
+ * @relayHash 03231e19f7fe6c97e0520dfbfea938f4
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type ContactList_contacts$ref = any;
 type ContactList_organization_types$ref = any;
-export type ContactOrderBy = "contact_type_ASC" | "contact_type_DESC" | "created_ASC" | "created_DESC" | "creator_ASC" | "creator_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "modified_ASC" | "modified_DESC" | "modifier_ASC" | "modifier_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
+export type ContactOrderBy = "emails_ASC" | "emails_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "member_of_groups_ASC" | "member_of_groups_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "organizations_ASC" | "organizations_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phones_ASC" | "phones_DESC" | "roles_ASC" | "roles_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
 export type ContactFilter = {|
   AND?: ?$ReadOnlyArray<ContactNestedFilter>,
   OR?: ?$ReadOnlyArray<ContactNestedFilter>,
@@ -171,6 +171,20 @@ export type ContactNestedFilter = {|
   roles_not_ends_with?: ?RoleRelationInputField,
   roles_in?: ?$ReadOnlyArray<RoleRelationInputField>,
   roles_not_in?: ?$ReadOnlyArray<RoleRelationInputField>,
+  organizations?: ?OrganizationInputField,
+  organizations_not?: ?OrganizationInputField,
+  organizations_lt?: ?OrganizationInputField,
+  organizations_lte?: ?OrganizationInputField,
+  organizations_gt?: ?OrganizationInputField,
+  organizations_gte?: ?OrganizationInputField,
+  organizations_contains?: ?OrganizationInputField,
+  organizations_not_contains?: ?OrganizationInputField,
+  organizations_starts_with?: ?OrganizationInputField,
+  organizations_not_starts_with?: ?OrganizationInputField,
+  organizations_ends_with?: ?OrganizationInputField,
+  organizations_not_ends_with?: ?OrganizationInputField,
+  organizations_in?: ?$ReadOnlyArray<OrganizationInputField>,
+  organizations_not_in?: ?$ReadOnlyArray<OrganizationInputField>,
   notes?: ?string,
   notes_not?: ?string,
   notes_lt?: ?string,
@@ -271,6 +285,39 @@ export type GroupInputField = {|
 export type RoleRelationInputField = {|
   relation_id?: ?number,
   name?: ?string,
+|};
+export type OrganizationInputField = {|
+  name?: ?string,
+  description?: ?string,
+  organization_number?: ?string,
+  organization_id?: ?string,
+  incident_management_info?: ?string,
+  type?: ?any,
+  website?: ?string,
+  addresses?: ?AddressInputField,
+  affiliation_customer?: ?boolean,
+  affiliation_end_customer?: ?boolean,
+  affiliation_provider?: ?boolean,
+  affiliation_partner?: ?boolean,
+  affiliation_host_user?: ?boolean,
+  affiliation_site_owner?: ?boolean,
+  handle_id?: ?number,
+  created?: ?any,
+  modified?: ?any,
+  creator?: ?UserInputType,
+  modifier?: ?UserInputType,
+|};
+export type AddressInputField = {|
+  name?: ?string,
+  phone?: ?string,
+  street?: ?string,
+  postal_code?: ?string,
+  postal_area?: ?string,
+  handle_id?: ?number,
+  created?: ?any,
+  modified?: ?any,
+  creator?: ?UserInputType,
+  modifier?: ?UserInputType,
 |};
 export type SearchContactsAllQueryVariables = {|
   count: number,
