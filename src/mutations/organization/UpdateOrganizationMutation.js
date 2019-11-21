@@ -310,7 +310,7 @@ export default function UpdateOrganizationMutation(organization, form) {
         onCompleted: (response, errors) => {
             console.log(response, errors);
             if (response.composite_organization.updated.errors) {
-                return response.update_organization.updated.errors;
+                return response.composite_organization.updated.errors;
             } else {
                 if (form.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
                     DeleteRelationshipMutation(organization.relationship_parent_of_relation_id);

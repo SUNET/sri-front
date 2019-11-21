@@ -265,7 +265,7 @@ export default function CreateOrganizationMutation(organization, form) {
             console.log(response, errors);
             if (response.composite_organization.created.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
-                return response.create_organization.created.errors;
+                return response.composite_organization.created.errors;
             } else {
                 const organization_id = response.composite_organization.created.organization.handle_id;
                 if (organization.comment) {
