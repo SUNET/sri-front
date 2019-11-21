@@ -24,7 +24,6 @@ class ProfileForm extends React.Component {
 
     render() {
         const { t, handleSubmit } = this.props;
-        console.log(this.props);
         return (
             <section className="profile">
                 <form enctype="multipart/form-data" onSubmit={handleSubmit}>

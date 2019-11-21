@@ -196,7 +196,6 @@ export default function UpdateContactMutation(contact, form) {
             let organization = organizations[organization_key];
             if (organization.status === "saved") {
                 if (organization.origin === "store") {
-                    debugger;
                     if (organization.role_obj) {
                         // the backend should update the relationship when a node changes, not delete it to create a new one
                         if (form.props.isDirty_organizations_roles[organization_key]) {
