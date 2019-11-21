@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9269453242a2ba854232a209a843c7f3
+ * @relayHash 18e03e9c4d0cb8751c321db5992955fc
  */
 
 /* eslint-disable */
@@ -9,38 +9,37 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type ContactList_contacts$ref = any;
+type DashBoardContactList_contacts$ref = any;
 export type ContactOrderBy = "emails_ASC" | "emails_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "member_of_groups_ASC" | "member_of_groups_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "organizations_ASC" | "organizations_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phones_ASC" | "phones_DESC" | "roles_ASC" | "roles_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
-export type ContactListForwardQueryVariables = {|
+export type DashBoardContactListForwardQueryVariables = {|
   count: number,
   cursor?: ?string,
   orderBy?: ?ContactOrderBy,
 |};
-export type ContactListForwardQueryResponse = {|
-  +$fragmentRefs: ContactList_contacts$ref
+export type DashBoardContactListForwardQueryResponse = {|
+  +$fragmentRefs: DashBoardContactList_contacts$ref
 |};
-export type ContactListForwardQuery = {|
-  variables: ContactListForwardQueryVariables,
-  response: ContactListForwardQueryResponse,
+export type DashBoardContactListForwardQuery = {|
+  variables: DashBoardContactListForwardQueryVariables,
+  response: DashBoardContactListForwardQueryResponse,
 |};
 */
 
 
 /*
-query ContactListForwardQuery(
+query DashBoardContactListForwardQuery(
   $count: Int!
   $cursor: String
   $orderBy: ContactOrderBy
 ) {
-  ...ContactList_contacts_32czeo
+  ...DashBoardContactList_contacts_32czeo
 }
 
-fragment ContactList_contacts_32czeo on Query {
+fragment DashBoardContactList_contacts_32czeo on Query {
   contacts(first: $count, after: $cursor, orderBy: $orderBy) {
     edges {
       node {
-        handle_id
-        ...ContactRow_contact
+        ...DashBoardContactRow_contact
         id
         __typename
       }
@@ -55,11 +54,10 @@ fragment ContactList_contacts_32czeo on Query {
   }
 }
 
-fragment ContactRow_contact on Contact {
+fragment DashBoardContactRow_contact on Contact {
   handle_id
   first_name
   last_name
-  contact_type
   modified
   roles {
     name
@@ -67,6 +65,10 @@ fragment ContactRow_contact on Contact {
       name
       id
     }
+  }
+  member_of_groups {
+    name
+    id
   }
 }
 */
@@ -123,19 +125,23 @@ v4 = {
   "name": "id",
   "args": null,
   "storageKey": null
-};
+},
+v5 = [
+  (v3/*: any*/),
+  (v4/*: any*/)
+];
 return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "ContactListForwardQuery",
+    "name": "DashBoardContactListForwardQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
         "kind": "FragmentSpread",
-        "name": "ContactList_contacts",
+        "name": "DashBoardContactList_contacts",
         "args": [
           {
             "kind": "Variable",
@@ -154,7 +160,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "ContactListForwardQuery",
+    "name": "DashBoardContactListForwardQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -208,13 +214,6 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "contact_type",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
                     "name": "modified",
                     "args": null,
                     "storageKey": null
@@ -237,12 +236,19 @@ return {
                         "args": null,
                         "concreteType": "Organization",
                         "plural": false,
-                        "selections": [
-                          (v3/*: any*/),
-                          (v4/*: any*/)
-                        ]
+                        "selections": (v5/*: any*/)
                       }
                     ]
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "member_of_groups",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Group",
+                    "plural": true,
+                    "selections": (v5/*: any*/)
                   },
                   (v4/*: any*/),
                   {
@@ -310,20 +316,20 @@ return {
         "name": "contacts",
         "args": (v2/*: any*/),
         "handle": "connection",
-        "key": "ContactList_contacts",
+        "key": "DashBoardContactList_contacts",
         "filters": []
       }
     ]
   },
   "params": {
     "operationKind": "query",
-    "name": "ContactListForwardQuery",
+    "name": "DashBoardContactListForwardQuery",
     "id": null,
-    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
+    "text": "query DashBoardContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...DashBoardContactList_contacts_32czeo\n}\n\nfragment DashBoardContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        ...DashBoardContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment DashBoardContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '96a0d0eb0ad60f76ab272f4c423e87fd';
+(node/*: any*/).hash = 'a8d798a289e271e6a8e2c2ef50320a71';
 module.exports = node;

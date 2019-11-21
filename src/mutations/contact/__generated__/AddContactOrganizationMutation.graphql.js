@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash dbfefd4c3641569d44e31e2d7bc113a6
+ * @relayHash 72aa33689152ad9c5fb62a870bb7729e
  */
 
 /* eslint-disable */
@@ -20,6 +20,13 @@ export type UpdateContactInput = {|
   relationship_works_for?: ?any,
   relationship_member_of?: ?any,
   role?: ?any,
+  email_handle_id?: ?number,
+  email?: ?string,
+  email_type?: ?any,
+  phone_handle_id?: ?number,
+  phone?: ?string,
+  phone_type?: ?any,
+  role_handle_id?: ?number,
   handle_id: number,
   clientMutationId?: ?string,
 |};

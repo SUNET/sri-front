@@ -20,6 +20,9 @@ export type OrganizationUpdateForm_organization = {|
   +organization_number: ?string,
   +description: ?string,
   +incident_management_info: ?string,
+  +parent_organization: ?$ReadOnlyArray<?{|
+    +organization_id: ?string
+  |}>,
   +addresses: ?$ReadOnlyArray<?{|
     +handle_id: string,
     +name: string,
@@ -42,6 +45,33 @@ export type OrganizationUpdateForm_organization = {|
         +node_name: string,
       |},
     |},
+  |}>,
+  +contacts: ?$ReadOnlyArray<?{|
+    +handle_id: string,
+    +first_name: string,
+    +last_name: string,
+    +contact_type: ?any,
+    +emails: ?$ReadOnlyArray<?{|
+      +handle_id: string,
+      +name: string,
+      +type: any,
+    |}>,
+    +phones: ?$ReadOnlyArray<?{|
+      +handle_id: string,
+      +name: string,
+      +type: any,
+    |}>,
+    +roles: ?$ReadOnlyArray<?{|
+      +relation_id: number,
+      +role_data: ?{|
+        +handle_id: string,
+        +name: string,
+      |},
+      +end: ?{|
+        +handle_id: string,
+        +name: string,
+      |},
+    |}>,
   |}>,
   +comments: ?$ReadOnlyArray<?{|
     +id: string,
@@ -92,7 +122,21 @@ v2 = {
   "args": null,
   "storageKey": null
 },
-v3 = [
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "organization_id",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "relation_id",
+  "args": null,
+  "storageKey": null
+},
+v5 = [
   (v0/*: any*/),
   {
     "kind": "ScalarField",
@@ -102,7 +146,30 @@ v3 = [
     "storageKey": null
   }
 ],
-v4 = [
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "first_name",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v8 = [
+  (v0/*: any*/),
+  (v1/*: any*/),
+  (v2/*: any*/)
+],
+v9 = [
+  (v0/*: any*/),
+  (v1/*: any*/)
+],
+v10 = [
   {
     "kind": "ScalarField",
     "alias": null,
@@ -128,13 +195,7 @@ return {
       "args": null,
       "storageKey": null
     },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "organization_id",
-      "args": null,
-      "storageKey": null
-    },
+    (v3/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -155,6 +216,18 @@ return {
       "name": "incident_management_info",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "parent_organization",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Organization",
+      "plural": true,
+      "selections": [
+        (v3/*: any*/)
+      ]
     },
     {
       "kind": "LinkedField",
@@ -216,13 +289,7 @@ return {
           "concreteType": "NIRelationType",
           "plural": false,
           "selections": [
-            {
-              "kind": "ScalarField",
-              "alias": null,
-              "name": "relation_id",
-              "args": null,
-              "storageKey": null
-            },
+            (v4/*: any*/),
             (v2/*: any*/),
             {
               "kind": "LinkedField",
@@ -232,7 +299,7 @@ return {
               "args": null,
               "concreteType": "NINodeHandlerType",
               "plural": false,
-              "selections": (v3/*: any*/)
+              "selections": (v5/*: any*/)
             },
             {
               "kind": "LinkedField",
@@ -242,7 +309,80 @@ return {
               "args": null,
               "concreteType": "NINodeHandlerType",
               "plural": false,
-              "selections": (v3/*: any*/)
+              "selections": (v5/*: any*/)
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "contacts",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Contact",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/),
+        (v6/*: any*/),
+        (v7/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "contact_type",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "emails",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "Email",
+          "plural": true,
+          "selections": (v8/*: any*/)
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "phones",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "Phone",
+          "plural": true,
+          "selections": (v8/*: any*/)
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "roles",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "RoleRelation",
+          "plural": true,
+          "selections": [
+            (v4/*: any*/),
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "name": "role_data",
+              "storageKey": null,
+              "args": null,
+              "concreteType": "Role",
+              "plural": false,
+              "selections": (v9/*: any*/)
+            },
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "name": "end",
+              "storageKey": null,
+              "args": null,
+              "concreteType": "Organization",
+              "plural": false,
+              "selections": (v9/*: any*/)
             }
           ]
         }
@@ -273,20 +413,8 @@ return {
           "concreteType": "User",
           "plural": false,
           "selections": [
-            {
-              "kind": "ScalarField",
-              "alias": null,
-              "name": "first_name",
-              "args": null,
-              "storageKey": null
-            },
-            {
-              "kind": "ScalarField",
-              "alias": null,
-              "name": "last_name",
-              "args": null,
-              "storageKey": null
-            }
+            (v6/*: any*/),
+            (v7/*: any*/)
           ]
         },
         {
@@ -320,7 +448,7 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v4/*: any*/)
+      "selections": (v10/*: any*/)
     },
     {
       "kind": "ScalarField",
@@ -337,11 +465,11 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v4/*: any*/)
+      "selections": (v10/*: any*/)
     }
   ]
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '352d57c791f38d746cdd7893dc18af58';
+(node/*: any*/).hash = '94e9f94eacc069369a540360cf226dff';
 module.exports = node;

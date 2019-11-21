@@ -1,103 +1,156 @@
 import { commitMutation } from "react-relay";
+// import { ConnectionHandler } from "relay-runtime";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../../createRelayEnvironment";
-import { ROOT_ID } from "relay-runtime";
 
-import CreateCommentMutation from "../CreateCommentMutation";
-import CreateContactInlineMutation from "../contact/CreateContactInlineMutation";
-import AddMemberGroupMutation from "../contact/AddMemberGroupMutation";
-import UpdateContactInlineMutation from "../contact/UpdateContactInlineMutation";
-import UpdateEmailMutation from "../email/UpdateEmailMutation";
-import UpdatePhoneMutation from "../phone/UpdatePhoneMutation";
+import CreateComentMutation from "../CreateCommentMutation";
+import i18n from "../../i18n";
+import environment from "../../createRelayEnvironment";
 
 const mutation = graphql`
-    mutation CreateGroupMutation($input: CreateGroupInput!) {
-        create_group(input: $input) {
-            errors {
-                field
-                messages
+    mutation CreateGroupMutation($input: CompositeGroupMutationInput!) {
+        composite_group(input: $input) {
+            created {
+                errors {
+                    field
+                    messages
+                }
+                group {
+                    handle_id
+                    name
+                    description
+                }
             }
-            group {
-                handle_id
-                name
-                description
+            subcreated {
+                errors {
+                    field
+                    messages
+                }
+                contact {
+                    handle_id
+                    first_name
+                    last_name
+                    contact_type
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    member_of_groups {
+                        name
+                    }
+                }
+            }
+            subupdated {
+                errors {
+                    field
+                    messages
+                }
+                contact {
+                    handle_id
+                    first_name
+                    last_name
+                    contact_type
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    member_of_groups {
+                        name
+                    }
+                }
             }
         }
     }
 `;
 
-let tempID = 0;
+export default function UpdateGroupMutation(group, form) {
+    const newMembers = [];
+    const updateMembers = [];
 
-function CreateGroupMutation(group, callback) {
+    const members = group.members;
+    if (members) {
+        Object.keys(members).forEach((member_key) => {
+            let member = members[member_key];
+            if (member.status === "saved") {
+                let fullName = member.name.trim();
+                if (fullName.includes(" ")) {
+                    fullName = fullName.split(" ");
+                    member.first_name = fullName[0];
+                    member.last_name = fullName[1];
+                } else {
+                    member.first_name = fullName;
+                    member.last_name = fullName;
+                }
+                if (!member.created || member.created === undefined) {
+                    newMembers.push({
+                        first_name: member.first_name,
+                        last_name: member.last_name,
+                        contact_type: "person",
+                        email: member.email,
+                        email_type: "personal",
+                        phone: member.phone,
+                        phone_type: "personal",
+                        relationship_works_for: member.organization
+                    });
+                } else {
+                    updateMembers.push({
+                        handle_id: member.handle_id,
+                        first_name: member.first_name,
+                        last_name: member.last_name,
+                        contact_type: member.contact_type.toLowerCase(),
+                        email_handle_id: member.email_obj ? member.email_obj.handle_id : null,
+                        email: member.email,
+                        email_type: member.email_obj ? member.email_obj.type : "personal",
+                        phone_handle_id: member.phone_obj ? member.phone_obj.handle_id : null,
+                        phone: member.phone,
+                        phone_type: member.phone_obj ? member.email_obj.type : "personal",
+                        relationship_works_for: member.organization
+                    });
+                }
+            }
+        });
+    }
+
     const variables = {
         input: {
-            name: group.name,
-            description: group.description,
-            clientMutationId: tempID++
+            create_input: {
+                handle_id: group.handle_id,
+                name: group.name,
+                description: group.description,
+                clientMutationId: ""
+            },
+            create_subinputs: newMembers,
+            update_subinputs: updateMembers
         }
     };
     commitMutation(environment, {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(response, errors);
-            if (response.create_group.errors) {
-                return response.create_group.errors;
+            if (response.composite_group.created.errors) {
+                form.props.notify(i18n.t("notify.error"), "error");
+                return response.composite_group.created.errors;
             } else {
-                const group_id = response.create_group.group.handle_id;
+                const group_id = response.composite_group.created.group.handle_id;
                 if (group.comment) {
-                    CreateCommentMutation(group_id, group.comment);
+                    CreateComentMutation(group_id, group.comment);
                 }
-                const members = group.members;
-                if (members) {
-                    Object.keys(members).forEach((member_key) => {
-                        let member = members[member_key];
-                        if (!member.created || member.created === undefined) {
-                            let fullName = member.name;
-                            if (fullName.includes(" ")) {
-                                fullName = fullName.split(" ");
-                                member.first_name = fullName[0];
-                                member.last_name = fullName[1];
-                            } else {
-                                member.first_name = fullName;
-                                member.last_name = fullName;
-                            }
-
-                            CreateContactInlineMutation(
-                                member.first_name,
-                                member.last_name,
-                                member.email,
-                                member.phone,
-                                member.organization,
-                                group_id
-                            );
-                        } else {
-                            AddMemberGroupMutation(member, group_id);
-                            UpdateContactInlineMutation(member, member.organization, group_id, null);
-                            UpdateEmailMutation(member.handle_id, member.email, member.email_obj);
-                            UpdatePhoneMutation(member.handle_id, member.phone, member.phone_obj);
-                        }
-                    });
-                }
-                callback.push("/community/groups");
+                form.props.history.push("/community/groups/" + group_id);
+                form.props.notify(i18n.t("notify.group-created-success"), "success");
             }
         },
-        onError: (errors) => console.error(errors),
-        configs: [
-            {
-                type: "RANGE_ADD",
-                parentName: ROOT_ID,
-                parentID: ROOT_ID,
-                connectionInfo: [
-                    {
-                        key: "GroupList_groups",
-                        rangeBehavior: "append"
-                    }
-                ],
-                edgeName: "groupEdge"
-            }
-        ]
+        updater: (store) => {},
+        onError: (err) => console.error(err)
     });
 }
-
-export default CreateGroupMutation;

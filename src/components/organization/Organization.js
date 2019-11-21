@@ -63,11 +63,31 @@ const OrganizationCheckExistQuery = graphql`
     }
 `;
 
+const OrganizationIdQuery = graphql`
+    query OrganizationIdQuery($filter: OrganizationFilter) {
+        organizations(filter: $filter) {
+            edges {
+                node {
+                    handle_id
+                }
+            }
+        }
+    }
+`;
 export const getOrganization = (handle_id) => {
     return fetchQuery(environment, OrganizationQuery, {
         organizationId: handle_id
     }).then((data) => {
         return data.getOrganizationById;
+    });
+};
+
+export const getOrganizationByOrganizationId = (organization_id) => {
+    let variables = {
+        filter: { AND: [{ organization_id: organization_id }] }
+    };
+    return fetchQuery(environment, OrganizationIdQuery, variables).then((data) => {
+        return data.organizations.edges[0] ? data.organizations.edges[0].node.handle_id : "";
     });
 };
 

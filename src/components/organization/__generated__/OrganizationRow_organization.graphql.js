@@ -22,6 +22,9 @@ export type OrganizationRow_organization = {|
   +affiliation_partner: ?boolean,
   +affiliation_provider: ?boolean,
   +affiliation_site_owner: ?boolean,
+  +parent_organization: ?$ReadOnlyArray<?{|
+    +organization_id: ?string
+  |}>,
   +incoming: ?$ReadOnlyArray<?{|
     +name: string,
     +relation: {|
@@ -63,6 +66,13 @@ v2 = {
   "name": "type",
   "args": null,
   "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "organization_id",
+  "args": null,
+  "storageKey": null
 };
 return {
   "kind": "Fragment",
@@ -74,13 +84,7 @@ return {
     (v0/*: any*/),
     (v1/*: any*/),
     (v2/*: any*/),
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "organization_id",
-      "args": null,
-      "storageKey": null
-    },
+    (v3/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -122,6 +126,18 @@ return {
       "name": "affiliation_site_owner",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "parent_organization",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Organization",
+      "plural": true,
+      "selections": [
+        (v3/*: any*/)
+      ]
     },
     {
       "kind": "LinkedField",
@@ -170,5 +186,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ac96c23307924582f82f1ed61b07d50a';
+(node/*: any*/).hash = 'c7624b3efbc46759db83072a88f74a87';
 module.exports = node;

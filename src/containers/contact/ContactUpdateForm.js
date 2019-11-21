@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import ContactUpdateForm from "../../components/contact/ContactUpdateForm";
-import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
+import { formValueSelector, getFormMeta, getFormSyncErrors, isDirty } from "redux-form";
 import uuidv4 from "uuid/v4";
 import * as actions from "../../actions/Notify";
 
@@ -8,6 +8,7 @@ const mapStateToProps = (state, props) => {
     const updateContactSelector = formValueSelector("updateContact");
     const initialValues = {
         name: props.contact.first_name + " " + props.contact.last_name,
+        handle_id: props.contact.handle_id,
         notes: props.contact.notes,
         title: props.contact.title,
         contact_type: props.contact.contact_type,
@@ -63,6 +64,7 @@ const mapStateToProps = (state, props) => {
                   }
               ]
     };
+    const organizationValues = updateContactSelector(state, "organizations");
     return {
         initialValues,
         name: updateContactSelector(state, "name"),
@@ -72,7 +74,12 @@ const mapStateToProps = (state, props) => {
         contact_type: updateContactSelector(state, "contact_type"),
         emailValues: updateContactSelector(state, "emails"),
         phoneValues: updateContactSelector(state, "phones"),
-        organizationValues: updateContactSelector(state, "organizations"),
+        organizationValues: organizationValues,
+        isDirty_organizations_roles:
+            organizationValues &&
+            organizationValues.map((organization, index) => {
+                return isDirty("updateContact")(state, [`organizations[${index}]`]);
+            }),
         formSyncErrors: getFormSyncErrors("updateContact")(state),
         fields: getFormMeta("updateContact")(state)
     };

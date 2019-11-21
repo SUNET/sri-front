@@ -3,50 +3,60 @@ import OrganizationUpdateForm from "../../components/organization/OrganizationUp
 import { formValueSelector, getFormMeta, getFormSyncErrors, registerField, isDirty } from "redux-form";
 import { getContact } from "../../components/contact/Contact";
 import uuidv4 from "uuid/v4";
+import * as actions from "../../actions/Notify";
 
 const mapStateToProps = (state, props) => {
     const updateOrganizationSelector = formValueSelector("updateOrganization");
-    const parent_node = props.organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
+
+    const organization = props.organization;
+    const parent_node =
+        organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
+        organization_parent_id: organization.parent_organization[0]
+            ? organization.parent_organization[0].organization_id
+            : "",
         relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",
-        handle_id: props.organization.handle_id,
-        name: props.organization.name,
-        type: props.organization.type,
-        website: props.organization.website,
-        organization_id: props.organization.organization_id,
-        organization_number: props.organization.organization_number,
+        handle_id: organization.handle_id,
+        name: organization.name,
+        type: organization.type,
+        website: organization.website,
+        organization_id: organization.organization_id,
+        organization_number: organization.organization_number,
         affiliation: {
-            customer: props.organization.affiliation_customer,
-            end_customer: props.organization.affiliation_end_customer,
-            host_user: props.organization.affiliation_host_user,
-            partner: props.organization.affiliation_partner,
-            provider: props.organization.affiliation_provider,
-            site_owner: props.organization.affiliation_site_owner
+            customer: organization.affiliation_customer,
+            end_customer: organization.affiliation_end_customer,
+            host_user: organization.affiliation_host_user,
+            partner: organization.affiliation_partner,
+            provider: organization.affiliation_provider,
+            site_owner: organization.affiliation_site_owner
         },
-        affiliation_customer: props.organization.affiliation_customer,
-        affiliation_end_customer: props.organization.affiliation_end_customer,
-        affiliation_host_user: props.organization.affiliation_host_user,
-        affiliation_partner: props.organization.affiliation_partner,
-        affiliation_provider: props.organization.affiliation_provider,
-        affiliation_site_owner: props.organization.affiliation_site_owner,
-        description: props.organization.description,
-        incident_management_info: props.organization.incident_management_info,
-        contacts: props.contacts
-            ? props.contacts.map((contact) => {
-                  const contact_node = contact.contact;
-                  const role_node = contact.role;
+        affiliation_customer: organization.affiliation_customer,
+        affiliation_end_customer: organization.affiliation_end_customer,
+        affiliation_host_user: organization.affiliation_host_user,
+        affiliation_partner: organization.affiliation_partner,
+        affiliation_provider: organization.affiliation_provider,
+        affiliation_site_owner: organization.affiliation_site_owner,
+        description: organization.description,
+        incident_management_info: organization.incident_management_info,
+        contacts: organization.contacts
+            ? organization.contacts.map((contact) => {
+                  const contact_relation_id_obj = contact.roles.find((relation_node) => {
+                      return relation_node.end.handle_id === organization.handle_id;
+                  });
+                  const contact_node = contact;
                   return {
                       handle_id: contact_node.handle_id,
                       name: contact_node.first_name + " " + contact_node.last_name,
                       contact_type: contact_node.contact_type,
-                      role: role_node.handle_id,
-                      role_label: role_node.name,
-                      role_relation_id: contact.relation_id,
+                      role: contact_relation_id_obj ? contact_relation_id_obj.role_data.handle_id : "",
+                      role_label: contact_relation_id_obj ? contact_relation_id_obj.role_data.name : "",
+                      role_obj: contact_relation_id_obj,
+                      role_relation_id: contact_relation_id_obj ? contact_relation_id_obj.relation_id : "",
                       email: contact_node.emails[0] ? contact_node.emails[0].name : "",
-                      email_obj: contact_node.emails[0],
+                      email_obj: contact_node.emails.length > 0 ? contact_node.emails[0] : undefined,
                       phone: contact_node.phones[0] ? contact_node.phones[0].name : "",
-                      phone_obj: contact_node.phones[0],
+                      phone_obj: contact_node.phones.length > 0 ? contact_node.phones[0] : undefined,
                       status: "saved",
                       origin: "store",
                       created: true
@@ -63,34 +73,34 @@ const mapStateToProps = (state, props) => {
                       status: "editing"
                   }
               ],
-        addresses:
-            props.organization.addresses.length > 0
-                ? props.organization.addresses.map((address) => {
-                      return {
-                          handle_id: address.handle_id,
-                          name: address.name,
-                          website: address.website,
-                          street: address.street,
-                          postal_code: address.postal_code,
-                          postal_area: address.postal_area,
-                          phone: address.phone,
-                          status: "saved",
-                          origin: "store",
-                          created: true
-                      };
-                  })
-                : [
-                      {
-                          name: "",
-                          role: "",
-                          email: "",
-                          phone: "",
-                          key: uuidv4(),
-                          created: false,
-                          status: "editing"
-                      }
-                  ]
+        addresses: organization.addresses
+            ? organization.addresses.map((address) => {
+                  return {
+                      handle_id: address.handle_id,
+                      name: address.name,
+                      street: address.street,
+                      postal_code: address.postal_code,
+                      postal_area: address.postal_area,
+                      phone: address.phone,
+                      status: "saved",
+                      origin: "store",
+                      created: true
+                  };
+              })
+            : [
+                  {
+                      name: "main",
+                      street: "",
+                      postal_code: "",
+                      postal_area: "",
+                      phone: "",
+                      key: uuidv4(),
+                      created: false,
+                      status: "editing"
+                  }
+              ]
     };
+    const contactsValues = updateOrganizationSelector(state, "contacts");
     return {
         initialValues,
         name: updateOrganizationSelector(state, "name"),
@@ -100,9 +110,15 @@ const mapStateToProps = (state, props) => {
         organization_number: updateOrganizationSelector(state, "organization_number"),
         description: updateOrganizationSelector(state, "description"),
         relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),
-        isDirty_relationship_parent_of: isDirty("updateOrganization")(state, ["relationship_parent_of"]),
+        organization_parent_id: updateOrganizationSelector(state, "organization_parent_id"),
+        isDirty_relationship_parent_of: isDirty("updateOrganization")(state, ["organization_parent_id"]),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
-        contactsValues: updateOrganizationSelector(state, "contacts"),
+        contactsValues: contactsValues,
+        isDirty_contacts_roles:
+            contactsValues &&
+            contactsValues.map((contact, index) => {
+                return isDirty("updateOrganization")(state, [`contacts[${index}].role`]);
+            }),
         formSyncErrors: getFormSyncErrors("updateOrganization")(state),
         fields: getFormMeta("updateOrganization")(state),
         affiliation: {
@@ -119,7 +135,10 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        registerFieldAffiliation: () => dispatch(registerField("updateOrganization", "affiliation", "Field"))
+        registerFieldAffiliation: () => dispatch(registerField("updateOrganization", "affiliation", "Field")),
+        notify: (msg, level) => {
+            dispatch(actions.notify(msg, level));
+        }
     };
 };
 

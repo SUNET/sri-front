@@ -6,19 +6,20 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { arrayPush, FieldArray, Field, reduxForm, change } from "redux-form";
+import uuidv4 from "uuid/v4";
+import copy from "clipboard-copy";
+import urlRegex from "url-regex";
+
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import Dropdown from "../Dropdown";
 import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
-import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import FieldInput from "../FieldInput";
-import uuidv4 from "uuid/v4";
-import copy from "clipboard-copy";
-import urlRegex from "url-regex";
-
-import { checkOrganization } from "../../components/organization/Organization";
+import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
+import { checkOrganization, getOrganizationByOrganizationId } from "../../components/organization/Organization";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 import Worklog from "../Worklog";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
@@ -71,7 +72,7 @@ class OrganizationUpdateForm extends React.Component {
                     phone_obj: contact.phones[0] ? contact.phones[0] : {},
                     created: true,
                     origin: "new",
-                    status: "saved",
+                    status: "editing",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newContact)) {
@@ -95,8 +96,12 @@ class OrganizationUpdateForm extends React.Component {
         return url;
     };
 
+    handleSubmit = (organization) => {
+        UpdateOrganizationMutation(organization, this);
+    };
+
     render() {
-        let {
+        const {
             organization,
             name,
             type,
@@ -105,14 +110,14 @@ class OrganizationUpdateForm extends React.Component {
             website,
             description,
             incident_management_info,
-            relationship_parent_of,
+            organization_parent_id,
             t,
             handleSubmit,
             pristine,
             submitting
         } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <Form.Row>
                     <Col>
                         <div className="title-section">
@@ -230,12 +235,12 @@ class OrganizationUpdateForm extends React.Component {
                                                                 </div>
                                                                 <div>
                                                                     {!editable ? (
-                                                                        relationship_parent_of
+                                                                        organization_parent_id
                                                                     ) : (
                                                                         <Form.Group>
                                                                             <Field
                                                                                 type="text"
-                                                                                name="relationship_parent_of"
+                                                                                name="organization_parent_id"
                                                                                 component={FieldInput}
                                                                                 placeholder={t(
                                                                                     "organization-details.add-id"
@@ -427,14 +432,7 @@ class OrganizationUpdateForm extends React.Component {
                     <button type="button" onClick={() => this.props.onDelete()} className="btn link">
                         {t("actions.delete")}
                     </button>
-                    <button
-                        onClick={() => {
-                            document.documentElement.scrollTop = 0;
-                        }}
-                        type="submit"
-                        className="btn primary lg"
-                        disabled={pristine || submitting}
-                    >
+                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                         {t("actions.save")}
                     </button>
                 </div>
@@ -443,20 +441,73 @@ class OrganizationUpdateForm extends React.Component {
     }
 }
 
-const asyncValidate = (values, dispatch) => {
-    return checkOrganization(values.organization_id, values.handle_id).then((exists) => {
-        if (exists) {
-            // this absurdity, is by the error of non-throw-literal
-            const error = { organization_id: "Already exist!" };
-            throw error;
+// combine field validations
+function composeAsyncValidators(validatorFns) {
+    return async (values, dispatch, props, field) => {
+        let errors;
+        for (const validatorFn of validatorFns) {
+            try {
+                await validatorFn(values, dispatch, props, field);
+            } catch (err) {
+                errors = Object.assign({}, errors, err);
+            }
         }
-    });
+
+        if (errors) throw errors;
+    };
+}
+
+const asyncValidate_organization_id = (values, dispatch) => {
+    if (values.organization_id) {
+        return checkOrganization(values.organization_id, values.handle_id).then((exists) => {
+            if (exists) {
+                // this absurdity, is by the error of non-throw-literal
+                const error = { organization_id: "Already exist!" };
+                throw error;
+            }
+        });
+    }
 };
+
+const asyncValidate_relationship_parent_of = (values, dispatch, props) => {
+    if (values.organization_parent_id) {
+        return checkOrganization(values.organization_parent_id).then((exists) => {
+            if (!exists) {
+                // this absurdity, is by the error of non-throw-literal
+                const error = { organization_parent_id: "Doesn't match any organization!" };
+                throw error;
+            } else {
+                getOrganizationByOrganizationId(values.organization_parent_id).then((organization) => {
+                    if (organization) {
+                        dispatch(change("updateOrganization", `relationship_parent_of`, organization));
+                    }
+                });
+            }
+        });
+    }
+};
+
+// combine field validations
+const asyncValidate = composeAsyncValidators([asyncValidate_organization_id, asyncValidate_relationship_parent_of]);
 
 const validate = (values, props) => {
     const errors = {};
     if (!values.name) {
         errors.name = "* Required!";
+    }
+
+    if (!values.type) {
+        errors.type = "* Required!";
+    }
+
+    if (!values.organization_id) {
+        errors.organization_id = "* Required!";
+    }
+
+    if (values.organization_parent_id) {
+        if (values.organization_parent_id === values.organization_id) {
+            errors.organization_parent_id = "* Invalid Id!";
+        }
     }
 
     if (values.website) {
@@ -538,9 +589,11 @@ const validate = (values, props) => {
 OrganizationUpdateForm = reduxForm({
     form: "updateOrganization",
     validate,
+    enableReinitialize: true,
     asyncValidate,
-    asyncChangeFields: ["organization_id"],
-    onSubmitSuccess: (result, dispatch, props) => {}
+    onSubmitSuccess: (result, dispatch, props) => {
+        document.documentElement.scrollTop = 0;
+    }
 })(OrganizationUpdateForm);
 
 const OrganizationUpdateFormFragment = createRefetchContainer(
@@ -556,6 +609,9 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                 organization_number
                 description
                 incident_management_info
+                parent_organization {
+                    organization_id
+                }
                 addresses {
                     handle_id
                     name
@@ -576,6 +632,33 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                         start {
                             handle_id
                             node_name
+                        }
+                    }
+                }
+                contacts {
+                    handle_id
+                    first_name
+                    last_name
+                    contact_type
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    roles {
+                        relation_id
+                        role_data {
+                            handle_id
+                            name
+                        }
+                        end {
+                            handle_id
+                            name
                         }
                     }
                 }
