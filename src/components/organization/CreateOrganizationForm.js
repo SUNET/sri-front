@@ -51,7 +51,7 @@ class CreateOrganizationForm extends React.Component {
                     phone_obj: contact.phones[0] ? contact.phones[0] : {},
                     created: true,
                     origin: "new",
-                    status: "saved",
+                    status: "editing",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newContact)) {

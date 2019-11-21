@@ -195,10 +195,24 @@ export default function UpdateContactMutation(contact, form) {
         Object.keys(organizations).forEach((organization_key) => {
             let organization = organizations[organization_key];
             if (organization.status === "saved") {
-                roles.push({
-                    role_handle_id: organization.role,
-                    organization_handle_id: organization.organization
-                });
+                if (organization.origin === "store") {
+                    debugger;
+                    if (organization.role_obj) {
+                        // the backend should update the relationship when a node changes, not delete it to create a new one
+                        if (form.props.isDirty_organizations_roles[organization_key]) {
+                            deleteRoles.push({ relation_id: organization.role_obj.relation_id });
+                            roles.push({
+                                role_handle_id: organization.role,
+                                organization_handle_id: organization.organization
+                            });
+                        }
+                    }
+                } else {
+                    roles.push({
+                        role_handle_id: organization.role,
+                        organization_handle_id: organization.organization
+                    });
+                }
             } else if (organization.status === "remove") {
                 deleteRoles.push({ relation_id: organization.role_obj.relation_id });
             }
@@ -213,7 +227,7 @@ export default function UpdateContactMutation(contact, form) {
                 title: contact.title,
                 first_name: contact.first_name,
                 last_name: contact.last_name,
-                contact_type: contact.contact_type,
+                contact_type: contact.contact_type.toLowerCase(),
                 pgp_fingerprint: contact.pgp_fingerprint,
                 clientMutationId: ""
             },

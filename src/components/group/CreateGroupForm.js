@@ -46,7 +46,7 @@ class CreateGroupForm extends React.Component {
                     phone_obj: member.phones[0] ? member.phones[0] : {},
                     created: true,
                     origin: "new",
-                    status: "saved",
+                    status: "editing",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newMember)) {

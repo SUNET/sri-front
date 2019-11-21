@@ -147,7 +147,7 @@ export default function UpdateGroupMutation(group, form) {
                         handle_id: member.handle_id,
                         first_name: member.first_name,
                         last_name: member.last_name,
-                        contact_type: member.contact_type,
+                        contact_type: member.contact_type.toLowerCase(),
                         email_handle_id: member.email_obj ? member.email_obj.handle_id : null,
                         email: member.email,
                         email_type: member.email_obj ? member.email_obj.type : "personal",

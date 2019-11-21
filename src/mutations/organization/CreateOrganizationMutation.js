@@ -217,7 +217,7 @@ export default function CreateOrganizationMutation(organization, form) {
                         handle_id: contact.handle_id,
                         first_name: contact.first_name,
                         last_name: contact.last_name,
-                        contact_type: contact.contact_type,
+                        contact_type: contact.contact_type.toLowerCase(),
                         email_handle_id: contact.email_obj ? contact.email_obj.handle_id : null,
                         email: contact.email,
                         email_type: contact.email_obj ? contact.email_obj.type : "personal",
