@@ -6,8 +6,8 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-
 import { FieldArray, Field, reduxForm, change } from "redux-form";
+
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
@@ -15,6 +15,7 @@ import Worklog from "../Worklog";
 import Dropdown from "../Dropdown";
 import FieldArrayOrganizationsContact from "./FieldArrayOrganizationsContact";
 import CopyToClipboard from "../CopyToClipboard";
+import UpdateContactMutation from "../../mutations/contact/UpdateContactMutation";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
@@ -151,6 +152,10 @@ class ContactUpdateForm extends React.PureComponent {
         );
     };
 
+    handleSubmit = (contact) => {
+        UpdateContactMutation(contact, this);
+    };
+
     render() {
         let {
             contact,
@@ -165,7 +170,7 @@ class ContactUpdateForm extends React.PureComponent {
             submitting
         } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <Form.Row>
                     <Col>
                         <div className="title-section">
@@ -355,14 +360,7 @@ class ContactUpdateForm extends React.PureComponent {
                     <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}
                     </button>
-                    <button
-                        onClick={() => {
-                            document.documentElement.scrollTop = 0;
-                        }}
-                        type="submit"
-                        className="btn primary lg"
-                        disabled={pristine || submitting}
-                    >
+                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                         {t("actions.save")}
                     </button>
                 </div>
@@ -444,7 +442,11 @@ const validate = (values) => {
 
 ContactUpdateForm = reduxForm({
     form: "updateContact",
-    validate
+    validate,
+    enableReinitialize: true,
+    onSubmitSuccess: (result, dispatch, props) => {
+        document.documentElement.scrollTop = 0;
+    }
 })(ContactUpdateForm);
 
 const ContactUpdateFormFragment = createRefetchContainer(

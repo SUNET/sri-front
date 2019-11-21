@@ -43,6 +43,33 @@ export type OrganizationUpdateForm_organization = {|
       |},
     |},
   |}>,
+  +contacts: ?$ReadOnlyArray<?{|
+    +handle_id: string,
+    +first_name: string,
+    +last_name: string,
+    +contact_type: ?any,
+    +emails: ?$ReadOnlyArray<?{|
+      +handle_id: string,
+      +name: string,
+      +type: any,
+    |}>,
+    +phones: ?$ReadOnlyArray<?{|
+      +handle_id: string,
+      +name: string,
+      +type: any,
+    |}>,
+    +roles: ?$ReadOnlyArray<?{|
+      +relation_id: number,
+      +role_data: ?{|
+        +handle_id: string,
+        +name: string,
+      |},
+      +end: ?{|
+        +handle_id: string,
+        +name: string,
+      |},
+    |}>,
+  |}>,
   +comments: ?$ReadOnlyArray<?{|
     +id: string,
     +user: ?{|
@@ -92,7 +119,14 @@ v2 = {
   "args": null,
   "storageKey": null
 },
-v3 = [
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "relation_id",
+  "args": null,
+  "storageKey": null
+},
+v4 = [
   (v0/*: any*/),
   {
     "kind": "ScalarField",
@@ -102,7 +136,30 @@ v3 = [
     "storageKey": null
   }
 ],
-v4 = [
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "first_name",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v7 = [
+  (v0/*: any*/),
+  (v1/*: any*/),
+  (v2/*: any*/)
+],
+v8 = [
+  (v0/*: any*/),
+  (v1/*: any*/)
+],
+v9 = [
   {
     "kind": "ScalarField",
     "alias": null,
@@ -216,13 +273,7 @@ return {
           "concreteType": "NIRelationType",
           "plural": false,
           "selections": [
-            {
-              "kind": "ScalarField",
-              "alias": null,
-              "name": "relation_id",
-              "args": null,
-              "storageKey": null
-            },
+            (v3/*: any*/),
             (v2/*: any*/),
             {
               "kind": "LinkedField",
@@ -232,7 +283,7 @@ return {
               "args": null,
               "concreteType": "NINodeHandlerType",
               "plural": false,
-              "selections": (v3/*: any*/)
+              "selections": (v4/*: any*/)
             },
             {
               "kind": "LinkedField",
@@ -242,7 +293,80 @@ return {
               "args": null,
               "concreteType": "NINodeHandlerType",
               "plural": false,
-              "selections": (v3/*: any*/)
+              "selections": (v4/*: any*/)
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "contacts",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Contact",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/),
+        (v5/*: any*/),
+        (v6/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "contact_type",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "emails",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "Email",
+          "plural": true,
+          "selections": (v7/*: any*/)
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "phones",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "Phone",
+          "plural": true,
+          "selections": (v7/*: any*/)
+        },
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "roles",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "RoleRelation",
+          "plural": true,
+          "selections": [
+            (v3/*: any*/),
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "name": "role_data",
+              "storageKey": null,
+              "args": null,
+              "concreteType": "Role",
+              "plural": false,
+              "selections": (v8/*: any*/)
+            },
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "name": "end",
+              "storageKey": null,
+              "args": null,
+              "concreteType": "Organization",
+              "plural": false,
+              "selections": (v8/*: any*/)
             }
           ]
         }
@@ -273,20 +397,8 @@ return {
           "concreteType": "User",
           "plural": false,
           "selections": [
-            {
-              "kind": "ScalarField",
-              "alias": null,
-              "name": "first_name",
-              "args": null,
-              "storageKey": null
-            },
-            {
-              "kind": "ScalarField",
-              "alias": null,
-              "name": "last_name",
-              "args": null,
-              "storageKey": null
-            }
+            (v5/*: any*/),
+            (v6/*: any*/)
           ]
         },
         {
@@ -320,7 +432,7 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v4/*: any*/)
+      "selections": (v9/*: any*/)
     },
     {
       "kind": "ScalarField",
@@ -337,11 +449,11 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v4/*: any*/)
+      "selections": (v9/*: any*/)
     }
   ]
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '352d57c791f38d746cdd7893dc18af58';
+(node/*: any*/).hash = '0fd5f540dce1a841884e25c2a0d256f1';
 module.exports = node;

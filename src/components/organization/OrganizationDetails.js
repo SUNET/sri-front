@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import OrganizationUpdateFormContainer from "../../containers/organization/OrganizationUpdateForm";
-import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
 import DeleteOrganizationMutation from "../../mutations/organization/DeleteOrganizationMutation";
 import environment from "../../createRelayEnvironment";
 
@@ -48,6 +47,33 @@ const OrganizationDetailsQuery = graphql`
                     }
                 }
             }
+            contacts {
+                handle_id
+                first_name
+                last_name
+                contact_type
+                emails {
+                    handle_id
+                    name
+                    type
+                }
+                phones {
+                    handle_id
+                    name
+                    type
+                }
+                roles {
+                    relation_id
+                    role_data {
+                        handle_id
+                        name
+                    }
+                    end {
+                        handle_id
+                        name
+                    }
+                }
+            }
             comments {
                 id
                 user {
@@ -64,36 +90,6 @@ const OrganizationDetailsQuery = graphql`
             modified
             modifier {
                 email
-            }
-        }
-        getOrganizationContacts(handle_id: $organizationId) {
-            relation_id
-            contact {
-                handle_id
-                first_name
-                last_name
-                contact_type
-                emails {
-                    handle_id
-                    name
-                    type
-                }
-                phones {
-                    handle_id
-                    name
-                    type
-                }
-                roles {
-                    name
-                    end {
-                        handle_id
-                        name
-                    }
-                }
-            }
-            role {
-                handle_id
-                name
             }
         }
     }
@@ -113,11 +109,6 @@ class OrganizationDetails extends React.Component {
 
         this.state = {};
     }
-
-    handleSubmit = (organization, dispatch, props) => {
-        organization.isDirty_relationship_parent_of = props.isDirty_relationship_parent_of;
-        UpdateOrganizationMutation(organization, this.props.notify);
-    };
 
     handleDelete = () => {
         const organizationId = this.props.match.params.organizationId;
@@ -139,10 +130,8 @@ class OrganizationDetails extends React.Component {
                         return (
                             <section className="model-details">
                                 <OrganizationUpdateFormContainer
-                                    onSubmit={this.handleSubmit}
                                     onDelete={this.handleDelete}
                                     organization={props.getOrganizationById}
-                                    contacts={props.getOrganizationContacts}
                                     history={this.props.history}
                                 />
                             </section>

@@ -6,18 +6,19 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
+import uuidv4 from "uuid/v4";
+import copy from "clipboard-copy";
+import urlRegex from "url-regex";
+
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import Dropdown from "../Dropdown";
 import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
-import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import FieldInput from "../FieldInput";
-import uuidv4 from "uuid/v4";
-import copy from "clipboard-copy";
-import urlRegex from "url-regex";
-
+import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
 import { checkOrganization } from "../../components/organization/Organization";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 import Worklog from "../Worklog";
@@ -71,7 +72,7 @@ class OrganizationUpdateForm extends React.Component {
                     phone_obj: contact.phones[0] ? contact.phones[0] : {},
                     created: true,
                     origin: "new",
-                    status: "saved",
+                    status: "editing",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newContact)) {
@@ -95,8 +96,12 @@ class OrganizationUpdateForm extends React.Component {
         return url;
     };
 
+    handleSubmit = (organization) => {
+        UpdateOrganizationMutation(organization, this);
+    };
+
     render() {
-        let {
+        const {
             organization,
             name,
             type,
@@ -112,7 +117,7 @@ class OrganizationUpdateForm extends React.Component {
             submitting
         } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <Form.Row>
                     <Col>
                         <div className="title-section">
@@ -427,14 +432,7 @@ class OrganizationUpdateForm extends React.Component {
                     <button type="button" onClick={() => this.props.onDelete()} className="btn link">
                         {t("actions.delete")}
                     </button>
-                    <button
-                        onClick={() => {
-                            document.documentElement.scrollTop = 0;
-                        }}
-                        type="submit"
-                        className="btn primary lg"
-                        disabled={pristine || submitting}
-                    >
+                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                         {t("actions.save")}
                     </button>
                 </div>
@@ -457,6 +455,14 @@ const validate = (values, props) => {
     const errors = {};
     if (!values.name) {
         errors.name = "* Required!";
+    }
+
+    if (!values.type) {
+        errors.type = "* Required!";
+    }
+
+    if (!values.organization_id) {
+        errors.organization_id = "* Required!";
     }
 
     if (values.website) {
@@ -538,9 +544,12 @@ const validate = (values, props) => {
 OrganizationUpdateForm = reduxForm({
     form: "updateOrganization",
     validate,
+    enableReinitialize: true,
     asyncValidate,
     asyncChangeFields: ["organization_id"],
-    onSubmitSuccess: (result, dispatch, props) => {}
+    onSubmitSuccess: (result, dispatch, props) => {
+        document.documentElement.scrollTop = 0;
+    }
 })(OrganizationUpdateForm);
 
 const OrganizationUpdateFormFragment = createRefetchContainer(
@@ -576,6 +585,33 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                         start {
                             handle_id
                             node_name
+                        }
+                    }
+                }
+                contacts {
+                    handle_id
+                    first_name
+                    last_name
+                    contact_type
+                    emails {
+                        handle_id
+                        name
+                        type
+                    }
+                    phones {
+                        handle_id
+                        name
+                        type
+                    }
+                    roles {
+                        relation_id
+                        role_data {
+                            handle_id
+                            name
+                        }
+                        end {
+                            handle_id
+                            name
                         }
                     }
                 }

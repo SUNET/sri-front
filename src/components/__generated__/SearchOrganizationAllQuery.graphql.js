@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash be3d1c8b1cc1148bfc7121871a4c577f
+ * @relayHash a1730a715148d225def644630c6f5619
  */
 
 /* eslint-disable */
@@ -231,7 +231,6 @@ export type OrganizationNestedFilter = {|
 |};
 export type AddressInputField = {|
   name?: ?string,
-  website?: ?string,
   phone?: ?string,
   street?: ?string,
   postal_code?: ?string,

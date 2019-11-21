@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { getFormMeta, getFormSyncErrors, formValueSelector } from "redux-form";
 
+import * as actions from "../../actions/Notify";
 import CreateContactForm from "../../components/contact/CreateContactForm";
 
 const mapStateToProps = (state, props) => {
@@ -14,7 +15,11 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+    return {
+        notify: (msg, level) => {
+            dispatch(actions.notify(msg, level));
+        }
+    };
 };
 
 const CreateContactFormContainer = connect(

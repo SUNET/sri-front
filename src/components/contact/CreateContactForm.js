@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { FieldArray, Field, reduxForm } from "redux-form";
 
+import CreateContactMutation from "../../mutations/contact/CreateContactMutation";
 import FieldArrayOrganizationsContact from "./FieldArrayOrganizationsContact";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Dropdown from "../Dropdown";
@@ -95,10 +96,14 @@ class CreateContactForm extends React.Component {
         };
     }
 
+    handleSubmit = (contact) => {
+        CreateContactMutation(contact, this);
+    };
+
     render() {
         const { name, t, handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="model-details">
                     <section className="title-section">
                         <EditField

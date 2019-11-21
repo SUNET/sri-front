@@ -6,6 +6,7 @@ import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 import urlRegex from "url-regex";
 
+import CreateOrganizationMutation from "../../mutations/organization/CreateOrganizationMutation";
 import { checkOrganization } from "../../components/organization/Organization";
 import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
@@ -50,7 +51,7 @@ class CreateOrganizationForm extends React.Component {
                     phone_obj: contact.phones[0] ? contact.phones[0] : {},
                     created: true,
                     origin: "new",
-                    status: "saved",
+                    status: "editing",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newContact)) {
@@ -60,10 +61,14 @@ class CreateOrganizationForm extends React.Component {
         }
     };
 
+    handleSubmit = (organization) => {
+        CreateOrganizationMutation(organization, this);
+    };
+
     render() {
         const { handleSubmit, t, name } = this.props;
         return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="model-details">
                     <section className="title-section">
                         <EditField
@@ -327,6 +332,10 @@ const validate = (values, props) => {
         errors.type = "* Required!";
     }
 
+    if (!values.organization_id) {
+        errors.organization_id = "* Required!";
+    }
+
     if (values.website) {
         if (!urlRegex({ exact: true, strict: false }).test(values.website)) {
             errors.website = "* Invalid url!";
@@ -342,10 +351,6 @@ const validate = (values, props) => {
         (props.affiliation.site_owner === undefined || props.affiliation.site_owner === false)
     ) {
         errors.affiliation = "* Required!";
-    }
-
-    if (!values.organization_id) {
-        errors.organization_id = "* Required!";
     }
 
     if (values.addresses) {
