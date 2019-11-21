@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 297914eb7616b1e1523845617e663951
+ * @relayHash b0bf4f49fb1d9d2b583d811dd3fe4def
  */
 
 /* eslint-disable */
@@ -15,6 +15,7 @@ export type CompositeContactMutationInput = {|
   create_subinputs?: ?$ReadOnlyArray<?CreateEmailInput>,
   update_subinputs?: ?$ReadOnlyArray<?UpdateEmailInput>,
   delete_subinputs?: ?$ReadOnlyArray<?DeleteEmailInput>,
+  unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
   create_phones?: ?$ReadOnlyArray<?CreatePhoneInput>,
   update_phones?: ?$ReadOnlyArray<?UpdatePhoneInput>,
   delete_phones?: ?$ReadOnlyArray<?DeletePhoneInput>,
@@ -77,6 +78,10 @@ export type UpdateEmailInput = {|
 |};
 export type DeleteEmailInput = {|
   handle_id: number,
+  clientMutationId?: ?string,
+|};
+export type DeleteRelationshipInput = {|
+  relation_id: number,
   clientMutationId?: ?string,
 |};
 export type CreatePhoneInput = {|

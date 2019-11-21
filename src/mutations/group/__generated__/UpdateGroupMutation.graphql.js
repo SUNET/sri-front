@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7f917acd6d218c77c430f99b4189ff31
+ * @relayHash c6e3b14e2da74bf73340a5f81cc84d04
  */
 
 /* eslint-disable */
@@ -15,6 +15,7 @@ export type CompositeGroupMutationInput = {|
   create_subinputs?: ?$ReadOnlyArray<?CreateContactInput>,
   update_subinputs?: ?$ReadOnlyArray<?UpdateContactInput>,
   delete_subinputs?: ?$ReadOnlyArray<?DeleteContactInput>,
+  unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
   clientMutationId?: ?string,
 |};
 export type CreateGroupInput = {|
@@ -72,6 +73,10 @@ export type UpdateContactInput = {|
 |};
 export type DeleteContactInput = {|
   handle_id: number,
+  clientMutationId?: ?string,
+|};
+export type DeleteRelationshipInput = {|
+  relation_id: number,
   clientMutationId?: ?string,
 |};
 export type UpdateGroupMutationVariables = {|
