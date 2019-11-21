@@ -13,6 +13,8 @@ const mapStateToProps = (state, props) => {
         addressesValues: createOrganizationSelector(state, "addresses"),
         contactsValues: contactsValues,
         name: createOrganizationSelector(state, "name"),
+        relationship_parent_of: createOrganizationSelector(state, "relationship_parent_of"),
+        organization_parent_id: createOrganizationSelector(state, "organization_parent_id"),
         isDirty_contacts_roles:
             contactsValues &&
             contactsValues.map((contact, index) => {

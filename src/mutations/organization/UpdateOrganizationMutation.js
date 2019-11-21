@@ -1,8 +1,6 @@
 import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import DeleteRelationshipMutation from "../DeleteRelationshipMutation";
-
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
@@ -27,6 +25,9 @@ const mutation = graphql`
                     affiliation_partner
                     affiliation_provider
                     affiliation_site_owner
+                    parent_organization {
+                        organization_id
+                    }
                     contacts {
                         handle_id
                         first_name
@@ -190,6 +191,10 @@ export default function UpdateOrganizationMutation(organization, form) {
 
     const deleteRoles = [];
 
+    if (form.props.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
+        deleteRoles.push({ relation_id: organization.relationship_parent_of_relation_id });
+    }
+
     const addresses = organization.addresses;
     if (addresses) {
         Object.keys(addresses).forEach((address_key) => {
@@ -312,9 +317,6 @@ export default function UpdateOrganizationMutation(organization, form) {
             if (response.composite_organization.updated.errors) {
                 return response.composite_organization.updated.errors;
             } else {
-                if (form.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
-                    DeleteRelationshipMutation(organization.relationship_parent_of_relation_id);
-                }
                 form.props.reset();
                 form.refetch();
                 form.props.notify(i18n.t("notify.changes-saved"), "success");

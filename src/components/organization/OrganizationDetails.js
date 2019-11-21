@@ -24,6 +24,9 @@ const OrganizationDetailsQuery = graphql`
             affiliation_partner
             affiliation_provider
             affiliation_site_owner
+            parent_organization {
+                organization_id
+            }
             addresses {
                 handle_id
                 name

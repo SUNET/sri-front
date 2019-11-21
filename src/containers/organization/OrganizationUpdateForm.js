@@ -11,9 +11,11 @@ const mapStateToProps = (state, props) => {
     const organization = props.organization;
     const parent_node =
         organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
-
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
+        organization_parent_id: organization.parent_organization[0]
+            ? organization.parent_organization[0].organization_id
+            : "",
         relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",
         handle_id: organization.handle_id,
         name: organization.name,
@@ -108,7 +110,8 @@ const mapStateToProps = (state, props) => {
         organization_number: updateOrganizationSelector(state, "organization_number"),
         description: updateOrganizationSelector(state, "description"),
         relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),
-        isDirty_relationship_parent_of: isDirty("updateOrganization")(state, ["relationship_parent_of"]),
+        organization_parent_id: updateOrganizationSelector(state, "organization_parent_id"),
+        isDirty_relationship_parent_of: isDirty("updateOrganization")(state, ["organization_parent_id"]),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
         contactsValues: contactsValues,
         isDirty_contacts_roles:

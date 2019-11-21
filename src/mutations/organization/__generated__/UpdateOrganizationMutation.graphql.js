@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 373d4609a1199e217c5fcd09e218833e
+ * @relayHash 7c4e1f3b7b4ecf47ebf402101b367871
  */
 
 /* eslint-disable */
@@ -165,6 +165,9 @@ export type UpdateOrganizationMutationResponse = {|
         +affiliation_partner: ?boolean,
         +affiliation_provider: ?boolean,
         +affiliation_site_owner: ?boolean,
+        +parent_organization: ?$ReadOnlyArray<?{|
+          +organization_id: ?string
+        |}>,
         +contacts: ?$ReadOnlyArray<?{|
           +handle_id: string,
           +first_name: string,
@@ -345,6 +348,10 @@ mutation UpdateOrganizationMutation(
         affiliation_partner
         affiliation_provider
         affiliation_site_owner
+        parent_organization {
+          organization_id
+          id
+        }
         contacts {
           handle_id
           first_name
@@ -1021,6 +1028,18 @@ return {
                   {
                     "kind": "LinkedField",
                     "alias": null,
+                    "name": "parent_organization",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": true,
+                    "selections": [
+                      (v7/*: any*/)
+                    ]
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
                     "name": "contacts",
                     "storageKey": null,
                     "args": null,
@@ -1172,6 +1191,19 @@ return {
                   {
                     "kind": "LinkedField",
                     "alias": null,
+                    "name": "parent_organization",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Organization",
+                    "plural": true,
+                    "selections": [
+                      (v7/*: any*/),
+                      (v35/*: any*/)
+                    ]
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
                     "name": "contacts",
                     "storageKey": null,
                     "args": null,
@@ -1282,11 +1314,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateOrganizationMutation",
     "id": null,
-    "text": "mutation UpdateOrganizationMutation(\n  $input: CompositeOrganizationMutationInput!\n) {\n  composite_organization(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      organization {\n        handle_id\n        name\n        type\n        website\n        organization_id\n        organization_number\n        affiliation_customer\n        affiliation_end_customer\n        affiliation_host_user\n        affiliation_partner\n        affiliation_provider\n        affiliation_site_owner\n        contacts {\n          handle_id\n          first_name\n          last_name\n          contact_type\n          emails {\n            handle_id\n            name\n            type\n            id\n          }\n          phones {\n            handle_id\n            name\n            type\n            id\n          }\n          roles {\n            relation_id\n            role_data {\n              handle_id\n              name\n            }\n            end {\n              handle_id\n              name\n              id\n            }\n          }\n          member_of_groups {\n            name\n            id\n          }\n          id\n        }\n        comments {\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n          id\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n        id\n      }\n    }\n    address_created {\n      errors {\n        field\n        messages\n      }\n      address {\n        handle_id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n        id\n      }\n    }\n    address_updated {\n      errors {\n        field\n        messages\n      }\n      address {\n        handle_id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n        id\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        handle_id\n        first_name\n        last_name\n        contact_type\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          relation_id\n          role_data {\n            handle_id\n            name\n          }\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n        id\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        handle_id\n        first_name\n        last_name\n        contact_type\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          relation_id\n          role_data {\n            handle_id\n            name\n          }\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n",
+    "text": "mutation UpdateOrganizationMutation(\n  $input: CompositeOrganizationMutationInput!\n) {\n  composite_organization(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      organization {\n        handle_id\n        name\n        type\n        website\n        organization_id\n        organization_number\n        affiliation_customer\n        affiliation_end_customer\n        affiliation_host_user\n        affiliation_partner\n        affiliation_provider\n        affiliation_site_owner\n        parent_organization {\n          organization_id\n          id\n        }\n        contacts {\n          handle_id\n          first_name\n          last_name\n          contact_type\n          emails {\n            handle_id\n            name\n            type\n            id\n          }\n          phones {\n            handle_id\n            name\n            type\n            id\n          }\n          roles {\n            relation_id\n            role_data {\n              handle_id\n              name\n            }\n            end {\n              handle_id\n              name\n              id\n            }\n          }\n          member_of_groups {\n            name\n            id\n          }\n          id\n        }\n        comments {\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n          id\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n        id\n      }\n    }\n    address_created {\n      errors {\n        field\n        messages\n      }\n      address {\n        handle_id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n        id\n      }\n    }\n    address_updated {\n      errors {\n        field\n        messages\n      }\n      address {\n        handle_id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n        id\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        handle_id\n        first_name\n        last_name\n        contact_type\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          relation_id\n          role_data {\n            handle_id\n            name\n          }\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n        id\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        handle_id\n        first_name\n        last_name\n        contact_type\n        emails {\n          handle_id\n          name\n          type\n          id\n        }\n        phones {\n          handle_id\n          name\n          type\n          id\n        }\n        roles {\n          relation_id\n          role_data {\n            handle_id\n            name\n          }\n          end {\n            handle_id\n            name\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd08f4cd6a1bbb236a987f702d31d0591';
+(node/*: any*/).hash = '5e25c258c7e4ea0974c6a2f2d4e77b1c';
 module.exports = node;
