@@ -7,7 +7,6 @@ import { Field, reduxForm } from "redux-form";
 import { ListGroup, Form, Row, Col, Image } from "react-bootstrap";
 
 import FieldInput from "./FieldInput";
-import Dropdown from "./Dropdown";
 
 import "../style/Profile.scss";
 
