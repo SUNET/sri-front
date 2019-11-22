@@ -22,6 +22,15 @@ class ProfileForm extends React.Component {
         this.props.initialize();
     }
 
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
+        console.log(this.props);
+        if (this.props.dirty !== nextProps.dirty) {
+            console.log("enter");
+            this.props.dispatch({ type: "UPDATE_PROFILE", payload: { ...this.props } });
+            this.props.reset();
+        }
+    }
+
     _handleChangePage = (event) => {
         this.setState({ default_page: event.target.value });
     };

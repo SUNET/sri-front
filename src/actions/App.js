@@ -2,6 +2,7 @@ export const LOADED = "APP_LOADED";
 export const START_FETCHING = "START_FETCHING";
 export const STOP_FETCHING = "STOP_FETCHING";
 export const IAM = "IAM";
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 export function appLoaded() {
     return {
@@ -26,6 +27,16 @@ export function iam(user) {
         type: IAM,
         payload: {
             user: user
+        }
+    };
+}
+
+export function updateProfile(profile) {
+    console.log("actions");
+    return {
+        type: UPDATE_PROFILE,
+        payload: {
+            profile: profile
         }
     };
 }
