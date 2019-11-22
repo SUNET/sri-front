@@ -3,6 +3,38 @@
 .filter-columns {
     display: inline-block;
 
+    &.order {
+        .icon-filter {
+            vertical-align: middle;
+            margin-left: 4px;
+            color: $complementary-color;
+        }
+
+        .order-by {
+            width: 100%;
+
+            div {
+                display: block;
+                padding: 8px 30px 8px 46px;
+                margin-left: -20px;
+                margin-right: -32px;
+                font-weight: normal;
+                cursor: pointer;
+
+                &.selected {
+                    background-color: rgba($tertiary-color, .1);
+                }
+
+                &:hover {
+                    background-color: rgba($tertiary-color, .05);
+                }
+            }
+        }
+        .dropdown-divider{
+            margin-top: -1px;
+        }
+    }
+
     .dropdown {
         span.dropdown-toggle {
             cursor: pointer;
@@ -15,12 +47,16 @@
         }
 
         .dropdown-menu {
-            padding: 10px 20px 15px;
+            padding: 0 32px 15px 20px;
             border-radius: 0;
             -webkit-box-shadow: 0 0 4px 2px #d6d6d6;
             -moz-box-shadow: 0 0 4px 2px #d6d6d6;
             box-shadow: 0 0 4px 2px #d6d6d6;
             border: none;
+
+            .dropdown-header {
+                text-align: center;
+            }
 
             .field-checkbox {
                 display: block;

@@ -19,8 +19,8 @@ class Base extends React.Component {
                         <Redirect exact from={"/personal-area"} to={"/personal-area/profile-settings"} />
                         <Route exact path="/" component={Home} />
                         <Route path="/dashboard" component={Home} />
-                        <Route path="/network" component={Network} />
-                        <Route path="/community" component={Community} />
+                        {this.props.view_network && <Route path="/network" component={Network} />}
+                        {this.props.view_community && <Route path="/community" component={Community} />}
                         <Route path="/contracts" component={Contracts} />
                         <Route path="/personal-area" component={PersonalArea} />
                         <RouteNotFound />

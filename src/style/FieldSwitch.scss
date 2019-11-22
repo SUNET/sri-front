@@ -11,6 +11,16 @@
             svg {
                 width: 20px;
             }
+
+            i {
+                vertical-align: middle;
+                color: $complementary-color;
+                font-size: 12px;
+            }
+
+            label {
+                text-indent: 16px;
+            }
         }
 
         &.custom {
@@ -33,7 +43,8 @@
                             top: calc((0% - (100% - 1.26em)) - 8%);
                             // transform: scale(1);
                         }
-                        &.size-10{
+
+                        &.size-10 {
                             font-size: 10px;
                         }
                     }
@@ -51,9 +62,11 @@
                     }
                 }
             }
-            &.off-hidden{
-                .state.p-off{
-                    svg{
+
+            &.off-hidden {
+                .state.p-off {
+                    i,
+                    svg {
                         visibility: hidden;
                     }
                 }

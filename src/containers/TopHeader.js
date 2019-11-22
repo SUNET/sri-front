@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import Base from "../components/Base";
+import TopHeader from "../components/TopHeader";
 
 const mapStateToProps = (state, props) => {
     return {
@@ -15,9 +15,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {};
 };
 
-const BaseContainer = connect(
+const TopHeaderContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Base);
+)(TopHeader);
 
-export default BaseContainer;
+export default TopHeaderContainer;

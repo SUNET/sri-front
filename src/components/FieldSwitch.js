@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash, faAngleDown, faAngleUp, faPlus, faMinus, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faAngleDown, faAngleUp, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/FieldSwitch.scss";
 
@@ -48,14 +48,14 @@ class FieldSwitch extends Component {
                         <div className={`state p-on ${this.props.color}`}>
                             {this.props.icon === "eyes" && <FontAwesomeIcon icon={faEye} />}
                             {this.props.icon === "plus" && <FontAwesomeIcon icon={faMinus} />}
-                            {this.props.icon === "check" && <FontAwesomeIcon icon={faCheck} />}
+                            {this.props.icon === "check" && <i className="icon-tick"></i>}
                             <label>{this.props.labelChecked || this.props.label}</label>
                             {this.props.icon === "angle" && <FontAwesomeIcon icon={faAngleUp} />}
                         </div>
                         <div className="state p-off">
                             {this.props.icon === "eyes" && <FontAwesomeIcon icon={faEyeSlash} />}
                             {this.props.icon === "plus" && <FontAwesomeIcon icon={faPlus} />}
-                            {this.props.icon === "check" && <FontAwesomeIcon icon={faCheck} />}
+                            {this.props.icon === "check" && <i className="icon-tick"></i>}
                             <label>{this.props.labelUnChecked || this.props.label}</label>
                             {this.props.icon === "angle" && <FontAwesomeIcon icon={faAngleDown} />}
                         </div>

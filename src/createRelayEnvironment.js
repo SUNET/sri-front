@@ -6,7 +6,7 @@ const cache = new QueryResponseCache({ size: 100, ttl: oneMinute });
 
 export const API_HOST = "http://localhost:8000";
 
-let _csrfToken = null;
+export let _csrfToken = null;
 
 async function getCsrfToken() {
     if (_csrfToken === null) {

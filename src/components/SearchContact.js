@@ -17,20 +17,22 @@ import ContactListContainer from "../containers/contact/ContactList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
+import { isEmpty } from "../utils";
 // import { RouteNotFound } from "./NotFound";
 
-// mock while being implemented in the backend
+//mock - This should be returned to the backend in the future.
 const defaultColumns = [
-    { name: "Name", value: "name" },
+    { name: "Name", value: "name", filter: "order" },
     { name: "Organization", value: "organization" },
-    { name: "Roles", value: "roles" },
-    { name: "Contact Type", value: "contact_type" }
+    { name: "Roles", value: "roles", filter: "order-filter" },
+    { name: "Contact Type", value: "contact_type", filter: "order" }
 ];
 
 const SearchContactsAllQuery = graphql`
     query SearchContactsAllQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
         ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
         ...ContactList_organization_types
+        ...ContactList_roles_default
     }
 `;
 
@@ -42,6 +44,8 @@ class Search extends React.Component {
             itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
             filterValue: {},
+            filterColumnValue: {},
+            filterColumnValueCallBack: [],
             filterDateType: "created",
             filterDateFrom: undefined,
             filterDateTo: undefined,
@@ -49,6 +53,48 @@ class Search extends React.Component {
             orderBy: { orderBy: "handle_id_DESC" }
         };
     }
+
+    // save in the state the column orderby
+    handleColumnChangeOrderBy = (event, orderBy) => {
+        if (event.target.checked) {
+            orderBy = orderBy.concat("_ASC");
+        } else {
+            orderBy = orderBy.concat("_DESC");
+        }
+
+        this.setState({ orderBy: { orderBy: orderBy } });
+    };
+
+    // update state for order filter columns
+    handleChangeOrderFilterColumns = (orderFilter) => {
+        if (orderFilter.orderBy) {
+            // In de backend bevat de bestelbon een laatste s
+            if (orderFilter.orderBy.includes("organization")) {
+                orderFilter.orderBy = orderFilter.orderBy.replace("organization", "organizations");
+            }
+            this.setState({ orderBy: { orderBy: orderFilter.orderBy } });
+        }
+        if (orderFilter.filters.length > 0) {
+            // In de backend bevat de bestelbon een laatste s
+            if (orderFilter.column.includes("organization")) {
+                orderFilter.column = orderFilter.column.replace("organization", "organizations");
+            }
+
+            const listFilter = orderFilter.filters.map((filter) => {
+                return { name: filter };
+            });
+            /* The filter format for (contact - organization, roles) is diferent to the (organization - type)
+            so it takes a callback to restore the state */
+            this.setState({
+                filterColumnValue: { [orderFilter.column + "_in"]: listFilter },
+                filterColumnValueCallBack: orderFilter.filters
+            });
+
+            this.setState({});
+        } else {
+            this.setState({ filterColumnValue: {} });
+        }
+    };
 
     //save in the state the number of pages shown
     handleOnChangeCount = (count) => {
@@ -103,10 +149,6 @@ class Search extends React.Component {
         this.setState({ filterDate: { ...newfilterDate } });
     };
 
-    handleResetPage = () => {
-        // this.setState({ itemsPerPage: ITEMS_PER_PAGE - 1 });
-    };
-
     UNSAFE_componentWillUpdate(nextProps, nextState) {
         // updates the component if you see changes in the date status
         const filterDateType = this.state.filterDateType;
@@ -128,11 +170,15 @@ class Search extends React.Component {
         let filterArrayOR = [];
         let filters = {};
 
-        if (!(Object.keys(this.state.filterDate).length === 0 && this.state.filterDate.constructor === Object)) {
+        if (!isEmpty(this.state.filterDate)) {
             filterArrayAND.push(this.state.filterDate);
         }
 
-        if (!(Object.keys(this.state.filterValue).length === 0 && this.state.filterValue.constructor === Object)) {
+        if (!isEmpty(this.state.filterColumnValue)) {
+            filterArrayAND.push(this.state.filterColumnValue);
+        }
+
+        if (!isEmpty(this.state.filterValue)) {
             filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
 
@@ -228,7 +274,14 @@ class Search extends React.Component {
                                                         <ContactListContainer
                                                             contacts={props}
                                                             organization_types={props}
+                                                            roles_default={props}
                                                             changeCount={this.handleOnChangeCount}
+                                                            columnChangeOrderBy={this.handleColumnChangeOrderBy}
+                                                            orderBy={this.state.orderBy.orderBy}
+                                                            changeOrderFilterColumns={
+                                                                this.handleChangeOrderFilterColumns
+                                                            }
+                                                            filterColumn={this.state.filterColumnValueCallBack}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
