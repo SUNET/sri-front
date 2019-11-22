@@ -10,6 +10,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../constants";
 import ContactRow from "./ContactRow";
 import FilterColumnsContainer from "../../containers/FilterColumns";
+import OrderFilterColumns from "../OrderFilterColumns";
 
 import "../../style/ModelList.scss";
 
@@ -51,6 +52,13 @@ export class ContactList extends React.PureComponent {
                 {this.props.defaultColumns.map((column) => {
                     // Hiding the columns passed by props
                     if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
+                        let columns_order_filter = undefined;
+                        if (column.value === "roles") {
+                            columns_order_filter = this.props.roles_default.getRolesFromRoleGroup;
+                        } else if (column.value === "organization") {
+                            columns_order_filter = this.props.organization_types.getChoicesForDropdown;
+                        }
+
                         return (
                             <div key={column.name}>
                                 {column.filter === "order" ? (
@@ -74,7 +82,19 @@ export class ContactList extends React.PureComponent {
                                             </label>
                                         </div>
                                     </div>
-                                ) : column.filter === "order-filter" ? null /* backend needs to implement it */ : (
+                                ) : column.filter === "order-filter" ? (
+                                    <span>
+                                        {column.name}
+                                        <OrderFilterColumns
+                                            type="order"
+                                            column={column.value}
+                                            columns={columns_order_filter}
+                                            orderFilterColumns={this.props.changeOrderFilterColumns}
+                                            orderBy={this.props.orderBy}
+                                            filterColumn={this.props.filterColumn}
+                                        />
+                                    </span>
+                                ) : (
                                     column.name
                                 )}
                             </div>
@@ -178,6 +198,14 @@ export default createPaginationContainer(
                 getChoicesForDropdown(name: "organization_types") {
                     name
                     value
+                }
+            }
+        `,
+        roles_default: graphql`
+            fragment ContactList_roles_default on Query {
+                getRolesFromRoleGroup {
+                    handle_id
+                    name
                 }
             }
         `

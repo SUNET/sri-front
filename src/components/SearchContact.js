@@ -24,7 +24,7 @@ import { isEmpty } from "../utils";
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
     { name: "Organization", value: "organization" },
-    { name: "Roles", value: "roles" },
+    { name: "Roles", value: "roles", filter: "order-filter" },
     { name: "Contact Type", value: "contact_type", filter: "order" }
 ];
 
@@ -32,6 +32,7 @@ const SearchContactsAllQuery = graphql`
     query SearchContactsAllQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
         ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
         ...ContactList_organization_types
+        ...ContactList_roles_default
     }
 `;
 
@@ -43,6 +44,8 @@ class Search extends React.Component {
             itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
             filterValue: {},
+            filterColumnValue: {},
+            filterColumnValueCallBack: [],
             filterDateType: "created",
             filterDateFrom: undefined,
             filterDateTo: undefined,
@@ -60,6 +63,37 @@ class Search extends React.Component {
         }
 
         this.setState({ orderBy: { orderBy: orderBy } });
+    };
+
+    // update state for order filter columns
+    handleChangeOrderFilterColumns = (orderFilter) => {
+        if (orderFilter.orderBy) {
+            // In de backend bevat de bestelbon een laatste s
+            if (orderFilter.orderBy.includes("organization")) {
+                orderFilter.orderBy = orderFilter.orderBy.replace("organization", "organizations");
+            }
+            this.setState({ orderBy: { orderBy: orderFilter.orderBy } });
+        }
+        if (orderFilter.filters.length > 0) {
+            // In de backend bevat de bestelbon een laatste s
+            if (orderFilter.column.includes("organization")) {
+                orderFilter.column = orderFilter.column.replace("organization", "organizations");
+            }
+
+            const listFilter = orderFilter.filters.map((filter) => {
+                return { name: filter };
+            });
+            /* The filter format for (contact - organization, roles) is diferent to the (organization - type)
+            so it takes a callback to restore the state */
+            this.setState({
+                filterColumnValue: { [orderFilter.column + "_in"]: listFilter },
+                filterColumnValueCallBack: orderFilter.filters
+            });
+
+            this.setState({});
+        } else {
+            this.setState({ filterColumnValue: {} });
+        }
     };
 
     //save in the state the number of pages shown
@@ -138,6 +172,10 @@ class Search extends React.Component {
 
         if (!isEmpty(this.state.filterDate)) {
             filterArrayAND.push(this.state.filterDate);
+        }
+
+        if (!isEmpty(this.state.filterColumnValue)) {
+            filterArrayAND.push(this.state.filterColumnValue);
         }
 
         if (!isEmpty(this.state.filterValue)) {
@@ -236,9 +274,14 @@ class Search extends React.Component {
                                                         <ContactListContainer
                                                             contacts={props}
                                                             organization_types={props}
+                                                            roles_default={props}
                                                             changeCount={this.handleOnChangeCount}
                                                             columnChangeOrderBy={this.handleColumnChangeOrderBy}
                                                             orderBy={this.state.orderBy.orderBy}
+                                                            changeOrderFilterColumns={
+                                                                this.handleChangeOrderFilterColumns
+                                                            }
+                                                            filterColumn={this.state.filterColumnValueCallBack}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />

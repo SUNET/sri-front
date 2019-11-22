@@ -80,7 +80,7 @@ class OrderFilterColumns extends React.Component {
     };
 
     render() {
-        const { t, column } = this.props;
+        const { t } = this.props;
         return (
             <div className={`filter-columns ${this.props.type}`}>
                 <Dropdown>
@@ -91,13 +91,13 @@ class OrderFilterColumns extends React.Component {
                         {this.props.type === "order" && (
                             <div className="order-by">
                                 <div
-                                    className={this.state.orderBy.includes(column + "_DESC") ? "selected" : ""}
+                                    className={this.state.orderBy.includes("_DESC") ? "selected" : ""}
                                     onClick={() => this.handleOrderBy("_DESC")}
                                 >
                                     {t("filter_columns.order_desc")}
                                 </div>
                                 <div
-                                    className={this.state.orderBy.includes(column + "_ASC") ? "selected" : ""}
+                                    className={this.state.orderBy.includes("_ASC") ? "selected" : ""}
                                     onClick={() => this.handleOrderBy("_ASC")}
                                 >
                                     {t("filter_columns.order_asc")}
@@ -107,13 +107,24 @@ class OrderFilterColumns extends React.Component {
                         <Dropdown.Divider />
                         <div>
                             {this.props.columns.map((column) => {
-                                let defaultValue =
-                                    this.state.filters[column.value] !== undefined
-                                        ? this.state.filters[column.value]
-                                        : false;
+                                let defaultValue = undefined;
+                                let id = undefined;
+                                if (this.props.column === "organization" || this.props.column === "roles") {
+                                    defaultValue =
+                                        this.state.filters[column.name] !== undefined
+                                            ? this.state.filters[column.name]
+                                            : false;
+                                    id = column.name;
+                                } else {
+                                    defaultValue =
+                                        this.state.filters[column.value] !== undefined
+                                            ? this.state.filters[column.value]
+                                            : false;
+                                    id = column.value;
+                                }
                                 return (
                                     <FieldSwitch
-                                        key={column.value}
+                                        key={column.value || column.handle_id}
                                         type="toggle-icon"
                                         icon="check"
                                         color="p-success-o"
@@ -123,7 +134,7 @@ class OrderFilterColumns extends React.Component {
                                             this.handleChangeFilter(e);
                                         }}
                                         defaultValue={defaultValue}
-                                        id={column.value}
+                                        id={id}
                                     />
                                 );
                             })}

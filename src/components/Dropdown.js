@@ -40,6 +40,15 @@ const DropdownRolesQuery = graphql`
     }
 `;
 
+const DropdownRolesGroupDefaultQuery = graphql`
+    query DropdownRolesGroupDefaultQuery {
+        getRolesFromRoleGroup {
+            handle_id
+            name
+        }
+    }
+`;
+
 class Dropdown extends React.PureComponent {
     static propTypes = {
         type: PropTypes.string,
@@ -50,7 +59,7 @@ class Dropdown extends React.PureComponent {
         emptyLabel: PropTypes.string,
         defaultValue: PropTypes.string
     };
-
+    // for real backend dropdowns
     renderOptions = (options) => {
         return options.map((option) => {
             return (
@@ -60,7 +69,7 @@ class Dropdown extends React.PureComponent {
             );
         });
     };
-
+    // dropdwons custom from a query
     renderOptionsModel = (options) => {
         return options.edges.map((option) => {
             return (
@@ -70,7 +79,7 @@ class Dropdown extends React.PureComponent {
             );
         });
     };
-
+    // dropdowns optimized by the backend to improve performance
     renderOptionsModelOptimized = (options) => {
         return options.map((option) => {
             return (
@@ -89,6 +98,9 @@ class Dropdown extends React.PureComponent {
                 break;
             case "roles":
                 dropdownQuery = DropdownRolesQuery;
+                break;
+            case "default_roles":
+                dropdownQuery = DropdownRolesGroupDefaultQuery;
                 break;
             default:
                 dropdownQuery = DropdownQuery;
@@ -132,7 +144,8 @@ class Dropdown extends React.PureComponent {
                                         </option>
                                     )}
                                     {this.props.model === "organization" && this.renderOptionsModelOptimized(options)}
-                                    {this.props.model === "roles" && this.renderOptionsModel(options)}
+                                    {(this.props.model === "roles" || this.props.model === "default_roles") &&
+                                        this.renderOptionsModel(options)}
                                     {this.props.model === undefined && this.renderOptions(options)}
                                 </Field>
                             );
