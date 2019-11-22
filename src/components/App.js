@@ -7,7 +7,7 @@ import { Route, Switch } from "react-router-dom";
 import FetchingContext from "../components/FetchingContext";
 import SplashContainer from "../containers/Splash";
 import NotifyContainer from "../containers/Notify";
-import TopHeader from "./TopHeader";
+import TopHeaderContainer from "../containers/TopHeader";
 import BaseContainer from "../containers/Base";
 import FooterContainer from "../containers/Footer";
 
@@ -33,7 +33,7 @@ class App extends Component {
                     <ConnectedRouter history={history}>
                         <Row>
                             <Col className="px-0">
-                                <TopHeader />
+                                <TopHeaderContainer />
                             </Col>
                         </Row>
                         <Row>

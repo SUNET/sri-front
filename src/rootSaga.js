@@ -1,11 +1,14 @@
-import { takeLatest } from "redux-saga/effects";
+import { all, takeLatest, takeEvery } from "redux-saga/effects";
 
 import * as actions from "./actions/App";
 
-import { requestWhoami } from "./sagas/App";
+import { requestWhoami, updateProfile } from "./sagas/App";
 
 function* rootSaga() {
-    yield takeLatest(actions.LOADED, requestWhoami);
+    yield all([
+            takeLatest(actions.LOADED, requestWhoami), 
+            takeEvery(actions.UPDATE_PROFILE, updateProfile)
+        ]);
 }
 
 export default rootSaga;

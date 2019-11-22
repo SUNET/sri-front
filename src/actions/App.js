@@ -31,12 +31,11 @@ export function iam(user) {
     };
 }
 
-export function updateProfile(profile) {
-    console.log("actions");
+export function updateProfile(user) {
     return {
         type: UPDATE_PROFILE,
         payload: {
-            profile: profile
+            user: user
         }
     };
 }

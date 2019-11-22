@@ -8,6 +8,13 @@ export const ajaxHeaders = {
     "X-CSRFToken": Cookies.get("csrftoken")
 };
 
+export const putRequest = {
+    method: "put",
+    redirect: "manual",
+    credentials: "include",
+    headers: ajaxHeaders
+};
+
 export const postRequest = {
     method: "post",
     redirect: "manual",

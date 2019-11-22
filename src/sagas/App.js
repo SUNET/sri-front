@@ -1,4 +1,4 @@
-import { put, call } from "redux-saga/effects";
+import { put, call, select } from "redux-saga/effects";
 import { getRequest, postRequest, checkStatus } from "./common";
 
 import * as actions from "../actions/App";
@@ -18,7 +18,18 @@ export function* requestWhoami() {
 export function* updateProfile() {
     try {
         console.log("Update profile", api);
-        const profile = yield call(postConfig, api);
+        const state = yield select();
+        const data = {
+            email: state.app.user.email,
+            display_name: state.app.user.display_name,
+            landing_page: state.app.user.landing_page,
+            id: state.app.user.userid,
+            user_id: state.app.user.userid,
+            view_community: state.app.user.view_community,
+            view_network: state.app.user.view_network,
+            view_services: state.app.user.view_services
+        };
+        const profile = yield call(postConfig, api + state.app.user.userid, data);
         yield put(actions.updateProfile(profile));
     } catch (error) {
         console.log("Error update the profile ", error);
@@ -34,10 +45,11 @@ export function fetchConfig(url) {
         .then((response) => response.json());
 }
 
-export function postConfig(url) {
+export function postConfig(url, data) {
     return window
-        .fetch(url, {
-            ...postRequest
+        .fetch(api, {
+            ...postRequest,
+            body: JSON.stringify(data)
         })
         .then(checkStatus)
         .then((response) => response.json());

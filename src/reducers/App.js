@@ -29,6 +29,11 @@ let appReducer = (state = appData, action) => {
                 ...state,
                 user: action.payload.user
             };
+        case actions.UPDATE_PROFILE:
+            return {
+                ...state,
+                user: { ...state.user, ...action.payload.user }
+            };
         default:
             return state;
     }
