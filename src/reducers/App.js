@@ -3,7 +3,8 @@ import * as actions from "../actions/App";
 
 const appData = {
     is_app_loaded: false,
-    is_fetching: false
+    is_fetching: false,
+    user: {}
 };
 
 let appReducer = (state = appData, action) => {
@@ -22,6 +23,16 @@ let appReducer = (state = appData, action) => {
             return {
                 ...state,
                 is_fetching: false
+            };
+        case actions.IAM:
+            return {
+                ...state,
+                user: action.payload.user
+            };
+        case actions.UPDATE_PROFILE:
+            return {
+                ...state,
+                user: { ...state.user, ...action.payload.user }
             };
         default:
             return state;

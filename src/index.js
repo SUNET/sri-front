@@ -32,6 +32,7 @@ const app = (
 const initialAction = () => {
     const cookie_jwt = Cookies.get("JWT");
 
+    // if there is no cookie jwt is redirected to the login
     if (!cookie_jwt) {
         fetch(`${API_HOST}/authn?next=${document.location.href}`, {
             method: "GET"
@@ -42,10 +43,13 @@ const initialAction = () => {
         });
     } else {
         JWTVerifyMutation(cookie_jwt).then((data) => {
+            // it is verified that the cookie jwt is valid
             if (!data) {
                 if (Cookies.get("sessionid")) {
+                    // if there is an active session the cookie is refreshed
                     JWTRefreshMutation(cookie_jwt);
                 } else {
+                    // if it is invalid it redirects to the login
                     fetch(`${API_HOST}/authn?next=${document.location.href}`, {
                         method: "GET"
                     }).then((response) => {

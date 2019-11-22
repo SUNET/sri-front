@@ -1,6 +1,8 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 
+import { updateProfile } from "../actions/App";
+
 import { Field, reduxForm } from "redux-form";
 import { ListGroup, Form, Row, Col, Image } from "react-bootstrap";
 
@@ -22,11 +24,23 @@ class ProfileForm extends React.Component {
         this.setState({ default_page: event.target.value });
     };
 
+    handleSubmit = (values) => {
+        this.props.dispatch(
+            updateProfile({
+                display_name: values.name,
+                email: values.email,
+                landing_page: "community",
+                view_community: values.community,
+                view_network: values.network,
+                view_services: values.services
+            })
+        );
+    };
     render() {
         const { t, handleSubmit } = this.props;
         return (
             <section className="profile">
-                <form enctype="multipart/form-data" onSubmit={handleSubmit}>
+                <form encType="multipart/form-data" onSubmit={handleSubmit(this.handleSubmit)}>
                     <Row>
                         <Col>
                             <div className="title-section">
@@ -81,7 +95,8 @@ class ProfileForm extends React.Component {
                             </Col>
                             <Col>
                                 <div className="profile-section">
-                                    <h2>{t("Default home page")}</h2>
+                                    {/*<h2>{t("Default home page")}</h2>
+
                                     <Dropdown
                                         className="auto"
                                         emptyLabel="Type"
@@ -89,7 +104,7 @@ class ProfileForm extends React.Component {
                                         name="main_pages"
                                         onChange={(e) => {}}
                                     />
-                                    <hr />
+                                    <hr />*/}
                                     <h2>{t("profile-settings.visualization-options")}</h2>
                                     <ListGroup className="borderless">
                                         <ListGroup.Item>
@@ -118,7 +133,7 @@ class ProfileForm extends React.Component {
                                         </ListGroup.Item>
                                     </ListGroup>
                                     <hr />
-                                    <h2>{t("profile-settings.notification-panel")}</h2>
+                                    {/*<h2>{t("profile-settings.notification-panel")}</h2>
                                     <ListGroup className="borderless">
                                         <ListGroup.Item>
                                             <div className="pretty custom p-switch">
@@ -136,7 +151,12 @@ class ProfileForm extends React.Component {
                                                 </div>
                                             </div>
                                         </ListGroup.Item>
-                                    </ListGroup>
+                                    </ListGroup>*/}
+                                    <div className="text-right">
+                                        <button type="submit" className="btn primary lg">
+                                            {t("actions.save")}
+                                        </button>
+                                    </div>
                                 </div>
                             </Col>
                         </Row>
@@ -163,7 +183,11 @@ const validate = (values) => {
 
 ProfileForm = reduxForm({
     form: "profile",
-    validate
+    validate,
+    enableReinitialize: true,
+    onSubmitSuccess: (result, dispatch, props) => {
+        props.notify(props.t("notify.changes-saved"), "success");
+    }
 })(ProfileForm);
 
 export default withTranslation()(ProfileForm);
