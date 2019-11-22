@@ -4,10 +4,13 @@ import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../constants";
 import ContactRow from "./ContactRow";
 import FilterColumnsContainer from "../../containers/FilterColumns";
+import OrderFilterColumns from "../OrderFilterColumns";
 
 import "../../style/ModelList.scss";
 
@@ -49,14 +52,50 @@ export class ContactList extends React.PureComponent {
                 {this.props.defaultColumns.map((column) => {
                     // Hiding the columns passed by props
                     if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
+                        let columns_order_filter = undefined;
+                        if (column.value === "roles") {
+                            columns_order_filter = this.props.roles_default.getRolesFromRoleGroup;
+                        } else if (column.value === "organization") {
+                            columns_order_filter = this.props.organization_types.getChoicesForDropdown;
+                        }
+
                         return (
                             <div key={column.name}>
-                                {column.name}
-                                {column.filter === "order" && (
-                                    <FilterColumnsContainer
-                                        type="order"
-                                        columns={this.props.organization_types.getChoicesForDropdown}
-                                    />
+                                {column.filter === "order" ? (
+                                    <div className="pretty custom p-icon p-toggle p-plain order-col">
+                                        <input
+                                            type="checkbox"
+                                            name={"orderby-" + column.value}
+                                            checked={this.props.orderBy.includes(column.value + "_ASC")}
+                                            onChange={(e) => {
+                                                this.props.columnChangeOrderBy(e, column.value);
+                                            }}
+                                        />
+                                        <div className="state p-on">
+                                            <label>
+                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleUp} />
+                                            </label>
+                                        </div>
+                                        <div className="state p-off">
+                                            <label>
+                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleDown} />
+                                            </label>
+                                        </div>
+                                    </div>
+                                ) : column.filter === "order-filter" ? (
+                                    <span>
+                                        {column.name}
+                                        <OrderFilterColumns
+                                            type="order"
+                                            column={column.value}
+                                            columns={columns_order_filter}
+                                            orderFilterColumns={this.props.changeOrderFilterColumns}
+                                            orderBy={this.props.orderBy}
+                                            filterColumn={this.props.filterColumn}
+                                        />
+                                    </span>
+                                ) : (
+                                    column.name
                                 )}
                             </div>
                         );
@@ -159,6 +198,14 @@ export default createPaginationContainer(
                 getChoicesForDropdown(name: "organization_types") {
                     name
                     value
+                }
+            }
+        `,
+        roles_default: graphql`
+            fragment ContactList_roles_default on Query {
+                getRolesFromRoleGroup {
+                    handle_id
+                    name
                 }
             }
         `

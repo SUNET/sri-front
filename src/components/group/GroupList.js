@@ -4,6 +4,8 @@ import { createPaginationContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../constants";
 import GroupRow from "./GroupRow";
@@ -49,7 +51,34 @@ export class GroupList extends React.PureComponent {
                 {this.props.defaultColumns.map((column) => {
                     // Hiding the columns passed by props
                     if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
-                        return <div key={column.name}>{column.name}</div>;
+                        return (
+                            <div key={column.name}>
+                                {column.filter === "order" ? (
+                                    <div className="pretty custom p-icon p-toggle p-plain order-col">
+                                        <input
+                                            type="checkbox"
+                                            name={"orderby-" + column.value}
+                                            checked={this.props.orderBy.includes(column.value + "_ASC")}
+                                            onChange={(e) => {
+                                                this.props.columnChangeOrderBy(e, column.value);
+                                            }}
+                                        />
+                                        <div className="state p-on">
+                                            <label>
+                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleUp} />
+                                            </label>
+                                        </div>
+                                        <div className="state p-off">
+                                            <label>
+                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleDown} />
+                                            </label>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    column.name
+                                )}
+                            </div>
+                        );
                     } else {
                         return null;
                     }

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e92b4472e1cbd671568d412ef5b44c33
+ * @relayHash a117c49c03d92196ccc7ddd728c21569
  */
 
 /* eslint-disable */
@@ -9,6 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type OrganizationList_organization_types$ref = any;
 type OrganizationList_organizations$ref = any;
 export type OrganizationOrderBy = "addresses_ASC" | "addresses_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "name_ASC" | "name_DESC" | "organization_id_ASC" | "organization_id_DESC" | "organization_number_ASC" | "organization_number_DESC" | "website_ASC" | "website_DESC" | "%future added value";
 export type OrganizationFilter = {|
@@ -250,7 +251,7 @@ export type SearchOrganizationAllQueryVariables = {|
   orderBy?: ?OrganizationOrderBy,
 |};
 export type SearchOrganizationAllQueryResponse = {|
-  +$fragmentRefs: OrganizationList_organizations$ref
+  +$fragmentRefs: OrganizationList_organizations$ref & OrganizationList_organization_types$ref
 |};
 export type SearchOrganizationAllQuery = {|
   variables: SearchOrganizationAllQueryVariables,
@@ -266,6 +267,15 @@ query SearchOrganizationAllQuery(
   $orderBy: OrganizationOrderBy
 ) {
   ...OrganizationList_organizations_1tT5Hu
+  ...OrganizationList_organization_types
+}
+
+fragment OrganizationList_organization_types on Query {
+  getChoicesForDropdown(name: "organization_types") {
+    name
+    value
+    id
+  }
 }
 
 fragment OrganizationList_organizations_1tT5Hu on Query {
@@ -412,6 +422,11 @@ return {
           (v1/*: any*/),
           (v2/*: any*/)
         ]
+      },
+      {
+        "kind": "FragmentSpread",
+        "name": "OrganizationList_organization_types",
+        "args": null
       }
     ]
   },
@@ -605,6 +620,32 @@ return {
         "handle": "connection",
         "key": "OrganizationList_organizations",
         "filters": []
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "getChoicesForDropdown",
+        "storageKey": "getChoicesForDropdown(name:\"organization_types\")",
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "name",
+            "value": "organization_types"
+          }
+        ],
+        "concreteType": "Choice",
+        "plural": true,
+        "selections": [
+          (v5/*: any*/),
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "value",
+            "args": null,
+            "storageKey": null
+          },
+          (v8/*: any*/)
+        ]
       }
     ]
   },
@@ -612,11 +653,11 @@ return {
     "operationKind": "query",
     "name": "SearchOrganizationAllQuery",
     "id": null,
-    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n  ...OrganizationList_organization_types\n}\n\nfragment OrganizationList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2300e2c0432b06514d93bbdae5f9ec98';
+(node/*: any*/).hash = 'b01c2ccc58105025fff94546bb7d85ff';
 module.exports = node;

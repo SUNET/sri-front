@@ -16,20 +16,22 @@ import OrganizationListContainer from "../containers/organization/OrganizationLi
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
+import { isEmpty } from "../utils";
 // import { RouteNotFound } from "./NotFound";
 
-// mock while being implemented in the backend
+//mock - This should be returned to the backend in the future.
 const defaultColumns = [
-    { name: "Name", value: "name" },
-    { name: "Organization ID", value: "organization_id" },
-    { name: "Type", value: "type", filter: "order" },
-    { name: "Affiliation", value: "afffiliation", filter: "order" },
-    { name: "Parent Organization ID", value: "parent_organization_id", filter: "order" }
+    { name: "Name", value: "name", filter: "order" },
+    { name: "Organization ID", value: "organization_id", filter: "order" },
+    { name: "Type", value: "type", filter: "order-filter" },
+    { name: "Affiliation", value: "afffiliation" },
+    { name: "Parent Organization ID", value: "parent_organization_id" }
 ];
 
 const SearchOrganizationAllQuery = graphql`
     query SearchOrganizationAllQuery($count: Int!, $filter: OrganizationFilter, $orderBy: OrganizationOrderBy) {
         ...OrganizationList_organizations @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+        ...OrganizationList_organization_types
     }
 `;
 
@@ -40,6 +42,7 @@ class SearchOrganization extends React.Component {
         this.state = {
             countList: ITEMS_PER_PAGE,
             filterValue: {},
+            filterColumnValue: {},
             filterDateType: "created",
             filterDateFrom: "",
             filterDateTo: "",
@@ -47,6 +50,31 @@ class SearchOrganization extends React.Component {
             orderBy: { orderBy: "handle_id_DESC" }
         };
     }
+
+    // save in the state the column orderby
+    handleColumnChangeOrderBy = (event, orderBy) => {
+        if (event.target.checked) {
+            orderBy = orderBy.concat("_ASC");
+        } else {
+            orderBy = orderBy.concat("_DESC");
+        }
+
+        this.setState({ orderBy: { orderBy: orderBy } });
+    };
+
+    // update state for order filter columns
+    handleChangeOrderFilterColumns = (orderFilter) => {
+        if (orderFilter.orderBy) {
+            this.setState({ orderBy: { orderBy: orderFilter.orderBy } });
+        }
+        if (orderFilter.filters.length > 0) {
+            this.setState({
+                filterColumnValue: { [orderFilter.column + "_in"]: orderFilter.filters }
+            });
+        } else {
+            this.setState({ filterColumnValue: {} });
+        }
+    };
 
     //save in the state the number of pages shown
     handleOnChangeCount = (count) => {
@@ -113,11 +141,15 @@ class SearchOrganization extends React.Component {
         let filterArrayOR = [];
         let filters = {};
 
-        if (!(Object.keys(this.state.filterDate).length === 0 && this.state.filterDate.constructor === Object)) {
+        if (!isEmpty(this.state.filterDate)) {
             filterArrayAND.push(this.state.filterDate);
         }
 
-        if (!(Object.keys(this.state.filterValue).length === 0 && this.state.filterValue.constructor === Object)) {
+        if (!isEmpty(this.state.filterColumnValue)) {
+            filterArrayAND.push(this.state.filterColumnValue);
+        }
+
+        if (!isEmpty(this.state.filterValue)) {
             filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
 
@@ -197,7 +229,14 @@ class SearchOrganization extends React.Component {
                                                     return (
                                                         <OrganizationListContainer
                                                             organizations={props}
+                                                            organization_types={props}
                                                             changeCount={this.handleOnChangeCount}
+                                                            columnChangeOrderBy={this.handleColumnChangeOrderBy}
+                                                            orderBy={this.state.orderBy.orderBy}
+                                                            changeOrderFilterColumns={
+                                                                this.handleChangeOrderFilterColumns
+                                                            }
+                                                            filterColumn={this.state.filterColumnValue.type_in}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 03231e19f7fe6c97e0520dfbfea938f4
+ * @relayHash b061d8926ab46c985ea2802563a15ed7
  */
 
 /* eslint-disable */
@@ -11,6 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type ContactList_contacts$ref = any;
 type ContactList_organization_types$ref = any;
+type ContactList_roles_default$ref = any;
 export type ContactOrderBy = "emails_ASC" | "emails_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "member_of_groups_ASC" | "member_of_groups_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "organizations_ASC" | "organizations_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phones_ASC" | "phones_DESC" | "roles_ASC" | "roles_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
 export type ContactFilter = {|
   AND?: ?$ReadOnlyArray<ContactNestedFilter>,
@@ -325,7 +326,7 @@ export type SearchContactsAllQueryVariables = {|
   orderBy?: ?ContactOrderBy,
 |};
 export type SearchContactsAllQueryResponse = {|
-  +$fragmentRefs: ContactList_contacts$ref & ContactList_organization_types$ref
+  +$fragmentRefs: ContactList_contacts$ref & ContactList_organization_types$ref & ContactList_roles_default$ref
 |};
 export type SearchContactsAllQuery = {|
   variables: SearchContactsAllQueryVariables,
@@ -342,6 +343,7 @@ query SearchContactsAllQuery(
 ) {
   ...ContactList_contacts_1tT5Hu
   ...ContactList_organization_types
+  ...ContactList_roles_default
 }
 
 fragment ContactList_contacts_1tT5Hu on Query {
@@ -369,6 +371,13 @@ fragment ContactList_organization_types on Query {
     name
     value
     id
+  }
+}
+
+fragment ContactList_roles_default on Query {
+  getRolesFromRoleGroup {
+    handle_id
+    name
   }
 }
 
@@ -431,11 +440,18 @@ v3 = [
 v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "name",
+  "name": "handle_id",
   "args": null,
   "storageKey": null
 },
 v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -467,6 +483,11 @@ return {
       {
         "kind": "FragmentSpread",
         "name": "ContactList_organization_types",
+        "args": null
+      },
+      {
+        "kind": "FragmentSpread",
+        "name": "ContactList_roles_default",
         "args": null
       }
     ]
@@ -503,13 +524,7 @@ return {
                 "concreteType": "Contact",
                 "plural": false,
                 "selections": [
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "handle_id",
-                    "args": null,
-                    "storageKey": null
-                  },
+                  (v4/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -547,7 +562,7 @@ return {
                     "concreteType": "RoleRelation",
                     "plural": true,
                     "selections": [
-                      (v4/*: any*/),
+                      (v5/*: any*/),
                       {
                         "kind": "LinkedField",
                         "alias": null,
@@ -557,13 +572,13 @@ return {
                         "concreteType": "Organization",
                         "plural": false,
                         "selections": [
-                          (v4/*: any*/),
-                          (v5/*: any*/)
+                          (v5/*: any*/),
+                          (v6/*: any*/)
                         ]
                       }
                     ]
                   },
-                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -647,7 +662,7 @@ return {
         "concreteType": "Choice",
         "plural": true,
         "selections": [
-          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
@@ -655,6 +670,19 @@ return {
             "args": null,
             "storageKey": null
           },
+          (v6/*: any*/)
+        ]
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "getRolesFromRoleGroup",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Role",
+        "plural": true,
+        "selections": [
+          (v4/*: any*/),
           (v5/*: any*/)
         ]
       }
@@ -664,11 +692,11 @@ return {
     "operationKind": "query",
     "name": "SearchContactsAllQuery",
     "id": null,
-    "text": "query SearchContactsAllQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
+    "text": "query SearchContactsAllQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n  ...ContactList_roles_default\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment ContactList_roles_default on Query {\n  getRolesFromRoleGroup {\n    handle_id\n    name\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '45ef4607ac0a3dceb51d8535ad3d17b8';
+(node/*: any*/).hash = '85d8fcaecea519279f89db3e7be27823';
 module.exports = node;

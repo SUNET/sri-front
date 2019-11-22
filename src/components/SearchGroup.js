@@ -17,12 +17,13 @@ import GroupListContainer from "../containers/group/GroupList";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
+import { isEmpty } from "../utils";
 // import { RouteNotFound } from "./NotFound";
 
-// mock while being implemented in the backend
+//mock - This should be returned to the backend in the future.
 const defaultColumns = [
-    { name: "Name", value: "name" },
-    { name: "Description", value: "description", filter: "order" }
+    { name: "Name", value: "name", filter: "order" },
+    { name: "Description", value: "description" }
 ];
 
 const SearchGroupAllQuery = graphql`
@@ -36,6 +37,7 @@ class SearchGroup extends React.Component {
         super(props);
 
         this.state = {
+            itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
             filterValue: {},
             filterDateType: "created",
@@ -45,6 +47,17 @@ class SearchGroup extends React.Component {
             orderBy: { orderBy: "handle_id_DESC" }
         };
     }
+
+    // save in the state the column orderby
+    handleColumnChangeOrderBy = (event, orderBy) => {
+        if (event.target.checked) {
+            orderBy = orderBy.concat("_ASC");
+        } else {
+            orderBy = orderBy.concat("_DESC");
+        }
+
+        this.setState({ orderBy: { orderBy: orderBy } });
+    };
 
     //save in the state the number of pages shown
     handleOnChangeCount = (count) => {
@@ -108,11 +121,11 @@ class SearchGroup extends React.Component {
         let filterArrayOR = [];
         let filters = {};
 
-        if (!(Object.keys(this.state.filterDate).length === 0 && this.state.filterDate.constructor === Object)) {
+        if (!isEmpty(this.state.filterDate)) {
             filterArrayAND.push(this.state.filterDate);
         }
 
-        if (!(Object.keys(this.state.filterValue).length === 0 && this.state.filterValue.constructor === Object)) {
+        if (!isEmpty(this.state.filterValue)) {
             filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
 
@@ -195,7 +208,7 @@ class SearchGroup extends React.Component {
                                             environment={environment}
                                             query={SearchGroupAllQuery}
                                             variables={{
-                                                count: ITEMS_PER_PAGE,
+                                                count: this.state.itemsPerPage,
                                                 ...this.state.orderBy,
                                                 filter: this.getFilters()
                                             }}
@@ -207,6 +220,8 @@ class SearchGroup extends React.Component {
                                                         <GroupListContainer
                                                             groups={props}
                                                             changeCount={this.handleOnChangeCount}
+                                                            columnChangeOrderBy={this.handleColumnChangeOrderBy}
+                                                            orderBy={this.state.orderBy.orderBy}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
