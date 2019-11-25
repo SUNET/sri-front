@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { API_HOST } from "../createRelayEnvironment.js";
+import { API_HOST } from "../config.js";
 import Cookies from "js-cookie";
 
 import "../style/Splash.scss";

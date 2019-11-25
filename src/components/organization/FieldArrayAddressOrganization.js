@@ -5,7 +5,7 @@ import { withTranslation } from "react-i18next";
 import FieldInput from "../FieldInput";
 import { Field, change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
-import { LIMIT_NEW_CONTACTS } from "../../constants";
+import { LIMIT_NEW_CONTACTS } from "../../config";
 
 class FieldArrayAddressOrganization extends React.Component {
     constructor(props) {

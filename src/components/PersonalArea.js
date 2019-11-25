@@ -4,7 +4,11 @@ import ProfileContainer from "../containers/Profile";
 
 class PersonalArea extends React.Component {
     render() {
-        return <Route path="/personal-area/profile-settings" component={ProfileContainer} />;
+        return (
+            <>
+                <Route exact path="/personal-area/profile-settings" component={ProfileContainer} />
+            </>
+        );
     }
 }
 export default PersonalArea;

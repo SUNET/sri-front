@@ -1,10 +1,9 @@
 import { Environment, Network, RecordSource, Store, QueryResponseCache } from "relay-runtime";
+import { API_HOST } from "./config";
 
 // CACHING
-const oneMinute = 1;
+const oneMinute = 1; // the cache is deactivated because the filters stop working, because when you change the filters the variables are kept.
 const cache = new QueryResponseCache({ size: 100, ttl: oneMinute });
-
-export const API_HOST = "http://localhost:8000";
 
 export let _csrfToken = null;
 

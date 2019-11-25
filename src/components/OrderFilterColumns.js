@@ -80,7 +80,7 @@ class OrderFilterColumns extends React.Component {
     };
 
     render() {
-        const { t } = this.props;
+        const { t, column } = this.props;
         return (
             <div className={`filter-columns ${this.props.type}`}>
                 <Dropdown>
@@ -91,13 +91,13 @@ class OrderFilterColumns extends React.Component {
                         {this.props.type === "order" && (
                             <div className="order-by">
                                 <div
-                                    className={this.state.orderBy.includes("_DESC") ? "selected" : ""}
+                                    className={this.state.orderBy.includes(column + "_DESC") ? "selected" : ""}
                                     onClick={() => this.handleOrderBy("_DESC")}
                                 >
                                     {t("filter_columns.order_desc")}
                                 </div>
                                 <div
-                                    className={this.state.orderBy.includes("_ASC") ? "selected" : ""}
+                                    className={this.state.orderBy.includes(column + "_ASC") ? "selected" : ""}
                                     onClick={() => this.handleOrderBy("_ASC")}
                                 >
                                     {t("filter_columns.order_asc")}

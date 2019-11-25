@@ -8,16 +8,15 @@ import { withTranslation } from "react-i18next";
 
 import renameKeys from "rename-keys";
 
-import environment from "../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../constants";
-import OrganizationDetailsContainer from "../containers/organization/OrganizationDetails";
-import CreateOrganization from "./organization/CreateOrganization";
-import OrganizationListContainer from "../containers/organization/OrganizationList";
-import Filter from "./Filter";
-import OrderBy from "./OrderBy";
-import RangeDayPicker from "./RangeDayPicker";
-import { isEmpty } from "../utils";
-// import { RouteNotFound } from "./NotFound";
+import environment from "../../createRelayEnvironment";
+import { ITEMS_PER_PAGE } from "../../config";
+import CreateOrganization from "./CreateOrganization";
+import OrganizationDetailsContainer from "../../containers/organization/OrganizationDetails";
+import OrganizationListContainer from "../../containers/organization/OrganizationList";
+import Filter from "../Filter";
+import OrderBy from "../OrderBy";
+import RangeDayPicker from "../RangeDayPicker";
+import { isEmpty } from "../../utils";
 
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
@@ -165,7 +164,7 @@ class SearchOrganization extends React.Component {
                 <Switch>
                     <Route
                         exact
-                        path={`${this.props.match.url}/organizations`}
+                        path="/community/organizations"
                         render={() => (
                             <>
                                 <Row>
@@ -250,11 +249,8 @@ class SearchOrganization extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/organizations/create`} component={CreateOrganization} />
-                    <Route
-                        path={`${this.props.match.url}/organizations/:organizationId`}
-                        component={OrganizationDetailsContainer}
-                    />
+                    <Route path="/community/organizations/create" component={CreateOrganization} />
+                    <Route path="/community/organizations/:organizationId" component={OrganizationDetailsContainer} />
                 </Switch>
             </section>
         );

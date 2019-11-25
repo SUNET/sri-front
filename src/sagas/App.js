@@ -1,10 +1,13 @@
 import { put, call, select } from "redux-saga/effects";
 import { getRequest, postRequest, checkStatus } from "./common";
 
+import { API_HOST } from "../config";
+
 import * as actions from "../actions/App";
 
-const url = "http://localhost:8000/userprofile/whoami/";
-const api = "http://localhost:8000/api/v1/userprofile/";
+const url = API_HOST + "/userprofile/whoami/";
+const api = API_HOST + "/api/v1/userprofile/";
+
 export function* requestWhoami() {
     try {
         console.log("Getting user id from", url);

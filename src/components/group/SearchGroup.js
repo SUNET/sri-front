@@ -8,22 +8,22 @@ import { withTranslation } from "react-i18next";
 
 import renameKeys from "rename-keys";
 
-import environment from "../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../constants";
+import environment from "../../createRelayEnvironment";
+import { ITEMS_PER_PAGE } from "../../config";
 
-import GroupDetailsContainer from "../containers/group/GroupDetails";
-import CreateGroup from "./group/CreateGroup";
-import GroupListContainer from "../containers/group/GroupList";
-import Filter from "./Filter";
-import OrderBy from "./OrderBy";
-import RangeDayPicker from "./RangeDayPicker";
-import { isEmpty } from "../utils";
+import CreateGroup from "./CreateGroup";
+import GroupDetailsContainer from "../../containers/group/GroupDetails";
+import GroupListContainer from "../../containers/group/GroupList";
+import Filter from "../Filter";
+import OrderBy from "../OrderBy";
+import RangeDayPicker from "../RangeDayPicker";
+import { isEmpty } from "../../utils";
 // import { RouteNotFound } from "./NotFound";
 
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
-    { name: "Description", value: "description" }
+    { name: "Description", value: "description", filter: "order" }
 ];
 
 const SearchGroupAllQuery = graphql`
@@ -155,7 +155,7 @@ class SearchGroup extends React.Component {
                 <Switch>
                     <Route
                         exact
-                        path={`${this.props.match.url}/groups`}
+                        path="/community/groups"
                         render={() => (
                             <>
                                 <Row>
@@ -244,8 +244,8 @@ class SearchGroup extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/groups/create`} component={CreateGroup} />
-                    <Route path={`${this.props.match.url}/groups/:groupId`} component={GroupDetailsContainer} />
+                    <Route path="/community/groups/create" component={CreateGroup} />
+                    <Route path="/community/groups/:groupId" component={GroupDetailsContainer} />
                 </Switch>
             </section>
         );
