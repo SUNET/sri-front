@@ -7,7 +7,7 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../constants";
+import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
 import ContactRow from "./ContactRow";
 import FilterColumnsContainer from "../../containers/FilterColumns";
 import OrderFilterColumns from "../OrderFilterColumns";

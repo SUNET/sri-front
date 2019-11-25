@@ -8,7 +8,7 @@ import uuidv4 from "uuid/v4";
 
 import CopyToClipboard from "../CopyToClipboard";
 import Dropdown from "../Dropdown";
-import { LIMIT_NEW_CONTACTS } from "../../constants";
+import { LIMIT_NEW_CONTACTS } from "../../config";
 
 class FieldArrayMembersGroup extends React.Component {
     constructor(props) {

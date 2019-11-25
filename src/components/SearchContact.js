@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 import renameKeys from "rename-keys";
 
 import environment from "../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../constants";
+import { ITEMS_PER_PAGE } from "../config";
 
 import ContactDetailsContainer from "../containers/contact/ContactDetails";
 import CreateContact from "./contact/CreateContact";

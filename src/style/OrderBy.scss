@@ -7,7 +7,8 @@
         border: 1px solid $secondary-color-20;
         border-radius: 20px;
         padding: 8px 11px;
-        svg{
+
+        svg {
             color: $complementary-color;
         }
     }
@@ -16,11 +17,12 @@
 .order-col {
     .state {
         label {
+            text-indent: 0 !important;
+
             span {
                 font-weight: bold;
-
-
             }
+
             .svg-inline--fa {
                 margin-left: 2px;
                 vertical-align: bottom;

@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 import renameKeys from "rename-keys";
 
 import environment from "../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../constants";
+import { ITEMS_PER_PAGE } from "../config";
 import OrganizationDetailsContainer from "../containers/organization/OrganizationDetails";
 import CreateOrganization from "./organization/CreateOrganization";
 import OrganizationListContainer from "../containers/organization/OrganizationList";

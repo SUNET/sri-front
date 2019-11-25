@@ -7,7 +7,7 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../constants";
+import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
 import OrganizationRow from "./OrganizationRow";
 import FilterColumnsContainer from "../../containers/FilterColumns";
 import OrderFilterColumns from "../OrderFilterColumns";
@@ -168,7 +168,7 @@ export default createPaginationContainer(
                     orderBy: { type: OrganizationOrderBy }
                 ) {
                 organizations(first: $count, after: $cursor, filter: $filter, orderBy: $orderBy)
-                    @connection(key: "OrganizationList_organizations", filters: []) {
+                    @connection(key: "OrganizationList_organizations", filters: [OrganizationFilter]) {
                     edges {
                         node {
                             handle_id

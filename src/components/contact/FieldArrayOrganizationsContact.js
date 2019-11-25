@@ -7,7 +7,7 @@ import uuidv4 from "uuid/v4";
 import FieldInput from "../FieldInput";
 import { getOrganization } from "../organization/Organization";
 import Dropdown from "../Dropdown";
-import { LIMIT_NEW_CONTACTS } from "../../constants";
+import { LIMIT_NEW_CONTACTS } from "../../config";
 
 class FieldArrayOrganizationsContact extends React.Component {
     constructor(props) {

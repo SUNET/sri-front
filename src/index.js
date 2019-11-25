@@ -9,7 +9,7 @@ import configureStore from "./store";
 import * as actions from "./actions/App";
 import AppContainer from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
-import { API_HOST } from "./createRelayEnvironment.js";
+import { API_HOST } from "./config.js";
 import JWTVerifyMutation from "./mutations/JWTVerifyMutation";
 import JWTRefreshMutation from "./mutations/JWTRefreshMutation";
 
