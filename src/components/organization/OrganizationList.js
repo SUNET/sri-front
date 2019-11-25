@@ -168,7 +168,7 @@ export default createPaginationContainer(
                     orderBy: { type: OrganizationOrderBy }
                 ) {
                 organizations(first: $count, after: $cursor, filter: $filter, orderBy: $orderBy)
-                    @connection(key: "OrganizationList_organizations", filters: [OrganizationFilter]) {
+                    @connection(key: "OrganizationList_organizations", filters: []) {
                     edges {
                         node {
                             handle_id
