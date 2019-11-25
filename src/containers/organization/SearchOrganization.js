@@ -1,23 +1,17 @@
 import { connect } from "react-redux";
-
-import { startSearch, successSearch } from "../actions/Search";
-import Search from "../components/Search";
+import SearchOrganization from "../../components/organization/SearchOrganization";
 
 const mapStateToProps = (state, props) => {
-    let { search, loading, results, queried } = state.search;
-    return { search, loading, results, queried };
+    return {};
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
-        startSearch: (value) => dispatch(startSearch(value)),
-        successSearch: (items) => dispatch(successSearch(items))
-    };
+    return {};
 };
 
-const SearchContainer = connect(
+const SearchOrganizationContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Search);
+)(SearchOrganization);
 
-export default SearchContainer;
+export default SearchOrganizationContainer;

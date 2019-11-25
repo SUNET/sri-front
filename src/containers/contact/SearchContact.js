@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import SearchContact from "../components/SearchContact";
+import SearchContact from "../../components/contact/SearchContact";
 
 const mapStateToProps = (state, props) => {
     return {};

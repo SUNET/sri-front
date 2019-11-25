@@ -8,47 +8,43 @@ import { withTranslation } from "react-i18next";
 
 import renameKeys from "rename-keys";
 
-import environment from "../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../config";
-
-import ContactDetailsContainer from "../containers/contact/ContactDetails";
-import CreateContact from "./contact/CreateContact";
-import ContactListContainer from "../containers/contact/ContactList";
-import Filter from "./Filter";
-import OrderBy from "./OrderBy";
-import RangeDayPicker from "./RangeDayPicker";
-import { isEmpty } from "../utils";
-// import { RouteNotFound } from "./NotFound";
+import environment from "../../createRelayEnvironment";
+import { ITEMS_PER_PAGE } from "../../config";
+import CreateOrganization from "./CreateOrganization";
+import OrganizationDetailsContainer from "../../containers/organization/OrganizationDetails";
+import OrganizationListContainer from "../../containers/organization/OrganizationList";
+import Filter from "../Filter";
+import OrderBy from "../OrderBy";
+import RangeDayPicker from "../RangeDayPicker";
+import { isEmpty } from "../../utils";
 
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
-    { name: "Organization", value: "organizations", filter: "order" },
-    { name: "Roles", value: "roles", filter: "order-filter" },
-    { name: "Contact Type", value: "contact_type", filter: "order" }
+    { name: "Organization ID", value: "organization_id", filter: "order" },
+    { name: "Type", value: "type", filter: "order-filter" },
+    { name: "Affiliation", value: "afffiliation" },
+    { name: "Parent Organization ID", value: "parent_organization_id" }
 ];
 
-const SearchContactsAllQuery = graphql`
-    query SearchContactsAllQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
-        ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
-        ...ContactList_organization_types
-        ...ContactList_roles_default
+const SearchOrganizationAllQuery = graphql`
+    query SearchOrganizationAllQuery($count: Int!, $filter: OrganizationFilter, $orderBy: OrganizationOrderBy) {
+        ...OrganizationList_organizations @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+        ...OrganizationList_organization_types
     }
 `;
 
-class Search extends React.Component {
+class SearchOrganization extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
             filterValue: {},
             filterColumnValue: {},
-            filterColumnValueCallBack: [],
             filterDateType: "created",
-            filterDateFrom: undefined,
-            filterDateTo: undefined,
+            filterDateFrom: "",
+            filterDateTo: "",
             filterDate: {},
             orderBy: { orderBy: "handle_id_DESC" }
         };
@@ -71,17 +67,9 @@ class Search extends React.Component {
             this.setState({ orderBy: { orderBy: orderFilter.orderBy } });
         }
         if (orderFilter.filters.length > 0) {
-            const listFilter = orderFilter.filters.map((filter) => {
-                return { name: filter };
-            });
-            /* The filter format for (contact - organization, roles) is diferent to the (organization - type)
-            so it takes a callback to restore the state */
             this.setState({
-                filterColumnValue: { [orderFilter.column + "_in"]: listFilter },
-                filterColumnValueCallBack: orderFilter.filters
+                filterColumnValue: { [orderFilter.column + "_in"]: orderFilter.filters }
             });
-
-            this.setState({});
         } else {
             this.setState({ filterColumnValue: {} });
         }
@@ -98,17 +86,8 @@ class Search extends React.Component {
         this.setState({
             filterValue: [
                 { name_contains: filterValue },
-                {
-                    roles_contains: {
-                        name: filterValue
-                    }
-                },
-                {
-                    organizations_contains: {
-                        name: filterValue
-                    }
-                },
-                { contact_type_contains: filterValue }
+                { organization_id_contains: filterValue },
+                { type_contains: filterValue }
             ]
         });
     };
@@ -178,29 +157,14 @@ class Search extends React.Component {
         return filters;
     };
 
-    // effect of showing empty structure while loading the QueryRender
-    createTable = () => {
-        let table = [];
-
-        for (let i = 1; i < ITEMS_PER_PAGE; i++) {
-            table.push(
-                <article>
-                    <div></div>
-                </article>
-            );
-        }
-        return table;
-    };
-
     render() {
         const { t } = this.props;
-
         return (
             <section className="mt-3">
                 <Switch>
                     <Route
                         exact
-                        path={`${this.props.match.url}/contacts`}
+                        path="/community/organizations"
                         render={() => (
                             <>
                                 <Row>
@@ -251,9 +215,9 @@ class Search extends React.Component {
                                     <Col>
                                         <QueryRenderer
                                             environment={environment}
-                                            query={SearchContactsAllQuery}
+                                            query={SearchOrganizationAllQuery}
                                             variables={{
-                                                count: this.state.itemsPerPage,
+                                                count: ITEMS_PER_PAGE,
                                                 ...this.state.orderBy,
                                                 filter: this.getFilters()
                                             }}
@@ -262,33 +226,22 @@ class Search extends React.Component {
                                                     return <div>{error.message}</div>;
                                                 } else if (props) {
                                                     return (
-                                                        <ContactListContainer
-                                                            contacts={props}
+                                                        <OrganizationListContainer
+                                                            organizations={props}
                                                             organization_types={props}
-                                                            roles_default={props}
                                                             changeCount={this.handleOnChangeCount}
                                                             columnChangeOrderBy={this.handleColumnChangeOrderBy}
                                                             orderBy={this.state.orderBy.orderBy}
                                                             changeOrderFilterColumns={
                                                                 this.handleChangeOrderFilterColumns
                                                             }
-                                                            filterColumn={this.state.filterColumnValueCallBack}
+                                                            filterColumn={this.state.filterColumnValue.type_in}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
                                                     );
                                                 }
-                                                return (
-                                                    <div>
-                                                        {/*<div className="model-list default">
-                                                            <div>
-                                                                <div></div>
-                                                            </div>
-                                                            <div>{this.createTable()}</div>
-                                                        </div>*/}
-                                                        <div>Loading</div>
-                                                    </div>
-                                                );
+                                                return <div>Loading</div>;
                                             }}
                                         />
                                     </Col>
@@ -296,12 +249,12 @@ class Search extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/contacts/create`} component={CreateContact} />
-                    <Route path={`${this.props.match.url}/contacts/:contactId`} component={ContactDetailsContainer} />
+                    <Route path="/community/organizations/create" component={CreateOrganization} />
+                    <Route path="/community/organizations/:organizationId" component={OrganizationDetailsContainer} />
                 </Switch>
             </section>
         );
     }
 }
 
-export default withTranslation()(withRouter(Search));
+export default withTranslation()(withRouter(SearchOrganization));

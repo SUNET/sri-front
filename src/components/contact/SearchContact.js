@@ -8,31 +8,35 @@ import { withTranslation } from "react-i18next";
 
 import renameKeys from "rename-keys";
 
-import environment from "../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../config";
+import environment from "../../createRelayEnvironment";
+import { ITEMS_PER_PAGE } from "../../config";
 
-import GroupDetailsContainer from "../containers/group/GroupDetails";
-import CreateGroup from "./group/CreateGroup";
-import GroupListContainer from "../containers/group/GroupList";
-import Filter from "./Filter";
-import OrderBy from "./OrderBy";
-import RangeDayPicker from "./RangeDayPicker";
-import { isEmpty } from "../utils";
+import CreateContact from "./CreateContact";
+import ContactDetailsContainer from "../../containers/contact/ContactDetails";
+import ContactListContainer from "../../containers/contact/ContactList";
+import Filter from "../Filter";
+import OrderBy from "../OrderBy";
+import RangeDayPicker from "../RangeDayPicker";
+import { isEmpty } from "../../utils";
 // import { RouteNotFound } from "./NotFound";
 
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
-    { name: "Description", value: "description", filter: "order" }
+    { name: "Organization", value: "organizations", filter: "order" },
+    { name: "Roles", value: "roles", filter: "order-filter" },
+    { name: "Contact Type", value: "contact_type", filter: "order" }
 ];
 
-const SearchGroupAllQuery = graphql`
-    query SearchGroupAllQuery($count: Int!, $filter: GroupFilter, $orderBy: GroupOrderBy) {
-        ...GroupList_groups @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+const SearchContactsAllQuery = graphql`
+    query SearchContactsAllQuery($count: Int!, $filter: ContactFilter, $orderBy: ContactOrderBy) {
+        ...ContactList_contacts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+        ...ContactList_organization_types
+        ...ContactList_roles_default
     }
 `;
 
-class SearchGroup extends React.Component {
+class Search extends React.Component {
     constructor(props) {
         super(props);
 
@@ -40,6 +44,8 @@ class SearchGroup extends React.Component {
             itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
             filterValue: {},
+            filterColumnValue: {},
+            filterColumnValueCallBack: [],
             filterDateType: "created",
             filterDateFrom: undefined,
             filterDateTo: undefined,
@@ -59,17 +65,51 @@ class SearchGroup extends React.Component {
         this.setState({ orderBy: { orderBy: orderBy } });
     };
 
+    // update state for order filter columns
+    handleChangeOrderFilterColumns = (orderFilter) => {
+        if (orderFilter.orderBy) {
+            this.setState({ orderBy: { orderBy: orderFilter.orderBy } });
+        }
+        if (orderFilter.filters.length > 0) {
+            const listFilter = orderFilter.filters.map((filter) => {
+                return { name: filter };
+            });
+            /* The filter format for (contact - organization, roles) is diferent to the (organization - type)
+            so it takes a callback to restore the state */
+            this.setState({
+                filterColumnValue: { [orderFilter.column + "_in"]: listFilter },
+                filterColumnValueCallBack: orderFilter.filters
+            });
+
+            this.setState({});
+        } else {
+            this.setState({ filterColumnValue: {} });
+        }
+    };
+
     //save in the state the number of pages shown
     handleOnChangeCount = (count) => {
         this.setState({ countList: this.state.countList + count });
     };
 
     // save in the state the filter box
+    // these filters cannot be generalized by backend implementation
     handleOnChangeFilter = (filterValue) => {
         this.setState({
-            filterValue: defaultColumns.map((column) => {
-                return { [column.value + "_contains"]: filterValue };
-            })
+            filterValue: [
+                { name_contains: filterValue },
+                {
+                    roles_contains: {
+                        name: filterValue
+                    }
+                },
+                {
+                    organizations_contains: {
+                        name: filterValue
+                    }
+                },
+                { contact_type_contains: filterValue }
+            ]
         });
     };
 
@@ -125,6 +165,10 @@ class SearchGroup extends React.Component {
             filterArrayAND.push(this.state.filterDate);
         }
 
+        if (!isEmpty(this.state.filterColumnValue)) {
+            filterArrayAND.push(this.state.filterColumnValue);
+        }
+
         if (!isEmpty(this.state.filterValue)) {
             filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
@@ -140,7 +184,7 @@ class SearchGroup extends React.Component {
 
         for (let i = 1; i < ITEMS_PER_PAGE; i++) {
             table.push(
-                <article key={i}>
+                <article>
                     <div></div>
                 </article>
             );
@@ -150,12 +194,13 @@ class SearchGroup extends React.Component {
 
     render() {
         const { t } = this.props;
+
         return (
             <section className="mt-3">
                 <Switch>
                     <Route
                         exact
-                        path={`${this.props.match.url}/groups`}
+                        path="/community/contacts"
                         render={() => (
                             <>
                                 <Row>
@@ -206,7 +251,7 @@ class SearchGroup extends React.Component {
                                     <Col>
                                         <QueryRenderer
                                             environment={environment}
-                                            query={SearchGroupAllQuery}
+                                            query={SearchContactsAllQuery}
                                             variables={{
                                                 count: this.state.itemsPerPage,
                                                 ...this.state.orderBy,
@@ -217,11 +262,17 @@ class SearchGroup extends React.Component {
                                                     return <div>{error.message}</div>;
                                                 } else if (props) {
                                                     return (
-                                                        <GroupListContainer
-                                                            groups={props}
+                                                        <ContactListContainer
+                                                            contacts={props}
+                                                            organization_types={props}
+                                                            roles_default={props}
                                                             changeCount={this.handleOnChangeCount}
                                                             columnChangeOrderBy={this.handleColumnChangeOrderBy}
                                                             orderBy={this.state.orderBy.orderBy}
+                                                            changeOrderFilterColumns={
+                                                                this.handleChangeOrderFilterColumns
+                                                            }
+                                                            filterColumn={this.state.filterColumnValueCallBack}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
@@ -229,12 +280,13 @@ class SearchGroup extends React.Component {
                                                 }
                                                 return (
                                                     <div>
-                                                        <div className="model-list default">
+                                                        {/*<div className="model-list default">
                                                             <div>
                                                                 <div></div>
                                                             </div>
-                                                            <div></div>
-                                                        </div>
+                                                            <div>{this.createTable()}</div>
+                                                        </div>*/}
+                                                        <div>Loading</div>
                                                     </div>
                                                 );
                                             }}
@@ -244,12 +296,12 @@ class SearchGroup extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/groups/create`} component={CreateGroup} />
-                    <Route path={`${this.props.match.url}/groups/:groupId`} component={GroupDetailsContainer} />
+                    <Route path="/community/contacts/create" component={CreateContact} />
+                    <Route path="/community/contacts/:contactId" component={ContactDetailsContainer} />
                 </Switch>
             </section>
         );
     }
 }
 
-export default withTranslation()(withRouter(SearchGroup));
+export default withTranslation()(withRouter(Search));

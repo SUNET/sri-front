@@ -8,44 +8,41 @@ import { withTranslation } from "react-i18next";
 
 import renameKeys from "rename-keys";
 
-import environment from "../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../config";
-import OrganizationDetailsContainer from "../containers/organization/OrganizationDetails";
-import CreateOrganization from "./organization/CreateOrganization";
-import OrganizationListContainer from "../containers/organization/OrganizationList";
-import Filter from "./Filter";
-import OrderBy from "./OrderBy";
-import RangeDayPicker from "./RangeDayPicker";
-import { isEmpty } from "../utils";
+import environment from "../../createRelayEnvironment";
+import { ITEMS_PER_PAGE } from "../../config";
+
+import CreateGroup from "./CreateGroup";
+import GroupDetailsContainer from "../../containers/group/GroupDetails";
+import GroupListContainer from "../../containers/group/GroupList";
+import Filter from "../Filter";
+import OrderBy from "../OrderBy";
+import RangeDayPicker from "../RangeDayPicker";
+import { isEmpty } from "../../utils";
 // import { RouteNotFound } from "./NotFound";
 
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
-    { name: "Organization ID", value: "organization_id", filter: "order" },
-    { name: "Type", value: "type", filter: "order-filter" },
-    { name: "Affiliation", value: "afffiliation" },
-    { name: "Parent Organization ID", value: "parent_organization_id" }
+    { name: "Description", value: "description", filter: "order" }
 ];
 
-const SearchOrganizationAllQuery = graphql`
-    query SearchOrganizationAllQuery($count: Int!, $filter: OrganizationFilter, $orderBy: OrganizationOrderBy) {
-        ...OrganizationList_organizations @arguments(count: $count, filter: $filter, orderBy: $orderBy)
-        ...OrganizationList_organization_types
+const SearchGroupAllQuery = graphql`
+    query SearchGroupAllQuery($count: Int!, $filter: GroupFilter, $orderBy: GroupOrderBy) {
+        ...GroupList_groups @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
 `;
 
-class SearchOrganization extends React.Component {
+class SearchGroup extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
             filterValue: {},
-            filterColumnValue: {},
             filterDateType: "created",
-            filterDateFrom: "",
-            filterDateTo: "",
+            filterDateFrom: undefined,
+            filterDateTo: undefined,
             filterDate: {},
             orderBy: { orderBy: "handle_id_DESC" }
         };
@@ -62,34 +59,17 @@ class SearchOrganization extends React.Component {
         this.setState({ orderBy: { orderBy: orderBy } });
     };
 
-    // update state for order filter columns
-    handleChangeOrderFilterColumns = (orderFilter) => {
-        if (orderFilter.orderBy) {
-            this.setState({ orderBy: { orderBy: orderFilter.orderBy } });
-        }
-        if (orderFilter.filters.length > 0) {
-            this.setState({
-                filterColumnValue: { [orderFilter.column + "_in"]: orderFilter.filters }
-            });
-        } else {
-            this.setState({ filterColumnValue: {} });
-        }
-    };
-
     //save in the state the number of pages shown
     handleOnChangeCount = (count) => {
         this.setState({ countList: this.state.countList + count });
     };
 
     // save in the state the filter box
-    // these filters cannot be generalized by backend implementation
     handleOnChangeFilter = (filterValue) => {
         this.setState({
-            filterValue: [
-                { name_contains: filterValue },
-                { organization_id_contains: filterValue },
-                { type_contains: filterValue }
-            ]
+            filterValue: defaultColumns.map((column) => {
+                return { [column.value + "_contains"]: filterValue };
+            })
         });
     };
 
@@ -145,10 +125,6 @@ class SearchOrganization extends React.Component {
             filterArrayAND.push(this.state.filterDate);
         }
 
-        if (!isEmpty(this.state.filterColumnValue)) {
-            filterArrayAND.push(this.state.filterColumnValue);
-        }
-
         if (!isEmpty(this.state.filterValue)) {
             filterArrayOR = [...filterArrayOR, ...this.state.filterValue];
         }
@@ -158,6 +134,20 @@ class SearchOrganization extends React.Component {
         return filters;
     };
 
+    // effect of showing empty structure while loading the QueryRender
+    createTable = () => {
+        let table = [];
+
+        for (let i = 1; i < ITEMS_PER_PAGE; i++) {
+            table.push(
+                <article key={i}>
+                    <div></div>
+                </article>
+            );
+        }
+        return table;
+    };
+
     render() {
         const { t } = this.props;
         return (
@@ -165,7 +155,7 @@ class SearchOrganization extends React.Component {
                 <Switch>
                     <Route
                         exact
-                        path={`${this.props.match.url}/organizations`}
+                        path="/community/groups"
                         render={() => (
                             <>
                                 <Row>
@@ -216,9 +206,9 @@ class SearchOrganization extends React.Component {
                                     <Col>
                                         <QueryRenderer
                                             environment={environment}
-                                            query={SearchOrganizationAllQuery}
+                                            query={SearchGroupAllQuery}
                                             variables={{
-                                                count: ITEMS_PER_PAGE,
+                                                count: this.state.itemsPerPage,
                                                 ...this.state.orderBy,
                                                 filter: this.getFilters()
                                             }}
@@ -227,22 +217,26 @@ class SearchOrganization extends React.Component {
                                                     return <div>{error.message}</div>;
                                                 } else if (props) {
                                                     return (
-                                                        <OrganizationListContainer
-                                                            organizations={props}
-                                                            organization_types={props}
+                                                        <GroupListContainer
+                                                            groups={props}
                                                             changeCount={this.handleOnChangeCount}
                                                             columnChangeOrderBy={this.handleColumnChangeOrderBy}
                                                             orderBy={this.state.orderBy.orderBy}
-                                                            changeOrderFilterColumns={
-                                                                this.handleChangeOrderFilterColumns
-                                                            }
-                                                            filterColumn={this.state.filterColumnValue.type_in}
                                                             defaultColumns={defaultColumns}
                                                             refetch={retry}
                                                         />
                                                     );
                                                 }
-                                                return <div>Loading</div>;
+                                                return (
+                                                    <div>
+                                                        <div className="model-list default">
+                                                            <div>
+                                                                <div></div>
+                                                            </div>
+                                                            <div></div>
+                                                        </div>
+                                                    </div>
+                                                );
                                             }}
                                         />
                                     </Col>
@@ -250,15 +244,12 @@ class SearchOrganization extends React.Component {
                             </>
                         )}
                     />
-                    <Route path={`${this.props.match.url}/organizations/create`} component={CreateOrganization} />
-                    <Route
-                        path={`${this.props.match.url}/organizations/:organizationId`}
-                        component={OrganizationDetailsContainer}
-                    />
+                    <Route path="/community/groups/create" component={CreateGroup} />
+                    <Route path="/community/groups/:groupId" component={GroupDetailsContainer} />
                 </Switch>
             </section>
         );
     }
 }
 
-export default withTranslation()(withRouter(SearchOrganization));
+export default withTranslation()(withRouter(SearchGroup));

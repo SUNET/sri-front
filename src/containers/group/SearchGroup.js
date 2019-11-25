@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
-
-import SearchGroup from "../components/SearchGroup";
+import SearchGroup from "../../components/group/SearchGroup";
 
 const mapStateToProps = (state, props) => {
     return {};

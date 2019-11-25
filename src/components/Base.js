@@ -6,27 +6,21 @@ import Network from "./Network";
 import Contracts from "./Contracts";
 import Community from "./Community";
 import PersonalArea from "./PersonalArea";
-
-import CaptureRouteNotFound, { RouteNotFound } from "./NotFound";
+// import CaptureRouteNotFound, { RouteNotFound } from "./NotFound";
 
 class Base extends React.Component {
     render() {
+        const { view_network, view_community } = this.props;
         return (
-            <>
-                <CaptureRouteNotFound>
-                    <Switch>
-                        <Redirect exact from={"/community"} to={"/community/organizations"} />
-                        <Redirect exact from={"/personal-area"} to={"/personal-area/profile-settings"} />
-                        <Route exact path="/" component={Home} />
-                        <Route path="/dashboard" component={Home} />
-                        {this.props.view_network && <Route path="/network" component={Network} />}
-                        {this.props.view_community && <Route path="/community" component={Community} />}
-                        <Route path="/contracts" component={Contracts} />
-                        <Route path="/personal-area" component={PersonalArea} />
-                        <RouteNotFound />
-                    </Switch>
-                </CaptureRouteNotFound>
-            </>
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/dashboard" component={Home} />
+                {view_network && <Route path="/network" component={Network} />}
+                {view_community && <Route path="/community" component={Community} />}
+                <Route path="/contracts" component={Contracts} />
+                <Redirect exact from="/personal-area" to={"/personal-area/profile-settings"} />
+                <Route path="/personal-area" component={PersonalArea} />
+            </Switch>
         );
     }
 }
