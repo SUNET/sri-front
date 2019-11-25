@@ -23,7 +23,7 @@ import { isEmpty } from "../utils";
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
-    { name: "Description", value: "description" }
+    { name: "Description", value: "description", filter: "order" }
 ];
 
 const SearchGroupAllQuery = graphql`

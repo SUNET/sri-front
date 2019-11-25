@@ -23,7 +23,7 @@ import { isEmpty } from "../utils";
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
-    { name: "Organization", value: "organization" },
+    { name: "Organization", value: "organizations", filter: "order" },
     { name: "Roles", value: "roles", filter: "order-filter" },
     { name: "Contact Type", value: "contact_type", filter: "order" }
 ];
@@ -68,18 +68,9 @@ class Search extends React.Component {
     // update state for order filter columns
     handleChangeOrderFilterColumns = (orderFilter) => {
         if (orderFilter.orderBy) {
-            // In de backend bevat de bestelbon een laatste s
-            if (orderFilter.orderBy.includes("organization")) {
-                orderFilter.orderBy = orderFilter.orderBy.replace("organization", "organizations");
-            }
             this.setState({ orderBy: { orderBy: orderFilter.orderBy } });
         }
         if (orderFilter.filters.length > 0) {
-            // In de backend bevat de bestelbon een laatste s
-            if (orderFilter.column.includes("organization")) {
-                orderFilter.column = orderFilter.column.replace("organization", "organizations");
-            }
-
             const listFilter = orderFilter.filters.map((filter) => {
                 return { name: filter };
             });
