@@ -172,7 +172,7 @@ export default function UpdateContactMutation(contact, form) {
         Object.keys(phones).forEach((phone_key) => {
             let phone = phones[phone_key];
             if (phone.status === "remove") {
-                deleteEmails.push({ handle_id: phone.handle_id });
+                deletePhones.push({ handle_id: phone.handle_id });
             } else if (phone.status === "saved") {
                 if (phone.origin === "store") {
                     updatePhones.push({
