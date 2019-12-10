@@ -6,6 +6,8 @@ import CreateComentMutation from "../CreateCommentMutation";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
+import { CONTACT_WORK } from "../../utils/constants";
+
 const mutation = graphql`
     mutation CreateOrganizationMutation($input: CompositeOrganizationMutationInput!) {
         composite_organization(input: $input) {
@@ -207,9 +209,9 @@ export default function CreateOrganizationMutation(organization, form) {
                         last_name: contact.last_name,
                         contact_type: "person",
                         email: contact.email,
-                        email_type: "personal",
+                        email_type: CONTACT_WORK,
                         phone: contact.phone,
-                        phone_type: "personal",
+                        phone_type: CONTACT_WORK,
                         role_handle_id: contact.role
                     });
                 } else {
@@ -220,10 +222,10 @@ export default function CreateOrganizationMutation(organization, form) {
                         contact_type: contact.contact_type.toLowerCase(),
                         email_handle_id: contact.email_obj ? contact.email_obj.handle_id : null,
                         email: contact.email,
-                        email_type: contact.email_obj ? contact.email_obj.type : "personal",
+                        email_type: contact.email_obj ? contact.email_obj.type : CONTACT_WORK,
                         phone_handle_id: contact.phone_obj ? contact.phone_obj.handle_id : null,
                         phone: contact.phone,
-                        phone_type: contact.phone_obj ? contact.email_obj.type : "personal",
+                        phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
                         role_handle_id: contact.role
                     });
                 }
