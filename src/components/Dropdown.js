@@ -92,6 +92,7 @@ class Dropdown extends React.PureComponent {
 
     render() {
         let dropdownQuery = undefined;
+        // TODO: Refactor get query depends of model
         switch (this.props.model) {
             case "organization":
                 dropdownQuery = DropdownOrganizationsAllQuery;
@@ -139,7 +140,7 @@ class Dropdown extends React.PureComponent {
                                     value={this.props.defaultValue || ""}
                                 >
                                     {this.props.emptyLabel && (
-                                        <option value="" disabled hidden default>
+                                        <option value="" default>
                                             {this.props.emptyLabel}
                                         </option>
                                     )}
