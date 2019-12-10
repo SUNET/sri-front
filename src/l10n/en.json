@@ -87,6 +87,7 @@
             "organization-details.add-postalCode": "Write postal code",
             "organization-details.add-postalArea": "Write postal area",
             "organization-details.add-phone": "Write phone",
+            "organization-details.select-organization": "Select organization",
             "info.created": "Created",
             "info.last_update": "Last update",
             "notify.contact-created-success": "Contact created successfully",
