@@ -15,7 +15,7 @@ class SubMenuActions extends React.Component {
                             className="btn primary"
                             onClick={() => this.props.history.push(`/community/organizations/create`)}
                         >
-                            {t("Add Organizations")}
+                            {t("organization-details.add-organization")}
                         </button>
                     )}
                 />
@@ -27,7 +27,7 @@ class SubMenuActions extends React.Component {
                             className="btn primary"
                             onClick={() => this.props.history.push(`/community/contacts/create`)}
                         >
-                            {t("Add Contact")}
+                            {t("contact-details.add-contact")}
                         </button>
                     )}
                 />
@@ -39,7 +39,7 @@ class SubMenuActions extends React.Component {
                             className="btn primary"
                             onClick={() => this.props.history.push(`/community/groups/create`)}
                         >
-                            {t("Add Group")}
+                            {t("group-details.add-group")}
                         </button>
                     )}
                 />
