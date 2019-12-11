@@ -6,6 +6,8 @@ import CreateComentMutation from "../CreateCommentMutation";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
+import { CONTACT_WORK } from "../../utils/constants";
+
 const mutation = graphql`
     mutation CreateGroupMutation($input: CompositeGroupMutationInput!) {
         composite_group(input: $input) {
@@ -98,9 +100,9 @@ export default function UpdateGroupMutation(group, form) {
                         last_name: member.last_name,
                         contact_type: "person",
                         email: member.email,
-                        email_type: "personal",
+                        email_type: CONTACT_WORK,
                         phone: member.phone,
-                        phone_type: "personal",
+                        phone_type: CONTACT_WORK,
                         relationship_works_for: member.organization
                     });
                 } else {
@@ -111,10 +113,10 @@ export default function UpdateGroupMutation(group, form) {
                         contact_type: member.contact_type.toLowerCase(),
                         email_handle_id: member.email_obj ? member.email_obj.handle_id : null,
                         email: member.email,
-                        email_type: member.email_obj ? member.email_obj.type : "personal",
+                        email_type: member.email_obj ? member.email_obj.type : CONTACT_WORK,
                         phone_handle_id: member.phone_obj ? member.phone_obj.handle_id : null,
                         phone: member.phone,
-                        phone_type: member.phone_obj ? member.email_obj.type : "personal",
+                        phone_type: member.phone_obj ? member.email_obj.type : CONTACT_WORK,
                         relationship_works_for: member.organization
                     });
                 }
