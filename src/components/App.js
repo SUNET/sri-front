@@ -42,7 +42,7 @@ class App extends Component {
                                 <Route path="/network" component={SideNavNetwork} />
                                 <Route path="/community" component={SideNavCommunity} />
                             </Switch>
-                            <Col className="fixed-adaptative">
+                            <Col sm={10} className="fixed-adaptative">
                                 <NotifyContainer />
                                 <Row className="mt-4">
                                     <Col>

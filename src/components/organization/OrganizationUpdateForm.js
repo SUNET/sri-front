@@ -6,11 +6,9 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { arrayPush, FieldArray, Field, reduxForm, change } from "redux-form";
+import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 import copy from "clipboard-copy";
-import urlRegex from "url-regex";
-
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import Dropdown from "../Dropdown";
@@ -19,12 +17,13 @@ import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
 import FieldInput from "../FieldInput";
 import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
-import { checkOrganization, getOrganizationByOrganizationId } from "../../components/organization/Organization";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 import Worklog from "../Worklog";
 import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
 
 import "../../style/ModelDetails.scss";
+
+import ValidationsOrganizationForm from "./ValidationOrganizationForm";
 
 class OrganizationUpdateForm extends React.Component {
     static propTypes = {
@@ -182,74 +181,73 @@ class OrganizationUpdateForm extends React.Component {
                                         {(editable) => {
                                             return (
                                                 <>
-                                                    <div className="table-details">
-                                                        <div>
-                                                            <div className="w-25">Type</div>
-                                                            <div className="w-25">Affiliation</div>
-                                                            <div className="w-25">Organization ID</div>
-                                                            <div className="w-25">Parent Organization ID</div>
-                                                        </div>
-                                                        <div>
-                                                            <div>
-                                                                <div>
-                                                                    {!editable ? (
-                                                                        type
-                                                                    ) : (
-                                                                        <Dropdown
-                                                                            className="auto"
-                                                                            emptyLabel="Select type"
-                                                                            type="organization_types"
-                                                                            name="type"
-                                                                            onChange={(e) => {}}
-                                                                        />
-                                                                    )}
-                                                                </div>
-                                                                <div>
-                                                                    <FiledArrayCheckbox
-                                                                        data={INPUTS}
-                                                                        form={this.props.form}
-                                                                        dispatch={this.props.dispatch}
-                                                                        editable={editable}
-                                                                        initialValues={
-                                                                            this.props.initialValues.affiliation
-                                                                        }
-                                                                        error={this.props.formSyncErrors.affiliation}
-                                                                        touched={this.props.fields}
-                                                                    />
-                                                                </div>
-                                                                <div>
-                                                                    {!editable ? (
-                                                                        organization_id
-                                                                    ) : (
-                                                                        <Form.Group>
-                                                                            <Field
-                                                                                type="text"
-                                                                                name="organization_id"
-                                                                                component={FieldInput}
-                                                                                placeholder={t(
-                                                                                    "organization-details.add-id"
-                                                                                )}
-                                                                            />
-                                                                        </Form.Group>
-                                                                    )}
-                                                                </div>
-                                                                <div>
-                                                                    {!editable ? (
-                                                                        organization_parent_id
-                                                                    ) : (
-                                                                        <Form.Group>
-                                                                            <Field
-                                                                                type="text"
-                                                                                name="organization_parent_id"
-                                                                                component={FieldInput}
-                                                                                placeholder={t(
-                                                                                    "organization-details.add-id"
-                                                                                )}
-                                                                            />
-                                                                        </Form.Group>
-                                                                    )}
-                                                                </div>
+                                                    {/* // TODO: refactor this in title-content structure */}
+                                                    <div className="form-internal-block">
+                                                        <div className="form-internal-block__section">
+                                                            <div className="form-internal-block__section__title">
+                                                                Type
                                                             </div>
+                                                            <div>
+                                                                {!editable ? (
+                                                                    type
+                                                                ) : (
+                                                                    <Dropdown
+                                                                        className="auto"
+                                                                        emptyLabel="Select type"
+                                                                        type="organization_types"
+                                                                        name="type"
+                                                                        onChange={(e) => {}}
+                                                                    />
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                        <div className="form-internal-block__section">
+                                                            <div className="form-internal-block__section__title">
+                                                                Affiliation
+                                                            </div>
+                                                            <FiledArrayCheckbox
+                                                                data={INPUTS}
+                                                                form={this.props.form}
+                                                                dispatch={this.props.dispatch}
+                                                                editable={editable}
+                                                                initialValues={this.props.initialValues.affiliation}
+                                                                error={this.props.formSyncErrors.affiliation}
+                                                                touched={this.props.fields}
+                                                            />
+                                                        </div>
+                                                        <div className="form-internal-block__section">
+                                                            <div className="form-internal-block__section__title">
+                                                                Organization ID
+                                                            </div>
+                                                            {!editable ? (
+                                                                organization_id
+                                                            ) : (
+                                                                <Form.Group>
+                                                                    <Field
+                                                                        type="text"
+                                                                        name="organization_id"
+                                                                        component={FieldInput}
+                                                                        placeholder={t("organization-details.add-id")}
+                                                                    />
+                                                                </Form.Group>
+                                                            )}
+                                                        </div>
+                                                        <div className="form-internal-block__section">
+                                                            <div className="form-internal-block__section__title">
+                                                                Parent Organization ID
+                                                            </div>
+                                                            {!editable ? (
+                                                                organization_parent_id
+                                                            ) : (
+                                                                <Form.Group>
+                                                                    <Field
+                                                                        type="text"
+                                                                        name="organization_parent_id"
+                                                                        component={FieldInput}
+                                                                        placeholder={t("organization-details.add-id")}
+                                                                    />
+                                                                </Form.Group>
+                                                            )}
                                                         </div>
                                                     </div>
                                                     <div className="table-details mt-4">
@@ -441,154 +439,14 @@ class OrganizationUpdateForm extends React.Component {
     }
 }
 
-// combine field validations
-function composeAsyncValidators(validatorFns) {
-    return async (values, dispatch, props, field) => {
-        let errors;
-        for (const validatorFn of validatorFns) {
-            try {
-                await validatorFn(values, dispatch, props, field);
-            } catch (err) {
-                errors = Object.assign({}, errors, err);
-            }
-        }
-
-        if (errors) throw errors;
-    };
-}
-
-const asyncValidate_organization_id = (values, dispatch) => {
-    if (values.organization_id) {
-        return checkOrganization(values.organization_id, values.handle_id).then((exists) => {
-            if (exists) {
-                // this absurdity, is by the error of non-throw-literal
-                const error = { organization_id: "Already exist!" };
-                throw error;
-            }
-        });
-    }
-};
-
-const asyncValidate_relationship_parent_of = (values, dispatch, props) => {
-    if (values.organization_parent_id) {
-        return checkOrganization(values.organization_parent_id).then((exists) => {
-            if (!exists) {
-                // this absurdity, is by the error of non-throw-literal
-                const error = { organization_parent_id: "Doesn't match any organization!" };
-                throw error;
-            } else {
-                getOrganizationByOrganizationId(values.organization_parent_id).then((organization) => {
-                    if (organization) {
-                        dispatch(change("updateOrganization", `relationship_parent_of`, organization));
-                    }
-                });
-            }
-        });
-    }
-};
-
-// combine field validations
-const asyncValidate = composeAsyncValidators([asyncValidate_organization_id, asyncValidate_relationship_parent_of]);
-
-const validate = (values, props) => {
-    const errors = {};
-    if (!values.name) {
-        errors.name = "* Required!";
-    }
-
-    if (!values.type) {
-        errors.type = "* Required!";
-    }
-
-    if (!values.organization_id) {
-        errors.organization_id = "* Required!";
-    }
-
-    if (values.organization_parent_id) {
-        if (values.organization_parent_id === values.organization_id) {
-            errors.organization_parent_id = "* Invalid Id!";
-        }
-    }
-
-    if (values.website) {
-        if (!urlRegex({ exact: true, strict: false }).test(values.website)) {
-            errors.website = "* Invalid url!";
-        }
-    }
-
-    if (
-        props.affiliation.customer === false &&
-        props.affiliation.end_customer === false &&
-        props.affiliation.host_user === false &&
-        props.affiliation.partner === false &&
-        props.affiliation.provider === false &&
-        props.affiliation.site_owner === false
-    ) {
-        errors.affiliation = "* Required!";
-    }
-
-    if (values.addresses) {
-        const addressArrayErrors = [];
-        values.addresses.forEach((address, addressIndex) => {
-            const addressErrors = {};
-            if (!address || !address.street) {
-                addressErrors.street = "* Required!";
-                addressArrayErrors[addressIndex] = addressErrors;
-            }
-            if (!address || !address.postal_code) {
-                addressErrors.postal_code = "* Required!";
-                addressArrayErrors[addressIndex] = addressErrors;
-            }
-            if (!address || !address.postal_area) {
-                addressErrors.postal_area = "* Required!";
-                addressArrayErrors[addressIndex] = addressErrors;
-            }
-            if (!address || !address.phone) {
-                addressErrors.phone = "* Required!";
-                addressArrayErrors[addressIndex] = addressErrors;
-            }
-            return addressErrors;
-        });
-        if (addressArrayErrors.length) {
-            errors.addresses = addressArrayErrors;
-        }
-    }
-
-    if (values.contacts) {
-        const contactArrayErrors = [];
-        values.contacts.forEach((contact, contactIndex) => {
-            const contactErrors = {};
-            if (!contact || !contact.name) {
-                contactErrors.name = "* Required!";
-                contactArrayErrors[contactIndex] = contactErrors;
-            }
-            if (!contact || !contact.role) {
-                contactErrors.role = "* Required!";
-                contactArrayErrors[contactIndex] = contactErrors;
-            }
-            if (!contact || !contact.email) {
-                contactErrors.email = "* Required!";
-                contactArrayErrors[contactIndex] = contactErrors;
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(contact.email)) {
-                contactErrors.email = "* Invalid email!";
-                contactArrayErrors[contactIndex] = contactErrors;
-            }
-            if (!contact || !contact.phone) {
-                contactErrors.phone = "* Required!";
-                contactArrayErrors[contactIndex] = contactErrors;
-            }
-            return contactErrors;
-        });
-        if (contactArrayErrors.length) {
-            errors.contacts = contactArrayErrors;
-        }
-    }
-    return errors;
-};
+const asyncValidate =
+    ValidationsOrganizationForm.composeAsyncValidators(
+        [ValidationsOrganizationForm.asyncValidate_organization_id, ValidationsOrganizationForm.asyncValidate_relationship_parent_of]
+    );
 
 OrganizationUpdateForm = reduxForm({
     form: "updateOrganization",
-    validate,
+    validate: ValidationsOrganizationForm.organizationFormValidate,
     enableReinitialize: true,
     asyncValidate,
     onSubmitSuccess: (result, dispatch, props) => {
