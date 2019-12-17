@@ -1,19 +1,21 @@
 import { checkOrganization, getOrganizationByOrganizationId } from "../../components/organization/Organization";
 import urlRegex from "url-regex";
 import { change } from "redux-form";
+const REQUIRED_TEXT = "* Required!";
+
 export default class ValidationsOrganizationForm {
     static organizationFormValidate = (values, props) => {
         const errors = {};
         if (!values.name || values.name === "New organization") {
-            errors.name = "* Required!";
+            errors.name = REQUIRED_TEXT;
         }
 
         if (!values.type) {
-            errors.type = "* Required!";
+            errors.type = REQUIRED_TEXT;
         }
 
         if (!values.organization_id) {
-            errors.organization_id = "* Required!";
+            errors.organization_id = REQUIRED_TEXT;
         }
 
         if (values.organization_parent_id) {
@@ -36,7 +38,7 @@ export default class ValidationsOrganizationForm {
             (props.affiliation.provider === undefined || props.affiliation.provider === false) &&
             (props.affiliation.site_owner === undefined || props.affiliation.site_owner === false)
         ) {
-            errors.affiliation = "* Required!";
+            errors.affiliation = REQUIRED_TEXT;
         }
 
         if (values.addresses) {
@@ -44,19 +46,19 @@ export default class ValidationsOrganizationForm {
             values.addresses.forEach((address, addressIndex) => {
                 const addressErrors = {};
                 if (!address || !address.street) {
-                    addressErrors.street = "* Required!";
+                    addressErrors.street = REQUIRED_TEXT;
                     addressArrayErrors[addressIndex] = addressErrors;
                 }
                 if (!address || !address.postal_code) {
-                    addressErrors.postal_code = "* Required!";
+                    addressErrors.postal_code = REQUIRED_TEXT;
                     addressArrayErrors[addressIndex] = addressErrors;
                 }
                 if (!address || !address.postal_area) {
-                    addressErrors.postal_area = "* Required!";
+                    addressErrors.postal_area = REQUIRED_TEXT;
                     addressArrayErrors[addressIndex] = addressErrors;
                 }
                 if (!address || !address.phone) {
-                    addressErrors.phone = "* Required!";
+                    addressErrors.phone = REQUIRED_TEXT;
                     addressArrayErrors[addressIndex] = addressErrors;
                 }
                 return addressErrors;
@@ -71,22 +73,22 @@ export default class ValidationsOrganizationForm {
             values.contacts.forEach((contact, contactIndex) => {
                 const contactErrors = {};
                 if (!contact || !contact.name) {
-                    contactErrors.name = "* Required!";
+                    contactErrors.name = REQUIRED_TEXT;
                     contactArrayErrors[contactIndex] = contactErrors;
                 }
                 if (!contact || !contact.role) {
-                    contactErrors.role = "* Required!";
+                    contactErrors.role = REQUIRED_TEXT;
                     contactArrayErrors[contactIndex] = contactErrors;
                 }
                 if (!contact || !contact.email) {
-                    contactErrors.email = "* Required!";
+                    contactErrors.email = REQUIRED_TEXT;
                     contactArrayErrors[contactIndex] = contactErrors;
                 } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(contact.email)) {
                     contactErrors.email = "* Invalid email!";
                     contactArrayErrors[contactIndex] = contactErrors;
                 }
                 if (!contact || !contact.phone) {
-                    contactErrors.phone = "* Required!";
+                    contactErrors.phone = REQUIRED_TEXT;
                     contactArrayErrors[contactIndex] = contactErrors;
                 }
                 return contactErrors;
