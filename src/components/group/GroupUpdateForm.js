@@ -93,6 +93,7 @@ class GroupUpdateForm extends React.Component {
                             >
                                 <span>{t("actions.back")}</span>
                             </button>
+                            <div className="vertical-separator"></div>
                             <EditField
                                 error={this.props.formSyncErrors.name}
                                 meta={this.props.fields.name}
@@ -101,7 +102,6 @@ class GroupUpdateForm extends React.Component {
                             >
                                 <h1>{name}</h1>
                             </EditField>
-                            <FontAwesomeIcon icon={faStar} />
                         </div>
                     </Col>
                     <Col>

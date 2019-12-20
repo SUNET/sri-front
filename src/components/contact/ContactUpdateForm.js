@@ -181,6 +181,7 @@ class ContactUpdateForm extends React.PureComponent {
                             >
                                 <span>{t("actions.back")}</span>
                             </button>
+                            <div className="vertical-separator"></div>
                             <EditField
                                 error={this.props.formSyncErrors.name}
                                 meta={this.props.fields.name}
@@ -189,11 +190,23 @@ class ContactUpdateForm extends React.PureComponent {
                             >
                                 <h1>{name}</h1>
                             </EditField>
-                            <FontAwesomeIcon icon={faStar} />
                         </div>
                     </Col>
                     <Col>
-                        <InfoCreatorModifier model={contact} />
+                        <div className="title-section__right-block">
+                            <div className="title-section__right-block__buttons with-vertical-separator with-vertical-separator--right">
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        console.log('EDIT MODE!!!!!!');
+                                    }}
+                                    className="btn icon-pencil outline"
+                                >
+                                    <span>{t("actions.edit")}</span>
+                                </button>
+                            </div>
+                            <InfoCreatorModifier model={contact} />
+                        </div>
                     </Col>
                 </Form.Row>
                 <section className="model-section">

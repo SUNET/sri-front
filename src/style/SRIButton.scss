@@ -79,9 +79,9 @@ button.btn {
 
     &.outline {
         font-size: 14px;
-        color: $secondary-color;
+        color: $complementary-color;
         border-radius: 16px;
-        border: solid 1px $secondary-color-20;
+        border: solid 1px $complementary-color;
         background: none;
 
         span {
@@ -123,11 +123,12 @@ button.btn {
             &:before {
                 display: inline-block;
                 content: '';
-                height: 6px;
-                width: 6px;
+                height: 10px;
+                width: 10px;
                 margin-right: 8px;
-                border-bottom: 2px solid $complementary-color;
-                border-right: 2px solid $complementary-color;
+                margin-left: 4px;
+                border-bottom: 1px solid $complementary-color;
+                border-right: 1px solid $complementary-color;
                 transform: rotate(135deg);
                 vertical-align: middle;
             }

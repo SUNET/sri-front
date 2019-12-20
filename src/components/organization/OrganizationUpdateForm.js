@@ -130,6 +130,122 @@ class OrganizationUpdateForm extends React.Component {
 
     renderGeneralInfoToggleSection() {
         const { type, organization_id, organization_number, website, organization_parent_id, t } = this.props;
+        const renderFormBlockSection = (editable, data, uniqueKey) => {
+            const isPresentState = !editable && data.presentContent;
+            return (
+                <div className="form-internal-block__section" key={uniqueKey}>
+                    <div className="form-internal-block__section__title">{data.title}</div>
+                    <div className="form-internal-block__section__content">
+                        {isPresentState ? data.presentContent : data.editContent}
+                    </div>
+                </div>
+            );
+        };
+
+        const generalInfoFirstRow = [
+            {
+                title: t("organization-details.type"),
+                presentContent: type,
+                editContent: (
+                    <Dropdown
+                        className="auto"
+                        emptyLabel="Select type"
+                        type="organization_types"
+                        name="type"
+                        onChange={(e) => {}}
+                    />
+                )
+            },
+            {
+                title: t("organization-details.affiliation"),
+                presentContent: (
+                    <FiledArrayCheckbox
+                        data={INPUTS}
+                        form={this.props.form}
+                        dispatch={this.props.dispatch}
+                        editable={false}
+                        initialValues={this.props.initialValues.affiliation}
+                        error={this.props.formSyncErrors.affiliation}
+                        touched={this.props.fields}
+                    />
+                ),
+                editContent: (
+                    <FiledArrayCheckbox
+                        data={INPUTS}
+                        form={this.props.form}
+                        dispatch={this.props.dispatch}
+                        editable={true}
+                        initialValues={this.props.initialValues.affiliation}
+                        error={this.props.formSyncErrors.affiliation}
+                        touched={this.props.fields}
+                    />
+                )
+            },
+            {
+                title: t("organization-details.organization-id"),
+                presentContent: organization_id,
+                editContent: (
+                    <Form.Group>
+                        <Field
+                            type="text"
+                            name="organization_id"
+                            component={FieldInput}
+                            placeholder={t("organization-details.add-id")}
+                        />
+                    </Form.Group>
+                )
+            },
+            {
+                title: t("organization-details.parent-org-id"),
+                presentContent: organization_parent_id,
+                editContent: (
+                    <Form.Group>
+                        <Field
+                            type="text"
+                            name="organization_parent_id"
+                            component={FieldInput}
+                            placeholder={t("organization-details.add-id")}
+                        />
+                    </Form.Group>
+                )
+            }
+        ];
+        const generalInfoSecondRow = [
+            {
+                title: t("organization-details.website"),
+                presentContent: (
+                    <a href={this.generateURL(website)} target="_blank" rel="noopener noreferrer">
+                        {website}
+                    </a>
+                ),
+                editContent: (
+                    <Form.Group>
+                        <Field
+                            type="text"
+                            className="xlg"
+                            name="website"
+                            component={FieldInput}
+                            placeholder={t("organization-details.add-website")}
+                        />
+                    </Form.Group>
+                )
+            },
+            {
+                title: t("organization-details.org-number"),
+                presentContent: organization_number,
+                editContent: (
+                    <Form.Group>
+                        <Field
+                            type="text"
+                            name="organization_number"
+                            component={FieldInput}
+                            placeholder={t("organization-details.add-number")}
+                        />
+                    </Form.Group>
+                )
+            }
+        ];
+
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -141,111 +257,14 @@ class OrganizationUpdateForm extends React.Component {
                             return (
                                 <div>
                                     <div className="form-internal-block">
-                                        <div className="form-internal-block__section">
-                                            <div className="form-internal-block__section__title">Type</div>
-                                            <div>
-                                                {!editable ? (
-                                                    type
-                                                ) : (
-                                                    <Dropdown
-                                                        className="auto"
-                                                        emptyLabel="Select type"
-                                                        type="organization_types"
-                                                        name="type"
-                                                        onChange={(e) => {}}
-                                                    />
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="form-internal-block__section">
-                                            <div className="form-internal-block__section__title">Affiliation</div>
-                                            <FiledArrayCheckbox
-                                                data={INPUTS}
-                                                form={this.props.form}
-                                                dispatch={this.props.dispatch}
-                                                editable={editable}
-                                                initialValues={this.props.initialValues.affiliation}
-                                                error={this.props.formSyncErrors.affiliation}
-                                                touched={this.props.fields}
-                                            />
-                                        </div>
-                                        <div className="form-internal-block__section">
-                                            <div className="form-internal-block__section__title">Organization ID</div>
-                                            {!editable ? (
-                                                organization_id
-                                            ) : (
-                                                <Form.Group>
-                                                    <Field
-                                                        type="text"
-                                                        name="organization_id"
-                                                        component={FieldInput}
-                                                        placeholder={t("organization-details.add-id")}
-                                                    />
-                                                </Form.Group>
-                                            )}
-                                        </div>
-                                        <div className="form-internal-block__section">
-                                            <div className="form-internal-block__section__title">
-                                                Parent Organization ID
-                                            </div>
-                                            {!editable ? (
-                                                organization_parent_id
-                                            ) : (
-                                                <Form.Group>
-                                                    <Field
-                                                        type="text"
-                                                        name="organization_parent_id"
-                                                        component={FieldInput}
-                                                        placeholder={t("organization-details.add-id")}
-                                                    />
-                                                </Form.Group>
-                                            )}
-                                        </div>
+                                        {generalInfoFirstRow.map((formData, index) => {
+                                            return renderFormBlockSection(editable, formData, index);
+                                        })}
                                     </div>
-                                    <div className="table-details mt-4">
-                                        <div>
-                                            <div className="w-35">Website</div>
-                                            <div>Organization Number</div>
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <div>
-                                                    {!editable ? (
-                                                        <a
-                                                            href={this.generateURL(website)}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            {website}
-                                                        </a>
-                                                    ) : (
-                                                        <Form.Group>
-                                                            <Field
-                                                                type="text"
-                                                                className="xlg"
-                                                                name="website"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-website")}
-                                                            />
-                                                        </Form.Group>
-                                                    )}
-                                                </div>
-                                                <div>
-                                                    {!editable ? (
-                                                        organization_number
-                                                    ) : (
-                                                        <Form.Group>
-                                                            <Field
-                                                                type="text"
-                                                                name="organization_number"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-number")}
-                                                            />
-                                                        </Form.Group>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="form-internal-block mt-4">
+                                        {generalInfoSecondRow.map((formData, index) => {
+                                            return renderFormBlockSection(editable, formData, index);
+                                        })}
                                     </div>
                                 </div>
                             );
@@ -384,6 +403,7 @@ class OrganizationUpdateForm extends React.Component {
                             >
                                 <span>{t("actions.back")}</span>
                             </button>
+                            <div className="vertical-separator"></div>
                             <EditField
                                 error={this.props.formSyncErrors.name}
                                 meta={this.props.fields.name}
@@ -392,7 +412,6 @@ class OrganizationUpdateForm extends React.Component {
                             >
                                 <h1>{name}</h1>
                             </EditField>
-                            <FontAwesomeIcon icon={faStar} />
                         </div>
                     </Col>
                     <Col>

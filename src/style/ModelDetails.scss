@@ -19,6 +19,14 @@
             margin-left: 8px;
             font-size: 11px;
         }
+
+        &__right-block {
+            display: flex;
+            justify-content: flex-end;
+            &__buttons {
+                margin-right: 1em;
+            }
+        }
     }
 
     .info-creator-modifier {
@@ -56,6 +64,7 @@
                     }
                 }
                 &__content{
+                    padding-left: 24px;
                 }
             }
         }
@@ -207,6 +216,10 @@
                     }
                 }
             }
+        }
+
+        hr {
+            border-color: $tertiary-color;
         }
     }
 }
