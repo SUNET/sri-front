@@ -25,7 +25,9 @@ function JWTVerifyMutation(token) {
                 }
                 return resolve(response);
             },
-            onError: (errors) => console.error(errors)
+            onError: (errors) => {
+                console.error(errors);
+            }
         });
     });
 }
