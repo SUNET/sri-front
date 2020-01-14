@@ -23,7 +23,6 @@ class FieldArrayMembersGroup extends React.Component {
         const hasBlankFields =
             values[index].name === "" ||
             values[index].name === undefined ||
-            (values[index].organization === "" || values[index].organization === undefined) ||
             (values[index].email === "" || values[index].email === undefined) ||
             (values[index].phone === "" || values[index].phone === undefined);
         return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
@@ -85,7 +84,7 @@ class FieldArrayMembersGroup extends React.Component {
                                 <div>
                                     <Dropdown
                                         className="auto"
-                                        emptyLabel="Select organization"
+                                        emptyLabel={t("organization-details.select-organization")}
                                         model="organization"
                                         onChange={(e) => {
                                             this.saveLabel(e, index);

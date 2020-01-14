@@ -189,10 +189,6 @@ const validate = (values, props) => {
                 memberErrors.name = "* Invalid name!";
                 memberArrayErrors[memberIndex] = memberErrors;
             }
-            if (!member || !member.organization) {
-                memberErrors.organization = "* Required!";
-                memberArrayErrors[memberIndex] = memberErrors;
-            }
             if (!member || !member.email) {
                 memberErrors.email = "* Required!";
                 memberArrayErrors[memberIndex] = memberErrors;

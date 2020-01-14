@@ -153,7 +153,7 @@ export default function UpdateContactMutation(contact, form) {
             } else if (email.status === "saved") {
                 if (email.origin === "store") {
                     updateEmails.push({
-                        handle_id: email.handle_id,
+                        handle_id: parseInt(email.handle_id), // need for parseint to standardize on database. Ticket n:326613
                         name: email.email,
                         type: email.type
                     });
@@ -176,7 +176,7 @@ export default function UpdateContactMutation(contact, form) {
             } else if (phone.status === "saved") {
                 if (phone.origin === "store") {
                     updatePhones.push({
-                        handle_id: phone.handle_id,
+                        handle_id: parseInt(phone.handle_id), // need for parseint to standardize on database. Ticket n:326613
                         name: phone.phone,
                         type: phone.type
                     });

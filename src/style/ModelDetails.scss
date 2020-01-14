@@ -33,6 +33,33 @@
         -moz-box-shadow: 0 0 4px -1px #d6d6d6;
         box-shadow: 0 0 4px -1px #d6d6d6;
 
+        .form-internal-block {
+            display: flex;
+            flex-wrap: wrap;
+            &__section {
+                flex-grow: 1;
+                flex-shrink: 0;
+                flex-basis: 25%;
+                margin-bottom: 1.5rem;
+                &__title{
+                    font-family: karla;
+                    font-weight: bold;
+                    color: $secondary-color-30;
+                    &:not(.with-icon) {
+                        padding-bottom: 16px;
+                    }
+
+                    &.with-icon {
+                        > span {
+                            margin-right: 16px;
+                        }
+                    }
+                }
+                &__content{
+                }
+            }
+        }
+
         .table-details {
             display: table;
             border-collapse: separate;
