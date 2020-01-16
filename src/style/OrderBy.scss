@@ -5,7 +5,7 @@
 
     &.outline {
         border: 1px solid $secondary-color-20;
-        border-radius: 20px;
+        border-radius: $input--border-radius;
         padding: 8px 11px;
 
         svg {

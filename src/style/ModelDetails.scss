@@ -37,17 +37,22 @@
         margin-top: 16px;
         padding: 32px 24px;
         background-color: white;
-        -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
-        -moz-box-shadow: 0 0 4px -1px #d6d6d6;
-        box-shadow: 0 0 4px -1px #d6d6d6;
+        -webkit-box-shadow: $list--row-box-shadow;
+        -moz-box-shadow: $list--row-box-shadow;
+        box-shadow: $list--row-box-shadow;
 
         .form-internal-block {
             display: flex;
             flex-wrap: wrap;
+            &__section--edition-mode {
+                &__content {
+                    padding-left: 5px;
+                }
+            }
             &__section {
                 flex-grow: 1;
                 flex-shrink: 0;
-                flex-basis: 25%;
+                // flex-basis: 25%;
                 margin-bottom: 1.5rem;
                 &__title{
                     font-family: karla;
@@ -56,15 +61,74 @@
                     &:not(.with-icon) {
                         padding-bottom: 16px;
                     }
-
+                    
                     &.with-icon {
                         > span {
                             margin-right: 16px;
                         }
                     }
                 }
-                &__content{
+                &__content {
                     padding-left: 24px;
+                    &--edition-mode {
+                        padding-left: 0;
+                    }
+                    .list-items {
+                        &__label {
+                            display: flex;
+                            flex-direction: column;
+                            &__row {
+                                display: flex;
+                                flex-direction: row;
+                                align-items: flex-end;
+                                padding-right: 8px;
+                                padding-top: 8px;
+                                padding-bottom: 8px;
+                                > div:first-of-type {
+                                    margin-right: 8px;
+                                }
+                                
+                                > div:last-of-type {
+                                    font-family: karla;
+                                    color: $secondary-color-30;
+                                }
+                            }
+                        }
+                        &__inputs {
+                            &__row {
+                                align-items: center;
+                            }
+                            .remove-cta {
+                                width: 15px;
+                                height: 15px;
+                                position: relative;
+                                cursor: pointer;
+                                &:after,
+                                &:before {
+                                    content: "";
+                                    display: inline-block;
+                                    background-color: $gray-color;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%) rotate(45deg);;
+                                }
+                    
+                                &:before {
+                                    height: 14px;
+                                    width: 2px;
+                                }
+                    
+                                &:after {
+                                    height: 2px;
+                                    width: 14px;
+                                }
+                            }
+                            button {
+                                width: 107px;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -189,7 +253,8 @@
                     }
                 }
             }
-
+            
+            // TODO: Remove when form-internal-block implements in all forms
             .list-items-label {
                 display: table;
 

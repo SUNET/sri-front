@@ -117,7 +117,7 @@ class OrganizationUpdateForm extends React.Component {
                                     as="textarea"
                                     rows="3"
                                     placeholder={t("group-details.add-description")}
-                                />
+                                ></Field>
                             ) : (
                                 <span className="pre-text">{description}</span>
                             );

@@ -80,7 +80,7 @@ button.btn {
     &.outline {
         font-size: 14px;
         color: $complementary-color;
-        border-radius: 16px;
+        border-radius: $input-outline--border-radius;
         border: solid 1px $complementary-color;
         background: none;
 
@@ -103,18 +103,18 @@ button.btn {
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    left: -16px;
+                    left: -10px;
                     transform: translate(-50%, -50%);
                 }
 
                 &:before {
-                    height: 10px;
+                    height: 15px;
                     width: 2px;
                 }
 
                 &:after {
                     height: 2px;
-                    width: 10px;
+                    width: 15px;
                 }
             }
         }
@@ -176,6 +176,13 @@ button.btn {
                 color: $complementary-color;
                 vertical-align: middle;
             }
+        }
+
+        &.btn-edit {
+            display: flex;
+            align-items: center;
+            width: 72px;
+            justify-content: space-between;
         }
 
         .icon-load {

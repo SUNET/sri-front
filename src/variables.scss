@@ -14,6 +14,7 @@ $success-color: #147371;
 $alert-color: #D7263D;
 $alert-color-75: rgba($alert-color, .75);
 $alert-color-30: rgba($alert-color, .3);
+$gray-color: #d5dee2;
 /*
  * Typography
  * ========================================================================== */
@@ -56,3 +57,15 @@ $pretty--debug: false;
 $pretty--dev-err: 'Invalid input type!';
 // Custom
 $pretty--size-scale: 0.6em;
+
+/*
+ * Borders
+ * ========================================================================== */
+ $input--border-radius: 4px;
+ $input-outline--border-radius: $input--border-radius * 4;
+
+ /*
+ * Shadows
+ * ========================================================================== */
+ $list--row-box-shadow: 0 0 10px 0 rgba(76, 96, 133, 0.05);
+ 

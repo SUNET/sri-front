@@ -2,11 +2,10 @@
 
 .input-group {
     margin-bottom: 8px;
-    display: table;
+    display: flex;
 
     > div {
-        display: table-cell;
-
+        margin-right: 8px;
         .icon-trash {
             color: $secondary-color-30;
         }
@@ -47,7 +46,7 @@
         font-size: 14px;
         width: 160px;
         height: 32px;
-        border-radius: 16px;
+        border-radius: $input--border-radius;
         border: solid 1px $secondary-color-20;
         color: $secondary-color;
         padding: 4px 16px;

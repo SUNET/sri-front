@@ -48,9 +48,9 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
         })
     })
         .then((response) => {
-            if (response.redirected) {
-                document.location = response.url;
-            }
+            // if (response.redirected) {
+            //     document.location = response.url;
+            // }
             return response.json();
         })
         .then((json) => {

@@ -67,7 +67,7 @@
             li {
                 font-size: 14px;
                 color: $secondary-color;
-                border-radius: 16px;
+                border-radius: $input--border-radius;
                 border: solid 1px $secondary-color-20;
                 padding: 8px 16px 8px 8px;
                 background: none;
