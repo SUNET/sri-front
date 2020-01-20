@@ -11,7 +11,6 @@ import AppContainer from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
 import { API_HOST } from "./config.js";
 import JWTVerifyMutation from "./mutations/JWTVerifyMutation";
-import JWTRefreshMutation from "./mutations/JWTRefreshMutation";
 
 import "./i18n";
 

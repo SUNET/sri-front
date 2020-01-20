@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { API_HOST } from "../config.js";
-import Cookies from "js-cookie";
-import { postRequest } from "../sagas/common";
 
 import "../style/Splash.scss";
 
