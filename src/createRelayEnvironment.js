@@ -48,7 +48,6 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
         })
     })
         .then((response) => {
-            console.log(response);
             return response.json();
         })
         .then((json) => {

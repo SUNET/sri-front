@@ -33,11 +33,9 @@ const initialAction = () => {
     const cookie_jwt = Cookies.get("JWT");
     // if there is no cookie jwt is redirected to the login
     if (!cookie_jwt) {
-        console.log(`${API_HOST}/authn?next=${document.location.href}`);
         fetch(`${API_HOST}/authn?next=${document.location.href}`, {
             method: "GET"
         }).then((response) => {
-            console.log(response);
             if (response.redirected) {
                 document.location.href = response.url;
             }
@@ -52,11 +50,9 @@ const initialAction = () => {
                         JWTRefreshMutation(cookie_jwt);
                     } else {
                         // if it is invalid it redirects to the login
-                        console.log(`${API_HOST}/authn?next=${document.location.href}`);
                         fetch(`${API_HOST}/authn?next=${document.location.href}`, {
                             method: "GET"
                         }).then((response) => {
-                            console.log(response);
                             if (response.redirected) {
                                 document.location.href = response.url;
                             }

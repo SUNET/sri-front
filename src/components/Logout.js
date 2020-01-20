@@ -7,19 +7,6 @@ import "../style/Splash.scss";
 
 class Logout extends Component {
     logout = () => {
-        // localStorage.clear();
-        // TODO: rethink the use of cookies
-        // Cookies.remove("csrftoken");
-        // fetch(`${API_HOST}/logout`, {
-        //     method: "GET"
-        // }).then((response) => {
-        //     console.log(response);
-        //     // Cookies.remove("JWT");
-        //     if (response.redirected) {
-        //         document.location.href = response.url;
-        //     }
-        // });
-        // document.location.href = API_HOST + "/logout";
         window.location.replace(API_HOST + "/logout")
     };
 

@@ -26,6 +26,11 @@ import "../style/SRIButton.scss";
 import { history } from "../store";
 
 class App extends Component {
+    constructor(props) {
+        console.log(props);
+        
+        super(props);
+    }
     render() {
         return (
             <FetchingContext.Provider value={this.props.is_fetching}>
@@ -52,7 +57,7 @@ class App extends Component {
                                         <SubMenuActions />
                                     </Col>
                                 </Row>
-                                <BaseContainer />
+                                {this.props.is_app_loaded && <BaseContainer />}
                             </Col>
                         </Row>
                         <Row>
@@ -68,7 +73,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-    is_fetching: PropTypes.bool
+    is_fetching: PropTypes.bool,
+    is_app_loaded: PropTypes.bool,
 };
 
 export default App;
