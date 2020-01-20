@@ -43,10 +43,7 @@ const initialAction = () => {
     } else {
         JWTVerifyMutation(cookie_jwt)
             .then((data) => {
-                // it is verified that the cookie jwt is valid
-                if (!data) {
-                    JWTRefreshMutation(cookie_jwt);
-                } else {
+                if (data) {
                     store.dispatch(actions.appLoaded());
                 }
             })

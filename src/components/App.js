@@ -26,11 +26,6 @@ import "../style/SRIButton.scss";
 import { history } from "../store";
 
 class App extends Component {
-    constructor(props) {
-        console.log(props);
-        
-        super(props);
-    }
     render() {
         return (
             <FetchingContext.Provider value={this.props.is_fetching}>
