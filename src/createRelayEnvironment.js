@@ -49,6 +49,7 @@ async function fetchQuery(operation, variables, cacheConfig, uploadables) {
         })
     })
         .then((response) => {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             // if (response.redirected) {
             //     document.location = response.url;
@@ -59,6 +60,8 @@ async function fetchQuery(operation, variables, cacheConfig, uploadables) {
                 document.location.href = response.url;
             }
 >>>>>>> Stashed changes
+=======
+>>>>>>> acba4c65d845bc2b90a5c27a9d99e2f7ab87cc2a
             return response.json();
         })
         .then((json) => {

@@ -52,7 +52,7 @@ class App extends Component {
                                         <SubMenuActions />
                                     </Col>
                                 </Row>
-                                <BaseContainer />
+                                {this.props.is_app_loaded && <BaseContainer />}
                             </Col>
                         </Row>
                         <Row>
@@ -68,7 +68,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-    is_fetching: PropTypes.bool
+    is_fetching: PropTypes.bool,
+    is_app_loaded: PropTypes.bool,
 };
 
 export default App;
