@@ -159,7 +159,7 @@ class OrderFilterColumns extends React.Component {
                                 </button>
                                 <button
                                     type="button"
-                                    className="btn secundary "
+                                    className="btn secondary"
                                     onClick={() => this.applyOrderFilterColumns()}
                                 >
                                     {t("actions.accept")}

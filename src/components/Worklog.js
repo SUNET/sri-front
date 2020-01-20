@@ -48,6 +48,7 @@ export class Worklog extends React.Component {
 
     render() {
         let { t, model } = this.props;
+        console.log(model.comments);
         return (
             <ToggleSection defaultEditable={false}>
                 <ToggleHeading>
@@ -56,22 +57,32 @@ export class Worklog extends React.Component {
                 <TogglePanel>
                     <div className="worklog">
                         <div>
-                            {model.comments &&
-                                model.comments.map((comment, index) => {
-                                    return (
-                                        <div key={comment.id}>
-                                            <header>
-                                                <div>
-                                                    {comment.user.first_name} {comment.user.last_name}{" "}
-                                                    {t("worklog.wrote")}:
+                            <div className="worklog__messages">
+                                {model.comments &&
+                                    model.comments.map((comment, index) => {
+                                        return (
+                                            <div key={comment.id} className="worklog__messages__item">
+                                                <div className="worklog__messages__item__body">
+                                                    <div className="worklog__messages__item__body__content">
+                                                        <header className="worklog__messages__item__body__content__header">
+                                                            {comment.user.first_name} {comment.user.last_name}{" "}
+                                                            {t("worklog.wrote")}:
+                                                        </header>
+                                                        <div className="worklog__messages__item__body__content__comment pre-text">
+                                                            {comment.comment}
+                                                        </div>
+                                                    </div>
+                                                    <div className="worklog__messages__item__body__date">
+                                                        {this.formatDate(comment.submit_date)}
+                                                    </div>
                                                 </div>
-                                                <div>{this.formatDate(comment.submit_date)}</div>
-                                            </header>
-                                            <div className="pre-text">{comment.comment}</div>
-                                            <hr />
-                                        </div>
-                                    );
-                                })}
+                                                <div className="worklog__messages__item__separator">
+                                                    <hr />
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                            </div>
                             <Form.Group controlId="textarea">
                                 <Form.Control
                                     as="textarea"
@@ -84,8 +95,8 @@ export class Worklog extends React.Component {
                                 />
                             </Form.Group>
                             <div className="actions">
-                                <Button type="button" onClick={() => this.createComment()} className="secundary">
-                                    {t("worklog.add")}
+                                <Button type="button" onClick={() => this.createComment()} className="secondary md">
+                                    {t("worklog.send")}
                                 </Button>
                             </div>
                         </div>

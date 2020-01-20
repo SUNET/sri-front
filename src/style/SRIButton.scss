@@ -10,6 +10,10 @@ button.btn {
     position: relative;
     font-family: karla;
     border: none;
+    &.md {
+        width: 100px;
+        height: 36px;
+    }
 
     &.lg {
         width: 180px;
@@ -34,7 +38,7 @@ button.btn {
         }
     }
 
-    &.secundary {
+    &.secondary {
         border-radius: 24px;
         color: #fff;
         background-color: $complementary-color;

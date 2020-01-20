@@ -112,6 +112,7 @@
             "worklog.wrote": "wrote",
             "worklog.add-comment": "Add comment",
             "worklog.add": "Add",
+            "worklog.send": "Send",
             "search-filter.search": "Search",
             "search-filter.search-member": "Search member",
             "search-filter.search-contact": "Search contact"
