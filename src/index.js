@@ -45,19 +45,7 @@ const initialAction = () => {
             .then((data) => {
                 // it is verified that the cookie jwt is valid
                 if (!data) {
-                    if (Cookies.get("sessionid")) {
-                        // if there is an active session the cookie is refreshed
-                        JWTRefreshMutation(cookie_jwt);
-                    } else {
-                        // if it is invalid it redirects to the login
-                        fetch(`${API_HOST}/authn?next=${document.location.href}`, {
-                            method: "GET"
-                        }).then((response) => {
-                            if (response.redirected) {
-                                document.location.href = response.url;
-                            }
-                        });
-                    }
+                    JWTRefreshMutation(cookie_jwt);
                 } else {
                     store.dispatch(actions.appLoaded());
                 }
