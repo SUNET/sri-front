@@ -25,12 +25,7 @@ class CopyToClipboard extends Component {
     };
 
     copyContent = (event) => {
-        copy(event.target.innerText);
-        this.showCopied();
-    };
-
-    copyContentToIcon = (event) => {
-        copy(event.target.parentElement.getElementsByClassName("element-to-copy")[0].innerText);
+        copy(this.props.copyContent);
         this.showCopied();
     };
 
@@ -45,15 +40,20 @@ class CopyToClipboard extends Component {
                     delayShow={600}
                     delayHide={200}
                     tooltipShown={this.state.show}
+                    onClick={(e) => this.copyContent(e)}
                 >
-                    <i className="icon-copy" onClick={(e) => this.copyContentToIcon(e)}>
-                        <span className="path1"></span>
-                        <span className="path2"></span>
-                        <span className="path3"></span>
-                    </i>
-                    <span className="element-to-copy" onClick={(e) => this.copyContent(e)}>
-                        {this.props.children}
-                    </span>
+                    <div className="copy-to-clipboard__content">
+                        <div className="copy-to-clipboard__content__children">
+                            {this.props.children}
+                        </div>
+                        <div className="copy-to-clipboard__content__icon">
+                            <i className="icon-copy">
+                                <span className="path1"></span>
+                                <span className="path2"></span>
+                                <span className="path3"></span>
+                            </i>
+                        </div>
+                    </div>
                 </Tooltip>
             </div>
         );

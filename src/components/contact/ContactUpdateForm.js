@@ -63,19 +63,14 @@ const renderEmails = ({ fields, meta, t, editable, dispatch }) => {
                         <div className="remove-cta" onClick={() => removeRow(index)}></div>
                     </div>
                 ) : (
-                    <div
-                        key={index}
-                        className={`list-items__label__row ${values[index].status === "remove" ? "d-none" : ""}`}
-                    >
-                        <div>
-                            {fields.getAll()[index].email ? (
-                                <CopyToClipboard>{fields.getAll()[index].email}</CopyToClipboard>
-                            ) : (
-                                <div>{fields.getAll()[index].email}</div>
-                            )}
+                    <CopyToClipboard key={index} copyContent={fields.getAll()[index].email}>
+                        <div                            
+                            className={`list-items__label__row ${values[index].status === "remove" ? "d-none" : ""}`}
+                        >
+                            <div className="list-items__label__row__main-text">{fields.getAll()[index].email}</div>
+                            <div className="list-items__label__row__secondary-text">{fields.getAll()[index].type}</div>
                         </div>
-                        <div>{fields.getAll()[index].type}</div>
-                    </div>
+                    </CopyToClipboard>
                 )
             )}
             {editable ? (
@@ -134,8 +129,8 @@ const renderPhones = ({ fields, meta, t, editable, dispatch }) => {
                         key={index}
                         className={`list-items__label__row ${values[index].status === "remove" ? "d-none" : ""}`}
                     >
-                        <div>{fields.getAll()[index].phone}</div>
-                        <div>{fields.getAll()[index].type}</div>
+                        <div className="list-items__label__row__main-text">{fields.getAll()[index].phone}</div>
+                        <div className="list-items__label__row__secondary-text">{fields.getAll()[index].type}</div>
                     </div>
                 )
             )}
@@ -168,6 +163,7 @@ class ContactUpdateForm extends React.PureComponent {
     };
 
     handleSubmit = (contact) => {
+        this.setState({ editMode: !this.state.editMode });
         UpdateContactMutation(contact, this);
     };
 
@@ -394,44 +390,47 @@ class ContactUpdateForm extends React.PureComponent {
         );
     }
 
-    renderFooterForm() {
+    renderSaveCancelCTAs() {
         const { t, pristine, submitting } = this.props;
         return (
-            <div className="text-right mt-4">
+            <>
                 <button type="button" className="btn link" onClick={this.props.onDelete}>
                     {t("actions.delete")}
                 </button>
                 <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                     {t("actions.save")}
                 </button>
-            </div>
+            </>
         );
     }
 
     render() {
         let { contact, handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit(this.handleSubmit)}>
-                <Form.Row>
-                    <Col>{this.renderHeaderName()}</Col>
-                    <Col>{this.renderHeaderRight()}</Col>
-                </Form.Row>
-                <section className="model-section">
+            <>
+                <form onSubmit={handleSubmit(this.handleSubmit)}>
+                    <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div>
                     <Form.Row>
-                        <Col>
-                            {this.renderNotesToggleSection()}
-                            <hr />
-                            {this.renderGeneralInfoToggleSection()}
-                            <hr />
-                            {this.renderProfesionalDetails()}
-                        </Col>
+                        <Col>{this.renderHeaderName()}</Col>
+                        <Col>{this.renderHeaderRight()}</Col>
                     </Form.Row>
-                </section>
-                <section className="model-section">
-                    <Worklog model={contact} refetch={this.refetch} />
-                </section>
-                {this.renderFooterForm()}
-            </form>
+                    <section className="model-section">
+                        <Form.Row>
+                            <Col>
+                                {this.renderNotesToggleSection()}
+                                <hr />
+                                {this.renderGeneralInfoToggleSection()}
+                                <hr />
+                                {this.renderProfesionalDetails()}
+                            </Col>
+                        </Form.Row>
+                    </section>
+                    <section className="model-section">
+                        <Worklog model={contact} refetch={this.refetch} />
+                    </section>
+                    <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div>
+                </form>
+            </>
         );
     }
 }

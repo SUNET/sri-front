@@ -77,24 +77,29 @@
                         &__label {
                             display: flex;
                             flex-direction: column;
+                            max-width: 300px;
                             &__row {
                                 display: flex;
                                 flex-direction: row;
                                 align-items: flex-end;
+                                justify-content: space-between;
                                 padding-right: 8px;
                                 padding-top: 8px;
                                 padding-bottom: 8px;
-                                > div:first-of-type {
+                                &__main-text{
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap;
                                     margin-right: 8px;
                                 }
-                                
-                                > div:last-of-type {
+                                &__secondary-text {
                                     font-family: karla;
                                     color: $secondary-color-30;
                                 }
                             }
                         }
                         &__inputs {
+                            max-width: none;
                             &__row {
                                 align-items: center;
                             }
