@@ -1,4 +1,4 @@
-export const API_HOST = "http://localhost:8000";
+export const API_HOST = "https://ni.localenv.loc";
 
 export const ITEMS_PER_PAGE = 10;
 export const ALL_ITEMS = 100000;
