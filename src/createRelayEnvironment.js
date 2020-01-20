@@ -18,7 +18,7 @@ async function getCsrfToken() {
     return _csrfToken;
 }
 
-async function fetchQuery(operation, variables, cacheConfig, uploadables) {
+function fetchQuery(operation, variables, cacheConfig, uploadables) {
     const queryId = operation.name;
     const isMutation = operation.operationKind === "mutation";
     const isQuery = operation.operationKind === "query";
@@ -34,14 +34,13 @@ async function fetchQuery(operation, variables, cacheConfig, uploadables) {
         cache.clear();
     }
 
-    const csrfToken = await getCsrfToken();
     return fetch(`${API_HOST}/graphql/`, {
         credentials: "include",
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "X-CSRFToken": csrfToken
+            "X-CSRFToken": getCsrfToken()
         },
         body: JSON.stringify({
             query: operation.text,
@@ -49,19 +48,6 @@ async function fetchQuery(operation, variables, cacheConfig, uploadables) {
         })
     })
         .then((response) => {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-            // if (response.redirected) {
-            //     document.location = response.url;
-            // }
-=======
-            if (response.redirected) {
-                console.log(response.url);
-                document.location.href = response.url;
-            }
->>>>>>> Stashed changes
-=======
->>>>>>> acba4c65d845bc2b90a5c27a9d99e2f7ab87cc2a
             return response.json();
         })
         .then((json) => {
