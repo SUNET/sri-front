@@ -178,8 +178,6 @@ class ContactUpdateForm extends React.PureComponent {
 
     handleSubmit = (contact) => {
         this.setState({ editMode: !this.state.editMode });
-        console.log(contact);
-        
         UpdateContactMutation(contact, this);
     };
 

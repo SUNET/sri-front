@@ -8,13 +8,6 @@ import FieldInput from "./FieldInput";
 import "../style/EditField.scss";
 
 class EditField extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            editable: false
-        };
-    }
 
     static propTypes = {
         children: PropTypes.element.isRequired

@@ -18,10 +18,8 @@ class FieldArrayOrganizationsContact extends React.Component {
 
     componentWillUpdate(nextProps, nextState) {
         const newFields = nextProps.fields.getAll();
-        if (nextProps.editable) {
+        if (newFields && newFields.length && nextProps.editable) {
             newFields.forEach((field, index) => {
-                console.log(field);
-
                 if (field && this.validateOrganization(field, index)) {
                     this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
                 } else {
@@ -46,7 +44,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                     {data.title}
                 </div>
 
-                {data.presentContent.map((content, contentIndex) => (
+                {data.editContent.map((content, contentIndex) => (
                     <div
                         key={`${contentIndex} - ${index}`}
                         className={`form-internal-block--organizations-contacts__section__content form-internal-block__section__content 
@@ -127,7 +125,7 @@ class FieldArrayOrganizationsContact extends React.Component {
         const rowsData = [
             {
                 title: "Role",
-                presentContent: values.map((value) => value.role_label),
+                presentContent: values && values.length ? values.map((value) => value.role_label) : [],
                 editContent: fields.map((member, index) => {
                     return (
                         <Dropdown
@@ -144,7 +142,7 @@ class FieldArrayOrganizationsContact extends React.Component {
             },
             {
                 title: "Organization ID",
-                presentContent: values.map((value) => value.organization_id),
+                presentContent: values && values.length ? values.map((value) => value.organization_id) : [],
                 editContent: fields.map((member, index) => {
                     return (
                         <Form.Group>
@@ -161,7 +159,7 @@ class FieldArrayOrganizationsContact extends React.Component {
             },
             {
                 title: "Organization",
-                presentContent: values.map((value) => value.organization_label),
+                presentContent: values && values.length ? values.map((value) => value.organization_label) : [],
                 editContent: fields.map((member, index) => {
                     return (
                         <>
