@@ -48,7 +48,6 @@ export class Worklog extends React.Component {
 
     render() {
         let { t, model } = this.props;
-        console.log(model.comments);
         return (
             <ToggleSection defaultEditable={false}>
                 <ToggleHeading>

@@ -40,10 +40,29 @@
         -webkit-box-shadow: $list--row-box-shadow;
         -moz-box-shadow: $list--row-box-shadow;
         box-shadow: $list--row-box-shadow;
-
+        .organizations-contacts {
+            .btn-add {
+                width: $outline-cta-width
+            }
+        }
         .form-internal-block {
             display: flex;
             flex-wrap: wrap;
+            &--organizations-contacts {
+                &__section {
+                    &__content {
+                        margin-bottom: 10px;
+                        height: 32px;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                        padding-bottom: 50px;
+                    }
+                    .row-remove-cta {
+                        position: relative;
+                        top: -24px;
+                        left: 178px;
+                    }
+                }
+            }
             &__section--edition-mode {
                 &__content {
                     padding-left: 5px;
@@ -103,34 +122,8 @@
                             &__row {
                                 align-items: center;
                             }
-                            .remove-cta {
-                                width: 15px;
-                                height: 15px;
-                                position: relative;
-                                cursor: pointer;
-                                &:after,
-                                &:before {
-                                    content: "";
-                                    display: inline-block;
-                                    background-color: $gray-color;
-                                    position: absolute;
-                                    top: 50%;
-                                    left: 50%;
-                                    transform: translate(-50%, -50%) rotate(45deg);;
-                                }
-                    
-                                &:before {
-                                    height: 14px;
-                                    width: 2px;
-                                }
-                    
-                                &:after {
-                                    height: 2px;
-                                    width: 14px;
-                                }
-                            }
                             button {
-                                width: 107px;
+                                width: $outline-cta-width
                             }
                         }
                     }

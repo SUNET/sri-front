@@ -60,13 +60,11 @@ const renderEmails = ({ fields, meta, t, editable, dispatch }) => {
                             name={`${email}.type`}
                             onChange={(e) => {}}
                         />
-                        <div className="remove-cta" onClick={() => removeRow(index)}></div>
+                        <div className="row-remove-cta" onClick={() => removeRow(index)}></div>
                     </div>
                 ) : (
                     <CopyToClipboard key={index} copyContent={fields.getAll()[index].email}>
-                        <div                            
-                            className={`list-items__label__row ${values[index].status === "remove" ? "d-none" : ""}`}
-                        >
+                        <div className={`list-items__label__row ${values[index].status === "remove" ? "d-none" : ""}`}>
                             <div className="list-items__label__row__main-text">{fields.getAll()[index].email}</div>
                             <div className="list-items__label__row__secondary-text">{fields.getAll()[index].type}</div>
                         </div>
@@ -122,7 +120,7 @@ const renderPhones = ({ fields, meta, t, editable, dispatch }) => {
                             name={`${phone}.type`}
                             onChange={(e) => {}}
                         />
-                        <div className="remove-cta" onClick={() => removeRow(index)}></div>
+                        <div className="row-remove-cta" onClick={() => removeRow(index)}></div>
                     </div>
                 ) : (
                     <div
@@ -139,6 +137,22 @@ const renderPhones = ({ fields, meta, t, editable, dispatch }) => {
                     <span>{t("actions.add-new")}</span>
                 </button>
             ) : null}
+        </div>
+    );
+};
+
+const renderFormBlockSection = (editable, data, uniqueKey) => {
+    const isPresentState = !editable && data.presentContent;
+    return (
+        <div className="form-internal-block__section" key={uniqueKey}>
+            <div className="form-internal-block__section__title">{data.title}</div>
+            <div
+                className={`form-internal-block__section__content ${
+                    editable ? "form-internal-block__section__content--edition-mode" : ""
+                }`}
+            >
+                {isPresentState ? data.presentContent : data.editContent}
+            </div>
         </div>
     );
 };
@@ -164,6 +178,8 @@ class ContactUpdateForm extends React.PureComponent {
 
     handleSubmit = (contact) => {
         this.setState({ editMode: !this.state.editMode });
+        console.log(contact);
+        
         UpdateContactMutation(contact, this);
     };
 
@@ -236,21 +252,6 @@ class ContactUpdateForm extends React.PureComponent {
     }
     renderGeneralInfoToggleSection() {
         const { t, title, contact_type, pgp_fingerprint } = this.props;
-        const renderFormBlockSection = (editable, data, uniqueKey) => {
-            const isPresentState = !editable && data.presentContent;
-            return (
-                <div className="form-internal-block__section" key={uniqueKey}>
-                    <div className="form-internal-block__section__title">{data.title}</div>
-                    <div
-                        className={`form-internal-block__section__content ${
-                            editable ? "form-internal-block__section__content--edition-mode" : ""
-                        }`}
-                    >
-                        {isPresentState ? data.presentContent : data.editContent}
-                    </div>
-                </div>
-            );
-        };
         const generalInfoFirstRow = [
             {
                 title: "Title",
@@ -365,26 +366,14 @@ class ContactUpdateForm extends React.PureComponent {
                     <h2>{t("contact-details.profesional-details")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    {
-                        <div className="table-details">
-                            <div>
-                                <div className="w-35">Role</div>
-                                <div className="w-25">Organization ID</div>
-                                <div className="w-25">Organization</div>
-                                <div></div>
-                            </div>
-                            <div>
-                                <FieldArray
-                                    name="organizations"
-                                    component={FieldArrayOrganizationsContact}
-                                    editable={this.state.editMode}
-                                    dispatch={this.props.dispatch}
-                                    errors={this.props.formSyncErrors.organizations}
-                                    metaFields={this.props.fields}
-                                />
-                            </div>
-                        </div>
-                    }
+                    <FieldArray
+                        name="organizations"
+                        component={FieldArrayOrganizationsContact}
+                        editable={this.state.editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.organizations}
+                        metaFields={this.props.fields}
+                    />
                 </TogglePanel>
             </ToggleSection>
         );

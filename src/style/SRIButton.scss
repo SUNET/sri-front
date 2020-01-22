@@ -90,6 +90,7 @@ button.btn {
 
         span {
             vertical-align: middle;
+            color: $complementary-color;
         }
 
         &.btn-add {
@@ -198,5 +199,32 @@ button.btn {
         &:hover {
             background-color: $tertiary-color-3;
         }
+    }
+}
+
+.row-remove-cta {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
+    &:after,
+    &:before {
+        content: "";
+        display: inline-block;
+        background-color: $gray-color;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:before {
+        height: 14px;
+        width: 2px;
+    }
+
+    &:after {
+        height: 2px;
+        width: 14px;
     }
 }
