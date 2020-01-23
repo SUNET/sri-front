@@ -4,8 +4,6 @@ import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 import copy from "clipboard-copy";
@@ -25,7 +23,27 @@ import "../../style/ModelDetails.scss";
 
 import ValidationsOrganizationForm from "./ValidationOrganizationForm";
 
+const renderFormBlockSection = (editable, data, uniqueKey) => {
+    const isPresentState = !editable && data.presentContent;
+    return (
+        <div className="form-internal-block__section" key={uniqueKey}>
+            <div className="form-internal-block__section__title">{data.title}</div>
+            <div
+                className={`form-internal-block__section__content ${
+                    editable ? "form-internal-block__section__content--edition-mode" : ""
+                }`}
+            >
+                {isPresentState ? data.presentContent : data.editContent}
+            </div>
+        </div>
+    );
+};
+
 class OrganizationUpdateForm extends React.Component {
+    state = {
+        editMode: false
+    };
+
     static propTypes = {
         onChange: PropTypes.func
     };
@@ -96,33 +114,77 @@ class OrganizationUpdateForm extends React.Component {
     };
 
     handleSubmit = (organization) => {
+        this.setState({ editMode: !this.state.editMode });
         UpdateOrganizationMutation(organization, this);
     };
 
+    renderHeaderName() {
+        const { t, name } = this.props;
+        const { editMode } = this.state;
+        return (
+            <div className="title-section">
+                <button
+                    type="button"
+                    onClick={() => this.props.history.push(`/community/contacts`)}
+                    className="btn btn-back outline"
+                >
+                    <span>{t("actions.back")}</span>
+                </button>
+                <div className="vertical-separator"></div>
+                <EditField
+                    error={this.props.formSyncErrors.name}
+                    meta={this.props.fields.name}
+                    form={this.props.form}
+                    dispatch={this.props.dispatch}
+                    editable={editMode}
+                    placeholder={t("contact-details.new")}
+                >
+                    <h1>{name}</h1>
+                </EditField>
+            </div>
+        );
+    }
+    renderHeaderRight() {
+        const { t, organization } = this.props;
+        return (
+            <div className="title-section__right-block">
+                <div className="title-section__right-block__buttons with-vertical-separator with-vertical-separator--right">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            this.setState({ editMode: !this.state.editMode });
+                        }}
+                        className="btn outline btn-edit"
+                    >
+                        <i className="icon-pencil"></i>
+                        <span>{t("actions.edit")}</span>
+                    </button>
+                </div>
+                <InfoCreatorModifier model={organization} />
+            </div>
+        );
+    }
+
     renderDescriptionToggleSection() {
         const { t, description } = this.props;
-
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.description")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return editable ? (
-                                <Field
-                                    name="description"
-                                    component={FieldInput}
-                                    as="textarea"
-                                    rows="3"
-                                    placeholder={t("group-details.add-description")}
-                                ></Field>
-                            ) : (
-                                <span className="pre-text">{description}</span>
-                            );
-                        }}
-                    </PanelEditable.Consumer>
+                    {editMode ? (
+                        <Field
+                            name="description"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("group-details.add-description")}
+                        ></Field>
+                    ) : (
+                        <span className="pre-text">{description}</span>
+                    )}
                 </TogglePanel>
             </ToggleSection>
         );
@@ -130,17 +192,6 @@ class OrganizationUpdateForm extends React.Component {
 
     renderGeneralInfoToggleSection() {
         const { type, organization_id, organization_number, website, organization_parent_id, t } = this.props;
-        const renderFormBlockSection = (editable, data, uniqueKey) => {
-            const isPresentState = !editable && data.presentContent;
-            return (
-                <div className="form-internal-block__section" key={uniqueKey}>
-                    <div className="form-internal-block__section__title">{data.title}</div>
-                    <div className="form-internal-block__section__content">
-                        {isPresentState ? data.presentContent : data.editContent}
-                    </div>
-                </div>
-            );
-        };
 
         const generalInfoFirstRow = [
             {
@@ -246,67 +297,46 @@ class OrganizationUpdateForm extends React.Component {
             }
         ];
 
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.general-information")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return (
-                                <div>
-                                    <div className="form-internal-block">
-                                        {generalInfoFirstRow.map((formData, index) => {
-                                            return renderFormBlockSection(editable, formData, index);
-                                        })}
-                                    </div>
-                                    <div className="form-internal-block mt-4">
-                                        {generalInfoSecondRow.map((formData, index) => {
-                                            return renderFormBlockSection(editable, formData, index);
-                                        })}
-                                    </div>
-                                </div>
-                            );
-                        }}
-                    </PanelEditable.Consumer>
+                    <div>
+                        <div className="form-internal-block">
+                            {generalInfoFirstRow.map((formData, index) => {
+                                return renderFormBlockSection(editMode, formData, index);
+                            })}
+                        </div>
+                        <div className="form-internal-block mt-4">
+                            {generalInfoSecondRow.map((formData, index) => {
+                                return renderFormBlockSection(editMode, formData, index);
+                            })}
+                        </div>
+                    </div>
                 </TogglePanel>
             </ToggleSection>
         );
     }
     renderAddressToggleSection() {
         const { t } = this.props;
+        const { editMode } = this.state;
         return (
-            <ToggleSection>
+            <ToggleSection defaultEditable={false}>
                 <ToggleHeading>
                     <h2>{t("organization-details.address")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return (
-                                <div className="table-details">
-                                    <div>
-                                        <div className="w-23">Street</div>
-                                        <div className="w-23">Postal Code</div>
-                                        <div className="w-23">Postal Area</div>
-                                        <div className="w-23">Phone</div>
-                                    </div>
-                                    <div>
-                                        <FieldArray
-                                            name="addresses"
-                                            component={FieldArrayAddressOrganization}
-                                            rerenderOnEveryChange={true}
-                                            editable={editable}
-                                            dispatch={this.props.dispatch}
-                                            errors={this.props.formSyncErrors.addresses}
-                                            metaFields={this.props.fields}
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        }}
-                    </PanelEditable.Consumer>
+                    <FieldArray
+                        name="addresses"
+                        component={FieldArrayAddressOrganization}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.addresses}
+                        metaFields={this.props.fields}
+                    />
                 </TogglePanel>
             </ToggleSection>
         );
@@ -364,59 +394,36 @@ class OrganizationUpdateForm extends React.Component {
 
     renderAditionalInfoToggleSection() {
         const { t, incident_management_info } = this.props;
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.additional-info")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return editable ? (
-                                <Field
-                                    name="incident_management_info"
-                                    component={FieldInput}
-                                    as="textarea"
-                                    rows="3"
-                                    placeholder={t("group-details.add-description")}
-                                />
-                            ) : (
-                                <span className="pre-text">{incident_management_info}</span>
-                            );
-                        }}
-                    </PanelEditable.Consumer>
+                    {editMode ? (
+                        <Field
+                            name="incident_management_info"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("group-details.add-description")}
+                        />
+                    ) : (
+                        <span className="pre-text">{incident_management_info}</span>
+                    )}
                 </TogglePanel>
             </ToggleSection>
         );
     }
     render() {
-        const { organization, name, t, handleSubmit, pristine, submitting } = this.props;
+        const { organization, t, handleSubmit, pristine, submitting } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
+                {/* <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div> */}
                 <Form.Row>
-                    <Col>
-                        <div className="title-section">
-                            <button
-                                type="button"
-                                onClick={() => this.props.history.push("/community/organizations")}
-                                className="btn btn-back outline"
-                            >
-                                <span>{t("actions.back")}</span>
-                            </button>
-                            <div className="vertical-separator"></div>
-                            <EditField
-                                error={this.props.formSyncErrors.name}
-                                meta={this.props.fields.name}
-                                form={this.props.form}
-                                dispatch={this.props.dispatch}
-                            >
-                                <h1>{name}</h1>
-                            </EditField>
-                        </div>
-                    </Col>
-                    <Col>
-                        <InfoCreatorModifier model={organization} />
-                    </Col>
+                    <Col>{this.renderHeaderName()}</Col>
+                    <Col>{this.renderHeaderRight()}</Col>
                 </Form.Row>
                 <section className="model-section">
                     <Form.Row>

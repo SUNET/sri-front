@@ -4,8 +4,6 @@ import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FieldArray, Field, reduxForm, change } from "redux-form";
 
 import InfoCreatorModifier from "../InfoCreatorModifier";
@@ -199,6 +197,7 @@ class ContactUpdateForm extends React.PureComponent {
                     form={this.props.form}
                     dispatch={this.props.dispatch}
                     editable={this.state.editMode}
+                    placeholder={t("contact-details.new")}
                 >
                     <h1>{name}</h1>
                 </EditField>
@@ -227,13 +226,14 @@ class ContactUpdateForm extends React.PureComponent {
     }
     renderNotesToggleSection() {
         const { t, notes } = this.props;
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("contact-details.notes")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    {this.state.editMode ? (
+                    {editMode ? (
                         <Field
                             name="notes"
                             component={FieldInput}

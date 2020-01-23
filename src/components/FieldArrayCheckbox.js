@@ -11,7 +11,7 @@ const CheckedList = ({ checkedInputs, data, uncheckInput }) => {
     });
     return (
         checkedList.length > 0 && (
-            <div className="checkedInputs">
+            <div className="checked-inputs">
                 <ul>{checkedList}</ul>
             </div>
         )

@@ -60,7 +60,7 @@
         }
     }
 
-    .checkedInputs {
+    .checked-inputs {
         margin-bottom: 8px;
 
         ul {
@@ -69,15 +69,16 @@
                 color: $secondary-color;
                 border-radius: $input--border-radius;
                 border: solid 1px $secondary-color-20;
-                padding: 8px 16px 8px 8px;
+                padding: 3px 10px 2px 7px;
                 background: none;
+                height: 32px;
 
                 &:before {
                     content: '\00D7';
                     z-index: 2;
                     text-align: center;
                     line-height: 1;
-                    font-size: 0.7rem;
+                    font-size: 1.5rem;
                     margin-right: 6px;
                     vertical-align: middle;
                     color: $secondary-color-30;

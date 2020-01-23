@@ -7,8 +7,6 @@ import uuidv4 from "uuid/v4";
 import DropdownSearch from "../DropdownSearch";
 import EditField from "../EditField";
 import InfoCreatorModifier from "../InfoCreatorModifier";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import FieldInput from "../FieldInput";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 

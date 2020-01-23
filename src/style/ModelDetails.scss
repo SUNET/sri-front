@@ -60,6 +60,10 @@
                         position: relative;
                         top: -24px;
                         left: 178px;
+                        &--address {
+                            top: 0;
+                            left: 10px;
+                        }
                     }
                 }
             }
@@ -71,7 +75,7 @@
             &__section {
                 flex-grow: 1;
                 flex-shrink: 0;
-                // flex-basis: 25%;
+                flex-basis: 25%;
                 margin-bottom: 1.5rem;
                 &__title{
                     font-family: karla;

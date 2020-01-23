@@ -27,7 +27,7 @@ class EditField extends React.Component {
                 <Form.Group className={`${!this.props.editable ? "d-none" : "d-inline"}`}>
                     <Field
                         className="edit-field-title auto"
-                        placeholder="Name"
+                        placeholder={this.props.placeholder || "New"}
                         component={FieldInput}
                         name="name"
                     />

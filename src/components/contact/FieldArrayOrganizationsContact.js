@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { Field, change, touch } from "redux-form";
+import { Field, change } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import FieldInput from "../FieldInput";
@@ -16,13 +16,14 @@ class FieldArrayOrganizationsContact extends React.Component {
         this.state = {};
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
         const newFields = nextProps.fields.getAll();
         if (newFields && newFields.length && nextProps.editable) {
             newFields.forEach((field, index) => {
-                if (field && this.validateOrganization(field, index)) {
+                const validated = this.validateOrganization(field, index);
+                if (field && field.status !== 'saved' && validated) {
                     this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
-                } else {
+                } else if (field.status !== 'editing') {
                     nextProps.dispatch(change(nextProps.meta.form, `organizations[${index}].status`, "editing"));
                 }
             });
@@ -77,18 +78,18 @@ class FieldArrayOrganizationsContact extends React.Component {
         }
     };
 
-    saveRow = (index) => {
-        if (this.validateOrganization(index)) {
-            this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
-        } else {
-            this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].role`));
-            this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].organization`));
-        }
-    };
+    // saveRow = (index) => {
+    //     if (this.validateOrganization(index)) {
+    //         this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
+    //     } else {
+    //         this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].role`));
+    //         this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].organization`));
+    //     }
+    // };
 
-    editRow = (index) => {
-        this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "editing"));
-    };
+    // editRow = (index) => {
+    //     this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "editing"));
+    // };
 
     removeRow = (index) => {
         const { fields } = this.props;
@@ -190,7 +191,7 @@ class FieldArrayOrganizationsContact extends React.Component {
     }
 
     render() {
-        const { fields, meta, t, editable } = this.props;
+        const { meta, t, editable } = this.props;
         return (
             <div className="organizations-contacts">
                 {this.renderRowsData()}
