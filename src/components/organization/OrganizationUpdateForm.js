@@ -343,11 +343,12 @@ class OrganizationUpdateForm extends React.Component {
     }
     renderContactsToggleSection() {
         const { t } = this.props;
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.contacts")}</h2>
-                    <PanelEditable.Consumer>
+                    {/* <PanelEditable.Consumer>
                         {(editable) => {
                             return (
                                 editable && (
@@ -358,10 +359,20 @@ class OrganizationUpdateForm extends React.Component {
                                 )
                             );
                         }}
-                    </PanelEditable.Consumer>
+                    </PanelEditable.Consumer> */}
                 </ToggleHeading>
+
                 <TogglePanel>
-                    <PanelEditable.Consumer>
+                    <FieldArray
+                        name="contacts"
+                        component={FieldArrayContactOrganization}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.contacts}
+                        metaFields={this.props.fields}
+                        rerenderOnEveryChange={true}
+                    />
+                    {/* <PanelEditable.Consumer>
                         {(editable) => {
                             return (
                                 <div className="table-details">
@@ -386,7 +397,7 @@ class OrganizationUpdateForm extends React.Component {
                                 </div>
                             );
                         }}
-                    </PanelEditable.Consumer>
+                    </PanelEditable.Consumer> */}
                 </TogglePanel>
             </ToggleSection>
         );
