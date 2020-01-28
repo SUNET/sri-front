@@ -124,7 +124,7 @@ class FieldArrayMembersGroup extends React.Component {
                             >
                                 <div className="contact-in-organization__body__row__element">{row.name}</div>
                                 <div className="contact-in-organization__body__row__element">
-                                    {row.organization_label}
+                                    {this.generateSubDataList(row, "organization_label")}
                                 </div>
                                 <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                                     {this.generateSubDataList(row, "email")}

@@ -393,8 +393,11 @@ class OrganizationUpdateForm extends React.Component {
             </ToggleSection>
         );
     }
+
     render() {
         const { organization, t, handleSubmit, pristine, submitting } = this.props;
+        console.log(organization);
+        
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
                 {/* <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div> */}

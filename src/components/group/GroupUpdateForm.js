@@ -43,7 +43,6 @@ class GroupUpdateForm extends React.Component {
     handleSelectedMember = (selection) => {
         if (selection !== null) {
             this.props.getContact(selection.handle_id).then((member) => {
-                console.log(member);
                 const newMember = {
                     name: member.name,
                     first_name: member.first_name,
@@ -80,9 +79,8 @@ class GroupUpdateForm extends React.Component {
         UpdateGroupMutation(group, this);
     };
 
-    renderHeaderName() {
+    renderHeaderName(editMode = true) {
         const { t, name } = this.props;
-        const { editMode } = this.state;
         return (
             <div className="title-section">
                 <button
@@ -127,9 +125,8 @@ class GroupUpdateForm extends React.Component {
         );
     }
 
-    renderDescriptionToggleSection() {
+    renderDescriptionToggleSection(editMode = true) {
         const { t, description } = this.props;
-        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -152,9 +149,8 @@ class GroupUpdateForm extends React.Component {
         );
     }
 
-    renderContactsToggleSection() {
+    renderContactsToggleSection(editMode = true) {
         const { t } = this.props;
-        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -178,81 +174,27 @@ class GroupUpdateForm extends React.Component {
 
     render() {
         let { group, t, handleSubmit, pristine, submitting } = this.props;
+        console.log(group);
+        
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <Form.Row>
-                    <Col>{this.renderHeaderName()}</Col>
+                    <Col>{this.renderHeaderName(this.state.editMode)}</Col>
                     <Col>{this.renderHeaderRight()}</Col>
                 </Form.Row>
                 <section className="model-section">
                     <Form.Row>
-                        <Col>{this.renderDescriptionToggleSection()}</Col>
+                        <Col>{this.renderDescriptionToggleSection(this.state.editMode)}</Col>
                     </Form.Row>
                     <hr />
                     <Form.Row>
-                        <Col>{this.renderContactsToggleSection()}</Col>
+                        <Col>{this.renderContactsToggleSection(this.state.editMode)}</Col>
                     </Form.Row>
-                    {/* <Form.Row>
-                        <Col>
-                            <ToggleSection>
-                                <ToggleHeading>
-                                    <h2>{t("group-details.members")}</h2>
-                                    <PanelEditable.Consumer>
-                                        {(editable) => {
-                                            return (
-                                                editable && (
-                                                    <DropdownSearch
-                                                        selection={this.handleSelectedMember}
-                                                        placeholder={t("search-filter.search-member")}
-                                                    />
-                                                )
-                                            );
-                                        }}
-                                    </PanelEditable.Consumer>
-                                </ToggleHeading>
-                                <TogglePanel>
-                                    <PanelEditable.Consumer>
-                                        {(editable) => {
-                                            return (
-                                                <div className="table-details">
-                                                    <div>
-                                                        <div className="w-20">Name</div>
-                                                        <div className="w-20">Organization</div>
-                                                        <div className="with-icon w-25">
-                                                            <span>Email</span>
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => this.copyAllEmails()}
-                                                                className="btn outline btn-copy"
-                                                            >
-                                                                <span>{t("actions.copy-all")}</span>
-                                                            </button>
-                                                        </div>
-                                                        <div className="w-20">Phone</div>
-                                                        <div></div>
-                                                    </div>
-                                                    <div>
-                                                        <FieldArray
-                                                            name="members"
-                                                            component={FieldArrayMembersGroup}
-                                                            editable={editable}
-                                                            dispatch={this.props.dispatch}
-                                                            errors={this.props.formSyncErrors.members}
-                                                            metaFields={this.props.fields}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            );
-                                        }}
-                                    </PanelEditable.Consumer>
-                                </TogglePanel>
-                            </ToggleSection>
-                        </Col>
-                    </Form.Row> */}
+                    <section className="model-section">
+                        <Worklog model={group} refetch={this.refetch} />
+                    </section>
                 </section>
-                <section className="model-section">
-                    <Worklog model={group} refetch={this.refetch} />
-                </section>
+
                 <div className="text-right mt-4">
                     <button type="button" className="btn link" onClick={this.props.onDelete}>
                         {t("actions.delete")}

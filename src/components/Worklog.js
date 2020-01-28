@@ -57,7 +57,8 @@ export class Worklog extends React.Component {
                     <div className="worklog">
                         <div>
                             <div className="worklog__messages">
-                                {model.comments &&
+                                {model &&
+                                    model.comments &&
                                     model.comments.map((comment, index) => {
                                         return (
                                             <div key={comment.id} className="worklog__messages__item">

@@ -11,6 +11,7 @@ import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
+import Worklog from "../Worklog";
 
 class CreateGroupForm extends React.Component {
     constructor(props) {
@@ -37,16 +38,16 @@ class CreateGroupForm extends React.Component {
                     last_name: member.last_name,
                     handle_id: member.handle_id,
                     contact_type: member.contact_type,
-                    organization: member.roles[0] ? member.roles[0].end.handle_id : "",
-                    organization_obj: member.roles[0] ? member.roles[0].end : {},
-                    organization_label: member.roles[0] ? member.roles[0].end.name : "",
-                    email: member.emails[0] ? member.emails[0].name : "",
-                    email_obj: member.emails[0] ? member.emails[0] : {},
-                    phone: member.phones[0] ? member.phones[0].name : "",
-                    phone_obj: member.phones[0] ? member.phones[0] : {},
+                    organization: member.roles,
+                    organization_obj: member.roles.length ? member.roles.map((elem) => elem.end) : [],
+                    organization_label: member.roles.length ? member.roles.map((elem) => elem.end) : [],
+                    email: member.emails,
+                    email_obj: member.emails,
+                    phone: member.phones,
+                    phone_obj: member.phones,
                     created: true,
                     origin: "new",
-                    status: "editing",
+                    status: "saved",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newMember)) {
@@ -60,113 +61,142 @@ class CreateGroupForm extends React.Component {
         CreateGroupMutation(group, this);
     };
 
+    renderHeaderName(editMode = true) {
+        const { t, name } = this.props;
+        return (
+            <div className="title-section">
+                <button
+                    type="button"
+                    onClick={() => this.props.history.push(`/community/groups`)}
+                    className="btn btn-back outline"
+                >
+                    <span>{t("actions.back")}</span>
+                </button>
+                <div className="vertical-separator"></div>
+                <EditField
+                    error={this.props.formSyncErrors.name}
+                    meta={this.props.fields.name}
+                    form={this.props.form}
+                    dispatch={this.props.dispatch}
+                    editable={editMode}
+                    placeholder={t("contact-details.new")}
+                >
+                    <h1>{name}</h1>
+                </EditField>
+            </div>
+        );
+    }
+
+    renderDescriptionToggleSection(editMode = true) {
+        const { t, description } = this.props;
+        return (
+            <ToggleSection>
+                <ToggleHeading>
+                    <h2>{t("organization-details.description")}</h2>
+                </ToggleHeading>
+                <TogglePanel>
+                    {editMode ? (
+                        <Field
+                            name="description"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("group-details.add-description")}
+                        ></Field>
+                    ) : (
+                        <span className="pre-text">{description}</span>
+                    )}
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    renderContactsToggleSection(editMode = true) {
+        const { t } = this.props;
+        return (
+            <ToggleSection>
+                <ToggleHeading>
+                    <h2>{t("organization-details.contacts")}</h2>
+                </ToggleHeading>
+
+                <TogglePanel>
+                    <FieldArray
+                        name="members"
+                        component={FieldArrayMembersGroup}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.members}
+                        metaFields={this.props.fields}
+                        handleContactSearch={this.handleSelectedMember}
+                    />
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    renderWorklogToggleSection() {
+        const { t } = this.props;
+        return (
+            <ToggleSection defaultEditable={false}>
+                <ToggleHeading>
+                    <h2>{t("contact-details.worklog")}</h2>
+                </ToggleHeading>
+                <TogglePanel>
+                    <Field
+                        name="comment"
+                        component={FieldInput}
+                        as="textarea"
+                        rows="3"
+                        placeholder={t("worklog.add-comment")}
+                        onBlur={(e) => {
+                            this.setState({ comment: e.target.value });
+                        }}
+                    />
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    renderFooterSaveCancel() {
+        return (
+            <div className="text-right mt-4">
+                <button
+                    type="button"
+                    className="mr-2 btn link"
+                    onClick={() => {
+                        this.props.history.push("/community/groups");
+                    }}
+                >
+                    Cancel
+                </button>
+                <button
+                    className="btn primary lg"
+                    type="submit"
+                    // disabled={!this.props.valid || this.props.pristine || this.props.submitting}
+                >
+                    Save
+                </button>
+            </div>
+        );
+    }
+
     render() {
-        const { handleSubmit, t, name } = this.props;
+        const { handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="model-details create-group-form">
-                    <section className="title-section">
-                        <EditField
-                            error={this.props.formSyncErrors.name}
-                            meta={this.props.fields.name}
-                            initialValue="New group"
-                            form={this.props.form}
-                            dispatch={this.props.dispatch}
-                            value={name}
-                        >
-                            <h1 className="ml-0">{name}</h1>
-                        </EditField>
-                    </section>
+                    <Form.Row>
+                        <Col>{this.renderHeaderName(this.state.editMode)}</Col>
+                    </Form.Row>
                     <section className="model-section">
-                        <Form.Row>
-                            <Col>
-                                <ToggleSection defaultEditable={false}>
-                                    <ToggleHeading>
-                                        <h2>{t("group-details.description")}</h2>
-                                    </ToggleHeading>
-                                    <TogglePanel>
-                                        <Field
-                                            name="description"
-                                            component={FieldInput}
-                                            as="textarea"
-                                            rows="3"
-                                            placeholder={t("group-details.add-description")}
-                                        />
-                                    </TogglePanel>
-                                </ToggleSection>
-                            </Col>
-                        </Form.Row>
                         <hr />
                         <Form.Row>
-                            <Col>
-                                <ToggleSection defaultEditable={false}>
-                                    <ToggleHeading>
-                                        <h2>{t("group-details.members")}</h2>
-                                        <DropdownSearch
-                                            selection={this.handleSelectedMember}
-                                            placeholder={t("search-filter.search-member")}
-                                        />
-                                    </ToggleHeading>
-                                    <TogglePanel>
-                                        <div className="table-details">
-                                            <div>
-                                                <div className="w-20">Name</div>
-                                                <div className="w-20">Organization</div>
-                                                <div className="w-25">Email</div>
-                                                <div className="w-20">Phone</div>
-                                                <div></div>
-                                            </div>
-                                            <div>
-                                                <FieldArray
-                                                    name="members"
-                                                    component={FieldArrayMembersGroup}
-                                                    editable={true}
-                                                    dispatch={this.props.dispatch}
-                                                    errors={this.props.formSyncErrors.members}
-                                                    metaFields={this.props.fields}
-                                                />
-                                            </div>
-                                        </div>
-                                    </TogglePanel>
-                                </ToggleSection>
-                            </Col>
+                            <Col>{this.renderContactsToggleSection(this.state.editMode)}</Col>
                         </Form.Row>
                     </section>
-                    <section className="model-section">
-                        <ToggleSection defaultEditable={false}>
-                            <ToggleHeading>
-                                <h2>{t("contact-details.worklog")}</h2>
-                            </ToggleHeading>
-                            <TogglePanel>
-                                <Field
-                                    name="comment"
-                                    component={FieldInput}
-                                    as="textarea"
-                                    rows="3"
-                                    placeholder={t("worklog.add-comment")}
-                                />
-                            </TogglePanel>
-                        </ToggleSection>
-                    </section>
+                    <section className="model-section">{this.renderWorklogToggleSection()}</section>
                 </div>
-                <div className="text-right mt-4">
-                    <button
-                        type="button"
-                        className="mr-2 btn link"
-                        onClick={() => {
-                            this.props.history.push("/community/groups");
-                        }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="btn primary lg"
-                        type="submit"
-                        // disabled={!this.props.valid || this.props.pristine || this.props.submitting}
-                    >
-                        Save
-                    </button>
-                </div>
+                {this.renderFooterSaveCancel()}
             </form>
         );
     }

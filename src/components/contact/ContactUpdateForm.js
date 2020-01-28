@@ -140,7 +140,8 @@ const renderPhones = ({ fields, meta, t, editable, dispatch }) => {
 };
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
-    const isPresentState = !editable && data.presentContent;
+    const isPresentState = !editable;
+    const presentContent = data.presentContent || "";
     return (
         <div className="form-internal-block__section" key={uniqueKey}>
             <div className="form-internal-block__section__title">{data.title}</div>
@@ -149,7 +150,7 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
                     editable ? "form-internal-block__section__content--edition-mode" : ""
                 }`}
             >
-                {isPresentState ? data.presentContent : data.editContent}
+                {isPresentState ? presentContent : data.editContent}
             </div>
         </div>
     );
