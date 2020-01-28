@@ -107,7 +107,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                                     <Form.Group>
                                         <Dropdown
                                             className="auto"
-                                            emptyLabel="Select organization"
+                                            emptyLabel={t("organization-details.select-organization")}
                                             model="organization"
                                             onChange={(e) => {
                                                 this.saveLabel(e, index);
