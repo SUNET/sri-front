@@ -7,7 +7,7 @@ import "../style/Splash.scss";
 
 class Logout extends Component {
     logout = () => {
-        Cookies.remove("JWT");
+        Cookies.remove("JWT", { domain: '.localenv.loc' });
         window.location.replace(API_HOST + "/logout");
     };
 
