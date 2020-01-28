@@ -275,9 +275,7 @@ export default function UpdateOrganizationMutation(organization, form) {
                         // phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
                         role_handle_id: contact.role
                     });
-                }
-            console.log(updateContacts);
-                
+                }                
             } else if (contact.status === "remove") {
                 deleteRoles.push({ relation_id: contact.role_relation_id });
             }

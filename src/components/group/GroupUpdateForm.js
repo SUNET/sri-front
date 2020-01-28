@@ -4,7 +4,6 @@ import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import uuidv4 from "uuid/v4";
-import DropdownSearch from "../DropdownSearch";
 import EditField from "../EditField";
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import FieldInput from "../FieldInput";
@@ -20,6 +19,9 @@ import UpdateGroupMutation from "../../mutations/group/UpdateGroupMutation";
 import "../../style/ModelDetails.scss";
 
 class GroupUpdateForm extends React.Component {
+    state = {
+        editMode: false
+    };
     refetch = () => {
         this.props.relay.refetch(
             { groupId: this.props.group.handle_id }, // Our refetchQuery needs to know the `groupID`
@@ -41,6 +43,7 @@ class GroupUpdateForm extends React.Component {
     handleSelectedMember = (selection) => {
         if (selection !== null) {
             this.props.getContact(selection.handle_id).then((member) => {
+                console.log(member);
                 const newMember = {
                     name: member.name,
                     first_name: member.first_name,
@@ -50,13 +53,13 @@ class GroupUpdateForm extends React.Component {
                     organization: member.roles[0] ? member.roles[0].end.handle_id : "",
                     organization_obj: member.roles[0] ? member.roles[0].end : {},
                     organization_label: member.roles[0] ? member.roles[0].end.name : "",
-                    email: member.emails[0] ? member.emails[0].name : "",
-                    email_obj: member.emails[0] ? member.emails[0] : {},
-                    phone: member.phones[0] ? member.phones[0].name : "",
-                    phone_obj: member.phones[0] ? member.phones[0] : {},
+                    email: member.emails,
+                    email_obj: member.emails,
+                    phone: member.phones,
+                    phone_obj: member.phones,
                     created: true,
                     origin: "new",
-                    status: "editing",
+                    status: "saved",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newMember)) {
@@ -77,64 +80,119 @@ class GroupUpdateForm extends React.Component {
         UpdateGroupMutation(group, this);
     };
 
+    renderHeaderName() {
+        const { t, name } = this.props;
+        const { editMode } = this.state;
+        return (
+            <div className="title-section">
+                <button
+                    type="button"
+                    onClick={() => this.props.history.push(`/community/groups`)}
+                    className="btn btn-back outline"
+                >
+                    <span>{t("actions.back")}</span>
+                </button>
+                <div className="vertical-separator"></div>
+                <EditField
+                    error={this.props.formSyncErrors.name}
+                    meta={this.props.fields.name}
+                    form={this.props.form}
+                    dispatch={this.props.dispatch}
+                    editable={editMode}
+                    placeholder={t("contact-details.new")}
+                >
+                    <h1>{name}</h1>
+                </EditField>
+            </div>
+        );
+    }
+    renderHeaderRight() {
+        const { t, group } = this.props;
+        return (
+            <div className="title-section__right-block">
+                <div className="title-section__right-block__buttons with-vertical-separator with-vertical-separator--right">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            this.setState({ editMode: !this.state.editMode });
+                        }}
+                        className="btn outline btn-edit"
+                    >
+                        <i className="icon-pencil"></i>
+                        <span>{t("actions.edit")}</span>
+                    </button>
+                </div>
+                <InfoCreatorModifier model={group} />
+            </div>
+        );
+    }
+
+    renderDescriptionToggleSection() {
+        const { t, description } = this.props;
+        const { editMode } = this.state;
+        return (
+            <ToggleSection>
+                <ToggleHeading>
+                    <h2>{t("organization-details.description")}</h2>
+                </ToggleHeading>
+                <TogglePanel>
+                    {editMode ? (
+                        <Field
+                            name="description"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("group-details.add-description")}
+                        ></Field>
+                    ) : (
+                        <span className="pre-text">{description}</span>
+                    )}
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    renderContactsToggleSection() {
+        const { t } = this.props;
+        const { editMode } = this.state;
+        return (
+            <ToggleSection>
+                <ToggleHeading>
+                    <h2>{t("organization-details.contacts")}</h2>
+                </ToggleHeading>
+
+                <TogglePanel>
+                    <FieldArray
+                        name="members"
+                        component={FieldArrayMembersGroup}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.members}
+                        metaFields={this.props.fields}
+                        handleContactSearch={this.handleSelectedMember}
+                    />
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
     render() {
-        let { group, name, description, t, handleSubmit, pristine, submitting } = this.props;
+        let { group, t, handleSubmit, pristine, submitting } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <Form.Row>
-                    <Col>
-                        <div className="title-section">
-                            <button
-                                type="button"
-                                onClick={() => this.props.history.push(`/community/groups`)}
-                                className="btn btn-back outline"
-                            >
-                                <span>{t("actions.back")}</span>
-                            </button>
-                            <div className="vertical-separator"></div>
-                            <EditField
-                                error={this.props.formSyncErrors.name}
-                                meta={this.props.fields.name}
-                                form={this.props.form}
-                                dispatch={this.props.dispatch}
-                            >
-                                <h1>{name}</h1>
-                            </EditField>
-                        </div>
-                    </Col>
-                    <Col>
-                        <InfoCreatorModifier model={group} />
-                    </Col>
+                    <Col>{this.renderHeaderName()}</Col>
+                    <Col>{this.renderHeaderRight()}</Col>
                 </Form.Row>
                 <section className="model-section">
                     <Form.Row>
-                        <Col>
-                            <ToggleSection>
-                                <ToggleHeading>
-                                    <h2>{t("group-details.description")}</h2>
-                                </ToggleHeading>
-                                <TogglePanel>
-                                    <PanelEditable.Consumer>
-                                        {(editable) => {
-                                            return editable ? (
-                                                <Field
-                                                    name="description"
-                                                    component={FieldInput}
-                                                    as="textarea"
-                                                    rows="3"
-                                                    placeholder={t("group-details.add-description")}
-                                                />
-                                            ) : (
-                                                <span className="pre-text">{description}</span>
-                                            );
-                                        }}
-                                    </PanelEditable.Consumer>
-                                </TogglePanel>
-                            </ToggleSection>
-                        </Col>
+                        <Col>{this.renderDescriptionToggleSection()}</Col>
                     </Form.Row>
                     <hr />
                     <Form.Row>
+                        <Col>{this.renderContactsToggleSection()}</Col>
+                    </Form.Row>
+                    {/* <Form.Row>
                         <Col>
                             <ToggleSection>
                                 <ToggleHeading>
@@ -190,7 +248,7 @@ class GroupUpdateForm extends React.Component {
                                 </TogglePanel>
                             </ToggleSection>
                         </Col>
-                    </Form.Row>
+                    </Form.Row> */}
                 </section>
                 <section className="model-section">
                     <Worklog model={group} refetch={this.refetch} />

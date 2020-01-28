@@ -358,7 +358,6 @@ class OrganizationUpdateForm extends React.Component {
                         name="contacts"
                         component={FieldArrayContactOrganization}
                         editable={editMode}
-                        // editable={true}
                         dispatch={this.props.dispatch}
                         errors={this.props.formSyncErrors.contacts}
                         metaFields={this.props.fields}
