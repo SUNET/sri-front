@@ -64,7 +64,7 @@ class CreateGroupForm extends React.Component {
         const { handleSubmit, t, name } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
-                <div className="model-details">
+                <div className="model-details create-group-form">
                     <section className="title-section">
                         <EditField
                             error={this.props.formSyncErrors.name}

@@ -295,7 +295,7 @@ class CreateContactForm extends React.Component {
         const { t, handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
-                <div className="model-details">
+                <div className="model-details create-contact-form">
                     {/* <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div> */}
                     <Form.Row>
                         <Col>{this.renderHeaderName()}</Col>
