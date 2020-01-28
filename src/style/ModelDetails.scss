@@ -68,6 +68,8 @@
 }
 .model-details {
     .title-section {
+        display: flex;
+        align-items: center;
         > button {
             margin-right: 16px;
         }
@@ -92,6 +94,9 @@
             &__buttons {
                 margin-right: 1em;
             }
+        }
+        &__name-inputs {
+            display: flex;
         }
     }
     .info-creator-modifier {

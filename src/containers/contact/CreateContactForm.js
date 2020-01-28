@@ -10,6 +10,8 @@ const mapStateToProps = (state, props) => {
         fields: getFormMeta("createContact")(state),
         formSyncErrors: getFormSyncErrors("createContact")(state),
         name: updateContactSelector(state, "name"),
+        first_name: updateContactSelector(state, "first_name"),
+        last_name: updateContactSelector(state, "last_name"),
         organizationValues: updateContactSelector(state, "organizations")
     };
 };

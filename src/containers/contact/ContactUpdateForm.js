@@ -7,7 +7,8 @@ import * as actions from "../../actions/Notify";
 const mapStateToProps = (state, props) => {
     const updateContactSelector = formValueSelector("updateContact");
     const initialValues = {
-        name: props.contact.first_name + " " + props.contact.last_name,
+        first_name: props.contact.first_name,
+        last_name: props.contact.last_name,
         handle_id: props.contact.handle_id,
         notes: props.contact.notes,
         title: props.contact.title,
@@ -68,6 +69,8 @@ const mapStateToProps = (state, props) => {
     return {
         initialValues,
         name: updateContactSelector(state, "name"),
+        first_name: updateContactSelector(state, "first_name"),
+        last_name: updateContactSelector(state, "last_name"),
         notes: updateContactSelector(state, "notes"),
         title: updateContactSelector(state, "title"),
         pgp_fingerprint: updateContactSelector(state, "pgp_fingerprint"),

@@ -125,6 +125,8 @@ button.btn {
         }
 
         &.btn-back {
+            width: 80px;
+            height: 32px;
             &:before {
                 display: inline-block;
                 content: '';

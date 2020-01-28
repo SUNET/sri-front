@@ -100,20 +100,12 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 };
 
 class CreateContactForm extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            errors: []
-        };
-    }
-
     handleSubmit = (contact) => {
         CreateContactMutation(contact, this);
     };
 
     renderHeaderName() {
-        const { t, name } = this.props;
+        const { t, first_name, last_name } = this.props;
         const editMode = true;
         return (
             <div className="title-section">
@@ -125,16 +117,30 @@ class CreateContactForm extends React.Component {
                     <span>{t("actions.back")}</span>
                 </button>
                 <div className="vertical-separator"></div>
-                <EditField
-                    error={this.props.formSyncErrors.name}
-                    meta={this.props.fields.name}
-                    form={this.props.form}
-                    dispatch={this.props.dispatch}
-                    editable={editMode}
-                    placeholder={t("contact-details.new")}
-                >
-                    <h1>{name}</h1>
-                </EditField>
+                <div className="title-section__name-inputs">
+                    <EditField
+                        error={this.props.formSyncErrors.name}
+                        meta={this.props.fields.name}
+                        form={this.props.form}
+                        dispatch={this.props.dispatch}
+                        editable={editMode}
+                        placeholder={t("contact-details.name")}
+                        name="first_name"
+                    >
+                        <h1>{first_name}</h1>
+                    </EditField>
+                    <EditField
+                        error={this.props.formSyncErrors.last_name}
+                        meta={this.props.fields.last_name}
+                        form={this.props.form}
+                        dispatch={this.props.dispatch}
+                        editable={editMode}
+                        placeholder={t("contact-details.lastName")}
+                        name="last_name"
+                    >
+                        <h1>{last_name}</h1>
+                    </EditField>
+                </div>
             </div>
         );
     }

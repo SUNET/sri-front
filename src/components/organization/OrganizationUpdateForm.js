@@ -84,8 +84,6 @@ class OrganizationUpdateForm extends React.Component {
                     role: contact.roles[0] ? contact.roles[0].role_data.handle_id : "",
                     role_obj: contact.roles[0],
                     role_label: contact.roles[0] ? contact.roles[0].role_data.name : "",
-                    //role_label: "",
-                    //role: "",
                     email: contact.emails,
                     email_obj: contact.emails,
                     phone: contact.phones,
