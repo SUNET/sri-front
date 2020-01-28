@@ -36,6 +36,7 @@
                 white-space: nowrap;
                 > div {
                     > div {
+                        height: 100%;
                         text-overflow: ellipsis;
                         overflow: hidden;
                         white-space: nowrap;
@@ -158,9 +159,8 @@
             &--contact-in-organization {
                 &__section {
                     &__content {
-                        height: auto;
+                        height: 100%;
                         &__internal-list {
-                            height: auto;
                             overflow: initial;
                         }
                     }
