@@ -333,7 +333,7 @@ class CreateOrganizationForm extends React.Component {
         const { handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
-                <div className="model-details">
+                <div className="model-details create-organizations-form">
                     <Form.Row>
                         <Col>{this.renderHeaderName()}</Col>
                     </Form.Row>

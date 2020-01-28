@@ -131,7 +131,7 @@ class OrganizationDetails extends React.Component {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <section className="model-details">
+                            <section className="model-details organization-details">
                                 <OrganizationUpdateFormContainer
                                     onDelete={this.handleDelete}
                                     organization={props.getOrganizationById}

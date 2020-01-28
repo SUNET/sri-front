@@ -99,7 +99,7 @@ class GroupDetails extends React.Component {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <section className="model-details">
+                            <section className="model-details group-details">
                                 <GroupUpdateFormContainer
                                     onDelete={this.handleDelete}
                                     group={props.getGroupById}
