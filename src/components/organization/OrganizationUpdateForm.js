@@ -24,7 +24,8 @@ import "../../style/ModelDetails.scss";
 import ValidationsOrganizationForm from "./ValidationOrganizationForm";
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
-    const isPresentState = !editable && data.presentContent;
+    const isPresentState = !editable;
+    const presentContent = data.presentContent || "";
     return (
         <div className="form-internal-block__section" key={uniqueKey}>
             <div className="form-internal-block__section__title">{data.title}</div>
@@ -33,7 +34,7 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
                     editable ? "form-internal-block__section__content--edition-mode" : ""
                 }`}
             >
-                {isPresentState ? data.presentContent : data.editContent}
+                {isPresentState ? presentContent : data.editContent}
             </div>
         </div>
     );
@@ -83,13 +84,15 @@ class OrganizationUpdateForm extends React.Component {
                     role: contact.roles[0] ? contact.roles[0].role_data.handle_id : "",
                     role_obj: contact.roles[0],
                     role_label: contact.roles[0] ? contact.roles[0].role_data.name : "",
-                    email: contact.emails[0] ? contact.emails[0].name : "",
-                    email_obj: contact.emails[0] ? contact.emails[0] : {},
-                    phone: contact.phones[0] ? contact.phones[0].name : "",
-                    phone_obj: contact.phones[0] ? contact.phones[0] : {},
+                    //role_label: "",
+                    //role: "",
+                    email: contact.emails,
+                    email_obj: contact.emails,
+                    phone: contact.phones,
+                    phone_obj: contact.phones,
                     created: true,
                     origin: "new",
-                    status: "editing",
+                    status: "saved",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newContact)) {
@@ -348,18 +351,6 @@ class OrganizationUpdateForm extends React.Component {
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.contacts")}</h2>
-                    {/* <PanelEditable.Consumer>
-                        {(editable) => {
-                            return (
-                                editable && (
-                                    <DropdownSearch
-                                        selection={this.handleSelectedContact}
-                                        placeholder={t("search-filter.search-contact")}
-                                    />
-                                )
-                            );
-                        }}
-                    </PanelEditable.Consumer> */}
                 </ToggleHeading>
 
                 <TogglePanel>
@@ -367,37 +358,13 @@ class OrganizationUpdateForm extends React.Component {
                         name="contacts"
                         component={FieldArrayContactOrganization}
                         editable={editMode}
+                        // editable={true}
                         dispatch={this.props.dispatch}
                         errors={this.props.formSyncErrors.contacts}
                         metaFields={this.props.fields}
                         rerenderOnEveryChange={true}
+                        handleContactSearch={this.handleSelectedContact}
                     />
-                    {/* <PanelEditable.Consumer>
-                        {(editable) => {
-                            return (
-                                <div className="table-details">
-                                    <div>
-                                        <div className="w-18">Name</div>
-                                        <div className="w-32">Role</div>
-                                        <div className="w-18">Email</div>
-                                        <div>Phone</div>
-                                        <div></div>
-                                    </div>
-                                    <div>
-                                        <FieldArray
-                                            name="contacts"
-                                            component={FieldArrayContactOrganization}
-                                            editable={editable}
-                                            rerenderOnEveryChange={true}
-                                            dispatch={this.props.dispatch}
-                                            errors={this.props.formSyncErrors.contacts}
-                                            metaFields={this.props.fields}
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        }}
-                    </PanelEditable.Consumer> */}
                 </TogglePanel>
             </ToggleSection>
         );

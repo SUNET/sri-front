@@ -76,10 +76,10 @@ export default class ValidationsOrganizationForm {
                     contactErrors.name = REQUIRED_TEXT;
                     contactArrayErrors[contactIndex] = contactErrors;
                 }
-                if (!contact || !contact.role) {
-                    contactErrors.role = REQUIRED_TEXT;
-                    contactArrayErrors[contactIndex] = contactErrors;
-                }
+                // if (!contact || !contact.role) {
+                //     contactErrors.role = REQUIRED_TEXT;
+                //     contactArrayErrors[contactIndex] = contactErrors;
+                // }
                 if (!contact || !contact.email) {
                     contactErrors.email = REQUIRED_TEXT;
                     contactArrayErrors[contactIndex] = contactErrors;
