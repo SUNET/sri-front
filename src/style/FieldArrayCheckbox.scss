@@ -71,7 +71,7 @@
                 border: solid 1px $secondary-color-20;
                 padding: 3px 10px 2px 7px;
                 background: none;
-                height: 32px;
+                height: $input--height;
 
                 &:before {
                     content: '\00D7';
