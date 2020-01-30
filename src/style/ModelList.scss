@@ -10,7 +10,7 @@
         > div:first-of-type {
             div {
                 width: 100% !important;
-                height: 32px;
+                height: $row-height;
             }
         }
         > div:last-of-type {

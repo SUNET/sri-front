@@ -137,12 +137,35 @@
                 &__section {
                     &__content {
                         margin-bottom: 10px;
-                        height: 32px;
+                        height: 100%;
                         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                         padding-bottom: 50px;
                         &__internal-list {
-                            height: 32px;
-                            overflow-y: auto;
+                            // height: 32px;
+                            overflow: initial;
+                            display: flex;
+                            flex-direction: column;
+                            > div {
+                                height: $row-height;
+                            }
+                            &__element {
+                                display: flex;
+                                height: 100%;
+                                &__main-text {
+                                    height: 100%;
+                                    margin-right: 10px;
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    margin-right: 8px;
+                                    width: calc(100% - 70px);
+                                }
+                                &__secondary-text {
+                                    font-family: karla;
+                                    color: $secondary-color-30;
+                                    width: 70px;
+                                }
+                            }
                         }
                     }
                     .row-remove-cta {
@@ -156,21 +179,13 @@
                     }
                 }
             }
-            &--contact-in-organization {
-                &__section {
-                    &__content {
-                        height: 100%;
-                        &__internal-list {
-                            overflow: initial;
-                        }
-                    }
-                }
-            }
+
             &__section--edition-mode {
                 &__content {
                     padding-left: 5px;
                 }
             }
+
             &__section {
                 flex-grow: 1;
                 flex-shrink: 0;
@@ -203,11 +218,9 @@
                             &__row {
                                 display: flex;
                                 flex-direction: row;
-                                align-items: flex-end;
                                 justify-content: space-between;
                                 padding-right: 8px;
-                                padding-top: 8px;
-                                padding-bottom: 8px;
+                                height: $row-height;
                                 &__main-text {
                                     text-overflow: ellipsis;
                                     overflow: hidden;

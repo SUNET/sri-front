@@ -1,13 +1,14 @@
 @import "../variables.scss";
 
-div.copy-to-clipboard {
+.copy-to-clipboard {
     display: inline-block;
     position: relative;
     
     &__content {
         display: flex;
-        align-items: center;
+        // align-items: center;
         justify-content: space-between;
+        height: 100%;
         &__children {
             width: calc(100% - 20px);
         }

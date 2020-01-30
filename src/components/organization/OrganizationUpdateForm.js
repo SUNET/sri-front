@@ -93,9 +93,9 @@ class OrganizationUpdateForm extends React.Component {
                     status: "saved",
                     key: uuidv4()
                 };
-                if (!this._hasBeenAdded(newContact)) {
-                    this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
-                }
+                // if (!this._hasBeenAdded(newContact)) {
+                // }
+                this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
             });
         }
     };

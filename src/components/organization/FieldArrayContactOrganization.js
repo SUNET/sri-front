@@ -3,6 +3,7 @@ import { withTranslation } from "react-i18next";
 import { change } from "redux-form";
 import DropdownSearch from "../DropdownSearch";
 import Dropdown from "../Dropdown";
+import CopyToClipboard from "../CopyToClipboard";
 
 class FieldArrayContactsOrganization extends React.Component {
     validateContact = (index) => {
@@ -45,12 +46,35 @@ class FieldArrayContactsOrganization extends React.Component {
         this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
     };
 
-    generateSubDataList = (field, keyName) => {
+    generateSubDataList = (field, keyName, secondaryKeyName) => {
         const result = field ? (
             <>
                 <div className="form-internal-block--contact-in-organization__section__content__internal-list form-internal-block__section__content__internal-list">
                     {field[keyName].map((element, internalIndex) => {
-                        return <div key={internalIndex}>{element.name}</div>;
+                        const useClipToClipboardContainer = !!secondaryKeyName;
+                        const child = (
+                            <div
+                                className={`form-internal-block--contact-in-organization__section__content__internal-list__element`}
+                            >
+                                <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__main-text">
+                                    {element.name}
+                                </div>
+                                <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__secondary-text">
+                                    {element[secondaryKeyName]}
+                                </div>
+                            </div>
+                        );
+                        let resultContainer;
+                        if (useClipToClipboardContainer) {
+                            resultContainer = (
+                                <CopyToClipboard key={internalIndex} copyContent={element.name}>
+                                    {child}
+                                </CopyToClipboard>
+                            );
+                        } else {
+                            resultContainer = <div key={internalIndex}>{child}</div>;
+                        }
+                        return resultContainer;
                     })}
                 </div>
             </>
@@ -113,7 +137,7 @@ class FieldArrayContactsOrganization extends React.Component {
                                     )}
                                 </div>
                                 <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
-                                    {this.generateSubDataList(row, "email")}
+                                    {this.generateSubDataList(row, "email", "type")}
                                 </div>
                                 <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                                     {this.generateSubDataList(row, "phone")}
