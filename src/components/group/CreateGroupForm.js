@@ -189,6 +189,9 @@ class CreateGroupForm extends React.Component {
                         <Col>{this.renderHeaderName(this.state.editMode)}</Col>
                     </Form.Row>
                     <section className="model-section">
+                        <Form.Row>
+                            <Col>{this.renderDescriptionToggleSection(this.state.editMode)}</Col>
+                        </Form.Row>
                         <hr />
                         <Form.Row>
                             <Col>{this.renderContactsToggleSection(this.state.editMode)}</Col>
@@ -204,7 +207,7 @@ class CreateGroupForm extends React.Component {
 
 const validate = (values, props) => {
     const errors = {};
-    if (!values.name || values.name === "New group") {
+    if (!values.name) {
         errors.name = "* Required!";
     }
 
@@ -243,7 +246,7 @@ CreateGroupForm = reduxForm({
     form: "createGroup",
     validate,
     initialValues: {
-        name: "New group"
+        name: ""
     }
 })(CreateGroupForm);
 

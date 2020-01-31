@@ -359,8 +359,16 @@ class CreateContactForm extends React.Component {
 
 const validate = (values) => {
     const errors = {};
-    if (!values.name || values.name === "New contact") {
+    if (!values.name) {
         errors.name = "* Required!";
+    }
+
+    if (!values.first_name) {
+        errors.first_name = "* Required!";
+    }
+
+    if (!values.last_name) {
+        errors.last_name = "* Required!";
     }
 
     if (!values.contact_type) {
