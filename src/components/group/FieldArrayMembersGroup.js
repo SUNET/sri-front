@@ -151,8 +151,6 @@ class FieldArrayMembersGroup extends React.Component {
     renderBody() {
         const { editable, fields } = this.props;
         const values = fields.getAll();
-        console.log(values);
-
         return (
             <div className="contact-in-organization__body">
                 {values &&

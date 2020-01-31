@@ -357,8 +357,6 @@ class CreateContactForm extends React.Component {
 }
 
 const validate = (values) => {
-    console.log(values);
-    
     const errors = {};
     if (!values.name) {
         errors.name = "* Required!";

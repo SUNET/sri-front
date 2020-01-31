@@ -116,8 +116,7 @@ export default function UpdateGroupMutation(group, form) {
                 }
             }
         });
-        console.log(updateMembers);
-        
+
     }
 
     const variables = {

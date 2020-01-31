@@ -182,8 +182,6 @@ class GroupUpdateForm extends React.Component {
 
     render() {
         let { group, handleSubmit } = this.props;
-        console.log(group);
-
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
                 {this.renderSaveCancelCTAs()}
