@@ -19,6 +19,13 @@
             font-family: karla;
             font-weight: bold;
             color: $secondary-color-30;
+            align-items: center;
+            display: flex;
+            &--with-cta {
+                span {
+                    margin-right: $margin-lateral-line-elements;
+                }
+            }
         }
     }
     &__body {
@@ -104,15 +111,18 @@
         text-align: right;
     }
 
-    // &.create-contact-form,
     // &.create-group-form,
     // &.group-details,
     // &.create-organizations-form,
     // &.organization-details,
+    &.create-contact-form,
     &.contact-details {
         .model-section {
             .form-internal-block__section {
                 flex-basis: auto;
+                .row-remove-cta {
+                    margin-top: 7px;
+                }
             }
         }
     }
@@ -191,6 +201,8 @@
                 flex-shrink: 0;
                 flex-basis: 25%;
                 margin-bottom: 1.5rem;
+                display: flex;
+                flex-direction: column;
                 &__title {
                     font-family: karla;
                     font-weight: bold;
@@ -235,8 +247,8 @@
                         }
                         &__inputs {
                             max-width: none;
-                            &__row {
-                                align-items: center;
+                            &__row { 
+                                height: calc(#{$row-height} + 10px);
                             }
                             button {
                                 width: $outline-cta-width

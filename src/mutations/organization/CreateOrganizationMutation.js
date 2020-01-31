@@ -204,28 +204,28 @@ export default function CreateOrganizationMutation(organization, form) {
                 }
 
                 if (!contact.created || contact.created === undefined) {
-                    newContacts.push({
-                        first_name: contact.first_name,
-                        last_name: contact.last_name,
-                        contact_type: "person",
-                        email: contact.email,
-                        email_type: CONTACT_WORK,
-                        phone: contact.phone,
-                        phone_type: CONTACT_WORK,
-                        role_handle_id: contact.role
-                    });
+                    // newContacts.push({
+                    //     first_name: contact.first_name,
+                    //     last_name: contact.last_name,
+                    //     contact_type: "person",
+                    //     email: contact.email,
+                    //     email_type: CONTACT_WORK,
+                    //     phone: contact.phone,
+                    //     phone_type: CONTACT_WORK,
+                    //     role_handle_id: contact.role
+                    // });
                 } else {
                     updateContacts.push({
                         handle_id: contact.handle_id,
                         first_name: contact.first_name,
                         last_name: contact.last_name,
                         contact_type: contact.contact_type.toLowerCase(),
-                        email_handle_id: contact.email_obj ? contact.email_obj.handle_id : null,
-                        email: contact.email,
-                        email_type: contact.email_obj ? contact.email_obj.type : CONTACT_WORK,
-                        phone_handle_id: contact.phone_obj ? contact.phone_obj.handle_id : null,
-                        phone: contact.phone,
-                        phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
+                        // email_handle_id: contact.email_obj ? contact.email_obj.handle_id : null,
+                        // email: contact.email,
+                        // email_type: contact.email_obj ? contact.email_obj.type : CONTACT_WORK,
+                        // phone_handle_id: contact.phone_obj ? contact.phone_obj.handle_id : null,
+                        // phone: contact.phone,
+                        // phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
                         role_handle_id: contact.role
                     });
                 }

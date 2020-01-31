@@ -108,15 +108,15 @@ export default function CreateContactMutation(contact, form) {
 
     const roles = [];
 
-    let fullName = contact.name.trim();
-    if (fullName.includes(" ")) {
-        fullName = fullName.split(" ");
-        contact.first_name = fullName[0];
-        contact.last_name = fullName[1];
-    } else {
-        contact.first_name = fullName;
-        contact.last_name = fullName;
-    }
+    // let fullName = contact.name.trim();
+    // if (fullName.includes(" ")) {
+    //     fullName = fullName.split(" ");
+    //     contact.first_name = fullName[0];
+    //     contact.last_name = fullName[1];
+    // } else {
+    //     contact.first_name = fullName;
+    //     contact.last_name = fullName;
+    // }
 
     const emails = contact.emails;
     if (emails) {

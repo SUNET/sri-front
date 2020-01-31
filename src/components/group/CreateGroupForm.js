@@ -79,7 +79,7 @@ class CreateGroupForm extends React.Component {
                     form={this.props.form}
                     dispatch={this.props.dispatch}
                     editable={editMode}
-                    placeholder={t("contact-details.new")}
+                    placeholder={t("group-details.new")}
                 >
                     <h1>{name}</h1>
                 </EditField>

@@ -119,8 +119,8 @@ class CreateContactForm extends React.Component {
                 <div className="vertical-separator"></div>
                 <div className="title-section__name-inputs">
                     <EditField
-                        error={this.props.formSyncErrors.name}
-                        meta={this.props.fields.name}
+                        error={this.props.formSyncErrors.first_name}
+                        meta={this.props.fields.first_name}
                         form={this.props.form}
                         dispatch={this.props.dispatch}
                         editable={editMode}
@@ -302,7 +302,6 @@ class CreateContactForm extends React.Component {
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="model-details create-contact-form">
-                    {/* <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div> */}
                     <Form.Row>
                         <Col>{this.renderHeaderName()}</Col>
                     </Form.Row>
@@ -358,6 +357,8 @@ class CreateContactForm extends React.Component {
 }
 
 const validate = (values) => {
+    console.log(values);
+    
     const errors = {};
     if (!values.name) {
         errors.name = "* Required!";
@@ -442,7 +443,6 @@ CreateContactForm = reduxForm({
     form: "createContact",
     validate,
     initialValues: {
-        name: ""
     }
 })(CreateContactForm);
 

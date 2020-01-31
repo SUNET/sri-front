@@ -396,14 +396,14 @@ class ContactUpdateForm extends React.PureComponent {
     renderSaveCancelCTAs() {
         const { t, pristine, submitting } = this.props;
         return (
-            <>
+            <div className="text-right mt-4">
                 <button type="button" className="btn link" onClick={this.props.onDelete}>
                     {t("actions.delete")}
                 </button>
                 <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                     {t("actions.save")}
                 </button>
-            </>
+            </div>
         );
     }
 
@@ -412,7 +412,7 @@ class ContactUpdateForm extends React.PureComponent {
         return (
             <>
                 <form onSubmit={handleSubmit(this.handleSubmit)}>
-                    <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div>
+                    {this.renderSaveCancelCTAs()}
                     <Form.Row>
                         <Col>{this.renderHeaderName()}</Col>
                         <Col>{this.renderHeaderRight()}</Col>
@@ -431,7 +431,7 @@ class ContactUpdateForm extends React.PureComponent {
                     <section className="model-section">
                         <Worklog model={contact} refetch={this.refetch} />
                     </section>
-                    <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div>
+                    {this.renderSaveCancelCTAs()}
                 </form>
             </>
         );

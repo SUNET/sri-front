@@ -68,14 +68,8 @@ class GroupUpdateForm extends React.Component {
         }
     };
 
-    copyAllEmails = () => {
-        const emails = this.props.memberValues.map((member) => {
-            return member.status === "saved" ? member.email : null;
-        });
-        copy(emails.join(" "));
-    };
-
     handleSubmit = (group) => {
+        this.setState({ editMode: !this.state.editMode });
         UpdateGroupMutation(group, this);
     };
 
@@ -172,12 +166,27 @@ class GroupUpdateForm extends React.Component {
         );
     }
 
+    renderSaveCancelCTAs() {
+        const { t, pristine, submitting } = this.props;
+        return (
+            <div className="text-right mt-4">
+                <button type="button" className="btn link" onClick={this.props.onDelete}>
+                    {t("actions.delete")}
+                </button>
+                <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
+                    {t("actions.save")}
+                </button>
+            </div>
+        );
+    }
+
     render() {
-        let { group, t, handleSubmit, pristine, submitting } = this.props;
+        let { group, handleSubmit } = this.props;
         console.log(group);
-        
+
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
+                {this.renderSaveCancelCTAs()}
                 <Form.Row>
                     <Col>{this.renderHeaderName(this.state.editMode)}</Col>
                     <Col>{this.renderHeaderRight()}</Col>
@@ -194,15 +203,7 @@ class GroupUpdateForm extends React.Component {
                         <Worklog model={group} refetch={this.refetch} />
                     </section>
                 </section>
-
-                <div className="text-right mt-4">
-                    <button type="button" className="btn link" onClick={this.props.onDelete}>
-                        {t("actions.delete")}
-                    </button>
-                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
-                        {t("actions.save")}
-                    </button>
-                </div>
+                {this.renderSaveCancelCTAs()}
             </form>
         );
     }

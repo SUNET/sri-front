@@ -1,13 +1,15 @@
 import React from "react";
-import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 
+import { Form } from "react-bootstrap";
 import FieldInput from "../FieldInput";
 import { Field, change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
+import Dropdown from "../Dropdown";
 
 import CopyToClipboard from "../CopyToClipboard";
-import Dropdown from "../Dropdown";
+import copy from "clipboard-copy";
+
 // import { LIMIT_NEW_CONTACTS } from "../../config";
 
 import DropdownSearch from "../DropdownSearch";
@@ -70,9 +72,14 @@ class FieldArrayMembersGroup extends React.Component {
         this.props.dispatch(change(this.props.meta.form, `members[${index}].organization_label`, organization_label));
     };
 
+    copyAllEmails = () => {
+        const emails = this.props.fields.getAll().map((member) => {
+            return member.status === "saved" ? member.email.map(email=> email.name) : null;
+        });
+        copy(emails.flat().join(" "));
+    }
+
     generateSubDataList = (field, keyName, secondaryKeyName) => {
-        console.log(field, keyName, secondaryKeyName);
-        
         const result = field ? (
             <>
                 <div className="form-internal-block--contact-in-organization__section__content__internal-list form-internal-block__section__content__internal-list">
@@ -109,13 +116,23 @@ class FieldArrayMembersGroup extends React.Component {
         );
         return result;
     };
-
+    renderEmailsHeader() {
+        const { t } = this.props;
+        return (
+            <div className="contact-in-organization__header__title--with-cta">
+                <span>{t("settings.emails")}</span>
+                <button type="button" onClick={() => this.copyAllEmails()} className="btn outline btn-copy">
+                    <span>{t("actions.copy-all")}</span>
+                </button>
+            </div>
+        );
+    }
     renderHeader() {
         const { t } = this.props;
         const headers = [
             t("contact-details.name"),
             t("community.sub-menu.organizations"),
-            t("settings.emails"),
+            this.renderEmailsHeader(),
             t("organization-details.phone")
         ];
         return (
@@ -152,7 +169,7 @@ class FieldArrayMembersGroup extends React.Component {
                                     {this.generateSubDataList(row, "organization_label")}
                                 </div>
                                 <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
-                                    {this.generateSubDataList(row, "email")}
+                                    {this.generateSubDataList(row, "email", "type")}
                                 </div>
                                 <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                                     {this.generateSubDataList(row, "phone")}

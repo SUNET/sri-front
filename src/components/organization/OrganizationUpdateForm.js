@@ -10,7 +10,6 @@ import copy from "clipboard-copy";
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import Dropdown from "../Dropdown";
-import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
 import FieldInput from "../FieldInput";
@@ -98,13 +97,6 @@ class OrganizationUpdateForm extends React.Component {
                 this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
             });
         }
-    };
-
-    copyAllEmails = () => {
-        const emails = this.props.contactsValues.map((contact) => {
-            return contact.status === "saved" ? contact.email : null;
-        });
-        copy(emails.join(" "));
     };
 
     generateURL = (url) => {
@@ -392,13 +384,27 @@ class OrganizationUpdateForm extends React.Component {
         );
     }
 
+    renderSaveCancelCTAs() {
+        const { t, pristine, submitting } = this.props;
+        return (
+            <div className="text-right mt-4">
+                <button type="button" className="btn link" onClick={this.props.onDelete}>
+                    {t("actions.delete")}
+                </button>
+                <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
+                    {t("actions.save")}
+                </button>
+            </div>
+        );
+    }
+
     render() {
-        const { organization, t, handleSubmit, pristine, submitting } = this.props;
+        const { organization, t, handleSubmit } = this.props;
         console.log(organization);
-        
+
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
-                {/* <div className="text-right mt-4">{this.renderSaveCancelCTAs()}</div> */}
+                {this.renderSaveCancelCTAs()}
                 <Form.Row>
                     <Col>{this.renderHeaderName()}</Col>
                     <Col>{this.renderHeaderRight()}</Col>
@@ -428,14 +434,7 @@ class OrganizationUpdateForm extends React.Component {
                 <section className="model-section">
                     <Worklog model={organization} refetch={this.refetch} />
                 </section>
-                <div className="text-right mt-4">
-                    <button type="button" onClick={() => this.props.onDelete()} className="btn link">
-                        {t("actions.delete")}
-                    </button>
-                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
-                        {t("actions.save")}
-                    </button>
-                </div>
+                {this.renderSaveCancelCTAs()}
             </form>
         );
     }

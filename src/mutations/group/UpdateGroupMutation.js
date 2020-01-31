@@ -145,6 +145,8 @@ export default function UpdateGroupMutation(group, form) {
                     //     relationship_works_for: member.organization
                     // });
                 } else {
+                    console.log(updateMembers);
+                    
                     updateMembers.push({
                         handle_id: member.handle_id,
                         first_name: member.first_name,
@@ -156,7 +158,7 @@ export default function UpdateGroupMutation(group, form) {
                         // phone_handle_id: member.phone_obj ? member.phone_obj.handle_id : null,
                         // phone: member.phone,
                         // phone_type: member.phone_obj ? member.email_obj.type : CONTACT_WORK,
-                        relationship_works_for: member.organization
+                        // relationship_works_for: member.organization
                     });
                 }
             } else if (member.status === "remove") {
