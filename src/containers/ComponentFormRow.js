@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { saveRow, editRow, removeRow } from "../actions/ComponentFormRow";
+// import { saveRow, editRow, removeRow } from "../actions/ComponentFormRow";
 import ComponentFormRow from "../components/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
@@ -12,9 +12,9 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        saveRow: () => dispatch(saveRow(props.index)),
-        editRow: () => dispatch(editRow(props.index)),
-        removeRow: () => dispatch(removeRow(props.index))
+        // saveRow: () => dispatch(saveRow(props.index)),
+        // editRow: () => dispatch(editRow(props.index)),
+        // removeRow: () => dispatch(removeRow(props.index))
     };
 };
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Col } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { FieldArray, Field, reduxForm } from "redux-form";
 
@@ -10,78 +9,11 @@ import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/Togg
 import Dropdown from "../Dropdown";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
-
-const renderEmails = ({ fields, t }) => {
-    const pushField = (event) => {
-        if (fields.length < 5) {
-            fields.push({});
-        }
-    };
-    return (
-        <div className="list-items__inputs">
-            {fields.map((email, index) => (
-                <div key={index} className={`list-items__inputs__row input-group`}>
-                    <Form.Group>
-                        <Field
-                            className="auto"
-                            name={`${email}.email`}
-                            type="text"
-                            component={FieldInput}
-                            placeholder="Email"
-                        />
-                    </Form.Group>
-                    <Dropdown
-                        className="auto"
-                        emptyLabel="Type"
-                        type="email_type"
-                        name={`${email}.type`}
-                        onChange={(e) => {}}
-                    />
-                    <div className="row-remove-cta" onClick={() => fields.remove(index)}></div>
-                </div>
-            ))}
-            <button type="button" className="btn btn-add outline" onClick={(e) => pushField(e)}>
-                <span>{t("actions.add-new")}</span>
-            </button>
-        </div>
-    );
-};
-
-const renderPhones = ({ fields, t }) => {
-    const pushField = (event) => {
-        if (fields.length < 5) {
-            fields.push({});
-        }
-    };
-    return (
-        <div className="list-items__inputs">
-            {fields.map((phone, index) => (
-                <div key={index} className={`list-items__inputs__row input-group`}>
-                    <Form.Group>
-                        <Field
-                            className="auto"
-                            name={`${phone}.phone`}
-                            type="text"
-                            component={FieldInput}
-                            placeholder="Phone"
-                        />
-                    </Form.Group>
-                    <Dropdown
-                        className="auto"
-                        emptyLabel="Type"
-                        type="phone_type"
-                        name={`${phone}.type`}
-                        onChange={(e) => {}}
-                    />
-                    <div className="row-remove-cta" onClick={() => fields.remove(index)}></div>
-                </div>
-            ))}
-            <button type="button" className="btn btn-add outline" onClick={(e) => pushField(e)}>
-                <span>{t("actions.add-new")}</span>
-            </button>
-        </div>
-    );
-};
+import ContactPhones from "./ContactPhones";
+import ContactEmails from "./ContactEmails";
+import SaveCancelCTAs from "../common/SaveCancelCTAs";
+import ValidationsContactForm from "./ValidationContactForm";
+import BackCTA from "../common/BackCTA";
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
     const isPresentState = !editable && data.presentContent;
@@ -105,17 +37,11 @@ class CreateContactForm extends React.Component {
     };
 
     renderHeaderName() {
-        const { t, first_name, last_name } = this.props;
+        const { shown_in_modal, t, first_name, last_name } = this.props;
         const editMode = true;
         return (
             <div className="title-section">
-                <button
-                    type="button"
-                    onClick={() => this.props.history.push(`/community/contacts`)}
-                    className="btn btn-back outline"
-                >
-                    <span>{t("actions.back")}</span>
-                </button>
+                {!shown_in_modal && <BackCTA onClick={() => this.props.history.goBack()} />}
                 <div className="vertical-separator"></div>
                 <div className="title-section__name-inputs">
                     <EditField
@@ -197,7 +123,7 @@ class CreateContactForm extends React.Component {
                     <FieldArray
                         name="emails"
                         t={t}
-                        component={renderEmails}
+                        component={ContactEmails}
                         // editable={editionMode}
                         // dispatch={this.props.dispatch}
                     />
@@ -206,7 +132,7 @@ class CreateContactForm extends React.Component {
                     <FieldArray
                         name="emails"
                         t={t}
-                        component={renderEmails}
+                        component={ContactEmails}
                         // editable={editionMode}
                         // dispatch={this.props.dispatch}
                     />
@@ -218,7 +144,7 @@ class CreateContactForm extends React.Component {
                     <FieldArray
                         name="phones"
                         t={t}
-                        component={renderPhones}
+                        component={ContactPhones}
                         // editable={editionMode}
                         // dispatch={this.props.dispatch}
                     />
@@ -227,7 +153,7 @@ class CreateContactForm extends React.Component {
                     <FieldArray
                         name="phones"
                         t={t}
-                        component={renderPhones}
+                        component={ContactPhones}
                         // editable={editionMode}
                         // dispatch={this.props.dispatch}
                     />
@@ -235,7 +161,6 @@ class CreateContactForm extends React.Component {
             }
         ];
         return (
-            // <ToggleSection defaultEditable={false}>
             <ToggleSection defaultEditable={false}>
                 <ToggleHeading>
                     <h2>{t("contact-details.general-information")}</h2>
@@ -333,115 +258,24 @@ class CreateContactForm extends React.Component {
                         </ToggleSection>
                     </section>
                 </div>
-                <div className="text-right mt-4">
-                    <button
-                        type="button"
-                        className="mr-2 btn link"
-                        onClick={() => {
-                            this.props.history.push("/community/contacts");
-                        }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="btn primary lg"
-                        type="submit"
-                        // disabled={!this.props.valid || this.props.pristine || this.props.submitting}
-                    >
-                        Save
-                    </button>
-                </div>
+                <SaveCancelCTAs
+                    onCancel={() => {
+                        if (this.props.shown_in_modal) {
+                            this.props.hideContactModal();
+                        } else {
+                            this.props.history.goBack();
+                        }
+                    }}
+                />
             </form>
         );
     }
 }
 
-const validate = (values) => {
-    const errors = {};
-    if (!values.name) {
-        errors.name = "* Required!";
-    }
-
-    if (!values.first_name) {
-        errors.first_name = "* Required!";
-    }
-
-    if (!values.last_name) {
-        errors.last_name = "* Required!";
-    }
-
-    if (!values.contact_type) {
-        errors.contact_type = "* Required!";
-    }
-
-    if (values.emails) {
-        const emailArrayErrors = [];
-        values.emails.forEach((email, emailIndex) => {
-            const emailErrors = {};
-            if (!email || !email.email) {
-                emailErrors.email = "* Required!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email.email)) {
-                emailErrors.email = "* Invalid email!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            }
-            if (!email || !email.type) {
-                emailErrors.type = "* Required!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            }
-            return emailErrors;
-        });
-        if (emailArrayErrors.length) {
-            errors.emails = emailArrayErrors;
-        }
-    }
-
-    if (values.phones) {
-        const phoneArrayErrors = [];
-        values.phones.forEach((phone, phoneIndex) => {
-            const phoneErrors = {};
-            if (!phone || !phone.phone) {
-                phoneErrors.phone = "* Required!";
-                phoneArrayErrors[phoneIndex] = phoneErrors;
-            }
-            if (!phone || !phone.type) {
-                phoneErrors.type = "* Required!";
-                phoneArrayErrors[phoneIndex] = phoneErrors;
-            }
-            return phoneErrors;
-        });
-        if (phoneArrayErrors.length) {
-            errors.phones = phoneArrayErrors;
-        }
-    }
-
-    if (values.organizations) {
-        const organizationArrayErrors = [];
-        values.organizations.forEach((organization, organizationIndex) => {
-            const organizationErrors = {};
-            if (!organization || !organization.role) {
-                organizationErrors.role = "* Required!";
-                organizationArrayErrors[organizationIndex] = organizationErrors;
-            }
-            if (!organization || !organization.organization) {
-                organizationErrors.organization = "* Required!";
-                organizationArrayErrors[organizationIndex] = organizationErrors;
-            }
-            return organizationErrors;
-        });
-        if (organizationArrayErrors.length) {
-            errors.organizations = organizationArrayErrors;
-        }
-    }
-
-    return errors;
-};
-
 CreateContactForm = reduxForm({
     form: "createContact",
-    validate,
-    initialValues: {
-    }
+    validate: ValidationsContactForm.contactFormValidate,
+    initialValues: {}
 })(CreateContactForm);
 
-export default withTranslation()(withRouter(CreateContactForm));
+export default withTranslation()(CreateContactForm);

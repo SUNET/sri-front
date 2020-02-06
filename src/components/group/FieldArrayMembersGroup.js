@@ -1,11 +1,10 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 
-import { Form } from "react-bootstrap";
-import FieldInput from "../FieldInput";
-import { Field, change, touch } from "redux-form";
-import uuidv4 from "uuid/v4";
-import Dropdown from "../Dropdown";
+// import FieldInput from "../FieldInput";
+import { change } from "redux-form";
+// import uuidv4 from "uuid/v4";
+// import Dropdown from "../Dropdown";
 
 import CopyToClipboard from "../CopyToClipboard";
 import copy from "clipboard-copy";
@@ -21,8 +20,10 @@ class FieldArrayMembersGroup extends React.Component {
         const hasBlankFields =
             values[index].name === "" ||
             values[index].name === undefined ||
-            (values[index].email === "" || values[index].email === undefined) ||
-            (values[index].phone === "" || values[index].phone === undefined);
+            values[index].email === "" ||
+            values[index].email === undefined ||
+            values[index].phone === "" ||
+            values[index].phone === undefined;
         return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
 
@@ -30,19 +31,8 @@ class FieldArrayMembersGroup extends React.Component {
         // if (this.props.fields.length < LIMIT_NEW_CONTACTS) {
         //     this.props.fields.push({ key: uuidv4(), status: "editing" });
         // }
-        console.log("add new member");
+        this.props.handleAddContactRow();
     };
-
-    // saveRow = (index) => {
-    //     if (this.validateMember(index)) {
-    //         this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "saved"));
-    //     } else {
-    //         this.props.dispatch(touch(this.props.meta.form, `members[${index}].name`));
-    //         this.props.dispatch(touch(this.props.meta.form, `members[${index}].organization`));
-    //         this.props.dispatch(touch(this.props.meta.form, `members[${index}].email`));
-    //         this.props.dispatch(touch(this.props.meta.form, `members[${index}].phone`));
-    //     }
-    // };
 
     editRow = (index) => {
         this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "editing"));
@@ -72,12 +62,21 @@ class FieldArrayMembersGroup extends React.Component {
         this.props.dispatch(change(this.props.meta.form, `members[${index}].organization_label`, organization_label));
     };
 
+    getAllEmailsFromAllContacts = () => {
+        const values = this.props.fields.getAll();
+        let result = [];
+        if (values) {
+            result = values.map((member) => {
+                return member.status === "saved" ? member.email.map((email) => email.name) : null;
+            });
+        }
+        return result;
+    };
+
     copyAllEmails = () => {
-        const emails = this.props.fields.getAll().map((member) => {
-            return member.status === "saved" ? member.email.map(email=> email.name) : null;
-        });
+        const emails = this.getAllEmailsFromAllContacts();
         copy(emails.flat().join(" "));
-    }
+    };
 
     generateSubDataList = (field, keyName, secondaryKeyName) => {
         const result = field ? (
@@ -121,9 +120,11 @@ class FieldArrayMembersGroup extends React.Component {
         return (
             <div className="contact-in-organization__header__title--with-cta">
                 <span>{t("settings.emails")}</span>
-                <button type="button" onClick={() => this.copyAllEmails()} className="btn outline btn-copy">
-                    <span>{t("actions.copy-all")}</span>
-                </button>
+                {this.getAllEmailsFromAllContacts().length > 0 && (
+                    <button type="button" onClick={() => this.copyAllEmails()} className="btn outline btn-copy">
+                        <span>{t("actions.copy-all")}</span>
+                    </button>
+                )}
             </div>
         );
     }
@@ -216,106 +217,6 @@ class FieldArrayMembersGroup extends React.Component {
                 {this.renderFooter()}
             </div>
         );
-        // const { fields, meta, t, editable } = this.props;
-        // const values = fields.getAll();
-        // return (
-        //     <>
-        //         {fields.map((member, index) => (
-        //             <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
-        //                 {editable && values[index].status === "editing" ? (
-        //                     <>
-        //                         <div>
-        //                             <Form.Group>
-        //                                 <Field
-        //                                     type="text"
-        //                                     component={FieldInput}
-        //                                     placeholder="Full Name"
-        //                                     name={`${member}.name`}
-        //                                 />
-        //                             </Form.Group>
-        //                         </div>
-        //                         <div>
-        //                             <Dropdown
-        //                                 className="auto"
-        //                                 emptyLabel={t("organization-details.select-organization")}
-        //                                 model="organization"
-        //                                 onChange={(e) => {
-        //                                     this.saveLabel(e, index);
-        //                                 }}
-        //                                 name={`${member}.organization`}
-        //                             />
-        //                         </div>
-        //                         <div>
-        //                             <Form.Group>
-        //                                 <Field
-        //                                     type="text"
-        //                                     component={FieldInput}
-        //                                     placeholder="Email"
-        //                                     name={`${member}.email`}
-        //                                 />
-        //                             </Form.Group>
-        //                         </div>
-        //                         <div>
-        //                             <Form.Group>
-        //                                 <Field
-        //                                     type="text"
-        //                                     component={FieldInput}
-        //                                     placeholder="Phone"
-        //                                     name={`${member}.phone`}
-        //                                 />
-        //                             </Form.Group>
-        //                         </div>
-        //                     </>
-        //                 ) : (
-        //                     <>
-        //                         <div>{fields.getAll()[index].name}</div>
-        //                         <div>{fields.getAll()[index].organization_label}</div>
-        //                         {this.props.meta.form === "updateGroup" && fields.getAll()[index].email ? (
-        //                             <CopyToClipboard>{fields.getAll()[index].email}</CopyToClipboard>
-        //                         ) : (
-        //                             <div>{fields.getAll()[index].email}</div>
-        //                         )}
-        //                         <div>{fields.getAll()[index].phone}</div>
-        //                     </>
-        //                 )}
-        //                 <div className="actions">
-        //                     {editable && (
-        //                         <div>
-        //                             <div>
-        //                                 <i className="icon-trash" onClick={() => this.removeRow(index)}></i>
-        //                             </div>
-        //                             <div>
-        //                                 {values[index].status !== "editing" && (
-        //                                     <i className="icon-pencil" onClick={() => this.editRow(index)}></i>
-        //                                 )}
-        //                                 {values[index].status === "editing" && (
-        //                                     <span className="ok-check" onClick={() => this.saveRow(index)}>
-        //                                         <i className="icon-tick"></i>
-        //                                         {t("actions.save")}
-        //                                     </span>
-        //                                 )}
-        //                             </div>
-        //                         </div>
-        //                     )}
-        //                 </div>
-        //             </div>
-        //         ))}
-        //         {meta.error && <div>{meta.error}</div>}
-        //         {editable && (
-        //             <div>
-        //                 <div></div>
-        //                 <div></div>
-        //                 <div></div>
-        //                 <div></div>
-        //                 <div className="col-actions">
-        //                     <button type="button" className="btn link add mt-2" onClick={(e) => this.addRow(e)}>
-        //                         {t("actions.add-new")}
-        //                     </button>
-        //                 </div>
-        //             </div>
-        //         )}
-        //     </>
-        // );
     }
 }
 

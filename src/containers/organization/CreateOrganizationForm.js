@@ -3,6 +3,7 @@ import { getFormMeta, getFormSyncErrors, formValueSelector, registerField, isDir
 import { getContact } from "../../components/contact/Contact";
 import CreateOrganizationForm from "../../components/organization/CreateOrganizationForm";
 import * as actions from "../../actions/Notify";
+import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
     const createOrganizationSelector = formValueSelector("createOrganization");
@@ -37,7 +38,8 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
+        showNewContactForm
     };
 };
 

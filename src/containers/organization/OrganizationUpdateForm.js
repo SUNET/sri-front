@@ -4,6 +4,7 @@ import { formValueSelector, getFormMeta, getFormSyncErrors, registerField, isDir
 import { getContact } from "../../components/contact/Contact";
 import uuidv4 from "uuid/v4";
 import * as actions from "../../actions/Notify";
+import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
     const updateOrganizationSelector = formValueSelector("updateOrganization");
@@ -138,7 +139,8 @@ const mapDispatchToProps = (dispatch, props) => {
         registerFieldAffiliation: () => dispatch(registerField("updateOrganization", "affiliation", "Field")),
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
+        showNewContactForm
     };
 };
 

@@ -1,27 +1,27 @@
-export const addRow = (index) => {
+import types from '../types/componentFormRow';
+
+export const showNewContactForm = () => {
     return {
-        type: "ADD_ROW",
-        index
+        type: types.SHOW_NEW_CONTACT_FORM
     };
 };
 
-export const saveRow = (index) => {
+export const hideNewContactForm = () => {
     return {
-        type: "SAVE_ROW",
-        index
+        type: types.HIDE_NEW_CONTACT_FORM
     };
 };
 
-export const editRow = (index) => {
-    return {
-        type: "EDIT_ROW",
-        index
-    };
-};
+// export const saveNewContact = (index) => {
+//     return {
+//         type: "SAVE_ROW",
+//         index
+//     };
+// };
 
-export const removeRow = (index) => {
-    return {
-        type: "REMOVE_ROW",
-        index
-    };
-};
+// export const editContact = (index) => {
+//     return {
+//         type: "EDIT_ROW",
+//         index
+//     };
+// };

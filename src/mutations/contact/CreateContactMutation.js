@@ -188,8 +188,12 @@ export default function CreateContactMutation(contact, form) {
                 if (contact.comment) {
                     CreateComentMutation(contact_id, contact.comment);
                 }
-                form.props.history.push("/community/contacts/" + contact_id);
-                form.props.notify(i18n.t("notify.contact-created-success"), "success");
+                if (form.props.shown_in_modal) {
+                    form.props.hideContactModal();
+                } else {
+                    form.props.history.push("/community/contacts/" + contact_id);
+                    form.props.notify(i18n.t("notify.contact-created-success"), "success");
+                }
             }
         },
         updater: (proxyStore, data) => {},

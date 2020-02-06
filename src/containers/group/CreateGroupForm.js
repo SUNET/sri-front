@@ -4,6 +4,7 @@ import { getContact } from "../../components/contact/Contact";
 
 import * as actions from "../../actions/Notify";
 import CreateGroupForm from "../../components/group/CreateGroupForm";
+import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("createGroup");
@@ -20,7 +21,8 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
+        showNewContactForm
     };
 };
 

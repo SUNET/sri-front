@@ -4,6 +4,7 @@ import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
 import uuidv4 from "uuid/v4";
 import * as actions from "../../actions/Notify";
 import { getContact } from "../../components/contact/Contact";
+import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("updateGroup");
@@ -65,7 +66,8 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
+        showNewContactForm
     };
 };
 

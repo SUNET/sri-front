@@ -19,7 +19,7 @@ class FieldArrayContactsOrganization extends React.Component {
     };
 
     addRow = (event) => {
-        console.log("add new contact");
+        this.props.handleAddContactRow();
     };
 
     removeRow = (index) => {

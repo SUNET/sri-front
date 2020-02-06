@@ -16,7 +16,8 @@ import FieldInput from "../FieldInput";
 import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 import Worklog from "../Worklog";
-import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
+import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+import BackCTA from "../common/BackCTA";
 
 import "../../style/ModelDetails.scss";
 
@@ -116,13 +117,7 @@ class OrganizationUpdateForm extends React.Component {
         const { editMode } = this.state;
         return (
             <div className="title-section">
-                <button
-                    type="button"
-                    onClick={() => this.props.history.push(`/community/contacts`)}
-                    className="btn btn-back outline"
-                >
-                    <span>{t("actions.back")}</span>
-                </button>
+                <BackCTA onClick={() => this.props.history.goBack()} />
                 <div className="vertical-separator"></div>
                 <EditField
                     error={this.props.formSyncErrors.name}
@@ -353,6 +348,9 @@ class OrganizationUpdateForm extends React.Component {
                         metaFields={this.props.fields}
                         rerenderOnEveryChange={true}
                         handleContactSearch={this.handleSelectedContact}
+                        handleAddContactRow={() => {
+                            this.props.dispatch(this.props.showNewContactForm());
+                        }}
                     />
                 </TogglePanel>
             </ToggleSection>

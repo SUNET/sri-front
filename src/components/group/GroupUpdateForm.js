@@ -9,10 +9,10 @@ import InfoCreatorModifier from "../InfoCreatorModifier";
 import FieldInput from "../FieldInput";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 
-import copy from "clipboard-copy";
 import Worklog from "../Worklog";
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
-import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
+import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+import BackCTA from "../common/BackCTA";
 
 import UpdateGroupMutation from "../../mutations/group/UpdateGroupMutation";
 
@@ -77,13 +77,7 @@ class GroupUpdateForm extends React.Component {
         const { t, name } = this.props;
         return (
             <div className="title-section">
-                <button
-                    type="button"
-                    onClick={() => this.props.history.push(`/community/groups`)}
-                    className="btn btn-back outline"
-                >
-                    <span>{t("actions.back")}</span>
-                </button>
+                <BackCTA onClick={() => this.props.history.goBack()} />
                 <div className="vertical-separator"></div>
                 <EditField
                     error={this.props.formSyncErrors.name}
@@ -160,6 +154,9 @@ class GroupUpdateForm extends React.Component {
                         errors={this.props.formSyncErrors.members}
                         metaFields={this.props.fields}
                         handleContactSearch={this.handleSelectedMember}
+                        handleAddContactRow={() => {
+                            this.props.dispatch(this.props.showNewContactForm());
+                        }}
                     />
                 </TogglePanel>
             </ToggleSection>

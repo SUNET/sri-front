@@ -4,14 +4,11 @@ import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
-
-import DropdownSearch from "../DropdownSearch";
 import CreateGroupMutation from "../../mutations/group/CreateGroupMutation";
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
-import Worklog from "../Worklog";
 
 class CreateGroupForm extends React.Component {
     constructor(props) {
@@ -128,6 +125,9 @@ class CreateGroupForm extends React.Component {
                         errors={this.props.formSyncErrors.members}
                         metaFields={this.props.fields}
                         handleContactSearch={this.handleSelectedMember}
+                        handleAddContactRow={() => {
+                            this.props.dispatch(this.props.showNewContactForm());
+                        }}
                     />
                 </TogglePanel>
             </ToggleSection>
