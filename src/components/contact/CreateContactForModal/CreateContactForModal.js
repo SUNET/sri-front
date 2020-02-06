@@ -7,8 +7,7 @@ import CreateContactForm from "../CreateContactForm";
 
 class CreateContactForModal extends React.Component {
     render() {
-        console.log(this.props);
-        return <CreateContactForm history={() => console.log("asasasas")}></CreateContactForm>;
+        return <CreateContactForm></CreateContactForm>;
     }
 }
 

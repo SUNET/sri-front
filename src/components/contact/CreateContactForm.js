@@ -14,6 +14,7 @@ import ContactEmails from "./ContactEmails";
 import SaveCancelCTAs from "../common/SaveCancelCTAs";
 import ValidationsContactForm from "./ValidationContactForm";
 import BackCTA from "../common/BackCTA";
+import { CREATE_CONTACT_FORM } from "../../utils/constants";
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
     const isPresentState = !editable && data.presentContent;
@@ -200,6 +201,21 @@ class CreateContactForm extends React.Component {
         );
     }
 
+    renderSaveCancelButtons() {
+        return (
+            <SaveCancelCTAs
+                formId={CREATE_CONTACT_FORM}
+                onCancel={() => {
+                    if (this.props.shown_in_modal) {
+                        this.props.hideContactModal();
+                    } else {
+                        this.props.history.goBack();
+                    }
+                }}
+            />
+        );
+    }
+
     renderProfesionalDetails() {
         const { t } = this.props;
         const editionMode = true;
@@ -225,7 +241,7 @@ class CreateContactForm extends React.Component {
     render() {
         const { t, handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit(this.handleSubmit)}>
+            <form id={CREATE_CONTACT_FORM} onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="model-details create-contact-form">
                     <Form.Row>
                         <Col>{this.renderHeaderName()}</Col>
@@ -258,15 +274,7 @@ class CreateContactForm extends React.Component {
                         </ToggleSection>
                     </section>
                 </div>
-                <SaveCancelCTAs
-                    onCancel={() => {
-                        if (this.props.shown_in_modal) {
-                            this.props.hideContactModal();
-                        } else {
-                            this.props.history.goBack();
-                        }
-                    }}
-                />
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }

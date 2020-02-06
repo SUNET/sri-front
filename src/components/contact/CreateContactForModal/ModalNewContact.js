@@ -5,6 +5,8 @@ import SaveCancelCTAs from "../../common/SaveCancelCTAs";
 import { Modal } from "react-bootstrap";
 import CreateContactFormContainer from "../../../containers/contact/CreateContactForm";
 
+import { CREATE_CONTACT_FORM } from "../../../utils/constants";
+
 import "../../../style/ModalNewContact.scss";
 
 class ModalNewContact extends React.Component {
@@ -26,7 +28,7 @@ class ModalNewContact extends React.Component {
                                 {t("contact-details.add-new-contact")}
                             </div>
                             <div className="new-contact-modal-form__header__buttons">
-                                <SaveCancelCTAs onCancel={() => this.handleClose()} />
+                                <SaveCancelCTAs formId={CREATE_CONTACT_FORM} onCancel={() => this.handleClose()} />
                             </div>
                         </Modal.Title>
                     </Modal.Header>

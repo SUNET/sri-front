@@ -5,7 +5,6 @@ import ModalNewContact from "../components/contact/CreateContactForModal/ModalNe
 import { hideNewContactForm } from "../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
-    console.log(state);
     return {
         // is_fetching: state.app.is_fetching,
         // is_app_loaded: state.app.is_app_loaded,

@@ -18,6 +18,7 @@ class SaveCancelCTAs extends React.Component {
                     {t("actions.cancel")}
                 </button>
                 <button
+                    form={this.props.formId}
                     className="btn primary lg"
                     type="submit"
                 >
