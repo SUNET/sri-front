@@ -13,12 +13,12 @@ const mapStateToProps = (state, props) => {
     const parent_node =
         organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
-        relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
+        relationship_parent_of: parent_node ? parent_node.relation.start.id : "",
         organization_parent_id: organization.parent_organization[0]
             ? organization.parent_organization[0].organization_id
             : "",
         relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",
-        handle_id: organization.handle_id,
+        id: organization.id,
         name: organization.name,
         type: organization.type,
         website: organization.website,
@@ -43,14 +43,14 @@ const mapStateToProps = (state, props) => {
         contacts: organization.contacts
             ? organization.contacts.map((contact) => {
                   const contact_relation_id_obj = contact.roles.find((relation_node) => {
-                      return relation_node.end.handle_id === organization.handle_id;
+                      return relation_node.end.id === organization.id;
                   });
                   const contact_node = contact;
                   return {
-                      handle_id: contact_node.handle_id,
+                      id: contact_node.id,
                       name: contact_node.first_name + " " + contact_node.last_name,
                       contact_type: contact_node.contact_type,
-                      role: contact_relation_id_obj ? contact_relation_id_obj.role_data.handle_id : "",
+                      role: contact_relation_id_obj ? contact_relation_id_obj.role_data.id : "",
                       role_label: contact_relation_id_obj ? contact_relation_id_obj.role_data.name : "",
                       role_obj: contact_relation_id_obj,
                       role_relation_id: contact_relation_id_obj ? contact_relation_id_obj.relation_id : "",
@@ -77,7 +77,7 @@ const mapStateToProps = (state, props) => {
         addresses: organization.addresses
             ? organization.addresses.map((address) => {
                   return {
-                      handle_id: address.handle_id,
+                      id: address.id,
                       name: address.name,
                       street: address.street,
                       postal_code: address.postal_code,
@@ -130,7 +130,7 @@ const mapStateToProps = (state, props) => {
             provider: updateOrganizationSelector(state, "affiliation_provider"),
             site_owner: updateOrganizationSelector(state, "affiliation_site_owner")
         },
-        getContact: (handle_id) => getContact(handle_id)
+        getContact: (id) => getContact(id)
     };
 };
 

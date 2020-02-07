@@ -12,7 +12,7 @@ import type { FragmentReference } from "relay-runtime";
 declare export opaque type OrganizationUpdateForm_organization$ref: FragmentReference;
 declare export opaque type OrganizationUpdateForm_organization$fragmentType: OrganizationUpdateForm_organization$ref;
 export type OrganizationUpdateForm_organization = {|
-  +handle_id: string,
+  +id: string,
   +name: string,
   +type: ?any,
   +website: ?string,
@@ -24,7 +24,7 @@ export type OrganizationUpdateForm_organization = {|
     +organization_id: ?string
   |}>,
   +addresses: ?$ReadOnlyArray<?{|
-    +handle_id: string,
+    +id: string,
     +name: string,
     +street: ?string,
     +postal_code: ?string,
@@ -37,38 +37,38 @@ export type OrganizationUpdateForm_organization = {|
       +relation_id: number,
       +type: string,
       +end: {|
-        +handle_id: string,
+        +id: string,
         +node_name: string,
       |},
       +start: {|
-        +handle_id: string,
+        +id: string,
         +node_name: string,
       |},
     |},
   |}>,
   +contacts: ?$ReadOnlyArray<?{|
-    +handle_id: string,
+    +id: string,
     +first_name: string,
     +last_name: string,
     +contact_type: ?any,
     +emails: ?$ReadOnlyArray<?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |}>,
     +phones: ?$ReadOnlyArray<?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |}>,
     +roles: ?$ReadOnlyArray<?{|
       +relation_id: number,
       +role_data: ?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
       |},
       +end: ?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
       |},
     |}>,
@@ -104,7 +104,7 @@ const node/*: ReaderFragment*/ = (function(){
 var v0 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -397,13 +397,7 @@ return {
       "concreteType": "CommentType",
       "plural": true,
       "selections": [
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "name": "id",
-          "args": null,
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "kind": "LinkedField",
           "alias": null,
@@ -471,5 +465,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '94e9f94eacc069369a540360cf226dff';
+(node/*: any*/).hash = '15377c1f27471e304bf285ce71b2d48d';
 module.exports = node;

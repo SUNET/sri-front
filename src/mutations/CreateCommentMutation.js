@@ -7,7 +7,7 @@ const mutation = graphql`
     mutation CreateCommentMutation($input: CreateCommentInput!) {
         create_comment(input: $input) {
             comment {
-                object_pk
+                object_id
                 comment
                 user {
                     first_name
@@ -21,10 +21,10 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function CreateCommentMutation(object_pk, comment) {
+function CreateCommentMutation(object_id, comment) {
     const variables = {
         input: {
-            object_pk,
+            object_id,
             comment,
             clientMutationId: tempID++
         }

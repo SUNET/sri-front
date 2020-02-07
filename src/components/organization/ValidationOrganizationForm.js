@@ -102,7 +102,7 @@ export default class ValidationsOrganizationForm {
 
     static asyncValidate_organization_id = (values, dispatch) => {
         if (values.organization_id) {
-            return checkOrganization(values.organization_id, values.handle_id).then((exists) => {
+            return checkOrganization(values.organization_id, values.id).then((exists) => {
                 if (exists) {
                     // this absurdity, is by the error of non-throw-literal
                     const error = { organization_id: "Already exist!" };

@@ -29,7 +29,7 @@ const mapStateToProps = (state, props) => {
             provider: createOrganizationSelector(state, "affiliation_provider"),
             site_owner: createOrganizationSelector(state, "affiliation_site_owner")
         },
-        getContact: (handle_id) => getContact(handle_id)
+        getContact: (id) => getContact(id)
     };
 };
 

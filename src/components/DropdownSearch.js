@@ -21,7 +21,6 @@ const DropdownSearchAllContactsQuery = graphql`
         contacts(filter: $filter) {
             edges {
                 node {
-                    handle_id
                     id
                     name
                 }
@@ -33,9 +32,9 @@ class DropdownSearch extends React.Component {
     constructor(props) {
         super(props);
         const { t } = this.props;
-        this.LOADING_VALUE = [{ handle_id: "", name: t("actions.loading") }];
+        this.LOADING_VALUE = [{ id: "", name: t("actions.loading") }];
 
-        this.NO_MATCHES_RESULT = [{ handle_id: "", name: t("search-filter.no-matches") }];
+        this.NO_MATCHES_RESULT = [{ id: "", name: t("search-filter.no-matches") }];
 
         this.state = {
             filterValue: "",
@@ -103,7 +102,7 @@ class DropdownSearch extends React.Component {
                                     {isOpen
                                         ? this.state.allItems.map((item, index) => (
                                               <Item
-                                                  key={item.handle_id}
+                                                  key={item.id}
                                                   {...getItemProps({
                                                       item,
                                                       index,

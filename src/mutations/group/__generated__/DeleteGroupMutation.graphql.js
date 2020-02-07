@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a88916c213095f9120285ffe34f5ee8d
+ * @relayHash a6846abfee2f8784c9ee1d291eff12b8
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type DeleteGroupInput = {|
-  handle_id: number,
+  id: string,
   clientMutationId?: ?string,
 |};
 export type DeleteGroupMutationVariables = {|

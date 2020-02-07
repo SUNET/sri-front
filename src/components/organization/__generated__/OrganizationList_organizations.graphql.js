@@ -16,7 +16,7 @@ export type OrganizationList_organizations = {|
   +organizations: ?{|
     +edges: $ReadOnlyArray<?{|
       +node: ?{|
-        +handle_id: string,
+        +id: string,
         +$fragmentRefs: OrganizationRow_organization$ref,
       |}
     |}>,
@@ -108,7 +108,7 @@ const node/*: ReaderFragment*/ = {
                 {
                   "kind": "ScalarField",
                   "alias": null,
-                  "name": "handle_id",
+                  "name": "id",
                   "args": null,
                   "storageKey": null
                 },
@@ -165,5 +165,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = 'e6b4fda6987cea679e1c09a982e772d3';
+(node/*: any*/).hash = '5b541f8f7059cd284e7cf4bad229e362';
 module.exports = node;

@@ -39,7 +39,7 @@ class GroupRow extends React.PureComponent {
 const GroupRowFragment = createFragmentContainer(GroupRow, {
     group: graphql`
         fragment GroupRow_group on Group {
-            handle_id
+            id
             name
             description
         }

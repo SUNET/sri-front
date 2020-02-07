@@ -16,7 +16,7 @@ export type ContactList_contacts = {|
   +contacts: ?{|
     +edges: $ReadOnlyArray<?{|
       +node: ?{|
-        +handle_id: string,
+        +id: string,
         +$fragmentRefs: ContactRow_contact$ref,
       |}
     |}>,
@@ -110,7 +110,7 @@ const node/*: ReaderFragment*/ = {
                 {
                   "kind": "ScalarField",
                   "alias": null,
-                  "name": "handle_id",
+                  "name": "id",
                   "args": null,
                   "storageKey": null
                 },
@@ -181,5 +181,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '17d4e25e576ba60485a80f9049d052a0';
+(node/*: any*/).hash = '352ad46952ef5690883b6c0e7cd25fc4';
 module.exports = node;

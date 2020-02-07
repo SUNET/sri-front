@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9eb7fd12ddf22094eef77034106ea7cd
+ * @relayHash 0e3267bba74d52540b89f2f7ac5cf44d
  */
 
 /* eslint-disable */
@@ -20,14 +20,14 @@ export type UpdateContactInput = {|
   relationship_works_for?: ?any,
   relationship_member_of?: ?any,
   role?: ?any,
-  email_handle_id?: ?number,
+  email_id?: ?string,
   email?: ?string,
   email_type?: ?any,
-  phone_handle_id?: ?number,
+  phone_id?: ?string,
   phone?: ?string,
   phone_type?: ?any,
-  role_handle_id?: ?number,
-  handle_id: number,
+  role_id?: ?string,
+  id: string,
   clientMutationId?: ?string,
 |};
 export type UpdateContactInlineMutationVariables = {|
@@ -40,28 +40,28 @@ export type UpdateContactInlineMutationResponse = {|
       +messages: $ReadOnlyArray<string>,
     |}>,
     +contact: ?{|
-      +handle_id: string,
+      +id: string,
       +first_name: string,
       +last_name: string,
       +contact_type: ?any,
       +emails: ?$ReadOnlyArray<?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
         +type: any,
       |}>,
       +phones: ?$ReadOnlyArray<?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
         +type: any,
       |}>,
       +roles: ?$ReadOnlyArray<?{|
         +relation_id: number,
         +role_data: ?{|
-          +handle_id: string,
+          +id: string,
           +name: string,
         |},
         +end: ?{|
-          +handle_id: string,
+          +id: string,
           +name: string,
           +organization_id: ?string,
         |},
@@ -89,40 +89,36 @@ mutation UpdateContactInlineMutation(
       messages
     }
     contact {
-      handle_id
+      id
       first_name
       last_name
       contact_type
       emails {
-        handle_id
+        id
         name
         type
-        id
       }
       phones {
-        handle_id
+        id
         name
         type
-        id
       }
       roles {
         relation_id
         role_data {
-          handle_id
+          id
           name
         }
         end {
-          handle_id
+          id
           name
           organization_id
-          id
         }
       }
       member_of_groups {
         name
         id
       }
-      id
     }
   }
 }
@@ -172,7 +168,7 @@ v2 = {
 v3 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -204,58 +200,88 @@ v7 = {
   "args": null,
   "storageKey": null
 },
-v8 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-},
-v9 = [
+v8 = [
   (v3/*: any*/),
   (v7/*: any*/),
-  (v8/*: any*/)
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "type",
+    "args": null,
+    "storageKey": null
+  }
 ],
-v10 = {
-  "kind": "ScalarField",
+v9 = {
+  "kind": "LinkedField",
   "alias": null,
-  "name": "relation_id",
+  "name": "emails",
+  "storageKey": null,
   "args": null,
-  "storageKey": null
+  "concreteType": "Email",
+  "plural": true,
+  "selections": (v8/*: any*/)
+},
+v10 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "phones",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Phone",
+  "plural": true,
+  "selections": (v8/*: any*/)
 },
 v11 = {
   "kind": "LinkedField",
   "alias": null,
-  "name": "role_data",
+  "name": "roles",
   "storageKey": null,
   "args": null,
-  "concreteType": "Role",
-  "plural": false,
+  "concreteType": "RoleRelation",
+  "plural": true,
   "selections": [
-    (v3/*: any*/),
-    (v7/*: any*/)
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "relation_id",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "role_data",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Role",
+      "plural": false,
+      "selections": [
+        (v3/*: any*/),
+        (v7/*: any*/)
+      ]
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "end",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Organization",
+      "plural": false,
+      "selections": [
+        (v3/*: any*/),
+        (v7/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "organization_id",
+          "args": null,
+          "storageKey": null
+        }
+      ]
+    }
   ]
-},
-v12 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "organization_id",
-  "args": null,
-  "storageKey": null
-},
-v13 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "id",
-  "args": null,
-  "storageKey": null
-},
-v14 = [
-  (v3/*: any*/),
-  (v7/*: any*/),
-  (v8/*: any*/),
-  (v13/*: any*/)
-];
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -288,53 +314,9 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "emails",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Email",
-                "plural": true,
-                "selections": (v9/*: any*/)
-              },
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "phones",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Phone",
-                "plural": true,
-                "selections": (v9/*: any*/)
-              },
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "roles",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "RoleRelation",
-                "plural": true,
-                "selections": [
-                  (v10/*: any*/),
-                  (v11/*: any*/),
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "end",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "Organization",
-                    "plural": false,
-                    "selections": [
-                      (v3/*: any*/),
-                      (v7/*: any*/),
-                      (v12/*: any*/)
-                    ]
-                  }
-                ]
-              },
+              (v9/*: any*/),
+              (v10/*: any*/),
+              (v11/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -381,54 +363,9 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "emails",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Email",
-                "plural": true,
-                "selections": (v14/*: any*/)
-              },
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "phones",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Phone",
-                "plural": true,
-                "selections": (v14/*: any*/)
-              },
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "roles",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "RoleRelation",
-                "plural": true,
-                "selections": [
-                  (v10/*: any*/),
-                  (v11/*: any*/),
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "end",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "Organization",
-                    "plural": false,
-                    "selections": [
-                      (v3/*: any*/),
-                      (v7/*: any*/),
-                      (v12/*: any*/),
-                      (v13/*: any*/)
-                    ]
-                  }
-                ]
-              },
+              (v9/*: any*/),
+              (v10/*: any*/),
+              (v11/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -439,10 +376,9 @@ return {
                 "plural": true,
                 "selections": [
                   (v7/*: any*/),
-                  (v13/*: any*/)
+                  (v3/*: any*/)
                 ]
-              },
-              (v13/*: any*/)
+              }
             ]
           }
         ]
@@ -453,11 +389,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactInlineMutation",
     "id": null,
-    "text": "mutation UpdateContactInlineMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      handle_id\n      first_name\n      last_name\n      contact_type\n      emails {\n        handle_id\n        name\n        type\n        id\n      }\n      phones {\n        handle_id\n        name\n        type\n        id\n      }\n      roles {\n        relation_id\n        role_data {\n          handle_id\n          name\n        }\n        end {\n          handle_id\n          name\n          organization_id\n          id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactInlineMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      id\n      first_name\n      last_name\n      contact_type\n      emails {\n        id\n        name\n        type\n      }\n      phones {\n        id\n        name\n        type\n      }\n      roles {\n        relation_id\n        role_data {\n          id\n          name\n        }\n        end {\n          id\n          name\n          organization_id\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4a2d112c3e497657e73d490556859b0c';
+(node/*: any*/).hash = 'ca25c764e2bafeb04337b473571b1923';
 module.exports = node;

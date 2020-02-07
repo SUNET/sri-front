@@ -11,10 +11,10 @@ const mutation = graphql`
     }
 `;
 
-export default function DeletePhoneMutation(handle_id, callback) {
+export default function DeletePhoneMutation(id, callback) {
     const variables = {
         input: {
-            handle_id: handle_id,
+            id: id,
             clientMutationId: ""
         }
     };
@@ -29,7 +29,7 @@ export default function DeletePhoneMutation(handle_id, callback) {
             {
                 parentName: ROOT_ID,
                 parentID: ROOT_ID,
-                deletedIDFieldName: "handle_id"
+                deletedIDFieldName: "id"
             }
         ]
     });

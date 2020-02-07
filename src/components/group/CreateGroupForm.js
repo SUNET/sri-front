@@ -21,19 +21,19 @@ class CreateGroupForm extends React.Component {
 
     _hasBeenAdded = (newMember) => {
         if (this.props.memberValues) {
-            return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);
+            return this.props.memberValues.some((member) => member.id === newMember.id);
         }
         return false;
     };
 
     handleSelectedMember = (selection) => {
         if (selection !== null) {
-            this.props.getContact(selection.handle_id).then((member) => {
+            this.props.getContact(selection.id).then((member) => {
                 const newMember = {
                     name: member.name,
                     first_name: member.first_name,
                     last_name: member.last_name,
-                    handle_id: member.handle_id,
+                    id: member.id,
                     contact_type: member.contact_type,
                     organization: member.roles,
                     organization_obj: member.roles.length ? member.roles.map((elem) => elem.end) : [],

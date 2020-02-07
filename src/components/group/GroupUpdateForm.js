@@ -24,7 +24,7 @@ class GroupUpdateForm extends React.Component {
     };
     refetch = () => {
         this.props.relay.refetch(
-            { groupId: this.props.group.handle_id }, // Our refetchQuery needs to know the `groupID`
+            { groupId: this.props.group.id }, // Our refetchQuery needs to know the `groupID`
             null, // We can use the refetchVariables as renderVariables
             () => {
                 console.log("Refetch done");
@@ -35,19 +35,19 @@ class GroupUpdateForm extends React.Component {
 
     _hasBeenAdded = (newMember) => {
         if (this.props.memberValues) {
-            return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);
+            return this.props.memberValues.some((member) => member.id === newMember.id);
         }
         return false;
     };
 
     handleSelectedMember = (selection) => {
         if (selection !== null) {
-            this.props.getContact(selection.handle_id).then((member) => {
+            this.props.getContact(selection.id).then((member) => {
                 const newMember = {
                     name: member.name,
                     first_name: member.first_name,
                     last_name: member.last_name,
-                    handle_id: member.handle_id,
+                    id: member.id,
                     contact_type: member.contact_type,
                     organization: member.roles,
                     organization_obj: member.roles.length ? member.roles.map((elem) => elem.end) : [],
@@ -255,31 +255,31 @@ const GroupUpdateFragment = createRefetchContainer(
     {
         group: graphql`
             fragment GroupUpdateForm_group on Group {
-                handle_id
+                id
                 name
                 description
                 contacts {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                         }
                     }
@@ -289,7 +289,7 @@ const GroupUpdateFragment = createRefetchContainer(
                             relation_id
                             type
                             end {
-                                handle_id
+                                id
                                 node_name
                             }
                         }
@@ -319,8 +319,8 @@ const GroupUpdateFragment = createRefetchContainer(
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-        query GroupUpdateFormRefetchQuery($groupId: Int!) {
-            getGroupById(handle_id: $groupId) {
+        query GroupUpdateFormRefetchQuery($groupId: ID!) {
+            getGroupById(id: $groupId) {
                 ...GroupUpdateForm_group
             }
         }

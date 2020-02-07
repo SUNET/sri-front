@@ -49,6 +49,11 @@ class OrganizationUpdateForm extends React.Component {
         onChange: PropTypes.func
     };
 
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
+        console.log(nextProps, nextState);
+        
+    }
+
     componentDidMount() {
         //register vitual field for affiliation for checked if it has errors (improve in backend)
         this.props.registerFieldAffiliation();
@@ -56,7 +61,7 @@ class OrganizationUpdateForm extends React.Component {
 
     refetch = () => {
         this.props.relay.refetch(
-            { organizationId: this.props.organization.handle_id }, // Our refetchQuery needs to know the `organizationID`
+            { organizationId: this.props.organization.id }, // Our refetchQuery needs to know the `organizationID`
             null, // We can use the refetchVariables as renderVariables
             () => {
                 console.log("Refetch done");
@@ -67,21 +72,21 @@ class OrganizationUpdateForm extends React.Component {
 
     _hasBeenAdded = (newContact) => {
         if (this.props.contactsValues) {
-            return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+            return this.props.contactsValues.some((contact) => contact.id === newContact.id);
         }
         return false;
     };
 
     handleSelectedContact = (selection) => {
         if (selection !== null) {
-            this.props.getContact(selection.handle_id).then((contact) => {
+            this.props.getContact(selection.id).then((contact) => {
                 const newContact = {
                     name: contact.name,
                     first_name: contact.first_name,
                     last_name: contact.last_name,
-                    handle_id: contact.handle_id,
+                    id: contact.id,
                     contact_type: contact.contact_type,
-                    role: contact.roles[0] ? contact.roles[0].role_data.handle_id : "",
+                    role: contact.roles[0] ? contact.roles[0].role_data.id : "",
                     role_obj: contact.roles[0],
                     role_label: contact.roles[0] ? contact.roles[0].role_data.name : "",
                     email: contact.emails,
@@ -109,6 +114,8 @@ class OrganizationUpdateForm extends React.Component {
 
     handleSubmit = (organization) => {
         this.setState({ editMode: !this.state.editMode });
+        console.log(organization);
+        
         UpdateOrganizationMutation(organization, this);
     };
 
@@ -389,7 +396,7 @@ class OrganizationUpdateForm extends React.Component {
                 <button type="button" className="btn link" onClick={this.props.onDelete}>
                     {t("actions.delete")}
                 </button>
-                <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
+                <button type="submit" className="btn primary lg" disabled={pristine || submitting} onClick={() => console.log('holi?')}>
                     {t("actions.save")}
                 </button>
             </div>
@@ -397,8 +404,7 @@ class OrganizationUpdateForm extends React.Component {
     }
 
     render() {
-        const { organization, t, handleSubmit } = this.props;
-        console.log(organization);
+        const { organization, handleSubmit } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
@@ -458,7 +464,7 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
     {
         organization: graphql`
             fragment OrganizationUpdateForm_organization on Organization {
-                handle_id
+                id
                 name
                 type
                 website
@@ -470,7 +476,7 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                     organization_id
                 }
                 addresses {
-                    handle_id
+                    id
                     name
                     street
                     postal_code
@@ -483,38 +489,38 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                         relation_id
                         type
                         end {
-                            handle_id
+                            id
                             node_name
                         }
                         start {
-                            handle_id
+                            id
                             node_name
                         }
                     }
                 }
                 contacts {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         relation_id
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                         }
                     }
@@ -542,8 +548,8 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-        query OrganizationUpdateFormRefetchQuery($organizationId: Int!) {
-            getOrganizationById(handle_id: $organizationId) {
+        query OrganizationUpdateFormRefetchQuery($organizationId: ID!) {
+            getOrganizationById(id: $organizationId) {
                 ...OrganizationUpdateForm_organization
             }
         }

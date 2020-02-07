@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 46dcf3dbe2508106369aa35829566062
+ * @relayHash bdc258e4c8866ebfd101fa43221000ac
  */
 
 /* eslint-disable */
@@ -196,14 +196,14 @@ export type ContactNestedFilter = {|
   notes_not_ends_with?: ?string,
   notes_in?: ?$ReadOnlyArray<string>,
   notes_not_in?: ?$ReadOnlyArray<string>,
-  handle_id?: ?number,
-  handle_id_not?: ?number,
-  handle_id_lt?: ?number,
-  handle_id_lte?: ?number,
-  handle_id_gt?: ?number,
-  handle_id_gte?: ?number,
-  handle_id_in?: ?$ReadOnlyArray<number>,
-  handle_id_not_in?: ?$ReadOnlyArray<number>,
+  id?: ?string,
+  id_not?: ?string,
+  id_lt?: ?string,
+  id_lte?: ?string,
+  id_gt?: ?string,
+  id_gte?: ?string,
+  id_in?: ?$ReadOnlyArray<string>,
+  id_not_in?: ?$ReadOnlyArray<string>,
   created?: ?any,
   created_not?: ?any,
   created_lt?: ?any,
@@ -252,7 +252,7 @@ export type ContactNestedFilter = {|
 export type PhoneInputField = {|
   name?: ?string,
   type?: ?any,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -264,7 +264,7 @@ export type UserInputType = {|
 export type EmailInputField = {|
   name?: ?string,
   type?: ?any,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -273,7 +273,7 @@ export type EmailInputField = {|
 export type GroupInputField = {|
   name?: ?string,
   description?: ?string,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -298,7 +298,7 @@ export type OrganizationInputField = {|
   affiliation_partner?: ?boolean,
   affiliation_host_user?: ?boolean,
   affiliation_site_owner?: ?boolean,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -310,7 +310,7 @@ export type AddressInputField = {|
   street?: ?string,
   postal_code?: ?string,
   postal_area?: ?string,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -323,7 +323,6 @@ export type DropdownSearchAllContactsQueryResponse = {|
   +contacts: ?{|
     +edges: $ReadOnlyArray<?{|
       +node: ?{|
-        +handle_id: string,
         +id: string,
         +name: string,
       |}
@@ -344,7 +343,6 @@ query DropdownSearchAllContactsQuery(
   contacts(filter: $filter) {
     edges {
       node {
-        handle_id
         id
         name
       }
@@ -399,13 +397,6 @@ v1 = [
               {
                 "kind": "ScalarField",
                 "alias": null,
-                "name": "handle_id",
-                "args": null,
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
                 "name": "id",
                 "args": null,
                 "storageKey": null
@@ -444,11 +435,11 @@ return {
     "operationKind": "query",
     "name": "DropdownSearchAllContactsQuery",
     "id": null,
-    "text": "query DropdownSearchAllContactsQuery(\n  $filter: ContactFilter\n) {\n  contacts(filter: $filter) {\n    edges {\n      node {\n        handle_id\n        id\n        name\n      }\n    }\n  }\n}\n",
+    "text": "query DropdownSearchAllContactsQuery(\n  $filter: ContactFilter\n) {\n  contacts(filter: $filter) {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4752a2992b696e79bb64936b8d222f26';
+(node/*: any*/).hash = '53ecd6b3b663fb3187bfa0a6bf57ecef';
 module.exports = node;

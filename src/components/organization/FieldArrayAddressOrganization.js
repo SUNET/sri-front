@@ -75,8 +75,12 @@ class FieldArrayAddressOrganization extends React.Component {
     };
 
     removeRow = (index) => {
+        console.log(index);
+        
         const { fields } = this.props;
         const values = fields.getAll();
+        console.log(values);
+        
         if (values[index].origin === "store") {
             this.props.dispatch(change("updateOrganization", `addresses[${index}].status`, "remove"));
         } else {

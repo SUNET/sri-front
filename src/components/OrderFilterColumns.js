@@ -124,7 +124,7 @@ class OrderFilterColumns extends React.Component {
                                 }
                                 return (
                                     <FieldSwitch
-                                        key={column.value || column.handle_id}
+                                        key={column.value || column.id}
                                         type="toggle-icon"
                                         icon="check"
                                         color="p-success-o"

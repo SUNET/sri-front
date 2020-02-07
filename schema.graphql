@@ -1,3 +1,6 @@
+# source: http://ni.localenv.loc/graphql/
+# timestamp: Fri Feb 07 2020 14:00:00 GMT+0100 (GMT+01:00)
+
 """Phone entity to be used inside contact"""
 type Address implements Node {
   handle_id: ID!
@@ -43,7 +46,7 @@ input AddressInputField {
   street: String
   postal_code: String
   postal_area: String
-  handle_id: Int
+  id: ID
   created: DateTime
   modified: DateTime
   creator: UserInputType
@@ -121,14 +124,14 @@ input AddressNestedFilter {
   postal_area_not_ends_with: String
   postal_area_in: [String!]
   postal_area_not_in: [String!]
-  handle_id: Int
-  handle_id_not: Int
-  handle_id_lt: Int
-  handle_id_lte: Int
-  handle_id_gt: Int
-  handle_id_gte: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
   created: DateTime
   created_not: DateTime
   created_lt: DateTime
@@ -187,6 +190,10 @@ enum AddressOrderBy {
   postal_code_DESC
   postal_area_ASC
   postal_area_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
   handle_id_ASC
   handle_id_DESC
 }
@@ -206,9 +213,9 @@ scalar ChoiceScalar
 This type represents a comment in the API, it uses the comments model just
 like the rest of noclook
 """
-type CommentType {
+type CommentType implements Node {
+  """The ID of the object."""
   id: ID!
-  object_pk: String!
   user: User
   user_name: String!
   user_email: String!
@@ -226,6 +233,7 @@ type CommentType {
   Check this box if the comment is inappropriate. A "This comment has been removed" message will be displayed instead.
   """
   is_removed: Boolean!
+  object_id: ID!
 }
 
 input CompositeContactMutationInput {
@@ -325,11 +333,14 @@ type Contact implements Node {
   salutation: String
   contact_type: ChoiceScalar
   phones: [Phone]
+  phones_relations: [IDRelation]
   emails: [Email]
+  emails_relations: [IDRelation]
   pgp_fingerprint: String
   member_of_groups: [Group]
   roles: [RoleRelation]
   organizations: [Organization]
+  organizations_relations: [IDRelation]
   notes: String
 }
 
@@ -538,14 +549,14 @@ input ContactNestedFilter {
   notes_not_ends_with: String
   notes_in: [String!]
   notes_not_in: [String!]
-  handle_id: Int
-  handle_id_not: Int
-  handle_id_lt: Int
-  handle_id_lte: Int
-  handle_id_gt: Int
-  handle_id_gte: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
   created: DateTime
   created_not: DateTime
   created_lt: DateTime
@@ -604,6 +615,8 @@ enum ContactOrderBy {
   title_DESC
   salutation_ASC
   salutation_DESC
+  contact_type_ASC
+  contact_type_DESC
   phones_ASC
   phones_DESC
   emails_ASC
@@ -618,19 +631,12 @@ enum ContactOrderBy {
   organizations_DESC
   notes_ASC
   notes_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
   handle_id_ASC
   handle_id_DESC
-}
-
-type ContactWithRelation {
-  contact: Contact
-  relation_id: Int
-}
-
-type ContactWithRolename {
-  contact: Contact
-  role: Role
-  relation_id: Int
 }
 
 input CreateAddressInput {
@@ -650,7 +656,7 @@ type CreateAddressPayload {
 }
 
 input CreateCommentInput {
-  object_pk: Int!
+  object_id: ID!
   comment: String!
   clientMutationId: String
 }
@@ -671,13 +677,13 @@ input CreateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
-  email_handle_id: Int
+  email_id: String
   email: String
   email_type: ChoiceScalar
-  phone_handle_id: Int
+  phone_id: String
   phone: String
   phone_type: ChoiceScalar
-  role_handle_id: Int
+  role_id: String
   clientMutationId: String
 }
 
@@ -801,7 +807,7 @@ value as specified by
 scalar DateTime
 
 input DeleteAddressInput {
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -812,18 +818,18 @@ type DeleteAddressPayload {
 }
 
 input DeleteCommentInput {
-  id: Int!
+  id: ID!
   clientMutationId: String
 }
 
 type DeleteCommentPayload {
   success: Boolean!
-  id: Int!
+  id: ID!
   clientMutationId: String
 }
 
 input DeleteContactInput {
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -834,7 +840,7 @@ type DeleteContactPayload {
 }
 
 input DeleteEmailInput {
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -845,7 +851,7 @@ type DeleteEmailPayload {
 }
 
 input DeleteGroupInput {
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -856,7 +862,7 @@ type DeleteGroupPayload {
 }
 
 input DeleteOrganizationInput {
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -867,7 +873,7 @@ type DeleteOrganizationPayload {
 }
 
 input DeletePhoneInput {
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -878,7 +884,7 @@ type DeletePhonePayload {
 }
 
 input DeleteProcedureInput {
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -900,13 +906,13 @@ type DeleteRelationshipPayload {
 }
 
 input DeleteRoleInput {
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
 type DeleteRolePayload {
   success: Boolean!
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -973,7 +979,7 @@ input EmailFilter {
 input EmailInputField {
   name: String
   type: ChoiceScalar
-  handle_id: Int
+  id: ID
   created: DateTime
   modified: DateTime
   creator: UserInputType
@@ -1009,14 +1015,14 @@ input EmailNestedFilter {
   type_not_ends_with: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
-  handle_id: Int
-  handle_id_not: Int
-  handle_id_lt: Int
-  handle_id_lte: Int
-  handle_id_gt: Int
-  handle_id_gte: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
   created: DateTime
   created_not: DateTime
   created_lt: DateTime
@@ -1067,6 +1073,12 @@ input EmailNestedFilter {
 enum EmailOrderBy {
   name_ASC
   name_DESC
+  type_ASC
+  type_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
   handle_id_ASC
   handle_id_DESC
 }
@@ -1102,6 +1114,7 @@ type Group implements Node {
   name: String!
   description: String
   contacts: [Contact]
+  contact_relations: [IDRelation]
 }
 
 type GroupConnection {
@@ -1129,7 +1142,7 @@ input GroupFilter {
 input GroupInputField {
   name: String
   description: String
-  handle_id: Int
+  id: ID
   created: DateTime
   modified: DateTime
   creator: UserInputType
@@ -1165,14 +1178,14 @@ input GroupNestedFilter {
   description_not_ends_with: String
   description_in: [String!]
   description_not_in: [String!]
-  handle_id: Int
-  handle_id_not: Int
-  handle_id_lt: Int
-  handle_id_lte: Int
-  handle_id_gt: Int
-  handle_id_gte: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
   created: DateTime
   created_not: DateTime
   created_lt: DateTime
@@ -1225,6 +1238,10 @@ enum GroupOrderBy {
   name_DESC
   description_ASC
   description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
   handle_id_ASC
   handle_id_DESC
 }
@@ -1260,76 +1277,17 @@ type Host implements Node {
   security_comment: String
 }
 
+type IDRelation {
+  entity_id: ID
+  relation_id: Int
+}
+
 """IPAddr scalar to be matched with the IPAddrField in a django form"""
 scalar IPAddr
 
 interface KeyValue {
   name: String!
   value: String!
-}
-
-input MultipleContactInput {
-  create_inputs: [SingleCreateContactInput]
-  update_inputs: [SingleUpdateContactInput]
-  delete_inputs: [SingleDeleteContactInput]
-  detach_inputs: [DeleteRelationshipInput]
-  clientMutationId: String
-}
-
-type MultipleContactPayload {
-  created: [CreateContactPayload]
-  updated: [UpdateContactPayload]
-  deleted: [DeleteContactPayload]
-  detached: [DeleteRelationshipPayload]
-  clientMutationId: String
-}
-
-input MultipleEmailInput {
-  create_inputs: [SingleCreateEmailInput]
-  update_inputs: [SingleUpdateEmailInput]
-  delete_inputs: [SingleDeleteEmailInput]
-  detach_inputs: [DeleteRelationshipInput]
-  clientMutationId: String
-}
-
-type MultipleEmailPayload {
-  created: [CreateEmailPayload]
-  updated: [UpdateEmailPayload]
-  deleted: [DeleteEmailPayload]
-  detached: [DeleteRelationshipPayload]
-  clientMutationId: String
-}
-
-input MultipleOrganizationInput {
-  create_inputs: [SingleCreateOrganizationInput]
-  update_inputs: [SingleUpdateOrganizationInput]
-  delete_inputs: [SingleDeleteOrganizationInput]
-  detach_inputs: [DeleteRelationshipInput]
-  clientMutationId: String
-}
-
-type MultipleOrganizationPayload {
-  created: [CreateOrganizationPayload]
-  updated: [UpdateOrganizationPayload]
-  deleted: [DeleteOrganizationPayload]
-  detached: [DeleteRelationshipPayload]
-  clientMutationId: String
-}
-
-input MultiplePhoneInput {
-  create_inputs: [SingleCreatePhoneInput]
-  update_inputs: [SingleUpdatePhoneInput]
-  delete_inputs: [SingleDeletePhoneInput]
-  detach_inputs: [DeleteRelationshipInput]
-  clientMutationId: String
-}
-
-type MultiplePhonePayload {
-  created: [CreatePhonePayload]
-  updated: [UpdatePhonePayload]
-  deleted: [DeletePhonePayload]
-  detached: [DeleteRelationshipPayload]
-  clientMutationId: String
 }
 
 type Mutation {
@@ -1343,23 +1301,19 @@ type Mutation {
   create_phone(input: CreatePhoneInput!): CreatePhonePayload
   update_phone(input: UpdatePhoneInput!): UpdatePhonePayload
   delete_phone(input: DeletePhoneInput!): DeletePhonePayload
-  multiple_phone(input: MultiplePhoneInput!): MultiplePhonePayload
   create_email(input: CreateEmailInput!): CreateEmailPayload
   update_email(input: UpdateEmailInput!): UpdateEmailPayload
   delete_email(input: DeleteEmailInput!): DeleteEmailPayload
-  multiple_email(input: MultipleEmailInput!): MultipleEmailPayload
   create_address(input: CreateAddressInput!): CreateAddressPayload
   update_address(input: UpdateAddressInput!): UpdateAddressPayload
   delete_address(input: DeleteAddressInput!): DeleteAddressPayload
   create_contact(input: CreateContactInput!): CreateContactPayload
   update_contact(input: UpdateContactInput!): UpdateContactPayload
   delete_contact(input: DeleteContactInput!): DeleteContactPayload
-  multiple_contact(input: MultipleContactInput!): MultipleContactPayload
   composite_contact(input: CompositeContactMutationInput!): CompositeContactMutationPayload
   create_organization(input: CreateOrganizationInput!): CreateOrganizationPayload
   update_organization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
   delete_organization(input: DeleteOrganizationInput!): DeleteOrganizationPayload
-  multiple_organization(input: MultipleOrganizationInput!): MultipleOrganizationPayload
   composite_organization(input: CompositeOrganizationMutationInput!): CompositeOrganizationMutationPayload
   create_role(input: CreateRoleInput!): CreateRolePayload
   update_role(input: UpdateRoleInput!): UpdateRolePayload
@@ -1481,6 +1435,7 @@ type Organization implements Node {
   type: ChoiceScalar
   website: String
   addresses: [Address]
+  addresses_relations: [IDRelation]
   affiliation_customer: Boolean
   affiliation_end_customer: Boolean
   affiliation_provider: Boolean
@@ -1489,6 +1444,7 @@ type Organization implements Node {
   affiliation_site_owner: Boolean
   parent_organization: [Organization]
   contacts: [Contact]
+  contacts_relations: [IDRelation]
 }
 
 type OrganizationConnection {
@@ -1528,7 +1484,7 @@ input OrganizationInputField {
   affiliation_partner: Boolean
   affiliation_host_user: Boolean
   affiliation_site_owner: Boolean
-  handle_id: Int
+  id: ID
   created: DateTime
   modified: DateTime
   creator: UserInputType
@@ -1696,14 +1652,14 @@ input OrganizationNestedFilter {
   affiliation_site_owner_gte: Boolean
   affiliation_site_owner_in: [Boolean!]
   affiliation_site_owner_not_in: [Boolean!]
-  handle_id: Int
-  handle_id_not: Int
-  handle_id_lt: Int
-  handle_id_lte: Int
-  handle_id_gt: Int
-  handle_id_gte: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
   created: DateTime
   created_not: DateTime
   created_lt: DateTime
@@ -1762,10 +1718,16 @@ enum OrganizationOrderBy {
   organization_id_DESC
   incident_management_info_ASC
   incident_management_info_DESC
+  type_ASC
+  type_DESC
   website_ASC
   website_DESC
   addresses_ASC
   addresses_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
   handle_id_ASC
   handle_id_DESC
 }
@@ -1826,7 +1788,7 @@ input PhoneFilter {
 input PhoneInputField {
   name: String
   type: ChoiceScalar
-  handle_id: Int
+  id: ID
   created: DateTime
   modified: DateTime
   creator: UserInputType
@@ -1862,14 +1824,14 @@ input PhoneNestedFilter {
   type_not_ends_with: ChoiceScalar
   type_in: [ChoiceScalar!]
   type_not_in: [ChoiceScalar!]
-  handle_id: Int
-  handle_id_not: Int
-  handle_id_lt: Int
-  handle_id_lte: Int
-  handle_id_gt: Int
-  handle_id_gte: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
   created: DateTime
   created_not: DateTime
   created_lt: DateTime
@@ -1920,6 +1882,12 @@ input PhoneNestedFilter {
 enum PhoneOrderBy {
   name_ASC
   name_DESC
+  type_ASC
+  type_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
   handle_id_ASC
   handle_id_DESC
 }
@@ -1995,14 +1963,14 @@ input ProcedureNestedFilter {
   description_not_ends_with: String
   description_in: [String!]
   description_not_in: [String!]
-  handle_id: Int
-  handle_id_not: Int
-  handle_id_lt: Int
-  handle_id_lte: Int
-  handle_id_gt: Int
-  handle_id_gte: Int
-  handle_id_in: [Int!]
-  handle_id_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
   created: DateTime
   created_not: DateTime
   created_lt: DateTime
@@ -2055,56 +2023,49 @@ enum ProcedureOrderBy {
   name_DESC
   description_ASC
   description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
   handle_id_ASC
   handle_id_DESC
 }
 
 type Query {
-  """The ID of the object"""
-  node(id: ID!): Node
-  getNodeById(handle_id: Int): NodeHandler
   getAvailableDropdowns: [String]
   getChoicesForDropdown(name: String!): [Choice]
-  getRelationById(relation_id: Int!): NIRelationType
-  getRoleRelationById(relation_id: Int!): RoleRelation
   roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
-  getOrganizationContacts(handle_id: Int!): [ContactWithRolename]
-  getGroupContacts(handle_id: Int!): [ContactWithRelation]
-  checkExistentOrganizationId(organization_id: String!, handle_id: Int): Boolean
-  getGroupContactRelations(group_id: Int!, contact_id: Int!): [NIRelationType]
-  getContactEmailRelations(contact_id: Int!, email_id: Int!): [NIRelationType]
-  getContactPhoneRelations(contact_id: Int!, phone_id: Int!): [NIRelationType]
-  getOrganizationAddressRelations(organization_id: Int!, address_id: Int!): [NIRelationType]
+  checkExistentOrganizationId(organization_id: String!, id: ID): Boolean
   getAvailableRoleGroups: [RoleGroup]
   getRolesFromRoleGroup(name: String): [Role]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
-  getGroupById(handle_id: Int): Group
+  getGroupById(id: ID): Group
   all_addresss: [Address]
   count_addresss: Int
   addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): AddressConnection
-  getAddressById(handle_id: Int): Address
+  getAddressById(id: ID): Address
   all_phones: [Phone]
   count_phones: Int
   phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): PhoneConnection
-  getPhoneById(handle_id: Int): Phone
+  getPhoneById(id: ID): Phone
   all_emails: [Email]
   count_emails: Int
   emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): EmailConnection
-  getEmailById(handle_id: Int): Email
+  getEmailById(id: ID): Email
   all_contacts: [Contact]
   count_contacts: Int
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
-  getContactById(handle_id: Int): Contact
+  getContactById(id: ID): Contact
   all_organizations: [Organization]
   count_organizations: Int
   organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): OrganizationConnection
-  getOrganizationById(handle_id: Int): Organization
+  getOrganizationById(id: ID): Organization
   all_procedures: [Procedure]
   count_procedures: Int
   procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
-  getProcedureById(handle_id: Int): Procedure
+  getProcedureById(id: ID): Procedure
 }
 
 input RefreshInput {
@@ -2119,12 +2080,15 @@ type RefreshPayload {
 }
 
 """This class represents a Role in the relational db"""
-type Role {
+type Role implements Node {
   handle_id: ID!
   name: String!
   slug: String!
   description: String
   role_group: RoleGroup
+
+  """The ID of the object."""
+  id: ID!
 }
 
 type RoleConnection {
@@ -2146,7 +2110,7 @@ type RoleEdge {
 
 input RoleFilter {
   name: String
-  handle_id: Int
+  id: ID
 }
 
 """This class represents a Role in the relational db"""
@@ -2180,8 +2144,9 @@ input RoleRelationInputField {
 }
 
 input RoleRelationMutationInput {
-  role_handle_id: Int!
-  organization_handle_id: Int!
+  role_id: ID!
+  organization_id: ID!
+  relation_id: Int
   clientMutationId: String
 }
 
@@ -2191,138 +2156,6 @@ type RoleRelationMutationPayload {
   clientMutationId: String
 }
 
-input SingleCreateContactInput {
-  first_name: String!
-  last_name: String!
-  contact_type: ChoiceScalar!
-  name: String
-  title: String
-  pgp_fingerprint: String
-  notes: String
-  relationship_works_for: ChoiceScalar
-  relationship_member_of: ChoiceScalar
-  role: ChoiceScalar
-  email_handle_id: Int
-  email: String
-  email_type: ChoiceScalar
-  phone_handle_id: Int
-  phone: String
-  phone_type: ChoiceScalar
-  role_handle_id: Int
-}
-
-input SingleCreateEmailInput {
-  contact: ChoiceScalar
-  name: String!
-  type: ChoiceScalar!
-}
-
-input SingleCreateOrganizationInput {
-  organization_number: String
-  name: String!
-  description: String
-  website: String
-  organization_id: String
-  type: ChoiceScalar
-  incident_management_info: String
-  affiliation_customer: Boolean
-  affiliation_end_customer: Boolean
-  affiliation_provider: Boolean
-  affiliation_partner: Boolean
-  affiliation_host_user: Boolean
-  affiliation_site_owner: Boolean
-  relationship_parent_of: ChoiceScalar
-  relationship_uses_a: ChoiceScalar
-  abuse_contact: ChoiceScalar
-  primary_contact: ChoiceScalar
-  secondary_contact: ChoiceScalar
-  it_technical_contact: ChoiceScalar
-  it_security_contact: ChoiceScalar
-  it_manager_contact: ChoiceScalar
-}
-
-input SingleCreatePhoneInput {
-  contact: ChoiceScalar
-  name: String!
-  type: ChoiceScalar!
-}
-
-input SingleDeleteContactInput {
-  handle_id: Int!
-}
-
-input SingleDeleteEmailInput {
-  handle_id: Int!
-}
-
-input SingleDeleteOrganizationInput {
-  handle_id: Int!
-}
-
-input SingleDeletePhoneInput {
-  handle_id: Int!
-}
-
-input SingleUpdateContactInput {
-  first_name: String!
-  last_name: String!
-  contact_type: ChoiceScalar!
-  name: String
-  title: String
-  pgp_fingerprint: String
-  notes: String
-  relationship_works_for: ChoiceScalar
-  relationship_member_of: ChoiceScalar
-  role: ChoiceScalar
-  email_handle_id: Int
-  email: String
-  email_type: ChoiceScalar
-  phone_handle_id: Int
-  phone: String
-  phone_type: ChoiceScalar
-  role_handle_id: Int
-  handle_id: Int!
-}
-
-input SingleUpdateEmailInput {
-  contact: ChoiceScalar
-  name: String!
-  type: ChoiceScalar!
-  handle_id: Int!
-}
-
-input SingleUpdateOrganizationInput {
-  organization_number: String
-  name: String!
-  description: String
-  website: String
-  organization_id: String
-  type: ChoiceScalar
-  incident_management_info: String
-  affiliation_customer: Boolean
-  affiliation_end_customer: Boolean
-  affiliation_provider: Boolean
-  affiliation_partner: Boolean
-  affiliation_host_user: Boolean
-  affiliation_site_owner: Boolean
-  relationship_parent_of: ChoiceScalar
-  relationship_uses_a: ChoiceScalar
-  abuse_contact: ChoiceScalar
-  primary_contact: ChoiceScalar
-  secondary_contact: ChoiceScalar
-  it_technical_contact: ChoiceScalar
-  it_security_contact: ChoiceScalar
-  it_manager_contact: ChoiceScalar
-  handle_id: Int!
-}
-
-input SingleUpdatePhoneInput {
-  contact: ChoiceScalar
-  name: String!
-  type: ChoiceScalar!
-  handle_id: Int!
-}
-
 input UpdateAddressInput {
   organization: ChoiceScalar
   name: String!
@@ -2330,7 +2163,7 @@ input UpdateAddressInput {
   street: String
   postal_code: String
   postal_area: String
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -2341,7 +2174,7 @@ type UpdateAddressPayload {
 }
 
 input UpdateCommentInput {
-  id: Int!
+  id: ID!
   comment: String!
   clientMutationId: String
 }
@@ -2362,14 +2195,14 @@ input UpdateContactInput {
   relationship_works_for: ChoiceScalar
   relationship_member_of: ChoiceScalar
   role: ChoiceScalar
-  email_handle_id: Int
+  email_id: String
   email: String
   email_type: ChoiceScalar
-  phone_handle_id: Int
+  phone_id: String
   phone: String
   phone_type: ChoiceScalar
-  role_handle_id: Int
-  handle_id: Int!
+  role_id: String
+  id: ID!
   clientMutationId: String
 }
 
@@ -2383,7 +2216,7 @@ input UpdateEmailInput {
   contact: ChoiceScalar
   name: String!
   type: ChoiceScalar!
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -2397,7 +2230,7 @@ input UpdateGroupInput {
   name: String!
   description: String
   relationship_member_of: ChoiceScalar
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -2429,7 +2262,7 @@ input UpdateOrganizationInput {
   it_technical_contact: ChoiceScalar
   it_security_contact: ChoiceScalar
   it_manager_contact: ChoiceScalar
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -2443,7 +2276,7 @@ input UpdatePhoneInput {
   contact: ChoiceScalar
   name: String!
   type: ChoiceScalar!
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -2456,7 +2289,7 @@ type UpdatePhonePayload {
 input UpdateProcedureInput {
   name: String!
   description: String
-  handle_id: Int!
+  id: ID!
   clientMutationId: String
 }
 
@@ -2467,10 +2300,9 @@ type UpdateProcedurePayload {
 }
 
 input UpdateRoleInput {
-  handle_id: Int!
+  id: ID
   name: String!
   description: String
-  id: ID
   clientMutationId: String
 }
 
@@ -2505,4 +2337,3 @@ type VerifyPayload {
   payload: GenericScalar
   clientMutationId: String
 }
-

@@ -95,8 +95,6 @@ class Search extends React.Component {
     // save in the state the filter box
     // these filters cannot be generalized by backend implementation
     handleOnChangeFilter = (filterValue) => {
-        console.log(filterValue);
-        
         this.setState({
             filterValue: [
                 { name_contains: filterValue },

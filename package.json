@@ -75,8 +75,9 @@
         "check-styles": "prettier --check --config .stylelintrc ./src/**/*.{css,scss}",
         "fix-code": "prettier --write ./src/**/*.{js,jsx,json}",
         "fix-styles": "prettier --write --config .stylelintrc ./src/**/*.{css,scss}",
-        "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions js jsx",
-        "analyze": "source-map-explorer 'build/static/js/*.js'"
+        "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions js jsx --watch",
+        "analyze": "source-map-explorer 'build/static/js/*.js'",
+        "generate-schema": "graphql get-schema"
     },
     "eslintConfig": {
         "extends": "react-app"

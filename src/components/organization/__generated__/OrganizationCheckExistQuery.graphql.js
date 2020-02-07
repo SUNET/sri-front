@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash caba9efc394a4984f6676d143f39f4dc
+ * @relayHash 4d44e018af3d938b36ddcae7380059cb
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type OrganizationCheckExistQueryVariables = {|
   organization_id: string,
-  handle_id?: ?number,
+  id?: ?string,
 |};
 export type OrganizationCheckExistQueryResponse = {|
   +checkExistentOrganizationId: ?boolean
@@ -26,9 +26,9 @@ export type OrganizationCheckExistQuery = {|
 /*
 query OrganizationCheckExistQuery(
   $organization_id: String!
-  $handle_id: Int
+  $id: ID
 ) {
-  checkExistentOrganizationId(organization_id: $organization_id, handle_id: $handle_id)
+  checkExistentOrganizationId(organization_id: $organization_id, id: $id)
 }
 */
 
@@ -42,8 +42,8 @@ var v0 = [
   },
   {
     "kind": "LocalArgument",
-    "name": "handle_id",
-    "type": "Int",
+    "name": "id",
+    "type": "ID",
     "defaultValue": null
   }
 ],
@@ -55,8 +55,8 @@ v1 = [
     "args": [
       {
         "kind": "Variable",
-        "name": "handle_id",
-        "variableName": "handle_id"
+        "name": "id",
+        "variableName": "id"
       },
       {
         "kind": "Variable",
@@ -87,11 +87,11 @@ return {
     "operationKind": "query",
     "name": "OrganizationCheckExistQuery",
     "id": null,
-    "text": "query OrganizationCheckExistQuery(\n  $organization_id: String!\n  $handle_id: Int\n) {\n  checkExistentOrganizationId(organization_id: $organization_id, handle_id: $handle_id)\n}\n",
+    "text": "query OrganizationCheckExistQuery(\n  $organization_id: String!\n  $id: ID\n) {\n  checkExistentOrganizationId(organization_id: $organization_id, id: $id)\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0136d42555016aba28100657699943ef';
+(node/*: any*/).hash = 'ff6b7afed5a6db7b309093611fb404ce';
 module.exports = node;

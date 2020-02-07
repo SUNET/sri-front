@@ -40,7 +40,7 @@ export class Worklog extends React.Component {
 
     createComment = () => {
         if (this.state.comment) {
-            CreateCommentMutation(this.props.model.handle_id, this.state.comment);
+            CreateCommentMutation(this.props.model.id, this.state.comment);
             this.setState({ comment: "" });
             this.props.refetch();
         }

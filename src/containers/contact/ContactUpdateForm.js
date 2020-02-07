@@ -9,7 +9,7 @@ const mapStateToProps = (state, props) => {
     const initialValues = {
         first_name: props.contact.first_name,
         last_name: props.contact.last_name,
-        handle_id: props.contact.handle_id,
+        id: props.contact.id,
         notes: props.contact.notes,
         title: props.contact.title,
         contact_type: props.contact.contact_type,
@@ -17,7 +17,7 @@ const mapStateToProps = (state, props) => {
         emails: props.contact.emails
             ? props.contact.emails.map((email) => {
                   return {
-                      handle_id: email.handle_id,
+                      id: email.id,
                       email: email.name,
                       type: email.type,
                       email_obj: email,
@@ -30,7 +30,7 @@ const mapStateToProps = (state, props) => {
         phones: props.contact.phones
             ? props.contact.phones.map((phone) => {
                   return {
-                      handle_id: phone.handle_id,
+                      id: phone.id,
                       phone: phone.name,
                       type: phone.type,
                       phone_obj: phone,
@@ -44,10 +44,10 @@ const mapStateToProps = (state, props) => {
             ? props.contact.roles.map((role) => {
                   const role_node = role.role_data;
                   return {
-                      role: role_node ? role_node.handle_id : "",
+                      role: role_node ? role_node.id : "",
                       role_label: role_node ? role_node.name : "",
                       role_obj: role,
-                      organization: role.end ? role.end.handle_id : "",
+                      organization: role.end ? role.end.id : "",
                       organization_id: role.end ? role.end.organization_id : "",
                       organization_label: role.end ? role.end.name : "",
                       status: "saved",

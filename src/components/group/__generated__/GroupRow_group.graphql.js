@@ -12,7 +12,7 @@ import type { FragmentReference } from "relay-runtime";
 declare export opaque type GroupRow_group$ref: FragmentReference;
 declare export opaque type GroupRow_group$fragmentType: GroupRow_group$ref;
 export type GroupRow_group = {|
-  +handle_id: string,
+  +id: string,
   +name: string,
   +description: ?string,
   +$refType: GroupRow_group$ref,
@@ -35,7 +35,7 @@ const node/*: ReaderFragment*/ = {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "handle_id",
+      "name": "id",
       "args": null,
       "storageKey": null
     },
@@ -56,5 +56,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '0dd071635d1023fb7135e0cc4ff20488';
+(node/*: any*/).hash = '23219fc4e54cb258b7adafa9f3dbd00f';
 module.exports = node;

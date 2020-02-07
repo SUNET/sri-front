@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1265959fbe8a9feebb2a4a6112197ebe
+ * @relayHash 6f7a8ef36edf6f2574f8ebeb50b9383c
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type GroupList_groups$ref = any;
-export type GroupOrderBy = "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "name_ASC" | "name_DESC" | "%future added value";
+export type GroupOrderBy = "created_ASC" | "created_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "%future added value";
 export type GroupListForwardQueryVariables = {|
   count: number,
   cursor?: ?string,
@@ -39,9 +39,8 @@ fragment GroupList_groups_32czeo on Query {
   groups(first: $count, after: $cursor, orderBy: $orderBy) {
     edges {
       node {
-        handle_id
-        ...GroupRow_group
         id
+        ...GroupRow_group
         __typename
       }
       cursor
@@ -54,7 +53,7 @@ fragment GroupList_groups_32czeo on Query {
 }
 
 fragment GroupRow_group on Group {
-  handle_id
+  id
   name
   description
 }
@@ -162,7 +161,7 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "handle_id",
+                    "name": "id",
                     "args": null,
                     "storageKey": null
                   },
@@ -177,13 +176,6 @@ return {
                     "kind": "ScalarField",
                     "alias": null,
                     "name": "description",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "id",
                     "args": null,
                     "storageKey": null
                   },
@@ -247,7 +239,7 @@ return {
     "operationKind": "query",
     "name": "GroupListForwardQuery",
     "id": null,
-    "text": "query GroupListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: GroupOrderBy\n) {\n  ...GroupList_groups_32czeo\n}\n\nfragment GroupList_groups_32czeo on Query {\n  groups(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...GroupRow_group\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment GroupRow_group on Group {\n  handle_id\n  name\n  description\n}\n",
+    "text": "query GroupListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: GroupOrderBy\n) {\n  ...GroupList_groups_32czeo\n}\n\nfragment GroupList_groups_32czeo on Query {\n  groups(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...GroupRow_group\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment GroupRow_group on Group {\n  id\n  name\n  description\n}\n",
     "metadata": {}
   }
 };

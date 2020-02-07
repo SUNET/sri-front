@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a117c49c03d92196ccc7ddd728c21569
+ * @relayHash 2eada0a8cdeb4a66e3390f7536d8555b
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type OrganizationList_organization_types$ref = any;
 type OrganizationList_organizations$ref = any;
-export type OrganizationOrderBy = "addresses_ASC" | "addresses_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "name_ASC" | "name_DESC" | "organization_id_ASC" | "organization_id_DESC" | "organization_number_ASC" | "organization_number_DESC" | "website_ASC" | "website_DESC" | "%future added value";
+export type OrganizationOrderBy = "addresses_ASC" | "addresses_DESC" | "created_ASC" | "created_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "incident_management_info_ASC" | "incident_management_info_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "organization_id_ASC" | "organization_id_DESC" | "organization_number_ASC" | "organization_number_DESC" | "type_ASC" | "type_DESC" | "website_ASC" | "website_DESC" | "%future added value";
 export type OrganizationFilter = {|
   AND?: ?$ReadOnlyArray<OrganizationNestedFilter>,
   OR?: ?$ReadOnlyArray<OrganizationNestedFilter>,
@@ -177,14 +177,14 @@ export type OrganizationNestedFilter = {|
   affiliation_site_owner_gte?: ?boolean,
   affiliation_site_owner_in?: ?$ReadOnlyArray<boolean>,
   affiliation_site_owner_not_in?: ?$ReadOnlyArray<boolean>,
-  handle_id?: ?number,
-  handle_id_not?: ?number,
-  handle_id_lt?: ?number,
-  handle_id_lte?: ?number,
-  handle_id_gt?: ?number,
-  handle_id_gte?: ?number,
-  handle_id_in?: ?$ReadOnlyArray<number>,
-  handle_id_not_in?: ?$ReadOnlyArray<number>,
+  id?: ?string,
+  id_not?: ?string,
+  id_lt?: ?string,
+  id_lte?: ?string,
+  id_gt?: ?string,
+  id_gte?: ?string,
+  id_in?: ?$ReadOnlyArray<string>,
+  id_not_in?: ?$ReadOnlyArray<string>,
   created?: ?any,
   created_not?: ?any,
   created_lt?: ?any,
@@ -236,7 +236,7 @@ export type AddressInputField = {|
   street?: ?string,
   postal_code?: ?string,
   postal_area?: ?string,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -282,9 +282,8 @@ fragment OrganizationList_organizations_1tT5Hu on Query {
   organizations(first: $count, filter: $filter, orderBy: $orderBy) {
     edges {
       node {
-        handle_id
-        ...OrganizationRow_organization
         id
+        ...OrganizationRow_organization
         __typename
       }
       cursor
@@ -297,7 +296,7 @@ fragment OrganizationList_organizations_1tT5Hu on Query {
 }
 
 fragment OrganizationRow_organization on Organization {
-  handle_id
+  id
   name
   type
   organization_id
@@ -316,9 +315,8 @@ fragment OrganizationRow_organization on Organization {
     relation {
       type
       start {
-        handle_id
-        node_name
         id
+        node_name
       }
       id
     }
@@ -369,7 +367,7 @@ v3 = [
 v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -391,13 +389,6 @@ v7 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "organization_id",
-  "args": null,
-  "storageKey": null
-},
-v8 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "id",
   "args": null,
   "storageKey": null
 };
@@ -518,7 +509,7 @@ return {
                     "plural": true,
                     "selections": [
                       (v7/*: any*/),
-                      (v8/*: any*/)
+                      (v4/*: any*/)
                     ]
                   },
                   {
@@ -557,16 +548,14 @@ return {
                                 "name": "node_name",
                                 "args": null,
                                 "storageKey": null
-                              },
-                              (v8/*: any*/)
+                              }
                             ]
                           },
-                          (v8/*: any*/)
+                          (v4/*: any*/)
                         ]
                       }
                     ]
                   },
-                  (v8/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -644,7 +633,7 @@ return {
             "args": null,
             "storageKey": null
           },
-          (v8/*: any*/)
+          (v4/*: any*/)
         ]
       }
     ]
@@ -653,7 +642,7 @@ return {
     "operationKind": "query",
     "name": "SearchOrganizationAllQuery",
     "id": null,
-    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n  ...OrganizationList_organization_types\n}\n\nfragment OrganizationList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...OrganizationRow_organization\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  handle_id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n}\n",
+    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n  ...OrganizationList_organization_types\n}\n\nfragment OrganizationList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...OrganizationRow_organization\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

@@ -6,7 +6,7 @@ const mutation = graphql`
     mutation AddContactOrganizationMutation($input: UpdateContactInput!) {
         update_contact(input: $input) {
             contact {
-                handle_id
+                id
                 first_name
                 last_name
                 contact_type
@@ -18,7 +18,7 @@ const mutation = graphql`
 export default function AddContactOrganizationMutation(contact, organization) {
     const variables = {
         input: {
-            handle_id: contact.id,
+            id: contact.id,
             first_name: contact.first_name,
             last_name: contact.last_name,
             contact_type: contact.contact_type,

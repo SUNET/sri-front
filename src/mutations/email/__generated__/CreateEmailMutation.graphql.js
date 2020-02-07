@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 90cb8920edc53536b617440eccaf811e
+ * @relayHash 2bc99199834cf6f5662434a7b14634b2
  */
 
 /* eslint-disable */
@@ -25,7 +25,7 @@ export type CreateEmailMutationResponse = {|
       +messages: $ReadOnlyArray<string>,
     |}>,
     +email: ?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |},
@@ -48,10 +48,9 @@ mutation CreateEmailMutation(
       messages
     }
     email {
-      handle_id
+      id
       name
       type
-      id
     }
   }
 }
@@ -68,57 +67,80 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "input",
-    "variableName": "input"
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "create_email",
+    "storageKey": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "input",
+        "variableName": "input"
+      }
+    ],
+    "concreteType": "CreateEmailPayload",
+    "plural": false,
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "errors",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "ErrorType",
+        "plural": true,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "field",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "messages",
+            "args": null,
+            "storageKey": null
+          }
+        ]
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "email",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Email",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "id",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "name",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "type",
+            "args": null,
+            "storageKey": null
+          }
+        ]
+      }
+    ]
   }
-],
-v2 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "errors",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "ErrorType",
-  "plural": true,
-  "selections": [
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "field",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "messages",
-      "args": null,
-      "storageKey": null
-    }
-  ]
-},
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "handle_id",
-  "args": null,
-  "storageKey": null
-},
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "name",
-  "args": null,
-  "storageKey": null
-},
-v5 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-};
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -127,84 +149,23 @@ return {
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "create_email",
-        "storageKey": null,
-        "args": (v1/*: any*/),
-        "concreteType": "CreateEmailPayload",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "email",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Email",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/)
-            ]
-          }
-        ]
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "operation": {
     "kind": "Operation",
     "name": "CreateEmailMutation",
     "argumentDefinitions": (v0/*: any*/),
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "create_email",
-        "storageKey": null,
-        "args": (v1/*: any*/),
-        "concreteType": "CreateEmailPayload",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "email",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Email",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "id",
-                "args": null,
-                "storageKey": null
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "mutation",
     "name": "CreateEmailMutation",
     "id": null,
-    "text": "mutation CreateEmailMutation(\n  $input: CreateEmailInput!\n) {\n  create_email(input: $input) {\n    errors {\n      field\n      messages\n    }\n    email {\n      handle_id\n      name\n      type\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateEmailMutation(\n  $input: CreateEmailInput!\n) {\n  create_email(input: $input) {\n    errors {\n      field\n      messages\n    }\n    email {\n      id\n      name\n      type\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a0df69a24cb12244a7b3d84a9f26d42e';
+(node/*: any*/).hash = '11ef1b9ff0917035b37a97a6143fbf14';
 module.exports = node;

@@ -16,7 +16,7 @@ export type GroupList_groups = {|
   +groups: ?{|
     +edges: $ReadOnlyArray<?{|
       +node: ?{|
-        +handle_id: string,
+        +id: string,
         +$fragmentRefs: GroupRow_group$ref,
       |}
     |}>,
@@ -108,7 +108,7 @@ const node/*: ReaderFragment*/ = {
                 {
                   "kind": "ScalarField",
                   "alias": null,
-                  "name": "handle_id",
+                  "name": "id",
                   "args": null,
                   "storageKey": null
                 },
@@ -165,5 +165,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '4c59e047cf93903e7c54e1c0324612d1';
+(node/*: any*/).hash = 'c81ccfa187e69079cf5b776a6a1e2f7d';
 module.exports = node;

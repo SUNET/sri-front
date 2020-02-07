@@ -17,7 +17,7 @@ const mutation = graphql`
                     messages
                 }
                 group {
-                    handle_id
+                    id
                     name
                     description
                 }
@@ -28,17 +28,17 @@ const mutation = graphql`
                     messages
                 }
                 contact {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
@@ -53,17 +53,17 @@ const mutation = graphql`
                     messages
                 }
                 contact {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
@@ -107,7 +107,7 @@ export default function UpdateGroupMutation(group, form) {
                     // });
                 } else {
                     updateMembers.push({
-                        handle_id: member.handle_id,
+                        id: member.id,
                         first_name: member.first_name,
                         last_name: member.last_name,
                         contact_type: member.contact_type.toLowerCase(),
@@ -122,7 +122,7 @@ export default function UpdateGroupMutation(group, form) {
     const variables = {
         input: {
             create_input: {
-                handle_id: group.handle_id,
+                id: group.id,
                 name: group.name,
                 description: group.description,
                 clientMutationId: ""
@@ -139,7 +139,7 @@ export default function UpdateGroupMutation(group, form) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_group.created.errors;
             } else {
-                const group_id = response.composite_group.created.group.handle_id;
+                const group_id = response.composite_group.created.group.id;
                 if (group.comment) {
                     CreateComentMutation(group_id, group.comment);
                 }

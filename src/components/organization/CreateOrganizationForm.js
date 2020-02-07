@@ -27,21 +27,21 @@ class CreateOrganizationForm extends React.Component {
 
     _hasBeenAdded = (newContact) => {
         if (this.props.contactsValues) {
-            return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+            return this.props.contactsValues.some((contact) => contact.id === newContact.id);
         }
         return false;
     };
 
     handleSelectedContact = (selection) => {
         if (selection !== null) {
-            this.props.getContact(selection.handle_id).then((contact) => {
+            this.props.getContact(selection.id).then((contact) => {
                 const newContact = {
                     name: contact.name,
                     first_name: contact.first_name,
                     last_name: contact.last_name,
-                    handle_id: contact.handle_id,
+                    id: contact.id,
                     contact_type: contact.contact_type,
-                    role: contact.roles[0] ? contact.roles[0].role_data.handle_id : "",
+                    role: contact.roles[0] ? contact.roles[0].role_data.id : "",
                     role_obj: contact.roles[0],
                     role_label: contact.roles[0] ? contact.roles[0].role_data.name : "",
                     email: contact.emails,

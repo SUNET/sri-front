@@ -25,8 +25,6 @@ class CopyToClipboard extends Component {
     };
 
     copyContent = (event) => {
-        console.log(event);
-
         copy(this.props.copyContent);
         this.showCopied();
     };

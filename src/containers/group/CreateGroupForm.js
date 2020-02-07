@@ -13,7 +13,7 @@ const mapStateToProps = (state, props) => {
         formSyncErrors: getFormSyncErrors("createGroup")(state),
         memberValues: updateGroupSelector(state, "members"),
         name: updateGroupSelector(state, "name"),
-        getContact: (handle_id) => getContact(handle_id)
+        getContact: (id) => getContact(id)
     };
 };
 

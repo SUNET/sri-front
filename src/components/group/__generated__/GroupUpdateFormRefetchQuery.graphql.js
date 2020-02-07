@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d2d915c672efbf7c19edb2bfb7679846
+ * @relayHash b0ba1cd27237113e315ac7a5fea1e551
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type GroupUpdateForm_group$ref = any;
 export type GroupUpdateFormRefetchQueryVariables = {|
-  groupId: number
+  groupId: string
 |};
 export type GroupUpdateFormRefetchQueryResponse = {|
   +getGroupById: ?{|
@@ -27,44 +27,41 @@ export type GroupUpdateFormRefetchQuery = {|
 
 /*
 query GroupUpdateFormRefetchQuery(
-  $groupId: Int!
+  $groupId: ID!
 ) {
-  getGroupById(handle_id: $groupId) {
+  getGroupById(id: $groupId) {
     ...GroupUpdateForm_group
     id
   }
 }
 
 fragment GroupUpdateForm_group on Group {
-  handle_id
+  id
   name
   description
   contacts {
-    handle_id
+    id
     first_name
     last_name
     contact_type
     emails {
-      handle_id
+      id
       name
       type
-      id
     }
     phones {
-      handle_id
+      id
       name
       type
-      id
     }
     roles {
       role_data {
-        handle_id
+        id
         name
       }
       end {
-        handle_id
-        name
         id
+        name
       }
     }
     outgoing {
@@ -73,14 +70,12 @@ fragment GroupUpdateForm_group on Group {
         relation_id
         type
         end {
-          handle_id
-          node_name
           id
+          node_name
         }
         id
       }
     }
-    id
   }
   comments {
     id
@@ -110,21 +105,21 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "groupId",
-    "type": "Int!",
+    "type": "ID!",
     "defaultValue": null
   }
 ],
 v1 = [
   {
     "kind": "Variable",
-    "name": "handle_id",
+    "name": "id",
     "variableName": "groupId"
   }
 ],
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -156,18 +151,14 @@ v6 = {
   "args": null,
   "storageKey": null
 },
-v7 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "id",
-  "args": null,
-  "storageKey": null
-},
-v8 = [
+v7 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v6/*: any*/),
-  (v7/*: any*/)
+  (v6/*: any*/)
+],
+v8 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
 ],
 v9 = [
   {
@@ -177,7 +168,7 @@ v9 = [
     "args": null,
     "storageKey": null
   },
-  (v7/*: any*/)
+  (v2/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -256,7 +247,7 @@ return {
                 "args": null,
                 "concreteType": "Email",
                 "plural": true,
-                "selections": (v8/*: any*/)
+                "selections": (v7/*: any*/)
               },
               {
                 "kind": "LinkedField",
@@ -266,7 +257,7 @@ return {
                 "args": null,
                 "concreteType": "Phone",
                 "plural": true,
-                "selections": (v8/*: any*/)
+                "selections": (v7/*: any*/)
               },
               {
                 "kind": "LinkedField",
@@ -285,10 +276,7 @@ return {
                     "args": null,
                     "concreteType": "Role",
                     "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      (v3/*: any*/)
-                    ]
+                    "selections": (v8/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -298,11 +286,7 @@ return {
                     "args": null,
                     "concreteType": "Organization",
                     "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      (v3/*: any*/),
-                      (v7/*: any*/)
-                    ]
+                    "selections": (v8/*: any*/)
                   }
                 ]
               },
@@ -349,16 +333,14 @@ return {
                             "name": "node_name",
                             "args": null,
                             "storageKey": null
-                          },
-                          (v7/*: any*/)
+                          }
                         ]
                       },
-                      (v7/*: any*/)
+                      (v2/*: any*/)
                     ]
                   }
                 ]
-              },
-              (v7/*: any*/)
+              }
             ]
           },
           {
@@ -370,7 +352,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v7/*: any*/),
+              (v2/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -382,7 +364,7 @@ return {
                 "selections": [
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v7/*: any*/)
+                  (v2/*: any*/)
                 ]
               },
               {
@@ -434,8 +416,7 @@ return {
             "concreteType": "User",
             "plural": false,
             "selections": (v9/*: any*/)
-          },
-          (v7/*: any*/)
+          }
         ]
       }
     ]
@@ -444,11 +425,11 @@ return {
     "operationKind": "query",
     "name": "GroupUpdateFormRefetchQuery",
     "id": null,
-    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: Int!\n) {\n  getGroupById(handle_id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  handle_id\n  name\n  description\n  contacts {\n    handle_id\n    first_name\n    last_name\n    contact_type\n    emails {\n      handle_id\n      name\n      type\n      id\n    }\n    phones {\n      handle_id\n      name\n      type\n      id\n    }\n    roles {\n      role_data {\n        handle_id\n        name\n      }\n      end {\n        handle_id\n        name\n        id\n      }\n    }\n    outgoing {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          handle_id\n          node_name\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: ID!\n) {\n  getGroupById(id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  id\n  name\n  description\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type\n    emails {\n      id\n      name\n      type\n    }\n    phones {\n      id\n      name\n      type\n    }\n    roles {\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n    outgoing {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        id\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '828b7afd2d605f9bc543e464c24601fe';
+(node/*: any*/).hash = '1df6c892a1c1bbccd22acc7e19214591';
 module.exports = node;

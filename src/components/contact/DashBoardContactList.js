@@ -13,7 +13,7 @@ import "../../style/DashBoardBlock.scss";
 class DashBoardContactList extends React.Component {
     handleLinkToContact = (event, data) => {
         // Redirection to contact detail
-        this.props.history.push(`/community/contacts/${data.handle_id}`);
+        this.props.history.push(`/community/contacts/${data.id}`);
     };
 
     render() {

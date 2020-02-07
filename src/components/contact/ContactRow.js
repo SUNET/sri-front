@@ -65,7 +65,7 @@ class ContactRow extends React.PureComponent {
 const ContactRowFragment = createFragmentContainer(ContactRow, {
     contact: graphql`
         fragment ContactRow_contact on Contact {
-            handle_id
+            id
             first_name
             last_name
             contact_type

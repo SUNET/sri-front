@@ -47,7 +47,7 @@ class ContactUpdateForm extends React.PureComponent {
 
     refetch = () => {
         this.props.relay.refetch(
-            { contactId: this.props.contact.handle_id }, // Our refetchQuery needs to know the `contactID`
+            { contactId: this.props.contact.id }, // Our refetchQuery needs to know the `contactID`
             null, // We can use the refetchVariables as renderVariables
             () => {
                 console.log("Refetch done");
@@ -398,7 +398,7 @@ const ContactUpdateFormFragment = createRefetchContainer(
     {
         contact: graphql`
             fragment ContactUpdateForm_contact on Contact {
-                handle_id
+                id
                 name
                 notes
                 title
@@ -407,23 +407,23 @@ const ContactUpdateFormFragment = createRefetchContainer(
                 last_name
                 pgp_fingerprint
                 emails {
-                    handle_id
+                    id
                     name
                     type
                 }
                 phones {
-                    handle_id
+                    id
                     name
                     type
                 }
                 roles {
                     relation_id
                     role_data {
-                        handle_id
+                        id
                         name
                     }
                     end {
-                        handle_id
+                        id
                         name
                     }
                 }
@@ -450,8 +450,8 @@ const ContactUpdateFormFragment = createRefetchContainer(
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-        query ContactUpdateFormRefetchQuery($contactId: Int!) {
-            getContactById(handle_id: $contactId) {
+        query ContactUpdateFormRefetchQuery($contactId: ID!) {
+            getContactById(id: $contactId) {
                 ...ContactUpdateForm_contact
             }
         }

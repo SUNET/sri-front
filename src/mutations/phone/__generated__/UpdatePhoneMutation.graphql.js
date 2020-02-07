@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7f0cf1406a86be52b36a3d7c8594d9c0
+ * @relayHash 82a7582b1d302df84386fe4a8a002040
  */
 
 /* eslint-disable */
@@ -13,7 +13,7 @@ export type UpdatePhoneInput = {|
   contact?: ?any,
   name: string,
   type: any,
-  handle_id: number,
+  id: string,
   clientMutationId?: ?string,
 |};
 export type UpdatePhoneMutationVariables = {|
@@ -26,7 +26,7 @@ export type UpdatePhoneMutationResponse = {|
       +messages: $ReadOnlyArray<string>,
     |}>,
     +phone: ?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |},
@@ -49,10 +49,9 @@ mutation UpdatePhoneMutation(
       messages
     }
     phone {
-      handle_id
+      id
       name
       type
-      id
     }
   }
 }
@@ -69,57 +68,80 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "input",
-    "variableName": "input"
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "update_phone",
+    "storageKey": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "input",
+        "variableName": "input"
+      }
+    ],
+    "concreteType": "UpdatePhonePayload",
+    "plural": false,
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "errors",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "ErrorType",
+        "plural": true,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "field",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "messages",
+            "args": null,
+            "storageKey": null
+          }
+        ]
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "phone",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Phone",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "id",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "name",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "type",
+            "args": null,
+            "storageKey": null
+          }
+        ]
+      }
+    ]
   }
-],
-v2 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "errors",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "ErrorType",
-  "plural": true,
-  "selections": [
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "field",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "messages",
-      "args": null,
-      "storageKey": null
-    }
-  ]
-},
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "handle_id",
-  "args": null,
-  "storageKey": null
-},
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "name",
-  "args": null,
-  "storageKey": null
-},
-v5 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-};
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -128,84 +150,23 @@ return {
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "update_phone",
-        "storageKey": null,
-        "args": (v1/*: any*/),
-        "concreteType": "UpdatePhonePayload",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "phone",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Phone",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/)
-            ]
-          }
-        ]
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "operation": {
     "kind": "Operation",
     "name": "UpdatePhoneMutation",
     "argumentDefinitions": (v0/*: any*/),
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "update_phone",
-        "storageKey": null,
-        "args": (v1/*: any*/),
-        "concreteType": "UpdatePhonePayload",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "phone",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Phone",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "id",
-                "args": null,
-                "storageKey": null
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "mutation",
     "name": "UpdatePhoneMutation",
     "id": null,
-    "text": "mutation UpdatePhoneMutation(\n  $input: UpdatePhoneInput!\n) {\n  update_phone(input: $input) {\n    errors {\n      field\n      messages\n    }\n    phone {\n      handle_id\n      name\n      type\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdatePhoneMutation(\n  $input: UpdatePhoneInput!\n) {\n  update_phone(input: $input) {\n    errors {\n      field\n      messages\n    }\n    phone {\n      id\n      name\n      type\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd3a25657af973029992a6e1f440fe35f';
+(node/*: any*/).hash = 'b112994308cd1056f8c8034e1dc4fbd1';
 module.exports = node;

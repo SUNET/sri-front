@@ -42,7 +42,7 @@ export class ContactList extends React.PureComponent {
 
     _handleOnClick = (event, data) => {
         // Redirection to contact detail
-        this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
+        this.props.history.push(`${this.props.match.url}/${data.id}`);
     };
 
     renderHeaderList() {
@@ -121,7 +121,7 @@ export class ContactList extends React.PureComponent {
                     return (
                         node && (
                             <ContactRow
-                                key={node.handle_id}
+                                key={node.id}
                                 contact={node}
                                 onClick={this._handleOnClick}
                                 columnsVisible={this.props.columns_visible}
@@ -180,7 +180,7 @@ export default createPaginationContainer(
                     @connection(key: "ContactList_contacts", filters: []) {
                     edges {
                         node {
-                            handle_id
+                            id
                             ...ContactRow_contact
                         }
                     }
@@ -204,7 +204,7 @@ export default createPaginationContainer(
         roles_default: graphql`
             fragment ContactList_roles_default on Query {
                 getRolesFromRoleGroup {
-                    handle_id
+                    id
                     name
                 }
             }

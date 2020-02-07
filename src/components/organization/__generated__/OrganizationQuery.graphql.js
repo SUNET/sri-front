@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2ae8d047f08bb4b415303d6003c3e6d1
+ * @relayHash eb0fa7868deea80ea7c97f8a489b0ea5
  */
 
 /* eslint-disable */
@@ -10,11 +10,11 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type OrganizationQueryVariables = {|
-  organizationId: number
+  organizationId: string
 |};
 export type OrganizationQueryResponse = {|
   +getOrganizationById: ?{|
-    +handle_id: string,
+    +id: string,
     +name: string,
     +type: ?any,
     +website: ?string,
@@ -23,7 +23,7 @@ export type OrganizationQueryResponse = {|
     +description: ?string,
     +incident_management_info: ?string,
     +addresses: ?$ReadOnlyArray<?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +street: ?string,
       +postal_code: ?string,
@@ -36,11 +36,11 @@ export type OrganizationQueryResponse = {|
         +relation_id: number,
         +type: string,
         +end: {|
-          +handle_id: string,
+          +id: string,
           +node_name: string,
         |},
         +start: {|
-          +handle_id: string,
+          +id: string,
           +node_name: string,
         |},
       |},
@@ -73,10 +73,10 @@ export type OrganizationQuery = {|
 
 /*
 query OrganizationQuery(
-  $organizationId: Int!
+  $organizationId: ID!
 ) {
-  getOrganizationById(handle_id: $organizationId) {
-    handle_id
+  getOrganizationById(id: $organizationId) {
+    id
     name
     type
     website
@@ -85,13 +85,12 @@ query OrganizationQuery(
     description
     incident_management_info
     addresses {
-      handle_id
+      id
       name
       street
       postal_code
       postal_area
       phone
-      id
     }
     incoming {
       name
@@ -99,14 +98,12 @@ query OrganizationQuery(
         relation_id
         type
         end {
-          handle_id
-          node_name
           id
+          node_name
         }
         start {
-          handle_id
-          node_name
           id
+          node_name
         }
         id
       }
@@ -131,7 +128,6 @@ query OrganizationQuery(
       email
       id
     }
-    id
   }
 }
 */
@@ -141,21 +137,21 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "organizationId",
-    "type": "Int!",
+    "type": "ID!",
     "defaultValue": null
   }
 ],
 v1 = [
   {
     "kind": "Variable",
-    "name": "handle_id",
+    "name": "id",
     "variableName": "organizationId"
   }
 ],
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -209,118 +205,138 @@ v9 = {
   "storageKey": null
 },
 v10 = {
-  "kind": "ScalarField",
+  "kind": "LinkedField",
   "alias": null,
-  "name": "street",
+  "name": "addresses",
+  "storageKey": null,
   "args": null,
-  "storageKey": null
+  "concreteType": "Address",
+  "plural": true,
+  "selections": [
+    (v2/*: any*/),
+    (v3/*: any*/),
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "street",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "postal_code",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "postal_area",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "phone",
+      "args": null,
+      "storageKey": null
+    }
+  ]
 },
 v11 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "postal_code",
-  "args": null,
-  "storageKey": null
-},
-v12 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "postal_area",
-  "args": null,
-  "storageKey": null
-},
-v13 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "phone",
-  "args": null,
-  "storageKey": null
-},
-v14 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "relation_id",
   "args": null,
   "storageKey": null
 },
-v15 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "node_name",
-  "args": null,
-  "storageKey": null
-},
-v16 = [
+v12 = [
   (v2/*: any*/),
-  (v15/*: any*/)
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "node_name",
+    "args": null,
+    "storageKey": null
+  }
 ],
-v17 = {
-  "kind": "ScalarField",
+v13 = {
+  "kind": "LinkedField",
   "alias": null,
-  "name": "id",
+  "name": "end",
+  "storageKey": null,
   "args": null,
-  "storageKey": null
+  "concreteType": "NINodeHandlerType",
+  "plural": false,
+  "selections": (v12/*: any*/)
 },
-v18 = {
+v14 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "start",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "NINodeHandlerType",
+  "plural": false,
+  "selections": (v12/*: any*/)
+},
+v15 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "first_name",
   "args": null,
   "storageKey": null
 },
-v19 = {
+v16 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "last_name",
   "args": null,
   "storageKey": null
 },
-v20 = {
+v17 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "comment",
   "args": null,
   "storageKey": null
 },
-v21 = {
+v18 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "submit_date",
   "args": null,
   "storageKey": null
 },
-v22 = {
+v19 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "created",
   "args": null,
   "storageKey": null
 },
-v23 = {
+v20 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v24 = [
-  (v23/*: any*/)
+v21 = [
+  (v20/*: any*/)
 ],
-v25 = {
+v22 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v26 = [
-  (v2/*: any*/),
-  (v15/*: any*/),
-  (v17/*: any*/)
-],
-v27 = [
-  (v23/*: any*/),
-  (v17/*: any*/)
+v23 = [
+  (v20/*: any*/),
+  (v2/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -348,23 +364,7 @@ return {
           (v7/*: any*/),
           (v8/*: any*/),
           (v9/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "addresses",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Address",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v10/*: any*/),
-              (v11/*: any*/),
-              (v12/*: any*/),
-              (v13/*: any*/)
-            ]
-          },
+          (v10/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -384,28 +384,10 @@ return {
                 "concreteType": "NIRelationType",
                 "plural": false,
                 "selections": [
-                  (v14/*: any*/),
+                  (v11/*: any*/),
                   (v4/*: any*/),
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "end",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "NINodeHandlerType",
-                    "plural": false,
-                    "selections": (v16/*: any*/)
-                  },
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "start",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "NINodeHandlerType",
-                    "plural": false,
-                    "selections": (v16/*: any*/)
-                  }
+                  (v13/*: any*/),
+                  (v14/*: any*/)
                 ]
               }
             ]
@@ -419,7 +401,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v17/*: any*/),
+              (v2/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -429,15 +411,15 @@ return {
                 "concreteType": "User",
                 "plural": false,
                 "selections": [
-                  (v18/*: any*/),
-                  (v19/*: any*/)
+                  (v15/*: any*/),
+                  (v16/*: any*/)
                 ]
               },
-              (v20/*: any*/),
-              (v21/*: any*/)
+              (v17/*: any*/),
+              (v18/*: any*/)
             ]
           },
-          (v22/*: any*/),
+          (v19/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -446,9 +428,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v24/*: any*/)
+            "selections": (v21/*: any*/)
           },
-          (v25/*: any*/),
+          (v22/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -457,7 +439,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v24/*: any*/)
+            "selections": (v21/*: any*/)
           }
         ]
       }
@@ -485,24 +467,7 @@ return {
           (v7/*: any*/),
           (v8/*: any*/),
           (v9/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "addresses",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Address",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v10/*: any*/),
-              (v11/*: any*/),
-              (v12/*: any*/),
-              (v13/*: any*/),
-              (v17/*: any*/)
-            ]
-          },
+          (v10/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -522,29 +487,11 @@ return {
                 "concreteType": "NIRelationType",
                 "plural": false,
                 "selections": [
-                  (v14/*: any*/),
+                  (v11/*: any*/),
                   (v4/*: any*/),
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "end",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "NINodeHandlerType",
-                    "plural": false,
-                    "selections": (v26/*: any*/)
-                  },
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "start",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "NINodeHandlerType",
-                    "plural": false,
-                    "selections": (v26/*: any*/)
-                  },
-                  (v17/*: any*/)
+                  (v13/*: any*/),
+                  (v14/*: any*/),
+                  (v2/*: any*/)
                 ]
               }
             ]
@@ -558,7 +505,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v17/*: any*/),
+              (v2/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -568,16 +515,16 @@ return {
                 "concreteType": "User",
                 "plural": false,
                 "selections": [
-                  (v18/*: any*/),
-                  (v19/*: any*/),
-                  (v17/*: any*/)
+                  (v15/*: any*/),
+                  (v16/*: any*/),
+                  (v2/*: any*/)
                 ]
               },
-              (v20/*: any*/),
-              (v21/*: any*/)
+              (v17/*: any*/),
+              (v18/*: any*/)
             ]
           },
-          (v22/*: any*/),
+          (v19/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -586,9 +533,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v27/*: any*/)
+            "selections": (v23/*: any*/)
           },
-          (v25/*: any*/),
+          (v22/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -597,9 +544,8 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v27/*: any*/)
-          },
-          (v17/*: any*/)
+            "selections": (v23/*: any*/)
+          }
         ]
       }
     ]
@@ -608,11 +554,11 @@ return {
     "operationKind": "query",
     "name": "OrganizationQuery",
     "id": null,
-    "text": "query OrganizationQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    handle_id\n    name\n    type\n    website\n    organization_id\n    organization_number\n    description\n    incident_management_info\n    addresses {\n      handle_id\n      name\n      street\n      postal_code\n      postal_area\n      phone\n      id\n    }\n    incoming {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          handle_id\n          node_name\n          id\n        }\n        start {\n          handle_id\n          node_name\n          id\n        }\n        id\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    id\n  }\n}\n",
+    "text": "query OrganizationQuery(\n  $organizationId: ID!\n) {\n  getOrganizationById(id: $organizationId) {\n    id\n    name\n    type\n    website\n    organization_id\n    organization_number\n    description\n    incident_management_info\n    addresses {\n      id\n      name\n      street\n      postal_code\n      postal_area\n      phone\n    }\n    incoming {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        start {\n          id\n          node_name\n        }\n        id\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '03df0c2e5f68fcb7e4cfee07782189ee';
+(node/*: any*/).hash = 'c911b2d641a969e7d60e1ca05abb1d15';
 module.exports = node;
