@@ -6,7 +6,6 @@ import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
-import copy from "clipboard-copy";
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import Dropdown from "../Dropdown";
@@ -48,11 +47,6 @@ class OrganizationUpdateForm extends React.Component {
     static propTypes = {
         onChange: PropTypes.func
     };
-
-    UNSAFE_componentWillUpdate(nextProps, nextState) {
-        console.log(nextProps, nextState);
-        
-    }
 
     componentDidMount() {
         //register vitual field for affiliation for checked if it has errors (improve in backend)
@@ -331,6 +325,7 @@ class OrganizationUpdateForm extends React.Component {
                         dispatch={this.props.dispatch}
                         errors={this.props.formSyncErrors.addresses}
                         metaFields={this.props.fields}
+                        rerenderOnEveryChange={true}
                     />
                 </TogglePanel>
             </ToggleSection>
@@ -365,6 +360,7 @@ class OrganizationUpdateForm extends React.Component {
     }
 
     renderAditionalInfoToggleSection() {
+        
         const { t, incident_management_info } = this.props;
         const { editMode } = this.state;
         return (

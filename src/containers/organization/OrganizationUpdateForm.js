@@ -101,7 +101,9 @@ const mapStateToProps = (state, props) => {
                   }
               ]
     };
-    const contactsValues = updateOrganizationSelector(state, "contacts");
+    const contactsValues = updateOrganizationSelector(state, "contacts");    
+    const addressesValues = updateOrganizationSelector(state, "addresses");
+    
     return {
         initialValues,
         name: updateOrganizationSelector(state, "name"),
@@ -115,6 +117,7 @@ const mapStateToProps = (state, props) => {
         isDirty_relationship_parent_of: isDirty("updateOrganization")(state, ["organization_parent_id"]),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
         contactsValues: contactsValues,
+        addressesValues: addressesValues,
         isDirty_contacts_roles:
             contactsValues &&
             contactsValues.map((contact, index) => {

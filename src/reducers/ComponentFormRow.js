@@ -13,7 +13,7 @@ const initialState = {
 };
 
 const ComponentFormRowReducer = (state = initialState, action) => {
-    let nextState = {};
+    // let nextState = {};
     switch (action.type) {
         case types.SHOW_NEW_CONTACT_FORM:
             return {

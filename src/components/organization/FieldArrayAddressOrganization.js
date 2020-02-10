@@ -13,9 +13,9 @@ class FieldArrayAddressOrganization extends React.Component {
         if (newFields && newFields.length && nextProps.editable) {
             newFields.forEach((field, index) => {
                 const validated = this.validateAddress(field, index);
-                if (field && field.status !== "saved" && validated) {
+                if (field && field.status === "editing" && validated) {
                     this.props.dispatch(change(this.props.meta.form, `addresses[${index}].status`, "saved"));
-                } else if (!validated && field.status !== "editing") {
+                } else if (!validated && field.status === "saved") {
                     nextProps.dispatch(change(nextProps.meta.form, `addresses[${index}].status`, "editing"));
                 }
             });
@@ -61,9 +61,12 @@ class FieldArrayAddressOrganization extends React.Component {
         const hasBlankFields =
             field.street === "" ||
             field.street === undefined ||
-            (field.postal_code === "" || field.postal_code === undefined) ||
-            (field.postal_area === "" || field.postal_area === undefined) ||
-            (field.phone === "" || field.phone === undefined);
+            field.postal_code === "" ||
+            field.postal_code === undefined ||
+            field.postal_area === "" ||
+            field.postal_area === undefined ||
+            field.phone === "" ||
+            field.phone === undefined;
 
         return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
@@ -74,19 +77,15 @@ class FieldArrayAddressOrganization extends React.Component {
         }
     };
 
-    removeRow = (index) => {
-        console.log(index);
-        
+    removeRow(index) {
         const { fields } = this.props;
         const values = fields.getAll();
-        console.log(values);
-        
         if (values[index].origin === "store") {
-            this.props.dispatch(change("updateOrganization", `addresses[${index}].status`, "remove"));
+            this.props.dispatch(change(this.props.meta.form, `addresses[${index}].status`, "remove"));
         } else {
             this.props.fields.remove(index);
         }
-    };
+    }
 
     renderRowsData() {
         const { fields, t, editable } = this.props;

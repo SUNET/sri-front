@@ -34,24 +34,24 @@ class FieldArrayMembersGroup extends React.Component {
         this.props.handleAddContactRow();
     };
 
-    editRow = (index) => {
-        this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "editing"));
-    };
+    // editRow = (index) => {
+    //     this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "editing"));
+    // };
 
     removeRow = (index) => {
         const { fields } = this.props;
         const values = fields.getAll();
         if (values[index].origin === "store") {
-            this.props.dispatch(change("updateGroup", `members[${index}].status`, "remove"));
+            this.props.dispatch(change(this.props.meta.form, `members[${index}].status`, "remove"));
         } else {
             this.props.fields.remove(index);
         }
     };
 
-    saveLabel = (event, index) => {
-        const organization_label = event.target.options[event.target.selectedIndex].text;
-        this.props.dispatch(change(this.props.meta.form, `members[${index}].organization_label`, organization_label));
-    };
+    // saveLabel = (event, index) => {
+    //     const organization_label = event.target.options[event.target.selectedIndex].text;
+    //     this.props.dispatch(change(this.props.meta.form, `members[${index}].organization_label`, organization_label));
+    // };
 
     onChangeRole = (event, index) => {
         const { selectedIndex } = event.target.selectedIndex;

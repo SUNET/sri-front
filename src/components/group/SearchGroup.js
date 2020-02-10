@@ -18,7 +18,6 @@ import Filter from "../Filter";
 import OrderBy from "../OrderBy";
 import RangeDayPicker from "../RangeDayPicker";
 import { isEmpty } from "../../utils";
-import ModalNewContactContainer from "../../containers/ModalNewContact";
 
 // import { RouteNotFound } from "./NotFound";
 

@@ -6,8 +6,6 @@ import CreateComentMutation from "../CreateCommentMutation";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
-import { CONTACT_WORK } from "../../utils/constants";
-
 const mutation = graphql`
     mutation CreateOrganizationMutation($input: CompositeOrganizationMutationInput!) {
         composite_organization(input: $input) {

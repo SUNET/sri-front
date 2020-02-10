@@ -5,8 +5,6 @@ import graphql from "babel-plugin-relay/macro";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
-import { CONTACT_WORK } from "../../utils/constants";
-
 const mutation = graphql`
     mutation UpdateGroupMutation($input: CompositeGroupMutationInput!) {
         composite_group(input: $input) {

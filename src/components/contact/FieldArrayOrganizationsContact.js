@@ -21,9 +21,9 @@ class FieldArrayOrganizationsContact extends React.Component {
         if (newFields && newFields.length && nextProps.editable) {
             newFields.forEach((field, index) => {
                 const validated = this.validateOrganization(field, index);
-                if (field && field.status !== 'saved' && validated) {
+                if (field && field.status === 'editing' && validated) {
                     this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
-                } else if (!validated && field.status !== 'editing') {
+                } else if (!validated && field.status === 'saved') {
                     nextProps.dispatch(change(nextProps.meta.form, `organizations[${index}].status`, "editing"));
                 }
             });

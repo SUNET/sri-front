@@ -12,9 +12,9 @@ class FieldArrayContactsOrganization extends React.Component {
         const hasBlankFields =
             values[index].name === "" ||
             values[index].name === undefined ||
-            (values[index].role === "" || values[index].role === undefined) ||
-            (values[index].email === "" || values[index].email === undefined) ||
-            (values[index].phone === "" || values[index].phone === undefined);
+            values[index].role === "" || values[index].role === undefined ||
+            values[index].email === "" || values[index].email === undefined ||
+            values[index].phone === "" || values[index].phone === undefined;
         return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
 
