@@ -9,3 +9,6 @@ export const COMMUNITY_CONTACTS = "contacts";
 // Contact data TYPE
 export const CONTACT_PERSONAL = "personal";
 export const CONTACT_WORK = "work";
+
+// TIMES WAIT
+export const MILISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE = 250;
