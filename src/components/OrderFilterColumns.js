@@ -124,7 +124,7 @@ class OrderFilterColumns extends React.Component {
                                 }
                                 return (
                                     <FieldSwitch
-                                        key={column.value || column.handle_id}
+                                        key={column.value || column.id}
                                         type="toggle-icon"
                                         icon="check"
                                         color="p-success-o"
@@ -159,7 +159,7 @@ class OrderFilterColumns extends React.Component {
                                 </button>
                                 <button
                                     type="button"
-                                    className="btn secundary "
+                                    className="btn secondary"
                                     onClick={() => this.applyOrderFilterColumns()}
                                 >
                                     {t("actions.accept")}

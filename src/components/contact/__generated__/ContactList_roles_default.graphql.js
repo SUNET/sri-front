@@ -13,7 +13,7 @@ declare export opaque type ContactList_roles_default$ref: FragmentReference;
 declare export opaque type ContactList_roles_default$fragmentType: ContactList_roles_default$ref;
 export type ContactList_roles_default = {|
   +getRolesFromRoleGroup: ?$ReadOnlyArray<?{|
-    +handle_id: string,
+    +id: string,
     +name: string,
   |}>,
   +$refType: ContactList_roles_default$ref,
@@ -45,7 +45,7 @@ const node/*: ReaderFragment*/ = {
         {
           "kind": "ScalarField",
           "alias": null,
-          "name": "handle_id",
+          "name": "id",
           "args": null,
           "storageKey": null
         },
@@ -61,5 +61,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '41d87757b0dcdd0b332ba58239de4242';
+(node/*: any*/).hash = '7463304cb98b9e3d94ad7ac57dabf5f1';
 module.exports = node;

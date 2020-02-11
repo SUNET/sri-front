@@ -5,7 +5,6 @@ import { withTranslation } from "react-i18next";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
 import CreateOrganizationMutation from "../../mutations/organization/CreateOrganizationMutation";
-import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
@@ -13,6 +12,7 @@ import Dropdown from "../Dropdown";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
+import BackCTA from "../common/BackCTA";
 
 import ValidationsOrganizationForm from "./ValidationOrganizationForm";
 
@@ -27,30 +27,30 @@ class CreateOrganizationForm extends React.Component {
 
     _hasBeenAdded = (newContact) => {
         if (this.props.contactsValues) {
-            return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+            return this.props.contactsValues.some((contact) => contact.id === newContact.id);
         }
         return false;
     };
 
     handleSelectedContact = (selection) => {
         if (selection !== null) {
-            this.props.getContact(selection.handle_id).then((contact) => {
+            this.props.getContact(selection.id).then((contact) => {
                 const newContact = {
                     name: contact.name,
                     first_name: contact.first_name,
                     last_name: contact.last_name,
-                    handle_id: contact.handle_id,
+                    id: contact.id,
                     contact_type: contact.contact_type,
-                    role: contact.roles[0] ? contact.roles[0].role_data.handle_id : "",
+                    role: contact.roles[0] ? contact.roles[0].role_data.id : "",
                     role_obj: contact.roles[0],
                     role_label: contact.roles[0] ? contact.roles[0].role_data.name : "",
-                    email: contact.emails[0] ? contact.emails[0].name : "",
-                    email_obj: contact.emails[0] ? contact.emails[0] : {},
-                    phone: contact.phones[0] ? contact.phones[0].name : "",
-                    phone_obj: contact.phones[0] ? contact.phones[0] : {},
+                    email: contact.emails,
+                    email_obj: contact.emails,
+                    phone: contact.phones,
+                    phone_obj: contact.phones,
                     created: true,
                     origin: "new",
-                    status: "editing",
+                    status: "saved",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newContact)) {
@@ -64,19 +64,24 @@ class CreateOrganizationForm extends React.Component {
         CreateOrganizationMutation(organization, this);
     };
 
-    renderTitleSection() {
-        const { name } = this.props;
+    renderHeaderName() {
+        const { t, name } = this.props;
+        const editMode = true;
         return (
-            <EditField
-                error={this.props.formSyncErrors.name}
-                meta={this.props.fields.name}
-                initialValue="New organization"
-                form={this.props.form}
-                dispatch={this.props.dispatch}
-                value={name}
-            >
-                <h1 className="ml-0">{name}</h1>
-            </EditField>
+            <div className="title-section">
+                <BackCTA onClick={() => this.props.history.goBack()} />
+                <div className="vertical-separator"></div>
+                <EditField
+                    error={this.props.formSyncErrors.name}
+                    meta={this.props.fields.name}
+                    form={this.props.form}
+                    dispatch={this.props.dispatch}
+                    editable={editMode}
+                    placeholder={t("organization-details.new")}
+                >
+                    <h1 className="ml-0">{name}</h1>
+                </EditField>
+            </div>
         );
     }
 
@@ -195,20 +200,25 @@ class CreateOrganizationForm extends React.Component {
     }
 
     renderDescriptionToggleSection() {
-        const { t } = this.props;
+        const { t, description } = this.props;
+        const editMode = true;
         return (
-            <ToggleSection defaultEditable={false}>
+            <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.description")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <Field
-                        name="description"
-                        component={FieldInput}
-                        as="textarea"
-                        rows="3"
-                        placeholder={t("group-details.add-description")}
-                    />
+                    {editMode ? (
+                        <Field
+                            name="description"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("group-details.add-description")}
+                        ></Field>
+                    ) : (
+                        <span className="pre-text">{description}</span>
+                    )}
                 </TogglePanel>
             </ToggleSection>
         );
@@ -216,30 +226,21 @@ class CreateOrganizationForm extends React.Component {
 
     renderAddressToggleSection() {
         const { t } = this.props;
+        const editMode = true;
         return (
             <ToggleSection defaultEditable={false}>
                 <ToggleHeading>
                     <h2>{t("organization-details.address")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <div className="table-details">
-                        <div>
-                            <div className="w-23">{t("organization-details.street")}</div>
-                            <div className="w-23">{t("organization-details.postal-code")}</div>
-                            <div className="w-23">{t("organization-details.postal-area")}</div>
-                            <div className="w-23">{t("organization-details.phone")}</div>
-                        </div>
-                        <div>
-                            <FieldArray
-                                name="addresses"
-                                component={FieldArrayAddressOrganization}
-                                editable={true}
-                                dispatch={this.props.dispatch}
-                                errors={this.props.formSyncErrors.addresses}
-                                metaFields={this.props.fields}
-                            />
-                        </div>
-                    </div>
+                    <FieldArray
+                        name="addresses"
+                        component={FieldArrayAddressOrganization}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.addresses}
+                        metaFields={this.props.fields}
+                    />
                 </TogglePanel>
             </ToggleSection>
         );
@@ -247,35 +248,27 @@ class CreateOrganizationForm extends React.Component {
 
     renderContactsToggleSection() {
         const { t } = this.props;
+        const editMode = true;
         return (
-            <ToggleSection defaultEditable={false}>
+            <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.contacts")}</h2>
-                    <DropdownSearch
-                        selection={this.handleSelectedContact}
-                        placeholder={t("search-filter.search-contact")}
-                    />
                 </ToggleHeading>
+
                 <TogglePanel>
-                    <div className="table-details">
-                        <div>
-                            <div className="w-18">Name</div>
-                            <div className="w-32">Role</div>
-                            <div className="w-18">Email</div>
-                            <div>Phone</div>
-                            <div></div>
-                        </div>
-                        <div>
-                            <FieldArray
-                                name="contacts"
-                                component={FieldArrayContactOrganization}
-                                editable={true}
-                                dispatch={this.props.dispatch}
-                                errors={this.props.formSyncErrors.contacts}
-                                metaFields={this.props.fields}
-                            />
-                        </div>
-                    </div>
+                    <FieldArray
+                        name="contacts"
+                        component={FieldArrayContactOrganization}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.contacts}
+                        metaFields={this.props.fields}
+                        rerenderOnEveryChange={true}
+                        handleContactSearch={this.handleSelectedContact}
+                        handleAddContactRow={() => {
+                            this.props.dispatch(this.props.showNewContactForm());
+                        }}
+                    />
                 </TogglePanel>
             </ToggleSection>
         );
@@ -295,9 +288,6 @@ class CreateOrganizationForm extends React.Component {
                         as="textarea"
                         rows="3"
                         placeholder={t("organization-details.add-description")}
-                        onBlur={(e) => {
-                            this.setState({ incident_management_info: e.target.value });
-                        }}
                     />
                 </TogglePanel>
             </ToggleSection>
@@ -328,11 +318,13 @@ class CreateOrganizationForm extends React.Component {
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { t, handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
-                <div className="model-details">
-                    <section className="title-section">{this.renderTitleSection()}</section>
+                <div className="model-details create-organizations-form">
+                    <Form.Row>
+                        <Col>{this.renderHeaderName()}</Col>
+                    </Form.Row>
                     <section className="model-section">
                         <Form.Row>
                             <Col>{this.renderDescriptionToggleSection()}</Col>
@@ -361,14 +353,14 @@ class CreateOrganizationForm extends React.Component {
                             this.props.history.push("/community/organizations");
                         }}
                     >
-                        Cancel
+                        {t("actions.cancel")}
                     </button>
                     <button
                         className="btn primary lg"
                         type="submit"
                         // disabled={!this.props.valid || this.props.pristine || this.props.submitting}
                     >
-                        Save
+                        {t("actions.save")}
                     </button>
                 </div>
             </form>
@@ -376,17 +368,16 @@ class CreateOrganizationForm extends React.Component {
     }
 }
 
-const asyncValidate =
-    ValidationsOrganizationForm.composeAsyncValidators(
-        [ValidationsOrganizationForm.asyncValidate_organization_id, ValidationsOrganizationForm.asyncValidate_relationship_parent_of]
-    );
+const asyncValidate = ValidationsOrganizationForm.composeAsyncValidators([
+    ValidationsOrganizationForm.asyncValidate_organization_id,
+    ValidationsOrganizationForm.asyncValidate_relationship_parent_of
+]);
 
 CreateOrganizationForm = reduxForm({
     form: "createOrganization",
     validate: ValidationsOrganizationForm.organizationFormValidate,
     asyncValidate,
     initialValues: {
-        name: "New organization",
         affiliation: false
     }
 })(CreateOrganizationForm);

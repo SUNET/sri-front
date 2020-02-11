@@ -23,6 +23,8 @@ import "../style/SideNav.scss";
 
 class SideNavCommunity extends React.Component {
     //Get the section by the url to expand the side menu
+
+    // TODO: change Accordion for a specific navbar handler
     matchUrl = () => {
         let tabUuid = COMMUNITY_ORGANIZATIONS;
         if (this.props.location.pathname.includes(COMMUNITY_CONTACTS)) {

@@ -30,8 +30,8 @@
             &:after {
                 display: inline-block;
                 content: '';
-                height: 6px;
-                width: 6px;
+                height: 8px;
+                width: 8px;
                 border-bottom: 2px solid $complementary-color;
                 border-right: 2px solid $complementary-color;
                 vertical-align: middle;
@@ -46,7 +46,6 @@
 
     .toggle-panel {
         margin-top: 16px;
-        padding-left: 24px;
         padding-right: 24px;
     }
 }

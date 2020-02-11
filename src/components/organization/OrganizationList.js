@@ -42,7 +42,7 @@ export class OrganizationList extends React.PureComponent {
 
     _handleOnClick = (event, data) => {
         // Redirection to organization detail
-        this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
+        this.props.history.push(`${this.props.match.url}/${data.id}`);
     };
 
     renderHeaderList() {
@@ -113,7 +113,7 @@ export class OrganizationList extends React.PureComponent {
                 {models.organizations.edges.map(({ node }) => {
                     return (
                         <OrganizationRow
-                            key={node.handle_id}
+                            key={node.id}
                             organization={node}
                             onClick={this._handleOnClick}
                             columnsVisible={this.props.columns_visible}
@@ -171,7 +171,7 @@ export default createPaginationContainer(
                     @connection(key: "OrganizationList_organizations", filters: []) {
                     edges {
                         node {
-                            handle_id
+                            id
                             ...OrganizationRow_organization
                         }
                     }

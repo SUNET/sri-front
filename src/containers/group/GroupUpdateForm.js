@@ -4,35 +4,48 @@ import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
 import uuidv4 from "uuid/v4";
 import * as actions from "../../actions/Notify";
 import { getContact } from "../../components/contact/Contact";
+import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("updateGroup");
     const group = props.group;
+
     const initialValues = {
-        handle_id: group.handle_id,
+        id: group.id,
         name: group.name,
         description: group.description,
         members: group.contacts
             ? group.contacts.map((member) => {
-                  let group_relation_id_obj =
-                      member.outgoing &&
-                      member.outgoing.find((relation_node) => {
-                          return (
-                              relation_node.relation.type === "Member_of" &&
-                              relation_node.relation.end.handle_id === group.handle_id
-                          );
-                      });
+
+                  let group_relation_id_obj = group.contact_relations.find(
+                      (relation) => relation.entity_id === member.id
+                  );
+                  // TODO:
+                  // relation_id vendrá directamente de member:
+                  // por tanto:
+                  // const group_relation_id_obj = member.relation_id
+                  // console.log(group);
+                  // console.log(member);
+                  // console.log(group_relation_id_obj);
+
+                  // member.outgoing &&
+                  // member.outgoing.find((relation_node) => {
+                  //     return (
+                  //         relation_node.relation.type === "Member_of" &&
+                  //         relation_node.relation.end.id === group.id
+                  //     );
+                  // });
                   return {
-                      handle_id: member.handle_id,
+                      id: member.id,
                       name: member.first_name + " " + member.last_name,
                       contact_type: member.contact_type,
-                      organization: member.roles[0] ? member.roles[0].end.handle_id : "",
-                      organization_label: member.roles[0] ? member.roles[0].end.name : "",
-                      email: member.emails[0] ? member.emails[0].name : "",
-                      email_obj: member.emails.length > 0 ? member.emails[0] : undefined,
-                      phone: member.phones[0] ? member.phones[0].name : "",
-                      phone_obj: member.phones.length > 0 ? member.phones[0] : undefined,
-                      group_relation_id: group_relation_id_obj && group_relation_id_obj.relation.relation_id,
+                      organization: member.roles,
+                      organization_label: member.roles.length ? member.roles.map((elem) => elem.end) : [],
+                      group_relation_id: group_relation_id_obj && group_relation_id_obj.relation_id,
+                      email: member.emails,
+                      email_obj: member.emails,
+                      phone: member.phones,
+                      phone_obj: member.phones,
                       status: "saved",
                       origin: "store",
                       created: true
@@ -57,7 +70,7 @@ const mapStateToProps = (state, props) => {
         memberValues: updateGroupSelector(state, "members"),
         formSyncErrors: getFormSyncErrors("updateGroup")(state),
         fields: getFormMeta("updateGroup")(state),
-        getContact: (handle_id) => getContact(handle_id)
+        getContact: (id) => getContact(id)
     };
 };
 
@@ -65,13 +78,11 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
+        showNewContactForm
     };
 };
 
-const GroupUpdateFormContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(GroupUpdateForm);
+const GroupUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(GroupUpdateForm);
 
 export default GroupUpdateFormContainer;

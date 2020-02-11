@@ -11,7 +11,7 @@ const mutation = graphql`
                 messages
             }
             address {
-                handle_id
+                id
                 name
                 phone
                 street

@@ -3,9 +3,9 @@
 .model-list article {
     display: table-row;
     background-color: white;
-    -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
-    -moz-box-shadow: 0 0 4px -1px #d6d6d6;
-    box-shadow: 0 0 4px -1px #d6d6d6;
+    -webkit-box-shadow: $list--row-box-shadow;
+    -moz-box-shadow: $list--row-box-shadow;
+    box-shadow: $list--row-box-shadow;
     cursor: pointer;
 
     -webkit-transform: translateZ(0);

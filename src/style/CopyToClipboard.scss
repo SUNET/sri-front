@@ -1,12 +1,25 @@
 @import "../variables.scss";
 
-div.copy-to-clipboard {
+.copy-to-clipboard {
     display: inline-block;
     position: relative;
 
-    .icon-copy {
-        color: $complementary-color;
-        margin-right: 8px;
+    &__content {
+        display: flex;
+        // align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        &__children {
+            width: calc(100% - 20px);
+        }
+
+        &__icon {
+            width: 20px;
+            i {
+                color: $complementary-color;
+                margin-right: 8px;
+            }
+        }
     }
 
     &:hover {

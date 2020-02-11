@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d624695d17138268844b381945b3361e
+ * @relayHash 45402706ccaca3ed1a8c26d912330a3f
  */
 
 /* eslint-disable */
@@ -13,7 +13,7 @@ export type UpdateEmailInput = {|
   contact?: ?any,
   name: string,
   type: any,
-  handle_id: number,
+  id: string,
   clientMutationId?: ?string,
 |};
 export type UpdateEmailMutationVariables = {|
@@ -26,7 +26,7 @@ export type UpdateEmailMutationResponse = {|
       +messages: $ReadOnlyArray<string>,
     |}>,
     +email: ?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |},
@@ -49,10 +49,9 @@ mutation UpdateEmailMutation(
       messages
     }
     email {
-      handle_id
+      id
       name
       type
-      id
     }
   }
 }
@@ -69,57 +68,80 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "input",
-    "variableName": "input"
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "update_email",
+    "storageKey": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "input",
+        "variableName": "input"
+      }
+    ],
+    "concreteType": "UpdateEmailPayload",
+    "plural": false,
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "errors",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "ErrorType",
+        "plural": true,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "field",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "messages",
+            "args": null,
+            "storageKey": null
+          }
+        ]
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "email",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Email",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "id",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "name",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "type",
+            "args": null,
+            "storageKey": null
+          }
+        ]
+      }
+    ]
   }
-],
-v2 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "errors",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "ErrorType",
-  "plural": true,
-  "selections": [
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "field",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "messages",
-      "args": null,
-      "storageKey": null
-    }
-  ]
-},
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "handle_id",
-  "args": null,
-  "storageKey": null
-},
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "name",
-  "args": null,
-  "storageKey": null
-},
-v5 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-};
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -128,84 +150,23 @@ return {
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "update_email",
-        "storageKey": null,
-        "args": (v1/*: any*/),
-        "concreteType": "UpdateEmailPayload",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "email",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Email",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/)
-            ]
-          }
-        ]
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "operation": {
     "kind": "Operation",
     "name": "UpdateEmailMutation",
     "argumentDefinitions": (v0/*: any*/),
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "update_email",
-        "storageKey": null,
-        "args": (v1/*: any*/),
-        "concreteType": "UpdateEmailPayload",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "email",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Email",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "id",
-                "args": null,
-                "storageKey": null
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "mutation",
     "name": "UpdateEmailMutation",
     "id": null,
-    "text": "mutation UpdateEmailMutation(\n  $input: UpdateEmailInput!\n) {\n  update_email(input: $input) {\n    errors {\n      field\n      messages\n    }\n    email {\n      handle_id\n      name\n      type\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateEmailMutation(\n  $input: UpdateEmailInput!\n) {\n  update_email(input: $input) {\n    errors {\n      field\n      messages\n    }\n    email {\n      id\n      name\n      type\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '984a073eb275be5055b94984370cdce1';
+(node/*: any*/).hash = 'b56a866824a76ee2812a234d82f7a24a';
 module.exports = node;

@@ -11,7 +11,7 @@ import renameKeys from "rename-keys";
 import environment from "../../createRelayEnvironment";
 import { ITEMS_PER_PAGE } from "../../config";
 
-import CreateContact from "./CreateContact";
+import CreateContactRoute from "./CreateContactRoute/CreateContactRoute";
 import ContactDetailsContainer from "../../containers/contact/ContactDetails";
 import ContactListContainer from "../../containers/contact/ContactList";
 import Filter from "../Filter";
@@ -296,7 +296,7 @@ class Search extends React.Component {
                             </>
                         )}
                     />
-                    <Route path="/community/contacts/create" component={CreateContact} />
+                    <Route path="/community/contacts/create" component={CreateContactRoute} />
                     <Route path="/community/contacts/:contactId" component={ContactDetailsContainer} />
                 </Switch>
             </section>

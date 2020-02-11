@@ -67,7 +67,7 @@ class OrganizationRow extends React.PureComponent {
 const OrganizationRowFragment = createFragmentContainer(OrganizationRow, {
     organization: graphql`
         fragment OrganizationRow_organization on Organization {
-            handle_id
+            id
             name
             type
             organization_id
@@ -85,7 +85,7 @@ const OrganizationRowFragment = createFragmentContainer(OrganizationRow, {
                 relation {
                     type
                     start {
-                        handle_id
+                        id
                         node_name
                     }
                 }

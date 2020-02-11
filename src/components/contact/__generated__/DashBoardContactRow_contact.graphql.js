@@ -12,7 +12,7 @@ import type { FragmentReference } from "relay-runtime";
 declare export opaque type DashBoardContactRow_contact$ref: FragmentReference;
 declare export opaque type DashBoardContactRow_contact$fragmentType: DashBoardContactRow_contact$ref;
 export type DashBoardContactRow_contact = {|
-  +handle_id: string,
+  +id: string,
   +first_name: string,
   +last_name: string,
   +modified: any,
@@ -56,7 +56,7 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "handle_id",
+      "name": "id",
       "args": null,
       "storageKey": null
     },
@@ -117,5 +117,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0fc5f702bbe3b8766f274b60f346ea07';
+(node/*: any*/).hash = '8f2e64b8bd85e26897700b972cf0815c';
 module.exports = node;

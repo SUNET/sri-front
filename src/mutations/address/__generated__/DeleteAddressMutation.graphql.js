@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 43a4560dea2271b979fe7cb2828b9e85
+ * @relayHash 1d6e3248b214ca055f74a4132d8d19db
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type DeleteAddressInput = {|
-  handle_id: number,
+  id: string,
   clientMutationId?: ?string,
 |};
 export type DeleteAddressMutationVariables = {|

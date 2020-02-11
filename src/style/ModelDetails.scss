@@ -1,7 +1,83 @@
 @import "../variables.scss";
 
+.contact-in-organization {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column wrap;
+    flex-wrap: wrap;
+    &__header__title,
+    &__body__row__element {
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 25%;
+    }
+    &__header {
+        display: flex;
+        width: 100%;
+        &__title {
+            margin-bottom: 1.5rem;
+            font-family: karla;
+            font-weight: bold;
+            color: $secondary-color-30;
+            align-items: center;
+            display: flex;
+            &--with-cta {
+                span {
+                    margin-right: $margin-lateral-line-elements;
+                }
+            }
+        }
+    }
+    &__body {
+        display: flex;
+        flex-flow: column wrap;
+        width: 100%;
+        &__row {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+            width: 100%;
+            &__element--ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                > div {
+                    > div {
+                        height: 100%;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                }
+            }
+            &__element {
+                margin-bottom: 1.5rem;
+                margin-bottom: 1em;
+                padding-left: 24px;
+                color: $secondary-color;
+                select {
+                    position: relative;
+                    bottom: 10px;
+                    max-width: 200px;
+                }
+            }
+        }
+    }
+    &__footer {
+        display: flex;
+        padding-top: 10px;
+        > * {
+            margin-right: $margin-lateral-line-elements;
+        }
+        &__add {
+            width: $outline-cta-width!important;
+        }
+    }
+}
 .model-details {
     .title-section {
+        display: flex;
+        align-items: center;
         > button {
             margin-right: 16px;
         }
@@ -19,46 +95,171 @@
             margin-left: 8px;
             font-size: 11px;
         }
-    }
 
+        &__right-block {
+            display: flex;
+            justify-content: flex-end;
+            &__buttons {
+                margin-right: 1em;
+            }
+        }
+        &__name-inputs {
+            display: flex;
+        }
+    }
     .info-creator-modifier {
         text-align: right;
+    }
+
+    // &.create-group-form,
+    // &.group-details,
+    // &.create-organizations-form,
+    // &.organization-details,
+    &.create-contact-form,
+    &.contact-details {
+        .model-section {
+            .form-internal-block__section {
+                flex-basis: auto;
+                .row-remove-cta {
+                    margin-top: 7px;
+                }
+            }
+        }
     }
 
     .model-section {
         margin-top: 16px;
         padding: 32px 24px;
         background-color: white;
-        -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
-        -moz-box-shadow: 0 0 4px -1px #d6d6d6;
-        box-shadow: 0 0 4px -1px #d6d6d6;
-
+        -webkit-box-shadow: $list--row-box-shadow;
+        -moz-box-shadow: $list--row-box-shadow;
+        box-shadow: $list--row-box-shadow;
+        .organizations-contacts {
+            .btn-add {
+                width: $outline-cta-width
+            }
+        }
         .form-internal-block {
             display: flex;
             flex-wrap: wrap;
+            &--organizations-contacts,
+            &--contact-in-organization {
+                &__section {
+                    &__content {
+                        margin-bottom: 10px;
+                        height: 100%;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                        padding-bottom: 50px;
+                        height: 83px;
+                        &__internal-list {
+                            // height: 32px;
+                            overflow: initial;
+                            display: flex;
+                            flex-direction: column;
+                            > div {
+                                height: $row-height;
+                            }
+                            &__element {
+                                display: flex;
+                                height: 100%;
+                                &__main-text {
+                                    height: 100%;
+                                    margin-right: 10px;
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    margin-right: 8px;
+                                    width: calc(100% - 70px);
+                                }
+                                &__secondary-text {
+                                    font-family: karla;
+                                    color: $secondary-color-30;
+                                    width: 70px;
+                                }
+                            }
+                        }
+                    }
+                    .row-remove-cta {
+                        position: relative;
+                        top: -24px;
+                        left: 178px;
+                        &--address {
+                            top: 0;
+                            left: 10px;
+                        }
+                    }
+                }
+            }
+
+            &__section--edition-mode {
+                &__content {
+                    padding-left: 5px;
+                }
+            }
+
             &__section {
                 flex-grow: 1;
                 flex-shrink: 0;
                 flex-basis: 25%;
                 margin-bottom: 1.5rem;
-                &__title{
+                display: flex;
+                flex-direction: column;
+                &__title {
                     font-family: karla;
                     font-weight: bold;
                     color: $secondary-color-30;
                     &:not(.with-icon) {
                         padding-bottom: 16px;
                     }
-
+                    
                     &.with-icon {
                         > span {
                             margin-right: 16px;
                         }
                     }
                 }
-                &__content{
+                &__content {
+                    padding-left: 24px;
+                    &--edition-mode {
+                        padding-left: 0;
+                    }
+                    .list-items {
+                        &__label {
+                            display: flex;
+                            flex-direction: column;
+                            max-width: 300px;
+                            &__row {
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                padding-right: 8px;
+                                height: $row-height;
+                                &__main-text {
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    margin-right: 8px;
+                                }
+                                &__secondary-text {
+                                    font-family: karla;
+                                    color: $secondary-color-30;
+                                }
+                            }
+                        }
+                        &__inputs {
+                            max-width: none;
+                            &__row { 
+                                height: calc(#{$row-height} + 10px);
+                            }
+                            button {
+                                width: $outline-cta-width
+                            }
+                        }
+                    }
                 }
             }
         }
+
 
         .table-details {
             display: table;
@@ -180,7 +381,8 @@
                     }
                 }
             }
-
+            
+            // TODO: Remove when form-internal-block implements in all forms
             .list-items-label {
                 display: table;
 
@@ -207,6 +409,10 @@
                     }
                 }
             }
+        }
+
+        hr {
+            border-color: $tertiary-color;
         }
     }
 }

@@ -12,7 +12,7 @@ import type { FragmentReference } from "relay-runtime";
 declare export opaque type OrganizationRow_organization$ref: FragmentReference;
 declare export opaque type OrganizationRow_organization$fragmentType: OrganizationRow_organization$ref;
 export type OrganizationRow_organization = {|
-  +handle_id: string,
+  +id: string,
   +name: string,
   +type: ?any,
   +organization_id: ?string,
@@ -30,7 +30,7 @@ export type OrganizationRow_organization = {|
     +relation: {|
       +type: string,
       +start: {|
-        +handle_id: string,
+        +id: string,
         +node_name: string,
       |},
     |},
@@ -49,7 +49,7 @@ const node/*: ReaderFragment*/ = (function(){
 var v0 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -186,5 +186,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c7624b3efbc46759db83072a88f74a87';
+(node/*: any*/).hash = '1b2c0d3cf7382ac31b55a401d8fb043c';
 module.exports = node;

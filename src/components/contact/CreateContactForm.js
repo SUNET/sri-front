@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Col } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import { FieldArray, Field, reduxForm } from "redux-form";
 
@@ -10,226 +9,251 @@ import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/Togg
 import Dropdown from "../Dropdown";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
+import ContactPhones from "./ContactPhones";
+import ContactEmails from "./ContactEmails";
+import SaveCancelCTAs from "../common/SaveCancelCTAs";
+import ValidationsContactForm from "./ValidationContactForm";
+import BackCTA from "../common/BackCTA";
+import { CREATE_CONTACT_FORM } from "../../utils/constants";
 
-const renderEmails = ({ fields, t }) => {
-    const pushField = (event) => {
-        if (fields.length < 5) {
-            fields.push({});
-        }
-    };
+const renderFormBlockSection = (editable, data, uniqueKey) => {
+    const isPresentState = !editable && data.presentContent;
     return (
-        <>
-            {fields.map((email, index) => (
-                <div key={index} className="input-group">
-                    <Form.Group>
-                        <Field
-                            className="auto"
-                            name={`${email}.email`}
-                            type="text"
-                            component={FieldInput}
-                            placeholder="Email"
-                        />
-                    </Form.Group>
-                    <Dropdown
-                        className="auto"
-                        emptyLabel="Type"
-                        type="email_type"
-                        name={`${email}.type`}
-                        onChange={(e) => {}}
-                    />
-                    <div>
-                        <i className="icon-trash" onClick={() => fields.remove(index)}></i>
-                    </div>
-                </div>
-            ))}
-            <button type="button" className="btn btn-add outline" onClick={(e) => pushField(e)}>
-                <span>{t("actions.add-new")}</span>
-            </button>
-        </>
-    );
-};
-
-const renderPhones = ({ fields, t }) => {
-    const pushField = (event) => {
-        if (fields.length < 5) {
-            fields.push({});
-        }
-    };
-    return (
-        <>
-            {fields.map((phone, index) => (
-                <div key={index} className="input-group">
-                    <Form.Group>
-                        <Field
-                            className="auto"
-                            name={`${phone}.phone`}
-                            type="text"
-                            component={FieldInput}
-                            placeholder="Phone"
-                        />
-                    </Form.Group>
-                    <Dropdown
-                        className="auto"
-                        emptyLabel="Type"
-                        type="phone_type"
-                        name={`${phone}.type`}
-                        onChange={(e) => {}}
-                    />
-                    <div>
-                        <i className="icon-trash" onClick={() => fields.remove(index)}></i>
-                    </div>
-                </div>
-            ))}
-            <button type="button" className="btn btn-add outline" onClick={(e) => pushField(e)}>
-                <span>{t("actions.add-new")}</span>
-            </button>
-        </>
+        <div className="form-internal-block__section" key={uniqueKey}>
+            <div className="form-internal-block__section__title">{data.title}</div>
+            <div
+                className={`form-internal-block__section__content ${
+                    editable ? "form-internal-block__section__content--edition-mode" : ""
+                }`}
+            >
+                {isPresentState ? data.presentContent : data.editContent}
+            </div>
+        </div>
     );
 };
 
 class CreateContactForm extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            errors: []
-        };
-    }
-
     handleSubmit = (contact) => {
         CreateContactMutation(contact, this);
     };
 
-    render() {
-        const { name, t, handleSubmit } = this.props;
+    renderHeaderName() {
+        const { shown_in_modal, t, first_name, last_name } = this.props;
+        const editMode = true;
         return (
-            <form onSubmit={handleSubmit(this.handleSubmit)}>
-                <div className="model-details">
-                    <section className="title-section">
-                        <EditField
-                            error={this.props.formSyncErrors.name}
-                            meta={this.props.fields.name}
-                            initialValue="New contact"
-                            form={this.props.form}
-                            dispatch={this.props.dispatch}
-                            value={name}
-                        >
-                            <h1 className="ml-0">{name}</h1>
-                        </EditField>
-                    </section>
+            <div className="title-section">
+                {!shown_in_modal && <BackCTA onClick={() => this.props.history.goBack()} />}
+                <div className="vertical-separator"></div>
+                <div className="title-section__name-inputs">
+                    <EditField
+                        error={this.props.formSyncErrors.first_name}
+                        meta={this.props.fields.first_name}
+                        form={this.props.form}
+                        dispatch={this.props.dispatch}
+                        editable={editMode}
+                        placeholder={t("contact-details.name")}
+                        name="first_name"
+                    >
+                        <h1>{first_name}</h1>
+                    </EditField>
+                    <EditField
+                        error={this.props.formSyncErrors.last_name}
+                        meta={this.props.fields.last_name}
+                        form={this.props.form}
+                        dispatch={this.props.dispatch}
+                        editable={editMode}
+                        placeholder={t("contact-details.lastName")}
+                        name="last_name"
+                    >
+                        <h1>{last_name}</h1>
+                    </EditField>
+                </div>
+            </div>
+        );
+    }
+
+    renderNotesToggleSection() {
+        const { t } = this.props;
+        return (
+            <ToggleSection>
+                <ToggleHeading>
+                    <h2>{t("contact-details.notes")}</h2>
+                </ToggleHeading>
+                <TogglePanel>
+                    <Field
+                        name="notes"
+                        component={FieldInput}
+                        as="textarea"
+                        rows="3"
+                        placeholder={t("contact-details.add-notes")}
+                    />
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    renderGeneralInfoToggleSection() {
+        const editionMode = true;
+        const { t, title, contact_type, pgp_fingerprint } = this.props;
+        const generalInfoFirstRow = [
+            {
+                title: "Title",
+                presentContent: title,
+                editContent: (
+                    <Form.Group>
+                        <Field type="text" component={FieldInput} placeholder="Type title" name="title" />
+                    </Form.Group>
+                )
+            },
+            {
+                title: "Type",
+                presentContent: contact_type,
+                editContent: (
+                    <Dropdown
+                        className="auto"
+                        emptyLabel="Select type"
+                        name="contact_type"
+                        type="contact_type"
+                        onChange={(e) => {}}
+                    />
+                )
+            },
+            {
+                title: "E-mails",
+                presentContent: (
+                    <FieldArray
+                        name="emails"
+                        t={t}
+                        component={ContactEmails}
+                        // editable={editionMode}
+                        // dispatch={this.props.dispatch}
+                    />
+                ),
+                editContent: (
+                    <FieldArray
+                        name="emails"
+                        t={t}
+                        component={ContactEmails}
+                        // editable={editionMode}
+                        // dispatch={this.props.dispatch}
+                    />
+                )
+            },
+            {
+                title: "Phone",
+                presentContent: (
+                    <FieldArray
+                        name="phones"
+                        t={t}
+                        component={ContactPhones}
+                        // editable={editionMode}
+                        // dispatch={this.props.dispatch}
+                    />
+                ),
+                editContent: (
+                    <FieldArray
+                        name="phones"
+                        t={t}
+                        component={ContactPhones}
+                        // editable={editionMode}
+                        // dispatch={this.props.dispatch}
+                    />
+                )
+            }
+        ];
+        return (
+            <ToggleSection defaultEditable={false}>
+                <ToggleHeading>
+                    <h2>{t("contact-details.general-information")}</h2>
+                </ToggleHeading>
+                <TogglePanel>
+                    <>
+                        <div className="form-internal-block">
+                            {generalInfoFirstRow.map((formData, index) => {
+                                return renderFormBlockSection(editionMode, formData, index);
+                            })}
+                        </div>
+                        <div className="table-details mt-4">
+                            <div>
+                                <div>PGP Fingerprint</div>
+                            </div>
+                            <div>
+                                <div>
+                                    {!editionMode ? (
+                                        pgp_fingerprint
+                                    ) : (
+                                        <Form.Group>
+                                            <Field
+                                                type="text"
+                                                component={FieldInput}
+                                                className="xlg"
+                                                placeholder={t("contact-details.pgp-fingerprint")}
+                                                name="pgp_fingerprint"
+                                            />
+                                        </Form.Group>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    renderSaveCancelButtons() {
+        return (
+            <SaveCancelCTAs
+                formId={CREATE_CONTACT_FORM}
+                onCancel={() => {
+                    if (this.props.shown_in_modal) {
+                        this.props.hideContactModal();
+                    } else {
+                        this.props.history.goBack();
+                    }
+                }}
+            />
+        );
+    }
+
+    renderProfesionalDetails() {
+        const { t } = this.props;
+        const editionMode = true;
+        return (
+            <ToggleSection>
+                <ToggleHeading>
+                    <h2>{t("contact-details.profesional-details")}</h2>
+                </ToggleHeading>
+                <TogglePanel>
+                    <FieldArray
+                        name="organizations"
+                        component={FieldArrayOrganizationsContact}
+                        editable={editionMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.organizations}
+                        metaFields={this.props.fields}
+                    />
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    render() {
+        const { t, handleSubmit } = this.props;
+        return (
+            <form id={CREATE_CONTACT_FORM} onSubmit={handleSubmit(this.handleSubmit)}>
+                <div className="model-details create-contact-form">
+                    <Form.Row>
+                        <Col>{this.renderHeaderName()}</Col>
+                    </Form.Row>
                     <section className="model-section">
                         <Form.Row>
                             <Col>
-                                <ToggleSection defaultEditable={false}>
-                                    <ToggleHeading>
-                                        <h2>{t("contact-details.notes")}</h2>
-                                    </ToggleHeading>
-                                    <TogglePanel>
-                                        <Field
-                                            name="notes"
-                                            component={FieldInput}
-                                            as="textarea"
-                                            rows="3"
-                                            placeholder={t("contact-details.add-notes")}
-                                        />
-                                    </TogglePanel>
-                                </ToggleSection>
-                            </Col>
-                        </Form.Row>
-                        <hr />
-                        <Form.Row>
-                            <Col>
-                                <ToggleSection defaultEditable={false}>
-                                    <ToggleHeading>
-                                        <h2>{t("contact-details.general-information")}</h2>
-                                    </ToggleHeading>
-                                    <TogglePanel>
-                                        <div className="table-details">
-                                            <div>
-                                                <div className="w-15">Title</div>
-                                                <div className="w-15">Type</div>
-                                                <div className="w-35">E-mails</div>
-                                                <div className="w-35">Phone</div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <div>
-                                                        <Form.Group>
-                                                            <Field
-                                                                type="text"
-                                                                component={FieldInput}
-                                                                placeholder="Type title"
-                                                                name="title"
-                                                            />
-                                                        </Form.Group>
-                                                    </div>
-                                                    <div>
-                                                        <Dropdown
-                                                            className="auto"
-                                                            emptyLabel="Type"
-                                                            name="contact_type"
-                                                            type="contact_type"
-                                                            onChange={(e) => {}}
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <FieldArray name="emails" t={t} component={renderEmails} />
-                                                    </div>
-                                                    <div>
-                                                        <FieldArray name="phones" t={t} component={renderPhones} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="table-details mt-4">
-                                            <div>
-                                                <div>PGP Fingerprint</div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <Form.Group>
-                                                        <Field
-                                                            name="pgp_fingerprint"
-                                                            className="xlg"
-                                                            component={FieldInput}
-                                                            placeholder={t("contact-details.pgp-fingerprint")}
-                                                        />
-                                                    </Form.Group>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </TogglePanel>
-                                </ToggleSection>
-                            </Col>
-                        </Form.Row>
-                        <hr />
-                        <Form.Row>
-                            <Col>
-                                <ToggleSection defaultEditable={false}>
-                                    <ToggleHeading>
-                                        <h2>{t("contact-details.profesional-details")}</h2>
-                                    </ToggleHeading>
-                                    <TogglePanel>
-                                        <div className="table-details">
-                                            <div>
-                                                <div className="w-35">Role</div>
-                                                <div className="w-25">Organization ID</div>
-                                                <div className="w-25">Organization</div>
-                                                <div></div>
-                                            </div>
-                                            <div>
-                                                <FieldArray
-                                                    name="organizations"
-                                                    component={FieldArrayOrganizationsContact}
-                                                    editable={true}
-                                                    dispatch={this.props.dispatch}
-                                                    errors={this.props.formSyncErrors.organizations}
-                                                    metaFields={this.props.fields}
-                                                />
-                                            </div>
-                                        </div>
-                                    </TogglePanel>
-                                </ToggleSection>
+                                {this.renderNotesToggleSection()}
+                                <hr />
+                                {this.renderGeneralInfoToggleSection()}
+                                <hr />
+                                {this.renderProfesionalDetails()}
                             </Col>
                         </Form.Row>
                     </section>
@@ -250,108 +274,16 @@ class CreateContactForm extends React.Component {
                         </ToggleSection>
                     </section>
                 </div>
-                <div className="text-right mt-4">
-                    <button
-                        type="button"
-                        className="mr-2 btn link"
-                        onClick={() => {
-                            this.props.history.push("/community/contacts");
-                        }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="btn primary lg"
-                        type="submit"
-                        // disabled={!this.props.valid || this.props.pristine || this.props.submitting}
-                    >
-                        Save
-                    </button>
-                </div>
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }
 }
 
-const validate = (values) => {
-    const errors = {};
-    if (!values.name || values.name === "New contact") {
-        errors.name = "* Required!";
-    }
-
-    if (!values.contact_type) {
-        errors.contact_type = "* Required!";
-    }
-
-    if (values.emails) {
-        const emailArrayErrors = [];
-        values.emails.forEach((email, emailIndex) => {
-            const emailErrors = {};
-            if (!email || !email.email) {
-                emailErrors.email = "* Required!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email.email)) {
-                emailErrors.email = "* Invalid email!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            }
-            if (!email || !email.type) {
-                emailErrors.type = "* Required!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            }
-            return emailErrors;
-        });
-        if (emailArrayErrors.length) {
-            errors.emails = emailArrayErrors;
-        }
-    }
-
-    if (values.phones) {
-        const phoneArrayErrors = [];
-        values.phones.forEach((phone, phoneIndex) => {
-            const phoneErrors = {};
-            if (!phone || !phone.phone) {
-                phoneErrors.phone = "* Required!";
-                phoneArrayErrors[phoneIndex] = phoneErrors;
-            }
-            if (!phone || !phone.type) {
-                phoneErrors.type = "* Required!";
-                phoneArrayErrors[phoneIndex] = phoneErrors;
-            }
-            return phoneErrors;
-        });
-        if (phoneArrayErrors.length) {
-            errors.phones = phoneArrayErrors;
-        }
-    }
-
-    if (values.organizations) {
-        const organizationArrayErrors = [];
-        values.organizations.forEach((organization, organizationIndex) => {
-            const organizationErrors = {};
-            if (!organization || !organization.role) {
-                organizationErrors.role = "* Required!";
-                organizationArrayErrors[organizationIndex] = organizationErrors;
-            }
-            if (!organization || !organization.organization) {
-                organizationErrors.organization = "* Required!";
-                organizationArrayErrors[organizationIndex] = organizationErrors;
-            }
-            return organizationErrors;
-        });
-        if (organizationArrayErrors.length) {
-            errors.organizations = organizationArrayErrors;
-        }
-    }
-
-    return errors;
-};
-
 CreateContactForm = reduxForm({
     form: "createContact",
-    validate,
-    initialValues: {
-        name: "New contact"
-    }
+    validate: ValidationsContactForm.contactFormValidate,
+    initialValues: {}
 })(CreateContactForm);
 
-export default withTranslation()(withRouter(CreateContactForm));
+export default withTranslation()(CreateContactForm);

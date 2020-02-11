@@ -21,7 +21,7 @@ const DropdownQuery = graphql`
 const DropdownOrganizationsAllQuery = graphql`
     query DropdownOrganizationsAllQuery {
         all_organizations {
-            handle_id
+            id
             node_name
         }
     }
@@ -32,7 +32,7 @@ const DropdownRolesQuery = graphql`
         roles(orderBy: name_ASC) {
             edges {
                 node {
-                    handle_id
+                    id
                     name
                 }
             }
@@ -43,7 +43,7 @@ const DropdownRolesQuery = graphql`
 const DropdownRolesGroupDefaultQuery = graphql`
     query DropdownRolesGroupDefaultQuery {
         getRolesFromRoleGroup {
-            handle_id
+            id
             name
         }
     }
@@ -73,7 +73,7 @@ class Dropdown extends React.PureComponent {
     renderOptionsModel = (options) => {
         return options.edges.map((option) => {
             return (
-                <option key={option.node.handle_id} value={option.node.handle_id}>
+                <option key={option.node.id} value={option.node.id}>
                     {option.node.name}
                 </option>
             );
@@ -83,7 +83,7 @@ class Dropdown extends React.PureComponent {
     renderOptionsModelOptimized = (options) => {
         return options.map((option) => {
             return (
-                <option key={option.handle_id} value={option.handle_id}>
+                <option key={option.id} value={option.id}>
                     {option.node_name}
                 </option>
             );

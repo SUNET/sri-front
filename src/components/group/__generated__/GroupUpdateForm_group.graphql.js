@@ -12,31 +12,31 @@ import type { FragmentReference } from "relay-runtime";
 declare export opaque type GroupUpdateForm_group$ref: FragmentReference;
 declare export opaque type GroupUpdateForm_group$fragmentType: GroupUpdateForm_group$ref;
 export type GroupUpdateForm_group = {|
-  +handle_id: string,
+  +id: string,
   +name: string,
   +description: ?string,
   +contacts: ?$ReadOnlyArray<?{|
-    +handle_id: string,
+    +id: string,
     +first_name: string,
     +last_name: string,
     +contact_type: ?any,
     +emails: ?$ReadOnlyArray<?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |}>,
     +phones: ?$ReadOnlyArray<?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |}>,
     +roles: ?$ReadOnlyArray<?{|
       +role_data: ?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
       |},
       +end: ?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
       |},
     |}>,
@@ -46,7 +46,7 @@ export type GroupUpdateForm_group = {|
         +relation_id: number,
         +type: string,
         +end: {|
-          +handle_id: string,
+          +id: string,
           +node_name: string,
         |},
       |},
@@ -83,7 +83,7 @@ const node/*: ReaderFragment*/ = (function(){
 var v0 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -280,13 +280,7 @@ return {
       "concreteType": "CommentType",
       "plural": true,
       "selections": [
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "name": "id",
-          "args": null,
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "kind": "LinkedField",
           "alias": null,
@@ -354,5 +348,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '516e2ad2857ab65f6a82008e1b7f4b6b';
+(node/*: any*/).hash = '4f77e5dfa06c51bc378745e4ad389af3';
 module.exports = node;

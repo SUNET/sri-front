@@ -65,7 +65,7 @@ class DashBoardContactRow extends React.PureComponent {
 const ContactRowFragment = createFragmentContainer(DashBoardContactRow, {
     contact: graphql`
         fragment DashBoardContactRow_contact on Contact {
-            handle_id
+            id
             first_name
             last_name
             modified

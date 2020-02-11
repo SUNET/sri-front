@@ -7,6 +7,9 @@ RUN yarn build
 
 # Stage 2 - the production environment
 FROM nginx:alpine
+RUN mkdir /cert
+COPY cert/localenv.crt /cert/localenv.crt
+COPY cert/localenv.key /cert/localenv.key
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=react-build /app/build /usr/share/nginx/html
 EXPOSE 80 443

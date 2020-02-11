@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e0186d948cc9eaeeb99db4dba5028ec6
+ * @relayHash 813d68f2a9d7bf2108385e01a2816c48
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type OrganizationUpdateForm_organization$ref = any;
 export type OrganizationUpdateFormRefetchQueryVariables = {|
-  organizationId: number
+  organizationId: string
 |};
 export type OrganizationUpdateFormRefetchQueryResponse = {|
   +getOrganizationById: ?{|
@@ -27,16 +27,16 @@ export type OrganizationUpdateFormRefetchQuery = {|
 
 /*
 query OrganizationUpdateFormRefetchQuery(
-  $organizationId: Int!
+  $organizationId: ID!
 ) {
-  getOrganizationById(handle_id: $organizationId) {
+  getOrganizationById(id: $organizationId) {
     ...OrganizationUpdateForm_organization
     id
   }
 }
 
 fragment OrganizationUpdateForm_organization on Organization {
-  handle_id
+  id
   name
   type
   website
@@ -49,13 +49,12 @@ fragment OrganizationUpdateForm_organization on Organization {
     id
   }
   addresses {
-    handle_id
+    id
     name
     street
     postal_code
     postal_area
     phone
-    id
   }
   incoming {
     name
@@ -63,48 +62,42 @@ fragment OrganizationUpdateForm_organization on Organization {
       relation_id
       type
       end {
-        handle_id
-        node_name
         id
+        node_name
       }
       start {
-        handle_id
-        node_name
         id
+        node_name
       }
       id
     }
   }
   contacts {
-    handle_id
+    id
     first_name
     last_name
     contact_type
     emails {
-      handle_id
+      id
       name
       type
-      id
     }
     phones {
-      handle_id
+      id
       name
       type
-      id
     }
     roles {
       relation_id
       role_data {
-        handle_id
+        id
         name
       }
       end {
-        handle_id
-        name
         id
+        name
       }
     }
-    id
   }
   comments {
     id
@@ -134,21 +127,21 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "organizationId",
-    "type": "Int!",
+    "type": "ID!",
     "defaultValue": null
   }
 ],
 v1 = [
   {
     "kind": "Variable",
-    "name": "handle_id",
+    "name": "id",
     "variableName": "organizationId"
   }
 ],
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -176,18 +169,11 @@ v5 = {
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "id",
-  "args": null,
-  "storageKey": null
-},
-v7 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "relation_id",
   "args": null,
   "storageKey": null
 },
-v8 = [
+v7 = [
   (v2/*: any*/),
   {
     "kind": "ScalarField",
@@ -195,28 +181,30 @@ v8 = [
     "name": "node_name",
     "args": null,
     "storageKey": null
-  },
-  (v6/*: any*/)
+  }
 ],
-v9 = {
+v8 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "first_name",
   "args": null,
   "storageKey": null
 },
-v10 = {
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "last_name",
   "args": null,
   "storageKey": null
 },
-v11 = [
+v10 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v4/*: any*/),
-  (v6/*: any*/)
+  (v4/*: any*/)
+],
+v11 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
 ],
 v12 = [
   {
@@ -226,7 +214,7 @@ v12 = [
     "args": null,
     "storageKey": null
   },
-  (v6/*: any*/)
+  (v2/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -311,7 +299,7 @@ return {
             "plural": true,
             "selections": [
               (v5/*: any*/),
-              (v6/*: any*/)
+              (v2/*: any*/)
             ]
           },
           {
@@ -352,8 +340,7 @@ return {
                 "name": "phone",
                 "args": null,
                 "storageKey": null
-              },
-              (v6/*: any*/)
+              }
             ]
           },
           {
@@ -375,7 +362,7 @@ return {
                 "concreteType": "NIRelationType",
                 "plural": false,
                 "selections": [
-                  (v7/*: any*/),
+                  (v6/*: any*/),
                   (v4/*: any*/),
                   {
                     "kind": "LinkedField",
@@ -385,7 +372,7 @@ return {
                     "args": null,
                     "concreteType": "NINodeHandlerType",
                     "plural": false,
-                    "selections": (v8/*: any*/)
+                    "selections": (v7/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -395,9 +382,9 @@ return {
                     "args": null,
                     "concreteType": "NINodeHandlerType",
                     "plural": false,
-                    "selections": (v8/*: any*/)
+                    "selections": (v7/*: any*/)
                   },
-                  (v6/*: any*/)
+                  (v2/*: any*/)
                 ]
               }
             ]
@@ -412,8 +399,8 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
+              (v8/*: any*/),
               (v9/*: any*/),
-              (v10/*: any*/),
               {
                 "kind": "ScalarField",
                 "alias": null,
@@ -429,7 +416,7 @@ return {
                 "args": null,
                 "concreteType": "Email",
                 "plural": true,
-                "selections": (v11/*: any*/)
+                "selections": (v10/*: any*/)
               },
               {
                 "kind": "LinkedField",
@@ -439,7 +426,7 @@ return {
                 "args": null,
                 "concreteType": "Phone",
                 "plural": true,
-                "selections": (v11/*: any*/)
+                "selections": (v10/*: any*/)
               },
               {
                 "kind": "LinkedField",
@@ -450,7 +437,7 @@ return {
                 "concreteType": "RoleRelation",
                 "plural": true,
                 "selections": [
-                  (v7/*: any*/),
+                  (v6/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -459,10 +446,7 @@ return {
                     "args": null,
                     "concreteType": "Role",
                     "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      (v3/*: any*/)
-                    ]
+                    "selections": (v11/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -472,15 +456,10 @@ return {
                     "args": null,
                     "concreteType": "Organization",
                     "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      (v3/*: any*/),
-                      (v6/*: any*/)
-                    ]
+                    "selections": (v11/*: any*/)
                   }
                 ]
-              },
-              (v6/*: any*/)
+              }
             ]
           },
           {
@@ -492,7 +471,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v6/*: any*/),
+              (v2/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -502,9 +481,9 @@ return {
                 "concreteType": "User",
                 "plural": false,
                 "selections": [
+                  (v8/*: any*/),
                   (v9/*: any*/),
-                  (v10/*: any*/),
-                  (v6/*: any*/)
+                  (v2/*: any*/)
                 ]
               },
               {
@@ -556,8 +535,7 @@ return {
             "concreteType": "User",
             "plural": false,
             "selections": (v12/*: any*/)
-          },
-          (v6/*: any*/)
+          }
         ]
       }
     ]
@@ -566,11 +544,11 @@ return {
     "operationKind": "query",
     "name": "OrganizationUpdateFormRefetchQuery",
     "id": null,
-    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: Int!\n) {\n  getOrganizationById(handle_id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  handle_id\n  name\n  type\n  website\n  organization_id\n  organization_number\n  description\n  incident_management_info\n  parent_organization {\n    organization_id\n    id\n  }\n  addresses {\n    handle_id\n    name\n    street\n    postal_code\n    postal_area\n    phone\n    id\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        handle_id\n        node_name\n        id\n      }\n      start {\n        handle_id\n        node_name\n        id\n      }\n      id\n    }\n  }\n  contacts {\n    handle_id\n    first_name\n    last_name\n    contact_type\n    emails {\n      handle_id\n      name\n      type\n      id\n    }\n    phones {\n      handle_id\n      name\n      type\n      id\n    }\n    roles {\n      relation_id\n      role_data {\n        handle_id\n        name\n      }\n      end {\n        handle_id\n        name\n        id\n      }\n    }\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: ID!\n) {\n  getOrganizationById(id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  id\n  name\n  type\n  website\n  organization_id\n  organization_number\n  description\n  incident_management_info\n  parent_organization {\n    organization_id\n    id\n  }\n  addresses {\n    id\n    name\n    street\n    postal_code\n    postal_area\n    phone\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        id\n        node_name\n      }\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type\n    emails {\n      id\n      name\n      type\n    }\n    phones {\n      id\n      name\n      type\n    }\n    roles {\n      relation_id\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '40d11bd5b5f999da0242f72ee82d51ff';
+(node/*: any*/).hash = 'ba5fadfb01c6b265009b31e5b92edbf7';
 module.exports = node;

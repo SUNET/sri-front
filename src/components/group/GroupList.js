@@ -41,7 +41,7 @@ export class GroupList extends React.PureComponent {
 
     _handleOnClick = (event, data) => {
         // Redirection to group detail
-        this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
+        this.props.history.push(`${this.props.match.url}/${data.id}`);
     };
 
     renderHeaderList() {
@@ -100,7 +100,7 @@ export class GroupList extends React.PureComponent {
                 {models.groups.edges.map(({ node }) => {
                     return (
                         <GroupRow
-                            key={node.handle_id}
+                            key={node.id}
                             group={node}
                             onClick={this._handleOnClick}
                             columnsVisible={this.props.columns_visible}
@@ -158,7 +158,7 @@ export default createPaginationContainer(
                     @connection(key: "GroupList_groups", filters: []) {
                     edges {
                         node {
-                            handle_id
+                            id
                             ...GroupRow_group
                         }
                     }

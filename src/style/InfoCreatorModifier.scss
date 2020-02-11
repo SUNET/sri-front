@@ -1,14 +1,15 @@
 @import "../variables.scss";
 
 .info-creator-modifier {
-    font-family: karla;
-
-    > div {
+    display: flex;
+    justify-content: flex-end;
+    .info-creator-modifier__info {
+        font-family: karla;
         text-align: right;
         display: inline-block;
-
-        &:not(:last-child) {
-            margin-right: 30px;
+        &--created {
+            color: $tertiary-color;
+            margin-right: 1em;
         }
     }
 }

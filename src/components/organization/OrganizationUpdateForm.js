@@ -4,28 +4,46 @@ import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 import uuidv4 from "uuid/v4";
-import copy from "clipboard-copy";
 import InfoCreatorModifier from "../InfoCreatorModifier";
 import EditField from "../EditField";
 import Dropdown from "../Dropdown";
-import DropdownSearch from "../DropdownSearch";
 import FieldArrayContactOrganization from "./FieldArrayContactOrganization";
 import FieldArrayAddressOrganization from "./FieldArrayAddressOrganization";
 import FieldInput from "../FieldInput";
 import UpdateOrganizationMutation from "../../mutations/organization/UpdateOrganizationMutation";
 import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
 import Worklog from "../Worklog";
-import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
+import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+import BackCTA from "../common/BackCTA";
 
 import "../../style/ModelDetails.scss";
 
 import ValidationsOrganizationForm from "./ValidationOrganizationForm";
 
+const renderFormBlockSection = (editable, data, uniqueKey) => {
+    const isPresentState = !editable;
+    const presentContent = data.presentContent || "";
+    return (
+        <div className="form-internal-block__section" key={uniqueKey}>
+            <div className="form-internal-block__section__title">{data.title}</div>
+            <div
+                className={`form-internal-block__section__content ${
+                    editable ? "form-internal-block__section__content--edition-mode" : ""
+                }`}
+            >
+                {isPresentState ? presentContent : data.editContent}
+            </div>
+        </div>
+    );
+};
+
 class OrganizationUpdateForm extends React.Component {
+    state = {
+        editMode: false
+    };
+
     static propTypes = {
         onChange: PropTypes.func
     };
@@ -37,7 +55,7 @@ class OrganizationUpdateForm extends React.Component {
 
     refetch = () => {
         this.props.relay.refetch(
-            { organizationId: this.props.organization.handle_id }, // Our refetchQuery needs to know the `organizationID`
+            { organizationId: this.props.organization.id }, // Our refetchQuery needs to know the `organizationID`
             null, // We can use the refetchVariables as renderVariables
             () => {
                 console.log("Refetch done");
@@ -48,44 +66,37 @@ class OrganizationUpdateForm extends React.Component {
 
     _hasBeenAdded = (newContact) => {
         if (this.props.contactsValues) {
-            return this.props.contactsValues.some((contact) => contact.handle_id === newContact.handle_id);
+            return this.props.contactsValues.some((contact) => contact.id === newContact.id);
         }
         return false;
     };
 
     handleSelectedContact = (selection) => {
         if (selection !== null) {
-            this.props.getContact(selection.handle_id).then((contact) => {
+            this.props.getContact(selection.id).then((contact) => {
                 const newContact = {
                     name: contact.name,
                     first_name: contact.first_name,
                     last_name: contact.last_name,
-                    handle_id: contact.handle_id,
+                    id: contact.id,
                     contact_type: contact.contact_type,
-                    role: contact.roles[0] ? contact.roles[0].role_data.handle_id : "",
+                    role: contact.roles[0] ? contact.roles[0].role_data.id : "",
                     role_obj: contact.roles[0],
                     role_label: contact.roles[0] ? contact.roles[0].role_data.name : "",
-                    email: contact.emails[0] ? contact.emails[0].name : "",
-                    email_obj: contact.emails[0] ? contact.emails[0] : {},
-                    phone: contact.phones[0] ? contact.phones[0].name : "",
-                    phone_obj: contact.phones[0] ? contact.phones[0] : {},
+                    email: contact.emails,
+                    email_obj: contact.emails,
+                    phone: contact.phones,
+                    phone_obj: contact.phones,
                     created: true,
                     origin: "new",
-                    status: "editing",
+                    status: "saved",
                     key: uuidv4()
                 };
-                if (!this._hasBeenAdded(newContact)) {
-                    this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
-                }
+                // if (!this._hasBeenAdded(newContact)) {
+                // }
+                this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
             });
         }
-    };
-
-    copyAllEmails = () => {
-        const emails = this.props.contactsValues.map((contact) => {
-            return contact.status === "saved" ? contact.email : null;
-        });
-        copy(emails.join(" "));
     };
 
     generateURL = (url) => {
@@ -96,33 +107,73 @@ class OrganizationUpdateForm extends React.Component {
     };
 
     handleSubmit = (organization) => {
+        this.setState({ editMode: !this.state.editMode });
+        console.log(organization);
+        
         UpdateOrganizationMutation(organization, this);
     };
 
+    renderHeaderName() {
+        const { t, name } = this.props;
+        const { editMode } = this.state;
+        return (
+            <div className="title-section">
+                <BackCTA onClick={() => this.props.history.goBack()} />
+                <div className="vertical-separator"></div>
+                <EditField
+                    error={this.props.formSyncErrors.name}
+                    meta={this.props.fields.name}
+                    form={this.props.form}
+                    dispatch={this.props.dispatch}
+                    editable={editMode}
+                    placeholder={t("contact-details.new")}
+                >
+                    <h1>{name}</h1>
+                </EditField>
+            </div>
+        );
+    }
+    renderHeaderRight() {
+        const { t, organization } = this.props;
+        return (
+            <div className="title-section__right-block">
+                <div className="title-section__right-block__buttons with-vertical-separator with-vertical-separator--right">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            this.setState({ editMode: !this.state.editMode });
+                        }}
+                        className="btn outline btn-edit"
+                    >
+                        <i className="icon-pencil"></i>
+                        <span>{t("actions.edit")}</span>
+                    </button>
+                </div>
+                <InfoCreatorModifier model={organization} />
+            </div>
+        );
+    }
+
     renderDescriptionToggleSection() {
         const { t, description } = this.props;
-
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.description")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return editable ? (
-                                <Field
-                                    name="description"
-                                    component={FieldInput}
-                                    as="textarea"
-                                    rows="3"
-                                    placeholder={t("group-details.add-description")}
-                                />
-                            ) : (
-                                <span className="pre-text">{description}</span>
-                            );
-                        }}
-                    </PanelEditable.Consumer>
+                    {editMode ? (
+                        <Field
+                            name="description"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("group-details.add-description")}
+                        ></Field>
+                    ) : (
+                        <span className="pre-text">{description}</span>
+                    )}
                 </TogglePanel>
             </ToggleSection>
         );
@@ -130,274 +181,233 @@ class OrganizationUpdateForm extends React.Component {
 
     renderGeneralInfoToggleSection() {
         const { type, organization_id, organization_number, website, organization_parent_id, t } = this.props;
+
+        const generalInfoFirstRow = [
+            {
+                title: t("organization-details.type"),
+                presentContent: type,
+                editContent: (
+                    <Dropdown
+                        className="auto"
+                        emptyLabel="Select type"
+                        type="organization_types"
+                        name="type"
+                        onChange={(e) => {}}
+                    />
+                )
+            },
+            {
+                title: t("organization-details.affiliation"),
+                presentContent: (
+                    <FiledArrayCheckbox
+                        data={INPUTS}
+                        form={this.props.form}
+                        dispatch={this.props.dispatch}
+                        editable={false}
+                        initialValues={this.props.initialValues.affiliation}
+                        error={this.props.formSyncErrors.affiliation}
+                        touched={this.props.fields}
+                    />
+                ),
+                editContent: (
+                    <FiledArrayCheckbox
+                        data={INPUTS}
+                        form={this.props.form}
+                        dispatch={this.props.dispatch}
+                        editable={true}
+                        initialValues={this.props.initialValues.affiliation}
+                        error={this.props.formSyncErrors.affiliation}
+                        touched={this.props.fields}
+                    />
+                )
+            },
+            {
+                title: t("organization-details.organization-id"),
+                presentContent: organization_id,
+                editContent: (
+                    <Form.Group>
+                        <Field
+                            type="text"
+                            name="organization_id"
+                            component={FieldInput}
+                            placeholder={t("organization-details.add-id")}
+                        />
+                    </Form.Group>
+                )
+            },
+            {
+                title: t("organization-details.parent-org-id"),
+                presentContent: organization_parent_id,
+                editContent: (
+                    <Form.Group>
+                        <Field
+                            type="text"
+                            name="organization_parent_id"
+                            component={FieldInput}
+                            placeholder={t("organization-details.add-id")}
+                        />
+                    </Form.Group>
+                )
+            }
+        ];
+        const generalInfoSecondRow = [
+            {
+                title: t("organization-details.website"),
+                presentContent: (
+                    <a href={this.generateURL(website)} target="_blank" rel="noopener noreferrer">
+                        {website}
+                    </a>
+                ),
+                editContent: (
+                    <Form.Group>
+                        <Field
+                            type="text"
+                            className="xlg"
+                            name="website"
+                            component={FieldInput}
+                            placeholder={t("organization-details.add-website")}
+                        />
+                    </Form.Group>
+                )
+            },
+            {
+                title: t("organization-details.org-number"),
+                presentContent: organization_number,
+                editContent: (
+                    <Form.Group>
+                        <Field
+                            type="text"
+                            name="organization_number"
+                            component={FieldInput}
+                            placeholder={t("organization-details.add-number")}
+                        />
+                    </Form.Group>
+                )
+            }
+        ];
+
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.general-information")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return (
-                                <div>
-                                    <div className="form-internal-block">
-                                        <div className="form-internal-block__section">
-                                            <div className="form-internal-block__section__title">Type</div>
-                                            <div>
-                                                {!editable ? (
-                                                    type
-                                                ) : (
-                                                    <Dropdown
-                                                        className="auto"
-                                                        emptyLabel="Select type"
-                                                        type="organization_types"
-                                                        name="type"
-                                                        onChange={(e) => {}}
-                                                    />
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="form-internal-block__section">
-                                            <div className="form-internal-block__section__title">Affiliation</div>
-                                            <FiledArrayCheckbox
-                                                data={INPUTS}
-                                                form={this.props.form}
-                                                dispatch={this.props.dispatch}
-                                                editable={editable}
-                                                initialValues={this.props.initialValues.affiliation}
-                                                error={this.props.formSyncErrors.affiliation}
-                                                touched={this.props.fields}
-                                            />
-                                        </div>
-                                        <div className="form-internal-block__section">
-                                            <div className="form-internal-block__section__title">Organization ID</div>
-                                            {!editable ? (
-                                                organization_id
-                                            ) : (
-                                                <Form.Group>
-                                                    <Field
-                                                        type="text"
-                                                        name="organization_id"
-                                                        component={FieldInput}
-                                                        placeholder={t("organization-details.add-id")}
-                                                    />
-                                                </Form.Group>
-                                            )}
-                                        </div>
-                                        <div className="form-internal-block__section">
-                                            <div className="form-internal-block__section__title">
-                                                Parent Organization ID
-                                            </div>
-                                            {!editable ? (
-                                                organization_parent_id
-                                            ) : (
-                                                <Form.Group>
-                                                    <Field
-                                                        type="text"
-                                                        name="organization_parent_id"
-                                                        component={FieldInput}
-                                                        placeholder={t("organization-details.add-id")}
-                                                    />
-                                                </Form.Group>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div className="table-details mt-4">
-                                        <div>
-                                            <div className="w-35">Website</div>
-                                            <div>Organization Number</div>
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <div>
-                                                    {!editable ? (
-                                                        <a
-                                                            href={this.generateURL(website)}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            {website}
-                                                        </a>
-                                                    ) : (
-                                                        <Form.Group>
-                                                            <Field
-                                                                type="text"
-                                                                className="xlg"
-                                                                name="website"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-website")}
-                                                            />
-                                                        </Form.Group>
-                                                    )}
-                                                </div>
-                                                <div>
-                                                    {!editable ? (
-                                                        organization_number
-                                                    ) : (
-                                                        <Form.Group>
-                                                            <Field
-                                                                type="text"
-                                                                name="organization_number"
-                                                                component={FieldInput}
-                                                                placeholder={t("organization-details.add-number")}
-                                                            />
-                                                        </Form.Group>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        }}
-                    </PanelEditable.Consumer>
+                    <div>
+                        <div className="form-internal-block">
+                            {generalInfoFirstRow.map((formData, index) => {
+                                return renderFormBlockSection(editMode, formData, index);
+                            })}
+                        </div>
+                        <div className="form-internal-block mt-4">
+                            {generalInfoSecondRow.map((formData, index) => {
+                                return renderFormBlockSection(editMode, formData, index);
+                            })}
+                        </div>
+                    </div>
                 </TogglePanel>
             </ToggleSection>
         );
     }
     renderAddressToggleSection() {
         const { t } = this.props;
+        const { editMode } = this.state;
         return (
-            <ToggleSection>
+            <ToggleSection defaultEditable={false}>
                 <ToggleHeading>
                     <h2>{t("organization-details.address")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return (
-                                <div className="table-details">
-                                    <div>
-                                        <div className="w-23">Street</div>
-                                        <div className="w-23">Postal Code</div>
-                                        <div className="w-23">Postal Area</div>
-                                        <div className="w-23">Phone</div>
-                                    </div>
-                                    <div>
-                                        <FieldArray
-                                            name="addresses"
-                                            component={FieldArrayAddressOrganization}
-                                            rerenderOnEveryChange={true}
-                                            editable={editable}
-                                            dispatch={this.props.dispatch}
-                                            errors={this.props.formSyncErrors.addresses}
-                                            metaFields={this.props.fields}
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        }}
-                    </PanelEditable.Consumer>
+                    <FieldArray
+                        name="addresses"
+                        component={FieldArrayAddressOrganization}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.addresses}
+                        metaFields={this.props.fields}
+                        rerenderOnEveryChange={true}
+                    />
                 </TogglePanel>
             </ToggleSection>
         );
     }
     renderContactsToggleSection() {
         const { t } = this.props;
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.contacts")}</h2>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return (
-                                editable && (
-                                    <DropdownSearch
-                                        selection={this.handleSelectedContact}
-                                        placeholder={t("search-filter.search-contact")}
-                                    />
-                                )
-                            );
-                        }}
-                    </PanelEditable.Consumer>
                 </ToggleHeading>
+
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return (
-                                <div className="table-details">
-                                    <div>
-                                        <div className="w-18">Name</div>
-                                        <div className="w-32">Role</div>
-                                        <div className="w-18">Email</div>
-                                        <div>Phone</div>
-                                        <div></div>
-                                    </div>
-                                    <div>
-                                        <FieldArray
-                                            name="contacts"
-                                            component={FieldArrayContactOrganization}
-                                            editable={editable}
-                                            rerenderOnEveryChange={true}
-                                            dispatch={this.props.dispatch}
-                                            errors={this.props.formSyncErrors.contacts}
-                                            metaFields={this.props.fields}
-                                        />
-                                    </div>
-                                </div>
-                            );
+                    <FieldArray
+                        name="contacts"
+                        component={FieldArrayContactOrganization}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.contacts}
+                        metaFields={this.props.fields}
+                        rerenderOnEveryChange={true}
+                        handleContactSearch={this.handleSelectedContact}
+                        handleAddContactRow={() => {
+                            this.props.dispatch(this.props.showNewContactForm());
                         }}
-                    </PanelEditable.Consumer>
+                    />
                 </TogglePanel>
             </ToggleSection>
         );
     }
 
     renderAditionalInfoToggleSection() {
+        
         const { t, incident_management_info } = this.props;
+        const { editMode } = this.state;
         return (
             <ToggleSection>
                 <ToggleHeading>
                     <h2>{t("organization-details.additional-info")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
-                    <PanelEditable.Consumer>
-                        {(editable) => {
-                            return editable ? (
-                                <Field
-                                    name="incident_management_info"
-                                    component={FieldInput}
-                                    as="textarea"
-                                    rows="3"
-                                    placeholder={t("group-details.add-description")}
-                                />
-                            ) : (
-                                <span className="pre-text">{incident_management_info}</span>
-                            );
-                        }}
-                    </PanelEditable.Consumer>
+                    {editMode ? (
+                        <Field
+                            name="incident_management_info"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("group-details.add-description")}
+                        />
+                    ) : (
+                        <span className="pre-text">{incident_management_info}</span>
+                    )}
                 </TogglePanel>
             </ToggleSection>
         );
     }
+
+    renderSaveCancelCTAs() {
+        const { t, pristine, submitting } = this.props;
+        return (
+            <div className="text-right mt-4">
+                <button type="button" className="btn link" onClick={this.props.onDelete}>
+                    {t("actions.delete")}
+                </button>
+                <button type="submit" className="btn primary lg" disabled={pristine || submitting} onClick={() => console.log('holi?')}>
+                    {t("actions.save")}
+                </button>
+            </div>
+        );
+    }
+
     render() {
-        const { organization, name, t, handleSubmit, pristine, submitting } = this.props;
+        const { organization, handleSubmit } = this.props;
+
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
+                {this.renderSaveCancelCTAs()}
                 <Form.Row>
-                    <Col>
-                        <div className="title-section">
-                            <button
-                                type="button"
-                                onClick={() => this.props.history.push("/community/organizations")}
-                                className="btn btn-back outline"
-                            >
-                                <span>{t("actions.back")}</span>
-                            </button>
-                            <EditField
-                                error={this.props.formSyncErrors.name}
-                                meta={this.props.fields.name}
-                                form={this.props.form}
-                                dispatch={this.props.dispatch}
-                            >
-                                <h1>{name}</h1>
-                            </EditField>
-                            <FontAwesomeIcon icon={faStar} />
-                        </div>
-                    </Col>
-                    <Col>
-                        <InfoCreatorModifier model={organization} />
-                    </Col>
+                    <Col>{this.renderHeaderName()}</Col>
+                    <Col>{this.renderHeaderRight()}</Col>
                 </Form.Row>
                 <section className="model-section">
                     <Form.Row>
@@ -424,14 +434,7 @@ class OrganizationUpdateForm extends React.Component {
                 <section className="model-section">
                     <Worklog model={organization} refetch={this.refetch} />
                 </section>
-                <div className="text-right mt-4">
-                    <button type="button" onClick={() => this.props.onDelete()} className="btn link">
-                        {t("actions.delete")}
-                    </button>
-                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
-                        {t("actions.save")}
-                    </button>
-                </div>
+                {this.renderSaveCancelCTAs()}
             </form>
         );
     }
@@ -457,7 +460,7 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
     {
         organization: graphql`
             fragment OrganizationUpdateForm_organization on Organization {
-                handle_id
+                id
                 name
                 type
                 website
@@ -469,7 +472,7 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                     organization_id
                 }
                 addresses {
-                    handle_id
+                    id
                     name
                     street
                     postal_code
@@ -482,38 +485,38 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                         relation_id
                         type
                         end {
-                            handle_id
+                            id
                             node_name
                         }
                         start {
-                            handle_id
+                            id
                             node_name
                         }
                     }
                 }
                 contacts {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         relation_id
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                         }
                     }
@@ -541,8 +544,8 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-        query OrganizationUpdateFormRefetchQuery($organizationId: Int!) {
-            getOrganizationById(handle_id: $organizationId) {
+        query OrganizationUpdateFormRefetchQuery($organizationId: ID!) {
+            getOrganizationById(id: $organizationId) {
                 ...OrganizationUpdateForm_organization
             }
         }

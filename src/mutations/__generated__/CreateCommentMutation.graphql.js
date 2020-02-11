@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash bb79cac091226213ffa0dc5701cda76e
+ * @relayHash 3adf73f3134b21a443893a31e435e87c
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CreateCommentInput = {|
-  object_pk: number,
+  object_id: string,
   comment: string,
   clientMutationId?: ?string,
 |};
@@ -20,7 +20,7 @@ export type CreateCommentMutationVariables = {|
 export type CreateCommentMutationResponse = {|
   +create_comment: ?{|
     +comment: ?{|
-      +object_pk: string,
+      +object_id: string,
       +comment: string,
       +user: ?{|
         +first_name: string,
@@ -43,7 +43,7 @@ mutation CreateCommentMutation(
 ) {
   create_comment(input: $input) {
     comment {
-      object_pk
+      object_id
       comment
       user {
         first_name
@@ -76,7 +76,7 @@ v1 = [
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "object_pk",
+  "name": "object_id",
   "args": null,
   "storageKey": null
 },
@@ -215,11 +215,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateCommentMutation",
     "id": null,
-    "text": "mutation CreateCommentMutation(\n  $input: CreateCommentInput!\n) {\n  create_comment(input: $input) {\n    comment {\n      object_pk\n      comment\n      user {\n        first_name\n        last_name\n        id\n      }\n      submit_date\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateCommentMutation(\n  $input: CreateCommentInput!\n) {\n  create_comment(input: $input) {\n    comment {\n      object_id\n      comment\n      user {\n        first_name\n        last_name\n        id\n      }\n      submit_date\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '57dce10d60c1b2141e1b7b9c1e064e50';
+(node/*: any*/).hash = '34d73d1dd27752350b8d2c68cee5ff2c';
 module.exports = node;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { Field, change, touch } from "redux-form";
+import { Field, change } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import FieldInput from "../FieldInput";
@@ -16,13 +16,59 @@ class FieldArrayOrganizationsContact extends React.Component {
         this.state = {};
     }
 
-    validateOrganization = (index) => {
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
+        const newFields = nextProps.fields.getAll();
+        if (newFields && newFields.length && nextProps.editable) {
+            newFields.forEach((field, index) => {
+                const validated = this.validateOrganization(field, index);
+                if (field && field.status === 'editing' && validated) {
+                    this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
+                } else if (!validated && field.status === 'saved') {
+                    nextProps.dispatch(change(nextProps.meta.form, `organizations[${index}].status`, "editing"));
+                }
+            });
+        }
+    }
+
+    renderFormBlockSection = (editable, data, index) => {
+        const { fields } = this.props;
+        const values = fields.getAll();
+        const isPresentState = !editable && data.presentContent;
+        return (
+            <div
+                className="form-internal-block--organizations-contacts__section form-internal-block__section"
+                key={index}
+            >
+                <div
+                    className={`form-internal-block--organizations-contacts__section_title form-internal-block__section__title`}
+                >
+                    {data.title}
+                </div>
+
+                {data.editContent.map((content, contentIndex) => (
+                    <div
+                        key={`${contentIndex} - ${index}`}
+                        className={`form-internal-block--organizations-contacts__section__content form-internal-block__section__content 
+                        ${
+                            editable
+                                ? "form-internal-block--organizations-contacts__section__content--edition-mode form-internal-block__section__content--edition-mode"
+                                : ""
+                        }
+                        ${editable && values[contentIndex].status === "remove" ? "d-none" : ""}`}
+                    >
+                        {isPresentState ? data.presentContent[contentIndex] : data.editContent[contentIndex]}
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
+    validateOrganization = (field, index) => {
         const errors = this.props.errors;
-        const values = this.props.fields.getAll();
         const hasBlankFields =
-            values[index].role === "" ||
-            values[index].role === undefined ||
-            (values[index].organization === "" || values[index].organization === undefined);
+            field.role === "" ||
+            field.role === undefined ||
+            (field.organization === "" || field.organization === undefined);
         return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
 
@@ -32,20 +78,22 @@ class FieldArrayOrganizationsContact extends React.Component {
         }
     };
 
-    saveRow = (index) => {
-        if (this.validateOrganization(index)) {
-            this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
-        } else {
-            this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].role`));
-            this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].organization`));
-        }
-    };
+    // saveRow = (index) => {
+    //     if (this.validateOrganization(index)) {
+    //         this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
+    //     } else {
+    //         this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].role`));
+    //         this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].organization`));
+    //     }
+    // };
 
-    editRow = (index) => {
-        this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "editing"));
-    };
+    // editRow = (index) => {
+    //     this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "editing"));
+    // };
 
-    removeRow = (index, values) => {
+    removeRow = (index) => {
+        const { fields } = this.props;
+        const values = fields.getAll();
         if (values[index].origin === "store") {
             this.props.dispatch(change("updateContact", `organizations[${index}].status`, "remove"));
         } else {
@@ -72,94 +120,88 @@ class FieldArrayOrganizationsContact extends React.Component {
         }
     };
 
-    render() {
-        const { fields, meta, t, editable } = this.props;
+    renderRowsData() {
+        const { fields, t, editable } = this.props;
         const values = fields.getAll();
+        const rowsData = [
+            {
+                title: "Role",
+                presentContent: values && values.length ? values.map((value) => value.role_label) : [],
+                editContent: fields.map((member, index) => {
+                    return (
+                        <Dropdown
+                            className="auto"
+                            emptyLabel="Select role"
+                            model="roles"
+                            onChange={(e) => {
+                                this.saveLabel(e, index);
+                            }}
+                            name={`${member}.role`}
+                        />
+                    );
+                })
+            },
+            {
+                title: "Organization ID",
+                presentContent: values && values.length ? values.map((value) => value.organization_id) : [],
+                editContent: fields.map((member, index) => {
+                    return (
+                        <Form.Group>
+                            <Field
+                                type="text"
+                                disabled
+                                component={FieldInput}
+                                placeholder="Type ID"
+                                name={`${member}.organization_id`}
+                            />
+                        </Form.Group>
+                    );
+                })
+            },
+            {
+                title: "Organization",
+                presentContent: values && values.length ? values.map((value) => value.organization_label) : [],
+                editContent: fields.map((member, index) => {
+                    return (
+                        <>
+                            <Form.Group>
+                                <Dropdown
+                                    className="auto"
+                                    emptyLabel={t("organization-details.select-organization")}
+                                    model="organization"
+                                    onChange={(e) => {
+                                        this.saveLabel(e, index);
+                                    }}
+                                    name={`${member}.organization`}
+                                />
+                            </Form.Group>
+                            <div className="row-remove-cta" onClick={() => this.removeRow(index)}></div>
+                        </>
+                    );
+                })
+            }
+        ];
         return (
-            <>
-                {fields.map((member, index) => (
-                    <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
-                        {editable && values[index].status === "editing" ? (
-                            <>
-                                <div>
-                                    <Dropdown
-                                        className="auto"
-                                        emptyLabel="Select role"
-                                        model="roles"
-                                        onChange={(e) => {
-                                            this.saveLabel(e, index);
-                                        }}
-                                        name={`${member}.role`}
-                                    />
-                                </div>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            disabled
-                                            component={FieldInput}
-                                            name={`${member}.organization_id`}
-                                            placeholder="Type ID"
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div>
-                                    <Form.Group>
-                                        <Dropdown
-                                            className="auto"
-                                            emptyLabel={t("organization-details.select-organization")}
-                                            model="organization"
-                                            onChange={(e) => {
-                                                this.saveLabel(e, index);
-                                            }}
-                                            name={`${member}.organization`}
-                                        />
-                                    </Form.Group>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div>{fields.getAll()[index].role_label}</div>
-                                <div>{fields.getAll()[index].organization_id}</div>
-                                <div>{fields.getAll()[index].organization_label}</div>
-                            </>
-                        )}
-                        <div className="actions">
-                            {editable && (
-                                <div>
-                                    <div>
-                                        <i className="icon-trash" onClick={() => this.removeRow(index, values)}></i>
-                                    </div>
-                                    <div>
-                                        {values[index].status !== "editing" && (
-                                            <i className="icon-pencil" onClick={() => this.editRow(index)}></i>
-                                        )}
-                                        {values[index].status === "editing" && (
-                                            <span className="ok-check" onClick={() => this.saveRow(index)}>
-                                                <i className="icon-tick"></i>
-                                                {t("actions.save")}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
+            <div className="form-internal-block form-internal-block--organizations-contacts">
+                {rowsData.map((data, index) => {
+                    return this.renderFormBlockSection(editable, data, index);
+                })}
+            </div>
+        );
+    }
+
+    render() {
+        const { meta, t, editable } = this.props;
+        return (
+            <div className="organizations-contacts">
+                {this.renderRowsData()}
                 {meta.error && <div>{meta.error}</div>}
                 {editable && (
-                    <div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div className="col-actions">
-                            <button type="button" className="btn link add mt-2" onClick={(e) => this.addRow(e)}>
-                                {t("actions.add-new")}
-                            </button>
-                        </div>
-                    </div>
+                    <button type="button" className="btn btn-add outline" onClick={(e) => this.addRow(e)}>
+                        {t("actions.add-new")}
+                    </button>
                 )}
-            </>
+            </div>
         );
     }
 }

@@ -21,7 +21,9 @@ function JWTRefreshMutation(token) {
         onCompleted: (response, errors) => {
             console.log(response, errors);
         },
-        onError: (errors) => console.error(errors)
+        onError: (errors) => {
+            console.log(errors)
+        }
     });
 }
 

@@ -10,6 +10,10 @@ button.btn {
     position: relative;
     font-family: karla;
     border: none;
+    &.md {
+        width: 100px;
+        height: 36px;
+    }
 
     &.lg {
         width: 180px;
@@ -34,7 +38,7 @@ button.btn {
         }
     }
 
-    &.secundary {
+    &.secondary {
         border-radius: 24px;
         color: #fff;
         background-color: $complementary-color;
@@ -79,13 +83,14 @@ button.btn {
 
     &.outline {
         font-size: 14px;
-        color: $secondary-color;
-        border-radius: 16px;
-        border: solid 1px $secondary-color-20;
+        color: $complementary-color;
+        border-radius: $input-outline--border-radius;
+        border: solid 1px $complementary-color;
         background: none;
 
         span {
             vertical-align: middle;
+            color: $complementary-color;
         }
 
         &.btn-add {
@@ -103,31 +108,34 @@ button.btn {
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    left: -16px;
+                    left: -10px;
                     transform: translate(-50%, -50%);
                 }
 
                 &:before {
-                    height: 10px;
+                    height: 15px;
                     width: 2px;
                 }
 
                 &:after {
                     height: 2px;
-                    width: 10px;
+                    width: 15px;
                 }
             }
         }
 
         &.btn-back {
+            width: $btn-back-width;
+            height: $row-height;
             &:before {
                 display: inline-block;
                 content: '';
-                height: 6px;
-                width: 6px;
+                height: 10px;
+                width: 10px;
                 margin-right: 8px;
-                border-bottom: 2px solid $complementary-color;
-                border-right: 2px solid $complementary-color;
+                margin-left: 4px;
+                border-bottom: 1px solid $complementary-color;
+                border-right: 1px solid $complementary-color;
                 transform: rotate(135deg);
                 vertical-align: middle;
             }
@@ -177,6 +185,13 @@ button.btn {
             }
         }
 
+        &.btn-edit {
+            display: flex;
+            align-items: center;
+            width: 72px;
+            justify-content: space-between;
+        }
+
         .icon-load {
             margin-right: 8px;
             color: $complementary-color;
@@ -186,5 +201,32 @@ button.btn {
         &:hover {
             background-color: $tertiary-color-3;
         }
+    }
+}
+
+.row-remove-cta {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
+    &:after,
+    &:before {
+        content: "";
+        display: inline-block;
+        background-color: $gray-color;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:before {
+        height: 14px;
+        width: 2px;
+    }
+
+    &:after {
+        height: 2px;
+        width: 14px;
     }
 }

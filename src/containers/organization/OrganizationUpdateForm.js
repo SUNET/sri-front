@@ -4,6 +4,7 @@ import { formValueSelector, getFormMeta, getFormSyncErrors, registerField, isDir
 import { getContact } from "../../components/contact/Contact";
 import uuidv4 from "uuid/v4";
 import * as actions from "../../actions/Notify";
+import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
     const updateOrganizationSelector = formValueSelector("updateOrganization");
@@ -12,12 +13,12 @@ const mapStateToProps = (state, props) => {
     const parent_node =
         organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
-        relationship_parent_of: parent_node ? parent_node.relation.start.handle_id : "",
+        relationship_parent_of: parent_node ? parent_node.relation.start.id : "",
         organization_parent_id: organization.parent_organization[0]
             ? organization.parent_organization[0].organization_id
             : "",
         relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",
-        handle_id: organization.handle_id,
+        id: organization.id,
         name: organization.name,
         type: organization.type,
         website: organization.website,
@@ -42,21 +43,21 @@ const mapStateToProps = (state, props) => {
         contacts: organization.contacts
             ? organization.contacts.map((contact) => {
                   const contact_relation_id_obj = contact.roles.find((relation_node) => {
-                      return relation_node.end.handle_id === organization.handle_id;
+                      return relation_node.end.id === organization.id;
                   });
                   const contact_node = contact;
                   return {
-                      handle_id: contact_node.handle_id,
+                      id: contact_node.id,
                       name: contact_node.first_name + " " + contact_node.last_name,
                       contact_type: contact_node.contact_type,
-                      role: contact_relation_id_obj ? contact_relation_id_obj.role_data.handle_id : "",
+                      role: contact_relation_id_obj ? contact_relation_id_obj.role_data.id : "",
                       role_label: contact_relation_id_obj ? contact_relation_id_obj.role_data.name : "",
                       role_obj: contact_relation_id_obj,
                       role_relation_id: contact_relation_id_obj ? contact_relation_id_obj.relation_id : "",
-                      email: contact_node.emails[0] ? contact_node.emails[0].name : "",
-                      email_obj: contact_node.emails.length > 0 ? contact_node.emails[0] : undefined,
-                      phone: contact_node.phones[0] ? contact_node.phones[0].name : "",
-                      phone_obj: contact_node.phones.length > 0 ? contact_node.phones[0] : undefined,
+                      email: contact_node.emails,
+                      email_obj: contact_node.emails,
+                      phone: contact_node.phones,
+                      phone_obj: contact_node.phones,
                       status: "saved",
                       origin: "store",
                       created: true
@@ -76,7 +77,7 @@ const mapStateToProps = (state, props) => {
         addresses: organization.addresses
             ? organization.addresses.map((address) => {
                   return {
-                      handle_id: address.handle_id,
+                      id: address.id,
                       name: address.name,
                       street: address.street,
                       postal_code: address.postal_code,
@@ -100,7 +101,9 @@ const mapStateToProps = (state, props) => {
                   }
               ]
     };
-    const contactsValues = updateOrganizationSelector(state, "contacts");
+    const contactsValues = updateOrganizationSelector(state, "contacts");    
+    const addressesValues = updateOrganizationSelector(state, "addresses");
+    
     return {
         initialValues,
         name: updateOrganizationSelector(state, "name"),
@@ -114,6 +117,7 @@ const mapStateToProps = (state, props) => {
         isDirty_relationship_parent_of: isDirty("updateOrganization")(state, ["organization_parent_id"]),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
         contactsValues: contactsValues,
+        addressesValues: addressesValues,
         isDirty_contacts_roles:
             contactsValues &&
             contactsValues.map((contact, index) => {
@@ -129,7 +133,7 @@ const mapStateToProps = (state, props) => {
             provider: updateOrganizationSelector(state, "affiliation_provider"),
             site_owner: updateOrganizationSelector(state, "affiliation_site_owner")
         },
-        getContact: (handle_id) => getContact(handle_id)
+        getContact: (id) => getContact(id)
     };
 };
 
@@ -138,7 +142,8 @@ const mapDispatchToProps = (dispatch, props) => {
         registerFieldAffiliation: () => dispatch(registerField("updateOrganization", "affiliation", "Field")),
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
+        showNewContactForm
     };
 };
 

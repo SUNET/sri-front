@@ -4,6 +4,7 @@ import { getContact } from "../../components/contact/Contact";
 
 import * as actions from "../../actions/Notify";
 import CreateGroupForm from "../../components/group/CreateGroupForm";
+import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
     const updateGroupSelector = formValueSelector("createGroup");
@@ -12,7 +13,7 @@ const mapStateToProps = (state, props) => {
         formSyncErrors: getFormSyncErrors("createGroup")(state),
         memberValues: updateGroupSelector(state, "members"),
         name: updateGroupSelector(state, "name"),
-        getContact: (handle_id) => getContact(handle_id)
+        getContact: (id) => getContact(id)
     };
 };
 
@@ -20,7 +21,8 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
+        showNewContactForm
     };
 };
 

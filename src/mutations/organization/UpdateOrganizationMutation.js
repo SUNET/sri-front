@@ -4,7 +4,7 @@ import graphql from "babel-plugin-relay/macro";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
-import { CONTACT_WORK } from "../../utils/constants";
+// import { CONTACT_WORK } from "../../utils/constants";
 
 const mutation = graphql`
     mutation UpdateOrganizationMutation($input: CompositeOrganizationMutationInput!) {
@@ -15,7 +15,7 @@ const mutation = graphql`
                     messages
                 }
                 organization {
-                    handle_id
+                    id
                     name
                     type
                     website
@@ -31,28 +31,28 @@ const mutation = graphql`
                         organization_id
                     }
                     contacts {
-                        handle_id
+                        id
                         first_name
                         last_name
                         contact_type
                         emails {
-                            handle_id
+                            id
                             name
                             type
                         }
                         phones {
-                            handle_id
+                            id
                             name
                             type
                         }
                         roles {
                             relation_id
                             role_data {
-                                handle_id
+                                id
                                 name
                             }
                             end {
-                                handle_id
+                                id
                                 name
                             }
                         }
@@ -84,7 +84,7 @@ const mutation = graphql`
                     messages
                 }
                 address {
-                    handle_id
+                    id
                     name
                     street
                     postal_code
@@ -98,7 +98,7 @@ const mutation = graphql`
                     messages
                 }
                 address {
-                    handle_id
+                    id
                     name
                     street
                     postal_code
@@ -112,28 +112,28 @@ const mutation = graphql`
                     messages
                 }
                 contact {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         relation_id
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                         }
                     }
@@ -148,28 +148,28 @@ const mutation = graphql`
                     messages
                 }
                 contact {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         relation_id
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                         }
                     }
@@ -183,6 +183,8 @@ const mutation = graphql`
 `;
 
 export default function UpdateOrganizationMutation(organization, form) {
+    console.log(organization);
+    
     const newAddress = [];
     const updateAddress = [];
     const deleteAddress = [];
@@ -204,7 +206,7 @@ export default function UpdateOrganizationMutation(organization, form) {
             if (address.status === "saved") {
                 if (!address.created || address.created === undefined) {
                     newAddress.push({
-                        organization: organization.handle_id,
+                        organization: organization.id,
                         name: "main",
                         street: address.street,
                         postal_code: address.postal_code,
@@ -213,9 +215,9 @@ export default function UpdateOrganizationMutation(organization, form) {
                     });
                 } else {
                     updateAddress.push({
-                        organization: organization.handle_id,
+                        organization: organization.id,
                         name: "main",
-                        handle_id: address.handle_id,
+                        id: address.id,
                         street: address.street,
                         postal_code: address.postal_code,
                         postal_area: address.postal_area,
@@ -223,7 +225,7 @@ export default function UpdateOrganizationMutation(organization, form) {
                     });
                 }
             } else if (address.status === "remove") {
-                deleteAddress.push({ handle_id: address.handle_id });
+                deleteAddress.push({ id: address.id });
             }
         });
     }
@@ -251,31 +253,31 @@ export default function UpdateOrganizationMutation(organization, form) {
                 }
 
                 if (!contact.created || contact.created === undefined) {
-                    newContacts.push({
-                        first_name: contact.first_name,
-                        last_name: contact.last_name,
-                        contact_type: "person",
-                        email: contact.email,
-                        email_type: contact.email ? CONTACT_WORK : "",
-                        phone: contact.phone,
-                        phone_type: contact.phone ? CONTACT_WORK : "",
-                        role_handle_id: contact.role
-                    });
+                    // newContacts.push({
+                    //     first_name: contact.first_name,
+                    //     last_name: contact.last_name,
+                    //     contact_type: "person",
+                    //     email: contact.email,
+                    //     email_type: contact.email ? CONTACT_WORK : "",
+                    //     phone: contact.phone,
+                    //     phone_type: contact.phone ? CONTACT_WORK : "",
+                    //     role_id: contact.role
+                    // });
                 } else {
                     updateContacts.push({
-                        handle_id: contact.handle_id,
+                        id: contact.id,
                         first_name: contact.first_name,
                         last_name: contact.last_name,
                         contact_type: contact.contact_type.toLowerCase(),
-                        email_handle_id: contact.email_obj ? contact.email_obj.handle_id : null,
-                        email: contact.email,
-                        email_type: contact.email_obj ? contact.email_obj.type : CONTACT_WORK,
-                        phone_handle_id: contact.phone_obj ? contact.phone_obj.handle_id : null,
-                        phone: contact.phone,
-                        phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
-                        role_handle_id: contact.role
+                        // email_id: contact.email_obj ? contact.email_obj.id : null,
+                        // email: contact.email,
+                        // email_type: contact.email_obj ? contact.email_obj.type : CONTACT_WORK,
+                        // phone_id: contact.phone_obj ? contact.phone_obj.id : null,
+                        // phone: contact.phone,
+                        // phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
+                        role_id: contact.role
                     });
-                }
+                }                
             } else if (contact.status === "remove") {
                 deleteRoles.push({ relation_id: contact.role_relation_id });
             }
@@ -285,7 +287,7 @@ export default function UpdateOrganizationMutation(organization, form) {
     const variables = {
         input: {
             update_input: {
-                handle_id: organization.handle_id,
+                id: organization.id,
                 name: organization.name,
                 description: organization.description,
                 organization_id: organization.organization_id,
@@ -315,7 +317,6 @@ export default function UpdateOrganizationMutation(organization, form) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(response, errors);
             if (response.composite_organization.updated.errors) {
                 return response.composite_organization.updated.errors;
             } else {

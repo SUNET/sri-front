@@ -97,3 +97,21 @@ select[disabled] {
 .pre-text{
     white-space: pre-wrap;
 }
+
+.vertical-separator {
+    border-left: 1px solid $tertiary-color-20;
+    height: 35px;
+    position: relative;
+    right: 5px;
+    display: inline-block;
+}
+
+.with-vertical-separator {
+    &--right {
+        border-right: 1px solid $tertiary-color-20;
+    }
+    &--left {
+        border-left: 1px solid $tertiary-color-20;
+    }
+    padding: 0.5em;
+}

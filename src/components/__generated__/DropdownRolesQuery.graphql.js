@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 86fa8b5749827fac85eeee1e199ce684
+ * @relayHash 87df7610e9b5b2d5db7661ca7ba5b89d
  */
 
 /* eslint-disable */
@@ -14,7 +14,7 @@ export type DropdownRolesQueryResponse = {|
   +roles: ?{|
     +edges: $ReadOnlyArray<?{|
       +node: ?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
       |}
     |}>
@@ -32,7 +32,7 @@ query DropdownRolesQuery {
   roles(orderBy: name_ASC) {
     edges {
       node {
-        handle_id
+        id
         name
       }
     }
@@ -78,7 +78,7 @@ var v0 = [
               {
                 "kind": "ScalarField",
                 "alias": null,
-                "name": "handle_id",
+                "name": "id",
                 "args": null,
                 "storageKey": null
               },
@@ -116,11 +116,11 @@ return {
     "operationKind": "query",
     "name": "DropdownRolesQuery",
     "id": null,
-    "text": "query DropdownRolesQuery {\n  roles(orderBy: name_ASC) {\n    edges {\n      node {\n        handle_id\n        name\n      }\n    }\n  }\n}\n",
+    "text": "query DropdownRolesQuery {\n  roles(orderBy: name_ASC) {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '800e8490f2fe0fc4299da688f6050334';
+(node/*: any*/).hash = '18d9cd8f89e42862dae94203692a60bc';
 module.exports = node;

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 87144152e00a3069b9a398fb46ebdd0f
+ * @relayHash a4b1a26a598e2b73beb1153fd2a3a534
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type GroupList_groups$ref = any;
-export type GroupOrderBy = "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "name_ASC" | "name_DESC" | "%future added value";
+export type GroupOrderBy = "created_ASC" | "created_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "%future added value";
 export type GroupFilter = {|
   AND?: ?$ReadOnlyArray<GroupNestedFilter>,
   OR?: ?$ReadOnlyArray<GroupNestedFilter>,
@@ -44,14 +44,14 @@ export type GroupNestedFilter = {|
   description_not_ends_with?: ?string,
   description_in?: ?$ReadOnlyArray<string>,
   description_not_in?: ?$ReadOnlyArray<string>,
-  handle_id?: ?number,
-  handle_id_not?: ?number,
-  handle_id_lt?: ?number,
-  handle_id_lte?: ?number,
-  handle_id_gt?: ?number,
-  handle_id_gte?: ?number,
-  handle_id_in?: ?$ReadOnlyArray<number>,
-  handle_id_not_in?: ?$ReadOnlyArray<number>,
+  id?: ?string,
+  id_not?: ?string,
+  id_lt?: ?string,
+  id_lte?: ?string,
+  id_gt?: ?string,
+  id_gte?: ?string,
+  id_in?: ?$ReadOnlyArray<string>,
+  id_not_in?: ?$ReadOnlyArray<string>,
   created?: ?any,
   created_not?: ?any,
   created_lt?: ?any,
@@ -128,9 +128,8 @@ fragment GroupList_groups_1tT5Hu on Query {
   groups(first: $count, filter: $filter, orderBy: $orderBy) {
     edges {
       node {
-        handle_id
-        ...GroupRow_group
         id
+        ...GroupRow_group
         __typename
       }
       cursor
@@ -143,7 +142,7 @@ fragment GroupList_groups_1tT5Hu on Query {
 }
 
 fragment GroupRow_group on Group {
-  handle_id
+  id
   name
   description
 }
@@ -248,7 +247,7 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "handle_id",
+                    "name": "id",
                     "args": null,
                     "storageKey": null
                   },
@@ -263,13 +262,6 @@ return {
                     "kind": "ScalarField",
                     "alias": null,
                     "name": "description",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "id",
                     "args": null,
                     "storageKey": null
                   },
@@ -333,7 +325,7 @@ return {
     "operationKind": "query",
     "name": "SearchGroupAllQuery",
     "id": null,
-    "text": "query SearchGroupAllQuery(\n  $count: Int!\n  $filter: GroupFilter\n  $orderBy: GroupOrderBy\n) {\n  ...GroupList_groups_1tT5Hu\n}\n\nfragment GroupList_groups_1tT5Hu on Query {\n  groups(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...GroupRow_group\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment GroupRow_group on Group {\n  handle_id\n  name\n  description\n}\n",
+    "text": "query SearchGroupAllQuery(\n  $count: Int!\n  $filter: GroupFilter\n  $orderBy: GroupOrderBy\n) {\n  ...GroupList_groups_1tT5Hu\n}\n\nfragment GroupList_groups_1tT5Hu on Query {\n  groups(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...GroupRow_group\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment GroupRow_group on Group {\n  id\n  name\n  description\n}\n",
     "metadata": {}
   }
 };

@@ -64,6 +64,10 @@
             "actions.send": "Send",
             "actions.copied": "Copied!",
             "actions.copy-all": "Copy all",
+            "actions.edit": "Edit",
+            "actions.loading": "Loading...",
+            "contact-details.add-new-contact": "Add new contact",
+            "contact-details.new": "New Contact",
             "contact-details.notes": "Notes",
             "contact-details.general-information": "General information",
             "contact-details.profesional-details": "Professional details",
@@ -72,10 +76,16 @@
             "contact-details.add-notes": "Add notes",
             "contact-details.add-pgp": "Write website",
             "contact-details.add-contact": "Add Contact",
+            "contact-details.role": "Role",
+            "contact-details.name": "Name",
+            "contact-details.lastName": "Last Name",
             "group-details.description": "Description",
             "group-details.members": "Members",
             "group-details.add-description": "Add description",
             "group-details.add-group": "Add Group",
+            "group-details.organization": "Organization",
+            "group-details.new": "New Group",
+            "organization-details.new": "New Organization",
             "organization-details.description": "Description",
             "organization-details.add-description": "Add description",
             "organization-details.general-information": "General information",
@@ -111,8 +121,11 @@
             "worklog.wrote": "wrote",
             "worklog.add-comment": "Add comment",
             "worklog.add": "Add",
+            "worklog.send": "Send",
+            "search-filter.search": "Search",
             "search-filter.search-member": "Search member",
-            "search-filter.search-contact": "Search contact"
+            "search-filter.search-contact": "Search contact",
+            "search-filter.no-matches": "No Matches"
         }
     }
 }

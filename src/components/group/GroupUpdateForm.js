@@ -4,27 +4,27 @@ import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import uuidv4 from "uuid/v4";
-import DropdownSearch from "../DropdownSearch";
 import EditField from "../EditField";
 import InfoCreatorModifier from "../InfoCreatorModifier";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import FieldInput from "../FieldInput";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
 
-import copy from "clipboard-copy";
 import Worklog from "../Worklog";
 import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
-import ToggleSection, { ToggleHeading, TogglePanel, PanelEditable } from "../../components/ToggleSection";
+import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+import BackCTA from "../common/BackCTA";
 
 import UpdateGroupMutation from "../../mutations/group/UpdateGroupMutation";
 
 import "../../style/ModelDetails.scss";
 
 class GroupUpdateForm extends React.Component {
+    state = {
+        editMode: false
+    };
     refetch = () => {
         this.props.relay.refetch(
-            { groupId: this.props.group.handle_id }, // Our refetchQuery needs to know the `groupID`
+            { groupId: this.props.group.id }, // Our refetchQuery needs to know the `groupID`
             null, // We can use the refetchVariables as renderVariables
             () => {
                 console.log("Refetch done");
@@ -35,30 +35,30 @@ class GroupUpdateForm extends React.Component {
 
     _hasBeenAdded = (newMember) => {
         if (this.props.memberValues) {
-            return this.props.memberValues.some((member) => member.handle_id === newMember.handle_id);
+            return this.props.memberValues.some((member) => member.id === newMember.id);
         }
         return false;
     };
 
     handleSelectedMember = (selection) => {
         if (selection !== null) {
-            this.props.getContact(selection.handle_id).then((member) => {
+            this.props.getContact(selection.id).then((member) => {
                 const newMember = {
                     name: member.name,
                     first_name: member.first_name,
                     last_name: member.last_name,
-                    handle_id: member.handle_id,
+                    id: member.id,
                     contact_type: member.contact_type,
-                    organization: member.roles[0] ? member.roles[0].end.handle_id : "",
-                    organization_obj: member.roles[0] ? member.roles[0].end : {},
-                    organization_label: member.roles[0] ? member.roles[0].end.name : "",
-                    email: member.emails[0] ? member.emails[0].name : "",
-                    email_obj: member.emails[0] ? member.emails[0] : {},
-                    phone: member.phones[0] ? member.phones[0].name : "",
-                    phone_obj: member.phones[0] ? member.phones[0] : {},
+                    organization: member.roles,
+                    organization_obj: member.roles.length ? member.roles.map((elem) => elem.end) : [],
+                    organization_label: member.roles.length ? member.roles.map((elem) => elem.end) : [],
+                    email: member.emails,
+                    email_obj: member.emails,
+                    phone: member.phones,
+                    phone_obj: member.phones,
                     created: true,
                     origin: "new",
-                    status: "editing",
+                    status: "saved",
                     key: uuidv4()
                 };
                 if (!this._hasBeenAdded(newMember)) {
@@ -68,143 +68,137 @@ class GroupUpdateForm extends React.Component {
         }
     };
 
-    copyAllEmails = () => {
-        const emails = this.props.memberValues.map((member) => {
-            return member.status === "saved" ? member.email : null;
-        });
-        copy(emails.join(" "));
-    };
-
     handleSubmit = (group) => {
+        this.setState({ editMode: !this.state.editMode });
         UpdateGroupMutation(group, this);
     };
 
+    renderHeaderName(editMode = true) {
+        const { t, name } = this.props;
+        return (
+            <div className="title-section">
+                <BackCTA onClick={() => this.props.history.goBack()} />
+                <div className="vertical-separator"></div>
+                <EditField
+                    error={this.props.formSyncErrors.name}
+                    meta={this.props.fields.name}
+                    form={this.props.form}
+                    dispatch={this.props.dispatch}
+                    editable={editMode}
+                    placeholder={t("contact-details.new")}
+                >
+                    <h1>{name}</h1>
+                </EditField>
+            </div>
+        );
+    }
+    renderHeaderRight() {
+        const { t, group } = this.props;
+        return (
+            <div className="title-section__right-block">
+                <div className="title-section__right-block__buttons with-vertical-separator with-vertical-separator--right">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            this.setState({ editMode: !this.state.editMode });
+                        }}
+                        className="btn outline btn-edit"
+                    >
+                        <i className="icon-pencil"></i>
+                        <span>{t("actions.edit")}</span>
+                    </button>
+                </div>
+                <InfoCreatorModifier model={group} />
+            </div>
+        );
+    }
+
+    renderDescriptionToggleSection(editMode = true) {
+        const { t, description } = this.props;
+        return (
+            <ToggleSection>
+                <ToggleHeading>
+                    <h2>{t("organization-details.description")}</h2>
+                </ToggleHeading>
+                <TogglePanel>
+                    {editMode ? (
+                        <Field
+                            name="description"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("group-details.add-description")}
+                        ></Field>
+                    ) : (
+                        <span className="pre-text">{description}</span>
+                    )}
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    renderContactsToggleSection(editMode = true) {
+        const { t } = this.props;
+        return (
+            <ToggleSection>
+                <ToggleHeading>
+                    <h2>{t("organization-details.contacts")}</h2>
+                </ToggleHeading>
+
+                <TogglePanel>
+                    <FieldArray
+                        name="members"
+                        component={FieldArrayMembersGroup}
+                        editable={editMode}
+                        dispatch={this.props.dispatch}
+                        errors={this.props.formSyncErrors.members}
+                        metaFields={this.props.fields}
+                        handleContactSearch={this.handleSelectedMember}
+                        handleAddContactRow={() => {
+                            this.props.dispatch(this.props.showNewContactForm());
+                        }}
+                    />
+                </TogglePanel>
+            </ToggleSection>
+        );
+    }
+
+    renderSaveCancelCTAs() {
+        const { t, pristine, submitting } = this.props;
+        return (
+            <div className="text-right mt-4">
+                <button type="button" className="btn link" onClick={this.props.onDelete}>
+                    {t("actions.delete")}
+                </button>
+                <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
+                    {t("actions.save")}
+                </button>
+            </div>
+        );
+    }
+
     render() {
-        let { group, name, description, t, handleSubmit, pristine, submitting } = this.props;
+        let { group, handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
+                {this.renderSaveCancelCTAs()}
                 <Form.Row>
-                    <Col>
-                        <div className="title-section">
-                            <button
-                                type="button"
-                                onClick={() => this.props.history.push(`/community/groups`)}
-                                className="btn btn-back outline"
-                            >
-                                <span>{t("actions.back")}</span>
-                            </button>
-                            <EditField
-                                error={this.props.formSyncErrors.name}
-                                meta={this.props.fields.name}
-                                form={this.props.form}
-                                dispatch={this.props.dispatch}
-                            >
-                                <h1>{name}</h1>
-                            </EditField>
-                            <FontAwesomeIcon icon={faStar} />
-                        </div>
-                    </Col>
-                    <Col>
-                        <InfoCreatorModifier model={group} />
-                    </Col>
+                    <Col>{this.renderHeaderName(this.state.editMode)}</Col>
+                    <Col>{this.renderHeaderRight()}</Col>
                 </Form.Row>
                 <section className="model-section">
                     <Form.Row>
-                        <Col>
-                            <ToggleSection>
-                                <ToggleHeading>
-                                    <h2>{t("group-details.description")}</h2>
-                                </ToggleHeading>
-                                <TogglePanel>
-                                    <PanelEditable.Consumer>
-                                        {(editable) => {
-                                            return editable ? (
-                                                <Field
-                                                    name="description"
-                                                    component={FieldInput}
-                                                    as="textarea"
-                                                    rows="3"
-                                                    placeholder={t("group-details.add-description")}
-                                                />
-                                            ) : (
-                                                <span className="pre-text">{description}</span>
-                                            );
-                                        }}
-                                    </PanelEditable.Consumer>
-                                </TogglePanel>
-                            </ToggleSection>
-                        </Col>
+                        <Col>{this.renderDescriptionToggleSection(this.state.editMode)}</Col>
                     </Form.Row>
                     <hr />
                     <Form.Row>
-                        <Col>
-                            <ToggleSection>
-                                <ToggleHeading>
-                                    <h2>{t("group-details.members")}</h2>
-                                    <PanelEditable.Consumer>
-                                        {(editable) => {
-                                            return (
-                                                editable && (
-                                                    <DropdownSearch
-                                                        selection={this.handleSelectedMember}
-                                                        placeholder={t("search-filter.search-member")}
-                                                    />
-                                                )
-                                            );
-                                        }}
-                                    </PanelEditable.Consumer>
-                                </ToggleHeading>
-                                <TogglePanel>
-                                    <PanelEditable.Consumer>
-                                        {(editable) => {
-                                            return (
-                                                <div className="table-details">
-                                                    <div>
-                                                        <div className="w-20">Name</div>
-                                                        <div className="w-20">Organization</div>
-                                                        <div className="with-icon w-25">
-                                                            <span>Email</span>
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => this.copyAllEmails()}
-                                                                className="btn outline btn-copy"
-                                                            >
-                                                                <span>{t("actions.copy-all")}</span>
-                                                            </button>
-                                                        </div>
-                                                        <div className="w-20">Phone</div>
-                                                        <div></div>
-                                                    </div>
-                                                    <div>
-                                                        <FieldArray
-                                                            name="members"
-                                                            component={FieldArrayMembersGroup}
-                                                            editable={editable}
-                                                            dispatch={this.props.dispatch}
-                                                            errors={this.props.formSyncErrors.members}
-                                                            metaFields={this.props.fields}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            );
-                                        }}
-                                    </PanelEditable.Consumer>
-                                </TogglePanel>
-                            </ToggleSection>
-                        </Col>
+                        <Col>{this.renderContactsToggleSection(this.state.editMode)}</Col>
                     </Form.Row>
+                    <section className="model-section">
+                        <Worklog model={group} refetch={this.refetch} />
+                    </section>
                 </section>
-                <section className="model-section">
-                    <Worklog model={group} refetch={this.refetch} />
-                </section>
-                <div className="text-right mt-4">
-                    <button type="button" className="btn link" onClick={this.props.onDelete}>
-                        {t("actions.delete")}
-                    </button>
-                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
-                        {t("actions.save")}
-                    </button>
-                </div>
+                {this.renderSaveCancelCTAs()}
             </form>
         );
     }
@@ -261,31 +255,31 @@ const GroupUpdateFragment = createRefetchContainer(
     {
         group: graphql`
             fragment GroupUpdateForm_group on Group {
-                handle_id
+                id
                 name
                 description
                 contacts {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                         }
                     }
@@ -295,7 +289,7 @@ const GroupUpdateFragment = createRefetchContainer(
                             relation_id
                             type
                             end {
-                                handle_id
+                                id
                                 node_name
                             }
                         }
@@ -325,8 +319,8 @@ const GroupUpdateFragment = createRefetchContainer(
     graphql`
         # Refetch query to be fetched upon calling 'refetch'.
         # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-        query GroupUpdateFormRefetchQuery($groupId: Int!) {
-            getGroupById(handle_id: $groupId) {
+        query GroupUpdateFormRefetchQuery($groupId: ID!) {
+            getGroupById(id: $groupId) {
                 ...GroupUpdateForm_group
             }
         }

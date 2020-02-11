@@ -3,9 +3,9 @@ import environment from "../../createRelayEnvironment";
 import graphql from "babel-plugin-relay/macro";
 
 const OrganizationQuery = graphql`
-    query OrganizationQuery($organizationId: Int!) {
-        getOrganizationById(handle_id: $organizationId) {
-            handle_id
+    query OrganizationQuery($organizationId: ID!) {
+        getOrganizationById(id: $organizationId) {
+            id
             name
             type
             website
@@ -14,7 +14,7 @@ const OrganizationQuery = graphql`
             description
             incident_management_info
             addresses {
-                handle_id
+                id
                 name
                 street
                 postal_code
@@ -27,11 +27,11 @@ const OrganizationQuery = graphql`
                     relation_id
                     type
                     end {
-                        handle_id
+                        id
                         node_name
                     }
                     start {
-                        handle_id
+                        id
                         node_name
                     }
                 }
@@ -58,8 +58,8 @@ const OrganizationQuery = graphql`
 `;
 
 const OrganizationCheckExistQuery = graphql`
-    query OrganizationCheckExistQuery($organization_id: String!, $handle_id: Int) {
-        checkExistentOrganizationId(organization_id: $organization_id, handle_id: $handle_id)
+    query OrganizationCheckExistQuery($organization_id: String!, $id: ID) {
+        checkExistentOrganizationId(organization_id: $organization_id, id: $id)
     }
 `;
 
@@ -68,15 +68,15 @@ const OrganizationIdQuery = graphql`
         organizations(filter: $filter) {
             edges {
                 node {
-                    handle_id
+                    id
                 }
             }
         }
     }
 `;
-export const getOrganization = (handle_id) => {
+export const getOrganization = (id) => {
     return fetchQuery(environment, OrganizationQuery, {
-        organizationId: handle_id
+        organizationId: id
     }).then((data) => {
         return data.getOrganizationById;
     });
@@ -87,15 +87,15 @@ export const getOrganizationByOrganizationId = (organization_id) => {
         filter: { AND: [{ organization_id: organization_id }] }
     };
     return fetchQuery(environment, OrganizationIdQuery, variables).then((data) => {
-        return data.organizations.edges[0] ? data.organizations.edges[0].node.handle_id : "";
+        return data.organizations.edges[0] ? data.organizations.edges[0].node.id : "";
     });
 };
 
-export const checkOrganization = (organization_id, handle_id) => {
+export const checkOrganization = (organization_id, id) => {
     let variables = {
         organization_id: organization_id
     };
-    if (handle_id) variables.handle_id = handle_id;
+    if (id) variables.id = id;
     return fetchQuery(environment, OrganizationCheckExistQuery, variables).then((data) => {
         return data.checkExistentOrganizationId;
     });

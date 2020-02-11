@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { API_HOST } from "../config.js";
+import { API_HOST, COOKIE_DOMAIN } from "../config.js";
 import Cookies from "js-cookie";
 
 import "../style/Splash.scss";
 
 class Logout extends Component {
     logout = () => {
-        // localStorage.clear();
-        Cookies.remove("csrftoken");
-        document.location.href = API_HOST + "/logout";
+        Cookies.remove("JWT", { domain: COOKIE_DOMAIN });
+        window.location.replace(API_HOST + "/logout");
     };
 
     render() {
