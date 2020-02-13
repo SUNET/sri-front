@@ -13,6 +13,7 @@ import FilterColumnsContainer from "../../containers/FilterColumns";
 import OrderFilterColumns from "../OrderFilterColumns";
 
 import "../../style/ModelList.scss";
+import { isBrowser } from "react-device-detect";
 
 export class ContactList extends React.PureComponent {
     static propTypes = {
@@ -136,6 +137,8 @@ export class ContactList extends React.PureComponent {
 
     render() {
         const { t } = this.props;
+        console.log(this.props);
+
         return (
             <>
                 <div className="model-list">

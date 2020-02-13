@@ -33,7 +33,7 @@ class FilterColumns extends React.Component {
         const { t } = this.props;
         return (
             <div className={`filter-columns ${this.props.type}`}>
-                <Dropdown alignRight>
+                <Dropdown alignRight className="desktop-only">
                     <Dropdown.Toggle as="span">
                         {this.props.type === "order" && <i className="icon-filter"></i>}
                         {this.props.type === "hidden-col" && <i className="icon-column"></i>}

@@ -1,3 +1,8 @@
+/* VIEWPORTS (MUST USE PX FOR COMPATIBILITY)*/
+$vp-max-mobile: 425px;
+$vp-max-tablet: 769px;
+/* [END] VIEWPORTS */
+
 /*
  * Colors
  * ========================================================================== */
@@ -78,3 +83,5 @@ $pretty--size-scale: 0.6em;
  $btn-back-width: 80px;
 
  $margin-lateral-line-elements: 8px;
+
+ $mobile-header-height: 65px;

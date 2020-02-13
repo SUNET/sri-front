@@ -2,6 +2,7 @@
 
 .toggle-section {
     .toggle-header {
+        cursor: pointer;
         > :first-child {
             margin-right: 8px;
             margin-bottom: 0;
@@ -22,10 +23,6 @@
             width: 10%;
             float: right;
             text-align: right;
-
-            &:hover {
-                cursor: pointer;
-            }
 
             &:after {
                 display: inline-block;

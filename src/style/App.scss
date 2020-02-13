@@ -1,5 +1,7 @@
 @import "../variables.scss";
 @import "./FieldInput.scss";
+@import "./viewports.scss";
+@import "./Burger.scss";
 
 * {
     box-sizing: border-box;
@@ -20,6 +22,19 @@ html {
     background-color: $tertiary-color-3;
     font-family: $font;
     color: $secondary-color;
+    @include desktop {
+        background-color: blue;
+        max-width: 1450px;
+    }
+
+    @include tablet {
+        background-color: red;
+        max-width: 100%;
+    }
+
+    @include mobile {
+        max-width: 100%;
+    }
 }
 
 .container {
@@ -30,7 +45,7 @@ img {
     max-width: 100%;
 }
 
-a{
+a {
     color: $complementary-color;
 }
 
@@ -54,7 +69,7 @@ h1,
 h2,
 h3,
 i {
-    font-family: 'Karla', sans-serif;
+    font-family: "Karla", sans-serif;
 }
 
 h1 {
@@ -73,7 +88,7 @@ h3 {
 }
 
 ::placeholder {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 ::placeholder,
@@ -94,7 +109,7 @@ select[disabled] {
     }
 }
 
-.pre-text{
+.pre-text {
     white-space: pre-wrap;
 }
 
@@ -114,4 +129,26 @@ select[disabled] {
         border-left: 1px solid $tertiary-color-20;
     }
     padding: 0.5em;
+}
+
+.desktop-only {
+    @include tablet {
+        display: none !important;
+    }
+
+    @include mobile {
+        display: none !important;
+    }
+}
+
+.mobile-tablet-only {
+    @include desktop {
+        display: none !important;
+    }
+    @include tablet {
+        display: block !important;
+    }
+    @include mobile {
+        display: block !important;
+    }
 }

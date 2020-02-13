@@ -25,12 +25,16 @@ import "../style/Breadcrumbs.scss";
 import "../style/SRIButton.scss";
 
 import { history } from "../store";
+import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
 class App extends Component {
     render() {
+        const isDashBoardPath = history.location.pathname === "/dashboard";
+        const columnsToMainContainer = isDashBoardPath || isMobile ? 12 : 10;
+
         return (
             <FetchingContext.Provider value={this.props.is_fetching}>
-                <div className="App container">
+                <div id="prueba" className="App container-fluid">
                     <ConnectedRouter history={history}>
                         <Row>
                             <Col className="px-0">
@@ -39,17 +43,19 @@ class App extends Component {
                         </Row>
                         <Row>
                             <SplashContainer />
-                            <Switch>
-                                <Route path="/network" component={SideNavNetwork} />
-                                <Route path="/community" component={SideNavCommunity} />
-                            </Switch>
-                            <Col sm={10} className="fixed-adaptative">
+                            {!isMobile && (
+                                <Switch>
+                                    <Route path="/network" component={SideNavNetwork} />
+                                    <Route path="/community" component={SideNavCommunity} />
+                                </Switch>
+                            )}
+                            <Col xs={columnsToMainContainer} className="fixed-adaptative">
                                 <NotifyContainer />
                                 <Row className="mt-4">
-                                    <Col>
+                                    <Col xs={10} sm={8}>
                                         <Breadcrumbs mappedRoutes={Routes} />
                                     </Col>
-                                    <Col className="text-right">
+                                    <Col xs={2} sm={4} className="text-right">
                                         <SubMenuActions />
                                     </Col>
                                 </Row>

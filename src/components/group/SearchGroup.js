@@ -18,6 +18,9 @@ import Filter from "../Filter";
 import OrderBy from "../OrderBy";
 import RangeDayPicker from "../RangeDayPicker";
 import { isEmpty } from "../../utils";
+import { isBrowser, isMobile } from "react-device-detect";
+import LateralSliderMenu from "../../components/LateralSliderMenu/LateralSliderMenu";
+import ReactDOM from "react-dom";
 
 // import { RouteNotFound } from "./NotFound";
 
@@ -45,8 +48,12 @@ class SearchGroup extends React.Component {
             filterDateFrom: undefined,
             filterDateTo: undefined,
             filterDate: {},
-            orderBy: { orderBy: "handle_id_DESC" }
+            orderBy: { orderBy: "handle_id_DESC" },
+            openMobileFiltersPanel: false
         };
+        if (isMobile) {
+            props.showHideColumn("name", true, "group");
+        }
     }
 
     // save in the state the column orderby
@@ -149,8 +156,116 @@ class SearchGroup extends React.Component {
         return table;
     };
 
-    render() {
+    renderFiltersBox() {
         const { t } = this.props;
+        return (
+            <Row>
+                <Col>
+                    <div className="filter-date d-inline">
+                        <div className="pretty p-default p-round">
+                            <input
+                                type="radio"
+                                name="filterDateType"
+                                checked={this.state.filterDateType === "created"}
+                                value="created"
+                                onChange={(e) => {
+                                    this.changeFilterDateType(e);
+                                }}
+                            />
+                            <div className="state p-info-o">
+                                <label>{t("filter.date.created")}</label>
+                            </div>
+                        </div>
+
+                        <div className="pretty p-default p-round">
+                            <input
+                                type="radio"
+                                name="filterDateType"
+                                checked={this.state.filterDateType === "modified"}
+                                value="modified"
+                                onChange={(e) => {
+                                    this.changeFilterDateType(e);
+                                }}
+                            />
+                            <div className="state p-info-o">
+                                <label>{t("filter.date.updated")}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <RangeDayPicker
+                        dateTo={this.handleDateTo}
+                        dateFrom={this.handleDateFrom}
+                        resetDate={this.handleResetDate}
+                    />
+                </Col>
+                <Col className="text-right" sm={4}>
+                    <Filter changeFilter={this.handleOnChangeFilter} />
+                    <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
+                </Col>
+            </Row>
+        );
+    }
+
+    renderList() {
+        const { t } = this.props;
+        return (
+            <Row className="mt-3">
+                <Col>
+                    <div onClick={() => this.setState({ openMobileFiltersPanel: !this.state.openMobileFiltersPanel })}>
+                        CTA!!!!
+                    </div>
+                    <QueryRenderer
+                        environment={environment}
+                        query={SearchGroupAllQuery}
+                        variables={{
+                            count: this.state.itemsPerPage,
+                            ...this.state.orderBy,
+                            filter: this.getFilters()
+                        }}
+                        render={({ error, props, retry }) => {
+                            if (error) {
+                                return <div>{error.message}</div>;
+                            } else if (props) {
+                                return (
+                                    <GroupListContainer
+                                        groups={props}
+                                        changeCount={this.handleOnChangeCount}
+                                        columnChangeOrderBy={this.handleColumnChangeOrderBy}
+                                        orderBy={this.state.orderBy.orderBy}
+                                        defaultColumns={defaultColumns}
+                                        refetch={retry}
+                                    />
+                                );
+                            }
+                            return (
+                                <div>
+                                    <div className="model-list default">
+                                        <div>
+                                            <div></div>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            );
+                        }}
+                    />
+                </Col>
+            </Row>
+        );
+    }
+
+    renderLateralMenuWithFiltersBox() {
+        return (
+            <LateralSliderMenu
+                open={this.state.openMobileFiltersPanel}
+                clickInClose={() => this.setState({ openMobileFiltersPanel: false })}
+            >
+                <p>LATERAL _ MENU _ CUSTOM</p>
+            </LateralSliderMenu>
+        );
+    }
+
+    render() {
         return (
             <section className="mt-3">
                 <Switch>
@@ -159,89 +274,8 @@ class SearchGroup extends React.Component {
                         path="/community/groups"
                         render={() => (
                             <>
-                                <Row>
-                                    <Col>
-                                        <div className="filter-date d-inline">
-                                            <div className="pretty p-default p-round">
-                                                <input
-                                                    type="radio"
-                                                    name="filterDateType"
-                                                    checked={this.state.filterDateType === "created"}
-                                                    value="created"
-                                                    onChange={(e) => {
-                                                        this.changeFilterDateType(e);
-                                                    }}
-                                                />
-                                                <div className="state p-info-o">
-                                                    <label>{t("filter.date.created")}</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="pretty p-default p-round">
-                                                <input
-                                                    type="radio"
-                                                    name="filterDateType"
-                                                    checked={this.state.filterDateType === "modified"}
-                                                    value="modified"
-                                                    onChange={(e) => {
-                                                        this.changeFilterDateType(e);
-                                                    }}
-                                                />
-                                                <div className="state p-info-o">
-                                                    <label>{t("filter.date.updated")}</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <RangeDayPicker
-                                            dateTo={this.handleDateTo}
-                                            dateFrom={this.handleDateFrom}
-                                            resetDate={this.handleResetDate}
-                                        />
-                                    </Col>
-                                    <Col className="text-right" sm={4}>
-                                        <Filter changeFilter={this.handleOnChangeFilter} />
-                                        <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
-                                    </Col>
-                                </Row>
-                                <Row className="mt-3">
-                                    <Col>
-                                        <QueryRenderer
-                                            environment={environment}
-                                            query={SearchGroupAllQuery}
-                                            variables={{
-                                                count: this.state.itemsPerPage,
-                                                ...this.state.orderBy,
-                                                filter: this.getFilters()
-                                            }}
-                                            render={({ error, props, retry }) => {
-                                                if (error) {
-                                                    return <div>{error.message}</div>;
-                                                } else if (props) {
-                                                    return (
-                                                        <GroupListContainer
-                                                            groups={props}
-                                                            changeCount={this.handleOnChangeCount}
-                                                            columnChangeOrderBy={this.handleColumnChangeOrderBy}
-                                                            orderBy={this.state.orderBy.orderBy}
-                                                            defaultColumns={defaultColumns}
-                                                            refetch={retry}
-                                                        />
-                                                    );
-                                                }
-                                                return (
-                                                    <div>
-                                                        <div className="model-list default">
-                                                            <div>
-                                                                <div></div>
-                                                            </div>
-                                                            <div></div>
-                                                        </div>
-                                                    </div>
-                                                );
-                                            }}
-                                        />
-                                    </Col>
-                                </Row>
+                                {isBrowser ? this.renderFiltersBox() : this.renderLateralMenuWithFiltersBox()}
+                                {this.renderList()}
                             </>
                         )}
                     />

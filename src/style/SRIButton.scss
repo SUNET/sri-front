@@ -1,4 +1,5 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 /* generic styles for all buttons
 (incl. :hover, :active, :focus and :disabled) */
 button:focus {
@@ -21,10 +22,19 @@ button.btn {
 
     &.primary {
         border-radius: 22px;
-        padding: 13px 32px;
         color: #fff;
         background-color: $brand-color;
         font-weight: bold;
+        width: 45px;
+        height: 45px;
+        padding: 0;
+        
+        &.add-cta {
+            @include desktop {
+                width: 200px;
+                padding: 13px 32px;
+            }
+        }
 
         &.focus,
         &:active {
@@ -129,7 +139,7 @@ button.btn {
             height: $row-height;
             &:before {
                 display: inline-block;
-                content: '';
+                content: "";
                 height: 10px;
                 width: 10px;
                 margin-right: 8px;
@@ -143,7 +153,7 @@ button.btn {
 
         &.btn-load {
             &:before {
-                content: '\e90e';
+                content: "\e90e";
                 font-family: "sunet-icons";
                 margin-right: 8px;
                 color: $complementary-color;
@@ -163,7 +173,7 @@ button.btn {
         &.btn-trash {
             &:before {
                 display: inline-block;
-                content: '\f12d';
+                content: "\f12d";
                 font-family: "Font Awesome 5 Free";
                 font-weight: 900;
                 color: $complementary-color;
@@ -176,7 +186,7 @@ button.btn {
             padding: 6.5px 12px;
 
             &:before {
-                content: '\f00d';
+                content: "\f00d";
                 margin-right: 4px;
                 font-family: "Font Awesome 5 Free";
                 font-weight: 900;

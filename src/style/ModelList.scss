@@ -1,12 +1,13 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
 .model-list {
     display: table;
     width: 100%;
     border-spacing: 0 5px;
     table-layout: fixed;
-
     &.default {
+        display: block;
         > div:first-of-type {
             div {
                 width: 100% !important;

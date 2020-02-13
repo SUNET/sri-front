@@ -18,9 +18,9 @@ import Filter from "../Filter";
 import OrderBy from "../OrderBy";
 import RangeDayPicker from "../RangeDayPicker";
 import { isEmpty } from "../../utils";
-// import { RouteNotFound } from "./NotFound";
 
-//mock - This should be returned to the backend in the future.
+import { isBrowser, isMobile } from "react-device-detect";
+
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
     { name: "Organization", value: "organizations", filter: "order" },
@@ -52,6 +52,9 @@ class Search extends React.Component {
             filterDate: {},
             orderBy: { orderBy: "handle_id_DESC" }
         };
+        if (isMobile) {
+            props.showHideColumn("name", true, "contact");
+        }
     }
 
     // save in the state the column orderby
@@ -192,9 +195,107 @@ class Search extends React.Component {
         return table;
     };
 
-    render() {
+    renderFiltersBox() {
         const { t } = this.props;
+        return (
+            <Row>
+                <Col>
+                    <div className="filter-date d-inline">
+                        <div className="pretty p-default p-round">
+                            <input
+                                type="radio"
+                                name="filterDateType"
+                                checked={this.state.filterDateType === "created"}
+                                value="created"
+                                onChange={(e) => {
+                                    this.changeFilterDateType(e);
+                                }}
+                            />
+                            <div className="state p-info-o">
+                                <label>{t("filter.date.created")}</label>
+                            </div>
+                        </div>
 
+                        <div className="pretty p-default p-round">
+                            <input
+                                type="radio"
+                                name="filterDateType"
+                                checked={this.state.filterDateType === "modified"}
+                                value="modified"
+                                onChange={(e) => {
+                                    this.changeFilterDateType(e);
+                                }}
+                            />
+                            <div className="state p-info-o">
+                                <label>{t("filter.date.updated")}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <RangeDayPicker
+                        dateTo={this.handleDateTo}
+                        dateFrom={this.handleDateFrom}
+                        resetDate={this.handleResetDate}
+                    />
+                </Col>
+                <Col className="text-right" sm={4}>
+                    <Filter changeFilter={this.handleOnChangeFilter} />
+                    <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
+                </Col>
+            </Row>
+        );
+    }
+
+    renderList() {
+        const { t } = this.props;
+        return (
+            <Row className="mt-3">
+                <Col>
+                    <QueryRenderer
+                        environment={environment}
+                        query={SearchContactsAllQuery}
+                        variables={{
+                            count: this.state.itemsPerPage,
+                            ...this.state.orderBy,
+                            filter: this.getFilters()
+                        }}
+                        render={({ error, props, retry }) => {
+                            if (error) {
+                                return <div>{error.message}</div>;
+                            } else if (props) {
+                                return (
+                                    <ContactListContainer
+                                        contacts={props}
+                                        organization_types={props}
+                                        roles_default={props}
+                                        changeCount={this.handleOnChangeCount}
+                                        columnChangeOrderBy={this.handleColumnChangeOrderBy}
+                                        orderBy={this.state.orderBy.orderBy}
+                                        changeOrderFilterColumns={this.handleChangeOrderFilterColumns}
+                                        filterColumn={this.state.filterColumnValueCallBack}
+                                        defaultColumns={defaultColumns}
+                                        refetch={retry}
+                                    />
+                                );
+                            }
+                            return (
+                                <div>
+                                    {/*<div className="model-list default">
+                                                            <div>
+                                                                <div></div>
+                                                            </div>
+                                                            <div>{this.createTable()}</div>
+                                                        </div>*/}
+                                    <div>Loading</div>
+                                </div>
+                            );
+                        }}
+                    />
+                </Col>
+            </Row>
+        );
+    }
+
+    render() {
         return (
             <section className="mt-3">
                 <Switch>
@@ -203,96 +304,8 @@ class Search extends React.Component {
                         path="/community/contacts"
                         render={() => (
                             <>
-                                <Row>
-                                    <Col>
-                                        <div className="filter-date d-inline">
-                                            <div className="pretty p-default p-round">
-                                                <input
-                                                    type="radio"
-                                                    name="filterDateType"
-                                                    checked={this.state.filterDateType === "created"}
-                                                    value="created"
-                                                    onChange={(e) => {
-                                                        this.changeFilterDateType(e);
-                                                    }}
-                                                />
-                                                <div className="state p-info-o">
-                                                    <label>{t("filter.date.created")}</label>
-                                                </div>
-                                            </div>
-
-                                            <div className="pretty p-default p-round">
-                                                <input
-                                                    type="radio"
-                                                    name="filterDateType"
-                                                    checked={this.state.filterDateType === "modified"}
-                                                    value="modified"
-                                                    onChange={(e) => {
-                                                        this.changeFilterDateType(e);
-                                                    }}
-                                                />
-                                                <div className="state p-info-o">
-                                                    <label>{t("filter.date.updated")}</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <RangeDayPicker
-                                            dateTo={this.handleDateTo}
-                                            dateFrom={this.handleDateFrom}
-                                            resetDate={this.handleResetDate}
-                                        />
-                                    </Col>
-                                    <Col className="text-right" sm={4}>
-                                        <Filter changeFilter={this.handleOnChangeFilter} />
-                                        <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
-                                    </Col>
-                                </Row>
-                                <Row className="mt-3">
-                                    <Col>
-                                        <QueryRenderer
-                                            environment={environment}
-                                            query={SearchContactsAllQuery}
-                                            variables={{
-                                                count: this.state.itemsPerPage,
-                                                ...this.state.orderBy,
-                                                filter: this.getFilters()
-                                            }}
-                                            render={({ error, props, retry }) => {
-                                                if (error) {
-                                                    return <div>{error.message}</div>;
-                                                } else if (props) {
-                                                    return (
-                                                        <ContactListContainer
-                                                            contacts={props}
-                                                            organization_types={props}
-                                                            roles_default={props}
-                                                            changeCount={this.handleOnChangeCount}
-                                                            columnChangeOrderBy={this.handleColumnChangeOrderBy}
-                                                            orderBy={this.state.orderBy.orderBy}
-                                                            changeOrderFilterColumns={
-                                                                this.handleChangeOrderFilterColumns
-                                                            }
-                                                            filterColumn={this.state.filterColumnValueCallBack}
-                                                            defaultColumns={defaultColumns}
-                                                            refetch={retry}
-                                                        />
-                                                    );
-                                                }
-                                                return (
-                                                    <div>
-                                                        {/*<div className="model-list default">
-                                                            <div>
-                                                                <div></div>
-                                                            </div>
-                                                            <div>{this.createTable()}</div>
-                                                        </div>*/}
-                                                        <div>Loading</div>
-                                                    </div>
-                                                );
-                                            }}
-                                        />
-                                    </Col>
-                                </Row>
+                                {isBrowser && this.renderFiltersBox()}
+                                {this.renderList()}
                             </>
                         )}
                     />
