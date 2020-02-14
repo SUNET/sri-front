@@ -197,10 +197,13 @@ export default function UpdateContactMutation(contact, form) {
                         }
                     }
                 } else {
-                    roles.push({
-                        role_id: organization.role,
+                    const newOrgToPush = {
                         organization_id: organization.organization
-                    });
+                    };
+                    if (organization.role) {
+                        newOrgToPush.role_id = organization.role;
+                    }
+                    roles.push(newOrgToPush);
                 }
             } else if (organization.status === "remove") {
                 deleteRoles.push({ relation_id: organization.role_obj.relation_id });
