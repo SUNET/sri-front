@@ -17,6 +17,7 @@ import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/Togg
 import ContactPhones from "./ContactPhones";
 import ContactEmails from "./ContactEmails";
 import BackCTA from "../common/BackCTA";
+import ValidationsContactForm from "./ValidationContactForm";
 
 import "../../style/ModelDetails.scss";
 
@@ -313,80 +314,9 @@ class ContactUpdateForm extends React.PureComponent {
     }
 }
 
-const validate = (values) => {
-    const errors = {};
-    if (!values.name || values.name === "New contact") {
-        errors.name = "* Required!";
-    }
-
-    if (!values.contact_type) {
-        errors.contact_type = "* Required!";
-    }
-    if (values.emails) {
-        const emailArrayErrors = [];
-        values.emails.forEach((email, emailIndex) => {
-            const emailErrors = {};
-            if (!email || !email.email) {
-                emailErrors.email = "* Required!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email.email)) {
-                emailErrors.email = "* Invalid email!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            }
-            if (!email || !email.type) {
-                emailErrors.type = "* Required!";
-                emailArrayErrors[emailIndex] = emailErrors;
-            }
-            return emailErrors;
-        });
-        if (emailArrayErrors.length) {
-            errors.emails = emailArrayErrors;
-        }
-    }
-
-    if (values.phones) {
-        const phoneArrayErrors = [];
-        values.phones.forEach((phone, phoneIndex) => {
-            const phoneErrors = {};
-            if (!phone || !phone.phone) {
-                phoneErrors.phone = "* Required!";
-                phoneArrayErrors[phoneIndex] = phoneErrors;
-            }
-            if (!phone || !phone.type) {
-                phoneErrors.type = "* Required!";
-                phoneArrayErrors[phoneIndex] = phoneErrors;
-            }
-            return phoneErrors;
-        });
-        if (phoneArrayErrors.length) {
-            errors.phones = phoneArrayErrors;
-        }
-    }
-
-    if (values.organizations) {
-        const organizationArrayErrors = [];
-        values.organizations.forEach((organization, organizationIndex) => {
-            const organizationErrors = {};
-            if (!organization || !organization.role) {
-                organizationErrors.role = "* Required!";
-                organizationArrayErrors[organizationIndex] = organizationErrors;
-            }
-            if (!organization || !organization.organization) {
-                organizationErrors.organization = "* Required!";
-                organizationArrayErrors[organizationIndex] = organizationErrors;
-            }
-            return organizationErrors;
-        });
-        if (organizationArrayErrors.length) {
-            errors.organizations = organizationArrayErrors;
-        }
-    }
-    return errors;
-};
-
 ContactUpdateForm = reduxForm({
     form: "updateContact",
-    validate,
+    validate: ValidationsContactForm.contactFormValidate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;
