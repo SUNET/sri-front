@@ -64,10 +64,6 @@ export default class ValidationsContactForm {
             const organizationArrayErrors = [];
             values.organizations.forEach((organization, organizationIndex) => {
                 const organizationErrors = {};
-                if (!organization || !organization.role) {
-                    organizationErrors.role = REQUIRED_TEXT;
-                    organizationArrayErrors[organizationIndex] = organizationErrors;
-                }
                 if (!organization || !organization.organization) {
                     organizationErrors.organization = REQUIRED_TEXT;
                     organizationArrayErrors[organizationIndex] = organizationErrors;

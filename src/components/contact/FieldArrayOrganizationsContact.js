@@ -21,9 +21,9 @@ class FieldArrayOrganizationsContact extends React.Component {
         if (newFields && newFields.length && nextProps.editable) {
             newFields.forEach((field, index) => {
                 const validated = this.validateOrganization(field, index);
-                if (field && field.status === 'editing' && validated) {
+                if (field && field.status === "editing" && validated) {
                     this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
-                } else if (!validated && field.status === 'saved') {
+                } else if (!validated && field.status === "saved") {
                     nextProps.dispatch(change(nextProps.meta.form, `organizations[${index}].status`, "editing"));
                 }
             });
@@ -66,9 +66,8 @@ class FieldArrayOrganizationsContact extends React.Component {
     validateOrganization = (field, index) => {
         const errors = this.props.errors;
         const hasBlankFields =
-            field.role === "" ||
-            field.role === undefined ||
-            (field.organization === "" || field.organization === undefined);
+            field.organization === "" ||
+            field.organization === undefined;            
         return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
 
@@ -77,19 +76,6 @@ class FieldArrayOrganizationsContact extends React.Component {
             this.props.fields.push({ key: uuidv4(), status: "editing" });
         }
     };
-
-    // saveRow = (index) => {
-    //     if (this.validateOrganization(index)) {
-    //         this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "saved"));
-    //     } else {
-    //         this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].role`));
-    //         this.props.dispatch(touch(this.props.meta.form, `organizations[${index}].organization`));
-    //     }
-    // };
-
-    // editRow = (index) => {
-    //     this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, "editing"));
-    // };
 
     removeRow = (index) => {
         const { fields } = this.props;
