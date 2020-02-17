@@ -57,8 +57,8 @@ class RangeDayPicker extends React.Component {
         const { t } = this.props;
         const modifiers = { start: from, end: to };
         return (
-            <>
-                <div className="InputFromTo">
+            <div className="range-day-picker">
+                <div className="InputFromTo InputFromTo--from">
                     <label>From</label>
                     <DayPickerInput
                         value={from}
@@ -79,34 +79,33 @@ class RangeDayPicker extends React.Component {
                         }}
                         onDayChange={this.handleFromChange}
                     />
-
-                    <span className="InputFromTo-to">
-                        <label>To</label>
-                        <DayPickerInput
-                            ref={(el) => (this.to = el)}
-                            value={to}
-                            placeholder="dd/mm/yy"
-                            format="MM/DD/YY"
-                            formatDate={formatDate}
-                            parseDate={parseDate}
-                            dayPickerProps={{
-                                locale: "en",
-                                localeUtils: MomentLocaleUtils,
-                                selectedDays: [from, { from, to }],
-                                disabledDays: { before: from },
-                                modifiers,
-                                month: from,
-                                fromMonth: from,
-                                numberOfMonths: 2
-                            }}
-                            onDayChange={this.handleToChange}
-                        />
-                    </span>
+                </div>
+                <div className="InputFromTo InputFromTo--to">
+                    <label>To</label>
+                    <DayPickerInput
+                        ref={(el) => (this.to = el)}
+                        value={to}
+                        placeholder="dd/mm/yy"
+                        format="MM/DD/YY"
+                        formatDate={formatDate}
+                        parseDate={parseDate}
+                        dayPickerProps={{
+                            locale: "en",
+                            localeUtils: MomentLocaleUtils,
+                            selectedDays: [from, { from, to }],
+                            disabledDays: { before: from },
+                            modifiers,
+                            month: from,
+                            fromMonth: from,
+                            numberOfMonths: 2
+                        }}
+                        onDayChange={this.handleToChange}
+                    />
                 </div>
                 <button type="button" onClick={this.handleResetClick} className="btn outline btn-remove">
                     {t("filter.date.clear")}
                 </button>
-            </>
+            </div>
         );
     }
 }

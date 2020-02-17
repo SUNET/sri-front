@@ -98,6 +98,11 @@ button.btn {
         border: solid 1px $complementary-color;
         background: none;
 
+        &--solid {
+            background: $complementary-color;
+            color: white;
+        }
+
         span {
             vertical-align: middle;
             color: $complementary-color;

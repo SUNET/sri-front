@@ -23,7 +23,7 @@ html {
     font-family: $font;
     color: $secondary-color;
     @include desktop {
-        background-color: blue;
+        // background-color: blue;
         max-width: 1450px;
     }
 

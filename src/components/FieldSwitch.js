@@ -30,7 +30,9 @@ class FieldSwitch extends Component {
     handleChange = (event) => {
         if (!this.props.forcedDefault || !this.state.checked) {
             this.setState({ checked: event.target.checked });
-            this.props.handleChecked && this.props.handleChecked(event);
+            if (this.props.handleChecked) {
+                this.props.handleChecked(event);
+            }
         }
     };
 

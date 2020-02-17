@@ -1,7 +1,6 @@
 @import "../variables.scss";
 
-.model-list article {
-    display: table-row;
+.model-list tbody tr {
     background-color: white;
     -webkit-box-shadow: $list--row-box-shadow;
     -moz-box-shadow: $list--row-box-shadow;
@@ -16,7 +15,11 @@
     position: relative;
     overflow: hidden;
 
-    &:before {
+    td {
+        padding: 20px 10px;
+    }
+
+    &:after {
         content: "";
         position: absolute;
         z-index: -1;
@@ -33,13 +36,8 @@
         transition-timing-function: ease-out;
     }
 
-    &:hover:before {
+    &:hover:after {
         top: 0;
         bottom: 0;
-    }
-
-    > div {
-        display: table-cell;
-        padding: 20px 10px;
     }
 }

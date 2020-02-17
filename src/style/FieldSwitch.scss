@@ -1,13 +1,16 @@
 @import "../variables.scss";
-@import '~pretty-checkbox/src/pretty-checkbox.scss';
+@import "~pretty-checkbox/src/pretty-checkbox.scss";
 
 .field-checkbox {
     display: inline-block;
-
+    width: 100%;
     div.pretty {
         margin-right: 0;
-
+        width: 100%;
+        display: flex;
         .state {
+            width: 100%;
+            justify-content: space-between;
             svg {
                 width: 20px;
             }

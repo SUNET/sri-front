@@ -17,6 +17,7 @@ const filterColumnsReducer = (state = initialState, action) => {
     let nextState = {};
     switch (action.type) {
         case "SHOW_HIDE_COLUMN":
+        
             //automatically adds columns that are shown or hidden
             nextState = {
                 ...state,
@@ -41,16 +42,14 @@ const filterColumnsReducer = (state = initialState, action) => {
 
         case "SHOW_ALL_COLUMNS":
             //change to false the state of each column and activate all_collumns
-            let columns_visible = Object.keys(action.columns).map((key) => {
-                action.columns[key] = false;
-                return action.columns[key];
-            });
+            // let columns_visible = Object.keys(action.columns).map((key) => {
+            //     action.columns[key] = false;
+            //     return action.columns[key];
+            // });
             nextState = {
                 ...state,
                 [action.model]: {
-                    columns_visible: {
-                        ...columns_visible
-                    },
+                    columns_visible: [],
                     all_columns: true
                 }
             };
