@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import { Dropdown } from "react-bootstrap";
 
-import FieldSwitch from "./FieldSwitch";
-
 import FilterColumnsContainer from "../containers/FilterColumns";
 
 import "../style/FilterColumns.scss";
@@ -15,25 +13,8 @@ class FilterColumns extends React.Component {
         type: PropTypes.string
     };
 
-    // cancelFilterColumns = () => {
-    //     this.props.cancelFilterColumns(this.props.columns_visible);
-    // };
-
-    // applyFilterColumns = () => {
-    //     this.props.filterColumns && this.props.filterColumns();
-    // };
-
-    // handleChangeColumns = (event) => {
-    //     if (event.target.id === "all_columns") {
-    //         this.props.showAllColumns(this.props.columns_visible, this.props.model);
-    //     } else {
-    //         this.props.showHideColumn(event.target.id, event.target.checked, this.props.model);
-    //     }
-    // };
     renderMenu() {
         const { columns, type, model } = this.props;
-        console.log(this.props);
-        
         return <FilterColumnsContainer columns={columns} type={type} model={model}></FilterColumnsContainer>;
     }
     renderBrowserMenuCTA() {

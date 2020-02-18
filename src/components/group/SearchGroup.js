@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Route, Switch } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
@@ -15,9 +14,6 @@ import { ITEMS_PER_PAGE } from "../../config";
 import CreateGroup from "./CreateGroup";
 import GroupDetailsContainer from "../../containers/group/GroupDetails";
 import GroupListContainer from "../../containers/group/GroupList";
-import Filter from "../Filter";
-import OrderBy from "../OrderBy";
-import RangeDayPicker from "../RangeDayPicker";
 import { isEmpty } from "../../utils";
 import { isBrowser, isMobile } from "react-device-detect";
 import LateralSliderMenu from "../../components/LateralSliderMenu";
@@ -144,99 +140,6 @@ class SearchGroup extends React.Component {
         return filters;
     };
 
-    // effect of showing empty structure while loading the QueryRender
-    // createTable = () => {
-    //     let table = [];
-
-    //     for (let i = 1; i < ITEMS_PER_PAGE; i++) {
-    //         table.push(
-    //             <article key={i}>
-    //                 <div></div>
-    //             </article>
-    //         );
-    //     }
-    //     return table;
-    // };
-    // renderDateFilter() {
-    //     const { t } = this.props;
-    //     return (
-    //         <div className="data-filter-by-date">
-    //             <div className="filter-date d-inline">
-    //                 <div className="pretty p-default p-round">
-    //                     <input
-    //                         type="radio"
-    //                         name="filterDateType"
-    //                         checked={this.state.filterDateType === "created"}
-    //                         value="created"
-    //                         onChange={(e) => {
-    //                             this.changeFilterDateType(e);
-    //                         }}
-    //                     />
-    //                     <div className="state p-info-o">
-    //                         <label>{t("filter.date.created")}</label>
-    //                     </div>
-    //                 </div>
-
-    //                 <div className="pretty p-default p-round">
-    //                     <input
-    //                         type="radio"
-    //                         name="filterDateType"
-    //                         checked={this.state.filterDateType === "modified"}
-    //                         value="modified"
-    //                         onChange={(e) => {
-    //                             this.changeFilterDateType(e);
-    //                         }}
-    //                     />
-    //                     <div className="state p-info-o">
-    //                         <label>{t("filter.date.updated")}</label>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //             <RangeDayPicker
-    //                 dateTo={this.handleDateTo}
-    //                 dateFrom={this.handleDateFrom}
-    //                 resetDate={this.handleResetDate}
-    //             />
-    //         </div>
-    //     );
-    // }
-
-    // renderFilterByWord() {
-    //     return <Filter changeFilter={this.handleOnChangeFilter} />;
-    // }
-    // renderOrderBy() {
-    //     return <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />;
-    // }
-    // renderFiltersBoxDesktop() {
-    //     const { t } = this.props;
-    //     return (
-    //         <Row>
-    //             <Col>{this.renderDateFilter()}</Col>
-    //             <Col className="text-right" sm={4}>
-    //                 {this.renderFilterByWord()}
-    //                 {this.renderOrderBy()}
-    //             </Col>
-    //         </Row>
-    //     );
-    // }
-
-    // renderFiltersBoxMobile() {
-    //     return (
-    //         <div>
-    //             <Col>
-    //                 <Row className="justify-content-center">{this.renderFilterByWord()}</Row>
-    //                 <hr />
-    //                 <Row className="justify-content-center">{this.renderDateFilter()}</Row>
-    //                 <hr />
-    //                 <Row className="justify-content-center">{this.renderOrderBy()}</Row>
-    //                 <hr />
-    //                 <Row className="justify-content-center">{this.renderColumnsFilter()}</Row>
-    //                 <hr />
-    //             </Col>
-    //         </div>
-    //     );
-    // }
-
     renderColumnsFilter() {
         return (
             <FilterColumnsContainer
@@ -249,7 +152,6 @@ class SearchGroup extends React.Component {
     }
 
     renderList() {
-        const { t } = this.props;
         return (
             <Row className="mt-3">
                 <Col>

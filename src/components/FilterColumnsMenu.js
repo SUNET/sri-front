@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
-import { Dropdown } from "react-bootstrap";
 
 import FieldSwitch from "./FieldSwitch";
 
@@ -13,14 +12,6 @@ class FilterColumns extends React.Component {
         type: PropTypes.string
     };
 
-    // cancelFilterColumns = () => {
-    //     this.props.cancelFilterColumns(this.props.columns_visible);
-    // };
-    //
-    // applyFilterColumns = () => {
-    //     this.props.filterColumns && this.props.filterColumns();
-    // };
-
     handleChangeColumns = (event) => {
         if (event.target.id === "all_columns") {
             this.props.showAllColumns(this.props.columns_visible, this.props.model);
@@ -29,16 +20,13 @@ class FilterColumns extends React.Component {
         }
     };
     renderMenu() {
-        const { t, columns, columns_visible, type, all_columns } = this.props;
+        const { t, columns, columns_visible, all_columns } = this.props;
 
         return (
             <div className={`${this.props.classContainer ? this.props.classContainer : ""}`}>
                 <div>
                     {columns.map((column) => {
                         let defaultValue = columns_visible !== undefined ? columns_visible[column.value] : false;
-                        // console.log(column.value);
-                        //
-                        // console.log(columns_visible);
                         return (
                             <FieldSwitch
                                 key={column.value}

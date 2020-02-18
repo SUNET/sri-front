@@ -25,7 +25,7 @@ import "../style/Breadcrumbs.scss";
 import "../style/SRIButton.scss";
 
 import { history } from "../store";
-import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
 class App extends Component {
     render() {
@@ -34,7 +34,7 @@ class App extends Component {
 
         return (
             <FetchingContext.Provider value={this.props.is_fetching}>
-                <div id="prueba" className="App container-fluid">
+                <div className="App container-fluid">
                     <ConnectedRouter history={history}>
                         <Row>
                             <Col className="px-0">

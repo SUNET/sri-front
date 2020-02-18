@@ -1,6 +1,6 @@
 import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { Nav } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../components/ToggleSection";
 
 import "../style/AccordionMenuOptions.scss";

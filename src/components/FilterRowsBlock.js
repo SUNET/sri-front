@@ -1,7 +1,6 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
 import { withTranslation } from "react-i18next";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
@@ -11,9 +10,6 @@ import "../style/Footer.scss";
 class FilterRowsBlock extends React.Component {
     renderDateFilter() {
         const { t, changeFilterDateType, filterDateType, handleDateTo, handleDateFrom, handleResetDate } = this.props;
-        console.log(this.props);
-        
-
         return (
             <div className="data-filter-by-date">
                 <div className="filter-date d-inline">
@@ -63,7 +59,6 @@ class FilterRowsBlock extends React.Component {
         return <OrderBy changeOrderBy={this.props.handleOnChangeOrderBy} />;
     }
     renderFiltersBoxDesktop() {
-        const { t } = this.props;
         return (
             <Row>
                 <Col>{this.renderDateFilter()}</Col>

@@ -14,9 +14,6 @@ import { ITEMS_PER_PAGE } from "../../config";
 import CreateContactRoute from "./CreateContactRoute/CreateContactRoute";
 import ContactDetailsContainer from "../../containers/contact/ContactDetails";
 import ContactListContainer from "../../containers/contact/ContactList";
-import Filter from "../Filter";
-import OrderBy from "../OrderBy";
-import RangeDayPicker from "../RangeDayPicker";
 
 import LateralSliderMenu from "../../components/LateralSliderMenu";
 import FilterColumnsContainer from "../../containers/FilterColumns";
@@ -188,70 +185,6 @@ class Search extends React.Component {
         return filters;
     };
 
-    // effect of showing empty structure while loading the QueryRender
-    // createTable = () => {
-    //     let table = [];
-
-    //     for (let i = 1; i < ITEMS_PER_PAGE; i++) {
-    //         table.push(
-    //             <article>
-    //                 <div></div>
-    //             </article>
-    //         );
-    //     }
-    //     return table;
-    // };
-
-    // renderFiltersBox() {
-    //     const { t } = this.props;
-    //     return (
-    //         <Row>
-    //             <Col>
-    //                 <div className="filter-date d-inline">
-    //                     <div className="pretty p-default p-round">
-    //                         <input
-    //                             type="radio"
-    //                             name="filterDateType"
-    //                             checked={this.state.filterDateType === "created"}
-    //                             value="created"
-    //                             onChange={(e) => {
-    //                                 this.changeFilterDateType(e);
-    //                             }}
-    //                         />
-    //                         <div className="state p-info-o">
-    //                             <label>{t("filter.date.created")}</label>
-    //                         </div>
-    //                     </div>
-
-    //                     <div className="pretty p-default p-round">
-    //                         <input
-    //                             type="radio"
-    //                             name="filterDateType"
-    //                             checked={this.state.filterDateType === "modified"}
-    //                             value="modified"
-    //                             onChange={(e) => {
-    //                                 this.changeFilterDateType(e);
-    //                             }}
-    //                         />
-    //                         <div className="state p-info-o">
-    //                             <label>{t("filter.date.updated")}</label>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //                 <RangeDayPicker
-    //                     dateTo={this.handleDateTo}
-    //                     dateFrom={this.handleDateFrom}
-    //                     resetDate={this.handleResetDate}
-    //                 />
-    //             </Col>
-    //             <Col className="text-right" sm={4}>
-    //                 <Filter changeFilter={this.handleOnChangeFilter} />
-    //                 <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
-    //             </Col>
-    //         </Row>
-    //     );
-    // }
-
     renderColumnsFilter() {
         console.log(this.props);
 
@@ -266,7 +199,6 @@ class Search extends React.Component {
     }
 
     renderList() {
-        const { t } = this.props;
         return (
             <Row className="mt-3">
                 <Col>

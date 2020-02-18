@@ -9,7 +9,6 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
 import OrganizationRow from "./OrganizationRow";
-import FilterColumnsContainer from "../../containers/FilterColumns";
 import OrderFilterColumns from "../OrderFilterColumns";
 
 import FilterColumns from "../FilterColumns";

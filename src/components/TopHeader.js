@@ -1,11 +1,11 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { Dropdown, Nav, Navbar, Image, Form, NavDropdown, Accordion, Card, Button } from "react-bootstrap";
+import { Nav, Navbar, Image, Form, Dropdown } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Logout from "./Logout";
 import AccordionMenuOptions from "./AccordionMenuOptions";
-import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
+import { BrowserView, MobileView } from "react-device-detect";
 
 import "../style/TopHeader.scss";
 
