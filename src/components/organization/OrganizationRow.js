@@ -34,14 +34,14 @@ class OrganizationRow extends React.PureComponent {
     render() {
         const organization = this.props.organization;
         return (
-            <article onClick={(e) => this.props.onClick(e, organization)}>
-                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <div>{organization.name}</div>}
+            <tr onClick={(e) => this.props.onClick(e, organization)}>
+                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <td>{organization.name}</td>}
                 {(this.props.columnsVisible["organization_id"] || this.props.showAllColumns) && (
-                    <div>{organization.organization_id}</div>
+                    <td>{organization.organization_id}</td>
                 )}
-                {(this.props.columnsVisible["type"] || this.props.showAllColumns) && <div>{organization.type}</div>}
+                {(this.props.columnsVisible["type"] || this.props.showAllColumns) && <td>{organization.type}</td>}
                 {(this.props.columnsVisible["afffiliation"] || this.props.showAllColumns) && (
-                    <div>
+                    <td>
                         {this.state.affiliation_list.map((affiliation, index) => {
                             return (
                                 <span key={index}>
@@ -49,17 +49,17 @@ class OrganizationRow extends React.PureComponent {
                                 </span>
                             );
                         })}
-                    </div>
+                    </td>
                 )}
                 {(this.props.columnsVisible["parent_organization_id"] || this.props.showAllColumns) && (
-                    <div>
+                    <td>
                         {organization.parent_organization.map((organization) => {
                             return organization.organization_id;
                         })}
-                    </div>
+                    </td>
                 )}
-                <div></div>
-            </article>
+                <td></td>
+            </tr>
         );
     }
 }

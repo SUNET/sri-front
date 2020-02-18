@@ -16,6 +16,8 @@ import { Table } from "react-bootstrap";
 
 import "../../style/ModelList.scss";
 
+const MODEL_NAME = "group";
+
 export class GroupList extends React.PureComponent {
     static propTypes = {
         groups: PropTypes.object.isRequired
@@ -53,7 +55,7 @@ export class GroupList extends React.PureComponent {
                 <FilterColumns
                     type="hidden-col"
                     columns={this.props.defaultColumns}
-                    model="group"
+                    model={MODEL_NAME}
                     filterColumns={this.handleFilterColumns}
                 />
             </div>

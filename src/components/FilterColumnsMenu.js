@@ -21,7 +21,7 @@ class FilterColumns extends React.Component {
     //     this.props.filterColumns && this.props.filterColumns();
     // };
 
-    handleChangeColumns = (event) => {        
+    handleChangeColumns = (event) => {
         if (event.target.id === "all_columns") {
             this.props.showAllColumns(this.props.columns_visible, this.props.model);
         } else {
@@ -30,16 +30,14 @@ class FilterColumns extends React.Component {
     };
     renderMenu() {
         const { t, columns, columns_visible, type, all_columns } = this.props;
-        console.log(columns_visible);
-        
-        
+
         return (
             <div className={`${this.props.classContainer ? this.props.classContainer : ""}`}>
                 <div>
                     {columns.map((column) => {
                         let defaultValue = columns_visible !== undefined ? columns_visible[column.value] : false;
                         // console.log(column.value);
-                        // 
+                        //
                         // console.log(columns_visible);
                         return (
                             <FieldSwitch

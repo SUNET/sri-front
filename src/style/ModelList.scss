@@ -10,6 +10,9 @@
         background-color: $tertiary-color-20;
         text-align: left;
         th {
+            > span {
+                display: flex;
+            }
         }
     }
     tbody {

@@ -32,6 +32,8 @@ class FilterColumns extends React.Component {
     // };
     renderMenu() {
         const { columns, type, model } = this.props;
+        console.log(this.props);
+        
         return <FilterColumnsContainer columns={columns} type={type} model={model}></FilterColumnsContainer>;
     }
     renderBrowserMenuCTA() {

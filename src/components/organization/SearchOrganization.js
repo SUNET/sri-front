@@ -18,6 +18,9 @@ import OrderBy from "../OrderBy";
 import RangeDayPicker from "../RangeDayPicker";
 import { isEmpty } from "../../utils";
 import { isBrowser, isMobile } from "react-device-detect";
+import LateralSliderMenu from "../../components/LateralSliderMenu";
+import FilterColumnsContainer from "../../containers/FilterColumns";
+import FilterRowsBlock from "../FilterRowsBlock";
 
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
@@ -35,6 +38,8 @@ const SearchOrganizationAllQuery = graphql`
     }
 `;
 
+const MODEL_NAME = "organization";
+
 class SearchOrganization extends React.Component {
     constructor(props) {
         super(props);
@@ -47,10 +52,11 @@ class SearchOrganization extends React.Component {
             filterDateFrom: "",
             filterDateTo: "",
             filterDate: {},
-            orderBy: { orderBy: "handle_id_DESC" }
+            orderBy: { orderBy: "handle_id_DESC" },
+            openMobileFiltersPanel: true
         };
         if (isMobile) {
-            props.showHideColumn("name", true, "organization");
+            props.showHideColumn("name", true, MODEL_NAME);
         }
     }
 
@@ -161,55 +167,67 @@ class SearchOrganization extends React.Component {
         return filters;
     };
 
-    renderFiltersBox() {
-        const { t } = this.props;
-        return (
-            <Row>
-                <Col>
-                    <div className="filter-date d-inline">
-                        <div className="pretty p-default p-round">
-                            <input
-                                type="radio"
-                                name="filterDateType"
-                                checked={this.state.filterDateType === "created"}
-                                value="created"
-                                onChange={(e) => {
-                                    this.changeFilterDateType(e);
-                                }}
-                            />
-                            <div className="state p-info-o">
-                                <label>{t("filter.date.created")}</label>
-                            </div>
-                        </div>
+    // renderFiltersBox() {
+    //     const { t } = this.props;
+    //     return (
+    //         <Row>
+    //             <Col>
+    //                 <div className="filter-date d-inline">
+    //                     <div className="pretty p-default p-round">
+    //                         <input
+    //                             type="radio"
+    //                             name="filterDateType"
+    //                             checked={this.state.filterDateType === "created"}
+    //                             value="created"
+    //                             onChange={(e) => {
+    //                                 this.changeFilterDateType(e);
+    //                             }}
+    //                         />
+    //                         <div className="state p-info-o">
+    //                             <label>{t("filter.date.created")}</label>
+    //                         </div>
+    //                     </div>
 
-                        <div className="pretty p-default p-round">
-                            <input
-                                type="radio"
-                                name="filterDateType"
-                                checked={this.state.filterDateType === "modified"}
-                                value="modified"
-                                onChange={(e) => {
-                                    this.changeFilterDateType(e);
-                                }}
-                            />
-                            <div className="state p-info-o">
-                                <label>{t("filter.date.updated")}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <RangeDayPicker
-                        dateTo={this.handleDateTo}
-                        dateFrom={this.handleDateFrom}
-                        resetDate={this.handleResetDate}
-                    />
-                </Col>
-                <Col className="text-right" sm={4}>
-                    <Filter changeFilter={this.handleOnChangeFilter} />
-                    <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
-                </Col>
-            </Row>
+    //                     <div className="pretty p-default p-round">
+    //                         <input
+    //                             type="radio"
+    //                             name="filterDateType"
+    //                             checked={this.state.filterDateType === "modified"}
+    //                             value="modified"
+    //                             onChange={(e) => {
+    //                                 this.changeFilterDateType(e);
+    //                             }}
+    //                         />
+    //                         <div className="state p-info-o">
+    //                             <label>{t("filter.date.updated")}</label>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //                 <RangeDayPicker
+    //                     dateTo={this.handleDateTo}
+    //                     dateFrom={this.handleDateFrom}
+    //                     resetDate={this.handleResetDate}
+    //                 />
+    //             </Col>
+    //             <Col className="text-right" sm={4}>
+    //                 <Filter changeFilter={this.handleOnChangeFilter} />
+    //                 <OrderBy changeOrderBy={this.handleOnChangeOrderBy} />
+    //             </Col>
+    //         </Row>
+    //     );
+    // }
+
+    renderColumnsFilter() {
+        return (
+            <FilterColumnsContainer
+                columns={defaultColumns}
+                type="hidden-col"
+                model={MODEL_NAME}
+                classContainer="filter-columns-internal-menu"
+            ></FilterColumnsContainer>
         );
     }
+
     renderList() {
         const { t } = this.props;
         return (
@@ -238,6 +256,11 @@ class SearchOrganization extends React.Component {
                                         filterColumn={this.state.filterColumnValue.type_in}
                                         defaultColumns={defaultColumns}
                                         refetch={retry}
+                                        clickInMobileShowMenu={() =>
+                                            this.setState({
+                                                openMobileFiltersPanel: !this.state.openMobileFiltersPanel
+                                            })
+                                        }
                                     />
                                 );
                             }
@@ -246,6 +269,49 @@ class SearchOrganization extends React.Component {
                     />
                 </Col>
             </Row>
+        );
+    }
+
+    renderFilterBox() {
+        return (
+            <FilterRowsBlock
+                handleOnChangeFilter={this.handleOnChangeFilter}
+                handleOnChangeOrderBy={this.handleOnChangeOrderBy}
+                filterDateType={this.state.filterDateType}
+                handleDateTo={this.handleDateTo}
+                handleDateFrom={this.handleDateFrom}
+                handleResetDate={this.handleResetDate}
+                browserVersion={isBrowser}
+                changeFilterDateType={this.changeFilterDateType}
+            ></FilterRowsBlock>
+        );
+    }
+
+    renderLateralMenuWithFiltersBox() {
+        const { t } = this.props;
+        return (
+            <LateralSliderMenu
+                open={this.state.openMobileFiltersPanel}
+                clickInClose={() => this.setState({ openMobileFiltersPanel: false })}
+                header={{
+                    iconClass: "icon-filter",
+                    text: t("filter.mobile.title")
+                }}
+                footer={{
+                    accept: {
+                        onClick: () => {
+                            this.setState({ openMobileFiltersPanel: false });
+                        },
+                        text: t("actions.accept")
+                    }
+                }}
+            >
+                {this.renderFilterBox()}
+                <Col>
+                    <Row className="justify-content-center">{this.renderColumnsFilter()}</Row>
+                    <hr />
+                </Col>
+            </LateralSliderMenu>
         );
     }
 
@@ -258,7 +324,7 @@ class SearchOrganization extends React.Component {
                         path="/community/organizations"
                         render={() => (
                             <>
-                                {isBrowser && this.renderFiltersBox()}
+                                {isBrowser ? this.renderFilterBox() : this.renderLateralMenuWithFiltersBox()}
                                 {this.renderList()}
                             </>
                         )}

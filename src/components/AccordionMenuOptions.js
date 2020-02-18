@@ -30,7 +30,6 @@ class AccordionMenuOptions extends React.Component {
         );
     }
     render() {
-        console.log(this.props.data);
         const { data } = this.props;
 
         return (
