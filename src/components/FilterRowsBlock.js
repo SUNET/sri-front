@@ -87,8 +87,6 @@ class FilterRowsBlock extends React.Component {
         );
     }
     render() {
-        console.log(isMobile);
-        
         return (
             <div>
                 {isBrowser && this.renderFiltersBoxDesktop()}
