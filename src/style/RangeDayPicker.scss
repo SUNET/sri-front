@@ -3,18 +3,33 @@
 
 .range-day-picker {
     display: flex;
+    min-width: 480px;
     @include mobile {
         flex-direction: column;
         padding: 0em 0em;
+        min-width: 0;
         > div {
             margin-bottom: 1em;
+            height: auto;
         }
     }
-    .InputFromTo {
+    @include tablet {
+        flex-direction: column;
+        padding: 0em 0em;
+        min-width: 0;
+        > div {
+            margin-bottom: 1em;
+            height: auto;
+        }
+    }
+    button {
+        min-width: 120px;
+        height: 32px;
+    }
+    .input-from-to {
         display: flex;
         justify-content: space-between;
         align-items: center;
-
         label {
             margin-right: 8px;
             font-family: Karla;
@@ -66,7 +81,7 @@
             }
         }
 
-        .InputFromTo-to .DayPickerInput-Overlay {
+        .input-from-to-to .DayPickerInput-Overlay {
             position: relative;
             right: 0;
         }

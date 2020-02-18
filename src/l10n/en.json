@@ -57,6 +57,8 @@
             "filter.newest-first": "Newest first",
             "filter.latest-first": "Latest first",
             "filter.mobile.title": "Filter options",
+            "filter.daypicker.from": "From",
+            "filter.daypicker.to": "To",
             "actions.clear": "Clear",
             "actions.cancel": "Cancel",
             "actions.accept": "Accept",

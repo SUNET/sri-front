@@ -4,6 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
+import { isBrowser, isMobile, isTablet } from "react-device-detect";
 
 import "../style/Footer.scss";
 
@@ -61,8 +62,10 @@ class FilterRowsBlock extends React.Component {
     renderFiltersBoxDesktop() {
         return (
             <Row>
-                <Col>{this.renderDateFilter()}</Col>
-                <Col className="text-right" sm={4}>
+                <Col xs={12} sm={12} md={12} lg={12} xl={7}>
+                    {this.renderDateFilter()}
+                </Col>
+                <Col xs={12} sm={12} md={12} lg={12} xl={5} className="mt-3 mt-xl-0">
                     {this.renderFilterByWord()}
                     {this.renderOrderBy()}
                 </Col>
@@ -84,8 +87,14 @@ class FilterRowsBlock extends React.Component {
         );
     }
     render() {
-        const { browserVersion } = this.props;
-        return <div>{browserVersion ? this.renderFiltersBoxDesktop() : this.renderFiltersBoxMobile()}</div>;
+        console.log(isMobile);
+        
+        return (
+            <div>
+                {isBrowser && this.renderFiltersBoxDesktop()}
+                {isMobile && this.renderFiltersBoxMobile()}
+            </div>
+        );
     }
 }
 

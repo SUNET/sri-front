@@ -48,12 +48,14 @@
 .data-filter-by-date {
     display: flex;
     align-items: center;
-    @include mobile {
-        flex-direction: column;
+    flex-direction: column;
+    @include desktop {
+        flex-direction: row;
     }
     .filter-date {
-        @include mobile {
-            padding: 1em 0em;
+        padding: 1em 0em;
+        @include desktop {
+            padding: 0;
         }
         .pretty {
             margin-right: 24px;

@@ -227,7 +227,6 @@ class SearchOrganization extends React.Component {
                 handleDateTo={this.handleDateTo}
                 handleDateFrom={this.handleDateFrom}
                 handleResetDate={this.handleResetDate}
-                browserVersion={isBrowser}
                 changeFilterDateType={this.changeFilterDateType}
             ></FilterRowsBlock>
         );
