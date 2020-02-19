@@ -3,5 +3,5 @@
 set -e
 set -x
 
-rm -R bundle/*
-cp -R build/* bundle/
+rm -rf bundle/*
+cp -r build/* bundle/
