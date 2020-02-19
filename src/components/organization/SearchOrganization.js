@@ -177,7 +177,7 @@ class SearchOrganization extends React.Component {
 
     renderList() {
         return (
-            <Row className="mt-3">
+            <Row id="table_test" className="mt-3">
                 <Col>
                     <QueryRenderer
                         environment={environment}

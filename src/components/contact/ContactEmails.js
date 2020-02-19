@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Form, Container } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { Field, change } from "redux-form";
 import Dropdown from "../Dropdown";
@@ -48,9 +48,9 @@ class ContactEmails extends React.Component {
                             </Form.Group>
                             <Dropdown
                                 className="auto"
-                                emptyLabel="Type"
-                                type="email_type"
                                 name={`${email}.type`}
+                                type="email_type"
+                                emptyLabel="Type"
                                 onChange={(e) => {}}
                             />
                             <div className="row-remove-cta" onClick={() => removeRow(index)}></div>

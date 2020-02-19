@@ -163,7 +163,7 @@ class GroupUpdateForm extends React.Component {
         );
     }
 
-    renderSaveCancelCTAs() {
+    renderSaveCancelButtons() {
         const { t, pristine, submitting } = this.props;
         return (
             <div className="text-right mt-4">
@@ -181,7 +181,7 @@ class GroupUpdateForm extends React.Component {
         let { group, handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
-                {this.renderSaveCancelCTAs()}
+                {this.renderSaveCancelButtons()}
                 <Form.Row>
                     <Col>{this.renderHeaderName(this.state.editMode)}</Col>
                     <Col>{this.renderHeaderRight()}</Col>
@@ -198,7 +198,7 @@ class GroupUpdateForm extends React.Component {
                         <Worklog model={group} refetch={this.refetch} />
                     </section>
                 </section>
-                {this.renderSaveCancelCTAs()}
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }

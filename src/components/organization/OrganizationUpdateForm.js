@@ -385,7 +385,7 @@ class OrganizationUpdateForm extends React.Component {
         );
     }
 
-    renderSaveCancelCTAs() {
+    renderSaveCancelButtons() {
         const { t, pristine, submitting } = this.props;
         return (
             <div className="text-right mt-4">
@@ -404,7 +404,7 @@ class OrganizationUpdateForm extends React.Component {
 
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)}>
-                {this.renderSaveCancelCTAs()}
+                {this.renderSaveCancelButtons()}
                 <Form.Row>
                     <Col>{this.renderHeaderName()}</Col>
                     <Col>{this.renderHeaderRight()}</Col>
@@ -434,7 +434,7 @@ class OrganizationUpdateForm extends React.Component {
                 <section className="model-section">
                     <Worklog model={organization} refetch={this.refetch} />
                 </section>
-                {this.renderSaveCancelCTAs()}
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }

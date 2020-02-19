@@ -18,6 +18,7 @@ import ContactPhones from "./ContactPhones";
 import ContactEmails from "./ContactEmails";
 import BackCTA from "../common/BackCTA";
 import ValidationsContactForm from "./ValidationContactForm";
+import { isBrowser, isMobile, isTablet } from "react-device-detect";
 
 import "../../style/ModelDetails.scss";
 
@@ -40,7 +41,7 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 
 class ContactUpdateForm extends React.PureComponent {
     state = {
-        editMode: false
+        editMode: true
     };
     static propTypes = {
         onChange: PropTypes.func
@@ -50,9 +51,7 @@ class ContactUpdateForm extends React.PureComponent {
         this.props.relay.refetch(
             { contactId: this.props.contact.id }, // Our refetchQuery needs to know the `contactID`
             null, // We can use the refetchVariables as renderVariables
-            () => {
-                console.log("Refetch done");
-            },
+            () => {},
             { force: true }
         );
     };
@@ -65,11 +64,13 @@ class ContactUpdateForm extends React.PureComponent {
     renderHeaderName() {
         const { t, first_name, last_name } = this.props;
         const { editMode } = this.state;
+        const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
         return (
             <div className="title-section">
-                <BackCTA onClick={() => this.props.history.goBack()} />
+                {isBrowser && <BackCTA onClick={() => this.props.history.goBack()} />}
+                {isMobile && this.renderEditButton()}
                 <div className="vertical-separator"></div>
-                <div className="title-section__name-inputs">
+                <div className={`title-section__name-inputs ${editionModeClass}`}>
                     <EditField
                         error={this.props.formSyncErrors.name}
                         meta={this.props.fields.name}
@@ -96,22 +97,29 @@ class ContactUpdateForm extends React.PureComponent {
             </div>
         );
     }
+    renderEditButton() {
+        const { t } = this.props;
+        const desktopClass = isBrowser ? "with-vertical-separator with-vertical-separator--right" : "";
+        return (
+            <div className={`title-section__right-block__buttons ${desktopClass} mr-3`}>
+                <button
+                    type="button"
+                    onClick={() => {
+                        this.setState({ editMode: !this.state.editMode });
+                    }}
+                    className="btn outline btn-edit"
+                >
+                    <i className="icon-pencil"></i>
+                    <span>{t("actions.edit")}</span>
+                </button>
+            </div>
+        );
+    }
     renderHeaderRight() {
-        const { t, contact } = this.props;
+        const { contact } = this.props;
         return (
             <div className="title-section__right-block">
-                <div className="title-section__right-block__buttons with-vertical-separator with-vertical-separator--right">
-                    <button
-                        type="button"
-                        onClick={() => {
-                            this.setState({ editMode: !this.state.editMode });
-                        }}
-                        className="btn outline btn-edit"
-                    >
-                        <i className="icon-pencil"></i>
-                        <span>{t("actions.edit")}</span>
-                    </button>
-                </div>
+                {isBrowser && this.renderEditButton()}
                 <InfoCreatorModifier model={contact} />
             </div>
         );
@@ -233,7 +241,7 @@ class ContactUpdateForm extends React.PureComponent {
                                             <Field
                                                 type="text"
                                                 component={FieldInput}
-                                                className="xlg"
+                                                className={`${isBrowser ? 'xlg' : 'auto'}`}
                                                 placeholder={t("contact-details.pgp-fingerprint")}
                                                 name="pgp_fingerprint"
                                             />
@@ -248,7 +256,7 @@ class ContactUpdateForm extends React.PureComponent {
         );
     }
 
-    renderProfesionalDetails() {
+    renderProfessionalDetails() {
         const { t } = this.props;
         return (
             <ToggleSection>
@@ -269,17 +277,21 @@ class ContactUpdateForm extends React.PureComponent {
         );
     }
 
-    renderSaveCancelCTAs() {
+    renderSaveCancelButtons() {
+        // change for the SaveCancelCTAs components/common/
         const { t, pristine, submitting } = this.props;
+        const mobileClasses = isMobile ? "d-inline-flex align-items-center justify-content-center" : "text-right";
         return (
-            <div className="text-right mt-4">
-                <button type="button" className="btn link" onClick={this.props.onDelete}>
-                    {t("actions.delete")}
-                </button>
-                <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
-                    {t("actions.save")}
-                </button>
-            </div>
+            <Form.Row>
+                <Col className={mobileClasses}>
+                    <button type="button" className="btn link" onClick={this.props.onDelete}>
+                        {t("actions.delete")}
+                    </button>
+                    <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
+                        {t("actions.save")}
+                    </button>
+                </Col>
+            </Form.Row>
         );
     }
 
@@ -288,9 +300,11 @@ class ContactUpdateForm extends React.PureComponent {
         return (
             <>
                 <form onSubmit={handleSubmit(this.handleSubmit)}>
-                    {this.renderSaveCancelCTAs()}
+                    {isBrowser && this.renderSaveCancelButtons()}
                     <Form.Row>
-                        <Col>{this.renderHeaderName()}</Col>
+                        <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
+                            {this.renderHeaderName()}
+                        </Col>
                         <Col>{this.renderHeaderRight()}</Col>
                     </Form.Row>
                     <section className="model-section">
@@ -300,14 +314,14 @@ class ContactUpdateForm extends React.PureComponent {
                                 <hr />
                                 {this.renderGeneralInfoToggleSection()}
                                 <hr />
-                                {this.renderProfesionalDetails()}
+                                {this.renderProfessionalDetails()}
                             </Col>
                         </Form.Row>
                     </section>
                     <section className="model-section">
                         <Worklog model={contact} refetch={this.refetch} />
                     </section>
-                    {this.renderSaveCancelCTAs()}
+                    {this.renderSaveCancelButtons()}
                 </form>
             </>
         );

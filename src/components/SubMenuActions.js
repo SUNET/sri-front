@@ -13,7 +13,7 @@ class SubMenuActions extends React.Component {
                     path="/community/organizations/"
                     component={() => (
                         <button
-                            className="btn primary add-cta"
+                            className="btn primary add-cta reduced-in-mobile"
                             onClick={() => this.props.history.push(`/community/organizations/create`)}
                         >
                             {isBrowser ? t("organization-details.add-organization") : "+"}
@@ -25,7 +25,7 @@ class SubMenuActions extends React.Component {
                     path="/community/contacts/"
                     component={() => (
                         <button
-                            className="btn primary add-cta"
+                            className="btn primary add-cta reduced-in-mobile"
                             onClick={() => this.props.history.push(`/community/contacts/create`)}
                         >
                             {isBrowser ? t("contact-details.add-contact") : "+"}
@@ -37,7 +37,7 @@ class SubMenuActions extends React.Component {
                     path="/community/groups/"
                     component={() => (
                         <button
-                            className="btn primary add-cta"
+                            className="btn primary add-cta reduced-in-mobile"
                             onClick={() => this.props.history.push(`/community/groups/create`)}
                         >
                             {isBrowser ? t("group-details.add-group") : "+"}

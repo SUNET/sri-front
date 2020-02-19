@@ -216,7 +216,7 @@ class CreateContactForm extends React.Component {
         );
     }
 
-    renderProfesionalDetails() {
+    renderProfessionalDetails() {
         const { t } = this.props;
         const editionMode = true;
         return (
@@ -253,7 +253,7 @@ class CreateContactForm extends React.Component {
                                 <hr />
                                 {this.renderGeneralInfoToggleSection()}
                                 <hr />
-                                {this.renderProfesionalDetails()}
+                                {this.renderProfessionalDetails()}
                             </Col>
                         </Form.Row>
                     </section>

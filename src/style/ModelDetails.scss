@@ -1,4 +1,5 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
 .contact-in-organization {
     display: flex;
@@ -70,7 +71,7 @@
             margin-right: $margin-lateral-line-elements;
         }
         &__add {
-            width: $outline-cta-width!important;
+            width: $outline-cta-width !important;
         }
     }
 }
@@ -78,9 +79,9 @@
     .title-section {
         display: flex;
         align-items: center;
-        > button {
-            margin-right: 16px;
-        }
+        // > button {
+        //     margin-right: 16px;
+        // }
 
         h1 {
             display: inline-block;
@@ -99,12 +100,24 @@
         &__right-block {
             display: flex;
             justify-content: flex-end;
+            flex-direction: column;
+            @include desktop {
+                flex-direction: row;
+            }
             &__buttons {
                 margin-right: 1em;
             }
         }
         &__name-inputs {
             display: flex;
+            &--edition-mode {
+                flex-direction: column;
+            }
+            @include desktop {
+                &--edition-mode {
+                    flex-direction: row;
+                }
+            }
         }
     }
     .info-creator-modifier {
@@ -120,9 +133,14 @@
         .model-section {
             .form-internal-block__section {
                 flex-basis: auto;
+                // max-width: 100%;
                 .row-remove-cta {
                     margin-top: 7px;
                 }
+                // .list-items__inputs__row > .form-group {
+                //     flex-shrink: 0;
+                //     width: 100%;
+                // }
             }
         }
     }
@@ -136,7 +154,7 @@
         box-shadow: $list--row-box-shadow;
         .organizations-contacts {
             .btn-add {
-                width: $outline-cta-width
+                width: $outline-cta-width;
             }
         }
         .form-internal-block {
@@ -211,7 +229,7 @@
                     &:not(.with-icon) {
                         padding-bottom: 16px;
                     }
-                    
+
                     &.with-icon {
                         > span {
                             margin-right: 16px;
@@ -248,18 +266,17 @@
                         }
                         &__inputs {
                             max-width: none;
-                            &__row { 
+                            &__row {
                                 height: calc(#{$row-height} + 10px);
                             }
                             button {
-                                width: $outline-cta-width
+                                width: $outline-cta-width;
                             }
                         }
                     }
                 }
             }
         }
-
 
         .table-details {
             display: table;
@@ -357,7 +374,8 @@
                                     vertical-align: middle;
                                 }
 
-                                div:first-of-type {}
+                                div:first-of-type {
+                                }
 
                                 div:last-of-type {
                                     width: 56px;
@@ -381,7 +399,7 @@
                     }
                 }
             }
-            
+
             // TODO: Remove when form-internal-block implements in all forms
             .list-items-label {
                 display: table;
