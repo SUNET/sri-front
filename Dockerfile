@@ -7,6 +7,9 @@ COPY . ./
 RUN mkdir -p /app/bundle
 VOLUME /app/bundle
 
+RUN sed -i "s|{API_HOST}|($API_HOST)|g" src/config.js &&\
+    sed -i "s|{COOKIE_DOMAIN}|($COOKIE_DOMAIN)|g" src/config.js
+
 RUN yarn
 RUN yarn add babel-plugin-relay
 RUN yarn build
