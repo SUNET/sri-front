@@ -222,6 +222,7 @@
                 margin-bottom: 1.5rem;
                 display: flex;
                 flex-direction: column;
+                max-width: 100%;
                 &__title {
                     font-family: karla;
                     font-weight: bold;
@@ -267,7 +268,22 @@
                         &__inputs {
                             max-width: none;
                             &__row {
-                                height: calc(#{$row-height} + 10px);
+                                @include desktop {
+                                    height: calc(#{$row-height} + 10px);
+                                }
+                                .form-group {
+                                    display: flex;
+                                    flex-grow: 1;
+                                    flex-shrink: 0;
+                                    flex-basis: 25%;
+                                    @include desktop {
+                                        flex-basis: auto;
+                                        flex-grow: initial;
+                                    }
+                                    input {
+                                        width: 100%;
+                                    }
+                                }
                             }
                             button {
                                 width: $outline-cta-width;
