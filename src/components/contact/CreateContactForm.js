@@ -222,7 +222,7 @@ class CreateContactForm extends React.Component {
         return (
             <ToggleSection>
                 <ToggleHeading>
-                    <h2>{t("contact-details.profesional-details")}</h2>
+                    <h2>{t("contact-details.professional-details")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
                     <FieldArray

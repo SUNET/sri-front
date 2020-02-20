@@ -41,7 +41,7 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 
 class ContactUpdateForm extends React.PureComponent {
     state = {
-        editMode: true
+        editMode: false
     };
     static propTypes = {
         onChange: PropTypes.func
@@ -261,7 +261,7 @@ class ContactUpdateForm extends React.PureComponent {
         return (
             <ToggleSection>
                 <ToggleHeading>
-                    <h2>{t("contact-details.profesional-details")}</h2>
+                    <h2>{t("contact-details.professional-details")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
                     <FieldArray

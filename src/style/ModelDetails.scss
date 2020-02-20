@@ -238,7 +238,9 @@
                     }
                 }
                 &__content {
-                    padding-left: 24px;
+                    @include desktop {
+                        padding-left: 24px;
+                    }
                     &--edition-mode {
                         padding-left: 0;
                     }
