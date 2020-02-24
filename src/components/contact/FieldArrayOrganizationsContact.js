@@ -122,7 +122,7 @@ class FieldArrayOrganizationsContact extends React.Component {
             valuesToShow = [currentValue.data];
             indexForThisFieldKey = currentValue.index;
         } else {
-            valuesToShow = fields.getAll();
+            valuesToShow = fields.getAll() || [];
         }
 
         return [
@@ -204,7 +204,7 @@ class FieldArrayOrganizationsContact extends React.Component {
 
     getRowsMobileData() {
         const { fields, t, editable } = this.props;
-        const valuesToShow = fields.getAll();
+        const valuesToShow = fields.getAll() || [];
         const editContent = valuesToShow.map((member, index) => {
             return {
                 element: (

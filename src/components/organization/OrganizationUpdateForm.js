@@ -108,8 +108,6 @@ class OrganizationUpdateForm extends React.Component {
 
     handleSubmit = (organization) => {
         this.setState({ editMode: !this.state.editMode });
-        console.log(organization);
-        
         UpdateOrganizationMutation(organization, this);
     };
 
@@ -359,8 +357,7 @@ class OrganizationUpdateForm extends React.Component {
         );
     }
 
-    renderAditionalInfoToggleSection() {
-        
+    renderAdditionalInfoToggleSection() {
         const { t, incident_management_info } = this.props;
         const { editMode } = this.state;
         return (
@@ -392,7 +389,7 @@ class OrganizationUpdateForm extends React.Component {
                 <button type="button" className="btn link" onClick={this.props.onDelete}>
                     {t("actions.delete")}
                 </button>
-                <button type="submit" className="btn primary lg" disabled={pristine || submitting} onClick={() => console.log('holi?')}>
+                <button type="submit" className="btn primary lg" disabled={pristine || submitting}>
                     {t("actions.save")}
                 </button>
             </div>
@@ -428,7 +425,7 @@ class OrganizationUpdateForm extends React.Component {
                 </section>
                 <section className="model-section">
                     <Form.Row>
-                        <Col>{this.renderAditionalInfoToggleSection()}</Col>
+                        <Col>{this.renderAdditionalInfoToggleSection()}</Col>
                     </Form.Row>
                 </section>
                 <section className="model-section">
