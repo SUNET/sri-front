@@ -134,9 +134,9 @@
             .form-internal-block__section {
                 flex-basis: auto;
                 // max-width: 100%;
-                .row-remove-cta {
-                    margin-top: 7px;
-                }
+                // .row-remove-cta {
+                //     margin-top: 7px;
+                // }
                 // .list-items__inputs__row > .form-group {
                 //     flex-shrink: 0;
                 //     width: 100%;
@@ -152,9 +152,17 @@
         -webkit-box-shadow: $list--row-box-shadow;
         -moz-box-shadow: $list--row-box-shadow;
         box-shadow: $list--row-box-shadow;
+        &--in-modal {
+            font-family: "Montserrat";
+            padding-top: 0;
+            .form-internal-block {
+                display: flex;
+                flex-direction: column;
+            }
+        }
         .organizations-contacts {
             .btn-add {
-                width: $outline-cta-width;
+                // width: $outline-cta-width;
             }
         }
         .form-internal-block {
@@ -166,9 +174,11 @@
                     &__content {
                         margin-bottom: 10px;
                         height: 100%;
-                        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                        padding-bottom: 50px;
-                        height: 83px;
+                        @include desktop {
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                            padding-bottom: 50px;
+                            height: 83px;
+                        }
                         &__internal-list {
                             // height: 32px;
                             overflow: initial;
@@ -197,7 +207,7 @@
                             }
                         }
                     }
-                    .row-remove-cta {
+                    .row-remove-cta--desktop-version {
                         position: relative;
                         top: -24px;
                         left: 178px;
@@ -218,7 +228,10 @@
             &__section {
                 flex-grow: 1;
                 flex-shrink: 0;
-                flex-basis: 25%;
+                flex-basis: 50%;
+                @include desktop {
+                    flex-basis: 25%;
+                }
                 margin-bottom: 1.5rem;
                 display: flex;
                 flex-direction: column;
