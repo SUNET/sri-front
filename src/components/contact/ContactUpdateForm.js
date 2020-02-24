@@ -41,7 +41,7 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 
 class ContactUpdateForm extends React.PureComponent {
     state = {
-        editMode: true
+        editMode: false
     };
     static propTypes = {
         onChange: PropTypes.func
