@@ -21,9 +21,8 @@ import ValidationsContactForm from "./ValidationContactForm";
 import { isBrowser, isMobile, isTablet } from "react-device-detect";
 
 import "../../style/ModelDetails.scss";
-
 const renderFormBlockSection = (editable, data, uniqueKey) => {
-    const isPresentState = !editable;
+    const isPresentState = !editable && data.presentContent;
     const presentContent = data.presentContent || "";
     return (
         <div className="form-internal-block__section" key={uniqueKey}>
@@ -41,12 +40,11 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 
 class ContactUpdateForm extends React.PureComponent {
     state = {
-        editMode: false
+        editMode: true
     };
     static propTypes = {
         onChange: PropTypes.func
     };
-
     refetch = () => {
         this.props.relay.refetch(
             { contactId: this.props.contact.id }, // Our refetchQuery needs to know the `contactID`
@@ -55,25 +53,35 @@ class ContactUpdateForm extends React.PureComponent {
             { force: true }
         );
     };
-
     handleSubmit = (contact) => {
         this.setState({ editMode: !this.state.editMode });
         UpdateContactMutation(contact, this);
     };
-
+    renderHeader() {
+        return (
+            <Form.Row>
+                <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
+                    {this.renderHeaderName()}
+                </Col>
+                <Col>{this.renderHeaderRight()}</Col>
+            </Form.Row>
+        );
+    }
     renderHeaderName() {
         const { t, first_name, last_name } = this.props;
         const { editMode } = this.state;
         const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
+        const showBackCTA = isBrowser;
+
         return (
             <div className="title-section">
-                {isBrowser && <BackCTA onClick={() => this.props.history.goBack()} />}
+                {showBackCTA && <BackCTA onClick={() => this.props.history.goBack()} />}
                 {isMobile && this.renderEditButton()}
                 <div className="vertical-separator"></div>
                 <div className={`title-section__name-inputs ${editionModeClass}`}>
                     <EditField
-                        error={this.props.formSyncErrors.name}
-                        meta={this.props.fields.name}
+                        error={this.props.formSyncErrors.first_name}
+                        meta={this.props.fields.first_name}
                         form={this.props.form}
                         dispatch={this.props.dispatch}
                         editable={editMode}
@@ -241,7 +249,7 @@ class ContactUpdateForm extends React.PureComponent {
                                             <Field
                                                 type="text"
                                                 component={FieldInput}
-                                                className={`${isBrowser ? 'xlg' : 'auto'}`}
+                                                className={`${isBrowser ? "xlg" : "auto"}`}
                                                 placeholder={t("contact-details.pgp-fingerprint")}
                                                 name="pgp_fingerprint"
                                             />
@@ -255,7 +263,6 @@ class ContactUpdateForm extends React.PureComponent {
             </ToggleSection>
         );
     }
-
     renderProfessionalDetails() {
         const { t } = this.props;
         return (
@@ -276,7 +283,6 @@ class ContactUpdateForm extends React.PureComponent {
             </ToggleSection>
         );
     }
-
     renderSaveCancelButtons() {
         // change for the SaveCancelCTAs components/common/
         const { t, pristine, submitting } = this.props;
@@ -294,36 +300,39 @@ class ContactUpdateForm extends React.PureComponent {
             </Form.Row>
         );
     }
-
-    render() {
-        let { contact, handleSubmit } = this.props;
+    renderWorkLog() {
+        let { contact } = this.props;
         return (
-            <>
-                <form onSubmit={handleSubmit(this.handleSubmit)}>
-                    {isBrowser && this.renderSaveCancelButtons()}
-                    <Form.Row>
-                        <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
-                            {this.renderHeaderName()}
-                        </Col>
-                        <Col>{this.renderHeaderRight()}</Col>
-                    </Form.Row>
-                    <section className="model-section">
-                        <Form.Row>
-                            <Col>
-                                {this.renderNotesToggleSection()}
-                                <hr />
-                                {this.renderGeneralInfoToggleSection()}
-                                <hr />
-                                {this.renderProfessionalDetails()}
-                            </Col>
-                        </Form.Row>
-                    </section>
-                    <section className="model-section">
-                        <Worklog model={contact} refetch={this.refetch} />
-                    </section>
-                    {this.renderSaveCancelButtons()}
-                </form>
-            </>
+            <section className="model-section">
+                <Worklog model={contact} refetch={this.refetch} />
+            </section>
+        );
+    }
+    renderModelMainSection() {
+        return (
+            <section className="model-section">
+                <Form.Row>
+                    <Col>
+                        {this.renderNotesToggleSection()}
+                        <hr />
+                        {this.renderGeneralInfoToggleSection()}
+                        <hr />
+                        {this.renderProfessionalDetails()}
+                    </Col>
+                </Form.Row>
+            </section>
+        );
+    }
+    render() {
+        let { handleSubmit } = this.props;
+        return (
+            <form onSubmit={handleSubmit(this.handleSubmit)}>
+                {isBrowser && this.renderSaveCancelButtons()}
+                {this.renderHeader()}
+                {this.renderModelMainSection()}
+                {this.renderWorkLog()}
+                {this.renderSaveCancelButtons()}
+            </form>
         );
     }
 }

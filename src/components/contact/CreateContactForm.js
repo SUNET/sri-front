@@ -14,10 +14,14 @@ import ContactEmails from "./ContactEmails";
 import SaveCancelCTAs from "../common/SaveCancelCTAs";
 import ValidationsContactForm from "./ValidationContactForm";
 import BackCTA from "../common/BackCTA";
+
+import { isBrowser, isMobile, isTablet } from "react-device-detect";
+
 import { CREATE_CONTACT_FORM } from "../../utils/constants";
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
     const isPresentState = !editable && data.presentContent;
+    const presentContent = data.presentContent || "";
     return (
         <div className="form-internal-block__section" key={uniqueKey}>
             <div className="form-internal-block__section__title">{data.title}</div>
@@ -26,7 +30,7 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
                     editable ? "form-internal-block__section__content--edition-mode" : ""
                 }`}
             >
-                {isPresentState ? data.presentContent : data.editContent}
+                {isPresentState ? presentContent : data.editContent}
             </div>
         </div>
     );
@@ -36,15 +40,26 @@ class CreateContactForm extends React.Component {
     handleSubmit = (contact) => {
         CreateContactMutation(contact, this);
     };
-
+    renderHeader() {
+        return (
+            <Form.Row>
+                <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
+                    {this.renderHeaderName()}
+                </Col>
+            </Form.Row>
+        );
+    }
     renderHeaderName() {
         const { shown_in_modal, t, first_name, last_name } = this.props;
         const editMode = true;
+        const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
+        const showBackCTA = isBrowser && shown_in_modal;
+
         return (
             <div className="title-section">
-                {!shown_in_modal && <BackCTA onClick={() => this.props.history.goBack()} />}
+                {showBackCTA && <BackCTA onClick={() => this.props.history.goBack()} />}
                 <div className="vertical-separator"></div>
-                <div className="title-section__name-inputs">
+                <div className={`title-section__name-inputs ${editionModeClass}`}>
                     <EditField
                         error={this.props.formSyncErrors.first_name}
                         meta={this.props.fields.first_name}
@@ -71,7 +86,9 @@ class CreateContactForm extends React.Component {
             </div>
         );
     }
-
+    renderEditButton() {
+        // not necessary in this class
+    }
     renderNotesToggleSection() {
         const { t } = this.props;
         return (
@@ -91,7 +108,6 @@ class CreateContactForm extends React.Component {
             </ToggleSection>
         );
     }
-
     renderGeneralInfoToggleSection() {
         const editionMode = true;
         const { t, title, contact_type, pgp_fingerprint } = this.props;
@@ -200,7 +216,6 @@ class CreateContactForm extends React.Component {
             </ToggleSection>
         );
     }
-
     renderSaveCancelButtons() {
         return (
             <SaveCancelCTAs
@@ -215,7 +230,6 @@ class CreateContactForm extends React.Component {
             />
         );
     }
-
     renderProfessionalDetails() {
         const { t } = this.props;
         const editionMode = true;
@@ -237,42 +251,51 @@ class CreateContactForm extends React.Component {
             </ToggleSection>
         );
     }
-
+    renderWorkLog() {
+        const { t } = this.props;
+        return (
+            <section className="model-section">
+                <ToggleSection defaultEditable={false}>
+                    <ToggleHeading>
+                        <h2>{t("contact-details.worklog")}</h2>
+                    </ToggleHeading>
+                    <TogglePanel>
+                        <Field
+                            name="comment"
+                            component={FieldInput}
+                            as="textarea"
+                            rows="3"
+                            placeholder={t("worklog.add-comment")}
+                        />
+                    </TogglePanel>
+                </ToggleSection>
+            </section>
+        );
+    }
+    renderModelMainSection() {
+        return (
+            <section className="model-section">
+                <Form.Row>
+                    <Col>
+                        {this.renderNotesToggleSection()}
+                        <hr />
+                        {this.renderGeneralInfoToggleSection()}
+                        <hr />
+                        {this.renderProfessionalDetails()}
+                    </Col>
+                </Form.Row>
+            </section>
+        );
+    }
     render() {
-        const { t, handleSubmit } = this.props;
+        const { handleSubmit } = this.props;
         return (
             <form id={CREATE_CONTACT_FORM} onSubmit={handleSubmit(this.handleSubmit)}>
+                {isBrowser && this.renderSaveCancelButtons()}
                 <div className="model-details create-contact-form">
-                    <Form.Row>
-                        <Col>{this.renderHeaderName()}</Col>
-                    </Form.Row>
-                    <section className="model-section">
-                        <Form.Row>
-                            <Col>
-                                {this.renderNotesToggleSection()}
-                                <hr />
-                                {this.renderGeneralInfoToggleSection()}
-                                <hr />
-                                {this.renderProfessionalDetails()}
-                            </Col>
-                        </Form.Row>
-                    </section>
-                    <section className="model-section">
-                        <ToggleSection defaultEditable={false}>
-                            <ToggleHeading>
-                                <h2>{t("contact-details.worklog")}</h2>
-                            </ToggleHeading>
-                            <TogglePanel>
-                                <Field
-                                    name="comment"
-                                    component={FieldInput}
-                                    as="textarea"
-                                    rows="3"
-                                    placeholder={t("worklog.add-comment")}
-                                />
-                            </TogglePanel>
-                        </ToggleSection>
-                    </section>
+                    {this.renderHeader()}
+                    {this.renderModelMainSection()}
+                    {this.renderWorkLog()}
                 </div>
                 {this.renderSaveCancelButtons()}
             </form>
