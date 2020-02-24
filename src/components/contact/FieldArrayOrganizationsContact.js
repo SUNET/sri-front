@@ -79,8 +79,6 @@ class FieldArrayOrganizationsContact extends React.Component {
     };
 
     removeRow = (key) => {
-        console.log('key: ', key);
-
         const currentValue = this.getValueByKey(key);
 
         this.hideDataModal();
