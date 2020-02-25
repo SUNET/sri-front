@@ -1,5 +1,6 @@
 import React from "react";
 import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
+import { Form, Col } from "react-bootstrap";
 import EditField from "../EditField";
 
 import uuidv4 from "uuid/v4";
@@ -17,8 +18,12 @@ import { isBrowser, isMobile } from "react-device-detect";
 import "../../style/ModelDetails.scss";
 
 class _GroupFormParentClass extends React.Component {
+    // GLOBAL VARs
     IS_UPDATED_FORM = false;
     FORM_ID;
+    MODEL_NAME = "group";
+
+    // Methods
     refetch = () => {
         throw new Error("This method should be overwritten in the child class");
     };
@@ -64,22 +69,23 @@ class _GroupFormParentClass extends React.Component {
             });
         }
     };
-    renderHeaderName(editMode = true) {
-        const { t, name } = this.props;
+
+    // Common sections RENDERS
+    renderEditButton() {
+        const { t } = this.props;
+        const desktopClass = isBrowser ? "with-vertical-separator with-vertical-separator--right" : "";
         return (
-            <div className="title-section">
-                <BackCTA onClick={() => this.props.history.goBack()} />
-                <div className="vertical-separator"></div>
-                <EditField
-                    error={this.props.formSyncErrors.name}
-                    meta={this.props.fields.name}
-                    form={this.props.form}
-                    dispatch={this.props.dispatch}
-                    editable={editMode}
-                    placeholder={t("contact-details.new")}
+            <div className={`title-section__right-block__buttons ${desktopClass} mr-3`}>
+                <button
+                    type="button"
+                    onClick={() => {
+                        this.setState({ editMode: !this.state.editMode });
+                    }}
+                    className="btn outline btn-edit"
                 >
-                    <h1>{name}</h1>
-                </EditField>
+                    <i className="icon-pencil"></i>
+                    <span>{t("actions.edit")}</span>
+                </button>
             </div>
         );
     }
@@ -89,26 +95,91 @@ class _GroupFormParentClass extends React.Component {
         const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
         return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
     }
-    renderHeaderRight() {
-        const { t, group } = this.props;
+    renderHeader(editMode = true) {
         return (
-            <div className="title-section__right-block">
-                <div className="title-section__right-block__buttons with-vertical-separator with-vertical-separator--right">
-                    <button
-                        type="button"
-                        onClick={() => {
-                            this.setState({ editMode: !this.state.editMode });
-                        }}
-                        className="btn outline btn-edit"
-                    >
-                        <i className="icon-pencil"></i>
-                        <span>{t("actions.edit")}</span>
-                    </button>
+            <Form.Row>
+                <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
+                    {this.renderHeaderName(editMode)}
+                </Col>
+                {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight()}</Col>}
+            </Form.Row>
+        );
+    }
+    renderHeaderName(editMode = true) {
+        const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
+        const showBackCTA = isBrowser;
+
+        return (
+            <div className="title-section">
+                {showBackCTA && <BackCTA onClick={() => this.props.history.goBack()} />}
+                {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
+                <div className="vertical-separator"></div>
+                <div className={`title-section__name-inputs ${editionModeClass}`}>
+                    {this.renderInputName("name", editMode)}
                 </div>
-                <InfoCreatorModifier model={group} />
             </div>
         );
     }
+    renderHeaderRight() {
+        const { group } = this.props;
+        return (
+            <div className="title-section__right-block">
+                {isBrowser && this.renderEditButton()}
+                <InfoCreatorModifier model={this.props[this.MODEL_NAME]} />
+            </div>
+        );
+    }
+    renderInputName(kindOfName, editMode = true) {
+        // INFO: kindOfName = 'first_name' || 'last_name' || 'name'
+        const { t, formSyncErrors, fields, form, dispatch } = this.props;
+        let placeHolderString = t("contact-details.name");
+        if (kindOfName === "last_name") {
+            placeHolderString = t("contact-details.lastName");
+        }
+        return (
+            <EditField
+                error={formSyncErrors[kindOfName]}
+                meta={fields[kindOfName]}
+                form={form}
+                dispatch={dispatch}
+                editable={editMode}
+                placeholder={placeHolderString}
+                name={kindOfName}
+            >
+                <h1>{this.props[kindOfName]}</h1>
+            </EditField>
+        );
+    }
+    renderWorkLog() {
+        const { t, group } = this.props;
+        return (
+            <section className="model-section">
+                {this.IS_UPDATED_FORM ? (
+                    <Worklog model={group} refetch={this.refetch} />
+                ) : (
+                    <ToggleSection defaultEditable={false}>
+                        <ToggleHeading>
+                            <h2>{t("contact-details.worklog")}</h2>
+                        </ToggleHeading>
+                        <TogglePanel>
+                            <Field
+                                name="comment"
+                                component={FieldInput}
+                                as="textarea"
+                                rows="3"
+                                placeholder={t("worklog.add-comment")}
+                                onBlur={(e) => {
+                                    this.setState({ comment: e.target.value });
+                                }}
+                            />
+                        </TogglePanel>
+                    </ToggleSection>
+                )}
+            </section>
+        );
+    }
+
+    // Specific toggle sections RENDERS
     renderDescriptionToggleSection(editMode = true) {
         const { t, description } = this.props;
         return (
@@ -157,35 +228,21 @@ class _GroupFormParentClass extends React.Component {
             </ToggleSection>
         );
     }
-    renderWorklogToggleSection() {
-        const { t, group } = this.props;
+    renderModelMainSection(editMode = true) {
         return (
             <section className="model-section">
-                {this.IS_UPDATED_FORM ? (
-                    <Worklog model={group} refetch={this.refetch} />
-                ) : (
-                    <ToggleSection defaultEditable={false}>
-                        <ToggleHeading>
-                            <h2>{t("contact-details.worklog")}</h2>
-                        </ToggleHeading>
-                        <TogglePanel>
-                            <Field
-                                name="comment"
-                                component={FieldInput}
-                                as="textarea"
-                                rows="3"
-                                placeholder={t("worklog.add-comment")}
-                                onBlur={(e) => {
-                                    this.setState({ comment: e.target.value });
-                                }}
-                            />
-                        </TogglePanel>
-                    </ToggleSection>
-                )}
+                <Form.Row>
+                    <Col>
+                        <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
+                        <hr />
+                        <Col>{this.renderContactsToggleSection(editMode)}</Col>
+                    </Col>
+                </Form.Row>
             </section>
         );
     }
 
+    // Main RENDER
     render() {
         console.error("This method should be overwritten in the child class");
         return <div>This method should be overwritten in the child class</div>;

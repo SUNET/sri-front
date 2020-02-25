@@ -8,6 +8,7 @@ import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
+import { isBrowser, isMobile } from "react-device-detect";
 
 import ValidationsGroupForm from "./ValidationsGroupForm";
 
@@ -26,22 +27,14 @@ class CreateGroupForm extends _GroupFormParentClass {
     };
     render() {
         const { handleSubmit } = this.props;
+        const editMode = true;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                <div className="model-details create-group-form">
-                    <Form.Row>
-                        <Col>{this.renderHeaderName(this.state.editMode)}</Col>
-                    </Form.Row>
-                    <section className="model-section">
-                        <Form.Row>
-                            <Col>{this.renderDescriptionToggleSection(this.state.editMode)}</Col>
-                        </Form.Row>
-                        <hr />
-                        <Form.Row>
-                            <Col>{this.renderContactsToggleSection(this.state.editMode)}</Col>
-                        </Form.Row>
-                    </section>
-                    {this.renderWorklogToggleSection()}
+                {isBrowser && this.renderSaveCancelButtons()}
+                <div className="model-details create-contact-form">
+                    {this.renderHeader(editMode)}
+                    {this.renderModelMainSection(editMode)}
+                    {this.renderWorkLog(editMode)}
                 </div>
                 {this.renderSaveCancelButtons()}
             </form>

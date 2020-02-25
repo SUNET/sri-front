@@ -20,6 +20,7 @@ import ValidationsGroupForm from "./ValidationsGroupForm";
 import _GroupFormParentClass from "./_GroupFormParentClass";
 
 import { UPDATE_GROUP_FORM } from "../../utils/constants";
+import { isBrowser, isMobile } from "react-device-detect";
 
 class GroupUpdateForm extends _GroupFormParentClass {
     IS_UPDATED_FORM = true;
@@ -43,23 +44,13 @@ class GroupUpdateForm extends _GroupFormParentClass {
     };
     render() {
         let { group, handleSubmit } = this.props;
+        const { editMode } = this.state;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {this.renderSaveCancelButtons()}
-                <Form.Row>
-                    <Col>{this.renderHeaderName(this.state.editMode)}</Col>
-                    <Col>{this.renderHeaderRight()}</Col>
-                </Form.Row>
-                <section className="model-section">
-                    <Form.Row>
-                        <Col>{this.renderDescriptionToggleSection(this.state.editMode)}</Col>
-                    </Form.Row>
-                    <hr />
-                    <Form.Row>
-                        <Col>{this.renderContactsToggleSection(this.state.editMode)}</Col>
-                    </Form.Row>
-                    {this.renderWorklogToggleSection()}
-                </section>
+                {isBrowser && this.renderSaveCancelButtons()}
+                {this.renderHeader(editMode)}
+                {this.renderModelMainSection(editMode)}
+                {this.renderWorkLog(editMode)}
                 {this.renderSaveCancelButtons()}
             </form>
         );
