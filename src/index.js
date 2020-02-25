@@ -40,15 +40,7 @@ const initialAction = () => {
             }
         });
     } else {
-        JWTVerifyMutation(cookie_jwt)
-            .then((data) => {
-                if (data) {
-                    store.dispatch(actions.appLoaded());
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        store.dispatch(actions.appLoaded());
     }
 };
 
