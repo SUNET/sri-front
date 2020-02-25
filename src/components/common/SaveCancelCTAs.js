@@ -11,14 +11,14 @@ class SaveCancelCTAs extends React.Component {
         // }
     }
     render() {
-        const { t } = this.props;
+        const { t, formId } = this.props;
         return (
             <div className="text-right mt-4">
                 <button type="button" className="mr-2 btn link" onClick={() => this.onClickCancel()}>
                     {t("actions.cancel")}
                 </button>
                 <button
-                    form={this.props.formId}
+                    form={formId}
                     className="btn primary lg"
                     type="submit"
                 >

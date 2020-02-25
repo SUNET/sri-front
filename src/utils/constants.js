@@ -1,5 +1,6 @@
 // Forms IDs
 export const CREATE_CONTACT_FORM = 'create-contact-form';
+export const UPDATE_CONTACT_FORM = 'update-contact-form';
 export const CREATE_ORGANIZATION_FORM = 'create-organization-form';
 export const CREATE_GROUP_FORM = 'create-group-form';
 // Community Tabs
