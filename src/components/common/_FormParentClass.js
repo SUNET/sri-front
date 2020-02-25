@@ -40,6 +40,9 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 class _CreateAndUpdateFormParent extends React.Component {
     IS_UPDATED_FORM = false;
     FORM_ID = CREATE_CONTACT_FORM;
+    refetch = () => {
+        throw new Error("This method should be overwritten in the child class");
+    };
     handleSubmit = () => {
         throw new Error("This method should be overwritten in the child class");
     };
@@ -248,7 +251,7 @@ class _CreateAndUpdateFormParent extends React.Component {
     }
     renderSaveCancelButtons() {
         console.log(this.FORM_ID);
-        
+
         return (
             <SaveCancelCTAs
                 formId={this.FORM_ID}
