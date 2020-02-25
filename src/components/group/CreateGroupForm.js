@@ -10,6 +10,8 @@ import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/Togg
 import EditField from "../EditField";
 import FieldInput from "../FieldInput";
 
+import ValidationsGroupForm from "./ValidationsGroupForm";
+
 class CreateGroupForm extends React.Component {
     constructor(props) {
         super(props);
@@ -205,46 +207,9 @@ class CreateGroupForm extends React.Component {
     }
 }
 
-const validate = (values, props) => {
-    const errors = {};
-    if (!values.name) {
-        errors.name = "* Required!";
-    }
-
-    if (values.members) {
-        const memberArrayErrors = [];
-        values.members.forEach((member, memberIndex) => {
-            const memberErrors = {};
-            if (!member || !member.name) {
-                memberErrors.name = "* Required!";
-                memberArrayErrors[memberIndex] = memberErrors;
-            } else if (!/^[a-zA-Z0-9]+ ?([a-zA-Z0-9]+$){1}/i.test(member.name)) {
-                memberErrors.name = "* Invalid name!";
-                memberArrayErrors[memberIndex] = memberErrors;
-            }
-            if (!member || !member.email) {
-                memberErrors.email = "* Required!";
-                memberArrayErrors[memberIndex] = memberErrors;
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(member.email)) {
-                memberErrors.email = "* Invalid email!";
-                memberArrayErrors[memberIndex] = memberErrors;
-            }
-            if (!member || !member.phone) {
-                memberErrors.phone = "* Required!";
-                memberArrayErrors[memberIndex] = memberErrors;
-            }
-            return memberErrors;
-        });
-        if (memberArrayErrors.length) {
-            errors.members = memberArrayErrors;
-        }
-    }
-    return errors;
-};
-
 CreateGroupForm = reduxForm({
     form: "createGroup",
-    validate,
+    validate: ValidationsGroupForm.validate,
     initialValues: {
         name: ""
     }
