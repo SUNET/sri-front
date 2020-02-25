@@ -1,26 +1,15 @@
+import _GroupFormParentClass from "./_GroupFormParentClass";
+// Common imports
 import React from "react";
+import { withTranslation } from "react-i18next";
+import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Form, Col } from "react-bootstrap";
-import { withTranslation } from "react-i18next";
-import EditField from "../EditField";
-import InfoCreatorModifier from "../InfoCreatorModifier";
-import FieldInput from "../FieldInput";
-import { FieldArray, Field, reduxForm } from "redux-form";
-
-import Worklog from "../Worklog";
-import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
-import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
-import BackCTA from "../common/BackCTA";
-
 import UpdateGroupMutation from "../../mutations/group/UpdateGroupMutation";
-
 import ValidationsGroupForm from "./ValidationsGroupForm";
-
-import _GroupFormParentClass from "./_GroupFormParentClass";
-
+// const
 import { UPDATE_GROUP_FORM } from "../../utils/constants";
-import { isBrowser, isMobile } from "react-device-detect";
+import { isBrowser } from "react-device-detect";
 
 class GroupUpdateForm extends _GroupFormParentClass {
     IS_UPDATED_FORM = true;
@@ -43,7 +32,7 @@ class GroupUpdateForm extends _GroupFormParentClass {
         UpdateGroupMutation(group, this);
     };
     render() {
-        let { group, handleSubmit } = this.props;
+        let { handleSubmit } = this.props;
         const { editMode } = this.state;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>

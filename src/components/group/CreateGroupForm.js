@@ -1,20 +1,14 @@
-import React from "react";
-import { Form, Col } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
-import { withTranslation } from "react-i18next";
-import { FieldArray, Field, reduxForm } from "redux-form";
-import CreateGroupMutation from "../../mutations/group/CreateGroupMutation";
-import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
-import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
-import EditField from "../EditField";
-import FieldInput from "../FieldInput";
-import { isBrowser, isMobile } from "react-device-detect";
-
-import ValidationsGroupForm from "./ValidationsGroupForm";
-
 import _GroupFormParentClass from "./_GroupFormParentClass";
-
+// Common imports
+import React from "react";
+import { withTranslation } from "react-i18next";
+import { withRouter } from "react-router-dom";
+import { reduxForm } from "redux-form";
+import CreateGroupMutation from "../../mutations/group/CreateGroupMutation";
+import ValidationsGroupForm from "./ValidationsGroupForm";
+// const
 import { CREATE_GROUP_FORM } from "../../utils/constants";
+import { isBrowser } from "react-device-detect";
 
 class CreateGroupForm extends _GroupFormParentClass {
     IS_UPDATED_FORM = false;

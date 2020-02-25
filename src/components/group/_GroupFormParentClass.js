@@ -1,20 +1,20 @@
+// Common imports
 import React from "react";
-import { arrayPush, FieldArray, Field, reduxForm } from "redux-form";
-import { Form, Col } from "react-bootstrap";
-import EditField from "../EditField";
-
+import { arrayPush, FieldArray, Field } from "redux-form";
 import uuidv4 from "uuid/v4";
-
-import InfoCreatorModifier from "../InfoCreatorModifier";
-import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
-import FieldInput from "../FieldInput";
-import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
-import Worklog from "../Worklog";
-
+import { Form, Col } from "react-bootstrap";
+// components
 import BackCTA from "../common/BackCTA";
+import EditField from "../EditField";
+import FieldArrayMembersGroup from "./FieldArrayMembersGroup";
+import FieldInput from "../FieldInput";
+import InfoCreatorModifier from "../InfoCreatorModifier";
 import SaveCancelCTAs from "../common/SaveCancelCTAs";
+import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+import Worklog from "../Worklog";
+// const
 import { isBrowser, isMobile } from "react-device-detect";
-
+// scss
 import "../../style/ModelDetails.scss";
 
 class _GroupFormParentClass extends React.Component {
@@ -90,7 +90,7 @@ class _GroupFormParentClass extends React.Component {
         );
     }
     renderSaveCancelButtons() {
-        const { t, shown_in_modal, hideContactModal, history } = this.props;
+        const { t } = this.props;
         const textToButtons = this.IS_UPDATED_FORM ? t("actions.delete") : t("actions.cancel");
         const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
         return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
@@ -121,7 +121,6 @@ class _GroupFormParentClass extends React.Component {
         );
     }
     renderHeaderRight() {
-        const { group } = this.props;
         return (
             <div className="title-section__right-block">
                 {isBrowser && this.renderEditButton()}

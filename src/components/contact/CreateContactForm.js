@@ -1,11 +1,13 @@
+import _ContactFormParentClass from "./_ContactFormParentClass";
+//Common imports
 import React from "react";
 import { withTranslation } from "react-i18next";
 import { reduxForm } from "redux-form";
 import CreateContactMutation from "../../mutations/contact/CreateContactMutation";
 import ValidationsContactForm from "./ValidationContactForm";
-import { isBrowser } from "react-device-detect";
+// const
 import { CREATE_CONTACT_FORM } from "../../utils/constants";
-import _ContactFormParentClass from "./_ContactFormParentClass";
+import { isBrowser } from "react-device-detect";
 
 class CreateContactForm extends _ContactFormParentClass {
     IS_UPDATED_FORM = false;

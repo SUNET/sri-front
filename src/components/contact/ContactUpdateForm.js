@@ -1,14 +1,16 @@
-import React from "react";
+import _ContactFormParentClass from "./_ContactFormParentClass";
+//Common imports
 import PropTypes from "prop-types";
-import { createRefetchContainer } from "react-relay";
-import graphql from "babel-plugin-relay/macro";
+import React from "react";
 import { withTranslation } from "react-i18next";
 import { reduxForm } from "redux-form";
+import { createRefetchContainer } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
 import UpdateContactMutation from "../../mutations/contact/UpdateContactMutation";
 import ValidationsContactForm from "./ValidationContactForm";
-import { isBrowser } from "react-device-detect";
+// const
 import { UPDATE_CONTACT_FORM } from "../../utils/constants";
-import _ContactFormParentClass from "./_ContactFormParentClass";
+import { isBrowser } from "react-device-detect";
 
 class ContactUpdateForm extends _ContactFormParentClass {
     IS_UPDATED_FORM = true;

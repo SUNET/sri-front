@@ -1,18 +1,23 @@
+// Common imports
 import React from "react";
-import { Form, Col } from "react-bootstrap";
 import { FieldArray, Field } from "redux-form";
-import InfoCreatorModifier from "../InfoCreatorModifier";
-import FieldArrayOrganizationsContact from "../contact/FieldArrayOrganizationsContact";
-import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+import { Form, Col } from "react-bootstrap";
+// components
+import BackCTA from "../common/BackCTA";
+import ContactEmails from "../contact/ContactEmails";
+import ContactPhones from "../contact/ContactPhones";
 import Dropdown from "../Dropdown";
 import EditField from "../EditField";
+import FieldArrayOrganizationsContact from "../contact/FieldArrayOrganizationsContact";
 import FieldInput from "../FieldInput";
-import ContactPhones from "../contact/ContactPhones";
-import ContactEmails from "../contact/ContactEmails";
+import InfoCreatorModifier from "../InfoCreatorModifier";
 import SaveCancelCTAs from "../common/SaveCancelCTAs";
-import BackCTA from "../common/BackCTA";
+import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Worklog from "../Worklog";
+// const
 import { isBrowser, isMobile } from "react-device-detect";
+// scss
+import "../../style/ModelDetails.scss";
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
     const isPresentState = !editable;
@@ -76,7 +81,7 @@ class _ContactFormParentClass extends React.Component {
         );
     }
     renderSaveCancelButtons() {
-        const { t, shown_in_modal, hideContactModal, history } = this.props;
+        const { t } = this.props;
         const textToButtons = this.IS_UPDATED_FORM ? t("actions.delete") : t("actions.cancel");
         const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
         return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
