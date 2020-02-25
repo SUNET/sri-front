@@ -40,7 +40,7 @@ class GroupUpdateForm extends _GroupFormParentClass {
                 {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
-                {this.renderWorkLog(editMode)}
+                {this.renderWorkLog()}
                 {this.renderSaveCancelButtons()}
             </form>
         );

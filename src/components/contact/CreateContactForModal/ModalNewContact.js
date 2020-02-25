@@ -10,7 +10,7 @@ import { CREATE_CONTACT_FORM } from "../../../utils/constants";
 import "../../../style/ModalNewContact.scss";
 
 // const
-import { isBrowser, isMobile } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
 class ModalNewContact extends React.Component {
     handleClose() {

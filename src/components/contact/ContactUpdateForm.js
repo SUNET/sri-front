@@ -10,7 +10,7 @@ import UpdateContactMutation from "../../mutations/contact/UpdateContactMutation
 import ValidationsContactForm from "./ValidationContactForm";
 // const
 import { UPDATE_CONTACT_FORM } from "../../utils/constants";
-import { isBrowser, isMobile } from "react-device-detect";
+import { isBrowser } from "react-device-detect";
 
 class ContactUpdateForm extends _ContactFormParentClass {
     IS_UPDATED_FORM = true;
@@ -34,8 +34,7 @@ class ContactUpdateForm extends _ContactFormParentClass {
         UpdateContactMutation(contact, this);
     };
     render() {
-        let { handleSubmit, shown_in_modal } = this.props;
-        const showBackButton = isMobile && !shown_in_modal;
+        let { handleSubmit } = this.props;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
                 {isBrowser && this.renderSaveCancelButtons()}
