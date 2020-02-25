@@ -7,7 +7,7 @@ import CreateContactMutation from "../../mutations/contact/CreateContactMutation
 import ValidationsContactForm from "./ValidationContactForm";
 // const
 import { CREATE_CONTACT_FORM } from "../../utils/constants";
-import { isBrowser } from "react-device-detect";
+import { isBrowser, isMobile } from "react-device-detect";
 
 class CreateContactForm extends _ContactFormParentClass {
     IS_UPDATED_FORM = false;
@@ -16,13 +16,15 @@ class CreateContactForm extends _ContactFormParentClass {
         CreateContactMutation(contact, this);
     };
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, shown_in_modal } = this.props;
         const editMode = true;
+        const showBackButton = isBrowser && !shown_in_modal;
+        const showSaveCancelInHeader = showBackButton;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {isBrowser && this.renderSaveCancelButtons()}
+                {showSaveCancelInHeader && this.renderSaveCancelButtons()}
                 <div className="model-details create-contact-form">
-                    {this.renderHeader(editMode)}
+                    {this.renderHeader(editMode, showBackButton)}
                     {this.renderModelMainSection(editMode)}
                     {this.renderWorkLog(editMode)}
                 </div>

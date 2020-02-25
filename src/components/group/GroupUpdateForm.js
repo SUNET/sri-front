@@ -34,10 +34,11 @@ class GroupUpdateForm extends _GroupFormParentClass {
     render() {
         let { handleSubmit } = this.props;
         const { editMode } = this.state;
+        const showBackButton = isBrowser;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
                 {isBrowser && this.renderSaveCancelButtons()}
-                {this.renderHeader(editMode)}
+                {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
                 {this.renderWorkLog(editMode)}
                 {this.renderSaveCancelButtons()}

@@ -86,24 +86,21 @@ class _ContactFormParentClass extends React.Component {
         const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
         return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
     }
-    renderHeader(editMode = true) {
+    renderHeader(editMode = true, showBackButton = true) {
         return (
             <Form.Row>
                 <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
-                    {this.renderHeaderName(editMode)}
+                    {this.renderHeaderName(editMode, showBackButton)}
                 </Col>
                 {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight()}</Col>}
             </Form.Row>
         );
     }
-    renderHeaderName(editMode = true) {
-        const { shown_in_modal } = this.props;
+    renderHeaderName(editMode = true, showBackButton = true) {
         const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
-        const showBackCTA = isBrowser && shown_in_modal;
-
         return (
             <div className="title-section">
-                {showBackCTA && <BackCTA onClick={() => this.props.history.goBack()} />}
+                {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
                 {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
                 <div className="vertical-separator"></div>
                 <div className={`title-section__name-inputs ${editionModeClass}`}>

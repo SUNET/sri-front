@@ -22,11 +22,12 @@ class CreateGroupForm extends _GroupFormParentClass {
     render() {
         const { handleSubmit } = this.props;
         const editMode = true;
+        const showBackButton = isBrowser;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
                 {isBrowser && this.renderSaveCancelButtons()}
                 <div className="model-details create-contact-form">
-                    {this.renderHeader(editMode)}
+                    {this.renderHeader(editMode, showBackButton)}
                     {this.renderModelMainSection(editMode)}
                     {this.renderWorkLog(editMode)}
                 </div>

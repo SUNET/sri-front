@@ -17,12 +17,12 @@ import { isBrowser, isMobile } from "react-device-detect";
 // scss
 import "../../style/ModelDetails.scss";
 
-class _GroupFormParentClass extends React.Component {
+class _OrganizationFormParentClass extends React.Component {
     // GLOBAL VARs
     IS_UPDATED_FORM = false;
     FORM_ID;
-    MODEL_NAME = "group";
-    ROUTE_LIST_DIRECTION = "/community/groups";
+    MODEL_NAME = "organization";
+    ROUTE_LIST_DIRECTION = "/community/organizations";
 
     // Methods
     refetch = () => {
@@ -36,39 +36,6 @@ class _GroupFormParentClass extends React.Component {
     };
     onClickCancel = () => {
         this.props.history.push(this.ROUTE_LIST_DIRECTION);
-    };
-    _hasBeenAdded = (newMember) => {
-        if (this.props.memberValues) {
-            return this.props.memberValues.some((member) => member.id === newMember.id);
-        }
-        return false;
-    };
-    handleSelectedMember = (selection) => {
-        if (selection !== null) {
-            this.props.getContact(selection.id).then((member) => {
-                const newMember = {
-                    name: member.name,
-                    first_name: member.first_name,
-                    last_name: member.last_name,
-                    id: member.id,
-                    contact_type: member.contact_type,
-                    organization: member.roles,
-                    organization_obj: member.roles.length ? member.roles.map((elem) => elem.end) : [],
-                    organization_label: member.roles.length ? member.roles.map((elem) => elem.end) : [],
-                    email: member.emails,
-                    email_obj: member.emails,
-                    phone: member.phones,
-                    phone_obj: member.phones,
-                    created: true,
-                    origin: "new",
-                    status: "saved",
-                    key: uuidv4()
-                };
-                if (!this._hasBeenAdded(newMember)) {
-                    this.props.dispatch(arrayPush(this.props.form, "members", newMember));
-                }
-            });
-        }
     };
 
     // Common sections RENDERS
@@ -180,61 +147,17 @@ class _GroupFormParentClass extends React.Component {
     // Specific toggle sections RENDERS
     renderDescriptionToggleSection(editMode = true) {
         const { t, description } = this.props;
-        return (
-            <ToggleSection>
-                <ToggleHeading>
-                    <h2>{t("organization-details.description")}</h2>
-                </ToggleHeading>
-                <TogglePanel>
-                    {editMode ? (
-                        <Field
-                            name="description"
-                            component={FieldInput}
-                            as="textarea"
-                            rows="3"
-                            placeholder={t("group-details.add-description")}
-                        ></Field>
-                    ) : (
-                        <span className="pre-text">{description}</span>
-                    )}
-                </TogglePanel>
-            </ToggleSection>
-        );
+        return <ToggleSection>{/* TODO */}</ToggleSection>;
     }
     renderContactsToggleSection(editMode = true) {
         const { t } = this.props;
-        return (
-            <ToggleSection>
-                <ToggleHeading>
-                    <h2>{t("organization-details.contacts")}</h2>
-                </ToggleHeading>
-
-                <TogglePanel>
-                    <FieldArray
-                        name="members"
-                        component={FieldArrayMembersGroup}
-                        editable={editMode}
-                        dispatch={this.props.dispatch}
-                        errors={this.props.formSyncErrors.members}
-                        metaFields={this.props.fields}
-                        handleContactSearch={this.handleSelectedMember}
-                        handleAddContactRow={() => {
-                            this.props.dispatch(this.props.showNewContactForm());
-                        }}
-                    />
-                </TogglePanel>
-            </ToggleSection>
-        );
+        return <ToggleSection>{/* TODO */}</ToggleSection>;
     }
     renderModelMainSection(editMode = true) {
         return (
             <section className="model-section">
                 <Form.Row>
-                    <Col>
-                        <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-                        <hr />
-                        <Col>{this.renderContactsToggleSection(editMode)}</Col>
-                    </Col>
+                    <Col>{/* TODO */}</Col>
                 </Form.Row>
             </section>
         );
@@ -246,4 +169,4 @@ class _GroupFormParentClass extends React.Component {
         return <div>This method should be overwritten in the child class</div>;
     }
 }
-export default _GroupFormParentClass;
+export default _OrganizationFormParentClass;
