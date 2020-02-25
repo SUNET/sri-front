@@ -41,7 +41,7 @@ class _CreateAndUpdateFormParent extends React.Component {
     handleSubmit = () => {
         throw new Error("This method should be overwritten in the child class");
     };
-    renderHeader(editMode = false) {
+    renderHeader(editMode = true) {
         return (
             <Form.Row>
                 <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
@@ -51,7 +51,7 @@ class _CreateAndUpdateFormParent extends React.Component {
             </Form.Row>
         );
     }
-    renderInputName(kindOfName, editMode = false) {
+    renderInputName(kindOfName, editMode = true) {
         // INFO: kindOfName = 'first_name' || 'last_name'
         const { t, formSyncErrors, fields, form, dispatch } = this.props;
         const placeHolderString =
@@ -70,7 +70,7 @@ class _CreateAndUpdateFormParent extends React.Component {
             </EditField>
         );
     }
-    renderHeaderName(editMode = false) {
+    renderHeaderName(editMode = true) {
         const { shown_in_modal } = this.props;
         const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
         const showBackCTA = isBrowser && shown_in_modal;
@@ -114,7 +114,7 @@ class _CreateAndUpdateFormParent extends React.Component {
             </div>
         );
     }
-    renderNotesToggleSection(editMode = false) {
+    renderNotesToggleSection(editMode = true) {
         const { t } = this.props;
         return (
             <ToggleSection>
@@ -260,7 +260,7 @@ class _CreateAndUpdateFormParent extends React.Component {
             />
         );
     }
-    renderProfessionalDetails(editMode) {
+    renderProfessionalDetails(editMode = true) {
         const { t } = this.props;
         return (
             <ToggleSection>
