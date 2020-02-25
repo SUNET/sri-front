@@ -1,9 +1,7 @@
 import React from "react";
 import { Form, Col } from "react-bootstrap";
-import { withTranslation } from "react-i18next";
-import { FieldArray, Field, reduxForm } from "redux-form";
+import { FieldArray, Field } from "redux-form";
 import InfoCreatorModifier from "../InfoCreatorModifier";
-import CreateContactMutation from "../../mutations/contact/CreateContactMutation";
 import FieldArrayOrganizationsContact from "../contact/FieldArrayOrganizationsContact";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Dropdown from "../Dropdown";
@@ -12,12 +10,9 @@ import FieldInput from "../FieldInput";
 import ContactPhones from "../contact/ContactPhones";
 import ContactEmails from "../contact/ContactEmails";
 import SaveCancelCTAs from "../common/SaveCancelCTAs";
-import ValidationsContactForm from "../contact/ValidationContactForm";
 import BackCTA from "./BackCTA";
 import Worklog from "../Worklog";
-
-import { isBrowser, isMobile, isTablet } from "react-device-detect";
-
+import { isBrowser, isMobile } from "react-device-detect";
 import { CREATE_CONTACT_FORM } from "../../utils/constants";
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
@@ -76,7 +71,7 @@ class _CreateAndUpdateFormParent extends React.Component {
         );
     }
     renderHeaderName(editMode = false) {
-        const { shown_in_modal, t, first_name, last_name } = this.props;
+        const { shown_in_modal } = this.props;
         const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
         const showBackCTA = isBrowser && shown_in_modal;
 
@@ -326,8 +321,8 @@ class _CreateAndUpdateFormParent extends React.Component {
         );
     }
     render() {
-        throw new Error("This method should be overwritten in the child class");
-        return <></>;
+        console.error("This method should be overwritten in the child class");
+        return <div>This method should be overwritten in the child class</div>;
     }
 }
 

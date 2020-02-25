@@ -1,24 +1,10 @@
 import React from "react";
-import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { FieldArray, Field, reduxForm } from "redux-form";
-
+import { reduxForm } from "redux-form";
 import CreateContactMutation from "../../mutations/contact/CreateContactMutation";
-import FieldArrayOrganizationsContact from "./FieldArrayOrganizationsContact";
-import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
-import Dropdown from "../Dropdown";
-import EditField from "../EditField";
-import FieldInput from "../FieldInput";
-import ContactPhones from "./ContactPhones";
-import ContactEmails from "./ContactEmails";
-import SaveCancelCTAs from "../common/SaveCancelCTAs";
 import ValidationsContactForm from "./ValidationContactForm";
-import BackCTA from "../common/BackCTA";
-
-import { isBrowser, isMobile, isTablet } from "react-device-detect";
-
+import { isBrowser } from "react-device-detect";
 import { CREATE_CONTACT_FORM } from "../../utils/constants";
-
 import _CreateAndUpdateFormParent from "../common/_FormParentClass";
 
 class CreateContactForm extends _CreateAndUpdateFormParent {

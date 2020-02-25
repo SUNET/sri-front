@@ -1,6 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { isBrowser, isMobile, isTablet } from "react-device-detect";
+import { isBrowser } from "react-device-detect";
 
 import "../style/InfoCreatorModifier.scss";
 
@@ -29,7 +29,6 @@ class InfoCreatorModifier extends React.Component {
     }
 
     render() {
-        const { t } = this.props;
         return (
             <div className="info-creator-modifier">
                 {this.renderInfoUserBlock("created")}

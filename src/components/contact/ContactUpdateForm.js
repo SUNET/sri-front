@@ -2,28 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Form, Col } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { FieldArray, Field, reduxForm } from "redux-form";
-
-import InfoCreatorModifier from "../InfoCreatorModifier";
-import EditField from "../EditField";
-import FieldInput from "../FieldInput";
-import Worklog from "../Worklog";
-import Dropdown from "../Dropdown";
-import FieldArrayOrganizationsContact from "./FieldArrayOrganizationsContact";
+import { reduxForm } from "redux-form";
 import UpdateContactMutation from "../../mutations/contact/UpdateContactMutation";
-import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
-import ContactPhones from "./ContactPhones";
-import ContactEmails from "./ContactEmails";
-import BackCTA from "../common/BackCTA";
 import ValidationsContactForm from "./ValidationContactForm";
-import { isBrowser, isMobile, isTablet } from "react-device-detect";
-
+import { isBrowser } from "react-device-detect";
 import { UPDATE_CONTACT_FORM } from "../../utils/constants";
-
-import "../../style/ModelDetails.scss";
-
 import _CreateAndUpdateFormParent from "../common/_FormParentClass";
 
 class ContactUpdateForm extends _CreateAndUpdateFormParent {

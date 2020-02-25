@@ -9,11 +9,9 @@ import { getOrganization } from "../organization/Organization";
 import Dropdown from "../Dropdown";
 import { LIMIT_NEW_CONTACTS } from "../../config";
 import { Modal } from "react-bootstrap";
-import { isBrowser, isMobile, isTablet } from "react-device-detect";
+import { isBrowser, isMobile } from "react-device-detect";
 
 import "../../style/InternalModal.scss";
-
-const ELEMENTS_TABLE_IN_MOBILE = 1;
 
 class FieldArrayOrganizationsContact extends React.Component {
     constructor(props) {
@@ -113,7 +111,7 @@ class FieldArrayOrganizationsContact extends React.Component {
     };
 
     getRowsData(selectedRowKey) {
-        const { fields, t, editable } = this.props;
+        const { fields, t } = this.props;
 
         let valuesToShow, indexForThisFieldKey;
 
@@ -203,7 +201,7 @@ class FieldArrayOrganizationsContact extends React.Component {
     }
 
     getRowsMobileData() {
-        const { fields, t, editable } = this.props;
+        const { fields, t } = this.props;
         const valuesToShow = fields.getAll() || [];
         const editContent = valuesToShow.map((member, index) => {
             return {
@@ -269,10 +267,9 @@ class FieldArrayOrganizationsContact extends React.Component {
     }
 
     renderInternalModalForm(fieldKey) {
-        const { fields, editable } = this.props;
+        const { editable } = this.props;
 
         const rowsData = this.getRowsData(fieldKey);
-        const indexData = this.getValueByKey(fieldKey).index;
         return (
             <div className="form-internal-block form-internal-block--organizations-contacts">
                 {rowsData.map((value, index) => {
@@ -283,8 +280,6 @@ class FieldArrayOrganizationsContact extends React.Component {
     }
 
     renderFormBlockSection = (editable, data, index) => {
-        const { fields } = this.props;
-        const values = fields.getAll();
         const isPresentState = !editable && data.presentContent;
         return (
             <div
@@ -384,8 +379,7 @@ class FieldArrayOrganizationsContact extends React.Component {
     }
 
     renderRowsData() {
-        const { fields, t, editable } = this.props;
-        const values = fields.getAll();
+        const { editable } = this.props;
         const rowsData = this.getRowsData();
         const rowsDataMobile = this.getRowsMobileData();
 

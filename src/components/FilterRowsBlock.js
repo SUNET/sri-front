@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import Filter from "./Filter";
 import OrderBy from "./OrderBy";
 import RangeDayPicker from "./RangeDayPicker";
-import { isBrowser, isMobile, isTablet } from "react-device-detect";
+import { isBrowser, isMobile } from "react-device-detect";
 
 import "../style/Footer.scss";
 
