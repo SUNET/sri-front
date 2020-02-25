@@ -10,10 +10,9 @@ import FieldInput from "../FieldInput";
 import ContactPhones from "../contact/ContactPhones";
 import ContactEmails from "../contact/ContactEmails";
 import SaveCancelCTAs from "../common/SaveCancelCTAs";
-import BackCTA from "./BackCTA";
+import BackCTA from "../common/BackCTA";
 import Worklog from "../Worklog";
 import { isBrowser, isMobile } from "react-device-detect";
-import { CREATE_CONTACT_FORM } from "../../utils/constants";
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
     const isPresentState = !editable;
@@ -32,14 +31,25 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
     );
 };
 
-class _CreateAndUpdateFormParent extends React.Component {
+class _ContactFormParentClass extends React.Component {
     IS_UPDATED_FORM = false;
-    FORM_ID = CREATE_CONTACT_FORM;
+    FORM_ID;
     refetch = () => {
         throw new Error("This method should be overwritten in the child class");
     };
     handleSubmit = () => {
         throw new Error("This method should be overwritten in the child class");
+    };
+    onClickDelete = () => {
+        this.props.onDelete();
+    };
+    onClickCancel = () => {
+        const { shown_in_modal, history, hideContactModal } = this.props;
+        if (shown_in_modal) {
+            hideContactModal();
+        } else {
+            history.goBack();
+        }
     };
     renderHeader(editMode = true) {
         return (
@@ -104,6 +114,12 @@ class _CreateAndUpdateFormParent extends React.Component {
                 </button>
             </div>
         );
+    }
+    renderSaveCancelButtons() {
+        const { t, shown_in_modal, hideContactModal, history } = this.props;
+        const textToButtons = this.IS_UPDATED_FORM ? t("actions.delete") : t("actions.cancel");
+        const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
+        return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
     }
     renderHeaderRight() {
         const { contact } = this.props;
@@ -244,22 +260,6 @@ class _CreateAndUpdateFormParent extends React.Component {
             </ToggleSection>
         );
     }
-    renderSaveCancelButtons() {
-        console.log(this.FORM_ID);
-
-        return (
-            <SaveCancelCTAs
-                formId={this.FORM_ID}
-                onCancel={() => {
-                    if (this.props.shown_in_modal) {
-                        this.props.hideContactModal();
-                    } else {
-                        this.props.history.goBack();
-                    }
-                }}
-            />
-        );
-    }
     renderProfessionalDetails(editMode = true) {
         const { t } = this.props;
         return (
@@ -326,4 +326,4 @@ class _CreateAndUpdateFormParent extends React.Component {
     }
 }
 
-export default _CreateAndUpdateFormParent;
+export default _ContactFormParentClass;

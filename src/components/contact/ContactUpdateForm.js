@@ -8,9 +8,9 @@ import UpdateContactMutation from "../../mutations/contact/UpdateContactMutation
 import ValidationsContactForm from "./ValidationContactForm";
 import { isBrowser } from "react-device-detect";
 import { UPDATE_CONTACT_FORM } from "../../utils/constants";
-import _CreateAndUpdateFormParent from "../common/_FormParentClass";
+import _ContactFormParentClass from "./_ContactFormParentClass";
 
-class ContactUpdateForm extends _CreateAndUpdateFormParent {
+class ContactUpdateForm extends _ContactFormParentClass {
     IS_UPDATED_FORM = true;
     FORM_ID = UPDATE_CONTACT_FORM;
     state = {
