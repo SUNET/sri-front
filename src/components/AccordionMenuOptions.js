@@ -19,7 +19,12 @@ class AccordionMenuOptions extends React.Component {
                 {subOptions.map((subOption, subOpIndex) => {
                     return (
                         <div key={`option_menu-${optionIndex}-${subOpIndex}`} className="accordion-menu-options__link">
-                            <Nav.Link as={NavLink} activeClassName="active" to={subOption.route}>
+                            <Nav.Link
+                                as={NavLink}
+                                activeClassName="active"
+                                to={subOption.route}
+                                onClick={() => this.props.onSelectedOption()}
+                            >
                                 <i className={`accordion-menu-options__link__icon ${subOption.iconClass}`}></i>
                                 <span className="accordion-menu-options__link__name">{subOption.name}</span>
                             </Nav.Link>

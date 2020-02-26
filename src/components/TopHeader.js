@@ -147,7 +147,9 @@ class TopHeader extends React.Component {
             }
         ];
 
-        return <AccordionMenuOptions data={toggleMenuData}></AccordionMenuOptions>;
+        return (
+            <AccordionMenuOptions data={toggleMenuData} onSelectedOption={() => this.closeMenu()}></AccordionMenuOptions>
+        );
     }
 
     renderPanelInside() {
