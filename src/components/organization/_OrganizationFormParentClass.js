@@ -436,7 +436,7 @@ class _OrganizationFormParentClass extends React.Component {
                         <hr />
                         <Col>{this.renderAddressToggleSection(editMode)}</Col>
                         <hr />
-                        {/*TODO <Col>{this.renderContactsToggleSection(editMode)}</Col> */}
+                        <Col>{this.renderContactsToggleSection(editMode)}</Col>
                     </Col>
                 </Form.Row>
             </section>

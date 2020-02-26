@@ -60,7 +60,8 @@ const mapStateToProps = (state, props) => {
                       phone_obj: contact_node.phones,
                       status: "saved",
                       origin: "store",
-                      created: true
+                      created: true,
+                      key: contact_node.id
                   };
               })
             : [

@@ -1,80 +1,6 @@
 @import "../variables.scss";
 @import "./viewports.scss";
 
-.contact-in-organization {
-    display: flex;
-    flex-direction: column;
-    flex-flow: column wrap;
-    flex-wrap: wrap;
-    &__header__title,
-    &__body__row__element {
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 25%;
-    }
-    &__header {
-        display: flex;
-        width: 100%;
-        &__title {
-            margin-bottom: 1.5rem;
-            font-family: karla;
-            font-weight: bold;
-            color: $secondary-color-30;
-            align-items: center;
-            display: flex;
-            &--with-cta {
-                span {
-                    margin-right: $margin-lateral-line-elements;
-                }
-            }
-        }
-    }
-    &__body {
-        display: flex;
-        flex-flow: column wrap;
-        width: 100%;
-        &__row {
-            display: flex;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            margin-top: 15px;
-            width: 100%;
-            &__element--ellipsis {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-                > div {
-                    > div {
-                        height: 100%;
-                        text-overflow: ellipsis;
-                        overflow: hidden;
-                        white-space: nowrap;
-                    }
-                }
-            }
-            &__element {
-                margin-bottom: 1.5rem;
-                margin-bottom: 1em;
-                padding-left: 24px;
-                color: $secondary-color;
-                select {
-                    position: relative;
-                    bottom: 10px;
-                    max-width: 200px;
-                }
-            }
-        }
-    }
-    &__footer {
-        display: flex;
-        padding-top: 10px;
-        > * {
-            margin-right: $margin-lateral-line-elements;
-        }
-        &__add {
-            width: $outline-cta-width !important;
-        }
-    }
-}
 .model-details {
     .title-section {
         display: flex;
@@ -160,7 +86,8 @@
                 flex-direction: column;
             }
         }
-        .organizations-contacts {}
+        .organizations-contacts {
+        }
         .form-internal-block {
             display: flex;
             flex-wrap: wrap;
