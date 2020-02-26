@@ -33,7 +33,11 @@ class FieldArrayOrganizationsContact extends React.Component {
             });
         }
     }
-
+    // methods onClick
+    onClickAccept() {
+        // TODO: Validate before hide modal
+        this.hideDataModal();
+    }
     // methods state
     showDataModal(key) {
         this.setState({
@@ -360,7 +364,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                 type="button"
                 className="btn outline check mt-3"
                 onClick={() => {
-                    this.hideDataModal();
+                    this.onClickAccept();
                 }}
             >
                 <span> {t("actions.accept")}</span>

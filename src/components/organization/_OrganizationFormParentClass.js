@@ -235,7 +235,7 @@ class _OrganizationFormParentClass extends React.Component {
                 presentContent: type,
                 editContent: (
                     <Dropdown
-                        className="auto"
+                        className={`${isBrowser ? "auto" : "xlg mw-100"}`}
                         emptyLabel="Select type"
                         type="organization_types"
                         name="type"
@@ -309,7 +309,7 @@ class _OrganizationFormParentClass extends React.Component {
                     <Form.Group>
                         <Field
                             type="text"
-                            className="xlg"
+                            className={`${isBrowser ? "xlg" : "xlg mw-100"}`}
                             name="website"
                             component={FieldInput}
                             placeholder={t("organization-details.add-website")}
@@ -436,7 +436,7 @@ class _OrganizationFormParentClass extends React.Component {
                         <hr />
                         <Col>{this.renderAddressToggleSection(editMode)}</Col>
                         <hr />
-                        <Col>{this.renderContactsToggleSection(editMode)}</Col>
+                        {/*TODO <Col>{this.renderContactsToggleSection(editMode)}</Col> */}
                     </Col>
                 </Form.Row>
             </section>

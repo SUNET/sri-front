@@ -30,6 +30,14 @@ class FieldArrayAddressOrganization extends React.Component {
         }
     }
 
+    // methods onClick
+    onClickAccept() {
+        // TODO: Validate before hide modal
+        // const currentAddress = this.getValueByKey(this.state.selectedRowKey);
+        // const validated = this.validateAddress(currentAddress.data, currentAddress.index);
+        this.hideDataModal();
+    }
+
     // methods state
     showDataModal(key) {
         this.setState({
@@ -162,7 +170,7 @@ class FieldArrayAddressOrganization extends React.Component {
                         <Form.Group>
                             <Field
                                 type="text"
-                                name={`addresses${index}.street`}
+                                name={`addresses[${index}].street`}
                                 component={FieldInput}
                                 placeholder={t("organization-details.add-street")}
                             />
@@ -346,7 +354,7 @@ class FieldArrayAddressOrganization extends React.Component {
         return (
             <button
                 type="button"
-                className="btn outline btn-add more-info  mr-3"
+                className="btn outline btn-add more-info mr-3"
                 onClick={() => this.showDataModal(key)}
             >
                 <span>{t("actions.info")}</span>
@@ -379,7 +387,7 @@ class FieldArrayAddressOrganization extends React.Component {
                 type="button"
                 className="btn outline check mt-3"
                 onClick={() => {
-                    this.hideDataModal();
+                    this.onClickAccept();
                 }}
             >
                 <span> {t("actions.accept")}</span>
