@@ -35,10 +35,11 @@ class ContactUpdateForm extends _ContactFormParentClass {
     };
     render() {
         let { handleSubmit } = this.props;
+        const showBackButton = isBrowser;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
                 {isBrowser && this.renderSaveCancelButtons()}
-                {this.renderHeader(this.state.editMode)}
+                {this.renderHeader(this.state.editMode, showBackButton)}
                 {this.renderModelMainSection(this.state.editMode)}
                 {this.renderWorkLog(this.state.editMode)}
                 {this.renderSaveCancelButtons()}
