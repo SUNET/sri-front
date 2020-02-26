@@ -17,11 +17,21 @@ class FieldArrayContactsOrganization extends React.Component {
 
     // lifecycle
 
-    // methods onClick
+    // methods events
     onClickAccept() {
         // TODO: Validate before hide modal
         this.hideDataModal();
     }
+
+    onChangeRole = (event, index) => {
+        const { selectedIndex } = event.target.selectedIndex;
+        let role_label = "";
+        if (selectedIndex !== 0) {
+            role_label = event.target.options[event.target.selectedIndex].text;
+        }
+        this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
+    };
+
     // methods state
     showDataModal(key) {
         this.setState({
@@ -48,28 +58,27 @@ class FieldArrayContactsOrganization extends React.Component {
             index: valueIndex
         };
     }
-    getRowsData(selectedRowKey) {
-        const { fields, t } = this.props;
-
-        let valuesToShow, indexForThisFieldKey;
-
-        if (selectedRowKey !== undefined) {
-            const currentValue = this.getValueByKey(selectedRowKey);
-            valuesToShow = [currentValue.data];
-            indexForThisFieldKey = currentValue.index;
-        } else {
-            valuesToShow = fields.getAll() || [];
-        }
-        return [];
-    }
-
-    getRowsMobileData() {}
 
     // methods validation
-    validateContact = (field, index) => {};
+    validateContact = (index) => {
+        const errors = this.props.errors;
+        const values = this.props.fields.getAll();
+        const hasBlankFields =
+            values[index].name === "" ||
+            values[index].name === undefined ||
+            values[index].role === "" ||
+            values[index].role === undefined ||
+            values[index].email === "" ||
+            values[index].email === undefined ||
+            values[index].phone === "" ||
+            values[index].phone === undefined;
+        return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
+    };
 
     // methods rows
-    addRow = (event) => {};
+    addRow = (event) => {
+        this.props.handleAddContactRow();
+    };
 
     removeRow = (key) => {
         const currentValue = this.getValueByKey(key);
@@ -81,7 +90,48 @@ class FieldArrayContactsOrganization extends React.Component {
         }
     };
 
-    saveLabel = (event, key) => {};
+    saveLabel = (event, index) => {
+        const role_label = event.target.options[event.target.selectedIndex].text;
+        this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
+    };
+
+    generateSubDataList = (field, keyName, secondaryKeyName) => {
+        const result = field ? (
+            <>
+                <div className="form-internal-block--contact-in-organization__section__content__internal-list form-internal-block__section__content__internal-list">
+                    {field[keyName].map((element, internalIndex) => {
+                        const useClipToClipboardContainer = !!secondaryKeyName;
+                        const child = (
+                            <div
+                                className={`form-internal-block--contact-in-organization__section__content__internal-list__element`}
+                            >
+                                <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__main-text">
+                                    {element.name}
+                                </div>
+                                <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__secondary-text">
+                                    {element[secondaryKeyName]}
+                                </div>
+                            </div>
+                        );
+                        let resultContainer;
+                        if (useClipToClipboardContainer) {
+                            resultContainer = (
+                                <CopyToClipboard key={internalIndex} copyContent={element.name}>
+                                    {child}
+                                </CopyToClipboard>
+                            );
+                        } else {
+                            resultContainer = <div key={internalIndex}>{child}</div>;
+                        }
+                        return resultContainer;
+                    })}
+                </div>
+            </>
+        ) : (
+            <div></div>
+        );
+        return result;
+    };
 
     // common Renders
     renderModal() {
@@ -226,95 +276,6 @@ class FieldArrayContactsOrganization extends React.Component {
             </button>
         );
     }
-
-    renderRowsData() {
-        return <></>;
-    }
-
-    // render() {
-    //     return <></>;
-    // }
-    validateContact = (index) => {
-        const errors = this.props.errors;
-        const values = this.props.fields.getAll();
-        const hasBlankFields =
-            values[index].name === "" ||
-            values[index].name === undefined ||
-            values[index].role === "" ||
-            values[index].role === undefined ||
-            values[index].email === "" ||
-            values[index].email === undefined ||
-            values[index].phone === "" ||
-            values[index].phone === undefined;
-        return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
-    };
-
-    addRow = (event) => {
-        this.props.handleAddContactRow();
-    };
-
-    // removeRow = (key) => {
-
-    // const { fields } = this.props;
-    // const values = fields.getAll();
-    // if (values[index].origin === "store") {
-    //     this.props.dispatch(change("updateOrganization", `contacts[${index}].status`, "remove"));
-    // } else {
-    //     this.props.fields.remove(index);
-    // }
-    // };
-
-    saveLabel = (event, index) => {
-        const role_label = event.target.options[event.target.selectedIndex].text;
-        this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
-    };
-
-    onChangeRole = (event, index) => {
-        const { selectedIndex } = event.target.selectedIndex;
-        let role_label = "";
-        if (selectedIndex !== 0) {
-            role_label = event.target.options[event.target.selectedIndex].text;
-        }
-        this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
-    };
-
-    generateSubDataList = (field, keyName, secondaryKeyName) => {
-        const result = field ? (
-            <>
-                <div className="form-internal-block--contact-in-organization__section__content__internal-list form-internal-block__section__content__internal-list">
-                    {field[keyName].map((element, internalIndex) => {
-                        const useClipToClipboardContainer = !!secondaryKeyName;
-                        const child = (
-                            <div
-                                className={`form-internal-block--contact-in-organization__section__content__internal-list__element`}
-                            >
-                                <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__main-text">
-                                    {element.name}
-                                </div>
-                                <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__secondary-text">
-                                    {element[secondaryKeyName]}
-                                </div>
-                            </div>
-                        );
-                        let resultContainer;
-                        if (useClipToClipboardContainer) {
-                            resultContainer = (
-                                <CopyToClipboard key={internalIndex} copyContent={element.name}>
-                                    {child}
-                                </CopyToClipboard>
-                            );
-                        } else {
-                            resultContainer = <div key={internalIndex}>{child}</div>;
-                        }
-                        return resultContainer;
-                    })}
-                </div>
-            </>
-        ) : (
-            <div></div>
-        );
-        return result;
-    };
 
     renderHeader() {
         const { t } = this.props;
