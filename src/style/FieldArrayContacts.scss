@@ -68,6 +68,13 @@
                     > * {
                         margin-left: auto;
                     }
+                    @include desktop {
+                        position: relative;
+                        right: 50px;
+                        > * {
+                            margin-left: 0;
+                        }
+                    }
                 }
                 select {
                     position: relative;
