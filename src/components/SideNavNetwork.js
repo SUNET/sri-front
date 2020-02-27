@@ -30,25 +30,21 @@ class SideNavNetwork extends React.Component {
         return (
             <Col sm={2} className="pl-0">
                 <Nav className="flex-column side-nav">
-                    <Accordion preExpanded={[this.matchUrl()]}>
+                    <Accordion preExpanded={[this.matchUrl()]} allowZeroExpanded className="accordion with-arrow">
                         <AccordionItem uuid="physical">
                             <AccordionItemHeading>
-                                <AccordionItemButton>
-                                    <NavLink to={`${path(this.props.match.url)}/physical`}>
-                                        {t("network.sub-menu.physical")}
-                                    </NavLink>
-                                </AccordionItemButton>
+                                <AccordionItemButton>{t("community.sub-menu.organizations")}</AccordionItemButton>
                             </AccordionItemHeading>
                             <AccordionItemPanel>
                                 <Nav className="flex-column">
                                     <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
-                                        to={`${path(this.props.match.url)}/physical/cables`}
+                                        to={`${path(this.props.match.url)}/customers`}
                                     >
-                                        {t("network.sub-menu.physical.cables")}
+                                        {t("network.sub-menu.customers")}
                                     </Nav.Link>
-                                    <Nav.Link
+                                    {/* <Nav.Link
                                         as={NavLink}
                                         activeClassName="active"
                                         to={`${path(this.props.match.url)}/physical/external-equipment`}
@@ -89,11 +85,11 @@ class SideNavNetwork extends React.Component {
                                         to={`${path(this.props.match.url)}/physical/routers`}
                                     >
                                         {t("network.sub-menu.physical.routers")}
-                                    </Nav.Link>
+                                    </Nav.Link> */}
                                 </Nav>
                             </AccordionItemPanel>
                         </AccordionItem>
-                        <AccordionItem uuid="logical">
+                        {/* <AccordionItem uuid="logical">
                             <AccordionItemHeading>
                                 <AccordionItemButton>
                                     <NavLink to={`${path(this.props.match.url)}/logical`}>
@@ -160,7 +156,7 @@ class SideNavNetwork extends React.Component {
                                     </Nav.Link>
                                 </Nav>
                             </AccordionItemPanel>
-                        </AccordionItem>
+                        </AccordionItem> */}
                     </Accordion>
                 </Nav>
             </Col>

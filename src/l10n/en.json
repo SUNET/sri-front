@@ -21,6 +21,7 @@
             "settings.community": "Community",
             "settings.notifications": "Notifications",
             "settings.emails": "Emails",
+            "network.sub-menu.customers": "Customers",
             "network.sub-menu.physical": "Physical",
             "network.sub-menu.logical": "Logical",
             "network.sub-menu.locations": "Locations",

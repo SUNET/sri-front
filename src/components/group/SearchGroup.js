@@ -1,10 +1,14 @@
+// React imports
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import { Row, Col } from "react-bootstrap";
-import { QueryRenderer } from "react-relay";
-import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
+
+import { Route, Switch } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
+
+// GraphQL imports
+import { QueryRenderer } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
 
 import renameKeys from "rename-keys";
 
@@ -53,6 +57,24 @@ class SearchGroup extends React.Component {
             props.showHideColumn("name", true, "group");
         }
     }
+
+    // lifecycle
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
+        // updates the component if you see changes in the date status
+        const filterDateType = this.state.filterDateType;
+        if (nextState.filterDateFrom !== undefined && this.state.filterDateFrom !== nextState.filterDateFrom) {
+            this.setState({
+                filterDate: { ...this.state.filterDate, [filterDateType + "_gte"]: nextState.filterDateFrom }
+            });
+        }
+        if (nextState.filterDateTo !== undefined && this.state.filterDateTo !== nextState.filterDateTo) {
+            this.setState({
+                filterDate: { ...this.state.filterDate, [filterDateType + "_lte"]: nextState.filterDateTo }
+            });
+        }
+    }
+
+    // handlers events
 
     // save in the state the column orderby
     handleColumnChangeOrderBy = (event, orderBy) => {
@@ -106,21 +128,6 @@ class SearchGroup extends React.Component {
         this.setState({ filterDate: { ...newfilterDate } });
     };
 
-    UNSAFE_componentWillUpdate(nextProps, nextState) {
-        // updates the component if you see changes in the date status
-        const filterDateType = this.state.filterDateType;
-        if (nextState.filterDateFrom !== undefined && this.state.filterDateFrom !== nextState.filterDateFrom) {
-            this.setState({
-                filterDate: { ...this.state.filterDate, [filterDateType + "_gte"]: nextState.filterDateFrom }
-            });
-        }
-        if (nextState.filterDateTo !== undefined && this.state.filterDateTo !== nextState.filterDateTo) {
-            this.setState({
-                filterDate: { ...this.state.filterDate, [filterDateType + "_lte"]: nextState.filterDateTo }
-            });
-        }
-    }
-
     // mount the filter object to pass it to the QueryRender
     getFilters = () => {
         const filterArrayAND = [];
@@ -150,7 +157,23 @@ class SearchGroup extends React.Component {
             ></FilterColumnsContainer>
         );
     }
-
+    renderListContainer(props, retry) {
+        return (
+            <GroupListContainer
+                groups={props}
+                changeCount={this.handleOnChangeCount}
+                columnChangeOrderBy={this.handleColumnChangeOrderBy}
+                orderBy={this.state.orderBy.orderBy}
+                defaultColumns={defaultColumns}
+                refetch={retry}
+                clickInMobileShowMenu={() =>
+                    this.setState({
+                        openMobileFiltersPanel: !this.state.openMobileFiltersPanel
+                    })
+                }
+            />
+        );
+    }
     renderList() {
         return (
             <Row className="mt-3">
@@ -167,32 +190,9 @@ class SearchGroup extends React.Component {
                             if (error) {
                                 return <div>{error.message}</div>;
                             } else if (props) {
-                                return (
-                                    <GroupListContainer
-                                        groups={props}
-                                        changeCount={this.handleOnChangeCount}
-                                        columnChangeOrderBy={this.handleColumnChangeOrderBy}
-                                        orderBy={this.state.orderBy.orderBy}
-                                        defaultColumns={defaultColumns}
-                                        refetch={retry}
-                                        clickInMobileShowMenu={() =>
-                                            this.setState({
-                                                openMobileFiltersPanel: !this.state.openMobileFiltersPanel
-                                            })
-                                        }
-                                    />
-                                );
+                                return this.renderListContainer(props, retry);
                             }
-                            return (
-                                <div>
-                                    <div className="model-list default">
-                                        <div>
-                                            <div></div>
-                                        </div>
-                                        <div></div>
-                                    </div>
-                                </div>
-                            );
+                            return <div>Loading</div>;
                         }}
                     />
                 </Col>

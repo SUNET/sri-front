@@ -1,17 +1,17 @@
 # source: http://ni.localenv.loc/graphql/
-# timestamp: Fri Feb 07 2020 14:00:00 GMT+0100 (GMT+01:00)
+# timestamp: Thu Feb 27 2020 13:57:16 GMT+0100 (GMT+01:00)
 
 """Phone entity to be used inside contact"""
-type Address implements Node {
+type Address implements Node & Logical {
   handle_id: ID!
 
   """The ID of the object."""
   id: ID!
+  name: String!
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   phone: String
   street: String
   postal_code: String
@@ -198,6 +198,28 @@ enum AddressOrderBy {
   handle_id_DESC
 }
 
+type Cable implements Node & Physical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  cable_type: ChoiceScalar
+  description: String
+  ports: [Port]
+}
+
 """This class is used for the choices available in a dropdown"""
 type Choice implements KeyValue {
   id: ID!
@@ -216,6 +238,7 @@ like the rest of noclook
 type CommentType implements Node {
   """The ID of the object."""
   id: ID!
+  object_pk: String!
   user: User
   user_name: String!
   user_email: String!
@@ -311,9 +334,10 @@ type CompositeOrganizationMutationPayload {
 }
 
 """A contact in the SRI system"""
-type Contact implements Node {
+type Contact implements Node & Relation {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User!
   created: DateTime!
@@ -322,11 +346,12 @@ type Contact implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  with_same_name: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   first_name: String!
   last_name: String!
   title: String
@@ -799,6 +824,163 @@ type CreateRolePayload {
   clientMutationId: String
 }
 
+type Customer implements Node & Relation {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  with_same_name: [Relation]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  url: String
+  description: String
+}
+
+type CustomerConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [CustomerEdge]!
+}
+
+"""A Relay edge containing a `Customer` and its cursor."""
+type CustomerEdge {
+  """The item at the end of the edge"""
+  node: Customer
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input CustomerFilter {
+  AND: [CustomerNestedFilter!]
+  OR: [CustomerNestedFilter!]
+}
+
+input CustomerNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  url: String
+  url_not: String
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  url_in: [String!]
+  url_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum CustomerOrderBy {
+  name_ASC
+  name_DESC
+  url_ASC
+  url_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 """
 The `DateTime` scalar type represents a DateTime
 value as specified by
@@ -941,16 +1123,16 @@ type Dropdown {
 }
 
 """Email entity to be used inside contact"""
-type Email implements Node {
+type Email implements Node & Logical {
   handle_id: ID!
 
   """The ID of the object."""
   id: ID!
+  name: String!
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   type: ChoiceScalar!
 }
 
@@ -1096,9 +1278,10 @@ String, Boolean, Int, Float, List or Object.
 scalar GenericScalar
 
 """The group type is used to group contacts"""
-type Group implements Node {
+type Group implements Node & Logical {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User!
   created: DateTime!
@@ -1107,11 +1290,11 @@ type Group implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   description: String
   contacts: [Contact]
   contact_relations: [IDRelation]
@@ -1247,9 +1430,10 @@ enum GroupOrderBy {
 }
 
 """A host in the SRI system"""
-type Host implements Node {
+type Host implements Node & Logical {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User!
   created: DateTime!
@@ -1258,12 +1442,12 @@ type Host implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
   ip_addresses: IPAddr
-  name: String!
   operational_state: String!
   os: String
   os_version: String
@@ -1288,6 +1472,10 @@ scalar IPAddr
 interface KeyValue {
   name: String!
   value: String!
+}
+
+interface Logical {
+  name: String!
 }
 
 type Mutation {
@@ -1339,6 +1527,7 @@ type Neo4jChoice implements KeyValue {
 type NINodeHandlerType implements Node {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User!
   created: DateTime!
@@ -1347,6 +1536,18 @@ type NINodeHandlerType implements Node {
 
   """The ID of the object."""
   id: ID!
+}
+
+"""Simple NodeType graphene class"""
+type NINodeType {
+  id: ID!
+  type: String!
+
+  """Automatically generated from type. Must be unique."""
+  slug: String!
+
+  """Hide from menus"""
+  hidden: Boolean!
 }
 
 """This class represents a relationship and its properties"""
@@ -1384,6 +1585,7 @@ enum NodeHandleNodeMetaType {
 type NodeHandler implements Node {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User!
   created: DateTime!
@@ -1412,9 +1614,10 @@ type ObtainJSONWebTokenPayload {
 }
 
 """The group type is used to group contacts"""
-type Organization implements Node {
+type Organization implements Node & Relation {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User!
   created: DateTime!
@@ -1423,11 +1626,12 @@ type Organization implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  with_same_name: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   description: String
   organization_number: String
   organization_id: String
@@ -1750,16 +1954,16 @@ type PageInfo {
 }
 
 """Phone entity to be used inside contact"""
-type Phone implements Node {
+type Phone implements Node & Logical {
   handle_id: ID!
 
   """The ID of the object."""
   id: ID!
+  name: String!
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   type: ChoiceScalar!
 }
 
@@ -1892,10 +2096,14 @@ enum PhoneOrderBy {
   handle_id_DESC
 }
 
-"""The group type is used to group contacts"""
-type Procedure implements Node {
+interface Physical {
+  name: String!
+}
+
+type Port implements Node & Physical {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User!
   created: DateTime!
@@ -1904,11 +2112,35 @@ type Procedure implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
+  port_type: ChoiceScalar
+  description: String
+  parent: Physical
+  connected_to: [NodeHandler]
+}
+
+"""The group type is used to group contacts"""
+type Procedure implements Node & Logical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User!
+  created: DateTime!
+  modifier: User!
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
   name: String!
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
   description: String
 }
 
@@ -2066,6 +2298,10 @@ type Query {
   count_procedures: Int
   procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
   getProcedureById(id: ID): Procedure
+  all_customers: [Customer]
+  count_customers: Int
+  customers(filter: CustomerFilter, orderBy: CustomerOrderBy, before: String, after: String, first: Int, last: Int): CustomerConnection
+  getCustomerById(id: ID): Customer
 }
 
 input RefreshInput {
@@ -2077,6 +2313,11 @@ type RefreshPayload {
   token: String
   payload: GenericScalar
   clientMutationId: String
+}
+
+interface Relation {
+  name: String!
+  with_same_name: [Relation]
 }
 
 """This class represents a Role in the relational db"""
@@ -2144,7 +2385,7 @@ input RoleRelationInputField {
 }
 
 input RoleRelationMutationInput {
-  role_id: ID!
+  role_id: ID
   organization_id: ID!
   relation_id: Int
   clientMutationId: String

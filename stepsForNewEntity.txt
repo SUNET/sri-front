@@ -1,0 +1,19 @@
+LIST:
+1. create Containers:
+    + folder /containers/NAME_ENTITY
+    + file: SearchNAME_ENTITY
+
+2. create Component:
+    + folder /components/NAME_ENTITY
+    + file: SearchNAME_ENTITY
+
+. Create (with fragments)
+    containers/entity/EntityList
+    components/entity/EntityList
+    components/entity/EntityRow
+
+. Add Query and generate files: npm run relay
+
+. Add Reducer/action FilterColumns
+
+. Add Container in Route
