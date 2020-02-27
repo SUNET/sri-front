@@ -158,13 +158,13 @@ class FieldArrayContactsOrganization extends React.Component {
     }
 
     renderInternalModalForm(fieldKey) {
-        // const { editable } = this.props;
+        const { editable } = this.props;
 
         // const rowsData = this.getRowsData(fieldKey);
         return (
             <div className="form-internal-block form-internal-block--organizations-contacts">
                 {this.renderInternalModalBody(fieldKey)}
-                {isMobile && this.renderMobileFooterModalButtons(fieldKey)}
+                {editable && isMobile && this.renderMobileFooterModalButtons(fieldKey)}
             </div>
         );
     }
@@ -234,7 +234,11 @@ class FieldArrayContactsOrganization extends React.Component {
     }
 
     renderRemoveCtaCross(key) {
-        return <></>;
+        return (
+            <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--right">
+                <div className="row-remove-cta" onClick={() => this.removeRow(key)}></div>
+            </div>
+        );
     }
 
     renderMobileFooterModalButtons(key) {
@@ -321,23 +325,7 @@ class FieldArrayContactsOrganization extends React.Component {
                                         {this.renderMoreInfoButton(row.key)}
                                     </div>
                                 )}
-                                {isBrowser && (
-                                    <div className="contact-in-organization__body__row__element">
-                                        {editable ? (
-                                            <Dropdown
-                                                className="auto"
-                                                emptyLabel="Select role"
-                                                model="roles"
-                                                onChange={(e) => {
-                                                    this.onChangeRole(e, index);
-                                                }}
-                                                name={`contacts[${index}].role`}
-                                            />
-                                        ) : (
-                                            row.role_label
-                                        )}
-                                    </div>
-                                )}
+                                {isBrowser && this.renderDropDownRole(row.role_label, index)}
                                 {isBrowser && (
                                     <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                                         {this.generateSubDataList(row, "email", "type")}
@@ -348,19 +336,13 @@ class FieldArrayContactsOrganization extends React.Component {
                                         {this.generateSubDataList(row, "phone")}
                                     </div>
                                 )}
-
-                                {editable && (
-                                    <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--right">
-                                        <div className="row-remove-cta" onClick={() => this.removeRow(row.key)}></div>
-                                    </div>
-                                )}
+                                {editable && this.renderRemoveCtaCross(row.key)}
                             </div>
                         );
                     })}
             </div>
         );
     }
-
     renderFooter() {
         const { t, editable } = this.props;
         return (
@@ -379,6 +361,28 @@ class FieldArrayContactsOrganization extends React.Component {
                             {t("actions.add-new")}
                         </button>
                     </>
+                )}
+            </div>
+        );
+    }
+
+    // specific renders
+    renderDropDownRole(role_label, index) {
+        const { editable } = this.props;
+        return (
+            <div className="contact-in-organization__body__row__element">
+                {editable ? (
+                    <Dropdown
+                        className="auto"
+                        emptyLabel="Select role"
+                        model="roles"
+                        onChange={(e) => {
+                            this.onChangeRole(e, index);
+                        }}
+                        name={`contacts[${index}].role`}
+                    />
+                ) : (
+                    role_label
                 )}
             </div>
         );
