@@ -72,13 +72,9 @@ export class ToggleHeading extends React.Component {
 
     render() {
         return (
-            <div className="toggle-header">
+            <div className="toggle-header" onClick={(e) => this.handleTogglePanel(e)}>
                 {this.props.children}
-                <span
-                    className="colapse"
-                    aria-expanded={this.props["aria-expanded"]}
-                    onClick={(e) => this.handleTogglePanel(e)}
-                ></span>
+                <span className="colapse" aria-expanded={this.props["aria-expanded"]}></span>
             </div>
         );
     }

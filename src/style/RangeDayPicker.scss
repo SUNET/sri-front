@@ -1,91 +1,119 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
-.InputFromTo {
-    display: inline-block;
-
-    label {
-        margin-right: 8px;
-        font-family: Karla;
+.range-day-picker {
+    display: flex;
+    min-width: 480px;
+    @include mobile {
+        flex-direction: column;
+        padding: 0em 0em;
+        min-width: 0;
+        > div {
+            margin-bottom: 1em;
+            height: auto;
+        }
     }
-
-    .DayPickerInput {
-        font-family: Montserrat;
-        color: $secondary-color;
-
-        &:after {
-            display: inline-block;
-            content: "\e908";
-            font-family: "sunet-icons";
-            color: $complementary-color;
-            position: relative;
-            font-size: 18px;
-            top: 2px;
-            right: 28px;
+    @include tablet {
+        flex-direction: column;
+        padding: 0em 0em;
+        min-width: 0;
+        > div {
+            margin-bottom: 1em;
+            height: auto;
+        }
+    }
+    button {
+        min-width: 120px;
+        height: 32px;
+    }
+    .input-from-to {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        label {
+            margin-right: 8px;
+            font-family: Karla;
         }
 
-        input {
-            width: 116px;
-            border-radius: $input--border-radius;
-            border: solid 1px $secondary-color-20;
-            padding: 6px 32px 6px 16px;
-            font-size: 14px;
+        .DayPickerInput {
+            font-family: Montserrat;
+            color: $secondary-color;
 
-            &::placeholder {
-                letter-spacing: -1.5px;
+            &:after {
+                display: inline-block;
+                content: "\e908";
+                font-family: "sunet-icons";
+                color: $complementary-color;
+                position: relative;
+                font-size: 18px;
+                top: 2px;
+                right: 28px;
             }
-        }
 
-        .DayPickerInput-OverlayWrapper {
-            position: absolute;
-            z-index: 999;
-            margin-top: 8px;
+            input {
+                width: 116px;
+                border-radius: $input--border-radius;
+                border: solid 1px $secondary-color-20;
+                padding: 6px 32px 6px 16px;
+                font-size: 14px;
 
-            .DayPicker-Months {
-                flex-wrap: nowrap;
+                &::placeholder {
+                    letter-spacing: -1.5px;
+                }
+            }
 
-                .DayPicker-Caption {
-                    div {
-                        font-family: karla;
-                        font-weight: bold;
-                        font-size: 14px;
+            .DayPickerInput-OverlayWrapper {
+                position: absolute;
+                z-index: 999;
+                margin-top: 8px;
+
+                .DayPicker-Months {
+                    flex-wrap: nowrap;
+
+                    .DayPicker-Caption {
+                        div {
+                            font-family: karla;
+                            font-weight: bold;
+                            font-size: 14px;
+                        }
                     }
                 }
             }
         }
-    }
 
-    .InputFromTo-to .DayPickerInput-Overlay {
-        position: relative;
-        right: 0;
-    }
+        .input-from-to-to .DayPickerInput-Overlay {
+            position: relative;
+            right: 0;
+        }
 
-    .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-        color: #fff;
-    }
+        .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+            color: #fff;
+        }
 
-    .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-        background-color: $complementary-color;
-    }
+        .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+            background-color: $complementary-color;
+        }
 
-    .DayPicker-Day {
-        border-radius: 0 !important;
-    }
+        .DayPicker-Day {
+            border-radius: 0 !important;
+        }
 
-    .DayPicker-Day--start {
-        border-top-left-radius: 50% !important;
-        border-bottom-left-radius: 50% !important;
-    }
+        .DayPicker-Day--start {
+            border-top-left-radius: 50% !important;
+            border-bottom-left-radius: 50% !important;
+        }
 
-    .DayPicker-Day--end {
-        border-top-right-radius: 50% !important;
-        border-bottom-right-radius: 50% !important;
-    }
+        .DayPicker-Day--end {
+            border-top-right-radius: 50% !important;
+            border-bottom-right-radius: 50% !important;
+        }
 
-    .DayPickerInput-Overlay {
-        position: relative;
-    }
+        .DayPickerInput-Overlay {
+            position: relative;
+        }
 
-    .DayPicker-NavButton--prev {
-        color: $complementary-color;
+        .DayPicker-NavButton--prev {
+            color: $complementary-color;
+        }
     }
 }

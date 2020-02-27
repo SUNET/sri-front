@@ -1,0 +1,65 @@
+@import "../variables.scss";
+
+.lateral-slider-menu {
+    overflow-x: hidden;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    right: -100%;
+    transition: all 0.5s ease 0s;
+    display: flex;
+    &__content {
+        height: 100%;
+        box-shadow: 0 0 10px 0 rgba(76, 96, 133, 0.13);
+        background-color: white;
+        width: $lateral-slider-panel-with;
+        flex-grow: 1;
+        overflow: auto;
+        padding-bottom: 2em;
+        &__header {
+            display: flex;
+            height: 50px;
+            box-shadow: 0 0 10px 0 rgba(76, 96, 133, 0.13);
+            align-items: center;
+            padding: 0 8px;
+            margin-bottom: 2em;
+            &__icon {
+                color: $complementary-color;
+                font-size: 17px;
+                margin-right: 1em;
+            }
+            &__text {
+                color: $secondary-color-30;
+            }
+            &__close {
+                margin-left: auto;
+            }
+        }
+        &__child {
+        }
+        &__footer {
+            display: flex;
+            justify-content: center;
+            &__accept {
+                button {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    &__overlay {
+        height: 100%;
+        width: 100%;
+        width: calc(100% - #{$lateral-slider-panel-with});
+        flex-grow: 1;
+        overflow: auto;
+    }
+    &.expanded {
+        transition: all 0.5s ease 0s;
+        right: 0;
+    }
+}

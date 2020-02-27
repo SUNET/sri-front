@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 
 import { showHideColumn, showAllColumns, cancelFilterColumns } from "../actions/FilterColumns";
-import FilterColumns from "../components/FilterColumns";
+import FilterColumnsMenu from "../components/FilterColumnsMenu";
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state, props) => {    
     if (state.filterColumns[props.model] !== undefined) {
         let { columns_visible, all_columns } = state.filterColumns[props.model];
         return { columns_visible, all_columns };
@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch, props) => {
 const FilterColumnsContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(FilterColumns);
+)(FilterColumnsMenu);
 
 export default FilterColumnsContainer;

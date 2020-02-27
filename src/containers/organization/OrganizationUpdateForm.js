@@ -60,7 +60,8 @@ const mapStateToProps = (state, props) => {
                       phone_obj: contact_node.phones,
                       status: "saved",
                       origin: "store",
-                      created: true
+                      created: true,
+                      key: contact_node.id
                   };
               })
             : [
@@ -85,7 +86,8 @@ const mapStateToProps = (state, props) => {
                       phone: address.phone,
                       status: "saved",
                       origin: "store",
-                      created: true
+                      created: true,
+                      key: address.id
                   };
               })
             : [
@@ -101,9 +103,9 @@ const mapStateToProps = (state, props) => {
                   }
               ]
     };
-    const contactsValues = updateOrganizationSelector(state, "contacts");    
+    const contactsValues = updateOrganizationSelector(state, "contacts");
     const addressesValues = updateOrganizationSelector(state, "addresses");
-    
+
     return {
         initialValues,
         name: updateOrganizationSelector(state, "name"),
@@ -147,9 +149,6 @@ const mapDispatchToProps = (dispatch, props) => {
     };
 };
 
-const OrganizationUpdateFormContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(OrganizationUpdateForm);
+const OrganizationUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(OrganizationUpdateForm);
 
 export default OrganizationUpdateFormContainer;

@@ -6,8 +6,16 @@ import FieldInput from "../FieldInput";
 import { Field, change } from "redux-form";
 import uuidv4 from "uuid/v4";
 import { LIMIT_NEW_CONTACTS } from "../../config";
+import { Modal } from "react-bootstrap";
+import { isBrowser, isMobile } from "react-device-detect";
 
 class FieldArrayAddressOrganization extends React.Component {
+    state = {
+        showModal: false, // DEFAULT: false
+        selectedRowKey: null // DEFAULT: null
+    };
+
+    // lifecycle
     UNSAFE_componentWillUpdate(nextProps, nextState) {
         const newFields = nextProps.fields.getAll();
         if (newFields && newFields.length && nextProps.editable) {
@@ -21,6 +29,195 @@ class FieldArrayAddressOrganization extends React.Component {
             });
         }
     }
+
+    // methods onClick
+    onClickAccept() {
+        // TODO: Validate before hide modal
+        // const currentAddress = this.getValueByKey(this.state.selectedRowKey);
+        // const validated = this.validateAddress(currentAddress.data, currentAddress.index);
+        this.hideDataModal();
+    }
+
+    // methods state
+    showDataModal(key) {
+        this.setState({
+            showModal: true,
+            selectedRowKey: key
+        });
+    }
+    hideDataModal() {
+        this.setState({
+            showModal: false,
+            selectedRowKey: null
+        });
+    }
+
+    // methods getData
+    getValueByKey(key) {
+        const allValues = this.props.fields.getAll();
+        const valueData = allValues.find((value) => value.key === key);
+        const valueIndex = allValues.findIndex((value) => value.key === key);
+
+        return {
+            data: valueData,
+            index: valueIndex
+        };
+    }
+    getRowsData(selectedRowKey) {
+        const { fields, t } = this.props;
+
+        let valuesToShow, indexForThisFieldKey;
+
+        if (selectedRowKey !== undefined) {
+            const currentValue = this.getValueByKey(selectedRowKey);
+            valuesToShow = [currentValue.data];
+            indexForThisFieldKey = currentValue.index;
+        } else {
+            valuesToShow = fields.getAll() || [];
+        }
+        return [
+            {
+                title: t("organization-details.street"),
+                presentContent: valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.street) : [],
+                editContent: valuesToShow.map((address, index) => {
+                    return {
+                        element: (
+                            <Form.Group>
+                                <Field
+                                    type="text"
+                                    name={`addresses[${selectedRowKey ? indexForThisFieldKey : index}].street`}
+                                    component={FieldInput}
+                                    placeholder={t("organization-details.add-street")}
+                                />
+                            </Form.Group>
+                        ),
+                        status: address.status
+                    };
+                })
+            },
+            {
+                title: t("organization-details.postal-code"),
+                presentContent:
+                    valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.postal_code) : [],
+                editContent: valuesToShow.map((address, index) => {
+                    return {
+                        element: (
+                            <Form.Group>
+                                <Field
+                                    type="text"
+                                    name={`addresses[${selectedRowKey ? indexForThisFieldKey : index}].postal_code`}
+                                    component={FieldInput}
+                                    placeholder={t("organization-details.add-postalCode")}
+                                />
+                            </Form.Group>
+                        ),
+                        status: address.status
+                    };
+                })
+            },
+            {
+                title: t("organization-details.postal-area"),
+                presentContent:
+                    valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.postal_area) : [],
+                editContent: valuesToShow.map((address, index) => {
+                    return {
+                        element: (
+                            <Form.Group>
+                                <Field
+                                    type="text"
+                                    name={`addresses[${selectedRowKey ? indexForThisFieldKey : index}].postal_area`}
+                                    component={FieldInput}
+                                    placeholder={t("organization-details.add-postalArea")}
+                                />
+                            </Form.Group>
+                        ),
+                        status: address.status
+                    };
+                })
+            },
+            {
+                title: t("organization-details.phone"),
+                presentContent: valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.phone) : [],
+                editContent: valuesToShow.map((address, index) => {
+                    return {
+                        element: (
+                            <>
+                                <Form.Group>
+                                    <Field
+                                        type="text"
+                                        name={`addresses[${selectedRowKey ? indexForThisFieldKey : index}].phone`}
+                                        component={FieldInput}
+                                        placeholder={t("organization-details.add-phone")}
+                                    />
+                                </Form.Group>
+                                {isBrowser && this.renderRemoveCtaCross(address.key)}
+                                {isMobile && this.renderMobileFooterModalButtons(address.key)}
+                            </>
+                        ),
+                        status: address.status
+                    };
+                })
+            }
+        ];
+    }
+    getRowsMobileData() {
+        const { fields, t } = this.props;
+        const valuesToShow = fields.getAll() || [];
+        const editContent = valuesToShow.map((address, index) => {
+            return {
+                element: (
+                    <div className="d-flex">
+                        <Form.Group>
+                            <Field
+                                type="text"
+                                name={`addresses[${index}].street`}
+                                component={FieldInput}
+                                placeholder={t("organization-details.add-street")}
+                            />
+                        </Form.Group>
+                        {this.renderButtonsMobile(address.key)}
+                    </div>
+                ),
+                status: address.status
+            };
+        });
+
+        const presentContent =
+            valuesToShow &&
+            valuesToShow.map((value, index) => {
+                return (
+                    <div className="d-flex align-items-center justify-content-between">
+                        <span className="mr-3">{value.street}</span>
+                        {this.renderMoreInfoButton(value.key)}
+                    </div>
+                );
+            });
+
+        return [
+            {
+                title: t("organization-details.street"),
+                presentContent,
+                editContent
+            }
+        ];
+    }
+
+    // methods validation
+    validateAddress = (field, index) => {
+        const errors = this.props.errors;
+        // when component is colapse, it need to check if the data are empty
+        const hasBlankFields =
+            field.street === "" ||
+            field.street === undefined ||
+            field.postal_code === "" ||
+            field.postal_code === undefined ||
+            field.postal_area === "" ||
+            field.postal_area === undefined ||
+            field.phone === "" ||
+            field.phone === undefined;
+
+        return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
+    };
 
     renderFormBlockSection = (editable, data, index) => {
         const { fields } = this.props;
@@ -55,114 +252,174 @@ class FieldArrayAddressOrganization extends React.Component {
         );
     };
 
-    validateAddress = (field, index) => {
-        const errors = this.props.errors;
-        // when component is colapse, it need to check if the data are empty
-        const hasBlankFields =
-            field.street === "" ||
-            field.street === undefined ||
-            field.postal_code === "" ||
-            field.postal_code === undefined ||
-            field.postal_area === "" ||
-            field.postal_area === undefined ||
-            field.phone === "" ||
-            field.phone === undefined;
-
-        return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
-    };
-
     addRow = (event) => {
         if (this.props.fields.length < LIMIT_NEW_CONTACTS) {
-            this.props.fields.push({ key: uuidv4(), status: "editing" });
+            const key = uuidv4();
+            this.props.fields.push({ key, status: "editing" });
+            if (isMobile) {
+                this.showDataModal(key);
+            }
         }
     };
 
-    removeRow(index) {
-        const { fields } = this.props;
-        const values = fields.getAll();
-        if (values[index].origin === "store") {
-            this.props.dispatch(change(this.props.meta.form, `addresses[${index}].status`, "remove"));
+    removeRow = (key) => {
+        const currentValue = this.getValueByKey(key);
+        this.hideDataModal();
+
+        if (currentValue.data.origin === "store") {
+            this.props.dispatch(change(this.props.meta.form, `addresses[${currentValue.index}].status`, "remove"));
         } else {
-            this.props.fields.remove(index);
+            this.props.fields.remove(currentValue.index);
         }
+    };
+    // common Renders
+    renderModal() {
+        const { t } = this.props;
+        return (
+            <Modal
+                centered
+                dialogClassName="internal-modal role-organization"
+                show={this.state.showModal}
+                onHide={() => this.setState({ showModal: false })}
+            >
+                <Modal.Header closeButton={true}>
+                    <h2>{t("contact-details.professional-details")}</h2>
+                </Modal.Header>
+                <Modal.Body className="organizations-contacts">
+                    <div className="model-details">
+                        <div className="model-section model-section--in-modal">
+                            {this.renderInternalModalForm(this.state.selectedRowKey)}
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+        );
+    }
+
+    renderInternalModalForm(fieldKey) {
+        const { editable } = this.props;
+
+        const rowsData = this.getRowsData(fieldKey);
+        return (
+            <div className="form-internal-block form-internal-block--organizations-contacts">
+                {rowsData.map((value, index) => {
+                    return this.renderFormBlockSection(editable, value, index);
+                })}
+            </div>
+        );
+    }
+
+    renderFormBlockSection = (editable, data, index) => {
+        const isPresentState = !editable && data.presentContent;
+        return (
+            <div
+                className="form-internal-block--organizations-contacts__section form-internal-block__section"
+                key={index}
+            >
+                <div
+                    className={`form-internal-block--organizations-contacts__section_title form-internal-block__section__title`}
+                >
+                    {data.title}
+                </div>
+
+                {data.editContent.map((content, contentIndex) => (
+                    <div
+                        key={`${contentIndex} - ${index}`}
+                        className={`form-internal-block--organizations-contacts__section__content form-internal-block__section__content 
+                        ${
+                            editable
+                                ? "form-internal-block--organizations-contacts__section__content--edition-mode form-internal-block__section__content--edition-mode"
+                                : ""
+                        }
+                        ${editable && content.status === "remove" ? "d-none" : ""}`}
+                    >
+                        {isPresentState ? data.presentContent[contentIndex] : data.editContent[contentIndex].element}
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
+    renderButtonsMobile(key) {
+        return (
+            <div className="d-flex ml-5 align-items-center">
+                {this.renderMoreInfoButton(key)}
+                {this.renderRemoveCtaCross(key)}
+            </div>
+        );
+    }
+
+    renderMoreInfoButton(key) {
+        const { t } = this.props;
+        return (
+            <button
+                type="button"
+                className="btn outline btn-add more-info mr-3"
+                onClick={() => this.showDataModal(key)}
+            >
+                <span>{t("actions.info")}</span>
+            </button>
+        );
+    }
+
+    renderRemoveCtaCross(key) {
+        return (
+            <div
+                className={`row-remove-cta ${isBrowser ? "row-remove-cta--desktop-version" : ""}`}
+                onClick={() => this.removeRow(key)}
+            ></div>
+        );
+    }
+
+    renderMobileFooterModalButtons(key) {
+        return (
+            <div className="d-flex justify-content-around">
+                {this.renderAcceptModalButton()}
+                {this.renderRemoveCtaButton(key)}
+            </div>
+        );
+    }
+
+    renderAcceptModalButton() {
+        const { t } = this.props;
+        return (
+            <button
+                type="button"
+                className="btn outline check mt-3"
+                onClick={() => {
+                    this.onClickAccept();
+                }}
+            >
+                <span> {t("actions.accept")}</span>
+            </button>
+        );
+    }
+
+    renderRemoveCtaButton(key) {
+        const { t } = this.props;
+        return (
+            <button
+                type="button"
+                className="btn outline btn-trash mt-3"
+                onClick={() => {
+                    this.hideDataModal();
+                    this.removeRow(key);
+                }}
+            >
+                <span> {t("actions.delete")}</span>
+            </button>
+        );
     }
 
     renderRowsData() {
-        const { fields, t, editable } = this.props;
-        const values = fields.getAll();
-        const rowsData = [
-            {
-                title: t("organization-details.street"),
-                presentContent: values && values.length ? values.map((value) => value.street) : [],
-                editContent: fields.map((address, index) => {
-                    return (
-                        <Form.Group>
-                            <Field
-                                type="text"
-                                name={`${address}.street`}
-                                component={FieldInput}
-                                placeholder={t("organization-details.add-street")}
-                            />
-                        </Form.Group>
-                    );
-                })
-            },
-            {
-                title: t("organization-details.postal-code"),
-                presentContent: values && values.length ? values.map((value) => value.postal_code) : [],
-                editContent: fields.map((address, index) => {
-                    return (
-                        <Form.Group>
-                            <Field
-                                type="text"
-                                name={`${address}.postal_code`}
-                                component={FieldInput}
-                                placeholder={t("organization-details.add-postalCode")}
-                            />
-                        </Form.Group>
-                    );
-                })
-            },
-            {
-                title: t("organization-details.postal-area"),
-                presentContent: values && values.length ? values.map((value) => value.postal_area) : [],
-                editContent: fields.map((address, index) => {
-                    return (
-                        <Form.Group>
-                            <Field
-                                type="text"
-                                name={`${address}.postal_area`}
-                                component={FieldInput}
-                                placeholder={t("organization-details.add-postalArea")}
-                            />
-                        </Form.Group>
-                    );
-                })
-            },
-            {
-                title: t("organization-details.phone"),
-                presentContent: values && values.length ? values.map((value) => value.phone) : [],
-                editContent: fields.map((address, index) => {
-                    return (
-                        <Form.Group>
-                            <Field
-                                type="text"
-                                name={`${address}.phone`}
-                                component={FieldInput}
-                                placeholder={t("organization-details.add-phone")}
-                            />
-                            <div
-                                className="row-remove-cta row-remove-cta--address"
-                                onClick={() => this.removeRow(index)}
-                            ></div>
-                        </Form.Group>
-                    );
-                })
-            }
-        ];
+        const { editable } = this.props;
+        const rowsData = this.getRowsData();
+        const rowsDataMobile = this.getRowsMobileData();
+
+        const dataToShow = isMobile ? rowsDataMobile : rowsData;
         return (
             <div className="form-internal-block form-internal-block--organizations-contacts">
-                {rowsData.map((data, index) => {
+                {dataToShow.map((data, index) => {
                     return this.renderFormBlockSection(editable, data, index);
                 })}
             </div>
@@ -180,6 +437,7 @@ class FieldArrayAddressOrganization extends React.Component {
                         {t("actions.add-new")}
                     </button>
                 )}
+                {this.state.showModal && this.renderModal()}
             </div>
         );
     }

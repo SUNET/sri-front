@@ -1,0 +1,30 @@
+@import "../variables.scss";
+
+.accordion-menu-options {
+    color: $secondary-color;
+    padding: 1em;
+    .toggle-section > .toggle-header > .colapse {
+        float: none;
+        width: auto;
+        position: relative;
+        top: -3px;
+    }
+    &__header {
+        color: $secondary-color;
+        padding: 0.5rem 1rem;
+    }
+    &__link {
+        padding: 1px 6px;
+        a {
+            display: flex;
+            align-items: center;
+            .accordion-menu-options__link__icon {
+                margin-right: 8px;
+                font-size: 20px;
+            }
+            .accordion-menu-options__link__name {
+                color: $secondary-color;
+            }
+        }
+    }
+}

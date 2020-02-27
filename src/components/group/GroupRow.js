@@ -19,19 +19,14 @@ class GroupRow extends React.PureComponent {
     render() {
         let group = this.props.group;
         return (
-            <article onClick={(e) => this.props.onClick(e, group)}>
-                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && (
-                    <div>
-                        {group.name}
-                    </div>
-                )}
+            <tr onClick={(e) => this.props.onClick(e, group)}>
+                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <td>{group.name}</td>}
                 {(this.props.columnsVisible["description"] || this.props.showAllColumns) && (
-                    <div>
-                        {group.description}
-                    </div>
+                    <td>{group.description}</td>
                 )}
-                <div></div>
-            </article>
+                {/* td for generate the space for the final cta */}
+                <td></td>
+            </tr>
         );
     }
 }

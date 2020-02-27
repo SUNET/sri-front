@@ -1,9 +1,14 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
 .filter {
     position: relative;
     margin-right: 16px;
     display: inline-block;
+    @include mobile {
+        margin: 0 1em;
+        width: 100%;
+    }
 
     &:before {
         display: inline-block;
@@ -23,6 +28,9 @@
         height: $input--height;
         padding: 0 10px 0 40px;
         font-size: 14px;
+        @include mobile {
+            width: 100%;
+        }
     }
 
     .clear-input {
@@ -37,19 +45,30 @@
         }
     }
 }
+.data-filter-by-date {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    @include desktop {
+        flex-direction: row;
+    }
+    .filter-date {
+        padding: 1em 0em;
+        @include desktop {
+            padding: 0;
+        }
+        .pretty {
+            margin-right: 24px;
 
-.filter-date {
-    .pretty {
-        margin-right: 24px;
+            label {
+                text-indent: 16px !important;
+                font-family: Karla;
 
-        label {
-            text-indent: 16px !important;
-            font-family: Karla;
-
-            &:after,
-            &:before {
-                top: calc((0% - (100% - 18px)) - 8%) !important;
-                font-size: 10px;
+                &:after,
+                &:before {
+                    top: calc((0% - (100% - 18px)) - 8%) !important;
+                    font-size: 10px;
+                }
             }
         }
     }
