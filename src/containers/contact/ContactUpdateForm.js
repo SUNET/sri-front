@@ -52,7 +52,8 @@ const mapStateToProps = (state, props) => {
                       organization_label: role.end ? role.end.name : "",
                       status: "saved",
                       origin: "store",
-                      created: true
+                      created: true,
+                      key: role.relation_id
                   };
               })
             : [
@@ -96,9 +97,6 @@ const mapDispatchToProps = (dispatch, props) => {
     };
 };
 
-const ContactUpdateFormContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ContactUpdateForm);
+const ContactUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(ContactUpdateForm);
 
 export default ContactUpdateFormContainer;

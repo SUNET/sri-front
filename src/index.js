@@ -10,7 +10,6 @@ import * as actions from "./actions/App";
 import AppContainer from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
 import { API_HOST } from "./config.js";
-import JWTVerifyMutation from "./mutations/JWTVerifyMutation";
 
 import "./i18n";
 
@@ -40,15 +39,7 @@ const initialAction = () => {
             }
         });
     } else {
-        JWTVerifyMutation(cookie_jwt)
-            .then((data) => {
-                if (data) {
-                    store.dispatch(actions.appLoaded());
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        store.dispatch(actions.appLoaded());
     }
 };
 

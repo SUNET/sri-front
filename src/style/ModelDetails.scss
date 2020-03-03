@@ -1,86 +1,13 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
-.contact-in-organization {
-    display: flex;
-    flex-direction: column;
-    flex-flow: column wrap;
-    flex-wrap: wrap;
-    &__header__title,
-    &__body__row__element {
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 25%;
-    }
-    &__header {
-        display: flex;
-        width: 100%;
-        &__title {
-            margin-bottom: 1.5rem;
-            font-family: karla;
-            font-weight: bold;
-            color: $secondary-color-30;
-            align-items: center;
-            display: flex;
-            &--with-cta {
-                span {
-                    margin-right: $margin-lateral-line-elements;
-                }
-            }
-        }
-    }
-    &__body {
-        display: flex;
-        flex-flow: column wrap;
-        width: 100%;
-        &__row {
-            display: flex;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            margin-top: 15px;
-            width: 100%;
-            &__element--ellipsis {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-                > div {
-                    > div {
-                        height: 100%;
-                        text-overflow: ellipsis;
-                        overflow: hidden;
-                        white-space: nowrap;
-                    }
-                }
-            }
-            &__element {
-                margin-bottom: 1.5rem;
-                margin-bottom: 1em;
-                padding-left: 24px;
-                color: $secondary-color;
-                select {
-                    position: relative;
-                    bottom: 10px;
-                    max-width: 200px;
-                }
-            }
-        }
-    }
-    &__footer {
-        display: flex;
-        padding-top: 10px;
-        > * {
-            margin-right: $margin-lateral-line-elements;
-        }
-        &__add {
-            width: $outline-cta-width!important;
-        }
-    }
-}
 .model-details {
     .title-section {
         display: flex;
         align-items: center;
-        > button {
-            margin-right: 16px;
-        }
+        // > button {
+        //     margin-right: 16px;
+        // }
 
         h1 {
             display: inline-block;
@@ -99,12 +26,24 @@
         &__right-block {
             display: flex;
             justify-content: flex-end;
+            flex-direction: column;
+            @include desktop {
+                flex-direction: row;
+            }
             &__buttons {
                 margin-right: 1em;
             }
         }
         &__name-inputs {
             display: flex;
+            &--edition-mode {
+                flex-direction: column;
+            }
+            @include desktop {
+                &--edition-mode {
+                    flex-direction: row;
+                }
+            }
         }
     }
     .info-creator-modifier {
@@ -120,9 +59,14 @@
         .model-section {
             .form-internal-block__section {
                 flex-basis: auto;
-                .row-remove-cta {
-                    margin-top: 7px;
-                }
+                // max-width: 100%;
+                // .row-remove-cta {
+                //     margin-top: 7px;
+                // }
+                // .list-items__inputs__row > .form-group {
+                //     flex-shrink: 0;
+                //     width: 100%;
+                // }
             }
         }
     }
@@ -134,10 +78,15 @@
         -webkit-box-shadow: $list--row-box-shadow;
         -moz-box-shadow: $list--row-box-shadow;
         box-shadow: $list--row-box-shadow;
-        .organizations-contacts {
-            .btn-add {
-                width: $outline-cta-width
+        &--in-modal {
+            font-family: "Montserrat";
+            padding-top: 0;
+            .form-internal-block {
+                display: flex;
+                flex-direction: column;
             }
+        }
+        .organizations-contacts {
         }
         .form-internal-block {
             display: flex;
@@ -148,9 +97,11 @@
                     &__content {
                         margin-bottom: 10px;
                         height: 100%;
-                        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                        padding-bottom: 50px;
-                        height: 83px;
+                        @include desktop {
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                            padding-bottom: 50px;
+                            height: 83px;
+                        }
                         &__internal-list {
                             // height: 32px;
                             overflow: initial;
@@ -179,7 +130,7 @@
                             }
                         }
                     }
-                    .row-remove-cta {
+                    .row-remove-cta--desktop-version {
                         position: relative;
                         top: -24px;
                         left: 178px;
@@ -200,10 +151,14 @@
             &__section {
                 flex-grow: 1;
                 flex-shrink: 0;
-                flex-basis: 25%;
+                flex-basis: 50%;
+                @include desktop {
+                    flex-basis: 25%;
+                }
                 margin-bottom: 1.5rem;
                 display: flex;
                 flex-direction: column;
+                max-width: 100%;
                 &__title {
                     font-family: karla;
                     font-weight: bold;
@@ -211,7 +166,7 @@
                     &:not(.with-icon) {
                         padding-bottom: 16px;
                     }
-                    
+
                     &.with-icon {
                         > span {
                             margin-right: 16px;
@@ -219,7 +174,9 @@
                     }
                 }
                 &__content {
-                    padding-left: 24px;
+                    @include desktop {
+                        padding-left: 24px;
+                    }
                     &--edition-mode {
                         padding-left: 0;
                     }
@@ -248,18 +205,32 @@
                         }
                         &__inputs {
                             max-width: none;
-                            &__row { 
-                                height: calc(#{$row-height} + 10px);
+                            &__row {
+                                @include desktop {
+                                    height: calc(#{$row-height} + 10px);
+                                }
+                                .form-group {
+                                    display: flex;
+                                    flex-grow: 1;
+                                    flex-shrink: 0;
+                                    flex-basis: 25%;
+                                    @include desktop {
+                                        flex-basis: auto;
+                                        flex-grow: initial;
+                                    }
+                                    input {
+                                        width: 100%;
+                                    }
+                                }
                             }
                             button {
-                                width: $outline-cta-width
+                                width: $outline-cta-width;
                             }
                         }
                     }
                 }
             }
         }
-
 
         .table-details {
             display: table;
@@ -357,7 +328,8 @@
                                     vertical-align: middle;
                                 }
 
-                                div:first-of-type {}
+                                div:first-of-type {
+                                }
 
                                 div:last-of-type {
                                     width: 56px;
@@ -381,7 +353,7 @@
                     }
                 }
             }
-            
+
             // TODO: Remove when form-internal-block implements in all forms
             .list-items-label {
                 display: table;

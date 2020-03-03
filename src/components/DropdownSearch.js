@@ -9,7 +9,7 @@ import { fetchQuery } from "relay-runtime";
 import environment from "../createRelayEnvironment";
 
 import { debounce } from "../utils";
-import { MILISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from "../utils/constants";
+import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from "../utils/constants";
 
 import "../style/Downshift.scss";
 
@@ -58,7 +58,7 @@ class DropdownSearch extends React.Component {
         } else {
             this.setState({ filterValue: filter, allItems: [] });
         }
-    }, MILISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
+    }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
 
     handleSelectMember = (selection) => {
         this.props.selection(selection);

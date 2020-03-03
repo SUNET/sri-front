@@ -9,9 +9,14 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
 import GroupRow from "./GroupRow";
-import FilterColumnsContainer from "../../containers/FilterColumns";
+import FilterColumns from "../FilterColumns";
+
+import { isBrowser, isMobile } from "react-device-detect";
+import { Table } from "react-bootstrap";
 
 import "../../style/ModelList.scss";
+
+const MODEL_NAME = "group";
 
 export class GroupList extends React.PureComponent {
     static propTypes = {
@@ -44,59 +49,77 @@ export class GroupList extends React.PureComponent {
         this.props.history.push(`${this.props.match.url}/${data.id}`);
     };
 
-    renderHeaderList() {
+    renderFiltersColumns() {
         return (
-            <>
-                <div></div>
-                {this.props.defaultColumns.map((column) => {
-                    // Hiding the columns passed by props
-                    if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
-                        return (
-                            <div key={column.name}>
-                                {column.filter === "order" ? (
-                                    <div className="pretty custom p-icon p-toggle p-plain order-col">
-                                        <input
-                                            type="checkbox"
-                                            name={"orderby-" + column.value}
-                                            checked={this.props.orderBy.includes(column.value + "_ASC")}
-                                            onChange={(e) => {
-                                                this.props.columnChangeOrderBy(e, column.value);
-                                            }}
-                                        />
-                                        <div className="state p-on">
-                                            <label>
-                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleUp} />
-                                            </label>
-                                        </div>
-                                        <div className="state p-off">
-                                            <label>
-                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleDown} />
-                                            </label>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    column.name
-                                )}
-                            </div>
-                        );
-                    } else {
-                        return null;
-                    }
-                })}
-                <FilterColumnsContainer
+            <div className="model-list__header-cta">
+                <FilterColumns
                     type="hidden-col"
                     columns={this.props.defaultColumns}
-                    model="group"
+                    model={MODEL_NAME}
                     filterColumns={this.handleFilterColumns}
                 />
-            </>
+            </div>
+        );
+    }
+
+    renderShowFiltersLateralPanel() {
+        return (
+            <div className="model-list__header-cta" onClick={this.props.clickInMobileShowMenu}>
+                <i className="icon-filter"></i>
+            </div>
+        );
+    }
+
+    renderHeaderList() {
+        return (
+            <thead>
+                <tr>
+                    {this.props.defaultColumns.map((column) => {
+                        // Hiding the columns passed by props
+                        if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
+                            return (
+                                <th key={column.name}>
+                                    {column.filter === "order" ? (
+                                        <div className="pretty custom p-icon p-toggle p-plain order-col">
+                                            <input
+                                                type="checkbox"
+                                                name={"orderby-" + column.value}
+                                                checked={this.props.orderBy.includes(column.value + "_ASC")}
+                                                onChange={(e) => {
+                                                    this.props.columnChangeOrderBy(e, column.value);
+                                                }}
+                                            />
+                                            <div className="state p-on">
+                                                <label>
+                                                    <span>{column.name}</span> <FontAwesomeIcon icon={faAngleUp} />
+                                                </label>
+                                            </div>
+                                            <div className="state p-off">
+                                                <label>
+                                                    <span>{column.name}</span> <FontAwesomeIcon icon={faAngleDown} />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        column.name
+                                    )}
+                                </th>
+                            );
+                        } else {
+                            return null;
+                        }
+                    })}
+                    {isMobile && <th className="p-1">{this.renderShowFiltersLateralPanel()}</th>}
+                    {isBrowser && <th className="">{this.renderFiltersColumns()}</th>}
+                </tr>
+            </thead>
         );
     }
 
     renderList() {
         let models = this.props.groups;
         return (
-            <>
+            <tbody>
                 {models.groups.edges.map(({ node }) => {
                     return (
                         <GroupRow
@@ -108,7 +131,7 @@ export class GroupList extends React.PureComponent {
                         />
                     );
                 })}
-            </>
+            </tbody>
         );
     }
 
@@ -116,10 +139,10 @@ export class GroupList extends React.PureComponent {
         const { t } = this.props;
         return (
             <>
-                <div className="model-list">
-                    <div>{this.renderHeaderList()}</div>
-                    <div>{this.renderList()}</div>
-                </div>
+                <Table responsive={isMobile} className="model-list" borderless>
+                    {this.renderHeaderList()}
+                    {this.renderList()}
+                </Table>
                 <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>

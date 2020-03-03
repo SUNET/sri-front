@@ -19,14 +19,14 @@ class ContactRow extends React.PureComponent {
     render() {
         let contact = this.props.contact;
         return (
-            <article onClick={(e) => this.props.onClick(e, contact)}>
+            <tr onClick={(e) => this.props.onClick(e, contact)}>
                 {(this.props.columnsVisible["name"] || this.props.showAllColumns) && (
-                    <div>
+                    <td>
                         {contact.first_name} {contact.last_name}
-                    </div>
+                    </td>
                 )}
                 {(this.props.columnsVisible["organization"] || this.props.showAllColumns) && (
-                    <div>
+                    <td>
                         {contact.roles.map((role, index) => {
                             return (
                                 <span key={index}>
@@ -39,10 +39,10 @@ class ContactRow extends React.PureComponent {
                                 </span>
                             );
                         })}
-                    </div>
+                    </td>
                 )}
                 {(this.props.columnsVisible["roles"] || this.props.showAllColumns) && (
-                    <div>
+                    <td>
                         {contact.roles.map((role, index) => {
                             return (
                                 <span key={index}>
@@ -51,13 +51,13 @@ class ContactRow extends React.PureComponent {
                                 </span>
                             );
                         })}
-                    </div>
+                    </td>
                 )}
                 {(this.props.columnsVisible["contact_type"] || this.props.showAllColumns) && (
-                    <div>{contact.contact_type}</div>
+                    <td>{contact.contact_type}</td>
                 )}
-                <div></div>
-            </article>
+                <td></td>
+            </tr>
         );
     }
 }

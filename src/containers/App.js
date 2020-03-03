@@ -7,6 +7,7 @@ const mapStateToProps = (state, props) => {
         is_fetching: state.app.is_fetching,
         is_app_loaded: state.app.is_app_loaded,
         is_contact_form_visible: state.componentFormRow.show_contact_form,
+        router: state.router,
     };
 };
 

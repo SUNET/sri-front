@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { debounce } from "../utils";
-import { MILISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from "../utils/constants";
+import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from "../utils/constants";
 
 import "../style/Filter.scss";
 
@@ -19,7 +19,7 @@ class Filter extends React.Component {
     changeFilter = debounce((newFilter) => {
         this.setState({ filterValue: newFilter });
         this.props.changeFilter(newFilter);
-    }, MILISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
+    }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
 
     clearFilter = () => {
         this.input.value = "";

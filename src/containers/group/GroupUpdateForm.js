@@ -16,7 +16,6 @@ const mapStateToProps = (state, props) => {
         description: group.description,
         members: group.contacts
             ? group.contacts.map((member) => {
-
                   let group_relation_id_obj = group.contact_relations.find(
                       (relation) => relation.entity_id === member.id
                   );
@@ -48,7 +47,8 @@ const mapStateToProps = (state, props) => {
                       phone_obj: member.phones,
                       status: "saved",
                       origin: "store",
-                      created: true
+                      created: true,
+                      key: member.id
                   };
               })
             : [

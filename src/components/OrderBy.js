@@ -6,7 +6,6 @@ import FieldSwitch from "./FieldSwitch";
 import "../style/OrderBy.scss";
 
 class OrderBy extends React.Component {
-
     _handleOnChangeOrderBy = (event) => {
         if (event.target.checked) {
             this.props.changeOrderBy("handle_id_ASC");
@@ -23,8 +22,8 @@ class OrderBy extends React.Component {
                     type="toggle-icon"
                     icon="angle"
                     classNames="icon-right"
-                    labelChecked={t("Latest first")}
-                    labelUnChecked={t("Newest first")}
+                    labelChecked={t("filter.newest-first")}
+                    labelUnChecked={t("filter.latest-first")}
                     handleChecked={(e) => this._handleOnChangeOrderBy(e)}
                     id="orderBy"
                 />

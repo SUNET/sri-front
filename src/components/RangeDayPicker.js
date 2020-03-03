@@ -52,61 +52,63 @@ class RangeDayPicker extends React.Component {
         this.to.setState({ value: "", typedValue: "" });
     };
 
-    render() {
+    renderDayPicker(fromOrToInput) {
         const { from, to } = this.state;
         const { t } = this.props;
         const modifiers = { start: from, end: to };
+        const isFrom = fromOrToInput === "from";
+        let datePickerConfig = {};
+        if (isFrom) {
+            datePickerConfig = {
+                disabledDays: { after: to },
+                toMonth: to,
+                onDayClick: () => this.to.getInput().focus()
+            };
+        } else {
+            datePickerConfig = {
+                disabledDays: { before: from },
+                month: from,
+                fromMonth: from
+            };
+        }
         return (
-            <>
-                <div className="InputFromTo">
-                    <label>From</label>
-                    <DayPickerInput
-                        value={from}
-                        ref={(el) => (this.from = el)}
-                        placeholder="dd/mm/yy"
-                        format="MM/DD/YY"
-                        formatDate={formatDate}
-                        parseDate={parseDate}
-                        dayPickerProps={{
-                            locale: "en",
-                            localeUtils: MomentLocaleUtils,
-                            selectedDays: [from, { from, to }],
-                            disabledDays: { after: to },
-                            toMonth: to,
-                            modifiers,
-                            numberOfMonths: 2,
-                            onDayClick: () => this.to.getInput().focus()
-                        }}
-                        onDayChange={this.handleFromChange}
-                    />
-
-                    <span className="InputFromTo-to">
-                        <label>To</label>
-                        <DayPickerInput
-                            ref={(el) => (this.to = el)}
-                            value={to}
-                            placeholder="dd/mm/yy"
-                            format="MM/DD/YY"
-                            formatDate={formatDate}
-                            parseDate={parseDate}
-                            dayPickerProps={{
-                                locale: "en",
-                                localeUtils: MomentLocaleUtils,
-                                selectedDays: [from, { from, to }],
-                                disabledDays: { before: from },
-                                modifiers,
-                                month: from,
-                                fromMonth: from,
-                                numberOfMonths: 2
-                            }}
-                            onDayChange={this.handleToChange}
-                        />
-                    </span>
-                </div>
-                <button type="button" onClick={this.handleResetClick} className="btn outline btn-remove">
-                    {t("filter.date.clear")}
-                </button>
-            </>
+            <div className={`input-from-to input-from-to--${fromOrToInput}`}>
+                <label>{t(`filter.daypicker.${fromOrToInput}`)}</label>
+                <DayPickerInput
+                    value={this.state[fromOrToInput]}
+                    ref={(el) => (this[fromOrToInput] = el)}
+                    placeholder="dd/mm/yy"
+                    format="MM/DD/YY"
+                    formatDate={formatDate}
+                    parseDate={parseDate}
+                    dayPickerProps={{
+                        ...datePickerConfig,
+                        locale: "en",
+                        localeUtils: MomentLocaleUtils,
+                        selectedDays: [from, { from, to }],
+                        modifiers,
+                        numberOfMonths: 2
+                    }}
+                    onDayChange={this.handleFromChange}
+                />
+            </div>
+        );
+    }
+    renderResetDatesCTA() {
+        const { t } = this.props;
+        return (
+            <button type="button" onClick={this.handleResetClick} className="btn outline btn-remove">
+                {t("filter.date.clear")}
+            </button>
+        );
+    }
+    render() {
+        return (
+            <div className="range-day-picker">
+                {this.renderDayPicker("from")}
+                {this.renderDayPicker("to")}
+                {this.renderResetDatesCTA()}
+            </div>
         );
     }
 }

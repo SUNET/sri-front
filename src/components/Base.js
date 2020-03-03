@@ -9,6 +9,7 @@ import PersonalArea from "./PersonalArea";
 // import CaptureRouteNotFound, { RouteNotFound } from "./NotFound";
 
 class Base extends React.Component {
+    
     render() {
         const { view_network, view_community } = this.props;
         return (

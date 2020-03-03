@@ -1,6 +1,12 @@
+@import "../variables.scss";
+@import "./viewports.scss";
+
 .new-contact-modal-form {
-    min-width: 60%;
-    max-width: 60%;
+    @include desktop {
+        min-width: 60%;
+        max-width: 60%;
+
+    }
     .modal-content {
         .create-contact-form {
             .form-internal-block {

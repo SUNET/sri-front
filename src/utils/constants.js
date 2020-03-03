@@ -1,7 +1,10 @@
 // Forms IDs
 export const CREATE_CONTACT_FORM = 'create-contact-form';
+export const UPDATE_CONTACT_FORM = 'update-contact-form';
 export const CREATE_ORGANIZATION_FORM = 'create-organization-form';
+export const UPDATE_ORGANIZATION_FORM = 'update-organization-form';
 export const CREATE_GROUP_FORM = 'create-group-form';
+export const UPDATE_GROUP_FORM = 'update-group-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = "organizations";
 export const COMMUNITY_GROUPS = "groups";
@@ -11,4 +14,4 @@ export const CONTACT_PERSONAL = "personal";
 export const CONTACT_WORK = "work";
 
 // TIMES WAIT
-export const MILISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE = 250;
+export const MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE = 250;

@@ -1,57 +1,84 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
 .model-list {
-    display: table;
-    width: 100%;
+    border-collapse: separate;
     border-spacing: 0 5px;
-    table-layout: fixed;
-
-    &.default {
-        > div:first-of-type {
-            div {
-                width: 100% !important;
-                height: $row-height;
-            }
-        }
-        > div:last-of-type {
-            article {
-                display: table-row;
-                background-color: white;
-                -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
-                -moz-box-shadow: 0 0 4px -1px #d6d6d6;
-                box-shadow: 0 0 4px -1px #d6d6d6;
-
-                > div {
-                    display: table-cell;
-                    height: 54px;
-                }
+    thead {
+        font-family: "karla";
+        font-weight: bold;
+        background-color: $tertiary-color-20;
+        text-align: left;
+        th {
+            > span {
+                display: flex;
             }
         }
     }
-
-    > div:first-of-type {
-        display: table-header-group;
-
-        > div {
-            font-family: "karla";
-            font-weight: bold;
-            background-color: $tertiary-color-20;
-            padding: 10px;
-            text-align: left;
-            display: table-cell;
-
-            &:first-of-type,
-            &:last-of-type {
-                width: 45px;
-            }
-
-            &:last-of-type {
-                text-align: right;
-            }
+    tbody {
+        tr {
         }
     }
-
-    > div:last-of-type {
-        display: table-row-group;
+    &__header-cta {
+        text-align: right;
+        color: #5bc0be;
+        font-size: 20px;
+        font-weight: 100;
     }
 }
+
+// .model-list {
+//     display: table;
+//     width: 100%;
+//     border-spacing: 0 5px;
+//     table-layout: fixed;
+//     &.default {
+//         display: block;
+//         > div:first-of-type {
+//             div {
+//                 width: 100% !important;
+//                 height: $row-height;
+//             }
+//         }
+//         > div:last-of-type {
+//             article {
+//                 display: table-row;
+//                 background-color: white;
+//                 -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
+//                 -moz-box-shadow: 0 0 4px -1px #d6d6d6;
+//                 box-shadow: 0 0 4px -1px #d6d6d6;
+
+//                 > div {
+//                     display: table-cell;
+//                     height: 54px;
+//                 }
+//             }
+//         }
+//     }
+
+//     > div:first-of-type {
+//         display: table-header-group;
+
+//         > div {
+//             font-family: "karla";
+//             font-weight: bold;
+//             background-color: $tertiary-color-20;
+//             padding: 10px;
+//             text-align: left;
+//             display: table-cell;
+
+//             &:first-of-type,
+//             &:last-of-type {
+//                 width: 45px;
+//             }
+
+//             &:last-of-type {
+//                 text-align: right;
+//             }
+//         }
+//     }
+
+//     > div:last-of-type {
+//         display: table-row-group;
+//     }
+// }

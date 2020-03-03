@@ -33,6 +33,9 @@ class FilterColumns extends React.Component {
 
     render() {
         const { t } = this.props;
+        console.log('hola?');
+        
+        
         return (
             <div className={`filter-columns ${this.props.type}`}>
                 <Dropdown alignRight>
