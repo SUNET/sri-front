@@ -1,5 +1,5 @@
 # source: http://ni.localenv.loc/graphql/
-# timestamp: Thu Feb 27 2020 13:57:16 GMT+0100 (GMT+01:00)
+# timestamp: Wed Mar 04 2020 12:42:03 GMT+0100 (GMT+01:00)
 
 """Phone entity to be used inside contact"""
 type Address implements Node & Logical {
@@ -218,6 +218,141 @@ type Cable implements Node & Physical {
   cable_type: ChoiceScalar
   description: String
   ports: [Port]
+}
+
+type CableConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [CableEdge]!
+}
+
+"""A Relay edge containing a `Cable` and its cursor."""
+type CableEdge {
+  """The item at the end of the edge"""
+  node: Cable
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input CableFilter {
+  AND: [CableNestedFilter!]
+  OR: [CableNestedFilter!]
+}
+
+input CableNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  cable_type: ChoiceScalar
+  cable_type_not: ChoiceScalar
+  cable_type_lt: ChoiceScalar
+  cable_type_lte: ChoiceScalar
+  cable_type_gt: ChoiceScalar
+  cable_type_gte: ChoiceScalar
+  cable_type_contains: ChoiceScalar
+  cable_type_not_contains: ChoiceScalar
+  cable_type_starts_with: ChoiceScalar
+  cable_type_not_starts_with: ChoiceScalar
+  cable_type_ends_with: ChoiceScalar
+  cable_type_not_ends_with: ChoiceScalar
+  cable_type_in: [ChoiceScalar!]
+  cable_type_not_in: [ChoiceScalar!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum CableOrderBy {
+  name_ASC
+  name_DESC
+  cable_type_ASC
+  cable_type_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 """This class is used for the choices available in a dropdown"""
@@ -1461,6 +1596,285 @@ type Host implements Node & Logical {
   security_comment: String
 }
 
+type HostConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [HostEdge]!
+}
+
+"""A Relay edge containing a `Host` and its cursor."""
+type HostEdge {
+  """The item at the end of the edge"""
+  node: Host
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input HostFilter {
+  AND: [HostNestedFilter!]
+  OR: [HostNestedFilter!]
+}
+
+input HostNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  operational_state: String
+  operational_state_not: String
+  operational_state_lt: String
+  operational_state_lte: String
+  operational_state_gt: String
+  operational_state_gte: String
+  operational_state_contains: String
+  operational_state_not_contains: String
+  operational_state_starts_with: String
+  operational_state_not_starts_with: String
+  operational_state_ends_with: String
+  operational_state_not_ends_with: String
+  operational_state_in: [String!]
+  operational_state_not_in: [String!]
+  os: String
+  os_not: String
+  os_lt: String
+  os_lte: String
+  os_gt: String
+  os_gte: String
+  os_contains: String
+  os_not_contains: String
+  os_starts_with: String
+  os_not_starts_with: String
+  os_ends_with: String
+  os_not_ends_with: String
+  os_in: [String!]
+  os_not_in: [String!]
+  os_version: String
+  os_version_not: String
+  os_version_lt: String
+  os_version_lte: String
+  os_version_gt: String
+  os_version_gte: String
+  os_version_contains: String
+  os_version_not_contains: String
+  os_version_starts_with: String
+  os_version_not_starts_with: String
+  os_version_ends_with: String
+  os_version_not_ends_with: String
+  os_version_in: [String!]
+  os_version_not_in: [String!]
+  vendor: String
+  vendor_not: String
+  vendor_lt: String
+  vendor_lte: String
+  vendor_gt: String
+  vendor_gte: String
+  vendor_contains: String
+  vendor_not_contains: String
+  vendor_starts_with: String
+  vendor_not_starts_with: String
+  vendor_ends_with: String
+  vendor_not_ends_with: String
+  vendor_in: [String!]
+  vendor_not_in: [String!]
+  backup: String
+  backup_not: String
+  backup_lt: String
+  backup_lte: String
+  backup_gt: String
+  backup_gte: String
+  backup_contains: String
+  backup_not_contains: String
+  backup_starts_with: String
+  backup_not_starts_with: String
+  backup_ends_with: String
+  backup_not_ends_with: String
+  backup_in: [String!]
+  backup_not_in: [String!]
+  managed_by: String
+  managed_by_not: String
+  managed_by_lt: String
+  managed_by_lte: String
+  managed_by_gt: String
+  managed_by_gte: String
+  managed_by_contains: String
+  managed_by_not_contains: String
+  managed_by_starts_with: String
+  managed_by_not_starts_with: String
+  managed_by_ends_with: String
+  managed_by_not_ends_with: String
+  managed_by_in: [String!]
+  managed_by_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  responsible_group: String
+  responsible_group_not: String
+  responsible_group_lt: String
+  responsible_group_lte: String
+  responsible_group_gt: String
+  responsible_group_gte: String
+  responsible_group_contains: String
+  responsible_group_not_contains: String
+  responsible_group_starts_with: String
+  responsible_group_not_starts_with: String
+  responsible_group_ends_with: String
+  responsible_group_not_ends_with: String
+  responsible_group_in: [String!]
+  responsible_group_not_in: [String!]
+  support_group: String
+  support_group_not: String
+  support_group_lt: String
+  support_group_lte: String
+  support_group_gt: String
+  support_group_gte: String
+  support_group_contains: String
+  support_group_not_contains: String
+  support_group_starts_with: String
+  support_group_not_starts_with: String
+  support_group_ends_with: String
+  support_group_not_ends_with: String
+  support_group_in: [String!]
+  support_group_not_in: [String!]
+  security_class: String
+  security_class_not: String
+  security_class_lt: String
+  security_class_lte: String
+  security_class_gt: String
+  security_class_gte: String
+  security_class_contains: String
+  security_class_not_contains: String
+  security_class_starts_with: String
+  security_class_not_starts_with: String
+  security_class_ends_with: String
+  security_class_not_ends_with: String
+  security_class_in: [String!]
+  security_class_not_in: [String!]
+  security_comment: String
+  security_comment_not: String
+  security_comment_lt: String
+  security_comment_lte: String
+  security_comment_gt: String
+  security_comment_gte: String
+  security_comment_contains: String
+  security_comment_not_contains: String
+  security_comment_starts_with: String
+  security_comment_not_starts_with: String
+  security_comment_ends_with: String
+  security_comment_not_ends_with: String
+  security_comment_in: [String!]
+  security_comment_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum HostOrderBy {
+  name_ASC
+  name_DESC
+  operational_state_ASC
+  operational_state_DESC
+  os_ASC
+  os_DESC
+  os_version_ASC
+  os_version_DESC
+  vendor_ASC
+  vendor_DESC
+  backup_ASC
+  backup_DESC
+  managed_by_ASC
+  managed_by_DESC
+  description_ASC
+  description_DESC
+  responsible_group_ASC
+  responsible_group_DESC
+  support_group_ASC
+  support_group_DESC
+  security_class_ASC
+  security_class_DESC
+  security_comment_ASC
+  security_comment_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 type IDRelation {
   entity_id: ID
   relation_id: Int
@@ -2123,6 +2537,141 @@ type Port implements Node & Physical {
   connected_to: [NodeHandler]
 }
 
+type PortConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [PortEdge]!
+}
+
+"""A Relay edge containing a `Port` and its cursor."""
+type PortEdge {
+  """The item at the end of the edge"""
+  node: Port
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input PortFilter {
+  AND: [PortNestedFilter!]
+  OR: [PortNestedFilter!]
+}
+
+input PortNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  port_type: ChoiceScalar
+  port_type_not: ChoiceScalar
+  port_type_lt: ChoiceScalar
+  port_type_lte: ChoiceScalar
+  port_type_gt: ChoiceScalar
+  port_type_gte: ChoiceScalar
+  port_type_contains: ChoiceScalar
+  port_type_not_contains: ChoiceScalar
+  port_type_starts_with: ChoiceScalar
+  port_type_not_starts_with: ChoiceScalar
+  port_type_ends_with: ChoiceScalar
+  port_type_not_ends_with: ChoiceScalar
+  port_type_in: [ChoiceScalar!]
+  port_type_not_in: [ChoiceScalar!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum PortOrderBy {
+  name_ASC
+  name_DESC
+  port_type_ASC
+  port_type_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 """The group type is used to group contacts"""
 type Procedure implements Node & Logical {
   handle_id: ID!
@@ -2302,6 +2851,18 @@ type Query {
   count_customers: Int
   customers(filter: CustomerFilter, orderBy: CustomerOrderBy, before: String, after: String, first: Int, last: Int): CustomerConnection
   getCustomerById(id: ID): Customer
+  all_ports: [Port]
+  count_ports: Int
+  ports(filter: PortFilter, orderBy: PortOrderBy, before: String, after: String, first: Int, last: Int): PortConnection
+  getPortById(id: ID): Port
+  all_hosts: [Host]
+  count_hosts: Int
+  hosts(filter: HostFilter, orderBy: HostOrderBy, before: String, after: String, first: Int, last: Int): HostConnection
+  getHostById(id: ID): Host
+  all_cables: [Cable]
+  count_cables: Int
+  cables(filter: CableFilter, orderBy: CableOrderBy, before: String, after: String, first: Int, last: Int): CableConnection
+  getCableById(id: ID): Cable
 }
 
 input RefreshInput {

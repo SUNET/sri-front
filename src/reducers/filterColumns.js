@@ -10,6 +10,10 @@ const initialState = {
     group: {
         all_columns: true,
         columns_visible: {}
+    },
+    customer: {
+        all_columns: true,
+        columns_visible: {}
     }
 };
 
@@ -18,6 +22,7 @@ const filterColumnsReducer = (state = initialState, action) => {
     switch (action.type) {
         case "SHOW_HIDE_COLUMN":
             //automatically adds columns that are shown or hidden
+            
             nextState = {
                 ...state,
                 [action.model]: {

@@ -16,7 +16,16 @@ class CustomerRow extends React.PureComponent {
 
     render() {
         let customer = this.props.customer;
-        return <tr onClick={(e) => this.props.onClick(e, customer)}></tr>;
+        return (
+            <tr onClick={(e) => this.props.onClick(e, customer)}>
+                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <td>{customer.name}</td>}
+                {(this.props.columnsVisible["description"] || this.props.showAllColumns) && (
+                    <td>{customer.description}</td>
+                )}
+                {/* td for generate the space for the final cta */}
+                <td></td>
+            </tr>
+        );
     }
 }
 

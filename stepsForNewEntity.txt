@@ -7,10 +7,13 @@ LIST:
     + folder /components/NAME_ENTITY
     + file: SearchNAME_ENTITY
 
-. Create (with fragments)
+. Create
     containers/entity/EntityList
     components/entity/EntityList
     components/entity/EntityRow
+
+. Create
+    EntityFragments.js (with fragments)
 
 . Add Query and generate files: npm run relay
 

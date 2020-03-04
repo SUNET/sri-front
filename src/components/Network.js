@@ -7,7 +7,6 @@ import SearchCustomerContainer from "../containers/customer/SearchCustomer"
 
 class Network extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <Row>
                 <Col>

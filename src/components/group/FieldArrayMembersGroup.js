@@ -174,7 +174,7 @@ class FieldArrayMembersGroup extends React.Component {
     }
 
     renderInternalModalBody(key) {
-        const { t, editable } = this.props;
+        const { t } = this.props;
         const dataValue = this.getValueByKey(key);
         const row = dataValue.data;
         const index = dataValue.index;
