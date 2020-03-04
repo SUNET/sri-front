@@ -30,17 +30,17 @@ class TopHeader extends React.Component {
                 <Nav.Link as={NavLink} activeClassName="active" to="/dashboard">
                     {t("header.main-menu.home")}
                 </Nav.Link>
-                <Nav.Link as={NavLink} activeClassName="active" to="/network">
+                {/* <Nav.Link as={NavLink} activeClassName="active" to="/network">
                     {t("header.main-menu.network")}
-                </Nav.Link>
+                </Nav.Link> */}
                 {this.props.view_community && (
                     <Nav.Link as={NavLink} activeClassName="active" to="/community">
                         {t("header.main-menu.community")}
                     </Nav.Link>
                 )}
-                <Nav.Link as={NavLink} activeClassName="active" to="/contracts">
+                {/* <Nav.Link as={NavLink} activeClassName="active" to="/contracts">
                     {t("header.main-menu.contracts")}
-                </Nav.Link>
+                </Nav.Link> */}
             </Nav>
         );
     }
@@ -102,7 +102,12 @@ class TopHeader extends React.Component {
         return (
             <Nav.Item className="px-0">
                 <Link to="/personal-area/profile-settings">
-                    <Image src={require("../static/img/profile.png")} roundedCircle img-fluid="true" />
+                    <Image
+                        src={require("../static/img/profile.png")}
+                        roundedCircle
+                        img-fluid="true"
+                        onClick={() => this.closeMenu()}
+                    />
                 </Link>
             </Nav.Item>
         );
@@ -112,7 +117,7 @@ class TopHeader extends React.Component {
         return (
             <Navbar className="top-header">
                 {this.renderBrand()}
-                {this.renderSearchItem()}
+                {/* {this.renderSearchItem()} */}
             </Navbar>
         );
     }
@@ -128,27 +133,30 @@ class TopHeader extends React.Component {
                     { name: "Contacts", route: "/community/contacts", iconClass: "icon-contact" },
                     { name: "Groups", route: "/community/groups", iconClass: "icon-groups" }
                 ]
-            },
-            {
-                header: t("header.main-menu.network"),
-                subOptions: [
-                    { name: "Network1", route: "/community/organizations", iconClass: "icon-warning" },
-                    { name: "Network2", route: "/community/contacts", iconClass: "icon-warning" },
-                    { name: "Network3", route: "/community/groups", iconClass: "icon-warning" }
-                ]
-            },
-            {
-                header: t("header.main-menu.contracts"),
-                subOptions: [
-                    { name: "Contracts1", route: "/community/organizations", iconClass: "icon-warning" },
-                    { name: "Contracts2", route: "/community/contacts", iconClass: "icon-warning" },
-                    { name: "Contracts3", route: "/community/groups", iconClass: "icon-warning" }
-                ]
             }
+            // {
+            //     header: t("header.main-menu.network"),
+            //     subOptions: [
+            //         { name: "Network1", route: "/community/organizations", iconClass: "icon-warning" },
+            //         { name: "Network2", route: "/community/contacts", iconClass: "icon-warning" },
+            //         { name: "Network3", route: "/community/groups", iconClass: "icon-warning" }
+            //     ]
+            // },
+            // {
+            //     header: t("header.main-menu.contracts"),
+            //     subOptions: [
+            //         { name: "Contracts1", route: "/community/organizations", iconClass: "icon-warning" },
+            //         { name: "Contracts2", route: "/community/contacts", iconClass: "icon-warning" },
+            //         { name: "Contracts3", route: "/community/groups", iconClass: "icon-warning" }
+            //     ]
+            // }
         ];
 
         return (
-            <AccordionMenuOptions data={toggleMenuData} onSelectedOption={() => this.closeMenu()}></AccordionMenuOptions>
+            <AccordionMenuOptions
+                data={toggleMenuData}
+                onSelectedOption={() => this.closeMenu()}
+            ></AccordionMenuOptions>
         );
     }
 
@@ -158,8 +166,8 @@ class TopHeader extends React.Component {
                 <Navbar className="top-header">
                     <Nav>
                         {this.renderProfileSettingsItem()}
-                        {this.renderNotificationsItem()}
-                        {this.renderMoreItem()}
+                        {/* {this.renderNotificationsItem()} */}
+                        {/* {this.renderMoreItem()} */}
                         {this.renderLogoutItem()}
                     </Nav>
                 </Navbar>
@@ -225,9 +233,9 @@ class TopHeader extends React.Component {
                 {this.renderBrand()}
                 {this.renderHeaderTopMenu()}
                 <Nav>
-                    {this.renderSearchItem()}
-                    {this.renderNotificationsItem()}
-                    {this.renderMoreItem()}
+                    {/* {this.renderSearchItem()} */}
+                    {/* {this.renderNotificationsItem()} */}
+                    {/* {this.renderMoreItem()} */}
                     {this.renderProfileSettingsItem()}
                     {this.renderLogoutItem()}
                 </Nav>
