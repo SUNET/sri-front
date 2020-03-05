@@ -29,10 +29,10 @@ class CustomerRow extends React.PureComponent {
     render() {
         let customer = this.props.customer;
         return (
-            <tr onClick={(e) => this.props.onClick(e, customer)}>
+            <tr /*onClick={(e) => this.props.onClick(e, customer)}*/>
                 {this.renderCellSection("name", customer.name)}
-                {this.renderCellSection("description", customer.description)}
                 {this.renderCellSection("url", customer.url)}
+                {this.renderCellSection("description", customer.description)}
                 {/* td for generate the space for the final cta */}
                 <td></td>
             </tr>

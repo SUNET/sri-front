@@ -25,8 +25,8 @@ class SearchCustomer extends _SearchEntityParentClass {
     PATH_ENTITY_ID = "";
     DEFAULT_COLUMNS = [
         { name: "Name", value: "name", filter: "order" },
-        { name: "Description", value: "description", filter: "order" },
-        { name: "URL", value: "url"}
+        { name: "URL", value: "url" },
+        { name: "Description", value: "description", filter: "order" }
     ];
     LIST_QUERY = graphql`
         query SearchCustomerAllQuery($count: Int!, $filter: CustomerFilter, $orderBy: CustomerOrderBy) {
