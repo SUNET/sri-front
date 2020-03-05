@@ -15,18 +15,6 @@ class Home extends React.Component {
                             footer={{ label: "See contacts", link: "/community/contacts" }}
                         />
                     </Col>
-                    <Col xl={4} lg={4} md={6} sm={12}>
-                        <DashBoardContactBlock
-                            title="Contacts"
-                            footer={{ label: "See contacts", link: "/community/contacts" }}
-                        />
-                    </Col>
-                    <Col xl={4} lg={4} md={6} sm={12}>
-                        <DashBoardContactBlock
-                            title="Contacts"
-                            footer={{ label: "See contacts", link: "/community/contacts" }}
-                        />
-                    </Col>
                 </Row>
             </section>
         );
