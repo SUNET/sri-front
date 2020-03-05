@@ -9,6 +9,9 @@ export const UPDATE_GROUP_FORM = 'update-group-form';
 export const COMMUNITY_ORGANIZATIONS = "organizations";
 export const COMMUNITY_GROUPS = "groups";
 export const COMMUNITY_CONTACTS = "contacts";
+// Network Tabs
+export const NETWORK_ORGANIZATIONS = "network-organizations";
+export const NETWORK_ORGANIZATIONS_CUSTOMERS = "network-customers";
 // Contact data TYPE
 export const CONTACT_PERSONAL = "personal";
 export const CONTACT_WORK = "work";

@@ -135,15 +135,15 @@ class TopHeader extends React.Component {
                     { name: "Contacts", route: "/community/contacts", iconClass: "icon-contact" },
                     { name: "Groups", route: "/community/groups", iconClass: "icon-groups" }
                 ]
+            },
+            {
+                header: t("header.main-menu.network"),
+                subOptions: [
+                    { name: "Network1", route: "/community/organizations", iconClass: "icon-warning" },
+                    { name: "Network2", route: "/community/contacts", iconClass: "icon-warning" },
+                    { name: "Network3", route: "/community/groups", iconClass: "icon-warning" }
+                ]
             }
-            // {
-            //     header: t("header.main-menu.network"),
-            //     subOptions: [
-            //         { name: "Network1", route: "/community/organizations", iconClass: "icon-warning" },
-            //         { name: "Network2", route: "/community/contacts", iconClass: "icon-warning" },
-            //         { name: "Network3", route: "/community/groups", iconClass: "icon-warning" }
-            //     ]
-            // },
             // {
             //     header: t("header.main-menu.contracts"),
             //     subOptions: [

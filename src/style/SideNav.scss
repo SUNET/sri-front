@@ -10,6 +10,7 @@
     height: 100%;
     .accordion {
         margin-top: 128px;
+        max-width: 100%;
 
         a {
             text-decoration: none;
@@ -32,7 +33,7 @@
                 margin-bottom: 4px;
                 padding: 25px 0 25px 20px;
                 color: rgba(#fff, 0.5);
-
+                font-weight: 700;
                 svg {
                     margin-right: 8px;
                     vertical-align: text-top;
@@ -45,14 +46,18 @@
                 &[aria-expanded="true"] {
                     background-color: rgba(#fff, 0.1);
                     color: #fff;
+                    margin-bottom: 0;
                 }
 
-                &[aria-expanded="true"]::after,
-                &[aria-selected="true"]::after {
-                    transform: rotate(45deg);
-                }
                 &.with-arrow {
+                    display: flex;
+                    &[aria-expanded="true"]::after,
+                    &[aria-selected="true"]::after {
+                        margin-left: 0.75em;
+                        transform: rotate(45deg);
+                    }
                     &::after {
+                        margin-left: 0.75em;
                         display: inline-block;
                         content: "";
                         height: 10px;
@@ -67,13 +72,16 @@
         }
 
         .accordion__panel {
+            background-color: rgba(#fff, 0.1);
+            color: #fff;
             .nav {
                 .nav-link {
-                    background-color: $tertiary-color;
+                    // background-color: $tertiary-color;
                     margin-bottom: 4px;
 
                     &.active {
-                        background-color: $secondary-color-30;
+                        background-color: rgb(88,112,133);
+                        // background-color: $secondary-color-30;
                     }
                 }
             }

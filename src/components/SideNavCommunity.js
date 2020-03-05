@@ -13,11 +13,7 @@ import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { path } from "../Routes";
 
-import {
-    COMMUNITY_ORGANIZATIONS,
-    COMMUNITY_CONTACTS,
-    COMMUNITY_GROUPS
-} from '../utils/constants';
+import { COMMUNITY_ORGANIZATIONS, COMMUNITY_CONTACTS, COMMUNITY_GROUPS } from "../utils/constants";
 
 import "../style/SideNav.scss";
 
@@ -35,63 +31,43 @@ class SideNavCommunity extends React.Component {
         return tabUuid;
     };
 
+    renderAccordionItem(idPath, icon, text) {
+        const { t, match } = this.props;
+        return (
+            <AccordionItem uuid={idPath}>
+                <AccordionItemState>
+                    {({ expanded }) => (
+                        <NavLink to={`${path(match.url)}/${idPath}`}>
+                            <AccordionItemHeading>
+                                <AccordionItemButton>
+                                    <ReactSVG src={require(`../static/img/${icon}`)} wrapper="span" />
+                                    {text}
+                                </AccordionItemButton>
+                            </AccordionItemHeading>
+                        </NavLink>
+                    )}
+                </AccordionItemState>
+            </AccordionItem>
+        );
+    }
+
     render() {
         const { t } = this.props;
         return (
             <Col sm={2} className="pl-0">
                 <Nav className="flex-column side-nav">
                     <Accordion preExpanded={[this.matchUrl()]}>
-                        <AccordionItem uuid={COMMUNITY_ORGANIZATIONS}>
-                            <AccordionItemState>
-                                {({ expanded }) => (
-                                    <NavLink to={`${path(this.props.match.url)}/${COMMUNITY_ORGANIZATIONS}`}>
-                                        <AccordionItemHeading>
-                                            <AccordionItemButton>
-                                                <ReactSVG
-                                                    src={require("../static/img/organization-icon.svg")}
-                                                    wrapper="span"
-                                                />
-                                                {t("community.sub-menu.organizations")}
-                                            </AccordionItemButton>
-                                        </AccordionItemHeading>
-                                    </NavLink>
-                                )}
-                            </AccordionItemState>
-                        </AccordionItem>
-                        <AccordionItem uuid={COMMUNITY_CONTACTS}>
-                            <AccordionItemState>
-                                {({ expanded }) => (
-                                    <NavLink to={`${path(this.props.match.url)}/${COMMUNITY_CONTACTS}`}>
-                                        <AccordionItemHeading>
-                                            <AccordionItemButton>
-                                                <ReactSVG
-                                                    src={require("../static/img/contact-icon.svg")}
-                                                    wrapper="span"
-                                                />
-                                                {t("community.sub-menu.contacts")}
-                                            </AccordionItemButton>
-                                        </AccordionItemHeading>
-                                    </NavLink>
-                                )}
-                            </AccordionItemState>
-                        </AccordionItem>
-                        <AccordionItem uuid={COMMUNITY_GROUPS}>
-                            <AccordionItemState>
-                                {({ expanded }) => (
-                                    <NavLink to={`${path(this.props.match.url)}/${COMMUNITY_GROUPS}`}>
-                                        <AccordionItemHeading>
-                                            <AccordionItemButton>
-                                                <ReactSVG
-                                                    src={require("../static/img/groups-icon.svg")}
-                                                    wrapper="span"
-                                                />
-                                                {t("community.sub-menu.groups")}
-                                            </AccordionItemButton>
-                                        </AccordionItemHeading>
-                                    </NavLink>
-                                )}
-                            </AccordionItemState>
-                        </AccordionItem>
+                        {this.renderAccordionItem(
+                            COMMUNITY_ORGANIZATIONS,
+                            "organization-icon.svg",
+                            t(`community.sub-menu.organizations`)
+                        )}
+                        {this.renderAccordionItem(
+                            COMMUNITY_CONTACTS,
+                            "contact-icon.svg",
+                            t(`community.sub-menu.contacts`)
+                        )}
+                        {this.renderAccordionItem(COMMUNITY_GROUPS, "groups-icon.svg", t(`community.sub-menu.groups`))}
                     </Accordion>
                 </Nav>
             </Col>

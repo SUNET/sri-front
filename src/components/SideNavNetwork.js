@@ -1,9 +1,11 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import { Col, Nav } from "react-bootstrap";
+import ReactSVG from "react-svg";
 import {
     Accordion,
     AccordionItem,
+    AccordionItemState,
     AccordionItemHeading,
     AccordionItemButton,
     AccordionItemPanel
@@ -13,8 +15,19 @@ import { withRouter } from "react-router-dom";
 import { path } from "../Routes";
 
 import "../style/SideNav.scss";
+import { NETWORK_ORGANIZATIONS, NETWORK_ORGANIZATIONS_CUSTOMERS } from "../utils/constants";
 
 class SideNavNetwork extends React.Component {
+    MENU_DATA = [
+        {
+            header: {
+                name: NETWORK_ORGANIZATIONS,
+                icon: "organization-icon.svg",
+                i18nText: "community.sub-menu.organizations"
+            },
+            items: [{ path: "customers", i18nText: "network.sub-menu.customers" }]
+        }
+    ];
     matchUrl = () => {
         if (this.props.location.pathname.includes("physical")) {
             return "physical";
@@ -25,138 +38,52 @@ class SideNavNetwork extends React.Component {
         }
     };
 
+    renderAccordionItem(idPath, icon, i18nText, items) {
+        const { t, match } = this.props;
+        return (
+            <AccordionItem uuid={idPath}>
+                <AccordionItemState>
+                    {({ expanded }) => (
+                        <>
+                            <AccordionItemHeading>
+                                <AccordionItemButton className="accordion__button with-arrow">
+                                    <ReactSVG src={require(`../static/img/${icon}`)} wrapper="span" />
+                                    {t(i18nText)}
+                                </AccordionItemButton>
+                            </AccordionItemHeading>
+                            <AccordionItemPanel>
+                                <Nav className="flex-column">
+                                    {items.map((item) => {
+                                        console.log("item: ", item);
+
+                                        return (
+                                            <Nav.Link
+                                                as={NavLink}
+                                                activeClassName="active"
+                                                to={`${path(this.props.match.url)}/${item.path}`}
+                                            >
+                                                {t(item.i18nText)}
+                                            </Nav.Link>
+                                        );
+                                    })}
+                                </Nav>
+                            </AccordionItemPanel>
+                        </>
+                    )}
+                </AccordionItemState>
+            </AccordionItem>
+        );
+    }
+
     render() {
-        const { t } = this.props;
         return (
             <Col sm={2} className="pl-0">
                 <Nav className="flex-column side-nav">
-                    <Accordion preExpanded={[this.matchUrl()]} allowZeroExpanded className="accordion with-arrow">
-                        <AccordionItem uuid="physical">
-                            <AccordionItemHeading>
-                                <AccordionItemButton>{t("community.sub-menu.organizations")}</AccordionItemButton>
-                            </AccordionItemHeading>
-                            <AccordionItemPanel>
-                                <Nav className="flex-column">
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/customers`}
-                                    >
-                                        {t("network.sub-menu.customers")}
-                                    </Nav.Link>
-                                    {/* <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/physical/external-equipment`}
-                                    >
-                                        {t("network.sub-menu.physical.external-equipment")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/physical/firewalls`}
-                                    >
-                                        {t("network.sub-menu.physical.firewalls")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/physical/hosts`}
-                                    >
-                                        {t("network.sub-menu.physical.hosts")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/physical/odfs`}
-                                    >
-                                        {t("network.sub-menu.physical.odfs")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/physical/optical-nodes`}
-                                    >
-                                        {t("network.sub-menu.physical.optical-nodes")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/physical/routers`}
-                                    >
-                                        {t("network.sub-menu.physical.routers")}
-                                    </Nav.Link> */}
-                                </Nav>
-                            </AccordionItemPanel>
-                        </AccordionItem>
-                        {/* <AccordionItem uuid="logical">
-                            <AccordionItemHeading>
-                                <AccordionItemButton>
-                                    <NavLink to={`${path(this.props.match.url)}/logical`}>
-                                        {t("network.sub-menu.logical")}
-                                    </NavLink>
-                                </AccordionItemButton>
-                            </AccordionItemHeading>
-                            <AccordionItemPanel>
-                                <Nav className="flex-column">
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/logical/hosts`}
-                                    >
-                                        {t("network.sub-menu.logical.hosts")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/logical/optical-links`}
-                                    >
-                                        {t("network.sub-menu.logical.optical-links")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/logical/optical-multiplex`}
-                                    >
-                                        {t("network.sub-menu.logical.optical-multiplex")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/logical/optical-paths`}
-                                    >
-                                        {t("network.sub-menu.logical.optical-paths")}
-                                    </Nav.Link>
-                                </Nav>
-                            </AccordionItemPanel>
-                        </AccordionItem>
-                        <AccordionItem uuid="locations">
-                            <AccordionItemHeading>
-                                <AccordionItemButton>
-                                    <NavLink to={`${path(this.props.match.url)}/locations`}>
-                                        {t("network.sub-menu.locations")}
-                                    </NavLink>
-                                </AccordionItemButton>
-                            </AccordionItemHeading>
-                            <AccordionItemPanel>
-                                <Nav className="flex-column">
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/locations/racks`}
-                                    >
-                                        {t("network.sub-menu.locations.racks")}
-                                    </Nav.Link>
-                                    <Nav.Link
-                                        as={NavLink}
-                                        activeClassName="active"
-                                        to={`${path(this.props.match.url)}/locations/sites`}
-                                    >
-                                        {t("network.sub-menu.locations.sites")}
-                                    </Nav.Link>
-                                </Nav>
-                            </AccordionItemPanel>
-                        </AccordionItem> */}
+                    <Accordion preExpanded={[this.matchUrl()]} allowZeroExpanded className="accordion">
+                        {this.MENU_DATA.map((data) => {
+                            const { header, items } = data;
+                            return this.renderAccordionItem(header.name, header.icon, header.i18nText, items);
+                        })}
                     </Accordion>
                 </Nav>
             </Col>
