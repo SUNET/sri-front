@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 8c88bdfe3638a3db68623e5adc312182
+ * @relayHash ae87325e9161370ecdb0c497e901ad8a
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type DeletePhoneInput = {|
-  handle_id: number,
+  id: string,
   clientMutationId?: ?string,
 |};
 export type DeletePhoneMutationVariables = {|

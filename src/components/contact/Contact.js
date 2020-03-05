@@ -3,30 +3,30 @@ import environment from "../../createRelayEnvironment";
 import graphql from "babel-plugin-relay/macro";
 
 const ContactQuery = graphql`
-    query ContactQuery($contactId: Int!) {
-        getContactById(handle_id: $contactId) {
-            handle_id
+    query ContactQuery($contactId: ID!) {
+        getContactById(id: $contactId) {
+            id
             name
             first_name
             last_name
             contact_type
             emails {
-                handle_id
+                id
                 name
                 type
             }
             phones {
-                handle_id
+                id
                 name
                 type
             }
             roles {
                 role_data {
-                    handle_id
+                    id
                     name
                 }
                 end {
-                    handle_id
+                    id
                     name
                 }
             }
@@ -34,9 +34,9 @@ const ContactQuery = graphql`
     }
 `;
 
-export const getContact = (handle_id) => {
+export const getContact = (id) => {
     return fetchQuery(environment, ContactQuery, {
-        contactId: handle_id
+        contactId: id
     }).then((data) => {
         return data.getContactById;
     });

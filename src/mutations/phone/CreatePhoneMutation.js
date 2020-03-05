@@ -11,7 +11,7 @@ const mutation = graphql`
                 messages
             }
             phone {
-                handle_id
+                id
                 name
                 type
             }

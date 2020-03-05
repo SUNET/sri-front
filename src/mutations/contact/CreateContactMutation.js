@@ -15,7 +15,7 @@ const mutation = graphql`
                     messages
                 }
                 contact {
-                    handle_id
+                    id
                     title
                     notes
                     contact_type
@@ -23,23 +23,23 @@ const mutation = graphql`
                     last_name
                     pgp_fingerprint
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         relation_id
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                             organization_id
                         }
@@ -63,7 +63,7 @@ const mutation = graphql`
                     messages
                 }
                 email {
-                    handle_id
+                    id
                     name
                     type
                 }
@@ -74,7 +74,7 @@ const mutation = graphql`
                     messages
                 }
                 phone {
-                    handle_id
+                    id
                     name
                     type
                 }
@@ -88,12 +88,12 @@ const mutation = graphql`
                     relation_id
                     type
                     start {
-                        handle_id
+                        id
                         first_name
                         last_name
                     }
                     end {
-                        handle_id
+                        id
                         name
                     }
                 }
@@ -108,15 +108,15 @@ export default function CreateContactMutation(contact, form) {
 
     const roles = [];
 
-    let fullName = contact.name.trim();
-    if (fullName.includes(" ")) {
-        fullName = fullName.split(" ");
-        contact.first_name = fullName[0];
-        contact.last_name = fullName[1];
-    } else {
-        contact.first_name = fullName;
-        contact.last_name = fullName;
-    }
+    // let fullName = contact.name.trim();
+    // if (fullName.includes(" ")) {
+    //     fullName = fullName.split(" ");
+    //     contact.first_name = fullName[0];
+    //     contact.last_name = fullName[1];
+    // } else {
+    //     contact.first_name = fullName;
+    //     contact.last_name = fullName;
+    // }
 
     const emails = contact.emails;
     if (emails) {
@@ -151,8 +151,8 @@ export default function CreateContactMutation(contact, form) {
                     }
                 }
                 roles.push({
-                    role_handle_id: organization.role,
-                    organization_handle_id: organization.organization
+                    role_id: organization.role,
+                    organization_id: organization.organization
                 });
             }
         });
@@ -184,12 +184,16 @@ export default function CreateContactMutation(contact, form) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_contact.created.errors;
             } else {
-                const contact_id = response.composite_contact.created.contact.handle_id;
+                const contact_id = response.composite_contact.created.contact.id;
                 if (contact.comment) {
                     CreateComentMutation(contact_id, contact.comment);
                 }
-                form.props.history.push("/community/contacts/" + contact_id);
-                form.props.notify(i18n.t("notify.contact-created-success"), "success");
+                if (form.props.shown_in_modal) {
+                    form.props.hideContactModal();
+                } else {
+                    form.props.history.push("/community/contacts/" + contact_id);
+                    form.props.notify(i18n.t("notify.contact-created-success"), "success");
+                }
             }
         },
         updater: (proxyStore, data) => {},

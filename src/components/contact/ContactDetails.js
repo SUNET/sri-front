@@ -9,10 +9,10 @@ import DeleteContactMutation from "../../mutations/contact/DeleteContactMutation
 import environment from "../../createRelayEnvironment";
 
 const ContactDetailsQuery = graphql`
-    query ContactDetailsQuery($contactId: Int!) {
-        getContactById(handle_id: $contactId) {
+    query ContactDetailsQuery($contactId: ID!) {
+        getContactById(id: $contactId) {
             ...ContactUpdateForm_contact
-            handle_id
+            id
             name
             notes
             title
@@ -21,23 +21,23 @@ const ContactDetailsQuery = graphql`
             last_name
             pgp_fingerprint
             emails {
-                handle_id
+                id
                 name
                 type
             }
             phones {
-                handle_id
+                id
                 name
                 type
             }
             roles {
                 relation_id
                 role_data {
-                    handle_id
+                    id
                     name
                 }
                 end {
-                    handle_id
+                    id
                     name
                     organization_id
                     organization_number
@@ -91,7 +91,7 @@ class ContactDetails extends React.Component {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <section className="model-details">
+                            <section className="model-details contact-details">
                                 <ContactUpdateFormContainer
                                     onDelete={this.handleDelete}
                                     contact={props.getContactById}

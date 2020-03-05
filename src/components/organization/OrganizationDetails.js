@@ -7,10 +7,10 @@ import DeleteOrganizationMutation from "../../mutations/organization/DeleteOrgan
 import environment from "../../createRelayEnvironment";
 
 const OrganizationDetailsQuery = graphql`
-    query OrganizationDetailsQuery($organizationId: Int!) {
-        getOrganizationById(handle_id: $organizationId) {
+    query OrganizationDetailsQuery($organizationId: ID!) {
+        getOrganizationById(id: $organizationId) {
             ...OrganizationUpdateForm_organization
-            handle_id
+            id
             name
             type
             website
@@ -28,7 +28,7 @@ const OrganizationDetailsQuery = graphql`
                 organization_id
             }
             addresses {
-                handle_id
+                id
                 name
                 street
                 postal_code
@@ -41,38 +41,38 @@ const OrganizationDetailsQuery = graphql`
                     relation_id
                     type
                     end {
-                        handle_id
+                        id
                         node_name
                     }
                     start {
-                        handle_id
+                        id
                         node_name
                     }
                 }
             }
             contacts {
-                handle_id
+                id
                 first_name
                 last_name
                 contact_type
                 emails {
-                    handle_id
+                    id
                     name
                     type
                 }
                 phones {
-                    handle_id
+                    id
                     name
                     type
                 }
                 roles {
                     relation_id
                     role_data {
-                        handle_id
+                        id
                         name
                     }
                     end {
-                        handle_id
+                        id
                         name
                     }
                 }
@@ -131,7 +131,7 @@ class OrganizationDetails extends React.Component {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <section className="model-details">
+                            <section className="model-details organization-details">
                                 <OrganizationUpdateFormContainer
                                     onDelete={this.handleDelete}
                                     organization={props.getOrganizationById}

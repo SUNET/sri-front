@@ -1,55 +1,64 @@
 import React from "react";
 import graphql from "babel-plugin-relay/macro";
 import Downshift from "downshift";
-import matchSorter from "match-sorter";
+import { withTranslation } from "react-i18next";
 import { Menu, Input, Item, css, itemToString } from "./DropdownSearchItems";
 
 import { fetchQuery } from "relay-runtime";
 
 import environment from "../createRelayEnvironment";
 
+import { debounce } from "../utils";
+import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from "../utils/constants";
+
 import "../style/Downshift.scss";
 
+const MIN_CHAR_TO_FIND = 2;
+
 const DropdownSearchAllContactsQuery = graphql`
-    query DropdownSearchAllContactsQuery {
-        all_contacts {
-            handle_id
-            name
+    query DropdownSearchAllContactsQuery($filter: ContactFilter) {
+        contacts(filter: $filter) {
+            edges {
+                node {
+                    id
+                    name
+                }
+            }
         }
     }
 `;
 class DropdownSearch extends React.Component {
     constructor(props) {
         super(props);
+        const { t } = this.props;
+        this.LOADING_VALUE = [{ id: "", name: t("actions.loading") }];
+
+        this.NO_MATCHES_RESULT = [{ id: "", name: t("search-filter.no-matches") }];
 
         this.state = {
             filterValue: "",
-            allItems: {}
+            allItems: []
         };
     }
-    componentDidMount() {
-        const variables = {};
 
-        fetchQuery(environment, DropdownSearchAllContactsQuery, variables).then((data) => {
-            this.setState({ allItems: data.all_contacts });
-        });
-    }
+    getItems = debounce((filter) => {
+        const variables = {
+            filter: { AND: [{ name_contains: filter }] }
+        };
 
-    getItems = (filter) => {
-        const itemList = this.state.allItems;
-        if (Object.keys(itemList).length === 0 && itemList.constructor === Object) {
-            return [{ handle_id: "", name: "Loading..." }];
-        } else {
-            const filteredItemList = matchSorter(itemList, filter, {
-                keys: ["name"]
+        if (filter.length > MIN_CHAR_TO_FIND) {
+            this.setState({ filterValue: filter, allItems: this.LOADING_VALUE });
+            fetchQuery(environment, DropdownSearchAllContactsQuery, variables).then((data) => {
+                let newData = data.contacts.edges.map((edge) => edge.node);
+                if (newData.length === 0) {
+                    newData = this.NO_MATCHES_RESULT;
+                }
+                this.setState({ filterValue: filter, allItems: newData });
             });
-            if (filteredItemList.length > 0) {
-                return filteredItemList;
-            } else {
-                return [{ handle_id: "", name: "No matches" }];
-            }
+        } else {
+            this.setState({ filterValue: filter, allItems: [] });
         }
-    };
+    }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
 
     handleSelectMember = (selection) => {
         this.props.selection(selection);
@@ -80,25 +89,19 @@ class DropdownSearch extends React.Component {
                                 <Input
                                     {...getInputProps({
                                         isOpen,
-                                        placeholder: this.props.placeholder
+                                        placeholder: this.props.placeholder,
+                                        onChange: (event) => {
+                                            this.getItems(event.target.value);
+                                        }
                                     })}
                                 />
-                                {/*selectedItem ? (
-                                    <ControllerButton onClick={clearSelection} aria-label="clear selection">
-                                        <XIcon />
-                                    </ControllerButton>
-                                ) : (
-                                    <ControllerButton {...getToggleButtonProps()}>
-                                        <ArrowIcon isOpen={isOpen} />
-                                    </ControllerButton>
-                                )*/}
                             </div>
                             <div {...css({ position: "relative" })}>
                                 <Menu {...getMenuProps({ isOpen })} onClick={clearSelection}>
                                     {isOpen
-                                        ? this.getItems(inputValue).map((item, index) => (
+                                        ? this.state.allItems.map((item, index) => (
                                               <Item
-                                                  key={item.handle_id}
+                                                  key={item.id}
                                                   {...getItemProps({
                                                       item,
                                                       index,
@@ -120,4 +123,4 @@ class DropdownSearch extends React.Component {
     }
 }
 
-export default DropdownSearch;
+export default withTranslation()(DropdownSearch);

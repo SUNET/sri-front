@@ -1,5 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
+import { isBrowser } from "react-device-detect";
 
 import "../style/InfoCreatorModifier.scss";
 
@@ -9,24 +10,29 @@ class InfoCreatorModifier extends React.Component {
         return new Intl.DateTimeFormat().format(date);
     };
 
-    render() {
+    renderInfoUserBlock(createdOrModified) {
         const { t } = this.props;
+        const isCreated = createdOrModified === "created";
+        const text = isCreated ? t("info.created") : t("info.last_update");
+        const model = isCreated ? this.props.model.created : this.props.model.modified;
+        const email = isCreated ? this.props.model.creator.email : this.props.model.modifier.email;
+        const creatorClass = isCreated ? "info-creator-modifier__info--created" : "";
+        const browserClass = isBrowser ? "with-vertical-separator with-vertical-separator--right" : "";
+        return (
+            <div className={`${creatorClass} ${browserClass} info-creator-modifier__info`}>
+                <div className="info-creator-modifier__info__date">
+                    {text}: {this.formatDate(model)}
+                </div>
+                <div className="info-creator-modifier__info__usermail">{email}</div>
+            </div>
+        );
+    }
+
+    render() {
         return (
             <div className="info-creator-modifier">
-                <div>
-                    <div>
-                        {t("info.created")}: {this.formatDate(this.props.model.created)}
-                    </div>
-                    <div>{this.props.model.creator.email}</div>
-                </div>
-                <div>
-                    <div>
-                        {t("info.last_update")}: {this.formatDate(this.props.model.modified)}
-                    </div>
-                    <div>
-                        <div>{this.props.model.modifier.email}</div>
-                    </div>
-                </div>
+                {this.renderInfoUserBlock("created")}
+                {this.renderInfoUserBlock("updated")}
             </div>
         );
     }

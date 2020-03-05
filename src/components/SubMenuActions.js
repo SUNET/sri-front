@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
+import { isBrowser } from "react-device-detect";
 
 class SubMenuActions extends React.Component {
     render() {
@@ -12,10 +13,10 @@ class SubMenuActions extends React.Component {
                     path="/community/organizations/"
                     component={() => (
                         <button
-                            className="btn primary"
+                            className="btn primary add-cta reduced-in-mobile"
                             onClick={() => this.props.history.push(`/community/organizations/create`)}
                         >
-                            {t("Add Organizations")}
+                            {isBrowser ? t("organization-details.add-organization") : "+"}
                         </button>
                     )}
                 />
@@ -24,10 +25,10 @@ class SubMenuActions extends React.Component {
                     path="/community/contacts/"
                     component={() => (
                         <button
-                            className="btn primary"
+                            className="btn primary add-cta reduced-in-mobile"
                             onClick={() => this.props.history.push(`/community/contacts/create`)}
                         >
-                            {t("Add Contact")}
+                            {isBrowser ? t("contact-details.add-contact") : "+"}
                         </button>
                     )}
                 />
@@ -36,10 +37,10 @@ class SubMenuActions extends React.Component {
                     path="/community/groups/"
                     component={() => (
                         <button
-                            className="btn primary"
+                            className="btn primary add-cta reduced-in-mobile"
                             onClick={() => this.props.history.push(`/community/groups/create`)}
                         >
-                            {t("Add Group")}
+                            {isBrowser ? t("group-details.add-group") : "+"}
                         </button>
                     )}
                 />

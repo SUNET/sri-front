@@ -5,7 +5,7 @@ import "../style/Tooltip.scss";
 const Tooltip = ({ children, tooltip, hideArrow, ...props }) => (
     <TooltipTrigger
         {...props}
-        tooltip={({ arrowRef, tooltipRef, getArrowProps, getTooltipProps, placement }) => (
+        tooltip={({ arrowRef, tooltipRef, getArrowProps, getTooltipProps, placement, followCursor=true }) => (
             <div
                 {...getTooltipProps({
                     ref: tooltipRef,

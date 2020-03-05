@@ -11,7 +11,7 @@ const mutation = graphql`
                 messages
             }
             email {
-                handle_id
+                id
                 name
                 type
             }
@@ -27,7 +27,7 @@ function UpdateEmailMutation(contact, name, email) {
             contact,
             name,
             type: email ? email.type : "personal",
-            handle_id: email.handle_id,
+            id: email.id,
             clientMutationId: tempID++
         }
     };

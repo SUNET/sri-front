@@ -9,10 +9,15 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
 import ContactRow from "./ContactRow";
-import FilterColumnsContainer from "../../containers/FilterColumns";
+import FilterColumns from "../FilterColumns";
 import OrderFilterColumns from "../OrderFilterColumns";
+import { isBrowser, isMobile } from "react-device-detect";
+
+import { Table } from "react-bootstrap";
 
 import "../../style/ModelList.scss";
+
+const MODEL_NAME = "contact";
 
 export class ContactList extends React.PureComponent {
     static propTypes = {
@@ -42,86 +47,104 @@ export class ContactList extends React.PureComponent {
 
     _handleOnClick = (event, data) => {
         // Redirection to contact detail
-        this.props.history.push(`${this.props.match.url}/${data.handle_id}`);
+        this.props.history.push(`${this.props.match.url}/${data.id}`);
     };
+
+    renderFiltersColumns() {        
+        return (
+            <div className="model-list__header-cta">
+                <FilterColumns
+                    type="hidden-col"
+                    columns={this.props.defaultColumns}
+                    model={MODEL_NAME}
+                    filterColumns={this.handleFilterColumns}
+                />
+            </div>
+        );
+    }
+
+    renderShowFiltersLateralPanel() {
+        return (
+            <div className="model-list__header-cta" onClick={this.props.clickInMobileShowMenu}>
+                <i className="icon-filter"></i>
+            </div>
+        );
+    }
 
     renderHeaderList() {
         return (
-            <>
-                <div></div>
-                {this.props.defaultColumns.map((column) => {
-                    // Hiding the columns passed by props
-                    if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
-                        let columns_order_filter = undefined;
-                        if (column.value === "roles") {
-                            columns_order_filter = this.props.roles_default.getRolesFromRoleGroup;
-                        } else if (column.value === "organization") {
-                            columns_order_filter = this.props.organization_types.getChoicesForDropdown;
-                        }
+            <thead>
+                <tr>
+                    {this.props.defaultColumns.map((column) => {
+                        // Hiding the columns passed by props
+                        if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
+                            let columns_order_filter = undefined;
+                            if (column.value === "roles") {
+                                columns_order_filter = this.props.roles_default.getRolesFromRoleGroup;
+                            } else if (column.value === "organization") {
+                                columns_order_filter = this.props.organization_types.getChoicesForDropdown;
+                            }
 
-                        return (
-                            <div key={column.name}>
-                                {column.filter === "order" ? (
-                                    <div className="pretty custom p-icon p-toggle p-plain order-col">
-                                        <input
-                                            type="checkbox"
-                                            name={"orderby-" + column.value}
-                                            checked={this.props.orderBy.includes(column.value + "_ASC")}
-                                            onChange={(e) => {
-                                                this.props.columnChangeOrderBy(e, column.value);
-                                            }}
-                                        />
-                                        <div className="state p-on">
-                                            <label>
-                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleUp} />
-                                            </label>
+                            return (
+                                <th key={column.name}>
+                                    {column.filter === "order" ? (
+                                        <div className="pretty custom p-icon p-toggle p-plain order-col">
+                                            <input
+                                                type="checkbox"
+                                                name={"orderby-" + column.value}
+                                                checked={this.props.orderBy.includes(column.value + "_ASC")}
+                                                onChange={(e) => {
+                                                    this.props.columnChangeOrderBy(e, column.value);
+                                                }}
+                                            />
+                                            <div className="state p-on">
+                                                <label>
+                                                    <span>{column.name}</span> <FontAwesomeIcon icon={faAngleUp} />
+                                                </label>
+                                            </div>
+                                            <div className="state p-off">
+                                                <label>
+                                                    <span>{column.name}</span> <FontAwesomeIcon icon={faAngleDown} />
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div className="state p-off">
-                                            <label>
-                                                <span>{column.name}</span> <FontAwesomeIcon icon={faAngleDown} />
-                                            </label>
-                                        </div>
-                                    </div>
-                                ) : column.filter === "order-filter" ? (
-                                    <span>
-                                        {column.name}
-                                        <OrderFilterColumns
-                                            type="order"
-                                            column={column.value}
-                                            columns={columns_order_filter}
-                                            orderFilterColumns={this.props.changeOrderFilterColumns}
-                                            orderBy={this.props.orderBy}
-                                            filterColumn={this.props.filterColumn}
-                                        />
-                                    </span>
-                                ) : (
-                                    column.name
-                                )}
-                            </div>
-                        );
-                    } else {
-                        return null;
-                    }
-                })}
-                <FilterColumnsContainer
-                    type="hidden-col"
-                    columns={this.props.defaultColumns}
-                    model="contact"
-                    filterColumns={this.handleFilterColumns}
-                />
-            </>
+                                    ) : column.filter === "order-filter" ? (
+                                        <span>
+                                            {column.name}
+                                            <OrderFilterColumns
+                                                type="order"
+                                                column={column.value}
+                                                columns={columns_order_filter}
+                                                orderFilterColumns={this.props.changeOrderFilterColumns}
+                                                orderBy={this.props.orderBy}
+                                                filterColumn={this.props.filterColumn}
+                                            />
+                                        </span>
+                                    ) : (
+                                        column.name
+                                    )}
+                                </th>
+                            );
+                        } else {
+                            return null;
+                        }
+                    })}
+                    {isMobile && <th className="p-1">{this.renderShowFiltersLateralPanel()}</th>}
+                    {isBrowser && <th className="">{this.renderFiltersColumns()}</th>}
+                </tr>
+            </thead>
         );
     }
 
     renderList() {
         let models = this.props.contacts;
         return (
-            <>
+            <tbody>
                 {models.contacts.edges.map(({ node }) => {
                     return (
                         node && (
                             <ContactRow
-                                key={node.handle_id}
+                                key={node.id}
                                 contact={node}
                                 onClick={this._handleOnClick}
                                 columnsVisible={this.props.columns_visible}
@@ -130,18 +153,19 @@ export class ContactList extends React.PureComponent {
                         )
                     );
                 })}
-            </>
+            </tbody>
         );
     }
 
     render() {
         const { t } = this.props;
+
         return (
             <>
-                <div className="model-list">
-                    <div>{this.renderHeaderList()}</div>
-                    <div>{this.renderList()}</div>
-                </div>
+                <Table responsive={isMobile} className="model-list" borderless>
+                    {this.renderHeaderList()}
+                    {this.renderList()}
+                </Table>
                 <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
@@ -180,7 +204,7 @@ export default createPaginationContainer(
                     @connection(key: "ContactList_contacts", filters: []) {
                     edges {
                         node {
-                            handle_id
+                            id
                             ...ContactRow_contact
                         }
                     }
@@ -204,7 +228,7 @@ export default createPaginationContainer(
         roles_default: graphql`
             fragment ContactList_roles_default on Query {
                 getRolesFromRoleGroup {
-                    handle_id
+                    id
                     name
                 }
             }

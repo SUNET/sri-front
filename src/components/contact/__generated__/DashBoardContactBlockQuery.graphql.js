@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 90c78f407261ac2a84a989dbef35b7d3
+ * @relayHash f847639b5234be627c4a80b06a757564
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type DashBoardContactList_contacts$ref = any;
-export type ContactOrderBy = "emails_ASC" | "emails_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "member_of_groups_ASC" | "member_of_groups_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "organizations_ASC" | "organizations_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phones_ASC" | "phones_DESC" | "roles_ASC" | "roles_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
+export type ContactOrderBy = "contact_type_ASC" | "contact_type_DESC" | "created_ASC" | "created_DESC" | "emails_ASC" | "emails_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "member_of_groups_ASC" | "member_of_groups_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "organizations_ASC" | "organizations_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phones_ASC" | "phones_DESC" | "roles_ASC" | "roles_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
 export type DashBoardContactBlockQueryVariables = {|
   count: number,
   orderBy?: ?ContactOrderBy,
@@ -53,7 +53,7 @@ fragment DashBoardContactList_contacts_1ikxwq on Query {
 }
 
 fragment DashBoardContactRow_contact on Contact {
-  handle_id
+  id
   first_name
   last_name
   modified
@@ -102,20 +102,20 @@ v2 = [
 v3 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "name",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
 v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "id",
+  "name": "name",
   "args": null,
   "storageKey": null
 },
 v5 = [
-  (v3/*: any*/),
-  (v4/*: any*/)
+  (v4/*: any*/),
+  (v3/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -172,13 +172,7 @@ return {
                 "concreteType": "Contact",
                 "plural": false,
                 "selections": [
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "handle_id",
-                    "args": null,
-                    "storageKey": null
-                  },
+                  (v3/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -209,7 +203,7 @@ return {
                     "concreteType": "RoleRelation",
                     "plural": true,
                     "selections": [
-                      (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "kind": "LinkedField",
                         "alias": null,
@@ -232,7 +226,6 @@ return {
                     "plural": true,
                     "selections": (v5/*: any*/)
                   },
-                  (v4/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -307,7 +300,7 @@ return {
     "operationKind": "query",
     "name": "DashBoardContactBlockQuery",
     "id": null,
-    "text": "query DashBoardContactBlockQuery(\n  $count: Int!\n  $orderBy: ContactOrderBy\n) {\n  ...DashBoardContactList_contacts_1ikxwq\n}\n\nfragment DashBoardContactList_contacts_1ikxwq on Query {\n  contacts(first: $count, orderBy: $orderBy) {\n    edges {\n      node {\n        ...DashBoardContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment DashBoardContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
+    "text": "query DashBoardContactBlockQuery(\n  $count: Int!\n  $orderBy: ContactOrderBy\n) {\n  ...DashBoardContactList_contacts_1ikxwq\n}\n\nfragment DashBoardContactList_contacts_1ikxwq on Query {\n  contacts(first: $count, orderBy: $orderBy) {\n    edges {\n      node {\n        ...DashBoardContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment DashBoardContactRow_contact on Contact {\n  id\n  first_name\n  last_name\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n  member_of_groups {\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

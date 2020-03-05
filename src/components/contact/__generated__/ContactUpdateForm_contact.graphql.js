@@ -12,7 +12,7 @@ import type { FragmentReference } from "relay-runtime";
 declare export opaque type ContactUpdateForm_contact$ref: FragmentReference;
 declare export opaque type ContactUpdateForm_contact$fragmentType: ContactUpdateForm_contact$ref;
 export type ContactUpdateForm_contact = {|
-  +handle_id: string,
+  +id: string,
   +name: string,
   +notes: ?string,
   +title: ?string,
@@ -21,23 +21,23 @@ export type ContactUpdateForm_contact = {|
   +last_name: string,
   +pgp_fingerprint: ?string,
   +emails: ?$ReadOnlyArray<?{|
-    +handle_id: string,
+    +id: string,
     +name: string,
     +type: any,
   |}>,
   +phones: ?$ReadOnlyArray<?{|
-    +handle_id: string,
+    +id: string,
     +name: string,
     +type: any,
   |}>,
   +roles: ?$ReadOnlyArray<?{|
     +relation_id: number,
     +role_data: ?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
     |},
     +end: ?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
     |},
   |}>,
@@ -72,7 +72,7 @@ const node/*: ReaderFragment*/ = (function(){
 var v0 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -261,13 +261,7 @@ return {
       "concreteType": "CommentType",
       "plural": true,
       "selections": [
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "name": "id",
-          "args": null,
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "kind": "LinkedField",
           "alias": null,
@@ -301,5 +295,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4dfe129141d63db692a3f66d1c89b525';
+(node/*: any*/).hash = 'c135b95fc7e999f5ce19d063a87bc452';
 module.exports = node;

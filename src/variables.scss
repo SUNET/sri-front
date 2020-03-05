@@ -1,19 +1,25 @@
+/* VIEWPORTS (MUST USE PX FOR COMPATIBILITY)*/
+$vp-max-mobile: 425px;
+$vp-max-tablet: 769px;
+/* [END] VIEWPORTS */
+
 /*
  * Colors
  * ========================================================================== */
 $brand-color: #ff500d;
 $secondary-color: #003049;
-$secondary-color-30: rgba($secondary-color, .3);
-$secondary-color-20: rgba($secondary-color, .2);
+$secondary-color-30: rgba($secondary-color, 0.3);
+$secondary-color-20: rgba($secondary-color, 0.2);
 $tertiary-color: #7798ab;
-$tertiary-color-20: rgba($tertiary-color, .2);
-$tertiary-color-3: rgba($tertiary-color, .03);
+$tertiary-color-20: rgba($tertiary-color, 0.2);
+$tertiary-color-3: rgba($tertiary-color, 0.03);
 $complementary-color: #5bc0be;
-$complementary-color-30: rgba($complementary-color, .3);
+$complementary-color-30: rgba($complementary-color, 0.3);
 $success-color: #147371;
-$alert-color: #D7263D;
-$alert-color-75: rgba($alert-color, .75);
-$alert-color-30: rgba($alert-color, .3);
+$alert-color: #d7263d;
+$alert-color-75: rgba($alert-color, 0.75);
+$alert-color-30: rgba($alert-color, 0.3);
+$gray-color: #d5dee2;
 /*
  * Typography
  * ========================================================================== */
@@ -34,7 +40,7 @@ $alert-color-30: rgba($alert-color, .3);
 
 @import "../static/fonts/Sunet-icons/style.css";
 
-$font: 'Montserrat', sans-serif;
+$font: "Montserrat", sans-serif;
 /*
  * Pretty Checkbox
  * ========================================================================== */
@@ -53,6 +59,39 @@ $pretty--z-index-between: 1;
 $pretty--z-index-front: 2;
 // Blocked settings
 $pretty--debug: false;
-$pretty--dev-err: 'Invalid input type!';
+$pretty--dev-err: "Invalid input type!";
 // Custom
 $pretty--size-scale: 0.6em;
+
+/*
+ * Borders
+ * ========================================================================== */
+$input--border-radius: 4px;
+$input-outline--border-radius: $input--border-radius * 4;
+
+/*
+ * Shadows
+ * ========================================================================== */
+$list--row-box-shadow: 0 0 10px 0 rgba(76, 96, 133, 0.05);
+
+/*
+ * Sizes
+ * ========================================================================== */
+$row-height: 32px;
+$outline-cta-width: 107px;
+$input--height: 32px;
+$input--width: 80px;
+$btn-back-width: $input--width;
+
+$btn-mobile-width: 32px;
+$btn-mobile-height: 32px;
+
+$margin-lateral-line-elements: 8px;
+
+$mobile-header-height: 65px;
+
+$lateral-slider-panel-with: 300px;
+
+$field-input-with-xlg: 350px;
+$field-input-with-lg: 200px;
+$field-input-with-sm: 120px;

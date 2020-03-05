@@ -9,11 +9,12 @@ import PersonalArea from "./PersonalArea";
 // import CaptureRouteNotFound, { RouteNotFound } from "./NotFound";
 
 class Base extends React.Component {
+    
     render() {
         const { view_network, view_community } = this.props;
         return (
             <Switch>
-                <Route exact path="/" component={Home} />
+                <Redirect exact from="/" to={"/dashboard"} />
                 <Route path="/dashboard" component={Home} />
                 {view_network && <Route path="/network" component={Network} />}
                 {view_community && <Route path="/community" component={Community} />}

@@ -1,0 +1,43 @@
+@import "../variables.scss";
+@import "./viewports.scss";
+
+.new-contact-modal-form {
+    @include desktop {
+        min-width: 60%;
+        max-width: 60%;
+
+    }
+    .modal-content {
+        .create-contact-form {
+            .form-internal-block {
+                &__section {
+                    flex-basis: 50%;
+                }
+            }
+            .organizations-contacts {
+                .form-internal-block {
+                    &__section {
+                        flex-basis: 25%;
+                    }
+                }    
+            }
+        }
+        .modal-header {
+            .modal-title {
+                font-family: karla;
+                box-sizing: border-box;
+                font-weight: bold;
+                color: #003049;
+                border-radius: 2px;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                align-items: center;
+                .new-contact-modal-form__header__title {
+                }
+                .new-contact-modal-form__header__buttons {
+                }
+            }
+        }
+    }
+}

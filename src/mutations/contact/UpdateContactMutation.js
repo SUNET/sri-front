@@ -13,7 +13,7 @@ const mutation = graphql`
                     messages
                 }
                 contact {
-                    handle_id
+                    id
                     title
                     notes
                     contact_type
@@ -21,23 +21,23 @@ const mutation = graphql`
                     last_name
                     pgp_fingerprint
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         relation_id
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                             organization_id
                         }
@@ -61,7 +61,7 @@ const mutation = graphql`
                     messages
                 }
                 email {
-                    handle_id
+                    id
                     name
                     type
                 }
@@ -72,7 +72,7 @@ const mutation = graphql`
                     messages
                 }
                 email {
-                    handle_id
+                    id
                     name
                     type
                 }
@@ -83,7 +83,7 @@ const mutation = graphql`
                     messages
                 }
                 phone {
-                    handle_id
+                    id
                     name
                     type
                 }
@@ -94,7 +94,7 @@ const mutation = graphql`
                     messages
                 }
                 phone {
-                    handle_id
+                    id
                     name
                     type
                 }
@@ -108,12 +108,12 @@ const mutation = graphql`
                     relation_id
                     type
                     start {
-                        handle_id
+                        id
                         first_name
                         last_name
                     }
                     end {
-                        handle_id
+                        id
                         name
                     }
                 }
@@ -133,27 +133,17 @@ export default function UpdateContactMutation(contact, form) {
 
     const roles = [];
     const deleteRoles = [];
-
-    let fullName = contact.name.trim();
-    if (fullName.includes(" ")) {
-        fullName = fullName.split(" ");
-        contact.first_name = fullName[0];
-        contact.last_name = fullName[1];
-    } else {
-        contact.first_name = fullName;
-        contact.last_name = fullName;
-    }
-
     const emails = contact.emails;
+
     if (emails) {
         Object.keys(emails).forEach((email_key) => {
             let email = emails[email_key];
             if (email.status === "remove") {
-                deleteEmails.push({ handle_id: email.handle_id });
+                deleteEmails.push({ id: email.id });
             } else if (email.status === "saved") {
                 if (email.origin === "store") {
                     updateEmails.push({
-                        handle_id: email.handle_id,
+                        id: email.id,
                         name: email.email,
                         type: email.type
                     });
@@ -172,11 +162,11 @@ export default function UpdateContactMutation(contact, form) {
         Object.keys(phones).forEach((phone_key) => {
             let phone = phones[phone_key];
             if (phone.status === "remove") {
-                deleteEmails.push({ handle_id: phone.handle_id });
+                deletePhones.push({ id: phone.id });
             } else if (phone.status === "saved") {
                 if (phone.origin === "store") {
                     updatePhones.push({
-                        handle_id: phone.handle_id,
+                        id: phone.id,
                         name: phone.phone,
                         type: phone.type
                     });
@@ -201,16 +191,19 @@ export default function UpdateContactMutation(contact, form) {
                         if (form.props.isDirty_organizations_roles[organization_key]) {
                             deleteRoles.push({ relation_id: organization.role_obj.relation_id });
                             roles.push({
-                                role_handle_id: organization.role,
-                                organization_handle_id: organization.organization
+                                role_id: organization.role,
+                                organization_id: organization.organization
                             });
                         }
                     }
                 } else {
-                    roles.push({
-                        role_handle_id: organization.role,
-                        organization_handle_id: organization.organization
-                    });
+                    const newOrgToPush = {
+                        organization_id: organization.organization
+                    };
+                    if (organization.role) {
+                        newOrgToPush.role_id = organization.role;
+                    }
+                    roles.push(newOrgToPush);
                 }
             } else if (organization.status === "remove") {
                 deleteRoles.push({ relation_id: organization.role_obj.relation_id });
@@ -221,7 +214,7 @@ export default function UpdateContactMutation(contact, form) {
     const variables = {
         input: {
             update_input: {
-                handle_id: contact.handle_id,
+                id: contact.id,
                 notes: contact.notes,
                 title: contact.title,
                 first_name: contact.first_name,

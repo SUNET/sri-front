@@ -1,60 +1,92 @@
 import React from "react";
-import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-
-import FieldInput from "../FieldInput";
-import { Field, change, touch } from "redux-form";
-import uuidv4 from "uuid/v4";
-
-import CopyToClipboard from "../CopyToClipboard";
+import { change } from "redux-form";
+import DropdownSearch from "../DropdownSearch";
 import Dropdown from "../Dropdown";
-import { LIMIT_NEW_CONTACTS } from "../../config";
+import CopyToClipboard from "../CopyToClipboard";
+import { Modal } from "react-bootstrap";
+import { isBrowser, isMobile } from "react-device-detect";
+
+import "../../style/FieldArrayContacts.scss";
 
 class FieldArrayContactsOrganization extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        showModal: false, // DEFAULT: false
+        selectedRowKey: null // DEFAULT: null
+    };
 
-        this.state = {};
+    // lifecycle
+
+    // methods events
+    onClickAccept() {
+        // TODO: Validate before hide modal
+        this.hideDataModal();
     }
 
+    onChangeRole = (event, index) => {
+        const { selectedIndex } = event.target.selectedIndex;
+        let role_label = "";
+        if (selectedIndex !== 0) {
+            role_label = event.target.options[event.target.selectedIndex].text;
+        }
+        this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
+    };
+
+    // methods state
+    showDataModal(key) {
+        this.setState({
+            showModal: true,
+            selectedRowKey: key
+        });
+    }
+
+    hideDataModal() {
+        this.setState({
+            showModal: false,
+            selectedRowKey: null
+        });
+    }
+
+    // methods getData
+    getValueByKey(key) {
+        const allValues = this.props.fields.getAll();
+        const valueData = allValues.find((value) => value.key === key);
+        const valueIndex = allValues.findIndex((value) => value.key === key);
+
+        return {
+            data: valueData,
+            index: valueIndex
+        };
+    }
+
+    // methods validation
     validateContact = (index) => {
         const errors = this.props.errors;
         const values = this.props.fields.getAll();
         const hasBlankFields =
             values[index].name === "" ||
             values[index].name === undefined ||
-            (values[index].role === "" || values[index].role === undefined) ||
-            (values[index].email === "" || values[index].email === undefined) ||
-            (values[index].phone === "" || values[index].phone === undefined);
+            values[index].role === "" ||
+            values[index].role === undefined ||
+            values[index].email === "" ||
+            values[index].email === undefined ||
+            values[index].phone === "" ||
+            values[index].phone === undefined;
         return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
     };
 
+    // methods rows
     addRow = (event) => {
-        if (this.props.fields.length < LIMIT_NEW_CONTACTS) {
-            this.props.fields.push({ key: uuidv4(), status: "editing" });
-        }
+        this.props.handleAddContactRow();
     };
 
-    saveRow = (index) => {
-        if (this.validateContact(index)) {
-            this.props.dispatch(change(this.props.meta.form, `contacts[${index}].status`, "saved"));
+    removeRow = (key) => {
+        const currentValue = this.getValueByKey(key);
+        this.hideDataModal();
+        if (currentValue.data.origin === "store") {
+            this.props.dispatch(change("updateOrganization", `contacts[${currentValue.index}].status`, "remove"));
         } else {
-            this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].name`));
-            this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].role`));
-            this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].email`));
-            this.props.dispatch(touch(this.props.meta.form, `contacts[${index}].phone`));
-        }
-    };
-
-    editRow = (index) => {
-        this.props.dispatch(change(this.props.meta.form, `contacts[${index}].status`, "editing"));
-    };
-
-    removeRow = (index, values) => {
-        if (values[index].origin === "store") {
-            this.props.dispatch(change("updateOrganization", `contacts[${index}].status`, "remove"));
-        } else {
-            this.props.fields.remove(index);
+            this.props.fields.remove(currentValue.index);
         }
     };
 
@@ -63,106 +95,307 @@ class FieldArrayContactsOrganization extends React.Component {
         this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
     };
 
-    render() {
-        const { fields, meta, t, editable } = this.props;
-        const values = fields.getAll();
-        return (
+    generateSubDataList = (field, keyName, secondaryKeyName) => {
+        const result = field ? (
             <>
-                {fields.map((contact, index) => (
-                    <div key={index} className={values[index].status === "remove" ? "d-none" : ""}>
-                        {editable && values[index].status === "editing" ? (
-                            <>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            component={FieldInput}
-                                            placeholder="Full Name"
-                                            name={`${contact}.name`}
-                                        />
-                                    </Form.Group>
+                <div className="form-internal-block--contact-in-organization__section__content__internal-list form-internal-block__section__content__internal-list">
+                    {field[keyName].map((element, internalIndex) => {
+                        const useClipToClipboardContainer = !!secondaryKeyName;
+                        const child = (
+                            <div
+                                className={`form-internal-block--contact-in-organization__section__content__internal-list__element`}
+                            >
+                                <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__main-text">
+                                    {element.name}
                                 </div>
-                                <div>
-                                    <Dropdown
-                                        className="auto"
-                                        emptyLabel="Select role"
-                                        model="roles"
-                                        onChange={(e) => {
-                                            this.saveLabel(e, index);
-                                        }}
-                                        name={`${contact}.role`}
-                                    />
+                                <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__secondary-text">
+                                    {element[secondaryKeyName]}
                                 </div>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            component={FieldInput}
-                                            placeholder="Email"
-                                            name={`${contact}.email`}
-                                        />
-                                    </Form.Group>
-                                </div>
-                                <div>
-                                    <Form.Group>
-                                        <Field
-                                            type="text"
-                                            component={FieldInput}
-                                            placeholder="Phone"
-                                            name={`${contact}.phone`}
-                                        />
-                                    </Form.Group>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div>{fields.getAll()[index].name}</div>
-                                <div>{fields.getAll()[index].role_label}</div>
-                                {this.props.meta.form === "updateOrganization" && fields.getAll()[index].email ? (
-                                    <CopyToClipboard>{fields.getAll()[index].email}</CopyToClipboard>
-                                ) : (
-                                    <div>{fields.getAll()[index].email}</div>
-                                )}
-                                <div>{fields.getAll()[index].phone}</div>
-                            </>
-                        )}
-                        <div className="actions">
-                            {editable && (
-                                <div>
-                                    <div>
-                                        <i className="icon-trash" onClick={() => this.removeRow(index, values)}></i>
-                                    </div>
-                                    <div>
-                                        {values[index].status !== "editing" && (
-                                            <i className="icon-pencil" onClick={() => this.editRow(index)}></i>
-                                        )}
-                                        {values[index].status === "editing" && (
-                                            <span className="ok-check" onClick={() => this.saveRow(index)}>
-                                                <i className="icon-tick"></i>
-                                                {t("actions.save")}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
-                {meta.error && <div>{meta.error}</div>}
-                {editable && (
-                    <div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div className="col-actions">
-                            <button type="button" className="btn link add mt-2" onClick={(e) => this.addRow(e)}>
-                                {t("actions.add-new")}
-                            </button>
-                        </div>
-                    </div>
-                )}
+                            </div>
+                        );
+                        let resultContainer;
+                        if (useClipToClipboardContainer) {
+                            resultContainer = (
+                                <CopyToClipboard key={internalIndex} copyContent={element.name}>
+                                    {child}
+                                </CopyToClipboard>
+                            );
+                        } else {
+                            resultContainer = <div key={internalIndex}>{child}</div>;
+                        }
+                        return resultContainer;
+                    })}
+                </div>
             </>
+        ) : (
+            <div></div>
+        );
+        return result;
+    };
+
+    // common Renders
+    renderModal() {
+        const { t } = this.props;
+        return (
+            <Modal
+                centered
+                dialogClassName="internal-modal role-organization"
+                show={this.state.showModal}
+                onHide={() => this.setState({ showModal: false })}
+            >
+                <Modal.Header closeButton={true}>
+                    <h2>{t("contact-details.professional-details")}</h2>
+                </Modal.Header>
+                <Modal.Body className="organizations-contacts">
+                    <div className="model-details">
+                        <div className="model-section model-section--in-modal">
+                            {this.renderInternalModalForm(this.state.selectedRowKey)}
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+        );
+    }
+
+    renderInternalModalForm(fieldKey) {
+        const { editable } = this.props;
+
+        // const rowsData = this.getRowsData(fieldKey);
+        return (
+            <div className="form-internal-block form-internal-block--organizations-contacts">
+                {this.renderInternalModalBody(fieldKey)}
+                {editable && isMobile && this.renderMobileFooterModalButtons(fieldKey)}
+            </div>
+        );
+    }
+
+    renderInternalModalBody(key) {
+        const { t, editable } = this.props;
+        const dataValue = this.getValueByKey(key);
+        const row = dataValue.data;
+        const index = dataValue.index;
+        const flexClassesToMobileStructure = "d-flex align-items-start flex-column";
+        return (
+            <div className="contact-in-organization__body">
+                <div
+                    key={index}
+                    className={`${flexClassesToMobileStructure} contact-in-organization__body__row ${
+                        row.status === "remove" ? "d-none" : ""
+                    }`}
+                >
+                    <div className="contact-in-organization__body__row__element">
+                        <div className="contact-in-organization__header__title">{t("contact-details.name")}</div>
+                        {row.name}
+                    </div>
+                    <div className="contact-in-organization__body__row__element">
+                        <div className="contact-in-organization__header__title">{t("contact-details.role")}</div>
+                        {editable ? (
+                            <Dropdown
+                                className="auto"
+                                emptyLabel="Select role"
+                                model="roles"
+                                onChange={(e) => {
+                                    this.onChangeRole(e, index);
+                                }}
+                                name={`contacts[${index}].role`}
+                            />
+                        ) : (
+                            row.role_label
+                        )}
+                    </div>
+                    <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
+                        <div className="contact-in-organization__header__title">{t("settings.emails")}</div>
+                        {this.generateSubDataList(row, "email", "type")}
+                    </div>
+                    <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
+                        <div className="contact-in-organization__header__title">{t("organization-details.phone")}</div>
+                        {this.generateSubDataList(row, "phone")}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    renderFormBlockSection = (editable, data, index) => {
+        return <></>;
+    };
+
+    renderButtonsMobile(key) {
+        return <></>;
+    }
+
+    renderMoreInfoButton(key) {
+        const { t } = this.props;
+        return (
+            <button type="button" className="btn outline btn-add more-info" onClick={() => this.showDataModal(key)}>
+                <span>{t("actions.info")}</span>
+            </button>
+        );
+    }
+
+    renderRemoveCtaCross(key) {
+        return (
+            <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--right">
+                <div className="row-remove-cta" onClick={() => this.removeRow(key)}></div>
+            </div>
+        );
+    }
+
+    renderMobileFooterModalButtons(key) {
+        return (
+            <div className="d-flex justify-content-around">
+                {this.renderAcceptModalButton()}
+                {this.renderRemoveCtaButton(key)}
+            </div>
+        );
+    }
+
+    renderAcceptModalButton() {
+        const { t } = this.props;
+        return (
+            <button
+                type="button"
+                className="btn outline check mt-3"
+                onClick={() => {
+                    this.onClickAccept();
+                }}
+            >
+                <span> {t("actions.accept")}</span>
+            </button>
+        );
+    }
+
+    renderRemoveCtaButton(key) {
+        const { t } = this.props;
+        return (
+            <button
+                type="button"
+                className="btn outline btn-trash mt-3"
+                onClick={() => {
+                    this.hideDataModal();
+                    this.removeRow(key);
+                }}
+            >
+                <span> {t("actions.delete")}</span>
+            </button>
+        );
+    }
+
+    renderHeader() {
+        const { t } = this.props;
+        const headers = isMobile
+            ? [t("contact-details.name")]
+            : [
+                  t("contact-details.name"),
+                  t("contact-details.role"),
+                  t("settings.emails"),
+                  t("organization-details.phone")
+              ];
+        return (
+            <div className="contact-in-organization__header">
+                {headers.map((title, index) => {
+                    return (
+                        <div key={index} className="contact-in-organization__header__title">
+                            {title}
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    }
+
+    renderBody() {
+        const { editable, fields } = this.props;
+        const values = fields.getAll();
+
+        return (
+            <div className="contact-in-organization__body">
+                {values &&
+                    values.map((row, index) => {
+                        return (
+                            <div
+                                key={index}
+                                className={`contact-in-organization__body__row ${
+                                    row.status === "remove" ? "d-none" : ""
+                                }`}
+                            >
+                                <div className="contact-in-organization__body__row__element">{row.name}</div>
+                                {isMobile && (
+                                    <div className="contact-in-organization__body__row__element info-button">
+                                        {this.renderMoreInfoButton(row.key)}
+                                    </div>
+                                )}
+                                {isBrowser && this.renderDropDownRole(row.role_label, index)}
+                                {isBrowser && (
+                                    <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
+                                        {this.generateSubDataList(row, "email", "type")}
+                                    </div>
+                                )}
+                                {isBrowser && (
+                                    <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
+                                        {this.generateSubDataList(row, "phone")}
+                                    </div>
+                                )}
+                                {editable && this.renderRemoveCtaCross(row.key)}
+                            </div>
+                        );
+                    })}
+            </div>
+        );
+    }
+    renderFooter() {
+        const { t, editable } = this.props;
+        return (
+            <div className="contact-in-organization__footer">
+                {editable && (
+                    <>
+                        <DropdownSearch
+                            selection={this.props.handleContactSearch}
+                            placeholder={t("search-filter.search-contact")}
+                        />
+                        <button
+                            type="button"
+                            className="contact-in-organization__footer__add btn btn-add outline"
+                            onClick={(e) => this.addRow(e)}
+                        >
+                            {t("actions.add-new")}
+                        </button>
+                    </>
+                )}
+            </div>
+        );
+    }
+
+    // specific renders
+    renderDropDownRole(role_label, index) {
+        const { editable } = this.props;
+        return (
+            <div className="contact-in-organization__body__row__element">
+                {editable ? (
+                    <Dropdown
+                        className="auto"
+                        emptyLabel="Select role"
+                        model="roles"
+                        onChange={(e) => {
+                            this.onChangeRole(e, index);
+                        }}
+                        name={`contacts[${index}].role`}
+                    />
+                ) : (
+                    role_label
+                )}
+            </div>
+        );
+    }
+
+    render() {
+        return (
+            <div className="contact-in-organization">
+                {this.renderHeader()}
+                {this.renderBody()}
+                {this.renderFooter()}
+                {this.state.showModal && this.renderModal()}
+            </div>
         );
     }
 }

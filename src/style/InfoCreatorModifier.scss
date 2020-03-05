@@ -1,14 +1,32 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
 .info-creator-modifier {
-    font-family: karla;
-
-    > div {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    @include desktop {
+        flex-direction: row;
+    }
+    .info-creator-modifier__info {
+        font-family: karla;
         text-align: right;
-        display: inline-block;
-
-        &:not(:last-child) {
-            margin-right: 30px;
+        display: flex;
+        margin-bottom: 0.5em;
+        &__date {
+            margin-right: 1em;
+        }
+        @include desktop {
+            display: inline-block;
+            &__date,
+            &__usermail {
+                margin-right: 0;
+                margin-bottom: 0;
+            }
+        }
+        &--created {
+            color: $tertiary-color;
+            margin-right: 1em;
         }
     }
 }

@@ -1,7 +1,9 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
 .toggle-section {
     .toggle-header {
+        cursor: pointer;
         > :first-child {
             margin-right: 8px;
             margin-bottom: 0;
@@ -11,7 +13,7 @@
             display: inline-block;
         }
 
-        .icon-action{
+        .icon-action {
             margin: 0 8px;
             font-size: 18px;
             color: $secondary-color-30;
@@ -23,22 +25,18 @@
             float: right;
             text-align: right;
 
-            &:hover {
-                cursor: pointer;
-            }
-
             &:after {
                 display: inline-block;
-                content: '';
-                height: 6px;
-                width: 6px;
+                content: "";
+                height: 8px;
+                width: 8px;
                 border-bottom: 2px solid $complementary-color;
                 border-right: 2px solid $complementary-color;
                 vertical-align: middle;
                 transform: rotate(-135deg);
             }
 
-            &[aria-expanded='false']:after {
+            &[aria-expanded="false"]:after {
                 transform: rotate(45deg);
             }
         }
@@ -46,7 +44,8 @@
 
     .toggle-panel {
         margin-top: 16px;
-        padding-left: 24px;
-        padding-right: 24px;
+        @include desktop {
+            padding-right: 24px;
+        }
     }
 }

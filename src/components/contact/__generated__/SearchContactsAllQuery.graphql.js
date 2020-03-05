@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b061d8926ab46c985ea2802563a15ed7
+ * @relayHash aa53c678d64061a8b7cde25cf1d8b392
  */
 
 /* eslint-disable */
@@ -12,7 +12,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 type ContactList_contacts$ref = any;
 type ContactList_organization_types$ref = any;
 type ContactList_roles_default$ref = any;
-export type ContactOrderBy = "emails_ASC" | "emails_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "member_of_groups_ASC" | "member_of_groups_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "organizations_ASC" | "organizations_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phones_ASC" | "phones_DESC" | "roles_ASC" | "roles_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
+export type ContactOrderBy = "contact_type_ASC" | "contact_type_DESC" | "created_ASC" | "created_DESC" | "emails_ASC" | "emails_DESC" | "first_name_ASC" | "first_name_DESC" | "handle_id_ASC" | "handle_id_DESC" | "last_name_ASC" | "last_name_DESC" | "member_of_groups_ASC" | "member_of_groups_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "notes_ASC" | "notes_DESC" | "organizations_ASC" | "organizations_DESC" | "pgp_fingerprint_ASC" | "pgp_fingerprint_DESC" | "phones_ASC" | "phones_DESC" | "roles_ASC" | "roles_DESC" | "salutation_ASC" | "salutation_DESC" | "title_ASC" | "title_DESC" | "%future added value";
 export type ContactFilter = {|
   AND?: ?$ReadOnlyArray<ContactNestedFilter>,
   OR?: ?$ReadOnlyArray<ContactNestedFilter>,
@@ -200,14 +200,14 @@ export type ContactNestedFilter = {|
   notes_not_ends_with?: ?string,
   notes_in?: ?$ReadOnlyArray<string>,
   notes_not_in?: ?$ReadOnlyArray<string>,
-  handle_id?: ?number,
-  handle_id_not?: ?number,
-  handle_id_lt?: ?number,
-  handle_id_lte?: ?number,
-  handle_id_gt?: ?number,
-  handle_id_gte?: ?number,
-  handle_id_in?: ?$ReadOnlyArray<number>,
-  handle_id_not_in?: ?$ReadOnlyArray<number>,
+  id?: ?string,
+  id_not?: ?string,
+  id_lt?: ?string,
+  id_lte?: ?string,
+  id_gt?: ?string,
+  id_gte?: ?string,
+  id_in?: ?$ReadOnlyArray<string>,
+  id_not_in?: ?$ReadOnlyArray<string>,
   created?: ?any,
   created_not?: ?any,
   created_lt?: ?any,
@@ -256,7 +256,7 @@ export type ContactNestedFilter = {|
 export type PhoneInputField = {|
   name?: ?string,
   type?: ?any,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -268,7 +268,7 @@ export type UserInputType = {|
 export type EmailInputField = {|
   name?: ?string,
   type?: ?any,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -277,7 +277,7 @@ export type EmailInputField = {|
 export type GroupInputField = {|
   name?: ?string,
   description?: ?string,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -302,7 +302,7 @@ export type OrganizationInputField = {|
   affiliation_partner?: ?boolean,
   affiliation_host_user?: ?boolean,
   affiliation_site_owner?: ?boolean,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -314,7 +314,7 @@ export type AddressInputField = {|
   street?: ?string,
   postal_code?: ?string,
   postal_area?: ?string,
-  handle_id?: ?number,
+  id?: ?string,
   created?: ?any,
   modified?: ?any,
   creator?: ?UserInputType,
@@ -350,9 +350,8 @@ fragment ContactList_contacts_1tT5Hu on Query {
   contacts(first: $count, filter: $filter, orderBy: $orderBy) {
     edges {
       node {
-        handle_id
-        ...ContactRow_contact
         id
+        ...ContactRow_contact
         __typename
       }
       cursor
@@ -376,13 +375,13 @@ fragment ContactList_organization_types on Query {
 
 fragment ContactList_roles_default on Query {
   getRolesFromRoleGroup {
-    handle_id
+    id
     name
   }
 }
 
 fragment ContactRow_contact on Contact {
-  handle_id
+  id
   first_name
   last_name
   contact_type
@@ -440,7 +439,7 @@ v3 = [
 v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -448,13 +447,6 @@ v5 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "name",
-  "args": null,
-  "storageKey": null
-},
-v6 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "id",
   "args": null,
   "storageKey": null
 };
@@ -573,12 +565,11 @@ return {
                         "plural": false,
                         "selections": [
                           (v5/*: any*/),
-                          (v6/*: any*/)
+                          (v4/*: any*/)
                         ]
                       }
                     ]
                   },
-                  (v6/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -670,7 +661,7 @@ return {
             "args": null,
             "storageKey": null
           },
-          (v6/*: any*/)
+          (v4/*: any*/)
         ]
       },
       {
@@ -692,7 +683,7 @@ return {
     "operationKind": "query",
     "name": "SearchContactsAllQuery",
     "id": null,
-    "text": "query SearchContactsAllQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n  ...ContactList_roles_default\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        handle_id\n        ...ContactRow_contact\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment ContactList_roles_default on Query {\n  getRolesFromRoleGroup {\n    handle_id\n    name\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  handle_id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
+    "text": "query SearchContactsAllQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n  ...ContactList_roles_default\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...ContactRow_contact\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment ContactList_roles_default on Query {\n  getRolesFromRoleGroup {\n    id\n    name\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

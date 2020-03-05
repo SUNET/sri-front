@@ -1,12 +1,12 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
 .input-group {
     margin-bottom: 8px;
-    display: table;
+    display: flex;
 
     > div {
-        display: table-cell;
-
+        margin-right: 8px;
         .icon-trash {
             color: $secondary-color-30;
         }
@@ -45,23 +45,26 @@
     input,
     select {
         font-size: 14px;
-        width: 160px;
-        height: 32px;
-        border-radius: 16px;
+        width: 100%;
+        @include desktop {
+            width: 160px;
+        }
+        height: $input--height;
+        border-radius: $input--border-radius;
         border: solid 1px $secondary-color-20;
         color: $secondary-color;
         padding: 4px 16px;
 
         &.xlg {
-            width: 350px;
+            width: $field-input-with-xlg;
         }
 
         &.lg {
-            width: 200px;
+            width: $field-input-with-lg;
         }
 
         &.sm {
-            width: 120px;
+            width: $field-input-with-sm;
         }
 
         &.auto {
@@ -81,7 +84,7 @@
         background-size: 10px auto, 100%;
 
         option:hover {
-            box-shadow: 0 0 10px 100px #1882A8 inset;
+            box-shadow: 0 0 10px 100px #1882a8 inset;
         }
     }
 
@@ -105,7 +108,7 @@
         }
 
         input {
-            font-family: 'Karla', sans-serif;
+            font-family: "Karla", sans-serif;
             display: inline-block;
             color: $secondary-color;
             border: none;

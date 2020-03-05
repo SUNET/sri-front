@@ -16,9 +16,9 @@
             top: 4px;
         }
         input {
-            border-radius: 20px;
+            border-radius: $input--border-radius;
             border-width: 1px;
-            height: 32px;
+            height: $input--height;
             padding: 0 10px 0 40px;
         }
     }

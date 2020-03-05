@@ -11,7 +11,7 @@ const mutation = graphql`
                 messages
             }
             email {
-                handle_id
+                id
                 name
                 type
             }

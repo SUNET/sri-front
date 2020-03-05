@@ -1,4 +1,5 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 /* generic styles for all buttons
 (incl. :hover, :active, :focus and :disabled) */
 button:focus {
@@ -10,17 +11,38 @@ button.btn {
     position: relative;
     font-family: karla;
     border: none;
+    &.md {
+        width: 100px;
+        height: 36px;
+    }
 
     &.lg {
         width: 180px;
     }
 
+    &.reduced-in-mobile {
+        @include mobile {
+            width: 45px;
+        }
+        @include tablet {
+            width: 45px;
+        }
+    }
+
     &.primary {
         border-radius: 22px;
-        padding: 13px 32px;
         color: #fff;
         background-color: $brand-color;
         font-weight: bold;
+        height: 45px;
+        padding: 0;
+
+        &.add-cta {
+            @include desktop {
+                width: 200px;
+                padding: 13px 32px;
+            }
+        }
 
         &.focus,
         &:active {
@@ -34,7 +56,7 @@ button.btn {
         }
     }
 
-    &.secundary {
+    &.secondary {
         border-radius: 24px;
         color: #fff;
         background-color: $complementary-color;
@@ -79,17 +101,23 @@ button.btn {
 
     &.outline {
         font-size: 14px;
-        color: $secondary-color;
-        border-radius: 16px;
-        border: solid 1px $secondary-color-20;
+        color: $complementary-color;
+        border-radius: $input-outline--border-radius;
+        border: solid 1px $complementary-color;
         background: none;
+
+        &--solid {
+            background: $complementary-color;
+            color: white;
+        }
 
         span {
             vertical-align: middle;
+            color: $complementary-color;
         }
 
         &.btn-add {
-            width: 100%;
+            width: $outline-cta-width;
             color: $tertiary-color;
 
             span {
@@ -103,39 +131,55 @@ button.btn {
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    left: -16px;
+                    left: -10px;
                     transform: translate(-50%, -50%);
                 }
 
                 &:before {
-                    height: 10px;
+                    height: 15px;
                     width: 2px;
                 }
 
                 &:after {
                     height: 2px;
-                    width: 10px;
+                    width: 15px;
                 }
             }
         }
 
         &.btn-back {
+            width: $btn-mobile-width;
+            height: $btn-mobile-height;
+            span {
+                display: none;
+            }
+            @include desktop {
+                width: $btn-back-width;
+                height: $row-height;
+                span {
+                    display: inline;
+                }
+            }
             &:before {
                 display: inline-block;
-                content: '';
-                height: 6px;
-                width: 6px;
+                content: "";
+                height: 10px;
+                width: 10px;
                 margin-right: 8px;
-                border-bottom: 2px solid $complementary-color;
-                border-right: 2px solid $complementary-color;
+                border-bottom: 1px solid $complementary-color;
+                border-right: 1px solid $complementary-color;
                 transform: rotate(135deg);
                 vertical-align: middle;
+                margin-left: 1px;
+                @include desktop {
+                    margin-left: 4px;
+                }
             }
         }
 
         &.btn-load {
             &:before {
-                content: '\e90e';
+                content: "\e90e";
                 font-family: "sunet-icons";
                 margin-right: 8px;
                 color: $complementary-color;
@@ -155,7 +199,7 @@ button.btn {
         &.btn-trash {
             &:before {
                 display: inline-block;
-                content: '\f12d';
+                content: "\f12d";
                 font-family: "Font Awesome 5 Free";
                 font-weight: 900;
                 color: $complementary-color;
@@ -168,7 +212,69 @@ button.btn {
             padding: 6.5px 12px;
 
             &:before {
-                content: '\f00d';
+                content: "\f00d";
+                margin-right: 4px;
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                color: $complementary-color;
+                vertical-align: middle;
+            }
+        }
+
+        &.btn-edit {
+            display: flex;
+            align-items: center;
+            height: $input--height;
+            width: $input--width;
+            justify-content: space-between;
+            width: $btn-mobile-width;
+            height: $btn-mobile-height;
+            @include mobile {
+                padding: 9px;
+            }
+            @include tablet {
+                padding: 9px;
+            }
+            span {
+                display: none;
+            }
+            @include desktop {
+                width: $btn-back-width;
+                height: $row-height;
+                span {
+                    display: inline;
+                }
+            }
+        }
+
+        &.more-info {
+            width: 65px;
+            height: 32px;
+            padding: 0px 0px 0px 10px;
+            text-align: center;
+            align-items: center;
+            span {
+                &:before {
+                    height: 6px;
+                    width: 2px;
+                }
+
+                &:after {
+                    height: 2px;
+                    width: 6px;
+                }
+            }
+            @include mobile {
+            }
+            @include tablet {
+            }
+            @include desktop {
+            }
+        }
+
+        &.check {
+            &:before {
+                content: "\f00c";
                 margin-right: 4px;
                 font-family: "Font Awesome 5 Free";
                 font-weight: 900;
@@ -186,5 +292,32 @@ button.btn {
         &:hover {
             background-color: $tertiary-color-3;
         }
+    }
+}
+
+.row-remove-cta {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
+    &:after,
+    &:before {
+        content: "";
+        display: inline-block;
+        background-color: $gray-color;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:before {
+        height: 14px;
+        width: 2px;
+    }
+
+    &:after {
+        height: 2px;
+        width: 14px;
     }
 }

@@ -9,7 +9,7 @@ class Home extends React.Component {
         return (
             <section>
                 <Row>
-                    <Col xl={3} lg={4} md={6} sm={12}>
+                    <Col xl={4} lg={4} md={6} sm={12}>
                         <DashBoardContactBlock
                             title="Contacts"
                             footer={{ label: "See contacts", link: "/community/contacts" }}

@@ -11,7 +11,7 @@ const mutation = graphql`
                 messages
             }
             address {
-                handle_id
+                id
             }
         }
     }
@@ -24,7 +24,7 @@ function UpdateAddressMutation(organization, address) {
         input: {
             organization,
             name: address.name,
-            handle_id: address.handle_id,
+            id: address.id,
             street: address.street,
             postal_code: address.postal_code,
             postal_area: address.postal_area,

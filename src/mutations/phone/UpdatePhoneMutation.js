@@ -11,7 +11,7 @@ const mutation = graphql`
                 messages
             }
             phone {
-                handle_id
+                id
                 name
                 type
             }
@@ -27,7 +27,7 @@ function UpdatePhoneMutation(contact, name, phone) {
             contact,
             name,
             type: phone ? phone.type : "personal",
-            handle_id: phone.handle_id,
+            id: phone.id,
             clientMutationId: tempID++
         }
     };

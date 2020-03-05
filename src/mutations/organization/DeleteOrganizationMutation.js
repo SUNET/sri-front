@@ -11,10 +11,10 @@ const mutation = graphql`
     }
 `;
 
-export default function DeleteOrganizationMutation(handle_id, callback) {
+export default function DeleteOrganizationMutation(id, callback) {
     const variables = {
         input: {
-            handle_id: handle_id,
+            id: id,
             clientMutationId: ""
         }
     };
@@ -38,7 +38,7 @@ export default function DeleteOrganizationMutation(handle_id, callback) {
                     }
                 ],
                 pathToConnection: ["client:root", "contacts"],
-                deletedIDFieldName: "handle_id"
+                deletedIDFieldName: "id"
             }
         ]
     });

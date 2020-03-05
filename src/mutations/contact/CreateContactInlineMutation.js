@@ -14,14 +14,14 @@ const mutation = graphql`
                 messages
             }
             contact {
-                handle_id
+                id
                 first_name
                 last_name
                 contact_type
                 roles {
                     name
                     end {
-                        handle_id
+                        id
                         name
                     }
                 }
@@ -54,7 +54,7 @@ function CreateContactInlineMutation(first_name, last_name, email, phone, organi
             if (response.create_contact.errors) {
                 return response.create_contact.errors;
             } else {
-                const contact_id = response.create_contact.contact.handle_id;
+                const contact_id = response.create_contact.contact.id;
 
                 CreateEmailMutation(contact_id, email, "personal");
                 CreatePhoneMutation(contact_id, phone, "personal");

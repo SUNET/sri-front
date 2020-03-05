@@ -1,99 +1,105 @@
 @import "../variables.scss";
 
 header {
-    background-color: white;
-
-    nav#top-header {
-        border-bottom: solid 1px $tertiary-color-20;
+    height: $mobile-header-height;
+    border-bottom: solid 1px $tertiary-color-20;
+    > .navbar {
+        background-color: white;
+        padding: 0.5em 0;
+        position: fixed;
         width: 100%;
-        text-align: center;
-        font-family: karla;
-        font-size: 16px;
-        padding: 0.5rem 1rem 0;
+        z-index: 1;
+    }
+}
+nav.top-header {
+    width: 100%;
+    text-align: center;
+    font-family: karla;
+    font-size: 16px;
+    padding: 0.5rem 1rem 0.5rem;
 
-        .navbar-brand{
-            padding: 0;
+    .navbar-brand {
+        padding: 0;
+    }
+
+    .navbar-nav {
+        &:first-of-type {
+            .nav-link {
+                width: 116px;
+                color: rgba($secondary-color, 0.75);
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                -moz-osx-font-smoothing: grayscale;
+                position: relative;
+                overflow: hidden;
+                padding-bottom: 20px;
+                line-height: 14px;
+
+                &:not(.active) {
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        z-index: -1;
+                        left: 50%;
+                        right: 50%;
+                        bottom: 0;
+                        background: $brand-color;
+                        height: 4px;
+                        border-radius: 2px;
+                        -webkit-transition-property: left right;
+                        transition-property: left right;
+                        -webkit-transition-duration: 0.09s;
+                        transition-duration: 0.09s;
+                        -webkit-transition-timing-function: ease-out;
+                        transition-timing-function: ease-out;
+                    }
+
+                    &:hover:after {
+                        left: 0;
+                        right: 0;
+                    }
+                }
+
+                &.active {
+                    box-sizing: border-box;
+                    font-weight: bold;
+                    color: $secondary-color;
+                    border-bottom: 4px solid $brand-color;
+                    border-radius: 2px;
+                    line-height: 10px;
+                }
+            }
         }
 
-        .navbar-nav {
-            &:first-of-type {
-                .nav-link {
-                    width: 116px;
-                    color: rgba($secondary-color, .75);
-                    -webkit-transform: translateZ(0);
-                    transform: translateZ(0);
-                    -webkit-backface-visibility: hidden;
-                    backface-visibility: hidden;
-                    -moz-osx-font-smoothing: grayscale;
-                    position: relative;
-                    overflow: hidden;
-                    padding-bottom: 20px;
-                    line-height: 14px;
-
-                    &:not(.active) {
-                        &:after {
-                            content: "";
-                            position: absolute;
-                            z-index: -1;
-                            left: 50%;
-                            right: 50%;
-                            bottom: 0;
-                            background: $brand-color;
-                            height: 4px;
-                            border-radius: 2px;
-                            -webkit-transition-property: left right;
-                            transition-property: left right;
-                            -webkit-transition-duration: 0.09s;
-                            transition-duration: 0.09s;
-                            -webkit-transition-timing-function: ease-out;
-                            transition-timing-function: ease-out;
-                        }
-
-                        &:hover:after {
-                            left: 0;
-                            right: 0;
-                        }
-                    }
-
-                    &.active {
-                        box-sizing: border-box;
-                        font-weight: bold;
-                        color: $secondary-color;
-                        border-bottom: 4px solid $brand-color;
-                        border-radius: 2px;
-                        line-height: 10px;
-                    }
-                }
-            }
-
-            &:last-of-type {
-                display: table;
-                padding-bottom: 8px;
-
-                .nav-item {
-                    display: table-cell;
-                    color: $secondary-color-20;
-                    vertical-align: middle;
-                    font-size: 18px;
-                    padding: 0 4px;
-
-                    img {
-                        max-width: 32px;
-                        border: solid 1px $secondary-color-20;
-                        margin: 0 8px;
-                    }
-                }
-            }
+        &:last-of-type {
+            display: table;
+            padding-bottom: 8px;
 
             .nav-item {
-                span.dropdown-toggle {
-                    &:hover {
-                        cursor: pointer;
-                    }
+                display: table-cell;
+                color: $secondary-color-20;
+                vertical-align: middle;
+                font-size: 18px;
+                padding: 0 4px;
 
-                    &:after {
-                        display: none;
-                    }
+                img {
+                    max-width: 32px;
+                    border: solid 1px $secondary-color-20;
+                    margin: 0 8px;
+                }
+            }
+        }
+
+        .nav-item {
+            span.dropdown-toggle {
+                &:hover {
+                    cursor: pointer;
+                }
+
+                &:after {
+                    display: none;
                 }
             }
         }

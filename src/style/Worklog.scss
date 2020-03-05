@@ -1,23 +1,41 @@
 @import "../variables.scss";
 
 .worklog {
-    header{
-        font-family: karla;
-        margin-bottom: 16px;
+    &__messages {
+        &__item {
+            display: flex;
+            flex-direction: column;
+            &__separator {
+                hr {
+                    margin-top: 16px;
+                    margin-bottom: 32px;
+                    border-top: 1px solid rgba(0, 0, 0, 0.1);
+                }
+            }
+            &__body {
+                display: flex;
+                flex-direction: row;
+                &__content {
+                    width: 100%;
+                    &__header {
+                        font-family: karla;
+                        margin-bottom: 16px;
+                        color: $secondary-color-30;
+                        font-weight: bold;
+                    }
+                    
+                    &__comment {
+                        margin-left: 16px;
+                    }
 
-        > div:first-of-type{
-            display: inline-block;
-            color: $secondary-color-30;
-            font-weight: bold;
+                }
+                &__date {
+                    color: $secondary-color;
+                    display: flex;
+                    align-items: center;
+                }
+            }
         }
-        > div:last-of-type{
-            float: right;
-            color: $secondary-color;
-        }
-    }
-    hr{
-        margin-top: 32px;
-        margin-bottom: 24px;
     }
     .actions{
         margin-top: 16px;

@@ -1,10 +1,13 @@
 @import "../variables.scss";
+@import "./viewports.scss";
 
 .model-details {
     .title-section {
-        > button {
-            margin-right: 16px;
-        }
+        display: flex;
+        align-items: center;
+        // > button {
+        //     margin-right: 16px;
+        // }
 
         h1 {
             display: inline-block;
@@ -19,19 +22,215 @@
             margin-left: 8px;
             font-size: 11px;
         }
-    }
 
+        &__right-block {
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+            @include desktop {
+                flex-direction: row;
+            }
+            &__buttons {
+                margin-right: 1em;
+            }
+        }
+        &__name-inputs {
+            display: flex;
+            &--edition-mode {
+                flex-direction: column;
+            }
+            @include desktop {
+                &--edition-mode {
+                    flex-direction: row;
+                }
+            }
+        }
+    }
     .info-creator-modifier {
         text-align: right;
+    }
+
+    // &.create-group-form,
+    // &.group-details,
+    // &.create-organizations-form,
+    // &.organization-details,
+    &.create-contact-form,
+    &.contact-details {
+        .model-section {
+            .form-internal-block__section {
+                flex-basis: auto;
+                // max-width: 100%;
+                // .row-remove-cta {
+                //     margin-top: 7px;
+                // }
+                // .list-items__inputs__row > .form-group {
+                //     flex-shrink: 0;
+                //     width: 100%;
+                // }
+            }
+        }
     }
 
     .model-section {
         margin-top: 16px;
         padding: 32px 24px;
         background-color: white;
-        -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
-        -moz-box-shadow: 0 0 4px -1px #d6d6d6;
-        box-shadow: 0 0 4px -1px #d6d6d6;
+        -webkit-box-shadow: $list--row-box-shadow;
+        -moz-box-shadow: $list--row-box-shadow;
+        box-shadow: $list--row-box-shadow;
+        &--in-modal {
+            font-family: "Montserrat";
+            padding-top: 0;
+            .form-internal-block {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .organizations-contacts {
+        }
+        .form-internal-block {
+            display: flex;
+            flex-wrap: wrap;
+            &--organizations-contacts,
+            &--contact-in-organization {
+                &__section {
+                    &__content {
+                        margin-bottom: 10px;
+                        height: 100%;
+                        @include desktop {
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                            padding-bottom: 50px;
+                            height: 83px;
+                        }
+                        &__internal-list {
+                            // height: 32px;
+                            overflow: initial;
+                            display: flex;
+                            flex-direction: column;
+                            > div {
+                                height: $row-height;
+                            }
+                            &__element {
+                                display: flex;
+                                height: 100%;
+                                &__main-text {
+                                    height: 100%;
+                                    margin-right: 10px;
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    margin-right: 8px;
+                                    width: calc(100% - 70px);
+                                }
+                                &__secondary-text {
+                                    font-family: karla;
+                                    color: $secondary-color-30;
+                                    width: 70px;
+                                }
+                            }
+                        }
+                    }
+                    .row-remove-cta--desktop-version {
+                        position: relative;
+                        top: -24px;
+                        left: 178px;
+                        &--address {
+                            top: 0;
+                            left: 10px;
+                        }
+                    }
+                }
+            }
+
+            &__section--edition-mode {
+                &__content {
+                    padding-left: 5px;
+                }
+            }
+
+            &__section {
+                flex-grow: 1;
+                flex-shrink: 0;
+                flex-basis: 50%;
+                @include desktop {
+                    flex-basis: 25%;
+                }
+                margin-bottom: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                max-width: 100%;
+                &__title {
+                    font-family: karla;
+                    font-weight: bold;
+                    color: $secondary-color-30;
+                    &:not(.with-icon) {
+                        padding-bottom: 16px;
+                    }
+
+                    &.with-icon {
+                        > span {
+                            margin-right: 16px;
+                        }
+                    }
+                }
+                &__content {
+                    @include desktop {
+                        padding-left: 24px;
+                    }
+                    &--edition-mode {
+                        padding-left: 0;
+                    }
+                    .list-items {
+                        &__label {
+                            display: flex;
+                            flex-direction: column;
+                            max-width: 300px;
+                            &__row {
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                padding-right: 8px;
+                                height: $row-height;
+                                &__main-text {
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    margin-right: 8px;
+                                }
+                                &__secondary-text {
+                                    font-family: karla;
+                                    color: $secondary-color-30;
+                                }
+                            }
+                        }
+                        &__inputs {
+                            max-width: none;
+                            &__row {
+                                @include desktop {
+                                    height: calc(#{$row-height} + 10px);
+                                }
+                                .form-group {
+                                    display: flex;
+                                    flex-grow: 1;
+                                    flex-shrink: 0;
+                                    flex-basis: 25%;
+                                    @include desktop {
+                                        flex-basis: auto;
+                                        flex-grow: initial;
+                                    }
+                                    input {
+                                        width: 100%;
+                                    }
+                                }
+                            }
+                            button {
+                                width: $outline-cta-width;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         .table-details {
             display: table;
@@ -129,7 +328,8 @@
                                     vertical-align: middle;
                                 }
 
-                                div:first-of-type {}
+                                div:first-of-type {
+                                }
 
                                 div:last-of-type {
                                     width: 56px;
@@ -154,6 +354,7 @@
                 }
             }
 
+            // TODO: Remove when form-internal-block implements in all forms
             .list-items-label {
                 display: table;
 
@@ -180,6 +381,10 @@
                     }
                 }
             }
+        }
+
+        hr {
+            border-color: $tertiary-color;
         }
     }
 }

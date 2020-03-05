@@ -1,0 +1,20 @@
+@import "../variables.scss";
+
+.internal-modal {
+    .modal-header {
+        border: none;
+        padding-bottom: 0;
+        font-family: "Karla", sans-serif;
+        font-size: 14px;
+        .close {
+            font-weight: 100;
+            padding: 8px 8px;
+            color: $tertiary-color;
+        }
+    }
+    .modal-body {
+        padding-top: 0;
+    }
+    &.role-organization {
+    }
+}

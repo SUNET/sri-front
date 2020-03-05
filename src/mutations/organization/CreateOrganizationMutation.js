@@ -15,7 +15,7 @@ const mutation = graphql`
                     messages
                 }
                 organization {
-                    handle_id
+                    id
                     name
                     type
                     website
@@ -51,7 +51,7 @@ const mutation = graphql`
                     messages
                 }
                 address {
-                    handle_id
+                    id
                     name
                     street
                     postal_code
@@ -65,7 +65,7 @@ const mutation = graphql`
                     messages
                 }
                 address {
-                    handle_id
+                    id
                     name
                     street
                     postal_code
@@ -79,28 +79,28 @@ const mutation = graphql`
                     messages
                 }
                 contact {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         relation_id
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                         }
                     }
@@ -115,28 +115,28 @@ const mutation = graphql`
                     messages
                 }
                 contact {
-                    handle_id
+                    id
                     first_name
                     last_name
                     contact_type
                     emails {
-                        handle_id
+                        id
                         name
                         type
                     }
                     phones {
-                        handle_id
+                        id
                         name
                         type
                     }
                     roles {
                         relation_id
                         role_data {
-                            handle_id
+                            id
                             name
                         }
                         end {
-                            handle_id
+                            id
                             name
                         }
                     }
@@ -165,7 +165,7 @@ export default function CreateOrganizationMutation(organization, form) {
             if (address.status === "saved") {
                 if (!address.created || address.created === undefined) {
                     newAddress.push({
-                        organization: organization.handle_id,
+                        organization: organization.id,
                         name: "main",
                         street: address.street,
                         postal_code: address.postal_code,
@@ -174,9 +174,9 @@ export default function CreateOrganizationMutation(organization, form) {
                     });
                 } else {
                     updateAddress.push({
-                        organization: organization.handle_id,
+                        organization: organization.id,
                         name: "main",
-                        handle_id: address.handle_id,
+                        id: address.id,
                         street: address.street,
                         postal_code: address.postal_code,
                         postal_area: address.postal_area,
@@ -202,29 +202,29 @@ export default function CreateOrganizationMutation(organization, form) {
                 }
 
                 if (!contact.created || contact.created === undefined) {
-                    newContacts.push({
-                        first_name: contact.first_name,
-                        last_name: contact.last_name,
-                        contact_type: "person",
-                        email: contact.email,
-                        email_type: "personal",
-                        phone: contact.phone,
-                        phone_type: "personal",
-                        role_handle_id: contact.role
-                    });
+                    // newContacts.push({
+                    //     first_name: contact.first_name,
+                    //     last_name: contact.last_name,
+                    //     contact_type: "person",
+                    //     email: contact.email,
+                    //     email_type: CONTACT_WORK,
+                    //     phone: contact.phone,
+                    //     phone_type: CONTACT_WORK,
+                    //     role_id: contact.role
+                    // });
                 } else {
                     updateContacts.push({
-                        handle_id: contact.handle_id,
+                        id: contact.id,
                         first_name: contact.first_name,
                         last_name: contact.last_name,
                         contact_type: contact.contact_type.toLowerCase(),
-                        email_handle_id: contact.email_obj ? contact.email_obj.handle_id : null,
-                        email: contact.email,
-                        email_type: contact.email_obj ? contact.email_obj.type : "personal",
-                        phone_handle_id: contact.phone_obj ? contact.phone_obj.handle_id : null,
-                        phone: contact.phone,
-                        phone_type: contact.phone_obj ? contact.email_obj.type : "personal",
-                        role_handle_id: contact.role
+                        // email_id: contact.email_obj ? contact.email_obj.id : null,
+                        // email: contact.email,
+                        // email_type: contact.email_obj ? contact.email_obj.type : CONTACT_WORK,
+                        // phone_id: contact.phone_obj ? contact.phone_obj.id : null,
+                        // phone: contact.phone,
+                        // phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
+                        role_id: contact.role
                     });
                 }
             }
@@ -267,7 +267,7 @@ export default function CreateOrganizationMutation(organization, form) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_organization.created.errors;
             } else {
-                const organization_id = response.composite_organization.created.organization.handle_id;
+                const organization_id = response.composite_organization.created.organization.id;
                 if (organization.comment) {
                     CreateComentMutation(organization_id, organization.comment);
                 }

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ffc413b0cf7ccf31b2d718874e3a73a4
+ * @relayHash 9e3d998b05c3a0c11fbc0d7abd185d86
  */
 
 /* eslint-disable */
@@ -12,7 +12,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type DropdownRolesGroupDefaultQueryVariables = {||};
 export type DropdownRolesGroupDefaultQueryResponse = {|
   +getRolesFromRoleGroup: ?$ReadOnlyArray<?{|
-    +handle_id: string,
+    +id: string,
     +name: string,
   |}>
 |};
@@ -26,7 +26,7 @@ export type DropdownRolesGroupDefaultQuery = {|
 /*
 query DropdownRolesGroupDefaultQuery {
   getRolesFromRoleGroup {
-    handle_id
+    id
     name
   }
 }
@@ -46,7 +46,7 @@ var v0 = [
       {
         "kind": "ScalarField",
         "alias": null,
-        "name": "handle_id",
+        "name": "id",
         "args": null,
         "storageKey": null
       },
@@ -80,11 +80,11 @@ return {
     "operationKind": "query",
     "name": "DropdownRolesGroupDefaultQuery",
     "id": null,
-    "text": "query DropdownRolesGroupDefaultQuery {\n  getRolesFromRoleGroup {\n    handle_id\n    name\n  }\n}\n",
+    "text": "query DropdownRolesGroupDefaultQuery {\n  getRolesFromRoleGroup {\n    id\n    name\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f9f8e9179ae1f1892dcad6539690d18c';
+(node/*: any*/).hash = '043a40cac57805ab994f5489662ee97f';
 module.exports = node;

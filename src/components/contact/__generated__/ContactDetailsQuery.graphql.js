@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a7e12ee330c1be81332d40b5322e1d7d
+ * @relayHash 3ea4f01d5de4b0f7c8eb5a66b3af151f
  */
 
 /* eslint-disable */
@@ -11,11 +11,11 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type ContactUpdateForm_contact$ref = any;
 export type ContactDetailsQueryVariables = {|
-  contactId: number
+  contactId: string
 |};
 export type ContactDetailsQueryResponse = {|
   +getContactById: ?{|
-    +handle_id: string,
+    +id: string,
     +name: string,
     +notes: ?string,
     +title: ?string,
@@ -24,23 +24,23 @@ export type ContactDetailsQueryResponse = {|
     +last_name: string,
     +pgp_fingerprint: ?string,
     +emails: ?$ReadOnlyArray<?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |}>,
     +phones: ?$ReadOnlyArray<?{|
-      +handle_id: string,
+      +id: string,
       +name: string,
       +type: any,
     |}>,
     +roles: ?$ReadOnlyArray<?{|
       +relation_id: number,
       +role_data: ?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
       |},
       +end: ?{|
-        +handle_id: string,
+        +id: string,
         +name: string,
         +organization_id: ?string,
         +organization_number: ?string,
@@ -75,11 +75,11 @@ export type ContactDetailsQuery = {|
 
 /*
 query ContactDetailsQuery(
-  $contactId: Int!
+  $contactId: ID!
 ) {
-  getContactById(handle_id: $contactId) {
+  getContactById(id: $contactId) {
     ...ContactUpdateForm_contact
-    handle_id
+    id
     name
     notes
     title
@@ -88,29 +88,26 @@ query ContactDetailsQuery(
     last_name
     pgp_fingerprint
     emails {
-      handle_id
+      id
       name
       type
-      id
     }
     phones {
-      handle_id
+      id
       name
       type
-      id
     }
     roles {
       relation_id
       role_data {
-        handle_id
+        id
         name
       }
       end {
-        handle_id
+        id
         name
         organization_id
         organization_number
-        id
       }
     }
     created
@@ -133,12 +130,11 @@ query ContactDetailsQuery(
       comment
       submit_date
     }
-    id
   }
 }
 
 fragment ContactUpdateForm_contact on Contact {
-  handle_id
+  id
   name
   notes
   title
@@ -147,27 +143,24 @@ fragment ContactUpdateForm_contact on Contact {
   last_name
   pgp_fingerprint
   emails {
-    handle_id
+    id
     name
     type
-    id
   }
   phones {
-    handle_id
+    id
     name
     type
-    id
   }
   roles {
     relation_id
     role_data {
-      handle_id
+      id
       name
     }
     end {
-      handle_id
-      name
       id
+      name
     }
   }
   created
@@ -198,21 +191,21 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "contactId",
-    "type": "Int!",
+    "type": "ID!",
     "defaultValue": null
   }
 ],
 v1 = [
   {
     "kind": "Variable",
-    "name": "handle_id",
+    "name": "id",
     "variableName": "contactId"
   }
 ],
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "handle_id",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
@@ -265,106 +258,136 @@ v9 = {
   "args": null,
   "storageKey": null
 },
-v10 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-},
-v11 = [
+v10 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v10/*: any*/)
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "type",
+    "args": null,
+    "storageKey": null
+  }
 ],
-v12 = {
-  "kind": "ScalarField",
+v11 = {
+  "kind": "LinkedField",
   "alias": null,
-  "name": "relation_id",
+  "name": "emails",
+  "storageKey": null,
   "args": null,
-  "storageKey": null
+  "concreteType": "Email",
+  "plural": true,
+  "selections": (v10/*: any*/)
+},
+v12 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "phones",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Phone",
+  "plural": true,
+  "selections": (v10/*: any*/)
 },
 v13 = {
   "kind": "LinkedField",
   "alias": null,
-  "name": "role_data",
+  "name": "roles",
   "storageKey": null,
   "args": null,
-  "concreteType": "Role",
-  "plural": false,
+  "concreteType": "RoleRelation",
+  "plural": true,
   "selections": [
-    (v2/*: any*/),
-    (v3/*: any*/)
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "relation_id",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "role_data",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Role",
+      "plural": false,
+      "selections": [
+        (v2/*: any*/),
+        (v3/*: any*/)
+      ]
+    },
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "end",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Organization",
+      "plural": false,
+      "selections": [
+        (v2/*: any*/),
+        (v3/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "organization_id",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "organization_number",
+          "args": null,
+          "storageKey": null
+        }
+      ]
+    }
   ]
 },
 v14 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "organization_id",
-  "args": null,
-  "storageKey": null
-},
-v15 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "organization_number",
-  "args": null,
-  "storageKey": null
-},
-v16 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "created",
   "args": null,
   "storageKey": null
 },
-v17 = {
+v15 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v18 = [
-  (v17/*: any*/)
+v16 = [
+  (v15/*: any*/)
 ],
-v19 = {
+v17 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v20 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "id",
-  "args": null,
-  "storageKey": null
-},
-v21 = {
+v18 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "comment",
   "args": null,
   "storageKey": null
 },
-v22 = {
+v19 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "submit_date",
   "args": null,
   "storageKey": null
 },
-v23 = [
-  (v2/*: any*/),
-  (v3/*: any*/),
-  (v10/*: any*/),
-  (v20/*: any*/)
-],
-v24 = [
-  (v17/*: any*/),
-  (v20/*: any*/)
+v20 = [
+  (v15/*: any*/),
+  (v2/*: any*/)
 ];
 return {
   "kind": "Request",
@@ -392,55 +415,10 @@ return {
           (v7/*: any*/),
           (v8/*: any*/),
           (v9/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "emails",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Email",
-            "plural": true,
-            "selections": (v11/*: any*/)
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "phones",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Phone",
-            "plural": true,
-            "selections": (v11/*: any*/)
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "roles",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "RoleRelation",
-            "plural": true,
-            "selections": [
-              (v12/*: any*/),
-              (v13/*: any*/),
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "end",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Organization",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v14/*: any*/),
-                  (v15/*: any*/)
-                ]
-              }
-            ]
-          },
-          (v16/*: any*/),
+          (v11/*: any*/),
+          (v12/*: any*/),
+          (v13/*: any*/),
+          (v14/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -449,9 +427,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v18/*: any*/)
+            "selections": (v16/*: any*/)
           },
-          (v19/*: any*/),
+          (v17/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -460,7 +438,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v18/*: any*/)
+            "selections": (v16/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -471,7 +449,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v20/*: any*/),
+              (v2/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -485,8 +463,8 @@ return {
                   (v8/*: any*/)
                 ]
               },
-              (v21/*: any*/),
-              (v22/*: any*/)
+              (v18/*: any*/),
+              (v19/*: any*/)
             ]
           },
           {
@@ -520,56 +498,10 @@ return {
           (v7/*: any*/),
           (v8/*: any*/),
           (v9/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "emails",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Email",
-            "plural": true,
-            "selections": (v23/*: any*/)
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "phones",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Phone",
-            "plural": true,
-            "selections": (v23/*: any*/)
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "roles",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "RoleRelation",
-            "plural": true,
-            "selections": [
-              (v12/*: any*/),
-              (v13/*: any*/),
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "end",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Organization",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v20/*: any*/),
-                  (v14/*: any*/),
-                  (v15/*: any*/)
-                ]
-              }
-            ]
-          },
-          (v16/*: any*/),
+          (v11/*: any*/),
+          (v12/*: any*/),
+          (v13/*: any*/),
+          (v14/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -578,9 +510,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v24/*: any*/)
+            "selections": (v20/*: any*/)
           },
-          (v19/*: any*/),
+          (v17/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -589,7 +521,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v24/*: any*/)
+            "selections": (v20/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -600,7 +532,7 @@ return {
             "concreteType": "CommentType",
             "plural": true,
             "selections": [
-              (v20/*: any*/),
+              (v2/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -612,14 +544,13 @@ return {
                 "selections": [
                   (v7/*: any*/),
                   (v8/*: any*/),
-                  (v20/*: any*/)
+                  (v2/*: any*/)
                 ]
               },
-              (v21/*: any*/),
-              (v22/*: any*/)
+              (v18/*: any*/),
+              (v19/*: any*/)
             ]
-          },
-          (v20/*: any*/)
+          }
         ]
       }
     ]
@@ -628,11 +559,11 @@ return {
     "operationKind": "query",
     "name": "ContactDetailsQuery",
     "id": null,
-    "text": "query ContactDetailsQuery(\n  $contactId: Int!\n) {\n  getContactById(handle_id: $contactId) {\n    ...ContactUpdateForm_contact\n    handle_id\n    name\n    notes\n    title\n    contact_type\n    first_name\n    last_name\n    pgp_fingerprint\n    emails {\n      handle_id\n      name\n      type\n      id\n    }\n    phones {\n      handle_id\n      name\n      type\n      id\n    }\n    roles {\n      relation_id\n      role_data {\n        handle_id\n        name\n      }\n      end {\n        handle_id\n        name\n        organization_id\n        organization_number\n        id\n      }\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    id\n  }\n}\n\nfragment ContactUpdateForm_contact on Contact {\n  handle_id\n  name\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    handle_id\n    name\n    type\n    id\n  }\n  phones {\n    handle_id\n    name\n    type\n    id\n  }\n  roles {\n    relation_id\n    role_data {\n      handle_id\n      name\n    }\n    end {\n      handle_id\n      name\n      id\n    }\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
+    "text": "query ContactDetailsQuery(\n  $contactId: ID!\n) {\n  getContactById(id: $contactId) {\n    ...ContactUpdateForm_contact\n    id\n    name\n    notes\n    title\n    contact_type\n    first_name\n    last_name\n    pgp_fingerprint\n    emails {\n      id\n      name\n      type\n    }\n    phones {\n      id\n      name\n      type\n    }\n    roles {\n      relation_id\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n        organization_id\n        organization_number\n      }\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n  }\n}\n\nfragment ContactUpdateForm_contact on Contact {\n  id\n  name\n  notes\n  title\n  contact_type\n  first_name\n  last_name\n  pgp_fingerprint\n  emails {\n    id\n    name\n    type\n  }\n  phones {\n    id\n    name\n    type\n  }\n  roles {\n    relation_id\n    role_data {\n      id\n      name\n    }\n    end {\n      id\n      name\n    }\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4b8aa24ea35f075acbdd14cf32ec428e';
+(node/*: any*/).hash = 'b18589c32c8e6f5f54a1c1a2947905e8';
 module.exports = node;

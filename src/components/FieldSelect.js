@@ -12,7 +12,7 @@ class FieldSelect extends React.Component {
         delete copyProps["input"];
         delete copyProps["meta"];
         return (
-            <div className={has_error ? "has-error" : ""}>
+            <div className={`w-100 ${has_error ? "has-error" : ""}`}>
                 <Form.Control {...copyProps} {...input} as="select" />
                 {has_error && <span>{error}</span>}
             </div>

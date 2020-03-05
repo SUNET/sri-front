@@ -8,34 +8,34 @@ import DeleteGroupMutation from "../../mutations/group/DeleteGroupMutation";
 import environment from "../../createRelayEnvironment";
 
 const GroupDetailsQuery = graphql`
-    query GroupDetailsQuery($groupId: Int!) {
-        getGroupById(handle_id: $groupId) {
+    query GroupDetailsQuery($groupId: ID!) {
+        getGroupById(id: $groupId) {
             ...GroupUpdateForm_group
-            handle_id
+            id
             name
             description
             contacts {
-                handle_id
+                id
                 first_name
                 last_name
                 contact_type
                 emails {
-                    handle_id
+                    id
                     name
                     type
                 }
                 phones {
-                    handle_id
+                    id
                     name
                     type
                 }
                 roles {
                     role_data {
-                        handle_id
+                        id
                         name
                     }
                     end {
-                        handle_id
+                        id
                         name
                     }
                 }
@@ -45,11 +45,15 @@ const GroupDetailsQuery = graphql`
                         relation_id
                         type
                         end {
-                            handle_id
+                            id
                             node_name
                         }
                     }
                 }
+            }
+            contact_relations {
+                entity_id
+                relation_id
             }
             comments {
                 id
@@ -99,7 +103,7 @@ class GroupDetails extends React.Component {
                         return <div>{error.message}</div>;
                     } else if (props) {
                         return (
-                            <section className="model-details">
+                            <section className="model-details group-details">
                                 <GroupUpdateFormContainer
                                     onDelete={this.handleDelete}
                                     group={props.getGroupById}

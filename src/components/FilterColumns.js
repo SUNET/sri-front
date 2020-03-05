@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import { Dropdown } from "react-bootstrap";
 
-import FieldSwitch from "./FieldSwitch";
+import FilterColumnsContainer from "../containers/FilterColumns";
 
 import "../style/FilterColumns.scss";
 
@@ -13,83 +13,36 @@ class FilterColumns extends React.Component {
         type: PropTypes.string
     };
 
-    cancelFilterColumns = () => {
-        this.props.cancelFilterColumns(this.props.columns_visible);
-    };
+    renderMenu() {
+        const { columns, type, model } = this.props;
+        return <FilterColumnsContainer columns={columns} type={type} model={model}></FilterColumnsContainer>;
+    }
+    renderBrowserMenuCTA() {
+        const { t, type } = this.props;
+        return (
+            <Dropdown alignRight>
+                <Dropdown.Toggle as="span">
+                    {this.props.type === "order" && <i className="icon-filter"></i>}
+                    {this.props.type === "hidden-col" && <i className="icon-column"></i>}
+                </Dropdown.Toggle>
 
-    applyFilterColumns = () => {
-        this.props.filterColumns && this.props.filterColumns();
-    };
-
-    handleChangeColumns = (event) => {
-        if (event.target.id === "all_columns") {
-            this.props.showAllColumns(this.props.columns_visible, this.props.model);
-        } else {
-            this.props.showHideColumn(event.target.id, event.target.checked, this.props.model);
-        }
-    };
+                <Dropdown.Menu>
+                    {type === "order" && (
+                        <>
+                            <Dropdown.Item>{t("filter_columns.order_desc")}</Dropdown.Item>
+                            <Dropdown.Item>{t("filter_columns.order_asc")}</Dropdown.Item>
+                        </>
+                    )}
+                    {type === "hidden-col" && <Dropdown.Header>{t("filter_columns.header")}</Dropdown.Header>}
+                    <Dropdown.Divider />
+                    {this.renderMenu()}
+                </Dropdown.Menu>
+            </Dropdown>
+        );
+    }
 
     render() {
-        const { t } = this.props;
-        return (
-            <div className={`filter-columns ${this.props.type}`}>
-                <Dropdown alignRight>
-                    <Dropdown.Toggle as="span">
-                        {this.props.type === "order" && <i className="icon-filter"></i>}
-                        {this.props.type === "hidden-col" && <i className="icon-column"></i>}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        {this.props.type === "order" && (
-                            <>
-                                <Dropdown.Item>{t("filter_columns.order_desc")}</Dropdown.Item>
-                                <Dropdown.Item>{t("filter_columns.order_asc")}</Dropdown.Item>
-                            </>
-                        )}
-                        {this.props.type === "hidden-col" && (
-                            <Dropdown.Header>{t("filter_columns.header")}</Dropdown.Header>
-                        )}
-                        <Dropdown.Divider />
-                        <div>
-                            {this.props.columns.map((column) => {
-                                let defaultValue =
-                                    this.props.columns_visible !== undefined
-                                        ? this.props.columns_visible[column.value]
-                                        : false;
-                                return (
-                                    <FieldSwitch
-                                        key={column.value}
-                                        type="toggle-icon"
-                                        icon="check"
-                                        color="p-success-o"
-                                        classNames="off-hidden"
-                                        label={column.name}
-                                        handleChecked={(e) => {
-                                            this.handleChangeColumns(e);
-                                        }}
-                                        defaultValue={defaultValue}
-                                        id={column.value}
-                                    />
-                                );
-                            })}
-
-                            <FieldSwitch
-                                type="toggle-icon"
-                                icon="check"
-                                color="p-success-o"
-                                classNames="off-hidden"
-                                label="All"
-                                forcedDefault={true}
-                                handleChecked={(e) => {
-                                    this.handleChangeColumns(e);
-                                }}
-                                defaultValue={this.props.all_columns}
-                                id="all_columns"
-                            />
-                        </div>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </div>
-        );
+        return <div className={`filter-columns ${this.props.type}`}>{this.renderBrowserMenuCTA()}</div>;
     }
 }
 
