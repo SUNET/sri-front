@@ -7,16 +7,16 @@ LIST:
     + folder /components/NAME_ENTITY
     + file: SearchNAME_ENTITY
 
-. Create
+3. Create
     containers/entity/EntityList
     components/entity/EntityList
     components/entity/EntityRow
 
-. Create
+4. Create
     EntityFragments.js (with fragments)
 
-. Add Query and generate files: npm run relay
+5. Add Query and generate files: npm run relay
 
-. Add Reducer/action FilterColumns
+6. Add Reducer/action FilterColumns
 
-. Add Container in Route
+7. Add Container in Route

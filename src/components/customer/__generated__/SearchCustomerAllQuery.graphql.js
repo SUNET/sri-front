@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2c7735fe2648b02042615f3f0b1b7ce8
+ * @relayHash 66e0a6498245097243e5e893f7bc79a8
  */
 
 /* eslint-disable */
@@ -158,6 +158,8 @@ fragment CustomerList_customers_1tT5Hu on Query {
 fragment CustomerRow_customer on Customer {
   id
   name
+  description
+  url
 }
 */
 
@@ -274,6 +276,20 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
+                    "name": "description",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "url",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
                     "name": "__typename",
                     "args": null,
                     "storageKey": null
@@ -331,7 +347,7 @@ return {
     "operationKind": "query",
     "name": "SearchCustomerAllQuery",
     "id": null,
-    "text": "query SearchCustomerAllQuery(\n  $count: Int!\n  $filter: CustomerFilter\n  $orderBy: CustomerOrderBy\n) {\n  ...CustomerList_customers_1tT5Hu\n}\n\nfragment CustomerList_customers_1tT5Hu on Query {\n  customers(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...CustomerRow_customer\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment CustomerRow_customer on Customer {\n  id\n  name\n}\n",
+    "text": "query SearchCustomerAllQuery(\n  $count: Int!\n  $filter: CustomerFilter\n  $orderBy: CustomerOrderBy\n) {\n  ...CustomerList_customers_1tT5Hu\n}\n\nfragment CustomerList_customers_1tT5Hu on Query {\n  customers(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...CustomerRow_customer\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment CustomerRow_customer on Customer {\n  id\n  name\n  description\n  url\n}\n",
     "metadata": {}
   }
 };

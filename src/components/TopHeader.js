@@ -30,12 +30,14 @@ class TopHeader extends React.Component {
                 <Nav.Link as={NavLink} activeClassName="active" to="/dashboard">
                     {t("header.main-menu.home")}
                 </Nav.Link>
-                {/* <Nav.Link as={NavLink} activeClassName="active" to="/network">
-                    {t("header.main-menu.network")}
-                </Nav.Link> */}
                 {this.props.view_community && (
                     <Nav.Link as={NavLink} activeClassName="active" to="/community">
                         {t("header.main-menu.community")}
+                    </Nav.Link>
+                )}
+                {this.props.view_network && (
+                    <Nav.Link as={NavLink} activeClassName="active" to="/network">
+                        {t("header.main-menu.network")}
                     </Nav.Link>
                 )}
                 {/* <Nav.Link as={NavLink} activeClassName="active" to="/contracts">

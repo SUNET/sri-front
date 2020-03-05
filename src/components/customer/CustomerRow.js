@@ -14,14 +14,25 @@ class CustomerRow extends React.PureComponent {
         return date.toISOString("YYYY-MM-DD");
     };
 
+    renderCellSection(sectionName, text) {
+        return (
+            (this.props.columnsVisible[sectionName] || this.props.showAllColumns) && (
+                <td className="text-truncate" style={{ maxWidth: 0 }}>
+                    <span title={text} className="d-inline-block text-truncate" style={{ width: "100%" }}>
+                        {text}
+                    </span>
+                </td>
+            )
+        );
+    }
+
     render() {
         let customer = this.props.customer;
         return (
             <tr onClick={(e) => this.props.onClick(e, customer)}>
-                {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <td>{customer.name}</td>}
-                {(this.props.columnsVisible["description"] || this.props.showAllColumns) && (
-                    <td>{customer.description}</td>
-                )}
+                {this.renderCellSection("name", customer.name)}
+                {this.renderCellSection("description", customer.description)}
+                {this.renderCellSection("url", customer.url)}
                 {/* td for generate the space for the final cta */}
                 <td></td>
             </tr>
@@ -34,6 +45,8 @@ const CustomerRowFragment = createFragmentContainer(CustomerRow, {
         fragment CustomerRow_customer on Customer {
             id
             name
+            description
+            url
         }
     `
 });

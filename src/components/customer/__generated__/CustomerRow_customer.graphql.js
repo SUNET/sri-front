@@ -14,6 +14,8 @@ declare export opaque type CustomerRow_customer$fragmentType: CustomerRow_custom
 export type CustomerRow_customer = {|
   +id: string,
   +name: string,
+  +description: ?string,
+  +url: ?string,
   +$refType: CustomerRow_customer$ref,
 |};
 export type CustomerRow_customer$data = CustomerRow_customer;
@@ -44,9 +46,23 @@ const node/*: ReaderFragment*/ = {
       "name": "name",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "description",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "url",
+      "args": null,
+      "storageKey": null
     }
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = 'a8703d2b7627352278126476787f7238';
+(node/*: any*/).hash = '009acd69c2599213f0094f46b62d3e7f';
 module.exports = node;
