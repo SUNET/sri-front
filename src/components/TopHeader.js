@@ -11,7 +11,7 @@ import "../style/TopHeader.scss";
 
 class TopHeader extends React.Component {
     state = {
-        isMenuOpen: false
+        isMenuOpen: true
     };
     closeMenu() {
         this.setState({ isMenuOpen: false });
@@ -139,19 +139,29 @@ class TopHeader extends React.Component {
             {
                 header: t("header.main-menu.network"),
                 subOptions: [
-                    { name: "Network1", route: "/community/organizations", iconClass: "icon-warning" },
-                    { name: "Network2", route: "/community/contacts", iconClass: "icon-warning" },
-                    { name: "Network3", route: "/community/groups", iconClass: "icon-warning" }
+                    {
+                        name: "Organizations",
+                        route: "/network/customers",
+                        iconClass: "icon-organization",
+                        subSubOptions: [{ name: "Customers", route: "/network/customers" }]
+                    },
+                    // {
+                    //     name: "Equipment & Cables",
+                    //     route: "/network/customers",
+                    //     iconClass: "icon-organization",
+                    //     subSubOptions: [
+                    //         { name: "Cables", route: "/network/customers" },
+                    //         { name: "Hosts", route: "/network/customers" },
+                    //         { name: "Firewalls", route: "/network/customers" },
+                    //         { name: "Routers", route: "/network/customers" },
+                    //         { name: "Switches", route: "/network/customers" },
+                    //         { name: "External equipment", route: "/network/customers" },
+                    //         { name: "Optical nodes", route: "/network/customers" },
+                    //         { name: "ODFs", route: "/network/customers" }
+                    //     ]
+                    // }
                 ]
             }
-            // {
-            //     header: t("header.main-menu.contracts"),
-            //     subOptions: [
-            //         { name: "Contracts1", route: "/community/organizations", iconClass: "icon-warning" },
-            //         { name: "Contracts2", route: "/community/contacts", iconClass: "icon-warning" },
-            //         { name: "Contracts3", route: "/community/groups", iconClass: "icon-warning" }
-            //     ]
-            // }
         ];
 
         return (

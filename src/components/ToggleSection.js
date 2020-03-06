@@ -29,7 +29,7 @@ class ToggleSection extends React.Component {
 
     render() {
         return (
-            <div className="toggle-section">
+            <div className={`toggle-section ${this.props.extraClassNames ? this.props.extraClassNames : ""}`}>
                 <PanelEditable.Provider value={this.props.editable}>
                     {React.Children.map(this.props.children, (child, index) => (
                         <>
@@ -72,9 +72,14 @@ export class ToggleHeading extends React.Component {
 
     render() {
         return (
-            <div className="toggle-header" onClick={(e) => this.handleTogglePanel(e)}>
+            <div
+                className={`toggle-header ${this.props.extraClassNames ? this.props.extraClassNames : ""}`}
+                onClick={(e) => this.handleTogglePanel(e)}
+            >
                 {this.props.children}
-                <span className="colapse" aria-expanded={this.props["aria-expanded"]}></span>
+                {!this.props.isLikeOption && (
+                    <span className="colapse" aria-expanded={this.props["aria-expanded"]}></span>
+                )}
             </div>
         );
     }

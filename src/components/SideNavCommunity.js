@@ -32,7 +32,7 @@ class SideNavCommunity extends React.Component {
     };
 
     renderAccordionItem(idPath, icon, text) {
-        const { t, match } = this.props;
+        const { match } = this.props;
         return (
             <AccordionItem uuid={idPath}>
                 <AccordionItemState>

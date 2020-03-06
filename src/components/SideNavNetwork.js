@@ -15,7 +15,7 @@ import { withRouter } from "react-router-dom";
 import { path } from "../Routes";
 
 import "../style/SideNav.scss";
-import { NETWORK_ORGANIZATIONS, NETWORK_ORGANIZATIONS_CUSTOMERS } from "../utils/constants";
+import { NETWORK_ORGANIZATIONS } from "../utils/constants";
 
 class SideNavNetwork extends React.Component {
     MENU_DATA = [
@@ -54,13 +54,11 @@ class SideNavNetwork extends React.Component {
                             <AccordionItemPanel>
                                 <Nav className="flex-column">
                                     {items.map((item) => {
-                                        console.log("item: ", item);
-
                                         return (
                                             <Nav.Link
                                                 as={NavLink}
                                                 activeClassName="active"
-                                                to={`${path(this.props.match.url)}/${item.path}`}
+                                                to={`${path(match.url)}/${item.path}`}
                                             >
                                                 {t(item.i18nText)}
                                             </Nav.Link>
