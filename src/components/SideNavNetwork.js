@@ -25,7 +25,10 @@ class SideNavNetwork extends React.Component {
                 icon: "organization-icon.svg",
                 i18nText: "community.sub-menu.organizations"
             },
-            items: [{ path: "customers", i18nText: "network.sub-menu.customers" }]
+            items: [
+                { path: "customers", i18nText: "network.sub-menu.customers" },
+                { path: "end-users", i18nText: "community.sub-menu.organizations/end-users" }
+            ]
         }
     ];
     matchUrl = () => {
@@ -41,7 +44,7 @@ class SideNavNetwork extends React.Component {
     renderAccordionItem(idPath, icon, i18nText, items) {
         const { t, match } = this.props;
         return (
-            <AccordionItem uuid={idPath}>
+            <AccordionItem uuid={idPath} key={idPath}>
                 <AccordionItemState>
                     {({ expanded }) => (
                         <>
@@ -53,9 +56,10 @@ class SideNavNetwork extends React.Component {
                             </AccordionItemHeading>
                             <AccordionItemPanel>
                                 <Nav className="flex-column">
-                                    {items.map((item) => {
+                                    {items.map((item, itemIndex) => {
                                         return (
                                             <Nav.Link
+                                                key={itemIndex}
                                                 as={NavLink}
                                                 activeClassName="active"
                                                 to={`${path(match.url)}/${item.path}`}

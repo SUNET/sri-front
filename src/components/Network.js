@@ -3,7 +3,8 @@ import { withTranslation } from "react-i18next";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 
-import SearchCustomerContainer from "../containers/customer/SearchCustomer"
+import SearchCustomerContainer from "../containers/customer/SearchCustomer";
+import SearchEndUsersContainer from "../containers/endUser/SearchEndUser";
 
 class Network extends React.Component {
     render() {
@@ -15,6 +16,7 @@ class Network extends React.Component {
                         {/* <Route component={Locations} /> */}
                         <Redirect exact from="/network" to="/network/customers" />
                         <Route path="/network/customers" component={SearchCustomerContainer} />
+                        <Route path="/network/end-users" component={SearchEndUsersContainer} />
                     </Switch>
                 </Col>
             </Row>

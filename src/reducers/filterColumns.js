@@ -14,6 +14,10 @@ const initialState = {
     customer: {
         all_columns: true,
         columns_visible: {}
+    },
+    endUser: {
+        all_columns: true,
+        columns_visible: {}
     }
 };
 

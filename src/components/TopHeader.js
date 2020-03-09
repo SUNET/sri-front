@@ -143,8 +143,11 @@ class TopHeader extends React.Component {
                         name: "Organizations",
                         route: "/network/customers",
                         iconClass: "icon-organization",
-                        subSubOptions: [{ name: "Customers", route: "/network/customers" }]
-                    },
+                        subSubOptions: [
+                            { name: "Customers", route: "/network/customers" },
+                            { name: "End Users", route: "/network/end-users" }
+                        ]
+                    }
                     // {
                     //     name: "Equipment & Cables",
                     //     route: "/network/customers",
