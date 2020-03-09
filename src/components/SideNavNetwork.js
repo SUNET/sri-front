@@ -26,21 +26,30 @@ class SideNavNetwork extends React.Component {
                 i18nText: "community.sub-menu.organizations"
             },
             items: [
-                { path: "customers", i18nText: "network.sub-menu.customers" },
-                { path: "end-users", i18nText: "community.sub-menu.organizations/end-users" },
-                { path: "providers", i18nText: "community.sub-menu.organizations/providers" },
-                { path: "site-owners", i18nText: "community.sub-menu.organizations/site-owners" }
+                { path: "customers", i18nText: "network.sub-menu.organizations/customers" },
+                { path: "end-users", i18nText: "network.sub-menu.organizations/end-users" },
+                { path: "providers", i18nText: "network.sub-menu.organizations/providers" },
+                { path: "site-owners", i18nText: "network.sub-menu.organizations/site-owners" }
             ]
         }
     ];
+
     matchUrl = () => {
-        if (this.props.location.pathname.includes("physical")) {
-            return "physical";
-        } else if (this.props.location.pathname.includes("logical")) {
-            return "logical";
-        } else if (this.props.location.pathname.includes("locations")) {
-            return "locations";
+        const networkOrganizationsRoutes = [
+            "/network/",
+            "/network/customers",
+            "/network/end-users",
+            "/network/providers",
+            "/network/site-owners"
+        ];
+        if (networkOrganizationsRoutes.includes(this.props.location.pathname)) {
+            return "network-organizations";
         }
+        // else if (this.props.location.pathname.includes("logical")) {
+        //     return "logical";
+        // } else if (this.props.location.pathname.includes("locations")) {
+        //     return "locations";
+        // }
     };
 
     renderAccordionItem(idPath, icon, i18nText, items) {
@@ -83,7 +92,7 @@ class SideNavNetwork extends React.Component {
         return (
             <Col sm={2} className="pl-0">
                 <Nav className="flex-column side-nav">
-                    <Accordion preExpanded={[this.matchUrl()]} allowZeroExpanded className="accordion">
+                    <Accordion preExpanded={["network-organizations"]} className="accordion">
                         {this.MENU_DATA.map((data) => {
                             const { header, items } = data;
                             return this.renderAccordionItem(header.name, header.icon, header.i18nText, items);
