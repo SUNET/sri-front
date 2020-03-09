@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 66e0a6498245097243e5e893f7bc79a8
+ * @relayHash a07e4eba6adb1c06ff5a3c0f56a109ee
  */
 
 /* eslint-disable */
@@ -238,7 +238,7 @@ return {
         "name": "customers",
         "storageKey": null,
         "args": (v3/*: any*/),
-        "concreteType": "CustomerConnection",
+        "concreteType": "customerConnection",
         "plural": false,
         "selections": [
           {
@@ -247,7 +247,7 @@ return {
             "name": "edges",
             "storageKey": null,
             "args": null,
-            "concreteType": "CustomerEdge",
+            "concreteType": "customerEdge",
             "plural": true,
             "selections": [
               {

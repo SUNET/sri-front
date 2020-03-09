@@ -84,7 +84,7 @@ const node/*: ReaderFragment*/ = {
       "name": "__CustomerList_customers_connection",
       "storageKey": null,
       "args": null,
-      "concreteType": "CustomerConnection",
+      "concreteType": "customerConnection",
       "plural": false,
       "selections": [
         {
@@ -93,7 +93,7 @@ const node/*: ReaderFragment*/ = {
           "name": "edges",
           "storageKey": null,
           "args": null,
-          "concreteType": "CustomerEdge",
+          "concreteType": "customerEdge",
           "plural": true,
           "selections": [
             {
