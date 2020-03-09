@@ -1,22 +1,23 @@
 LIST:
-1. create Containers:
+1.Add path in navs:
+    + TopHeader
+    + SideNavNetWork
+
+2. create Containers:
     + folder /containers/NAME_ENTITY
     + file: SearchNAME_ENTITY
 
-2. create Component:
+3. create Component:
     + folder /components/NAME_ENTITY
     + file: SearchNAME_ENTITY
 
-3. Create
+4. Create
     containers/entity/EntityList
     components/entity/EntityList
     components/entity/EntityRow
 
-4. Create
-    EntityFragments.js (with fragments)
+5. Add Reducer/action FilterColumns
 
-5. Add Query and generate files: npm run relay
-
-6. Add Reducer/action FilterColumns
+6. Add Query and generate files: npm run relay
 
 7. Add Container in Route
