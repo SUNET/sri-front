@@ -5,6 +5,8 @@ import { Row, Col } from "react-bootstrap";
 
 import SearchCustomerContainer from "../containers/customer/SearchCustomer";
 import SearchEndUsersContainer from "../containers/endUser/SearchEndUser";
+import SearchProvidersContainer from "../containers/provider/SearchProvider";
+import SearchSiteOwnersContainer from "../containers/siteOwner/SearchSiteOwner";
 
 class Network extends React.Component {
     render() {
@@ -17,6 +19,8 @@ class Network extends React.Component {
                         <Redirect exact from="/network" to="/network/customers" />
                         <Route path="/network/customers" component={SearchCustomerContainer} />
                         <Route path="/network/end-users" component={SearchEndUsersContainer} />
+                        <Route path="/network/providers" component={SearchProvidersContainer} />
+                        <Route path="/network/site-owners" component={SearchSiteOwnersContainer} />
                     </Switch>
                 </Col>
             </Row>

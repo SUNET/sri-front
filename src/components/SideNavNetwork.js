@@ -27,7 +27,9 @@ class SideNavNetwork extends React.Component {
             },
             items: [
                 { path: "customers", i18nText: "network.sub-menu.customers" },
-                { path: "end-users", i18nText: "community.sub-menu.organizations/end-users" }
+                { path: "end-users", i18nText: "community.sub-menu.organizations/end-users" },
+                { path: "providers", i18nText: "community.sub-menu.organizations/providers" },
+                { path: "site-owners", i18nText: "community.sub-menu.organizations/site-owners" }
             ]
         }
     ];

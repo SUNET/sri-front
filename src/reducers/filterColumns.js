@@ -18,6 +18,14 @@ const initialState = {
     endUser: {
         all_columns: true,
         columns_visible: {}
+    },
+    provider: {
+        all_columns: true,
+        columns_visible: {}
+    },
+    siteOwner: {
+        all_columns: true,
+        columns_visible: {}
     }
 };
 
@@ -26,7 +34,7 @@ const filterColumnsReducer = (state = initialState, action) => {
     switch (action.type) {
         case "SHOW_HIDE_COLUMN":
             //automatically adds columns that are shown or hidden
-            
+
             nextState = {
                 ...state,
                 [action.model]: {

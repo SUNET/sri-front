@@ -150,8 +150,6 @@ class _SearchEntityParentClass extends React.Component {
         );
     }
     renderList() {
-        console.log(this.props);
-
         return (
             <Row className="mt-3">
                 <Col>
