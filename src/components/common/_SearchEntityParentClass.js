@@ -26,7 +26,7 @@ class _SearchEntityParentClass extends React.Component {
     LIST_QUERY = undefined;
     DEFAULT_COLUMNS = [];
     PATH_ENTITY = "";
-    PATH_ENTITY_ID = "groupId";
+    PATH_ENTITY_ID = "";
 
     LIST_CONTAINER = undefined;
     CREATE_COMPONENT = undefined;
@@ -150,6 +150,8 @@ class _SearchEntityParentClass extends React.Component {
         );
     }
     renderList() {
+        console.log(this.props);
+
         return (
             <Row className="mt-3">
                 <Col>
