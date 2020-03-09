@@ -3,21 +3,23 @@ LIST:
     + TopHeader
     + SideNavNetWork
 
-2. create Containers:
-    + folder /containers/NAME_ENTITY
-    + file: SearchNAME_ENTITY
+                     || 2. create Containers:
+                     ||     + folder /containers/NAME_ENTITY
+                     ||     + file: SearchNAME_ENTITY
+                     || 
+                     || 3. create Component:
+replaced with script ||     + folder /components/NAME_ENTITY
+npm run              ||     + file: SearchNAME_ENTITY
+create-entity-list   || 
+entityBlock          || 4. Create
+entityName           ||     containers/entity/EntityList
+                     ||     components/entity/EntityList
+                     ||     components/entity/EntityRow
 
-3. create Component:
-    + folder /components/NAME_ENTITY
-    + file: SearchNAME_ENTITY
-
-4. Create
-    containers/entity/EntityList
-    components/entity/EntityList
-    components/entity/EntityRow
+eg: npm run create-entity-list network provider
 
 5. Add Reducer/action FilterColumns
 
 6. Add Query and generate files: npm run relay
 
-7. Add Container in Route
+7. Add Container in Route (Network.js)
