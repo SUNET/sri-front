@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import __EntityClassName__UpdateForm from "../../components/__entityName__/__EntityClassName__UpdateForm";
 import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
-import uuidv4 from "uuid/v4";
 import * as actions from "../../actions/Notify";
 // import { showNewContactForm } from "../../actions/ComponentFormRow";
 
