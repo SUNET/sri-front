@@ -6,7 +6,7 @@ import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 // import Update__EntityClassName__Mutation from "../../mutations/__entityName__/Update__EntityClassName__Mutation";
-import Validations__EntityClassName__Form from "./Validations__EntityClassName__Form";
+// import Validations__EntityClassName__Form from "./Validations__EntityClassName__Form";
 // const
 import { UPDATE___CONST_NAME___FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
@@ -51,7 +51,7 @@ class __EntityClassName__UpdateForm extends _BasicFormParentClass {
 
 __EntityClassName__UpdateForm = reduxForm({
     form: "update__EntityClassName__",
-    validate: Validations__EntityClassName__Form.validate,
+    // validate: Validations__EntityClassName__Form.validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;

@@ -42,7 +42,9 @@ entityName           ||     + EntityDetails.js
 
 .Add FORM_ID in constants
 
-.Add EntityDetailsContainer in SearchEntity component.
+.Add in SearchEntity component:
+    + DETAIL_CONTAINER = EntityDetailsContainer
+    + PATH_ENTITY_ID = "entityId"
 
 .Enable click on the row list (in EntityRow)
 
