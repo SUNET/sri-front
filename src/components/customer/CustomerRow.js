@@ -29,7 +29,7 @@ class CustomerRow extends React.PureComponent {
     render() {
         let customer = this.props.customer;
         return (
-            <tr /*onClick={(e) => this.props.onClick(e, customer)}*/>
+            <tr onClick={(e) => this.props.onClick(e, customer)}>
                 {this.renderCellSection("name", customer.name)}
                 {this.renderCellSection("url", customer.url)}
                 {this.renderCellSection("description", customer.description)}

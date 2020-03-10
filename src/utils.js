@@ -10,3 +10,10 @@ export const debounce = (fn, time) => {
         timeout = setTimeout(functionCall, time);
     };
 };
+
+export const generateURL = (url) => {
+    if (!/^(?:f|ht)tps?:\/\//.test(url)) {
+        url = "http://" + url;
+    }
+    return url;
+};
