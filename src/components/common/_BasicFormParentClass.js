@@ -1,7 +1,6 @@
 // Common imports
 import React from "react";
-import { arrayPush, FieldArray, Field } from "redux-form";
-import uuidv4 from "uuid/v4";
+import { Field } from "redux-form";
 import { Form, Col } from "react-bootstrap";
 // components
 import BackCTA from "../common/BackCTA";

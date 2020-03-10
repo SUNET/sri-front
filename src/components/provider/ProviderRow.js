@@ -29,7 +29,7 @@ class ProviderRow extends React.PureComponent {
     render() {
         let provider = this.props.provider;
         return (
-            <tr /*onClick={(e) => this.props.onClick(e, provider)}*/>
+            <tr onClick={(e) => this.props.onClick(e, provider)}>
                 {this.renderCellSection("name", provider.name)}
                 {this.renderCellSection("url", provider.url)}
                 {this.renderCellSection("description", provider.description)}

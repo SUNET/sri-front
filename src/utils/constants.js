@@ -7,6 +7,8 @@ export const CREATE_GROUP_FORM = 'create-group-form';
 export const UPDATE_GROUP_FORM = 'update-group-form';
 export const CREATE_CUSTOMER_FORM = 'create-customer-form';
 export const UPDATE_CUSTOMER_FORM = 'update-customer-form';
+export const CREATE_PROVIDER_FORM = 'create-provider-form';
+export const UPDATE_PROVIDER_FORM = 'update-provider-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = "organizations";
 export const COMMUNITY_GROUPS = "groups";
