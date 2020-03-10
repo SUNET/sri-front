@@ -80,7 +80,8 @@
         "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions js jsx --watch",
         "analyze": "source-map-explorer 'build/static/js/*.js'",
         "generate-schema": "graphql get-schema",
-        "create-entity-list": "node ./cli-entity/cli.js"
+        "create-entity-list": "node ./cli-entity/cli.js generate-list",
+        "create-entity-details": "node ./cli-entity/cli.js generate-details"
     },
     "eslintConfig": {
         "extends": "react-app"

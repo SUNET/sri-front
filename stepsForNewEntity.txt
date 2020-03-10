@@ -23,3 +23,25 @@ eg: npm run create-entity-list network provider
 6. Add Query and generate files: npm run relay
 
 7. Add Container in Route (Network.js)
+
+
+DETAILS:
+.Create Query:
+    + queries/entity/EntityDetailsQuery.js
+
+.Create containers
+    + containers/EntityDetails.js
+
+.Create Components
+    + EntityDetails.js
+
+Samples:
+
+- To test scripts
+rm -rf src/**/testEntity && npm run create-entity-list testBlock testEntity && npm run create-entity-details testBlock testEntity
+
+- To create list entity
+npm run create-entity-list network customer
+
+- To create details entity
+npm run create-entity-details network customer

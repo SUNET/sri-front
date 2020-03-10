@@ -31,5 +31,6 @@ const generateDetails = (blockEntity, nameEntity) => {
 
     createPathAndFiles(containersPaths);
     createPathAndFiles(queriesPaths);
+    createPathAndFiles(componentsPaths);
 };
 module.exports = generateDetails;
