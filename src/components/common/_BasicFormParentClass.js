@@ -187,14 +187,13 @@ class _CustomerFormParentClass extends React.Component {
     }
 
     renderGeneralInfoToggleSection(editMode = true) {
-        const { type, organization_id, organization_number, website, organization_parent_id, t } = this.props;
-
+        const { t, url } = this.props;
         const generalInfoFirstRow = [
             {
                 title: t("organization-details.website"),
                 presentContent: (
-                    <a href={generateURL(website)} target="_blank" rel="noopener noreferrer">
-                        {website}
+                    <a href={generateURL(url)} target="_blank" rel="noopener noreferrer">
+                        {url}
                     </a>
                 ),
                 editContent: (
