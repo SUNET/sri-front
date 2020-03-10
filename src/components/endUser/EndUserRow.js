@@ -30,7 +30,7 @@ class EndUserRow extends React.PureComponent {
         let endUser = this.props.endUser;
 
         return (
-            <tr /*onClick={(e) => this.props.onClick(e, endUsers)}*/>
+            <tr onClick={(e) => this.props.onClick(e, endUser)}>
                 {this.renderCellSection("name", endUser.name)}
                 {this.renderCellSection("url", endUser.url)}
                 {this.renderCellSection("description", endUser.description)}

@@ -10,19 +10,19 @@ import graphql from "babel-plugin-relay/macro";
 
 // Components imports
 import EndUserList from "../../containers/endUser/EndUserList";
-
+import EndUserDetailsContainer from "../../containers/endUser/EndUserDetails";
 // Constants
 
 class SearchEndUser extends _SearchEntityParentClass {
     LIST_CONTAINER = EndUserList;
     CREATE_COMPONENT = undefined;
-    DETAIL_CONTAINER = undefined;
+    DETAIL_CONTAINER = EndUserDetailsContainer;
 
     MODEL_NAME = "endUser";
     MODEL_LIST_NAME = "endUsers";
 
     PATH_ENTITY = "/network/end-users";
-    PATH_ENTITY_ID = "";
+    PATH_ENTITY_ID = "endUserId";
     DEFAULT_COLUMNS = [
         { name: "Name", value: "name", filter: "order" },
         { name: "URL", value: "url" },
