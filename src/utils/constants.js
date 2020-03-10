@@ -11,6 +11,8 @@ export const CREATE_PROVIDER_FORM = 'create-provider-form';
 export const UPDATE_PROVIDER_FORM = 'update-provider-form';
 export const CREATE_ENDUSER_FORM = 'create-end-user-form';
 export const UPDATE_ENDUSER_FORM = 'update-end-user-form';
+export const CREATE_SITEOWNER_FORM = 'create-site-owner-form';
+export const UPDATE_SITEOWNER_FORM = 'update-site-owner-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = "organizations";
 export const COMMUNITY_GROUPS = "groups";

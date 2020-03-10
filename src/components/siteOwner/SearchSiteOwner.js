@@ -10,19 +10,19 @@ import graphql from "babel-plugin-relay/macro";
 
 // Components imports
 import SiteOwnerList from "../../containers/siteOwner/SiteOwnerList";
-
+import SiteOwnerDetailsContainer from "../../containers/siteOwner/SiteOwnerDetails";
 // Constants
 
 class SearchSiteOwner extends _SearchEntityParentClass {
     LIST_CONTAINER = SiteOwnerList;
     CREATE_COMPONENT = undefined;
-    DETAIL_CONTAINER = undefined;
+    DETAIL_CONTAINER = SiteOwnerDetailsContainer;
 
     MODEL_NAME = "siteOwner";
     MODEL_LIST_NAME = "siteOwners";
 
     PATH_ENTITY = "/network/site-owners";
-    PATH_ENTITY_ID = "";
+    PATH_ENTITY_ID = "siteOwnerId";
     DEFAULT_COLUMNS = [
         { name: "Name", value: "name", filter: "order" },
         { name: "URL", value: "url" },

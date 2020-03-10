@@ -29,7 +29,7 @@ class SiteOwnerRow extends React.PureComponent {
     render() {
         let siteOwner = this.props.siteOwner;
         return (
-            <tr /*onClick={(e) => this.props.onClick(e, siteOwner)}*/>
+            <tr onClick={(e) => this.props.onClick(e, siteOwner)}>
                 {this.renderCellSection("name", siteOwner.name)}
                 {this.renderCellSection("url", siteOwner.url)}
                 {this.renderCellSection("description", siteOwner.description)}
