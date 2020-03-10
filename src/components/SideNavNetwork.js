@@ -18,6 +18,13 @@ import "../style/SideNav.scss";
 import { NETWORK_ORGANIZATIONS } from "../utils/constants";
 
 class SideNavNetwork extends React.Component {
+    NETWORK_ORGANIZATIONS_ROUTES = [
+        "/network/",
+        "/network/customers",
+        "/network/end-users",
+        "/network/providers",
+        "/network/site-owners"
+    ];
     MENU_DATA = [
         {
             header: {
@@ -35,14 +42,7 @@ class SideNavNetwork extends React.Component {
     ];
 
     matchUrl = () => {
-        const networkOrganizationsRoutes = [
-            "/network/",
-            "/network/customers",
-            "/network/end-users",
-            "/network/providers",
-            "/network/site-owners"
-        ];
-        if (networkOrganizationsRoutes.includes(this.props.location.pathname)) {
+        if (this.NETWORK_ORGANIZATIONS_ROUTES.includes(this.props.location.pathname)) {
             return "network-organizations";
         }
         // else if (this.props.location.pathname.includes("logical")) {
