@@ -16,11 +16,17 @@ const generateDetails = (blockEntity, nameEntity) => {
 
     const containersPaths = {
         directory: `/src/containers/${entityName}`,
-        files: [{ path: `${entityClassName}Details.js`, template: "cli-entity/templates/ContainerEntityDetails.js" }]
+        files: [
+            { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ContainerEntityDetails.js" },
+            { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ContainerEntityUpdateForm.js" }
+        ]
     };
     const componentsPaths = {
         directory: `/src/components/${entityName}`,
-        files: [{ path: `${entityClassName}Details.js`, template: "cli-entity/templates/ComponentEntityDetails.js" }]
+        files: [
+            { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ComponentEntityDetails.js" },
+            { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ComponentEntityUpdateForm.js" }
+        ]
     };
     const queriesPaths = {
         directory: `/src/queries/${entityName}`,

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
 import environment from "../../createRelayEnvironment";
 
-import __EntityClassName__UpdateFormContainer from "../../containers/__entityName__/__EntityClassName__UpdateForm";
-import Delete__EntityClassName__Mutation from "../../mutations/__entityName__/Delete__EntityClassName__Mutation";
+// import __EntityClassName__UpdateFormContainer from "../../containers/__entityName__/__EntityClassName__UpdateForm";
+// import Delete__EntityClassName__Mutation from "../../mutations/__entityName__/Delete__EntityClassName__Mutation";
 
 import __EntityClassName__DetailsQuery from "../../queries/__entityName__/__EntityClassName__DetailsQuery";
 
@@ -18,10 +18,10 @@ class __EntityClassName__Details extends React.Component {
         }).isRequired
     };
 
-    handleDelete = () => {
-        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-        Delete__EntityClassName__Mutation(idEntity, () => this.props.history.push(`/community/__entityName__s`));
-    };
+    // handleDelete = () => {
+    //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+    //     Delete__EntityClassName__Mutation(idEntity, () => this.props.history.push(`/community/__entityName__s`));
+    // };
 
     render() {
         return (
@@ -35,14 +35,15 @@ class __EntityClassName__Details extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
+                        console.log('props: ', props);
                         return (
                             <section className="model-details __entityName__-details">
-                                <__EntityClassName__UpdateFormContainer
+                                {/* <__EntityClassName__UpdateFormContainer
                                     onDelete={this.handleDelete}
                                     __entityName__={props.get__EntityClassName__ById}
                                     history={this.props.history}
                                     refetch={retry}
-                                />
+                                /> */}
                             </section>
                         );
                     }

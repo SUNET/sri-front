@@ -3,6 +3,7 @@ import graphql from "babel-plugin-relay/macro";
 const __EntityClassName__DetailsQuery = graphql`
     query __EntityClassName__DetailsQuery($__entityName__Id: ID!) {
         get__EntityClassName__ById(id: $__entityName__Id) {
+            ...__EntityClassName__UpdateForm___entityName__
             id
             name
             description

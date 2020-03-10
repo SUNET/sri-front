@@ -26,14 +26,26 @@ eg: npm run create-entity-list network provider
 
 
 DETAILS:
-.Create Query:
-    + queries/entity/EntityDetailsQuery.js
 
-.Create containers
-    + containers/EntityDetails.js
 
-.Create Components
-    + EntityDetails.js
+                     || 1.Create Query:
+                     ||       + queries/entity/EntityDetailsQuery.js
+                     || 
+                     || 2.Create containers
+replaced with script ||     + EntityDetails.js
+npm run              ||     + EntityUpdateForm.js
+create-entity-details|| 
+entityBlock          || 3.Create Components
+entityName           ||     + EntityDetails.js
+                     ||     + _EntityFormParentClass.js
+                     ||     + EntityUpdateForm.js
+
+.Add FORM_ID in constants
+
+.Add EntityDetailsContainer in SearchEntity component.
+
+.Enable click on the row list (in EntityRow)
+
 
 Samples:
 
