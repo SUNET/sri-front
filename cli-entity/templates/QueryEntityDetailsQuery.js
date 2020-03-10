@@ -7,6 +7,7 @@ const __EntityClassName__DetailsQuery = graphql`
             id
             name
             description
+            url
             created
             creator {
                 email

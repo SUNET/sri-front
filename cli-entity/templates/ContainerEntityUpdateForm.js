@@ -19,6 +19,7 @@ const mapStateToProps = (state, props) => {
         initialValues,
         name: update__EntityClassName__Selector(state, "name"),
         description: update__EntityClassName__Selector(state, "description"),
+        url: update__EntityClassName__Selector(state, "url"),
         formSyncErrors: getFormSyncErrors("update__EntityClassName__")(state),
         fields: getFormMeta("update__EntityClassName__")(state)
     };
