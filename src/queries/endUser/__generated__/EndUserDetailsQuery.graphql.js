@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 03e3b1051af639b0541e4f117c95b361
+ * @relayHash cc8f506637ad02ef29a278497338f84e
  */
 
 /* eslint-disable */
@@ -18,6 +18,7 @@ export type EndUserDetailsQueryResponse = {|
     +id: string,
     +name: string,
     +description: ?string,
+    +url: ?string,
     +created: any,
     +creator: {|
       +email: string
@@ -45,6 +46,7 @@ query EndUserDetailsQuery(
     id
     name
     description
+    url
     created
     creator {
       email
@@ -116,29 +118,36 @@ v4 = {
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "created",
+  "name": "url",
   "args": null,
   "storageKey": null
 },
 v6 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "created",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v7 = [
-  (v6/*: any*/)
+v8 = [
+  (v7/*: any*/)
 ],
-v8 = {
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v9 = [
-  (v6/*: any*/),
+v10 = [
+  (v7/*: any*/),
   (v2/*: any*/)
 ];
 return {
@@ -163,6 +172,7 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -171,9 +181,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v7/*: any*/)
+            "selections": (v8/*: any*/)
           },
-          (v8/*: any*/),
+          (v9/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -182,7 +192,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v7/*: any*/)
+            "selections": (v8/*: any*/)
           },
           {
             "kind": "FragmentSpread",
@@ -210,14 +220,8 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "url",
-            "args": null,
-            "storageKey": null
-          },
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -226,9 +230,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v9/*: any*/)
+            "selections": (v10/*: any*/)
           },
-          (v8/*: any*/),
+          (v9/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -237,7 +241,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v9/*: any*/)
+            "selections": (v10/*: any*/)
           }
         ]
       }
@@ -247,11 +251,11 @@ return {
     "operationKind": "query",
     "name": "EndUserDetailsQuery",
     "id": null,
-    "text": "query EndUserDetailsQuery(\n  $endUserId: ID!\n) {\n  getEndUserById(id: $endUserId) {\n    ...EndUserUpdateForm_endUser\n    id\n    name\n    description\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment EndUserUpdateForm_endUser on EndUser {\n  id\n  name\n  description\n  url\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query EndUserDetailsQuery(\n  $endUserId: ID!\n) {\n  getEndUserById(id: $endUserId) {\n    ...EndUserUpdateForm_endUser\n    id\n    name\n    description\n    url\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment EndUserUpdateForm_endUser on EndUser {\n  id\n  name\n  description\n  url\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c1a30497568165a858ad89f6cf572276';
+(node/*: any*/).hash = 'a79d673348636ecf652b654693d55f84';
 module.exports = node;

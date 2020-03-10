@@ -7,6 +7,7 @@ const ProviderDetailsQuery = graphql`
             id
             name
             description
+            url
             created
             creator {
                 email

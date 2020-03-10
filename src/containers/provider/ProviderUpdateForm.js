@@ -18,6 +18,7 @@ const mapStateToProps = (state, props) => {
         initialValues,
         name: updateProviderSelector(state, "name"),
         description: updateProviderSelector(state, "description"),
+        url: updateProviderSelector(state, "url"),
         formSyncErrors: getFormSyncErrors("updateProvider")(state),
         fields: getFormMeta("updateProvider")(state)
     };

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 23258f6588df638b06233d32728706a6
+ * @relayHash 4f928b371b0858b1298ca2eef2055da7
  */
 
 /* eslint-disable */
@@ -18,6 +18,7 @@ export type ProviderDetailsQueryResponse = {|
     +id: string,
     +name: string,
     +description: ?string,
+    +url: ?string,
     +created: any,
     +creator: {|
       +email: string
@@ -45,6 +46,7 @@ query ProviderDetailsQuery(
     id
     name
     description
+    url
     created
     creator {
       email
@@ -116,29 +118,36 @@ v4 = {
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "created",
+  "name": "url",
   "args": null,
   "storageKey": null
 },
 v6 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "created",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v7 = [
-  (v6/*: any*/)
+v8 = [
+  (v7/*: any*/)
 ],
-v8 = {
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v9 = [
-  (v6/*: any*/),
+v10 = [
+  (v7/*: any*/),
   (v2/*: any*/)
 ];
 return {
@@ -163,6 +172,7 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -171,9 +181,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v7/*: any*/)
+            "selections": (v8/*: any*/)
           },
-          (v8/*: any*/),
+          (v9/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -182,7 +192,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v7/*: any*/)
+            "selections": (v8/*: any*/)
           },
           {
             "kind": "FragmentSpread",
@@ -210,14 +220,8 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "url",
-            "args": null,
-            "storageKey": null
-          },
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -226,9 +230,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v9/*: any*/)
+            "selections": (v10/*: any*/)
           },
-          (v8/*: any*/),
+          (v9/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -237,7 +241,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v9/*: any*/)
+            "selections": (v10/*: any*/)
           }
         ]
       }
@@ -247,11 +251,11 @@ return {
     "operationKind": "query",
     "name": "ProviderDetailsQuery",
     "id": null,
-    "text": "query ProviderDetailsQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query ProviderDetailsQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ac4b634cb824b824dd541c49b9da4898';
+(node/*: any*/).hash = '54d370038b16e7c3ad055074ae66ce40';
 module.exports = node;

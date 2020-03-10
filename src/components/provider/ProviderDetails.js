@@ -24,8 +24,6 @@ class ProviderDetails extends React.Component {
     // };
 
     render() {
-        console.log("hola?");
-        
         return (
             <QueryRenderer
                 environment={environment}

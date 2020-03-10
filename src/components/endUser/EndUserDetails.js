@@ -41,7 +41,7 @@ class EndUserDetails extends React.Component {
                                     // onDelete={this.handleDelete}
                                     endUser={props.getEndUserById}
                                     history={this.props.history}
-                                    refetch={retry}
+                                    // refetch={retry}
                                 />
                             </section>
                         );

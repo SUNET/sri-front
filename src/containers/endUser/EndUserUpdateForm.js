@@ -19,6 +19,7 @@ const mapStateToProps = (state, props) => {
         initialValues,
         name: updateEndUserSelector(state, "name"),
         description: updateEndUserSelector(state, "description"),
+        url: updateEndUserSelector(state, "url"),
         formSyncErrors: getFormSyncErrors("updateEndUser")(state),
         fields: getFormMeta("updateEndUser")(state)
     };

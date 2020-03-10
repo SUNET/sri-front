@@ -7,6 +7,7 @@ const EndUserDetailsQuery = graphql`
             id
             name
             description
+            url
             created
             creator {
                 email
