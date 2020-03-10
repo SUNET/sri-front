@@ -131,9 +131,9 @@ class TopHeader extends React.Component {
             {
                 header: t("header.main-menu.community"),
                 subOptions: [
-                    { name: "Organizations", route: "/community/organizations", iconClass: "icon-organization" },
-                    { name: "Contacts", route: "/community/contacts", iconClass: "icon-contact" },
-                    { name: "Groups", route: "/community/groups", iconClass: "icon-groups" }
+                    { name: t(`community.sub-menu.organizations`), route: "/community/organizations", iconClass: "icon-organization" },
+                    { name: t(`community.sub-menu.contacts`), route: "/community/contacts", iconClass: "icon-contact" },
+                    { name: t(`community.sub-menu.groups`), route: "/community/groups", iconClass: "icon-groups" }
                 ]
             },
             {
@@ -144,10 +144,10 @@ class TopHeader extends React.Component {
                         route: "/network/customers",
                         iconClass: "icon-organization",
                         subSubOptions: [
-                            { name: "Customers", route: "/network/customers" },
-                            { name: "End Users", route: "/network/end-users" },
-                            { name: "Providers", route: "/network/providers" },
-                            { name: "Site Owners", route: "/network/site-owners" }
+                            { name: t("network.sub-menu.organizations/customers"), route: "/network/customers" },
+                            { name: t("network.sub-menu.organizations/end-users"), route: "/network/end-users" },
+                            { name: t("network.sub-menu.organizations/providers"), route: "/network/providers" },
+                            { name: t("network.sub-menu.organizations/site-owners"), route: "/network/site-owners" }
                         ]
                     }
                     // {
