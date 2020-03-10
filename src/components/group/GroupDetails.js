@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
+import environment from "../../createRelayEnvironment";
 
 import GroupUpdateFormContainer from "../../containers/group/GroupUpdateForm";
 import DeleteGroupMutation from "../../mutations/group/DeleteGroupMutation";
-import environment from "../../createRelayEnvironment";
 
 import GroupDetailsQuery from "../../queries/group/GroupDetailsQuery";
 
 class GroupDetails extends React.Component {
+    ID_ENTITY_KEY = "groupId";
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.shape({
@@ -18,8 +19,8 @@ class GroupDetails extends React.Component {
     };
 
     handleDelete = () => {
-        const groupId = this.props.match.params.groupId;
-        DeleteGroupMutation(groupId, () => this.props.history.push(`/community/groups`));
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        DeleteGroupMutation(idEntity, () => this.props.history.push(`/community/groups`));
     };
 
     render() {
@@ -28,7 +29,7 @@ class GroupDetails extends React.Component {
                 environment={environment}
                 query={GroupDetailsQuery}
                 variables={{
-                    groupId: this.props.match.params.groupId
+                    [this.ID_ENTITY_KEY]: this.props.match.params[this.ID_ENTITY_KEY]
                 }}
                 render={({ error, props, retry }) => {
                     if (error) {

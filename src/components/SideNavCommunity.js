@@ -23,8 +23,6 @@ class SideNavCommunity extends React.Component {
     // TODO: change Accordion for a specific navbar handler
     matchUrl = () => {
         let tabUuid = COMMUNITY_ORGANIZATIONS;
-        console.log("this.props.location.pathname: ", this.props.location.pathname);
-        console.log("COMMUNITY_CONTACTS: ", COMMUNITY_CONTACTS);
 
         if (this.props.location.pathname.includes(COMMUNITY_CONTACTS)) {
             tabUuid = COMMUNITY_CONTACTS;
