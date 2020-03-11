@@ -7,7 +7,7 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
+import CONFIG from "../../config";
 import GroupRow from "./GroupRow";
 import FilterColumns from "../FilterColumns";
 
@@ -17,6 +17,8 @@ import { Table } from "react-bootstrap";
 import "../../style/ModelList.scss";
 
 const MODEL_NAME = "group";
+
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 export class GroupList extends React.PureComponent {
     static propTypes = {

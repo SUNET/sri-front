@@ -5,9 +5,11 @@ import { withTranslation } from "react-i18next";
 import FieldInput from "../FieldInput";
 import { Field, change } from "redux-form";
 import uuidv4 from "uuid/v4";
-import { LIMIT_NEW_CONTACTS } from "../../config";
+import CONFIG from "../../config";
 import { Modal } from "react-bootstrap";
 import { isBrowser, isMobile } from "react-device-detect";
+
+const { LIMIT_NEW_CONTACTS } = CONFIG;
 
 class FieldArrayAddressOrganization extends React.Component {
     state = {

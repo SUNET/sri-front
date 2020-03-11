@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 import renameKeys from "rename-keys";
 
 import environment from "../../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../../config";
+import CONFIG from "../../config";
 
 import CreateContactRoute from "./CreateContactRoute/CreateContactRoute";
 import ContactDetailsContainer from "../../containers/contact/ContactDetails";
@@ -21,6 +21,8 @@ import FilterRowsBlock from "../FilterRowsBlock";
 import { isEmpty } from "../../utils";
 
 import { isBrowser, isMobile } from "react-device-detect";
+
+const { ITEMS_PER_PAGE } = CONFIG;
 
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },

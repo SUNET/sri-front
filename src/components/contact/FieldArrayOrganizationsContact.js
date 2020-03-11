@@ -7,11 +7,13 @@ import uuidv4 from "uuid/v4";
 import FieldInput from "../FieldInput";
 import { getOrganization } from "../organization/Organization";
 import Dropdown from "../Dropdown";
-import { LIMIT_NEW_CONTACTS } from "../../config";
+import CONFIG from "../../config";
 import { Modal } from "react-bootstrap";
 import { isBrowser, isMobile } from "react-device-detect";
 
 import "../../style/InternalModal.scss";
+
+const { LIMIT_NEW_CONTACTS } = CONFIG;
 
 class FieldArrayOrganizationsContact extends React.Component {
     state = {
