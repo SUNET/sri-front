@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CONFIG from "../config.js";
+import CONFIG from "../config";
 import Cookies from "js-cookie";
 
 import "../style/Splash.scss";

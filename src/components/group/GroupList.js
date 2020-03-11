@@ -16,9 +16,9 @@ import { Table } from "react-bootstrap";
 
 import "../../style/ModelList.scss";
 
-const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
-
 const MODEL_NAME = "group";
+
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 export class GroupList extends React.PureComponent {
     static propTypes = {

@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 import renameKeys from "rename-keys";
 
 import environment from "../../createRelayEnvironment";
-import CONFIG from "../../config.js";
+import CONFIG from "../../config";
 import CreateOrganization from "./CreateOrganization";
 import OrganizationDetailsContainer from "../../containers/organization/OrganizationDetails";
 import OrganizationListContainer from "../../containers/organization/OrganizationList";
@@ -18,6 +18,8 @@ import { isBrowser, isMobile } from "react-device-detect";
 import LateralSliderMenu from "../../components/LateralSliderMenu";
 import FilterColumnsContainer from "../../containers/FilterColumns";
 import FilterRowsBlock from "../FilterRowsBlock";
+
+const { ITEMS_PER_PAGE } = CONFIG;
 
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [
@@ -36,8 +38,6 @@ const SearchOrganizationAllQuery = graphql`
 `;
 
 const MODEL_NAME = "organization";
-
-const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 class SearchOrganization extends React.Component {
     constructor(props) {

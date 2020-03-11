@@ -22,6 +22,8 @@ import { isEmpty } from "../../utils";
 
 import { isBrowser, isMobile } from "react-device-detect";
 
+const { ITEMS_PER_PAGE } = CONFIG;
+
 const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
     { name: "Organization", value: "organizations", filter: "order" },
@@ -38,8 +40,6 @@ const SearchContactsAllQuery = graphql`
 `;
 
 const MODEL_NAME = "contact";
-
-const { ITEMS_PER_PAGE } = CONFIG;
 
 class Search extends React.Component {
     constructor(props) {
