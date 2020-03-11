@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 import renameKeys from "rename-keys";
 
 import environment from "../../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../../config";
+import CONFIG from "../../config";
 
 import CreateGroup from "./CreateGroup";
 import GroupDetailsContainer from "../../containers/group/GroupDetails";
@@ -21,6 +21,8 @@ import FilterColumnsContainer from "../../containers/FilterColumns";
 import FilterRowsBlock from "../FilterRowsBlock";
 
 const MODEL_NAME = "group";
+
+const { ITEMS_PER_PAGE } = CONFIG;
 
 //mock - This should be returned to the backend in the future.
 const defaultColumns = [

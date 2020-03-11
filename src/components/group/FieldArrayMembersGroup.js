@@ -5,7 +5,7 @@ import CopyToClipboard from "../CopyToClipboard";
 import copy from "clipboard-copy";
 import { Modal } from "react-bootstrap";
 import { isBrowser, isMobile } from "react-device-detect";
-// import { LIMIT_NEW_CONTACTS } from "../../config";
+// import CONFIG from "../../config";
 
 import DropdownSearch from "../DropdownSearch";
 
