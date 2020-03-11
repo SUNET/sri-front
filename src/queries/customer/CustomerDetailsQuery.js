@@ -8,6 +8,12 @@ const CustomerDetailsQuery = graphql`
             name
             description
             url
+            __typename
+            with_same_name {
+                id
+                name
+                __typename
+            }
             created
             creator {
                 email

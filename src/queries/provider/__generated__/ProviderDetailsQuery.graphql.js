@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 4f928b371b0858b1298ca2eef2055da7
+ * @relayHash e7b03013d36c633ff2a03ab3c59239b5
  */
 
 /* eslint-disable */
@@ -19,6 +19,12 @@ export type ProviderDetailsQueryResponse = {|
     +name: string,
     +description: ?string,
     +url: ?string,
+    +__typename: string,
+    +with_same_name: ?$ReadOnlyArray<?{|
+      +id: string,
+      +name: string,
+      +__typename: string,
+    |}>,
     +created: any,
     +creator: {|
       +email: string
@@ -47,6 +53,12 @@ query ProviderDetailsQuery(
     name
     description
     url
+    __typename
+    with_same_name {
+      id
+      name
+      __typename
+    }
     created
     creator {
       email
@@ -125,29 +137,50 @@ v5 = {
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "created",
+  "name": "__typename",
   "args": null,
   "storageKey": null
 },
 v7 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "with_same_name",
+  "storageKey": null,
+  "args": null,
+  "concreteType": null,
+  "plural": true,
+  "selections": [
+    (v2/*: any*/),
+    (v3/*: any*/),
+    (v6/*: any*/)
+  ]
+},
+v8 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "created",
+  "args": null,
+  "storageKey": null
+},
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v8 = [
-  (v7/*: any*/)
+v10 = [
+  (v9/*: any*/)
 ],
-v9 = {
+v11 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v10 = [
-  (v7/*: any*/),
+v12 = [
+  (v9/*: any*/),
   (v2/*: any*/)
 ];
 return {
@@ -173,6 +206,8 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           (v6/*: any*/),
+          (v7/*: any*/),
+          (v8/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -181,9 +216,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v8/*: any*/)
+            "selections": (v10/*: any*/)
           },
-          (v9/*: any*/),
+          (v11/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -192,7 +227,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v8/*: any*/)
+            "selections": (v10/*: any*/)
           },
           {
             "kind": "FragmentSpread",
@@ -221,7 +256,7 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
-          (v6/*: any*/),
+          (v8/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -230,9 +265,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v10/*: any*/)
+            "selections": (v12/*: any*/)
           },
-          (v9/*: any*/),
+          (v11/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -241,8 +276,10 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v10/*: any*/)
-          }
+            "selections": (v12/*: any*/)
+          },
+          (v6/*: any*/),
+          (v7/*: any*/)
         ]
       }
     ]
@@ -251,11 +288,11 @@ return {
     "operationKind": "query",
     "name": "ProviderDetailsQuery",
     "id": null,
-    "text": "query ProviderDetailsQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query ProviderDetailsQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '54d370038b16e7c3ad055074ae66ce40';
+(node/*: any*/).hash = '7157fcc957a29a2958391fffa79afce5';
 module.exports = node;

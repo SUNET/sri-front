@@ -8,6 +8,12 @@ const OrganizationDetailsQuery = graphql`
             name
             type
             website
+            __typename
+            with_same_name {
+                id
+                name
+                __typename
+            }
             organization_id
             organization_number
             description
