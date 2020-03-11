@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { API_HOST, COOKIE_DOMAIN } from "../config.js";
+import CONFIG from "../config.js";
 import Cookies from "js-cookie";
 
 import "../style/Splash.scss";
+
+const { API_HOST, COOKIE_DOMAIN } = CONFIG;
 
 class Logout extends Component {
     logout = () => {

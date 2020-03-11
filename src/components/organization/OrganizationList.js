@@ -7,7 +7,7 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
+import CONFIG from "../../config";
 import OrganizationRow from "./OrganizationRow";
 import OrderFilterColumns from "../OrderFilterColumns";
 
@@ -18,6 +18,8 @@ import { Table } from "react-bootstrap";
 import "../../style/ModelList.scss";
 
 const MODEL_NAME = "organization";
+
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 export class OrganizationList extends React.PureComponent {
     static propTypes = {
@@ -168,7 +170,7 @@ export class OrganizationList extends React.PureComponent {
                                 {t("paginator.load_all")}
                             </button>
                         </>
-                    ) : this.props.organizations.organizations.edges.length > ITEMS_PER_PAGE ? (
+                    ) : this.props.organizations.organizations.edges.length > CONFIG.ITEMS_PER_PAGE ? (
                         <button onClick={() => this.props.refetch()} className="btn outline btn-load mr-2">
                             {t("paginator.load_less")}
                         </button>

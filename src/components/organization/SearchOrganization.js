@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 import renameKeys from "rename-keys";
 
 import environment from "../../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../../config";
+import CONFIG from "../../config.js";
 import CreateOrganization from "./CreateOrganization";
 import OrganizationDetailsContainer from "../../containers/organization/OrganizationDetails";
 import OrganizationListContainer from "../../containers/organization/OrganizationList";
@@ -24,7 +24,7 @@ const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
     { name: "Organization ID", value: "organization_id", filter: "order" },
     { name: "Type", value: "type", filter: "order-filter" },
-    { name: "Affiliation", value: "afffiliation" },
+    { name: "Affiliation", value: "affiliation" },
     { name: "Parent Organization ID", value: "parent_organization_id" }
 ];
 
@@ -36,6 +36,8 @@ const SearchOrganizationAllQuery = graphql`
 `;
 
 const MODEL_NAME = "organization";
+
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 class SearchOrganization extends React.Component {
     constructor(props) {

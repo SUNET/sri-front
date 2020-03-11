@@ -9,7 +9,7 @@ import configureStore from "./store";
 import * as actions from "./actions/App";
 import AppContainer from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
-import { API_HOST } from "./config.js";
+import CONFIG from "./config.js";
 
 import "./i18n";
 
@@ -19,6 +19,8 @@ import "@fortawesome/fontawesome-free/css/all.css";
 /* Store */
 export const store = configureStore();
 // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
+const { API_HOST } = CONFIG;
 
 /* render app */
 const app = (

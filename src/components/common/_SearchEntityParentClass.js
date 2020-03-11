@@ -18,7 +18,9 @@ import FilterRowsBlock from "../FilterRowsBlock";
 import LateralSliderMenu from "../../components/LateralSliderMenu";
 
 // Constants
-import { ITEMS_PER_PAGE } from "../../config";
+import CONFIG from "../../config";
+
+const { ITEMS_PER_PAGE } = CONFIG;
 
 class _SearchEntityParentClass extends React.Component {
     MODEL_NAME = "";

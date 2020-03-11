@@ -7,7 +7,7 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
+import CONFIG from "../../config";
 import GroupRow from "./GroupRow";
 import FilterColumns from "../FilterColumns";
 
@@ -15,6 +15,8 @@ import { isBrowser, isMobile } from "react-device-detect";
 import { Table } from "react-bootstrap";
 
 import "../../style/ModelList.scss";
+
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 const MODEL_NAME = "group";
 
@@ -155,7 +157,7 @@ export class GroupList extends React.PureComponent {
                                 {t("paginator.load_all")}
                             </button>
                         </>
-                    ) : this.props.groups.groups.edges.length > ITEMS_PER_PAGE ? (
+                    ) : this.props.groups.groups.edges.length > CONFIG.ITEMS_PER_PAGE ? (
                         <button onClick={() => this.props.refetch()} className="btn outline btn-load mr-2">
                             {t("paginator.load_less")}
                         </button>

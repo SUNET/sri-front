@@ -8,13 +8,15 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
+import CONFIG from "../../config";
 import FilterColumns from "../FilterColumns";
 
 import { isBrowser, isMobile } from "react-device-detect";
 import { Table } from "react-bootstrap";
 
 import { default as ROW_COMPONENT } from "./CustomerRow";
+
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 export class CustomerList extends React.PureComponent {
     MODEL_NAME = "customer";

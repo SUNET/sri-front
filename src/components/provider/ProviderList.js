@@ -8,13 +8,15 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
+import CONFIG from "../../config";
 import FilterColumns from "../FilterColumns";
 
 import { isBrowser, isMobile } from "react-device-detect";
 import { Table } from "react-bootstrap";
 
 import { default as ROW_COMPONENT } from "./ProviderRow";
+
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 export class ProviderList extends React.PureComponent {
     MODEL_NAME = "provider";
@@ -155,7 +157,7 @@ export class ProviderList extends React.PureComponent {
                                 {t("paginator.load_all")}
                             </button>
                         </>
-                    ) : this.props[this.MODEL_LIST_NAME][this.MODEL_LIST_NAME].edges.length > ITEMS_PER_PAGE ? (
+                    ) : this.props[this.MODEL_LIST_NAME][this.MODEL_LIST_NAME].edges.length > CONFIG.ITEMS_PER_PAGE ? (
                         <button onClick={() => this.props.refetch()} className="btn outline btn-load mr-2">
                             {t("paginator.load_less")}
                         </button>

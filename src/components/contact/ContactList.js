@@ -7,7 +7,7 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
-import { ITEMS_PER_PAGE, ALL_ITEMS } from "../../config";
+import CONFIG from "../../config";
 import ContactRow from "./ContactRow";
 import FilterColumns from "../FilterColumns";
 import OrderFilterColumns from "../OrderFilterColumns";
@@ -18,6 +18,8 @@ import { Table } from "react-bootstrap";
 import "../../style/ModelList.scss";
 
 const MODEL_NAME = "contact";
+
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 export class ContactList extends React.PureComponent {
     static propTypes = {
@@ -50,7 +52,7 @@ export class ContactList extends React.PureComponent {
         this.props.history.push(`${this.props.match.url}/${data.id}`);
     };
 
-    renderFiltersColumns() {        
+    renderFiltersColumns() {
         return (
             <div className="model-list__header-cta">
                 <FilterColumns

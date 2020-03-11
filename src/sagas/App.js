@@ -1,9 +1,11 @@
 import { put, call, select } from "redux-saga/effects";
 import { getRequest, postRequest, checkStatus } from "./common";
 
-import { API_HOST } from "../config";
+import CONFIG from "../config";
 
 import * as actions from "../actions/App";
+
+const { API_HOST } = CONFIG;
 
 const url = API_HOST + "/userprofile/whoami/";
 const api = API_HOST + "/api/v1/userprofile/";

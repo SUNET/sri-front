@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 import renameKeys from "rename-keys";
 
 import environment from "../../createRelayEnvironment";
-import { ITEMS_PER_PAGE } from "../../config";
+import CONFIG from "../../config";
 
 import CreateContactRoute from "./CreateContactRoute/CreateContactRoute";
 import ContactDetailsContainer from "../../containers/contact/ContactDetails";
@@ -38,6 +38,8 @@ const SearchContactsAllQuery = graphql`
 `;
 
 const MODEL_NAME = "contact";
+
+const { ITEMS_PER_PAGE } = CONFIG;
 
 class Search extends React.Component {
     constructor(props) {

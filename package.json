@@ -68,7 +68,7 @@
         "relay-compiler": "^7.1.0"
     },
     "scripts": {
-        "start": "BROWSER=none react-scripts start",
+        "start": "NODE_ENV=dev BROWSER=none react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
