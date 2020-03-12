@@ -131,7 +131,11 @@ class TopHeader extends React.Component {
             {
                 header: t("header.main-menu.community"),
                 subOptions: [
-                    { name: t(`community.sub-menu.organizations`), route: "/community/organizations", iconClass: "icon-organization" },
+                    {
+                        name: t(`community.sub-menu.organizations`),
+                        route: "/community/organizations",
+                        iconClass: "icon-organization"
+                    },
                     { name: t(`community.sub-menu.contacts`), route: "/community/contacts", iconClass: "icon-contact" },
                     { name: t(`community.sub-menu.groups`), route: "/community/groups", iconClass: "icon-groups" }
                 ]
@@ -149,22 +153,22 @@ class TopHeader extends React.Component {
                             { name: t("network.sub-menu.organizations/providers"), route: "/network/providers" },
                             { name: t("network.sub-menu.organizations/site-owners"), route: "/network/site-owners" }
                         ]
+                    },
+                    {
+                        name: "Equipment & Cables",
+                        route: "/network/cables",
+                        iconClass: "icon-organization",
+                        subSubOptions: [
+                            { name: "Cables", route: "/network/cables" }
+                            // { name: "Hosts", route: "/network/customers" },
+                            // { name: "Firewalls", route: "/network/customers" },
+                            // { name: "Routers", route: "/network/customers" },
+                            // { name: "Switches", route: "/network/customers" },
+                            // { name: "External equipment", route: "/network/customers" },
+                            // { name: "Optical nodes", route: "/network/customers" },
+                            // { name: "ODFs", route: "/network/customers" }
+                        ]
                     }
-                    // {
-                    //     name: "Equipment & Cables",
-                    //     route: "/network/customers",
-                    //     iconClass: "icon-organization",
-                    //     subSubOptions: [
-                    //         { name: "Cables", route: "/network/customers" },
-                    //         { name: "Hosts", route: "/network/customers" },
-                    //         { name: "Firewalls", route: "/network/customers" },
-                    //         { name: "Routers", route: "/network/customers" },
-                    //         { name: "Switches", route: "/network/customers" },
-                    //         { name: "External equipment", route: "/network/customers" },
-                    //         { name: "Optical nodes", route: "/network/customers" },
-                    //         { name: "ODFs", route: "/network/customers" }
-                    //     ]
-                    // }
                 ]
             }
         ];

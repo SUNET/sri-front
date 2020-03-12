@@ -15,16 +15,17 @@ import { withRouter } from "react-router-dom";
 import { path } from "../Routes";
 
 import "../style/SideNav.scss";
-import { NETWORK_ORGANIZATIONS } from "../utils/constants";
+import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT } from "../utils/constants";
 
 class SideNavNetwork extends React.Component {
     NETWORK_ORGANIZATIONS_ROUTES = [
-        "/network/",
+        "/network",
         "/network/customers",
         "/network/end-users",
         "/network/providers",
         "/network/site-owners"
     ];
+    NETWORK_EQUIPMENT_ROUTES = ["/network/cables"];
     MENU_DATA = [
         {
             header: {
@@ -38,16 +39,24 @@ class SideNavNetwork extends React.Component {
                 { path: "providers", i18nText: "network.sub-menu.organizations/providers" },
                 { path: "site-owners", i18nText: "network.sub-menu.organizations/site-owners" }
             ]
+        },
+        {
+            header: {
+                name: NETWORK_EQUIPMENT,
+                icon: "organization-icon.svg",
+                i18nText: "network.sub-menu.equipment"
+            },
+            items: [{ path: "cables", i18nText: "network.sub-menu.equipment/cables" }]
         }
     ];
 
     matchUrl = () => {
         if (this.NETWORK_ORGANIZATIONS_ROUTES.includes(this.props.location.pathname)) {
             return "network-organizations";
+        } else if (this.NETWORK_EQUIPMENT_ROUTES.includes(this.props.location.pathname)) {
+            return "network-equipment";
         }
-        // else if (this.props.location.pathname.includes("logical")) {
-        //     return "logical";
-        // } else if (this.props.location.pathname.includes("locations")) {
+        // else if (this.props.location.pathname.includes("locations")) {
         //     return "locations";
         // }
     };
@@ -92,7 +101,7 @@ class SideNavNetwork extends React.Component {
         return (
             <Col sm={2} className="pl-0">
                 <Nav className="flex-column side-nav">
-                    <Accordion preExpanded={["network-organizations"]} className="accordion">
+                    <Accordion preExpanded={[this.matchUrl()]} className="accordion">
                         {this.MENU_DATA.map((data) => {
                             const { header, items } = data;
                             return this.renderAccordionItem(header.name, header.icon, header.i18nText, items);

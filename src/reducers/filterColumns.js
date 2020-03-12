@@ -26,6 +26,10 @@ const initialState = {
     siteOwner: {
         all_columns: true,
         columns_visible: {}
+    },
+    cable: {
+        all_columns: true,
+        columns_visible: {}
     }
 };
 
