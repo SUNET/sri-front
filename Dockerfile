@@ -14,7 +14,6 @@ RUN sed -i "s|{API_HOST}|$API_HOST|g" src/config.js &&\
 
 RUN yarn
 RUN yarn add babel-plugin-relay
-RUN yarn build
 
 ADD ./bundle-pj.sh /app/bundle-pj.sh
 RUN chmod +x bundle-pj.sh
