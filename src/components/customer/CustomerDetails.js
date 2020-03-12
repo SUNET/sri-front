@@ -35,7 +35,6 @@ class CustomerDetails extends React.Component {
                     if (error) {
                         return <div>{error.message}</div>;
                     } else if (props) {
-                        console.log("props: ", props);
                         return (
                             <section className="model-details customer-details">
                                 <CustomerUpdateFormContainer

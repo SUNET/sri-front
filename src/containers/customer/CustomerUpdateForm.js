@@ -7,7 +7,6 @@ import * as actions from "../../actions/Notify";
 const mapStateToProps = (state, props) => {
     const updateCustomerSelector = formValueSelector("updateCustomer");
     const customer = props.customer;
-    console.log('customer: ', customer);
     const initialValues = {
         id: customer.id,
         name: customer.name,
