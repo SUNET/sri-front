@@ -16,6 +16,15 @@ export type EndUserUpdateForm_endUser = {|
   +name: string,
   +description: ?string,
   +url: ?string,
+  +comments: ?$ReadOnlyArray<?{|
+    +id: string,
+    +user: ?{|
+      +first_name: string,
+      +last_name: string,
+    |},
+    +comment: string,
+    +submit_date: any,
+  |}>,
   +created: any,
   +creator: {|
     +email: string
@@ -35,7 +44,14 @@ export type EndUserUpdateForm_endUser$key = {
 
 
 const node/*: ReaderFragment*/ = (function(){
-var v0 = [
+var v0 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v1 = [
   {
     "kind": "ScalarField",
     "alias": null,
@@ -51,13 +67,7 @@ return {
   "metadata": null,
   "argumentDefinitions": [],
   "selections": [
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "id",
-      "args": null,
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -80,6 +90,57 @@ return {
       "storageKey": null
     },
     {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "comments",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "CommentType",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/),
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "user",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "User",
+          "plural": false,
+          "selections": [
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "first_name",
+              "args": null,
+              "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "last_name",
+              "args": null,
+              "storageKey": null
+            }
+          ]
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "comment",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "submit_date",
+          "args": null,
+          "storageKey": null
+        }
+      ]
+    },
+    {
       "kind": "ScalarField",
       "alias": null,
       "name": "created",
@@ -94,7 +155,7 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v0/*: any*/)
+      "selections": (v1/*: any*/)
     },
     {
       "kind": "ScalarField",
@@ -111,11 +172,11 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v0/*: any*/)
+      "selections": (v1/*: any*/)
     }
   ]
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ab4a21a4b64711a23288a90ce492cb52';
+(node/*: any*/).hash = 'd9cf83b8941d0716fb04ea7539b27554';
 module.exports = node;

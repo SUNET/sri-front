@@ -13,6 +13,21 @@ const EndUserDetailsQuery = graphql`
                 id
                 name
                 __typename
+                ... on Organization {
+                    website
+                }
+                ... on Provider {
+                    url
+                }
+            }
+            comments {
+                id
+                user {
+                    first_name
+                    last_name
+                }
+                comment
+                submit_date
             }
             created
             creator {

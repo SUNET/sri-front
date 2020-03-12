@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6eaa6f5a0e93fab67d8f24de36ead263
+ * @relayHash 3efd081e016dd42809a208c68edd2c8a
  */
 
 /* eslint-disable */
@@ -24,6 +24,15 @@ export type SiteOwnerDetailsQueryResponse = {|
       +id: string,
       +name: string,
       +__typename: string,
+    |}>,
+    +comments: ?$ReadOnlyArray<?{|
+      +id: string,
+      +user: ?{|
+        +first_name: string,
+        +last_name: string,
+      |},
+      +comment: string,
+      +submit_date: any,
     |}>,
     +created: any,
     +creator: {|
@@ -59,6 +68,16 @@ query SiteOwnerDetailsQuery(
       name
       __typename
     }
+    comments {
+      id
+      user {
+        first_name
+        last_name
+        id
+      }
+      comment
+      submit_date
+    }
     created
     creator {
       email
@@ -77,6 +96,16 @@ fragment SiteOwnerUpdateForm_siteOwner on SiteOwner {
   name
   description
   url
+  comments {
+    id
+    user {
+      first_name
+      last_name
+      id
+    }
+    comment
+    submit_date
+  }
   created
   creator {
     email
@@ -158,29 +187,57 @@ v7 = {
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "created",
+  "name": "first_name",
   "args": null,
   "storageKey": null
 },
 v9 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v10 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "comment",
+  "args": null,
+  "storageKey": null
+},
+v11 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "submit_date",
+  "args": null,
+  "storageKey": null
+},
+v12 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "created",
+  "args": null,
+  "storageKey": null
+},
+v13 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v10 = [
-  (v9/*: any*/)
+v14 = [
+  (v13/*: any*/)
 ],
-v11 = {
+v15 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v12 = [
-  (v9/*: any*/),
+v16 = [
+  (v13/*: any*/),
   (v2/*: any*/)
 ];
 return {
@@ -207,7 +264,34 @@ return {
           (v5/*: any*/),
           (v6/*: any*/),
           (v7/*: any*/),
-          (v8/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "comments",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CommentType",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "user",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": [
+                  (v8/*: any*/),
+                  (v9/*: any*/)
+                ]
+              },
+              (v10/*: any*/),
+              (v11/*: any*/)
+            ]
+          },
+          (v12/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -216,9 +300,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v10/*: any*/)
+            "selections": (v14/*: any*/)
           },
-          (v11/*: any*/),
+          (v15/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -227,7 +311,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v10/*: any*/)
+            "selections": (v14/*: any*/)
           },
           {
             "kind": "FragmentSpread",
@@ -256,7 +340,35 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
-          (v8/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "comments",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CommentType",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "user",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": [
+                  (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v2/*: any*/)
+                ]
+              },
+              (v10/*: any*/),
+              (v11/*: any*/)
+            ]
+          },
+          (v12/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -265,9 +377,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v12/*: any*/)
+            "selections": (v16/*: any*/)
           },
-          (v11/*: any*/),
+          (v15/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -276,7 +388,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v12/*: any*/)
+            "selections": (v16/*: any*/)
           },
           (v6/*: any*/),
           (v7/*: any*/)
@@ -288,11 +400,11 @@ return {
     "operationKind": "query",
     "name": "SiteOwnerDetailsQuery",
     "id": null,
-    "text": "query SiteOwnerDetailsQuery(\n  $siteOwnerId: ID!\n) {\n  getSiteOwnerById(id: $siteOwnerId) {\n    ...SiteOwnerUpdateForm_siteOwner\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment SiteOwnerUpdateForm_siteOwner on SiteOwner {\n  id\n  name\n  description\n  url\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query SiteOwnerDetailsQuery(\n  $siteOwnerId: ID!\n) {\n  getSiteOwnerById(id: $siteOwnerId) {\n    ...SiteOwnerUpdateForm_siteOwner\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment SiteOwnerUpdateForm_siteOwner on SiteOwner {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '48e5a91ec059dac8a2a747497e1ff10b';
+(node/*: any*/).hash = '65adf7d4f2f9b3c9d15064c2fbdc2d62';
 module.exports = node;

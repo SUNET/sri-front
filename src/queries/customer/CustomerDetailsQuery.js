@@ -14,6 +14,15 @@ const CustomerDetailsQuery = graphql`
                 name
                 __typename
             }
+            comments {
+                id
+                user {
+                    first_name
+                    last_name
+                }
+                comment
+                submit_date
+            }
             created
             creator {
                 email

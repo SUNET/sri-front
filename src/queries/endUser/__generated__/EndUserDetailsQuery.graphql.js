@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 48a1ae1f21dc325625b760a47646ee40
+ * @relayHash d86a2b5d0e4b744c2ead0d3ace29b09a
  */
 
 /* eslint-disable */
@@ -24,6 +24,17 @@ export type EndUserDetailsQueryResponse = {|
       +id: string,
       +name: string,
       +__typename: string,
+      +website?: ?string,
+      +url?: ?string,
+    |}>,
+    +comments: ?$ReadOnlyArray<?{|
+      +id: string,
+      +user: ?{|
+        +first_name: string,
+        +last_name: string,
+      |},
+      +comment: string,
+      +submit_date: any,
     |}>,
     +created: any,
     +creator: {|
@@ -58,6 +69,22 @@ query EndUserDetailsQuery(
       id
       name
       __typename
+      ... on Organization {
+        website
+      }
+      ... on Provider {
+        url
+      }
+    }
+    comments {
+      id
+      user {
+        first_name
+        last_name
+        id
+      }
+      comment
+      submit_date
     }
     created
     creator {
@@ -77,6 +104,16 @@ fragment EndUserUpdateForm_endUser on EndUser {
   name
   description
   url
+  comments {
+    id
+    user {
+      first_name
+      last_name
+      id
+    }
+    comment
+    submit_date
+  }
   created
   creator {
     email
@@ -152,35 +189,83 @@ v7 = {
   "selections": [
     (v2/*: any*/),
     (v3/*: any*/),
-    (v6/*: any*/)
+    (v6/*: any*/),
+    {
+      "kind": "InlineFragment",
+      "type": "Organization",
+      "selections": [
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "website",
+          "args": null,
+          "storageKey": null
+        }
+      ]
+    },
+    {
+      "kind": "InlineFragment",
+      "type": "Provider",
+      "selections": [
+        (v5/*: any*/)
+      ]
+    }
   ]
 },
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "created",
+  "name": "first_name",
   "args": null,
   "storageKey": null
 },
 v9 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "last_name",
+  "args": null,
+  "storageKey": null
+},
+v10 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "comment",
+  "args": null,
+  "storageKey": null
+},
+v11 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "submit_date",
+  "args": null,
+  "storageKey": null
+},
+v12 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "created",
+  "args": null,
+  "storageKey": null
+},
+v13 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v10 = [
-  (v9/*: any*/)
+v14 = [
+  (v13/*: any*/)
 ],
-v11 = {
+v15 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v12 = [
-  (v9/*: any*/),
+v16 = [
+  (v13/*: any*/),
   (v2/*: any*/)
 ];
 return {
@@ -207,7 +292,34 @@ return {
           (v5/*: any*/),
           (v6/*: any*/),
           (v7/*: any*/),
-          (v8/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "comments",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CommentType",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "user",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": [
+                  (v8/*: any*/),
+                  (v9/*: any*/)
+                ]
+              },
+              (v10/*: any*/),
+              (v11/*: any*/)
+            ]
+          },
+          (v12/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -216,9 +328,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v10/*: any*/)
+            "selections": (v14/*: any*/)
           },
-          (v11/*: any*/),
+          (v15/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -227,7 +339,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v10/*: any*/)
+            "selections": (v14/*: any*/)
           },
           {
             "kind": "FragmentSpread",
@@ -256,7 +368,35 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
-          (v8/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "comments",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CommentType",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "user",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "User",
+                "plural": false,
+                "selections": [
+                  (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v2/*: any*/)
+                ]
+              },
+              (v10/*: any*/),
+              (v11/*: any*/)
+            ]
+          },
+          (v12/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -265,9 +405,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v12/*: any*/)
+            "selections": (v16/*: any*/)
           },
-          (v11/*: any*/),
+          (v15/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -276,7 +416,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v12/*: any*/)
+            "selections": (v16/*: any*/)
           },
           (v6/*: any*/),
           (v7/*: any*/)
@@ -288,11 +428,11 @@ return {
     "operationKind": "query",
     "name": "EndUserDetailsQuery",
     "id": null,
-    "text": "query EndUserDetailsQuery(\n  $endUserId: ID!\n) {\n  getEndUserById(id: $endUserId) {\n    ...EndUserUpdateForm_endUser\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment EndUserUpdateForm_endUser on EndUser {\n  id\n  name\n  description\n  url\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query EndUserDetailsQuery(\n  $endUserId: ID!\n) {\n  getEndUserById(id: $endUserId) {\n    ...EndUserUpdateForm_endUser\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n      ... on Organization {\n        website\n      }\n      ... on Provider {\n        url\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment EndUserUpdateForm_endUser on EndUser {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4a990dc8b9a4817acd5f7ee89e960e79';
+(node/*: any*/).hash = 'f2dca818eb4c118c9fd62af314d952d1';
 module.exports = node;
