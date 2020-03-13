@@ -10,19 +10,19 @@ import graphql from "babel-plugin-relay/macro";
 
 // Components imports
 import CableList from "../../containers/cable/CableList";
-
+import CableDetailsContainer from "../../containers/cable/CableDetails";
 // Constants
 
 class SearchCable extends _SearchEntityParentClass {
     LIST_CONTAINER = CableList;
     CREATE_COMPONENT = undefined;
-    DETAIL_CONTAINER = undefined;
+    DETAIL_CONTAINER = CableDetailsContainer;
 
     MODEL_NAME = "cable";
     MODEL_LIST_NAME = "cables";
 
     PATH_ENTITY = `/network/cables`;
-    PATH_ENTITY_ID = "";
+    PATH_ENTITY_ID = "cableId";
     DEFAULT_COLUMNS = [
         { name: "Name", value: "name", filter: "order" },
         { name: "Cable Type", value: "cable_type" },

@@ -29,7 +29,7 @@ class CableRow extends React.PureComponent {
     render() {
         let cable = this.props.cable;
         return (
-            <tr /*onClick={(e) => this.props.onClick(e, cable)}*/>
+            <tr onClick={(e) => this.props.onClick(e, cable)}>
                 {this.renderCellSection("name", cable.name)}
                 {this.renderCellSection("cable_type", cable.cable_type)}
                 {this.renderCellSection("description", cable.description)}

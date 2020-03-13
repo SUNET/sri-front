@@ -13,6 +13,8 @@ export const CREATE_ENDUSER_FORM = "create-end-user-form";
 export const UPDATE_ENDUSER_FORM = "update-end-user-form";
 export const CREATE_SITEOWNER_FORM = "create-site-owner-form";
 export const UPDATE_SITEOWNER_FORM = "update-site-owner-form";
+export const CREATE_CABLE_FORM = "create-cable-form";
+export const UPDATE_CABLE_FORM = "update-cable-form";
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = "organizations";
 export const COMMUNITY_GROUPS = "groups";
