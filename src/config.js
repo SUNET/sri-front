@@ -1,5 +1,5 @@
-let api_host_suffix = process.env.API_HOST ? process.env.API_HOST : "ni.localenv.loc";
-let cookie_domain = process.env.COOKIE_DOMAIN ? process.env.COOKIE_DOMAIN : ".localenv.loc";
+let api_host_suffix = process.env.REACT_APP_API_HOST ? process.env.REACT_APP_API_HOST : "ni.localenv.loc";
+let cookie_domain = process.env.REACT_APP_COOKIE_DOMAIN ? process.env.REACT_APP_COOKIE_DOMAIN : ".localenv.loc";
 const config = {
     API_HOST: window.location.protocol + '//' + api_host_suffix,
     COOKIE_DOMAIN: cookie_domain
