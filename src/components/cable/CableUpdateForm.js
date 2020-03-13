@@ -5,6 +5,7 @@ import { withTranslation } from "react-i18next";
 import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
+import { Form, Col } from "react-bootstrap";
 // import UpdateCableMutation from "../../mutations/cable/UpdateCableMutation";
 // import ValidationsCableForm from "./ValidationsCableForm";
 // const
@@ -33,6 +34,17 @@ class CableUpdateForm extends _BasicFormParentClass {
         this.setState({ editMode: !this.state.editMode });
         // UpdateCableMutation(cable, this);
     };
+    renderModelMainSection(editMode = true) {
+        return (
+            <section className="model-section">
+                <Form.Row>
+                    <Col>
+                        <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
+                    </Col>
+                </Form.Row>
+            </section>
+        );
+    }
     render() {
         let { handleSubmit } = this.props;
         const { editMode } = this.state;
