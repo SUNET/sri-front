@@ -43,7 +43,7 @@ class SideNavNetwork extends React.Component {
         {
             header: {
                 name: NETWORK_EQUIPMENT,
-                icon: "organization-icon.svg",
+                icon: "equipment-icon.svg",
                 i18nText: "network.sub-menu.equipment"
             },
             items: [{ path: "cables", i18nText: "network.sub-menu.equipment/cables" }]
