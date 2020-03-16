@@ -27,6 +27,18 @@ const DropdownSearchAllContactsQuery = graphql`
         }
     }
 `;
+const DropdownSearchAllProvidersQuery = graphql`
+    query DropdownSearchAllProvidersQuery($filter: ProviderFilter) {
+        providers(filter: $filter) {
+            edges {
+                node {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`;
 class DropdownSearch extends React.Component {
     constructor(props) {
         super(props);
@@ -40,16 +52,31 @@ class DropdownSearch extends React.Component {
             allItems: []
         };
     }
+    getQueryByModel(model) {
+        switch (model) {
+            case "contacts":
+                return DropdownSearchAllContactsQuery;
+                break;
+            case "providers":
+                return DropdownSearchAllProvidersQuery;
+                break;
+            default:
+                return DropdownSearchAllContactsQuery;
+                break;
+        }
+    }
 
     getItems = debounce((filter) => {
+        const modelName = this.props.model ? this.props.model : "contacts";
+        let dropdownQuery = this.getQueryByModel(this.props.model);
         const variables = {
             filter: { AND: [{ name_contains: filter }] }
         };
 
         if (filter.length > MIN_CHAR_TO_FIND) {
             this.setState({ filterValue: filter, allItems: this.LOADING_VALUE });
-            fetchQuery(environment, DropdownSearchAllContactsQuery, variables).then((data) => {
-                let newData = data.contacts.edges.map((edge) => edge.node);
+            fetchQuery(environment, dropdownQuery, variables).then((data) => {
+                let newData = data[modelName].edges.map((edge) => edge.node);
                 if (newData.length === 0) {
                     newData = this.NO_MATCHES_RESULT;
                 }

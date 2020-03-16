@@ -121,6 +121,8 @@
             "organization-details.postal-code": "Postal Code",
             "organization-details.postal-area": "Postal Area",
             "organization-details.phone": "Phone",
+            "network.cable.details.provider": "Provider",
+            "network.cable.details.write-provider": "Write Provider",
             "info.created": "Created",
             "info.last_update": "Last update",
             "notify.contact-created-success": "Contact created successfully",

@@ -1,4 +1,4 @@
-import _BasicFormParentClass from "../common/_BasicFormParentClass";
+import _CableFormParentClass from "./_CableFormParentClass";
 // Common imports
 import React from "react";
 import { withTranslation } from "react-i18next";
@@ -6,13 +6,17 @@ import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Form, Col } from "react-bootstrap";
+
+import Dropdown from "../Dropdown";
+import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
+
 // import UpdateCableMutation from "../../mutations/cable/UpdateCableMutation";
 // import ValidationsCableForm from "./ValidationsCableForm";
 // const
 import { UPDATE_CABLE_FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
 
-class CableUpdateForm extends _BasicFormParentClass {
+class CableUpdateForm extends _CableFormParentClass {
     IS_UPDATED_FORM = true;
     FORM_ID = UPDATE_CABLE_FORM;
     MODEL_NAME = "cable";
@@ -34,17 +38,7 @@ class CableUpdateForm extends _BasicFormParentClass {
         this.setState({ editMode: !this.state.editMode });
         // UpdateCableMutation(cable, this);
     };
-    renderModelMainSection(editMode = true) {
-        return (
-            <section className="model-section">
-                <Form.Row>
-                    <Col>
-                        <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-                    </Col>
-                </Form.Row>
-            </section>
-        );
-    }
+
     render() {
         let { handleSubmit } = this.props;
         const { editMode } = this.state;

@@ -59,6 +59,22 @@ class Dropdown extends React.PureComponent {
         emptyLabel: PropTypes.string,
         defaultValue: PropTypes.string
     };
+    getQueryByModel(model) {
+        switch (model) {
+            case "organization":
+                return DropdownOrganizationsAllQuery;
+                break;
+            case "roles":
+                return DropdownRolesQuery;
+                break;
+            case "default_roles":
+                return DropdownRolesGroupDefaultQuery;
+                break;
+            default:
+                return DropdownQuery;
+                break;
+        }
+    }
     // for real backend dropdowns
     renderOptions = (options) => {
         return options.map((option) => {
@@ -91,22 +107,7 @@ class Dropdown extends React.PureComponent {
     };
 
     render() {
-        let dropdownQuery = undefined;
-        // TODO: Refactor get query depends of model
-        switch (this.props.model) {
-            case "organization":
-                dropdownQuery = DropdownOrganizationsAllQuery;
-                break;
-            case "roles":
-                dropdownQuery = DropdownRolesQuery;
-                break;
-            case "default_roles":
-                dropdownQuery = DropdownRolesGroupDefaultQuery;
-                break;
-            default:
-                dropdownQuery = DropdownQuery;
-                break;
-        }
+        let dropdownQuery = this.getQueryByModel(this.props.model);
         const variables =
             this.props.model === undefined
                 ? {
