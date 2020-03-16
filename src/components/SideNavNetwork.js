@@ -18,14 +18,8 @@ import "../style/SideNav.scss";
 import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT } from "../utils/constants";
 
 class SideNavNetwork extends React.Component {
-    NETWORK_ORGANIZATIONS_ROUTES = [
-        "/network",
-        "/network/customers",
-        "/network/end-users",
-        "/network/providers",
-        "/network/site-owners"
-    ];
-    NETWORK_EQUIPMENT_ROUTES = ["/network/cables"];
+    NETWORK_ORGANIZATIONS_ROUTES = ["customers", "end-users", "providers", "site-owners"];
+    NETWORK_EQUIPMENT_ROUTES = ["cables"];
     MENU_DATA = [
         {
             header: {
@@ -51,9 +45,13 @@ class SideNavNetwork extends React.Component {
     ];
 
     matchUrl = () => {
-        if (this.NETWORK_ORGANIZATIONS_ROUTES.includes(this.props.location.pathname)) {
+        const [, blockPath, entityPath] = this.props.location.pathname.split("/");
+        if (
+            blockPath === "network" &&
+            (entityPath === undefined || this.NETWORK_ORGANIZATIONS_ROUTES.includes(entityPath))
+        ) {
             return "network-organizations";
-        } else if (this.NETWORK_EQUIPMENT_ROUTES.includes(this.props.location.pathname)) {
+        } else if (this.NETWORK_EQUIPMENT_ROUTES.includes(entityPath)) {
             return "network-equipment";
         }
         // else if (this.props.location.pathname.includes("locations")) {
