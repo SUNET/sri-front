@@ -1,22 +1,12 @@
 import _BasicFormParentClass from "../common/_BasicFormParentClass";
 // Common imports
 import React from "react";
-import { arrayPush, FieldArray, Field } from "redux-form";
-import uuidv4 from "uuid/v4";
-import { Form, Col } from "react-bootstrap";
 // components
-import BackCTA from "../common/BackCTA";
 import Dropdown from "../Dropdown";
 import DropdownSearch from "../DropdownSearch";
-import EditField from "../EditField";
-import FiledArrayCheckbox, { INPUTS } from "../FieldArrayCheckbox";
-import FieldInput from "../FieldInput";
-import InfoCreatorModifier from "../InfoCreatorModifier";
-import SaveCancelCTAs from "../common/SaveCancelCTAs";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
-import Worklog from "../Worklog";
 // const
-import { isBrowser, isMobile } from "react-device-detect";
+import { isBrowser } from "react-device-detect";
 // scss
 import "../../style/ModelDetails.scss";
 
@@ -46,7 +36,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
 
     // Specific toggle sections RENDERS
     renderGeneralInfoToggleSection(editMode = true) {
-        const { t, url } = this.props;
+        const { t } = this.props;
         const generalInfoFirstRow = [
             {
                 title: t("organization-details.type"),

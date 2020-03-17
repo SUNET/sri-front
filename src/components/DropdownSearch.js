@@ -53,17 +53,19 @@ class DropdownSearch extends React.Component {
         };
     }
     getQueryByModel(model) {
+        let queryModel;
         switch (model) {
             case "contacts":
-                return DropdownSearchAllContactsQuery;
+                queryModel = DropdownSearchAllContactsQuery;
                 break;
             case "providers":
-                return DropdownSearchAllProvidersQuery;
+                queryModel = DropdownSearchAllProvidersQuery;
                 break;
             default:
-                return DropdownSearchAllContactsQuery;
+                queryModel = DropdownSearchAllContactsQuery;
                 break;
         }
+        return queryModel;
     }
 
     getItems = debounce((filter) => {

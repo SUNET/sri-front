@@ -60,20 +60,22 @@ class Dropdown extends React.PureComponent {
         defaultValue: PropTypes.string
     };
     getQueryByModel(model) {
+        let queryModel;
         switch (model) {
             case "organization":
-                return DropdownOrganizationsAllQuery;
+                queryModel = DropdownOrganizationsAllQuery;
                 break;
             case "roles":
-                return DropdownRolesQuery;
+                queryModel = DropdownRolesQuery;
                 break;
             case "default_roles":
-                return DropdownRolesGroupDefaultQuery;
+                queryModel = DropdownRolesGroupDefaultQuery;
                 break;
             default:
-                return DropdownQuery;
+                queryModel = DropdownQuery;
                 break;
         }
+        return queryModel;
     }
     // for real backend dropdowns
     renderOptions = (options) => {

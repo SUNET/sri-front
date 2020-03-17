@@ -5,10 +5,6 @@ import { withTranslation } from "react-i18next";
 import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-import { Form, Col } from "react-bootstrap";
-
-import Dropdown from "../Dropdown";
-import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 
 // import UpdateCableMutation from "../../mutations/cable/UpdateCableMutation";
 // import ValidationsCableForm from "./ValidationsCableForm";
