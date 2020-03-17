@@ -50,6 +50,9 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
         })
     })
         .then((response) => {
+            if (response.redirected) {
+                return window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+            }
             return response.json();
         })
         .then((json) => {
@@ -63,6 +66,9 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
             }
 
             return json;
+        })
+        .catch(() => {
+            window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
         });
 }
 
