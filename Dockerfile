@@ -1,4 +1,4 @@
-FROM node:8 as sri-front
+FROM node:12 as sri-front
 
 WORKDIR /app
 COPY . ./
