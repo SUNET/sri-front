@@ -34,27 +34,28 @@ class _CableFormParentClass extends _BasicFormParentClass {
     MODEL_NAME = "cable";
     ROUTE_LIST_DIRECTION = "/network/cables";
 
+    handleProviderSearch = (selection) => {
+        if (selection !== null) {
+            this.props.getProvider(selection.id).then((provider) => {
+                console.log("provider: ", provider);
+            });
+        }
+    };
+
     // Specific toggle sections RENDERS
     renderGeneralInfoToggleSection(editMode = true) {
-        const { t } = this.props;
+        const { t, cable_type } = this.props;
         const generalInfoFirstRow = [
             {
                 title: t("organization-details.type"),
-                presentContent: (
-                    <Dropdown
-                        className={`${isBrowser ? "auto" : "xlg mw-100"}`}
-                        emptyLabel="Select type"
-                        type="cable_types"
-                        name="type"
-                        onChange={(e) => {}}
-                    />
-                ),
+                presentContent:
+                    cable_type,
                 editContent: (
                     <Dropdown
                         className={`${isBrowser ? "auto" : "xlg mw-100"}`}
                         emptyLabel="Select type"
                         type="cable_types"
-                        name="type"
+                        name="cable_type"
                         onChange={(e) => {}}
                     />
                 )
@@ -63,14 +64,14 @@ class _CableFormParentClass extends _BasicFormParentClass {
                 title: t("network.cable.details.provider"),
                 presentContent: (
                     <DropdownSearch
-                        // selection={this.props.handleContactSearch}
+                        selection={this.handleProviderSearch}
                         placeholder={t("search-filter.search-contact")}
                         model="providers"
                     />
                 ),
                 editContent: (
                     <DropdownSearch
-                        // selection={this.props.handleContactSearch}
+                        selection={this.handleProviderSearch}
                         placeholder={t("search-filter.search-contact")}
                         model="providers"
                     />

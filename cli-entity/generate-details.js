@@ -25,7 +25,8 @@ const generateDetails = (blockEntity, nameEntity) => {
         directory: `/src/components/${entityName}`,
         files: [
             { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ComponentEntityDetails.js" },
-            { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ComponentEntityUpdateForm.js" }
+            { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ComponentEntityUpdateForm.js" },
+            { path: `${entityClassName}.js`, template: "cli-entity/templates/ComponentEntity.js" }
         ]
     };
     const queriesPaths = {
