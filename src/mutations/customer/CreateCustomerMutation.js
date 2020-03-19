@@ -2,6 +2,7 @@ import { commitMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
+import i18n from "../../i18n";
 
 const mutation = graphql`
     mutation CreateCustomerMutation($input: CreateCustomerInput!) {
@@ -22,7 +23,7 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function CreateCustomerMutation(customer, callback) {
+function CreateCustomerMutation(customer, form) {
     const variables = {
         input: {
             name: customer.name,
@@ -34,8 +35,14 @@ function CreateCustomerMutation(customer, callback) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(response, errors);
-            callback();
+            if (response.create_customer.errors) {
+                form.props.notify(i18n.t("notify.error"), "error");
+                return response.create_customer.updated.errors;
+            } else {
+                form.props.reset();
+                form.refetch();
+                form.props.notify(i18n.t("notify.changes-saved"), "success");
+            }
         },
         onError: (errors) => console.error(errors),
         configs: [

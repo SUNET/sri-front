@@ -7,9 +7,9 @@ export default class ValidationCustomerForm {
         if (!values.name) {
             errors.name = REQUIRED_TEXT;
         }
-        if (values.website) {
-            if (!urlRegex({ exact: true, strict: false }).test(values.website)) {
-                errors.website = "* Invalid url!";
+        if (values.url) {
+            if (!urlRegex({ exact: true, strict: false }).test(values.url)) {
+                errors.url = "* Invalid url!";
             }
         }
         return errors;
