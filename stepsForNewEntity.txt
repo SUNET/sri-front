@@ -48,6 +48,15 @@ entityName           ||     + EntityDetails.js
 
 4.Enable click on the row list (in EntityRow)
 
+
+MUTATIONS
+.Create Files:
+    + Mutations/entity/UpdateEntityMutation.js
+    + Mutations/entity/CreateEntityMutation.js
+    + Mutations/entity/DeleteEntityMutation.js
+
+
+
 Samples:
 
 - To test scripts
