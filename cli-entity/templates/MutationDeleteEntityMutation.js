@@ -24,6 +24,7 @@ export default function Delete__EntityClassName__Mutation(id, callback) {
         onError: (err) => console.error(err),
         onCompleted: (response) => {
             console.log(response, environment);
+            callback();
         },
         configs: [
             {
