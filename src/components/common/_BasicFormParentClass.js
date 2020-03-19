@@ -200,7 +200,7 @@ class _CustomerFormParentClass extends React.Component {
                         <Field
                             type="text"
                             className={`${isBrowser ? "xlg" : "xlg mw-100"}`}
-                            name="website"
+                            name="url"
                             component={FieldInput}
                             placeholder={t("organization-details.add-website")}
                         />
