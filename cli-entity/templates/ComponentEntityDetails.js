@@ -18,10 +18,10 @@ class __EntityClassName__Details extends React.Component {
         }).isRequired
     };
 
-    // handleDelete = () => {
-    //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     Delete__EntityClassName__Mutation(idEntity, () => this.props.history.push(`/community/__entityName__s`));
-    // };
+    handleDelete = () => {
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        Delete__EntityClassName__Mutation(idEntity, () => this.props.history.push(`/__entityBlock__/__entityName__s`));
+    };
 
     render() {
         return (

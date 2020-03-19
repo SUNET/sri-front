@@ -47,9 +47,9 @@ class _CustomerFormParentClass extends React.Component {
     handleSubmit = () => {
         throw new Error("This method should be overwritten in the child class");
     };
-    // onClickDelete = () => {
-    //     this.props.onDelete();
-    // };
+    onClickDelete = () => {
+        this.props.onDelete();
+    };
     onClickCancel = () => {
         this.props.history.push(this.ROUTE_LIST_DIRECTION);
     };
