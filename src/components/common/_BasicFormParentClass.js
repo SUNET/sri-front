@@ -94,7 +94,7 @@ class _CustomerFormParentClass extends React.Component {
         return (
             <div className="title-section">
                 {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
-                {/* {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()} */}
+                {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
                 <div className="vertical-separator"></div>
                 <div className={`title-section__name-inputs ${editionModeClass}`}>
                     {this.renderInputName("name", editMode)}
@@ -105,7 +105,7 @@ class _CustomerFormParentClass extends React.Component {
     renderHeaderRight() {
         return (
             <div className="title-section__right-block">
-                {/* {isBrowser && this.renderEditButton()} */}
+                {isBrowser && this.renderEditButton()}
                 <InfoCreatorModifier model={this.props[this.MODEL_NAME]} />
             </div>
         );
