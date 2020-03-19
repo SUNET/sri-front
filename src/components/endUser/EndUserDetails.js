@@ -20,7 +20,7 @@ class EndUserDetails extends React.Component {
 
     // handleDelete = () => {
     //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     DeleteEndUserMutation(idEntity, () => this.props.history.push(`/community/endUsers`));
+    //     DeleteEndUserMutation(idEntity, () => this.props.history.push(`/network/endUsers`));
     // };
 
     render() {

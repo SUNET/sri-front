@@ -20,7 +20,7 @@ class SiteOwnerDetails extends React.Component {
 
     // handleDelete = () => {
     //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     DeleteSiteOwnerMutation(idEntity, () => this.props.history.push(`/community/siteOwners`));
+    //     DeleteSiteOwnerMutation(idEntity, () => this.props.history.push(`/network/siteOwners`));
     // };
 
     render() {

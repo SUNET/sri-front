@@ -20,7 +20,7 @@ class ProviderDetails extends React.Component {
 
     // handleDelete = () => {
     //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     DeleteProviderMutation(idEntity, () => this.props.history.push(`/community/providers`));
+    //     DeleteProviderMutation(idEntity, () => this.props.history.push(`/network/providers`));
     // };
 
     render() {
