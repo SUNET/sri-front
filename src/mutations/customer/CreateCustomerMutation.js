@@ -4,13 +4,13 @@ import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 
 const mutation = graphql`
-    mutation Create__EntityClassName__Mutation($input: Create__EntityClassName__Input!) {
-        create___entityName__(input: $input) {
+    mutation CreateCustomerMutation($input: CreateCustomerInput!) {
+        create_customer(input: $input) {
             errors {
                 field
                 messages
             }
-            __entityName__ {
+            customer {
                 id
                 name
                 description
@@ -22,7 +22,7 @@ const mutation = graphql`
 
 let tempID = 0;
 
-function Create__EntityClassName__Mutation(customer, callback) {
+function CreateCustomerMutation(customer, callback) {
     const variables = {
         input: {
             name: customer.name,
@@ -48,4 +48,4 @@ function Create__EntityClassName__Mutation(customer, callback) {
     });
 }
 
-export default Create__EntityClassName__Mutation;
+export default CreateCustomerMutation;

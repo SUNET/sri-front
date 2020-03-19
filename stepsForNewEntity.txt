@@ -64,6 +64,8 @@ MUTATIONS
     + components/entity/CreateEntity.js
     + components/entity/CreateEntityForm.js
 
+5. Add Create route in SubMenuActions
+
 Samples:
 
 - To test scripts

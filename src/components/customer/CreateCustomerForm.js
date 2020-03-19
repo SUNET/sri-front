@@ -1,23 +1,23 @@
-import ___EntityClassName__FormParentClass from "./___EntityClassName__FormParentClass";
+import _BasicFormParentClass from "../common/_BasicFormParentClass";
 // Common imports
 import React from "react";
 import { withTranslation } from "react-i18next";
 import { withRouter } from "react-router-dom";
 import { reduxForm } from "redux-form";
-import Create__EntityClassName__Mutation from "../../mutations/__entityName__/Create__EntityClassName__Mutation";
-import Validations__EntityClassName__Form from "../common/_BasicValidationForm";
+import CreateCustomerMutation from "../../mutations/customer/CreateCustomerMutation";
+import ValidationsCustomerForm from "../common/_BasicValidationForm";
 // const
-import { CREATE___CONST_NAME___FORM } from "../../utils/constants";
+import { CREATE_CUSTOMER_FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
 
-class Create__EntityClassName__Form extends _BasicFormParentClass {
+class CreateCustomerForm extends _BasicFormParentClass {
     IS_UPDATED_FORM = false;
-    FORM_ID = CREATE___CONST_NAME___FORM;
+    FORM_ID = CREATE_CUSTOMER_FORM;
     state = {
         errors: []
     };
-    handleSubmit = (__entityName__) => {
-        Create__EntityClassName__Mutation(__entityName__, this);
+    handleSubmit = (customer) => {
+        CreateCustomerMutation(customer, this);
     };
     render() {
         const { handleSubmit } = this.props;
@@ -37,12 +37,12 @@ class Create__EntityClassName__Form extends _BasicFormParentClass {
     }
 }
 
-Create__EntityClassName__Form = reduxForm({
-    form: "create__EntityClassName__",
-    validate: Validations__EntityClassName__Form.validate,
+CreateCustomerForm = reduxForm({
+    form: "createCustomer",
+    validate: ValidationsCustomerForm.validate,
     initialValues: {
         name: ""
     }
-})(Create__EntityClassName__Form);
+})(CreateCustomerForm);
 
-export default withTranslation()(withRouter(Create__EntityClassName__Form));
+export default withTranslation()(withRouter(CreateCustomerForm));
