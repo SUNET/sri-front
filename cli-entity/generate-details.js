@@ -17,15 +17,18 @@ const generateDetails = (blockEntity, nameEntity) => {
     const containersPaths = {
         directory: `/src/containers/${entityName}`,
         files: [
-            { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ContainerEntityDetails.js" },
-            { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ContainerEntityUpdateForm.js" }
+            // { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ContainerEntityDetails.js" },
+            // { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ContainerEntityUpdateForm.js" },
+            { path: `Create${entityClassName}Form.js`, template: "cli-entity/templates/ContainerCreateEntityForm.js" }
         ]
     };
     const componentsPaths = {
         directory: `/src/components/${entityName}`,
         files: [
-            { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ComponentEntityDetails.js" },
-            { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ComponentEntityUpdateForm.js" }
+            // { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ComponentEntityDetails.js" },
+            // { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ComponentEntityUpdateForm.js" },
+            { path: `Create${entityClassName}.js`, template: "cli-entity/templates/ComponentCreateEntity.js" },
+            { path: `Create${entityClassName}Form.js`, template: "cli-entity/templates/ComponentCreateEntityForm.js" },
         ]
     };
     const queriesPaths = {
@@ -35,8 +38,18 @@ const generateDetails = (blockEntity, nameEntity) => {
         ]
     };
 
+    const mutationsPaths = {
+        directory: `/src/mutations/${entityName}`,
+        files: [
+            { path: `Delete${entityClassName}Mutation.js`, template: "cli-entity/templates/MutationDeleteEntityMutation.js" },
+            { path: `Update${entityClassName}Mutation.js`, template: "cli-entity/templates/MutationDeleteEntityUpdateMutation.js" },
+            { path: `Create${entityClassName}Mutation.js`, template: "cli-entity/templates/MutationDeleteEntityCreateMutation.js" },
+        ]
+    }
+
     createPathAndFiles(containersPaths);
-    createPathAndFiles(queriesPaths);
+    // createPathAndFiles(queriesPaths);
     createPathAndFiles(componentsPaths);
+    createPathAndFiles(mutationsPaths);
 };
 module.exports = generateDetails;

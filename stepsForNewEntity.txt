@@ -56,7 +56,13 @@ MUTATIONS
     + Mutations/entity/DeleteEntityMutation.js
 
 2. Enable CTAs Save/cancel, Edit and Delete
-3. 
+
+3. Create Containers:
+    + containers/entity/CreateEntityForm.js
+
+4. Create Components:
+    + components/entity/CreateEntity.js
+    + components/entity/CreateEntityForm.js
 
 Samples:
 
