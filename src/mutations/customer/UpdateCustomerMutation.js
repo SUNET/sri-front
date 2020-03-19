@@ -23,7 +23,6 @@ const mutation = graphql`
 `;
 
 export default function UpdateCustomerMutation(customer, form) {
-    console.log("customer: ", customer);
     const variables = {
         input: {
             id: customer.id,
