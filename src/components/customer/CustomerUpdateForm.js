@@ -6,7 +6,7 @@ import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import UpdateCustomerMutation from "../../mutations/customer/UpdateCustomerMutation";
-import ValidationCustomerForm from "./ValidationCustomerForm";
+import BasicValidation from "../common/_BasicValidationForm";
 // const
 import { UPDATE_CUSTOMER_FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
@@ -51,7 +51,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
 
 CustomerUpdateForm = reduxForm({
     form: "updateCustomer",
-    validate: ValidationCustomerForm.validate,
+    validate: BasicValidation.validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;
