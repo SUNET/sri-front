@@ -175,7 +175,7 @@ class _CustomerFormParentClass extends React.Component {
                             component={FieldInput}
                             as="textarea"
                             rows="3"
-                            placeholder={t(`${this.MODEL_NAME}-details.add-description`)}
+                            placeholder={t(`group-details.add-description`)}
                         ></Field>
                     ) : (
                         <span className="pre-text">{description}</span>
