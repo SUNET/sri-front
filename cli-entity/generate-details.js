@@ -43,7 +43,7 @@ const generateDetails = (blockEntity, nameEntity) => {
         files: [
             { path: `Delete${entityClassName}Mutation.js`, template: "cli-entity/templates/MutationDeleteEntityMutation.js" },
             { path: `Update${entityClassName}Mutation.js`, template: "cli-entity/templates/MutationUpdateEntityMutation.js" },
-            { path: `Create${entityClassName}Mutation.js`, template: "cli-entity/templates/MutationCreateEntityCreateMutation.js" },
+            { path: `Create${entityClassName}Mutation.js`, template: "cli-entity/templates/MutationCreateEntityMutation.js" },
         ]
     }
 
