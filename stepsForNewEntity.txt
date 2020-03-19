@@ -63,8 +63,8 @@ MUTATIONS
 4. Create Components:
     + components/entity/CreateEntity.js
     + components/entity/CreateEntityForm.js
-
-5. Add Create route in SubMenuActions
+5. Add create component in SearchEntity (CREATE_COMPONENT)
+6. Add Create route in SubMenuActions
 
 Samples:
 
