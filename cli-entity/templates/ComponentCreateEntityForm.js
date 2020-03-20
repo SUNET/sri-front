@@ -1,4 +1,4 @@
-import ___EntityClassName__FormParentClass from "./___EntityClassName__FormParentClass";
+import _BasicFormParentClass from "../common/_BasicFormParentClass";
 // Common imports
 import React from "react";
 import { withTranslation } from "react-i18next";
