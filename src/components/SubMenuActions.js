@@ -19,20 +19,26 @@ class SubMenuActions extends React.Component {
             path: "/community/groups/",
             pathTo: "/community/groups/create",
             textButton: "group-details.add-group"
-        },{
+        },
+        {
             path: "/network/customers/",
             pathTo: "/network/customers/create",
             textButton: "network.details.add/customers"
+        },
+        {
+            path: "/network/providers/",
+            pathTo: "/network/providers/create",
+            textButton: "network.details.add/providers"
         }
-
     ];
     render() {
         const { t } = this.props;
         return (
             <Switch>
-                {this.ROUTE_LIST.map((routeData) => {
+                {this.ROUTE_LIST.map((routeData, index) => {
                     return (
                         <Route
+                            key={`sub-action${index}`}
                             exact
                             path={routeData.path}
                             component={() => (

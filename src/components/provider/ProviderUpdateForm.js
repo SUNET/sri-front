@@ -5,8 +5,8 @@ import { withTranslation } from "react-i18next";
 import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-// import UpdateProviderMutation from "../../mutations/provider/UpdateProviderMutation";
-// import ValidationsProviderForm from "./ValidationsProviderForm";
+import UpdateProviderMutation from "../../mutations/provider/UpdateProviderMutation";
+import ValidationsProviderForm from "../common/_BasicValidationForm";
 // const
 import { UPDATE_PROVIDER_FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
@@ -29,7 +29,7 @@ class ProviderUpdateForm extends _BasicFormParentClass {
     };
     handleSubmit = (provider) => {
         this.setState({ editMode: !this.state.editMode });
-        // UpdateProviderMutation(provider, this);
+        UpdateProviderMutation(provider, this);
     };
     render() {
         let { handleSubmit } = this.props;
@@ -37,11 +37,11 @@ class ProviderUpdateForm extends _BasicFormParentClass {
         const showBackButton = isBrowser;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {/* {isBrowser && this.renderSaveCancelButtons()} */}
+                {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
                 {this.renderWorkLog()}
-                {/* {this.renderSaveCancelButtons()} */}
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }
@@ -49,7 +49,7 @@ class ProviderUpdateForm extends _BasicFormParentClass {
 
 ProviderUpdateForm = reduxForm({
     form: "updateProvider",
-    // validate: ValidationsProviderForm.validate,
+    validate: ValidationsProviderForm.validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;

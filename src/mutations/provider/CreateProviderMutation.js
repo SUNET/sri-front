@@ -6,13 +6,13 @@ import i18n from "../../i18n";
 import CreateCommentMutation from "../CreateCommentMutation";
 
 const mutation = graphql`
-    mutation CreateCustomerMutation($input: CreateCustomerInput!) {
-        create_customer(input: $input) {
+    mutation CreateProviderMutation($input: CreateProviderInput!) {
+        create_provider(input: $input) {
             errors {
                 field
                 messages
             }
-            customer {
+            provider {
                 id
                 name
                 description
@@ -22,28 +22,28 @@ const mutation = graphql`
     }
 `;
 
-function CreateCustomerMutation(customer, form) {
+function CreateProviderMutation(provider, form) {
     const variables = {
         input: {
-            name: customer.name,
-            description: customer.description,
-            url: customer.url
+            name: provider.name,
+            description: provider.description,
+            url: provider.url
         }
     };
     commitMutation(environment, {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            if (response.create_customer.errors) {
+            if (response.create_provider.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
-                return response.create_customer.updated.errors;
+                return response.create_provider.updated.errors;
             } else {
-                const customer_id = response.create_customer.customer.id;
-                if (customer.comment) {
-                    CreateCommentMutation(customer_id, customer.comment);
+                const provider_id = response.create_provider.provider.id;
+                if (provider.comment) {
+                    CreateCommentMutation(provider_id, provider.comment);
                 }
-                form.props.history.push("/network/customers/" + customer_id);
-                form.props.notify(i18n.t("notify.network/customers-created-success"), "success");
+                form.props.history.push("/network/providers/" + provider_id);
+                form.props.notify(i18n.t("notify.network/providers-created-success"), "success");
             }
         },
         onError: (errors) => console.error(errors),
@@ -57,4 +57,4 @@ function CreateCustomerMutation(customer, form) {
     });
 }
 
-export default CreateCustomerMutation;
+export default CreateProviderMutation;

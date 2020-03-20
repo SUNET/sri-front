@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
 import { getFormMeta, getFormSyncErrors, formValueSelector } from "redux-form";
-import { getContact } from "../../components/contact/Contact";
 
 import * as actions from "../../actions/Notify";
 import CreateCustomerForm from "../../components/customer/CreateCustomerForm";
