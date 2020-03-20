@@ -4,7 +4,7 @@ import { QueryRenderer } from "react-relay";
 import environment from "../../createRelayEnvironment";
 
 import ProviderUpdateFormContainer from "../../containers/provider/ProviderUpdateForm";
-// import DeleteProviderMutation from "../../mutations/provider/DeleteProviderMutation";
+import DeleteProviderMutation from "../../mutations/provider/DeleteProviderMutation";
 
 import ProviderDetailsQuery from "../../queries/provider/ProviderDetailsQuery";
 
