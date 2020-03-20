@@ -1,5 +1,5 @@
 # source: http://ni.localenv.loc/graphql/
-# timestamp: Wed Mar 18 2020 11:14:25 GMT+0100 (GMT+01:00)
+# timestamp: Fri Mar 20 2020 10:46:03 GMT+0100 (GMT+01:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -8,6 +8,7 @@ type Address implements NINode & Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -212,10 +213,11 @@ type Cable implements NINode & Physical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   location: Location
   has: Physical
   part_of: Logical
-  parent: Physical
+  parent: [Physical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -223,6 +225,7 @@ type Cable implements NINode & Physical {
   cable_type: ChoiceScalar
   description: String
   providers: [Provider]
+  providers_relations: [IDRelation]
   ports: [Port]
 }
 
@@ -488,6 +491,7 @@ type Contact implements NINode & Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   with_same_name: [Relation]
   uses: Logical
   provides: NINode
@@ -825,6 +829,19 @@ type CreateAddressPayload {
   clientMutationId: String
 }
 
+input CreateCableInput {
+  name: String!
+  cable_type: ChoiceScalar!
+  description: String
+  clientMutationId: String
+}
+
+type CreateCablePayload {
+  errors: [ErrorType]
+  cable: Cable
+  clientMutationId: String
+}
+
 input CreateCommentInput {
   object_id: ID!
   comment: String!
@@ -886,6 +903,19 @@ input CreateEmailInput {
 type CreateEmailPayload {
   errors: [ErrorType]
   email: Email
+  clientMutationId: String
+}
+
+input CreateEndUserInput {
+  name: String!
+  description: String
+  url: String
+  clientMutationId: String
+}
+
+type CreateEndUserPayload {
+  errors: [ErrorType]
+  enduser: EndUser
   clientMutationId: String
 }
 
@@ -957,6 +987,19 @@ type CreatePhonePayload {
   clientMutationId: String
 }
 
+input CreatePortInput {
+  name: String!
+  port_type: ChoiceScalar
+  description: String
+  clientMutationId: String
+}
+
+type CreatePortPayload {
+  errors: [ErrorType]
+  port: Port
+  clientMutationId: String
+}
+
 input CreateProcedureInput {
   name: String!
   description: String
@@ -995,6 +1038,19 @@ type CreateRolePayload {
   clientMutationId: String
 }
 
+input CreateSiteOwnerInput {
+  name: String!
+  description: String
+  url: String
+  clientMutationId: String
+}
+
+type CreateSiteOwnerPayload {
+  errors: [ErrorType]
+  siteowner: SiteOwner
+  clientMutationId: String
+}
+
 type Customer implements NINode & Relation {
   handle_id: ID!
   node_name: String!
@@ -1008,6 +1064,7 @@ type Customer implements NINode & Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   with_same_name: [Relation]
   uses: Logical
   provides: NINode
@@ -1174,6 +1231,17 @@ type DeleteAddressPayload {
   clientMutationId: String
 }
 
+input DeleteCableInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteCablePayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteCommentInput {
   id: ID!
   clientMutationId: String
@@ -1218,6 +1286,17 @@ type DeleteEmailPayload {
   clientMutationId: String
 }
 
+input DeleteEndUserInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteEndUserPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteGroupInput {
   id: ID!
   clientMutationId: String
@@ -1246,6 +1325,17 @@ input DeletePhoneInput {
 }
 
 type DeletePhonePayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeletePortInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeletePortPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -1295,6 +1385,17 @@ type DeleteRolePayload {
   clientMutationId: String
 }
 
+input DeleteSiteOwnerInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteSiteOwnerPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 """
 This type represents an key value pair in a dictionary for the data
 dict of the norduniclient nodes
@@ -1326,6 +1427,7 @@ type Email implements NINode & Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -1476,6 +1578,7 @@ type EndUser implements NINode & Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   with_same_name: [Relation]
   uses: Logical
   provides: NINode
@@ -1650,6 +1753,7 @@ type Group implements NINode & Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -1803,6 +1907,7 @@ type Host implements NINode & Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -2118,6 +2223,7 @@ interface Location {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   parent: Location
   located_in: Physical
   has: Physical
@@ -2127,6 +2233,7 @@ interface Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   part_of: Physical
 }
 
@@ -2161,9 +2268,21 @@ type Mutation {
   create_customer(input: CreateCustomerInput!): CreateCustomerPayload
   update_customer(input: UpdateCustomerInput!): UpdateCustomerPayload
   delete_customer(input: DeleteCustomerInput!): DeleteCustomerPayload
+  create_enduser(input: CreateEndUserInput!): CreateEndUserPayload
+  update_enduser(input: UpdateEndUserInput!): UpdateEndUserPayload
+  delete_enduser(input: DeleteEndUserInput!): DeleteEndUserPayload
   create_provider(input: CreateProviderInput!): CreateProviderPayload
   update_provider(input: UpdateProviderInput!): UpdateProviderPayload
   delete_provider(input: DeleteProviderInput!): DeleteProviderPayload
+  create_siteowner(input: CreateSiteOwnerInput!): CreateSiteOwnerPayload
+  update_siteowner(input: UpdateSiteOwnerInput!): UpdateSiteOwnerPayload
+  delete_siteowner(input: DeleteSiteOwnerInput!): DeleteSiteOwnerPayload
+  create_port(input: CreatePortInput!): CreatePortPayload
+  update_port(input: UpdatePortInput!): UpdatePortPayload
+  delete_port(input: DeletePortInput!): DeletePortPayload
+  create_cable(input: CreateCableInput!): CreateCablePayload
+  update_cable(input: UpdateCableInput!): UpdateCablePayload
+  delete_cable(input: DeleteCableInput!): DeleteCablePayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -2185,6 +2304,7 @@ interface NINode {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
 }
 
 """Generic NodeHandler graphene type"""
@@ -2259,6 +2379,7 @@ type NodeHandler implements NINode {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -2291,6 +2412,7 @@ type Organization implements NINode & Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   with_same_name: [Relation]
   uses: Logical
   provides: NINode
@@ -2634,6 +2756,7 @@ type PeeringGroup implements NINode & Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -2757,6 +2880,7 @@ type PeeringPartner implements NINode & Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   with_same_name: [Relation]
   uses: Logical
   provides: NINode
@@ -2895,6 +3019,7 @@ type Phone implements NINode & Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -3036,10 +3161,11 @@ interface Physical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   location: Location
   has: Physical
   part_of: Logical
-  parent: Physical
+  parent: [Physical]
 }
 
 type Port implements NINode & Physical {
@@ -3055,10 +3181,11 @@ type Port implements NINode & Physical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   location: Location
   has: Physical
   part_of: Logical
-  parent: Physical
+  parent: [Physical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -3217,6 +3344,7 @@ type Procedure implements NINode & Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -3357,6 +3485,7 @@ type Provider implements NINode & Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   with_same_name: [Relation]
   uses: Logical
   provides: NINode
@@ -3593,6 +3722,7 @@ interface Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   with_same_name: [Relation]
   uses: Logical
   provides: NINode
@@ -3690,6 +3820,7 @@ type SiteOwner implements NINode & Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  relation_id: Int
   with_same_name: [Relation]
   uses: Logical
   provides: NINode
@@ -3855,6 +3986,22 @@ type UpdateAddressPayload {
   clientMutationId: String
 }
 
+input UpdateCableInput {
+  name: String!
+  cable_type: ChoiceScalar!
+  description: String
+  relationship_end_a: Int
+  relationship_end_b: Int
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateCablePayload {
+  errors: [ErrorType]
+  cable: Cable
+  clientMutationId: String
+}
+
 input UpdateCommentInput {
   id: ID!
   comment: String!
@@ -3922,6 +4069,20 @@ type UpdateEmailPayload {
   clientMutationId: String
 }
 
+input UpdateEndUserInput {
+  name: String!
+  description: String
+  url: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateEndUserPayload {
+  errors: [ErrorType]
+  enduser: EndUser
+  clientMutationId: String
+}
+
 input UpdateGroupInput {
   name: String!
   description: String
@@ -3982,6 +4143,21 @@ type UpdatePhonePayload {
   clientMutationId: String
 }
 
+input UpdatePortInput {
+  name: String!
+  port_type: ChoiceScalar
+  description: String
+  relationship_connected_to: Int
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdatePortPayload {
+  errors: [ErrorType]
+  port: Port
+  clientMutationId: String
+}
+
 input UpdateProcedureInput {
   name: String!
   description: String
@@ -4019,6 +4195,20 @@ input UpdateRoleInput {
 type UpdateRolePayload {
   role: Role
   errors: [ErrorType]
+  clientMutationId: String
+}
+
+input UpdateSiteOwnerInput {
+  name: String!
+  description: String
+  url: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateSiteOwnerPayload {
+  errors: [ErrorType]
+  siteowner: SiteOwner
   clientMutationId: String
 }
 
