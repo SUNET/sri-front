@@ -41,7 +41,7 @@ class CustomerDetails extends React.Component {
                                     onDelete={this.handleDelete}
                                     customer={props.getCustomerById}
                                     history={this.props.history}
-                                    // refetch={retry}
+                                    refetch={retry}
                                 />
                             </section>
                         );

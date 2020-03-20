@@ -38,10 +38,10 @@ class ProviderDetails extends React.Component {
                         return (
                             <section className="model-details provider-details">
                                 <ProviderUpdateFormContainer
-                                    // onDelete={this.handleDelete}
+                                    onDelete={this.handleDelete}
                                     provider={props.getProviderById}
                                     history={this.props.history}
-                                    // refetch={retry}
+                                    refetch={retry}
                                 />
                             </section>
                         );

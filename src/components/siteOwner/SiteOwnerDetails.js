@@ -38,7 +38,7 @@ class SiteOwnerDetails extends React.Component {
                         return (
                             <section className="model-details siteOwner-details">
                                 <SiteOwnerUpdateFormContainer
-                                    // onDelete={this.handleDelete}
+                                    onDelete={this.handleDelete}
                                     siteOwner={props.getSiteOwnerById}
                                     history={this.props.history}
                                     refetch={retry}

@@ -38,7 +38,7 @@ class EndUserDetails extends React.Component {
                         return (
                             <section className="model-details endUser-details">
                                 <EndUserUpdateFormContainer
-                                    // onDelete={this.handleDelete}
+                                    onDelete={this.handleDelete}
                                     endUser={props.getEndUserById}
                                     history={this.props.history}
                                     // refetch={retry}

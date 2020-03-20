@@ -38,7 +38,7 @@ class __EntityClassName__Details extends React.Component {
                         return (
                             <section className="model-details __entityName__-details">
                                 <__EntityClassName__UpdateFormContainer
-                                    // onDelete={this.handleDelete}
+                                    onDelete={this.handleDelete}
                                     __entityName__={props.get__EntityClassName__ById}
                                     history={this.props.history}
                                     refetch={retry}
