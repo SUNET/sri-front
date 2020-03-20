@@ -33,7 +33,7 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
     );
 };
 
-class _CustomerFormParentClass extends React.Component {
+class _BasicFormParentClass extends React.Component {
     // GLOBAL VARs
     IS_UPDATED_FORM = false;
     FORM_ID;
@@ -245,4 +245,4 @@ class _CustomerFormParentClass extends React.Component {
         return <div>This method should be overwritten in the child class</div>;
     }
 }
-export default _CustomerFormParentClass;
+export default _BasicFormParentClass;
