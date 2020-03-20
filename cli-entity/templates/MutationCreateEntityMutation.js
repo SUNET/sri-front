@@ -3,6 +3,7 @@ import graphql from "babel-plugin-relay/macro";
 import environment from "../../createRelayEnvironment";
 import { ROOT_ID } from "relay-runtime";
 import i18n from "../../i18n";
+import CreateCommentMutation from "../CreateCommentMutation";
 
 const mutation = graphql`
     mutation Create__EntityClassName__Mutation($input: Create__EntityClassName__Input!) {
@@ -21,8 +22,6 @@ const mutation = graphql`
     }
 `;
 
-let tempID = 0;
-
 function Create__EntityClassName__Mutation(__entityName__, form) {
     const variables = {
         input: {
@@ -39,9 +38,12 @@ function Create__EntityClassName__Mutation(__entityName__, form) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.create___entityName__.updated.errors;
             } else {
-                form.props.reset();
-                form.refetch();
-                form.props.notify(i18n.t("notify.changes-saved"), "success");
+                const __entityName___id = response.create___entityName__.__entityName__.id;
+                if (__entityName__.comment) {
+                    CreateCommentMutation(__entityName___id, __entityName__.comment);
+                }
+                form.props.history.push("/__entityBlock__/__entityName__s/" + __entityName___id);
+                form.props.notify(i18n.t("notify.__entityBlock__/__entityName__s-created-success"), "success");
             }
         },
         onError: (errors) => console.error(errors),
