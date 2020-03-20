@@ -18,10 +18,10 @@ class ProviderDetails extends React.Component {
         }).isRequired
     };
 
-    // handleDelete = () => {
-    //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     DeleteProviderMutation(idEntity, () => this.props.history.push(`/network/providers`));
-    // };
+    handleDelete = () => {
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        DeleteProviderMutation(idEntity, () => this.props.history.push(`/network/providers`));
+    };
 
     render() {
         return (

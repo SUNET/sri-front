@@ -63,8 +63,10 @@ MUTATIONS
 4. Create Components:
     + components/entity/CreateEntity.js
     + components/entity/CreateEntityForm.js
+
 5. Add create component in SearchEntity (CREATE_COMPONENT)
 6. Add Create route in SubMenuActions
+7. Enable method handleDelete in components/entity/EntityDetails
 
 Samples:
 
