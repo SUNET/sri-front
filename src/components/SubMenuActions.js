@@ -29,6 +29,16 @@ class SubMenuActions extends React.Component {
             path: "/network/providers/",
             pathTo: "/network/providers/create",
             textButton: "network.details.add/providers"
+        },
+        {
+            path: "/network/site-owners/",
+            pathTo: "/network/site-owners/create",
+            textButton: "network.details.add/site-owners"
+        },
+        {
+            path: "/network/end-users/",
+            pathTo: "/network/end-users/create",
+            textButton: "network.details.add/end-users"
         }
     ];
     render() {

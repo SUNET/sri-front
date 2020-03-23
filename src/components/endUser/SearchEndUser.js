@@ -11,11 +11,12 @@ import graphql from "babel-plugin-relay/macro";
 // Components imports
 import EndUserList from "../../containers/endUser/EndUserList";
 import EndUserDetailsContainer from "../../containers/endUser/EndUserDetails";
+import CreateEndUser from "./CreateEndUser";
 // Constants
 
 class SearchEndUser extends _SearchEntityParentClass {
     LIST_CONTAINER = EndUserList;
-    CREATE_COMPONENT = undefined;
+    CREATE_COMPONENT = CreateEndUser;
     DETAIL_CONTAINER = EndUserDetailsContainer;
 
     MODEL_NAME = "endUser";

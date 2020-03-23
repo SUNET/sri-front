@@ -1,5 +1,5 @@
 # source: http://ni.localenv.loc/graphql/
-# timestamp: Fri Mar 20 2020 10:46:03 GMT+0100 (GMT+01:00)
+# timestamp: Fri Mar 20 2020 12:56:14 GMT+0100 (GMT+01:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -915,7 +915,7 @@ input CreateEndUserInput {
 
 type CreateEndUserPayload {
   errors: [ErrorType]
-  enduser: EndUser
+  endUser: EndUser
   clientMutationId: String
 }
 
@@ -1047,7 +1047,7 @@ input CreateSiteOwnerInput {
 
 type CreateSiteOwnerPayload {
   errors: [ErrorType]
-  siteowner: SiteOwner
+  siteOwner: SiteOwner
   clientMutationId: String
 }
 
@@ -2268,15 +2268,15 @@ type Mutation {
   create_customer(input: CreateCustomerInput!): CreateCustomerPayload
   update_customer(input: UpdateCustomerInput!): UpdateCustomerPayload
   delete_customer(input: DeleteCustomerInput!): DeleteCustomerPayload
-  create_enduser(input: CreateEndUserInput!): CreateEndUserPayload
-  update_enduser(input: UpdateEndUserInput!): UpdateEndUserPayload
-  delete_enduser(input: DeleteEndUserInput!): DeleteEndUserPayload
+  create_endUser(input: CreateEndUserInput!): CreateEndUserPayload
+  update_endUser(input: UpdateEndUserInput!): UpdateEndUserPayload
+  delete_endUser(input: DeleteEndUserInput!): DeleteEndUserPayload
   create_provider(input: CreateProviderInput!): CreateProviderPayload
   update_provider(input: UpdateProviderInput!): UpdateProviderPayload
   delete_provider(input: DeleteProviderInput!): DeleteProviderPayload
-  create_siteowner(input: CreateSiteOwnerInput!): CreateSiteOwnerPayload
-  update_siteowner(input: UpdateSiteOwnerInput!): UpdateSiteOwnerPayload
-  delete_siteowner(input: DeleteSiteOwnerInput!): DeleteSiteOwnerPayload
+  create_siteOwner(input: CreateSiteOwnerInput!): CreateSiteOwnerPayload
+  update_siteOwner(input: UpdateSiteOwnerInput!): UpdateSiteOwnerPayload
+  delete_siteOwner(input: DeleteSiteOwnerInput!): DeleteSiteOwnerPayload
   create_port(input: CreatePortInput!): CreatePortPayload
   update_port(input: UpdatePortInput!): UpdatePortPayload
   delete_port(input: DeletePortInput!): DeletePortPayload
@@ -4079,7 +4079,7 @@ input UpdateEndUserInput {
 
 type UpdateEndUserPayload {
   errors: [ErrorType]
-  enduser: EndUser
+  endUser: EndUser
   clientMutationId: String
 }
 
@@ -4208,7 +4208,7 @@ input UpdateSiteOwnerInput {
 
 type UpdateSiteOwnerPayload {
   errors: [ErrorType]
-  siteowner: SiteOwner
+  siteOwner: SiteOwner
   clientMutationId: String
 }
 

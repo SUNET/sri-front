@@ -4,7 +4,7 @@ import { QueryRenderer } from "react-relay";
 import environment from "../../createRelayEnvironment";
 
 import SiteOwnerUpdateFormContainer from "../../containers/siteOwner/SiteOwnerUpdateForm";
-// import DeleteSiteOwnerMutation from "../../mutations/siteOwner/DeleteSiteOwnerMutation";
+import DeleteSiteOwnerMutation from "../../mutations/siteOwner/DeleteSiteOwnerMutation";
 
 import SiteOwnerDetailsQuery from "../../queries/siteOwner/SiteOwnerDetailsQuery";
 
@@ -18,10 +18,10 @@ class SiteOwnerDetails extends React.Component {
         }).isRequired
     };
 
-    // handleDelete = () => {
-    //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     DeleteSiteOwnerMutation(idEntity, () => this.props.history.push(`/network/siteOwners`));
-    // };
+    handleDelete = () => {
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        DeleteSiteOwnerMutation(idEntity, () => this.props.history.push(`/network/site-owners`));
+    };
 
     render() {
         return (

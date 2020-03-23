@@ -4,7 +4,7 @@ import { QueryRenderer } from "react-relay";
 import environment from "../../createRelayEnvironment";
 
 import EndUserUpdateFormContainer from "../../containers/endUser/EndUserUpdateForm";
-// import DeleteEndUserMutation from "../../mutations/endUser/DeleteEndUserMutation";
+import DeleteEndUserMutation from "../../mutations/endUser/DeleteEndUserMutation";
 
 import EndUserDetailsQuery from "../../queries/endUser/EndUserDetailsQuery";
 
@@ -18,10 +18,10 @@ class EndUserDetails extends React.Component {
         }).isRequired
     };
 
-    // handleDelete = () => {
-    //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     DeleteEndUserMutation(idEntity, () => this.props.history.push(`/network/endUsers`));
-    // };
+    handleDelete = () => {
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        DeleteEndUserMutation(idEntity, () => this.props.history.push(`/network/end-users`));
+    };
 
     render() {
         return (
@@ -41,7 +41,7 @@ class EndUserDetails extends React.Component {
                                     onDelete={this.handleDelete}
                                     endUser={props.getEndUserById}
                                     history={this.props.history}
-                                    // refetch={retry}
+                                    refetch={retry}
                                 />
                             </section>
                         );
