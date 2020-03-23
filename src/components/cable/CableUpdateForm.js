@@ -6,8 +6,8 @@ import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-// import UpdateCableMutation from "../../mutations/cable/UpdateCableMutation";
-// import ValidationsCableForm from "./ValidationsCableForm";
+import UpdateCableMutation from "../../mutations/cable/UpdateCableMutation";
+import ValidationsCableForm from "./ValidationsCableForm";
 // const
 import { UPDATE_CABLE_FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
@@ -32,7 +32,7 @@ class CableUpdateForm extends _CableFormParentClass {
     };
     handleSubmit = (cable) => {
         this.setState({ editMode: !this.state.editMode });
-        // UpdateCableMutation(cable, this);
+        UpdateCableMutation(cable, this);
     };
 
     render() {
@@ -41,11 +41,11 @@ class CableUpdateForm extends _CableFormParentClass {
         const showBackButton = isBrowser;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {/* {isBrowser && this.renderSaveCancelButtons()} */}
+                {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
                 {this.renderWorkLog()}
-                {/* {this.renderSaveCancelButtons()} */}
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }
@@ -53,7 +53,7 @@ class CableUpdateForm extends _CableFormParentClass {
 
 CableUpdateForm = reduxForm({
     form: "updateCable",
-    // validate: ValidationsCableForm.validate,
+    validate: ValidationsCableForm.validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;
