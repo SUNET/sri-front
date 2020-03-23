@@ -16,6 +16,7 @@ const mutation = graphql`
                 id
                 name
                 description
+                cable_type
             }
         }
     }
@@ -25,7 +26,8 @@ function CreateCableMutation(cable, form) {
     const variables = {
         input: {
             name: cable.name,
-            description: cable.description
+            description: cable.description,
+            cable_type: cable.cable_type
         }
     };
     commitMutation(environment, {
