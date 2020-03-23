@@ -20,7 +20,7 @@ class PortDetails extends React.Component {
 
     handleDelete = () => {
         const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-        DeletePortMutation(idEntity, () => this.props.history.push(`/network/port`));
+        DeletePortMutation(idEntity, () => this.props.history.push(`/network/ports`));
     };
 
     render() {
