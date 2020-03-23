@@ -16,17 +16,20 @@ const mutation = graphql`
                 id
                 name
                 description
+                cable_type
             }
         }
     }
 `;
 
 export default function UpdateCableMutation(cable, form) {
+    console.log('cable: ', cable);
     const variables = {
         input: {
             id: cable.id,
             name: cable.name,
-            description: cable.description
+            description: cable.description,
+            cable_type: cable.cable_type
         }
     };
     commitMutation(environment, {
