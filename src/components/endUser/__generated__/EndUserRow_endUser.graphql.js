@@ -22,6 +22,7 @@ export type EndUserRow_endUser$data = EndUserRow_endUser;
 export type EndUserRow_endUser$key = {
   +$data?: EndUserRow_endUser$data,
   +$fragmentRefs: EndUserRow_endUser$ref,
+  ...
 };
 */
 
@@ -65,4 +66,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '8782528f56985ed4f577d8c377627de2';
+
 module.exports = node;

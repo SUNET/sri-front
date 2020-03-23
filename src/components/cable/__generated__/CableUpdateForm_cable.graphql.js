@@ -39,6 +39,7 @@ export type CableUpdateForm_cable$data = CableUpdateForm_cable;
 export type CableUpdateForm_cable$key = {
   +$data?: CableUpdateForm_cable$data,
   +$fragmentRefs: CableUpdateForm_cable$ref,
+  ...
 };
 */
 
@@ -179,4 +180,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'd20b9b5d7262e362fe9cecf2aeb67ad8';
+
 module.exports = node;

@@ -22,6 +22,7 @@ export type CustomerRow_customer$data = CustomerRow_customer;
 export type CustomerRow_customer$key = {
   +$data?: CustomerRow_customer$data,
   +$fragmentRefs: CustomerRow_customer$ref,
+  ...
 };
 */
 
@@ -65,4 +66,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '009acd69c2599213f0094f46b62d3e7f';
+
 module.exports = node;

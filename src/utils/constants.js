@@ -15,6 +15,8 @@ export const CREATE_SITEOWNER_FORM = "create-site-owner-form";
 export const UPDATE_SITEOWNER_FORM = "update-site-owner-form";
 export const CREATE_CABLE_FORM = "create-cable-form";
 export const UPDATE_CABLE_FORM = "update-cable-form";
+export const CREATE_PORT_FORM = "create-port-form";
+export const UPDATE_PORT_FORM = "update-port-form";
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = "organizations";
 export const COMMUNITY_GROUPS = "groups";

@@ -75,6 +75,7 @@ export type GroupUpdateForm_group$data = GroupUpdateForm_group;
 export type GroupUpdateForm_group$key = {
   +$data?: GroupUpdateForm_group$data,
   +$fragmentRefs: GroupUpdateForm_group$ref,
+  ...
 };
 */
 
@@ -349,4 +350,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = '4f77e5dfa06c51bc378745e4ad389af3';
+
 module.exports = node;

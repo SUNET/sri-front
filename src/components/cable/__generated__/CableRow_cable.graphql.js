@@ -22,6 +22,7 @@ export type CableRow_cable$data = CableRow_cable;
 export type CableRow_cable$key = {
   +$data?: CableRow_cable$data,
   +$fragmentRefs: CableRow_cable$ref,
+  ...
 };
 */
 
@@ -65,4 +66,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '90cdef8ecf72881d37861ba1902afb66';
+
 module.exports = node;

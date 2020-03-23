@@ -96,6 +96,7 @@ export type OrganizationUpdateForm_organization$data = OrganizationUpdateForm_or
 export type OrganizationUpdateForm_organization$key = {
   +$data?: OrganizationUpdateForm_organization$data,
   +$fragmentRefs: OrganizationUpdateForm_organization$ref,
+  ...
 };
 */
 
@@ -466,4 +467,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = '15377c1f27471e304bf285ce71b2d48d';
+
 module.exports = node;

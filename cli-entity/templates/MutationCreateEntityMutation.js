@@ -42,7 +42,7 @@ function Create__EntityClassName__Mutation(__entityName__, form) {
                 if (__entityName__.comment) {
                     CreateCommentMutation(__entityName___id, __entityName__.comment);
                 }
-                form.props.history.push("/__entityBlock__/__entityInternalRoutePath__/" + __entityName___id);
+                form.props.history.push("/__entityBlock__/__entityInternalRoutePath__s/" + __entityName___id);
                 form.props.notify(i18n.t("notify.__entityBlock__/__entityName__s-created-success"), "success");
             }
         },

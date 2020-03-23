@@ -29,6 +29,7 @@ export type ContactRow_contact$data = ContactRow_contact;
 export type ContactRow_contact$key = {
   +$data?: ContactRow_contact$data,
   +$fragmentRefs: ContactRow_contact$ref,
+  ...
 };
 */
 
@@ -112,4 +113,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'b0e582f64dd2ecef51a58c5dbff7397a';
+
 module.exports = node;

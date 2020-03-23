@@ -31,6 +31,7 @@ export type CableList_cables$data = CableList_cables;
 export type CableList_cables$key = {
   +$data?: CableList_cables$data,
   +$fragmentRefs: CableList_cables$ref,
+  ...
 };
 */
 
@@ -166,4 +167,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = 'b036617ca1b7cf2a8fe409cda6dc5bdb';
+
 module.exports = node;

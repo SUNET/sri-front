@@ -30,6 +30,10 @@ const initialState = {
     cable: {
         all_columns: true,
         columns_visible: {}
+    },
+    port: {
+        all_columns: true,
+        columns_visible: {}
     }
 };
 

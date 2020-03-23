@@ -4,7 +4,7 @@ import { QueryRenderer } from "react-relay";
 import environment from "../../createRelayEnvironment";
 
 import __EntityClassName__UpdateFormContainer from "../../containers/__entityName__/__EntityClassName__UpdateForm";
-// import Delete__EntityClassName__Mutation from "../../mutations/__entityName__/Delete__EntityClassName__Mutation";
+import Delete__EntityClassName__Mutation from "../../mutations/__entityName__/Delete__EntityClassName__Mutation";
 
 import __EntityClassName__DetailsQuery from "../../queries/__entityName__/__EntityClassName__DetailsQuery";
 
