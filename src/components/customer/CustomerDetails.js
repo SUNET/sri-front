@@ -4,7 +4,7 @@ import { QueryRenderer } from "react-relay";
 import environment from "../../createRelayEnvironment";
 
 import CustomerUpdateFormContainer from "../../containers/customer/CustomerUpdateForm";
-// import DeleteCustomerMutation from "../../mutations/customer/DeleteCustomerMutation";
+import DeleteCustomerMutation from "../../mutations/customer/DeleteCustomerMutation";
 
 import CustomerDetailsQuery from "../../queries/customer/CustomerDetailsQuery";
 
@@ -18,10 +18,10 @@ class CustomerDetails extends React.Component {
         }).isRequired
     };
 
-    // handleDelete = () => {
-    //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     DeleteCustomerMutation(idEntity, () => this.props.history.push(`/community/customers`));
-    // };
+    handleDelete = () => {
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        DeleteCustomerMutation(idEntity, () => this.props.history.push(`/network/customers`));
+    };
 
     render() {
         return (
@@ -38,10 +38,10 @@ class CustomerDetails extends React.Component {
                         return (
                             <section className="model-details customer-details">
                                 <CustomerUpdateFormContainer
-                                    // onDelete={this.handleDelete}
+                                    onDelete={this.handleDelete}
                                     customer={props.getCustomerById}
                                     history={this.props.history}
-                                    // refetch={retry}
+                                    refetch={retry}
                                 />
                             </section>
                         );

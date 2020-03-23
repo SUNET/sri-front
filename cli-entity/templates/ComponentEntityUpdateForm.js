@@ -5,8 +5,8 @@ import { withTranslation } from "react-i18next";
 import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-// import Update__EntityClassName__Mutation from "../../mutations/__entityName__/Update__EntityClassName__Mutation";
-// import Validations__EntityClassName__Form from "./Validations__EntityClassName__Form";
+import Update__EntityClassName__Mutation from "../../mutations/__entityName__/Update__EntityClassName__Mutation";
+import BasicValidation from "../common/_BasicValidationForm";
 // const
 import { UPDATE___CONST_NAME___FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
@@ -31,7 +31,7 @@ class __EntityClassName__UpdateForm extends _BasicFormParentClass {
     };
     handleSubmit = (__entityName__) => {
         this.setState({ editMode: !this.state.editMode });
-        // Update__EntityClassName__Mutation(__entityName__, this);
+        Update__EntityClassName__Mutation(__entityName__, this);
     };
     render() {
         let { handleSubmit } = this.props;
@@ -39,11 +39,11 @@ class __EntityClassName__UpdateForm extends _BasicFormParentClass {
         const showBackButton = isBrowser;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {/* {isBrowser && this.renderSaveCancelButtons()} */}
+                {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
                 {this.renderWorkLog()}
-                {/* {this.renderSaveCancelButtons()} */}
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }
@@ -51,7 +51,7 @@ class __EntityClassName__UpdateForm extends _BasicFormParentClass {
 
 __EntityClassName__UpdateForm = reduxForm({
     form: "update__EntityClassName__",
-    // validate: Validations__EntityClassName__Form.validate,
+    validate: BasicValidation.validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;

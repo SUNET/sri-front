@@ -18,10 +18,10 @@ class __EntityClassName__Details extends React.Component {
         }).isRequired
     };
 
-    // handleDelete = () => {
-    //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     Delete__EntityClassName__Mutation(idEntity, () => this.props.history.push(`/community/__entityName__s`));
-    // };
+    handleDelete = () => {
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        Delete__EntityClassName__Mutation(idEntity, () => this.props.history.push(`/__entityBlock__/__entityInternalRoutePath__`));
+    };
 
     render() {
         return (
@@ -38,7 +38,7 @@ class __EntityClassName__Details extends React.Component {
                         return (
                             <section className="model-details __entityName__-details">
                                 <__EntityClassName__UpdateFormContainer
-                                    // onDelete={this.handleDelete}
+                                    onDelete={this.handleDelete}
                                     __entityName__={props.get__EntityClassName__ById}
                                     history={this.props.history}
                                     refetch={retry}

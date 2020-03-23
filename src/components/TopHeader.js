@@ -11,7 +11,7 @@ import "../style/TopHeader.scss";
 
 class TopHeader extends React.Component {
     state = {
-        isMenuOpen: true
+        isMenuOpen: false
     };
     closeMenu() {
         this.setState({ isMenuOpen: false });

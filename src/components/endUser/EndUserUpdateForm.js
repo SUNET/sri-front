@@ -5,8 +5,8 @@ import { withTranslation } from "react-i18next";
 import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-// import UpdateEndUserMutation from "../../mutations/endUser/UpdateEndUserMutation";
-// import ValidationsEndUserForm from "./ValidationsEndUserForm";
+import UpdateEndUserMutation from "../../mutations/endUser/UpdateEndUserMutation";
+import ValidationsEndUserForm from "../common/_BasicValidationForm";
 // const
 import { UPDATE_ENDUSER_FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
@@ -31,7 +31,7 @@ class EndUserUpdateForm extends _BasicFormParentClass {
     };
     handleSubmit = (endUser) => {
         this.setState({ editMode: !this.state.editMode });
-        // UpdateEndUserMutation(endUser, this);
+        UpdateEndUserMutation(endUser, this);
     };
     render() {
         let { handleSubmit } = this.props;
@@ -39,11 +39,11 @@ class EndUserUpdateForm extends _BasicFormParentClass {
         const showBackButton = isBrowser;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {/* {isBrowser && this.renderSaveCancelButtons()} */}
+                {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
                 {this.renderWorkLog()}
-                {/* {this.renderSaveCancelButtons()} */}
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }
@@ -51,7 +51,7 @@ class EndUserUpdateForm extends _BasicFormParentClass {
 
 EndUserUpdateForm = reduxForm({
     form: "updateEndUser",
-    // validate: ValidationsEndUserForm.validate,
+    validate: ValidationsEndUserForm.validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;

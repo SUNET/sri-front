@@ -4,7 +4,7 @@ import { QueryRenderer } from "react-relay";
 import environment from "../../createRelayEnvironment";
 
 import ProviderUpdateFormContainer from "../../containers/provider/ProviderUpdateForm";
-// import DeleteProviderMutation from "../../mutations/provider/DeleteProviderMutation";
+import DeleteProviderMutation from "../../mutations/provider/DeleteProviderMutation";
 
 import ProviderDetailsQuery from "../../queries/provider/ProviderDetailsQuery";
 
@@ -18,10 +18,10 @@ class ProviderDetails extends React.Component {
         }).isRequired
     };
 
-    // handleDelete = () => {
-    //     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    //     DeleteProviderMutation(idEntity, () => this.props.history.push(`/community/providers`));
-    // };
+    handleDelete = () => {
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        DeleteProviderMutation(idEntity, () => this.props.history.push(`/network/providers`));
+    };
 
     render() {
         return (
@@ -38,10 +38,10 @@ class ProviderDetails extends React.Component {
                         return (
                             <section className="model-details provider-details">
                                 <ProviderUpdateFormContainer
-                                    // onDelete={this.handleDelete}
+                                    onDelete={this.handleDelete}
                                     provider={props.getProviderById}
                                     history={this.props.history}
-                                    // refetch={retry}
+                                    refetch={retry}
                                 />
                             </section>
                         );

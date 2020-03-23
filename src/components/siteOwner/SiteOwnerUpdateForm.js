@@ -5,8 +5,8 @@ import { withTranslation } from "react-i18next";
 import { reduxForm } from "redux-form";
 import { createRefetchContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-// import UpdateSiteOwnerMutation from "../../mutations/siteOwner/UpdateSiteOwnerMutation";
-// import ValidationsSiteOwnerForm from "./ValidationsSiteOwnerForm";
+import UpdateSiteOwnerMutation from "../../mutations/siteOwner/UpdateSiteOwnerMutation";
+import ValidationsSiteOwnerForm from "../common/_BasicValidationForm";
 // const
 import { UPDATE_SITEOWNER_FORM } from "../../utils/constants";
 import { isBrowser } from "react-device-detect";
@@ -31,7 +31,7 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
     };
     handleSubmit = (siteOwner) => {
         this.setState({ editMode: !this.state.editMode });
-        // UpdateSiteOwnerMutation(siteOwner, this);
+        UpdateSiteOwnerMutation(siteOwner, this);
     };
     render() {
         let { handleSubmit } = this.props;
@@ -39,11 +39,11 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
         const showBackButton = isBrowser;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {/* {isBrowser && this.renderSaveCancelButtons()} */}
+                {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
                 {this.renderWorkLog()}
-                {/* {this.renderSaveCancelButtons()} */}
+                {this.renderSaveCancelButtons()}
             </form>
         );
     }
@@ -51,7 +51,7 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
 
 SiteOwnerUpdateForm = reduxForm({
     form: "updateSiteOwner",
-    // validate: ValidationsSiteOwnerForm.validate,
+    validate: ValidationsSiteOwnerForm.validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;

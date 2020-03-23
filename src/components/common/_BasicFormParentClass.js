@@ -33,7 +33,7 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
     );
 };
 
-class _CustomerFormParentClass extends React.Component {
+class _BasicFormParentClass extends React.Component {
     // GLOBAL VARs
     IS_UPDATED_FORM = false;
     FORM_ID;
@@ -47,9 +47,9 @@ class _CustomerFormParentClass extends React.Component {
     handleSubmit = () => {
         throw new Error("This method should be overwritten in the child class");
     };
-    // onClickDelete = () => {
-    //     this.props.onDelete();
-    // };
+    onClickDelete = () => {
+        this.props.onDelete();
+    };
     onClickCancel = () => {
         this.props.history.push(this.ROUTE_LIST_DIRECTION);
     };
@@ -94,7 +94,7 @@ class _CustomerFormParentClass extends React.Component {
         return (
             <div className="title-section">
                 {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
-                {/* {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()} */}
+                {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
                 <div className="vertical-separator"></div>
                 <div className={`title-section__name-inputs ${editionModeClass}`}>
                     {this.renderInputName("name", editMode)}
@@ -105,7 +105,7 @@ class _CustomerFormParentClass extends React.Component {
     renderHeaderRight() {
         return (
             <div className="title-section__right-block">
-                {/* {isBrowser && this.renderEditButton()} */}
+                {isBrowser && this.renderEditButton()}
                 <InfoCreatorModifier model={this.props[this.MODEL_NAME]} />
             </div>
         );
@@ -175,7 +175,7 @@ class _CustomerFormParentClass extends React.Component {
                             component={FieldInput}
                             as="textarea"
                             rows="3"
-                            placeholder={t(`${this.MODEL_NAME}-details.add-description`)}
+                            placeholder={t(`group-details.add-description`)}
                         ></Field>
                     ) : (
                         <span className="pre-text">{description}</span>
@@ -200,7 +200,7 @@ class _CustomerFormParentClass extends React.Component {
                         <Field
                             type="text"
                             className={`${isBrowser ? "xlg" : "xlg mw-100"}`}
-                            name="website"
+                            name="url"
                             component={FieldInput}
                             placeholder={t("organization-details.add-website")}
                         />
@@ -245,4 +245,4 @@ class _CustomerFormParentClass extends React.Component {
         return <div>This method should be overwritten in the child class</div>;
     }
 }
-export default _CustomerFormParentClass;
+export default _BasicFormParentClass;

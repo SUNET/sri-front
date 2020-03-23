@@ -11,11 +11,12 @@ import graphql from "babel-plugin-relay/macro";
 // Components imports
 import __EntityClassName__List from "../../containers/__entityName__/__EntityClassName__List";
 import __EntityClassName__DetailsContainer from "../../containers/__entityName__/__EntityClassName__Details";
+import Create__EntityClassName__ from "./Create__EntityClassName__";
 // Constants
 
 class Search__EntityClassName__ extends _SearchEntityParentClass {
     LIST_CONTAINER = __EntityClassName__List;
-    CREATE_COMPONENT = undefined;
+    CREATE_COMPONENT = Create__EntityClassName__;
     DETAIL_CONTAINER = __EntityClassName__DetailsContainer;
 
     MODEL_NAME = "__entityName__";
