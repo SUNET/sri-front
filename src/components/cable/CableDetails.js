@@ -20,7 +20,7 @@ class CableDetails extends React.Component {
 
     handleDelete = () => {
         const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-        DeleteCableMutation(idEntity, () => this.props.history.push(`/community/cables`));
+        DeleteCableMutation(idEntity, () => this.props.history.push(`/network/cables`));
     };
 
     render() {

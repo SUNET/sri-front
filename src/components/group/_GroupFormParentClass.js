@@ -55,16 +55,17 @@ class _GroupFormParentClass extends React.Component {
                     organization: member.roles,
                     organization_obj: member.roles.length ? member.roles.map((elem) => elem.end) : [],
                     organization_label: member.roles.length ? member.roles.map((elem) => elem.end) : [],
-                    email: member.emails,
+                    email: member.emails && member.emails.length ? member.emails : [],
                     email_obj: member.emails,
-                    phone: member.phones,
+                    phone: member.phones && member.phones.length ? member.phones : [],
                     phone_obj: member.phones,
                     created: true,
                     origin: "new",
                     status: "saved",
                     key: uuidv4()
                 };
-                if (!this._hasBeenAdded(newMember)) {
+                if (!this._hasBeenAdded(newMember)) {   
+                    console.log('this.props.form: ', this.props.form);
                     this.props.dispatch(arrayPush(this.props.form, "members", newMember));
                 }
             });

@@ -34,6 +34,7 @@ function CreateCableMutation(cable, form) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
+            console.log('response: ', response);
             if (response.create_cable.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.create_cable.updated.errors;

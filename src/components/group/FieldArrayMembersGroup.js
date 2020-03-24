@@ -128,9 +128,11 @@ class FieldArrayMembersGroup extends React.Component {
         let result = [];
         if (values) {
             result = values.map((member) => {
-                return member.status === "saved" ? member.email.map((email) => email.name) : null;
+                const isNecessaryGetEmails = member.status === "saved" && member.email;
+                return isNecessaryGetEmails ? member.email.map((email) => email.name) : [];
             });
         }
+        console.log('result: ', result);
         return result;
     };
 

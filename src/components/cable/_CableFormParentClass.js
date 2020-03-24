@@ -38,6 +38,8 @@ class _CableFormParentClass extends _BasicFormParentClass {
         if (selection !== null) {
             this.props.getProvider(selection.id).then((provider) => {
                 console.log("provider: ", provider);
+                console.log('this.props.form: ', this.props.form);
+                // this.props.dispatch(this.props.form, "provider", provider);
             });
         }
     };
@@ -45,6 +47,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
     // Specific toggle sections RENDERS
     renderGeneralInfoToggleSection(editMode = true) {
         const { t, cable_type } = this.props;
+        console.log('this.props: ', this.props);
         const generalInfoFirstRow = [
             {
                 title: t("organization-details.type"),

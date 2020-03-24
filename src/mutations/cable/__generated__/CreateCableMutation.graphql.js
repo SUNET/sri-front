@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 647f6e8e0814fccc44f1e0f6877f5092
+ * @relayHash f0222029f80066ac4672b868d07dab6d
  */
 
 /* eslint-disable */
@@ -28,6 +28,7 @@ export type CreateCableMutationResponse = {|
       +id: string,
       +name: string,
       +description: ?string,
+      +cable_type: ?any,
     |},
   |}
 |};
@@ -51,6 +52,7 @@ mutation CreateCableMutation(
       id
       name
       description
+      cable_type
     }
   }
 }
@@ -135,6 +137,13 @@ v1 = [
             "name": "description",
             "args": null,
             "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "cable_type",
+            "args": null,
+            "storageKey": null
           }
         ]
       }
@@ -161,12 +170,12 @@ return {
     "operationKind": "mutation",
     "name": "CreateCableMutation",
     "id": null,
-    "text": "mutation CreateCableMutation(\n  $input: CreateCableInput!\n) {\n  create_cable(input: $input) {\n    errors {\n      field\n      messages\n    }\n    cable {\n      id\n      name\n      description\n    }\n  }\n}\n",
+    "text": "mutation CreateCableMutation(\n  $input: CreateCableInput!\n) {\n  create_cable(input: $input) {\n    errors {\n      field\n      messages\n    }\n    cable {\n      id\n      name\n      description\n      cable_type\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4cc59debbc1777696ba8707cb9bd2738';
+(node/*: any*/).hash = '3ae88f36b442bf128bdfb467b141f41f';
 
 module.exports = node;
