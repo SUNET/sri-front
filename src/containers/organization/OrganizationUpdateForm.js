@@ -17,7 +17,6 @@ const mapStateToProps = (state, props) => {
         organization_parent_id: organization.parent_organization[0]
             ? organization.parent_organization[0].organization_id
             : "",
-        relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",
         id: organization.id,
         name: organization.name,
         type: organization.type,

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash dd0fea97139ae921e536803357332c3b
+ * @relayHash 6aca23b1bec9a90ddb5aa8aeb1a372f0
  */
 
 /* eslint-disable */
@@ -14,6 +14,7 @@ export type DropdownOrganizationsAllQueryResponse = {|
   +all_organizations: ?$ReadOnlyArray<?{|
     +id: string,
     +node_name: string,
+    +organization_id: ?string,
   |}>
 |};
 export type DropdownOrganizationsAllQuery = {|
@@ -28,6 +29,7 @@ query DropdownOrganizationsAllQuery {
   all_organizations {
     id
     node_name
+    organization_id
   }
 }
 */
@@ -56,6 +58,13 @@ var v0 = [
         "name": "node_name",
         "args": null,
         "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "organization_id",
+        "args": null,
+        "storageKey": null
       }
     ]
   }
@@ -80,11 +89,11 @@ return {
     "operationKind": "query",
     "name": "DropdownOrganizationsAllQuery",
     "id": null,
-    "text": "query DropdownOrganizationsAllQuery {\n  all_organizations {\n    id\n    node_name\n  }\n}\n",
+    "text": "query DropdownOrganizationsAllQuery {\n  all_organizations {\n    id\n    node_name\n    organization_id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'bca0427cc4807c448ae4fe6abe6090f7';
+(node/*: any*/).hash = '3578568db59b0201d021324ca58841cc';
 module.exports = node;
