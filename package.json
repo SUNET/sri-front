@@ -41,6 +41,7 @@
         "react-router-dom": "^5.1.2",
         "react-router-dynamic-breadcrumbs": "^2.2.0",
         "react-router-modal": "^1.5.2",
+        "react-select": "^3.1.0",
         "react-svg": "^10.0.26",
         "redux": "^4.0.5",
         "redux-form": "^8.3.0",

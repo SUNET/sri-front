@@ -4,6 +4,7 @@ import { Form } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Field } from "redux-form";
+import Select from "react-select";
 
 import FieldSelect from "./FieldSelect";
 
@@ -23,6 +24,7 @@ const DropdownOrganizationsAllQuery = graphql`
         all_organizations {
             id
             node_name
+            organization_id
         }
     }
 `;
@@ -90,6 +92,54 @@ class Dropdown extends React.PureComponent {
         });
     };
 
+    renderComboSelect(organizationsList) {
+        const { organization_parent_id } = this.props;
+        const formattedOrganizationList = organizationsList.all_organizations.map((org) => {
+            return {
+                value: org.organization_id,
+                label: `${org.node_name} - ${org.organization_id}`,
+                id: org.id,
+                handle_id: org.handle_id
+            };
+        });
+
+        const currentValue = formattedOrganizationList.find((org) => org.value === organization_parent_id);
+        return (
+            <Select
+                value={currentValue}
+                onChange={(newValue) => {
+                    this.props.onChange(newValue);
+                }}
+                options={formattedOrganizationList}
+                placeholder={this.props.placeholder}
+                className="combo-select-container"
+                classNamePrefix="combo-select"
+            />
+        );
+    }
+
+    renderField(options) {
+        return (
+            <Field
+                className={this.props.className}
+                component={FieldSelect}
+                onChange={(e) => this.props.onChange(e)}
+                name={this.props.name}
+                value={this.props.defaultValue || ""}
+            >
+                {this.props.emptyLabel && (
+                    <option value="" default>
+                        {this.props.emptyLabel}
+                    </option>
+                )}
+                {this.props.model === "organization" && this.renderOptionsModelOptimized(options)}
+                {(this.props.model === "roles" || this.props.model === "default_roles") &&
+                    this.renderOptionsModel(options)}
+                {this.props.model === undefined && this.renderOptions(options)}
+            </Field>
+        );
+    }
+
     render() {
         let dropdownQuery = undefined;
         // TODO: Refactor get query depends of model
@@ -131,25 +181,9 @@ class Dropdown extends React.PureComponent {
                                 options = props.getChoicesForDropdown;
                             }
 
-                            return (
-                                <Field
-                                    className={this.props.className}
-                                    component={FieldSelect}
-                                    onChange={(e) => this.props.onChange(e)}
-                                    name={this.props.name}
-                                    value={this.props.defaultValue || ""}
-                                >
-                                    {this.props.emptyLabel && (
-                                        <option value="" default>
-                                            {this.props.emptyLabel}
-                                        </option>
-                                    )}
-                                    {this.props.model === "organization" && this.renderOptionsModelOptimized(options)}
-                                    {(this.props.model === "roles" || this.props.model === "default_roles") &&
-                                        this.renderOptionsModel(options)}
-                                    {this.props.model === undefined && this.renderOptions(options)}
-                                </Field>
-                            );
+                            return this.props.type === "organization_combo_list"
+                                ? this.renderComboSelect(props)
+                                : this.renderField(options);
                         }
                         return (
                             <select className={this.props.className}>
