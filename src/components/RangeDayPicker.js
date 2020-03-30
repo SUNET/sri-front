@@ -89,7 +89,7 @@ class RangeDayPicker extends React.Component {
                         modifiers,
                         numberOfMonths: 2
                     }}
-                    onDayChange={this.handleFromChange}
+                    onDayChange={isFrom ? this.handleFromChange : this.handleToChange}
                 />
             </div>
         );
