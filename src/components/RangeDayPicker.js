@@ -78,7 +78,7 @@ class RangeDayPicker extends React.Component {
                     value={this.state[fromOrToInput]}
                     ref={(el) => (this[fromOrToInput] = el)}
                     placeholder="dd/mm/yy"
-                    format="MM/DD/YY"
+                    format="DD/MM/YY"
                     formatDate={formatDate}
                     parseDate={parseDate}
                     dayPickerProps={{
@@ -89,7 +89,7 @@ class RangeDayPicker extends React.Component {
                         modifiers,
                         numberOfMonths: 2
                     }}
-                    onDayChange={this.handleFromChange}
+                    onDayChange={isFrom ? this.handleFromChange : this.handleToChange}
                 />
             </div>
         );
