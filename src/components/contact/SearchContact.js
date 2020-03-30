@@ -107,11 +107,11 @@ class Search extends React.Component {
         this.setState({
             filterValue: [
                 { name_contains: filterValue },
-                {
-                    roles_contains: {
-                        name: filterValue
-                    }
-                },
+                // { DE00-004: the text filter with this field does not work
+                    // roles_contains: {
+                        // name: filterValue
+                    // }
+                // },
                 {
                     organizations_contains: {
                         name: filterValue
