@@ -1,28 +1,25 @@
 import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
+import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
-import { shallow } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import { configure, shallow, mount, render } from "enzyme";
 
 import Splash from "../Splash";
+configure({ adapter: new Adapter() });
 
-let container = null;
+let wrapper = null;
 beforeEach(() => {
-    container = shallow(<Splash />, { disableLifecycleMethods: true });
+    wrapper = shallow(
+        <div>
+            <Splash />
+        </div>
+    );
 });
 
 afterEach(() => {
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
+    wrapper.unmount();
 });
 
 it("Render the spinner element", () => {
-    act(() => {
-        render(<Splash />, container);
-    });
-    console.log(container);
-
-    expect(container.find("#splash-spinner"))
-        .exists()
-        .toBeTruthy();
+    expect(wrapper.contains(<Splash />)).toBe(true);
 });
