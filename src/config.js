@@ -1,12 +1,9 @@
-const dev = {
-    API_HOST: window.location.protocol + "//ni.localenv.loc",
-    COOKIE_DOMAIN: ".localenv.loc"
+let api_host_suffix = process.env.REACT_APP_API_HOST ? process.env.REACT_APP_API_HOST : "ni.localenv.loc";
+let cookie_domain = process.env.REACT_APP_COOKIE_DOMAIN ? process.env.REACT_APP_COOKIE_DOMAIN : ".localenv.loc";
+const config = {
+    API_HOST: window.location.protocol + '//' + api_host_suffix,
+    COOKIE_DOMAIN: cookie_domain
 };
-const prod = {
-    API_HOST: window.location.protocol + "//ni.ed-integrations.com/",
-    COOKIE_DOMAIN: ".integrations.com"
-};
-const config = process.env.NODE_ENV === "production" ? prod : dev;
 
 export default {
     ...config,
