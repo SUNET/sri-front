@@ -5,24 +5,14 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import "../style/Splash.scss";
 
-class Splash extends Component {
-    render() {
-        const comp = this.props.is_app_loaded ? (
-            ""
-        ) : (
+const Splash = ({ is_app_loaded }) => (
+    <>
+        {!is_app_loaded && (
             <div id="splash-spinner">
-                <FontAwesomeIcon
-                    icon={faSpinner}
-                    className="fa-pulse fa-6x fa-fw"
-                />
+                <FontAwesomeIcon icon={faSpinner} className="fa-pulse fa-6x fa-fw" />
             </div>
-        );
-        return comp;
-    }
-}
-
-Splash.propTypes = {
-    is_app_loaded: PropTypes.bool
-};
+        )}
+    </>
+);
 
 export default Splash;

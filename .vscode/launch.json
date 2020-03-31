@@ -6,7 +6,7 @@
         "type": "node",
         "request": "launch",
         "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts",
-        "args": ["test", "--runInBand", "--no-cache", "--watchAll=false"],
+        "args": ["--inspect-brk", "test", "--runInBand", "--no-cache", "--watchAll"],
         "cwd": "${workspaceRoot}",
         "protocol": "inspector",
         "console": "integratedTerminal",
