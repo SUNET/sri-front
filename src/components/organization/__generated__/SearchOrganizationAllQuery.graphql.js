@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2eada0a8cdeb4a66e3390f7536d8555b
+ * @relayHash fedde1dd2666668eef65898cb5afe6f5
  */
 
 /* eslint-disable */
@@ -298,7 +298,11 @@ fragment OrganizationList_organizations_1tT5Hu on Query {
 fragment OrganizationRow_organization on Organization {
   id
   name
-  type
+  type {
+    name
+    value
+    id
+  }
   organization_id
   affiliation_customer
   affiliation_end_customer
@@ -378,13 +382,17 @@ v5 = {
   "args": null,
   "storageKey": null
 },
-v6 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-},
+v6 = [
+  (v5/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "value",
+    "args": null,
+    "storageKey": null
+  },
+  (v4/*: any*/)
+],
 v7 = {
   "kind": "ScalarField",
   "alias": null,
@@ -455,7 +463,16 @@ return {
                 "selections": [
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v6/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "type",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": (v6/*: any*/)
+                  },
                   (v7/*: any*/),
                   {
                     "kind": "ScalarField",
@@ -531,7 +548,13 @@ return {
                         "concreteType": "NIRelationType",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "type",
+                            "args": null,
+                            "storageKey": null
+                          },
                           {
                             "kind": "LinkedField",
                             "alias": null,
@@ -624,17 +647,7 @@ return {
         ],
         "concreteType": "Choice",
         "plural": true,
-        "selections": [
-          (v5/*: any*/),
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "value",
-            "args": null,
-            "storageKey": null
-          },
-          (v4/*: any*/)
-        ]
+        "selections": (v6/*: any*/)
       }
     ]
   },
@@ -642,7 +655,7 @@ return {
     "operationKind": "query",
     "name": "SearchOrganizationAllQuery",
     "id": null,
-    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n  ...OrganizationList_organization_types\n}\n\nfragment OrganizationList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...OrganizationRow_organization\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n}\n",
+    "text": "query SearchOrganizationAllQuery(\n  $count: Int!\n  $filter: OrganizationFilter\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_1tT5Hu\n  ...OrganizationList_organization_types\n}\n\nfragment OrganizationList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment OrganizationList_organizations_1tT5Hu on Query {\n  organizations(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...OrganizationRow_organization\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  id\n  name\n  type {\n    name\n    value\n    id\n  }\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

@@ -14,7 +14,10 @@ declare export opaque type OrganizationRow_organization$fragmentType: Organizati
 export type OrganizationRow_organization = {|
   +id: string,
   +name: string,
-  +type: ?any,
+  +type: ?{|
+    +name: string,
+    +value: string,
+  |},
   +organization_id: ?string,
   +affiliation_customer: ?boolean,
   +affiliation_end_customer: ?boolean,
@@ -63,13 +66,6 @@ v1 = {
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-},
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "organization_id",
   "args": null,
   "storageKey": null
@@ -83,8 +79,26 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "type",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "Choice",
+      "plural": false,
+      "selections": [
+        (v1/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "value",
+          "args": null,
+          "storageKey": null
+        }
+      ]
+    },
     (v2/*: any*/),
-    (v3/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -136,7 +150,7 @@ return {
       "concreteType": "Organization",
       "plural": true,
       "selections": [
-        (v3/*: any*/)
+        (v2/*: any*/)
       ]
     },
     {
@@ -158,7 +172,13 @@ return {
           "concreteType": "NIRelationType",
           "plural": false,
           "selections": [
-            (v2/*: any*/),
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "type",
+              "args": null,
+              "storageKey": null
+            },
             {
               "kind": "LinkedField",
               "alias": null,
@@ -186,5 +206,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '1b2c0d3cf7382ac31b55a401d8fb043c';
+(node/*: any*/).hash = 'ef6579f548e47c949384c0b7f3bc21ef';
 module.exports = node;

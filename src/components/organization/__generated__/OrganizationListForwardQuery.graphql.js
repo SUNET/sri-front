@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 270be70ca37fce76ed4a81d79112e65f
+ * @relayHash af748dfd760cd750ed0de800e9fcb2cd
  */
 
 /* eslint-disable */
@@ -55,7 +55,11 @@ fragment OrganizationList_organizations_32czeo on Query {
 fragment OrganizationRow_organization on Organization {
   id
   name
-  type
+  type {
+    name
+    value
+    id
+  }
   organization_id
   affiliation_customer
   affiliation_end_customer
@@ -137,13 +141,6 @@ v4 = {
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-},
-v6 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "organization_id",
   "args": null,
   "storageKey": null
@@ -210,8 +207,27 @@ return {
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "type",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "value",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      (v3/*: any*/)
+                    ]
+                  },
                   (v5/*: any*/),
-                  (v6/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -263,7 +279,7 @@ return {
                     "concreteType": "Organization",
                     "plural": true,
                     "selections": [
-                      (v6/*: any*/),
+                      (v5/*: any*/),
                       (v3/*: any*/)
                     ]
                   },
@@ -286,7 +302,13 @@ return {
                         "concreteType": "NIRelationType",
                         "plural": false,
                         "selections": [
-                          (v5/*: any*/),
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "type",
+                            "args": null,
+                            "storageKey": null
+                          },
                           {
                             "kind": "LinkedField",
                             "alias": null,
@@ -371,7 +393,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationListForwardQuery",
     "id": null,
-    "text": "query OrganizationListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_32czeo\n}\n\nfragment OrganizationList_organizations_32czeo on Query {\n  organizations(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...OrganizationRow_organization\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  id\n  name\n  type\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n}\n",
+    "text": "query OrganizationListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_32czeo\n}\n\nfragment OrganizationList_organizations_32czeo on Query {\n  organizations(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...OrganizationRow_organization\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  id\n  name\n  type {\n    name\n    value\n    id\n  }\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

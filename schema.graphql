@@ -1,5 +1,5 @@
 # source: http://ni.localenv.loc/graphql/
-# timestamp: Fri Feb 07 2020 14:00:00 GMT+0100 (GMT+01:00)
+# timestamp: Wed Apr 01 2020 08:18:12 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements Node {
@@ -216,6 +216,7 @@ like the rest of noclook
 type CommentType implements Node {
   """The ID of the object."""
   id: ID!
+  object_pk: String!
   user: User
   user_name: String!
   user_email: String!
@@ -315,9 +316,9 @@ type Contact implements Node {
   handle_id: ID!
   node_name: String!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -331,7 +332,7 @@ type Contact implements Node {
   last_name: String!
   title: String
   salutation: String
-  contact_type: ChoiceScalar
+  contact_type: Choice
   phones: [Phone]
   phones_relations: [IDRelation]
   emails: [Email]
@@ -951,7 +952,7 @@ type Email implements Node {
   outgoing: [DictRelationType]
   comments: [CommentType]
   name: String!
-  type: ChoiceScalar!
+  type: Choice
 }
 
 type EmailConnection {
@@ -1100,9 +1101,9 @@ type Group implements Node {
   handle_id: ID!
   node_name: String!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1251,9 +1252,9 @@ type Host implements Node {
   handle_id: ID!
   node_name: String!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1275,6 +1276,285 @@ type Host implements Node {
   support_group: String
   security_class: String
   security_comment: String
+}
+
+type HostConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [HostEdge]!
+}
+
+"""A Relay edge containing a `Host` and its cursor."""
+type HostEdge {
+  """The item at the end of the edge"""
+  node: Host
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input HostFilter {
+  AND: [HostNestedFilter!]
+  OR: [HostNestedFilter!]
+}
+
+input HostNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  operational_state: String
+  operational_state_not: String
+  operational_state_lt: String
+  operational_state_lte: String
+  operational_state_gt: String
+  operational_state_gte: String
+  operational_state_contains: String
+  operational_state_not_contains: String
+  operational_state_starts_with: String
+  operational_state_not_starts_with: String
+  operational_state_ends_with: String
+  operational_state_not_ends_with: String
+  operational_state_in: [String!]
+  operational_state_not_in: [String!]
+  os: String
+  os_not: String
+  os_lt: String
+  os_lte: String
+  os_gt: String
+  os_gte: String
+  os_contains: String
+  os_not_contains: String
+  os_starts_with: String
+  os_not_starts_with: String
+  os_ends_with: String
+  os_not_ends_with: String
+  os_in: [String!]
+  os_not_in: [String!]
+  os_version: String
+  os_version_not: String
+  os_version_lt: String
+  os_version_lte: String
+  os_version_gt: String
+  os_version_gte: String
+  os_version_contains: String
+  os_version_not_contains: String
+  os_version_starts_with: String
+  os_version_not_starts_with: String
+  os_version_ends_with: String
+  os_version_not_ends_with: String
+  os_version_in: [String!]
+  os_version_not_in: [String!]
+  vendor: String
+  vendor_not: String
+  vendor_lt: String
+  vendor_lte: String
+  vendor_gt: String
+  vendor_gte: String
+  vendor_contains: String
+  vendor_not_contains: String
+  vendor_starts_with: String
+  vendor_not_starts_with: String
+  vendor_ends_with: String
+  vendor_not_ends_with: String
+  vendor_in: [String!]
+  vendor_not_in: [String!]
+  backup: String
+  backup_not: String
+  backup_lt: String
+  backup_lte: String
+  backup_gt: String
+  backup_gte: String
+  backup_contains: String
+  backup_not_contains: String
+  backup_starts_with: String
+  backup_not_starts_with: String
+  backup_ends_with: String
+  backup_not_ends_with: String
+  backup_in: [String!]
+  backup_not_in: [String!]
+  managed_by: String
+  managed_by_not: String
+  managed_by_lt: String
+  managed_by_lte: String
+  managed_by_gt: String
+  managed_by_gte: String
+  managed_by_contains: String
+  managed_by_not_contains: String
+  managed_by_starts_with: String
+  managed_by_not_starts_with: String
+  managed_by_ends_with: String
+  managed_by_not_ends_with: String
+  managed_by_in: [String!]
+  managed_by_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  responsible_group: String
+  responsible_group_not: String
+  responsible_group_lt: String
+  responsible_group_lte: String
+  responsible_group_gt: String
+  responsible_group_gte: String
+  responsible_group_contains: String
+  responsible_group_not_contains: String
+  responsible_group_starts_with: String
+  responsible_group_not_starts_with: String
+  responsible_group_ends_with: String
+  responsible_group_not_ends_with: String
+  responsible_group_in: [String!]
+  responsible_group_not_in: [String!]
+  support_group: String
+  support_group_not: String
+  support_group_lt: String
+  support_group_lte: String
+  support_group_gt: String
+  support_group_gte: String
+  support_group_contains: String
+  support_group_not_contains: String
+  support_group_starts_with: String
+  support_group_not_starts_with: String
+  support_group_ends_with: String
+  support_group_not_ends_with: String
+  support_group_in: [String!]
+  support_group_not_in: [String!]
+  security_class: String
+  security_class_not: String
+  security_class_lt: String
+  security_class_lte: String
+  security_class_gt: String
+  security_class_gte: String
+  security_class_contains: String
+  security_class_not_contains: String
+  security_class_starts_with: String
+  security_class_not_starts_with: String
+  security_class_ends_with: String
+  security_class_not_ends_with: String
+  security_class_in: [String!]
+  security_class_not_in: [String!]
+  security_comment: String
+  security_comment_not: String
+  security_comment_lt: String
+  security_comment_lte: String
+  security_comment_gt: String
+  security_comment_gte: String
+  security_comment_contains: String
+  security_comment_not_contains: String
+  security_comment_starts_with: String
+  security_comment_not_starts_with: String
+  security_comment_ends_with: String
+  security_comment_not_ends_with: String
+  security_comment_in: [String!]
+  security_comment_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum HostOrderBy {
+  name_ASC
+  name_DESC
+  operational_state_ASC
+  operational_state_DESC
+  os_ASC
+  os_DESC
+  os_version_ASC
+  os_version_DESC
+  vendor_ASC
+  vendor_DESC
+  backup_ASC
+  backup_DESC
+  managed_by_ASC
+  managed_by_DESC
+  description_ASC
+  description_DESC
+  responsible_group_ASC
+  responsible_group_DESC
+  support_group_ASC
+  support_group_DESC
+  security_class_ASC
+  security_class_DESC
+  security_comment_ASC
+  security_comment_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 type IDRelation {
@@ -1340,9 +1620,9 @@ type NINodeHandlerType implements Node {
   handle_id: ID!
   node_name: String!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1385,9 +1665,9 @@ type NodeHandler implements Node {
   handle_id: ID!
   node_name: String!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1416,9 +1696,9 @@ type Organization implements Node {
   handle_id: ID!
   node_name: String!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1432,7 +1712,7 @@ type Organization implements Node {
   organization_number: String
   organization_id: String
   incident_management_info: String
-  type: ChoiceScalar
+  type: Choice
   website: String
   addresses: [Address]
   addresses_relations: [IDRelation]
@@ -1760,7 +2040,7 @@ type Phone implements Node {
   outgoing: [DictRelationType]
   comments: [CommentType]
   name: String!
-  type: ChoiceScalar!
+  type: Choice
 }
 
 type PhoneConnection {
@@ -1897,9 +2177,9 @@ type Procedure implements Node {
   handle_id: ID!
   node_name: String!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -2066,6 +2346,10 @@ type Query {
   count_procedures: Int
   procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
   getProcedureById(id: ID): Procedure
+  all_hosts: [Host]
+  count_hosts: Int
+  hosts(filter: HostFilter, orderBy: HostOrderBy, before: String, after: String, first: Int, last: Int): HostConnection
+  getHostById(id: ID): Host
 }
 
 input RefreshInput {
@@ -2144,7 +2428,7 @@ input RoleRelationInputField {
 }
 
 input RoleRelationMutationInput {
-  role_id: ID!
+  role_id: ID
   organization_id: ID!
   relation_id: Int
   clientMutationId: String
