@@ -12,7 +12,10 @@ const OrganizationDetailsQuery = graphql`
             ...OrganizationUpdateForm_organization
             id
             name
-            type
+            type {
+                name
+                value
+            }
             website
             organization_id
             organization_number
@@ -54,16 +57,25 @@ const OrganizationDetailsQuery = graphql`
                 id
                 first_name
                 last_name
-                contact_type
+                contact_type {
+                    name
+                    value
+                }
                 emails {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 phones {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 roles {
                     relation_id

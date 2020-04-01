@@ -16,19 +16,28 @@ const ContactDetailsQuery = graphql`
             name
             notes
             title
-            contact_type
+            contact_type {
+                name
+                value
+            }
             first_name
             last_name
             pgp_fingerprint
             emails {
                 id
                 name
-                type
+                type {
+                    name
+                    value
+                }
             }
             phones {
                 id
                 name
-                type
+                type {
+                    name
+                    value
+                }
             }
             roles {
                 relation_id
