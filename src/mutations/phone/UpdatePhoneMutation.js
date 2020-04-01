@@ -13,7 +13,10 @@ const mutation = graphql`
             phone {
                 id
                 name
-                type
+                type {
+                    name
+                    value
+                }
             }
         }
     }
