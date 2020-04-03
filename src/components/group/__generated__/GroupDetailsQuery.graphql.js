@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 59e015a773f89aaec3858e47c2ee7b84
+ * @relayHash c561cbc5a58fe27fc93bb1cfd4153d69
  */
 
 /* eslint-disable */
@@ -69,11 +69,11 @@ export type GroupDetailsQueryResponse = {|
       +submit_date: any,
     |}>,
     +created: any,
-    +creator: {|
+    +creator: ?{|
       +email: string
     |},
     +modified: any,
-    +modifier: {|
+    +modifier: ?{|
       +email: string
     |},
     +$fragmentRefs: GroupUpdateForm_group$ref,

@@ -83,11 +83,11 @@ export type OrganizationUpdateForm_organization = {|
     +submit_date: any,
   |}>,
   +created: any,
-  +creator: {|
+  +creator: ?{|
     +email: string
   |},
   +modified: any,
-  +modifier: {|
+  +modifier: ?{|
     +email: string
   |},
   +$refType: OrganizationUpdateForm_organization$ref,

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash eb0fa7868deea80ea7c97f8a489b0ea5
+ * @relayHash eee822803a1c652fadf58d9e1bed2fbc
  */
 
 /* eslint-disable */
@@ -55,11 +55,11 @@ export type OrganizationQueryResponse = {|
       +submit_date: any,
     |}>,
     +created: any,
-    +creator: {|
+    +creator: ?{|
       +email: string
     |},
     +modified: any,
-    +modifier: {|
+    +modifier: ?{|
       +email: string
     |},
   |}

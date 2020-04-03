@@ -42,11 +42,11 @@ export type ContactUpdateForm_contact = {|
     |},
   |}>,
   +created: any,
-  +creator: {|
+  +creator: ?{|
     +email: string
   |},
   +modified: any,
-  +modifier: {|
+  +modifier: ?{|
     +email: string
   |},
   +comments: ?$ReadOnlyArray<?{|

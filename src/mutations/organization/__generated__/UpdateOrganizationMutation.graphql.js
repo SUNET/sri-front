@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 30d9573f51b99511a9e0b736d0d94670
+ * @relayHash 54511486722f6e74a92ab66cfcd62349
  */
 
 /* eslint-disable */
@@ -207,11 +207,11 @@ export type UpdateOrganizationMutationResponse = {|
           +submit_date: any,
         |}>,
         +created: any,
-        +creator: {|
+        +creator: ?{|
           +email: string
         |},
         +modified: any,
-        +modifier: {|
+        +modifier: ?{|
           +email: string
         |},
       |},

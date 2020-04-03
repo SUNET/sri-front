@@ -62,11 +62,11 @@ export type GroupUpdateForm_group = {|
     +submit_date: any,
   |}>,
   +created: any,
-  +creator: {|
+  +creator: ?{|
     +email: string
   |},
   +modified: any,
-  +modifier: {|
+  +modifier: ?{|
     +email: string
   |},
   +$refType: GroupUpdateForm_group$ref,

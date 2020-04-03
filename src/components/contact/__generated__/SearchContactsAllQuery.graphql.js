@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash aa53c678d64061a8b7cde25cf1d8b392
+ * @relayHash 8267b80531da9bb8c945696e45cc42a8
  */
 
 /* eslint-disable */
@@ -495,7 +495,7 @@ return {
         "name": "contacts",
         "storageKey": null,
         "args": (v3/*: any*/),
-        "concreteType": "ContactConnection",
+        "concreteType": "contactConnection",
         "plural": false,
         "selections": [
           {
@@ -504,7 +504,7 @@ return {
             "name": "edges",
             "storageKey": null,
             "args": null,
-            "concreteType": "ContactEdge",
+            "concreteType": "contactEdge",
             "plural": true,
             "selections": [
               {

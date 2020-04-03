@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a1f4175551690c6c9b7a24179e231fbb
+ * @relayHash 1f1ddf312f687558be5c4a48a68fe080
  */
 
 /* eslint-disable */
@@ -102,7 +102,7 @@ export type DeletePhoneInput = {|
   clientMutationId?: ?string,
 |};
 export type RoleRelationMutationInput = {|
-  role_id: string,
+  role_id?: ?string,
   organization_id: string,
   relation_id?: ?number,
   clientMutationId?: ?string,

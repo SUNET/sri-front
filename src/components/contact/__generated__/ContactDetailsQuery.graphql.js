@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 3ea4f01d5de4b0f7c8eb5a66b3af151f
+ * @relayHash f34d71604de1945d182d756b1cdbc1b0
  */
 
 /* eslint-disable */
@@ -47,11 +47,11 @@ export type ContactDetailsQueryResponse = {|
       |},
     |}>,
     +created: any,
-    +creator: {|
+    +creator: ?{|
       +email: string
     |},
     +modified: any,
-    +modifier: {|
+    +modifier: ?{|
       +email: string
     |},
     +comments: ?$ReadOnlyArray<?{|
