@@ -26,7 +26,7 @@ const defaultColumns = [
     { name: "Name", value: "name", filter: "order" },
     { name: "Organization ID", value: "organization_id", filter: "order" },
     { name: "Type", value: "type", filter: "order-filter" },
-    { name: "Affiliation", value: "afffiliation" },
+    { name: "Affiliation", value: "affiliation" },
     { name: "Parent Organization ID", value: "parent_organization_id" }
 ];
 

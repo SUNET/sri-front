@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6f7a8ef36edf6f2574f8ebeb50b9383c
+ * @relayHash aec6c0b32013bccc1cb782ad5a9bd01a
  */
 
 /* eslint-disable */
@@ -137,7 +137,7 @@ return {
         "name": "groups",
         "storageKey": null,
         "args": (v2/*: any*/),
-        "concreteType": "GroupConnection",
+        "concreteType": "groupConnection",
         "plural": false,
         "selections": [
           {
@@ -146,7 +146,7 @@ return {
             "name": "edges",
             "storageKey": null,
             "args": null,
-            "concreteType": "GroupEdge",
+            "concreteType": "groupEdge",
             "plural": true,
             "selections": [
               {

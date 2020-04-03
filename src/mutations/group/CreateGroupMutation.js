@@ -2,7 +2,7 @@ import { commitMutation } from "react-relay";
 // import { ConnectionHandler } from "relay-runtime";
 import graphql from "babel-plugin-relay/macro";
 
-import CreateComentMutation from "../CreateCommentMutation";
+import CreateCommentMutation from "../CreateCommentMutation";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
@@ -139,7 +139,7 @@ export default function UpdateGroupMutation(group, form) {
             } else {
                 const group_id = response.composite_group.created.group.id;
                 if (group.comment) {
-                    CreateComentMutation(group_id, group.comment);
+                    CreateCommentMutation(group_id, group.comment);
                 }
                 form.props.history.push("/community/groups/" + group_id);
                 form.props.notify(i18n.t("notify.group-created-success"), "success");

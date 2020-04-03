@@ -84,7 +84,7 @@ const node/*: ReaderFragment*/ = {
       "name": "__OrganizationList_organizations_connection",
       "storageKey": null,
       "args": null,
-      "concreteType": "OrganizationConnection",
+      "concreteType": "organizationConnection",
       "plural": false,
       "selections": [
         {
@@ -93,7 +93,7 @@ const node/*: ReaderFragment*/ = {
           "name": "edges",
           "storageKey": null,
           "args": null,
-          "concreteType": "OrganizationEdge",
+          "concreteType": "organizationEdge",
           "plural": true,
           "selections": [
             {

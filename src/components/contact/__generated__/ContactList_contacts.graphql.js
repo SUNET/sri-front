@@ -86,7 +86,7 @@ const node/*: ReaderFragment*/ = {
       "name": "__ContactList_contacts_connection",
       "storageKey": null,
       "args": null,
-      "concreteType": "ContactConnection",
+      "concreteType": "contactConnection",
       "plural": false,
       "selections": [
         {
@@ -95,7 +95,7 @@ const node/*: ReaderFragment*/ = {
           "name": "edges",
           "storageKey": null,
           "args": null,
-          "concreteType": "ContactEdge",
+          "concreteType": "contactEdge",
           "plural": true,
           "selections": [
             {

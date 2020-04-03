@@ -84,7 +84,7 @@ const node/*: ReaderFragment*/ = {
       "name": "__GroupList_groups_connection",
       "storageKey": null,
       "args": null,
-      "concreteType": "GroupConnection",
+      "concreteType": "groupConnection",
       "plural": false,
       "selections": [
         {
@@ -93,7 +93,7 @@ const node/*: ReaderFragment*/ = {
           "name": "edges",
           "storageKey": null,
           "args": null,
-          "concreteType": "GroupEdge",
+          "concreteType": "groupEdge",
           "plural": true,
           "selections": [
             {

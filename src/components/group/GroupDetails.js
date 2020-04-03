@@ -1,82 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
-import graphql from "babel-plugin-relay/macro";
+import environment from "../../createRelayEnvironment";
 
 import GroupUpdateFormContainer from "../../containers/group/GroupUpdateForm";
 import DeleteGroupMutation from "../../mutations/group/DeleteGroupMutation";
-import environment from "../../createRelayEnvironment";
 
-const GroupDetailsQuery = graphql`
-    query GroupDetailsQuery($groupId: ID!) {
-        getGroupById(id: $groupId) {
-            ...GroupUpdateForm_group
-            id
-            name
-            description
-            contacts {
-                id
-                first_name
-                last_name
-                contact_type
-                emails {
-                    id
-                    name
-                    type
-                }
-                phones {
-                    id
-                    name
-                    type
-                }
-                roles {
-                    role_data {
-                        id
-                        name
-                    }
-                    end {
-                        id
-                        name
-                    }
-                }
-                outgoing {
-                    name
-                    relation {
-                        relation_id
-                        type
-                        end {
-                            id
-                            node_name
-                        }
-                    }
-                }
-            }
-            contact_relations {
-                entity_id
-                relation_id
-            }
-            comments {
-                id
-                user {
-                    first_name
-                    last_name
-                }
-                comment
-                submit_date
-            }
-            created
-            creator {
-                email
-            }
-            modified
-            modifier {
-                email
-            }
-        }
-    }
-`;
+import GroupDetailsQuery from "../../queries/group/GroupDetailsQuery";
 
 class GroupDetails extends React.Component {
+    ID_ENTITY_KEY = "groupId";
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.shape({
@@ -86,8 +19,8 @@ class GroupDetails extends React.Component {
     };
 
     handleDelete = () => {
-        const groupId = this.props.match.params.groupId;
-        DeleteGroupMutation(groupId, () => this.props.history.push(`/community/groups`));
+        const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
+        DeleteGroupMutation(idEntity, () => this.props.history.push(`/community/groups`));
     };
 
     render() {
@@ -96,7 +29,7 @@ class GroupDetails extends React.Component {
                 environment={environment}
                 query={GroupDetailsQuery}
                 variables={{
-                    groupId: this.props.match.params.groupId
+                    [this.ID_ENTITY_KEY]: this.props.match.params[this.ID_ENTITY_KEY]
                 }}
                 render={({ error, props, retry }) => {
                     if (error) {
