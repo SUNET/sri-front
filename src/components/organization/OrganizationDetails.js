@@ -36,7 +36,7 @@ class OrganizationDetails extends React.Component {
                 }}
                 render={({ error, props }) => {
                     if (error) {
-                        return <div>{error.message}</div>;
+                        return <div>{this.props.t('general.error')}</div>;
                     } else if (props) {
                         return (
                             <section className="model-details organization-details">

@@ -50,25 +50,38 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
         })
     })
         .then((response) => {
-            if (response.redirected) {
-                return window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
-            }
+            console.log('response: ', response);
+            // if (response.redirected) {
+            //     return window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+            // }
             return response.json();
         })
         .then((json) => {
+            console.log('json: ', json);
+            console.log('json.errors: ', json.errors);
+            console.log('json.errors.length > 0: ', json.errors);
+            let jsonResult;
+            if (json.errors && json.errors.length > 0) {
+                jsonResult = {data: "HOLA QUE TAL "}
+                // window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+            } else {
+                jsonResult = json;
+            }
             // Update cache on queries
-            if (isQuery && json) {
-                cache.set(queryId, variables, json);
+            if (isQuery && jsonResult) {
+                cache.set(queryId, variables, jsonResult);
             }
             // Clear cache on mutations
             if (isMutation) {
                 cache.clear();
             }
 
-            return json;
+            return jsonResult
         })
-        .catch(() => {
-            window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+        .catch((err) => {
+            console.log(err);
+            
+            // window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
         });
 }
 
