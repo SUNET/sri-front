@@ -20,7 +20,6 @@ class FieldArrayOrganizationsContact extends React.Component {
         showModal: false, // DEFAULT: false
         selectedRowKey: null // DEFAULT: null
     };
-
     // lifecycle
     UNSAFE_componentWillUpdate(nextProps, nextState) {
         const newFields = nextProps.fields.getAll();

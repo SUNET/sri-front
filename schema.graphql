@@ -1,5 +1,5 @@
 # source: http://ni.localenv.loc/graphql/
-# timestamp: Wed Apr 01 2020 14:52:05 GMT+0200 (GMT+02:00)
+# timestamp: Tue Apr 07 2020 13:59:17 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -3697,6 +3697,10 @@ type Query {
   count_cables: Int
   cables(filter: CableFilter, orderBy: CableOrderBy, before: String, after: String, first: Int, last: Int): cableConnection
   getCableById(id: ID): Cable
+  all_routers: [Router]
+  count_routers: Int
+  routers(filter: RouterFilter, orderBy: RouterOrderBy, before: String, after: String, first: Int, last: Int): routerConnection
+  getRouterById(id: ID): Router
   all_peeringpartners: [PeeringPartner]
   count_peeringpartners: Int
   peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
@@ -3805,6 +3809,202 @@ type RoleRelationMutationPayload {
   errors: [ErrorType]
   rolerelation: RoleRelation
   clientMutationId: String
+}
+
+type Router implements NINode & Physical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: Physical
+  part_of: Logical
+  parent: [Physical]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  operational_state: ChoiceScalar
+  model: String
+  version: String
+  ports: [Port]
+}
+
+type routerConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [routerEdge]!
+}
+
+"""A Relay edge containing a `router` and its cursor."""
+type routerEdge {
+  """The item at the end of the edge"""
+  node: Router
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input RouterFilter {
+  AND: [RouterNestedFilter!]
+  OR: [RouterNestedFilter!]
+}
+
+input RouterNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
+  model: String
+  model_not: String
+  model_lt: String
+  model_lte: String
+  model_gt: String
+  model_gte: String
+  model_contains: String
+  model_not_contains: String
+  model_starts_with: String
+  model_not_starts_with: String
+  model_ends_with: String
+  model_not_ends_with: String
+  model_in: [String!]
+  model_not_in: [String!]
+  version: String
+  version_not: String
+  version_lt: String
+  version_lte: String
+  version_gt: String
+  version_gte: String
+  version_contains: String
+  version_not_contains: String
+  version_starts_with: String
+  version_not_starts_with: String
+  version_ends_with: String
+  version_not_ends_with: String
+  version_in: [String!]
+  version_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum RouterOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  operational_state_ASC
+  operational_state_DESC
+  model_ASC
+  model_DESC
+  version_ASC
+  version_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 type SiteOwner implements NINode & Relation {
