@@ -12,7 +12,7 @@ const mapStateToProps = (state, props) => {
         id: provider.id,
         name: provider.name,
         description: provider.description,
-        url: provider.url
+        url: provider.url,
     };
     return {
         initialValues,
@@ -20,7 +20,8 @@ const mapStateToProps = (state, props) => {
         description: updateProviderSelector(state, "description"),
         url: updateProviderSelector(state, "url"),
         formSyncErrors: getFormSyncErrors("updateProvider")(state),
-        fields: getFormMeta("updateProvider")(state)
+        fields: getFormMeta("updateProvider")(state),
+        relatedEntities: provider.with_same_name,
     };
 };
 
@@ -28,7 +29,7 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
         // ,showNewContactForm
     };
 };

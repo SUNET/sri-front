@@ -20,7 +20,8 @@ const mapStateToProps = (state, props) => {
         description: updateEndUserSelector(state, "description"),
         url: updateEndUserSelector(state, "url"),
         formSyncErrors: getFormSyncErrors("updateEndUser")(state),
-        fields: getFormMeta("updateEndUser")(state)
+        fields: getFormMeta("updateEndUser")(state),
+        relatedEntities: endUser.with_same_name,
     };
 };
 
