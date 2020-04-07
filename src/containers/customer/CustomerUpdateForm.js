@@ -11,7 +11,7 @@ const mapStateToProps = (state, props) => {
         id: customer.id,
         name: customer.name,
         description: customer.description,
-        url: customer.url
+        url: customer.url,
     };
     return {
         initialValues,
@@ -19,7 +19,8 @@ const mapStateToProps = (state, props) => {
         description: updateCustomerSelector(state, "description"),
         url: updateCustomerSelector(state, "url"),
         formSyncErrors: getFormSyncErrors("updateCustomer")(state),
-        fields: getFormMeta("updateCustomer")(state)
+        fields: getFormMeta("updateCustomer")(state),
+        relatedEntities: customer.with_same_name,
     };
 };
 
@@ -27,7 +28,7 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
         // ,showNewContactForm
     };
 };

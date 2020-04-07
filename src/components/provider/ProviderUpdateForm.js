@@ -17,14 +17,14 @@ class ProviderUpdateForm extends _BasicFormParentClass {
     MODEL_NAME = "provider";
     ROUTE_LIST_DIRECTION = "/network/providers";
     state = {
-        editMode: false
+        editMode: false,
     };
     refetch = () => {
         this.props.relay.refetch(
             { providerId: this.props.provider.id }, // Our refetchQuery needs to know the `providerID`
             null, // We can use the refetchVariables as renderVariables
             () => {},
-            { force: true }
+            { force: true },
         );
     };
     handleSubmit = (provider) => {
@@ -32,7 +32,7 @@ class ProviderUpdateForm extends _BasicFormParentClass {
         UpdateProviderMutation(provider, this);
     };
     render() {
-        let { handleSubmit } = this.props;
+        let { relatedEntities, handleSubmit } = this.props;
         const { editMode } = this.state;
         const showBackButton = isBrowser;
         return (
@@ -40,6 +40,7 @@ class ProviderUpdateForm extends _BasicFormParentClass {
                 {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
+                {relatedEntities && this.renderRelatedEntities(relatedEntities)}
                 {this.renderWorkLog()}
                 {this.renderSaveCancelButtons()}
             </form>
@@ -53,7 +54,7 @@ ProviderUpdateForm = reduxForm({
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;
-    }
+    },
 })(ProviderUpdateForm);
 
 const ProviderUpdateFragment = createRefetchContainer(
@@ -83,7 +84,7 @@ const ProviderUpdateFragment = createRefetchContainer(
                     email
                 }
             }
-        `
+        `,
     },
 
     graphql`
@@ -94,7 +95,7 @@ const ProviderUpdateFragment = createRefetchContainer(
                 ...ProviderUpdateForm_provider
             }
         }
-    `
+    `,
 );
 
 export default ProviderUpdateFragment;

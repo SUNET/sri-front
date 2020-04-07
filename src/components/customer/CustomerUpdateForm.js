@@ -17,7 +17,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
     MODEL_NAME = "customer";
     ROUTE_LIST_DIRECTION = "/network/customers";
     state = {
-        editMode: false
+        editMode: false,
     };
     refetch = () => {
         this.props.relay.refetch(
@@ -26,7 +26,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
             () => {
                 console.log("Refetch done");
             },
-            { force: true }
+            { force: true },
         );
     };
     handleSubmit = (customer) => {
@@ -34,7 +34,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
         UpdateCustomerMutation(customer, this);
     };
     render() {
-        let { handleSubmit } = this.props;
+        let { relatedEntities, handleSubmit } = this.props;
         const { editMode } = this.state;
         const showBackButton = isBrowser;
         return (
@@ -42,6 +42,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
                 {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
+                {relatedEntities && this.renderRelatedEntities(relatedEntities)}
                 {this.renderWorkLog()}
                 {this.renderSaveCancelButtons()}
             </form>
@@ -55,7 +56,7 @@ CustomerUpdateForm = reduxForm({
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;
-    }
+    },
 })(CustomerUpdateForm);
 
 const CustomerUpdateFragment = createRefetchContainer(
@@ -85,7 +86,7 @@ const CustomerUpdateFragment = createRefetchContainer(
                     email
                 }
             }
-        `
+        `,
     },
 
     graphql`
@@ -96,7 +97,7 @@ const CustomerUpdateFragment = createRefetchContainer(
                 ...CustomerUpdateForm_customer
             }
         }
-    `
+    `,
 );
 
 export default CustomerUpdateFragment;

@@ -12,7 +12,7 @@ const mapStateToProps = (state, props) => {
         id: siteOwner.id,
         name: siteOwner.name,
         description: siteOwner.description,
-        url: siteOwner.url
+        url: siteOwner.url,
     };
     return {
         initialValues,
@@ -20,7 +20,8 @@ const mapStateToProps = (state, props) => {
         description: updateSiteOwnerSelector(state, "description"),
         url: updateSiteOwnerSelector(state, "url"),
         formSyncErrors: getFormSyncErrors("updateSiteOwner")(state),
-        fields: getFormMeta("updateSiteOwner")(state)
+        fields: getFormMeta("updateSiteOwner")(state),
+        relatedEntities: siteOwner.with_same_name,
     };
 };
 
@@ -28,7 +29,7 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         notify: (msg, level) => {
             dispatch(actions.notify(msg, level));
-        }
+        },
         // ,showNewContactForm
     };
 };
