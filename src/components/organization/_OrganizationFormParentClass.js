@@ -174,11 +174,11 @@ class _OrganizationFormParentClass extends React.Component {
         );
     }
     renderWorkLog() {
-        const { t, group } = this.props;
+        const { t, organization } = this.props;
         return (
             <section className="model-section">
                 {this.IS_UPDATED_FORM ? (
-                    <Worklog model={group} refetch={this.refetch} />
+                    <Worklog model={organization} refetch={this.refetch} />
                 ) : (
                     <ToggleSection defaultEditable={false}>
                         <ToggleHeading>

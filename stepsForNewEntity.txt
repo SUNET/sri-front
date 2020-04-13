@@ -1,0 +1,83 @@
+LIST:
+1.Add path in navs:
+    + TopHeader
+    + SideNavNetWork
+
+                     || 2. create Containers:
+                     ||     + folder /containers/NAME_ENTITY
+                     ||     + file: SearchNAME_ENTITY
+                     || 
+                     || 3. create Component:
+replaced with script ||     + folder /components/NAME_ENTITY
+npm run              ||     + file: SearchNAME_ENTITY
+create-entity-list   || 
+entityBlock          || 4. Create
+entityName           ||     containers/entity/EntityList
+                     ||     components/entity/EntityList
+                     ||     components/entity/EntityRow
+
+eg: npm run create-entity-list network provider
+
+5. Add Reducer/action FilterColumns
+
+6. Add Query and generate files: npm run relay
+
+7. Add Container in Route (Network.js)
+
+
+DETAILS:
+
+
+                     || 1.Create Query:
+                     ||       + queries/entity/EntityDetailsQuery.js
+                     || 
+                     || 2.Create containers
+replaced with script ||     + EntityDetails.js
+npm run              ||     + EntityUpdateForm.js
+create-entity-details|| 
+entityBlock          || 3.Create Components
+entityName           ||     + EntityDetails.js
+                     ||     + _EntityFormParentClass.js
+                     ||     + EntityUpdateForm.js
+
+2.Add FORM_ID in constants
+
+3.Add in SearchEntity component:
+    + DETAIL_CONTAINER = EntityDetailsContainer
+    + PATH_ENTITY_ID = "entityId"
+
+4.Enable click on the row list (in EntityRow)
+
+
+MUTATIONS
+1.Create Files:
+    + Mutations/entity/UpdateEntityMutation.js
+    + Mutations/entity/CreateEntityMutation.js
+    + Mutations/entity/DeleteEntityMutation.js
+
+2. Create Containers:
+    + containers/entity/CreateEntityForm.js
+
+3. Create Components:
+    + components/entity/CreateEntity.js
+    + components/entity/CreateEntityForm.js
+
+4. Enable Validation, CTAs Save/cancel, Edit and Delete (components/entity/EntityUpdateForm)
+
+5. Add create component in SearchEntity (CREATE_COMPONENT)
+6. Add Create route in SubMenuActions
+7. Enable method handleDelete in components/entity/EntityDetails
+
+Samples:
+
+- To test scripts
+rm -rf src/**/testEntity && npm run create-entity-list testBlock testEntity && npm run create-entity-details testBlock testEntity
+
+- To create list entity
+npm run create-entity-list network customer
+
+- To create details entity
+npm run create-entity-details network customer
+
+
+- To create create/delete/update components and Mutations

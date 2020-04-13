@@ -4,46 +4,64 @@ import { withTranslation } from "react-i18next";
 import { isBrowser } from "react-device-detect";
 
 class SubMenuActions extends React.Component {
+    ROUTE_LIST = [
+        {
+            path: "/community/organizations/",
+            pathTo: "/community/organizations/create",
+            textButton: "organization-details.add-organization"
+        },
+        {
+            path: "/community/contacts/",
+            pathTo: "/community/contacts/create",
+            textButton: "contact-details.add-contact"
+        },
+        {
+            path: "/community/groups/",
+            pathTo: "/community/groups/create",
+            textButton: "group-details.add-group"
+        },
+        {
+            path: "/network/customers/",
+            pathTo: "/network/customers/create",
+            textButton: "network.details.add/customers"
+        },
+        {
+            path: "/network/providers/",
+            pathTo: "/network/providers/create",
+            textButton: "network.details.add/providers"
+        },
+        {
+            path: "/network/site-owners/",
+            pathTo: "/network/site-owners/create",
+            textButton: "network.details.add/site-owners"
+        },
+        {
+            path: "/network/end-users/",
+            pathTo: "/network/end-users/create",
+            textButton: "network.details.add/end-users"
+        }
+    ];
     render() {
         const { t } = this.props;
         return (
             <Switch>
-                <Route
-                    exact
-                    path="/community/organizations/"
-                    component={() => (
-                        <button
-                            className="btn primary add-cta reduced-in-mobile"
-                            onClick={() => this.props.history.push(`/community/organizations/create`)}
-                        >
-                            {isBrowser ? t("organization-details.add-organization") : "+"}
-                        </button>
-                    )}
-                />
-                <Route
-                    exact
-                    path="/community/contacts/"
-                    component={() => (
-                        <button
-                            className="btn primary add-cta reduced-in-mobile"
-                            onClick={() => this.props.history.push(`/community/contacts/create`)}
-                        >
-                            {isBrowser ? t("contact-details.add-contact") : "+"}
-                        </button>
-                    )}
-                />
-                <Route
-                    exact
-                    path="/community/groups/"
-                    component={() => (
-                        <button
-                            className="btn primary add-cta reduced-in-mobile"
-                            onClick={() => this.props.history.push(`/community/groups/create`)}
-                        >
-                            {isBrowser ? t("group-details.add-group") : "+"}
-                        </button>
-                    )}
-                />
+                {this.ROUTE_LIST.map((routeData, index) => {
+                    return (
+                        <Route
+                            key={`sub-action${index}`}
+                            exact
+                            path={routeData.path}
+                            component={() => (
+                                <button
+                                    className="btn primary add-cta reduced-in-mobile"
+                                    onClick={() => this.props.history.push(routeData.pathTo)}
+                                >
+                                    {isBrowser ? t(routeData.textButton) : "+"}
+                                </button>
+                            )}
+                        />
+                    );
+                })}
             </Switch>
         );
     }

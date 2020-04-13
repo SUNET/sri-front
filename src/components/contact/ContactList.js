@@ -52,7 +52,7 @@ export class ContactList extends React.PureComponent {
         this.props.history.push(`${this.props.match.url}/${data.id}`);
     };
 
-    renderFiltersColumns() {        
+    renderFiltersColumns() {
         return (
             <div className="model-list__header-cta">
                 <FilterColumns

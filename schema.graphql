@@ -1,33 +1,35 @@
 # source: http://ni.localenv.loc/graphql/
-# timestamp: Wed Apr 01 2020 08:18:12 GMT+0200 (GMT+02:00)
+# timestamp: Mon Apr 13 2020 13:53:27 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
-type Address implements Node {
+type Address implements NINode & Logical {
   handle_id: ID!
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
+  part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   phone: String
   street: String
   postal_code: String
   postal_area: String
 }
 
-type AddressConnection {
+type addressConnection {
   """Pagination data for this connection."""
   pageInfo: PageInfo!
 
   """Contains the nodes in this connection."""
-  edges: [AddressEdge]!
+  edges: [addressEdge]!
 }
 
-"""A Relay edge containing a `Address` and its cursor."""
-type AddressEdge {
+"""A Relay edge containing a `address` and its cursor."""
+type addressEdge {
   """The item at the end of the edge"""
   node: Address
 
@@ -198,6 +200,170 @@ enum AddressOrderBy {
   handle_id_DESC
 }
 
+type Cable implements NINode & Physical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: Physical
+  part_of: Logical
+  parent: [Physical]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  cable_type: Choice
+  description: String
+  providers: [Provider]
+  providers_relations: [IDRelation]
+  ports: [Port]
+}
+
+type cableConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [cableEdge]!
+}
+
+"""A Relay edge containing a `cable` and its cursor."""
+type cableEdge {
+  """The item at the end of the edge"""
+  node: Cable
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input CableFilter {
+  AND: [CableNestedFilter!]
+  OR: [CableNestedFilter!]
+}
+
+input CableNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  cable_type: ChoiceScalar
+  cable_type_not: ChoiceScalar
+  cable_type_lt: ChoiceScalar
+  cable_type_lte: ChoiceScalar
+  cable_type_gt: ChoiceScalar
+  cable_type_gte: ChoiceScalar
+  cable_type_contains: ChoiceScalar
+  cable_type_not_contains: ChoiceScalar
+  cable_type_starts_with: ChoiceScalar
+  cable_type_not_starts_with: ChoiceScalar
+  cable_type_ends_with: ChoiceScalar
+  cable_type_not_ends_with: ChoiceScalar
+  cable_type_in: [ChoiceScalar!]
+  cable_type_not_in: [ChoiceScalar!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum CableOrderBy {
+  name_ASC
+  name_DESC
+  cable_type_ASC
+  cable_type_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 """This class is used for the choices available in a dropdown"""
 type Choice implements KeyValue {
   id: ID!
@@ -312,9 +478,10 @@ type CompositeOrganizationMutationPayload {
 }
 
 """A contact in the SRI system"""
-type Contact implements Node {
+type Contact implements NINode & Relation {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User
   created: DateTime!
@@ -323,11 +490,17 @@ type Contact implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: Physical
+  responsible_for: Location
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   first_name: String!
   last_name: String!
   title: String
@@ -345,16 +518,16 @@ type Contact implements Node {
   notes: String
 }
 
-type ContactConnection {
+type contactConnection {
   """Pagination data for this connection."""
   pageInfo: PageInfo!
 
   """Contains the nodes in this connection."""
-  edges: [ContactEdge]!
+  edges: [contactEdge]!
 }
 
-"""A Relay edge containing a `Contact` and its cursor."""
-type ContactEdge {
+"""A Relay edge containing a `contact` and its cursor."""
+type contactEdge {
   """The item at the end of the edge"""
   node: Contact
 
@@ -656,6 +829,19 @@ type CreateAddressPayload {
   clientMutationId: String
 }
 
+input CreateCableInput {
+  name: String!
+  cable_type: ChoiceScalar!
+  description: String
+  clientMutationId: String
+}
+
+type CreateCablePayload {
+  errors: [ErrorType]
+  cable: Cable
+  clientMutationId: String
+}
+
 input CreateCommentInput {
   object_id: ID!
   comment: String!
@@ -694,6 +880,19 @@ type CreateContactPayload {
   clientMutationId: String
 }
 
+input CreateCustomerInput {
+  name: String!
+  url: String
+  description: String
+  clientMutationId: String
+}
+
+type CreateCustomerPayload {
+  errors: [ErrorType]
+  customer: Customer
+  clientMutationId: String
+}
+
 input CreateEmailInput {
   contact: ChoiceScalar
   name: String!
@@ -704,6 +903,19 @@ input CreateEmailInput {
 type CreateEmailPayload {
   errors: [ErrorType]
   email: Email
+  clientMutationId: String
+}
+
+input CreateEndUserInput {
+  name: String!
+  description: String
+  url: String
+  clientMutationId: String
+}
+
+type CreateEndUserPayload {
+  errors: [ErrorType]
+  endUser: EndUser
   clientMutationId: String
 }
 
@@ -775,6 +987,19 @@ type CreatePhonePayload {
   clientMutationId: String
 }
 
+input CreatePortInput {
+  name: String!
+  port_type: ChoiceScalar
+  description: String
+  clientMutationId: String
+}
+
+type CreatePortPayload {
+  errors: [ErrorType]
+  port: Port
+  clientMutationId: String
+}
+
 input CreateProcedureInput {
   name: String!
   description: String
@@ -784,6 +1009,19 @@ input CreateProcedureInput {
 type CreateProcedurePayload {
   errors: [ErrorType]
   procedure: Procedure
+  clientMutationId: String
+}
+
+input CreateProviderInput {
+  name: String!
+  url: String
+  description: String
+  clientMutationId: String
+}
+
+type CreateProviderPayload {
+  errors: [ErrorType]
+  provider: Provider
   clientMutationId: String
 }
 
@@ -800,6 +1038,181 @@ type CreateRolePayload {
   clientMutationId: String
 }
 
+input CreateSiteOwnerInput {
+  name: String!
+  description: String
+  url: String
+  clientMutationId: String
+}
+
+type CreateSiteOwnerPayload {
+  errors: [ErrorType]
+  siteOwner: SiteOwner
+  clientMutationId: String
+}
+
+type Customer implements NINode & Relation {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: Physical
+  responsible_for: Location
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  url: String
+  description: String
+}
+
+type customerConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [customerEdge]!
+}
+
+"""A Relay edge containing a `customer` and its cursor."""
+type customerEdge {
+  """The item at the end of the edge"""
+  node: Customer
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input CustomerFilter {
+  AND: [CustomerNestedFilter!]
+  OR: [CustomerNestedFilter!]
+}
+
+input CustomerNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  url: String
+  url_not: String
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  url_in: [String!]
+  url_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum CustomerOrderBy {
+  name_ASC
+  name_DESC
+  url_ASC
+  url_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 """
 The `DateTime` scalar type represents a DateTime
 value as specified by
@@ -813,6 +1226,17 @@ input DeleteAddressInput {
 }
 
 type DeleteAddressPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteCableInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteCablePayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -840,12 +1264,34 @@ type DeleteContactPayload {
   clientMutationId: String
 }
 
+input DeleteCustomerInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteCustomerPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteEmailInput {
   id: ID!
   clientMutationId: String
 }
 
 type DeleteEmailPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteEndUserInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteEndUserPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -884,12 +1330,34 @@ type DeletePhonePayload {
   clientMutationId: String
 }
 
+input DeletePortInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeletePortPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteProcedureInput {
   id: ID!
   clientMutationId: String
 }
 
 type DeleteProcedurePayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteProviderInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteProviderPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -914,6 +1382,17 @@ input DeleteRoleInput {
 type DeleteRolePayload {
   success: Boolean!
   id: ID!
+  clientMutationId: String
+}
+
+input DeleteSiteOwnerInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteSiteOwnerPayload {
+  errors: [ErrorType]
+  success: Boolean!
   clientMutationId: String
 }
 
@@ -942,29 +1421,31 @@ type Dropdown {
 }
 
 """Email entity to be used inside contact"""
-type Email implements Node {
+type Email implements NINode & Logical {
   handle_id: ID!
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
+  part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   type: Choice
 }
 
-type EmailConnection {
+type emailConnection {
   """Pagination data for this connection."""
   pageInfo: PageInfo!
 
   """Contains the nodes in this connection."""
-  edges: [EmailEdge]!
+  edges: [emailEdge]!
 }
 
-"""A Relay edge containing a `Email` and its cursor."""
-type EmailEdge {
+"""A Relay edge containing a `email` and its cursor."""
+type emailEdge {
   """The item at the end of the edge"""
   node: Email
 
@@ -1084,6 +1565,168 @@ enum EmailOrderBy {
   handle_id_DESC
 }
 
+type EndUser implements NINode & Relation {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: Physical
+  responsible_for: Location
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  url: String
+  description: String
+}
+
+type endUserConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [endUserEdge]!
+}
+
+"""A Relay edge containing a `endUser` and its cursor."""
+type endUserEdge {
+  """The item at the end of the edge"""
+  node: EndUser
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input EndUserFilter {
+  AND: [EndUserNestedFilter!]
+  OR: [EndUserNestedFilter!]
+}
+
+input EndUserNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  url: String
+  url_not: String
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  url_in: [String!]
+  url_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum EndUserOrderBy {
+  name_ASC
+  name_DESC
+  url_ASC
+  url_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 type ErrorType {
   field: String!
   messages: [String!]!
@@ -1097,9 +1740,10 @@ String, Boolean, Int, Float, List or Object.
 scalar GenericScalar
 
 """The group type is used to group contacts"""
-type Group implements Node {
+type Group implements NINode & Logical {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User
   created: DateTime!
@@ -1108,26 +1752,28 @@ type Group implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
+  part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   description: String
   contacts: [Contact]
   contact_relations: [IDRelation]
 }
 
-type GroupConnection {
+type groupConnection {
   """Pagination data for this connection."""
   pageInfo: PageInfo!
 
   """Contains the nodes in this connection."""
-  edges: [GroupEdge]!
+  edges: [groupEdge]!
 }
 
-"""A Relay edge containing a `Group` and its cursor."""
-type GroupEdge {
+"""A Relay edge containing a `group` and its cursor."""
+type groupEdge {
   """The item at the end of the edge"""
   node: Group
 
@@ -1248,9 +1894,10 @@ enum GroupOrderBy {
 }
 
 """A host in the SRI system"""
-type Host implements Node {
+type Host implements NINode & Logical {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User
   created: DateTime!
@@ -1259,35 +1906,37 @@ type Host implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
+  part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
   ip_addresses: IPAddr
-  name: String!
+  description: String
   operational_state: String!
   os: String
   os_version: String
   vendor: String
   backup: String
   managed_by: String
-  description: String
   responsible_group: String
   support_group: String
   security_class: String
   security_comment: String
 }
 
-type HostConnection {
+type hostConnection {
   """Pagination data for this connection."""
   pageInfo: PageInfo!
 
   """Contains the nodes in this connection."""
-  edges: [HostEdge]!
+  edges: [hostEdge]!
 }
 
-"""A Relay edge containing a `Host` and its cursor."""
-type HostEdge {
+"""A Relay edge containing a `host` and its cursor."""
+type hostEdge {
   """The item at the end of the edge"""
   node: Host
 
@@ -1315,6 +1964,20 @@ input HostNestedFilter {
   name_not_ends_with: String
   name_in: [String!]
   name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
   operational_state: String
   operational_state_not: String
   operational_state_lt: String
@@ -1399,20 +2062,6 @@ input HostNestedFilter {
   managed_by_not_ends_with: String
   managed_by_in: [String!]
   managed_by_not_in: [String!]
-  description: String
-  description_not: String
-  description_lt: String
-  description_lte: String
-  description_gt: String
-  description_gte: String
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
-  description_in: [String!]
-  description_not_in: [String!]
   responsible_group: String
   responsible_group_not: String
   responsible_group_lt: String
@@ -1527,6 +2176,8 @@ input HostNestedFilter {
 enum HostOrderBy {
   name_ASC
   name_DESC
+  description_ASC
+  description_DESC
   operational_state_ASC
   operational_state_DESC
   os_ASC
@@ -1539,8 +2190,6 @@ enum HostOrderBy {
   backup_DESC
   managed_by_ASC
   managed_by_DESC
-  description_ASC
-  description_DESC
   responsible_group_ASC
   responsible_group_DESC
   support_group_ASC
@@ -1568,6 +2217,24 @@ scalar IPAddr
 interface KeyValue {
   name: String!
   value: String!
+}
+
+interface Location {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  parent: Location
+  located_in: Physical
+  has: Physical
+}
+
+interface Logical {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  part_of: Physical
 }
 
 type Mutation {
@@ -1598,6 +2265,24 @@ type Mutation {
   create_role(input: CreateRoleInput!): CreateRolePayload
   update_role(input: UpdateRoleInput!): UpdateRolePayload
   delete_role(input: DeleteRoleInput!): DeleteRolePayload
+  create_customer(input: CreateCustomerInput!): CreateCustomerPayload
+  update_customer(input: UpdateCustomerInput!): UpdateCustomerPayload
+  delete_customer(input: DeleteCustomerInput!): DeleteCustomerPayload
+  create_endUser(input: CreateEndUserInput!): CreateEndUserPayload
+  update_endUser(input: UpdateEndUserInput!): UpdateEndUserPayload
+  delete_endUser(input: DeleteEndUserInput!): DeleteEndUserPayload
+  create_provider(input: CreateProviderInput!): CreateProviderPayload
+  update_provider(input: UpdateProviderInput!): UpdateProviderPayload
+  delete_provider(input: DeleteProviderInput!): DeleteProviderPayload
+  create_siteOwner(input: CreateSiteOwnerInput!): CreateSiteOwnerPayload
+  update_siteOwner(input: UpdateSiteOwnerInput!): UpdateSiteOwnerPayload
+  delete_siteOwner(input: DeleteSiteOwnerInput!): DeleteSiteOwnerPayload
+  create_port(input: CreatePortInput!): CreatePortPayload
+  update_port(input: UpdatePortInput!): UpdatePortPayload
+  delete_port(input: DeletePortInput!): DeletePortPayload
+  create_cable(input: CreateCableInput!): CreateCablePayload
+  update_cable(input: UpdateCableInput!): UpdateCablePayload
+  delete_cable(input: DeleteCableInput!): DeleteCablePayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -1615,10 +2300,18 @@ type Neo4jChoice implements KeyValue {
   value: String!
 }
 
+interface NINode {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+}
+
 """Generic NodeHandler graphene type"""
 type NINodeHandlerType implements Node {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User
   created: DateTime!
@@ -1627,6 +2320,18 @@ type NINodeHandlerType implements Node {
 
   """The ID of the object."""
   id: ID!
+}
+
+"""Simple NodeType graphene class"""
+type NINodeType {
+  id: ID!
+  type: String!
+
+  """Automatically generated from type. Must be unique."""
+  slug: String!
+
+  """Hide from menus"""
+  hidden: Boolean!
 }
 
 """This class represents a relationship and its properties"""
@@ -1661,9 +2366,10 @@ enum NodeHandleNodeMetaType {
   LOCATION
 }
 
-type NodeHandler implements Node {
+type NodeHandler implements NINode {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User
   created: DateTime!
@@ -1672,11 +2378,12 @@ type NodeHandler implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
 }
 
 input ObtainJSONWebTokenInput {
@@ -1692,9 +2399,10 @@ type ObtainJSONWebTokenPayload {
 }
 
 """The group type is used to group contacts"""
-type Organization implements Node {
+type Organization implements NINode & Relation {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User
   created: DateTime!
@@ -1703,11 +2411,17 @@ type Organization implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: Physical
+  responsible_for: Location
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
   description: String
   organization_number: String
   organization_id: String
@@ -1727,16 +2441,16 @@ type Organization implements Node {
   contacts_relations: [IDRelation]
 }
 
-type OrganizationConnection {
+type organizationConnection {
   """Pagination data for this connection."""
   pageInfo: PageInfo!
 
   """Contains the nodes in this connection."""
-  edges: [OrganizationEdge]!
+  edges: [organizationEdge]!
 }
 
-"""A Relay edge containing a `Organization` and its cursor."""
-type OrganizationEdge {
+"""A Relay edge containing a `organization` and its cursor."""
+type organizationEdge {
   """The item at the end of the edge"""
   node: Organization
 
@@ -2029,30 +2743,301 @@ type PageInfo {
   endCursor: String
 }
 
-"""Phone entity to be used inside contact"""
-type Phone implements Node {
+type PeeringGroup implements NINode & Logical {
   handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
+  part_of: Physical
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
-  type: Choice
 }
 
-type PhoneConnection {
+type peeringGroupConnection {
   """Pagination data for this connection."""
   pageInfo: PageInfo!
 
   """Contains the nodes in this connection."""
-  edges: [PhoneEdge]!
+  edges: [peeringGroupEdge]!
 }
 
-"""A Relay edge containing a `Phone` and its cursor."""
-type PhoneEdge {
+"""A Relay edge containing a `peeringGroup` and its cursor."""
+type peeringGroupEdge {
+  """The item at the end of the edge"""
+  node: PeeringGroup
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input PeeringGroupFilter {
+  AND: [PeeringGroupNestedFilter!]
+  OR: [PeeringGroupNestedFilter!]
+}
+
+input PeeringGroupNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum PeeringGroupOrderBy {
+  name_ASC
+  name_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+type PeeringPartner implements NINode & Relation {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: Physical
+  responsible_for: Location
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  as_number: String
+}
+
+type peeringPartnerConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [peeringPartnerEdge]!
+}
+
+"""A Relay edge containing a `peeringPartner` and its cursor."""
+type peeringPartnerEdge {
+  """The item at the end of the edge"""
+  node: PeeringPartner
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input PeeringPartnerFilter {
+  AND: [PeeringPartnerNestedFilter!]
+  OR: [PeeringPartnerNestedFilter!]
+}
+
+input PeeringPartnerNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  as_number: String
+  as_number_not: String
+  as_number_lt: String
+  as_number_lte: String
+  as_number_gt: String
+  as_number_gte: String
+  as_number_contains: String
+  as_number_not_contains: String
+  as_number_starts_with: String
+  as_number_not_starts_with: String
+  as_number_ends_with: String
+  as_number_not_ends_with: String
+  as_number_in: [String!]
+  as_number_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum PeeringPartnerOrderBy {
+  name_ASC
+  name_DESC
+  as_number_ASC
+  as_number_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+"""Phone entity to be used inside contact"""
+type Phone implements NINode & Logical {
+  handle_id: ID!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  part_of: Physical
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  type: Choice
+}
+
+type phoneConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [phoneEdge]!
+}
+
+"""A Relay edge containing a `phone` and its cursor."""
+type phoneEdge {
   """The item at the end of the edge"""
   node: Phone
 
@@ -2172,10 +3157,21 @@ enum PhoneOrderBy {
   handle_id_DESC
 }
 
-"""The group type is used to group contacts"""
-type Procedure implements Node {
+interface Physical {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: Physical
+  part_of: Logical
+  parent: [Physical]
+}
+
+type Port implements NINode & Physical {
   handle_id: ID!
   node_name: String!
+  node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
   creator: User
   created: DateTime!
@@ -2184,24 +3180,189 @@ type Procedure implements Node {
 
   """The ID of the object."""
   id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: Physical
+  part_of: Logical
+  parent: [Physical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  name: String!
+  port_type: Choice
   description: String
+  connected_to: [Physical]
 }
 
-type ProcedureConnection {
+type portConnection {
   """Pagination data for this connection."""
   pageInfo: PageInfo!
 
   """Contains the nodes in this connection."""
-  edges: [ProcedureEdge]!
+  edges: [portEdge]!
 }
 
-"""A Relay edge containing a `Procedure` and its cursor."""
-type ProcedureEdge {
+"""A Relay edge containing a `port` and its cursor."""
+type portEdge {
+  """The item at the end of the edge"""
+  node: Port
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input PortFilter {
+  AND: [PortNestedFilter!]
+  OR: [PortNestedFilter!]
+}
+
+input PortNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  port_type: ChoiceScalar
+  port_type_not: ChoiceScalar
+  port_type_lt: ChoiceScalar
+  port_type_lte: ChoiceScalar
+  port_type_gt: ChoiceScalar
+  port_type_gte: ChoiceScalar
+  port_type_contains: ChoiceScalar
+  port_type_not_contains: ChoiceScalar
+  port_type_starts_with: ChoiceScalar
+  port_type_not_starts_with: ChoiceScalar
+  port_type_ends_with: ChoiceScalar
+  port_type_not_ends_with: ChoiceScalar
+  port_type_in: [ChoiceScalar!]
+  port_type_not_in: [ChoiceScalar!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum PortOrderBy {
+  name_ASC
+  name_DESC
+  port_type_ASC
+  port_type_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+"""The group type is used to group contacts"""
+type Procedure implements NINode & Logical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  part_of: Physical
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+}
+
+type procedureConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [procedureEdge]!
+}
+
+"""A Relay edge containing a `procedure` and its cursor."""
+type procedureEdge {
   """The item at the end of the edge"""
   node: Procedure
 
@@ -2311,6 +3472,168 @@ enum ProcedureOrderBy {
   handle_id_DESC
 }
 
+type Provider implements NINode & Relation {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: Physical
+  responsible_for: Location
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  url: String
+  description: String
+}
+
+type providerConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [providerEdge]!
+}
+
+"""A Relay edge containing a `provider` and its cursor."""
+type providerEdge {
+  """The item at the end of the edge"""
+  node: Provider
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ProviderFilter {
+  AND: [ProviderNestedFilter!]
+  OR: [ProviderNestedFilter!]
+}
+
+input ProviderNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  url: String
+  url_not: String
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  url_in: [String!]
+  url_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum ProviderOrderBy {
+  name_ASC
+  name_DESC
+  url_ASC
+  url_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 type Query {
   getAvailableDropdowns: [String]
   getChoicesForDropdown(name: String!): [Choice]
@@ -2320,36 +3643,72 @@ type Query {
   getRolesFromRoleGroup(name: String): [Role]
   all_groups: [Group]
   count_groups: Int
-  groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): GroupConnection
+  groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
   getGroupById(id: ID): Group
   all_addresss: [Address]
   count_addresss: Int
-  addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): AddressConnection
+  addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): addressConnection
   getAddressById(id: ID): Address
   all_phones: [Phone]
   count_phones: Int
-  phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): PhoneConnection
+  phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): phoneConnection
   getPhoneById(id: ID): Phone
   all_emails: [Email]
   count_emails: Int
-  emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): EmailConnection
+  emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): emailConnection
   getEmailById(id: ID): Email
   all_contacts: [Contact]
   count_contacts: Int
-  contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): ContactConnection
+  contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): contactConnection
   getContactById(id: ID): Contact
   all_organizations: [Organization]
   count_organizations: Int
-  organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): OrganizationConnection
+  organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): organizationConnection
   getOrganizationById(id: ID): Organization
   all_procedures: [Procedure]
   count_procedures: Int
-  procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): ProcedureConnection
+  procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): procedureConnection
   getProcedureById(id: ID): Procedure
+  all_customers: [Customer]
+  count_customers: Int
+  customers(filter: CustomerFilter, orderBy: CustomerOrderBy, before: String, after: String, first: Int, last: Int): customerConnection
+  getCustomerById(id: ID): Customer
+  all_endusers: [EndUser]
+  count_endusers: Int
+  endUsers(filter: EndUserFilter, orderBy: EndUserOrderBy, before: String, after: String, first: Int, last: Int): endUserConnection
+  getEndUserById(id: ID): EndUser
+  all_providers: [Provider]
+  count_providers: Int
+  providers(filter: ProviderFilter, orderBy: ProviderOrderBy, before: String, after: String, first: Int, last: Int): providerConnection
+  getProviderById(id: ID): Provider
+  all_siteowners: [SiteOwner]
+  count_siteowners: Int
+  siteOwners(filter: SiteOwnerFilter, orderBy: SiteOwnerOrderBy, before: String, after: String, first: Int, last: Int): siteOwnerConnection
+  getSiteOwnerById(id: ID): SiteOwner
+  all_ports: [Port]
+  count_ports: Int
+  ports(filter: PortFilter, orderBy: PortOrderBy, before: String, after: String, first: Int, last: Int): portConnection
+  getPortById(id: ID): Port
   all_hosts: [Host]
   count_hosts: Int
-  hosts(filter: HostFilter, orderBy: HostOrderBy, before: String, after: String, first: Int, last: Int): HostConnection
+  hosts(filter: HostFilter, orderBy: HostOrderBy, before: String, after: String, first: Int, last: Int): hostConnection
   getHostById(id: ID): Host
+  all_cables: [Cable]
+  count_cables: Int
+  cables(filter: CableFilter, orderBy: CableOrderBy, before: String, after: String, first: Int, last: Int): cableConnection
+  getCableById(id: ID): Cable
+  all_routers: [Router]
+  count_routers: Int
+  routers(filter: RouterFilter, orderBy: RouterOrderBy, before: String, after: String, first: Int, last: Int): routerConnection
+  getRouterById(id: ID): Router
+  all_peeringpartners: [PeeringPartner]
+  count_peeringpartners: Int
+  peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
+  getPeeringPartnerById(id: ID): PeeringPartner
+  all_peeringgroups: [PeeringGroup]
+  count_peeringgroups: Int
+  peeringGroups(filter: PeeringGroupFilter, orderBy: PeeringGroupOrderBy, before: String, after: String, first: Int, last: Int): peeringGroupConnection
+  getPeeringGroupById(id: ID): PeeringGroup
 }
 
 input RefreshInput {
@@ -2361,6 +3720,18 @@ type RefreshPayload {
   token: String
   payload: GenericScalar
   clientMutationId: String
+}
+
+interface Relation {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: Physical
+  responsible_for: Location
 }
 
 """This class represents a Role in the relational db"""
@@ -2440,6 +3811,364 @@ type RoleRelationMutationPayload {
   clientMutationId: String
 }
 
+type Router implements NINode & Physical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: Physical
+  part_of: Logical
+  parent: [Physical]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  operational_state: Choice
+  model: String
+  version: String
+  ports: [Port]
+}
+
+type routerConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [routerEdge]!
+}
+
+"""A Relay edge containing a `router` and its cursor."""
+type routerEdge {
+  """The item at the end of the edge"""
+  node: Router
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input RouterFilter {
+  AND: [RouterNestedFilter!]
+  OR: [RouterNestedFilter!]
+}
+
+input RouterNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
+  model: String
+  model_not: String
+  model_lt: String
+  model_lte: String
+  model_gt: String
+  model_gte: String
+  model_contains: String
+  model_not_contains: String
+  model_starts_with: String
+  model_not_starts_with: String
+  model_ends_with: String
+  model_not_ends_with: String
+  model_in: [String!]
+  model_not_in: [String!]
+  version: String
+  version_not: String
+  version_lt: String
+  version_lte: String
+  version_gt: String
+  version_gte: String
+  version_contains: String
+  version_not_contains: String
+  version_starts_with: String
+  version_not_starts_with: String
+  version_ends_with: String
+  version_not_ends_with: String
+  version_in: [String!]
+  version_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum RouterOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  operational_state_ASC
+  operational_state_DESC
+  model_ASC
+  model_DESC
+  version_ASC
+  version_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+type SiteOwner implements NINode & Relation {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: Physical
+  responsible_for: Location
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  url: String
+  description: String
+}
+
+type siteOwnerConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [siteOwnerEdge]!
+}
+
+"""A Relay edge containing a `siteOwner` and its cursor."""
+type siteOwnerEdge {
+  """The item at the end of the edge"""
+  node: SiteOwner
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input SiteOwnerFilter {
+  AND: [SiteOwnerNestedFilter!]
+  OR: [SiteOwnerNestedFilter!]
+}
+
+input SiteOwnerNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  url: String
+  url_not: String
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  url_in: [String!]
+  url_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum SiteOwnerOrderBy {
+  name_ASC
+  name_DESC
+  url_ASC
+  url_DESC
+  description_ASC
+  description_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 input UpdateAddressInput {
   organization: ChoiceScalar
   name: String!
@@ -2454,6 +4183,22 @@ input UpdateAddressInput {
 type UpdateAddressPayload {
   errors: [ErrorType]
   address: Address
+  clientMutationId: String
+}
+
+input UpdateCableInput {
+  name: String!
+  cable_type: ChoiceScalar!
+  description: String
+  relationship_end_a: Int
+  relationship_end_b: Int
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateCablePayload {
+  errors: [ErrorType]
+  cable: Cable
   clientMutationId: String
 }
 
@@ -2496,6 +4241,20 @@ type UpdateContactPayload {
   clientMutationId: String
 }
 
+input UpdateCustomerInput {
+  name: String!
+  url: String
+  description: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateCustomerPayload {
+  errors: [ErrorType]
+  customer: Customer
+  clientMutationId: String
+}
+
 input UpdateEmailInput {
   contact: ChoiceScalar
   name: String!
@@ -2507,6 +4266,20 @@ input UpdateEmailInput {
 type UpdateEmailPayload {
   errors: [ErrorType]
   email: Email
+  clientMutationId: String
+}
+
+input UpdateEndUserInput {
+  name: String!
+  description: String
+  url: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateEndUserPayload {
+  errors: [ErrorType]
+  endUser: EndUser
   clientMutationId: String
 }
 
@@ -2570,6 +4343,21 @@ type UpdatePhonePayload {
   clientMutationId: String
 }
 
+input UpdatePortInput {
+  name: String!
+  port_type: ChoiceScalar
+  description: String
+  relationship_connected_to: Int
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdatePortPayload {
+  errors: [ErrorType]
+  port: Port
+  clientMutationId: String
+}
+
 input UpdateProcedureInput {
   name: String!
   description: String
@@ -2583,6 +4371,20 @@ type UpdateProcedurePayload {
   clientMutationId: String
 }
 
+input UpdateProviderInput {
+  name: String!
+  url: String
+  description: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateProviderPayload {
+  errors: [ErrorType]
+  provider: Provider
+  clientMutationId: String
+}
+
 input UpdateRoleInput {
   id: ID
   name: String!
@@ -2593,6 +4395,20 @@ input UpdateRoleInput {
 type UpdateRolePayload {
   role: Role
   errors: [ErrorType]
+  clientMutationId: String
+}
+
+input UpdateSiteOwnerInput {
+  name: String!
+  description: String
+  url: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateSiteOwnerPayload {
+  errors: [ErrorType]
+  siteOwner: SiteOwner
   clientMutationId: String
 }
 

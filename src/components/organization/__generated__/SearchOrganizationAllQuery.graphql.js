@@ -1,6 +1,10 @@
 /**
  * @flow
+<<<<<<< HEAD
  * @relayHash fedde1dd2666668eef65898cb5afe6f5
+=======
+ * @relayHash 43d832ce9c0de22de59ecf029265c437
+>>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7
  */
 
 /* eslint-disable */
@@ -440,7 +444,7 @@ return {
         "name": "organizations",
         "storageKey": null,
         "args": (v3/*: any*/),
-        "concreteType": "OrganizationConnection",
+        "concreteType": "organizationConnection",
         "plural": false,
         "selections": [
           {
@@ -449,7 +453,7 @@ return {
             "name": "edges",
             "storageKey": null,
             "args": null,
-            "concreteType": "OrganizationEdge",
+            "concreteType": "organizationEdge",
             "plural": true,
             "selections": [
               {
