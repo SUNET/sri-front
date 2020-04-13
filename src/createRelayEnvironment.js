@@ -50,20 +50,16 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
         })
     })
         .then((response) => {
-            console.log('response: ', response);
-            // if (response.redirected) {
-            //     return window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
-            // }
+            if (response.redirected) {
+                return window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+            }
             return response.json();
         })
         .then((json) => {
-            console.log('json: ', json);
-            console.log('json.errors: ', json.errors);
-            console.log('json.errors.length > 0: ', json.errors);
             let jsonResult;
             if (json.errors && json.errors.length > 0) {
-                jsonResult = {data: "HOLA QUE TAL "}
-                // window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+                jsonResult = {data: ""}
+                window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
             } else {
                 jsonResult = json;
             }
@@ -79,9 +75,7 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
             return jsonResult
         })
         .catch((err) => {
-            console.log(err);
-            
-            // window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+            window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
         });
 }
 

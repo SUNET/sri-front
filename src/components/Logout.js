@@ -9,7 +9,7 @@ const { API_HOST, COOKIE_DOMAIN } = CONFIG;
 class Logout extends Component {
     logout = () => {
         Cookies.remove("JWT", { domain: COOKIE_DOMAIN });
-        // window.location.replace(API_HOST + "/logout");
+        window.location.replace(API_HOST + "/logout");
     };
 
     render() {
