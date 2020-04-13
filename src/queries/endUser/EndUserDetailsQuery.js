@@ -12,13 +12,33 @@ const EndUserDetailsQuery = graphql`
             with_same_name {
                 id
                 name
-                __typename
                 ... on Organization {
                     website
+                    organization_id
+                    parent_organization {
+                        organization_id
+                    }
+                    affiliation_partner
+                    affiliation_customer
+                    affiliation_provider
+                    affiliation_host_user
+                    affiliation_site_owner
+                    affiliation_end_customer
+                    type
+                }
+                ... on EndUser {
+                    url
+                }
+                ... on Customer {
+                    url
+                }
+                ... on SiteOwner {
+                    url
                 }
                 ... on Provider {
                     url
                 }
+                __typename
             }
             comments {
                 id
