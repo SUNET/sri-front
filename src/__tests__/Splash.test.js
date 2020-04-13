@@ -1,10 +1,7 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
-import { configure, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import SplashContainer from '../containers/Splash';
-
-configure({ adapter: new Adapter() });
 
 // Create the mock store
 const mockStore = configureMockStore();
