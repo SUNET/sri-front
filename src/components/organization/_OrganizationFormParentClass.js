@@ -227,7 +227,7 @@ class _OrganizationFormParentClass extends React.Component {
         );
     }
     renderGeneralInfoToggleSection(editMode = true) {
-        const { typeObj, type, organization_id, organization_number, website, organization_parent_id, t } = this.props;
+        const { typeObj, organization_id, organization_number, website, organization_parent_id, t } = this.props;
         const generalInfoFirstRow = [
             {
                 title: t("organization-details.type"),

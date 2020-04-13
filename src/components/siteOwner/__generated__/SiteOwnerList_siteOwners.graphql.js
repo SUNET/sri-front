@@ -31,6 +31,7 @@ export type SiteOwnerList_siteOwners$data = SiteOwnerList_siteOwners;
 export type SiteOwnerList_siteOwners$key = {
   +$data?: SiteOwnerList_siteOwners$data,
   +$fragmentRefs: SiteOwnerList_siteOwners$ref,
+  ...
 };
 */
 
@@ -166,4 +167,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '7a5af03546416e8db47439c12aea2f22';
+
 module.exports = node;

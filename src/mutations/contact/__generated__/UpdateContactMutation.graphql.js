@@ -1,10 +1,6 @@
 /**
  * @flow
-<<<<<<< HEAD
  * @relayHash 5f15b738991644fa2c5c0413fb3c3a27
-=======
- * @relayHash 66cf6c9d4fd5cafba64d20fbd0672a79
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7
  */
 
 /* eslint-disable */
@@ -1048,4 +1044,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'ec1cfc1831bc2dbbf97dc1ec48505c6d';
+
 module.exports = node;

@@ -44,6 +44,7 @@ export type OrganizationRow_organization$data = OrganizationRow_organization;
 export type OrganizationRow_organization$key = {
   +$data?: OrganizationRow_organization$data,
   +$fragmentRefs: OrganizationRow_organization$ref,
+  ...
 };
 */
 
@@ -207,4 +208,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'ef6579f548e47c949384c0b7f3bc21ef';
+
 module.exports = node;

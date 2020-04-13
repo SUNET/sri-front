@@ -73,6 +73,7 @@ export type ContactUpdateForm_contact$data = ContactUpdateForm_contact;
 export type ContactUpdateForm_contact$key = {
   +$data?: ContactUpdateForm_contact$data,
   +$fragmentRefs: ContactUpdateForm_contact$ref,
+  ...
 };
 */
 
@@ -321,4 +322,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'efd8fa55966a845a754719ef9c87ae1d';
+
 module.exports = node;

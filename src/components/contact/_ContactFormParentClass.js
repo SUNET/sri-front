@@ -188,7 +188,7 @@ class _ContactFormParentClass extends React.Component {
         );
     }
     renderGeneralInfoToggleSection(editMode = true) {
-        const { t, title, contact_type, contactTypeObj, pgp_fingerprint } = this.props;
+        const { t, title, contactTypeObj, pgp_fingerprint } = this.props;
         const generalInfoFirstRow = [
             {
                 title: "Title",

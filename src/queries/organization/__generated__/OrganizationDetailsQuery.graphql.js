@@ -1,10 +1,6 @@
 /**
  * @flow
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
  * @relayHash 565245253bde6811adf8b4006c2d3f47
-=======
- * @relayHash 314e78c20ef31255bbad7bfe3bae951a
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
  */
 
 /* eslint-disable */
@@ -26,12 +22,6 @@ export type OrganizationDetailsQueryResponse = {|
       +value: string,
     |},
     +website: ?string,
-    +__typename: string,
-    +with_same_name: ?$ReadOnlyArray<?{|
-      +id: string,
-      +name: string,
-      +__typename: string,
-    |}>,
     +organization_id: ?string,
     +organization_number: ?string,
     +description: ?string,
@@ -145,12 +135,6 @@ query OrganizationDetailsQuery(
       id
     }
     website
-    __typename
-    with_same_name {
-      id
-      name
-      __typename
-    }
     organization_id
     organization_number
     description
@@ -415,34 +399,10 @@ v7 = {
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "__typename",
-  "args": null,
-  "storageKey": null
-},
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
-=======
-v7 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "with_same_name",
-  "storageKey": null,
-  "args": null,
-  "concreteType": null,
-  "plural": true,
-  "selections": [
-    (v2/*: any*/),
-    (v3/*: any*/),
-    (v6/*: any*/)
-  ]
-},
-v8 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "organization_id",
   "args": null,
   "storageKey": null
 },
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v9 = {
   "kind": "ScalarField",
   "alias": null,
@@ -554,7 +514,6 @@ v19 = {
   "args": null,
   "storageKey": null
 },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v20 = {
   "kind": "ScalarField",
   "alias": null,
@@ -563,9 +522,6 @@ v20 = {
   "storageKey": null
 },
 v21 = [
-=======
-v20 = [
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   (v2/*: any*/),
   {
     "kind": "ScalarField",
@@ -575,11 +531,7 @@ v20 = [
     "storageKey": null
   }
 ],
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v22 = {
-=======
-v21 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "LinkedField",
   "alias": null,
   "name": "end",
@@ -587,15 +539,9 @@ v21 = {
   "args": null,
   "concreteType": "NINodeHandlerType",
   "plural": false,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "selections": (v21/*: any*/)
 },
 v23 = {
-=======
-  "selections": (v20/*: any*/)
-},
-v22 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "LinkedField",
   "alias": null,
   "name": "start",
@@ -603,54 +549,32 @@ v22 = {
   "args": null,
   "concreteType": "NINodeHandlerType",
   "plural": false,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "selections": (v21/*: any*/)
 },
 v24 = {
-=======
-  "selections": (v20/*: any*/)
-},
-v23 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "ScalarField",
   "alias": null,
   "name": "first_name",
   "args": null,
   "storageKey": null
 },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v25 = {
-=======
-v24 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "ScalarField",
   "alias": null,
   "name": "last_name",
   "args": null,
   "storageKey": null
 },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v26 = [
-=======
-v25 = [
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   (v2/*: any*/),
   (v3/*: any*/),
   (v6/*: any*/)
 ],
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v27 = [
   (v2/*: any*/),
   (v3/*: any*/)
 ],
 v28 = {
-=======
-v26 = [
-  (v2/*: any*/),
-  (v3/*: any*/)
-],
-v27 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "LinkedField",
   "alias": null,
   "name": "roles",
@@ -659,35 +583,16 @@ v27 = {
   "concreteType": "RoleRelation",
   "plural": true,
   "selections": [
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
     (v19/*: any*/),
-=======
-    (v2/*: any*/),
-    (v23/*: any*/),
-    (v24/*: any*/),
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "contact_type",
-      "args": null,
-      "storageKey": null
-    },
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
     {
       "kind": "LinkedField",
       "alias": null,
       "name": "role_data",
       "storageKey": null,
       "args": null,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
       "concreteType": "Role",
       "plural": false,
       "selections": (v27/*: any*/)
-=======
-      "concreteType": "Email",
-      "plural": true,
-      "selections": (v25/*: any*/)
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
     },
     {
       "kind": "LinkedField",
@@ -695,7 +600,6 @@ v27 = {
       "name": "end",
       "storageKey": null,
       "args": null,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
       "concreteType": "Organization",
       "plural": false,
       "selections": (v27/*: any*/)
@@ -703,104 +607,43 @@ v27 = {
   ]
 },
 v29 = {
-=======
-      "concreteType": "Phone",
-      "plural": true,
-      "selections": (v25/*: any*/)
-    },
-    {
-      "kind": "LinkedField",
-      "alias": null,
-      "name": "roles",
-      "storageKey": null,
-      "args": null,
-      "concreteType": "RoleRelation",
-      "plural": true,
-      "selections": [
-        (v19/*: any*/),
-        {
-          "kind": "LinkedField",
-          "alias": null,
-          "name": "role_data",
-          "storageKey": null,
-          "args": null,
-          "concreteType": "Role",
-          "plural": false,
-          "selections": (v26/*: any*/)
-        },
-        {
-          "kind": "LinkedField",
-          "alias": null,
-          "name": "end",
-          "storageKey": null,
-          "args": null,
-          "concreteType": "Organization",
-          "plural": false,
-          "selections": (v26/*: any*/)
-        }
-      ]
-    }
-  ]
-},
-v28 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "ScalarField",
   "alias": null,
   "name": "comment",
   "args": null,
   "storageKey": null
 },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v30 = {
-=======
-v29 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "ScalarField",
   "alias": null,
   "name": "submit_date",
   "args": null,
   "storageKey": null
 },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v31 = {
-=======
-v30 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "ScalarField",
   "alias": null,
   "name": "created",
   "args": null,
   "storageKey": null
 },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v32 = {
-=======
-v31 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "ScalarField",
   "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v33 = [
   (v32/*: any*/)
 ],
 v34 = {
-=======
-v32 = [
-  (v31/*: any*/)
-],
-v33 = {
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 v35 = [
   (v3/*: any*/),
   (v4/*: any*/),
@@ -823,10 +666,6 @@ v37 = [
 ],
 v38 = [
   (v32/*: any*/),
-=======
-v34 = [
-  (v31/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
   (v2/*: any*/)
 ];
 return {
@@ -894,20 +733,13 @@ return {
                 "plural": false,
                 "selections": [
                   (v19/*: any*/),
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
                   (v20/*: any*/),
                   (v22/*: any*/),
                   (v23/*: any*/)
-=======
-                  (v4/*: any*/),
-                  (v21/*: any*/),
-                  (v22/*: any*/)
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
                 ]
               }
             ]
           },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
           {
             "kind": "LinkedField",
             "alias": null,
@@ -953,9 +785,6 @@ return {
               (v28/*: any*/)
             ]
           },
-=======
-          (v27/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           {
             "kind": "LinkedField",
             "alias": null,
@@ -975,7 +804,6 @@ return {
                 "concreteType": "User",
                 "plural": false,
                 "selections": [
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
                   (v24/*: any*/),
                   (v25/*: any*/)
                 ]
@@ -985,17 +813,6 @@ return {
             ]
           },
           (v31/*: any*/),
-=======
-                  (v23/*: any*/),
-                  (v24/*: any*/)
-                ]
-              },
-              (v28/*: any*/),
-              (v29/*: any*/)
-            ]
-          },
-          (v30/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           {
             "kind": "LinkedField",
             "alias": null,
@@ -1004,15 +821,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
             "selections": (v33/*: any*/)
           },
           (v34/*: any*/),
-=======
-            "selections": (v32/*: any*/)
-          },
-          (v33/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           {
             "kind": "LinkedField",
             "alias": null,
@@ -1021,11 +832,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
             "selections": (v33/*: any*/)
-=======
-            "selections": (v32/*: any*/)
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           },
           {
             "kind": "FragmentSpread",
@@ -1052,13 +859,8 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
           (v36/*: any*/),
           (v7/*: any*/),
-=======
-          (v4/*: any*/),
-          (v5/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           (v8/*: any*/),
           (v9/*: any*/),
           (v10/*: any*/),
@@ -1097,21 +899,14 @@ return {
                 "plural": false,
                 "selections": [
                   (v19/*: any*/),
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
                   (v20/*: any*/),
                   (v22/*: any*/),
                   (v23/*: any*/),
-=======
-                  (v4/*: any*/),
-                  (v21/*: any*/),
-                  (v22/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
                   (v2/*: any*/)
                 ]
               }
             ]
           },
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
           {
             "kind": "LinkedField",
             "alias": null,
@@ -1157,9 +952,6 @@ return {
               (v28/*: any*/)
             ]
           },
-=======
-          (v27/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           {
             "kind": "LinkedField",
             "alias": null,
@@ -1179,7 +971,6 @@ return {
                 "concreteType": "User",
                 "plural": false,
                 "selections": [
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
                   (v24/*: any*/),
                   (v25/*: any*/),
                   (v2/*: any*/)
@@ -1190,18 +981,6 @@ return {
             ]
           },
           (v31/*: any*/),
-=======
-                  (v23/*: any*/),
-                  (v24/*: any*/),
-                  (v2/*: any*/)
-                ]
-              },
-              (v28/*: any*/),
-              (v29/*: any*/)
-            ]
-          },
-          (v30/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           {
             "kind": "LinkedField",
             "alias": null,
@@ -1210,15 +989,9 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
             "selections": (v38/*: any*/)
           },
           (v34/*: any*/),
-=======
-            "selections": (v34/*: any*/)
-          },
-          (v33/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           {
             "kind": "LinkedField",
             "alias": null,
@@ -1227,15 +1000,8 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
             "selections": (v38/*: any*/)
           },
-=======
-            "selections": (v34/*: any*/)
-          },
-          (v6/*: any*/),
-          (v7/*: any*/),
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
           (v12/*: any*/),
           (v13/*: any*/),
           (v14/*: any*/),
@@ -1250,19 +1016,12 @@ return {
     "operationKind": "query",
     "name": "OrganizationDetailsQuery",
     "id": null,
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
     "text": "query OrganizationDetailsQuery(\n  $organizationId: ID!\n) {\n  getOrganizationById(id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n    name\n    type {\n      name\n      value\n      id\n    }\n    website\n    organization_id\n    organization_number\n    description\n    incident_management_info\n    affiliation_customer\n    affiliation_end_customer\n    affiliation_host_user\n    affiliation_partner\n    affiliation_provider\n    affiliation_site_owner\n    parent_organization {\n      organization_id\n      id\n    }\n    addresses {\n      id\n      name\n      street\n      postal_code\n      postal_area\n      phone\n    }\n    incoming {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        start {\n          id\n          node_name\n        }\n        id\n      }\n    }\n    contacts {\n      id\n      first_name\n      last_name\n      contact_type {\n        name\n        value\n        id\n      }\n      emails {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      phones {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      roles {\n        relation_id\n        role_data {\n          id\n          name\n        }\n        end {\n          id\n          name\n        }\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  id\n  name\n  type {\n    name\n    value\n    id\n  }\n  website\n  organization_id\n  organization_number\n  description\n  incident_management_info\n  parent_organization {\n    organization_id\n    id\n  }\n  addresses {\n    id\n    name\n    street\n    postal_code\n    postal_area\n    phone\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        id\n        node_name\n      }\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type {\n      name\n      value\n      id\n    }\n    emails {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    phones {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    roles {\n      relation_id\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
-=======
-    "text": "query OrganizationDetailsQuery(\n  $organizationId: ID!\n) {\n  getOrganizationById(id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n    name\n    type\n    website\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    organization_id\n    organization_number\n    description\n    incident_management_info\n    affiliation_customer\n    affiliation_end_customer\n    affiliation_host_user\n    affiliation_partner\n    affiliation_provider\n    affiliation_site_owner\n    parent_organization {\n      organization_id\n      id\n    }\n    addresses {\n      id\n      name\n      street\n      postal_code\n      postal_area\n      phone\n    }\n    incoming {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        start {\n          id\n          node_name\n        }\n        id\n      }\n    }\n    contacts {\n      id\n      first_name\n      last_name\n      contact_type\n      emails {\n        id\n        name\n        type\n      }\n      phones {\n        id\n        name\n        type\n      }\n      roles {\n        relation_id\n        role_data {\n          id\n          name\n        }\n        end {\n          id\n          name\n        }\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  id\n  name\n  type\n  website\n  organization_id\n  organization_number\n  description\n  incident_management_info\n  parent_organization {\n    organization_id\n    id\n  }\n  addresses {\n    id\n    name\n    street\n    postal_code\n    postal_area\n    phone\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        id\n        node_name\n      }\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type\n    emails {\n      id\n      name\n      type\n    }\n    phones {\n      id\n      name\n      type\n    }\n    roles {\n      relation_id\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-<<<<<<< HEAD:src/components/organization/__generated__/OrganizationDetailsQuery.graphql.js
 (node/*: any*/).hash = 'f27a8c53d65dfcb5ed4fb912b5f3c4a4';
-=======
-(node/*: any*/).hash = '8c9979bca751b5e5467ee4f783d4b027';
->>>>>>> 92cf65b94430ea755a1bcead83e15a74aa865bf7:src/queries/organization/__generated__/OrganizationDetailsQuery.graphql.js
+
 module.exports = node;
