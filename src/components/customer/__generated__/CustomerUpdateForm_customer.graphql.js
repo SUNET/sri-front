@@ -26,11 +26,11 @@ export type CustomerUpdateForm_customer = {|
     +submit_date: any,
   |}>,
   +created: any,
-  +creator: {|
+  +creator: ?{|
     +email: string
   |},
   +modified: any,
-  +modifier: {|
+  +modifier: ?{|
     +email: string
   |},
   +$refType: CustomerUpdateForm_customer$ref,
@@ -39,6 +39,7 @@ export type CustomerUpdateForm_customer$data = CustomerUpdateForm_customer;
 export type CustomerUpdateForm_customer$key = {
   +$data?: CustomerUpdateForm_customer$data,
   +$fragmentRefs: CustomerUpdateForm_customer$ref,
+  ...
 };
 */
 
@@ -179,4 +180,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = '71d887b8aa2965e9d9cd89e8fa79f94d';
+
 module.exports = node;

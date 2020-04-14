@@ -31,6 +31,7 @@ export type CustomerList_customers$data = CustomerList_customers;
 export type CustomerList_customers$key = {
   +$data?: CustomerList_customers$data,
   +$fragmentRefs: CustomerList_customers$ref,
+  ...
 };
 */
 
@@ -166,4 +167,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '867a483cf1ab3feab9681e1ddfaaf1ed';
+
 module.exports = node;

@@ -5,6 +5,9 @@ import { generateURL } from "../../utils";
 const getPresentContent = (fieldInfo, data) => {
     let content;
     switch (fieldInfo.type) {
+        case "textType":
+            content = <div>{data[fieldInfo.internalName].name}</div>;
+            break;
         case "text":
             content = <div>{data[fieldInfo.internalName]}</div>;
             break;

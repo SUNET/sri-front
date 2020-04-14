@@ -130,7 +130,6 @@ class Dropdown extends React.PureComponent {
                             } else {
                                 options = props.getChoicesForDropdown;
                             }
-
                             return (
                                 <Field
                                     className={this.props.className}

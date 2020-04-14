@@ -21,6 +21,7 @@ export type GroupRow_group$data = GroupRow_group;
 export type GroupRow_group$key = {
   +$data?: GroupRow_group$data,
   +$fragmentRefs: GroupRow_group$ref,
+  ...
 };
 */
 
@@ -57,4 +58,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '23219fc4e54cb258b7adafa9f3dbd00f';
+
 module.exports = node;

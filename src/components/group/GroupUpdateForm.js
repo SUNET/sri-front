@@ -22,7 +22,7 @@ class GroupUpdateForm extends _GroupFormParentClass {
             { groupId: this.props.group.id }, // Our refetchQuery needs to know the `groupID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                
             },
             { force: true }
         );
@@ -68,16 +68,25 @@ const GroupUpdateFragment = createRefetchContainer(
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         role_data {

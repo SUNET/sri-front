@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2935b412c18ae752c28badee2aaba20d
+ * @relayHash 299e7ac29f70272a0a81d2c7dbd26388
  */
 
 /* eslint-disable */
@@ -35,7 +35,10 @@ export type CustomerDetailsQueryResponse = {|
       +affiliation_host_user?: ?boolean,
       +affiliation_site_owner?: ?boolean,
       +affiliation_end_customer?: ?boolean,
-      +type?: ?any,
+      +type?: ?{|
+        +name: string,
+        +value: string,
+      |},
       +url?: ?string,
     |}>,
     +comments: ?$ReadOnlyArray<?{|
@@ -48,11 +51,11 @@ export type CustomerDetailsQueryResponse = {|
       +submit_date: any,
     |}>,
     +created: any,
-    +creator: {|
+    +creator: ?{|
       +email: string
     |},
     +modified: any,
-    +modifier: {|
+    +modifier: ?{|
       +email: string
     |},
     +$fragmentRefs: CustomerUpdateForm_customer$ref,
@@ -92,7 +95,11 @@ query CustomerDetailsQuery(
         affiliation_host_user
         affiliation_site_owner
         affiliation_end_customer
-        type
+        type {
+          name
+          value
+          id
+        }
       }
       ... on EndUser {
         url
@@ -269,7 +276,7 @@ v14 = {
 v15 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "type",
+  "name": "value",
   "args": null,
   "storageKey": null
 },
@@ -411,7 +418,19 @@ return {
                   (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
-                  (v15/*: any*/)
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "type",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v15/*: any*/)
+                    ]
+                  }
                 ]
               },
               (v17/*: any*/),
@@ -584,7 +603,20 @@ return {
                   (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
-                  (v15/*: any*/)
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "type",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v15/*: any*/),
+                      (v2/*: any*/)
+                    ]
+                  }
                 ]
               },
               (v17/*: any*/),
@@ -601,11 +633,12 @@ return {
     "operationKind": "query",
     "name": "CustomerDetailsQuery",
     "id": null,
-    "text": "query CustomerDetailsQuery(\n  $customerId: ID!\n) {\n  getCustomerById(id: $customerId) {\n    ...CustomerUpdateForm_customer\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      ... on Organization {\n        website\n        organization_id\n        parent_organization {\n          organization_id\n          id\n        }\n        affiliation_partner\n        affiliation_customer\n        affiliation_provider\n        affiliation_host_user\n        affiliation_site_owner\n        affiliation_end_customer\n        type\n      }\n      ... on EndUser {\n        url\n      }\n      ... on Customer {\n        url\n      }\n      ... on SiteOwner {\n        url\n      }\n      ... on Provider {\n        url\n      }\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment CustomerUpdateForm_customer on Customer {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query CustomerDetailsQuery(\n  $customerId: ID!\n) {\n  getCustomerById(id: $customerId) {\n    ...CustomerUpdateForm_customer\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      ... on Organization {\n        website\n        organization_id\n        parent_organization {\n          organization_id\n          id\n        }\n        affiliation_partner\n        affiliation_customer\n        affiliation_provider\n        affiliation_host_user\n        affiliation_site_owner\n        affiliation_end_customer\n        type {\n          name\n          value\n          id\n        }\n      }\n      ... on EndUser {\n        url\n      }\n      ... on Customer {\n        url\n      }\n      ... on SiteOwner {\n        url\n      }\n      ... on Provider {\n        url\n      }\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment CustomerUpdateForm_customer on Customer {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5bf91dba94c4cd4a6ae7f8c66e784718';
+(node/*: any*/).hash = '3ad886c49f17b91a7f1f204de611f18f';
+
 module.exports = node;

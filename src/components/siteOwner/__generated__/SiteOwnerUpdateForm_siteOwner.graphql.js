@@ -26,11 +26,11 @@ export type SiteOwnerUpdateForm_siteOwner = {|
     +submit_date: any,
   |}>,
   +created: any,
-  +creator: {|
+  +creator: ?{|
     +email: string
   |},
   +modified: any,
-  +modifier: {|
+  +modifier: ?{|
     +email: string
   |},
   +$refType: SiteOwnerUpdateForm_siteOwner$ref,
@@ -39,6 +39,7 @@ export type SiteOwnerUpdateForm_siteOwner$data = SiteOwnerUpdateForm_siteOwner;
 export type SiteOwnerUpdateForm_siteOwner$key = {
   +$data?: SiteOwnerUpdateForm_siteOwner$data,
   +$fragmentRefs: SiteOwnerUpdateForm_siteOwner$ref,
+  ...
 };
 */
 
@@ -179,4 +180,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = '2cb8bdb4baa93cba922d63209d00a0db';
+
 module.exports = node;

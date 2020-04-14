@@ -26,11 +26,11 @@ export type EndUserUpdateForm_endUser = {|
     +submit_date: any,
   |}>,
   +created: any,
-  +creator: {|
+  +creator: ?{|
     +email: string
   |},
   +modified: any,
-  +modifier: {|
+  +modifier: ?{|
     +email: string
   |},
   +$refType: EndUserUpdateForm_endUser$ref,
@@ -39,6 +39,7 @@ export type EndUserUpdateForm_endUser$data = EndUserUpdateForm_endUser;
 export type EndUserUpdateForm_endUser$key = {
   +$data?: EndUserUpdateForm_endUser$data,
   +$fragmentRefs: EndUserUpdateForm_endUser$ref,
+  ...
 };
 */
 
@@ -179,4 +180,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'd9cf83b8941d0716fb04ea7539b27554';
+
 module.exports = node;

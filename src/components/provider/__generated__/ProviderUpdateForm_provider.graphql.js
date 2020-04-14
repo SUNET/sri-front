@@ -26,11 +26,11 @@ export type ProviderUpdateForm_provider = {|
     +submit_date: any,
   |}>,
   +created: any,
-  +creator: {|
+  +creator: ?{|
     +email: string
   |},
   +modified: any,
-  +modifier: {|
+  +modifier: ?{|
     +email: string
   |},
   +$refType: ProviderUpdateForm_provider$ref,
@@ -39,6 +39,7 @@ export type ProviderUpdateForm_provider$data = ProviderUpdateForm_provider;
 export type ProviderUpdateForm_provider$key = {
   +$data?: ProviderUpdateForm_provider$data,
   +$fragmentRefs: ProviderUpdateForm_provider$ref,
+  ...
 };
 */
 
@@ -179,4 +180,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = '6670a8a081fcbbc5d4f4bc794abf35bb';
+
 module.exports = node;

@@ -22,6 +22,7 @@ export type SiteOwnerRow_siteOwner$data = SiteOwnerRow_siteOwner;
 export type SiteOwnerRow_siteOwner$key = {
   +$data?: SiteOwnerRow_siteOwner$data,
   +$fragmentRefs: SiteOwnerRow_siteOwner$ref,
+  ...
 };
 */
 
@@ -65,4 +66,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = 'b9b542c3f8b6bcbc6960300d837bb320';
+
 module.exports = node;

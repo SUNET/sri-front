@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 8267b80531da9bb8c945696e45cc42a8
+ * @relayHash 55077558f9f2a8fe9606d934936711b7
  */
 
 /* eslint-disable */
@@ -384,7 +384,11 @@ fragment ContactRow_contact on Contact {
   id
   first_name
   last_name
-  contact_type
+  contact_type {
+    name
+    value
+    id
+  }
   modified
   roles {
     name
@@ -449,7 +453,18 @@ v5 = {
   "name": "name",
   "args": null,
   "storageKey": null
-};
+},
+v6 = [
+  (v5/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "value",
+    "args": null,
+    "storageKey": null
+  },
+  (v4/*: any*/)
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -532,11 +547,14 @@ return {
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
+                    "kind": "LinkedField",
                     "alias": null,
                     "name": "contact_type",
+                    "storageKey": null,
                     "args": null,
-                    "storageKey": null
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": (v6/*: any*/)
                   },
                   {
                     "kind": "ScalarField",
@@ -652,17 +670,7 @@ return {
         ],
         "concreteType": "Choice",
         "plural": true,
-        "selections": [
-          (v5/*: any*/),
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "value",
-            "args": null,
-            "storageKey": null
-          },
-          (v4/*: any*/)
-        ]
+        "selections": (v6/*: any*/)
       },
       {
         "kind": "LinkedField",
@@ -683,11 +691,12 @@ return {
     "operationKind": "query",
     "name": "SearchContactsAllQuery",
     "id": null,
-    "text": "query SearchContactsAllQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n  ...ContactList_roles_default\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...ContactRow_contact\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment ContactList_roles_default on Query {\n  getRolesFromRoleGroup {\n    id\n    name\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
+    "text": "query SearchContactsAllQuery(\n  $count: Int!\n  $filter: ContactFilter\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_1tT5Hu\n  ...ContactList_organization_types\n  ...ContactList_roles_default\n}\n\nfragment ContactList_contacts_1tT5Hu on Query {\n  contacts(first: $count, filter: $filter, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...ContactRow_contact\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactList_organization_types on Query {\n  getChoicesForDropdown(name: \"organization_types\") {\n    name\n    value\n    id\n  }\n}\n\nfragment ContactList_roles_default on Query {\n  getRolesFromRoleGroup {\n    id\n    name\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  id\n  first_name\n  last_name\n  contact_type {\n    name\n    value\n    id\n  }\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '85d8fcaecea519279f89db3e7be27823';
+
 module.exports = node;

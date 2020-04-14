@@ -24,7 +24,10 @@ const CustomerDetailsQuery = graphql`
                     affiliation_host_user
                     affiliation_site_owner
                     affiliation_end_customer
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 ... on EndUser {
                     url

@@ -31,6 +31,7 @@ export type ProviderList_providers$data = ProviderList_providers;
 export type ProviderList_providers$key = {
   +$data?: ProviderList_providers$data,
   +$fragmentRefs: ProviderList_providers$ref,
+  ...
 };
 */
 
@@ -166,4 +167,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = 'cdb2b80f9aca30ca152d7abc18dd59e5';
+
 module.exports = node;

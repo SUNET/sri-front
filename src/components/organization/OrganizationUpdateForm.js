@@ -36,7 +36,7 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
             { organizationId: this.props.organization.id }, // Our refetchQuery needs to know the `organizationID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                
             },
             { force: true }
         );
@@ -85,7 +85,10 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
             fragment OrganizationUpdateForm_organization on Organization {
                 id
                 name
-                type
+                type {
+                    name
+                    value
+                }
                 website
                 organization_id
                 organization_number
@@ -121,16 +124,25 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         relation_id

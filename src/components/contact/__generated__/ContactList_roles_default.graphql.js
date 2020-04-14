@@ -22,6 +22,7 @@ export type ContactList_roles_default$data = ContactList_roles_default;
 export type ContactList_roles_default$key = {
   +$data?: ContactList_roles_default$data,
   +$fragmentRefs: ContactList_roles_default$ref,
+  ...
 };
 */
 
@@ -62,4 +63,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '7463304cb98b9e3d94ad7ac57dabf5f1';
+
 module.exports = node;
