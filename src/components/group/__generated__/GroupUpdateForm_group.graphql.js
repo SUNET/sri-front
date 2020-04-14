@@ -19,16 +19,25 @@ export type GroupUpdateForm_group = {|
     +id: string,
     +first_name: string,
     +last_name: string,
-    +contact_type: ?any,
+    +contact_type: ?{|
+      +name: string,
+      +value: string,
+    |},
     +emails: ?$ReadOnlyArray<?{|
       +id: string,
       +name: string,
-      +type: any,
+      +type: ?{|
+        +name: string,
+        +value: string,
+      |},
     |}>,
     +phones: ?$ReadOnlyArray<?{|
       +id: string,
       +name: string,
-      +type: any,
+      +type: ?{|
+        +name: string,
+        +value: string,
+      |},
     |}>,
     +roles: ?$ReadOnlyArray<?{|
       +role_data: ?{|
@@ -75,6 +84,7 @@ export type GroupUpdateForm_group$data = GroupUpdateForm_group;
 export type GroupUpdateForm_group$key = {
   +$data?: GroupUpdateForm_group$data,
   +$fragmentRefs: GroupUpdateForm_group$ref,
+  ...
 };
 */
 
@@ -108,17 +118,29 @@ v3 = {
   "args": null,
   "storageKey": null
 },
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-},
+v4 = [
+  (v1/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "value",
+    "args": null,
+    "storageKey": null
+  }
+],
 v5 = [
   (v0/*: any*/),
   (v1/*: any*/),
-  (v4/*: any*/)
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "type",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Choice",
+    "plural": false,
+    "selections": (v4/*: any*/)
+  }
 ],
 v6 = [
   (v0/*: any*/),
@@ -162,11 +184,14 @@ return {
         (v2/*: any*/),
         (v3/*: any*/),
         {
-          "kind": "ScalarField",
+          "kind": "LinkedField",
           "alias": null,
           "name": "contact_type",
+          "storageKey": null,
           "args": null,
-          "storageKey": null
+          "concreteType": "Choice",
+          "plural": false,
+          "selections": (v4/*: any*/)
         },
         {
           "kind": "LinkedField",
@@ -245,7 +270,13 @@ return {
                   "args": null,
                   "storageKey": null
                 },
-                (v4/*: any*/),
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "type",
+                  "args": null,
+                  "storageKey": null
+                },
                 {
                   "kind": "LinkedField",
                   "alias": null,
@@ -348,5 +379,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4f77e5dfa06c51bc378745e4ad389af3';
+(node/*: any*/).hash = '929cea3706f8dd813898003f8b3fa9d9';
+
 module.exports = node;

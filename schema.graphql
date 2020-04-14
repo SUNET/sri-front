@@ -1,5 +1,5 @@
 # source: http://ni.localenv.loc/graphql/
-# timestamp: Tue Apr 07 2020 13:59:17 GMT+0200 (GMT+02:00)
+# timestamp: Tue Apr 14 2020 12:43:23 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -222,7 +222,7 @@ type Cable implements NINode & Physical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  cable_type: ChoiceScalar
+  cable_type: Choice
   description: String
   providers: [Provider]
   providers_relations: [IDRelation]
@@ -505,7 +505,7 @@ type Contact implements NINode & Relation {
   last_name: String!
   title: String
   salutation: String
-  contact_type: ChoiceScalar
+  contact_type: Choice
   phones: [Phone]
   phones_relations: [IDRelation]
   emails: [Email]
@@ -1433,7 +1433,7 @@ type Email implements NINode & Logical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  type: ChoiceScalar!
+  type: Choice
 }
 
 type emailConnection {
@@ -2426,7 +2426,7 @@ type Organization implements NINode & Relation {
   organization_number: String
   organization_id: String
   incident_management_info: String
-  type: ChoiceScalar
+  type: Choice
   website: String
   addresses: [Address]
   addresses_relations: [IDRelation]
@@ -3025,7 +3025,7 @@ type Phone implements NINode & Logical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  type: ChoiceScalar!
+  type: Choice
 }
 
 type phoneConnection {
@@ -3190,7 +3190,7 @@ type Port implements NINode & Physical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  port_type: ChoiceScalar
+  port_type: Choice
   description: String
   connected_to: [Physical]
 }
@@ -3834,7 +3834,7 @@ type Router implements NINode & Physical {
   outgoing: [DictRelationType]
   comments: [CommentType]
   description: String
-  operational_state: ChoiceScalar
+  operational_state: Choice
   model: String
   version: String
   ports: [Port]

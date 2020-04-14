@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9805403deb0739b9147bb1546a1a8c68
+ * @relayHash f439c94647a3aaa5da19507660de302c
  */
 
 /* eslint-disable */
@@ -155,7 +155,10 @@ export type CreateOrganizationMutationResponse = {|
       +organization: ?{|
         +id: string,
         +name: string,
-        +type: ?any,
+        +type: ?{|
+          +name: string,
+          +value: string,
+        |},
         +website: ?string,
         +organization_id: ?string,
         +organization_number: ?string,
@@ -220,16 +223,25 @@ export type CreateOrganizationMutationResponse = {|
         +id: string,
         +first_name: string,
         +last_name: string,
-        +contact_type: ?any,
+        +contact_type: ?{|
+          +name: string,
+          +value: string,
+        |},
         +emails: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +phones: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +roles: ?$ReadOnlyArray<?{|
           +relation_id: number,
@@ -256,16 +268,25 @@ export type CreateOrganizationMutationResponse = {|
         +id: string,
         +first_name: string,
         +last_name: string,
-        +contact_type: ?any,
+        +contact_type: ?{|
+          +name: string,
+          +value: string,
+        |},
         +emails: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +phones: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +roles: ?$ReadOnlyArray<?{|
           +relation_id: number,
@@ -305,7 +326,11 @@ mutation CreateOrganizationMutation(
       organization {
         id
         name
-        type
+        type {
+          name
+          value
+          id
+        }
         website
         organization_id
         organization_number
@@ -374,16 +399,28 @@ mutation CreateOrganizationMutation(
         id
         first_name
         last_name
-        contact_type
+        contact_type {
+          name
+          value
+          id
+        }
         emails {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         phones {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         roles {
           relation_id
@@ -411,16 +448,28 @@ mutation CreateOrganizationMutation(
         id
         first_name
         last_name
-        contact_type
+        contact_type {
+          name
+          value
+          id
+        }
         emails {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         phones {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         roles {
           relation_id
@@ -501,126 +550,140 @@ v4 = {
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "type",
+  "name": "value",
   "args": null,
   "storageKey": null
 },
-v6 = {
+v6 = [
+  (v4/*: any*/),
+  (v5/*: any*/)
+],
+v7 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "type",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Choice",
+  "plural": false,
+  "selections": (v6/*: any*/)
+},
+v8 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "website",
   "args": null,
   "storageKey": null
 },
-v7 = {
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "organization_id",
   "args": null,
   "storageKey": null
 },
-v8 = {
+v10 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "organization_number",
   "args": null,
   "storageKey": null
 },
-v9 = {
+v11 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "affiliation_customer",
   "args": null,
   "storageKey": null
 },
-v10 = {
+v12 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "affiliation_end_customer",
   "args": null,
   "storageKey": null
 },
-v11 = {
+v13 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "affiliation_host_user",
   "args": null,
   "storageKey": null
 },
-v12 = {
+v14 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "affiliation_partner",
   "args": null,
   "storageKey": null
 },
-v13 = {
+v15 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "affiliation_provider",
   "args": null,
   "storageKey": null
 },
-v14 = {
+v16 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "affiliation_site_owner",
   "args": null,
   "storageKey": null
 },
-v15 = {
+v17 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "first_name",
   "args": null,
   "storageKey": null
 },
-v16 = {
+v18 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "last_name",
   "args": null,
   "storageKey": null
 },
-v17 = {
+v19 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "comment",
   "args": null,
   "storageKey": null
 },
-v18 = {
+v20 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "submit_date",
   "args": null,
   "storageKey": null
 },
-v19 = {
+v21 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "created",
   "args": null,
   "storageKey": null
 },
-v20 = {
+v22 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "email",
   "args": null,
   "storageKey": null
 },
-v21 = [
-  (v20/*: any*/)
+v23 = [
+  (v22/*: any*/)
 ],
-v22 = {
+v24 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "modified",
   "args": null,
   "storageKey": null
 },
-v23 = [
+v25 = [
   (v2/*: any*/),
   {
     "kind": "LinkedField",
@@ -664,7 +727,7 @@ v23 = [
     ]
   }
 ],
-v24 = {
+v26 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "address_created",
@@ -672,9 +735,9 @@ v24 = {
   "args": null,
   "concreteType": "CreateAddressPayload",
   "plural": true,
-  "selections": (v23/*: any*/)
+  "selections": (v25/*: any*/)
 },
-v25 = {
+v27 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "address_updated",
@@ -682,45 +745,18 @@ v25 = {
   "args": null,
   "concreteType": "UpdateAddressPayload",
   "plural": true,
-  "selections": (v23/*: any*/)
+  "selections": (v25/*: any*/)
 },
-v26 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "contact_type",
-  "args": null,
-  "storageKey": null
-},
-v27 = [
+v28 = [
   (v3/*: any*/),
   (v4/*: any*/),
-  (v5/*: any*/)
+  (v7/*: any*/)
 ],
-v28 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "emails",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "Email",
-  "plural": true,
-  "selections": (v27/*: any*/)
-},
-v29 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "phones",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "Phone",
-  "plural": true,
-  "selections": (v27/*: any*/)
-},
-v30 = [
+v29 = [
   (v3/*: any*/),
   (v4/*: any*/)
 ],
-v31 = {
+v30 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "roles",
@@ -744,7 +780,7 @@ v31 = {
       "args": null,
       "concreteType": "Role",
       "plural": false,
-      "selections": (v30/*: any*/)
+      "selections": (v29/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -754,11 +790,11 @@ v31 = {
       "args": null,
       "concreteType": "Organization",
       "plural": false,
-      "selections": (v30/*: any*/)
+      "selections": (v29/*: any*/)
     }
   ]
 },
-v32 = [
+v31 = [
   (v2/*: any*/),
   {
     "kind": "LinkedField",
@@ -770,12 +806,39 @@ v32 = [
     "plural": false,
     "selections": [
       (v3/*: any*/),
-      (v15/*: any*/),
-      (v16/*: any*/),
-      (v26/*: any*/),
-      (v28/*: any*/),
-      (v29/*: any*/),
-      (v31/*: any*/),
+      (v17/*: any*/),
+      (v18/*: any*/),
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "contact_type",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Choice",
+        "plural": false,
+        "selections": (v6/*: any*/)
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "emails",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Email",
+        "plural": true,
+        "selections": (v28/*: any*/)
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "phones",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Phone",
+        "plural": true,
+        "selections": (v28/*: any*/)
+      },
+      (v30/*: any*/),
       {
         "kind": "LinkedField",
         "alias": null,
@@ -791,11 +854,31 @@ v32 = [
     ]
   }
 ],
-v33 = [
-  (v20/*: any*/),
+v32 = [
+  (v4/*: any*/),
+  (v5/*: any*/),
   (v3/*: any*/)
 ],
+v33 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "type",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Choice",
+  "plural": false,
+  "selections": (v32/*: any*/)
+},
 v34 = [
+  (v22/*: any*/),
+  (v3/*: any*/)
+],
+v35 = [
+  (v3/*: any*/),
+  (v4/*: any*/),
+  (v33/*: any*/)
+],
+v36 = [
   (v2/*: any*/),
   {
     "kind": "LinkedField",
@@ -807,12 +890,39 @@ v34 = [
     "plural": false,
     "selections": [
       (v3/*: any*/),
-      (v15/*: any*/),
-      (v16/*: any*/),
-      (v26/*: any*/),
-      (v28/*: any*/),
-      (v29/*: any*/),
-      (v31/*: any*/),
+      (v17/*: any*/),
+      (v18/*: any*/),
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "contact_type",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Choice",
+        "plural": false,
+        "selections": (v32/*: any*/)
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "emails",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Email",
+        "plural": true,
+        "selections": (v35/*: any*/)
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "phones",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Phone",
+        "plural": true,
+        "selections": (v35/*: any*/)
+      },
+      (v30/*: any*/),
       {
         "kind": "LinkedField",
         "alias": null,
@@ -868,8 +978,6 @@ return {
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
                   (v9/*: any*/),
@@ -878,6 +986,8 @@ return {
                   (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
+                  (v15/*: any*/),
+                  (v16/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -896,15 +1006,15 @@ return {
                         "concreteType": "User",
                         "plural": false,
                         "selections": [
-                          (v15/*: any*/),
-                          (v16/*: any*/)
+                          (v17/*: any*/),
+                          (v18/*: any*/)
                         ]
                       },
-                      (v17/*: any*/),
-                      (v18/*: any*/)
+                      (v19/*: any*/),
+                      (v20/*: any*/)
                     ]
                   },
-                  (v19/*: any*/),
+                  (v21/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -913,9 +1023,9 @@ return {
                     "args": null,
                     "concreteType": "User",
                     "plural": false,
-                    "selections": (v21/*: any*/)
+                    "selections": (v23/*: any*/)
                   },
-                  (v22/*: any*/),
+                  (v24/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -924,14 +1034,14 @@ return {
                     "args": null,
                     "concreteType": "User",
                     "plural": false,
-                    "selections": (v21/*: any*/)
+                    "selections": (v23/*: any*/)
                   }
                 ]
               }
             ]
           },
-          (v24/*: any*/),
-          (v25/*: any*/),
+          (v26/*: any*/),
+          (v27/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -940,7 +1050,7 @@ return {
             "args": null,
             "concreteType": "CreateContactPayload",
             "plural": true,
-            "selections": (v32/*: any*/)
+            "selections": (v31/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -950,7 +1060,7 @@ return {
             "args": null,
             "concreteType": "UpdateContactPayload",
             "plural": true,
-            "selections": (v32/*: any*/)
+            "selections": (v31/*: any*/)
           }
         ]
       }
@@ -991,9 +1101,7 @@ return {
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v6/*: any*/),
-                  (v7/*: any*/),
+                  (v33/*: any*/),
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v10/*: any*/),
@@ -1001,6 +1109,8 @@ return {
                   (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
+                  (v15/*: any*/),
+                  (v16/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -1019,17 +1129,17 @@ return {
                         "concreteType": "User",
                         "plural": false,
                         "selections": [
-                          (v15/*: any*/),
-                          (v16/*: any*/),
+                          (v17/*: any*/),
+                          (v18/*: any*/),
                           (v3/*: any*/)
                         ]
                       },
-                      (v17/*: any*/),
-                      (v18/*: any*/),
+                      (v19/*: any*/),
+                      (v20/*: any*/),
                       (v3/*: any*/)
                     ]
                   },
-                  (v19/*: any*/),
+                  (v21/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -1038,9 +1148,9 @@ return {
                     "args": null,
                     "concreteType": "User",
                     "plural": false,
-                    "selections": (v33/*: any*/)
+                    "selections": (v34/*: any*/)
                   },
-                  (v22/*: any*/),
+                  (v24/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -1049,14 +1159,14 @@ return {
                     "args": null,
                     "concreteType": "User",
                     "plural": false,
-                    "selections": (v33/*: any*/)
+                    "selections": (v34/*: any*/)
                   }
                 ]
               }
             ]
           },
-          (v24/*: any*/),
-          (v25/*: any*/),
+          (v26/*: any*/),
+          (v27/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -1065,7 +1175,7 @@ return {
             "args": null,
             "concreteType": "CreateContactPayload",
             "plural": true,
-            "selections": (v34/*: any*/)
+            "selections": (v36/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -1075,7 +1185,7 @@ return {
             "args": null,
             "concreteType": "UpdateContactPayload",
             "plural": true,
-            "selections": (v34/*: any*/)
+            "selections": (v36/*: any*/)
           }
         ]
       }
@@ -1085,11 +1195,12 @@ return {
     "operationKind": "mutation",
     "name": "CreateOrganizationMutation",
     "id": null,
-    "text": "mutation CreateOrganizationMutation(\n  $input: CompositeOrganizationMutationInput!\n) {\n  composite_organization(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      organization {\n        id\n        name\n        type\n        website\n        organization_id\n        organization_number\n        affiliation_customer\n        affiliation_end_customer\n        affiliation_host_user\n        affiliation_partner\n        affiliation_provider\n        affiliation_site_owner\n        comments {\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n          id\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n      }\n    }\n    address_created {\n      errors {\n        field\n        messages\n      }\n      address {\n        id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n      }\n    }\n    address_updated {\n      errors {\n        field\n        messages\n      }\n      address {\n        id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type\n        emails {\n          id\n          name\n          type\n        }\n        phones {\n          id\n          name\n          type\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type\n        emails {\n          id\n          name\n          type\n        }\n        phones {\n          id\n          name\n          type\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n",
+    "text": "mutation CreateOrganizationMutation(\n  $input: CompositeOrganizationMutationInput!\n) {\n  composite_organization(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      organization {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n        website\n        organization_id\n        organization_number\n        affiliation_customer\n        affiliation_end_customer\n        affiliation_host_user\n        affiliation_partner\n        affiliation_provider\n        affiliation_site_owner\n        comments {\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n          id\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n      }\n    }\n    address_created {\n      errors {\n        field\n        messages\n      }\n      address {\n        id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n      }\n    }\n    address_updated {\n      errors {\n        field\n        messages\n      }\n      address {\n        id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '94fc3bd3391f0dc1bcfd4d10c024c460';
+(node/*: any*/).hash = 'fa9c3623c998324e9d9dcf448bafeeae';
+
 module.exports = node;

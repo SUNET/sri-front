@@ -33,6 +33,7 @@ export type ContactList_contacts$data = ContactList_contacts;
 export type ContactList_contacts$key = {
   +$data?: ContactList_contacts$data,
   +$fragmentRefs: ContactList_contacts$ref,
+  ...
 };
 */
 
@@ -182,4 +183,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '352ad46952ef5690883b6c0e7cd25fc4';
+
 module.exports = node;

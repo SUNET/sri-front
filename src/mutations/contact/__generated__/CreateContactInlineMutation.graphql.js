@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 4d251ca08958e3b06dd56b500481a8ad
+ * @relayHash 35828d55004ccaf6219eb495b6b60c73
  */
 
 /* eslint-disable */
@@ -42,7 +42,10 @@ export type CreateContactInlineMutationResponse = {|
       +id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?any,
+      +contact_type: ?{|
+        +name: string,
+        +value: string,
+      |},
       +roles: ?$ReadOnlyArray<?{|
         +name: ?string,
         +end: ?{|
@@ -76,7 +79,11 @@ mutation CreateContactInlineMutation(
       id
       first_name
       last_name
-      contact_type
+      contact_type {
+        name
+        value
+        id
+      }
       roles {
         name
         end {
@@ -158,14 +165,14 @@ v5 = {
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "contact_type",
+  "name": "name",
   "args": null,
   "storageKey": null
 },
 v7 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "name",
+  "name": "value",
   "args": null,
   "storageKey": null
 },
@@ -178,7 +185,7 @@ v8 = {
   "concreteType": "RoleRelation",
   "plural": true,
   "selections": [
-    (v7/*: any*/),
+    (v6/*: any*/),
     {
       "kind": "LinkedField",
       "alias": null,
@@ -189,7 +196,7 @@ v8 = {
       "plural": false,
       "selections": [
         (v3/*: any*/),
-        (v7/*: any*/)
+        (v6/*: any*/)
       ]
     }
   ]
@@ -225,7 +232,19 @@ return {
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "contact_type",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Choice",
+                "plural": false,
+                "selections": [
+                  (v6/*: any*/),
+                  (v7/*: any*/)
+                ]
+              },
               (v8/*: any*/),
               {
                 "kind": "LinkedField",
@@ -236,7 +255,7 @@ return {
                 "concreteType": "Group",
                 "plural": true,
                 "selections": [
-                  (v7/*: any*/)
+                  (v6/*: any*/)
                 ]
               }
             ]
@@ -272,7 +291,20 @@ return {
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "contact_type",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Choice",
+                "plural": false,
+                "selections": [
+                  (v6/*: any*/),
+                  (v7/*: any*/),
+                  (v3/*: any*/)
+                ]
+              },
               (v8/*: any*/),
               {
                 "kind": "LinkedField",
@@ -283,7 +315,7 @@ return {
                 "concreteType": "Group",
                 "plural": true,
                 "selections": [
-                  (v7/*: any*/),
+                  (v6/*: any*/),
                   (v3/*: any*/)
                 ]
               }
@@ -297,11 +329,11 @@ return {
     "operationKind": "mutation",
     "name": "CreateContactInlineMutation",
     "id": null,
-    "text": "mutation CreateContactInlineMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      id\n      first_name\n      last_name\n      contact_type\n      roles {\n        name\n        end {\n          id\n          name\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n    }\n  }\n}\n",
+    "text": "mutation CreateContactInlineMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      id\n      first_name\n      last_name\n      contact_type {\n        name\n        value\n        id\n      }\n      roles {\n        name\n        end {\n          id\n          name\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '90e248fbb986ec0e4970e1f9951a18b0';
+(node/*: any*/).hash = '58986ec98f483cdd5c712af3b303b4ff';
 module.exports = node;

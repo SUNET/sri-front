@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0606206c0c8668006ca28b8e760ab76c
+ * @relayHash 431ace71ac59241fda42c8a7fd7770cd
  */
 
 /* eslint-disable */
@@ -35,7 +35,10 @@ export type EndUserDetailsQueryResponse = {|
       +affiliation_host_user?: ?boolean,
       +affiliation_site_owner?: ?boolean,
       +affiliation_end_customer?: ?boolean,
-      +type?: ?any,
+      +type?: ?{|
+        +name: string,
+        +value: string,
+      |},
       +url?: ?string,
     |}>,
     +comments: ?$ReadOnlyArray<?{|
@@ -92,7 +95,11 @@ query EndUserDetailsQuery(
         affiliation_host_user
         affiliation_site_owner
         affiliation_end_customer
-        type
+        type {
+          name
+          value
+          id
+        }
       }
       ... on EndUser {
         url
@@ -269,7 +276,7 @@ v14 = {
 v15 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "type",
+  "name": "value",
   "args": null,
   "storageKey": null
 },
@@ -411,7 +418,19 @@ return {
                   (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
-                  (v15/*: any*/)
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "type",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v15/*: any*/)
+                    ]
+                  }
                 ]
               },
               (v17/*: any*/),
@@ -584,7 +603,20 @@ return {
                   (v12/*: any*/),
                   (v13/*: any*/),
                   (v14/*: any*/),
-                  (v15/*: any*/)
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "type",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v15/*: any*/),
+                      (v2/*: any*/)
+                    ]
+                  }
                 ]
               },
               (v17/*: any*/),
@@ -601,11 +633,12 @@ return {
     "operationKind": "query",
     "name": "EndUserDetailsQuery",
     "id": null,
-    "text": "query EndUserDetailsQuery(\n  $endUserId: ID!\n) {\n  getEndUserById(id: $endUserId) {\n    ...EndUserUpdateForm_endUser\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      ... on Organization {\n        website\n        organization_id\n        parent_organization {\n          organization_id\n          id\n        }\n        affiliation_partner\n        affiliation_customer\n        affiliation_provider\n        affiliation_host_user\n        affiliation_site_owner\n        affiliation_end_customer\n        type\n      }\n      ... on EndUser {\n        url\n      }\n      ... on Customer {\n        url\n      }\n      ... on SiteOwner {\n        url\n      }\n      ... on Provider {\n        url\n      }\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment EndUserUpdateForm_endUser on EndUser {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query EndUserDetailsQuery(\n  $endUserId: ID!\n) {\n  getEndUserById(id: $endUserId) {\n    ...EndUserUpdateForm_endUser\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      ... on Organization {\n        website\n        organization_id\n        parent_organization {\n          organization_id\n          id\n        }\n        affiliation_partner\n        affiliation_customer\n        affiliation_provider\n        affiliation_host_user\n        affiliation_site_owner\n        affiliation_end_customer\n        type {\n          name\n          value\n          id\n        }\n      }\n      ... on EndUser {\n        url\n      }\n      ... on Customer {\n        url\n      }\n      ... on SiteOwner {\n        url\n      }\n      ... on Provider {\n        url\n      }\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment EndUserUpdateForm_endUser on EndUser {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'fc458323a953416e385540a5e8bf16fa';
+(node/*: any*/).hash = '3b62dd40e1420ea3382eaabf8ae50563';
+
 module.exports = node;

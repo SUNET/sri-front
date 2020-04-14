@@ -7,7 +7,10 @@ const OrganizationQuery = graphql`
         getOrganizationById(id: $organizationId) {
             id
             name
-            type
+            type {
+                name
+                value
+            }
             website
             organization_id
             organization_number

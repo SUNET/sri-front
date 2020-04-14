@@ -242,7 +242,6 @@ class _GroupFormParentClass extends React.Component {
 
     // Main RENDER
     render() {
-        console.error("This method should be overwritten in the child class");
         return <div>This method should be overwritten in the child class</div>;
     }
 }

@@ -21,7 +21,7 @@ const INFO_BY_ENTITIES = {
             { i18nText: "organization-details.organization-id", internalName: "organization_id", type: "text" },
             { i18nText: "organization-details.website", internalName: "website", type: "url" },
             { i18nText: "organization-details.affiliation", internalName: "affiliationFormatted", type: "text" },
-            { i18nText: "organization-details.type", internalName: "type", type: "text" },
+            { i18nText: "organization-details.type", internalName: "type", type: "textType" },
         ],
     },
 };

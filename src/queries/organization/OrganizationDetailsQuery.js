@@ -6,14 +6,11 @@ const OrganizationDetailsQuery = graphql`
             ...OrganizationUpdateForm_organization
             id
             name
-            type
-            website
-            __typename
-            with_same_name {
-                id
+            type {
                 name
-                __typename
+                value
             }
+            website
             organization_id
             organization_number
             description
@@ -54,16 +51,25 @@ const OrganizationDetailsQuery = graphql`
                 id
                 first_name
                 last_name
-                contact_type
+                contact_type {
+                    name
+                    value
+                }
                 emails {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 phones {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 roles {
                     relation_id

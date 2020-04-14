@@ -17,7 +17,10 @@ const mutation = graphql`
                 id
                 first_name
                 last_name
-                contact_type
+                contact_type {
+                    name
+                    value
+                }
                 roles {
                     name
                     end {
@@ -50,7 +53,7 @@ function CreateContactInlineMutation(first_name, last_name, email, phone, organi
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(response, errors);
+            
             if (response.create_contact.errors) {
                 return response.create_contact.errors;
             } else {

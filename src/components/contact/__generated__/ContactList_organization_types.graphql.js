@@ -22,6 +22,7 @@ export type ContactList_organization_types$data = ContactList_organization_types
 export type ContactList_organization_types$key = {
   +$data?: ContactList_organization_types$data,
   +$fragmentRefs: ContactList_organization_types$ref,
+  ...
 };
 */
 
@@ -68,4 +69,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = 'e7989c57b3c315494fd94e7cc9104e80';
+
 module.exports = node;
