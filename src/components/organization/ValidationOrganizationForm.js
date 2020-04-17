@@ -113,8 +113,8 @@ export default class ValidationsOrganizationForm {
     };
 
     static asyncValidate_relationship_parent_of = (values, dispatch, props) => {
-        if (values.organization_parent_id) {
-            return checkOrganization(values.organization_parent_id).then((exists) => {
+        if (values.relationship_parent_of) {
+            return checkOrganization(values.organization_parent_id, values.relationship_parent_of).then((exists) => {
                 if (!exists) {
                     // this absurdity, is by the error of non-throw-literal
                     const error = { organization_parent_id: "Doesn't match any organization!" };

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1018315f85d5fa706c6e37020778b1c1
+ * @relayHash db22946a4ed1ac7ac7166f0ed2d0cf1e
  */
 
 /* eslint-disable */
@@ -97,16 +97,25 @@ export type UpdateGroupMutationResponse = {|
           +id: string,
           +first_name: string,
           +last_name: string,
-          +contact_type: ?any,
+          +contact_type: ?{|
+            +name: string,
+            +value: string,
+          |},
           +emails: ?$ReadOnlyArray<?{|
             +id: string,
             +name: string,
-            +type: any,
+            +type: ?{|
+              +name: string,
+              +value: string,
+            |},
           |}>,
           +phones: ?$ReadOnlyArray<?{|
             +id: string,
             +name: string,
-            +type: any,
+            +type: ?{|
+              +name: string,
+              +value: string,
+            |},
           |}>,
           +roles: ?$ReadOnlyArray<?{|
             +role_data: ?{|
@@ -141,16 +150,25 @@ export type UpdateGroupMutationResponse = {|
         +id: string,
         +first_name: string,
         +last_name: string,
-        +contact_type: ?any,
+        +contact_type: ?{|
+          +name: string,
+          +value: string,
+        |},
         +emails: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +phones: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +member_of_groups: ?$ReadOnlyArray<?{|
           +name: string
@@ -166,16 +184,25 @@ export type UpdateGroupMutationResponse = {|
         +id: string,
         +first_name: string,
         +last_name: string,
-        +contact_type: ?any,
+        +contact_type: ?{|
+          +name: string,
+          +value: string,
+        |},
         +emails: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +phones: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +member_of_groups: ?$ReadOnlyArray<?{|
           +name: string
@@ -209,16 +236,28 @@ mutation UpdateGroupMutation(
           id
           first_name
           last_name
-          contact_type
+          contact_type {
+            name
+            value
+            id
+          }
           emails {
             id
             name
-            type
+            type {
+              name
+              value
+              id
+            }
           }
           phones {
             id
             name
-            type
+            type {
+              name
+              value
+              id
+            }
           }
           roles {
             role_data {
@@ -254,16 +293,28 @@ mutation UpdateGroupMutation(
         id
         first_name
         last_name
-        contact_type
+        contact_type {
+          name
+          value
+          id
+        }
         emails {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         phones {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         member_of_groups {
           name
@@ -280,16 +331,28 @@ mutation UpdateGroupMutation(
         id
         first_name
         last_name
-        contact_type
+        contact_type {
+          name
+          value
+          id
+        }
         emails {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         phones {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         member_of_groups {
           name
@@ -380,23 +443,39 @@ v7 = {
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "contact_type",
+  "name": "value",
   "args": null,
   "storageKey": null
 },
-v9 = {
-  "kind": "ScalarField",
+v9 = [
+  (v4/*: any*/),
+  (v8/*: any*/)
+],
+v10 = {
+  "kind": "LinkedField",
   "alias": null,
-  "name": "type",
+  "name": "contact_type",
+  "storageKey": null,
   "args": null,
-  "storageKey": null
+  "concreteType": "Choice",
+  "plural": false,
+  "selections": (v9/*: any*/)
 },
-v10 = [
+v11 = [
   (v3/*: any*/),
   (v4/*: any*/),
-  (v9/*: any*/)
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "type",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Choice",
+    "plural": false,
+    "selections": (v9/*: any*/)
+  }
 ],
-v11 = {
+v12 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "emails",
@@ -404,9 +483,9 @@ v11 = {
   "args": null,
   "concreteType": "Email",
   "plural": true,
-  "selections": (v10/*: any*/)
+  "selections": (v11/*: any*/)
 },
-v12 = {
+v13 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "phones",
@@ -414,13 +493,13 @@ v12 = {
   "args": null,
   "concreteType": "Phone",
   "plural": true,
-  "selections": (v10/*: any*/)
+  "selections": (v11/*: any*/)
 },
-v13 = [
+v14 = [
   (v3/*: any*/),
   (v4/*: any*/)
 ],
-v14 = {
+v15 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "roles",
@@ -437,7 +516,7 @@ v14 = {
       "args": null,
       "concreteType": "Role",
       "plural": false,
-      "selections": (v13/*: any*/)
+      "selections": (v14/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -447,18 +526,25 @@ v14 = {
       "args": null,
       "concreteType": "Organization",
       "plural": false,
-      "selections": (v13/*: any*/)
+      "selections": (v14/*: any*/)
     }
   ]
 },
-v15 = {
+v16 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "relation_id",
   "args": null,
   "storageKey": null
 },
-v16 = {
+v17 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "type",
+  "args": null,
+  "storageKey": null
+},
+v18 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "end",
@@ -477,7 +563,7 @@ v16 = {
     }
   ]
 },
-v17 = [
+v19 = [
   (v2/*: any*/),
   {
     "kind": "LinkedField",
@@ -491,9 +577,9 @@ v17 = [
       (v3/*: any*/),
       (v6/*: any*/),
       (v7/*: any*/),
-      (v8/*: any*/),
-      (v11/*: any*/),
+      (v10/*: any*/),
       (v12/*: any*/),
+      (v13/*: any*/),
       {
         "kind": "LinkedField",
         "alias": null,
@@ -509,7 +595,56 @@ v17 = [
     ]
   }
 ],
-v18 = [
+v20 = [
+  (v4/*: any*/),
+  (v8/*: any*/),
+  (v3/*: any*/)
+],
+v21 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "contact_type",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Choice",
+  "plural": false,
+  "selections": (v20/*: any*/)
+},
+v22 = [
+  (v3/*: any*/),
+  (v4/*: any*/),
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "type",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Choice",
+    "plural": false,
+    "selections": (v20/*: any*/)
+  }
+],
+v23 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "emails",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Email",
+  "plural": true,
+  "selections": (v22/*: any*/)
+},
+v24 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "phones",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Phone",
+  "plural": true,
+  "selections": (v22/*: any*/)
+},
+v25 = [
   (v2/*: any*/),
   {
     "kind": "LinkedField",
@@ -523,9 +658,9 @@ v18 = [
       (v3/*: any*/),
       (v6/*: any*/),
       (v7/*: any*/),
-      (v8/*: any*/),
-      (v11/*: any*/),
-      (v12/*: any*/),
+      (v21/*: any*/),
+      (v23/*: any*/),
+      (v24/*: any*/),
       {
         "kind": "LinkedField",
         "alias": null,
@@ -594,10 +729,10 @@ return {
                       (v3/*: any*/),
                       (v6/*: any*/),
                       (v7/*: any*/),
-                      (v8/*: any*/),
-                      (v11/*: any*/),
+                      (v10/*: any*/),
                       (v12/*: any*/),
-                      (v14/*: any*/),
+                      (v13/*: any*/),
+                      (v15/*: any*/),
                       {
                         "kind": "LinkedField",
                         "alias": null,
@@ -617,9 +752,9 @@ return {
                             "concreteType": "NIRelationType",
                             "plural": false,
                             "selections": [
-                              (v15/*: any*/),
-                              (v9/*: any*/),
-                              (v16/*: any*/)
+                              (v16/*: any*/),
+                              (v17/*: any*/),
+                              (v18/*: any*/)
                             ]
                           }
                         ]
@@ -638,7 +773,7 @@ return {
             "args": null,
             "concreteType": "CreateContactPayload",
             "plural": true,
-            "selections": (v17/*: any*/)
+            "selections": (v19/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -648,7 +783,7 @@ return {
             "args": null,
             "concreteType": "UpdateContactPayload",
             "plural": true,
-            "selections": (v17/*: any*/)
+            "selections": (v19/*: any*/)
           }
         ]
       }
@@ -702,10 +837,10 @@ return {
                       (v3/*: any*/),
                       (v6/*: any*/),
                       (v7/*: any*/),
-                      (v8/*: any*/),
-                      (v11/*: any*/),
-                      (v12/*: any*/),
-                      (v14/*: any*/),
+                      (v21/*: any*/),
+                      (v23/*: any*/),
+                      (v24/*: any*/),
+                      (v15/*: any*/),
                       {
                         "kind": "LinkedField",
                         "alias": null,
@@ -725,9 +860,9 @@ return {
                             "concreteType": "NIRelationType",
                             "plural": false,
                             "selections": [
-                              (v15/*: any*/),
-                              (v9/*: any*/),
                               (v16/*: any*/),
+                              (v17/*: any*/),
+                              (v18/*: any*/),
                               (v3/*: any*/)
                             ]
                           }
@@ -747,7 +882,7 @@ return {
             "args": null,
             "concreteType": "CreateContactPayload",
             "plural": true,
-            "selections": (v18/*: any*/)
+            "selections": (v25/*: any*/)
           },
           {
             "kind": "LinkedField",
@@ -757,7 +892,7 @@ return {
             "args": null,
             "concreteType": "UpdateContactPayload",
             "plural": true,
-            "selections": (v18/*: any*/)
+            "selections": (v25/*: any*/)
           }
         ]
       }
@@ -767,11 +902,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateGroupMutation",
     "id": null,
-    "text": "mutation UpdateGroupMutation(\n  $input: CompositeGroupMutationInput!\n) {\n  composite_group(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      group {\n        id\n        name\n        description\n        contacts {\n          id\n          first_name\n          last_name\n          contact_type\n          emails {\n            id\n            name\n            type\n          }\n          phones {\n            id\n            name\n            type\n          }\n          roles {\n            role_data {\n              id\n              name\n            }\n            end {\n              id\n              name\n            }\n          }\n          outgoing {\n            name\n            relation {\n              relation_id\n              type\n              end {\n                id\n                node_name\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type\n        emails {\n          id\n          name\n          type\n        }\n        phones {\n          id\n          name\n          type\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type\n        emails {\n          id\n          name\n          type\n        }\n        phones {\n          id\n          name\n          type\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n",
+    "text": "mutation UpdateGroupMutation(\n  $input: CompositeGroupMutationInput!\n) {\n  composite_group(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      group {\n        id\n        name\n        description\n        contacts {\n          id\n          first_name\n          last_name\n          contact_type {\n            name\n            value\n            id\n          }\n          emails {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          phones {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          roles {\n            role_data {\n              id\n              name\n            }\n            end {\n              id\n              name\n            }\n          }\n          outgoing {\n            name\n            relation {\n              relation_id\n              type\n              end {\n                id\n                node_name\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '43f3bd0404b8409f915f9d82bbe5b19b';
+(node/*: any*/).hash = 'fa59f7c06ed3c8df7b0f8bcf9da9d07c';
 module.exports = node;

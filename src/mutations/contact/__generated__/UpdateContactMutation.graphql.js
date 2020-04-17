@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 691f9ca3fd7dea76e42cd8237989ca84
+ * @relayHash 5f15b738991644fa2c5c0413fb3c3a27
  */
 
 /* eslint-disable */
@@ -102,7 +102,7 @@ export type DeletePhoneInput = {|
   clientMutationId?: ?string,
 |};
 export type RoleRelationMutationInput = {|
-  role_id: string,
+  role_id?: ?string,
   organization_id: string,
   relation_id?: ?number,
   clientMutationId?: ?string,
@@ -121,19 +121,28 @@ export type UpdateContactMutationResponse = {|
         +id: string,
         +title: ?string,
         +notes: ?string,
-        +contact_type: ?any,
+        +contact_type: ?{|
+          +name: string,
+          +value: string,
+        |},
         +first_name: string,
         +last_name: string,
         +pgp_fingerprint: ?string,
         +emails: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +phones: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +type: any,
+          +type: ?{|
+            +name: string,
+            +value: string,
+          |},
         |}>,
         +roles: ?$ReadOnlyArray<?{|
           +relation_id: number,
@@ -168,7 +177,10 @@ export type UpdateContactMutationResponse = {|
       +email: ?{|
         +id: string,
         +name: string,
-        +type: any,
+        +type: ?{|
+          +name: string,
+          +value: string,
+        |},
       |},
     |}>,
     +subupdated: ?$ReadOnlyArray<?{|
@@ -179,7 +191,10 @@ export type UpdateContactMutationResponse = {|
       +email: ?{|
         +id: string,
         +name: string,
-        +type: any,
+        +type: ?{|
+          +name: string,
+          +value: string,
+        |},
       |},
     |}>,
     +phones_created: ?$ReadOnlyArray<?{|
@@ -190,7 +205,10 @@ export type UpdateContactMutationResponse = {|
       +phone: ?{|
         +id: string,
         +name: string,
-        +type: any,
+        +type: ?{|
+          +name: string,
+          +value: string,
+        |},
       |},
     |}>,
     +phones_updated: ?$ReadOnlyArray<?{|
@@ -201,7 +219,10 @@ export type UpdateContactMutationResponse = {|
       +phone: ?{|
         +id: string,
         +name: string,
-        +type: any,
+        +type: ?{|
+          +name: string,
+          +value: string,
+        |},
       |},
     |}>,
     +rolerelations: ?$ReadOnlyArray<?{|
@@ -246,19 +267,31 @@ mutation UpdateContactMutation(
         id
         title
         notes
-        contact_type
+        contact_type {
+          name
+          value
+          id
+        }
         first_name
         last_name
         pgp_fingerprint
         emails {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         phones {
           id
           name
-          type
+          type {
+            name
+            value
+            id
+          }
         }
         roles {
           relation_id
@@ -296,7 +329,11 @@ mutation UpdateContactMutation(
       email {
         id
         name
-        type
+        type {
+          name
+          value
+          id
+        }
       }
     }
     subupdated {
@@ -307,7 +344,11 @@ mutation UpdateContactMutation(
       email {
         id
         name
-        type
+        type {
+          name
+          value
+          id
+        }
       }
     }
     phones_created {
@@ -318,7 +359,11 @@ mutation UpdateContactMutation(
       phone {
         id
         name
-        type
+        type {
+          name
+          value
+          id
+        }
       }
     }
     phones_updated {
@@ -329,7 +374,11 @@ mutation UpdateContactMutation(
       phone {
         id
         name
-        type
+        type {
+          name
+          value
+          id
+        }
       }
     }
     rolerelations {
@@ -420,82 +469,68 @@ v5 = {
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "contact_type",
+  "name": "name",
   "args": null,
   "storageKey": null
 },
 v7 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
+  "name": "value",
   "args": null,
   "storageKey": null
 },
-v8 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "last_name",
-  "args": null,
-  "storageKey": null
-},
+v8 = [
+  (v6/*: any*/),
+  (v7/*: any*/)
+],
 v9 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "pgp_fingerprint",
+  "name": "first_name",
   "args": null,
   "storageKey": null
 },
 v10 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "name",
+  "name": "last_name",
   "args": null,
   "storageKey": null
 },
 v11 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "type",
+  "name": "pgp_fingerprint",
   "args": null,
   "storageKey": null
 },
 v12 = [
   (v3/*: any*/),
-  (v10/*: any*/),
-  (v11/*: any*/)
+  (v6/*: any*/),
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "type",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Choice",
+    "plural": false,
+    "selections": (v8/*: any*/)
+  }
 ],
 v13 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "emails",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "Email",
-  "plural": true,
-  "selections": (v12/*: any*/)
-},
-v14 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "phones",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "Phone",
-  "plural": true,
-  "selections": (v12/*: any*/)
-},
-v15 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "relation_id",
   "args": null,
   "storageKey": null
 },
-v16 = [
+v14 = [
   (v3/*: any*/),
-  (v10/*: any*/)
+  (v6/*: any*/)
 ],
-v17 = {
+v15 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "roles",
@@ -504,7 +539,7 @@ v17 = {
   "concreteType": "RoleRelation",
   "plural": true,
   "selections": [
-    (v15/*: any*/),
+    (v13/*: any*/),
     {
       "kind": "LinkedField",
       "alias": null,
@@ -513,7 +548,7 @@ v17 = {
       "args": null,
       "concreteType": "Role",
       "plural": false,
-      "selections": (v16/*: any*/)
+      "selections": (v14/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -525,7 +560,7 @@ v17 = {
       "plural": false,
       "selections": [
         (v3/*: any*/),
-        (v10/*: any*/),
+        (v6/*: any*/),
         {
           "kind": "ScalarField",
           "alias": null,
@@ -537,21 +572,21 @@ v17 = {
     }
   ]
 },
-v18 = {
+v16 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "comment",
   "args": null,
   "storageKey": null
 },
-v19 = {
+v17 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "submit_date",
   "args": null,
   "storageKey": null
 },
-v20 = [
+v18 = [
   (v2/*: any*/),
   {
     "kind": "LinkedField",
@@ -564,27 +599,7 @@ v20 = [
     "selections": (v12/*: any*/)
   }
 ],
-v21 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "subcreated",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "CreateEmailPayload",
-  "plural": true,
-  "selections": (v20/*: any*/)
-},
-v22 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "subupdated",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "UpdateEmailPayload",
-  "plural": true,
-  "selections": (v20/*: any*/)
-},
-v23 = [
+v19 = [
   (v2/*: any*/),
   {
     "kind": "LinkedField",
@@ -597,27 +612,7 @@ v23 = [
     "selections": (v12/*: any*/)
   }
 ],
-v24 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "phones_created",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "CreatePhonePayload",
-  "plural": true,
-  "selections": (v23/*: any*/)
-},
-v25 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "phones_updated",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "UpdatePhonePayload",
-  "plural": true,
-  "selections": (v23/*: any*/)
-},
-v26 = {
+v20 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "rolerelations",
@@ -636,8 +631,14 @@ v26 = {
       "concreteType": "RoleRelation",
       "plural": false,
       "selections": [
-        (v15/*: any*/),
-        (v11/*: any*/),
+        (v13/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "type",
+          "args": null,
+          "storageKey": null
+        },
         {
           "kind": "LinkedField",
           "alias": null,
@@ -648,8 +649,8 @@ v26 = {
           "plural": false,
           "selections": [
             (v3/*: any*/),
-            (v7/*: any*/),
-            (v8/*: any*/)
+            (v9/*: any*/),
+            (v10/*: any*/)
           ]
         },
         {
@@ -660,12 +661,57 @@ v26 = {
           "args": null,
           "concreteType": "Organization",
           "plural": false,
-          "selections": (v16/*: any*/)
+          "selections": (v14/*: any*/)
         }
       ]
     }
   ]
-};
+},
+v21 = [
+  (v6/*: any*/),
+  (v7/*: any*/),
+  (v3/*: any*/)
+],
+v22 = [
+  (v3/*: any*/),
+  (v6/*: any*/),
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "type",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Choice",
+    "plural": false,
+    "selections": (v21/*: any*/)
+  }
+],
+v23 = [
+  (v2/*: any*/),
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "email",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Email",
+    "plural": false,
+    "selections": (v22/*: any*/)
+  }
+],
+v24 = [
+  (v2/*: any*/),
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "phone",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Phone",
+    "plural": false,
+    "selections": (v22/*: any*/)
+  }
+];
 return {
   "kind": "Request",
   "fragment": {
@@ -706,13 +752,40 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v6/*: any*/),
-                  (v7/*: any*/),
-                  (v8/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "contact_type",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": (v8/*: any*/)
+                  },
                   (v9/*: any*/),
-                  (v13/*: any*/),
-                  (v14/*: any*/),
-                  (v17/*: any*/),
+                  (v10/*: any*/),
+                  (v11/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "emails",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Email",
+                    "plural": true,
+                    "selections": (v12/*: any*/)
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "phones",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Phone",
+                    "plural": true,
+                    "selections": (v12/*: any*/)
+                  },
+                  (v15/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -731,12 +804,12 @@ return {
                         "concreteType": "User",
                         "plural": false,
                         "selections": [
-                          (v7/*: any*/),
-                          (v8/*: any*/)
+                          (v9/*: any*/),
+                          (v10/*: any*/)
                         ]
                       },
-                      (v18/*: any*/),
-                      (v19/*: any*/)
+                      (v16/*: any*/),
+                      (v17/*: any*/)
                     ]
                   },
                   {
@@ -748,18 +821,54 @@ return {
                     "concreteType": "Group",
                     "plural": true,
                     "selections": [
-                      (v10/*: any*/)
+                      (v6/*: any*/)
                     ]
                   }
                 ]
               }
             ]
           },
-          (v21/*: any*/),
-          (v22/*: any*/),
-          (v24/*: any*/),
-          (v25/*: any*/),
-          (v26/*: any*/)
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "subcreated",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CreateEmailPayload",
+            "plural": true,
+            "selections": (v18/*: any*/)
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "subupdated",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "UpdateEmailPayload",
+            "plural": true,
+            "selections": (v18/*: any*/)
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "phones_created",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CreatePhonePayload",
+            "plural": true,
+            "selections": (v19/*: any*/)
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "phones_updated",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "UpdatePhonePayload",
+            "plural": true,
+            "selections": (v19/*: any*/)
+          },
+          (v20/*: any*/)
         ]
       }
     ]
@@ -800,13 +909,40 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v6/*: any*/),
-                  (v7/*: any*/),
-                  (v8/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "contact_type",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": (v21/*: any*/)
+                  },
                   (v9/*: any*/),
-                  (v13/*: any*/),
-                  (v14/*: any*/),
-                  (v17/*: any*/),
+                  (v10/*: any*/),
+                  (v11/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "emails",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Email",
+                    "plural": true,
+                    "selections": (v22/*: any*/)
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "phones",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Phone",
+                    "plural": true,
+                    "selections": (v22/*: any*/)
+                  },
+                  (v15/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -825,13 +961,13 @@ return {
                         "concreteType": "User",
                         "plural": false,
                         "selections": [
-                          (v7/*: any*/),
-                          (v8/*: any*/),
+                          (v9/*: any*/),
+                          (v10/*: any*/),
                           (v3/*: any*/)
                         ]
                       },
-                      (v18/*: any*/),
-                      (v19/*: any*/),
+                      (v16/*: any*/),
+                      (v17/*: any*/),
                       (v3/*: any*/)
                     ]
                   },
@@ -844,7 +980,7 @@ return {
                     "concreteType": "Group",
                     "plural": true,
                     "selections": [
-                      (v10/*: any*/),
+                      (v6/*: any*/),
                       (v3/*: any*/)
                     ]
                   }
@@ -852,11 +988,47 @@ return {
               }
             ]
           },
-          (v21/*: any*/),
-          (v22/*: any*/),
-          (v24/*: any*/),
-          (v25/*: any*/),
-          (v26/*: any*/)
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "subcreated",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CreateEmailPayload",
+            "plural": true,
+            "selections": (v23/*: any*/)
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "subupdated",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "UpdateEmailPayload",
+            "plural": true,
+            "selections": (v23/*: any*/)
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "phones_created",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CreatePhonePayload",
+            "plural": true,
+            "selections": (v24/*: any*/)
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "phones_updated",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "UpdatePhonePayload",
+            "plural": true,
+            "selections": (v24/*: any*/)
+          },
+          (v20/*: any*/)
         ]
       }
     ]
@@ -865,11 +1037,12 @@ return {
     "operationKind": "mutation",
     "name": "UpdateContactMutation",
     "id": null,
-    "text": "mutation UpdateContactMutation(\n  $input: CompositeContactMutationInput!\n) {\n  composite_contact(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        title\n        notes\n        contact_type\n        first_name\n        last_name\n        pgp_fingerprint\n        emails {\n          id\n          name\n          type\n        }\n        phones {\n          id\n          name\n          type\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n            organization_id\n          }\n        }\n        comments {\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n          id\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      email {\n        id\n        name\n        type\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      email {\n        id\n        name\n        type\n      }\n    }\n    phones_created {\n      errors {\n        field\n        messages\n      }\n      phone {\n        id\n        name\n        type\n      }\n    }\n    phones_updated {\n      errors {\n        field\n        messages\n      }\n      phone {\n        id\n        name\n        type\n      }\n    }\n    rolerelations {\n      errors {\n        field\n        messages\n      }\n      rolerelation {\n        relation_id\n        type\n        start {\n          id\n          first_name\n          last_name\n        }\n        end {\n          id\n          name\n        }\n      }\n    }\n  }\n}\n",
+    "text": "mutation UpdateContactMutation(\n  $input: CompositeContactMutationInput!\n) {\n  composite_contact(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        title\n        notes\n        contact_type {\n          name\n          value\n          id\n        }\n        first_name\n        last_name\n        pgp_fingerprint\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n            organization_id\n          }\n        }\n        comments {\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n          id\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      email {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      email {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n    }\n    phones_created {\n      errors {\n        field\n        messages\n      }\n      phone {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n    }\n    phones_updated {\n      errors {\n        field\n        messages\n      }\n      phone {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n    }\n    rolerelations {\n      errors {\n        field\n        messages\n      }\n      rolerelation {\n        relation_id\n        type\n        start {\n          id\n          first_name\n          last_name\n        }\n        end {\n          id\n          name\n        }\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3736814c26808e95e1d4b4e6cdd1cd70';
+(node/*: any*/).hash = 'ec1cfc1831bc2dbbf97dc1ec48505c6d';
+
 module.exports = node;

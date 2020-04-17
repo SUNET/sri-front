@@ -14,16 +14,25 @@ const mutation = graphql`
                 id
                 first_name
                 last_name
-                contact_type
+                contact_type {
+                    name
+                    value
+                }
                 emails {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 phones {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 roles {
                     relation_id

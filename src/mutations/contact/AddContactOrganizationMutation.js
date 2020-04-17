@@ -9,7 +9,10 @@ const mutation = graphql`
                 id
                 first_name
                 last_name
-                contact_type
+                contact_type {
+                    name
+                    value
+                }
             }
         }
     }

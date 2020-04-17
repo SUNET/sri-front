@@ -174,11 +174,11 @@ class _OrganizationFormParentClass extends React.Component {
         );
     }
     renderWorkLog() {
-        const { t, group } = this.props;
+        const { t, organization } = this.props;
         return (
             <section className="model-section">
                 {this.IS_UPDATED_FORM ? (
-                    <Worklog model={group} refetch={this.refetch} />
+                    <Worklog model={organization} refetch={this.refetch} />
                 ) : (
                     <ToggleSection defaultEditable={false}>
                         <ToggleHeading>
@@ -227,12 +227,11 @@ class _OrganizationFormParentClass extends React.Component {
         );
     }
     renderGeneralInfoToggleSection(editMode = true) {
-        const { type, organization_id, organization_number, website, organization_parent_id, t } = this.props;
-
+        const { typeObj, organization_id, organization_number, website, organization_parent_id, t } = this.props;
         const generalInfoFirstRow = [
             {
                 title: t("organization-details.type"),
-                presentContent: type,
+                presentContent: typeObj ? typeObj.name : undefined,
                 editContent: (
                     <Dropdown
                         className={`${isBrowser ? "auto" : "xlg mw-100"}`}
@@ -454,7 +453,6 @@ class _OrganizationFormParentClass extends React.Component {
 
     // Main RENDER
     render() {
-        console.error("This method should be overwritten in the child class");
         return <div>This method should be overwritten in the child class</div>;
     }
 }

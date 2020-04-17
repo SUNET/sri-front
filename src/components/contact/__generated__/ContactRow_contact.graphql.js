@@ -15,7 +15,10 @@ export type ContactRow_contact = {|
   +id: string,
   +first_name: string,
   +last_name: string,
-  +contact_type: ?any,
+  +contact_type: ?{|
+    +name: string,
+    +value: string,
+  |},
   +modified: any,
   +roles: ?$ReadOnlyArray<?{|
     +name: ?string,
@@ -29,6 +32,7 @@ export type ContactRow_contact$data = ContactRow_contact;
 export type ContactRow_contact$key = {
   +$data?: ContactRow_contact$data,
   +$fragmentRefs: ContactRow_contact$ref,
+  ...
 };
 */
 
@@ -70,11 +74,23 @@ return {
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
+      "kind": "LinkedField",
       "alias": null,
       "name": "contact_type",
+      "storageKey": null,
       "args": null,
-      "storageKey": null
+      "concreteType": "Choice",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "value",
+          "args": null,
+          "storageKey": null
+        }
+      ]
     },
     {
       "kind": "ScalarField",
@@ -111,5 +127,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b0e582f64dd2ecef51a58c5dbff7397a';
+(node/*: any*/).hash = '37f31108e13cf2981b9e87c0d58c300d';
+
 module.exports = node;

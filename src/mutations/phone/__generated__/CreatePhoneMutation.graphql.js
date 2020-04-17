@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a34767be9b1bf7ac4e6b3d32f8501947
+ * @relayHash 44c4a3ab769fab234dc952b74c86b998
  */
 
 /* eslint-disable */
@@ -27,7 +27,10 @@ export type CreatePhoneMutationResponse = {|
     +phone: ?{|
       +id: string,
       +name: string,
-      +type: any,
+      +type: ?{|
+        +name: string,
+        +value: string,
+      |},
     |},
   |}
 |};
@@ -50,7 +53,11 @@ mutation CreatePhoneMutation(
     phone {
       id
       name
-      type
+      type {
+        name
+        value
+        id
+      }
     }
   }
 }
@@ -67,80 +74,57 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "create_phone",
-    "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "CreatePhonePayload",
-    "plural": false,
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "errors",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "ErrorType",
-        "plural": true,
-        "selections": [
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "field",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "messages",
-            "args": null,
-            "storageKey": null
-          }
-        ]
-      },
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "phone",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Phone",
-        "plural": false,
-        "selections": [
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "id",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "name",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "type",
-            "args": null,
-            "storageKey": null
-          }
-        ]
-      }
-    ]
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
   }
-];
+],
+v2 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "errors",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "ErrorType",
+  "plural": true,
+  "selections": [
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "field",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "messages",
+      "args": null,
+      "storageKey": null
+    }
+  ]
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "name",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "value",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -149,23 +133,102 @@ return {
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "create_phone",
+        "storageKey": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CreatePhonePayload",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "phone",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "Phone",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "type",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Choice",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v5/*: any*/)
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "operation": {
     "kind": "Operation",
     "name": "CreatePhoneMutation",
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "create_phone",
+        "storageKey": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CreatePhonePayload",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "phone",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "Phone",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "type",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Choice",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v3/*: any*/)
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "params": {
     "operationKind": "mutation",
     "name": "CreatePhoneMutation",
     "id": null,
-    "text": "mutation CreatePhoneMutation(\n  $input: CreatePhoneInput!\n) {\n  create_phone(input: $input) {\n    errors {\n      field\n      messages\n    }\n    phone {\n      id\n      name\n      type\n    }\n  }\n}\n",
+    "text": "mutation CreatePhoneMutation(\n  $input: CreatePhoneInput!\n) {\n  create_phone(input: $input) {\n    errors {\n      field\n      messages\n    }\n    phone {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '18da5a4652d597fee094228d5fd914d9';
+(node/*: any*/).hash = '8faec452ae227519aa65636db741a865';
 module.exports = node;

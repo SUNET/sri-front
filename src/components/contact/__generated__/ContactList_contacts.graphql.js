@@ -33,6 +33,7 @@ export type ContactList_contacts$data = ContactList_contacts;
 export type ContactList_contacts$key = {
   +$data?: ContactList_contacts$data,
   +$fragmentRefs: ContactList_contacts$ref,
+  ...
 };
 */
 
@@ -86,7 +87,7 @@ const node/*: ReaderFragment*/ = {
       "name": "__ContactList_contacts_connection",
       "storageKey": null,
       "args": null,
-      "concreteType": "ContactConnection",
+      "concreteType": "contactConnection",
       "plural": false,
       "selections": [
         {
@@ -95,7 +96,7 @@ const node/*: ReaderFragment*/ = {
           "name": "edges",
           "storageKey": null,
           "args": null,
-          "concreteType": "ContactEdge",
+          "concreteType": "contactEdge",
           "plural": true,
           "selections": [
             {
@@ -182,4 +183,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '352ad46952ef5690883b6c0e7cd25fc4';
+
 module.exports = node;

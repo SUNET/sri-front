@@ -22,6 +22,7 @@ export type OrganizationList_organization_types$data = OrganizationList_organiza
 export type OrganizationList_organization_types$key = {
   +$data?: OrganizationList_organization_types$data,
   +$fragmentRefs: OrganizationList_organization_types$ref,
+  ...
 };
 */
 
@@ -68,4 +69,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '89d18c5114dee824b8fbbb28f9f3e525';
+
 module.exports = node;

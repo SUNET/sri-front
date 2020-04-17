@@ -31,6 +31,7 @@ export type OrganizationList_organizations$data = OrganizationList_organizations
 export type OrganizationList_organizations$key = {
   +$data?: OrganizationList_organizations$data,
   +$fragmentRefs: OrganizationList_organizations$ref,
+  ...
 };
 */
 
@@ -84,7 +85,7 @@ const node/*: ReaderFragment*/ = {
       "name": "__OrganizationList_organizations_connection",
       "storageKey": null,
       "args": null,
-      "concreteType": "OrganizationConnection",
+      "concreteType": "organizationConnection",
       "plural": false,
       "selections": [
         {
@@ -93,7 +94,7 @@ const node/*: ReaderFragment*/ = {
           "name": "edges",
           "storageKey": null,
           "args": null,
-          "concreteType": "OrganizationEdge",
+          "concreteType": "organizationEdge",
           "plural": true,
           "selections": [
             {
@@ -166,4 +167,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = '5b541f8f7059cd284e7cf4bad229e362';
+
 module.exports = node;

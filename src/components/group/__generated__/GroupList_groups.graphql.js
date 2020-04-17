@@ -31,6 +31,7 @@ export type GroupList_groups$data = GroupList_groups;
 export type GroupList_groups$key = {
   +$data?: GroupList_groups$data,
   +$fragmentRefs: GroupList_groups$ref,
+  ...
 };
 */
 
@@ -84,7 +85,7 @@ const node/*: ReaderFragment*/ = {
       "name": "__GroupList_groups_connection",
       "storageKey": null,
       "args": null,
-      "concreteType": "GroupConnection",
+      "concreteType": "groupConnection",
       "plural": false,
       "selections": [
         {
@@ -93,7 +94,7 @@ const node/*: ReaderFragment*/ = {
           "name": "edges",
           "storageKey": null,
           "args": null,
-          "concreteType": "GroupEdge",
+          "concreteType": "groupEdge",
           "plural": true,
           "selections": [
             {
@@ -166,4 +167,5 @@ const node/*: ReaderFragment*/ = {
 };
 // prettier-ignore
 (node/*: any*/).hash = 'c81ccfa187e69079cf5b776a6a1e2f7d';
+
 module.exports = node;

@@ -98,8 +98,7 @@ class Dropdown extends React.PureComponent {
             return {
                 value: org.organization_id,
                 label: `${org.node_name} - ${org.organization_id}`,
-                id: org.id,
-                handle_id: org.handle_id
+                id: org.id
             };
         });
 
@@ -108,6 +107,7 @@ class Dropdown extends React.PureComponent {
             <Select
                 value={currentValue}
                 onChange={(newValue) => {
+                    console.log('newValue: ', newValue);
                     this.props.onChange(newValue);
                 }}
                 options={formattedOrganizationList}
