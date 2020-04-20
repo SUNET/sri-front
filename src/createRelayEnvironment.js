@@ -59,7 +59,6 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
             let jsonResult;
             if (json.errors && json.errors.length > 0) {
                 jsonResult = {data: ""}
-                window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
             } else {
                 jsonResult = json;
             }
