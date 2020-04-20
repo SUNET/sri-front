@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
-import SplashContainer from '../containers/Splash';
+import SplashContainer from '../../containers/Splash';
 
 // Create the mock store
 const mockStore = configureMockStore();

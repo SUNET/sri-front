@@ -10,17 +10,12 @@ import ValidationsGroupForm from './ValidationsGroupForm';
 import { CREATE_GROUP_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-export class CreateGroupForm extends _GroupFormParentClass {
+export class CreateGroupFormComponent extends _GroupFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_GROUP_FORM;
   state = {
     errors: [],
   };
-  constructor(props) {
-    super(props);
-    console.log('props: ', props);
-    console.log(this);
-  }
   handleSubmit = (group) => {
     CreateGroupMutation(group, this);
   };
@@ -42,12 +37,12 @@ export class CreateGroupForm extends _GroupFormParentClass {
   }
 }
 
-CreateGroupForm = reduxForm({
+const CreateGroupForm = reduxForm({
   form: 'createGroup',
   validate: ValidationsGroupForm.validate,
   initialValues: {
     name: '',
   },
-})(CreateGroupForm);
+})(CreateGroupFormComponent);
 
 export default withTranslation()(withRouter(CreateGroupForm));
