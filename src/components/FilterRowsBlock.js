@@ -1,10 +1,10 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
+import { isBrowser, isMobile } from 'react-device-detect';
 import Filter from './Filter';
 import OrderBy from './OrderBy';
 import RangeDayPicker from './RangeDayPicker';
-import { isBrowser, isMobile } from 'react-device-detect';
 
 import '../style/Footer.scss';
 
