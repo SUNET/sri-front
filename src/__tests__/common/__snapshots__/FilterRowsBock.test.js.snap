@@ -78,7 +78,7 @@ exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
                     </div>
                     <div
                       className="pretty p-default p-round"
-                      data-name="filter-date-updated"
+                      data-name="filter-date-modified"
                     >
                       <input
                         checked={false}
@@ -541,7 +541,7 @@ exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
                     </div>
                     <div
                       className="pretty p-default p-round"
-                      data-name="filter-date-updated"
+                      data-name="filter-date-modified"
                     >
                       <input
                         checked={false}

@@ -2,6 +2,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Row, Col } from 'react-bootstrap';
 import { isBrowser, isMobile } from 'react-device-detect';
+import PropTypes from 'prop-types';
 import Filter from './Filter';
 import OrderBy from './OrderBy';
 import RangeDayPicker from './RangeDayPicker';
@@ -10,23 +11,24 @@ import '../style/Footer.scss';
 
 export class FilterRowsBlock extends React.Component {
   renderDateFilterByType(type) {
-    //created or updated
+    // created or modified
     const { t, changeFilterDateType, filterDateType } = this.props;
-    const isModified = type === 'updated';
-    const isChecked = filterDateType;
+    const isModified = type === 'modified';
+    const modifiedString = 'updated';
+    const typeString = isModified ? modifiedString : type;
     return (
       <div className="pretty p-default p-round" data-name={`filter-date-${type}`}>
         <input
           type="radio"
           name="filterDateType"
           checked={filterDateType === type}
-          value={isModified ? 'modified' : 'created'}
+          value={type}
           onChange={(e) => {
             changeFilterDateType(e);
           }}
         />
         <div className="state p-info-o">
-          <label>{t(`filter.date.${type}`)}</label>
+          <label>{t(`filter.date.${typeString}`)}</label>
         </div>
       </div>
     );
@@ -38,7 +40,7 @@ export class FilterRowsBlock extends React.Component {
       <div className="data-filter-by-date">
         <div className="filter-date d-inline">
           {this.renderDateFilterByType('created')}
-          {this.renderDateFilterByType('updated')}
+          {this.renderDateFilterByType('modified')}
         </div>
 
         <RangeDayPicker
@@ -51,11 +53,13 @@ export class FilterRowsBlock extends React.Component {
   }
 
   renderFilterByWord() {
-    return <Filter changeFilter={this.props.handleOnChangeFilter} />;
+    const { handleOnChangeFilter } = this.props;
+    return <Filter changeFilter={handleOnChangeFilter} />;
   }
 
   renderOrderBy() {
-    return <OrderBy changeOrderBy={this.props.handleOnChangeOrderBy} />;
+    const { handleOnChangeOrderBy } = this.props;
+    return <OrderBy changeOrderBy={handleOnChangeOrderBy} />;
   }
 
   renderFiltersBoxDesktop() {
@@ -96,5 +100,16 @@ export class FilterRowsBlock extends React.Component {
     );
   }
 }
+
+FilterRowsBlock.propTypes = {
+  handleOnChangeFilter: PropTypes.func.isRequired,
+  handleOnChangeOrderBy: PropTypes.func.isRequired,
+  filterDateType: PropTypes.oneOf(['created', 'modified']).isRequired,
+  handleDateTo: PropTypes.func.isRequired,
+  handleDateFrom: PropTypes.func.isRequired,
+  handleResetDate: PropTypes.func.isRequired,
+  changeFilterDateType: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
+};
 
 export default withTranslation()(FilterRowsBlock);

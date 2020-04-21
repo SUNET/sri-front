@@ -12,10 +12,15 @@ jest.mock('react-i18next', () => ({
   },
 }));
 
+const FILTER_DATE_TYPE_PROP_VALUES = {
+  MODIFIED: 'modified',
+  CREATED: 'created',
+};
+
 const defaultProps = {
   handleOnChangeFilter: jest.fn(),
   handleOnChangeOrderBy: jest.fn(),
-  filterDateType: 'created', // "created || modified"
+  filterDateType: FILTER_DATE_TYPE_PROP_VALUES.CREATED,
   handleDateTo: jest.fn(),
   handleDateFrom: jest.fn(),
   handleResetDate: jest.fn(),
@@ -43,8 +48,8 @@ afterEach(() => {
 
 const getDateFilterCriteriaInputs = (checkedNameElement) => {
   const wrapperWithChecked = mountFilterRowBlockWrapper({ filterDateType: checkedNameElement });
-  const createdEl = wrapperWithChecked.find('[data-name="filter-date-created"]');
-  const updatedEl = wrapperWithChecked.find('[data-name="filter-date-updated"]');
+  const createdEl = wrapperWithChecked.find(`[data-name="filter-date-${FILTER_DATE_TYPE_PROP_VALUES.CREATED}"]`);
+  const updatedEl = wrapperWithChecked.find(`[data-name="filter-date-${FILTER_DATE_TYPE_PROP_VALUES.MODIFIED}"]`);
   const inputCreated = createdEl.find('input');
   const inputUpdated = updatedEl.find('input');
   return {
@@ -70,8 +75,8 @@ describe('Filter Row Block Component', () => {
     let filterDateBlock, createdElement, modifiedElement;
     beforeEach(() => {
       filterDateBlock = FilterRowBlockWrapper.find('.filter-date');
-      createdElement = filterDateBlock.children('[data-name="filter-date-created"]');
-      modifiedElement = filterDateBlock.children('[data-name="filter-date-updated"]');
+      createdElement = filterDateBlock.children(`[data-name="filter-date-${FILTER_DATE_TYPE_PROP_VALUES.CREATED}"]`);
+      modifiedElement = filterDateBlock.children(`[data-name="filter-date-${FILTER_DATE_TYPE_PROP_VALUES.MODIFIED}"]`);
     });
 
     it('Render Created or Updated filter date', () => {
@@ -90,12 +95,12 @@ describe('Filter Row Block Component', () => {
       expect(label.text()).toEqual('filter.date.updated');
     });
     it('Created is Checked', () => {
-      const { inputCreated, inputUpdated } = getDateFilterCriteriaInputs('created');
+      const { inputCreated, inputUpdated } = getDateFilterCriteriaInputs(FILTER_DATE_TYPE_PROP_VALUES.CREATED);
       expect(inputCreated.getElement().props.checked).toEqual(true);
       expect(inputUpdated.getElement().props.checked).toEqual(false);
     });
     it('Updated is Checked', () => {
-      const { inputCreated, inputUpdated } = getDateFilterCriteriaInputs('updated');
+      const { inputCreated, inputUpdated } = getDateFilterCriteriaInputs(FILTER_DATE_TYPE_PROP_VALUES.MODIFIED);
       expect(inputCreated.getElement().props.checked).toEqual(false);
       expect(inputUpdated.getElement().props.checked).toEqual(true);
     });
