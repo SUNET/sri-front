@@ -1,0 +1,913 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
+<CreateFilterRowBlockWrapper>
+  <div>
+    <FilterRowsBlock
+      changeFilterDateType={[MockFunction]}
+      filterDateType="created"
+      handleDateFrom={[MockFunction]}
+      handleDateTo={[MockFunction]}
+      handleOnChangeFilter={[MockFunction]}
+      handleOnChangeOrderBy={[MockFunction]}
+      handleResetDate={[MockFunction]}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "filter.date.created",
+            ],
+            Array [
+              "filter.date.updated",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "filter.date.created",
+            },
+            Object {
+              "type": "return",
+              "value": "filter.date.updated",
+            },
+          ],
+        }
+      }
+    >
+      <div>
+        <ForwardRef
+          noGutters={false}
+        >
+          <div
+            className="row"
+          >
+            <Col
+              lg={12}
+              md={12}
+              sm={12}
+              xl={7}
+              xs={12}
+            >
+              <div
+                className="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12"
+              >
+                <div
+                  className="data-filter-by-date"
+                >
+                  <div
+                    className="filter-date d-inline"
+                  >
+                    <div
+                      className="pretty p-default p-round"
+                      data-name="filter-date-created"
+                    >
+                      <input
+                        checked={true}
+                        name="filterDateType"
+                        onChange={[Function]}
+                        type="radio"
+                        value="created"
+                      />
+                      <div
+                        className="state p-info-o"
+                      >
+                        <label>
+                          filter.date.created
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      className="pretty p-default p-round"
+                      data-name="filter-date-updated"
+                    >
+                      <input
+                        checked={false}
+                        name="filterDateType"
+                        onChange={[Function]}
+                        type="radio"
+                        value="modified"
+                      />
+                      <div
+                        className="state p-info-o"
+                      >
+                        <label>
+                          filter.date.updated
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <RangeDayPicker
+                    dateFrom={[Function]}
+                    dateTo={[Function]}
+                    resetDate={[Function]}
+                    t={[Function]}
+                  >
+                    <div
+                      className="range-day-picker"
+                    >
+                      <div
+                        className="input-from-to input-from-to--from"
+                      >
+                        <label />
+                        <DayPickerInput
+                          classNames={
+                            Object {
+                              "container": "DayPickerInput",
+                              "overlay": "DayPickerInput-Overlay",
+                              "overlayWrapper": "DayPickerInput-OverlayWrapper",
+                            }
+                          }
+                          clickUnselectsDay={false}
+                          component="input"
+                          dayPickerProps={
+                            Object {
+                              "disabledDays": Object {
+                                "after": undefined,
+                              },
+                              "locale": "en",
+                              "localeUtils": Object {
+                                "formatDate": [Function],
+                                "formatDay": [Function],
+                                "formatMonthTitle": [Function],
+                                "formatWeekdayLong": [Function],
+                                "formatWeekdayShort": [Function],
+                                "getFirstDayOfWeek": [Function],
+                                "getMonths": [Function],
+                                "parseDate": [Function],
+                              },
+                              "modifiers": Object {
+                                "end": undefined,
+                                "start": undefined,
+                              },
+                              "numberOfMonths": 2,
+                              "onDayClick": [Function],
+                              "selectedDays": Array [
+                                undefined,
+                                Object {
+                                  "from": undefined,
+                                  "to": undefined,
+                                },
+                              ],
+                              "toMonth": undefined,
+                            }
+                          }
+                          format="DD/MM/YY"
+                          formatDate={[Function]}
+                          hideOnDayClick={true}
+                          inputProps={Object {}}
+                          keepFocus={true}
+                          onDayChange={[Function]}
+                          overlayComponent={[Function]}
+                          parseDate={[Function]}
+                          placeholder="dd/mm/yy"
+                          showOverlay={false}
+                          typedValue=""
+                          value=""
+                        >
+                          <div
+                            className="DayPickerInput"
+                          >
+                            <input
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              placeholder="dd/mm/yy"
+                              value=""
+                            />
+                          </div>
+                        </DayPickerInput>
+                      </div>
+                      <div
+                        className="input-from-to input-from-to--to"
+                      >
+                        <label />
+                        <DayPickerInput
+                          classNames={
+                            Object {
+                              "container": "DayPickerInput",
+                              "overlay": "DayPickerInput-Overlay",
+                              "overlayWrapper": "DayPickerInput-OverlayWrapper",
+                            }
+                          }
+                          clickUnselectsDay={false}
+                          component="input"
+                          dayPickerProps={
+                            Object {
+                              "disabledDays": Object {
+                                "before": undefined,
+                              },
+                              "fromMonth": undefined,
+                              "locale": "en",
+                              "localeUtils": Object {
+                                "formatDate": [Function],
+                                "formatDay": [Function],
+                                "formatMonthTitle": [Function],
+                                "formatWeekdayLong": [Function],
+                                "formatWeekdayShort": [Function],
+                                "getFirstDayOfWeek": [Function],
+                                "getMonths": [Function],
+                                "parseDate": [Function],
+                              },
+                              "modifiers": Object {
+                                "end": undefined,
+                                "start": undefined,
+                              },
+                              "month": undefined,
+                              "numberOfMonths": 2,
+                              "selectedDays": Array [
+                                undefined,
+                                Object {
+                                  "from": undefined,
+                                  "to": undefined,
+                                },
+                              ],
+                            }
+                          }
+                          format="DD/MM/YY"
+                          formatDate={[Function]}
+                          hideOnDayClick={true}
+                          inputProps={Object {}}
+                          keepFocus={true}
+                          onDayChange={[Function]}
+                          overlayComponent={[Function]}
+                          parseDate={[Function]}
+                          placeholder="dd/mm/yy"
+                          showOverlay={false}
+                          typedValue=""
+                          value=""
+                        >
+                          <div
+                            className="DayPickerInput"
+                          >
+                            <input
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              placeholder="dd/mm/yy"
+                              value=""
+                            />
+                          </div>
+                        </DayPickerInput>
+                      </div>
+                      <button
+                        className="btn outline btn-remove"
+                        onClick={[Function]}
+                        type="button"
+                      />
+                    </div>
+                  </RangeDayPicker>
+                </div>
+              </div>
+            </Col>
+            <Col
+              className="mt-3 mt-xl-0"
+              lg={12}
+              md={12}
+              sm={12}
+              xl={5}
+              xs={12}
+            >
+              <div
+                className="mt-3 mt-xl-0 col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12"
+              >
+                <Filter
+                  changeFilter={[MockFunction]}
+                >
+                  <div
+                    className="filter"
+                  >
+                    <FormControl
+                      name="filter"
+                      onChange={[Function]}
+                      placeholder="Filter by word"
+                      type="text"
+                    >
+                      <input
+                        className="form-control"
+                        name="filter"
+                        onChange={[Function]}
+                        placeholder="Filter by word"
+                        type="text"
+                      />
+                    </FormControl>
+                  </div>
+                </Filter>
+                <OrderBy
+                  changeOrderBy={[MockFunction]}
+                  t={[Function]}
+                >
+                  <div
+                    className="order-by outline"
+                  >
+                    <FieldSwitch
+                      classNames="icon-right"
+                      handleChecked={[Function]}
+                      icon="angle"
+                      id="orderBy"
+                      labelChecked=""
+                      labelUnChecked=""
+                      type="toggle-icon"
+                    >
+                      <div
+                        className="field-checkbox"
+                      >
+                        <div
+                          className="pretty custom p-icon p-toggle p-plain icon-right"
+                        >
+                          <input
+                            checked={false}
+                            id="orderBy"
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                          <div
+                            className="state p-on undefined"
+                          >
+                            <label />
+                            <FontAwesomeIcon
+                              border={false}
+                              className=""
+                              fixedWidth={false}
+                              flip={null}
+                              icon={
+                                Object {
+                                  "icon": Array [
+                                    320,
+                                    512,
+                                    Array [],
+                                    "f106",
+                                    "M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z",
+                                  ],
+                                  "iconName": "angle-up",
+                                  "prefix": "fas",
+                                }
+                              }
+                              inverse={false}
+                              listItem={false}
+                              mask={null}
+                              pull={null}
+                              pulse={false}
+                              rotation={null}
+                              size={null}
+                              spin={false}
+                              swapOpacity={false}
+                              symbol={false}
+                              title=""
+                              transform={null}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-angle-up fa-w-10 "
+                                data-icon="angle-up"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 320 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </FontAwesomeIcon>
+                          </div>
+                          <div
+                            className="state p-off"
+                          >
+                            <label />
+                            <FontAwesomeIcon
+                              border={false}
+                              className=""
+                              fixedWidth={false}
+                              flip={null}
+                              icon={
+                                Object {
+                                  "icon": Array [
+                                    320,
+                                    512,
+                                    Array [],
+                                    "f107",
+                                    "M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z",
+                                  ],
+                                  "iconName": "angle-down",
+                                  "prefix": "fas",
+                                }
+                              }
+                              inverse={false}
+                              listItem={false}
+                              mask={null}
+                              pull={null}
+                              pulse={false}
+                              rotation={null}
+                              size={null}
+                              spin={false}
+                              swapOpacity={false}
+                              symbol={false}
+                              title=""
+                              transform={null}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-angle-down fa-w-10 "
+                                data-icon="angle-down"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 320 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </FontAwesomeIcon>
+                          </div>
+                        </div>
+                      </div>
+                    </FieldSwitch>
+                  </div>
+                </OrderBy>
+              </div>
+            </Col>
+          </div>
+        </ForwardRef>
+      </div>
+    </FilterRowsBlock>
+  </div>
+</CreateFilterRowBlockWrapper>
+`;
+
+exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
+<CreateFilterRowBlockWrapper>
+  <div>
+    <FilterRowsBlock
+      changeFilterDateType={[MockFunction]}
+      filterDateType="created"
+      handleDateFrom={[MockFunction]}
+      handleDateTo={[MockFunction]}
+      handleOnChangeFilter={[MockFunction]}
+      handleOnChangeOrderBy={[MockFunction]}
+      handleResetDate={[MockFunction]}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "filter.date.created",
+            ],
+            Array [
+              "filter.date.updated",
+            ],
+            Array [
+              "filter.date.created",
+            ],
+            Array [
+              "filter.date.updated",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "filter.date.created",
+            },
+            Object {
+              "type": "return",
+              "value": "filter.date.updated",
+            },
+            Object {
+              "type": "return",
+              "value": "filter.date.created",
+            },
+            Object {
+              "type": "return",
+              "value": "filter.date.updated",
+            },
+          ],
+        }
+      }
+    >
+      <div>
+        <ForwardRef
+          noGutters={false}
+        >
+          <div
+            className="row"
+          >
+            <Col
+              lg={12}
+              md={12}
+              sm={12}
+              xl={7}
+              xs={12}
+            >
+              <div
+                className="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12"
+              >
+                <div
+                  className="data-filter-by-date"
+                >
+                  <div
+                    className="filter-date d-inline"
+                  >
+                    <div
+                      className="pretty p-default p-round"
+                      data-name="filter-date-created"
+                    >
+                      <input
+                        checked={true}
+                        name="filterDateType"
+                        onChange={[Function]}
+                        type="radio"
+                        value="created"
+                      />
+                      <div
+                        className="state p-info-o"
+                      >
+                        <label>
+                          filter.date.created
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      className="pretty p-default p-round"
+                      data-name="filter-date-updated"
+                    >
+                      <input
+                        checked={false}
+                        name="filterDateType"
+                        onChange={[Function]}
+                        type="radio"
+                        value="modified"
+                      />
+                      <div
+                        className="state p-info-o"
+                      >
+                        <label>
+                          filter.date.updated
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <RangeDayPicker
+                    dateFrom={[Function]}
+                    dateTo={[Function]}
+                    resetDate={[Function]}
+                    t={[Function]}
+                  >
+                    <div
+                      className="range-day-picker"
+                    >
+                      <div
+                        className="input-from-to input-from-to--from"
+                      >
+                        <label />
+                        <DayPickerInput
+                          classNames={
+                            Object {
+                              "container": "DayPickerInput",
+                              "overlay": "DayPickerInput-Overlay",
+                              "overlayWrapper": "DayPickerInput-OverlayWrapper",
+                            }
+                          }
+                          clickUnselectsDay={false}
+                          component="input"
+                          dayPickerProps={
+                            Object {
+                              "disabledDays": Object {
+                                "after": undefined,
+                              },
+                              "locale": "en",
+                              "localeUtils": Object {
+                                "formatDate": [Function],
+                                "formatDay": [Function],
+                                "formatMonthTitle": [Function],
+                                "formatWeekdayLong": [Function],
+                                "formatWeekdayShort": [Function],
+                                "getFirstDayOfWeek": [Function],
+                                "getMonths": [Function],
+                                "parseDate": [Function],
+                              },
+                              "modifiers": Object {
+                                "end": undefined,
+                                "start": undefined,
+                              },
+                              "numberOfMonths": 2,
+                              "onDayClick": [Function],
+                              "selectedDays": Array [
+                                undefined,
+                                Object {
+                                  "from": undefined,
+                                  "to": undefined,
+                                },
+                              ],
+                              "toMonth": undefined,
+                            }
+                          }
+                          format="DD/MM/YY"
+                          formatDate={[Function]}
+                          hideOnDayClick={true}
+                          inputProps={Object {}}
+                          keepFocus={true}
+                          onDayChange={[Function]}
+                          overlayComponent={[Function]}
+                          parseDate={[Function]}
+                          placeholder="dd/mm/yy"
+                          showOverlay={false}
+                          typedValue=""
+                          value=""
+                        >
+                          <div
+                            className="DayPickerInput"
+                          >
+                            <input
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              placeholder="dd/mm/yy"
+                              value=""
+                            />
+                          </div>
+                        </DayPickerInput>
+                      </div>
+                      <div
+                        className="input-from-to input-from-to--to"
+                      >
+                        <label />
+                        <DayPickerInput
+                          classNames={
+                            Object {
+                              "container": "DayPickerInput",
+                              "overlay": "DayPickerInput-Overlay",
+                              "overlayWrapper": "DayPickerInput-OverlayWrapper",
+                            }
+                          }
+                          clickUnselectsDay={false}
+                          component="input"
+                          dayPickerProps={
+                            Object {
+                              "disabledDays": Object {
+                                "before": undefined,
+                              },
+                              "fromMonth": undefined,
+                              "locale": "en",
+                              "localeUtils": Object {
+                                "formatDate": [Function],
+                                "formatDay": [Function],
+                                "formatMonthTitle": [Function],
+                                "formatWeekdayLong": [Function],
+                                "formatWeekdayShort": [Function],
+                                "getFirstDayOfWeek": [Function],
+                                "getMonths": [Function],
+                                "parseDate": [Function],
+                              },
+                              "modifiers": Object {
+                                "end": undefined,
+                                "start": undefined,
+                              },
+                              "month": undefined,
+                              "numberOfMonths": 2,
+                              "selectedDays": Array [
+                                undefined,
+                                Object {
+                                  "from": undefined,
+                                  "to": undefined,
+                                },
+                              ],
+                            }
+                          }
+                          format="DD/MM/YY"
+                          formatDate={[Function]}
+                          hideOnDayClick={true}
+                          inputProps={Object {}}
+                          keepFocus={true}
+                          onDayChange={[Function]}
+                          overlayComponent={[Function]}
+                          parseDate={[Function]}
+                          placeholder="dd/mm/yy"
+                          showOverlay={false}
+                          typedValue=""
+                          value=""
+                        >
+                          <div
+                            className="DayPickerInput"
+                          >
+                            <input
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              placeholder="dd/mm/yy"
+                              value=""
+                            />
+                          </div>
+                        </DayPickerInput>
+                      </div>
+                      <button
+                        className="btn outline btn-remove"
+                        onClick={[Function]}
+                        type="button"
+                      />
+                    </div>
+                  </RangeDayPicker>
+                </div>
+              </div>
+            </Col>
+            <Col
+              className="mt-3 mt-xl-0"
+              lg={12}
+              md={12}
+              sm={12}
+              xl={5}
+              xs={12}
+            >
+              <div
+                className="mt-3 mt-xl-0 col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12"
+              >
+                <Filter
+                  changeFilter={[MockFunction]}
+                >
+                  <div
+                    className="filter"
+                  >
+                    <FormControl
+                      name="filter"
+                      onChange={[Function]}
+                      placeholder="Filter by word"
+                      type="text"
+                    >
+                      <input
+                        className="form-control"
+                        name="filter"
+                        onChange={[Function]}
+                        placeholder="Filter by word"
+                        type="text"
+                      />
+                    </FormControl>
+                  </div>
+                </Filter>
+                <OrderBy
+                  changeOrderBy={[MockFunction]}
+                  t={[Function]}
+                >
+                  <div
+                    className="order-by outline"
+                  >
+                    <FieldSwitch
+                      classNames="icon-right"
+                      handleChecked={[Function]}
+                      icon="angle"
+                      id="orderBy"
+                      labelChecked=""
+                      labelUnChecked=""
+                      type="toggle-icon"
+                    >
+                      <div
+                        className="field-checkbox"
+                      >
+                        <div
+                          className="pretty custom p-icon p-toggle p-plain icon-right"
+                        >
+                          <input
+                            checked={false}
+                            id="orderBy"
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                          <div
+                            className="state p-on undefined"
+                          >
+                            <label />
+                            <FontAwesomeIcon
+                              border={false}
+                              className=""
+                              fixedWidth={false}
+                              flip={null}
+                              icon={
+                                Object {
+                                  "icon": Array [
+                                    320,
+                                    512,
+                                    Array [],
+                                    "f106",
+                                    "M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z",
+                                  ],
+                                  "iconName": "angle-up",
+                                  "prefix": "fas",
+                                }
+                              }
+                              inverse={false}
+                              listItem={false}
+                              mask={null}
+                              pull={null}
+                              pulse={false}
+                              rotation={null}
+                              size={null}
+                              spin={false}
+                              swapOpacity={false}
+                              symbol={false}
+                              title=""
+                              transform={null}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-angle-up fa-w-10 "
+                                data-icon="angle-up"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 320 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </FontAwesomeIcon>
+                          </div>
+                          <div
+                            className="state p-off"
+                          >
+                            <label />
+                            <FontAwesomeIcon
+                              border={false}
+                              className=""
+                              fixedWidth={false}
+                              flip={null}
+                              icon={
+                                Object {
+                                  "icon": Array [
+                                    320,
+                                    512,
+                                    Array [],
+                                    "f107",
+                                    "M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z",
+                                  ],
+                                  "iconName": "angle-down",
+                                  "prefix": "fas",
+                                }
+                              }
+                              inverse={false}
+                              listItem={false}
+                              mask={null}
+                              pull={null}
+                              pulse={false}
+                              rotation={null}
+                              size={null}
+                              spin={false}
+                              swapOpacity={false}
+                              symbol={false}
+                              title=""
+                              transform={null}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-angle-down fa-w-10 "
+                                data-icon="angle-down"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 320 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </FontAwesomeIcon>
+                          </div>
+                        </div>
+                      </div>
+                    </FieldSwitch>
+                  </div>
+                </OrderBy>
+              </div>
+            </Col>
+          </div>
+        </ForwardRef>
+      </div>
+    </FilterRowsBlock>
+  </div>
+</CreateFilterRowBlockWrapper>
+`;
