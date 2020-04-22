@@ -44,8 +44,6 @@ describe('Filter Component', () => {
       const labelElement = labelWrapper.find('label');
       expect(labelElement).toHaveLength(1);
       expect(labelElement.text()).toBe('filter.newest-first');
-      expect(labelWrapper).toHaveStyleRule('opacity', '1');
-      // expect(labelWrapper.styleRule('opacity').toBe('1'));
     });
     it('After first click appears "Newest" Text', () => {
       OrderByComponent.find('input').simulate('change', { target: { checked: true } });
@@ -53,7 +51,6 @@ describe('Filter Component', () => {
       const labelElement = labelWrapper.find('label');
       expect(labelElement).toHaveLength(1);
       expect(labelElement.text()).toBe('filter.latest-first');
-      expect(labelWrapper.prop('style')).toHaveProperty('opacity', '1');
     });
   });
 
