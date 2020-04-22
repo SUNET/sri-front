@@ -64,6 +64,7 @@
             "filter.mobile.title": "Filter options",
             "filter.daypicker.from": "From",
             "filter.daypicker.to": "To",
+            "filter.text.placeholder": "Filter By Word",
             "actions.clear": "Clear",
             "actions.cancel": "Cancel",
             "actions.accept": "Accept",
