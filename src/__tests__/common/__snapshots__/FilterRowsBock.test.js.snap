@@ -278,6 +278,7 @@ exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
               >
                 <Filter
                   changeFilter={[MockFunction]}
+                  t={[Function]}
                 >
                   <div
                     className="filter"
@@ -285,15 +286,17 @@ exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
                     <FormControl
                       name="filter"
                       onChange={[Function]}
-                      placeholder="Filter by word"
+                      placeholder=""
                       type="text"
+                      value=""
                     >
                       <input
                         className="form-control"
                         name="filter"
                         onChange={[Function]}
-                        placeholder="Filter by word"
+                        placeholder=""
                         type="text"
+                        value=""
                       />
                     </FormControl>
                   </div>
@@ -741,6 +744,7 @@ exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
               >
                 <Filter
                   changeFilter={[MockFunction]}
+                  t={[Function]}
                 >
                   <div
                     className="filter"
@@ -748,15 +752,17 @@ exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
                     <FormControl
                       name="filter"
                       onChange={[Function]}
-                      placeholder="Filter by word"
+                      placeholder=""
                       type="text"
+                      value=""
                     >
                       <input
                         className="form-control"
                         name="filter"
                         onChange={[Function]}
-                        placeholder="Filter by word"
+                        placeholder=""
                         type="text"
+                        value=""
                       />
                     </FormControl>
                   </div>

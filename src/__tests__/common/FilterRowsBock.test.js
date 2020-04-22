@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { FilterRowsBlock } from '../../components/FilterRowsBlock';
 import toJson from 'enzyme-to-json';
 import * as deviceDetect from 'react-device-detect';
@@ -63,13 +63,13 @@ describe('Filter Row Block Component', () => {
     deviceDetect.isBrowser = true;
     deviceDetect.isMobile = false;
     expect(toJson(FilterRowBlockWrapper)).toMatchSnapshot();
-    expect(FilterRowBlockWrapper.find('.data-filter-by-date').length).toBe(1);
+    expect(FilterRowBlockWrapper.find('.data-filter-by-date')).toHaveLength(1);
   });
   it('Renders correctly Mobile Version', () => {
     deviceDetect.isBrowser = false;
     deviceDetect.isMobile = true;
     expect(toJson(FilterRowBlockWrapper)).toMatchSnapshot();
-    expect(FilterRowBlockWrapper.find('.data-filter-by-date').length).toBe(1);
+    expect(FilterRowBlockWrapper.find('.data-filter-by-date')).toHaveLength(1);
   });
   describe('Created or Updated Option', () => {
     let filterDateBlock, createdElement, modifiedElement;
