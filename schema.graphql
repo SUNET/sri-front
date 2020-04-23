@@ -1,5 +1,5 @@
-# source: http://ni.localenv.loc/graphql/
-# timestamp: Tue Apr 14 2020 12:43:23 GMT+0200 (GMT+02:00)
+# source: http://sri.localenv.loc/api/graphql/
+# timestamp: Thu Apr 23 2020 11:25:39 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -2394,8 +2394,10 @@ input ObtainJSONWebTokenInput {
 
 """Obtain JSON Web Token mutation"""
 type ObtainJSONWebTokenPayload {
-  token: String
+  payload: GenericScalar!
+  refresh_expires_in: Int!
   clientMutationId: String
+  token: String!
 }
 
 """The group type is used to group contacts"""
@@ -3712,14 +3714,15 @@ type Query {
 }
 
 input RefreshInput {
-  token: String!
+  token: String
   clientMutationId: String
 }
 
 type RefreshPayload {
-  token: String
-  payload: GenericScalar
+  payload: GenericScalar!
+  refresh_expires_in: Int!
   clientMutationId: String
+  token: String!
 }
 
 interface Relation {
@@ -4429,11 +4432,11 @@ input UserInputType {
 }
 
 input VerifyInput {
-  token: String!
+  token: String
   clientMutationId: String
 }
 
 type VerifyPayload {
-  payload: GenericScalar
+  payload: GenericScalar!
   clientMutationId: String
 }
