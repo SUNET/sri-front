@@ -12,14 +12,16 @@ import "moment/locale/sv";
 import "react-day-picker/lib/style.css";
 import "../style/RangeDayPicker.scss";
 
-class RangeDayPicker extends React.Component {
-    static propTypes = {
-        resetDate: PropTypes.func.isRequired
-    };
+export class RangeDayPicker extends React.Component {
+    // static propTypes = {
+    //     resetDate: PropTypes.func.isRequired
+    // };
 
     constructor(props) {
         super(props);
         this.handleResetClick = this.handleResetClick.bind(this);
+        this.from = null; // elements reference
+        this.to = null; // elements reference
         this.state = {
             from: undefined,
             to: undefined
@@ -32,6 +34,7 @@ class RangeDayPicker extends React.Component {
             return;
         }
         if (moment(to).diff(moment(from), "months") < 2) {
+            console.log('from: ', from);
             this.to.getDayPicker().showMonth(from);
         }
     }
@@ -97,7 +100,7 @@ class RangeDayPicker extends React.Component {
     renderResetDatesCTA() {
         const { t } = this.props;
         return (
-            <button type="button" onClick={this.handleResetClick} className="btn outline btn-remove">
+            <button type="button" onClick={this.handleResetClick} data-action="reset" className="range-day-picker__reset_dates btn outline btn-remove">
                 {t("filter.date.clear")}
             </button>
         );
