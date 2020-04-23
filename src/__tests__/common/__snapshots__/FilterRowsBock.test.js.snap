@@ -35,7 +35,7 @@ exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
       }
     >
       <div>
-        <ForwardRef
+        <Row
           noGutters={false}
         >
           <div
@@ -445,7 +445,7 @@ exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
               </div>
             </Col>
           </div>
-        </ForwardRef>
+        </Row>
       </div>
     </FilterRowsBlock>
   </div>
@@ -501,7 +501,7 @@ exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
       }
     >
       <div>
-        <ForwardRef
+        <Row
           noGutters={false}
         >
           <div
@@ -911,7 +911,7 @@ exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
               </div>
             </Col>
           </div>
-        </ForwardRef>
+        </Row>
       </div>
     </FilterRowsBlock>
   </div>

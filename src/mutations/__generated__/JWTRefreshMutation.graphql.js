@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 60034df722fb8ad035737445f04b3bae
+ * @relayHash ef5a188d76f650db805596d9ca5a0de1
  */
 
 /* eslint-disable */
@@ -10,7 +10,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type RefreshInput = {|
-  token: string,
+  token?: ?string,
   clientMutationId?: ?string,
 |};
 export type JWTRefreshMutationVariables = {|
@@ -18,8 +18,8 @@ export type JWTRefreshMutationVariables = {|
 |};
 export type JWTRefreshMutationResponse = {|
   +refresh_token: ?{|
-    +token: ?string,
-    +payload: ?any,
+    +token: string,
+    +payload: any,
   |}
 |};
 export type JWTRefreshMutation = {|
@@ -109,4 +109,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'c93639901921e920ab846f2035db05d8';
+
 module.exports = node;

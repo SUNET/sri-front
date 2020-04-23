@@ -55,7 +55,7 @@
     "devDependencies": {
         "babel-core": "^6.26.3",
         "babel-loader": "^8.1.0",
-        "babel-plugin-relay": "^7.1.0",
+        "babel-plugin-relay": "^9.0.0",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.2",
         "enzyme-to-json": "^3.4.4",
@@ -81,9 +81,9 @@
     "scripts": {
         "start": "NODE_ENV=dev BROWSER=none react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test --watchAll",
+        "test": "react-scripts test --watchAll=false",
+        "test:watch": "react-scripts test --watchAll",
         "eject": "react-scripts eject",
-        "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache --watchAll",
         "check-code": "prettier --check ./src/**/*.{js,jsx,json}",
         "check-styles": "prettier --check --config .stylelintrc ./src/**/*.{css,scss}",
         "fix-code": "prettier --write ./src/**/*.{js,jsx,json}",
