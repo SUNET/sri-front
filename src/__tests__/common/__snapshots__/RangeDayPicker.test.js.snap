@@ -4,7 +4,6 @@ exports[`RangeDayPicker Component Renders correctly 1`] = `
 <CreateRangeDayPickerWrapper>
   <div>
     <RangeDayPicker
-      changeRangeDayPicker={[MockFunction]}
       dateFrom={[MockFunction]}
       dateTo={[MockFunction]}
       resetDate={[MockFunction]}
