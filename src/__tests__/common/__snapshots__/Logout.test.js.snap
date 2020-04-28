@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logout Renders correctly 1`] = `
+<CreateLogoutWrapper>
+  <div>
+    <Logout>
+      <i
+        className="icon-logout"
+        onClick={[Function]}
+        title="Logout"
+      />
+    </Logout>
+  </div>
+</CreateLogoutWrapper>
+`;

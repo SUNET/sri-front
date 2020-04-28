@@ -6,6 +6,7 @@ import { slide as BurgerMenu } from 'react-burger-menu';
 import Logout from './Logout';
 import AccordionMenuOptions from './AccordionMenuOptions';
 import { BrowserView, MobileView } from 'react-device-detect';
+import PropTypes from 'prop-types';
 
 import '../style/TopHeader.scss';
 
