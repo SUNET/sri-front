@@ -17,7 +17,10 @@ const mutation = graphql`
                 organization {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                     website
                     organization_id
                     organization_number
@@ -82,16 +85,25 @@ const mutation = graphql`
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         relation_id
@@ -118,16 +130,25 @@ const mutation = graphql`
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         relation_id
@@ -201,29 +222,12 @@ export default function CreateOrganizationMutation(organization, form) {
                     contact.last_name = fullName;
                 }
 
-                if (!contact.created || contact.created === undefined) {
-                    // newContacts.push({
-                    //     first_name: contact.first_name,
-                    //     last_name: contact.last_name,
-                    //     contact_type: "person",
-                    //     email: contact.email,
-                    //     email_type: CONTACT_WORK,
-                    //     phone: contact.phone,
-                    //     phone_type: CONTACT_WORK,
-                    //     role_id: contact.role
-                    // });
-                } else {
+                if (contact.created || contact.created !== undefined) {
                     updateContacts.push({
                         id: contact.id,
                         first_name: contact.first_name,
                         last_name: contact.last_name,
-                        contact_type: contact.contact_type.toLowerCase(),
-                        // email_id: contact.email_obj ? contact.email_obj.id : null,
-                        // email: contact.email,
-                        // email_type: contact.email_obj ? contact.email_obj.type : CONTACT_WORK,
-                        // phone_id: contact.phone_obj ? contact.phone_obj.id : null,
-                        // phone: contact.phone,
-                        // phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
+                        contact_type: contact.contact_type.value,
                         role_id: contact.role
                     });
                 }
@@ -262,7 +266,6 @@ export default function CreateOrganizationMutation(organization, form) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(response, errors);
             if (response.composite_organization.created.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_organization.created.errors;

@@ -86,6 +86,10 @@ class FieldArrayMembersGroup extends React.Component {
     };
 
     generateSubDataList = (field, keyName, secondaryKeyName) => {
+        const getSecondaryKeyName = (element, doubleKeyForObject) => {
+            const keysArr = doubleKeyForObject.split(".");
+            return element[keysArr[0]][keysArr[1]];
+        };
         const result = field ? (
             <>
                 <div className="form-internal-block--contact-in-organization__section__content__internal-list form-internal-block__section__content__internal-list">
@@ -99,7 +103,7 @@ class FieldArrayMembersGroup extends React.Component {
                                     {element.name}
                                 </div>
                                 <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__secondary-text">
-                                    {element[secondaryKeyName]}
+                                    {secondaryKeyName ? getSecondaryKeyName(element, secondaryKeyName) : ""}
                                 </div>
                             </div>
                         );
@@ -199,7 +203,7 @@ class FieldArrayMembersGroup extends React.Component {
                     </div>
                     <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                         <div className="contact-in-organization__header__title">{t("settings.emails")}</div>
-                        {this.generateSubDataList(row, "email", "type")}
+                        {this.generateSubDataList(row, "email", "type.name")}
                     </div>
                     <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                         <div className="contact-in-organization__header__title">{t("organization-details.phone")}</div>
@@ -317,7 +321,7 @@ class FieldArrayMembersGroup extends React.Component {
                                 )}
                                 {isBrowser && (
                                     <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
-                                        {this.generateSubDataList(row, "email", "type")}
+                                        {this.generateSubDataList(row, "email", "type.name")}
                                     </div>
                                 )}
                                 {isBrowser && (

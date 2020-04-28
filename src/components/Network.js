@@ -1,9 +1,12 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { Route, Switch } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 
-import Locations from "./Locations";
+import SearchCustomerContainer from "../containers/customer/SearchCustomer";
+import SearchEndUsersContainer from "../containers/endUser/SearchEndUser";
+import SearchProvidersContainer from "../containers/provider/SearchProvider";
+import SearchSiteOwnersContainer from "../containers/siteOwner/SearchSiteOwner";
 
 class Network extends React.Component {
     render() {
@@ -11,8 +14,13 @@ class Network extends React.Component {
             <Row>
                 <Col>
                     <Switch>
-                        <Route exact path={`${this.props.match.url}`} component={() => <p>Network</p>} />
-                        <Route component={Locations} />
+                        {/* <Route exact path={`${this.props.match.url}`} component={() => <p>Network</p>} /> */}
+                        {/* <Route component={Locations} /> */}
+                        <Redirect exact from="/network" to="/network/customers" />
+                        <Route path="/network/customers" component={SearchCustomerContainer} />
+                        <Route path="/network/end-users" component={SearchEndUsersContainer} />
+                        <Route path="/network/providers" component={SearchProvidersContainer} />
+                        <Route path="/network/site-owners" component={SearchSiteOwnersContainer} />
                     </Switch>
                 </Col>
             </Row>

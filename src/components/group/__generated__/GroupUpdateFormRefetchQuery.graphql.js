@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b0ba1cd27237113e315ac7a5fea1e551
+ * @relayHash ff319b36f7d5ed873bd7223aacecee47
  */
 
 /* eslint-disable */
@@ -43,16 +43,28 @@ fragment GroupUpdateForm_group on Group {
     id
     first_name
     last_name
-    contact_type
+    contact_type {
+      name
+      value
+      id
+    }
     emails {
       id
       name
-      type
+      type {
+        name
+        value
+        id
+      }
     }
     phones {
       id
       name
-      type
+      type {
+        name
+        value
+        id
+      }
     }
     roles {
       role_data {
@@ -144,17 +156,30 @@ v5 = {
   "args": null,
   "storageKey": null
 },
-v6 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-},
+v6 = [
+  (v3/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "value",
+    "args": null,
+    "storageKey": null
+  },
+  (v2/*: any*/)
+],
 v7 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v6/*: any*/)
+  {
+    "kind": "LinkedField",
+    "alias": null,
+    "name": "type",
+    "storageKey": null,
+    "args": null,
+    "concreteType": "Choice",
+    "plural": false,
+    "selections": (v6/*: any*/)
+  }
 ],
 v8 = [
   (v2/*: any*/),
@@ -233,11 +258,14 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               {
-                "kind": "ScalarField",
+                "kind": "LinkedField",
                 "alias": null,
                 "name": "contact_type",
+                "storageKey": null,
                 "args": null,
-                "storageKey": null
+                "concreteType": "Choice",
+                "plural": false,
+                "selections": (v6/*: any*/)
               },
               {
                 "kind": "LinkedField",
@@ -316,7 +344,13 @@ return {
                         "args": null,
                         "storageKey": null
                       },
-                      (v6/*: any*/),
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "type",
+                        "args": null,
+                        "storageKey": null
+                      },
                       {
                         "kind": "LinkedField",
                         "alias": null,
@@ -425,11 +459,12 @@ return {
     "operationKind": "query",
     "name": "GroupUpdateFormRefetchQuery",
     "id": null,
-    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: ID!\n) {\n  getGroupById(id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  id\n  name\n  description\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type\n    emails {\n      id\n      name\n      type\n    }\n    phones {\n      id\n      name\n      type\n    }\n    roles {\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n    outgoing {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        id\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query GroupUpdateFormRefetchQuery(\n  $groupId: ID!\n) {\n  getGroupById(id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  id\n  name\n  description\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type {\n      name\n      value\n      id\n    }\n    emails {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    phones {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    roles {\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n    outgoing {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        id\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '1df6c892a1c1bbccd22acc7e19214591';
+
 module.exports = node;

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a4b1a26a598e2b73beb1153fd2a3a534
+ * @relayHash 93bd69ebbc582d71ab49f5b6e74261be
  */
 
 /* eslint-disable */
@@ -223,7 +223,7 @@ return {
         "name": "groups",
         "storageKey": null,
         "args": (v3/*: any*/),
-        "concreteType": "GroupConnection",
+        "concreteType": "groupConnection",
         "plural": false,
         "selections": [
           {
@@ -232,7 +232,7 @@ return {
             "name": "edges",
             "storageKey": null,
             "args": null,
-            "concreteType": "GroupEdge",
+            "concreteType": "groupEdge",
             "plural": true,
             "selections": [
               {
@@ -332,4 +332,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'cc96dcf4bff826c1938eab8d8dfa48ff';
+
 module.exports = node;

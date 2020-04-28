@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 43689217803c1bdd881cd626d1d7d434
+ * @relayHash 8370f0e05e4e74ef48b5d74e1cf39b37
  */
 
 /* eslint-disable */
@@ -297,7 +297,7 @@ v1 = [
         "variableName": "filter"
       }
     ],
-    "concreteType": "OrganizationConnection",
+    "concreteType": "organizationConnection",
     "plural": false,
     "selections": [
       {
@@ -306,7 +306,7 @@ v1 = [
         "name": "edges",
         "storageKey": null,
         "args": null,
-        "concreteType": "OrganizationEdge",
+        "concreteType": "organizationEdge",
         "plural": true,
         "selections": [
           {
@@ -359,4 +359,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = '6bda57414fa1ddebb3c799b16b7af79b';
+
 module.exports = node;

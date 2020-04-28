@@ -1,50 +1,62 @@
-import React from "react";
-import { Form } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { debounce } from "../utils";
-import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from "../utils/constants";
+import React from 'react';
+import { Form } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { withTranslation } from 'react-i18next';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { debounce } from '../utils';
+import PropTypes from 'prop-types';
+import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from '../utils/constants';
 
-import "../style/Filter.scss";
+import '../style/Filter.scss';
 
-class Filter extends React.Component {
-    constructor(props) {
-        super(props);
+export class Filter extends React.Component {
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            filterValue: ""
-        };
-    }
-
-    changeFilter = debounce((newFilter) => {
-        this.setState({ filterValue: newFilter });
-        this.props.changeFilter(newFilter);
-    }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
-
-    clearFilter = () => {
-        this.input.value = "";
-        this.setState({ filterValue: "" });
-        this.props.changeFilter("");
+    this.state = {
+      filterValue: '',
     };
+  }
 
-    render() {
-        return (
-            <div className="filter">
-                <Form.Control
-                    placeholder="Filter by word"
-                    name="filter"
-                    type="text"
-                    onChange={(e) => {
-                        this.changeFilter(e.target.value);
-                    }}
-                    ref={(input) => (this.input = input)}
-                />
-                {this.state.filterValue && (
-                    <FontAwesomeIcon className="clear-input" icon={faTimes} onClick={this.clearFilter} />
-                )}
-            </div>
-        );
-    }
+  changeFilterDebounce = debounce(this.changeFilter, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
+
+  changeFilter(newFilter) {
+    this.props.changeFilter(newFilter);
+  }
+
+  clearFilter() {
+    this.setState({ filterValue: '' });
+    this.props.changeFilter('');
+  }
+
+  render() {
+    const { t } = this.props;
+    return (
+      <div className="filter">
+        <Form.Control
+          placeholder={t('filter.text.placeholder')}
+          name="filter"
+          type="text"
+          value={this.state.filterValue}
+          onChange={(e) => {
+            this.setState({ filterValue: e.target.value });
+            this.changeFilterDebounce(e.target.value);
+          }}
+          ref={(input) => (this.input = input)}
+        />
+        {this.state.filterValue && (
+          <div className="clear-input-cta" onClick={() => this.clearFilter()}>
+            <FontAwesomeIcon className="clear-input" icon={faTimes} />
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
-export default Filter;
+Filter.propTypes = {
+  changeFilter: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
+};
+
+export default withTranslation()(Filter);

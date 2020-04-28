@@ -170,7 +170,7 @@ export class OrganizationList extends React.PureComponent {
                                 {t("paginator.load_all")}
                             </button>
                         </>
-                    ) : this.props.organizations.organizations.edges.length > ITEMS_PER_PAGE ? (
+                    ) : this.props.organizations.organizations.edges.length > CONFIG.ITEMS_PER_PAGE ? (
                         <button onClick={() => this.props.refetch()} className="btn outline btn-load mr-2">
                             {t("paginator.load_less")}
                         </button>

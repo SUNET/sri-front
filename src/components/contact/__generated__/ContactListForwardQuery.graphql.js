@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash df38aaf358a3d109660dbbd3f478272f
+ * @relayHash fbae003dbf1b74b73792634a8035a991
  */
 
 /* eslint-disable */
@@ -58,7 +58,11 @@ fragment ContactRow_contact on Contact {
   id
   first_name
   last_name
-  contact_type
+  contact_type {
+    name
+    value
+    id
+  }
   modified
   roles {
     name
@@ -162,7 +166,7 @@ return {
         "name": "contacts",
         "storageKey": null,
         "args": (v2/*: any*/),
-        "concreteType": "ContactConnection",
+        "concreteType": "contactConnection",
         "plural": false,
         "selections": [
           {
@@ -171,7 +175,7 @@ return {
             "name": "edges",
             "storageKey": null,
             "args": null,
-            "concreteType": "ContactEdge",
+            "concreteType": "contactEdge",
             "plural": true,
             "selections": [
               {
@@ -199,11 +203,24 @@ return {
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
+                    "kind": "LinkedField",
                     "alias": null,
                     "name": "contact_type",
+                    "storageKey": null,
                     "args": null,
-                    "storageKey": null
+                    "concreteType": "Choice",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "value",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      (v3/*: any*/)
+                    ]
                   },
                   {
                     "kind": "ScalarField",
@@ -311,11 +328,12 @@ return {
     "operationKind": "query",
     "name": "ContactListForwardQuery",
     "id": null,
-    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...ContactRow_contact\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
+    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...ContactRow_contact\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  id\n  first_name\n  last_name\n  contact_type {\n    name\n    value\n    id\n  }\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '96a0d0eb0ad60f76ab272f4c423e87fd';
+
 module.exports = node;

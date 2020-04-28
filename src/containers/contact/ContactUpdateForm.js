@@ -12,7 +12,8 @@ const mapStateToProps = (state, props) => {
         id: props.contact.id,
         notes: props.contact.notes,
         title: props.contact.title,
-        contact_type: props.contact.contact_type,
+        contact_type: props.contact.contact_type ? props.contact.contact_type.value : undefined,
+        contactTypeObj: props.contact.contact_type,
         pgp_fingerprint: props.contact.pgp_fingerprint,
         emails: props.contact.emails
             ? props.contact.emails.map((email) => {
@@ -76,6 +77,7 @@ const mapStateToProps = (state, props) => {
         title: updateContactSelector(state, "title"),
         pgp_fingerprint: updateContactSelector(state, "pgp_fingerprint"),
         contact_type: updateContactSelector(state, "contact_type"),
+        contactTypeObj: updateContactSelector(state, "contactTypeObj"),
         emailValues: updateContactSelector(state, "emails"),
         phoneValues: updateContactSelector(state, "phones"),
         organizationValues: organizationValues,

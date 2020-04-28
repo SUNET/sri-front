@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 813d68f2a9d7bf2108385e01a2816c48
+ * @relayHash 455bd58bce2b6e0b67a8d7ed913b7c55
  */
 
 /* eslint-disable */
@@ -38,7 +38,11 @@ query OrganizationUpdateFormRefetchQuery(
 fragment OrganizationUpdateForm_organization on Organization {
   id
   name
-  type
+  type {
+    name
+    value
+    id
+  }
   website
   organization_id
   organization_number
@@ -76,16 +80,28 @@ fragment OrganizationUpdateForm_organization on Organization {
     id
     first_name
     last_name
-    contact_type
+    contact_type {
+      name
+      value
+      id
+    }
     emails {
       id
       name
-      type
+      type {
+        name
+        value
+        id
+      }
     }
     phones {
       id
       name
-      type
+      type {
+        name
+        value
+        id
+      }
     }
     roles {
       relation_id
@@ -152,28 +168,42 @@ v3 = {
   "args": null,
   "storageKey": null
 },
-v4 = {
-  "kind": "ScalarField",
+v4 = [
+  (v3/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "value",
+    "args": null,
+    "storageKey": null
+  },
+  (v2/*: any*/)
+],
+v5 = {
+  "kind": "LinkedField",
   "alias": null,
   "name": "type",
+  "storageKey": null,
   "args": null,
-  "storageKey": null
+  "concreteType": "Choice",
+  "plural": false,
+  "selections": (v4/*: any*/)
 },
-v5 = {
+v6 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "organization_id",
   "args": null,
   "storageKey": null
 },
-v6 = {
+v7 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "relation_id",
   "args": null,
   "storageKey": null
 },
-v7 = [
+v8 = [
   (v2/*: any*/),
   {
     "kind": "ScalarField",
@@ -183,30 +213,30 @@ v7 = [
     "storageKey": null
   }
 ],
-v8 = {
+v9 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "first_name",
   "args": null,
   "storageKey": null
 },
-v9 = {
+v10 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "last_name",
   "args": null,
   "storageKey": null
 },
-v10 = [
+v11 = [
   (v2/*: any*/),
   (v3/*: any*/),
-  (v4/*: any*/)
+  (v5/*: any*/)
 ],
-v11 = [
+v12 = [
   (v2/*: any*/),
   (v3/*: any*/)
 ],
-v12 = [
+v13 = [
   {
     "kind": "ScalarField",
     "alias": null,
@@ -259,7 +289,7 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
@@ -267,7 +297,7 @@ return {
             "args": null,
             "storageKey": null
           },
-          (v5/*: any*/),
+          (v6/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
@@ -298,7 +328,7 @@ return {
             "concreteType": "Organization",
             "plural": true,
             "selections": [
-              (v5/*: any*/),
+              (v6/*: any*/),
               (v2/*: any*/)
             ]
           },
@@ -362,8 +392,14 @@ return {
                 "concreteType": "NIRelationType",
                 "plural": false,
                 "selections": [
-                  (v6/*: any*/),
-                  (v4/*: any*/),
+                  (v7/*: any*/),
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "type",
+                    "args": null,
+                    "storageKey": null
+                  },
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -372,7 +408,7 @@ return {
                     "args": null,
                     "concreteType": "NINodeHandlerType",
                     "plural": false,
-                    "selections": (v7/*: any*/)
+                    "selections": (v8/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -382,7 +418,7 @@ return {
                     "args": null,
                     "concreteType": "NINodeHandlerType",
                     "plural": false,
-                    "selections": (v7/*: any*/)
+                    "selections": (v8/*: any*/)
                   },
                   (v2/*: any*/)
                 ]
@@ -399,14 +435,17 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
-              (v8/*: any*/),
               (v9/*: any*/),
+              (v10/*: any*/),
               {
-                "kind": "ScalarField",
+                "kind": "LinkedField",
                 "alias": null,
                 "name": "contact_type",
+                "storageKey": null,
                 "args": null,
-                "storageKey": null
+                "concreteType": "Choice",
+                "plural": false,
+                "selections": (v4/*: any*/)
               },
               {
                 "kind": "LinkedField",
@@ -416,7 +455,7 @@ return {
                 "args": null,
                 "concreteType": "Email",
                 "plural": true,
-                "selections": (v10/*: any*/)
+                "selections": (v11/*: any*/)
               },
               {
                 "kind": "LinkedField",
@@ -426,7 +465,7 @@ return {
                 "args": null,
                 "concreteType": "Phone",
                 "plural": true,
-                "selections": (v10/*: any*/)
+                "selections": (v11/*: any*/)
               },
               {
                 "kind": "LinkedField",
@@ -437,7 +476,7 @@ return {
                 "concreteType": "RoleRelation",
                 "plural": true,
                 "selections": [
-                  (v6/*: any*/),
+                  (v7/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -446,7 +485,7 @@ return {
                     "args": null,
                     "concreteType": "Role",
                     "plural": false,
-                    "selections": (v11/*: any*/)
+                    "selections": (v12/*: any*/)
                   },
                   {
                     "kind": "LinkedField",
@@ -456,7 +495,7 @@ return {
                     "args": null,
                     "concreteType": "Organization",
                     "plural": false,
-                    "selections": (v11/*: any*/)
+                    "selections": (v12/*: any*/)
                   }
                 ]
               }
@@ -481,8 +520,8 @@ return {
                 "concreteType": "User",
                 "plural": false,
                 "selections": [
-                  (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
                   (v2/*: any*/)
                 ]
               },
@@ -517,7 +556,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v12/*: any*/)
+            "selections": (v13/*: any*/)
           },
           {
             "kind": "ScalarField",
@@ -534,7 +573,7 @@ return {
             "args": null,
             "concreteType": "User",
             "plural": false,
-            "selections": (v12/*: any*/)
+            "selections": (v13/*: any*/)
           }
         ]
       }
@@ -544,11 +583,12 @@ return {
     "operationKind": "query",
     "name": "OrganizationUpdateFormRefetchQuery",
     "id": null,
-    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: ID!\n) {\n  getOrganizationById(id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  id\n  name\n  type\n  website\n  organization_id\n  organization_number\n  description\n  incident_management_info\n  parent_organization {\n    organization_id\n    id\n  }\n  addresses {\n    id\n    name\n    street\n    postal_code\n    postal_area\n    phone\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        id\n        node_name\n      }\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type\n    emails {\n      id\n      name\n      type\n    }\n    phones {\n      id\n      name\n      type\n    }\n    roles {\n      relation_id\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query OrganizationUpdateFormRefetchQuery(\n  $organizationId: ID!\n) {\n  getOrganizationById(id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  id\n  name\n  type {\n    name\n    value\n    id\n  }\n  website\n  organization_id\n  organization_number\n  description\n  incident_management_info\n  parent_organization {\n    organization_id\n    id\n  }\n  addresses {\n    id\n    name\n    street\n    postal_code\n    postal_area\n    phone\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        id\n        node_name\n      }\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type {\n      name\n      value\n      id\n    }\n    emails {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    phones {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    roles {\n      relation_id\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'ba5fadfb01c6b265009b31e5b92edbf7';
+
 module.exports = node;

@@ -13,7 +13,10 @@ const mutation = graphql`
             email {
                 id
                 name
-                type
+                type {
+                    name
+                    value
+                }
             }
         }
     }

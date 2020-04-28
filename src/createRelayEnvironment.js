@@ -5,9 +5,9 @@ import CONFIG from "./config";
 const oneMinute = 1; // the cache is deactivated because the filters stop working, because when you change the filters the variables are kept.
 const cache = new QueryResponseCache({ size: 100, ttl: oneMinute });
 
-export let _csrfToken = null;
-
 const { API_HOST } = CONFIG;
+
+export let _csrfToken = null;
 
 async function getCsrfToken() {
     if (_csrfToken === null) {
@@ -50,19 +50,31 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
         })
     })
         .then((response) => {
+            if (response.redirected) {
+                return window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+            }
             return response.json();
         })
         .then((json) => {
+            let jsonResult;
+            if (json.errors && json.errors.length > 0) {
+                jsonResult = {data: ""}
+            } else {
+                jsonResult = json;
+            }
             // Update cache on queries
-            if (isQuery && json) {
-                cache.set(queryId, variables, json);
+            if (isQuery && jsonResult) {
+                cache.set(queryId, variables, jsonResult);
             }
             // Clear cache on mutations
             if (isMutation) {
                 cache.clear();
             }
 
-            return json;
+            return jsonResult
+        })
+        .catch((err) => {
+            window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
         });
 }
 

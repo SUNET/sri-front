@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash bdc258e4c8866ebfd101fa43221000ac
+ * @relayHash 37079f73022c5564d265947d5939a130
  */
 
 /* eslint-disable */
@@ -373,7 +373,7 @@ v1 = [
         "variableName": "filter"
       }
     ],
-    "concreteType": "ContactConnection",
+    "concreteType": "contactConnection",
     "plural": false,
     "selections": [
       {
@@ -382,7 +382,7 @@ v1 = [
         "name": "edges",
         "storageKey": null,
         "args": null,
-        "concreteType": "ContactEdge",
+        "concreteType": "contactEdge",
         "plural": true,
         "selections": [
           {
@@ -442,4 +442,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = '53ecd6b3b663fb3187bfa0a6bf57ecef';
+
 module.exports = node;

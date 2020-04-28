@@ -2,7 +2,7 @@ import { commitMutation } from "react-relay";
 // import { ConnectionHandler } from "relay-runtime";
 import graphql from "babel-plugin-relay/macro";
 
-import CreateComentMutation from "../CreateCommentMutation";
+import CreateCommentMutation from "../CreateCommentMutation";
 import i18n from "../../i18n";
 import environment from "../../createRelayEnvironment";
 
@@ -29,16 +29,25 @@ const mutation = graphql`
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     member_of_groups {
                         name
@@ -54,16 +63,25 @@ const mutation = graphql`
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     member_of_groups {
                         name
@@ -92,29 +110,16 @@ export default function UpdateGroupMutation(group, form) {
                     member.first_name = fullName;
                     member.last_name = fullName;
                 }
-                if (!member.created || member.created === undefined) {
-                    // newMembers.push({
-                    //     first_name: member.first_name,
-                    //     last_name: member.last_name,
-                    //     contact_type: "person",
-                    //     email: member.email,
-                    //     email_type: CONTACT_WORK,
-                    //     phone: member.phone,
-                    //     phone_type: CONTACT_WORK,
-                    //     relationship_works_for: member.organization
-                    // });
-                } else {
+                if (member.created || member.created !== undefined) {
                     updateMembers.push({
                         id: member.id,
                         first_name: member.first_name,
                         last_name: member.last_name,
-                        contact_type: member.contact_type.toLowerCase(),
-                        // relationship_works_for: member.organization
+                        contact_type: member.contact_type.value
                     });
                 }
             }
         });
-
     }
 
     const variables = {
@@ -139,7 +144,7 @@ export default function UpdateGroupMutation(group, form) {
             } else {
                 const group_id = response.composite_group.created.group.id;
                 if (group.comment) {
-                    CreateComentMutation(group_id, group.comment);
+                    CreateCommentMutation(group_id, group.comment);
                 }
                 form.props.history.push("/community/groups/" + group_id);
                 form.props.notify(i18n.t("notify.group-created-success"), "success");

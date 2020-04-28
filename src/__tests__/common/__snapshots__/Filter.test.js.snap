@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Component Renders correctly 1`] = `
+<CreateFilterWrapper>
+  <div>
+    <Filter
+      changeFilter={[MockFunction]}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "filter.text.placeholder",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "filter.text.placeholder",
+            },
+          ],
+        }
+      }
+    >
+      <div
+        className="filter"
+      >
+        <FormControl
+          name="filter"
+          onChange={[Function]}
+          placeholder="filter.text.placeholder"
+          type="text"
+          value=""
+        >
+          <input
+            className="form-control"
+            name="filter"
+            onChange={[Function]}
+            placeholder="filter.text.placeholder"
+            type="text"
+            value=""
+          />
+        </FormControl>
+      </div>
+    </Filter>
+  </div>
+</CreateFilterWrapper>
+`;

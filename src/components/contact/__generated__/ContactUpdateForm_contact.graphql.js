@@ -16,19 +16,28 @@ export type ContactUpdateForm_contact = {|
   +name: string,
   +notes: ?string,
   +title: ?string,
-  +contact_type: ?any,
+  +contact_type: ?{|
+    +name: string,
+    +value: string,
+  |},
   +first_name: string,
   +last_name: string,
   +pgp_fingerprint: ?string,
   +emails: ?$ReadOnlyArray<?{|
     +id: string,
     +name: string,
-    +type: any,
+    +type: ?{|
+      +name: string,
+      +value: string,
+    |},
   |}>,
   +phones: ?$ReadOnlyArray<?{|
     +id: string,
     +name: string,
-    +type: any,
+    +type: ?{|
+      +name: string,
+      +value: string,
+    |},
   |}>,
   +roles: ?$ReadOnlyArray<?{|
     +relation_id: number,
@@ -42,11 +51,11 @@ export type ContactUpdateForm_contact = {|
     |},
   |}>,
   +created: any,
-  +creator: {|
+  +creator: ?{|
     +email: string
   |},
   +modified: any,
-  +modifier: {|
+  +modifier: ?{|
     +email: string
   |},
   +comments: ?$ReadOnlyArray<?{|
@@ -64,6 +73,7 @@ export type ContactUpdateForm_contact$data = ContactUpdateForm_contact;
 export type ContactUpdateForm_contact$key = {
   +$data?: ContactUpdateForm_contact$data,
   +$fragmentRefs: ContactUpdateForm_contact$ref,
+  ...
 };
 */
 
@@ -83,36 +93,49 @@ v1 = {
   "args": null,
   "storageKey": null
 },
-v2 = {
+v2 = [
+  (v1/*: any*/),
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "value",
+    "args": null,
+    "storageKey": null
+  }
+],
+v3 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "first_name",
   "args": null,
   "storageKey": null
 },
-v3 = {
+v4 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "last_name",
   "args": null,
   "storageKey": null
 },
-v4 = [
+v5 = [
   (v0/*: any*/),
   (v1/*: any*/),
   {
-    "kind": "ScalarField",
+    "kind": "LinkedField",
     "alias": null,
     "name": "type",
+    "storageKey": null,
     "args": null,
-    "storageKey": null
+    "concreteType": "Choice",
+    "plural": false,
+    "selections": (v2/*: any*/)
   }
 ],
-v5 = [
+v6 = [
   (v0/*: any*/),
   (v1/*: any*/)
 ],
-v6 = [
+v7 = [
   {
     "kind": "ScalarField",
     "alias": null,
@@ -145,14 +168,17 @@ return {
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
+      "kind": "LinkedField",
       "alias": null,
       "name": "contact_type",
+      "storageKey": null,
       "args": null,
-      "storageKey": null
+      "concreteType": "Choice",
+      "plural": false,
+      "selections": (v2/*: any*/)
     },
-    (v2/*: any*/),
     (v3/*: any*/),
+    (v4/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
@@ -168,7 +194,7 @@ return {
       "args": null,
       "concreteType": "Email",
       "plural": true,
-      "selections": (v4/*: any*/)
+      "selections": (v5/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -178,7 +204,7 @@ return {
       "args": null,
       "concreteType": "Phone",
       "plural": true,
-      "selections": (v4/*: any*/)
+      "selections": (v5/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -204,7 +230,7 @@ return {
           "args": null,
           "concreteType": "Role",
           "plural": false,
-          "selections": (v5/*: any*/)
+          "selections": (v6/*: any*/)
         },
         {
           "kind": "LinkedField",
@@ -214,7 +240,7 @@ return {
           "args": null,
           "concreteType": "Organization",
           "plural": false,
-          "selections": (v5/*: any*/)
+          "selections": (v6/*: any*/)
         }
       ]
     },
@@ -233,7 +259,7 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v6/*: any*/)
+      "selections": (v7/*: any*/)
     },
     {
       "kind": "ScalarField",
@@ -250,7 +276,7 @@ return {
       "args": null,
       "concreteType": "User",
       "plural": false,
-      "selections": (v6/*: any*/)
+      "selections": (v7/*: any*/)
     },
     {
       "kind": "LinkedField",
@@ -271,8 +297,8 @@ return {
           "concreteType": "User",
           "plural": false,
           "selections": [
-            (v2/*: any*/),
-            (v3/*: any*/)
+            (v3/*: any*/),
+            (v4/*: any*/)
           ]
         },
         {
@@ -295,5 +321,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c135b95fc7e999f5ce19d063a87bc452';
+(node/*: any*/).hash = 'efd8fa55966a845a754719ef9c87ae1d';
+
 module.exports = node;

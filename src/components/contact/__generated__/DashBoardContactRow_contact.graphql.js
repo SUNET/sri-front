@@ -31,6 +31,7 @@ export type DashBoardContactRow_contact$data = DashBoardContactRow_contact;
 export type DashBoardContactRow_contact$key = {
   +$data?: DashBoardContactRow_contact$data,
   +$fragmentRefs: DashBoardContactRow_contact$ref,
+  ...
 };
 */
 
@@ -118,4 +119,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = '8f2e64b8bd85e26897700b972cf0815c';
+
 module.exports = node;
