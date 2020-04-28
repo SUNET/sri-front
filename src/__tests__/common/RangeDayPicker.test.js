@@ -77,14 +77,14 @@ describe('Add Events', () => {
     const pickerElements = getDatePickerElements('.input-from-to--from');
     const input = pickerElements.rangeDayPicker.find('input');
     input.simulate('change', { target: { value: '30/05/20' } });
-    expect(RangeDayPickerComponent.state().from.toString()).toBe('Sat May 30 2020 00:00:00 GMT+0200 (GMT+02:00)');
-    expect(defaultProps.dateFrom.mock.calls[0][0].toString()).toBe('Sat May 30 2020 00:00:00 GMT+0200 (GMT+02:00)');
+    expect(RangeDayPickerComponent.state().from.getTime()).toBe(1590796800000);
+    expect(defaultProps.dateFrom.mock.calls[0][0].getTime()).toBe(1590796800000);
   });
   it('Add a date in to input ', () => {
     const pickerElementsTo = getDatePickerElements('.input-from-to--to');
     const inputTo = pickerElementsTo.rangeDayPicker.find('input');
     inputTo.simulate('change', { target: { value: '30/05/20' } });
-    expect(defaultProps.dateTo.mock.calls[0][0].toString()).toBe('Sat May 30 2020 00:00:00 GMT+0200 (GMT+02:00)');
+    expect(defaultProps.dateTo.mock.calls[0][0].getTime()).toBe(1590796800000);
   });
   it('Filled from and to inputs', () => {
     const pickerElementsTo = getDatePickerElements('.input-from-to--to');
@@ -93,8 +93,8 @@ describe('Add Events', () => {
     const inputFrom = pickerElements.rangeDayPicker.find('input');
     inputFrom.simulate('change', { target: { value: '29/05/20' } });
     inputTo.simulate('change', { target: { value: '30/05/20' } });
-    expect(defaultProps.dateFrom.mock.calls[0][0].toString()).toBe('Fri May 29 2020 00:00:00 GMT+0200 (GMT+02:00)');
-    expect(defaultProps.dateTo.mock.calls[0][0].toString()).toBe('Sat May 30 2020 00:00:00 GMT+0200 (GMT+02:00)');
+    expect(defaultProps.dateFrom.mock.calls[0][0].getTime()).toBe(1590710400000);
+    expect(defaultProps.dateTo.mock.calls[0][0].getTime()).toBe(1590796800000);
     expect(RangeDayPickerComponentInstance.showFromMonth.mock.calls).toHaveLength(1);
   });
 

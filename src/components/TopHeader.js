@@ -274,10 +274,10 @@ export class TopHeader extends React.Component {
 
 TopHeader.propTypes = {
   t: PropTypes.func.isRequired,
-  view_community: PropTypes.bool.isRequired,
-  view_services: PropTypes.bool.isRequired,
-  view_network: PropTypes.bool.isRequired,
-  landing_page: PropTypes.string.isRequired,
+  view_community: PropTypes.bool,
+  view_services: PropTypes.bool,
+  view_network: PropTypes.bool,
+  landing_page: PropTypes.string,
 };
 
 export default withTranslation()(TopHeader);

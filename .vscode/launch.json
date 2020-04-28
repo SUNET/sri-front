@@ -11,7 +11,7 @@
         "protocol": "inspector",
         "console": "integratedTerminal",
         "internalConsoleOptions": "neverOpen",
-        "env": { "CI": "true" },
+        "env": { "CI": "true", "TZ": "UTC"},
         "disableOptimisticBPs": true
       },
       {
@@ -23,7 +23,8 @@
         "cwd": "${workspaceRoot}",
         "protocol": "inspector",
         "console": "integratedTerminal",
-        "internalConsoleOptions": "neverOpen"
+        "internalConsoleOptions": "neverOpen",
+        "env": { "TZ": "UTC"},
       }
     ]
   }
