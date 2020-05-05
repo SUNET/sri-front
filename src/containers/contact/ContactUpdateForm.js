@@ -20,7 +20,9 @@ const mapStateToProps = (state, props) => {
                   return {
                       id: email.id,
                       email: email.name,
-                      type: email.type,
+                      type: email.type.value,
+                      type_name: email.type.name,
+                      type_value: email.type.value,
                       email_obj: email,
                       status: "saved",
                       origin: "store"
@@ -33,7 +35,9 @@ const mapStateToProps = (state, props) => {
                   return {
                       id: phone.id,
                       phone: phone.name,
-                      type: phone.type,
+                      type: phone.type.value,
+                      type_name: phone.type.name,
+                      type_value: phone.type.value,
                       phone_obj: phone,
                       status: "saved",
                       origin: "store"
