@@ -1,7 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import graphql from "babel-plugin-relay/macro";
-import environment from "../../createRelayEnvironment";
 import { QueryRenderer } from "react-relay";
 
 import DashBoardContactList from "./DashBoardContactList";
@@ -35,6 +34,7 @@ class DashBoardContactBlock extends React.Component {
     };
 
     render() {
+        const { environment } = this.props;
         return (
             <QueryRenderer
                 environment={environment}

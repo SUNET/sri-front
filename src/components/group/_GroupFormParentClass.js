@@ -113,7 +113,7 @@ class _GroupFormParentClass extends React.Component {
                 {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
                 {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
                 <div className="vertical-separator"></div>
-                <div className={`title-section__name-inputs ${editionModeClass}`}>
+                <div data-name="name" className={`title-section__name-inputs ${editionModeClass}`}>
                     {this.renderInputName("name", editMode)}
                 </div>
             </div>
