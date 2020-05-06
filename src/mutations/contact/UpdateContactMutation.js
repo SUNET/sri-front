@@ -166,12 +166,12 @@ export default function UpdateContactMutation(contact, form) {
                     updateEmails.push({
                         id: email.id,
                         name: email.email,
-                        type: email.type
+                        type: email.type.value ? email.type.value : email.type,
                     });
                 } else {
                     newEmails.push({
                         name: email.email,
-                        type: email.type
+                        type: email.type.value ? email.type.value : email.type,
                     });
                 }
             }
@@ -189,12 +189,12 @@ export default function UpdateContactMutation(contact, form) {
                     updatePhones.push({
                         id: phone.id,
                         name: phone.phone,
-                        type: phone.type
+                        type: phone.type.value ? phone.type.value : phone.type,
                     });
                 } else {
                     newPhones.push({
                         name: phone.phone,
-                        type: phone.type
+                        type: phone.type.value ? phone.type.value : phone.type,
                     });
                 }
             }
