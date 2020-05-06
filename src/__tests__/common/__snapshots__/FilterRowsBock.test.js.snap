@@ -256,7 +256,8 @@ exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
                         </DayPickerInput>
                       </div>
                       <button
-                        className="btn outline btn-remove"
+                        className="range-day-picker__reset_dates btn outline btn-remove"
+                        data-action="reset"
                         onClick={[Function]}
                         type="button"
                       />
@@ -722,7 +723,8 @@ exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
                         </DayPickerInput>
                       </div>
                       <button
-                        className="btn outline btn-remove"
+                        className="range-day-picker__reset_dates btn outline btn-remove"
+                        data-action="reset"
                         onClick={[Function]}
                         type="button"
                       />
