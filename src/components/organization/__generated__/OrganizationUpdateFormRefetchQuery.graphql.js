@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 455bd58bce2b6e0b67a8d7ed913b7c55
+ * @relayHash 881398a00a7ea6063cf4d10205815202
  */
 
 /* eslint-disable */
@@ -326,7 +326,7 @@ return {
             "storageKey": null,
             "args": null,
             "concreteType": "Organization",
-            "plural": true,
+            "plural": false,
             "selections": [
               (v6/*: any*/),
               (v2/*: any*/)
@@ -590,4 +590,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'ba5fadfb01c6b265009b31e5b92edbf7';
+
 module.exports = node;

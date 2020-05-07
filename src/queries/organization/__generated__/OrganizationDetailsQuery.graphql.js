@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 565245253bde6811adf8b4006c2d3f47
+ * @relayHash 139a589fb1ee8ef71ee1a83b97965efb
  */
 
 /* eslint-disable */
@@ -32,9 +32,9 @@ export type OrganizationDetailsQueryResponse = {|
     +affiliation_partner: ?boolean,
     +affiliation_provider: ?boolean,
     +affiliation_site_owner: ?boolean,
-    +parent_organization: ?$ReadOnlyArray<?{|
+    +parent_organization: ?{|
       +organization_id: ?string
-    |}>,
+    |},
     +addresses: ?$ReadOnlyArray<?{|
       +id: string,
       +name: string,
@@ -707,7 +707,7 @@ return {
             "storageKey": null,
             "args": null,
             "concreteType": "Organization",
-            "plural": true,
+            "plural": false,
             "selections": [
               (v8/*: any*/)
             ]
@@ -872,7 +872,7 @@ return {
             "storageKey": null,
             "args": null,
             "concreteType": "Organization",
-            "plural": true,
+            "plural": false,
             "selections": [
               (v8/*: any*/),
               (v2/*: any*/)

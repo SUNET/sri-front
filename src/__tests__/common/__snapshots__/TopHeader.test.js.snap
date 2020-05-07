@@ -1,0 +1,751 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Some Component Renders correctly 1`] = `
+<CreateTopHeaderWrapper>
+  <Provider
+    history={
+      Object {
+        "createHref": [MockFunction] {
+          "calls": Array [
+            Array [
+              Object {
+                "hash": "",
+                "pathname": "/",
+                "search": "",
+                "state": null,
+              },
+            ],
+            Array [
+              Object {
+                "hash": "",
+                "pathname": "/dashboard",
+                "search": "",
+                "state": null,
+              },
+            ],
+            Array [
+              Object {
+                "hash": "",
+                "pathname": "/community",
+                "search": "",
+                "state": null,
+              },
+            ],
+            Array [
+              Object {
+                "hash": "",
+                "pathname": "/network",
+                "search": "",
+                "state": null,
+              },
+            ],
+            Array [
+              Object {
+                "hash": "",
+                "pathname": "/personal-area/profile-settings",
+                "search": "",
+                "state": null,
+              },
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        },
+        "goBack": [MockFunction],
+        "listen": [Function],
+        "location": Object {
+          "pathname": "/dashboard",
+        },
+        "push": [MockFunction],
+      }
+    }
+    store={
+      Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      }
+    }
+  >
+    <Router
+      history={
+        Object {
+          "createHref": [MockFunction] {
+            "calls": Array [
+              Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": null,
+                },
+              ],
+              Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/dashboard",
+                  "search": "",
+                  "state": null,
+                },
+              ],
+              Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/community",
+                  "search": "",
+                  "state": null,
+                },
+              ],
+              Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/network",
+                  "search": "",
+                  "state": null,
+                },
+              ],
+              Array [
+                Object {
+                  "hash": "",
+                  "pathname": "/personal-area/profile-settings",
+                  "search": "",
+                  "state": null,
+                },
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          },
+          "goBack": [MockFunction],
+          "listen": [Function],
+          "location": Object {
+            "pathname": "/dashboard",
+          },
+          "push": [MockFunction],
+        }
+      }
+    >
+      <TopHeader
+        landing_page="community"
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "header.main-menu.community",
+              ],
+              Array [
+                "community.sub-menu.organizations",
+              ],
+              Array [
+                "community.sub-menu.contacts",
+              ],
+              Array [
+                "community.sub-menu.groups",
+              ],
+              Array [
+                "header.main-menu.network",
+              ],
+              Array [
+                "network.sub-menu.organizations/customers",
+              ],
+              Array [
+                "network.sub-menu.organizations/end-users",
+              ],
+              Array [
+                "network.sub-menu.organizations/providers",
+              ],
+              Array [
+                "network.sub-menu.organizations/site-owners",
+              ],
+              Array [
+                "header.main-menu.home",
+              ],
+              Array [
+                "header.main-menu.community",
+              ],
+              Array [
+                "header.main-menu.network",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "header.main-menu.community",
+              },
+              Object {
+                "type": "return",
+                "value": "community.sub-menu.organizations",
+              },
+              Object {
+                "type": "return",
+                "value": "community.sub-menu.contacts",
+              },
+              Object {
+                "type": "return",
+                "value": "community.sub-menu.groups",
+              },
+              Object {
+                "type": "return",
+                "value": "header.main-menu.network",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.organizations/customers",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.organizations/end-users",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.organizations/providers",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.organizations/site-owners",
+              },
+              Object {
+                "type": "return",
+                "value": "header.main-menu.home",
+              },
+              Object {
+                "type": "return",
+                "value": "header.main-menu.community",
+              },
+              Object {
+                "type": "return",
+                "value": "header.main-menu.network",
+              },
+            ],
+          }
+        }
+        view_community={true}
+        view_network={true}
+        view_services={true}
+      >
+        <div>
+          <MobileView />
+          <BrowserView>
+            <div>
+              <Navbar
+                className="top-header"
+                collapseOnSelect={false}
+                expand={true}
+                variant="light"
+              >
+                <nav
+                  className="top-header navbar navbar-expand navbar-light"
+                >
+                  <NavbarBrand
+                    as={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "displayName": "Link",
+                        "propTypes": Object {
+                          "innerRef": [Function],
+                          "onClick": [Function],
+                          "replace": [Function],
+                          "target": [Function],
+                          "to": [Function],
+                        },
+                        "render": [Function],
+                      }
+                    }
+                    className="top-header__brand"
+                    to="/"
+                  >
+                    <Link
+                      className="top-header__brand navbar-brand"
+                      to="/"
+                    >
+                      <LinkAnchor
+                        className="top-header__brand navbar-brand"
+                        navigate={[Function]}
+                      >
+                        <a
+                          className="top-header__brand navbar-brand"
+                          onClick={[Function]}
+                        >
+                          <Image
+                            fluid={false}
+                            img-fluid="true"
+                            rounded={false}
+                            roundedCircle={false}
+                            src={
+                              Object {
+                                "ReactComponent": Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "render": [Function],
+                                },
+                                "__esModule": true,
+                                "default": "logo.svg",
+                              }
+                            }
+                            thumbnail={false}
+                          >
+                            <img
+                              className=""
+                              img-fluid="true"
+                              src={
+                                Object {
+                                  "ReactComponent": Object {
+                                    "$$typeof": Symbol(react.forward_ref),
+                                    "render": [Function],
+                                  },
+                                  "__esModule": true,
+                                  "default": "logo.svg",
+                                }
+                              }
+                            />
+                          </Image>
+                        </a>
+                      </LinkAnchor>
+                    </Link>
+                  </NavbarBrand>
+                  <Nav
+                    className="top-header__nav-paths mx-auto"
+                    fill={false}
+                    justify={false}
+                  >
+                    <ForwardRef
+                      as="div"
+                      className="top-header__nav-paths mx-auto navbar-nav"
+                      onSelect={[Function]}
+                    >
+                      <div
+                        className="top-header__nav-paths mx-auto navbar-nav"
+                        onKeyDown={[Function]}
+                      >
+                        <NavLink
+                          activeClassName="active"
+                          as={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "displayName": "NavLink",
+                              "propTypes": Object {
+                                "activeClassName": [Function],
+                                "activeStyle": [Function],
+                                "aria-current": [Function],
+                                "className": [Function],
+                                "exact": [Function],
+                                "innerRef": [Function],
+                                "isActive": [Function],
+                                "location": [Function],
+                                "onClick": [Function],
+                                "replace": [Function],
+                                "strict": [Function],
+                                "style": [Function],
+                                "target": [Function],
+                                "to": [Function],
+                              },
+                              "render": [Function],
+                            }
+                          }
+                          disabled={false}
+                          to="/dashboard"
+                        >
+                          <ForwardRef
+                            activeClassName="active"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "NavLink",
+                                "propTypes": Object {
+                                  "activeClassName": [Function],
+                                  "activeStyle": [Function],
+                                  "aria-current": [Function],
+                                  "className": [Function],
+                                  "exact": [Function],
+                                  "innerRef": [Function],
+                                  "isActive": [Function],
+                                  "location": [Function],
+                                  "onClick": [Function],
+                                  "replace": [Function],
+                                  "strict": [Function],
+                                  "style": [Function],
+                                  "target": [Function],
+                                  "to": [Function],
+                                },
+                                "render": [Function],
+                              }
+                            }
+                            className="nav-link"
+                            disabled={false}
+                            to="/dashboard"
+                          >
+                            <NavLink
+                              activeClassName="active"
+                              className="nav-link"
+                              data-rb-event-key={null}
+                              disabled={false}
+                              onClick={[Function]}
+                              to="/dashboard"
+                            >
+                              <Link
+                                aria-current="page"
+                                className="nav-link active"
+                                data-rb-event-key={null}
+                                disabled={false}
+                                onClick={[Function]}
+                                style={Object {}}
+                                to={
+                                  Object {
+                                    "hash": "",
+                                    "pathname": "/dashboard",
+                                    "search": "",
+                                    "state": null,
+                                  }
+                                }
+                              >
+                                <LinkAnchor
+                                  aria-current="page"
+                                  className="nav-link active"
+                                  data-rb-event-key={null}
+                                  disabled={false}
+                                  navigate={[Function]}
+                                  onClick={[Function]}
+                                  style={Object {}}
+                                >
+                                  <a
+                                    aria-current="page"
+                                    className="nav-link active"
+                                    data-rb-event-key={null}
+                                    disabled={false}
+                                    onClick={[Function]}
+                                    style={Object {}}
+                                  >
+                                    header.main-menu.home
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </NavLink>
+                          </ForwardRef>
+                        </NavLink>
+                        <NavLink
+                          activeClassName="active"
+                          as={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "displayName": "NavLink",
+                              "propTypes": Object {
+                                "activeClassName": [Function],
+                                "activeStyle": [Function],
+                                "aria-current": [Function],
+                                "className": [Function],
+                                "exact": [Function],
+                                "innerRef": [Function],
+                                "isActive": [Function],
+                                "location": [Function],
+                                "onClick": [Function],
+                                "replace": [Function],
+                                "strict": [Function],
+                                "style": [Function],
+                                "target": [Function],
+                                "to": [Function],
+                              },
+                              "render": [Function],
+                            }
+                          }
+                          disabled={false}
+                          to="/community"
+                        >
+                          <ForwardRef
+                            activeClassName="active"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "NavLink",
+                                "propTypes": Object {
+                                  "activeClassName": [Function],
+                                  "activeStyle": [Function],
+                                  "aria-current": [Function],
+                                  "className": [Function],
+                                  "exact": [Function],
+                                  "innerRef": [Function],
+                                  "isActive": [Function],
+                                  "location": [Function],
+                                  "onClick": [Function],
+                                  "replace": [Function],
+                                  "strict": [Function],
+                                  "style": [Function],
+                                  "target": [Function],
+                                  "to": [Function],
+                                },
+                                "render": [Function],
+                              }
+                            }
+                            className="nav-link"
+                            disabled={false}
+                            to="/community"
+                          >
+                            <NavLink
+                              activeClassName="active"
+                              className="nav-link"
+                              data-rb-event-key={null}
+                              disabled={false}
+                              onClick={[Function]}
+                              to="/community"
+                            >
+                              <Link
+                                aria-current={null}
+                                className="nav-link"
+                                data-rb-event-key={null}
+                                disabled={false}
+                                onClick={[Function]}
+                                to={
+                                  Object {
+                                    "hash": "",
+                                    "pathname": "/community",
+                                    "search": "",
+                                    "state": null,
+                                  }
+                                }
+                              >
+                                <LinkAnchor
+                                  aria-current={null}
+                                  className="nav-link"
+                                  data-rb-event-key={null}
+                                  disabled={false}
+                                  navigate={[Function]}
+                                  onClick={[Function]}
+                                >
+                                  <a
+                                    aria-current={null}
+                                    className="nav-link"
+                                    data-rb-event-key={null}
+                                    disabled={false}
+                                    onClick={[Function]}
+                                  >
+                                    header.main-menu.community
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </NavLink>
+                          </ForwardRef>
+                        </NavLink>
+                        <NavLink
+                          activeClassName="active"
+                          as={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "displayName": "NavLink",
+                              "propTypes": Object {
+                                "activeClassName": [Function],
+                                "activeStyle": [Function],
+                                "aria-current": [Function],
+                                "className": [Function],
+                                "exact": [Function],
+                                "innerRef": [Function],
+                                "isActive": [Function],
+                                "location": [Function],
+                                "onClick": [Function],
+                                "replace": [Function],
+                                "strict": [Function],
+                                "style": [Function],
+                                "target": [Function],
+                                "to": [Function],
+                              },
+                              "render": [Function],
+                            }
+                          }
+                          disabled={false}
+                          to="/network"
+                        >
+                          <ForwardRef
+                            activeClassName="active"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "NavLink",
+                                "propTypes": Object {
+                                  "activeClassName": [Function],
+                                  "activeStyle": [Function],
+                                  "aria-current": [Function],
+                                  "className": [Function],
+                                  "exact": [Function],
+                                  "innerRef": [Function],
+                                  "isActive": [Function],
+                                  "location": [Function],
+                                  "onClick": [Function],
+                                  "replace": [Function],
+                                  "strict": [Function],
+                                  "style": [Function],
+                                  "target": [Function],
+                                  "to": [Function],
+                                },
+                                "render": [Function],
+                              }
+                            }
+                            className="nav-link"
+                            disabled={false}
+                            to="/network"
+                          >
+                            <NavLink
+                              activeClassName="active"
+                              className="nav-link"
+                              data-rb-event-key={null}
+                              disabled={false}
+                              onClick={[Function]}
+                              to="/network"
+                            >
+                              <Link
+                                aria-current={null}
+                                className="nav-link"
+                                data-rb-event-key={null}
+                                disabled={false}
+                                onClick={[Function]}
+                                to={
+                                  Object {
+                                    "hash": "",
+                                    "pathname": "/network",
+                                    "search": "",
+                                    "state": null,
+                                  }
+                                }
+                              >
+                                <LinkAnchor
+                                  aria-current={null}
+                                  className="nav-link"
+                                  data-rb-event-key={null}
+                                  disabled={false}
+                                  navigate={[Function]}
+                                  onClick={[Function]}
+                                >
+                                  <a
+                                    aria-current={null}
+                                    className="nav-link"
+                                    data-rb-event-key={null}
+                                    disabled={false}
+                                    onClick={[Function]}
+                                  >
+                                    header.main-menu.network
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </NavLink>
+                          </ForwardRef>
+                        </NavLink>
+                      </div>
+                    </ForwardRef>
+                  </Nav>
+                  <Nav
+                    className="top-header__user-block"
+                    fill={false}
+                    justify={false}
+                  >
+                    <ForwardRef
+                      as="div"
+                      className="top-header__user-block navbar-nav"
+                      onSelect={[Function]}
+                    >
+                      <div
+                        className="top-header__user-block navbar-nav"
+                        onKeyDown={[Function]}
+                      >
+                        <NavItem
+                          className="top-header__user-block__profile px-0"
+                        >
+                          <div
+                            className="top-header__user-block__profile px-0 nav-item"
+                          >
+                            <Link
+                              to="/personal-area/profile-settings"
+                            >
+                              <LinkAnchor
+                                navigate={[Function]}
+                              >
+                                <a
+                                  onClick={[Function]}
+                                >
+                                  <Image
+                                    fluid={false}
+                                    img-fluid="true"
+                                    onClick={[Function]}
+                                    rounded={false}
+                                    roundedCircle={true}
+                                    src="profile.png"
+                                    thumbnail={false}
+                                  >
+                                    <img
+                                      className="rounded-circle"
+                                      img-fluid="true"
+                                      onClick={[Function]}
+                                      src="profile.png"
+                                    />
+                                  </Image>
+                                </a>
+                              </LinkAnchor>
+                            </Link>
+                          </div>
+                        </NavItem>
+                        <NavItem
+                          className="top-header__user-block__logout"
+                        >
+                          <div
+                            className="top-header__user-block__logout nav-item"
+                          >
+                            <Logout>
+                              <i
+                                className="icon-logout"
+                                onClick={[Function]}
+                                title="Logout"
+                              />
+                            </Logout>
+                          </div>
+                        </NavItem>
+                      </div>
+                    </ForwardRef>
+                  </Nav>
+                </nav>
+              </Navbar>
+            </div>
+          </BrowserView>
+        </div>
+      </TopHeader>
+    </Router>
+  </Provider>
+</CreateTopHeaderWrapper>
+`;

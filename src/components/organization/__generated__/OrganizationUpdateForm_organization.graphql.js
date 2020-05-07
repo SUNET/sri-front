@@ -23,9 +23,9 @@ export type OrganizationUpdateForm_organization = {|
   +organization_number: ?string,
   +description: ?string,
   +incident_management_info: ?string,
-  +parent_organization: ?$ReadOnlyArray<?{|
+  +parent_organization: ?{|
     +organization_id: ?string
-  |}>,
+  |},
   +addresses: ?$ReadOnlyArray<?{|
     +id: string,
     +name: string,
@@ -250,7 +250,7 @@ return {
       "storageKey": null,
       "args": null,
       "concreteType": "Organization",
-      "plural": true,
+      "plural": false,
       "selections": [
         (v4/*: any*/)
       ]

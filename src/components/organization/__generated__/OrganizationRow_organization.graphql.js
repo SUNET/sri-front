@@ -25,9 +25,12 @@ export type OrganizationRow_organization = {|
   +affiliation_partner: ?boolean,
   +affiliation_provider: ?boolean,
   +affiliation_site_owner: ?boolean,
-  +parent_organization: ?$ReadOnlyArray<?{|
-    +organization_id: ?string
-  |}>,
+  +parent_organization: ?{|
+    +organization_id: ?string,
+    +relation_id: ?number,
+    +id: string,
+    +name: string,
+  |},
   +incoming: ?$ReadOnlyArray<?{|
     +name: string,
     +relation: {|
@@ -149,9 +152,18 @@ return {
       "storageKey": null,
       "args": null,
       "concreteType": "Organization",
-      "plural": true,
+      "plural": false,
       "selections": [
-        (v2/*: any*/)
+        (v2/*: any*/),
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "relation_id",
+          "args": null,
+          "storageKey": null
+        },
+        (v0/*: any*/),
+        (v1/*: any*/)
       ]
     },
     {
@@ -207,6 +219,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ef6579f548e47c949384c0b7f3bc21ef';
+(node/*: any*/).hash = '5d2611e3acf28073de36cdbca2b56f8e';
 
 module.exports = node;

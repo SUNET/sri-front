@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7ae2fe485d3a074f640fb1ad93956159
+ * @relayHash 88f8657c9d7c194d24d239c665816264
  */
 
 /* eslint-disable */
@@ -168,9 +168,9 @@ export type UpdateOrganizationMutationResponse = {|
         +affiliation_partner: ?boolean,
         +affiliation_provider: ?boolean,
         +affiliation_site_owner: ?boolean,
-        +parent_organization: ?$ReadOnlyArray<?{|
+        +parent_organization: ?{|
           +organization_id: ?string
-        |}>,
+        |},
         +contacts: ?$ReadOnlyArray<?{|
           +id: string,
           +first_name: string,
@@ -1086,7 +1086,7 @@ return {
                     "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
-                    "plural": true,
+                    "plural": false,
                     "selections": [
                       (v9/*: any*/)
                     ]
@@ -1231,7 +1231,7 @@ return {
                     "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
-                    "plural": true,
+                    "plural": false,
                     "selections": [
                       (v9/*: any*/),
                       (v3/*: any*/)
@@ -1338,4 +1338,5 @@ return {
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'ce4db6bbbce03b511e0382651d47c558';
+
 module.exports = node;

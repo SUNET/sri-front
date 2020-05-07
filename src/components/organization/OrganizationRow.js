@@ -33,6 +33,7 @@ class OrganizationRow extends React.PureComponent {
 
     render() {
         const organization = this.props.organization;
+        console.log('organization: ', organization.parent_organization);
         return (
             <tr onClick={(e) => this.props.onClick(e, organization)}>
                 {(this.props.columnsVisible["name"] || this.props.showAllColumns) && <td>{organization.name}</td>}
@@ -54,9 +55,7 @@ class OrganizationRow extends React.PureComponent {
                 )}
                 {(this.props.columnsVisible["parent_organization_id"] || this.props.showAllColumns) && (
                     <td>
-                        {organization.parent_organization.map((organization) => {
-                            return organization.organization_id;
-                        })}
+                        {organization.parent_organization && (<span>{organization.parent_organization.organization_id}</span>)}
                     </td>
                 )}
                 <td></td>
@@ -83,6 +82,9 @@ const OrganizationRowFragment = createFragmentContainer(OrganizationRow, {
             affiliation_site_owner
             parent_organization {
                 organization_id
+                relation_id
+                id
+                name
             }
             incoming {
                 name

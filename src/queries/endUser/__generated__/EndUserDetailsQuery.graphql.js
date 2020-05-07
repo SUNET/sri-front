@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 431ace71ac59241fda42c8a7fd7770cd
+ * @relayHash 61b9759acf7a8f8c815b1af3344412ba
  */
 
 /* eslint-disable */
@@ -26,9 +26,9 @@ export type EndUserDetailsQueryResponse = {|
       +__typename: string,
       +website?: ?string,
       +organization_id?: ?string,
-      +parent_organization?: ?$ReadOnlyArray<?{|
+      +parent_organization?: ?{|
         +organization_id: ?string
-      |}>,
+      |},
       +affiliation_partner?: ?boolean,
       +affiliation_customer?: ?boolean,
       +affiliation_provider?: ?boolean,
@@ -407,7 +407,7 @@ return {
                     "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
-                    "plural": true,
+                    "plural": false,
                     "selections": [
                       (v8/*: any*/)
                     ]
@@ -591,7 +591,7 @@ return {
                     "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
-                    "plural": true,
+                    "plural": false,
                     "selections": [
                       (v8/*: any*/),
                       (v2/*: any*/)

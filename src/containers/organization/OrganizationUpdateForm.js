@@ -14,9 +14,7 @@ const mapStateToProps = (state, props) => {
         organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.id : "",
-        organization_parent_id: organization.parent_organization[0]
-            ? organization.parent_organization[0].organization_id
-            : "",
+        organization_parent_id: organization.parent_organization ? organization.parent_organization.organization_id : null,
         id: organization.id,
         name: organization.name,
         type: organization.type ? organization.type.value : undefined,

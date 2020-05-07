@@ -172,7 +172,7 @@ class Dropdown extends React.PureComponent {
                     variables={variables}
                     render={({ error, props }) => {
                         if (error) {
-                            return <div>{error.message}</div>;
+                            return <div>{this.props.t('general.error')}</div>;
                         } else if (props) {
                             let options = undefined;
                             if (this.props.model !== undefined) {

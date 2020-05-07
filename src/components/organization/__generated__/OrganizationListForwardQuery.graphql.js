@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 634c0d2f3551ffebe837c6fbd37eea2d
+ * @relayHash 4d6eaf2ed1266bba1248afdecd5b63cf
  */
 
 /* eslint-disable */
@@ -69,7 +69,9 @@ fragment OrganizationRow_organization on Organization {
   affiliation_site_owner
   parent_organization {
     organization_id
+    relation_id
     id
+    name
   }
   incoming {
     name
@@ -277,10 +279,18 @@ return {
                     "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
-                    "plural": true,
+                    "plural": false,
                     "selections": [
                       (v5/*: any*/),
-                      (v3/*: any*/)
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "relation_id",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      (v3/*: any*/),
+                      (v4/*: any*/)
                     ]
                   },
                   {
@@ -393,7 +403,7 @@ return {
     "operationKind": "query",
     "name": "OrganizationListForwardQuery",
     "id": null,
-    "text": "query OrganizationListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_32czeo\n}\n\nfragment OrganizationList_organizations_32czeo on Query {\n  organizations(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...OrganizationRow_organization\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  id\n  name\n  type {\n    name\n    value\n    id\n  }\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    id\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n}\n",
+    "text": "query OrganizationListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: OrganizationOrderBy\n) {\n  ...OrganizationList_organizations_32czeo\n}\n\nfragment OrganizationList_organizations_32czeo on Query {\n  organizations(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...OrganizationRow_organization\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment OrganizationRow_organization on Organization {\n  id\n  name\n  type {\n    name\n    value\n    id\n  }\n  organization_id\n  affiliation_customer\n  affiliation_end_customer\n  affiliation_host_user\n  affiliation_partner\n  affiliation_provider\n  affiliation_site_owner\n  parent_organization {\n    organization_id\n    relation_id\n    id\n    name\n  }\n  incoming {\n    name\n    relation {\n      type\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
