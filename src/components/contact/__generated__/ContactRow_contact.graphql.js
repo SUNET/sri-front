@@ -39,91 +39,91 @@ export type ContactRow_contact$key = {
 
 const node/*: ReaderFragment*/ = (function(){
 var v0 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 };
 return {
-  "kind": "Fragment",
-  "name": "ContactRow_contact",
-  "type": "Contact",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "ContactRow_contact",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "id",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "first_name",
-      "args": null,
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
       "kind": "ScalarField",
-      "alias": null,
       "name": "last_name",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "contact_type",
-      "storageKey": null,
       "args": null,
       "concreteType": "Choice",
+      "kind": "LinkedField",
+      "name": "contact_type",
       "plural": false,
       "selections": [
         (v0/*: any*/),
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "value",
           "args": null,
+          "kind": "ScalarField",
+          "name": "value",
           "storageKey": null
         }
-      ]
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "modified",
-      "args": null,
+      ],
       "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "roles",
-      "storageKey": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "modified",
+      "storageKey": null
+    },
+    {
+      "alias": null,
       "args": null,
       "concreteType": "RoleRelation",
+      "kind": "LinkedField",
+      "name": "roles",
       "plural": true,
       "selections": [
         (v0/*: any*/),
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "end",
-          "storageKey": null,
           "args": null,
           "concreteType": "Organization",
+          "kind": "LinkedField",
+          "name": "end",
           "plural": false,
           "selections": [
             (v0/*: any*/)
-          ]
+          ],
+          "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "Contact"
 };
 })();
 // prettier-ignore

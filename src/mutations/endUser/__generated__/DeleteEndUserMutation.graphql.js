@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 02f22d57bb3cbc7976304ae9904e375a
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteEndUserMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteEndUserInput!",
-    "defaultValue": null
+    "type": "DeleteEndUserInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_endUser",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteEndUserPayload",
+    "kind": "LinkedField",
+    "name": "delete_endUser",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteEndUserMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteEndUserMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteEndUserMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteEndUserMutation",
     "id": null,
-    "text": "mutation DeleteEndUserMutation(\n  $input: DeleteEndUserInput!\n) {\n  delete_endUser(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteEndUserMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteEndUserMutation(\n  $input: DeleteEndUserInput!\n) {\n  delete_endUser(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();

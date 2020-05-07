@@ -23,6 +23,9 @@ const OrganizationDetailsQuery = graphql`
             affiliation_site_owner
             parent_organization {
                 organization_id
+                relation_id
+                id
+                name
             }
             addresses {
                 id

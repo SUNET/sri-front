@@ -14,10 +14,8 @@ const mapStateToProps = (state, props) => {
         organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {
         relationship_parent_of: parent_node ? parent_node.relation.start.id : "",
-        organization_parent_id: organization.parent_organization[0]
-            ? organization.parent_organization[0].organization_id
-            : "",
-        relationship_parent_of_relation_id: parent_node ? parent_node.relation.relation_id : "",
+        organization_parent: organization.parent_organization,
+        organization_parent_id: organization.parent_organization ? organization.parent_organization.organization_id : null,
         id: organization.id,
         name: organization.name,
         type: organization.type ? organization.type.value : undefined,
@@ -118,6 +116,7 @@ const mapStateToProps = (state, props) => {
         description: updateOrganizationSelector(state, "description"),
         relationship_parent_of: updateOrganizationSelector(state, "relationship_parent_of"),
         organization_parent_id: updateOrganizationSelector(state, "organization_parent_id"),
+        organization_parent: updateOrganizationSelector(state, "organization_parent"),
         isDirty_relationship_parent_of: isDirty("updateOrganization")(state, ["organization_parent_id"]),
         incident_management_info: updateOrganizationSelector(state, "incident_management_info"),
         contactsValues: contactsValues,

@@ -223,9 +223,9 @@ export default function UpdateOrganizationMutation(organization, form) {
 
     const deleteRoles = [];
 
-    if (form.props.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
-        deleteRoles.push({ relation_id: organization.relationship_parent_of_relation_id });
-    }
+    // if (form.props.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
+    //     deleteRoles.push({ relation_id: organization.relationship_parent_of_relation_id });
+    // }
 
     const addresses = organization.addresses;
     if (addresses) {

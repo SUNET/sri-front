@@ -5,6 +5,7 @@ import OrganizationUpdateFormContainer from "../../containers/organization/Organ
 import DeleteOrganizationMutation from "../../mutations/organization/DeleteOrganizationMutation";
 import environment from "../../createRelayEnvironment";
 import OrganizationDetailsQuery from "../../queries/organization/OrganizationDetailsQuery";
+import { withTranslation } from "react-i18next";
 
 class OrganizationDetails extends React.Component {
     static propTypes = {
@@ -55,4 +56,4 @@ class OrganizationDetails extends React.Component {
     }
 }
 
-export default OrganizationDetails;
+export default withTranslation()(OrganizationDetails);

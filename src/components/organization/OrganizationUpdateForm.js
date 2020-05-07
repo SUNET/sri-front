@@ -96,6 +96,9 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                 incident_management_info
                 parent_organization {
                     organization_id
+                    id
+                    relation_id
+                    name
                 }
                 addresses {
                     id

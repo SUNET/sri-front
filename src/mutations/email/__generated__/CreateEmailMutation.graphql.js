@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash fffb50ad845020cb41943bf20aad24e3
  */
 
 /* eslint-disable */
@@ -66,10 +65,10 @@ mutation CreateEmailMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateEmailInput!",
-    "defaultValue": null
+    "type": "CreateEmailInput!"
   }
 ],
 v1 = [
@@ -80,152 +79,152 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "errors",
-  "storageKey": null,
   "args": null,
   "concreteType": "ErrorType",
+  "kind": "LinkedField",
+  "name": "errors",
   "plural": true,
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "field",
       "args": null,
+      "kind": "ScalarField",
+      "name": "field",
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "messages",
       "args": null,
+      "kind": "ScalarField",
+      "name": "messages",
       "storageKey": null
     }
-  ]
+  ],
+  "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "value",
   "args": null,
+  "kind": "ScalarField",
+  "name": "value",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateEmailMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateEmailMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "create_email",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateEmailPayload",
+        "kind": "LinkedField",
+        "name": "create_email",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "email",
-            "storageKey": null,
             "args": null,
             "concreteType": "Email",
+            "kind": "LinkedField",
+            "name": "email",
             "plural": false,
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "type",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "type",
                 "plural": false,
                 "selections": [
                   (v4/*: any*/),
                   (v5/*: any*/)
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateEmailMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "create_email",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateEmailPayload",
+        "kind": "LinkedField",
+        "name": "create_email",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "email",
-            "storageKey": null,
             "args": null,
             "concreteType": "Email",
+            "kind": "LinkedField",
+            "name": "email",
             "plural": false,
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "type",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "type",
                 "plural": false,
                 "selections": [
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v3/*: any*/)
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateEmailMutation",
     "id": null,
-    "text": "mutation CreateEmailMutation(\n  $input: CreateEmailInput!\n) {\n  create_email(input: $input) {\n    errors {\n      field\n      messages\n    }\n    email {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateEmailMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateEmailMutation(\n  $input: CreateEmailInput!\n) {\n  create_email(input: $input) {\n    errors {\n      field\n      messages\n    }\n    email {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();

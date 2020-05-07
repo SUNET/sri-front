@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 0943c8140eda10d5177508fb736971c3
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteEmailMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteEmailInput!",
-    "defaultValue": null
+    "type": "DeleteEmailInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_email",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteEmailPayload",
+    "kind": "LinkedField",
+    "name": "delete_email",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteEmailMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteEmailMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteEmailMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteEmailMutation",
     "id": null,
-    "text": "mutation DeleteEmailMutation(\n  $input: DeleteEmailInput!\n) {\n  delete_email(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteEmailMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteEmailMutation(\n  $input: DeleteEmailInput!\n) {\n  delete_email(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();

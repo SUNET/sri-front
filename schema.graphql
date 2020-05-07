@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Thu Apr 23 2020 11:25:39 GMT+0200 (GMT+02:00)
+# timestamp: Wed May 06 2020 16:38:50 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -2438,7 +2438,7 @@ type Organization implements NINode & Relation {
   affiliation_partner: Boolean
   affiliation_host_user: Boolean
   affiliation_site_owner: Boolean
-  parent_organization: [Organization]
+  parent_organization: Organization
   contacts: [Contact]
   contacts_relations: [IDRelation]
 }
