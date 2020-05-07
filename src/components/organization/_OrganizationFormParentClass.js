@@ -283,7 +283,9 @@ class _OrganizationFormParentClass extends React.Component {
             },
             {
                 title: t("organization-details.parent-org-id"),
-                presentContent: organization_parent_id,
+                presentContent: this.props.organization_parent
+                    ? `${this.props.organization_parent.name} - ${this.props.organization_parent.organization_id}`
+                    : '',
                 editContent: (
                     <Dropdown
                         className={`${isBrowser ? "auto" : "xlg mw-100"}`}
@@ -293,12 +295,16 @@ class _OrganizationFormParentClass extends React.Component {
                         model="organization"
                         placeholder={t("organization-details.add-id")}
                         organization_parent_id={organization_parent_id}
+                        parent_organization={this.props.organization_parent}
                         onChange={(newOrganizationParent) => {
                             this.props.dispatch(
-                                change(this.props.form, "organization_parent_id", newOrganizationParent.value)
+                                change(this.props.form, "organization_parent_id", newOrganizationParent.organization_id)
                             );
                             this.props.dispatch(
                                 change(this.props.form, "relationship_parent_of", newOrganizationParent.id)
+                            );
+                            this.props.dispatch(
+                                change(this.props.form, "organization_parent", newOrganizationParent)
                             );
                         }}
                     />

@@ -23,7 +23,7 @@ const DropdownOrganizationsAllQuery = graphql`
     query DropdownOrganizationsAllQuery {
         all_organizations {
             id
-            node_name
+            name
             organization_id
         }
     }
@@ -61,6 +61,27 @@ class Dropdown extends React.PureComponent {
         emptyLabel: PropTypes.string,
         defaultValue: PropTypes.string
     };
+
+    getFormattedOrganizationsList(organizationsList) {
+        return organizationsList.all_organizations.map((org) => {
+            return {
+                value: org.organization_id,
+                label: `${org.name} - ${org.organization_id}`,
+                id: org.id,
+                data: org,
+            };
+        });
+    }
+
+    getParentOrganizationValue(parentOrganization) {
+        const { organization_id, id, name } = parentOrganization;
+        return {
+            value: organization_id,
+            label: `${name} - ${organization_id}`,
+            id
+        }
+    }
+
     // for real backend dropdowns
     renderOptions = (options) => {
         return options.map((option) => {
@@ -86,7 +107,7 @@ class Dropdown extends React.PureComponent {
         return options.map((option) => {
             return (
                 <option key={option.id} value={option.id}>
-                    {option.node_name}
+                    {option.name}
                 </option>
             );
         });
@@ -94,21 +115,13 @@ class Dropdown extends React.PureComponent {
 
     renderComboSelect(organizationsList) {
         const { organization_parent_id } = this.props;
-        const formattedOrganizationList = organizationsList.all_organizations.map((org) => {
-            return {
-                value: org.organization_id,
-                label: `${org.node_name} - ${org.organization_id}`,
-                id: org.id
-            };
-        });
-
-        const currentValue = formattedOrganizationList.find((org) => org.value === organization_parent_id);
+        const formattedOrganizationList = this.getFormattedOrganizationsList(organizationsList);
+        const currentValue = formattedOrganizationList.find((org) => org.value && org.value === organization_parent_id);
         return (
             <Select
                 value={currentValue}
                 onChange={(newValue) => {
-                    console.log('newValue: ', newValue);
-                    this.props.onChange(newValue);
+                    this.props.onChange(newValue.data);
                 }}
                 options={formattedOrganizationList}
                 placeholder={this.props.placeholder}
@@ -185,7 +198,19 @@ class Dropdown extends React.PureComponent {
                                 ? this.renderComboSelect(props)
                                 : this.renderField(options);
                         }
-                        return (
+                        return this.props.type === 'organization_combo_list' ? (
+                            <Select
+                                value={
+                                    this.props.parent_organization
+                                        ? this.getParentOrganizationValue(this.props.parent_organization)
+                                        : undefined
+                                }
+                                options={[]}
+                                placeholder={this.props.placeholder}
+                                className="combo-select-container"
+                                classNamePrefix="combo-select"
+                            />
+                        ) : (
                             <select className={this.props.className}>
                                 <option value="">{this.props.emptyLabel}</option>
                             </select>

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 139a589fb1ee8ef71ee1a83b97965efb
+ * @relayHash 329c986919f498b6d7425b864d515568
  */
 
 /* eslint-disable */
@@ -33,7 +33,10 @@ export type OrganizationDetailsQueryResponse = {|
     +affiliation_provider: ?boolean,
     +affiliation_site_owner: ?boolean,
     +parent_organization: ?{|
-      +organization_id: ?string
+      +organization_id: ?string,
+      +relation_id: ?number,
+      +id: string,
+      +name: string,
     |},
     +addresses: ?$ReadOnlyArray<?{|
       +id: string,
@@ -147,7 +150,9 @@ query OrganizationDetailsQuery(
     affiliation_site_owner
     parent_organization {
       organization_id
+      relation_id
       id
+      name
     }
     addresses {
       id
@@ -251,6 +256,8 @@ fragment OrganizationUpdateForm_organization on Organization {
   parent_organization {
     organization_id
     id
+    relation_id
+    name
   }
   addresses {
     id
@@ -467,6 +474,13 @@ v17 = {
   "storageKey": null
 },
 v18 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "relation_id",
+  "args": null,
+  "storageKey": null
+},
+v19 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "addresses",
@@ -506,13 +520,6 @@ v18 = {
       "storageKey": null
     }
   ]
-},
-v19 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "relation_id",
-  "args": null,
-  "storageKey": null
 },
 v20 = {
   "kind": "ScalarField",
@@ -583,7 +590,7 @@ v28 = {
   "concreteType": "RoleRelation",
   "plural": true,
   "selections": [
-    (v19/*: any*/),
+    (v18/*: any*/),
     {
       "kind": "LinkedField",
       "alias": null,
@@ -709,10 +716,13 @@ return {
             "concreteType": "Organization",
             "plural": false,
             "selections": [
-              (v8/*: any*/)
+              (v8/*: any*/),
+              (v18/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/)
             ]
           },
-          (v18/*: any*/),
+          (v19/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -732,7 +742,7 @@ return {
                 "concreteType": "NIRelationType",
                 "plural": false,
                 "selections": [
-                  (v19/*: any*/),
+                  (v18/*: any*/),
                   (v20/*: any*/),
                   (v22/*: any*/),
                   (v23/*: any*/)
@@ -875,10 +885,12 @@ return {
             "plural": false,
             "selections": [
               (v8/*: any*/),
-              (v2/*: any*/)
+              (v2/*: any*/),
+              (v18/*: any*/),
+              (v3/*: any*/)
             ]
           },
-          (v18/*: any*/),
+          (v19/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -898,7 +910,7 @@ return {
                 "concreteType": "NIRelationType",
                 "plural": false,
                 "selections": [
-                  (v19/*: any*/),
+                  (v18/*: any*/),
                   (v20/*: any*/),
                   (v22/*: any*/),
                   (v23/*: any*/),
@@ -1016,12 +1028,12 @@ return {
     "operationKind": "query",
     "name": "OrganizationDetailsQuery",
     "id": null,
-    "text": "query OrganizationDetailsQuery(\n  $organizationId: ID!\n) {\n  getOrganizationById(id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n    name\n    type {\n      name\n      value\n      id\n    }\n    website\n    organization_id\n    organization_number\n    description\n    incident_management_info\n    affiliation_customer\n    affiliation_end_customer\n    affiliation_host_user\n    affiliation_partner\n    affiliation_provider\n    affiliation_site_owner\n    parent_organization {\n      organization_id\n      id\n    }\n    addresses {\n      id\n      name\n      street\n      postal_code\n      postal_area\n      phone\n    }\n    incoming {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        start {\n          id\n          node_name\n        }\n        id\n      }\n    }\n    contacts {\n      id\n      first_name\n      last_name\n      contact_type {\n        name\n        value\n        id\n      }\n      emails {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      phones {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      roles {\n        relation_id\n        role_data {\n          id\n          name\n        }\n        end {\n          id\n          name\n        }\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  id\n  name\n  type {\n    name\n    value\n    id\n  }\n  website\n  organization_id\n  organization_number\n  description\n  incident_management_info\n  parent_organization {\n    organization_id\n    id\n  }\n  addresses {\n    id\n    name\n    street\n    postal_code\n    postal_area\n    phone\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        id\n        node_name\n      }\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type {\n      name\n      value\n      id\n    }\n    emails {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    phones {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    roles {\n      relation_id\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
+    "text": "query OrganizationDetailsQuery(\n  $organizationId: ID!\n) {\n  getOrganizationById(id: $organizationId) {\n    ...OrganizationUpdateForm_organization\n    id\n    name\n    type {\n      name\n      value\n      id\n    }\n    website\n    organization_id\n    organization_number\n    description\n    incident_management_info\n    affiliation_customer\n    affiliation_end_customer\n    affiliation_host_user\n    affiliation_partner\n    affiliation_provider\n    affiliation_site_owner\n    parent_organization {\n      organization_id\n      relation_id\n      id\n      name\n    }\n    addresses {\n      id\n      name\n      street\n      postal_code\n      postal_area\n      phone\n    }\n    incoming {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        start {\n          id\n          node_name\n        }\n        id\n      }\n    }\n    contacts {\n      id\n      first_name\n      last_name\n      contact_type {\n        name\n        value\n        id\n      }\n      emails {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      phones {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      roles {\n        relation_id\n        role_data {\n          id\n          name\n        }\n        end {\n          id\n          name\n        }\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment OrganizationUpdateForm_organization on Organization {\n  id\n  name\n  type {\n    name\n    value\n    id\n  }\n  website\n  organization_id\n  organization_number\n  description\n  incident_management_info\n  parent_organization {\n    organization_id\n    id\n    relation_id\n    name\n  }\n  addresses {\n    id\n    name\n    street\n    postal_code\n    postal_area\n    phone\n  }\n  incoming {\n    name\n    relation {\n      relation_id\n      type\n      end {\n        id\n        node_name\n      }\n      start {\n        id\n        node_name\n      }\n      id\n    }\n  }\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type {\n      name\n      value\n      id\n    }\n    emails {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    phones {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    roles {\n      relation_id\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f27a8c53d65dfcb5ed4fb912b5f3c4a4';
+(node/*: any*/).hash = '88abe59ae3c857317c529ade61bd7bb4';
 
 module.exports = node;

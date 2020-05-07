@@ -24,7 +24,10 @@ export type OrganizationUpdateForm_organization = {|
   +description: ?string,
   +incident_management_info: ?string,
   +parent_organization: ?{|
-    +organization_id: ?string
+    +organization_id: ?string,
+    +id: string,
+    +relation_id: ?number,
+    +name: string,
   |},
   +addresses: ?$ReadOnlyArray<?{|
     +id: string,
@@ -252,7 +255,10 @@ return {
       "concreteType": "Organization",
       "plural": false,
       "selections": [
-        (v4/*: any*/)
+        (v4/*: any*/),
+        (v0/*: any*/),
+        (v5/*: any*/),
+        (v1/*: any*/)
       ]
     },
     {
@@ -500,6 +506,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5e6f69753ce099549e3fcdd3512c28cb';
+(node/*: any*/).hash = '6d332457e7ce31a04057e4c2fa58b3dd';
 
 module.exports = node;
