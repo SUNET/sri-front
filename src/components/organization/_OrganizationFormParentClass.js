@@ -282,7 +282,7 @@ class _OrganizationFormParentClass extends React.Component {
                 )
             },
             {
-                title: t("organization-details.parent-org-id"),
+                title: t("organization-details.parent-org"),
                 presentContent: this.props.organization_parent
                     ? `${this.props.organization_parent.name} - ${this.props.organization_parent.organization_id}`
                     : '',
