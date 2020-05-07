@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 6f171f603fbd24988e4d6f84cd050857
  */
 
 /* eslint-disable */
@@ -62,18 +61,15 @@ mutation UpdateSiteOwnerMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateSiteOwnerInput!",
-    "defaultValue": null
+    "type": "UpdateSiteOwnerInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "update_siteOwner",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -82,97 +78,100 @@ v1 = [
       }
     ],
     "concreteType": "UpdateSiteOwnerPayload",
+    "kind": "LinkedField",
+    "name": "update_siteOwner",
     "plural": false,
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "errors",
-        "storageKey": null,
         "args": null,
         "concreteType": "ErrorType",
+        "kind": "LinkedField",
+        "name": "errors",
         "plural": true,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "field",
             "args": null,
+            "kind": "ScalarField",
+            "name": "field",
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "messages",
             "args": null,
+            "kind": "ScalarField",
+            "name": "messages",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       },
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "siteOwner",
-        "storageKey": null,
         "args": null,
         "concreteType": "SiteOwner",
+        "kind": "LinkedField",
+        "name": "siteOwner",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "name",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "description",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "url",
             "args": null,
+            "kind": "ScalarField",
+            "name": "url",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "UpdateSiteOwnerMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateSiteOwnerMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateSiteOwnerMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "UpdateSiteOwnerMutation",
     "id": null,
-    "text": "mutation UpdateSiteOwnerMutation(\n  $input: UpdateSiteOwnerInput!\n) {\n  update_siteOwner(input: $input) {\n    errors {\n      field\n      messages\n    }\n    siteOwner {\n      id\n      name\n      description\n      url\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "UpdateSiteOwnerMutation",
+    "operationKind": "mutation",
+    "text": "mutation UpdateSiteOwnerMutation(\n  $input: UpdateSiteOwnerInput!\n) {\n  update_siteOwner(input: $input) {\n    errors {\n      field\n      messages\n    }\n    siteOwner {\n      id\n      name\n      description\n      url\n    }\n  }\n}\n"
   }
 };
 })();

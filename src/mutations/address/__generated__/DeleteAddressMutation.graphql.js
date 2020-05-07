@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 1d6e3248b214ca055f74a4132d8d19db
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteAddressMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteAddressInput!",
-    "defaultValue": null
+    "type": "DeleteAddressInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_address",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteAddressPayload",
+    "kind": "LinkedField",
+    "name": "delete_address",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteAddressMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteAddressMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteAddressMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteAddressMutation",
     "id": null,
-    "text": "mutation DeleteAddressMutation(\n  $input: DeleteAddressInput!\n) {\n  delete_address(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteAddressMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteAddressMutation(\n  $input: DeleteAddressInput!\n) {\n  delete_address(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();

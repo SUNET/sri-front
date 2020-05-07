@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash e7f21527f80c3197b93e628f025a044b
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation JWTVerifyMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "VerifyInput!",
-    "defaultValue": null
+    "type": "VerifyInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "verify_token",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "VerifyPayload",
+    "kind": "LinkedField",
+    "name": "verify_token",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "payload",
         "args": null,
+        "kind": "ScalarField",
+        "name": "payload",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "JWTVerifyMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "JWTVerifyMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "JWTVerifyMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "JWTVerifyMutation",
     "id": null,
-    "text": "mutation JWTVerifyMutation(\n  $input: VerifyInput!\n) {\n  verify_token(input: $input) {\n    payload\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "JWTVerifyMutation",
+    "operationKind": "mutation",
+    "text": "mutation JWTVerifyMutation(\n  $input: VerifyInput!\n) {\n  verify_token(input: $input) {\n    payload\n  }\n}\n"
   }
 };
 })();

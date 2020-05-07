@@ -46,136 +46,136 @@ export type CustomerUpdateForm_customer$key = {
 
 const node/*: ReaderFragment*/ = (function(){
 var v0 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v1 = [
   {
-    "kind": "ScalarField",
     "alias": null,
-    "name": "email",
     "args": null,
+    "kind": "ScalarField",
+    "name": "email",
     "storageKey": null
   }
 ];
 return {
-  "kind": "Fragment",
-  "name": "CustomerUpdateForm_customer",
-  "type": "Customer",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "CustomerUpdateForm_customer",
   "selections": [
     (v0/*: any*/),
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "name",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "description",
-      "args": null,
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
       "kind": "ScalarField",
-      "alias": null,
       "name": "url",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "comments",
-      "storageKey": null,
       "args": null,
       "concreteType": "CommentType",
+      "kind": "LinkedField",
+      "name": "comments",
       "plural": true,
       "selections": [
         (v0/*: any*/),
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "user",
-          "storageKey": null,
           "args": null,
           "concreteType": "User",
+          "kind": "LinkedField",
+          "name": "user",
           "plural": false,
           "selections": [
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "first_name",
               "args": null,
+              "kind": "ScalarField",
+              "name": "first_name",
               "storageKey": null
             },
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "last_name",
               "args": null,
+              "kind": "ScalarField",
+              "name": "last_name",
               "storageKey": null
             }
-          ]
-        },
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "name": "comment",
-          "args": null,
+          ],
           "storageKey": null
         },
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "submit_date",
           "args": null,
+          "kind": "ScalarField",
+          "name": "comment",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "submit_date",
           "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "created",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": null,
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
       "name": "creator",
-      "storageKey": null,
-      "args": null,
-      "concreteType": "User",
       "plural": false,
-      "selections": (v1/*: any*/)
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "modified",
-      "args": null,
+      "selections": (v1/*: any*/),
       "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "modifier",
-      "storageKey": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "modified",
+      "storageKey": null
+    },
+    {
+      "alias": null,
       "args": null,
       "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "modifier",
       "plural": false,
-      "selections": (v1/*: any*/)
+      "selections": (v1/*: any*/),
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "Customer"
 };
 })();
 // prettier-ignore

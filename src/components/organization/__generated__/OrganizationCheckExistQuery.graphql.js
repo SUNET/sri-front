@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 4d44e018af3d938b36ddcae7380059cb
  */
 
 /* eslint-disable */
@@ -35,23 +34,21 @@ query OrganizationCheckExistQuery(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "organization_id",
-    "type": "String!",
-    "defaultValue": null
+    "type": "String!"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "id",
-    "type": "ID",
-    "defaultValue": null
+    "type": "ID"
   }
 ],
 v1 = [
   {
-    "kind": "ScalarField",
     "alias": null,
-    "name": "checkExistentOrganizationId",
     "args": [
       {
         "kind": "Variable",
@@ -64,31 +61,33 @@ v1 = [
         "variableName": "organization_id"
       }
     ],
+    "kind": "ScalarField",
+    "name": "checkExistentOrganizationId",
     "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "OrganizationCheckExistQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "OrganizationCheckExistQuery",
+    "selections": (v1/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "OrganizationCheckExistQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "OrganizationCheckExistQuery",
     "id": null,
-    "text": "query OrganizationCheckExistQuery(\n  $organization_id: String!\n  $id: ID\n) {\n  checkExistentOrganizationId(organization_id: $organization_id, id: $id)\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "OrganizationCheckExistQuery",
+    "operationKind": "query",
+    "text": "query OrganizationCheckExistQuery(\n  $organization_id: String!\n  $id: ID\n) {\n  checkExistentOrganizationId(organization_id: $organization_id, id: $id)\n}\n"
   }
 };
 })();

@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash ad9aefc9c8400fe2241b9db3aef8a62c
  */
 
 /* eslint-disable */
@@ -37,60 +36,60 @@ query DropdownOrganizationsAllQuery {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "all_organizations",
-    "storageKey": null,
     "args": null,
     "concreteType": "Organization",
+    "kind": "LinkedField",
+    "name": "all_organizations",
     "plural": true,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "id",
-        "args": null,
         "storageKey": null
       },
       {
-        "kind": "ScalarField",
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "name",
-        "args": null,
         "storageKey": null
       },
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "organization_id",
         "args": null,
+        "kind": "ScalarField",
+        "name": "organization_id",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DropdownOrganizationsAllQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DropdownOrganizationsAllQuery",
+    "selections": (v0/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "DropdownOrganizationsAllQuery",
-    "argumentDefinitions": [],
     "selections": (v0/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "DropdownOrganizationsAllQuery",
     "id": null,
-    "text": "query DropdownOrganizationsAllQuery {\n  all_organizations {\n    id\n    name\n    organization_id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DropdownOrganizationsAllQuery",
+    "operationKind": "query",
+    "text": "query DropdownOrganizationsAllQuery {\n  all_organizations {\n    id\n    name\n    organization_id\n  }\n}\n"
   }
 };
 })();

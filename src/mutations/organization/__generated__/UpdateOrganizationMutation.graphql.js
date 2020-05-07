@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 88f8657c9d7c194d24d239c665816264
  */
 
 /* eslint-disable */
@@ -584,10 +583,10 @@ mutation UpdateOrganizationMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CompositeOrganizationMutationInput!",
-    "defaultValue": null
+    "type": "CompositeOrganizationMutationInput!"
   }
 ],
 v1 = [
@@ -598,49 +597,49 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "errors",
-  "storageKey": null,
   "args": null,
   "concreteType": "ErrorType",
+  "kind": "LinkedField",
+  "name": "errors",
   "plural": true,
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "field",
       "args": null,
+      "kind": "ScalarField",
+      "name": "field",
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "messages",
       "args": null,
+      "kind": "ScalarField",
+      "name": "messages",
       "storageKey": null
     }
-  ]
+  ],
+  "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "value",
   "args": null,
+  "kind": "ScalarField",
+  "name": "value",
   "storageKey": null
 },
 v6 = [
@@ -648,90 +647,90 @@ v6 = [
   (v5/*: any*/)
 ],
 v7 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "type",
-  "storageKey": null,
   "args": null,
   "concreteType": "Choice",
+  "kind": "LinkedField",
+  "name": "type",
   "plural": false,
-  "selections": (v6/*: any*/)
+  "selections": (v6/*: any*/),
+  "storageKey": null
 },
 v8 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "website",
   "args": null,
+  "kind": "ScalarField",
+  "name": "website",
   "storageKey": null
 },
 v9 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "organization_id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "organization_id",
   "storageKey": null
 },
 v10 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "organization_number",
   "args": null,
+  "kind": "ScalarField",
+  "name": "organization_number",
   "storageKey": null
 },
 v11 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_customer",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_customer",
   "storageKey": null
 },
 v12 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_end_customer",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_end_customer",
   "storageKey": null
 },
 v13 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_host_user",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_host_user",
   "storageKey": null
 },
 v14 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_partner",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_partner",
   "storageKey": null
 },
 v15 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_provider",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_provider",
   "storageKey": null
 },
 v16 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_site_owner",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_site_owner",
   "storageKey": null
 },
 v17 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "first_name",
   "storageKey": null
 },
 v18 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "last_name",
   "storageKey": null
 },
 v19 = [
@@ -744,204 +743,204 @@ v20 = [
   (v4/*: any*/)
 ],
 v21 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "roles",
-  "storageKey": null,
   "args": null,
   "concreteType": "RoleRelation",
+  "kind": "LinkedField",
+  "name": "roles",
   "plural": true,
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "relation_id",
       "args": null,
+      "kind": "ScalarField",
+      "name": "relation_id",
       "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "role_data",
-      "storageKey": null,
       "args": null,
       "concreteType": "Role",
+      "kind": "LinkedField",
+      "name": "role_data",
       "plural": false,
-      "selections": (v20/*: any*/)
+      "selections": (v20/*: any*/),
+      "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "end",
-      "storageKey": null,
       "args": null,
       "concreteType": "Organization",
+      "kind": "LinkedField",
+      "name": "end",
       "plural": false,
-      "selections": (v20/*: any*/)
+      "selections": (v20/*: any*/),
+      "storageKey": null
     }
-  ]
+  ],
+  "storageKey": null
 },
 v22 = [
   (v3/*: any*/),
   (v17/*: any*/),
   (v18/*: any*/),
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "contact_type",
-    "storageKey": null,
     "args": null,
     "concreteType": "Choice",
+    "kind": "LinkedField",
+    "name": "contact_type",
     "plural": false,
-    "selections": (v6/*: any*/)
+    "selections": (v6/*: any*/),
+    "storageKey": null
   },
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "emails",
-    "storageKey": null,
     "args": null,
     "concreteType": "Email",
+    "kind": "LinkedField",
+    "name": "emails",
     "plural": true,
-    "selections": (v19/*: any*/)
+    "selections": (v19/*: any*/),
+    "storageKey": null
   },
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "phones",
-    "storageKey": null,
     "args": null,
     "concreteType": "Phone",
+    "kind": "LinkedField",
+    "name": "phones",
     "plural": true,
-    "selections": (v19/*: any*/)
+    "selections": (v19/*: any*/),
+    "storageKey": null
   },
   (v21/*: any*/),
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "member_of_groups",
-    "storageKey": null,
     "args": null,
     "concreteType": "Group",
+    "kind": "LinkedField",
+    "name": "member_of_groups",
     "plural": true,
     "selections": [
       (v4/*: any*/)
-    ]
+    ],
+    "storageKey": null
   }
 ],
 v23 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "comment",
   "args": null,
+  "kind": "ScalarField",
+  "name": "comment",
   "storageKey": null
 },
 v24 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "submit_date",
   "args": null,
+  "kind": "ScalarField",
+  "name": "submit_date",
   "storageKey": null
 },
 v25 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "created",
   "args": null,
+  "kind": "ScalarField",
+  "name": "created",
   "storageKey": null
 },
 v26 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "email",
   "args": null,
+  "kind": "ScalarField",
+  "name": "email",
   "storageKey": null
 },
 v27 = [
   (v26/*: any*/)
 ],
 v28 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "modified",
   "args": null,
+  "kind": "ScalarField",
+  "name": "modified",
   "storageKey": null
 },
 v29 = [
   (v2/*: any*/),
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "address",
-    "storageKey": null,
     "args": null,
     "concreteType": "Address",
+    "kind": "LinkedField",
+    "name": "address",
     "plural": false,
     "selections": [
       (v3/*: any*/),
       (v4/*: any*/),
       {
-        "kind": "ScalarField",
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "street",
-        "args": null,
         "storageKey": null
       },
       {
-        "kind": "ScalarField",
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "postal_code",
-        "args": null,
         "storageKey": null
       },
       {
-        "kind": "ScalarField",
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "postal_area",
-        "args": null,
         "storageKey": null
       },
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "phone",
         "args": null,
+        "kind": "ScalarField",
+        "name": "phone",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ],
 v30 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "address_created",
-  "storageKey": null,
   "args": null,
   "concreteType": "CreateAddressPayload",
+  "kind": "LinkedField",
+  "name": "address_created",
   "plural": true,
-  "selections": (v29/*: any*/)
+  "selections": (v29/*: any*/),
+  "storageKey": null
 },
 v31 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "address_updated",
-  "storageKey": null,
   "args": null,
   "concreteType": "UpdateAddressPayload",
+  "kind": "LinkedField",
+  "name": "address_updated",
   "plural": true,
-  "selections": (v29/*: any*/)
+  "selections": (v29/*: any*/),
+  "storageKey": null
 },
 v32 = [
   (v2/*: any*/),
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "contact",
-    "storageKey": null,
     "args": null,
     "concreteType": "Contact",
+    "kind": "LinkedField",
+    "name": "contact",
     "plural": false,
-    "selections": (v22/*: any*/)
+    "selections": (v22/*: any*/),
+    "storageKey": null
   }
 ],
 v33 = [
@@ -950,14 +949,14 @@ v33 = [
   (v3/*: any*/)
 ],
 v34 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "type",
-  "storageKey": null,
   "args": null,
   "concreteType": "Choice",
+  "kind": "LinkedField",
+  "name": "type",
   "plural": false,
-  "selections": (v33/*: any*/)
+  "selections": (v33/*: any*/),
+  "storageKey": null
 },
 v35 = [
   (v3/*: any*/),
@@ -969,48 +968,48 @@ v36 = [
   (v17/*: any*/),
   (v18/*: any*/),
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "contact_type",
-    "storageKey": null,
     "args": null,
     "concreteType": "Choice",
+    "kind": "LinkedField",
+    "name": "contact_type",
     "plural": false,
-    "selections": (v33/*: any*/)
+    "selections": (v33/*: any*/),
+    "storageKey": null
   },
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "emails",
-    "storageKey": null,
     "args": null,
     "concreteType": "Email",
+    "kind": "LinkedField",
+    "name": "emails",
     "plural": true,
-    "selections": (v35/*: any*/)
+    "selections": (v35/*: any*/),
+    "storageKey": null
   },
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "phones",
-    "storageKey": null,
     "args": null,
     "concreteType": "Phone",
+    "kind": "LinkedField",
+    "name": "phones",
     "plural": true,
-    "selections": (v35/*: any*/)
+    "selections": (v35/*: any*/),
+    "storageKey": null
   },
   (v21/*: any*/),
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "member_of_groups",
-    "storageKey": null,
     "args": null,
     "concreteType": "Group",
+    "kind": "LinkedField",
+    "name": "member_of_groups",
     "plural": true,
     "selections": [
       (v4/*: any*/),
       (v3/*: any*/)
-    ]
+    ],
+    "storageKey": null
   }
 ],
 v37 = [
@@ -1020,51 +1019,46 @@ v37 = [
 v38 = [
   (v2/*: any*/),
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "contact",
-    "storageKey": null,
     "args": null,
     "concreteType": "Contact",
+    "kind": "LinkedField",
+    "name": "contact",
     "plural": false,
-    "selections": (v36/*: any*/)
+    "selections": (v36/*: any*/),
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "UpdateOrganizationMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateOrganizationMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "composite_organization",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CompositeOrganizationMutationPayload",
+        "kind": "LinkedField",
+        "name": "composite_organization",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "updated",
-            "storageKey": null,
             "args": null,
             "concreteType": "UpdateOrganizationPayload",
+            "kind": "LinkedField",
+            "name": "updated",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "organization",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Organization",
+                "kind": "LinkedField",
+                "name": "organization",
                 "plural": false,
                 "selections": [
                   (v3/*: any*/),
@@ -1080,136 +1074,138 @@ return {
                   (v15/*: any*/),
                   (v16/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "parent_organization",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
+                    "kind": "LinkedField",
+                    "name": "parent_organization",
                     "plural": false,
                     "selections": [
                       (v9/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "contacts",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "Contact",
+                    "kind": "LinkedField",
+                    "name": "contacts",
                     "plural": true,
-                    "selections": (v22/*: any*/)
+                    "selections": (v22/*: any*/),
+                    "storageKey": null
                   },
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "comments",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CommentType",
+                    "kind": "LinkedField",
+                    "name": "comments",
                     "plural": true,
                     "selections": [
                       {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "user",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "User",
+                        "kind": "LinkedField",
+                        "name": "user",
                         "plural": false,
                         "selections": [
                           (v17/*: any*/),
                           (v18/*: any*/)
-                        ]
+                        ],
+                        "storageKey": null
                       },
                       (v23/*: any*/),
                       (v24/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   (v25/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "creator",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "creator",
                     "plural": false,
-                    "selections": (v27/*: any*/)
+                    "selections": (v27/*: any*/),
+                    "storageKey": null
                   },
                   (v28/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "modifier",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "modifier",
                     "plural": false,
-                    "selections": (v27/*: any*/)
+                    "selections": (v27/*: any*/),
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           },
           (v30/*: any*/),
           (v31/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "subcreated",
-            "storageKey": null,
             "args": null,
             "concreteType": "CreateContactPayload",
+            "kind": "LinkedField",
+            "name": "subcreated",
             "plural": true,
-            "selections": (v32/*: any*/)
+            "selections": (v32/*: any*/),
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "subupdated",
-            "storageKey": null,
             "args": null,
             "concreteType": "UpdateContactPayload",
+            "kind": "LinkedField",
+            "name": "subupdated",
             "plural": true,
-            "selections": (v32/*: any*/)
+            "selections": (v32/*: any*/),
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateOrganizationMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "composite_organization",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CompositeOrganizationMutationPayload",
+        "kind": "LinkedField",
+        "name": "composite_organization",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "updated",
-            "storageKey": null,
             "args": null,
             "concreteType": "UpdateOrganizationPayload",
+            "kind": "LinkedField",
+            "name": "updated",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "organization",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Organization",
+                "kind": "LinkedField",
+                "name": "organization",
                 "plural": false,
                 "selections": [
                   (v3/*: any*/),
@@ -1225,114 +1221,117 @@ return {
                   (v15/*: any*/),
                   (v16/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "parent_organization",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
+                    "kind": "LinkedField",
+                    "name": "parent_organization",
                     "plural": false,
                     "selections": [
                       (v9/*: any*/),
                       (v3/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "contacts",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "Contact",
+                    "kind": "LinkedField",
+                    "name": "contacts",
                     "plural": true,
-                    "selections": (v36/*: any*/)
+                    "selections": (v36/*: any*/),
+                    "storageKey": null
                   },
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "comments",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CommentType",
+                    "kind": "LinkedField",
+                    "name": "comments",
                     "plural": true,
                     "selections": [
                       {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "user",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "User",
+                        "kind": "LinkedField",
+                        "name": "user",
                         "plural": false,
                         "selections": [
                           (v17/*: any*/),
                           (v18/*: any*/),
                           (v3/*: any*/)
-                        ]
+                        ],
+                        "storageKey": null
                       },
                       (v23/*: any*/),
                       (v24/*: any*/),
                       (v3/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   (v25/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "creator",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "creator",
                     "plural": false,
-                    "selections": (v37/*: any*/)
+                    "selections": (v37/*: any*/),
+                    "storageKey": null
                   },
                   (v28/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "modifier",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "modifier",
                     "plural": false,
-                    "selections": (v37/*: any*/)
+                    "selections": (v37/*: any*/),
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           },
           (v30/*: any*/),
           (v31/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "subcreated",
-            "storageKey": null,
             "args": null,
             "concreteType": "CreateContactPayload",
+            "kind": "LinkedField",
+            "name": "subcreated",
             "plural": true,
-            "selections": (v38/*: any*/)
+            "selections": (v38/*: any*/),
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "subupdated",
-            "storageKey": null,
             "args": null,
             "concreteType": "UpdateContactPayload",
+            "kind": "LinkedField",
+            "name": "subupdated",
             "plural": true,
-            "selections": (v38/*: any*/)
+            "selections": (v38/*: any*/),
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "UpdateOrganizationMutation",
     "id": null,
-    "text": "mutation UpdateOrganizationMutation(\n  $input: CompositeOrganizationMutationInput!\n) {\n  composite_organization(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      organization {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n        website\n        organization_id\n        organization_number\n        affiliation_customer\n        affiliation_end_customer\n        affiliation_host_user\n        affiliation_partner\n        affiliation_provider\n        affiliation_site_owner\n        parent_organization {\n          organization_id\n          id\n        }\n        contacts {\n          id\n          first_name\n          last_name\n          contact_type {\n            name\n            value\n            id\n          }\n          emails {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          phones {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          roles {\n            relation_id\n            role_data {\n              id\n              name\n            }\n            end {\n              id\n              name\n            }\n          }\n          member_of_groups {\n            name\n            id\n          }\n        }\n        comments {\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n          id\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n      }\n    }\n    address_created {\n      errors {\n        field\n        messages\n      }\n      address {\n        id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n      }\n    }\n    address_updated {\n      errors {\n        field\n        messages\n      }\n      address {\n        id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "UpdateOrganizationMutation",
+    "operationKind": "mutation",
+    "text": "mutation UpdateOrganizationMutation(\n  $input: CompositeOrganizationMutationInput!\n) {\n  composite_organization(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      organization {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n        website\n        organization_id\n        organization_number\n        affiliation_customer\n        affiliation_end_customer\n        affiliation_host_user\n        affiliation_partner\n        affiliation_provider\n        affiliation_site_owner\n        parent_organization {\n          organization_id\n          id\n        }\n        contacts {\n          id\n          first_name\n          last_name\n          contact_type {\n            name\n            value\n            id\n          }\n          emails {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          phones {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          roles {\n            relation_id\n            role_data {\n              id\n              name\n            }\n            end {\n              id\n              name\n            }\n          }\n          member_of_groups {\n            name\n            id\n          }\n        }\n        comments {\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n          id\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n      }\n    }\n    address_created {\n      errors {\n        field\n        messages\n      }\n      address {\n        id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n      }\n    }\n    address_updated {\n      errors {\n        field\n        messages\n      }\n      address {\n        id\n        name\n        street\n        postal_code\n        postal_area\n        phone\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        roles {\n          relation_id\n          role_data {\n            id\n            name\n          }\n          end {\n            id\n            name\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();

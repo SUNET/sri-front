@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 9e3d998b05c3a0c11fbc0d7abd185d86
  */
 
 /* eslint-disable */
@@ -35,53 +34,53 @@ query DropdownRolesGroupDefaultQuery {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "getRolesFromRoleGroup",
-    "storageKey": null,
     "args": null,
     "concreteType": "Role",
+    "kind": "LinkedField",
+    "name": "getRolesFromRoleGroup",
     "plural": true,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "id",
         "args": null,
+        "kind": "ScalarField",
+        "name": "id",
         "storageKey": null
       },
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "name",
         "args": null,
+        "kind": "ScalarField",
+        "name": "name",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DropdownRolesGroupDefaultQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DropdownRolesGroupDefaultQuery",
+    "selections": (v0/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "DropdownRolesGroupDefaultQuery",
-    "argumentDefinitions": [],
     "selections": (v0/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "DropdownRolesGroupDefaultQuery",
     "id": null,
-    "text": "query DropdownRolesGroupDefaultQuery {\n  getRolesFromRoleGroup {\n    id\n    name\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DropdownRolesGroupDefaultQuery",
+    "operationKind": "query",
+    "text": "query DropdownRolesGroupDefaultQuery {\n  getRolesFromRoleGroup {\n    id\n    name\n  }\n}\n"
   }
 };
 })();

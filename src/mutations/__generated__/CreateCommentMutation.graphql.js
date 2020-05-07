@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 3adf73f3134b21a443893a31e435e87c
  */
 
 /* eslint-disable */
@@ -60,10 +59,10 @@ mutation CreateCommentMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCommentInput!",
-    "defaultValue": null
+    "type": "CreateCommentInput!"
   }
 ],
 v1 = [
@@ -74,149 +73,149 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "object_id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "object_id",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "comment",
   "args": null,
+  "kind": "ScalarField",
+  "name": "comment",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "first_name",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "last_name",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "submit_date",
   "args": null,
+  "kind": "ScalarField",
+  "name": "submit_date",
   "storageKey": null
 },
 v7 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCommentMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCommentMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "create_comment",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCommentPayload",
+        "kind": "LinkedField",
+        "name": "create_comment",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "comment",
-            "storageKey": null,
             "args": null,
             "concreteType": "CommentType",
+            "kind": "LinkedField",
+            "name": "comment",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "user",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
                 "plural": false,
                 "selections": [
                   (v4/*: any*/),
                   (v5/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v6/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCommentMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "create_comment",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCommentPayload",
+        "kind": "LinkedField",
+        "name": "create_comment",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "comment",
-            "storageKey": null,
             "args": null,
             "concreteType": "CommentType",
+            "kind": "LinkedField",
+            "name": "comment",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "user",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
                 "plural": false,
                 "selections": [
                   (v4/*: any*/),
                   (v5/*: any*/),
                   (v7/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v6/*: any*/),
               (v7/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCommentMutation",
     "id": null,
-    "text": "mutation CreateCommentMutation(\n  $input: CreateCommentInput!\n) {\n  create_comment(input: $input) {\n    comment {\n      object_id\n      comment\n      user {\n        first_name\n        last_name\n        id\n      }\n      submit_date\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCommentMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCommentMutation(\n  $input: CreateCommentInput!\n) {\n  create_comment(input: $input) {\n    comment {\n      object_id\n      comment\n      user {\n        first_name\n        last_name\n        id\n      }\n      submit_date\n      id\n    }\n  }\n}\n"
   }
 };
 })();
