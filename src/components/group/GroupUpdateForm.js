@@ -28,7 +28,7 @@ class GroupUpdateForm extends _GroupFormParentClass {
         );
     };
     handleSubmit = (group) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateGroupMutation(group, this);
     };
     render() {

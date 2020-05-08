@@ -297,15 +297,33 @@ class _OrganizationFormParentClass extends React.Component {
                         organization_parent_id={organization_parent_id}
                         parent_organization={this.props.organization_parent}
                         onChange={(newOrganizationParent) => {
-                            this.props.dispatch(
-                                change(this.props.form, "organization_parent_id", newOrganizationParent.organization_id)
-                            );
-                            this.props.dispatch(
-                                change(this.props.form, "relationship_parent_of", newOrganizationParent.id)
-                            );
-                            this.props.dispatch(
-                                change(this.props.form, "organization_parent", newOrganizationParent)
-                            );
+                            if (newOrganizationParent) {
+                                this.props.dispatch(
+                                    change(this.props.form, "organization_parent_id", newOrganizationParent.organization_id)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "relationship_parent_of", newOrganizationParent.id)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "organization_parent", newOrganizationParent)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "isDirty_relationship_parent_of", false)
+                                );
+                            } else if (this.props.initialValues.organization_parent) {
+                                this.props.dispatch(
+                                    change(this.props.form, "organization_parent_id", null)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "relationship_parent_of", null)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "organization_parent", null)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "isDirty_relationship_parent_of", this.props.initialValues.organization_parent.relation_id)
+                                );
+                            }
                         }}
                     />
                 )

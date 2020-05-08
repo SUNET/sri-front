@@ -28,7 +28,7 @@ class ProviderUpdateForm extends _BasicFormParentClass {
         );
     };
     handleSubmit = (provider) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateProviderMutation(provider, this);
     };
     render() {

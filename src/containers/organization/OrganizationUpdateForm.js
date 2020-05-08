@@ -9,7 +9,7 @@ import { showNewContactForm } from "../../actions/ComponentFormRow";
 const mapStateToProps = (state, props) => {
     const updateOrganizationSelector = formValueSelector("updateOrganization");
 
-    const organization = props.organization;
+    const { organization } = props;
     const parent_node =
         organization.incoming && organization.incoming.filter((relation) => relation.name === "Parent_of")[0];
     const initialValues = {

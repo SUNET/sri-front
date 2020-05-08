@@ -43,7 +43,7 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
     };
 
     handleSubmit = (organization) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateOrganizationMutation(organization, this);
     };
 

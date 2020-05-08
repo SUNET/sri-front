@@ -30,7 +30,7 @@ class ContactUpdateForm extends _ContactFormParentClass {
         );
     };
     handleSubmit = (contact) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateContactMutation(contact, this);
     };
     render() {

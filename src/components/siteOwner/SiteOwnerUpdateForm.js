@@ -30,7 +30,7 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
         );
     };
     handleSubmit = (siteOwner) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateSiteOwnerMutation(siteOwner, this);
     };
     render() {
