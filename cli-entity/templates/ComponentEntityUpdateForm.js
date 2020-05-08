@@ -30,7 +30,7 @@ class __EntityClassName__UpdateForm extends _BasicFormParentClass {
         );
     };
     handleSubmit = (__entityName__) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         Update__EntityClassName__Mutation(__entityName__, this);
     };
     render() {

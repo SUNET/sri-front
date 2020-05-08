@@ -30,7 +30,7 @@ class EndUserUpdateForm extends _BasicFormParentClass {
         );
     };
     handleSubmit = (endUser) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateEndUserMutation(endUser, this);
     };
     render() {

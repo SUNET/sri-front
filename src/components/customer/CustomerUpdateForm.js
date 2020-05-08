@@ -30,7 +30,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
         );
     };
     handleSubmit = (customer) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateCustomerMutation(customer, this);
     };
     render() {

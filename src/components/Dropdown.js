@@ -119,9 +119,11 @@ class Dropdown extends React.PureComponent {
         const currentValue = formattedOrganizationList.find((org) => org.value && org.value === organization_parent_id);
         return (
             <Select
+                isClearable
                 value={currentValue}
                 onChange={(newValue) => {
-                    this.props.onChange(newValue.data);
+                    const data = newValue ? newValue.data : null;
+                    this.props.onChange(data);
                 }}
                 options={formattedOrganizationList}
                 placeholder={this.props.placeholder}
