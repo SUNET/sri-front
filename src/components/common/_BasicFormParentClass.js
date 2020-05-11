@@ -42,6 +42,21 @@ class _BasicFormParentClass extends React.Component {
     MODEL_NAME;
     ROUTE_LIST_DIRECTION;
 
+    componentDidMount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.moveToDetails({
+                id: this.props.initialValues.id,
+                name: this.props.initialValues.name,
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.getOutOfDetails();
+        }
+    }
+
     // Methods
     refetch = () => {
         throw new Error("This method should be overwritten in the child class");

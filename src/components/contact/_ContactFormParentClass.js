@@ -42,6 +42,21 @@ class _ContactFormParentClass extends React.Component {
     FORM_ID;
     MODEL_NAME = "contact";
 
+    componentDidMount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.moveToDetails({
+                id: this.props.initialValues.id,
+                name: `${this.props.initialValues.first_name} ${this.props.initialValues.last_name} `,
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.getOutOfDetails();
+        }
+    }
+
     // Methods
     refetch = () => {
         throw new Error("This method should be overwritten in the child class");
