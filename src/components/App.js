@@ -16,9 +16,6 @@ import SideNavNetwork from './SideNavNetwork';
 import SideNavCommunity from './SideNavCommunity';
 import SubMenuActions from './SubMenuActions';
 import Breadcrumbs from '../containers/Breadcrumbs';
-
-import Routes from '../Routes';
-
 import ModalNewContactContainer from '../containers/ModalNewContact';
 
 import 'bootstrap/scss/bootstrap.scss';
