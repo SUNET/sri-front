@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Elements Appears Some Text in some context 1`] = `
+<CreateBreadcrumbsWrapper
+  entityDetails={
+    Object {
+      "id": "id-mock",
+      "name": "name-mock",
+    }
+  }
+  history={
+    Object {
+      "location": Object {
+        "pathname": "/community/contacts/id-mock",
+      },
+    }
+  }
+  isDetailsEntity={true}
+>
+  <div>
+    <Breadcrumbs
+      entityDetails={
+        Object {
+          "id": "id-mock",
+          "name": "name-mock",
+        }
+      }
+      history={
+        Object {
+          "location": Object {
+            "pathname": "/community/contacts/id-mock",
+          },
+        }
+      }
+      isDetailsEntity={true}
+    >
+      <div
+        className="breadcrumbs"
+      >
+        <Breadcrumb
+          label="breadcrumb"
+          listProps={Object {}}
+        >
+          <nav
+            aria-label="breadcrumb"
+          >
+            <ol
+              className="breadcrumb"
+            >
+              <BreadcrumbItem
+                active={false}
+                href="/"
+                key="0"
+                linkProps={Object {}}
+              >
+                <li
+                  className="breadcrumb-item"
+                >
+                  <SafeAnchor
+                    href="/"
+                  >
+                    <a
+                      href="/"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                    >
+                      Home
+                    </a>
+                  </SafeAnchor>
+                </li>
+              </BreadcrumbItem>
+              <BreadcrumbItem
+                active={false}
+                href="/community"
+                key="1"
+                linkProps={Object {}}
+              >
+                <li
+                  className="breadcrumb-item"
+                >
+                  <SafeAnchor
+                    href="/community"
+                  >
+                    <a
+                      href="/community"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                    >
+                      Community
+                    </a>
+                  </SafeAnchor>
+                </li>
+              </BreadcrumbItem>
+              <BreadcrumbItem
+                active={false}
+                href="/community/contacts"
+                key="2"
+                linkProps={Object {}}
+              >
+                <li
+                  className="breadcrumb-item"
+                >
+                  <SafeAnchor
+                    href="/community/contacts"
+                  >
+                    <a
+                      href="/community/contacts"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                    >
+                      Contacts
+                    </a>
+                  </SafeAnchor>
+                </li>
+              </BreadcrumbItem>
+              <BreadcrumbItem
+                active={true}
+                href="/community/contacts/id-mock"
+                key="3"
+                linkProps={Object {}}
+              >
+                <li
+                  aria-current="page"
+                  className="breadcrumb-item active"
+                >
+                  name-mock
+                </li>
+              </BreadcrumbItem>
+            </ol>
+          </nav>
+        </Breadcrumb>
+      </div>
+    </Breadcrumbs>
+  </div>
+</CreateBreadcrumbsWrapper>
+`;
+
+exports[`Some Component Renders correctly 1`] = `
+<CreateBreadcrumbsWrapper>
+  <div>
+    <Breadcrumbs
+      entityDetails={Object {}}
+      history={
+        Object {
+          "location": Object {
+            "pathname": "/community/contacts",
+          },
+        }
+      }
+      isDetailsEntity={false}
+    >
+      <div
+        className="breadcrumbs"
+      >
+        <Breadcrumb
+          label="breadcrumb"
+          listProps={Object {}}
+        >
+          <nav
+            aria-label="breadcrumb"
+          >
+            <ol
+              className="breadcrumb"
+            >
+              <BreadcrumbItem
+                active={false}
+                href="/"
+                key="0"
+                linkProps={Object {}}
+              >
+                <li
+                  className="breadcrumb-item"
+                >
+                  <SafeAnchor
+                    href="/"
+                  >
+                    <a
+                      href="/"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                    >
+                      Home
+                    </a>
+                  </SafeAnchor>
+                </li>
+              </BreadcrumbItem>
+              <BreadcrumbItem
+                active={false}
+                href="/community"
+                key="1"
+                linkProps={Object {}}
+              >
+                <li
+                  className="breadcrumb-item"
+                >
+                  <SafeAnchor
+                    href="/community"
+                  >
+                    <a
+                      href="/community"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                    >
+                      Community
+                    </a>
+                  </SafeAnchor>
+                </li>
+              </BreadcrumbItem>
+              <BreadcrumbItem
+                active={true}
+                href="/community/contacts"
+                key="2"
+                linkProps={Object {}}
+              >
+                <li
+                  aria-current="page"
+                  className="breadcrumb-item active"
+                >
+                  Contacts
+                </li>
+              </BreadcrumbItem>
+            </ol>
+          </nav>
+        </Breadcrumb>
+      </div>
+    </Breadcrumbs>
+  </div>
+</CreateBreadcrumbsWrapper>
+`;

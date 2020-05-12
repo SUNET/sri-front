@@ -23,7 +23,9 @@ class ProviderUpdateForm extends _BasicFormParentClass {
         this.props.relay.refetch(
             { providerId: this.props.provider.id }, // Our refetchQuery needs to know the `providerID`
             null, // We can use the refetchVariables as renderVariables
-            () => {},
+            () => {
+                this.updateBreadcrumbsData();
+            },
             { force: true },
         );
     };

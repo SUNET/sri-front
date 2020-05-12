@@ -22,7 +22,7 @@ class GroupUpdateForm extends _GroupFormParentClass {
             { groupId: this.props.group.id }, // Our refetchQuery needs to know the `groupID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                
+                this.updateBreadcrumbsData();
             },
             { force: true }
         );

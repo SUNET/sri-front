@@ -26,17 +26,12 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
         onChange: PropTypes.func
     };
 
-    componentDidMount() {
-        //register vitual field for affiliation for checked if it has errors (improve in backend)
-        this.props.registerFieldAffiliation();
-    }
-
     refetch = () => {
         this.props.relay.refetch(
             { organizationId: this.props.organization.id }, // Our refetchQuery needs to know the `organizationID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                
+                this.updateBreadcrumbsData();
             },
             { force: true }
         );

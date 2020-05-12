@@ -25,7 +25,9 @@ class ContactUpdateForm extends _ContactFormParentClass {
         this.props.relay.refetch(
             { contactId: this.props.contact.id }, // Our refetchQuery needs to know the `contactID`
             null, // We can use the refetchVariables as renderVariables
-            () => {},
+            () => {
+                this.updateBreadcrumbsData();
+            },
             { force: true }
         );
     };

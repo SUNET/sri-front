@@ -44,6 +44,29 @@ class _OrganizationFormParentClass extends React.Component {
     FORM_ID;
     MODEL_NAME = "organization";
     ROUTE_LIST_DIRECTION = "/community/organizations";
+
+    componentDidMount() {
+        if (this.IS_UPDATED_FORM) {
+            // register vitual field for affiliation for checked if it has errors (improve in backend)
+            this.props.registerFieldAffiliation();
+            this.updateBreadcrumbsData();
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.getOutOfDetails();
+        }
+    }
+
+    updateBreadcrumbsData() {
+        this.props.moveToDetails({
+            id: this.props.initialValues.id,
+            name: this.props.initialValues.name,
+        });
+    }
+
+
     // Methods
     refetch = () => {
         throw new Error("This method should be overwritten in the child class");
