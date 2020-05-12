@@ -24,7 +24,7 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
             { siteOwnerId: this.props.siteOwner.id }, // Our refetchQuery needs to know the `siteOwnerID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                this.updateBreadcrumbsData();
             },
             { force: true },
         );

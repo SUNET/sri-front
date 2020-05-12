@@ -49,10 +49,7 @@ class _OrganizationFormParentClass extends React.Component {
         if (this.IS_UPDATED_FORM) {
             // register vitual field for affiliation for checked if it has errors (improve in backend)
             this.props.registerFieldAffiliation();
-            this.props.moveToDetails({
-                id: this.props.initialValues.id,
-                name: this.props.initialValues.name,
-            });
+            this.updateBreadcrumbsData();
         }
     }
 
@@ -60,6 +57,13 @@ class _OrganizationFormParentClass extends React.Component {
         if (this.IS_UPDATED_FORM) {
             this.props.getOutOfDetails();
         }
+    }
+
+    updateBreadcrumbsData() {
+        this.props.moveToDetails({
+            id: this.props.initialValues.id,
+            name: this.props.initialValues.name,
+        });
     }
 
 

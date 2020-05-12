@@ -44,10 +44,7 @@ class _ContactFormParentClass extends React.Component {
 
     componentDidMount() {
         if (this.IS_UPDATED_FORM) {
-            this.props.moveToDetails({
-                id: this.props.initialValues.id,
-                name: `${this.props.initialValues.first_name} ${this.props.initialValues.last_name} `,
-            });
+            this.updateBreadcrumbsData();
         }
     }
 
@@ -55,6 +52,13 @@ class _ContactFormParentClass extends React.Component {
         if (this.IS_UPDATED_FORM) {
             this.props.getOutOfDetails();
         }
+    }
+
+    updateBreadcrumbsData() {
+        this.props.moveToDetails({
+            id: this.props.initialValues.id,
+            name: `${this.props.initialValues.first_name} ${this.props.initialValues.last_name} `,
+        });
     }
 
     // Methods

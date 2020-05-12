@@ -31,7 +31,7 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
             { organizationId: this.props.organization.id }, // Our refetchQuery needs to know the `organizationID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                
+                this.updateBreadcrumbsData();
             },
             { force: true }
         );

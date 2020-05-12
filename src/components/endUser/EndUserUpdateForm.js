@@ -24,7 +24,7 @@ class EndUserUpdateForm extends _BasicFormParentClass {
             { endUserId: this.props.endUser.id }, // Our refetchQuery needs to know the `endUserID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                this.updateBreadcrumbsData();
             },
             { force: true },
         );
