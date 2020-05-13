@@ -20,10 +20,15 @@ const MODEL_NAME = "group";
 
 const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
-export class GroupList extends React.PureComponent {
+export class GroupList extends React.Component {
     static propTypes = {
-        groups: PropTypes.object.isRequired
+        groups: PropTypes.object
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const haveNewElements = nextProps[this.MODEL_LIST_NAME] !== null;
+        return haveNewElements;
+    }
 
     _loadMore = (type) => {
         let itemsPerLoad = ITEMS_PER_PAGE;
@@ -119,10 +124,10 @@ export class GroupList extends React.PureComponent {
     }
 
     renderList() {
-        let models = this.props.groups;
+        let { groups } = this.props;
         return (
             <tbody>
-                {models.groups.edges.map(({ node }) => {
+                {groups && groups.groups && groups.groups.edges.map(({ node }) => {
                     return (
                         <GroupRow
                             key={node.id}
@@ -138,14 +143,14 @@ export class GroupList extends React.PureComponent {
     }
 
     render() {
-        const { t } = this.props;
+        const { t, groups } = this.props;
         return (
             <>
                 <Table responsive={isMobile} className="model-list" borderless>
                     {this.renderHeaderList()}
                     {this.renderList()}
                 </Table>
-                <div className="text-right mt-1">
+                {groups && <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
                             <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">
@@ -162,7 +167,7 @@ export class GroupList extends React.PureComponent {
                             {t("paginator.load_less")}
                         </button>
                     ) : null}
-                </div>
+                </div>}
             </>
         );
     }

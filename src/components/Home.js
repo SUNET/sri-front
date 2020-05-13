@@ -5,6 +5,8 @@ import environment from "../createRelayEnvironment";
 
 import DashBoardContactBlock from "./contact/DashBoardContactBlock";
 
+import "../style/query-renderer-spinner.scss"
+
 class Home extends React.Component {
     render() {
         return (
