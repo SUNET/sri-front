@@ -16,10 +16,15 @@ class DashBoardContactList extends React.Component {
         this.props.history.push(`/community/contacts/${data.id}`);
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        const haveNewContacts = nextProps.contacts !== null;
+        return haveNewContacts;
+    }
+
     render() {
-        const { contacts } = this.props.contacts;
+        const { contacts } = this.props;
         return (
-            <div className="dashboard-block">
+            <div className="dashboard-list">
                 <header>
                     <h2>{this.props.title}</h2>
                     <div className="pretty custom p-icon p-toggle p-plain icon-right order-by">
@@ -44,7 +49,7 @@ class DashBoardContactList extends React.Component {
                     </div>
                 </header>
                 <div>
-                    {contacts.edges.map(({ node, index }) => {
+                    {contacts && contacts.contacts.edges && contacts.contacts.edges.map(({ node, index }) => {
                         return (
                             <DashBoardContactRow key={node.__id} contact={node} onClick={this.handleLinkToContact} />
                         );

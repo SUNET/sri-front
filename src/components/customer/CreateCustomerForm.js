@@ -13,6 +13,7 @@ import { isBrowser } from "react-device-detect";
 class CreateCustomerForm extends _BasicFormParentClass {
     IS_UPDATED_FORM = false;
     FORM_ID = CREATE_CUSTOMER_FORM;
+    ROUTE_LIST_DIRECTION = "/network/customers";
     state = {
         errors: []
     };

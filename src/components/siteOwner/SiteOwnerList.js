@@ -18,13 +18,18 @@ import { default as ROW_COMPONENT } from "./SiteOwnerRow";
 
 const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
-export class SiteOwnerList extends React.PureComponent {
+export class SiteOwnerList extends React.Component {
     MODEL_NAME = "siteOwner";
     MODEL_LIST_NAME = "siteOwners";
     ROW_COMPONENT = ROW_COMPONENT;
     static propTypes = {
-        siteOwners: PropTypes.object.isRequired
+        siteOwners: PropTypes.object,
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const haveNewElements = nextProps[this.MODEL_LIST_NAME] !== null;
+        return haveNewElements;
+    }
 
     _loadMore = (type) => {
         let itemsPerLoad = ITEMS_PER_PAGE;
@@ -117,11 +122,11 @@ export class SiteOwnerList extends React.PureComponent {
     }
 
     renderList() {
-        let models = this.props[this.MODEL_LIST_NAME];
+        let { siteOwners } = this.props;
 
         return (
             <tbody>
-                {models.siteOwners.edges.map(({ node }) => {
+                {siteOwners && siteOwners.siteOwners && siteOwners.siteOwners.edges.map(({ node }) => {
                     return (
                         <this.ROW_COMPONENT
                             key={node.id}
@@ -137,7 +142,7 @@ export class SiteOwnerList extends React.PureComponent {
     }
 
     render() {
-        const { t } = this.props;
+        const { t, siteOwners } = this.props;
 
         return (
             <>
@@ -145,7 +150,7 @@ export class SiteOwnerList extends React.PureComponent {
                     {this.renderHeaderList()}
                     {this.renderList()}
                 </Table>
-                <div className="text-right mt-1">
+                {siteOwners && <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
                             <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">
@@ -162,7 +167,7 @@ export class SiteOwnerList extends React.PureComponent {
                             {t("paginator.load_less")}
                         </button>
                     ) : null}
-                </div>
+                </div>}
             </>
         );
     }

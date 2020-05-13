@@ -21,10 +21,16 @@ const MODEL_NAME = "organization";
 
 const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
-export class OrganizationList extends React.PureComponent {
+export class OrganizationList extends React.Component {
     static propTypes = {
-        organizations: PropTypes.object.isRequired
+        organizations: PropTypes.object
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const haveNewOrg = nextProps.organizations !== null;
+        const haveNewOrgForDropdown = nextProps.organization_types !== null;
+        return haveNewOrg && haveNewOrgForDropdown;
+    }
 
     _loadMore = (type) => {
         let itemsPerLoad = ITEMS_PER_PAGE;
@@ -77,7 +83,7 @@ export class OrganizationList extends React.PureComponent {
         return (
             <thead>
                 <tr>
-                    {this.props.defaultColumns.map((column) => {
+                    {this.props.organization_types && this.props.defaultColumns.map((column) => {
                         // Hiding the columns passed by props
                         if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
                             return (
@@ -132,10 +138,10 @@ export class OrganizationList extends React.PureComponent {
     }
 
     renderList() {
-        let models = this.props.organizations;
+        let { organizations } = this.props;
         return (
             <tbody>
-                {models.organizations.edges.map(({ node }) => {
+                {organizations && organizations.organizations && organizations.organizations.edges.map(({ node }) => {
                     return (
                         <OrganizationRow
                             key={node.id}
@@ -151,14 +157,14 @@ export class OrganizationList extends React.PureComponent {
     }
 
     render() {
-        const { t } = this.props;
+        const { t, organizations } = this.props;
         return (
             <>
                 <Table responsive={isMobile} className="model-list" borderless>
                     {this.renderHeaderList()}
                     {this.renderList()}
                 </Table>
-                <div className="text-right mt-1">
+                {organizations && <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
                             <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">
@@ -175,7 +181,7 @@ export class OrganizationList extends React.PureComponent {
                             {t("paginator.load_less")}
                         </button>
                     ) : null}
-                </div>
+                </div>}
             </>
         );
     }

@@ -18,13 +18,18 @@ import { default as ROW_COMPONENT } from "./ProviderRow";
 
 const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
-export class ProviderList extends React.PureComponent {
+export class ProviderList extends React.Component {
     MODEL_NAME = "provider";
     MODEL_LIST_NAME = "providers";
     ROW_COMPONENT = ROW_COMPONENT;
     static propTypes = {
-        providers: PropTypes.object.isRequired
+        providers: PropTypes.object,
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const haveNewElements = nextProps[this.MODEL_LIST_NAME] !== null;
+        return haveNewElements;
+    }
 
     _loadMore = (type) => {
         let itemsPerLoad = ITEMS_PER_PAGE;
@@ -117,11 +122,11 @@ export class ProviderList extends React.PureComponent {
     }
 
     renderList() {
-        let models = this.props[this.MODEL_LIST_NAME];
+        let { providers } = this.props;
 
         return (
             <tbody>
-                {models.providers.edges.map(({ node }) => {
+                {providers && providers.providers && providers.providers.edges.map(({ node }) => {
                     return (
                         <this.ROW_COMPONENT
                             key={node.id}
@@ -137,7 +142,7 @@ export class ProviderList extends React.PureComponent {
     }
 
     render() {
-        const { t } = this.props;
+        const { t, providers } = this.props;
 
         return (
             <>
@@ -145,7 +150,7 @@ export class ProviderList extends React.PureComponent {
                     {this.renderHeaderList()}
                     {this.renderList()}
                 </Table>
-                <div className="text-right mt-1">
+                {providers && <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
                             <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">
@@ -162,7 +167,7 @@ export class ProviderList extends React.PureComponent {
                             {t("paginator.load_less")}
                         </button>
                     ) : null}
-                </div>
+                </div>}
             </>
         );
     }

@@ -21,10 +21,18 @@ const MODEL_NAME = "contact";
 
 const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
-export class ContactList extends React.PureComponent {
+export class ContactList extends React.Component {
     static propTypes = {
-        contacts: PropTypes.object.isRequired
+        contacts: PropTypes.object
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const haveNewContacts = nextProps.contacts !== null;
+        const haveOrgTypes = nextProps.organization_types !== null;
+        const haveRoles = nextProps.roles_default !== null;
+        return haveNewContacts && haveOrgTypes && haveRoles;
+    }
+
 
     _loadMore = (type) => {
         let itemsPerLoad = ITEMS_PER_PAGE;
@@ -77,7 +85,7 @@ export class ContactList extends React.PureComponent {
         return (
             <thead>
                 <tr>
-                    {this.props.defaultColumns.map((column) => {
+                    {this.props.roles_default && this.props.defaultColumns.map((column) => {
                         // Hiding the columns passed by props
                         if (this.props.columns_visible[column.value] === true || this.props.all_columns) {
                             let columns_order_filter = undefined;
@@ -139,10 +147,10 @@ export class ContactList extends React.PureComponent {
     }
 
     renderList() {
-        let models = this.props.contacts;
+        let { contacts } = this.props;
         return (
             <tbody>
-                {models.contacts.edges.map(({ node }) => {
+                {contacts && contacts.contacts && contacts.contacts.edges.map(({ node }) => {
                     return (
                         node && (
                             <ContactRow
@@ -160,7 +168,7 @@ export class ContactList extends React.PureComponent {
     }
 
     render() {
-        const { t } = this.props;
+        const { t, contacts } = this.props;
 
         return (
             <>
@@ -168,7 +176,7 @@ export class ContactList extends React.PureComponent {
                     {this.renderHeaderList()}
                     {this.renderList()}
                 </Table>
-                <div className="text-right mt-1">
+                {contacts && <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
                             <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">
@@ -185,7 +193,7 @@ export class ContactList extends React.PureComponent {
                             {t("paginator.load_less")}
                         </button>
                     ) : null}
-                </div>
+                </div>}
             </>
         );
     }
