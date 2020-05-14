@@ -24,7 +24,7 @@ exports[`Some Component Renders correctly 1`] = `
       onClick={[MockFunction]}
     >
       <article
-        className="dash-board-contact-row"
+        className="dash-board-row"
         onClick={[Function]}
       >
         <Row
@@ -34,10 +34,10 @@ exports[`Some Component Renders correctly 1`] = `
             className="row"
           >
             <Col
-              className="dash-board-contact-row__image col-auto"
+              className="dash-board-row__image col-auto"
             >
               <div
-                className="dash-board-contact-row__image col-auto col"
+                className="dash-board-row__image col-auto col"
               >
                 <div>
                   <Image
@@ -58,24 +58,24 @@ exports[`Some Component Renders correctly 1`] = `
               </div>
             </Col>
             <Col
-              className="px-0 dash-board-contact-row__contact-info"
+              className="px-0 dash-board-row__info"
             >
               <div
-                className="px-0 dash-board-contact-row__contact-info col"
+                className="px-0 dash-board-row__info col"
               >
                 <div>
                   <div
-                    className="dash-board-contact-row__contact-info__name"
+                    className="dash-board-row__info__name"
                   >
                     Nonnah
                      
                     Bottini
                   </div>
                   <div
-                    className="help-text dash-board-contact-row__contact-info__roles"
+                    className="help-text dash-board-row__info__roles"
                   >
                     <span
-                      className="dash-board-contact-row__contact-info__roles__row"
+                      className="dash-board-row__info__roles__row"
                       key="0"
                     >
                       Senior Editor
@@ -87,10 +87,10 @@ exports[`Some Component Renders correctly 1`] = `
               </div>
             </Col>
             <Col
-              className="col-md-auto dash-board-contact-row__modified_time"
+              className="col-md-auto dash-board-row__modified_time"
             >
               <div
-                className="col-md-auto dash-board-contact-row__modified_time col"
+                className="col-md-auto dash-board-row__modified_time col"
               >
                 <span>
                   18 hours ago

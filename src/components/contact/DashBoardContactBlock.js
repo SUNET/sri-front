@@ -3,6 +3,7 @@ import { withTranslation } from 'react-i18next';
 import graphql from 'babel-plugin-relay/macro';
 import DashBoardContactList from './DashBoardContactList';
 import CustomQueryRenderer from '../../components/CustomQueryRenderer';
+import _DashBoardBlockParentClass from '../common/_DashBoardBlockParentClass';
 
 const DashBoardContactBlockQuery = graphql`
   query DashBoardContactBlockQuery($count: Int!, $orderBy: ContactOrderBy) {
@@ -10,13 +11,13 @@ const DashBoardContactBlockQuery = graphql`
   }
 `;
 
-class DashBoardContactBlock extends React.Component {
+class DashBoardContactBlock extends _DashBoardBlockParentClass {
   constructor(props) {
     super(props);
-
+    this.COMPONENT_LIST = CustomQueryRenderer;
+    this.QUERY = CustomQueryRenderer;
     this.state = {
       orderBy: 'modified_DESC',
-      count: 6,
     };
   }
 
@@ -32,30 +33,32 @@ class DashBoardContactBlock extends React.Component {
     }
   };
 
-  render() {
+  renderListComponent() {
     const { environment } = this.props;
     return (
-      <CustomQueryRenderer
+      <this.COMPONENT_LIST
         environment={environment}
         query={DashBoardContactBlockQuery}
         variables={{
-          count: this.state.count,
+          count: this.NUMBER_MAX_ROWS,
           orderBy: this.state.orderBy,
         }}
         errorMessage={this.props.t('general.error')}
-        mainClass="dashboard-block"
+        mainClass={this.MAIN_CLASS}
         componentToRender={{
           Component: DashBoardContactList,
           mainProps: ['contacts'],
           componentProps: {
-            title: this.props.title,
             changeOrderBy: this.handleChangeOrderBy,
             orderBy: this.state.orderBy,
-            footer: this.props.footer,
           },
         }}
       />
     );
+  }
+
+  render() {
+    return this.renderListComponent();
   }
 }
 

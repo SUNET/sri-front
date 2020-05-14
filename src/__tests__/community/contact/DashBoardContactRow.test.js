@@ -62,31 +62,31 @@ afterEach(() => {
 describe('Some Component', () => {
   it('Renders correctly', () => {
     expect(toJson(DashBoardContactRowWrapper)).toMatchSnapshot();
-    expect(DashBoardContactRowComponent.find('.dash-board-contact-row')).toHaveLength(1);
+    expect(DashBoardContactRowComponent.find('.dash-board-row')).toHaveLength(1);
   });
 });
 describe('Elements', () => {
   it('Appears Logo Contact in fist COL', () => {
-    const wrapper = DashBoardContactRowComponent.find('.dash-board-contact-row');
-    const logoContainer = wrapper.find('.dash-board-contact-row__image.col');
+    const wrapper = DashBoardContactRowComponent.find('.dash-board-row');
+    const logoContainer = wrapper.find('.dash-board-row__image.col');
     expect(logoContainer).toHaveLength(1);
     const imgElement = logoContainer.find('img');
     expect(imgElement.prop('src')).toBe('profile.png');
   });
   it('Appears First Name and Last Name', () => {
-    const wrapperCol = DashBoardContactRowComponent.find('.dash-board-contact-row__contact-info');
-    const nameElement = wrapperCol.find('.dash-board-contact-row__contact-info__name');
+    const wrapperCol = DashBoardContactRowComponent.find('.dash-board-row__info');
+    const nameElement = wrapperCol.find('.dash-board-row__info__name');
     expect(nameElement).toHaveLength(1);
     expect(nameElement.text()).toEqual(`${FIRST_NAME} ${LAST_NAME}`);
   });
   it('Appears Role and Organization', () => {
-    const wrapperCol = DashBoardContactRowComponent.find('.dash-board-contact-row__contact-info__roles');
-    const rolesElements = wrapperCol.find('.dash-board-contact-row__contact-info__roles__row');
+    const wrapperCol = DashBoardContactRowComponent.find('.dash-board-row__info__roles');
+    const rolesElements = wrapperCol.find('.dash-board-row__info__roles__row');
     expect(rolesElements).toHaveLength(1);
     expect(rolesElements.find('span').text()).toEqual(`${ROLE} - ${ORG}`);
   });
   it('Appears time since modification', () => {
-    const wrapperCol = DashBoardContactRowComponent.find('div.dash-board-contact-row__modified_time');
+    const wrapperCol = DashBoardContactRowComponent.find('div.dash-board-row__modified_time');
     expect(wrapperCol).toHaveLength(1);
     expect(wrapperCol.find('div').text()).toEqual(`${SINCE_TIME_STRING}`);
   });
@@ -94,7 +94,7 @@ describe('Elements', () => {
 
 describe('Events', () => {
   it('When we click it launches the right method', () => {
-    const wrapper = DashBoardContactRowComponent.find('.dash-board-contact-row');
+    const wrapper = DashBoardContactRowComponent.find('.dash-board-row');
     wrapper.simulate('click');
     expect(defaultProps.onClick.mock.calls).toHaveLength(1);
   });

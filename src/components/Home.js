@@ -15,8 +15,6 @@ class Home extends React.Component {
                     <Col xl={4} lg={4} md={6} sm={12}>
                         <DashBoardContactBlock
                             environment={environment}
-                            title="Contacts"
-                            footer={{ label: "See contacts", link: "/community/contacts" }}
                         />
                     </Col>
                 </Row>
