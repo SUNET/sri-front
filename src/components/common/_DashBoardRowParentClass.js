@@ -1,8 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { createFragmentContainer } from 'react-relay';
-import graphql from 'babel-plugin-relay/macro';
-import { Row, Col, Image } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import moment from 'moment';
 
 const formatDate = (dateString) => {

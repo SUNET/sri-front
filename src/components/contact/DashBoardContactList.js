@@ -1,12 +1,9 @@
-import React from 'react';
 import { createPaginationContainer } from 'react-relay';
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import graphql from 'babel-plugin-relay/macro';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-import DashBoardContactRow from './DashBoardContactRow';
+import DashBoardContactRowComponent from './DashBoardContactRow';
 
 import _DashBoardListParentClass from '../common/_DashBoardListParentClass';
 
@@ -17,7 +14,7 @@ class DashBoardContactList extends _DashBoardListParentClass {
     super(props);
     this.MAIN_PROP_NAME = 'contacts';
     this.SINGLE_ELEMENT_NAME = 'contact';
-    this.RowComponent = DashBoardContactRow;
+    this.RowComponent = DashBoardContactRowComponent;
     this.HEADER_DATA = {
       title: 'Contacts',
       sortKey: {

@@ -1,6 +1,5 @@
 // Common imports
 import React from 'react';
-import CustomQueryRenderer from '../../components/CustomQueryRenderer';
 // scss
 import '../../style/ModelDetails.scss';
 
@@ -11,9 +10,7 @@ class _DashBoardBlockParentClass extends React.Component {
     this.MAIN_CLASS = 'dashboard-block';
   }
 
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
+  componentDidMount() {}
 
   render() {
     return <div>This method should be overwritten in the child class</div>;
