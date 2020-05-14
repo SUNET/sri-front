@@ -4,69 +4,46 @@ import { createFragmentContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import { Row, Col, Image } from 'react-bootstrap';
 import moment from 'moment';
+import _DashBoardRowParentClass from '../common/_DashBoardRowParentClass';
 
-export class DashBoardContactRow extends React.PureComponent {
-  formatDate = (dateString) => {
-    let date = new Date(dateString);
-    return moment(date)
-      .locale('en')
-      .fromNow();
-  };
-
-  renderLogo() {
-    return (
-      <Col className="dash-board-contact-row__image col-auto">
-        <div>
-          <Image src={require('../../static/img/profile.png')} roundedCircle img-fluid="true" />
-        </div>
-      </Col>
-    );
+export class DashBoardContactRow extends _DashBoardRowParentClass {
+  constructor(props) {
+    super(props);
+    this.MAIN_PROP = 'contact';
   }
-  renderContactInfo() {
-    const { contact } = this.props;
+
+  renderInfo() {
+    const element = this.props[this.MAIN_PROP];
     return (
-      <Col className="px-0 dash-board-contact-row__contact-info">
-        <div>
-          <div className="dash-board-contact-row__contact-info__name">
-            {contact.first_name} {contact.last_name}
+      <>
+        <Col className="dash-board-row__image col-auto">
+          <div>
+            <Image src={require('../../static/img/profile.png')} roundedCircle img-fluid="true" />
           </div>
-          {contact.roles && (
-            <div className="help-text dash-board-contact-row__contact-info__roles">
-              {contact.roles.map((role, index) => {
-                return (
-                  <span className="dash-board-contact-row__contact-info__roles__row" key={index}>
-                    {role.end && (
-                      <>
-                        {role.name} - {role.end.name}
-                      </>
-                    )}
-                  </span>
-                );
-              })}
+        </Col>
+        <Col className="px-0 dash-board-row__info">
+          <div>
+            <div className="dash-board-row__info__name">
+              {element.first_name} {element.last_name}
             </div>
-          )}
-        </div>
-      </Col>
-    );
-  }
-  renderModifiedDate() {
-    const { contact } = this.props;
-    return (
-      <Col className="col-md-auto dash-board-contact-row__modified_time">
-        <span>{this.formatDate(contact.modified)}</span>
-      </Col>
-    );
-  }
-  render() {
-    const { contact } = this.props;
-    return (
-      <article className="dash-board-contact-row" onClick={(e) => this.props.onClick(e, contact)}>
-        <Row>
-          {this.renderLogo()}
-          {this.renderContactInfo()}
-          {this.renderModifiedDate()}
-        </Row>
-      </article>
+            {element.roles && (
+              <div className="help-text dash-board-row__info__roles">
+                {element.roles.map((role, index) => {
+                  return (
+                    <span className="dash-board-row__info__roles__row" key={index}>
+                      {role.end && (
+                        <>
+                          {role.name} - {role.end.name}
+                        </>
+                      )}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </Col>
+      </>
     );
   }
 }
