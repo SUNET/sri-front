@@ -140,7 +140,7 @@
             "notify.network/siteOwners-created-success": "Site Owner created successfully",
             "notify.changes-saved": "Changes saved",
             "notify.error": "An error has occurred",
-            "general.error": "Oops, something went wrong",
+            "general.error": "Server error, redirecting to login please wait",
             "worklog.wrote": "wrote",
             "worklog.add-comment": "Add comment",
             "worklog.add": "Add",
