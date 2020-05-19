@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 719dcdeacb28d12b041321ed028dbbfe
  */
 
 /* eslint-disable */
@@ -26,9 +25,9 @@ export type ProviderDetailsQueryResponse = {|
       +__typename: string,
       +website?: ?string,
       +organization_id?: ?string,
-      +parent_organization?: ?$ReadOnlyArray<?{|
+      +parent_organization?: ?{|
         +organization_id: ?string
-      |}>,
+      |},
       +affiliation_partner?: ?boolean,
       +affiliation_customer?: ?boolean,
       +affiliation_provider?: ?boolean,
@@ -169,10 +168,10 @@ fragment ProviderUpdateForm_provider on Provider {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "providerId",
-    "type": "ID!",
-    "defaultValue": null
+    "type": "ID!"
   }
 ],
 v1 = [
@@ -183,101 +182,101 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "description",
   "args": null,
+  "kind": "ScalarField",
+  "name": "description",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "url",
   "args": null,
+  "kind": "ScalarField",
+  "name": "url",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "__typename",
   "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
   "storageKey": null
 },
 v7 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "website",
   "args": null,
+  "kind": "ScalarField",
+  "name": "website",
   "storageKey": null
 },
 v8 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "organization_id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "organization_id",
   "storageKey": null
 },
 v9 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_partner",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_partner",
   "storageKey": null
 },
 v10 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_customer",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_customer",
   "storageKey": null
 },
 v11 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_provider",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_provider",
   "storageKey": null
 },
 v12 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_host_user",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_host_user",
   "storageKey": null
 },
 v13 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_site_owner",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_site_owner",
   "storageKey": null
 },
 v14 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "affiliation_end_customer",
   "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation_end_customer",
   "storageKey": null
 },
 v15 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "value",
   "args": null,
+  "kind": "ScalarField",
+  "name": "value",
   "storageKey": null
 },
 v16 = [
@@ -285,74 +284,74 @@ v16 = [
 ],
 v17 = {
   "kind": "InlineFragment",
-  "type": "EndUser",
-  "selections": (v16/*: any*/)
+  "selections": (v16/*: any*/),
+  "type": "EndUser"
 },
 v18 = {
   "kind": "InlineFragment",
-  "type": "Customer",
-  "selections": (v16/*: any*/)
+  "selections": (v16/*: any*/),
+  "type": "Customer"
 },
 v19 = {
   "kind": "InlineFragment",
-  "type": "SiteOwner",
-  "selections": (v16/*: any*/)
+  "selections": (v16/*: any*/),
+  "type": "SiteOwner"
 },
 v20 = {
   "kind": "InlineFragment",
-  "type": "Provider",
-  "selections": (v16/*: any*/)
+  "selections": (v16/*: any*/),
+  "type": "Provider"
 },
 v21 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "first_name",
   "storageKey": null
 },
 v22 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "last_name",
   "storageKey": null
 },
 v23 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "comment",
   "args": null,
+  "kind": "ScalarField",
+  "name": "comment",
   "storageKey": null
 },
 v24 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "submit_date",
   "args": null,
+  "kind": "ScalarField",
+  "name": "submit_date",
   "storageKey": null
 },
 v25 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "created",
   "args": null,
+  "kind": "ScalarField",
+  "name": "created",
   "storageKey": null
 },
 v26 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "email",
   "args": null,
+  "kind": "ScalarField",
+  "name": "email",
   "storageKey": null
 },
 v27 = [
   (v26/*: any*/)
 ],
 v28 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "modified",
   "args": null,
+  "kind": "ScalarField",
+  "name": "modified",
   "storageKey": null
 },
 v29 = [
@@ -360,21 +359,18 @@ v29 = [
   (v2/*: any*/)
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "ProviderDetailsQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ProviderDetailsQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "getProviderById",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Provider",
+        "kind": "LinkedField",
+        "name": "getProviderById",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -383,12 +379,11 @@ return {
           (v5/*: any*/),
           (v6/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "with_same_name",
-            "storageKey": null,
             "args": null,
             "concreteType": null,
+            "kind": "LinkedField",
+            "name": "with_same_name",
             "plural": true,
             "selections": [
               (v2/*: any*/),
@@ -396,21 +391,20 @@ return {
               (v6/*: any*/),
               {
                 "kind": "InlineFragment",
-                "type": "Organization",
                 "selections": [
                   (v7/*: any*/),
                   (v8/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "parent_organization",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
-                    "plural": true,
+                    "kind": "LinkedField",
+                    "name": "parent_organization",
+                    "plural": false,
                     "selections": [
                       (v8/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   (v9/*: any*/),
                   (v10/*: any*/),
@@ -419,96 +413,100 @@ return {
                   (v13/*: any*/),
                   (v14/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "type",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "type",
                     "plural": false,
                     "selections": [
                       (v3/*: any*/),
                       (v15/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "type": "Organization"
               },
               (v17/*: any*/),
               (v18/*: any*/),
               (v19/*: any*/),
               (v20/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "comments",
-            "storageKey": null,
             "args": null,
             "concreteType": "CommentType",
+            "kind": "LinkedField",
+            "name": "comments",
             "plural": true,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "user",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
                 "plural": false,
                 "selections": [
                   (v21/*: any*/),
                   (v22/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v23/*: any*/),
               (v24/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           (v25/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "creator",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "creator",
             "plural": false,
-            "selections": (v27/*: any*/)
+            "selections": (v27/*: any*/),
+            "storageKey": null
           },
           (v28/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "modifier",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "modifier",
             "plural": false,
-            "selections": (v27/*: any*/)
+            "selections": (v27/*: any*/),
+            "storageKey": null
           },
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "ProviderUpdateForm_provider",
-            "args": null
+            "name": "ProviderUpdateForm_provider"
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ProviderDetailsQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "getProviderById",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Provider",
+        "kind": "LinkedField",
+        "name": "getProviderById",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -516,63 +514,62 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "comments",
-            "storageKey": null,
             "args": null,
             "concreteType": "CommentType",
+            "kind": "LinkedField",
+            "name": "comments",
             "plural": true,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "user",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
                 "plural": false,
                 "selections": [
                   (v21/*: any*/),
                   (v22/*: any*/),
                   (v2/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v23/*: any*/),
               (v24/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           (v25/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "creator",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "creator",
             "plural": false,
-            "selections": (v29/*: any*/)
+            "selections": (v29/*: any*/),
+            "storageKey": null
           },
           (v28/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "modifier",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "modifier",
             "plural": false,
-            "selections": (v29/*: any*/)
+            "selections": (v29/*: any*/),
+            "storageKey": null
           },
           (v6/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "with_same_name",
-            "storageKey": null,
             "args": null,
             "concreteType": null,
+            "kind": "LinkedField",
+            "name": "with_same_name",
             "plural": true,
             "selections": [
               (v2/*: any*/),
@@ -580,22 +577,21 @@ return {
               (v6/*: any*/),
               {
                 "kind": "InlineFragment",
-                "type": "Organization",
                 "selections": [
                   (v7/*: any*/),
                   (v8/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "parent_organization",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "Organization",
-                    "plural": true,
+                    "kind": "LinkedField",
+                    "name": "parent_organization",
+                    "plural": false,
                     "selections": [
                       (v8/*: any*/),
                       (v2/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   (v9/*: any*/),
                   (v10/*: any*/),
@@ -604,37 +600,40 @@ return {
                   (v13/*: any*/),
                   (v14/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "type",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "type",
                     "plural": false,
                     "selections": [
                       (v3/*: any*/),
                       (v15/*: any*/),
                       (v2/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "type": "Organization"
               },
               (v17/*: any*/),
               (v18/*: any*/),
               (v19/*: any*/),
               (v20/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "ProviderDetailsQuery",
     "id": null,
-    "text": "query ProviderDetailsQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      ... on Organization {\n        website\n        organization_id\n        parent_organization {\n          organization_id\n          id\n        }\n        affiliation_partner\n        affiliation_customer\n        affiliation_provider\n        affiliation_host_user\n        affiliation_site_owner\n        affiliation_end_customer\n        type {\n          name\n          value\n          id\n        }\n      }\n      ... on EndUser {\n        url\n      }\n      ... on Customer {\n        url\n      }\n      ... on SiteOwner {\n        url\n      }\n      ... on Provider {\n        url\n      }\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "ProviderDetailsQuery",
+    "operationKind": "query",
+    "text": "query ProviderDetailsQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      ... on Organization {\n        website\n        organization_id\n        parent_organization {\n          organization_id\n          id\n        }\n        affiliation_partner\n        affiliation_customer\n        affiliation_provider\n        affiliation_host_user\n        affiliation_site_owner\n        affiliation_end_customer\n        type {\n          name\n          value\n          id\n        }\n      }\n      ... on EndUser {\n        url\n      }\n      ... on Customer {\n        url\n      }\n      ... on SiteOwner {\n        url\n      }\n      ... on Provider {\n        url\n      }\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();

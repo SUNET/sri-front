@@ -13,6 +13,7 @@ import { isBrowser } from "react-device-detect";
 class CreateSiteOwnerForm extends _BasicFormParentClass {
     IS_UPDATED_FORM = false;
     FORM_ID = CREATE_SITEOWNER_FORM;
+    ROUTE_LIST_DIRECTION = "/network/site-owners";
     state = {
         errors: []
     };

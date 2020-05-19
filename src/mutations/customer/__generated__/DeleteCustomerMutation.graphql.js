@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash bc8f0d806589b4e61a903c5e094aeaa7
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteCustomerMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteCustomerInput!",
-    "defaultValue": null
+    "type": "DeleteCustomerInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_customer",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteCustomerPayload",
+    "kind": "LinkedField",
+    "name": "delete_customer",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteCustomerMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteCustomerMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteCustomerMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteCustomerMutation",
     "id": null,
-    "text": "mutation DeleteCustomerMutation(\n  $input: DeleteCustomerInput!\n) {\n  delete_customer(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteCustomerMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteCustomerMutation(\n  $input: DeleteCustomerInput!\n) {\n  delete_customer(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();

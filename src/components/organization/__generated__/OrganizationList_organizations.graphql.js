@@ -37,9 +37,33 @@ export type OrganizationList_organizations$key = {
 
 
 const node/*: ReaderFragment*/ = {
+  "argumentDefinitions": [
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "count",
+      "type": "Int"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "cursor",
+      "type": "String"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "filter",
+      "type": "OrganizationFilter"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "orderBy",
+      "type": "OrganizationOrderBy"
+    }
+  ],
   "kind": "Fragment",
-  "name": "OrganizationList_organizations",
-  "type": "Query",
   "metadata": {
     "connection": [
       {
@@ -52,118 +76,94 @@ const node/*: ReaderFragment*/ = {
       }
     ]
   },
-  "argumentDefinitions": [
-    {
-      "kind": "LocalArgument",
-      "name": "count",
-      "type": "Int",
-      "defaultValue": null
-    },
-    {
-      "kind": "LocalArgument",
-      "name": "cursor",
-      "type": "String",
-      "defaultValue": null
-    },
-    {
-      "kind": "LocalArgument",
-      "name": "filter",
-      "type": "OrganizationFilter",
-      "defaultValue": null
-    },
-    {
-      "kind": "LocalArgument",
-      "name": "orderBy",
-      "type": "OrganizationOrderBy",
-      "defaultValue": null
-    }
-  ],
+  "name": "OrganizationList_organizations",
   "selections": [
     {
-      "kind": "LinkedField",
       "alias": "organizations",
-      "name": "__OrganizationList_organizations_connection",
-      "storageKey": null,
       "args": null,
       "concreteType": "organizationConnection",
+      "kind": "LinkedField",
+      "name": "__OrganizationList_organizations_connection",
       "plural": false,
       "selections": [
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "edges",
-          "storageKey": null,
           "args": null,
           "concreteType": "organizationEdge",
+          "kind": "LinkedField",
+          "name": "edges",
           "plural": true,
           "selections": [
             {
-              "kind": "LinkedField",
               "alias": null,
-              "name": "node",
-              "storageKey": null,
               "args": null,
               "concreteType": "Organization",
+              "kind": "LinkedField",
+              "name": "node",
               "plural": false,
               "selections": [
                 {
-                  "kind": "ScalarField",
                   "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
                   "name": "id",
-                  "args": null,
                   "storageKey": null
                 },
                 {
-                  "kind": "ScalarField",
                   "alias": null,
-                  "name": "__typename",
                   "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
                   "storageKey": null
                 },
                 {
+                  "args": null,
                   "kind": "FragmentSpread",
-                  "name": "OrganizationRow_organization",
-                  "args": null
+                  "name": "OrganizationRow_organization"
                 }
-              ]
+              ],
+              "storageKey": null
             },
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "cursor",
               "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
               "storageKey": null
             }
-          ]
+          ],
+          "storageKey": null
         },
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "pageInfo",
-          "storageKey": null,
           "args": null,
           "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
           "plural": false,
           "selections": [
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "hasNextPage",
               "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             },
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "endCursor",
               "args": null,
+              "kind": "ScalarField",
+              "name": "endCursor",
               "storageKey": null
             }
-          ]
+          ],
+          "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "Query"
 };
 // prettier-ignore
 (node/*: any*/).hash = '5b541f8f7059cd284e7cf4bad229e362';

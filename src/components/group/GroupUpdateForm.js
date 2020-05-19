@@ -22,13 +22,13 @@ class GroupUpdateForm extends _GroupFormParentClass {
             { groupId: this.props.group.id }, // Our refetchQuery needs to know the `groupID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                
+                this.updateBreadcrumbsData();
             },
             { force: true }
         );
     };
     handleSubmit = (group) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateGroupMutation(group, this);
     };
     render() {

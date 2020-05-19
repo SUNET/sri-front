@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 250e3506c09ce214eee6b894fba78bc7
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteRelationshipMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteRelationshipInput!",
-    "defaultValue": null
+    "type": "DeleteRelationshipInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_relationship",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteRelationshipPayload",
+    "kind": "LinkedField",
+    "name": "delete_relationship",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteRelationshipMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteRelationshipMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteRelationshipMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteRelationshipMutation",
     "id": null,
-    "text": "mutation DeleteRelationshipMutation(\n  $input: DeleteRelationshipInput!\n) {\n  delete_relationship(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteRelationshipMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteRelationshipMutation(\n  $input: DeleteRelationshipInput!\n) {\n  delete_relationship(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();

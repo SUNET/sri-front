@@ -1,6 +1,6 @@
 // Common imports
 import React from "react";
-import { arrayPush, FieldArray, Field } from "redux-form";
+import { arrayPush, FieldArray, Field, change } from "redux-form";
 import uuidv4 from "uuid/v4";
 import { Form, Col } from "react-bootstrap";
 // components
@@ -19,6 +19,7 @@ import Worklog from "../Worklog";
 import { isBrowser, isMobile } from "react-device-detect";
 // scss
 import "../../style/ModelDetails.scss";
+import "../../style/ComboSelect.scss";
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
     const isPresentState = !editable;
@@ -43,6 +44,28 @@ class _OrganizationFormParentClass extends React.Component {
     FORM_ID;
     MODEL_NAME = "organization";
     ROUTE_LIST_DIRECTION = "/community/organizations";
+
+    componentDidMount() {
+        if (this.IS_UPDATED_FORM) {
+            // register vitual field for affiliation for checked if it has errors (improve in backend)
+            this.props.registerFieldAffiliation();
+            this.updateBreadcrumbsData();
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.getOutOfDetails();
+        }
+    }
+
+    updateBreadcrumbsData() {
+        this.props.moveToDetails({
+            id: this.props.initialValues.id,
+            name: this.props.initialValues.name,
+        });
+    }
+
 
     // Methods
     refetch = () => {
@@ -282,17 +305,50 @@ class _OrganizationFormParentClass extends React.Component {
                 )
             },
             {
-                title: t("organization-details.parent-org-id"),
-                presentContent: organization_parent_id,
+                title: t("organization-details.parent-org"),
+                presentContent: this.props.organization_parent
+                    ? `${this.props.organization_parent.name} - ${this.props.organization_parent.organization_id}`
+                    : '',
                 editContent: (
-                    <Form.Group>
-                        <Field
-                            type="text"
-                            name="organization_parent_id"
-                            component={FieldInput}
-                            placeholder={t("organization-details.add-id")}
-                        />
-                    </Form.Group>
+                    <Dropdown
+                        className={`${isBrowser ? "auto" : "xlg mw-100"}`}
+                        emptyLabel="Select parent"
+                        type="organization_combo_list"
+                        name="organization_parent_id"
+                        model="organization"
+                        placeholder={t("organization-details.add-id")}
+                        organization_parent_id={organization_parent_id}
+                        parent_organization={this.props.organization_parent}
+                        onChange={(newOrganizationParent) => {
+                            if (newOrganizationParent) {
+                                this.props.dispatch(
+                                    change(this.props.form, "organization_parent_id", newOrganizationParent.organization_id)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "relationship_parent_of", newOrganizationParent.id)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "organization_parent", newOrganizationParent)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "isDirty_relationship_parent_of", false)
+                                );
+                            } else if (this.props.initialValues.organization_parent) {
+                                this.props.dispatch(
+                                    change(this.props.form, "organization_parent_id", null)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "relationship_parent_of", null)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "organization_parent", null)
+                                );
+                                this.props.dispatch(
+                                    change(this.props.form, "isDirty_relationship_parent_of", this.props.initialValues.organization_parent.relation_id)
+                                );
+                            }
+                        }}
+                    />
                 )
             }
         ];

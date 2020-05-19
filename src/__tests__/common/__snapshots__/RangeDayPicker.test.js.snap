@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RangeDayPicker Component Renders correctly 1`] = `
+<CreateRangeDayPickerWrapper>
+  <div>
+    <RangeDayPicker
+      dateFrom={[MockFunction]}
+      dateTo={[MockFunction]}
+      resetDate={[MockFunction]}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "filter.daypicker.from",
+            ],
+            Array [
+              "filter.daypicker.to",
+            ],
+            Array [
+              "filter.date.clear",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "filter.daypicker.from",
+            },
+            Object {
+              "type": "return",
+              "value": "filter.daypicker.to",
+            },
+            Object {
+              "type": "return",
+              "value": "filter.date.clear",
+            },
+          ],
+        }
+      }
+    >
+      <div
+        className="range-day-picker"
+      >
+        <div
+          className="input-from-to input-from-to--from"
+        >
+          <label>
+            filter.daypicker.from
+          </label>
+          <DayPickerInput
+            classNames={
+              Object {
+                "container": "DayPickerInput",
+                "overlay": "DayPickerInput-Overlay",
+                "overlayWrapper": "DayPickerInput-OverlayWrapper",
+              }
+            }
+            clickUnselectsDay={false}
+            component="input"
+            dayPickerProps={
+              Object {
+                "disabledDays": Object {
+                  "after": undefined,
+                },
+                "locale": "en",
+                "localeUtils": Object {
+                  "formatDate": [Function],
+                  "formatDay": [Function],
+                  "formatMonthTitle": [Function],
+                  "formatWeekdayLong": [Function],
+                  "formatWeekdayShort": [Function],
+                  "getFirstDayOfWeek": [Function],
+                  "getMonths": [Function],
+                  "parseDate": [Function],
+                },
+                "modifiers": Object {
+                  "end": undefined,
+                  "start": undefined,
+                },
+                "numberOfMonths": 2,
+                "onDayClick": [Function],
+                "selectedDays": Array [
+                  undefined,
+                  Object {
+                    "from": undefined,
+                    "to": undefined,
+                  },
+                ],
+                "toMonth": undefined,
+              }
+            }
+            format="DD/MM/YY"
+            formatDate={[Function]}
+            hideOnDayClick={true}
+            inputProps={Object {}}
+            keepFocus={true}
+            onDayChange={[Function]}
+            overlayComponent={[Function]}
+            parseDate={[Function]}
+            placeholder="dd/mm/yy"
+            showOverlay={false}
+            typedValue=""
+            value=""
+          >
+            <div
+              className="DayPickerInput"
+            >
+              <input
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                placeholder="dd/mm/yy"
+                value=""
+              />
+            </div>
+          </DayPickerInput>
+        </div>
+        <div
+          className="input-from-to input-from-to--to"
+        >
+          <label>
+            filter.daypicker.to
+          </label>
+          <DayPickerInput
+            classNames={
+              Object {
+                "container": "DayPickerInput",
+                "overlay": "DayPickerInput-Overlay",
+                "overlayWrapper": "DayPickerInput-OverlayWrapper",
+              }
+            }
+            clickUnselectsDay={false}
+            component="input"
+            dayPickerProps={
+              Object {
+                "disabledDays": Object {
+                  "before": undefined,
+                },
+                "fromMonth": undefined,
+                "locale": "en",
+                "localeUtils": Object {
+                  "formatDate": [Function],
+                  "formatDay": [Function],
+                  "formatMonthTitle": [Function],
+                  "formatWeekdayLong": [Function],
+                  "formatWeekdayShort": [Function],
+                  "getFirstDayOfWeek": [Function],
+                  "getMonths": [Function],
+                  "parseDate": [Function],
+                },
+                "modifiers": Object {
+                  "end": undefined,
+                  "start": undefined,
+                },
+                "month": undefined,
+                "numberOfMonths": 2,
+                "selectedDays": Array [
+                  undefined,
+                  Object {
+                    "from": undefined,
+                    "to": undefined,
+                  },
+                ],
+              }
+            }
+            format="DD/MM/YY"
+            formatDate={[Function]}
+            hideOnDayClick={true}
+            inputProps={Object {}}
+            keepFocus={true}
+            onDayChange={[Function]}
+            overlayComponent={[Function]}
+            parseDate={[Function]}
+            placeholder="dd/mm/yy"
+            showOverlay={false}
+            typedValue=""
+            value=""
+          >
+            <div
+              className="DayPickerInput"
+            >
+              <input
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                placeholder="dd/mm/yy"
+                value=""
+              />
+            </div>
+          </DayPickerInput>
+        </div>
+        <button
+          className="range-day-picker__reset_dates btn outline btn-remove"
+          data-action="reset"
+          onClick={[Function]}
+          type="button"
+        >
+          filter.date.clear
+        </button>
+      </div>
+    </RangeDayPicker>
+  </div>
+</CreateRangeDayPickerWrapper>
+`;

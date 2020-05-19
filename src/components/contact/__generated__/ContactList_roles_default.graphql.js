@@ -28,38 +28,38 @@ export type ContactList_roles_default$key = {
 
 
 const node/*: ReaderFragment*/ = {
-  "kind": "Fragment",
-  "name": "ContactList_roles_default",
-  "type": "Query",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "ContactList_roles_default",
   "selections": [
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "getRolesFromRoleGroup",
-      "storageKey": null,
       "args": null,
       "concreteType": "Role",
+      "kind": "LinkedField",
+      "name": "getRolesFromRoleGroup",
       "plural": true,
       "selections": [
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "id",
           "args": null,
+          "kind": "ScalarField",
+          "name": "id",
           "storageKey": null
         },
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "name",
           "args": null,
+          "kind": "ScalarField",
+          "name": "name",
           "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "Query"
 };
 // prettier-ignore
 (node/*: any*/).hash = '7463304cb98b9e3d94ad7ac57dabf5f1';

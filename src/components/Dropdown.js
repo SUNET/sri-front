@@ -4,6 +4,7 @@ import { Form } from "react-bootstrap";
 import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Field } from "redux-form";
+import Select from "react-select";
 
 import FieldSelect from "./FieldSelect";
 
@@ -22,7 +23,8 @@ const DropdownOrganizationsAllQuery = graphql`
     query DropdownOrganizationsAllQuery {
         all_organizations {
             id
-            node_name
+            name
+            organization_id
         }
     }
 `;
@@ -59,6 +61,27 @@ class Dropdown extends React.PureComponent {
         emptyLabel: PropTypes.string,
         defaultValue: PropTypes.string
     };
+
+    getFormattedOrganizationsList(organizationsList) {
+        return organizationsList.all_organizations.map((org) => {
+            return {
+                value: org.organization_id,
+                label: `${org.name} - ${org.organization_id}`,
+                id: org.id,
+                data: org,
+            };
+        });
+    }
+
+    getParentOrganizationValue(parentOrganization) {
+        const { organization_id, id, name } = parentOrganization;
+        return {
+            value: organization_id,
+            label: `${name} - ${organization_id}`,
+            id
+        }
+    }
+
     // for real backend dropdowns
     renderOptions = (options) => {
         return options.map((option) => {
@@ -84,11 +107,53 @@ class Dropdown extends React.PureComponent {
         return options.map((option) => {
             return (
                 <option key={option.id} value={option.id}>
-                    {option.node_name}
+                    {option.name}
                 </option>
             );
         });
     };
+
+    renderComboSelect(organizationsList) {
+        const { organization_parent_id } = this.props;
+        const formattedOrganizationList = this.getFormattedOrganizationsList(organizationsList);
+        const currentValue = formattedOrganizationList.find((org) => org.value && org.value === organization_parent_id);
+        return (
+            <Select
+                isClearable
+                value={currentValue}
+                onChange={(newValue) => {
+                    const data = newValue ? newValue.data : null;
+                    this.props.onChange(data);
+                }}
+                options={formattedOrganizationList}
+                placeholder={this.props.placeholder}
+                className="combo-select-container"
+                classNamePrefix="combo-select"
+            />
+        );
+    }
+
+    renderField(options) {
+        return (
+            <Field
+                className={this.props.className}
+                component={FieldSelect}
+                onChange={(e) => this.props.onChange(e)}
+                name={this.props.name}
+                value={this.props.defaultValue || ""}
+            >
+                {this.props.emptyLabel && (
+                    <option value="" default>
+                        {this.props.emptyLabel}
+                    </option>
+                )}
+                {this.props.model === "organization" && this.renderOptionsModelOptimized(options)}
+                {(this.props.model === "roles" || this.props.model === "default_roles") &&
+                    this.renderOptionsModel(options)}
+                {this.props.model === undefined && this.renderOptions(options)}
+            </Field>
+        );
+    }
 
     render() {
         let dropdownQuery = undefined;
@@ -130,27 +195,24 @@ class Dropdown extends React.PureComponent {
                             } else {
                                 options = props.getChoicesForDropdown;
                             }
-                            return (
-                                <Field
-                                    className={this.props.className}
-                                    component={FieldSelect}
-                                    onChange={(e) => this.props.onChange(e)}
-                                    name={this.props.name}
-                                    value={this.props.defaultValue || ""}
-                                >
-                                    {this.props.emptyLabel && (
-                                        <option value="" default>
-                                            {this.props.emptyLabel}
-                                        </option>
-                                    )}
-                                    {this.props.model === "organization" && this.renderOptionsModelOptimized(options)}
-                                    {(this.props.model === "roles" || this.props.model === "default_roles") &&
-                                        this.renderOptionsModel(options)}
-                                    {this.props.model === undefined && this.renderOptions(options)}
-                                </Field>
-                            );
+
+                            return this.props.type === "organization_combo_list"
+                                ? this.renderComboSelect(props)
+                                : this.renderField(options);
                         }
-                        return (
+                        return this.props.type === 'organization_combo_list' ? (
+                            <Select
+                                value={
+                                    this.props.parent_organization
+                                        ? this.getParentOrganizationValue(this.props.parent_organization)
+                                        : undefined
+                                }
+                                options={[]}
+                                placeholder={this.props.placeholder}
+                                className="combo-select-container"
+                                classNamePrefix="combo-select"
+                            />
+                        ) : (
                             <select className={this.props.className}>
                                 <option value="">{this.props.emptyLabel}</option>
                             </select>

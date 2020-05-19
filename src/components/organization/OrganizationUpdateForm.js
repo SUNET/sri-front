@@ -26,24 +26,19 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
         onChange: PropTypes.func
     };
 
-    componentDidMount() {
-        //register vitual field for affiliation for checked if it has errors (improve in backend)
-        this.props.registerFieldAffiliation();
-    }
-
     refetch = () => {
         this.props.relay.refetch(
             { organizationId: this.props.organization.id }, // Our refetchQuery needs to know the `organizationID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                
+                this.updateBreadcrumbsData();
             },
             { force: true }
         );
     };
 
     handleSubmit = (organization) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateOrganizationMutation(organization, this);
     };
 
@@ -96,6 +91,9 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
                 incident_management_info
                 parent_organization {
                     organization_id
+                    id
+                    relation_id
+                    name
                 }
                 addresses {
                     id

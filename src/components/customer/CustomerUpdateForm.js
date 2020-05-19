@@ -24,13 +24,13 @@ class CustomerUpdateForm extends _BasicFormParentClass {
             { customerId: this.props.customer.id }, // Our refetchQuery needs to know the `customerID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                this.updateBreadcrumbsData();
             },
             { force: true },
         );
     };
     handleSubmit = (customer) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateCustomerMutation(customer, this);
     };
     render() {

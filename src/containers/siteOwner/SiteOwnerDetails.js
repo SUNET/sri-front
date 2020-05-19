@@ -1,18 +1,18 @@
-import { connect } from "react-redux";
-import * as actions from "../../actions/Notify";
+import { connect } from 'react-redux';
+import * as notifyActions from '../../actions/Notify';
 
-import SiteOwnerDetails from "../../components/siteOwner/SiteOwnerDetails";
+import SiteOwnerDetails from '../../components/siteOwner/SiteOwnerDetails';
 
 const mapStateToProps = (state, props) => {
-    return {};
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
-        notify: (msg, level) => {
-            dispatch(actions.notify(msg, level));
-        }
-    };
+  return {
+    notify: (msg, level) => {
+      dispatch(notifyActions.notify(msg, level));
+    },
+  };
 };
 
 const SiteOwnerDetailsContainer = connect(mapStateToProps, mapDispatchToProps)(SiteOwnerDetails);

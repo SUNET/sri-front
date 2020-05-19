@@ -223,11 +223,11 @@ export default function UpdateOrganizationMutation(organization, form) {
 
     const deleteRoles = [];
 
-    if (form.props.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
-        deleteRoles.push({ relation_id: organization.relationship_parent_of_relation_id });
+    if (form.props.isDirty_relationship_parent_of) {
+        deleteRoles.push({ relation_id: organization.isDirty_relationship_parent_of });
     }
 
-    const addresses = organization.addresses;
+    const { addresses } = organization;
     if (addresses) {
         Object.keys(addresses).forEach((address_key) => {
             let address = addresses[address_key];

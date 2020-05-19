@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 34d9127888b432192a69d0e2dced82e0
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteProviderMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteProviderInput!",
-    "defaultValue": null
+    "type": "DeleteProviderInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_provider",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteProviderPayload",
+    "kind": "LinkedField",
+    "name": "delete_provider",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteProviderMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteProviderMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteProviderMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteProviderMutation",
     "id": null,
-    "text": "mutation DeleteProviderMutation(\n  $input: DeleteProviderInput!\n) {\n  delete_provider(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteProviderMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteProviderMutation(\n  $input: DeleteProviderInput!\n) {\n  delete_provider(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();

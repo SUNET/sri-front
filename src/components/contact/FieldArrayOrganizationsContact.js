@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
-import { Field, change } from "redux-form";
+import { Field, change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 
 import FieldInput from "../FieldInput";
@@ -36,8 +36,14 @@ class FieldArrayOrganizationsContact extends React.Component {
     }
     // methods onClick
     onClickAccept() {
-        // TODO: Validate before hide modal
-        this.hideDataModal();
+        const currentValue = this.getValueByKey(this.state.selectedRowKey);
+        const validated = this.validateOrganization(currentValue.data, currentValue.index);
+        if (validated) {
+            this.hideDataModal();
+        } else {
+            this.props.dispatch(touch(this.props.meta.form, `organizations[${currentValue.index}].role`));
+            this.props.dispatch(touch(this.props.meta.form, `organizations[${currentValue.index}].organization`));
+        }
     }
     // methods state
     showDataModal(key) {
@@ -131,7 +137,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                     return {
                         element: (
                             <>
-                                <Form.Group>
+                                <Form.Group style={isBrowser ? {width: "170px"}: {}}>
                                     <Dropdown
                                         className={`${isBrowser ? "auto" : "w-100"}`}
                                         emptyLabel={t("organization-details.select-organization")}
@@ -231,6 +237,15 @@ class FieldArrayOrganizationsContact extends React.Component {
         const indexForThisFieldKey = this.getValueByKey(key).index;
         const input_label = event.target.options[event.target.selectedIndex].text;
         const input_name = event.target.name.split(".")[1];
+        function updateOrganizationIdField(props, orgId) {
+            props.dispatch(
+                change(
+                    props.meta.form,
+                    `organizations[${indexForThisFieldKey}].organization_id`,
+                    orgId
+                )
+            );
+        }
         this.props.dispatch(
             change(this.props.meta.form, `organizations[${indexForThisFieldKey}].${input_name}_label`, input_label)
         );
@@ -238,21 +253,17 @@ class FieldArrayOrganizationsContact extends React.Component {
         if (input_name === "organization") {
             getOrganization(event.target.value).then((organization) => {
                 if (organization) {
-                    this.props.dispatch(
-                        change(
-                            this.props.meta.form,
-                            `organizations[${indexForThisFieldKey}].organization_id`,
-                            organization.organization_id
-                        )
-                    );
+                    updateOrganizationIdField(this.props, organization.id);    
                 }
+            }).catch(err => {
+                updateOrganizationIdField(this.props, null);
             });
         }
     };
 
     // common Renders
     renderModal() {
-        const { t } = this.props;
+        const { t, editable } = this.props;
         return (
             <Modal
                 centered
@@ -260,7 +271,7 @@ class FieldArrayOrganizationsContact extends React.Component {
                 show={this.state.showModal}
                 onHide={() => this.setState({ showModal: false })}
             >
-                <Modal.Header closeButton={true}>
+                <Modal.Header closeButton={!editable}>
                     <h2>{t("contact-details.professional-details")}</h2>
                 </Modal.Header>
                 <Modal.Body className="organizations-contacts">

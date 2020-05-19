@@ -1,0 +1,60 @@
+import React from 'react';
+import { mount, shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
+import { ComponentName } from '../../components/ComponentName';
+
+let ComponentNameWrapper;
+let ComponentNameComponent;
+
+const defaultProps = {
+  changeComponentName: jest.fn(),
+  t: jest.fn((t) => t),
+};
+
+const CreateComponentNameWrapper = (props) => {
+  const allProps = { ...defaultProps, ...props };
+  return (
+    <div>
+      <ComponentName {...allProps} />
+    </div>
+  );
+};
+
+const mountComponentNameWrapper = (props) => mount(<CreateComponentNameWrapper {...props} />);
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  ComponentNameWrapper = mountComponentNameWrapper();
+  ComponentNameComponent = ComponentNameWrapper.find('ComponentName');
+});
+afterEach(() => {
+  ComponentNameWrapper.unmount();
+});
+
+describe('Some Component', () => {
+  it('Renders correctly', () => {
+    expect(toJson(ComponentNameWrapper)).toMatchSnapshot();
+    expect(ComponentNameComponent.find('.main-class')).toHaveLength(1);
+  });
+});
+describe('Elements', () => {
+  it('Appears Some Text in some context', () => {
+    const someWrapper = ComponentNameComponent.find('.some-class');
+    const someElement = someWrapper.find('thing');
+    expect(someElement).toHaveLength(1);
+    expect(somelElement.text()).toBe('whatever');
+  });
+  it('In other context appears other whatever', () => {});
+});
+
+describe('Checked Values', () => {
+  it('Something unchecked by default (or not)', () => {
+    expect(SomeElement).toHaveLength(1);
+    expect(SomeElement.getElement().props.checked).toBe(false);
+  });
+  it('when someone clicks on something, something happens', () => {
+    ComponentNameComponent.find('input').simulate('change or click or whatever', { target: { checked: true } });
+    expect(defaultProps.changeComponentName).toHaveBeenCalledTimes(1);
+    expect(defaultProps.changeComponentName.mock.calls[0][0]).toBe('some argument');
+  });
+});

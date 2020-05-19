@@ -1,85 +1,75 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { createFragmentContainer } from "react-relay";
-import graphql from "babel-plugin-relay/macro";
-import { Row, Col, Image } from "react-bootstrap";
-import moment from "moment";
+import React from 'react';
+import graphql from 'babel-plugin-relay/macro';
+import PropTypes from 'prop-types';
+import { createFragmentContainer } from 'react-relay';
+import { Col, Image } from 'react-bootstrap';
+import _DashBoardRowParentClass from '../common/_DashBoardRowParentClass';
 
-class DashBoardContactRow extends React.PureComponent {
-    static propTypes = {
-        contact: PropTypes.object.isRequired,
-        onClick: PropTypes.func.isRequired
-    };
+export class DashBoardContactRow extends _DashBoardRowParentClass {
+  constructor(props) {
+    super(props);
+    this.MAIN_PROP = 'contact';
+  }
 
-    formatDate = (dateString) => {
-        let date = new Date(dateString);
-        return moment(date)
-            .locale("en")
-            .fromNow();
-    };
-
-    render() {
-        const { contact } = this.props;
-        return (
-            <article onClick={(e) => this.props.onClick(e, contact)}>
-                <Row>
-                    <Col className="col-auto">
-                        <div>
-                            <Image src={require("../../static/img/profile.png")} roundedCircle img-fluid="true" />
-                        </div>
-                    </Col>
-                    <Col className="px-0">
-                        <div>
-                            <div>
-                                {contact.first_name} {contact.last_name}
-                            </div>
-                            {contact.roles && (
-                                <div className="help-text">
-                                    {contact.roles.map((role, index) => {
-                                        return (
-                                            <span key={index}>
-                                                {role.end && (
-                                                    <>
-                                                        {role.end.name}
-                                                        {contact.roles[index + 1] ? ", " : ""}
-                                                    </>
-                                                )}
-                                            </span>
-                                        );
-                                    })}
-                                </div>
-                            )}
-                        </div>
-                    </Col>
-                    <Col className="col-md-auto">
-                        <div>
-                            <div>{this.formatDate(contact.modified)}</div>
-                        </div>
-                    </Col>
-                </Row>
-            </article>
-        );
-    }
+  renderInfo() {
+    const element = this.props[this.MAIN_PROP];
+    return (
+      <>
+        <Col className="dash-board-row__image col-auto">
+          <div>
+            <Image src={require('../../static/img/profile.png')} roundedCircle img-fluid="true" />
+          </div>
+        </Col>
+        <Col className="px-0 dash-board-row__info">
+          <div>
+            <div className="dash-board-row__info__name">
+              {element.first_name} {element.last_name}
+            </div>
+            {element.roles && (
+              <div className="help-text dash-board-row__info__roles">
+                {element.roles.map((role, index) => {
+                  return (
+                    <span className="dash-board-row__info__roles__row" key={index}>
+                      {role.end && (
+                        <>
+                          {role.name} - {role.end.name}
+                        </>
+                      )}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </Col>
+      </>
+    );
+  }
 }
 
+DashBoardContactRow.propTypes = {
+  contact: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
 const ContactRowFragment = createFragmentContainer(DashBoardContactRow, {
-    contact: graphql`
-        fragment DashBoardContactRow_contact on Contact {
-            id
-            first_name
-            last_name
-            modified
-            roles {
-                name
-                end {
-                    name
-                }
-            }
-            member_of_groups {
-                name
-            }
+  contact: graphql`
+    fragment DashBoardContactRow_contact on Contact {
+      id
+      first_name
+      last_name
+      modified
+      roles {
+        name
+        end {
+          name
         }
-    `
+      }
+      member_of_groups {
+        name
+      }
+    }
+  `,
 });
 
 export default ContactRowFragment;

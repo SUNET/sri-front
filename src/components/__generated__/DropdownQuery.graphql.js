@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 232e05362cf7d621a99a6e2482004d16
  */
 
 /* eslint-disable */
@@ -40,10 +39,10 @@ query DropdownQuery(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "name",
-    "type": "String!",
-    "defaultValue": null
+    "type": "String!"
   }
 ],
 v1 = [
@@ -54,76 +53,76 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "value",
   "args": null,
+  "kind": "ScalarField",
+  "name": "value",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DropdownQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DropdownQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "getChoicesForDropdown",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Choice",
+        "kind": "LinkedField",
+        "name": "getChoicesForDropdown",
         "plural": true,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/)
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DropdownQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "getChoicesForDropdown",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Choice",
+        "kind": "LinkedField",
+        "name": "getChoicesForDropdown",
         "plural": true,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "id",
             "args": null,
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "DropdownQuery",
     "id": null,
-    "text": "query DropdownQuery(\n  $name: String!\n) {\n  getChoicesForDropdown(name: $name) {\n    name\n    value\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DropdownQuery",
+    "operationKind": "query",
+    "text": "query DropdownQuery(\n  $name: String!\n) {\n  getChoicesForDropdown(name: $name) {\n    name\n    value\n    id\n  }\n}\n"
   }
 };
 })();

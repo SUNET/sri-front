@@ -28,17 +28,13 @@ export type OrganizationList_organization_types$key = {
 
 
 const node/*: ReaderFragment*/ = {
-  "kind": "Fragment",
-  "name": "OrganizationList_organization_types",
-  "type": "Query",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "OrganizationList_organization_types",
   "selections": [
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "getChoicesForDropdown",
-      "storageKey": "getChoicesForDropdown(name:\"organization_types\")",
       "args": [
         {
           "kind": "Literal",
@@ -47,25 +43,29 @@ const node/*: ReaderFragment*/ = {
         }
       ],
       "concreteType": "Choice",
+      "kind": "LinkedField",
+      "name": "getChoicesForDropdown",
       "plural": true,
       "selections": [
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "name",
           "args": null,
+          "kind": "ScalarField",
+          "name": "name",
           "storageKey": null
         },
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "value",
           "args": null,
+          "kind": "ScalarField",
+          "name": "value",
           "storageKey": null
         }
-      ]
+      ],
+      "storageKey": "getChoicesForDropdown(name:\"organization_types\")"
     }
-  ]
+  ],
+  "type": "Query"
 };
 // prettier-ignore
 (node/*: any*/).hash = '89d18c5114dee824b8fbbb28f9f3e525';
