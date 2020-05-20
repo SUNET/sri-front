@@ -23,7 +23,7 @@ export class PortList extends React.Component {
     MODEL_LIST_NAME = "ports";
     ROW_COMPONENT = ROW_COMPONENT;
     static propTypes = {
-        ports: PropTypes.object.isRequired
+        ports: PropTypes.object
     };
 
     shouldComponentUpdate(nextProps, nextState) {
