@@ -3,8 +3,6 @@
 set -e
 set -x
 
-cp -r /source/* /app/
-
 yarn
 yarn add babel-plugin-relay
 yarn build
