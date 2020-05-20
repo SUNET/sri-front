@@ -5,7 +5,8 @@ import uuidv4 from 'uuid/v4';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import { getContact } from '../../components/contact/Contact';
-import { showNewContactForm } from '../../actions/ComponentFormRow';
+import * as componentFormRow from '../../actions/ComponentFormRow';
+
 
 const mapStateToProps = (state, props) => {
   const updateGroupSelector = formValueSelector('updateGroup');
@@ -70,6 +71,7 @@ const mapStateToProps = (state, props) => {
     formSyncErrors: getFormSyncErrors('updateGroup')(state),
     fields: getFormMeta('updateGroup')(state),
     getContact: (id) => getContact(id),
+    contact_removed_id: state.componentFormRow.contact_removed_id,
   };
 };
 
@@ -84,7 +86,15 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    showNewContactForm,
+    showNewContactForm: () => {
+      dispatch(componentFormRow.showNewContactForm());
+    },
+    hideNewContactForm: () => {
+      dispatch(componentFormRow.hideNewContactForm());
+    },
+    showContactDetailForm: (contactId) => {
+      dispatch(componentFormRow.showContactDetailForm(contactId));
+    },
   };
 };
 

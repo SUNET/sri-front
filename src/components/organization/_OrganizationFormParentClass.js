@@ -432,7 +432,7 @@ class _OrganizationFormParentClass extends React.Component {
         );
     }
     renderContactsToggleSection(editMode = true) {
-        const { t } = this.props;
+        const { t, contact_removed_id } = this.props;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -450,7 +450,14 @@ class _OrganizationFormParentClass extends React.Component {
                         rerenderOnEveryChange={true}
                         handleContactSearch={this.handleSelectedContact}
                         handleAddContactRow={() => {
-                            this.props.dispatch(this.props.showNewContactForm());
+                            this.props.showNewContactForm();
+                        }}
+                        handleShowContactDetail={(contactId) => {
+                            this.props.showContactDetailForm(contactId);
+                        }}
+                        removedContactId={contact_removed_id}
+                        removedContactDeletedFromTheList={() => {
+                            this.props.hideNewContactForm();
                         }}
                     />
                 </TogglePanel>
