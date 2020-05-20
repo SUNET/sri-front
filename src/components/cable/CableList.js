@@ -18,13 +18,18 @@ import { default as ROW_COMPONENT } from "./CableRow";
 
 const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
-export class CableList extends React.PureComponent {
+export class CableList extends React.Component {
     MODEL_NAME = "cable";
     MODEL_LIST_NAME = "cables";
     ROW_COMPONENT = ROW_COMPONENT;
     static propTypes = {
-        cables: PropTypes.object.isRequired
+        cables: PropTypes.object
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const haveNewElements = nextProps[this.MODEL_LIST_NAME] !== null;
+        return haveNewElements;
+    }
 
     _loadMore = (type) => {
         let itemsPerLoad = ITEMS_PER_PAGE;
@@ -121,7 +126,7 @@ export class CableList extends React.PureComponent {
 
         return (
             <tbody>
-                {models.cables.edges.map(({ node }) => {
+                {models && models[this.MODEL_LIST_NAME] && models[this.MODEL_LIST_NAME].edges.map(({ node }) => {
                     return (
                         <this.ROW_COMPONENT
                             key={node.id}
@@ -138,6 +143,7 @@ export class CableList extends React.PureComponent {
 
     render() {
         const { t } = this.props;
+        const models = this.props[this.MODEL_LIST_NAME];
 
         return (
             <>
@@ -145,7 +151,7 @@ export class CableList extends React.PureComponent {
                     {this.renderHeaderList()}
                     {this.renderList()}
                 </Table>
-                <div className="text-right mt-1">
+                {models && <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
                             <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">
@@ -162,7 +168,7 @@ export class CableList extends React.PureComponent {
                             {t("paginator.load_less")}
                         </button>
                     ) : null}
-                </div>
+                </div>}
             </>
         );
     }

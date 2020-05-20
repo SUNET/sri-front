@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
-import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
@@ -21,6 +20,8 @@ import FilterRowsBlock from "../FilterRowsBlock";
 import { isEmpty } from "../../utils";
 
 import { isBrowser, isMobile } from "react-device-detect";
+
+import CustomQueryRenderer from '../../components/CustomQueryRenderer';
 
 const { ITEMS_PER_PAGE } = CONFIG;
 
@@ -107,11 +108,11 @@ class Search extends React.Component {
         this.setState({
             filterValue: [
                 { name_contains: filterValue },
-                {
-                    roles_contains: {
-                        name: filterValue
-                    }
-                },
+                // { DE00-004: the text filter with this field does not work
+                    // roles_contains: {
+                        // name: filterValue
+                    // }
+                // },
                 {
                     organizations_contains: {
                         name: filterValue
@@ -204,49 +205,32 @@ class Search extends React.Component {
         return (
             <Row className="mt-3">
                 <Col>
-                    <QueryRenderer
+                    <CustomQueryRenderer
                         environment={environment}
                         query={SearchContactsAllQuery}
                         variables={{
                             count: this.state.itemsPerPage,
                             ...this.state.orderBy,
-                            filter: this.getFilters()
+                            filter: this.getFilters(),
                         }}
-                        render={({ error, props, retry }) => {
-                            if (error) {
-                                return <div>{error.message}</div>;
-                            } else if (props) {
-                                return (
-                                    <ContactListContainer
-                                        contacts={props}
-                                        organization_types={props}
-                                        roles_default={props}
-                                        changeCount={this.handleOnChangeCount}
-                                        columnChangeOrderBy={this.handleColumnChangeOrderBy}
-                                        orderBy={this.state.orderBy.orderBy}
-                                        changeOrderFilterColumns={this.handleChangeOrderFilterColumns}
-                                        filterColumn={this.state.filterColumnValueCallBack}
-                                        defaultColumns={defaultColumns}
-                                        refetch={retry}
-                                        clickInMobileShowMenu={() =>
-                                            this.setState({
-                                                openMobileFiltersPanel: !this.state.openMobileFiltersPanel
-                                            })
-                                        }
-                                    />
-                                );
-                            }
-                            return (
-                                <div>
-                                    {/*<div className="model-list default">
-                                                            <div>
-                                                                <div></div>
-                                                            </div>
-                                                            <div>{this.createTable()}</div>
-                                                        </div>*/}
-                                    <div>Loading</div>
-                                </div>
-                            );
+                        errorMessage={this.props.t('general.error')}
+                        mainClass=""
+                        componentToRender={{
+                            Component: ContactListContainer,
+                            mainProps: ['contacts', 'organization_types', 'roles_default'],
+                            componentProps: {
+                                changeCount:this.handleOnChangeCount,
+                                columnChangeOrderBy:this.handleColumnChangeOrderBy,
+                                orderBy:this.state.orderBy.orderBy,
+                                changeOrderFilterColumns:this.handleChangeOrderFilterColumns,
+                                filterColumn:this.state.filterColumnValueCallBack,
+                                defaultColumns:defaultColumns,
+                                clickInMobileShowMenu:() => {
+                                    this.setState({
+                                        openMobileFiltersPanel: !this.state.openMobileFiltersPanel
+                                    });
+                                },
+                            },
                         }}
                     />
                 </Col>

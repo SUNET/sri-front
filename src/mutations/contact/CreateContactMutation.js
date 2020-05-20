@@ -18,19 +18,28 @@ const mutation = graphql`
                     id
                     title
                     notes
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     first_name
                     last_name
                     pgp_fingerprint
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         relation_id
@@ -65,7 +74,10 @@ const mutation = graphql`
                 email {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
             }
             phones_created {
@@ -76,7 +88,10 @@ const mutation = graphql`
                 phone {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
             }
             rolerelations {
@@ -179,7 +194,7 @@ export default function CreateContactMutation(contact, form) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(response, errors);
+            
             if (response.composite_contact.created.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.composite_contact.created.errors;
@@ -188,12 +203,13 @@ export default function CreateContactMutation(contact, form) {
                 if (contact.comment) {
                     CreateComentMutation(contact_id, contact.comment);
                 }
-                if (form.props.shown_in_modal) {
-                    form.props.hideContactModal();
-                } else {
+                if (form.props.history) {
                     form.props.history.push("/community/contacts/" + contact_id);
-                    form.props.notify(i18n.t("notify.contact-created-success"), "success");
                 }
+                // else {
+                //    form.props.hideContactModal();
+                // }
+                form.props.notify(i18n.t("notify.contact-created-success"), "success");
             }
         },
         updater: (proxyStore, data) => {},

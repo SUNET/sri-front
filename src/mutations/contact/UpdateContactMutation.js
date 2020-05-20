@@ -16,19 +16,28 @@ const mutation = graphql`
                     id
                     title
                     notes
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     first_name
                     last_name
                     pgp_fingerprint
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         relation_id
@@ -63,7 +72,10 @@ const mutation = graphql`
                 email {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
             }
             subupdated {
@@ -74,7 +86,10 @@ const mutation = graphql`
                 email {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
             }
             phones_created {
@@ -85,7 +100,10 @@ const mutation = graphql`
                 phone {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
             }
             phones_updated {
@@ -96,7 +114,10 @@ const mutation = graphql`
                 phone {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
             }
             rolerelations {
@@ -145,12 +166,12 @@ export default function UpdateContactMutation(contact, form) {
                     updateEmails.push({
                         id: email.id,
                         name: email.email,
-                        type: email.type
+                        type: email.type.value ? email.type.value : email.type,
                     });
                 } else {
                     newEmails.push({
                         name: email.email,
-                        type: email.type
+                        type: email.type.value ? email.type.value : email.type,
                     });
                 }
             }
@@ -168,12 +189,12 @@ export default function UpdateContactMutation(contact, form) {
                     updatePhones.push({
                         id: phone.id,
                         name: phone.phone,
-                        type: phone.type
+                        type: phone.type.value ? phone.type.value : phone.type,
                     });
                 } else {
                     newPhones.push({
                         name: phone.phone,
-                        type: phone.type
+                        type: phone.type.value ? phone.type.value : phone.type,
                     });
                 }
             }
@@ -238,7 +259,6 @@ export default function UpdateContactMutation(contact, form) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log(response, errors);
             if (response.composite_contact.updated.errors) {
                 return response.composite_contact.updated.errors;
             } else {

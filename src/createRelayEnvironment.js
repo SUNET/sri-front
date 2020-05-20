@@ -56,18 +56,24 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
             return response.json();
         })
         .then((json) => {
+            let jsonResult;
+            if (json.errors && json.errors.length > 0) {
+                jsonResult = {data: ""}
+            } else {
+                jsonResult = json;
+            }
             // Update cache on queries
-            if (isQuery && json) {
-                cache.set(queryId, variables, json);
+            if (isQuery && jsonResult) {
+                cache.set(queryId, variables, jsonResult);
             }
             // Clear cache on mutations
             if (isMutation) {
                 cache.clear();
             }
 
-            return json;
+            return jsonResult
         })
-        .catch(() => {
+        .catch((err) => {
             window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
         });
 }

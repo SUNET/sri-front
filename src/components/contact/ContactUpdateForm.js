@@ -15,31 +15,38 @@ import { isBrowser } from "react-device-detect";
 class ContactUpdateForm extends _ContactFormParentClass {
     IS_UPDATED_FORM = true;
     FORM_ID = UPDATE_CONTACT_FORM;
-    state = {
-        editMode: false
-    };
     static propTypes = {
         onChange: PropTypes.func
     };
+    constructor(props) {
+        super(props);
+        this.state = {
+            editMode: props.shown_in_modal,
+        }
+    }
     refetch = () => {
         this.props.relay.refetch(
             { contactId: this.props.contact.id }, // Our refetchQuery needs to know the `contactID`
             null, // We can use the refetchVariables as renderVariables
-            () => {},
+            () => {
+                this.updateBreadcrumbsData();
+            },
             { force: true }
         );
     };
     handleSubmit = (contact) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
+        this.props.hideContactModal();
         UpdateContactMutation(contact, this);
     };
     render() {
-        let { handleSubmit } = this.props;
-        const showBackButton = isBrowser;
+        let { shown_in_modal, handleSubmit } = this.props;
+        const showBackButton = isBrowser && !shown_in_modal;
+        const showSaveCancelInHeader = showBackButton;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {isBrowser && this.renderSaveCancelButtons()}
-                {this.renderHeader(this.state.editMode, showBackButton)}
+                {showSaveCancelInHeader && this.renderSaveCancelButtons()}
+                {this.renderHeader(this.state.editMode, showBackButton, shown_in_modal)}
                 {this.renderModelMainSection(this.state.editMode)}
                 {this.renderWorkLog(this.state.editMode)}
                 {this.renderSaveCancelButtons()}
@@ -66,19 +73,28 @@ const ContactUpdateFormFragment = createRefetchContainer(
                 name
                 notes
                 title
-                contact_type
+                contact_type {
+                    name
+                    value
+                }
                 first_name
                 last_name
                 pgp_fingerprint
                 emails {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 phones {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                 }
                 roles {
                     relation_id

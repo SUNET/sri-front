@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash e9503bc3198bc35bac974ace5af770e6
  */
 
 /* eslint-disable */
@@ -39,7 +38,10 @@ export type AddContactOrganizationMutationResponse = {|
       +id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?any,
+      +contact_type: ?{|
+        +name: string,
+        +value: string,
+      |},
     |}
   |}
 |};
@@ -59,7 +61,11 @@ mutation AddContactOrganizationMutation(
       id
       first_name
       last_name
-      contact_type
+      contact_type {
+        name
+        value
+        id
+      }
     }
   }
 }
@@ -68,95 +74,159 @@ mutation AddContactOrganizationMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateContactInput!",
-    "defaultValue": null
+    "type": "UpdateContactInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "update_contact",
-    "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "UpdateContactPayload",
-    "plural": false,
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "first_name",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "last_name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "value",
+  "storageKey": null
+};
+return {
+  "fragment": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "AddContactOrganizationMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "contact",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Contact",
+        "args": (v1/*: any*/),
+        "concreteType": "UpdateContactPayload",
+        "kind": "LinkedField",
+        "name": "update_contact",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "id",
             "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "first_name",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "last_name",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "contact_type",
-            "args": null,
+            "concreteType": "Contact",
+            "kind": "LinkedField",
+            "name": "contact",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "contact_type",
+                "plural": false,
+                "selections": [
+                  (v5/*: any*/),
+                  (v6/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
-  }
-];
-return {
-  "kind": "Request",
-  "fragment": {
-    "kind": "Fragment",
-    "name": "AddContactOrganizationMutation",
-    "type": "Mutation",
-    "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "AddContactOrganizationMutation",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "UpdateContactPayload",
+        "kind": "LinkedField",
+        "name": "update_contact",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Contact",
+            "kind": "LinkedField",
+            "name": "contact",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "contact_type",
+                "plural": false,
+                "selections": [
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "AddContactOrganizationMutation",
     "id": null,
-    "text": "mutation AddContactOrganizationMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      id\n      first_name\n      last_name\n      contact_type\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "AddContactOrganizationMutation",
+    "operationKind": "mutation",
+    "text": "mutation AddContactOrganizationMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      id\n      first_name\n      last_name\n      contact_type {\n        name\n        value\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c472b1b6f8db21c9aeacf34fcc4faeac';
+(node/*: any*/).hash = 'b990f33d55116de9e5e40ac4197589e5';
+
 module.exports = node;

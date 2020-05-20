@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 49f2221322a5e27b1fc569b4a8da7d2f
  */
 
 /* eslint-disable */
@@ -68,18 +67,15 @@ mutation CreateAddressMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateAddressInput!",
-    "defaultValue": null
+    "type": "CreateAddressInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "create_address",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -88,114 +84,118 @@ v1 = [
       }
     ],
     "concreteType": "CreateAddressPayload",
+    "kind": "LinkedField",
+    "name": "create_address",
     "plural": false,
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "errors",
-        "storageKey": null,
         "args": null,
         "concreteType": "ErrorType",
+        "kind": "LinkedField",
+        "name": "errors",
         "plural": true,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "field",
             "args": null,
+            "kind": "ScalarField",
+            "name": "field",
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "messages",
             "args": null,
+            "kind": "ScalarField",
+            "name": "messages",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       },
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "address",
-        "storageKey": null,
         "args": null,
         "concreteType": "Address",
+        "kind": "LinkedField",
+        "name": "address",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "name",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "phone",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "street",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "postal_code",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "postal_area",
             "args": null,
+            "kind": "ScalarField",
+            "name": "postal_area",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateAddressMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateAddressMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateAddressMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateAddressMutation",
     "id": null,
-    "text": "mutation CreateAddressMutation(\n  $input: CreateAddressInput!\n) {\n  create_address(input: $input) {\n    errors {\n      field\n      messages\n    }\n    address {\n      id\n      name\n      phone\n      street\n      postal_code\n      postal_area\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateAddressMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateAddressMutation(\n  $input: CreateAddressInput!\n) {\n  create_address(input: $input) {\n    errors {\n      field\n      messages\n    }\n    address {\n      id\n      name\n      phone\n      street\n      postal_code\n      postal_area\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '1ccdce7b9fa302617e508f7767326ddb';
+
 module.exports = node;

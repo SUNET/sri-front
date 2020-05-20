@@ -16,6 +16,14 @@ class FieldArrayContactsOrganization extends React.Component {
     };
 
     // lifecycle
+    shouldComponentUpdate(nextProps, nextState) {
+        const newRemovedContact = nextProps.removedContactId !== undefined && nextProps.removedContactId !== this.props.removedContactId;
+        if (newRemovedContact) {
+            this.props.removedContactDeletedFromTheList();
+            this.removeRow(nextProps.removedContactId);
+        }
+        return !newRemovedContact;
+    }
 
     // methods events
     onClickAccept() {
@@ -96,6 +104,10 @@ class FieldArrayContactsOrganization extends React.Component {
     };
 
     generateSubDataList = (field, keyName, secondaryKeyName) => {
+        const getSecondaryKeyName = (element, doubleKeyForObject) => {
+            const keysArr = doubleKeyForObject.split(".");
+            return element[keysArr[0]][keysArr[1]];
+        };
         const result = field ? (
             <>
                 <div className="form-internal-block--contact-in-organization__section__content__internal-list form-internal-block__section__content__internal-list">
@@ -109,7 +121,7 @@ class FieldArrayContactsOrganization extends React.Component {
                                     {element.name}
                                 </div>
                                 <div className="form-internal-block--contact-in-organization__section__content__internal-list__element__secondary-text">
-                                    {element[secondaryKeyName]}
+                                    {secondaryKeyName ? getSecondaryKeyName(element, secondaryKeyName) : ""}
                                 </div>
                             </div>
                         );
@@ -205,7 +217,7 @@ class FieldArrayContactsOrganization extends React.Component {
                     </div>
                     <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                         <div className="contact-in-organization__header__title">{t("settings.emails")}</div>
-                        {this.generateSubDataList(row, "email", "type")}
+                        {this.generateSubDataList(row, "email", "type.name")}
                     </div>
                     <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                         <div className="contact-in-organization__header__title">{t("organization-details.phone")}</div>
@@ -233,10 +245,30 @@ class FieldArrayContactsOrganization extends React.Component {
         );
     }
 
-    renderRemoveCtaCross(key) {
+    renderEditContactButton(key) {
+        const { t } = this.props;
         return (
-            <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--right">
-                <div className="row-remove-cta" onClick={() => this.removeRow(key)}></div>
+            <button
+                    type="button"
+                    onClick={() => {
+                        this.props.handleShowContactDetail(key);
+                    }}
+                    className="btn outline btn-edit"
+            >
+                <i className="icon-pencil"></i>
+                <span>{t("actions.edit")}</span>
+            </button>
+        );
+    }
+
+    renderRemoveCtaCrossAndEditButton(key) {
+        return (
+            <div className={`contact-in-organization__body__buttons-in-the-final-row ${isBrowser ? "contact-in-organization__body__buttons-in-the-final-row--desktop-version" : ""}`}>
+                {isBrowser && this.renderEditContactButton(key)}
+                <div
+                    className={`row-remove-cta ${isBrowser ? "row-remove-cta--desktop-version" : ""}`}
+                    onClick={() => this.removeRow(key)}
+                ></div>
             </div>
         );
     }
@@ -322,13 +354,14 @@ class FieldArrayContactsOrganization extends React.Component {
                                 <div className="contact-in-organization__body__row__element">{row.name}</div>
                                 {isMobile && (
                                     <div className="contact-in-organization__body__row__element info-button">
-                                        {this.renderMoreInfoButton(row.key)}
+                                        {editable && this.renderEditContactButton(row.key)}
+                                        {!editable && this.renderMoreInfoButton(row.key)}
                                     </div>
                                 )}
                                 {isBrowser && this.renderDropDownRole(row.role_label, index)}
                                 {isBrowser && (
                                     <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
-                                        {this.generateSubDataList(row, "email", "type")}
+                                        {this.generateSubDataList(row, "email", "type.name")}
                                     </div>
                                 )}
                                 {isBrowser && (
@@ -336,7 +369,7 @@ class FieldArrayContactsOrganization extends React.Component {
                                         {this.generateSubDataList(row, "phone")}
                                     </div>
                                 )}
-                                {editable && this.renderRemoveCtaCross(row.key)}
+                                {editable && this.renderRemoveCtaCrossAndEditButton(row.key)}
                             </div>
                         );
                     })}

@@ -42,6 +42,25 @@ class _ContactFormParentClass extends React.Component {
     FORM_ID;
     MODEL_NAME = "contact";
 
+    componentDidMount() {
+        if (this.IS_UPDATED_FORM) {
+            this.updateBreadcrumbsData();
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.getOutOfDetails();
+        }
+    }
+
+    updateBreadcrumbsData() {
+        this.props.moveToDetails({
+            id: this.props.initialValues.id,
+            name: `${this.props.initialValues.first_name} ${this.props.initialValues.last_name} `,
+        });
+    }
+
     // Methods
     refetch = () => {
         throw new Error("This method should be overwritten in the child class");
@@ -86,22 +105,22 @@ class _ContactFormParentClass extends React.Component {
         const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
         return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
     }
-    renderHeader(editMode = true, showBackButton = true) {
+    renderHeader(editMode = true, showBackButton = true, shown_in_modal = false) {
         return (
             <Form.Row>
                 <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
-                    {this.renderHeaderName(editMode, showBackButton)}
+                    {this.renderHeaderName(editMode, showBackButton, shown_in_modal)}
                 </Col>
-                {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight()}</Col>}
+                {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight(shown_in_modal)}</Col>}
             </Form.Row>
         );
     }
-    renderHeaderName(editMode = true, showBackButton = true) {
+    renderHeaderName(editMode = true, showBackButton = true, shown_in_modal = false) {
         const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
         return (
             <div className="title-section">
                 {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
-                {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
+                {this.IS_UPDATED_FORM && isMobile && !shown_in_modal && this.renderEditButton()}
                 <div className="vertical-separator"></div>
                 <div className={`title-section__name-inputs ${editionModeClass}`}>
                     {this.renderInputName("first_name", editMode)}
@@ -110,10 +129,10 @@ class _ContactFormParentClass extends React.Component {
             </div>
         );
     }
-    renderHeaderRight() {
+    renderHeaderRight(shown_in_modal = false) {
         return (
             <div className="title-section__right-block">
-                {isBrowser && this.renderEditButton()}
+                {isBrowser && !shown_in_modal && this.renderEditButton()}
                 <InfoCreatorModifier model={this.props[this.MODEL_NAME]} />
             </div>
         );
@@ -188,7 +207,7 @@ class _ContactFormParentClass extends React.Component {
         );
     }
     renderGeneralInfoToggleSection(editMode = true) {
-        const { t, title, contact_type, pgp_fingerprint } = this.props;
+        const { t, title, contactTypeObj, pgp_fingerprint } = this.props;
         const generalInfoFirstRow = [
             {
                 title: "Title",
@@ -201,7 +220,7 @@ class _ContactFormParentClass extends React.Component {
             },
             {
                 title: "Type",
-                presentContent: contact_type,
+                presentContent: contactTypeObj ? contactTypeObj.name : undefined,
                 editContent: (
                     <Dropdown
                         className="auto"

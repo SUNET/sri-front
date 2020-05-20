@@ -22,13 +22,13 @@ class GroupUpdateForm extends _GroupFormParentClass {
             { groupId: this.props.group.id }, // Our refetchQuery needs to know the `groupID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                this.updateBreadcrumbsData();
             },
             { force: true }
         );
     };
     handleSubmit = (group) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateGroupMutation(group, this);
     };
     render() {
@@ -68,16 +68,25 @@ const GroupUpdateFragment = createRefetchContainer(
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         role_data {

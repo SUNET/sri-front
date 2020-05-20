@@ -113,7 +113,7 @@ export default class ValidationsOrganizationForm {
     };
 
     static asyncValidate_relationship_parent_of = (values, dispatch, props) => {
-        if (values.organization_parent_id) {
+        if (values.relationship_parent_of) {
             return checkOrganization(values.organization_parent_id).then((exists) => {
                 if (!exists) {
                     // this absurdity, is by the error of non-throw-literal

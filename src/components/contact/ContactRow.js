@@ -53,9 +53,8 @@ class ContactRow extends React.PureComponent {
                         })}
                     </td>
                 )}
-                {(this.props.columnsVisible["contact_type"] || this.props.showAllColumns) && (
-                    <td>{contact.contact_type}</td>
-                )}
+                {(this.props.columnsVisible["contact_type"] || this.props.showAllColumns) &&
+                    (contact.contact_type ? <td>{contact.contact_type.name}</td> : <td></td>)}
                 <td></td>
             </tr>
         );
@@ -68,7 +67,10 @@ const ContactRowFragment = createFragmentContainer(ContactRow, {
             id
             first_name
             last_name
-            contact_type
+            contact_type {
+                name
+                value
+            }
             modified
             roles {
                 name

@@ -16,7 +16,10 @@ const mutation = graphql`
                 id
                 name
                 description
-                cable_type
+                cable_type {
+                    name
+                    value
+                }
             }
         }
     }

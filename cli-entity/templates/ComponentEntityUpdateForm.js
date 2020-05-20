@@ -24,13 +24,13 @@ class __EntityClassName__UpdateForm extends _BasicFormParentClass {
             { __entityName__Id: this.props.__entityName__.id }, // Our refetchQuery needs to know the `__entityName__ID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                this.updateBreadcrumbsData();
             },
             { force: true }
         );
     };
     handleSubmit = (__entityName__) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         Update__EntityClassName__Mutation(__entityName__, this);
     };
     render() {

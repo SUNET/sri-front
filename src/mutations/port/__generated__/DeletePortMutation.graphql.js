@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 3b4aec14fcc9d394fa7e19bfca00029f
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeletePortMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeletePortInput!",
-    "defaultValue": null
+    "type": "DeletePortInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_port",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "DeletePortPayload",
+    "kind": "LinkedField",
+    "name": "delete_port",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeletePortMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeletePortMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeletePortMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeletePortMutation",
     "id": null,
-    "text": "mutation DeletePortMutation(\n  $input: DeletePortInput!\n) {\n  delete_port(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeletePortMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeletePortMutation(\n  $input: DeletePortInput!\n) {\n  delete_port(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();

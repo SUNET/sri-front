@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash a6846abfee2f8784c9ee1d291eff12b8
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteGroupMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteGroupInput!",
-    "defaultValue": null
+    "type": "DeleteGroupInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_group",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,43 +57,47 @@ v1 = [
       }
     ],
     "concreteType": "DeleteGroupPayload",
+    "kind": "LinkedField",
+    "name": "delete_group",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteGroupMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteGroupMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteGroupMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteGroupMutation",
     "id": null,
-    "text": "mutation DeleteGroupMutation(\n  $input: DeleteGroupInput!\n) {\n  delete_group(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteGroupMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteGroupMutation(\n  $input: DeleteGroupInput!\n) {\n  delete_group(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '547cf95a698bf819305693b8c9fda01b';
+
 module.exports = node;

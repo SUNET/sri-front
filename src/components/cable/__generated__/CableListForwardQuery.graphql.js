@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 13ae4209a30d12f8c33e1313dea4b61a
  */
 
 /* eslint-disable */
@@ -56,29 +55,33 @@ fragment CableRow_cable on Cable {
   id
   name
   description
-  cable_type
+  cable_type {
+    name
+    value
+    id
+  }
 }
 */
 
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "count",
-    "type": "Int!",
-    "defaultValue": null
+    "type": "Int!"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "cursor",
-    "type": "String",
-    "defaultValue": null
+    "type": "String"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "orderBy",
-    "type": "CableOrderBy",
-    "defaultValue": null
+    "type": "CableOrderBy"
   }
 ],
 v1 = {
@@ -98,19 +101,29 @@ v2 = [
     "variableName": "count"
   },
   (v1/*: any*/)
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CableListForwardQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CableListForwardQuery",
     "selections": [
       {
-        "kind": "FragmentSpread",
-        "name": "CableList_cables",
         "args": [
           {
             "kind": "Variable",
@@ -123,135 +136,141 @@ return {
             "variableName": "cursor"
           },
           (v1/*: any*/)
-        ]
+        ],
+        "kind": "FragmentSpread",
+        "name": "CableList_cables"
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CableListForwardQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "cables",
-        "storageKey": null,
         "args": (v2/*: any*/),
         "concreteType": "cableConnection",
+        "kind": "LinkedField",
+        "name": "cables",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "edges",
-            "storageKey": null,
             "args": null,
             "concreteType": "cableEdge",
+            "kind": "LinkedField",
+            "name": "edges",
             "plural": true,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "node",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Cable",
+                "kind": "LinkedField",
+                "name": "node",
                 "plural": false,
                 "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "id",
                     "args": null,
-                    "storageKey": null
-                  },
-                  {
                     "kind": "ScalarField",
-                    "alias": null,
-                    "name": "name",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
                     "name": "description",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
                     "name": "cable_type",
-                    "args": null,
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "value",
+                        "storageKey": null
+                      },
+                      (v3/*: any*/)
+                    ],
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "__typename",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
                     "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "cursor",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "pageInfo",
-            "storageKey": null,
             "args": null,
             "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
             "plural": false,
             "selections": [
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "hasNextPage",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "hasNextPage",
                 "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "endCursor",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "endCursor",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       },
       {
-        "kind": "LinkedHandle",
         "alias": null,
-        "name": "cables",
         "args": (v2/*: any*/),
+        "filters": [],
         "handle": "connection",
         "key": "CableList_cables",
-        "filters": []
+        "kind": "LinkedHandle",
+        "name": "cables"
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "CableListForwardQuery",
     "id": null,
-    "text": "query CableListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: CableOrderBy\n) {\n  ...CableList_cables_32czeo\n}\n\nfragment CableList_cables_32czeo on Query {\n  cables(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...CableRow_cable\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment CableRow_cable on Cable {\n  id\n  name\n  description\n  cable_type\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CableListForwardQuery",
+    "operationKind": "query",
+    "text": "query CableListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: CableOrderBy\n) {\n  ...CableList_cables_32czeo\n}\n\nfragment CableList_cables_32czeo on Query {\n  cables(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...CableRow_cable\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment CableRow_cable on Cable {\n  id\n  name\n  description\n  cable_type {\n    name\n    value\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'a73311062aca9ae3a9cafc77b6ed328c';
+
 module.exports = node;

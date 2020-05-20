@@ -13,6 +13,7 @@ import { isBrowser } from "react-device-detect";
 class Create__EntityClassName__Form extends _BasicFormParentClass {
     IS_UPDATED_FORM = false;
     FORM_ID = CREATE___CONST_NAME___FORM;
+    ROUTE_LIST_DIRECTION = "/__entityBlock__/__entityInternalRoutePath__s";
     state = {
         errors: []
     };

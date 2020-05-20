@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { QueryRenderer } from "react-relay";
+import { withTranslation } from "react-i18next";
 import environment from "../../createRelayEnvironment";
 
 import GroupUpdateFormContainer from "../../containers/group/GroupUpdateForm";
 import DeleteGroupMutation from "../../mutations/group/DeleteGroupMutation";
-
 import GroupDetailsQuery from "../../queries/group/GroupDetailsQuery";
 
 class GroupDetails extends React.Component {
@@ -24,6 +24,7 @@ class GroupDetails extends React.Component {
     };
 
     render() {
+        const { t } = this.props;
         return (
             <QueryRenderer
                 environment={environment}
@@ -32,8 +33,9 @@ class GroupDetails extends React.Component {
                     [this.ID_ENTITY_KEY]: this.props.match.params[this.ID_ENTITY_KEY]
                 }}
                 render={({ error, props, retry }) => {
+                    
                     if (error) {
-                        return <div>{error.message}</div>;
+                        return <div>{t('general.error')}</div>;
                     } else if (props) {
                         return (
                             <section className="model-details group-details">
@@ -53,4 +55,4 @@ class GroupDetails extends React.Component {
     }
 }
 
-export default GroupDetails;
+export default withTranslation()(GroupDetails);

@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 0d35d1e5f92c3065b490bff73e89ad0f
  */
 
 /* eslint-disable */
@@ -63,22 +62,22 @@ fragment CustomerRow_customer on Customer {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "count",
-    "type": "Int!",
-    "defaultValue": null
+    "type": "Int!"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "cursor",
-    "type": "String",
-    "defaultValue": null
+    "type": "String"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "orderBy",
-    "type": "CustomerOrderBy",
-    "defaultValue": null
+    "type": "CustomerOrderBy"
   }
 ],
 v1 = {
@@ -100,17 +99,13 @@ v2 = [
   (v1/*: any*/)
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CustomerListForwardQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CustomerListForwardQuery",
     "selections": [
       {
-        "kind": "FragmentSpread",
-        "name": "CustomerList_customers",
         "args": [
           {
             "kind": "Variable",
@@ -123,135 +118,140 @@ return {
             "variableName": "cursor"
           },
           (v1/*: any*/)
-        ]
+        ],
+        "kind": "FragmentSpread",
+        "name": "CustomerList_customers"
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CustomerListForwardQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "customers",
-        "storageKey": null,
         "args": (v2/*: any*/),
         "concreteType": "customerConnection",
+        "kind": "LinkedField",
+        "name": "customers",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "edges",
-            "storageKey": null,
             "args": null,
             "concreteType": "customerEdge",
+            "kind": "LinkedField",
+            "name": "edges",
             "plural": true,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "node",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Customer",
+                "kind": "LinkedField",
+                "name": "node",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "id",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "name",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "description",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "url",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "__typename",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
                     "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "cursor",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "pageInfo",
-            "storageKey": null,
             "args": null,
             "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
             "plural": false,
             "selections": [
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "hasNextPage",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "hasNextPage",
                 "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "endCursor",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "endCursor",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       },
       {
-        "kind": "LinkedHandle",
         "alias": null,
-        "name": "customers",
         "args": (v2/*: any*/),
+        "filters": [],
         "handle": "connection",
         "key": "CustomerList_customers",
-        "filters": []
+        "kind": "LinkedHandle",
+        "name": "customers"
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "CustomerListForwardQuery",
     "id": null,
-    "text": "query CustomerListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: CustomerOrderBy\n) {\n  ...CustomerList_customers_32czeo\n}\n\nfragment CustomerList_customers_32czeo on Query {\n  customers(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...CustomerRow_customer\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment CustomerRow_customer on Customer {\n  id\n  name\n  description\n  url\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CustomerListForwardQuery",
+    "operationKind": "query",
+    "text": "query CustomerListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: CustomerOrderBy\n) {\n  ...CustomerList_customers_32czeo\n}\n\nfragment CustomerList_customers_32czeo on Query {\n  customers(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...CustomerRow_customer\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment CustomerRow_customer on Customer {\n  id\n  name\n  description\n  url\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '6f36b8f8588f7abd4fec1327cf44c867';
+
 module.exports = node;

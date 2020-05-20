@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Component Renders correctly 1`] = `
+<CreateOrderByWrapper>
+  <div>
+    <OrderBy
+      changeOrderBy={[MockFunction]}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "filter.newest-first",
+            ],
+            Array [
+              "filter.latest-first",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "filter.newest-first",
+            },
+            Object {
+              "type": "return",
+              "value": "filter.latest-first",
+            },
+          ],
+        }
+      }
+    >
+      <div
+        className="order-by outline"
+      >
+        <FieldSwitch
+          classNames="icon-right"
+          handleChecked={[Function]}
+          icon="angle"
+          id="orderBy"
+          labelChecked="filter.newest-first"
+          labelUnChecked="filter.latest-first"
+          type="toggle-icon"
+        >
+          <div
+            className="field-checkbox"
+          >
+            <div
+              className="pretty custom p-icon p-toggle p-plain icon-right"
+            >
+              <input
+                checked={false}
+                id="orderBy"
+                onChange={[Function]}
+                type="checkbox"
+              />
+              <div
+                className="state p-on undefined"
+              >
+                <label>
+                  filter.newest-first
+                </label>
+                <FontAwesomeIcon
+                  border={false}
+                  className=""
+                  fixedWidth={false}
+                  flip={null}
+                  icon={
+                    Object {
+                      "icon": Array [
+                        320,
+                        512,
+                        Array [],
+                        "f106",
+                        "M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z",
+                      ],
+                      "iconName": "angle-up",
+                      "prefix": "fas",
+                    }
+                  }
+                  inverse={false}
+                  listItem={false}
+                  mask={null}
+                  pull={null}
+                  pulse={false}
+                  rotation={null}
+                  size={null}
+                  spin={false}
+                  swapOpacity={false}
+                  symbol={false}
+                  title=""
+                  transform={null}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="svg-inline--fa fa-angle-up fa-w-10 "
+                    data-icon="angle-up"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style={Object {}}
+                    viewBox="0 0 320 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+                      fill="currentColor"
+                      style={Object {}}
+                    />
+                  </svg>
+                </FontAwesomeIcon>
+              </div>
+              <div
+                className="state p-off"
+              >
+                <label>
+                  filter.latest-first
+                </label>
+                <FontAwesomeIcon
+                  border={false}
+                  className=""
+                  fixedWidth={false}
+                  flip={null}
+                  icon={
+                    Object {
+                      "icon": Array [
+                        320,
+                        512,
+                        Array [],
+                        "f107",
+                        "M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z",
+                      ],
+                      "iconName": "angle-down",
+                      "prefix": "fas",
+                    }
+                  }
+                  inverse={false}
+                  listItem={false}
+                  mask={null}
+                  pull={null}
+                  pulse={false}
+                  rotation={null}
+                  size={null}
+                  spin={false}
+                  swapOpacity={false}
+                  symbol={false}
+                  title=""
+                  transform={null}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="svg-inline--fa fa-angle-down fa-w-10 "
+                    data-icon="angle-down"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style={Object {}}
+                    viewBox="0 0 320 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                      fill="currentColor"
+                      style={Object {}}
+                    />
+                  </svg>
+                </FontAwesomeIcon>
+              </div>
+            </div>
+          </div>
+        </FieldSwitch>
+      </div>
+    </OrderBy>
+  </div>
+</CreateOrderByWrapper>
+`;

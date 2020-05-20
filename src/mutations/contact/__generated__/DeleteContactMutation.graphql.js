@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 61e2d54fc641551a0abae29823df94a4
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteContactMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteContactInput!",
-    "defaultValue": null
+    "type": "DeleteContactInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_contact",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,43 +57,47 @@ v1 = [
       }
     ],
     "concreteType": "DeleteContactPayload",
+    "kind": "LinkedField",
+    "name": "delete_contact",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteContactMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteContactMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteContactMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteContactMutation",
     "id": null,
-    "text": "mutation DeleteContactMutation(\n  $input: DeleteContactInput!\n) {\n  delete_contact(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteContactMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteContactMutation(\n  $input: DeleteContactInput!\n) {\n  delete_contact(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '2ca7cc50fce98fbe920155db60674743';
+
 module.exports = node;

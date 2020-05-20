@@ -63,7 +63,7 @@ class _EmailPhonesParentClass extends React.Component {
         return (
             <div className={`list-items__label__row ${values[index].status === "remove" ? "d-none" : ""}`}>
                 <div className="list-items__label__row__main-text">{fields.getAll()[index][this.FIELD_NAME]}</div>
-                <div className="list-items__label__row__secondary-text">{fields.getAll()[index].type}</div>
+                <div className="list-items__label__row__secondary-text">{fields.getAll()[index].type_name}</div>
             </div>
         );
     }

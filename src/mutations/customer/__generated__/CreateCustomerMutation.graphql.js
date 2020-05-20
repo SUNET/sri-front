@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash cd6c9378872ae915db7fe6e918e62430
  */
 
 /* eslint-disable */
@@ -61,18 +60,15 @@ mutation CreateCustomerMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCustomerInput!",
-    "defaultValue": null
+    "type": "CreateCustomerInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "create_customer",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -81,100 +77,104 @@ v1 = [
       }
     ],
     "concreteType": "CreateCustomerPayload",
+    "kind": "LinkedField",
+    "name": "create_customer",
     "plural": false,
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "errors",
-        "storageKey": null,
         "args": null,
         "concreteType": "ErrorType",
+        "kind": "LinkedField",
+        "name": "errors",
         "plural": true,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "field",
             "args": null,
+            "kind": "ScalarField",
+            "name": "field",
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "messages",
             "args": null,
+            "kind": "ScalarField",
+            "name": "messages",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       },
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "customer",
-        "storageKey": null,
         "args": null,
         "concreteType": "Customer",
+        "kind": "LinkedField",
+        "name": "customer",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "name",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "description",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "url",
             "args": null,
+            "kind": "ScalarField",
+            "name": "url",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCustomerMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCustomerMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCustomerMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCustomerMutation",
     "id": null,
-    "text": "mutation CreateCustomerMutation(\n  $input: CreateCustomerInput!\n) {\n  create_customer(input: $input) {\n    errors {\n      field\n      messages\n    }\n    customer {\n      id\n      name\n      description\n      url\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCustomerMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCustomerMutation(\n  $input: CreateCustomerInput!\n) {\n  create_customer(input: $input) {\n    errors {\n      field\n      messages\n    }\n    customer {\n      id\n      name\n      description\n      url\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'c4838cbce4e29560a499da76007b28e1';
+
 module.exports = node;

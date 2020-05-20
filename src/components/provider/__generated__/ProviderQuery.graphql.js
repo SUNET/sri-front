@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 58c93e0a3d13033371836b062f232de4
  */
 
 /* eslint-disable */
@@ -35,11 +34,11 @@ export type ProviderQueryResponse = {|
       +submit_date: any,
     |}>,
     +created: any,
-    +creator: {|
+    +creator: ?{|
       +email: string
     |},
     +modified: any,
-    +modifier: {|
+    +modifier: ?{|
       +email: string
     |},
     +$fragmentRefs: ProviderUpdateForm_provider$ref,
@@ -122,10 +121,10 @@ fragment ProviderUpdateForm_provider on Provider {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "providerId",
-    "type": "ID!",
-    "defaultValue": null
+    "type": "ID!"
   }
 ],
 v1 = [
@@ -136,104 +135,104 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "description",
   "args": null,
+  "kind": "ScalarField",
+  "name": "description",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "url",
   "args": null,
+  "kind": "ScalarField",
+  "name": "url",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "__typename",
   "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
   "storageKey": null
 },
 v7 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "with_same_name",
-  "storageKey": null,
   "args": null,
   "concreteType": null,
+  "kind": "LinkedField",
+  "name": "with_same_name",
   "plural": true,
   "selections": [
     (v2/*: any*/),
     (v3/*: any*/),
     (v6/*: any*/)
-  ]
+  ],
+  "storageKey": null
 },
 v8 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "first_name",
   "storageKey": null
 },
 v9 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "last_name",
   "storageKey": null
 },
 v10 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "comment",
   "args": null,
+  "kind": "ScalarField",
+  "name": "comment",
   "storageKey": null
 },
 v11 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "submit_date",
   "args": null,
+  "kind": "ScalarField",
+  "name": "submit_date",
   "storageKey": null
 },
 v12 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "created",
   "args": null,
+  "kind": "ScalarField",
+  "name": "created",
   "storageKey": null
 },
 v13 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "email",
   "args": null,
+  "kind": "ScalarField",
+  "name": "email",
   "storageKey": null
 },
 v14 = [
   (v13/*: any*/)
 ],
 v15 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "modified",
   "args": null,
+  "kind": "ScalarField",
+  "name": "modified",
   "storageKey": null
 },
 v16 = [
@@ -241,21 +240,18 @@ v16 = [
   (v2/*: any*/)
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "ProviderQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ProviderQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "getProviderById",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Provider",
+        "kind": "LinkedField",
+        "name": "getProviderById",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -265,75 +261,77 @@ return {
           (v6/*: any*/),
           (v7/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "comments",
-            "storageKey": null,
             "args": null,
             "concreteType": "CommentType",
+            "kind": "LinkedField",
+            "name": "comments",
             "plural": true,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "user",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
                 "plural": false,
                 "selections": [
                   (v8/*: any*/),
                   (v9/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v10/*: any*/),
               (v11/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           (v12/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "creator",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "creator",
             "plural": false,
-            "selections": (v14/*: any*/)
+            "selections": (v14/*: any*/),
+            "storageKey": null
           },
           (v15/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "modifier",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "modifier",
             "plural": false,
-            "selections": (v14/*: any*/)
+            "selections": (v14/*: any*/),
+            "storageKey": null
           },
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "ProviderUpdateForm_provider",
-            "args": null
+            "name": "ProviderUpdateForm_provider"
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ProviderQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "getProviderById",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Provider",
+        "kind": "LinkedField",
+        "name": "getProviderById",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -341,70 +339,72 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "comments",
-            "storageKey": null,
             "args": null,
             "concreteType": "CommentType",
+            "kind": "LinkedField",
+            "name": "comments",
             "plural": true,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "user",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
                 "plural": false,
                 "selections": [
                   (v8/*: any*/),
                   (v9/*: any*/),
                   (v2/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v10/*: any*/),
               (v11/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           (v12/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "creator",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "creator",
             "plural": false,
-            "selections": (v16/*: any*/)
+            "selections": (v16/*: any*/),
+            "storageKey": null
           },
           (v15/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "modifier",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "modifier",
             "plural": false,
-            "selections": (v16/*: any*/)
+            "selections": (v16/*: any*/),
+            "storageKey": null
           },
           (v6/*: any*/),
           (v7/*: any*/)
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "ProviderQuery",
     "id": null,
-    "text": "query ProviderQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "ProviderQuery",
+    "operationKind": "query",
+    "text": "query ProviderQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '64d482bb7c7d4d473065aad7d20c6d2c';
+
 module.exports = node;

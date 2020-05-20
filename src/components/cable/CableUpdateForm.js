@@ -68,7 +68,10 @@ const CableUpdateFragment = createRefetchContainer(
                 id
                 name
                 description
-                cable_type
+                cable_type {
+                    name
+                    value
+                }
                 comments {
                     id
                     user {

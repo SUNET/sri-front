@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash a50c1764c26850582d1b3d5d53436848
  */
 
 /* eslint-disable */
@@ -58,7 +57,11 @@ fragment ContactRow_contact on Contact {
   id
   first_name
   last_name
-  contact_type
+  contact_type {
+    name
+    value
+    id
+  }
   modified
   roles {
     name
@@ -73,22 +76,22 @@ fragment ContactRow_contact on Contact {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "count",
-    "type": "Int!",
-    "defaultValue": null
+    "type": "Int!"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "cursor",
-    "type": "String",
-    "defaultValue": null
+    "type": "String"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "orderBy",
-    "type": "ContactOrderBy",
-    "defaultValue": null
+    "type": "ContactOrderBy"
   }
 ],
 v1 = {
@@ -110,31 +113,27 @@ v2 = [
   (v1/*: any*/)
 ],
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "ContactListForwardQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ContactListForwardQuery",
     "selections": [
       {
-        "kind": "FragmentSpread",
-        "name": "ContactList_contacts",
         "args": [
           {
             "kind": "Variable",
@@ -147,175 +146,193 @@ return {
             "variableName": "cursor"
           },
           (v1/*: any*/)
-        ]
+        ],
+        "kind": "FragmentSpread",
+        "name": "ContactList_contacts"
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ContactListForwardQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "contacts",
-        "storageKey": null,
         "args": (v2/*: any*/),
         "concreteType": "contactConnection",
+        "kind": "LinkedField",
+        "name": "contacts",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "edges",
-            "storageKey": null,
             "args": null,
             "concreteType": "contactEdge",
+            "kind": "LinkedField",
+            "name": "edges",
             "plural": true,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "node",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Contact",
+                "kind": "LinkedField",
+                "name": "node",
                 "plural": false,
                 "selections": [
                   (v3/*: any*/),
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "first_name",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "last_name",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "contact_type",
                     "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "modified",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
+                    "concreteType": "Choice",
                     "kind": "LinkedField",
+                    "name": "contact_type",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "value",
+                        "storageKey": null
+                      },
+                      (v3/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  {
                     "alias": null,
-                    "name": "roles",
-                    "storageKey": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "modified",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
                     "args": null,
                     "concreteType": "RoleRelation",
+                    "kind": "LinkedField",
+                    "name": "roles",
                     "plural": true,
                     "selections": [
                       (v4/*: any*/),
                       {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "end",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "Organization",
+                        "kind": "LinkedField",
+                        "name": "end",
                         "plural": false,
                         "selections": [
                           (v4/*: any*/),
                           (v3/*: any*/)
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "__typename",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
                     "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "cursor",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "pageInfo",
-            "storageKey": null,
             "args": null,
             "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
             "plural": false,
             "selections": [
               {
-                "kind": "ScalarField",
                 "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "endCursor",
-                "args": null,
                 "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "hasNextPage",
-                "args": null,
                 "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "hasPreviousPage",
-                "args": null,
                 "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "startCursor",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "startCursor",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       },
       {
-        "kind": "LinkedHandle",
         "alias": null,
-        "name": "contacts",
         "args": (v2/*: any*/),
+        "filters": [],
         "handle": "connection",
         "key": "ContactList_contacts",
-        "filters": []
+        "kind": "LinkedHandle",
+        "name": "contacts"
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "ContactListForwardQuery",
     "id": null,
-    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...ContactRow_contact\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  id\n  first_name\n  last_name\n  contact_type\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "ContactListForwardQuery",
+    "operationKind": "query",
+    "text": "query ContactListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: ContactOrderBy\n) {\n  ...ContactList_contacts_32czeo\n}\n\nfragment ContactList_contacts_32czeo on Query {\n  contacts(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...ContactRow_contact\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment ContactRow_contact on Contact {\n  id\n  first_name\n  last_name\n  contact_type {\n    name\n    value\n    id\n  }\n  modified\n  roles {\n    name\n    end {\n      name\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '96a0d0eb0ad60f76ab272f4c423e87fd';
+
 module.exports = node;

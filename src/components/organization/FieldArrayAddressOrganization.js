@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 
 import FieldInput from "../FieldInput";
-import { Field, change } from "redux-form";
+import { Field, change, touch } from "redux-form";
 import uuidv4 from "uuid/v4";
 import CONFIG from "../../config";
 import { Modal } from "react-bootstrap";
@@ -34,10 +34,16 @@ class FieldArrayAddressOrganization extends React.Component {
 
     // methods onClick
     onClickAccept() {
-        // TODO: Validate before hide modal
-        // const currentAddress = this.getValueByKey(this.state.selectedRowKey);
-        // const validated = this.validateAddress(currentAddress.data, currentAddress.index);
-        this.hideDataModal();
+        const currentAddress = this.getValueByKey(this.state.selectedRowKey);
+        const validated = this.validateAddress(currentAddress.data, currentAddress.index);
+        if (validated) {
+            this.hideDataModal();
+        } else {
+            this.props.dispatch(touch(this.props.meta.form, `addresses[${currentAddress.index}].street`));
+            this.props.dispatch(touch(this.props.meta.form, `addresses[${currentAddress.index}].postal_code`));
+            this.props.dispatch(touch(this.props.meta.form, `addresses[${currentAddress.index}].postal_area`));
+            this.props.dispatch(touch(this.props.meta.form, `addresses[${currentAddress.index}].phone`));
+        }
     }
 
     // methods state
@@ -206,7 +212,7 @@ class FieldArrayAddressOrganization extends React.Component {
 
     // methods validation
     validateAddress = (field, index) => {
-        const errors = this.props.errors;
+        const { errors } = this.props;
         // when component is colapse, it need to check if the data are empty
         const hasBlankFields =
             field.street === "" ||
@@ -276,7 +282,7 @@ class FieldArrayAddressOrganization extends React.Component {
     };
     // common Renders
     renderModal() {
-        const { t } = this.props;
+        const { t, editable } = this.props;
         return (
             <Modal
                 centered
@@ -284,7 +290,7 @@ class FieldArrayAddressOrganization extends React.Component {
                 show={this.state.showModal}
                 onHide={() => this.setState({ showModal: false })}
             >
-                <Modal.Header closeButton={true}>
+                <Modal.Header closeButton={!editable}>
                     <h2>{t("contact-details.professional-details")}</h2>
                 </Modal.Header>
                 <Modal.Body className="organizations-contacts">
@@ -429,11 +435,11 @@ class FieldArrayAddressOrganization extends React.Component {
     }
 
     render() {
-        const { meta, t, editable } = this.props;
+        const { meta, t, editable, errors} = this.props;
         return (
             <div className="organizations-contacts">
                 {this.renderRowsData()}
-                {meta.error && <div>{meta.error}</div>}
+                {errors && <div>{meta.error}</div>}
                 {editable && (
                     <button type="button" className="btn btn-add outline" onClick={(e) => this.addRow(e)}>
                         {t("actions.add-new")}

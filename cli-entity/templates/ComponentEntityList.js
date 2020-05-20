@@ -18,13 +18,18 @@ import { default as ROW_COMPONENT } from "./__EntityClassName__Row";
 
 const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
-export class __EntityClassName__List extends React.PureComponent {
+export class __EntityClassName__List extends React.Component {
     MODEL_NAME = "__entityName__";
     MODEL_LIST_NAME = "__entityName__s";
     ROW_COMPONENT = ROW_COMPONENT;
     static propTypes = {
-        __entityName__s: PropTypes.object.isRequired
+        __entityName__s: PropTypes.object
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const haveNewElements = nextProps[this.MODEL_LIST_NAME] !== null;
+        return haveNewElements;
+    }
 
     _loadMore = (type) => {
         let itemsPerLoad = ITEMS_PER_PAGE;
@@ -117,11 +122,11 @@ export class __EntityClassName__List extends React.PureComponent {
     }
 
     renderList() {
-        let models = this.props[this.MODEL_LIST_NAME];
+        let { __entityName__s } = this.props;
 
         return (
             <tbody>
-                {models.__entityName__s.edges.map(({ node }) => {
+                {__entityName__s && __entityName__s.__entityName__s && __entityName__s.__entityName__s.edges.map(({ node }) => {
                     return (
                         <this.ROW_COMPONENT
                             key={node.id}
@@ -137,7 +142,7 @@ export class __EntityClassName__List extends React.PureComponent {
     }
 
     render() {
-        const { t } = this.props;
+        const { t, __entityName__s } = this.props;
 
         return (
             <>
@@ -145,7 +150,7 @@ export class __EntityClassName__List extends React.PureComponent {
                     {this.renderHeaderList()}
                     {this.renderList()}
                 </Table>
-                <div className="text-right mt-1">
+                {__entityName__s && <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
                             <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">
@@ -162,7 +167,7 @@ export class __EntityClassName__List extends React.PureComponent {
                             {t("paginator.load_less")}
                         </button>
                     ) : null}
-                </div>
+                </div>}
             </>
         );
     }

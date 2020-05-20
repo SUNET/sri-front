@@ -17,24 +17,24 @@ class EndUserUpdateForm extends _BasicFormParentClass {
     MODEL_NAME = "endUser";
     ROUTE_LIST_DIRECTION = "/network/endUsers";
     state = {
-        editMode: false
+        editMode: false,
     };
     refetch = () => {
         this.props.relay.refetch(
             { endUserId: this.props.endUser.id }, // Our refetchQuery needs to know the `endUserID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                this.updateBreadcrumbsData();
             },
-            { force: true }
+            { force: true },
         );
     };
     handleSubmit = (endUser) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateEndUserMutation(endUser, this);
     };
     render() {
-        let { handleSubmit } = this.props;
+        let { relatedEntities, handleSubmit } = this.props;
         const { editMode } = this.state;
         const showBackButton = isBrowser;
         return (
@@ -42,6 +42,7 @@ class EndUserUpdateForm extends _BasicFormParentClass {
                 {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
+                {relatedEntities && this.renderRelatedEntities(relatedEntities)}
                 {this.renderWorkLog()}
                 {this.renderSaveCancelButtons()}
             </form>
@@ -55,7 +56,7 @@ EndUserUpdateForm = reduxForm({
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;
-    }
+    },
 })(EndUserUpdateForm);
 
 const EndUserUpdateFragment = createRefetchContainer(
@@ -85,7 +86,7 @@ const EndUserUpdateFragment = createRefetchContainer(
                     email
                 }
             }
-        `
+        `,
     },
 
     graphql`
@@ -96,7 +97,7 @@ const EndUserUpdateFragment = createRefetchContainer(
                 ...EndUserUpdateForm_endUser
             }
         }
-    `
+    `,
 );
 
 export default EndUserUpdateFragment;

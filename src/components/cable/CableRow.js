@@ -31,7 +31,7 @@ class CableRow extends React.PureComponent {
         return (
             <tr onClick={(e) => this.props.onClick(e, cable)}>
                 {this.renderCellSection("name", cable.name)}
-                {this.renderCellSection("cable_type", cable.cable_type)}
+                {this.renderCellSection("cable_type", cable.cable_type.name)}
                 {this.renderCellSection("description", cable.description)}
                 {/* td for generate the space for the final cta */}
                 <td></td>
@@ -46,7 +46,10 @@ const CableRowFragment = createFragmentContainer(CableRow, {
             id
             name
             description
-            cable_type
+            cable_type {
+                name
+                value
+            }
         }
     `
 });

@@ -28,41 +28,41 @@ export type SiteOwnerRow_siteOwner$key = {
 
 
 const node/*: ReaderFragment*/ = {
-  "kind": "Fragment",
-  "name": "SiteOwnerRow_siteOwner",
-  "type": "SiteOwner",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "SiteOwnerRow_siteOwner",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "id",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "name",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "description",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "url",
       "args": null,
+      "kind": "ScalarField",
+      "name": "url",
       "storageKey": null
     }
-  ]
+  ],
+  "type": "SiteOwner"
 };
 // prettier-ignore
 (node/*: any*/).hash = 'b9b542c3f8b6bcbc6960300d837bb320';

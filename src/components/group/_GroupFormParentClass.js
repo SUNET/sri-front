@@ -24,6 +24,25 @@ class _GroupFormParentClass extends React.Component {
     MODEL_NAME = "group";
     ROUTE_LIST_DIRECTION = "/community/groups";
 
+    componentDidMount() {
+        if (this.IS_UPDATED_FORM) {
+            this.updateBreadcrumbsData();
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.getOutOfDetails();
+        }
+    }
+
+    updateBreadcrumbsData() {
+        this.props.moveToDetails({
+            id: this.props.initialValues.id,
+            name: this.props.initialValues.name,
+        });
+    }
+
     // Methods
     refetch = () => {
         throw new Error("This method should be overwritten in the child class");
@@ -114,7 +133,7 @@ class _GroupFormParentClass extends React.Component {
                 {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
                 {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
                 <div className="vertical-separator"></div>
-                <div className={`title-section__name-inputs ${editionModeClass}`}>
+                <div data-name="name" className={`title-section__name-inputs ${editionModeClass}`}>
                     {this.renderInputName("name", editMode)}
                 </div>
             </div>
@@ -203,7 +222,7 @@ class _GroupFormParentClass extends React.Component {
         );
     }
     renderContactsToggleSection(editMode = true) {
-        const { t } = this.props;
+        const { t, contact_removed_id } = this.props;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -220,7 +239,14 @@ class _GroupFormParentClass extends React.Component {
                         metaFields={this.props.fields}
                         handleContactSearch={this.handleSelectedMember}
                         handleAddContactRow={() => {
-                            this.props.dispatch(this.props.showNewContactForm());
+                            this.props.showNewContactForm();
+                        }}
+                        handleShowContactDetail={(contactId) => {
+                            this.props.showContactDetailForm(contactId);
+                        }}
+                        removedContactId={contact_removed_id}
+                        removedContactDeletedFromTheList={() => {
+                            this.props.hideNewContactForm();
                         }}
                     />
                 </TogglePanel>
@@ -243,7 +269,6 @@ class _GroupFormParentClass extends React.Component {
 
     // Main RENDER
     render() {
-        console.error("This method should be overwritten in the child class");
         return <div>This method should be overwritten in the child class</div>;
     }
 }

@@ -27,34 +27,34 @@ export type PortRow_port$key = {
 
 
 const node/*: ReaderFragment*/ = {
-  "kind": "Fragment",
-  "name": "PortRow_port",
-  "type": "Port",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "PortRow_port",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "id",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "name",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "description",
       "args": null,
+      "kind": "ScalarField",
+      "name": "description",
       "storageKey": null
     }
-  ]
+  ],
+  "type": "Port"
 };
 // prettier-ignore
 (node/*: any*/).hash = '1d457bf3294737bfc0f0ebc0857c108a';

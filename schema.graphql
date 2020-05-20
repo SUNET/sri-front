@@ -1,5 +1,5 @@
-# source: http://ni.localenv.loc/graphql/
-# timestamp: Fri Mar 20 2020 12:56:14 GMT+0100 (GMT+01:00)
+# source: http://sri.localenv.loc/api/graphql/
+# timestamp: Wed May 20 2020 15:34:35 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -205,9 +205,9 @@ type Cable implements NINode & Physical {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -222,7 +222,7 @@ type Cable implements NINode & Physical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  cable_type: ChoiceScalar
+  cable_type: Choice
   description: String
   providers: [Provider]
   providers_relations: [IDRelation]
@@ -404,30 +404,72 @@ type CommentType implements Node {
 }
 
 input CompositeContactMutationInput {
+  create_phones: [CreatePhoneInput]
+  update_phones: [UpdatePhoneInput]
+  delete_phones: [DeletePhoneInput]
+  link_rolerelations: [RoleRelationMutationInput]
   create_input: CreateContactInput
   update_input: UpdateContactInput
   create_subinputs: [CreateEmailInput]
   update_subinputs: [UpdateEmailInput]
   delete_subinputs: [DeleteEmailInput]
   unlink_subinputs: [DeleteRelationshipInput]
-  create_phones: [CreatePhoneInput]
-  update_phones: [UpdatePhoneInput]
-  delete_phones: [DeletePhoneInput]
-  link_rolerelations: [RoleRelationMutationInput]
+  create_uses_group: CreateGroupInput
+  update_uses_group: UpdateGroupInput
+  deleted_uses_group: DeleteGroupInput
+  create_uses_procedure: CreateProcedureInput
+  update_uses_procedure: UpdateProcedureInput
+  deleted_uses_procedure: DeleteProcedureInput
+  create_uses_address: CreateAddressInput
+  update_uses_address: UpdateAddressInput
+  deleted_uses_address: DeleteAddressInput
+  create_uses_phone: CreatePhoneInput
+  update_uses_phone: UpdatePhoneInput
+  deleted_uses_phone: DeletePhoneInput
+  create_uses_email: CreateEmailInput
+  update_uses_email: UpdateEmailInput
+  deleted_uses_email: DeleteEmailInput
+  create_owns_port: CreatePortInput
+  update_owns_port: UpdatePortInput
+  deleted_owns_port: DeletePortInput
+  create_owns_cable: CreateCableInput
+  update_owns_cable: UpdateCableInput
+  deleted_owns_cable: DeleteCableInput
   clientMutationId: String
 }
 
 type CompositeContactMutationPayload {
+  phones_created: [CreatePhonePayload]
+  phones_updated: [UpdatePhonePayload]
+  phones_deleted: [DeletePhonePayload]
+  rolerelations: [RoleRelationMutationPayload]
   created: CreateContactPayload
   updated: UpdateContactPayload
   subcreated: [CreateEmailPayload]
   subupdated: [UpdateEmailPayload]
   subdeleted: [DeleteEmailPayload]
   unlinked: [DeleteRelationshipPayload]
-  phones_created: [CreatePhonePayload]
-  phones_updated: [UpdatePhonePayload]
-  phones_deleted: [DeletePhonePayload]
-  rolerelations: [RoleRelationMutationPayload]
+  uses_group_created: CreateGroupPayload
+  uses_group_updated: UpdateGroupPayload
+  uses_group_deleted: DeleteGroupPayload
+  uses_procedure_created: CreateProcedurePayload
+  uses_procedure_updated: UpdateProcedurePayload
+  uses_procedure_deleted: DeleteProcedurePayload
+  uses_address_created: CreateAddressPayload
+  uses_address_updated: UpdateAddressPayload
+  uses_address_deleted: DeleteAddressPayload
+  uses_phone_created: CreatePhonePayload
+  uses_phone_updated: UpdatePhonePayload
+  uses_phone_deleted: DeletePhonePayload
+  uses_email_created: CreateEmailPayload
+  uses_email_updated: UpdateEmailPayload
+  uses_email_deleted: DeleteEmailPayload
+  owns_port_created: CreatePortPayload
+  owns_port_updated: UpdatePortPayload
+  owns_port_deleted: DeletePortPayload
+  owns_cable_created: CreateCablePayload
+  owns_cable_updated: UpdateCablePayload
+  owns_cable_deleted: DeleteCablePayload
   clientMutationId: String
 }
 
@@ -438,6 +480,12 @@ input CompositeGroupMutationInput {
   update_subinputs: [UpdateContactInput]
   delete_subinputs: [DeleteContactInput]
   unlink_subinputs: [DeleteRelationshipInput]
+  create_part_of_port: CreatePortInput
+  update_part_of_port: UpdatePortInput
+  deleted_part_of_port: DeletePortInput
+  create_part_of_cable: CreateCableInput
+  update_part_of_cable: UpdateCableInput
+  deleted_part_of_cable: DeleteCableInput
   clientMutationId: String
 }
 
@@ -448,6 +496,12 @@ type CompositeGroupMutationPayload {
   subupdated: [UpdateContactPayload]
   subdeleted: [DeleteContactPayload]
   unlinked: [DeleteRelationshipPayload]
+  part_of_port_created: CreatePortPayload
+  part_of_port_updated: UpdatePortPayload
+  part_of_port_deleted: DeletePortPayload
+  part_of_cable_created: CreateCablePayload
+  part_of_cable_updated: UpdateCablePayload
+  part_of_cable_deleted: DeleteCablePayload
   clientMutationId: String
 }
 
@@ -457,10 +511,31 @@ input CompositeOrganizationMutationInput {
   create_subinputs: [CreateContactInput]
   update_subinputs: [UpdateContactInput]
   delete_subinputs: [DeleteContactInput]
-  unlink_subinputs: [DeleteRelationshipInput]
   create_address: [CreateAddressInput]
   update_address: [UpdateAddressInput]
   delete_address: [DeleteAddressInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_uses_group: CreateGroupInput
+  update_uses_group: UpdateGroupInput
+  deleted_uses_group: DeleteGroupInput
+  create_uses_procedure: CreateProcedureInput
+  update_uses_procedure: UpdateProcedureInput
+  deleted_uses_procedure: DeleteProcedureInput
+  create_uses_address: CreateAddressInput
+  update_uses_address: UpdateAddressInput
+  deleted_uses_address: DeleteAddressInput
+  create_uses_phone: CreatePhoneInput
+  update_uses_phone: UpdatePhoneInput
+  deleted_uses_phone: DeletePhoneInput
+  create_uses_email: CreateEmailInput
+  update_uses_email: UpdateEmailInput
+  deleted_uses_email: DeleteEmailInput
+  create_owns_port: CreatePortInput
+  update_owns_port: UpdatePortInput
+  deleted_owns_port: DeletePortInput
+  create_owns_cable: CreateCableInput
+  update_owns_cable: UpdateCableInput
+  deleted_owns_cable: DeleteCableInput
   clientMutationId: String
 }
 
@@ -470,10 +545,63 @@ type CompositeOrganizationMutationPayload {
   subcreated: [CreateContactPayload]
   subupdated: [UpdateContactPayload]
   subdeleted: [DeleteContactPayload]
-  unlinked: [DeleteRelationshipPayload]
   address_created: [CreateAddressPayload]
   address_updated: [UpdateAddressPayload]
   address_deleted: [DeleteAddressPayload]
+  unlinked: [DeleteRelationshipPayload]
+  uses_group_created: CreateGroupPayload
+  uses_group_updated: UpdateGroupPayload
+  uses_group_deleted: DeleteGroupPayload
+  uses_procedure_created: CreateProcedurePayload
+  uses_procedure_updated: UpdateProcedurePayload
+  uses_procedure_deleted: DeleteProcedurePayload
+  uses_address_created: CreateAddressPayload
+  uses_address_updated: UpdateAddressPayload
+  uses_address_deleted: DeleteAddressPayload
+  uses_phone_created: CreatePhonePayload
+  uses_phone_updated: UpdatePhonePayload
+  uses_phone_deleted: DeletePhonePayload
+  uses_email_created: CreateEmailPayload
+  uses_email_updated: UpdateEmailPayload
+  uses_email_deleted: DeleteEmailPayload
+  owns_port_created: CreatePortPayload
+  owns_port_updated: UpdatePortPayload
+  owns_port_deleted: DeletePortPayload
+  owns_cable_created: CreateCablePayload
+  owns_cable_updated: UpdateCablePayload
+  owns_cable_deleted: DeleteCablePayload
+  clientMutationId: String
+}
+
+input CompositePortMutationInput {
+  create_input: CreatePortInput
+  update_input: UpdatePortInput
+  create_subinputs: [CreateCableInput]
+  update_subinputs: [UpdateCableInput]
+  delete_subinputs: [DeleteCableInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_parent_port: [CreatePortInput]
+  update_parent_port: [UpdatePortInput]
+  deleted_parent_port: [DeletePortInput]
+  create_parent_cable: [CreateCableInput]
+  update_parent_cable: [UpdateCableInput]
+  deleted_parent_cable: [DeleteCableInput]
+  clientMutationId: String
+}
+
+type CompositePortMutationPayload {
+  created: CreatePortPayload
+  updated: UpdatePortPayload
+  subcreated: [CreateCablePayload]
+  subupdated: [UpdateCablePayload]
+  subdeleted: [DeleteCablePayload]
+  unlinked: [DeleteRelationshipPayload]
+  parent_port_created: [CreatePortPayload]
+  parent_port_updated: [UpdatePortPayload]
+  parent_port_deleted: [DeletePortPayload]
+  parent_cable_created: [CreateCablePayload]
+  parent_cable_updated: [UpdateCablePayload]
+  parent_cable_deleted: [DeleteCablePayload]
   clientMutationId: String
 }
 
@@ -483,9 +611,9 @@ type Contact implements NINode & Relation {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -505,7 +633,7 @@ type Contact implements NINode & Relation {
   last_name: String!
   title: String
   salutation: String
-  contact_type: ChoiceScalar
+  contact_type: Choice
   phones: [Phone]
   phones_relations: [IDRelation]
   emails: [Email]
@@ -1056,9 +1184,9 @@ type Customer implements NINode & Relation {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1433,7 +1561,7 @@ type Email implements NINode & Logical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  type: ChoiceScalar!
+  type: Choice
 }
 
 type emailConnection {
@@ -1570,9 +1698,9 @@ type EndUser implements NINode & Relation {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1745,9 +1873,9 @@ type Group implements NINode & Logical {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1899,9 +2027,9 @@ type Host implements NINode & Logical {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -1914,13 +2042,13 @@ type Host implements NINode & Logical {
   outgoing: [DictRelationType]
   comments: [CommentType]
   ip_addresses: IPAddr
+  description: String
   operational_state: String!
   os: String
   os_version: String
   vendor: String
   backup: String
   managed_by: String
-  description: String
   responsible_group: String
   support_group: String
   security_class: String
@@ -1964,6 +2092,20 @@ input HostNestedFilter {
   name_not_ends_with: String
   name_in: [String!]
   name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
   operational_state: String
   operational_state_not: String
   operational_state_lt: String
@@ -2048,20 +2190,6 @@ input HostNestedFilter {
   managed_by_not_ends_with: String
   managed_by_in: [String!]
   managed_by_not_in: [String!]
-  description: String
-  description_not: String
-  description_lt: String
-  description_lte: String
-  description_gt: String
-  description_gte: String
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
-  description_in: [String!]
-  description_not_in: [String!]
   responsible_group: String
   responsible_group_not: String
   responsible_group_lt: String
@@ -2176,6 +2304,8 @@ input HostNestedFilter {
 enum HostOrderBy {
   name_ASC
   name_DESC
+  description_ASC
+  description_DESC
   operational_state_ASC
   operational_state_DESC
   os_ASC
@@ -2188,8 +2318,6 @@ enum HostOrderBy {
   backup_DESC
   managed_by_ASC
   managed_by_DESC
-  description_ASC
-  description_DESC
   responsible_group_ASC
   responsible_group_DESC
   support_group_ASC
@@ -2280,6 +2408,7 @@ type Mutation {
   create_port(input: CreatePortInput!): CreatePortPayload
   update_port(input: UpdatePortInput!): UpdatePortPayload
   delete_port(input: DeletePortInput!): DeletePortPayload
+  composite_port(input: CompositePortMutationInput!): CompositePortMutationPayload
   create_cable(input: CreateCableInput!): CreateCablePayload
   update_cable(input: UpdateCableInput!): UpdateCablePayload
   delete_cable(input: DeleteCableInput!): DeleteCablePayload
@@ -2313,9 +2442,9 @@ type NINodeHandlerType implements Node {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -2371,9 +2500,9 @@ type NodeHandler implements NINode {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -2394,8 +2523,10 @@ input ObtainJSONWebTokenInput {
 
 """Obtain JSON Web Token mutation"""
 type ObtainJSONWebTokenPayload {
-  token: String
+  payload: GenericScalar!
+  refresh_expires_in: Int!
   clientMutationId: String
+  token: String!
 }
 
 """The group type is used to group contacts"""
@@ -2404,9 +2535,9 @@ type Organization implements NINode & Relation {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -2426,7 +2557,7 @@ type Organization implements NINode & Relation {
   organization_number: String
   organization_id: String
   incident_management_info: String
-  type: ChoiceScalar
+  type: Choice
   website: String
   addresses: [Address]
   addresses_relations: [IDRelation]
@@ -2436,7 +2567,7 @@ type Organization implements NINode & Relation {
   affiliation_partner: Boolean
   affiliation_host_user: Boolean
   affiliation_site_owner: Boolean
-  parent_organization: [Organization]
+  parent_organization: Organization
   contacts: [Contact]
   contacts_relations: [IDRelation]
 }
@@ -2748,9 +2879,9 @@ type PeeringGroup implements NINode & Logical {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -2872,9 +3003,9 @@ type PeeringPartner implements NINode & Relation {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -3025,7 +3156,7 @@ type Phone implements NINode & Logical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  type: ChoiceScalar!
+  type: Choice
 }
 
 type phoneConnection {
@@ -3173,9 +3304,9 @@ type Port implements NINode & Physical {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -3190,7 +3321,7 @@ type Port implements NINode & Physical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  port_type: ChoiceScalar
+  port_type: Choice
   description: String
   connected_to: [Physical]
 }
@@ -3336,9 +3467,9 @@ type Procedure implements NINode & Logical {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -3477,9 +3608,9 @@ type Provider implements NINode & Relation {
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -3697,6 +3828,10 @@ type Query {
   count_cables: Int
   cables(filter: CableFilter, orderBy: CableOrderBy, before: String, after: String, first: Int, last: Int): cableConnection
   getCableById(id: ID): Cable
+  all_routers: [Router]
+  count_routers: Int
+  routers(filter: RouterFilter, orderBy: RouterOrderBy, before: String, after: String, first: Int, last: Int): routerConnection
+  getRouterById(id: ID): Router
   all_peeringpartners: [PeeringPartner]
   count_peeringpartners: Int
   peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
@@ -3708,14 +3843,15 @@ type Query {
 }
 
 input RefreshInput {
-  token: String!
+  token: String
   clientMutationId: String
 }
 
 type RefreshPayload {
-  token: String
-  payload: GenericScalar
+  payload: GenericScalar!
+  refresh_expires_in: Int!
   clientMutationId: String
+  token: String!
 }
 
 interface Relation {
@@ -3807,14 +3943,210 @@ type RoleRelationMutationPayload {
   clientMutationId: String
 }
 
+type Router implements NINode & Physical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: Physical
+  part_of: Logical
+  parent: [Physical]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  operational_state: Choice
+  model: String
+  version: String
+  ports: [Port]
+}
+
+type routerConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [routerEdge]!
+}
+
+"""A Relay edge containing a `router` and its cursor."""
+type routerEdge {
+  """The item at the end of the edge"""
+  node: Router
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input RouterFilter {
+  AND: [RouterNestedFilter!]
+  OR: [RouterNestedFilter!]
+}
+
+input RouterNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
+  model: String
+  model_not: String
+  model_lt: String
+  model_lte: String
+  model_gt: String
+  model_gte: String
+  model_contains: String
+  model_not_contains: String
+  model_starts_with: String
+  model_not_starts_with: String
+  model_ends_with: String
+  model_not_ends_with: String
+  model_in: [String!]
+  model_not_in: [String!]
+  version: String
+  version_not: String
+  version_lt: String
+  version_lte: String
+  version_gt: String
+  version_gte: String
+  version_contains: String
+  version_not_contains: String
+  version_starts_with: String
+  version_not_starts_with: String
+  version_ends_with: String
+  version_not_ends_with: String
+  version_in: [String!]
+  version_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum RouterOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  operational_state_ASC
+  operational_state_DESC
+  model_ASC
+  model_DESC
+  version_ASC
+  version_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 type SiteOwner implements NINode & Relation {
   handle_id: ID!
   node_name: String!
   node_type: NINodeType!
   node_meta_type: NodeHandleNodeMetaType!
-  creator: User!
+  creator: User
   created: DateTime!
-  modifier: User!
+  modifier: User
   modified: DateTime!
 
   """The ID of the object."""
@@ -4229,11 +4561,11 @@ input UserInputType {
 }
 
 input VerifyInput {
-  token: String!
+  token: String
   clientMutationId: String
 }
 
 type VerifyPayload {
-  payload: GenericScalar
+  payload: GenericScalar!
   clientMutationId: String
 }

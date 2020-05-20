@@ -10,7 +10,10 @@ const mutation = graphql`
                 id
                 first_name
                 last_name
-                contact_type
+                contact_type {
+                    name
+                    value
+                }
                 member_of_groups {
                     id
                     name

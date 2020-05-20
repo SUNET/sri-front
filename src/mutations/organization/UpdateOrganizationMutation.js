@@ -17,7 +17,10 @@ const mutation = graphql`
                 organization {
                     id
                     name
-                    type
+                    type {
+                        name
+                        value
+                    }
                     website
                     organization_id
                     organization_number
@@ -34,16 +37,25 @@ const mutation = graphql`
                         id
                         first_name
                         last_name
-                        contact_type
+                        contact_type {
+                            name
+                            value
+                        }
                         emails {
                             id
                             name
-                            type
+                            type {
+                                name
+                                value
+                            }
                         }
                         phones {
                             id
                             name
-                            type
+                            type {
+                                name
+                                value
+                            }
                         }
                         roles {
                             relation_id
@@ -115,16 +127,25 @@ const mutation = graphql`
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         relation_id
@@ -151,16 +172,25 @@ const mutation = graphql`
                     id
                     first_name
                     last_name
-                    contact_type
+                    contact_type {
+                        name
+                        value
+                    }
                     emails {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     phones {
                         id
                         name
-                        type
+                        type {
+                            name
+                            value
+                        }
                     }
                     roles {
                         relation_id
@@ -183,8 +213,6 @@ const mutation = graphql`
 `;
 
 export default function UpdateOrganizationMutation(organization, form) {
-    console.log(organization);
-    
     const newAddress = [];
     const updateAddress = [];
     const deleteAddress = [];
@@ -195,11 +223,11 @@ export default function UpdateOrganizationMutation(organization, form) {
 
     const deleteRoles = [];
 
-    if (form.props.isDirty_relationship_parent_of && organization.relationship_parent_of_relation_id) {
-        deleteRoles.push({ relation_id: organization.relationship_parent_of_relation_id });
+    if (form.props.isDirty_relationship_parent_of) {
+        deleteRoles.push({ relation_id: organization.isDirty_relationship_parent_of });
     }
 
-    const addresses = organization.addresses;
+    const { addresses } = organization;
     if (addresses) {
         Object.keys(addresses).forEach((address_key) => {
             let address = addresses[address_key];
@@ -252,32 +280,15 @@ export default function UpdateOrganizationMutation(organization, form) {
                     }
                 }
 
-                if (!contact.created || contact.created === undefined) {
-                    // newContacts.push({
-                    //     first_name: contact.first_name,
-                    //     last_name: contact.last_name,
-                    //     contact_type: "person",
-                    //     email: contact.email,
-                    //     email_type: contact.email ? CONTACT_WORK : "",
-                    //     phone: contact.phone,
-                    //     phone_type: contact.phone ? CONTACT_WORK : "",
-                    //     role_id: contact.role
-                    // });
-                } else {
+                if (contact.created || contact.created !== undefined) {
                     updateContacts.push({
                         id: contact.id,
                         first_name: contact.first_name,
                         last_name: contact.last_name,
-                        contact_type: contact.contact_type.toLowerCase(),
-                        // email_id: contact.email_obj ? contact.email_obj.id : null,
-                        // email: contact.email,
-                        // email_type: contact.email_obj ? contact.email_obj.type : CONTACT_WORK,
-                        // phone_id: contact.phone_obj ? contact.phone_obj.id : null,
-                        // phone: contact.phone,
-                        // phone_type: contact.phone_obj ? contact.email_obj.type : CONTACT_WORK,
+                        contact_type: contact.contact_type.value,
                         role_id: contact.role
                     });
-                }                
+                }
             } else if (contact.status === "remove") {
                 deleteRoles.push({ relation_id: contact.role_relation_id });
             }

@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash ad3f0034f9be0c04fd6477b168513b02
  */
 
 /* eslint-disable */
@@ -150,18 +149,15 @@ query DropdownSearchAllProvidersQuery(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "filter",
-    "type": "ProviderFilter",
-    "defaultValue": null
+    "type": "ProviderFilter"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "providers",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -170,72 +166,76 @@ v1 = [
       }
     ],
     "concreteType": "providerConnection",
+    "kind": "LinkedField",
+    "name": "providers",
     "plural": false,
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "edges",
-        "storageKey": null,
         "args": null,
         "concreteType": "providerEdge",
+        "kind": "LinkedField",
+        "name": "edges",
         "plural": true,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "node",
-            "storageKey": null,
             "args": null,
             "concreteType": "Provider",
+            "kind": "LinkedField",
+            "name": "node",
             "plural": false,
             "selections": [
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "id",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "name",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "name",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DropdownSearchAllProvidersQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DropdownSearchAllProvidersQuery",
+    "selections": (v1/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DropdownSearchAllProvidersQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "DropdownSearchAllProvidersQuery",
     "id": null,
-    "text": "query DropdownSearchAllProvidersQuery(\n  $filter: ProviderFilter\n) {\n  providers(filter: $filter) {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DropdownSearchAllProvidersQuery",
+    "operationKind": "query",
+    "text": "query DropdownSearchAllProvidersQuery(\n  $filter: ProviderFilter\n) {\n  providers(filter: $filter) {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '1d89ba8261d40fa493866fecbc46387d';
+
 module.exports = node;

@@ -1,0 +1,45 @@
+@import "../variables.scss";
+
+.combo-select-container {
+    display: block !important;
+    height: $input--height;
+    line-height: normal;
+    .combo-select__control {
+        height: $input--height;
+        min-height: $input--height;
+        &--is-focused {
+            height: $input--height;
+            min-height: $input--height;
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            border: none;
+            &:hover {
+                // border-color: #80bdff;
+            }
+        }
+    }
+
+    .combo-select__single-value {
+        padding: 0 14px;
+    }
+
+    .combo-select__indicator {
+        color: $complementary-color;
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    .combo-select__value-container {
+        height: 100%;
+        .css-b8ldur-Input {
+            max-height: 100%;
+        }
+        input {
+            height: auto;
+        }
+    }
+}

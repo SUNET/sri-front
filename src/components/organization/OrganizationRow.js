@@ -39,7 +39,8 @@ class OrganizationRow extends React.PureComponent {
                 {(this.props.columnsVisible["organization_id"] || this.props.showAllColumns) && (
                     <td>{organization.organization_id}</td>
                 )}
-                {(this.props.columnsVisible["type"] || this.props.showAllColumns) && <td>{organization.type}</td>}
+                {(this.props.columnsVisible["type"] || this.props.showAllColumns) &&
+                    (organization.type ? <td>{organization.type.name}</td> : <td></td>)}
                 {(this.props.columnsVisible["afffiliation"] || this.props.showAllColumns) && (
                     <td>
                         {this.state.affiliation_list.map((affiliation, index) => {
@@ -53,9 +54,7 @@ class OrganizationRow extends React.PureComponent {
                 )}
                 {(this.props.columnsVisible["parent_organization_id"] || this.props.showAllColumns) && (
                     <td>
-                        {organization.parent_organization.map((organization) => {
-                            return organization.organization_id;
-                        })}
+                        {organization.parent_organization && (<span>{organization.parent_organization.organization_id}</span>)}
                     </td>
                 )}
                 <td></td>
@@ -69,7 +68,10 @@ const OrganizationRowFragment = createFragmentContainer(OrganizationRow, {
         fragment OrganizationRow_organization on Organization {
             id
             name
-            type
+            type {
+                name
+                value
+            }
             organization_id
             affiliation_customer
             affiliation_end_customer
@@ -79,6 +81,9 @@ const OrganizationRowFragment = createFragmentContainer(OrganizationRow, {
             affiliation_site_owner
             parent_organization {
                 organization_id
+                relation_id
+                id
+                name
             }
             incoming {
                 name

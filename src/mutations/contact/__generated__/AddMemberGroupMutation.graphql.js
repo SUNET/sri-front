@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash bc679fc17a6018efb8c9b8b01e0121a4
  */
 
 /* eslint-disable */
@@ -39,7 +38,10 @@ export type AddMemberGroupMutationResponse = {|
       +id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?any,
+      +contact_type: ?{|
+        +name: string,
+        +value: string,
+      |},
       +member_of_groups: ?$ReadOnlyArray<?{|
         +id: string,
         +name: string,
@@ -63,7 +65,11 @@ mutation AddMemberGroupMutation(
       id
       first_name
       last_name
-      contact_type
+      contact_type {
+        name
+        value
+        id
+      }
       member_of_groups {
         id
         name
@@ -76,115 +82,174 @@ mutation AddMemberGroupMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateContactInput!",
-    "defaultValue": null
+    "type": "UpdateContactInput!"
   }
 ],
-v1 = {
-  "kind": "ScalarField",
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
-v2 = [
-  {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "update_contact",
-    "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "UpdateContactPayload",
-    "plural": false,
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "first_name",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "last_name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "value",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Group",
+  "kind": "LinkedField",
+  "name": "member_of_groups",
+  "plural": true,
+  "selections": [
+    (v2/*: any*/),
+    (v5/*: any*/)
+  ],
+  "storageKey": null
+};
+return {
+  "fragment": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "AddMemberGroupMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "contact",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Contact",
+        "args": (v1/*: any*/),
+        "concreteType": "UpdateContactPayload",
+        "kind": "LinkedField",
+        "name": "update_contact",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "first_name",
             "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "last_name",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "contact_type",
-            "args": null,
-            "storageKey": null
-          },
-          {
+            "concreteType": "Contact",
             "kind": "LinkedField",
-            "alias": null,
-            "name": "member_of_groups",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Group",
-            "plural": true,
+            "name": "contact",
+            "plural": false,
             "selections": [
-              (v1/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "name",
                 "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "contact_type",
+                "plural": false,
+                "selections": [
+                  (v5/*: any*/),
+                  (v6/*: any*/)
+                ],
                 "storageKey": null
-              }
-            ]
+              },
+              (v7/*: any*/)
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
-  }
-];
-return {
-  "kind": "Request",
-  "fragment": {
-    "kind": "Fragment",
-    "name": "AddMemberGroupMutation",
-    "type": "Mutation",
-    "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v2/*: any*/)
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "AddMemberGroupMutation",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v2/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "UpdateContactPayload",
+        "kind": "LinkedField",
+        "name": "update_contact",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Contact",
+            "kind": "LinkedField",
+            "name": "contact",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "contact_type",
+                "plural": false,
+                "selections": [
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
+              },
+              (v7/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "AddMemberGroupMutation",
     "id": null,
-    "text": "mutation AddMemberGroupMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      id\n      first_name\n      last_name\n      contact_type\n      member_of_groups {\n        id\n        name\n      }\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "AddMemberGroupMutation",
+    "operationKind": "mutation",
+    "text": "mutation AddMemberGroupMutation(\n  $input: UpdateContactInput!\n) {\n  update_contact(input: $input) {\n    contact {\n      id\n      first_name\n      last_name\n      contact_type {\n        name\n        value\n        id\n      }\n      member_of_groups {\n        id\n        name\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '91530e1ad9836c9dc7124f5f4041b2b4';
+(node/*: any*/).hash = '696e56d42558b9a552fce489f419469a';
+
 module.exports = node;

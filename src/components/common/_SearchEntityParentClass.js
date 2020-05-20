@@ -6,7 +6,6 @@ import { isBrowser } from "react-device-detect";
 
 // GraphQL imports
 import environment from "../../createRelayEnvironment";
-import { QueryRenderer } from "react-relay";
 
 // Utils
 import renameKeys from "rename-keys";
@@ -16,6 +15,7 @@ import { isEmpty } from "../../utils";
 import FilterColumnsContainer from "../../containers/FilterColumns";
 import FilterRowsBlock from "../FilterRowsBlock";
 import LateralSliderMenu from "../../components/LateralSliderMenu";
+import CustomQueryRenderer from '../../components/CustomQueryRenderer';
 
 // Constants
 import CONFIG from "../../config";
@@ -131,45 +131,37 @@ class _SearchEntityParentClass extends React.Component {
             ></FilterColumnsContainer>
         );
     }
-    renderListContainer(props, retry) {
-        let listComponentProps = {
-            [this.MODEL_LIST_NAME]: { ...props }
-        };
-        return (
-            <this.LIST_CONTAINER
-                {...listComponentProps}
-                changeCount={this.handleOnChangeCount}
-                columnChangeOrderBy={this.handleColumnChangeOrderBy}
-                orderBy={this.state.orderBy.orderBy}
-                defaultColumns={this.DEFAULT_COLUMNS}
-                refetch={retry}
-                clickInMobileShowMenu={() => {
-                    this.setState({
-                        openMobileFiltersPanel: !this.state.openMobileFiltersPanel
-                    });
-                }}
-            />
-        );
-    }
+
     renderList() {
         return (
             <Row className="mt-3">
                 <Col>
-                    <QueryRenderer
+                    <CustomQueryRenderer
                         environment={environment}
                         query={this.LIST_QUERY}
                         variables={{
                             count: this.state.itemsPerPage,
                             ...this.state.orderBy,
-                            filter: this.getFilters()
+                            filter: this.getFilters(),
                         }}
-                        render={({ error, props, retry }) => {
-                            if (error) {
-                                return <div>{error.message}</div>;
-                            } else if (props) {
-                                return this.renderListContainer(props, retry);
-                            }
-                            return <div>Loading</div>;
+                        errorMessage={this.props.t('general.error')}
+                        mainClass=""
+                        componentToRender={{
+                            Component: this.LIST_CONTAINER,
+                            mainProps: [this.MODEL_LIST_NAME],
+                            componentProps: {
+                                changeCount: this.handleOnChangeCount,
+                                columnChangeOrderBy: this.handleColumnChangeOrderBy,
+                                orderBy: this.state.orderBy.orderBy,
+                                changeOrderFilterColumns: this.handleChangeOrderFilterColumns,
+                                filterColumn: this.state.filterColumnValueCallBack,
+                                defaultColumns: this.DEFAULT_COLUMNS,
+                                clickInMobileShowMenu: () => {
+                                    this.setState({
+                                        openMobileFiltersPanel: !this.state.openMobileFiltersPanel
+                                    });
+                                },
+                            },
                         }}
                     />
                 </Col>

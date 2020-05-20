@@ -14,7 +14,10 @@ declare export opaque type OrganizationRow_organization$fragmentType: Organizati
 export type OrganizationRow_organization = {|
   +id: string,
   +name: string,
-  +type: ?any,
+  +type: ?{|
+    +name: string,
+    +value: string,
+  |},
   +organization_id: ?string,
   +affiliation_customer: ?boolean,
   +affiliation_end_customer: ?boolean,
@@ -22,9 +25,12 @@ export type OrganizationRow_organization = {|
   +affiliation_partner: ?boolean,
   +affiliation_provider: ?boolean,
   +affiliation_site_owner: ?boolean,
-  +parent_organization: ?$ReadOnlyArray<?{|
-    +organization_id: ?string
-  |}>,
+  +parent_organization: ?{|
+    +organization_id: ?string,
+    +relation_id: ?number,
+    +id: string,
+    +name: string,
+  |},
   +incoming: ?$ReadOnlyArray<?{|
     +name: string,
     +relation: {|
@@ -48,145 +54,171 @@ export type OrganizationRow_organization$key = {
 
 const node/*: ReaderFragment*/ = (function(){
 var v0 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v1 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "type",
   "args": null,
-  "storageKey": null
-},
-v3 = {
   "kind": "ScalarField",
-  "alias": null,
   "name": "organization_id",
-  "args": null,
   "storageKey": null
 };
 return {
-  "kind": "Fragment",
-  "name": "OrganizationRow_organization",
-  "type": "Organization",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "OrganizationRow_organization",
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
-    (v2/*: any*/),
-    (v3/*: any*/),
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "affiliation_customer",
       "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "affiliation_end_customer",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "affiliation_host_user",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "affiliation_partner",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "affiliation_provider",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "affiliation_site_owner",
-      "args": null,
-      "storageKey": null
-    },
-    {
+      "concreteType": "Choice",
       "kind": "LinkedField",
+      "name": "type",
+      "plural": false,
+      "selections": [
+        (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    (v2/*: any*/),
+    {
       "alias": null,
-      "name": "parent_organization",
-      "storageKey": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "affiliation_customer",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "affiliation_end_customer",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "affiliation_host_user",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "affiliation_partner",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "affiliation_provider",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "affiliation_site_owner",
+      "storageKey": null
+    },
+    {
+      "alias": null,
       "args": null,
       "concreteType": "Organization",
-      "plural": true,
+      "kind": "LinkedField",
+      "name": "parent_organization",
+      "plural": false,
       "selections": [
-        (v3/*: any*/)
-      ]
+        (v2/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "relation_id",
+          "storageKey": null
+        },
+        (v0/*: any*/),
+        (v1/*: any*/)
+      ],
+      "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "incoming",
-      "storageKey": null,
       "args": null,
       "concreteType": "DictRelationType",
+      "kind": "LinkedField",
+      "name": "incoming",
       "plural": true,
       "selections": [
         (v1/*: any*/),
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "relation",
-          "storageKey": null,
           "args": null,
           "concreteType": "NIRelationType",
+          "kind": "LinkedField",
+          "name": "relation",
           "plural": false,
           "selections": [
-            (v2/*: any*/),
             {
-              "kind": "LinkedField",
               "alias": null,
-              "name": "start",
-              "storageKey": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "type",
+              "storageKey": null
+            },
+            {
+              "alias": null,
               "args": null,
               "concreteType": "NINodeHandlerType",
+              "kind": "LinkedField",
+              "name": "start",
               "plural": false,
               "selections": [
                 (v0/*: any*/),
                 {
-                  "kind": "ScalarField",
                   "alias": null,
-                  "name": "node_name",
                   "args": null,
+                  "kind": "ScalarField",
+                  "name": "node_name",
                   "storageKey": null
                 }
-              ]
+              ],
+              "storageKey": null
             }
-          ]
+          ],
+          "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "Organization"
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '1b2c0d3cf7382ac31b55a401d8fb043c';
+(node/*: any*/).hash = '5d2611e3acf28073de36cdbca2b56f8e';
 
 module.exports = node;

@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 4d251ca08958e3b06dd56b500481a8ad
  */
 
 /* eslint-disable */
@@ -42,7 +41,10 @@ export type CreateContactInlineMutationResponse = {|
       +id: string,
       +first_name: string,
       +last_name: string,
-      +contact_type: ?any,
+      +contact_type: ?{|
+        +name: string,
+        +value: string,
+      |},
       +roles: ?$ReadOnlyArray<?{|
         +name: ?string,
         +end: ?{|
@@ -76,7 +78,11 @@ mutation CreateContactInlineMutation(
       id
       first_name
       last_name
-      contact_type
+      contact_type {
+        name
+        value
+        id
+      }
       roles {
         name
         end {
@@ -96,10 +102,10 @@ mutation CreateContactInlineMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateContactInput!",
-    "defaultValue": null
+    "type": "CreateContactInput!"
   }
 ],
 v1 = [
@@ -110,198 +116,224 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "errors",
-  "storageKey": null,
   "args": null,
   "concreteType": "ErrorType",
+  "kind": "LinkedField",
+  "name": "errors",
   "plural": true,
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "field",
       "args": null,
+      "kind": "ScalarField",
+      "name": "field",
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "messages",
       "args": null,
+      "kind": "ScalarField",
+      "name": "messages",
       "storageKey": null
     }
-  ]
+  ],
+  "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "first_name",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "last_name",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "contact_type",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v7 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "value",
   "storageKey": null
 },
 v8 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "roles",
-  "storageKey": null,
   "args": null,
   "concreteType": "RoleRelation",
+  "kind": "LinkedField",
+  "name": "roles",
   "plural": true,
   "selections": [
-    (v7/*: any*/),
+    (v6/*: any*/),
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "end",
-      "storageKey": null,
       "args": null,
       "concreteType": "Organization",
+      "kind": "LinkedField",
+      "name": "end",
       "plural": false,
       "selections": [
         (v3/*: any*/),
-        (v7/*: any*/)
-      ]
+        (v6/*: any*/)
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateContactInlineMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateContactInlineMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "create_contact",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateContactPayload",
+        "kind": "LinkedField",
+        "name": "create_contact",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "contact",
-            "storageKey": null,
             "args": null,
             "concreteType": "Contact",
+            "kind": "LinkedField",
+            "name": "contact",
             "plural": false,
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "contact_type",
+                "plural": false,
+                "selections": [
+                  (v6/*: any*/),
+                  (v7/*: any*/)
+                ],
+                "storageKey": null
+              },
               (v8/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "member_of_groups",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Group",
+                "kind": "LinkedField",
+                "name": "member_of_groups",
                 "plural": true,
                 "selections": [
-                  (v7/*: any*/)
-                ]
+                  (v6/*: any*/)
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateContactInlineMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "create_contact",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateContactPayload",
+        "kind": "LinkedField",
+        "name": "create_contact",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "contact",
-            "storageKey": null,
             "args": null,
             "concreteType": "Contact",
+            "kind": "LinkedField",
+            "name": "contact",
             "plural": false,
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/),
-              (v8/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "member_of_groups",
-                "storageKey": null,
                 "args": null,
-                "concreteType": "Group",
-                "plural": true,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "contact_type",
+                "plural": false,
                 "selections": [
+                  (v6/*: any*/),
                   (v7/*: any*/),
                   (v3/*: any*/)
-                ]
+                ],
+                "storageKey": null
+              },
+              (v8/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Group",
+                "kind": "LinkedField",
+                "name": "member_of_groups",
+                "plural": true,
+                "selections": [
+                  (v6/*: any*/),
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateContactInlineMutation",
     "id": null,
-    "text": "mutation CreateContactInlineMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      id\n      first_name\n      last_name\n      contact_type\n      roles {\n        name\n        end {\n          id\n          name\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateContactInlineMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateContactInlineMutation(\n  $input: CreateContactInput!\n) {\n  create_contact(input: $input) {\n    errors {\n      field\n      messages\n    }\n    contact {\n      id\n      first_name\n      last_name\n      contact_type {\n        name\n        value\n        id\n      }\n      roles {\n        name\n        end {\n          id\n          name\n        }\n      }\n      member_of_groups {\n        name\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '90e248fbb986ec0e4970e1f9951a18b0';
+(node/*: any*/).hash = '58986ec98f483cdd5c712af3b303b4ff';
+
 module.exports = node;

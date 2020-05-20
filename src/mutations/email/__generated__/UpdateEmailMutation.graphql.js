@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 45402706ccaca3ed1a8c26d912330a3f
  */
 
 /* eslint-disable */
@@ -28,7 +27,10 @@ export type UpdateEmailMutationResponse = {|
     +email: ?{|
       +id: string,
       +name: string,
-      +type: any,
+      +type: ?{|
+        +name: string,
+        +value: string,
+      |},
     |},
   |}
 |};
@@ -51,7 +53,11 @@ mutation UpdateEmailMutation(
     email {
       id
       name
-      type
+      type {
+        name
+        value
+        id
+      }
     }
   }
 }
@@ -60,113 +66,170 @@ mutation UpdateEmailMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateEmailInput!",
-    "defaultValue": null
+    "type": "UpdateEmailInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "update_email",
-    "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "UpdateEmailPayload",
-    "plural": false,
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ErrorType",
+  "kind": "LinkedField",
+  "name": "errors",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "field",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "messages",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "value",
+  "storageKey": null
+};
+return {
+  "fragment": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateEmailMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "errors",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "ErrorType",
-        "plural": true,
-        "selections": [
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "field",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "messages",
-            "args": null,
-            "storageKey": null
-          }
-        ]
-      },
-      {
+        "args": (v1/*: any*/),
+        "concreteType": "UpdateEmailPayload",
         "kind": "LinkedField",
-        "alias": null,
-        "name": "email",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Email",
+        "name": "update_email",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "id",
             "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "name",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "type",
-            "args": null,
+            "concreteType": "Email",
+            "kind": "LinkedField",
+            "name": "email",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "type",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v5/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
-  }
-];
-return {
-  "kind": "Request",
-  "fragment": {
-    "kind": "Fragment",
-    "name": "UpdateEmailMutation",
-    "type": "Mutation",
-    "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateEmailMutation",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "UpdateEmailPayload",
+        "kind": "LinkedField",
+        "name": "update_email",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Email",
+            "kind": "LinkedField",
+            "name": "email",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "type",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "UpdateEmailMutation",
     "id": null,
-    "text": "mutation UpdateEmailMutation(\n  $input: UpdateEmailInput!\n) {\n  update_email(input: $input) {\n    errors {\n      field\n      messages\n    }\n    email {\n      id\n      name\n      type\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "UpdateEmailMutation",
+    "operationKind": "mutation",
+    "text": "mutation UpdateEmailMutation(\n  $input: UpdateEmailInput!\n) {\n  update_email(input: $input) {\n    errors {\n      field\n      messages\n    }\n    email {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b56a866824a76ee2812a234d82f7a24a';
+(node/*: any*/).hash = '5f6f7a5349c17a39028e1a5f1bc34977';
+
 module.exports = node;

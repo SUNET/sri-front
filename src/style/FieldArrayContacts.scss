@@ -87,6 +87,21 @@
                 }
             }
         }
+        &__buttons-in-the-final-row {
+            margin-bottom: 1em;
+            @include desktop {
+                margin-bottom: 0;
+            }
+            &--desktop-version {
+                button {
+                    margin-right: 20px;
+                }
+                position: relative;
+                left: -70px;
+                display: flex;
+                align-items: center;
+            }
+        }
     }
     &__footer {
         display: flex;

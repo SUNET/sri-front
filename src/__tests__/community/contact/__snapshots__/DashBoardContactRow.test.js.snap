@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashBoardContactRow Component Renders correctly 1`] = `
+<CreateDashBoardContactRowWrapper>
+  <div>
+    <DashBoardContactRow
+      contact={
+        Object {
+          "first_name": "Nonnah",
+          "id": "Q29udGFjdDo4NTU=",
+          "last_name": "Bottini",
+          "member_of_groups": Array [],
+          "modified": "2020-05-05T14:53:50.620447+00:00",
+          "roles": Array [
+            Object {
+              "end": Object {
+                "name": "Tavu",
+              },
+              "name": "Senior Editor",
+            },
+          ],
+        }
+      }
+      onClick={[MockFunction]}
+    >
+      <article
+        className="dash-board-row"
+        onClick={[Function]}
+      >
+        <Row
+          noGutters={false}
+        >
+          <div
+            className="row"
+          >
+            <Col
+              className="dash-board-row__image col-auto"
+            >
+              <div
+                className="dash-board-row__image col-auto col"
+              >
+                <div>
+                  <Image
+                    fluid={false}
+                    img-fluid="true"
+                    rounded={false}
+                    roundedCircle={true}
+                    src="profile.png"
+                    thumbnail={false}
+                  >
+                    <img
+                      className="rounded-circle"
+                      img-fluid="true"
+                      src="profile.png"
+                    />
+                  </Image>
+                </div>
+              </div>
+            </Col>
+            <Col
+              className="px-0 dash-board-row__info"
+            >
+              <div
+                className="px-0 dash-board-row__info col"
+              >
+                <div>
+                  <div
+                    className="dash-board-row__info__name"
+                  >
+                    Nonnah
+                     
+                    Bottini
+                  </div>
+                  <div
+                    className="help-text dash-board-row__info__roles"
+                  >
+                    <span
+                      className="dash-board-row__info__roles__row"
+                      key="0"
+                    >
+                      Senior Editor
+                       - 
+                      Tavu
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Col>
+            <Col
+              className="col-md-auto dash-board-row__modified_time"
+            >
+              <div
+                className="col-md-auto dash-board-row__modified_time col"
+              >
+                <span>
+                  18 hours ago
+                </span>
+              </div>
+            </Col>
+          </div>
+        </Row>
+      </article>
+    </DashBoardContactRow>
+  </div>
+</CreateDashBoardContactRowWrapper>
+`;

@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
-import { QueryRenderer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
@@ -18,6 +17,7 @@ import { isBrowser, isMobile } from "react-device-detect";
 import LateralSliderMenu from "../../components/LateralSliderMenu";
 import FilterColumnsContainer from "../../containers/FilterColumns";
 import FilterRowsBlock from "../FilterRowsBlock";
+import CustomQueryRenderer from '../../components/CustomQueryRenderer';
 
 const { ITEMS_PER_PAGE } = CONFIG;
 
@@ -181,7 +181,7 @@ class SearchOrganization extends React.Component {
         return (
             <Row id="table_test" className="mt-3">
                 <Col>
-                    <QueryRenderer
+                    <CustomQueryRenderer
                         environment={environment}
                         query={SearchOrganizationAllQuery}
                         variables={{
@@ -189,30 +189,24 @@ class SearchOrganization extends React.Component {
                             ...this.state.orderBy,
                             filter: this.getFilters()
                         }}
-                        render={({ error, props, retry }) => {
-                            if (error) {
-                                return <div>{error.message}</div>;
-                            } else if (props) {
-                                return (
-                                    <OrganizationListContainer
-                                        organizations={props}
-                                        organization_types={props}
-                                        changeCount={this.handleOnChangeCount}
-                                        columnChangeOrderBy={this.handleColumnChangeOrderBy}
-                                        orderBy={this.state.orderBy.orderBy}
-                                        changeOrderFilterColumns={this.handleChangeOrderFilterColumns}
-                                        filterColumn={this.state.filterColumnValue.type_in}
-                                        defaultColumns={defaultColumns}
-                                        refetch={retry}
-                                        clickInMobileShowMenu={() =>
-                                            this.setState({
-                                                openMobileFiltersPanel: !this.state.openMobileFiltersPanel
-                                            })
-                                        }
-                                    />
-                                );
-                            }
-                            return <div>Loading</div>;
+                        errorMessage={this.props.t('general.error')}
+                        mainClass=""
+                        componentToRender={{
+                            Component: OrganizationListContainer,
+                            mainProps: ['organizations', 'organization_types'],
+                            componentProps: {
+                                changeCount: this.handleOnChangeCount,
+                                columnChangeOrderBy: this.handleColumnChangeOrderBy,
+                                orderBy: this.state.orderBy.orderBy,
+                                changeOrderFilterColumns: this.handleChangeOrderFilterColumns,
+                                filterColumn: this.state.filterColumnValue.type_in,
+                                defaultColumns: defaultColumns,
+                                clickInMobileShowMenu: () => {
+                                    this.setState({
+                                        openMobileFiltersPanel: !this.state.openMobileFiltersPanel,
+                                    });
+                                },
+                            },
                         }}
                     />
                 </Col>

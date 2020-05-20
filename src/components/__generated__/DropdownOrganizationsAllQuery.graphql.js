@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash dd0fea97139ae921e536803357332c3b
  */
 
 /* eslint-disable */
@@ -13,7 +12,8 @@ export type DropdownOrganizationsAllQueryVariables = {||};
 export type DropdownOrganizationsAllQueryResponse = {|
   +all_organizations: ?$ReadOnlyArray<?{|
     +id: string,
-    +node_name: string,
+    +name: string,
+    +organization_id: ?string,
   |}>
 |};
 export type DropdownOrganizationsAllQuery = {|
@@ -27,7 +27,8 @@ export type DropdownOrganizationsAllQuery = {|
 query DropdownOrganizationsAllQuery {
   all_organizations {
     id
-    node_name
+    name
+    organization_id
   }
 }
 */
@@ -35,56 +36,64 @@ query DropdownOrganizationsAllQuery {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "all_organizations",
-    "storageKey": null,
     "args": null,
     "concreteType": "Organization",
+    "kind": "LinkedField",
+    "name": "all_organizations",
     "plural": true,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "id",
         "args": null,
+        "kind": "ScalarField",
+        "name": "id",
         "storageKey": null
       },
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "node_name",
         "args": null,
+        "kind": "ScalarField",
+        "name": "name",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "organization_id",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DropdownOrganizationsAllQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DropdownOrganizationsAllQuery",
+    "selections": (v0/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "DropdownOrganizationsAllQuery",
-    "argumentDefinitions": [],
     "selections": (v0/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "DropdownOrganizationsAllQuery",
     "id": null,
-    "text": "query DropdownOrganizationsAllQuery {\n  all_organizations {\n    id\n    node_name\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DropdownOrganizationsAllQuery",
+    "operationKind": "query",
+    "text": "query DropdownOrganizationsAllQuery {\n  all_organizations {\n    id\n    name\n    organization_id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'bca0427cc4807c448ae4fe6abe6090f7';
+(node/*: any*/).hash = 'c86e20ef5c885c735a7350384b0b3780';
+
 module.exports = node;

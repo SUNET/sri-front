@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash f0222029f80066ac4672b868d07dab6d
  */
 
 /* eslint-disable */
@@ -28,7 +27,10 @@ export type CreateCableMutationResponse = {|
       +id: string,
       +name: string,
       +description: ?string,
-      +cable_type: ?any,
+      +cable_type: ?{|
+        +name: string,
+        +value: string,
+      |},
     |},
   |}
 |};
@@ -52,7 +54,11 @@ mutation CreateCableMutation(
       id
       name
       description
-      cable_type
+      cable_type {
+        name
+        value
+        id
+      }
     }
   }
 }
@@ -61,121 +67,179 @@ mutation CreateCableMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCableInput!",
-    "defaultValue": null
+    "type": "CreateCableInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "create_cable",
-    "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "CreateCablePayload",
-    "plural": false,
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ErrorType",
+  "kind": "LinkedField",
+  "name": "errors",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "field",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "messages",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "value",
+  "storageKey": null
+};
+return {
+  "fragment": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCableMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "errors",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "ErrorType",
-        "plural": true,
-        "selections": [
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "field",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "messages",
-            "args": null,
-            "storageKey": null
-          }
-        ]
-      },
-      {
+        "args": (v1/*: any*/),
+        "concreteType": "CreateCablePayload",
         "kind": "LinkedField",
-        "alias": null,
-        "name": "cable",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Cable",
+        "name": "create_cable",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "id",
             "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "name",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "description",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "cable_type",
-            "args": null,
+            "concreteType": "Cable",
+            "kind": "LinkedField",
+            "name": "cable",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "cable_type",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v6/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
-  }
-];
-return {
-  "kind": "Request",
-  "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCableMutation",
-    "type": "Mutation",
-    "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCableMutation",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CreateCablePayload",
+        "kind": "LinkedField",
+        "name": "create_cable",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Cable",
+            "kind": "LinkedField",
+            "name": "cable",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "cable_type",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v6/*: any*/),
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCableMutation",
     "id": null,
-    "text": "mutation CreateCableMutation(\n  $input: CreateCableInput!\n) {\n  create_cable(input: $input) {\n    errors {\n      field\n      messages\n    }\n    cable {\n      id\n      name\n      description\n      cable_type\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCableMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCableMutation(\n  $input: CreateCableInput!\n) {\n  create_cable(input: $input) {\n    errors {\n      field\n      messages\n    }\n    cable {\n      id\n      name\n      description\n      cable_type {\n        name\n        value\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3ae88f36b442bf128bdfb467b141f41f';
+(node/*: any*/).hash = 'f0b86cfd1391a98d96e16a8ffcb6bcc6';
 
 module.exports = node;

@@ -37,9 +37,33 @@ export type PortList_ports$key = {
 
 
 const node/*: ReaderFragment*/ = {
+  "argumentDefinitions": [
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "count",
+      "type": "Int"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "cursor",
+      "type": "String"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "filter",
+      "type": "PortFilter"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "orderBy",
+      "type": "PortOrderBy"
+    }
+  ],
   "kind": "Fragment",
-  "name": "PortList_ports",
-  "type": "Query",
   "metadata": {
     "connection": [
       {
@@ -52,118 +76,94 @@ const node/*: ReaderFragment*/ = {
       }
     ]
   },
-  "argumentDefinitions": [
-    {
-      "kind": "LocalArgument",
-      "name": "count",
-      "type": "Int",
-      "defaultValue": null
-    },
-    {
-      "kind": "LocalArgument",
-      "name": "cursor",
-      "type": "String",
-      "defaultValue": null
-    },
-    {
-      "kind": "LocalArgument",
-      "name": "filter",
-      "type": "PortFilter",
-      "defaultValue": null
-    },
-    {
-      "kind": "LocalArgument",
-      "name": "orderBy",
-      "type": "PortOrderBy",
-      "defaultValue": null
-    }
-  ],
+  "name": "PortList_ports",
   "selections": [
     {
-      "kind": "LinkedField",
       "alias": "ports",
-      "name": "__PortList_ports_connection",
-      "storageKey": null,
       "args": null,
       "concreteType": "portConnection",
+      "kind": "LinkedField",
+      "name": "__PortList_ports_connection",
       "plural": false,
       "selections": [
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "edges",
-          "storageKey": null,
           "args": null,
           "concreteType": "portEdge",
+          "kind": "LinkedField",
+          "name": "edges",
           "plural": true,
           "selections": [
             {
-              "kind": "LinkedField",
               "alias": null,
-              "name": "node",
-              "storageKey": null,
               "args": null,
               "concreteType": "Port",
+              "kind": "LinkedField",
+              "name": "node",
               "plural": false,
               "selections": [
                 {
-                  "kind": "ScalarField",
                   "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
                   "name": "id",
-                  "args": null,
                   "storageKey": null
                 },
                 {
-                  "kind": "ScalarField",
                   "alias": null,
-                  "name": "__typename",
                   "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
                   "storageKey": null
                 },
                 {
+                  "args": null,
                   "kind": "FragmentSpread",
-                  "name": "PortRow_port",
-                  "args": null
+                  "name": "PortRow_port"
                 }
-              ]
+              ],
+              "storageKey": null
             },
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "cursor",
               "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
               "storageKey": null
             }
-          ]
+          ],
+          "storageKey": null
         },
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "pageInfo",
-          "storageKey": null,
           "args": null,
           "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
           "plural": false,
           "selections": [
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "hasNextPage",
               "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             },
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "endCursor",
               "args": null,
+              "kind": "ScalarField",
+              "name": "endCursor",
               "storageKey": null
             }
-          ]
+          ],
+          "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "Query"
 };
 // prettier-ignore
 (node/*: any*/).hash = '3e269aa3900be5154e7c155fa9a4044a';

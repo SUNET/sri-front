@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 07f9cdb285e93fa22ce547950c363c65
  */
 
 /* eslint-disable */
@@ -41,18 +40,15 @@ mutation DeleteCableMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteCableInput!",
-    "defaultValue": null
+    "type": "DeleteCableInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "delete_cable",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -61,40 +57,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteCablePayload",
+    "kind": "LinkedField",
+    "name": "delete_cable",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "success",
         "args": null,
+        "kind": "ScalarField",
+        "name": "success",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteCableMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteCableMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteCableMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteCableMutation",
     "id": null,
-    "text": "mutation DeleteCableMutation(\n  $input: DeleteCableInput!\n) {\n  delete_cable(input: $input) {\n    success\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteCableMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteCableMutation(\n  $input: DeleteCableInput!\n) {\n  delete_cable(input: $input) {\n    success\n  }\n}\n"
   }
 };
 })();

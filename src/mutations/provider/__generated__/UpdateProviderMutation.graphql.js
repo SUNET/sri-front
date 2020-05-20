@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 08d40e0702d0ec817d1036e38d0c230e
  */
 
 /* eslint-disable */
@@ -62,18 +61,15 @@ mutation UpdateProviderMutation(
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateProviderInput!",
-    "defaultValue": null
+    "type": "UpdateProviderInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "update_provider",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -82,100 +78,104 @@ v1 = [
       }
     ],
     "concreteType": "UpdateProviderPayload",
+    "kind": "LinkedField",
+    "name": "update_provider",
     "plural": false,
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "errors",
-        "storageKey": null,
         "args": null,
         "concreteType": "ErrorType",
+        "kind": "LinkedField",
+        "name": "errors",
         "plural": true,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "field",
             "args": null,
+            "kind": "ScalarField",
+            "name": "field",
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "messages",
             "args": null,
+            "kind": "ScalarField",
+            "name": "messages",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       },
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "provider",
-        "storageKey": null,
         "args": null,
         "concreteType": "Provider",
+        "kind": "LinkedField",
+        "name": "provider",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "name",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "description",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "url",
             "args": null,
+            "kind": "ScalarField",
+            "name": "url",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "UpdateProviderMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateProviderMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateProviderMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "UpdateProviderMutation",
     "id": null,
-    "text": "mutation UpdateProviderMutation(\n  $input: UpdateProviderInput!\n) {\n  update_provider(input: $input) {\n    errors {\n      field\n      messages\n    }\n    provider {\n      id\n      name\n      description\n      url\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "UpdateProviderMutation",
+    "operationKind": "mutation",
+    "text": "mutation UpdateProviderMutation(\n  $input: UpdateProviderInput!\n) {\n  update_provider(input: $input) {\n    errors {\n      field\n      messages\n    }\n    provider {\n      id\n      name\n      description\n      url\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'b686a2c413f9e96786369f80dd68664f';
+
 module.exports = node;

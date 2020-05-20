@@ -17,24 +17,24 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
     MODEL_NAME = "siteOwner";
     ROUTE_LIST_DIRECTION = "/network/siteOwners";
     state = {
-        editMode: false
+        editMode: false,
     };
     refetch = () => {
         this.props.relay.refetch(
             { siteOwnerId: this.props.siteOwner.id }, // Our refetchQuery needs to know the `siteOwnerID`
             null, // We can use the refetchVariables as renderVariables
             () => {
-                console.log("Refetch done");
+                this.updateBreadcrumbsData();
             },
-            { force: true }
+            { force: true },
         );
     };
     handleSubmit = (siteOwner) => {
-        this.setState({ editMode: !this.state.editMode });
+        this.setState({ editMode: false });
         UpdateSiteOwnerMutation(siteOwner, this);
     };
     render() {
-        let { handleSubmit } = this.props;
+        let { relatedEntities, handleSubmit } = this.props;
         const { editMode } = this.state;
         const showBackButton = isBrowser;
         return (
@@ -42,6 +42,7 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
                 {isBrowser && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
+                {relatedEntities && this.renderRelatedEntities(relatedEntities)}
                 {this.renderWorkLog()}
                 {this.renderSaveCancelButtons()}
             </form>
@@ -55,7 +56,7 @@ SiteOwnerUpdateForm = reduxForm({
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
         document.documentElement.scrollTop = 0;
-    }
+    },
 })(SiteOwnerUpdateForm);
 
 const SiteOwnerUpdateFragment = createRefetchContainer(
@@ -85,7 +86,7 @@ const SiteOwnerUpdateFragment = createRefetchContainer(
                     email
                 }
             }
-        `
+        `,
     },
 
     graphql`
@@ -96,7 +97,7 @@ const SiteOwnerUpdateFragment = createRefetchContainer(
                 ...SiteOwnerUpdateForm_siteOwner
             }
         }
-    `
+    `,
 );
 
 export default SiteOwnerUpdateFragment;

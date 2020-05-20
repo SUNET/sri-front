@@ -10,9 +10,11 @@ import InfoCreatorModifier from "../InfoCreatorModifier";
 import SaveCancelCTAs from "../common/SaveCancelCTAs";
 import ToggleSection, { ToggleHeading, TogglePanel } from "../../components/ToggleSection";
 import Worklog from "../Worklog";
+import FieldRelatedEntity from "./FieldRelatedEntity";
 // const
 import { isBrowser, isMobile } from "react-device-detect";
-import { generateURL } from "../../utils";
+import { generateURL, formatAffiliationOrganizationData } from "../../utils";
+import INFO_BY_ENTITIES from "./infoByTypeEntity";
 // scss
 import "../../style/ModelDetails.scss";
 
@@ -39,6 +41,25 @@ class _BasicFormParentClass extends React.Component {
     FORM_ID;
     MODEL_NAME;
     ROUTE_LIST_DIRECTION;
+
+    componentDidMount() {
+        if (this.IS_UPDATED_FORM) {
+            this.updateBreadcrumbsData();
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.IS_UPDATED_FORM) {
+            this.props.getOutOfDetails();
+        }
+    }
+
+    updateBreadcrumbsData() {
+        this.props.moveToDetails({
+            id: this.props.initialValues.id,
+            name: this.props.initialValues.name,
+        });
+    }
 
     // Methods
     refetch = () => {
@@ -205,8 +226,8 @@ class _BasicFormParentClass extends React.Component {
                             placeholder={t("organization-details.add-website")}
                         />
                     </Form.Group>
-                )
-            }
+                ),
+            },
         ];
 
         return (
@@ -236,6 +257,41 @@ class _BasicFormParentClass extends React.Component {
                         <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
                     </Col>
                 </Form.Row>
+            </section>
+        );
+    }
+
+    renderRelatedEntities(relatedEntities) {
+        const { t } = this.props;
+        return (
+            <section className="model-section">
+                {relatedEntities.map((entity, index) => {
+                    let formattedEntityData;
+                    if (entity["__typename"] === "Organization") {
+                        formattedEntityData = formatAffiliationOrganizationData(entity);
+                    } else {
+                        formattedEntityData = entity;
+                    }
+                    return (
+                        <Col key={entity.id}>
+                            <ToggleSection>
+                                <ToggleHeading>
+                                    <h2>
+                                        {t(`${INFO_BY_ENTITIES[formattedEntityData["__typename"]].headerNameI18nText}`)}
+                                    </h2>
+                                </ToggleHeading>
+                                <TogglePanel>
+                                    <FieldRelatedEntity
+                                        fields={INFO_BY_ENTITIES[formattedEntityData["__typename"]].fields}
+                                        data={formattedEntityData}
+                                        t={t}
+                                    />
+                                </TogglePanel>
+                            </ToggleSection>
+                            <hr />
+                        </Col>
+                    );
+                })}
             </section>
         );
     }

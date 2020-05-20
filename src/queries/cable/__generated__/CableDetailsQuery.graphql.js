@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash a8e04e25be324a6773968239859eefb2
  */
 
 /* eslint-disable */
@@ -18,7 +17,10 @@ export type CableDetailsQueryResponse = {|
     +id: string,
     +name: string,
     +description: ?string,
-    +cable_type: ?any,
+    +cable_type: ?{|
+      +name: string,
+      +value: string,
+    |},
     +comments: ?$ReadOnlyArray<?{|
       +id: string,
       +user: ?{|
@@ -29,11 +31,11 @@ export type CableDetailsQueryResponse = {|
       +submit_date: any,
     |}>,
     +created: any,
-    +creator: {|
+    +creator: ?{|
       +email: string
     |},
     +modified: any,
-    +modifier: {|
+    +modifier: ?{|
       +email: string
     |},
     +$fragmentRefs: CableUpdateForm_cable$ref,
@@ -55,7 +57,11 @@ query CableDetailsQuery(
     id
     name
     description
-    cable_type
+    cable_type {
+      name
+      value
+      id
+    }
     comments {
       id
       user {
@@ -83,7 +89,11 @@ fragment CableUpdateForm_cable on Cable {
   id
   name
   description
-  cable_type
+  cable_type {
+    name
+    value
+    id
+  }
   comments {
     id
     user {
@@ -110,10 +120,10 @@ fragment CableUpdateForm_cable on Cable {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "cableId",
-    "type": "ID!",
-    "defaultValue": null
+    "type": "ID!"
   }
 ],
 v1 = [
@@ -124,83 +134,83 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "description",
   "args": null,
+  "kind": "ScalarField",
+  "name": "description",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "cable_type",
   "args": null,
+  "kind": "ScalarField",
+  "name": "value",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "first_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "first_name",
   "storageKey": null
 },
 v7 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "last_name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "last_name",
   "storageKey": null
 },
 v8 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "comment",
   "args": null,
+  "kind": "ScalarField",
+  "name": "comment",
   "storageKey": null
 },
 v9 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "submit_date",
   "args": null,
+  "kind": "ScalarField",
+  "name": "submit_date",
   "storageKey": null
 },
 v10 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "created",
   "args": null,
+  "kind": "ScalarField",
+  "name": "created",
   "storageKey": null
 },
 v11 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "email",
   "args": null,
+  "kind": "ScalarField",
+  "name": "email",
   "storageKey": null
 },
 v12 = [
   (v11/*: any*/)
 ],
 v13 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "modified",
   "args": null,
+  "kind": "ScalarField",
+  "name": "modified",
   "storageKey": null
 },
 v14 = [
@@ -208,166 +218,192 @@ v14 = [
   (v2/*: any*/)
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CableDetailsQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CableDetailsQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "getCableById",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Cable",
+        "kind": "LinkedField",
+        "name": "getCableById",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
-          (v5/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "comments",
-            "storageKey": null,
+            "args": null,
+            "concreteType": "Choice",
+            "kind": "LinkedField",
+            "name": "cable_type",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
             "args": null,
             "concreteType": "CommentType",
+            "kind": "LinkedField",
+            "name": "comments",
             "plural": true,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "user",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
                 "plural": false,
                 "selections": [
                   (v6/*: any*/),
                   (v7/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v8/*: any*/),
               (v9/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           (v10/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "creator",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "creator",
             "plural": false,
-            "selections": (v12/*: any*/)
+            "selections": (v12/*: any*/),
+            "storageKey": null
           },
           (v13/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "modifier",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "modifier",
             "plural": false,
-            "selections": (v12/*: any*/)
+            "selections": (v12/*: any*/),
+            "storageKey": null
           },
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "CableUpdateForm_cable",
-            "args": null
+            "name": "CableUpdateForm_cable"
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CableDetailsQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "getCableById",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Cable",
+        "kind": "LinkedField",
+        "name": "getCableById",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
-          (v5/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "comments",
-            "storageKey": null,
+            "args": null,
+            "concreteType": "Choice",
+            "kind": "LinkedField",
+            "name": "cable_type",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v5/*: any*/),
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
             "args": null,
             "concreteType": "CommentType",
+            "kind": "LinkedField",
+            "name": "comments",
             "plural": true,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "user",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
                 "plural": false,
                 "selections": [
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v2/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v8/*: any*/),
               (v9/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           (v10/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "creator",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "creator",
             "plural": false,
-            "selections": (v14/*: any*/)
+            "selections": (v14/*: any*/),
+            "storageKey": null
           },
           (v13/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "modifier",
-            "storageKey": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "modifier",
             "plural": false,
-            "selections": (v14/*: any*/)
+            "selections": (v14/*: any*/),
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "CableDetailsQuery",
     "id": null,
-    "text": "query CableDetailsQuery(\n  $cableId: ID!\n) {\n  getCableById(id: $cableId) {\n    ...CableUpdateForm_cable\n    id\n    name\n    description\n    cable_type\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment CableUpdateForm_cable on Cable {\n  id\n  name\n  description\n  cable_type\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CableDetailsQuery",
+    "operationKind": "query",
+    "text": "query CableDetailsQuery(\n  $cableId: ID!\n) {\n  getCableById(id: $cableId) {\n    ...CableUpdateForm_cable\n    id\n    name\n    description\n    cable_type {\n      name\n      value\n      id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment CableUpdateForm_cable on Cable {\n  id\n  name\n  description\n  cable_type {\n    name\n    value\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c41a07fb7167fa32d16d504da164d29b';
+(node/*: any*/).hash = '5e903be52479ac5bbfc92d40734e2ff5';
+
 module.exports = node;

@@ -4,7 +4,7 @@
       "schemaPath": "schema.graphql",
       "extensions": {
         "endpoints": {
-          "dev": "http://ni.localenv.loc/graphql/"
+          "dev": "http://sri.localenv.loc/api/graphql/"
         }
       }
     }
