@@ -12,9 +12,11 @@ import { isBrowser } from "react-device-detect";
 class CreateContactForm extends _ContactFormParentClass {
     IS_UPDATED_FORM = false;
     FORM_ID = CREATE_CONTACT_FORM;
+
     handleSubmit = (contact) => {
         CreateContactMutation(contact, this);
     };
+
     render() {
         const { handleSubmit, shown_in_modal } = this.props;
         const editMode = true;

@@ -19,8 +19,12 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
     MODEL_NAME = "organization";
     ROUTE_LIST_DIRECTION = "/community/organizations";
     state = {
-        editMode: false
+        editMode: true
     };
+
+    componentDidMount() {
+        window.scrollTo(0, 1000);
+    }
 
     static propTypes = {
         onChange: PropTypes.func

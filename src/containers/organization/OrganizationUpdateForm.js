@@ -5,7 +5,7 @@ import { getContact } from '../../components/contact/Contact';
 import uuidv4 from 'uuid/v4';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
-import { showNewContactForm } from '../../actions/ComponentFormRow';
+import * as componentFormRow from '../../actions/ComponentFormRow';
 
 const mapStateToProps = (state, props) => {
   const updateOrganizationSelector = formValueSelector('updateOrganization');
@@ -120,8 +120,8 @@ const mapStateToProps = (state, props) => {
     organization_parent: updateOrganizationSelector(state, 'organization_parent'),
     isDirty_relationship_parent_of: isDirty('updateOrganization')(state, ['organization_parent_id']),
     incident_management_info: updateOrganizationSelector(state, 'incident_management_info'),
-    contactsValues: contactsValues,
-    addressesValues: addressesValues,
+    contactsValues,
+    addressesValues,
     isDirty_contacts_roles:
       contactsValues &&
       contactsValues.map((contact, index) => {
@@ -137,6 +137,7 @@ const mapStateToProps = (state, props) => {
       provider: updateOrganizationSelector(state, 'affiliation_provider'),
       site_owner: updateOrganizationSelector(state, 'affiliation_site_owner'),
     },
+    contact_removed_id: state.componentFormRow.contact_removed_id,
     getContact: (id) => getContact(id),
   };
 };
@@ -153,7 +154,15 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    showNewContactForm,
+    showNewContactForm: () => {
+      dispatch(componentFormRow.showNewContactForm());
+    },
+    hideNewContactForm: () => {
+      dispatch(componentFormRow.hideNewContactForm());
+    },
+    showContactDetailForm: (contactId) => {
+      dispatch(componentFormRow.showContactDetailForm(contactId));
+    },
   };
 };
 
