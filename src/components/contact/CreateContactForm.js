@@ -14,6 +14,7 @@ class CreateContactForm extends _ContactFormParentClass {
     FORM_ID = CREATE_CONTACT_FORM;
 
     handleSubmit = (contact) => {
+        this.props.hideContactModal();
         CreateContactMutation(contact, this);
     };
 
@@ -26,7 +27,7 @@ class CreateContactForm extends _ContactFormParentClass {
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
                 {showSaveCancelInHeader && this.renderSaveCancelButtons()}
                 <div className="model-details create-contact-form">
-                    {this.renderHeader(editMode, showBackButton)}
+                    {this.renderHeader(editMode, showBackButton, shown_in_modal)}
                     {this.renderModelMainSection(editMode)}
                     {this.renderWorkLog(editMode)}
                 </div>

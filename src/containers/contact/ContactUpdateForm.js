@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import ContactUpdateForm from '../../components/contact/ContactUpdateForm';
 import { formValueSelector, getFormMeta, getFormSyncErrors, isDirty } from 'redux-form';
 import uuidv4 from 'uuid/v4';
+import ContactUpdateForm from '../../components/contact/ContactUpdateForm';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
+import * as createContactFormModalActions from '../../actions/ComponentFormRow';
 
 const mapStateToProps = (state, props) => {
   const updateContactSelector = formValueSelector('updateContact');
@@ -93,6 +94,7 @@ const mapStateToProps = (state, props) => {
       }),
     formSyncErrors: getFormSyncErrors('updateContact')(state),
     fields: getFormMeta('updateContact')(state),
+    shown_in_modal: state.componentFormRow.show_contact_form,
   };
 };
 
@@ -107,6 +109,7 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
+    hideContactModal: () => dispatch(createContactFormModalActions.hideNewContactForm(props.index)),
   };
 };
 

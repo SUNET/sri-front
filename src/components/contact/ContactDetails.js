@@ -24,7 +24,7 @@ class ContactDetails extends React.Component {
   }
 
   handleDelete = () => {
-    const { hideNewContactForm, history, is_contact_form_visible, deleteContact } = this.props;
+    const { history, is_contact_form_visible, deleteContact } = this.props;
     const contactId = this.getContactId();
     const callbackAfterDeleteInModal = () => {
       deleteContact(contactId);

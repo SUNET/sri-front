@@ -5,20 +5,23 @@ import { Modal } from 'react-bootstrap';
 import SaveCancelCTAs from '../../common/SaveCancelCTAs';
 import CreateContactFormContainer from '../../../containers/contact/CreateContactForm';
 import ContactDetailsContainer from '../../../containers/contact/ContactDetails';
-import { CREATE_CONTACT_FORM } from '../../../utils/constants';
+import { CREATE_CONTACT_FORM, UPDATE_CONTACT_FORM } from '../../../utils/constants';
 import '../../../style/ModalNewContact.scss';
 
 class ModalNewContact extends React.Component {
   handleClose() {
-    this.props.hideContactModal();
+    const { hideContactModal } = this.props;
+    hideContactModal();
   }
 
   render() {
     const { t, is_contact_form_visible, contact_details_id } = this.props;
     const classModalTitle = isMobile ? 'd-flex flex-column align-items-start' : '';
     const classButtons = isMobile ? 'w-100 d-flex justify-content-end' : '';
-    const ComponentToRender =
-      is_contact_form_visible && contact_details_id ? ContactDetailsContainer : CreateContactFormContainer;
+    const isUpdateForm = is_contact_form_visible && contact_details_id;
+    const ComponentToRender = isUpdateForm ? ContactDetailsContainer : CreateContactFormContainer;
+    const formId = isUpdateForm ? UPDATE_CONTACT_FORM : CREATE_CONTACT_FORM;
+    const headerText = isUpdateForm ? t('contact-details.modify-contact') : t('contact-details.add-new-contact');
     return (
       <div>
         <Modal
@@ -28,13 +31,9 @@ class ModalNewContact extends React.Component {
         >
           <Modal.Header closeButton={false}>
             <Modal.Title className={classModalTitle}>
-              <div className="new-contact-modal-form__header__title">{t('contact-details.add-new-contact')}</div>
+              <div className="new-contact-modal-form__header__title">{headerText}</div>
               <div className={`new-contact-modal-form__header__buttons ${classButtons}`}>
-                <SaveCancelCTAs
-                  formId={CREATE_CONTACT_FORM}
-                  cancelText={t('actions.cancel')}
-                  onCancel={() => this.handleClose()}
-                />
+                <SaveCancelCTAs formId={formId} cancelText={t('actions.cancel')} onCancel={() => this.handleClose()} />
               </div>
             </Modal.Title>
           </Modal.Header>

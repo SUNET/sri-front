@@ -203,12 +203,13 @@ export default function CreateContactMutation(contact, form) {
                 if (contact.comment) {
                     CreateComentMutation(contact_id, contact.comment);
                 }
-                if (form.props.shown_in_modal) {
-                    form.props.hideContactModal();
-                } else {
+                if (form.props.history) {
                     form.props.history.push("/community/contacts/" + contact_id);
-                    form.props.notify(i18n.t("notify.contact-created-success"), "success");
                 }
+                // else {
+                //    form.props.hideContactModal();
+                // }
+                form.props.notify(i18n.t("notify.contact-created-success"), "success");
             }
         },
         updater: (proxyStore, data) => {},
