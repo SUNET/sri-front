@@ -35,7 +35,6 @@ class SearchCable extends _SearchEntityParentClass {
         }
     `;
     constructor(props) {
-        console.log('props: ', props);
         super(props);
         if (isMobile) {
             const visible = true;

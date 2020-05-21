@@ -2,7 +2,6 @@ const REQUIRED_TEXT = "* Required!";
 
 export default class ValidationsCableForm {
     static validate = (values) => {
-        console.log('values: ', values);
         const errors = {};
         if (!values.name) {
             errors.name = REQUIRED_TEXT;

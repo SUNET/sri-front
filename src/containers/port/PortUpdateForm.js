@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
-import PortUpdateForm from '../../components/port/PortUpdateForm';
 import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
+import PortUpdateForm from '../../components/port/PortUpdateForm';
 import * as actions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 
 const mapStateToProps = (state, props) => {
   const updatePortSelector = formValueSelector('updatePort');
-  const port = props.port;
+  const { port } = props;
 
   const initialValues = {
     id: port.id,

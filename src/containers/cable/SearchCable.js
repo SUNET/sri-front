@@ -3,7 +3,6 @@ import SearchCable from '../../components/cable/SearchCable';
 import { showHideColumn, showAllColumns, cancelFilterColumns } from '../../actions/FilterColumns';
 
 const mapStateToProps = (state, props) => {
-  console.log('state, props: ', state, props);
   return {};
 };
 

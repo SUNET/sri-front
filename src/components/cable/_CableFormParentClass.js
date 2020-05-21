@@ -46,12 +46,11 @@ class _CableFormParentClass extends _BasicFormParentClass {
 
     // Specific toggle sections RENDERS
     renderGeneralInfoToggleSection(editMode = true) {
-        const { t, cable_type } = this.props;
+        const { t, cableTypeObj } = this.props;
         const generalInfoFirstRow = [
             {
                 title: t("organization-details.type"),
-                presentContent:
-                    cable_type,
+                presentContent: cableTypeObj ? cableTypeObj.name : undefined,
                 editContent: (
                     <Dropdown
                         className={`${isBrowser ? "auto" : "xlg mw-100"}`}
