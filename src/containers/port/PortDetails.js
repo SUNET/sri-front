@@ -1,18 +1,18 @@
-import { connect } from "react-redux";
-import * as actions from "../../actions/Notify";
+import { connect } from 'react-redux';
+import * as actions from '../../actions/Notify';
 
-import PortDetails from "../../components/port/PortDetails";
+import PortDetails from '../../components/port/PortDetails';
 
 const mapStateToProps = (state, props) => {
-    return {};
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
-        notify: (msg, level) => {
-            dispatch(actions.notify(msg, level));
-        }
-    };
+  return {
+    notify: (msg, level) => {
+      dispatch(actions.notify(msg, level));
+    },
+  };
 };
 
 const PortDetailsContainer = connect(mapStateToProps, mapDispatchToProps)(PortDetails);

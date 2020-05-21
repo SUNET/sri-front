@@ -12,11 +12,15 @@ const mapStateToProps = (state, props) => {
     id: port.id,
     name: port.name,
     description: port.description,
+    port_type: port.port_type ? port.port_type.value : undefined,
+    portTypeObj: port.port_type,
   };
   return {
     initialValues,
     name: updatePortSelector(state, 'name'),
     description: updatePortSelector(state, 'description'),
+    port_type: updatePortSelector(state, 'port_type'),
+    portTypeObj: updatePortSelector(state, 'portTypeObj'),
     formSyncErrors: getFormSyncErrors('updatePort')(state),
     fields: getFormMeta('updatePort')(state),
   };
