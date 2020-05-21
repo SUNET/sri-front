@@ -16,6 +16,10 @@ const mutation = graphql`
         id
         name
         description
+        port_type {
+          name
+          value
+        }
       }
     }
   }
@@ -26,6 +30,7 @@ function CreatePortMutation(port, form) {
     input: {
       name: port.name,
       description: port.description,
+      port_type: port.port_type,
     },
   };
   commitMutation(environment, {

@@ -55,6 +55,11 @@ fragment PortRow_port on Port {
   id
   name
   description
+  port_type {
+    name
+    value
+    id
+  }
 }
 */
 
@@ -96,7 +101,21 @@ v2 = [
     "variableName": "count"
   },
   (v1/*: any*/)
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -154,25 +173,33 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "name",
-                    "storageKey": null
-                  },
+                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
                     "name": "description",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "port_type",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "value",
+                        "storageKey": null
+                      },
+                      (v3/*: any*/)
+                    ],
                     "storageKey": null
                   },
                   {
@@ -239,7 +266,7 @@ return {
     "metadata": {},
     "name": "PortListForwardQuery",
     "operationKind": "query",
-    "text": "query PortListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: PortOrderBy\n) {\n  ...PortList_ports_32czeo\n}\n\nfragment PortList_ports_32czeo on Query {\n  ports(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...PortRow_port\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment PortRow_port on Port {\n  id\n  name\n  description\n}\n"
+    "text": "query PortListForwardQuery(\n  $count: Int!\n  $cursor: String\n  $orderBy: PortOrderBy\n) {\n  ...PortList_ports_32czeo\n}\n\nfragment PortList_ports_32czeo on Query {\n  ports(first: $count, after: $cursor, orderBy: $orderBy) {\n    edges {\n      node {\n        id\n        ...PortRow_port\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment PortRow_port on Port {\n  id\n  name\n  description\n  port_type {\n    name\n    value\n    id\n  }\n}\n"
   }
 };
 })();

@@ -26,6 +26,7 @@ class SearchPort extends _SearchEntityParentClass {
     PATH_ENTITY_ID = "portId";
     DEFAULT_COLUMNS = [
         { name: "Name", value: "name", filter: "order" },
+        { name: "Port Type", value: "port_type" },
         { name: "Description", value: "description", filter: "order" }
     ];
     LIST_QUERY = graphql`
