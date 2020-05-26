@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Wed May 20 2020 15:34:35 GMT+0200 (GMT+02:00)
+# timestamp: Fri May 22 2020 13:59:01 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -2365,6 +2365,13 @@ interface Logical {
   part_of: Physical
 }
 
+enum MetaType {
+  Logical
+  Relation
+  Physical
+  Location
+}
+
 type Mutation {
   create_group(input: CreateGroupInput!): CreateGroupPayload
   update_group(input: UpdateGroupInput!): UpdateGroupPayload
@@ -3772,6 +3779,8 @@ type Query {
   checkExistentOrganizationId(organization_id: String!, id: ID): Boolean
   getAvailableRoleGroups: [RoleGroup]
   getRolesFromRoleGroup(name: String): [Role]
+  getMetatypes: [MetaType]
+  getTypesForMetatype(metatype: MetaType): [TypeInfo]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -4299,6 +4308,13 @@ enum SiteOwnerOrderBy {
   modified_DESC
   handle_id_ASC
   handle_id_DESC
+}
+
+type TypeInfo {
+  type_name: String!
+  connection_name: String!
+  byid_name: String!
+  all_name: String!
 }
 
 input UpdateAddressInput {

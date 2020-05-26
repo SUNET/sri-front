@@ -21,6 +21,26 @@ export type PortDetailsQueryResponse = {|
       +name: string,
       +value: string,
     |},
+    +parent: ?$ReadOnlyArray<?{|
+      +__typename: string,
+      +id: string,
+      +name: string,
+      +description?: ?string,
+      +type?: ?{|
+        +name: string,
+        +value: string,
+      |},
+    |}>,
+    +connected_to: ?$ReadOnlyArray<?{|
+      +id: string,
+      +name: string,
+      +__typename: string,
+      +description?: ?string,
+      +type?: ?{|
+        +name: string,
+        +value: string,
+      |},
+    |}>,
     +__typename: string,
     +comments: ?$ReadOnlyArray<?{|
       +id: string,
@@ -62,6 +82,40 @@ query PortDetailsQuery(
       name
       value
       id
+    }
+    parent {
+      __typename
+      id
+      name
+      ... on Port {
+        description
+        type: port_type {
+          name
+          value
+          id
+        }
+      }
+      ... on Cable {
+        description
+        type: cable_type {
+          name
+          value
+          id
+        }
+      }
+    }
+    connected_to {
+      id
+      name
+      __typename
+      ... on Cable {
+        description
+        type: cable_type {
+          name
+          value
+          id
+        }
+      }
     }
     __typename
     comments {
@@ -158,69 +212,112 @@ v5 = {
   "name": "value",
   "storageKey": null
 },
-v6 = {
+v6 = [
+  (v3/*: any*/),
+  (v5/*: any*/)
+],
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v7 = {
+v8 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v4/*: any*/),
+    {
+      "alias": "type",
+      "args": null,
+      "concreteType": "Choice",
+      "kind": "LinkedField",
+      "name": "cable_type",
+      "plural": false,
+      "selections": (v6/*: any*/),
+      "storageKey": null
+    }
+  ],
+  "type": "Cable"
+},
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "first_name",
   "storageKey": null
 },
-v8 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "last_name",
   "storageKey": null
 },
-v9 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "comment",
   "storageKey": null
 },
-v10 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "submit_date",
   "storageKey": null
 },
-v11 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "created",
   "storageKey": null
 },
-v12 = {
+v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v13 = [
-  (v12/*: any*/)
+v15 = [
+  (v14/*: any*/)
 ],
-v14 = {
+v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v15 = [
-  (v12/*: any*/),
+v17 = [
+  (v14/*: any*/),
   (v2/*: any*/)
-];
+],
+v18 = [
+  (v3/*: any*/),
+  (v5/*: any*/),
+  (v2/*: any*/)
+],
+v19 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v4/*: any*/),
+    {
+      "alias": "type",
+      "args": null,
+      "concreteType": "Choice",
+      "kind": "LinkedField",
+      "name": "cable_type",
+      "plural": false,
+      "selections": (v18/*: any*/),
+      "storageKey": null
+    }
+  ],
+  "type": "Cable"
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -246,13 +343,57 @@ return {
             "kind": "LinkedField",
             "name": "port_type",
             "plural": false,
+            "selections": (v6/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "parent",
+            "plural": true,
             "selections": [
+              (v7/*: any*/),
+              (v2/*: any*/),
               (v3/*: any*/),
-              (v5/*: any*/)
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v4/*: any*/),
+                  {
+                    "alias": "type",
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "port_type",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
+                  }
+                ],
+                "type": "Port"
+              },
+              (v8/*: any*/)
             ],
             "storageKey": null
           },
-          (v6/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "connected_to",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/)
+            ],
+            "storageKey": null
+          },
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -270,17 +411,17 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v7/*: any*/),
-                  (v8/*: any*/)
+                  (v9/*: any*/),
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v9/*: any*/),
-              (v10/*: any*/)
+              (v11/*: any*/),
+              (v12/*: any*/)
             ],
             "storageKey": null
           },
-          (v11/*: any*/),
+          (v13/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -288,10 +429,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v13/*: any*/),
+            "selections": (v15/*: any*/),
             "storageKey": null
           },
-          (v14/*: any*/),
+          (v16/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -299,7 +440,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v13/*: any*/),
+            "selections": (v15/*: any*/),
             "storageKey": null
           },
           {
@@ -347,18 +488,18 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v7/*: any*/),
-                  (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v9/*: any*/),
-              (v10/*: any*/)
+              (v11/*: any*/),
+              (v12/*: any*/)
             ],
             "storageKey": null
           },
-          (v11/*: any*/),
+          (v13/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -366,10 +507,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v15/*: any*/),
+            "selections": (v17/*: any*/),
             "storageKey": null
           },
-          (v14/*: any*/),
+          (v16/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -377,7 +518,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v15/*: any*/),
+            "selections": (v17/*: any*/),
             "storageKey": null
           },
           {
@@ -387,14 +528,57 @@ return {
             "kind": "LinkedField",
             "name": "port_type",
             "plural": false,
+            "selections": (v18/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "parent",
+            "plural": true,
             "selections": [
+              (v7/*: any*/),
+              (v2/*: any*/),
               (v3/*: any*/),
-              (v5/*: any*/),
-              (v2/*: any*/)
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v4/*: any*/),
+                  {
+                    "alias": "type",
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "port_type",
+                    "plural": false,
+                    "selections": (v18/*: any*/),
+                    "storageKey": null
+                  }
+                ],
+                "type": "Port"
+              },
+              (v19/*: any*/)
             ],
             "storageKey": null
           },
-          (v6/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "connected_to",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v7/*: any*/),
+              (v19/*: any*/)
+            ],
+            "storageKey": null
+          },
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
@@ -405,11 +589,11 @@ return {
     "metadata": {},
     "name": "PortDetailsQuery",
     "operationKind": "query",
-    "text": "query PortDetailsQuery(\n  $portId: ID!\n) {\n  getPortById(id: $portId) {\n    ...PortUpdateForm_port\n    id\n    name\n    description\n    port_type {\n      name\n      value\n      id\n    }\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment PortUpdateForm_port on Port {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query PortDetailsQuery(\n  $portId: ID!\n) {\n  getPortById(id: $portId) {\n    ...PortUpdateForm_port\n    id\n    name\n    description\n    port_type {\n      name\n      value\n      id\n    }\n    parent {\n      __typename\n      id\n      name\n      ... on Port {\n        description\n        type: port_type {\n          name\n          value\n          id\n        }\n      }\n      ... on Cable {\n        description\n        type: cable_type {\n          name\n          value\n          id\n        }\n      }\n    }\n    connected_to {\n      id\n      name\n      __typename\n      ... on Cable {\n        description\n        type: cable_type {\n          name\n          value\n          id\n        }\n      }\n    }\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment PortUpdateForm_port on Port {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'aae2cdb0f5ccf29bd42712b2f4c674af';
+(node/*: any*/).hash = '405be9fa90dc2e904342ab66874099ef';
 
 module.exports = node;

@@ -83,8 +83,7 @@ class _GroupFormParentClass extends React.Component {
                     status: "saved",
                     key: uuidv4()
                 };
-                if (!this._hasBeenAdded(newMember)) {   
-                    console.log('this.props.form: ', this.props.form);
+                if (!this._hasBeenAdded(newMember)) {
                     this.props.dispatch(arrayPush(this.props.form, "members", newMember));
                 }
             });

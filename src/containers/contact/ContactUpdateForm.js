@@ -86,7 +86,7 @@ const mapStateToProps = (state, props) => {
     contactTypeObj: updateContactSelector(state, 'contactTypeObj'),
     emailValues: updateContactSelector(state, 'emails'),
     phoneValues: updateContactSelector(state, 'phones'),
-    organizationValues: organizationValues,
+    organizationValues,
     isDirty_organizations_roles:
       organizationValues &&
       organizationValues.map((organization, index) => {

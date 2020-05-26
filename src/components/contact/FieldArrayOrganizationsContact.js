@@ -235,8 +235,8 @@ class FieldArrayOrganizationsContact extends React.Component {
 
     saveLabel = (event, key) => {
         const indexForThisFieldKey = this.getValueByKey(key).index;
-        const input_label = event.target.options[event.target.selectedIndex].text;
-        const input_name = event.target.name.split(".")[1];
+        const input_label = event.options[event.selectedIndex].text;
+        const input_name = event.name.split(".")[1];
         function updateOrganizationIdField(props, orgId) {
             props.dispatch(
                 change(
@@ -251,7 +251,7 @@ class FieldArrayOrganizationsContact extends React.Component {
         );
 
         if (input_name === "organization") {
-            getOrganization(event.target.value).then((organization) => {
+            getOrganization(event.value).then((organization) => {
                 if (organization) {
                     updateOrganizationIdField(this.props, organization.id);    
                 }

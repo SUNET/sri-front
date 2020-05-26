@@ -39,6 +39,30 @@ const DropdownSearchAllProvidersQuery = graphql`
         }
     }
 `;
+const DropdownSearchAllCablesQuery = graphql`
+    query DropdownSearchAllCablesQuery($filter: CableFilter) {
+        cables(filter: $filter) {
+            edges {
+                node {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`;
+const DropdownSearchAllPortsQuery = graphql`
+    query DropdownSearchAllPortsQuery($filter: PortFilter) {
+        ports(filter: $filter) {
+            edges {
+                node {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`;
 class DropdownSearch extends React.Component {
     constructor(props) {
         super(props);
@@ -53,31 +77,48 @@ class DropdownSearch extends React.Component {
         };
     }
     getQueryByModel(model) {
-        let queryModel;
+        let queryModel = {
+            modelName: model,
+        };
         switch (model) {
             case "contacts":
-                queryModel = DropdownSearchAllContactsQuery;
+                queryModel.query = DropdownSearchAllContactsQuery;
                 break;
             case "providers":
-                queryModel = DropdownSearchAllProvidersQuery;
+                queryModel.query = DropdownSearchAllProvidersQuery;
                 break;
-            default:
-                queryModel = DropdownSearchAllContactsQuery;
+            case "cables":
+                queryModel.query = DropdownSearchAllCablesQuery;
+                break;
+            case "ports":
+                queryModel.query = DropdownSearchAllPortsQuery;
+                break;
+            case "Patch":
+            case "Power Cable":
+            case "Dark Fiber":
+                queryModel.query = DropdownSearchAllCablesQuery;
+                queryModel.typeFilter = { cable_type: model };
+                queryModel.modelName = 'cables';
                 break;
         }
+        console.log('queryModel: ', queryModel);
         return queryModel;
     }
 
     getItems = debounce((filter) => {
-        const modelName = this.props.model ? this.props.model : "contacts";
-        let dropdownQuery = this.getQueryByModel(this.props.model);
-        const variables = {
+        // const modelName = this.props.model ? this.props.model : "contacts";
+        const { typeName, modelName, query, typeFilter } = this.getQueryByModel(this.props.model);
+        let variables = {
             filter: { AND: [{ name_contains: filter }] }
         };
 
+        if (typeFilter) {
+            variables.filter.AND.push(typeFilter)
+        }
+
         if (filter.length > MIN_CHAR_TO_FIND) {
             this.setState({ filterValue: filter, allItems: this.LOADING_VALUE });
-            fetchQuery(environment, dropdownQuery, variables).then((data) => {
+            fetchQuery(environment, query, variables).then((data) => {
                 let newData = data[modelName].edges.map((edge) => edge.node);
                 if (newData.length === 0) {
                     newData = this.NO_MATCHES_RESULT;
@@ -94,6 +135,8 @@ class DropdownSearch extends React.Component {
     };
 
     render() {
+        console.log(this.props);
+        
         return (
             <div
                 {...css({
@@ -116,6 +159,7 @@ class DropdownSearch extends React.Component {
                         <div {...css({ margin: "auto" })} className="downshift">
                             <div {...css({ position: "relative" })}>
                                 <Input
+                                    disabled={this.props.disabled}
                                     {...getInputProps({
                                         isOpen,
                                         placeholder: this.props.placeholder,

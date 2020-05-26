@@ -376,6 +376,7 @@ class FieldArrayMembersGroup extends React.Component {
                 {editable && (
                     <>
                         <DropdownSearch
+                            model={'contacts'}
                             selection={this.props.handleContactSearch}
                             placeholder={t("search-filter.search-member")}
                         />

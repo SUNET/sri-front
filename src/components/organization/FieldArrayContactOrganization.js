@@ -32,10 +32,10 @@ class FieldArrayContactsOrganization extends React.Component {
     }
 
     onChangeRole = (event, index) => {
-        const { selectedIndex } = event.target.selectedIndex;
+        const { selectedIndex } = event.selectedIndex;
         let role_label = "";
         if (selectedIndex !== 0) {
-            role_label = event.target.options[event.target.selectedIndex].text;
+            role_label = event.options[event.selectedIndex].text;
         }
         this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
     };
@@ -383,8 +383,9 @@ class FieldArrayContactsOrganization extends React.Component {
                 {editable && (
                     <>
                         <DropdownSearch
+                            model={'contacts'}
                             selection={this.props.handleContactSearch}
-                            placeholder={t("search-filter.search-contact")}
+                            placeholder={t("search-filter.search-contacts")}
                         />
                         <button
                             type="button"

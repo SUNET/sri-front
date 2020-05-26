@@ -3,6 +3,8 @@ import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import PortUpdateForm from '../../components/port/PortUpdateForm';
 import * as actions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
+import getCable from '../../components/cable/Cable';
+import getPort from '../../components/port/Port';
 
 const mapStateToProps = (state, props) => {
   const updatePortSelector = formValueSelector('updatePort');
@@ -14,6 +16,8 @@ const mapStateToProps = (state, props) => {
     description: port.description,
     port_type: port.port_type ? port.port_type.value : undefined,
     portTypeObj: port.port_type,
+    parents: port.parent,
+    connectedTo: port.connected_to,
   };
   return {
     initialValues,
@@ -23,6 +27,10 @@ const mapStateToProps = (state, props) => {
     portTypeObj: updatePortSelector(state, 'portTypeObj'),
     formSyncErrors: getFormSyncErrors('updatePort')(state),
     fields: getFormMeta('updatePort')(state),
+    parents: updatePortSelector(state, 'parents'),
+    connectedTo: updatePortSelector(state, 'connectedTo'),
+    getCableById: (id) => getCable(id),
+    getPortById: (id) => getPort(id),
   };
 };
 

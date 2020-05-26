@@ -11,6 +11,37 @@ const PortDetailsQuery = graphql`
         name
         value
       }
+      parent {
+        __typename
+        id
+        name
+        ... on Port {
+          description
+          type: port_type {
+            name
+            value
+          }
+        }
+        ... on Cable {
+          description
+          type: cable_type {
+            name
+            value
+          }
+        }
+      }
+      connected_to {
+        id
+        name
+        __typename
+        ... on Cable {
+          description
+          type: cable_type {
+            name
+            value
+          }
+        }
+      }
       __typename
       comments {
         id
@@ -46,6 +77,16 @@ query PortDetailsQuery($portId: ID!) {
     port_type {
       name
       value
+    }
+    parent {
+      ... on Port {
+        id
+        name
+        port_type {
+          value
+        }
+        description
+      }
     }
     __typename
     comments {

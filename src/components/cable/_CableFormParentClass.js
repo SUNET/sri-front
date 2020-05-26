@@ -66,14 +66,14 @@ class _CableFormParentClass extends _BasicFormParentClass {
         presentContent: (
           <DropdownSearch
             selection={this.handleProviderSearch}
-            placeholder={t('search-filter.search-contact')}
+            placeholder={t('search-filter.search-contacts')}
             model="providers"
           />
         ),
         editContent: (
           <DropdownSearch
             selection={this.handleProviderSearch}
-            placeholder={t('search-filter.search-contact')}
+            placeholder={t('search-filter.search-contacts')}
             model="providers"
           />
         ),

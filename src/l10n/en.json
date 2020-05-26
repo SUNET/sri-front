@@ -34,6 +34,10 @@
             "network.details.add/cables": "Add Cables",
             "network.sub-menu.equipment/ports": "Ports",
             "network.details.add/ports": "Add Ports",
+            "network.details.parent": "Parent",
+            "network.details.parent_element_detail": "Parent Element Detail",
+            "network.details.connectedTo": "Connected To",
+            "network.details.connectedTo_element_detail": "Connected To Element Detail",
             "network.sub-menu.physical": "Physical",
             "network.sub-menu.logical": "Logical",
             "network.sub-menu.locations": "Locations",
@@ -152,9 +156,14 @@
             "worklog.add-comment": "Add comment",
             "worklog.add": "Add",
             "worklog.send": "Send",
+            "physical.select_type": "Select a Physical Type ",
+            "cable.select_type": "Select a Physical Type ",
             "search-filter.search": "Search",
             "search-filter.search-member": "Search member",
-            "search-filter.search-contact": "Search contact",
+            "search-filter.search-contacts": "Search contact",
+            "search-filter.search-providers": "Search provider",
+            "search-filter.search-ports": "Search port",
+            "search-filter.search-cables": "Search cable",
             "search-filter.no-matches": "No Matches"
         }
     }

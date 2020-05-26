@@ -51,6 +51,17 @@ const DropdownRolesGroupDefaultQuery = graphql`
     }
 `;
 
+const DropdownPhysicalTypesQuery = graphql`
+    query DropdownPhysicalTypesQuery {
+        getTypesForMetatype(metatype: Physical){
+            name: type_name
+            value: connection_name
+            getDetailsMethodName: byid_name
+            all_name
+        }
+    }
+`;
+
 class Dropdown extends React.PureComponent {
     static propTypes = {
         type: PropTypes.string,
@@ -72,6 +83,9 @@ class Dropdown extends React.PureComponent {
                 break;
             case "default_roles":
                 queryModel = DropdownRolesGroupDefaultQuery;
+                break;
+            case "physical_types":
+                queryModel = DropdownPhysicalTypesQuery;
                 break;
             default:
                 queryModel = DropdownQuery;
@@ -156,7 +170,13 @@ class Dropdown extends React.PureComponent {
             <Field
                 className={this.props.className}
                 component={FieldSelect}
-                onChange={(e) => this.props.onChange(e)}
+                onChange={(e) => {
+                    if (this.props.model === 'physical_types') {
+                        this.props.onChange(options.find(o => o.value === e.target.value));
+                    } else {
+                        this.props.onChange(e.target)
+                    }
+                }}
                 name={this.props.name}
                 value={this.props.defaultValue || ""}
             >
@@ -168,6 +188,7 @@ class Dropdown extends React.PureComponent {
                 {this.props.model === "organization" && this.renderOptionsModelOptimized(options)}
                 {(this.props.model === "roles" || this.props.model === "default_roles") &&
                     this.renderOptionsModel(options)}
+                {this.props.model === "physical_types" && this.renderOptions(options)}
                 {this.props.model === undefined && this.renderOptions(options)}
             </Field>
         );

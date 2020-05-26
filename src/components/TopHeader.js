@@ -161,7 +161,7 @@ export class TopHeader extends React.Component {
             iconClass: 'icon-organization',
             subSubOptions: [
               { name: t('network.sub-menu.equipment/cables'), route: '/network/cables' },
-              { name: t('network.sub-menu.equipment/ports'), route: '/network/customers' },
+              { name: t('network.sub-menu.equipment/ports'), route: '/network/ports' },
               // { name: "Hosts", route: "/network/customers" },
               // { name: "Firewalls", route: "/network/customers" },
               // { name: "Routers", route: "/network/customers" },
