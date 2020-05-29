@@ -28,6 +28,11 @@ export const NETWORK_EQUIPMENT = 'network-equipment';
 export const CONTACT_PERSONAL = 'personal';
 export const CONTACT_WORK = 'work';
 
+// FieldsArray Status Elements
+export const UNLINK = 'unlink';
+export const REMOVE = 'remove';
+export const SAVED = 'saved';
+
 // TIMES WAIT
 export const MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE = 250;
 

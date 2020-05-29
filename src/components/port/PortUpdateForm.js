@@ -17,7 +17,7 @@ class PortUpdateForm extends _PortFormParentClass {
   MODEL_NAME = 'port';
   ROUTE_LIST_DIRECTION = '/network/ports';
   state = {
-    editMode: true,
+    editMode: false,
   };
   refetch = () => {
     this.props.relay.refetch(
@@ -34,12 +34,13 @@ class PortUpdateForm extends _PortFormParentClass {
     UpdatePortMutation(port, this);
   };
   render() {
-    let { handleSubmit } = this.props;
+    let { handleSubmit, shownInModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !shownInModal;
+    const showSaveCancelInHeader = showBackButton;
     return (
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
         {this.renderParentToggleSection(editMode)}

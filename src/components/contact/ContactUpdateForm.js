@@ -21,7 +21,7 @@ class ContactUpdateForm extends _ContactFormParentClass {
     constructor(props) {
         super(props);
         this.state = {
-            editMode: props.shown_in_modal,
+            editMode: props.shownInModal,
         }
     }
     refetch = () => {
@@ -40,13 +40,13 @@ class ContactUpdateForm extends _ContactFormParentClass {
         UpdateContactMutation(contact, this);
     };
     render() {
-        let { shown_in_modal, handleSubmit } = this.props;
-        const showBackButton = isBrowser && !shown_in_modal;
+        let { shownInModal, handleSubmit } = this.props;
+        const showBackButton = isBrowser && !shownInModal;
         const showSaveCancelInHeader = showBackButton;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
                 {showSaveCancelInHeader && this.renderSaveCancelButtons()}
-                {this.renderHeader(this.state.editMode, showBackButton, shown_in_modal)}
+                {this.renderHeader(this.state.editMode, showBackButton, shownInModal)}
                 {this.renderModelMainSection(this.state.editMode)}
                 {this.renderWorkLog(this.state.editMode)}
                 {this.renderSaveCancelButtons()}

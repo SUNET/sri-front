@@ -1,11 +1,11 @@
 import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 // Common imports
-import React from 'react';
 import { withTranslation } from 'react-i18next';
 
 class FieldArrayConnectedToPort extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
+    this.FIELD_NAME_IN_FORM = 'connectedTo';
     this.HEADER_TEXTS = {
       summary: [
         {
@@ -29,14 +29,11 @@ class FieldArrayConnectedToPort extends _BasicFieldArrayParentClass {
       ],
       modal: ['network.details.connectedTo_element_detail'],
     };
-    this.TYPE_FIELD_NAMES = {
-      Port: 'port_type',
-      Cable: 'cable_type',
-    };
     this.PRE_FILTER_SELECT = {
       label: 'cable.select_type',
       type: 'cable_types',
       name: 'cable_types_preFilter',
+      entityMandatory: 'Cable',
     };
   }
 }

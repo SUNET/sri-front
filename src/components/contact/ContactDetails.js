@@ -17,27 +17,26 @@ class ContactDetails extends React.Component {
     }),
   };
 
-  getContactId() {
-    const { is_contact_form_visible, contact_details_id, match } = this.props;
-    const contactId = is_contact_form_visible && contact_details_id ? contact_details_id : match.params.contactId;
-    return contactId;
+  getId() {
+    const { isInsideModal, idFromModal, match } = this.props;
+    const entityId = isInsideModal && idFromModal ? idFromModal : match.params.contactId;
+    return entityId;
   }
 
   handleDelete = () => {
-    const { history, is_contact_form_visible, deleteContact } = this.props;
-    const contactId = this.getContactId();
+    const { history, isInsideModal, deletedEntity } = this.props;
+    const contactId = this.getId();
     const callbackAfterDeleteInModal = () => {
-      deleteContact(contactId);
+      deletedEntity(contactId);
     };
     const callbackInRouteForm = () => {
       history.push(`/community/contacts`);
     };
-    callbackAfterDeleteInModal();
-    DeleteContactMutation(contactId, is_contact_form_visible ? callbackAfterDeleteInModal : callbackInRouteForm);
+    DeleteContactMutation(contactId, isInsideModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 
   render() {
-    const contactId = this.getContactId();
+    const contactId = this.getId();
     return (
       <QueryRenderer
         environment={environment}

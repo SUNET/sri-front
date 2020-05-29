@@ -8,6 +8,15 @@ import OrganizationDetailsQuery from "../../queries/organization/OrganizationDet
 import { withTranslation } from "react-i18next";
 
 class OrganizationDetails extends React.Component {
+    // componentDidMount() {
+    //     console.log('MOUNT organizations');
+    // }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log('UPDATE organizations');
+    // }
+    // componentWillUnmount() {
+    //     console.log('UNMOUT organizations');
+    // }
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.shape({

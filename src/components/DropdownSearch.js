@@ -100,20 +100,28 @@ class DropdownSearch extends React.Component {
                 queryModel.typeFilter = { cable_type: model };
                 queryModel.modelName = 'cables';
                 break;
+            default:
+                queryModel.query = DropdownSearchAllContactsQuery;
+            break;
         }
-        console.log('queryModel: ', queryModel);
         return queryModel;
     }
 
     getItems = debounce((filter) => {
-        // const modelName = this.props.model ? this.props.model : "contacts";
-        const { typeName, modelName, query, typeFilter } = this.getQueryByModel(this.props.model);
+        const { modelName, query, typeFilter } = this.getQueryByModel(this.props.model);
+        const { skipElements } = this.props;
         let variables = {
             filter: { AND: [{ name_contains: filter }] }
         };
 
         if (typeFilter) {
             variables.filter.AND.push(typeFilter)
+        }
+
+        if (skipElements && skipElements.length) {
+            variables.filter.AND.push({
+                id_not_in: skipElements,
+            });
         }
 
         if (filter.length > MIN_CHAR_TO_FIND) {
@@ -135,8 +143,6 @@ class DropdownSearch extends React.Component {
     };
 
     render() {
-        console.log(this.props);
-        
         return (
             <div
                 {...css({

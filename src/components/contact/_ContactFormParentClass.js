@@ -72,8 +72,8 @@ class _ContactFormParentClass extends React.Component {
         this.props.onDelete();
     };
     onClickCancel = () => {
-        const { shown_in_modal, history, hideContactModal } = this.props;
-        if (shown_in_modal) {
+        const { shownInModal, history, hideContactModal } = this.props;
+        if (shownInModal) {
             hideContactModal();
         } else {
             history.goBack();
@@ -105,22 +105,22 @@ class _ContactFormParentClass extends React.Component {
         const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
         return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
     }
-    renderHeader(editMode = true, showBackButton = true, shown_in_modal = false) {
+    renderHeader(editMode = true, showBackButton = true, shownInModal = false) {
         return (
             <Form.Row>
                 <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
-                    {this.renderHeaderName(editMode, showBackButton, shown_in_modal)}
+                    {this.renderHeaderName(editMode, showBackButton, shownInModal)}
                 </Col>
-                {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight(shown_in_modal)}</Col>}
+                {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight(shownInModal)}</Col>}
             </Form.Row>
         );
     }
-    renderHeaderName(editMode = true, showBackButton = true, shown_in_modal = false) {
+    renderHeaderName(editMode = true, showBackButton = true, shownInModal = false) {
         const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
         return (
             <div className="title-section">
                 {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
-                {this.IS_UPDATED_FORM && isMobile && !shown_in_modal && this.renderEditButton()}
+                {this.IS_UPDATED_FORM && isMobile && !shownInModal && this.renderEditButton()}
                 <div className="vertical-separator"></div>
                 <div className={`title-section__name-inputs ${editionModeClass}`}>
                     {this.renderInputName("first_name", editMode)}
@@ -129,10 +129,10 @@ class _ContactFormParentClass extends React.Component {
             </div>
         );
     }
-    renderHeaderRight(shown_in_modal = false) {
+    renderHeaderRight(shownInModal = false) {
         return (
             <div className="title-section__right-block">
-                {isBrowser && !shown_in_modal && this.renderEditButton()}
+                {isBrowser && !shownInModal && this.renderEditButton()}
                 <InfoCreatorModifier model={this.props[this.MODEL_NAME]} />
             </div>
         );

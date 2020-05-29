@@ -1,11 +1,9 @@
 import React from 'react';
-import { Field, change } from 'redux-form';
-import FieldInput from '../FieldInput';
+import { change } from 'redux-form';
 import CopyToClipboard from '../CopyToClipboard';
-import copy from 'clipboard-copy';
 import { Modal } from 'react-bootstrap';
 import { isBrowser, isMobile } from 'react-device-detect';
-// import CONFIG from "../../config";
+import { UNLINK, SAVED } from '../../utils/constants';
 
 import DropdownSearch from '../DropdownSearch';
 import Dropdown from '../Dropdown';
@@ -17,7 +15,6 @@ class _BasicFieldArrayParentClass extends React.Component {
       summary: [''],
       all: [''],
     };
-    this.TYPE_FIELD_NAMES = {};
     this.PRE_FILTER_SELECT = {
       label: '',
       type: '',
@@ -33,6 +30,14 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   // lifecycle
+  shouldComponentUpdate(nextProps, nextState) {
+    const newRemovedRow = !!nextProps.removedContactId && nextProps.removedContactId !== this.props.removedContactId;
+    if (newRemovedRow) {
+      this.props.removedContactDeletedFromTheList();
+      this.removeRow(nextProps.removedContactId);
+    }
+    return !newRemovedRow;
+  }
   // methods events
   onClickAccept() {
     // TODO: Validate before hide modal
@@ -40,10 +45,10 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   // methods state
-  showDataModal(key) {
+  showDataModal(id) {
     this.setState({
       showModal: true,
-      selectedRowKey: key,
+      selectedRowKey: id,
     });
   }
 
@@ -54,10 +59,10 @@ class _BasicFieldArrayParentClass extends React.Component {
     });
   }
   // methods getData
-  getValueByKey(key) {
+  getValueById(id) {
     const allValues = this.props.fields.getAll();
-    const valueData = allValues.find((value) => value.key === key);
-    const valueIndex = allValues.findIndex((value) => value.key === key);
+    const valueData = allValues.find((value) => value.id === id);
+    const valueIndex = allValues.findIndex((value) => value.id === id);
 
     return {
       data: valueData,
@@ -79,15 +84,30 @@ class _BasicFieldArrayParentClass extends React.Component {
   // };
 
   // methods rows
-  addRow(event) {
-    this.props.handleDeployCreateForm();
+  newResultInSearch = (selection) => {
+    if (!selection) {
+      return;
+    }
+    const rowFound = this.getValueById(selection.id);
+    if (rowFound.index > -1) {
+      this.props.dispatch(change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${rowFound.index}].status`, SAVED));
+    } else {
+      this.props.handleContactSearch(selection);
+    }
+  };
+
+  showCreateForm() {
+    const entityToShow = this.PRE_FILTER_SELECT.entityMandatory ? this.PRE_FILTER_SELECT.entityMandatory : this.state.currentPreFilterModel;
+    this.props.handleDeployCreateForm(entityToShow);
   }
 
-  removeRow(key) {
-    const currentValue = this.getValueByKey(key);
+  removeRow(id) {
+    const currentValue = this.getValueById(id);
     this.hideDataModal();
     if (currentValue.data.origin === 'store') {
-      this.props.dispatch(change(this.props.meta.form, `${this.props.name}[${currentValue.index}].status`, 'remove'));
+      this.props.dispatch(
+        change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, UNLINK),
+      );
     } else {
       this.props.fields.remove(currentValue.index);
     }
@@ -176,9 +196,9 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
-  renderInternalModalBody(key) {
+  renderInternalModalBody(id) {
     const { t } = this.props;
-    const dataValue = this.getValueByKey(key);
+    const dataValue = this.getValueById(id);
     const row = dataValue.data;
     const index = dataValue.index;
     const flexClassesToMobileStructure = 'd-flex align-items-start flex-column';
@@ -187,7 +207,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         <div
           key={index}
           className={`${flexClassesToMobileStructure} contact-in-organization__body__row ${
-            row.status === 'remove' ? 'd-none' : ''
+            row.status === UNLINK ? 'd-none' : ''
           }`}
         >
           {this.HEADER_TEXTS.all.map((headerInfo, index) => {
@@ -206,22 +226,22 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
-  renderMoreInfoButton(key) {
+  renderMoreInfoButton(id) {
     const { t } = this.props;
     return (
-      <button type="button" className="btn outline btn-add more-info" onClick={() => this.showDataModal(key)}>
+      <button type="button" className="btn outline btn-add more-info" onClick={() => this.showDataModal(id)}>
         <span>{t('actions.info')}</span>
       </button>
     );
   }
 
-  renderEditButton(key) {
+  renderEditButton(row) {
     const { t } = this.props;
     return (
       <button
         type="button"
         onClick={() => {
-          this.props.showRowEditModal(key);
+          this.props.showRowEditModal(row.__typename, row.id);
         }}
         className="btn outline btn-edit"
       >
@@ -231,27 +251,27 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
-  renderRemoveCtaCrossAndEditButton(key) {
+  renderRemoveCtaCrossAndEditButton(row) {
     return (
       <div
         className={`contact-in-organization__body__buttons-in-the-final-row ${
           isBrowser ? 'contact-in-organization__body__buttons-in-the-final-row--desktop-version' : ''
         }`}
       >
-        {isBrowser && this.renderEditButton(key)}
+        {isBrowser && this.renderEditButton(row)}
         <div
           className={`row-remove-cta ${isBrowser ? 'row-remove-cta--desktop-version' : ''}`}
-          onClick={() => this.removeRow(key)}
+          onClick={() => this.removeRow(row.id)}
         ></div>
       </div>
     );
   }
 
-  renderMobileFooterModalButtons(key) {
+  renderMobileFooterModalButtons(id) {
     return (
       <div className="d-flex justify-content-around">
         {this.renderAcceptModalButton()}
-        {this.renderRemoveCtaButton(key)}
+        {this.renderRemoveCtaButton(id)}
       </div>
     );
   }
@@ -271,7 +291,7 @@ class _BasicFieldArrayParentClass extends React.Component {
   //     );
   // }
 
-  // renderRemoveCtaButton(key) {
+  // renderRemoveCtaButton(id) {
   //     const { t } = this.props;
   //     return (
   //         <button
@@ -279,7 +299,7 @@ class _BasicFieldArrayParentClass extends React.Component {
   //             className="btn outline btn-trash mt-3"
   //             onClick={() => {
   //                 this.hideDataModal();
-  //                 this.removeRow(key);
+  //                 this.removeRow(id);
   //             }}
   //         >
   //             <span> {t("actions.delete")}</span>
@@ -312,32 +332,31 @@ class _BasicFieldArrayParentClass extends React.Component {
     return (
       <div className="contact-in-organization__body">
         {values &&
-          values.map((row, index) => {
-            return (
-              <div
-                key={index}
-                className={`contact-in-organization__body__row ${row.status === 'remove' ? 'd-none' : ''}`}
-              >
-                <div className="contact-in-organization__body__row__element">{row.name}</div>
-                {isMobile && (
-                  <div className="contact-in-organization__body__row__element info-button">
-                    {editable && this.renderEditButton(row.key)}
-                    {!editable && this.renderMoreInfoButton(row.key)}
-                  </div>
-                )}
-                {isBrowser && <div className="contact-in-organization__body__row__element">{row.type.name}</div>}
-                {isBrowser && <div className="contact-in-organization__body__row__element">{row.description}</div>}
+          values
+            .filter((row) => row.status === SAVED)
+            .map((row, index) => {
+              return (
+                <div key={index} className={`contact-in-organization__body__row`}>
+                  <div className="contact-in-organization__body__row__element">{row.name}</div>
+                  {isMobile && (
+                    <div className="contact-in-organization__body__row__element info-button">
+                      {editable && this.renderEditButton(row.id)}
+                      {!editable && this.renderMoreInfoButton(row.id)}
+                    </div>
+                  )}
+                  {isBrowser && <div className="contact-in-organization__body__row__element">{row.type.name}</div>}
+                  {isBrowser && <div className="contact-in-organization__body__row__element">{row.description}</div>}
 
-                {editable && this.renderRemoveCtaCrossAndEditButton(row.key)}
-              </div>
-            );
-          })}
+                  {editable && this.renderRemoveCtaCrossAndEditButton(row)}
+                </div>
+              );
+            })}
       </div>
     );
   }
 
   renderPreFilterDropDown() {
-    const { t, editable } = this.props;
+    const { t } = this.props;
     return (
       <Dropdown
         emptyLabel={t(this.PRE_FILTER_SELECT.label)}
@@ -347,8 +366,8 @@ class _BasicFieldArrayParentClass extends React.Component {
         model={this.PRE_FILTER_SELECT.model}
         onChange={(optionSelected) => {
           this.setState({
-            currentPreFilterModel: optionSelected.value,
-            preFilterMethod: optionSelected.getDetailsMethodName,
+            currentPreFilterModel: optionSelected ? optionSelected.value : null,
+            preFilterMethod: optionSelected ? optionSelected.getDetailsMethodName : null,
           });
         }}
       />
@@ -356,10 +375,10 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderDropDownSearch() {
-    const { t, editable } = this.props;
+    const { t } = this.props;
     return (
       <DropdownSearch
-        disabled={!this.state.currentPreFilterModel}
+        disabled={this.PRE_FILTER_SELECT ? !this.state.currentPreFilterModel : false}
         model={this.state.currentPreFilterModel}
         selection={(selectedElement) => {
           this.props.handleSearchResult(selectedElement, this.state.preFilterMethod);
@@ -380,7 +399,8 @@ class _BasicFieldArrayParentClass extends React.Component {
             <button
               type="button"
               className="contact-in-organization__footer__add btn btn-add outline"
-              onClick={(e) => this.addRow(e)}
+              disabled={this.PRE_FILTER_SELECT ? !this.state.currentPreFilterModel : false}
+              onClick={(e) => this.showCreateForm()}
             >
               {t('actions.add-new')}
             </button>

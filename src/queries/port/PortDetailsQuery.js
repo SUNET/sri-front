@@ -15,6 +15,7 @@ const PortDetailsQuery = graphql`
         __typename
         id
         name
+        relation_id
         ... on Port {
           description
           type: port_type {
@@ -31,9 +32,10 @@ const PortDetailsQuery = graphql`
         }
       }
       connected_to {
+        __typename
         id
         name
-        __typename
+        relation_id
         ... on Cable {
           description
           type: cable_type {

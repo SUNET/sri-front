@@ -35,7 +35,6 @@ export default function Update__EntityClassName__Mutation(__entityName__, form) 
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log("response: ", response);
             if (response.update___entityName__.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.update___entityName__.updated.errors;

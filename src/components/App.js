@@ -16,7 +16,8 @@ import SideNavNetwork from './SideNavNetwork';
 import SideNavCommunity from './SideNavCommunity';
 import SubMenuActions from './SubMenuActions';
 import Breadcrumbs from '../containers/Breadcrumbs';
-import ModalNewContactContainer from '../containers/ModalNewContact';
+// import ModalNewContactContainer from '../containers/ModalNewContact';
+import ModalFormContainer from '../containers/ModalForm';
 
 import 'bootstrap/scss/bootstrap.scss';
 import '../style/App.scss';
@@ -66,7 +67,7 @@ const App = ({ is_fetching, is_app_loaded }) => {
           </Row>
         </ConnectedRouter>
       </div>
-      <ModalNewContactContainer />
+      <ModalFormContainer />
     </FetchingContext.Provider>
   );
 };

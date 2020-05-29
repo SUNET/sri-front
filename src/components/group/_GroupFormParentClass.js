@@ -221,7 +221,7 @@ class _GroupFormParentClass extends React.Component {
         );
     }
     renderContactsToggleSection(editMode = true) {
-        const { t, contact_removed_id } = this.props;
+        const { t, entityRemovedId } = this.props;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -243,9 +243,9 @@ class _GroupFormParentClass extends React.Component {
                         handleShowContactDetail={(contactId) => {
                             this.props.showContactDetailForm(contactId);
                         }}
-                        removedContactId={contact_removed_id}
+                        removedContactId={entityRemovedId}
                         removedContactDeletedFromTheList={() => {
-                            this.props.hideNewContactForm();
+                            this.props.hideContactForm();
                         }}
                     />
                 </TogglePanel>

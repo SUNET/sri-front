@@ -17,7 +17,7 @@ class FieldArrayMembersGroup extends React.Component {
 
     // lifecycle
     shouldComponentUpdate(nextProps, nextState) {
-        const newRemovedContact = nextProps.removedContactId !== undefined && nextProps.removedContactId !== this.props.removedContactId;
+        const newRemovedContact = !!nextProps.removedContactId && nextProps.removedContactId !== this.props.removedContactId;
         if (newRemovedContact) {
             this.props.removedContactDeletedFromTheList();
             this.removeRow(nextProps.removedContactId);
@@ -144,7 +144,6 @@ class FieldArrayMembersGroup extends React.Component {
                 return isNecessaryGetEmails ? member.email.map((email) => email.name) : [];
             });
         }
-        console.log('result: ', result);
         return result;
     };
 

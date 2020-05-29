@@ -37,8 +37,6 @@ class _CableFormParentClass extends _BasicFormParentClass {
   handleProviderSearch = (selection) => {
     if (selection !== null) {
       this.props.getProvider(selection.id).then((provider) => {
-        console.log('provider: ', provider);
-        console.log('this.props.form: ', this.props.form);
         // this.props.dispatch(this.props.form, "provider", provider);
       });
     }

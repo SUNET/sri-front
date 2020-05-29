@@ -3,7 +3,6 @@ import CustomerUpdateForm from '../../components/customer/CustomerUpdateForm';
 import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
-// import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
   const updateCustomerSelector = formValueSelector('updateCustomer');
@@ -36,7 +35,6 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    // ,showNewContactForm
   };
 };
 

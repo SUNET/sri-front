@@ -213,6 +213,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateOrganizationMutation(organization, form) {
+    console.log('organization: ', organization);
     const newAddress = [];
     const updateAddress = [];
     const deleteAddress = [];

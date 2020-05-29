@@ -2,8 +2,6 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // Common imports
 import React from 'react';
 import { FieldArray, arrayPush } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
-import uuidv4 from 'uuid/v4';
 // components
 import Dropdown from '../Dropdown';
 // import DropdownSearch from "../DropdownSearch";
@@ -40,9 +38,6 @@ class _PortFormParentClass extends _BasicFormParentClass {
   MODEL_NAME = 'port';
   ROUTE_LIST_DIRECTION = '/network/ports';
 
-  componentDidMount() {
-    window.scrollTo(0, 500);
-  }
   handleSelectedParent = (selection, typeOfSelection) => {
     if (selection !== null) {
       this.props[typeOfSelection](selection.id).then((entity) => {
@@ -52,6 +47,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
           description: entity.description,
           type: entity.type,
           id: entity.id,
+          status: 'saved',
         };
         this.props.dispatch(arrayPush(this.props.form, 'parents', newEntity));
       });
@@ -60,13 +56,14 @@ class _PortFormParentClass extends _BasicFormParentClass {
 
   handleSelectedConnectedTo = (selection) => {
     if (selection !== null) {
-      this.props.getCable(selection.id).then((cable) => {
+      this.props.getCableById(selection.id).then((cable) => {
         const newCable = {
           __typename: cable.__typename,
           name: cable.name,
           description: cable.description,
-          cable_type: cable.cable_type,
+          type: cable.type,
           id: cable.id,
+          status: 'saved',
         };
         this.props.dispatch(arrayPush(this.props.form, 'connectedTo', newCable));
       });
@@ -128,16 +125,13 @@ class _PortFormParentClass extends _BasicFormParentClass {
               errors={this.props.formSyncErrors.parents}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
-                console.log('show MODAL', typeEntityToShowForm);
+                this.props.showModalCreateForm(typeEntityToShowForm);
               }}
-              showRowEditModal={() => {
-                console.log('showRowEditModal');
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.props.showModalUpdateForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedParent}
               rerenderOnEveryChange={true}
-              showRowEditModal={() => {
-                console.log('showRowEditModal');
-              }}
             />
           </TogglePanel>
         </ToggleSection>
@@ -163,10 +157,10 @@ class _PortFormParentClass extends _BasicFormParentClass {
               errors={this.props.formSyncErrors.connectedTo}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
-                console.log('show MODAL', typeEntityToShowForm);
+                this.props.showModalCreateForm(typeEntityToShowForm);
               }}
-              showRowEditModal={() => {
-                console.log('showRowEditModal');
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.props.showModalUpdateForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedConnectedTo}
               rerenderOnEveryChange={true}
