@@ -56,7 +56,6 @@ class PortDetails extends React.Component {
           [this.ID_ENTITY_KEY]: entityId,
         }}
         render={({ error, props, retry }) => {
-          console.log('props: ', props);
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {

@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Fri May 22 2020 13:59:01 GMT+0200 (GMT+02:00)
+# timestamp: Fri May 29 2020 13:59:52 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -401,6 +401,80 @@ type CommentType implements Node {
   """
   is_removed: Boolean!
   object_id: ID!
+}
+
+input CompositeCableMutationInput {
+  create_input: CreateCableInput
+  update_input: UpdateCableInput
+  create_subinputs: [CreatePortInput]
+  update_subinputs: [UpdatePortInput]
+  delete_subinputs: [DeletePortInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_has_port: CreatePortInput
+  update_has_port: UpdatePortInput
+  deleted_has_port: DeletePortInput
+  create_has_cable: CreateCableInput
+  update_has_cable: UpdateCableInput
+  deleted_has_cable: DeleteCableInput
+  create_part_of_group: CreateGroupInput
+  update_part_of_group: UpdateGroupInput
+  deleted_part_of_group: DeleteGroupInput
+  create_part_of_procedure: CreateProcedureInput
+  update_part_of_procedure: UpdateProcedureInput
+  deleted_part_of_procedure: DeleteProcedureInput
+  create_part_of_address: CreateAddressInput
+  update_part_of_address: UpdateAddressInput
+  deleted_part_of_address: DeleteAddressInput
+  create_part_of_phone: CreatePhoneInput
+  update_part_of_phone: UpdatePhoneInput
+  deleted_part_of_phone: DeletePhoneInput
+  create_part_of_email: CreateEmailInput
+  update_part_of_email: UpdateEmailInput
+  deleted_part_of_email: DeleteEmailInput
+  create_parent_port: [CreatePortInput]
+  update_parent_port: [UpdatePortInput]
+  deleted_parent_port: [DeletePortInput]
+  create_parent_cable: [CreateCableInput]
+  update_parent_cable: [UpdateCableInput]
+  deleted_parent_cable: [DeleteCableInput]
+  clientMutationId: String
+}
+
+type CompositeCableMutationPayload {
+  created: CreateCablePayload
+  updated: UpdateCablePayload
+  subcreated: [CreatePortPayload]
+  subupdated: [UpdatePortPayload]
+  subdeleted: [DeletePortPayload]
+  unlinked: [DeleteRelationshipPayload]
+  has_port_created: CreatePortPayload
+  has_port_updated: UpdatePortPayload
+  has_port_deleted: DeletePortPayload
+  has_cable_created: CreateCablePayload
+  has_cable_updated: UpdateCablePayload
+  has_cable_deleted: DeleteCablePayload
+  part_of_group_created: CreateGroupPayload
+  part_of_group_updated: UpdateGroupPayload
+  part_of_group_deleted: DeleteGroupPayload
+  part_of_procedure_created: CreateProcedurePayload
+  part_of_procedure_updated: UpdateProcedurePayload
+  part_of_procedure_deleted: DeleteProcedurePayload
+  part_of_address_created: CreateAddressPayload
+  part_of_address_updated: UpdateAddressPayload
+  part_of_address_deleted: DeleteAddressPayload
+  part_of_phone_created: CreatePhonePayload
+  part_of_phone_updated: UpdatePhonePayload
+  part_of_phone_deleted: DeletePhonePayload
+  part_of_email_created: CreateEmailPayload
+  part_of_email_updated: UpdateEmailPayload
+  part_of_email_deleted: DeleteEmailPayload
+  parent_port_created: [CreatePortPayload]
+  parent_port_updated: [UpdatePortPayload]
+  parent_port_deleted: [DeletePortPayload]
+  parent_cable_created: [CreateCablePayload]
+  parent_cable_updated: [UpdateCablePayload]
+  parent_cable_deleted: [DeleteCablePayload]
+  clientMutationId: String
 }
 
 input CompositeContactMutationInput {
@@ -1860,6 +1934,10 @@ type ErrorType {
   messages: [String!]!
 }
 
+input GenericFilter {
+  query: String!
+}
+
 """
 The `GenericScalar` scalar type represents a generic
 GraphQL scalar value that could be:
@@ -2419,6 +2497,7 @@ type Mutation {
   create_cable(input: CreateCableInput!): CreateCablePayload
   update_cable(input: UpdateCableInput!): UpdateCablePayload
   delete_cable(input: DeleteCableInput!): DeleteCablePayload
+  composite_cable(input: CompositeCableMutationInput!): CompositeCableMutationPayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -3468,6 +3547,23 @@ enum PortOrderBy {
   handle_id_DESC
 }
 
+type PortSearchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [PortSearchEdge]!
+}
+
+"""A Relay edge containing a `PortSearch` and its cursor."""
+type PortSearchEdge {
+  """The item at the end of the edge"""
+  node: Port
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 """The group type is used to group contacts"""
 type Procedure implements NINode & Logical {
   handle_id: ID!
@@ -3849,6 +3945,7 @@ type Query {
   count_peeringgroups: Int
   peeringGroups(filter: PeeringGroupFilter, orderBy: PeeringGroupOrderBy, before: String, after: String, first: Int, last: Int): peeringGroupConnection
   getPeeringGroupById(id: ID): PeeringGroup
+  search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
 }
 
 input RefreshInput {
