@@ -1,7 +1,6 @@
 // Common imports
 import React from "react";
 import { arrayPush, FieldArray, Field, change } from "redux-form";
-import uuidv4 from "uuid/v4";
 import { Form, Col } from "react-bootstrap";
 // components
 import BackCTA from "../common/BackCTA";
@@ -39,6 +38,15 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 };
 
 class _OrganizationFormParentClass extends React.Component {
+    // componentDidMount() {
+    //     console.log('MOUNT organizations FORM ');
+    // }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log('UPDATE organizations FORM ');
+    // }
+    // componentWillUnmount() {
+    //     console.log('UNMOUT organizations FORM ');
+    // }
     // GLOBAL VARs
     IS_UPDATED_FORM = false;
     FORM_ID;
@@ -104,11 +112,8 @@ class _OrganizationFormParentClass extends React.Component {
                     phone_obj: contact.phones,
                     created: true,
                     origin: "new",
-                    status: "saved",
-                    key: uuidv4()
+                    status: "saved"
                 };
-                // if (!this._hasBeenAdded(newContact)) {
-                // }
                 this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
             });
         }
@@ -432,7 +437,7 @@ class _OrganizationFormParentClass extends React.Component {
         );
     }
     renderContactsToggleSection(editMode = true) {
-        const { t, contact_removed_id } = this.props;
+        const { t, entityRemovedId } = this.props;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -455,9 +460,9 @@ class _OrganizationFormParentClass extends React.Component {
                         handleShowContactDetail={(contactId) => {
                             this.props.showContactDetailForm(contactId);
                         }}
-                        removedContactId={contact_removed_id}
+                        removedContactId={entityRemovedId}
                         removedContactDeletedFromTheList={() => {
-                            this.props.hideNewContactForm();
+                            this.props.hideContactForm();
                         }}
                     />
                 </TogglePanel>

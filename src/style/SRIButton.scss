@@ -11,6 +11,11 @@ button.btn {
     position: relative;
     font-family: karla;
     border: none;
+
+    &:disabled {
+        cursor: auto;
+    }
+
     &.md {
         width: 100px;
         height: 36px;

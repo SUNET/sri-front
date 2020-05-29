@@ -122,11 +122,11 @@ export class CustomerList extends React.Component {
     }
 
     renderList() {
-        let { customers } = this.props;
+        let models = this.props[this.MODEL_LIST_NAME];
 
         return (
             <tbody>
-                {customers && customers.customers && customers.customers.edges.map(({ node }) => {
+                {models && models[this.MODEL_LIST_NAME] && models[this.MODEL_LIST_NAME].edges.map(({ node }) => {
                     return (
                         <this.ROW_COMPONENT
                             key={node.id}
@@ -142,7 +142,8 @@ export class CustomerList extends React.Component {
     }
 
     render() {
-        const { t, customers } = this.props;
+        const { t } = this.props;
+        const models = this.props[this.MODEL_LIST_NAME];
 
         return (
             <>
@@ -150,7 +151,7 @@ export class CustomerList extends React.Component {
                     {this.renderHeaderList()}
                     {this.renderList()}
                 </Table>
-                {customers && <div className="text-right mt-1">
+                {models && <div className="text-right mt-1">
                     {this.props.relay.hasMore() ? (
                         <>
                             <button onClick={() => this._loadMore()} className="btn outline btn-load mr-2">

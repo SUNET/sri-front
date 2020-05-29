@@ -189,8 +189,6 @@ class Search extends React.Component {
     };
 
     renderColumnsFilter() {
-        console.log(this.props);
-
         return (
             <FilterColumnsContainer
                 columns={defaultColumns}

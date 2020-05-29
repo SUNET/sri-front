@@ -12,12 +12,13 @@ import "../../style/FieldArrayContacts.scss";
 class FieldArrayContactsOrganization extends React.Component {
     state = {
         showModal: false, // DEFAULT: false
-        selectedRowKey: null // DEFAULT: null
+        selectedRowId: null // DEFAULT: null
     };
 
     // lifecycle
     shouldComponentUpdate(nextProps, nextState) {
-        const newRemovedContact = nextProps.removedContactId !== undefined && nextProps.removedContactId !== this.props.removedContactId;
+        const newRemovedContact = 
+            !!nextProps.removedContactId && nextProps.removedContactId !== this.props.removedContactId;
         if (newRemovedContact) {
             this.props.removedContactDeletedFromTheList();
             this.removeRow(nextProps.removedContactId);
@@ -32,34 +33,34 @@ class FieldArrayContactsOrganization extends React.Component {
     }
 
     onChangeRole = (event, index) => {
-        const { selectedIndex } = event.target.selectedIndex;
+        const { selectedIndex } = event.selectedIndex;
         let role_label = "";
         if (selectedIndex !== 0) {
-            role_label = event.target.options[event.target.selectedIndex].text;
+            role_label = event.options[event.selectedIndex].text;
         }
         this.props.dispatch(change(this.props.meta.form, `contacts[${index}].role_label`, role_label));
     };
 
     // methods state
-    showDataModal(key) {
+    showDataModal(id) {
         this.setState({
             showModal: true,
-            selectedRowKey: key
+            selectedRowId: id
         });
     }
 
     hideDataModal() {
         this.setState({
             showModal: false,
-            selectedRowKey: null
+            selectedRowId: null
         });
     }
 
     // methods getData
-    getValueByKey(key) {
+    getValueById(id) {
         const allValues = this.props.fields.getAll();
-        const valueData = allValues.find((value) => value.key === key);
-        const valueIndex = allValues.findIndex((value) => value.key === key);
+        const valueData = allValues.find((value) => value.id === id);
+        const valueIndex = allValues.findIndex((value) => value.id === id);
 
         return {
             data: valueData,
@@ -84,12 +85,24 @@ class FieldArrayContactsOrganization extends React.Component {
     };
 
     // methods rows
+    newResultInSearch = (selection) => {
+        if (!selection) {
+            return;
+        }
+        const contactFound = this.getValueById(selection.id);
+        if (contactFound.index > -1) {
+            this.props.dispatch(change("updateOrganization", `contacts[${contactFound.index}].status`, "saved"));
+        } else {
+            this.props.handleContactSearch(selection);
+        }
+    };
+
     addRow = (event) => {
         this.props.handleAddContactRow();
     };
 
-    removeRow = (key) => {
-        const currentValue = this.getValueByKey(key);
+    removeRow = (id) => {
+        const currentValue = this.getValueById(id);
         this.hideDataModal();
         if (currentValue.data.origin === "store") {
             this.props.dispatch(change("updateOrganization", `contacts[${currentValue.index}].status`, "remove"));
@@ -161,7 +174,7 @@ class FieldArrayContactsOrganization extends React.Component {
                 <Modal.Body className="organizations-contacts">
                     <div className="model-details">
                         <div className="model-section model-section--in-modal">
-                            {this.renderInternalModalForm(this.state.selectedRowKey)}
+                            {this.renderInternalModalForm(this.state.selectedRowId)}
                         </div>
                     </div>
                 </Modal.Body>
@@ -181,9 +194,9 @@ class FieldArrayContactsOrganization extends React.Component {
         );
     }
 
-    renderInternalModalBody(key) {
+    renderInternalModalBody(id) {
         const { t, editable } = this.props;
-        const dataValue = this.getValueByKey(key);
+        const dataValue = this.getValueById(id);
         const row = dataValue.data;
         const index = dataValue.index;
         const flexClassesToMobileStructure = "d-flex align-items-start flex-column";
@@ -232,26 +245,26 @@ class FieldArrayContactsOrganization extends React.Component {
         return <></>;
     };
 
-    renderButtonsMobile(key) {
+    renderButtonsMobile(id) {
         return <></>;
     }
 
-    renderMoreInfoButton(key) {
+    renderMoreInfoButton(id) {
         const { t } = this.props;
         return (
-            <button type="button" className="btn outline btn-add more-info" onClick={() => this.showDataModal(key)}>
+            <button type="button" className="btn outline btn-add more-info" onClick={() => this.showDataModal(id)}>
                 <span>{t("actions.info")}</span>
             </button>
         );
     }
 
-    renderEditContactButton(key) {
+    renderEditContactButton(id) {
         const { t } = this.props;
         return (
             <button
                     type="button"
                     onClick={() => {
-                        this.props.handleShowContactDetail(key);
+                        this.props.handleShowContactDetail(id);
                     }}
                     className="btn outline btn-edit"
             >
@@ -261,23 +274,23 @@ class FieldArrayContactsOrganization extends React.Component {
         );
     }
 
-    renderRemoveCtaCrossAndEditButton(key) {
+    renderRemoveCtaCrossAndEditButton(id) {
         return (
             <div className={`contact-in-organization__body__buttons-in-the-final-row ${isBrowser ? "contact-in-organization__body__buttons-in-the-final-row--desktop-version" : ""}`}>
-                {isBrowser && this.renderEditContactButton(key)}
+                {isBrowser && this.renderEditContactButton(id)}
                 <div
                     className={`row-remove-cta ${isBrowser ? "row-remove-cta--desktop-version" : ""}`}
-                    onClick={() => this.removeRow(key)}
+                    onClick={() => this.removeRow(id)}
                 ></div>
             </div>
         );
     }
 
-    renderMobileFooterModalButtons(key) {
+    renderMobileFooterModalButtons(id) {
         return (
             <div className="d-flex justify-content-around">
                 {this.renderAcceptModalButton()}
-                {this.renderRemoveCtaButton(key)}
+                {this.renderRemoveCtaButton(id)}
             </div>
         );
     }
@@ -297,7 +310,7 @@ class FieldArrayContactsOrganization extends React.Component {
         );
     }
 
-    renderRemoveCtaButton(key) {
+    renderRemoveCtaButton(id) {
         const { t } = this.props;
         return (
             <button
@@ -305,7 +318,7 @@ class FieldArrayContactsOrganization extends React.Component {
                 className="btn outline btn-trash mt-3"
                 onClick={() => {
                     this.hideDataModal();
-                    this.removeRow(key);
+                    this.removeRow(id);
                 }}
             >
                 <span> {t("actions.delete")}</span>
@@ -354,8 +367,8 @@ class FieldArrayContactsOrganization extends React.Component {
                                 <div className="contact-in-organization__body__row__element">{row.name}</div>
                                 {isMobile && (
                                     <div className="contact-in-organization__body__row__element info-button">
-                                        {editable && this.renderEditContactButton(row.key)}
-                                        {!editable && this.renderMoreInfoButton(row.key)}
+                                        {editable && this.renderEditContactButton(row.id)}
+                                        {!editable && this.renderMoreInfoButton(row.id)}
                                     </div>
                                 )}
                                 {isBrowser && this.renderDropDownRole(row.role_label, index)}
@@ -369,7 +382,7 @@ class FieldArrayContactsOrganization extends React.Component {
                                         {this.generateSubDataList(row, "phone")}
                                     </div>
                                 )}
-                                {editable && this.renderRemoveCtaCrossAndEditButton(row.key)}
+                                {editable && this.renderRemoveCtaCrossAndEditButton(row.id)}
                             </div>
                         );
                     })}
@@ -377,14 +390,17 @@ class FieldArrayContactsOrganization extends React.Component {
         );
     }
     renderFooter() {
-        const { t, editable } = this.props;
+        const { t, editable, fields} = this.props;
+        const existingElements = fields.getAll().filter(el => el.status === 'saved').map(row => row.id);
         return (
             <div className="contact-in-organization__footer">
                 {editable && (
                     <>
                         <DropdownSearch
-                            selection={this.props.handleContactSearch}
-                            placeholder={t("search-filter.search-contact")}
+                            model={'contacts'}
+                            selection={this.newResultInSearch}
+                            placeholder={t("search-filter.search-contacts")}
+                            skipElements={existingElements}
                         />
                         <button
                             type="button"

@@ -7,6 +7,8 @@ import SearchCustomerContainer from "../containers/customer/SearchCustomer";
 import SearchEndUsersContainer from "../containers/endUser/SearchEndUser";
 import SearchProvidersContainer from "../containers/provider/SearchProvider";
 import SearchSiteOwnersContainer from "../containers/siteOwner/SearchSiteOwner";
+import SearchCablesContainer from "../containers/cable/SearchCable";
+import SearchPortsContainer from "../containers/port/SearchPort";
 
 class Network extends React.Component {
     render() {
@@ -21,6 +23,8 @@ class Network extends React.Component {
                         <Route path="/network/end-users" component={SearchEndUsersContainer} />
                         <Route path="/network/providers" component={SearchProvidersContainer} />
                         <Route path="/network/site-owners" component={SearchSiteOwnersContainer} />
+                        <Route path="/network/cables" component={SearchCablesContainer} />
+                        <Route path="/network/ports" component={SearchPortsContainer} />
                     </Switch>
                 </Col>
             </Row>

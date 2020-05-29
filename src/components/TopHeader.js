@@ -155,21 +155,22 @@ export class TopHeader extends React.Component {
               { name: t('network.sub-menu.organizations/site-owners'), route: '/network/site-owners' },
             ],
           },
-          // {
-          //     name: "Equipment & Cables",
-          //     route: "/network/customers",
-          //     iconClass: "icon-organization",
-          //     subSubOptions: [
-          //         { name: "Cables", route: "/network/customers" },
-          //         { name: "Hosts", route: "/network/customers" },
-          //         { name: "Firewalls", route: "/network/customers" },
-          //         { name: "Routers", route: "/network/customers" },
-          //         { name: "Switches", route: "/network/customers" },
-          //         { name: "External equipment", route: "/network/customers" },
-          //         { name: "Optical nodes", route: "/network/customers" },
-          //         { name: "ODFs", route: "/network/customers" }
-          //     ]
-          // }
+          {
+            name: 'Equipment & Cables',
+            route: '/network/cables',
+            iconClass: 'icon-organization',
+            subSubOptions: [
+              { name: t('network.sub-menu.equipment/cables'), route: '/network/cables' },
+              { name: t('network.sub-menu.equipment/ports'), route: '/network/ports' },
+              // { name: "Hosts", route: "/network/customers" },
+              // { name: "Firewalls", route: "/network/customers" },
+              // { name: "Routers", route: "/network/customers" },
+              // { name: "Switches", route: "/network/customers" },
+              // { name: "External equipment", route: "/network/customers" },
+              // { name: "Optical nodes", route: "/network/customers" },
+              // { name: "ODFs", route: "/network/customers" }
+            ],
+          },
         ],
       },
     ];

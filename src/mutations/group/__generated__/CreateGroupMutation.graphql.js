@@ -15,6 +15,12 @@ export type CompositeGroupMutationInput = {|
   update_subinputs?: ?$ReadOnlyArray<?UpdateContactInput>,
   delete_subinputs?: ?$ReadOnlyArray<?DeleteContactInput>,
   unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
+  create_part_of_port?: ?CreatePortInput,
+  update_part_of_port?: ?UpdatePortInput,
+  deleted_part_of_port?: ?DeletePortInput,
+  create_part_of_cable?: ?CreateCableInput,
+  update_part_of_cable?: ?UpdateCableInput,
+  deleted_part_of_cable?: ?DeleteCableInput,
   clientMutationId?: ?string,
 |};
 export type CreateGroupInput = {|
@@ -76,6 +82,43 @@ export type DeleteContactInput = {|
 |};
 export type DeleteRelationshipInput = {|
   relation_id: number,
+  clientMutationId?: ?string,
+|};
+export type CreatePortInput = {|
+  name: string,
+  port_type?: ?any,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePortInput = {|
+  name: string,
+  port_type?: ?any,
+  description?: ?string,
+  relationship_connected_to?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePortInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  relationship_end_a?: ?number,
+  relationship_end_b?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteCableInput = {|
+  id: string,
   clientMutationId?: ?string,
 |};
 export type CreateGroupMutationVariables = {|

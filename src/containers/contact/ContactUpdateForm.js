@@ -4,7 +4,7 @@ import uuidv4 from 'uuid/v4';
 import ContactUpdateForm from '../../components/contact/ContactUpdateForm';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
-import * as createContactFormModalActions from '../../actions/ComponentFormRow';
+import * as FormModalActions from '../../actions/FormModal';
 
 const mapStateToProps = (state, props) => {
   const updateContactSelector = formValueSelector('updateContact');
@@ -86,7 +86,7 @@ const mapStateToProps = (state, props) => {
     contactTypeObj: updateContactSelector(state, 'contactTypeObj'),
     emailValues: updateContactSelector(state, 'emails'),
     phoneValues: updateContactSelector(state, 'phones'),
-    organizationValues: organizationValues,
+    organizationValues,
     isDirty_organizations_roles:
       organizationValues &&
       organizationValues.map((organization, index) => {
@@ -94,7 +94,7 @@ const mapStateToProps = (state, props) => {
       }),
     formSyncErrors: getFormSyncErrors('updateContact')(state),
     fields: getFormMeta('updateContact')(state),
-    shown_in_modal: state.componentFormRow.show_contact_form,
+    shownInModal: state.formModal.showModalForm,
   };
 };
 
@@ -109,7 +109,7 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    hideContactModal: () => dispatch(createContactFormModalActions.hideNewContactForm(props.index)),
+    hideContactModal: () => dispatch(FormModalActions.hideModalForm(props.index)),
   };
 };
 

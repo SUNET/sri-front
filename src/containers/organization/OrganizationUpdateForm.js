@@ -5,8 +5,59 @@ import { getContact } from '../../components/contact/Contact';
 import uuidv4 from 'uuid/v4';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
-import * as componentFormRow from '../../actions/ComponentFormRow';
+import * as FormModalActions from '../../actions/FormModal';
 
+function formattedContacts(organization) {
+  const { contacts } = organization;
+  return contacts.map((contact) => {
+    const contactRelationIdObj = contact.roles.find((relationNode) => relationNode.end.id === organization.id);
+    return {
+      id: contact.id,
+      name: contact.first_name + ' ' + contact.last_name,
+      contact_type: contact.contact_type,
+      role: contactRelationIdObj ? contactRelationIdObj.role_data.id : '',
+      role_label: contactRelationIdObj ? contactRelationIdObj.role_data.name : '',
+      role_obj: contactRelationIdObj,
+      role_relation_id: contactRelationIdObj ? contactRelationIdObj.relation_id : '',
+      email: contact.emails,
+      email_obj: contact.emails,
+      phone: contact.phones,
+      phone_obj: contact.phones,
+      status: 'saved',
+      origin: 'store',
+      created: true,
+      key: contact.id,
+    };
+  });
+}
+function formattedAddresses(addresses) {
+  if (addresses) {
+    return addresses.map((address) => ({
+      id: address.id,
+      name: address.name,
+      street: address.street,
+      postal_code: address.postal_code,
+      postal_area: address.postal_area,
+      phone: address.phone,
+      status: 'saved',
+      origin: 'store',
+      created: true,
+      key: address.id,
+    }));
+  }
+  return [
+    {
+      name: 'main',
+      street: '',
+      postal_code: '',
+      postal_area: '',
+      phone: '',
+      key: uuidv4(),
+      created: false,
+      status: 'editing',
+    },
+  ];
+}
 const mapStateToProps = (state, props) => {
   const updateOrganizationSelector = formValueSelector('updateOrganization');
 
@@ -40,68 +91,8 @@ const mapStateToProps = (state, props) => {
     affiliation_site_owner: organization.affiliation_site_owner,
     description: organization.description,
     incident_management_info: organization.incident_management_info,
-    contacts: organization.contacts
-      ? organization.contacts.map((contact) => {
-          const contact_relation_id_obj = contact.roles.find((relation_node) => {
-            return relation_node.end.id === organization.id;
-          });
-          const contact_node = contact;
-          return {
-            id: contact_node.id,
-            name: contact_node.first_name + ' ' + contact_node.last_name,
-            contact_type: contact_node.contact_type,
-            role: contact_relation_id_obj ? contact_relation_id_obj.role_data.id : '',
-            role_label: contact_relation_id_obj ? contact_relation_id_obj.role_data.name : '',
-            role_obj: contact_relation_id_obj,
-            role_relation_id: contact_relation_id_obj ? contact_relation_id_obj.relation_id : '',
-            email: contact_node.emails,
-            email_obj: contact_node.emails,
-            phone: contact_node.phones,
-            phone_obj: contact_node.phones,
-            status: 'saved',
-            origin: 'store',
-            created: true,
-            key: contact_node.id,
-          };
-        })
-      : [
-          {
-            name: '',
-            role: '',
-            email: '',
-            phone: '',
-            key: uuidv4(),
-            created: false,
-            status: 'editing',
-          },
-        ],
-    addresses: organization.addresses
-      ? organization.addresses.map((address) => {
-          return {
-            id: address.id,
-            name: address.name,
-            street: address.street,
-            postal_code: address.postal_code,
-            postal_area: address.postal_area,
-            phone: address.phone,
-            status: 'saved',
-            origin: 'store',
-            created: true,
-            key: address.id,
-          };
-        })
-      : [
-          {
-            name: 'main',
-            street: '',
-            postal_code: '',
-            postal_area: '',
-            phone: '',
-            key: uuidv4(),
-            created: false,
-            status: 'editing',
-          },
-        ],
+    contacts: formattedContacts(organization),
+    addresses: formattedAddresses(organization.addresses),
   };
   const contactsValues = updateOrganizationSelector(state, 'contacts');
   const addressesValues = updateOrganizationSelector(state, 'addresses');
@@ -137,7 +128,7 @@ const mapStateToProps = (state, props) => {
       provider: updateOrganizationSelector(state, 'affiliation_provider'),
       site_owner: updateOrganizationSelector(state, 'affiliation_site_owner'),
     },
-    contact_removed_id: state.componentFormRow.contact_removed_id,
+    entityRemovedId: state.formModal.entityRemovedId,
     getContact: (id) => getContact(id),
   };
 };
@@ -155,13 +146,13 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
     showNewContactForm: () => {
-      dispatch(componentFormRow.showNewContactForm());
+      dispatch(FormModalActions.showModalCreateForm('Contact'));
     },
-    hideNewContactForm: () => {
-      dispatch(componentFormRow.hideNewContactForm());
+    hideContactForm: () => {
+      dispatch(FormModalActions.hideModalForm());
     },
-    showContactDetailForm: (contactId) => {
-      dispatch(componentFormRow.showContactDetailForm(contactId));
+    showContactDetailForm: (idContact) => {
+      dispatch(FormModalActions.showModalUpdateForm('Contact', idContact));
     },
   };
 };

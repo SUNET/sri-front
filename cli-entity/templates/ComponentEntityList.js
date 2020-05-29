@@ -16,7 +16,7 @@ import { Table } from "react-bootstrap";
 
 import { default as ROW_COMPONENT } from "./__EntityClassName__Row";
 
-const { ITEMS_PER_PAGE } = CONFIG;
+const { ITEMS_PER_PAGE, ALL_ITEMS } = CONFIG;
 
 export class __EntityClassName__List extends React.Component {
     MODEL_NAME = "__entityName__";
@@ -162,7 +162,7 @@ export class __EntityClassName__List extends React.Component {
                                 {t("paginator.load_all")}
                             </button>
                         </>
-                    ) : this.props[this.MODEL_LIST_NAME][this.MODEL_LIST_NAME].edges.length > ITEMS_PER_PAGE ?  (
+                    ) : this.props[this.MODEL_LIST_NAME][this.MODEL_LIST_NAME].edges.length > ITEMS_PER_PAGE ? (
                         <button onClick={() => this.props.refetch()} className="btn outline btn-load mr-2">
                             {t("paginator.load_less")}
                         </button>
@@ -205,7 +205,11 @@ export default createPaginationContainer(
         query: graphql`
             # Pagination query to be fetched upon calling 'loadMore'.
             # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
-            query __EntityClassName__ListForwardQuery($count: Int!, $cursor: String, $orderBy: __EntityClassName__OrderBy) {
+            query __EntityClassName__ListForwardQuery(
+                $count: Int!
+                $cursor: String
+                $orderBy: __EntityClassName__OrderBy
+            ) {
                 ...__EntityClassName__List___entityName__s @arguments(count: $count, cursor: $cursor, orderBy: $orderBy)
             }
         `,

@@ -3,7 +3,6 @@ import SiteOwnerUpdateForm from '../../components/siteOwner/SiteOwnerUpdateForm'
 import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
-// import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
   const updateSiteOwnerSelector = formValueSelector('updateSiteOwner');
@@ -37,7 +36,6 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    // ,showNewContactForm
   };
 };
 

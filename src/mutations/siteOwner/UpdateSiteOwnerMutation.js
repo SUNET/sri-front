@@ -35,7 +35,6 @@ export default function UpdateSiteOwnerMutation(siteOwner, form) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
-            console.log("response: ", response);
             if (response.update_siteOwner.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
                 return response.update_siteOwner.updated.errors;

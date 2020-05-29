@@ -3,8 +3,8 @@ import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { TopHeader } from '../../components/TopHeader';
 import configureMockStore from 'redux-mock-store';
+import { TopHeader } from '../../components/TopHeader';
 
 const mockStore = configureMockStore();
 

@@ -201,6 +201,12 @@ exports[`Some Component Renders correctly 1`] = `
                 "network.sub-menu.organizations/site-owners",
               ],
               Array [
+                "network.sub-menu.equipment/cables",
+              ],
+              Array [
+                "network.sub-menu.equipment/ports",
+              ],
+              Array [
                 "header.main-menu.home",
               ],
               Array [
@@ -246,6 +252,14 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "network.sub-menu.organizations/site-owners",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.equipment/cables",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.equipment/ports",
               },
               Object {
                 "type": "return",
@@ -376,6 +390,7 @@ exports[`Some Component Renders correctly 1`] = `
                                 "location": [Function],
                                 "onClick": [Function],
                                 "replace": [Function],
+                                "sensitive": [Function],
                                 "strict": [Function],
                                 "style": [Function],
                                 "target": [Function],
@@ -404,6 +419,7 @@ exports[`Some Component Renders correctly 1`] = `
                                   "location": [Function],
                                   "onClick": [Function],
                                   "replace": [Function],
+                                  "sensitive": [Function],
                                   "strict": [Function],
                                   "style": [Function],
                                   "target": [Function],
@@ -481,6 +497,7 @@ exports[`Some Component Renders correctly 1`] = `
                                 "location": [Function],
                                 "onClick": [Function],
                                 "replace": [Function],
+                                "sensitive": [Function],
                                 "strict": [Function],
                                 "style": [Function],
                                 "target": [Function],
@@ -509,6 +526,7 @@ exports[`Some Component Renders correctly 1`] = `
                                   "location": [Function],
                                   "onClick": [Function],
                                   "replace": [Function],
+                                  "sensitive": [Function],
                                   "strict": [Function],
                                   "style": [Function],
                                   "target": [Function],
@@ -583,6 +601,7 @@ exports[`Some Component Renders correctly 1`] = `
                                 "location": [Function],
                                 "onClick": [Function],
                                 "replace": [Function],
+                                "sensitive": [Function],
                                 "strict": [Function],
                                 "style": [Function],
                                 "target": [Function],
@@ -611,6 +630,7 @@ exports[`Some Component Renders correctly 1`] = `
                                   "location": [Function],
                                   "onClick": [Function],
                                   "replace": [Function],
+                                  "sensitive": [Function],
                                   "strict": [Function],
                                   "style": [Function],
                                   "target": [Function],

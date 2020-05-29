@@ -74,9 +74,9 @@ class _GroupFormParentClass extends React.Component {
                     organization: member.roles,
                     organization_obj: member.roles.length ? member.roles.map((elem) => elem.end) : [],
                     organization_label: member.roles.length ? member.roles.map((elem) => elem.end) : [],
-                    email: member.emails,
+                    email: member.emails && member.emails.length ? member.emails : [],
                     email_obj: member.emails,
-                    phone: member.phones,
+                    phone: member.phones && member.phones.length ? member.phones : [],
                     phone_obj: member.phones,
                     created: true,
                     origin: "new",
@@ -221,7 +221,7 @@ class _GroupFormParentClass extends React.Component {
         );
     }
     renderContactsToggleSection(editMode = true) {
-        const { t, contact_removed_id } = this.props;
+        const { t, entityRemovedId } = this.props;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -243,9 +243,9 @@ class _GroupFormParentClass extends React.Component {
                         handleShowContactDetail={(contactId) => {
                             this.props.showContactDetailForm(contactId);
                         }}
-                        removedContactId={contact_removed_id}
+                        removedContactId={entityRemovedId}
                         removedContactDeletedFromTheList={() => {
-                            this.props.hideNewContactForm();
+                            this.props.hideContactForm();
                         }}
                     />
                 </TogglePanel>

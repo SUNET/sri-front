@@ -30,8 +30,6 @@ export class RangeDayPicker extends React.Component {
       return;
     }
     if (moment(to).diff(moment(from), 'months') < 2) {
-      console.log('from: ', from);
-      console.log('this.to.getDayPicker(): ', this.toRef.current.getDayPicker().showMonth);
       this.toRef.current.getDayPicker().showMonth(from);
     }
   }

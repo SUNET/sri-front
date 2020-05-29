@@ -3,7 +3,6 @@ import __EntityClassName__UpdateForm from '../../components/__entityName__/__Ent
 import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
-// import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
   const update__EntityClassName__Selector = formValueSelector('update__EntityClassName__');
@@ -36,7 +35,6 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    // ,showNewContactForm
   };
 };
 const __EntityClassName__UpdateFormContainer = connect(

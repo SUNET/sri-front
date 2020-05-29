@@ -17,7 +17,7 @@ class FieldArrayMembersGroup extends React.Component {
 
     // lifecycle
     shouldComponentUpdate(nextProps, nextState) {
-        const newRemovedContact = nextProps.removedContactId !== undefined && nextProps.removedContactId !== this.props.removedContactId;
+        const newRemovedContact = !!nextProps.removedContactId && nextProps.removedContactId !== this.props.removedContactId;
         if (newRemovedContact) {
             this.props.removedContactDeletedFromTheList();
             this.removeRow(nextProps.removedContactId);
@@ -140,7 +140,8 @@ class FieldArrayMembersGroup extends React.Component {
         let result = [];
         if (values) {
             result = values.map((member) => {
-                return member.status === "saved" ? member.email.map((email) => email.name) : null;
+                const isNecessaryGetEmails = member.status === "saved" && member.email;
+                return isNecessaryGetEmails ? member.email.map((email) => email.name) : [];
             });
         }
         return result;
@@ -374,6 +375,7 @@ class FieldArrayMembersGroup extends React.Component {
                 {editable && (
                     <>
                         <DropdownSearch
+                            model={'contacts'}
                             selection={this.props.handleContactSearch}
                             placeholder={t("search-filter.search-member")}
                         />

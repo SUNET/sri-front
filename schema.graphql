@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Wed May 06 2020 16:38:50 GMT+0200 (GMT+02:00)
+# timestamp: Fri May 29 2020 13:59:52 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -403,31 +403,147 @@ type CommentType implements Node {
   object_id: ID!
 }
 
+input CompositeCableMutationInput {
+  create_input: CreateCableInput
+  update_input: UpdateCableInput
+  create_subinputs: [CreatePortInput]
+  update_subinputs: [UpdatePortInput]
+  delete_subinputs: [DeletePortInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_has_port: CreatePortInput
+  update_has_port: UpdatePortInput
+  deleted_has_port: DeletePortInput
+  create_has_cable: CreateCableInput
+  update_has_cable: UpdateCableInput
+  deleted_has_cable: DeleteCableInput
+  create_part_of_group: CreateGroupInput
+  update_part_of_group: UpdateGroupInput
+  deleted_part_of_group: DeleteGroupInput
+  create_part_of_procedure: CreateProcedureInput
+  update_part_of_procedure: UpdateProcedureInput
+  deleted_part_of_procedure: DeleteProcedureInput
+  create_part_of_address: CreateAddressInput
+  update_part_of_address: UpdateAddressInput
+  deleted_part_of_address: DeleteAddressInput
+  create_part_of_phone: CreatePhoneInput
+  update_part_of_phone: UpdatePhoneInput
+  deleted_part_of_phone: DeletePhoneInput
+  create_part_of_email: CreateEmailInput
+  update_part_of_email: UpdateEmailInput
+  deleted_part_of_email: DeleteEmailInput
+  create_parent_port: [CreatePortInput]
+  update_parent_port: [UpdatePortInput]
+  deleted_parent_port: [DeletePortInput]
+  create_parent_cable: [CreateCableInput]
+  update_parent_cable: [UpdateCableInput]
+  deleted_parent_cable: [DeleteCableInput]
+  clientMutationId: String
+}
+
+type CompositeCableMutationPayload {
+  created: CreateCablePayload
+  updated: UpdateCablePayload
+  subcreated: [CreatePortPayload]
+  subupdated: [UpdatePortPayload]
+  subdeleted: [DeletePortPayload]
+  unlinked: [DeleteRelationshipPayload]
+  has_port_created: CreatePortPayload
+  has_port_updated: UpdatePortPayload
+  has_port_deleted: DeletePortPayload
+  has_cable_created: CreateCablePayload
+  has_cable_updated: UpdateCablePayload
+  has_cable_deleted: DeleteCablePayload
+  part_of_group_created: CreateGroupPayload
+  part_of_group_updated: UpdateGroupPayload
+  part_of_group_deleted: DeleteGroupPayload
+  part_of_procedure_created: CreateProcedurePayload
+  part_of_procedure_updated: UpdateProcedurePayload
+  part_of_procedure_deleted: DeleteProcedurePayload
+  part_of_address_created: CreateAddressPayload
+  part_of_address_updated: UpdateAddressPayload
+  part_of_address_deleted: DeleteAddressPayload
+  part_of_phone_created: CreatePhonePayload
+  part_of_phone_updated: UpdatePhonePayload
+  part_of_phone_deleted: DeletePhonePayload
+  part_of_email_created: CreateEmailPayload
+  part_of_email_updated: UpdateEmailPayload
+  part_of_email_deleted: DeleteEmailPayload
+  parent_port_created: [CreatePortPayload]
+  parent_port_updated: [UpdatePortPayload]
+  parent_port_deleted: [DeletePortPayload]
+  parent_cable_created: [CreateCablePayload]
+  parent_cable_updated: [UpdateCablePayload]
+  parent_cable_deleted: [DeleteCablePayload]
+  clientMutationId: String
+}
+
 input CompositeContactMutationInput {
+  create_phones: [CreatePhoneInput]
+  update_phones: [UpdatePhoneInput]
+  delete_phones: [DeletePhoneInput]
+  link_rolerelations: [RoleRelationMutationInput]
   create_input: CreateContactInput
   update_input: UpdateContactInput
   create_subinputs: [CreateEmailInput]
   update_subinputs: [UpdateEmailInput]
   delete_subinputs: [DeleteEmailInput]
   unlink_subinputs: [DeleteRelationshipInput]
-  create_phones: [CreatePhoneInput]
-  update_phones: [UpdatePhoneInput]
-  delete_phones: [DeletePhoneInput]
-  link_rolerelations: [RoleRelationMutationInput]
+  create_uses_group: CreateGroupInput
+  update_uses_group: UpdateGroupInput
+  deleted_uses_group: DeleteGroupInput
+  create_uses_procedure: CreateProcedureInput
+  update_uses_procedure: UpdateProcedureInput
+  deleted_uses_procedure: DeleteProcedureInput
+  create_uses_address: CreateAddressInput
+  update_uses_address: UpdateAddressInput
+  deleted_uses_address: DeleteAddressInput
+  create_uses_phone: CreatePhoneInput
+  update_uses_phone: UpdatePhoneInput
+  deleted_uses_phone: DeletePhoneInput
+  create_uses_email: CreateEmailInput
+  update_uses_email: UpdateEmailInput
+  deleted_uses_email: DeleteEmailInput
+  create_owns_port: CreatePortInput
+  update_owns_port: UpdatePortInput
+  deleted_owns_port: DeletePortInput
+  create_owns_cable: CreateCableInput
+  update_owns_cable: UpdateCableInput
+  deleted_owns_cable: DeleteCableInput
   clientMutationId: String
 }
 
 type CompositeContactMutationPayload {
+  phones_created: [CreatePhonePayload]
+  phones_updated: [UpdatePhonePayload]
+  phones_deleted: [DeletePhonePayload]
+  rolerelations: [RoleRelationMutationPayload]
   created: CreateContactPayload
   updated: UpdateContactPayload
   subcreated: [CreateEmailPayload]
   subupdated: [UpdateEmailPayload]
   subdeleted: [DeleteEmailPayload]
   unlinked: [DeleteRelationshipPayload]
-  phones_created: [CreatePhonePayload]
-  phones_updated: [UpdatePhonePayload]
-  phones_deleted: [DeletePhonePayload]
-  rolerelations: [RoleRelationMutationPayload]
+  uses_group_created: CreateGroupPayload
+  uses_group_updated: UpdateGroupPayload
+  uses_group_deleted: DeleteGroupPayload
+  uses_procedure_created: CreateProcedurePayload
+  uses_procedure_updated: UpdateProcedurePayload
+  uses_procedure_deleted: DeleteProcedurePayload
+  uses_address_created: CreateAddressPayload
+  uses_address_updated: UpdateAddressPayload
+  uses_address_deleted: DeleteAddressPayload
+  uses_phone_created: CreatePhonePayload
+  uses_phone_updated: UpdatePhonePayload
+  uses_phone_deleted: DeletePhonePayload
+  uses_email_created: CreateEmailPayload
+  uses_email_updated: UpdateEmailPayload
+  uses_email_deleted: DeleteEmailPayload
+  owns_port_created: CreatePortPayload
+  owns_port_updated: UpdatePortPayload
+  owns_port_deleted: DeletePortPayload
+  owns_cable_created: CreateCablePayload
+  owns_cable_updated: UpdateCablePayload
+  owns_cable_deleted: DeleteCablePayload
   clientMutationId: String
 }
 
@@ -438,6 +554,12 @@ input CompositeGroupMutationInput {
   update_subinputs: [UpdateContactInput]
   delete_subinputs: [DeleteContactInput]
   unlink_subinputs: [DeleteRelationshipInput]
+  create_part_of_port: CreatePortInput
+  update_part_of_port: UpdatePortInput
+  deleted_part_of_port: DeletePortInput
+  create_part_of_cable: CreateCableInput
+  update_part_of_cable: UpdateCableInput
+  deleted_part_of_cable: DeleteCableInput
   clientMutationId: String
 }
 
@@ -448,6 +570,12 @@ type CompositeGroupMutationPayload {
   subupdated: [UpdateContactPayload]
   subdeleted: [DeleteContactPayload]
   unlinked: [DeleteRelationshipPayload]
+  part_of_port_created: CreatePortPayload
+  part_of_port_updated: UpdatePortPayload
+  part_of_port_deleted: DeletePortPayload
+  part_of_cable_created: CreateCablePayload
+  part_of_cable_updated: UpdateCablePayload
+  part_of_cable_deleted: DeleteCablePayload
   clientMutationId: String
 }
 
@@ -457,10 +585,31 @@ input CompositeOrganizationMutationInput {
   create_subinputs: [CreateContactInput]
   update_subinputs: [UpdateContactInput]
   delete_subinputs: [DeleteContactInput]
-  unlink_subinputs: [DeleteRelationshipInput]
   create_address: [CreateAddressInput]
   update_address: [UpdateAddressInput]
   delete_address: [DeleteAddressInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_uses_group: CreateGroupInput
+  update_uses_group: UpdateGroupInput
+  deleted_uses_group: DeleteGroupInput
+  create_uses_procedure: CreateProcedureInput
+  update_uses_procedure: UpdateProcedureInput
+  deleted_uses_procedure: DeleteProcedureInput
+  create_uses_address: CreateAddressInput
+  update_uses_address: UpdateAddressInput
+  deleted_uses_address: DeleteAddressInput
+  create_uses_phone: CreatePhoneInput
+  update_uses_phone: UpdatePhoneInput
+  deleted_uses_phone: DeletePhoneInput
+  create_uses_email: CreateEmailInput
+  update_uses_email: UpdateEmailInput
+  deleted_uses_email: DeleteEmailInput
+  create_owns_port: CreatePortInput
+  update_owns_port: UpdatePortInput
+  deleted_owns_port: DeletePortInput
+  create_owns_cable: CreateCableInput
+  update_owns_cable: UpdateCableInput
+  deleted_owns_cable: DeleteCableInput
   clientMutationId: String
 }
 
@@ -470,10 +619,63 @@ type CompositeOrganizationMutationPayload {
   subcreated: [CreateContactPayload]
   subupdated: [UpdateContactPayload]
   subdeleted: [DeleteContactPayload]
-  unlinked: [DeleteRelationshipPayload]
   address_created: [CreateAddressPayload]
   address_updated: [UpdateAddressPayload]
   address_deleted: [DeleteAddressPayload]
+  unlinked: [DeleteRelationshipPayload]
+  uses_group_created: CreateGroupPayload
+  uses_group_updated: UpdateGroupPayload
+  uses_group_deleted: DeleteGroupPayload
+  uses_procedure_created: CreateProcedurePayload
+  uses_procedure_updated: UpdateProcedurePayload
+  uses_procedure_deleted: DeleteProcedurePayload
+  uses_address_created: CreateAddressPayload
+  uses_address_updated: UpdateAddressPayload
+  uses_address_deleted: DeleteAddressPayload
+  uses_phone_created: CreatePhonePayload
+  uses_phone_updated: UpdatePhonePayload
+  uses_phone_deleted: DeletePhonePayload
+  uses_email_created: CreateEmailPayload
+  uses_email_updated: UpdateEmailPayload
+  uses_email_deleted: DeleteEmailPayload
+  owns_port_created: CreatePortPayload
+  owns_port_updated: UpdatePortPayload
+  owns_port_deleted: DeletePortPayload
+  owns_cable_created: CreateCablePayload
+  owns_cable_updated: UpdateCablePayload
+  owns_cable_deleted: DeleteCablePayload
+  clientMutationId: String
+}
+
+input CompositePortMutationInput {
+  create_input: CreatePortInput
+  update_input: UpdatePortInput
+  create_subinputs: [CreateCableInput]
+  update_subinputs: [UpdateCableInput]
+  delete_subinputs: [DeleteCableInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_parent_port: [CreatePortInput]
+  update_parent_port: [UpdatePortInput]
+  deleted_parent_port: [DeletePortInput]
+  create_parent_cable: [CreateCableInput]
+  update_parent_cable: [UpdateCableInput]
+  deleted_parent_cable: [DeleteCableInput]
+  clientMutationId: String
+}
+
+type CompositePortMutationPayload {
+  created: CreatePortPayload
+  updated: UpdatePortPayload
+  subcreated: [CreateCablePayload]
+  subupdated: [UpdateCablePayload]
+  subdeleted: [DeleteCablePayload]
+  unlinked: [DeleteRelationshipPayload]
+  parent_port_created: [CreatePortPayload]
+  parent_port_updated: [UpdatePortPayload]
+  parent_port_deleted: [DeletePortPayload]
+  parent_cable_created: [CreateCablePayload]
+  parent_cable_updated: [UpdateCablePayload]
+  parent_cable_deleted: [DeleteCablePayload]
   clientMutationId: String
 }
 
@@ -1732,6 +1934,10 @@ type ErrorType {
   messages: [String!]!
 }
 
+input GenericFilter {
+  query: String!
+}
+
 """
 The `GenericScalar` scalar type represents a generic
 GraphQL scalar value that could be:
@@ -2237,6 +2443,13 @@ interface Logical {
   part_of: Physical
 }
 
+enum MetaType {
+  Logical
+  Relation
+  Physical
+  Location
+}
+
 type Mutation {
   create_group(input: CreateGroupInput!): CreateGroupPayload
   update_group(input: UpdateGroupInput!): UpdateGroupPayload
@@ -2280,9 +2493,11 @@ type Mutation {
   create_port(input: CreatePortInput!): CreatePortPayload
   update_port(input: UpdatePortInput!): UpdatePortPayload
   delete_port(input: DeletePortInput!): DeletePortPayload
+  composite_port(input: CompositePortMutationInput!): CompositePortMutationPayload
   create_cable(input: CreateCableInput!): CreateCablePayload
   update_cable(input: UpdateCableInput!): UpdateCablePayload
   delete_cable(input: DeleteCableInput!): DeleteCablePayload
+  composite_cable(input: CompositeCableMutationInput!): CompositeCableMutationPayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -3332,6 +3547,23 @@ enum PortOrderBy {
   handle_id_DESC
 }
 
+type PortSearchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [PortSearchEdge]!
+}
+
+"""A Relay edge containing a `PortSearch` and its cursor."""
+type PortSearchEdge {
+  """The item at the end of the edge"""
+  node: Port
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 """The group type is used to group contacts"""
 type Procedure implements NINode & Logical {
   handle_id: ID!
@@ -3643,6 +3875,8 @@ type Query {
   checkExistentOrganizationId(organization_id: String!, id: ID): Boolean
   getAvailableRoleGroups: [RoleGroup]
   getRolesFromRoleGroup(name: String): [Role]
+  getMetatypes: [MetaType]
+  getTypesForMetatype(metatype: MetaType): [TypeInfo]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -3711,6 +3945,7 @@ type Query {
   count_peeringgroups: Int
   peeringGroups(filter: PeeringGroupFilter, orderBy: PeeringGroupOrderBy, before: String, after: String, first: Int, last: Int): peeringGroupConnection
   getPeeringGroupById(id: ID): PeeringGroup
+  search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
 }
 
 input RefreshInput {
@@ -4170,6 +4405,13 @@ enum SiteOwnerOrderBy {
   modified_DESC
   handle_id_ASC
   handle_id_DESC
+}
+
+type TypeInfo {
+  type_name: String!
+  connection_name: String!
+  byid_name: String!
+  all_name: String!
 }
 
 input UpdateAddressInput {

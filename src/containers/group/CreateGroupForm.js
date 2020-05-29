@@ -4,7 +4,7 @@ import { getContact } from '../../components/contact/Contact';
 
 import * as actions from '../../actions/Notify';
 import CreateGroupForm from '../../components/group/CreateGroupForm';
-import { showNewContactForm } from '../../actions/ComponentFormRow';
+import * as formModalActions from '../../actions/FormModal';
 
 const mapStateToProps = (state) => {
   const updateGroupSelector = formValueSelector('createGroup');
@@ -22,7 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     notify: (msg, level) => {
       dispatch(actions.notify(msg, level));
     },
-    showNewContactForm,
+    showNewContactForm: () => {
+      dispatch(formModalActions.showModalCreateForm('Contact'));
+    },
   };
 };
 

@@ -14,10 +14,31 @@ export type CompositeOrganizationMutationInput = {|
   create_subinputs?: ?$ReadOnlyArray<?CreateContactInput>,
   update_subinputs?: ?$ReadOnlyArray<?UpdateContactInput>,
   delete_subinputs?: ?$ReadOnlyArray<?DeleteContactInput>,
-  unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
   create_address?: ?$ReadOnlyArray<?CreateAddressInput>,
   update_address?: ?$ReadOnlyArray<?UpdateAddressInput>,
   delete_address?: ?$ReadOnlyArray<?DeleteAddressInput>,
+  unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
+  create_uses_group?: ?CreateGroupInput,
+  update_uses_group?: ?UpdateGroupInput,
+  deleted_uses_group?: ?DeleteGroupInput,
+  create_uses_procedure?: ?CreateProcedureInput,
+  update_uses_procedure?: ?UpdateProcedureInput,
+  deleted_uses_procedure?: ?DeleteProcedureInput,
+  create_uses_address?: ?CreateAddressInput,
+  update_uses_address?: ?UpdateAddressInput,
+  deleted_uses_address?: ?DeleteAddressInput,
+  create_uses_phone?: ?CreatePhoneInput,
+  update_uses_phone?: ?UpdatePhoneInput,
+  deleted_uses_phone?: ?DeletePhoneInput,
+  create_uses_email?: ?CreateEmailInput,
+  update_uses_email?: ?UpdateEmailInput,
+  deleted_uses_email?: ?DeleteEmailInput,
+  create_owns_port?: ?CreatePortInput,
+  update_owns_port?: ?UpdatePortInput,
+  deleted_owns_port?: ?DeletePortInput,
+  create_owns_cable?: ?CreateCableInput,
+  update_owns_cable?: ?UpdateCableInput,
+  deleted_owns_cable?: ?DeleteCableInput,
   clientMutationId?: ?string,
 |};
 export type CreateOrganizationInput = {|
@@ -114,10 +135,6 @@ export type DeleteContactInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
-export type DeleteRelationshipInput = {|
-  relation_id: number,
-  clientMutationId?: ?string,
-|};
 export type CreateAddressInput = {|
   organization?: ?any,
   name: string,
@@ -138,6 +155,112 @@ export type UpdateAddressInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteAddressInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteRelationshipInput = {|
+  relation_id: number,
+  clientMutationId?: ?string,
+|};
+export type CreateGroupInput = {|
+  name: string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateGroupInput = {|
+  name: string,
+  description?: ?string,
+  relationship_member_of?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteGroupInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateProcedureInput = {|
+  name: string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateProcedureInput = {|
+  name: string,
+  description?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteProcedureInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePhoneInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateEmailInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdateEmailInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteEmailInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePortInput = {|
+  name: string,
+  port_type?: ?any,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePortInput = {|
+  name: string,
+  port_type?: ?any,
+  description?: ?string,
+  relationship_connected_to?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePortInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  relationship_end_a?: ?number,
+  relationship_end_b?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteCableInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
