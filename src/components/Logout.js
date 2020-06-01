@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import CONFIG from '../config';
-import Cookies from 'js-cookie';
 
 import '../style/Splash.scss';
 
-const { API_HOST, COOKIE_DOMAIN } = CONFIG;
+const { API_HOST } = CONFIG;
 
 export class Logout extends Component {
   logout() {

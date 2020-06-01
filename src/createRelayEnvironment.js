@@ -20,7 +20,7 @@ async function getCsrfToken() {
     return _csrfToken;
 }
 
-function fetchQuery(operation, variables, cacheConfig, uploadables) {
+async function fetchQuery(operation, variables, cacheConfig, uploadables) {
     const queryId = operation.name;
     const isMutation = operation.operationKind === "mutation";
     const isQuery = operation.operationKind === "query";
@@ -42,7 +42,7 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "X-CSRFToken": getCsrfToken()
+            "X-CSRFToken": await getCsrfToken()
         },
         body: JSON.stringify({
             query: operation.text,

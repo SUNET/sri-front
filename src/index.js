@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Cookies from "js-cookie";
 
 import { Provider } from "react-redux";
 
@@ -9,14 +8,11 @@ import configureStore from "./store";
 import * as actions from "./actions/App";
 import AppContainer from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
-import CONFIG from "./config";
 
 import "./i18n";
 
 import "./style/reset.css";
 import "@fortawesome/fontawesome-free/css/all.css";
-
-const { API_HOST } = CONFIG;
 
 /* Store */
 export const store = configureStore();
