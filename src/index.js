@@ -33,12 +33,10 @@ const initialAction = () => {
     const cookie_jwt = Cookies.get("JWT");
     // if there is no cookie jwt is redirected to the login
     if (!cookie_jwt) {
-        fetch(`${API_HOST}/authn?next=${document.location.href}`, {
+        fetch(`${API_HOST}/login/?next=/`, {
             method: "GET"
         }).then((response) => {
-            if (response.redirected) {
-                document.location.href = response.url;
-            }
+            document.location.href = response.url;
         });
     } else {
         store.dispatch(actions.appLoaded());

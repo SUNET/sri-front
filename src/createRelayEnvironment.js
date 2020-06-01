@@ -51,7 +51,7 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
     })
         .then((response) => {
             if (response.redirected) {
-                return window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+                return window.location.replace(`${API_HOST}/login/?next=/`);
             }
             return response.json();
         })
@@ -74,7 +74,7 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
             return jsonResult
         })
         .catch((err) => {
-            window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+            window.location.replace(`${API_HOST}/login/?next=/`);
         });
 }
 
