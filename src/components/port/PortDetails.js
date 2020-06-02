@@ -19,13 +19,13 @@ class PortDetails extends React.Component {
   };
 
   getId() {
-    const { isFromModal, isInsideModal, idFromModal, match } = this.props;
+    const { isFromModal, idFromModal, match } = this.props;
     const entityId = isFromModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
     return entityId;
   }
 
   handleDelete = () => {
-    const { history, isInsideModal, deletedEntity } = this.props;
+    const { history, isFromModal, deletedEntity } = this.props;
     const idEntity = this.getId();
     const callbackAfterDeleteInModal = () => {
       deletedEntity(idEntity);
@@ -33,7 +33,7 @@ class PortDetails extends React.Component {
     const callbackInRouteForm = () => {
       history.push(`/network/ports`);
     };
-    DeletePortMutation(idEntity, isInsideModal ? callbackAfterDeleteInModal : callbackInRouteForm);
+    DeletePortMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 
   render() {
