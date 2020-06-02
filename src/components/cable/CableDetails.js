@@ -19,8 +19,8 @@ class CableDetails extends React.Component {
   };
 
   getId() {
-    const { isInsideModal, idFromModal, match } = this.props;
-    const entityId = isInsideModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
+    const { isFromModal, isInsideModal, idFromModal, match } = this.props;
+    const entityId = isFromModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
     return entityId;
   }
 
@@ -52,6 +52,7 @@ class CableDetails extends React.Component {
             return (
               <section className="model-details cable-details">
                 <CableUpdateFormContainer
+                  isFromModal={this.props.isFromModal}
                   onDelete={this.handleDelete}
                   cable={props.getCableById}
                   history={this.props.history}

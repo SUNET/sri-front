@@ -19,18 +19,19 @@ class CreatePortForm extends _PortFormParentClass {
     CreatePortMutation(port, this);
   };
   render() {
-    const { handleSubmit, shownInModal } = this.props;
+    const { handleSubmit, isFromModal } = this.props;
     const editMode = true;
-    const showBackButton = isBrowser && !shownInModal;
+    const showBackButton = isBrowser && !isFromModal;
     const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
           {this.renderModelMainSection(editMode)}
-          {this.renderParentToggleSection(editMode)}
-          {this.renderConnectedToToggleSection(editMode)}
+          {!isFromModal && this.renderParentToggleSection(editMode)}
+          {!isFromModal && this.renderConnectedToToggleSection(editMode)}
           {this.renderWorkLog(editMode)}
         </div>
         {this.renderSaveCancelButtons()}
@@ -40,7 +41,6 @@ class CreatePortForm extends _PortFormParentClass {
 }
 
 CreatePortForm = reduxForm({
-  form: 'createPort',
   validate: ValidationsPortForm.validate,
   initialValues: {
     name: '',

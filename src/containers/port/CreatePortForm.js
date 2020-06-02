@@ -8,14 +8,16 @@ import getCable from '../../components/cable/Cable';
 import getPort from '../../components/port/Port';
 
 const mapStateToProps = (state, props) => {
+  const formName = props.isFromModal ? 'createPortInModal' : 'createPort';
   const updatePortSelector = formValueSelector('createPort');
   return {
-    fields: getFormMeta('createPort')(state),
-    formSyncErrors: getFormSyncErrors('createPort')(state),
+    form: formName,
+    fields: getFormMeta(formName)(state),
+    formSyncErrors: getFormSyncErrors(formName)(state),
     name: updatePortSelector(state, 'name'),
     getCableById: (id) => getCable(id),
     getPortById: (id) => getPort(id),
-    shownInModal: state.formModal.showModalForm,
+    isFromModal: props.isFromModal,
   };
 };
 

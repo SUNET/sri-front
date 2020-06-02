@@ -45,8 +45,12 @@ function CreatePortMutation(port, form) {
       if (port.comment) {
         CreateCommentMutation(portId, port.comment);
       }
-      form.props.history.push(`/network/ports/${portId}`);
       form.props.notify(i18n.t('notify.network/ports-created-success'), 'success');
+      if (form.props.history) {
+        form.props.history.push(`/network/ports/${portId}`);
+      } else {
+        form.props.hideModalForm();
+      }
     },
     onError: (errors) => console.error(errors),
     configs: [

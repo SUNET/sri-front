@@ -46,7 +46,11 @@ function CreateCableMutation(cable, form) {
       if (cable.comment) {
         CreateCommentMutation(cableId, cable.comment);
       }
-      form.props.history.push(`/network/cables/${cableId}`);
+      if (form.props.history) {
+        form.props.history.push(`/network/cables/${cableId}`);
+      } else {
+        form.props.hideModalForm();
+      }
       form.props.notify(i18n.t('notify.network/cables-created-success'), 'success');
     },
     onError: (errors) => console.error(errors),

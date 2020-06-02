@@ -6,7 +6,6 @@ import CableDetails from '../../components/cable/CableDetails';
 
 const mapStateToProps = (state, props) => {
   return {
-    isInsideModal: state.formModal.showModalForm,
     idFromModal: state.formModal.entityId,
     history: props.history,
   };

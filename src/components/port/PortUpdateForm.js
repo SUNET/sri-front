@@ -31,20 +31,22 @@ class PortUpdateForm extends _PortFormParentClass {
   };
   handleSubmit = (port) => {
     this.setState({ editMode: !this.state.editMode });
+    this.props.hideModalForm();
     UpdatePortMutation(port, this);
   };
   render() {
-    let { handleSubmit, shownInModal } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser && !shownInModal;
+    const showBackButton = isBrowser && !isFromModal;
     const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
-        {this.renderParentToggleSection(editMode)}
-        {this.renderConnectedToToggleSection(editMode)}
+        {!isFromModal && this.renderParentToggleSection(editMode)}
+        {!isFromModal && this.renderConnectedToToggleSection(editMode)}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>
@@ -53,7 +55,6 @@ class PortUpdateForm extends _PortFormParentClass {
 }
 
 PortUpdateForm = reduxForm({
-  form: 'updatePort',
   validate: BasicValidation.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {

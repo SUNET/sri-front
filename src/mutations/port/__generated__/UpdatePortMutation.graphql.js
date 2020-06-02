@@ -78,14 +78,16 @@ export type UpdatePortMutationResponse = {|
         +id: string,
         +name: string,
         +port_type: ?{|
-          +value: string
+          +value: string,
+          +name: string,
         |},
         +description: ?string,
         +parent: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
           +type?: ?{|
-            +value: string
+            +value: string,
+            +name: string,
           |},
           +description?: ?string,
         |}>,
@@ -93,7 +95,8 @@ export type UpdatePortMutationResponse = {|
           +id: string,
           +name: string,
           +type?: ?{|
-            +value: string
+            +value: string,
+            +name: string,
           |},
           +description?: ?string,
         |}>,
@@ -109,7 +112,8 @@ export type UpdatePortMutationResponse = {|
         +name: string,
         +description: ?string,
         +type: ?{|
-          +value: string
+          +value: string,
+          +name: string,
         |},
       |},
     |}>,
@@ -143,6 +147,7 @@ mutation UpdatePortMutation(
         name
         port_type {
           value
+          name
           id
         }
         description
@@ -153,6 +158,7 @@ mutation UpdatePortMutation(
           ... on Port {
             type: port_type {
               value
+              name
               id
             }
             description
@@ -160,6 +166,7 @@ mutation UpdatePortMutation(
           ... on Cable {
             type: cable_type {
               value
+              name
               id
             }
             description
@@ -172,6 +179,7 @@ mutation UpdatePortMutation(
           ... on Cable {
             type: cable_type {
               value
+              name
               id
             }
             description
@@ -190,6 +198,7 @@ mutation UpdatePortMutation(
         description
         type: cable_type {
           value
+          name
           id
         }
       }
@@ -267,7 +276,8 @@ v5 = {
   "storageKey": null
 },
 v6 = [
-  (v5/*: any*/)
+  (v5/*: any*/),
+  (v4/*: any*/)
 ],
 v7 = {
   "alias": null,
@@ -308,6 +318,7 @@ v10 = {
 },
 v11 = [
   (v5/*: any*/),
+  (v4/*: any*/),
   (v3/*: any*/)
 ],
 v12 = {
@@ -600,11 +611,11 @@ return {
     "metadata": {},
     "name": "UpdatePortMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdatePortMutation(\n  $input: CompositePortMutationInput!\n) {\n  composite_port(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          id\n        }\n        description\n        parent {\n          __typename\n          id\n          name\n          ... on Port {\n            type: port_type {\n              value\n              id\n            }\n            description\n          }\n          ... on Cable {\n            type: cable_type {\n              value\n              id\n            }\n            description\n          }\n        }\n        connected_to {\n          __typename\n          id\n          name\n          ... on Cable {\n            type: cable_type {\n              value\n              id\n            }\n            description\n          }\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        description\n        type: cable_type {\n          value\n          id\n        }\n      }\n    }\n    parent_port_updated {\n      errors {\n        field\n        messages\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdatePortMutation(\n  $input: CompositePortMutationInput!\n) {\n  composite_port(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          name\n          id\n        }\n        description\n        parent {\n          __typename\n          id\n          name\n          ... on Port {\n            type: port_type {\n              value\n              name\n              id\n            }\n            description\n          }\n          ... on Cable {\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n        }\n        connected_to {\n          __typename\n          id\n          name\n          ... on Cable {\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        description\n        type: cable_type {\n          value\n          name\n          id\n        }\n      }\n    }\n    parent_port_updated {\n      errors {\n        field\n        messages\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f99601745a16bdf8458d36e40bf0ec3f';
+(node/*: any*/).hash = '03fabc03d23b269da36142a091752b7f';
 
 module.exports = node;

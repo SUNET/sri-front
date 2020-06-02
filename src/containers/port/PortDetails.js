@@ -6,7 +6,6 @@ import PortDetails from '../../components/port/PortDetails';
 
 const mapStateToProps = (state, props) => {
   return {
-    isInsideModal: state.formModal.showModalForm,
     idFromModal: state.formModal.entityId,
     history: props.history,
   };
