@@ -38,15 +38,6 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 };
 
 class _OrganizationFormParentClass extends React.Component {
-    // componentDidMount() {
-    //     console.log('MOUNT organizations FORM ');
-    // }
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     console.log('UPDATE organizations FORM ');
-    // }
-    // componentWillUnmount() {
-    //     console.log('UNMOUT organizations FORM ');
-    // }
     // GLOBAL VARs
     IS_UPDATED_FORM = false;
     FORM_ID;

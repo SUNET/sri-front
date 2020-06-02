@@ -19,13 +19,13 @@ class CableDetails extends React.Component {
   };
 
   getId() {
-    const { isInsideModal, idFromModal, match } = this.props;
-    const entityId = isInsideModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
+    const { isFromModal, idFromModal, match } = this.props;
+    const entityId = isFromModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
     return entityId;
   }
 
   handleDelete = () => {
-    const { history, isInsideModal, deletedEntity } = this.props;
+    const { history, isFromModal, deletedEntity } = this.props;
     const idEntity = this.getId();
     const callbackAfterDeleteInModal = () => {
       deletedEntity(idEntity);
@@ -33,7 +33,7 @@ class CableDetails extends React.Component {
     const callbackInRouteForm = () => {
       history.push(`/network/cables`);
     };
-    DeleteCableMutation(idEntity, isInsideModal ? callbackAfterDeleteInModal : callbackInRouteForm);
+    DeleteCableMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 
   render() {
@@ -52,6 +52,7 @@ class CableDetails extends React.Component {
             return (
               <section className="model-details cable-details">
                 <CableUpdateFormContainer
+                  isFromModal={this.props.isFromModal}
                   onDelete={this.handleDelete}
                   cable={props.getCableById}
                   history={this.props.history}

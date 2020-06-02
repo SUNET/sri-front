@@ -76,12 +76,12 @@ class ModalNewContact extends React.Component {
             <Modal.Title className={classModalTitle}>
               <div className="new-contact-modal-form__header__title">{t(textHeader)}</div>
               <div className={`new-contact-modal-form__header__buttons ${classButtons}`}>
-                <SaveCancelCTAs formId={formId} cancelText={t('actions.cancel')} onCancel={() => this.handleClose()} />
+                <SaveCancelCTAs formId={`${formId}InModal`} cancelText={t('actions.cancel')} onCancel={() => this.handleClose()} />
               </div>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ComponentToRender />
+            <ComponentToRender isFromModal />
           </Modal.Body>
         </Modal>
       </div>
