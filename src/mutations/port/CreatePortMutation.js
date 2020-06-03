@@ -49,6 +49,7 @@ function CreatePortMutation(port, form) {
       if (form.props.history) {
         form.props.history.push(`/network/ports/${portId}`);
       } else {
+        form.props.createdEntity('Port', portId);
         form.props.hideModalForm();
       }
     },
@@ -64,98 +65,3 @@ function CreatePortMutation(port, form) {
 }
 
 export default CreatePortMutation;
-
-/**
-// MUTATION
-mutation CreatePortMutation($input: CompositePortMutationInput!) {
-  composite_port(input: $input) {
-    created {
-      errors {
-        field
-        messages
-      }
-      port {
-        id
-        name
-        port_type {
-          value
-        }
-        description
-        parent {
-          id
-          name
-          ... on Port {
-            port_type {
-              value
-            }
-            description
-          }
-        }
-        connected_to {
-          id
-          name
-          ... on Cable {
-            description
-            cable_type {
-              value
-            }
-          }
-        }
-      }
-    }
-    subcreated {
-      errors {
-        field
-        messages
-      }
-      cable {
-        id
-        name
-        description
-        cable_type {
-          value
-        }
-      }
-    }
-    parent_port_created {
-      errors {
-        field
-        messages
-      }
-      port {
-        id
-        name
-        port_type {
-          value
-        }
-        description
-      }
-    }
-  }
-}
-
-// VARIABLES
-{
-    "input": {
-        "create_input": {
-            "name": "test-01",
-            "port_type": "Schuko",
-            "description": ""
-        },
-        "create_subinputs": [
-            {
-                "name": "Test cable",
-                "cable_type": "Patch",
-                "description": ""
-            }
-        ],
-        "create_parent_port": [
-            {
-                "name": "test-00",
-                "port_type": "Schuko",
-                "description": ""
-            }
-        ]
-    }
-}
-*/

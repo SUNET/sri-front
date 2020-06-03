@@ -108,7 +108,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
   }
 
   renderParentToggleSection(editMode = false) {
-    const { t } = this.props;
+    const { t, entityRemovedId } = this.props;
     return (
       <section className="model-section">
         <ToggleSection>
@@ -125,13 +125,16 @@ class _PortFormParentClass extends _BasicFormParentClass {
               errors={this.props.formSyncErrors.parents}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'parents' });
                 this.props.showModalCreateForm(typeEntityToShowForm);
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'parents' });
                 this.props.showModalUpdateForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedParent}
               rerenderOnEveryChange={true}
+              entityRemovedId={this.state.fieldModalOpened === 'parents' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>
@@ -140,7 +143,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
   }
 
   renderConnectedToToggleSection(editMode = false) {
-    const { t } = this.props;
+    const { t, entityRemovedId } = this.props;
     return (
       <section className="model-section">
         <ToggleSection>
@@ -157,13 +160,16 @@ class _PortFormParentClass extends _BasicFormParentClass {
               errors={this.props.formSyncErrors.connectedTo}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'connectedTo' });
                 this.props.showModalCreateForm(typeEntityToShowForm);
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'connectedTo' });
                 this.props.showModalUpdateForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedConnectedTo}
               rerenderOnEveryChange={true}
+              entityRemovedId={this.state.fieldModalOpened === 'connectedTo' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>

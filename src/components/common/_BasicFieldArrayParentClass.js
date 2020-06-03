@@ -26,15 +26,14 @@ class _BasicFieldArrayParentClass extends React.Component {
       selectedRowKey: null, // DEFAULT: null
       currentPreFilterModel: '',
       preFilterMethod: '',
+      fieldModalOpened: '',
     };
   }
-
   // lifecycle
   shouldComponentUpdate(nextProps, nextState) {
-    const newRemovedRow = !!nextProps.removedContactId && nextProps.removedContactId !== this.props.removedContactId;
+    const newRemovedRow = !!nextProps.entityRemovedId && nextProps.entityRemovedId !== this.props.entityRemovedId;
     if (newRemovedRow) {
-      this.props.removedContactDeletedFromTheList();
-      this.removeRow(nextProps.removedContactId);
+      this.removeRow(nextProps.entityRemovedId);
     }
     return !newRemovedRow;
   }
@@ -97,11 +96,14 @@ class _BasicFieldArrayParentClass extends React.Component {
   };
 
   showCreateForm() {
-    const entityToShow = this.PRE_FILTER_SELECT.entityMandatory ? this.PRE_FILTER_SELECT.entityMandatory : this.state.currentPreFilterModel;
+    const entityToShow = this.PRE_FILTER_SELECT.entityMandatory
+      ? this.PRE_FILTER_SELECT.entityMandatory
+      : this.state.currentPreFilterModel;
     this.props.handleDeployCreateForm(entityToShow);
   }
 
   removeRow(id) {
+    console.log('id: ', id);
     const currentValue = this.getValueById(id);
     this.hideDataModal();
     if (currentValue.data.origin === 'store') {
@@ -375,7 +377,14 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderDropDownSearch() {
-    const { t } = this.props;
+    const { t, fields } = this.props;
+    let existingElements = [];
+    if (fields.getAll()) {
+      existingElements = fields
+        .getAll()
+        .filter((el) => el.status === 'saved')
+        .map((row) => row.id);
+    }
     return (
       <DropdownSearch
         disabled={this.PRE_FILTER_SELECT ? !this.state.currentPreFilterModel : false}
@@ -384,6 +393,7 @@ class _BasicFieldArrayParentClass extends React.Component {
           this.props.handleSearchResult(selectedElement, this.state.preFilterMethod);
         }}
         placeholder={`${t(`search-filter.search`)} ${this.state.currentPreFilterModel}`}
+        skipElements={existingElements}
       />
     );
   }

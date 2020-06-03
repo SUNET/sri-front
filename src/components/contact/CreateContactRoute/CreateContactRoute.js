@@ -1,12 +1,9 @@
-import React from "react";
-import { withTranslation } from "react-i18next";
-import CreateContactFormContainer from "../../../containers/contact/CreateContactForm";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { withTranslation } from 'react-i18next';
+import { withRouter } from 'react-router-dom';
+import CreateContactFormContainer from '../../../containers/contact/CreateContactForm';
 
-class CreateContactRoute extends React.Component {
-    render() {
-        return <CreateContactFormContainer history={this.props.history} />;
-    }
-}
+
+const CreateContactRoute = ({ history }) => <CreateContactFormContainer history={history} />;
 
 export default withTranslation()(withRouter(CreateContactRoute));

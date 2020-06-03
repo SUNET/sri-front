@@ -28,6 +28,10 @@ const mapStateToProps = (state, props) => {
     fields: getFormMeta(formName)(state),
     getProvider: (id) => getProvider(id),
     isFromModal: props.isFromModal,
+    entityInModalName: state.formModal.entityName,
+    editedSubEntity: state.formModal.entityEditedId,
+    entitySavedId: state.formModal.entitySavedId,
+    entityRemovedId: state.formModal.entityRemovedId,
   };
 };
 

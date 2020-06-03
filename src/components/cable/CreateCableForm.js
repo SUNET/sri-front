@@ -39,7 +39,6 @@ class CreateCableForm extends _CableFormParentClass {
 }
 
 CreateCableForm = reduxForm({
-  form: 'createCable',
   validate: ValidationsCableForm.validate,
   initialValues: {
     name: '',

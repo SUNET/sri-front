@@ -37,10 +37,9 @@ function CreateCableMutation(cable, form) {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      console.log('response: ', response);
       if (response.create_cable.errors) {
         form.props.notify(i18n.t('notify.error'), 'error');
-        return response.create_cable.updated.errors;
+        return response.create_cable.errors;
       }
       const cableId = response.create_cable.cable.id;
       if (cable.comment) {
@@ -49,6 +48,7 @@ function CreateCableMutation(cable, form) {
       if (form.props.history) {
         form.props.history.push(`/network/cables/${cableId}`);
       } else {
+        form.props.createdEntity('Cable', cableId);
         form.props.hideModalForm();
       }
       form.props.notify(i18n.t('notify.network/cables-created-success'), 'success');

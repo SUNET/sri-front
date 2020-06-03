@@ -19,6 +19,24 @@ class PortUpdateForm extends _PortFormParentClass {
   state = {
     editMode: false,
   };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'parents') {
+        this.handleSelectedParent(selectionData, methodName);
+      } else if (fieldModalOpened === 'connectedTo') {
+        this.handleSelectedConnectedTo(selectionData);
+      }
+      return false;
+    }
+    return true;
+  }
+
   refetch = () => {
     this.props.relay.refetch(
       { portId: this.props.port.id }, // Our refetchQuery needs to know the `portID`

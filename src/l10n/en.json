@@ -153,6 +153,8 @@
             "notify.network/endUsers-created-success": "End User created successfully",
             "notify.network/customers-created-success": "Customer created successfully",
             "notify.network/siteOwners-created-success": "Site Owner created successfully",
+            "notify.network/ports-created-success": "Port created successfully",
+            "notify.network/cables-created-success": "Cable created successfully",
             "notify.changes-saved": "Changes saved",
             "notify.error": "An error has occurred",
             "general.error": "Server error, redirecting to login please wait",

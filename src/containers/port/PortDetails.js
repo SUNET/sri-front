@@ -19,8 +19,8 @@ const mapDispatchToProps = (dispatch, props) => {
     hideModalForm: () => {
       dispatch(formModalActions.hideModalForm());
     },
-    deletedEntity: (contactId) => {
-      dispatch(formModalActions.deletedEntity('Port', contactId));
+    deletedEntity: (portId) => {
+      dispatch(formModalActions.deletedEntity('Port', portId));
     },
   };
 };

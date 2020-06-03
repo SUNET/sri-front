@@ -35,6 +35,9 @@ const mapDispatchToProps = (dispatch, props) => {
     hideModalForm: () => {
       dispatch(formModalActions.hideModalForm());
     },
+    createdEntity: (entityName, entityId) => {
+      dispatch(formModalActions.createdEntity(entityName, entityId));
+    },
   };
 };
 
