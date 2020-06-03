@@ -26,6 +26,18 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
         onChange: PropTypes.func
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.entitySavedId) {
+            const { fieldModalOpened } = nextState;
+            const selectionData = {
+                id: nextProps.entitySavedId,
+            };
+            this.handleSelectedContact(selectionData);
+            return false;
+        }
+        return true;
+    }
+
     refetch = () => {
         this.props.relay.refetch(
             { organizationId: this.props.organization.id }, // Our refetchQuery needs to know the `organizationID`

@@ -7,7 +7,8 @@ import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import * as FormModalActions from '../../actions/FormModal';
 
 const mapStateToProps = (state, props) => {
-  const updateContactSelector = formValueSelector('updateContact');
+  const formName = props.isFromModal ? 'updateContactInModal' : 'updateContact';
+  const updateContactSelector = formValueSelector(formName);
   const initialValues = {
     first_name: props.contact.first_name,
     last_name: props.contact.last_name,
@@ -75,6 +76,7 @@ const mapStateToProps = (state, props) => {
   };
   const organizationValues = updateContactSelector(state, 'organizations');
   return {
+    form: formName,
     initialValues,
     name: updateContactSelector(state, 'name'),
     first_name: updateContactSelector(state, 'first_name'),
@@ -92,9 +94,9 @@ const mapStateToProps = (state, props) => {
       organizationValues.map((organization, index) => {
         return isDirty('updateContact')(state, [`organizations[${index}]`]);
       }),
-    formSyncErrors: getFormSyncErrors('updateContact')(state),
-    fields: getFormMeta('updateContact')(state),
-    shownInModal: state.formModal.showModalForm,
+    formSyncErrors: getFormSyncErrors(formName)(state),
+    fields: getFormMeta(formName)(state),
+    isFromModal: props.isFromModal,
   };
 };
 

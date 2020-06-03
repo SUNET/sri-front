@@ -205,6 +205,7 @@ export default function CreateContactMutation(contact, form) {
       if (form.props.history) {
         form.props.history.push(`/community/contacts/${contactId}`);
       } else {
+        form.props.createdEntity('Contact', contactId);
         form.props.hideContactModal();
       }
       form.props.notify(i18n.t('notify.contact-created-success'), 'success');

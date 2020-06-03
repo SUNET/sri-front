@@ -72,8 +72,8 @@ class _ContactFormParentClass extends React.Component {
         this.props.onDelete();
     };
     onClickCancel = () => {
-        const { shownInModal, history, hideContactModal } = this.props;
-        if (shownInModal) {
+        const { isFromModal, history, hideContactModal } = this.props;
+        if (isFromModal) {
             hideContactModal();
         } else {
             history.goBack();
@@ -100,27 +100,28 @@ class _ContactFormParentClass extends React.Component {
         );
     }
     renderSaveCancelButtons() {
-        const { t } = this.props;
+        const { t, isFromModal } = this.props;
         const textToButtons = this.IS_UPDATED_FORM ? t("actions.delete") : t("actions.cancel");
         const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
-        return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
+        const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
+        return <SaveCancelCTAs formId={formId} cancelText={textToButtons} onCancel={functionToCancel} />;
     }
-    renderHeader(editMode = true, showBackButton = true, shownInModal = false) {
+    renderHeader(editMode = true, showBackButton = true, isFromModal = false) {
         return (
             <Form.Row>
                 <Col className={`d-inline-flex align-items-center ${isMobile ? "mb-3" : ""}`}>
-                    {this.renderHeaderName(editMode, showBackButton, shownInModal)}
+                    {this.renderHeaderName(editMode, showBackButton, isFromModal)}
                 </Col>
-                {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight(shownInModal)}</Col>}
+                {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight(isFromModal)}</Col>}
             </Form.Row>
         );
     }
-    renderHeaderName(editMode = true, showBackButton = true, shownInModal = false) {
+    renderHeaderName(editMode = true, showBackButton = true, isFromModal = false) {
         const editionModeClass = editMode ? "title-section__name-inputs--edition-mode" : "";
         return (
             <div className="title-section">
                 {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
-                {this.IS_UPDATED_FORM && isMobile && !shownInModal && this.renderEditButton()}
+                {this.IS_UPDATED_FORM && isMobile && !isFromModal && this.renderEditButton()}
                 <div className="vertical-separator"></div>
                 <div className={`title-section__name-inputs ${editionModeClass}`}>
                     {this.renderInputName("first_name", editMode)}
@@ -129,10 +130,10 @@ class _ContactFormParentClass extends React.Component {
             </div>
         );
     }
-    renderHeaderRight(shownInModal = false) {
+    renderHeaderRight(isFromModal = false) {
         return (
             <div className="title-section__right-block">
-                {isBrowser && !shownInModal && this.renderEditButton()}
+                {isBrowser && !isFromModal && this.renderEditButton()}
                 <InfoCreatorModifier model={this.props[this.MODEL_NAME]} />
             </div>
         );
