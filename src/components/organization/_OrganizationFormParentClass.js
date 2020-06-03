@@ -44,6 +44,18 @@ class _OrganizationFormParentClass extends React.Component {
     MODEL_NAME = "organization";
     ROUTE_LIST_DIRECTION = "/community/organizations";
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.entitySavedId) {
+            const { fieldModalOpened } = nextState;
+            const selectionData = {
+                id: nextProps.entitySavedId,
+            };
+            this.handleSelectedContact(selectionData);
+            return false;
+        }
+        return true;
+    }
+
     componentDidMount() {
         if (this.IS_UPDATED_FORM) {
             // register vitual field for affiliation for checked if it has errors (improve in backend)

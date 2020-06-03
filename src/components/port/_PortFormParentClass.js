@@ -38,6 +38,23 @@ class _PortFormParentClass extends _BasicFormParentClass {
   MODEL_NAME = 'port';
   ROUTE_LIST_DIRECTION = '/network/ports';
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'parents') {
+        this.handleSelectedParent(selectionData, methodName);
+      } else if (fieldModalOpened === 'connectedTo') {
+        this.handleSelectedConnectedTo(selectionData);
+      }
+      return false;
+    }
+    return true;
+  }
+
   handleSelectedParent = (selection, typeOfSelection) => {
     if (selection !== null) {
       this.props[typeOfSelection](selection.id).then((entity) => {

@@ -391,7 +391,13 @@ class FieldArrayContactsOrganization extends React.Component {
     }
     renderFooter() {
         const { t, editable, fields} = this.props;
-        const existingElements = fields.getAll().filter(el => el.status === 'saved').map(row => row.id);
+        let existingElements = [];
+        if (fields.getAll()) {
+            existingElements = fields
+                .getAll()
+                .filter((el) => el.status === 'saved')
+                .map((row) => row.id);
+        }
         return (
             <div className="contact-in-organization__footer">
                 {editable && (

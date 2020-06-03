@@ -18,6 +18,10 @@ const mapStateToProps = (state, props) => {
     getCableById: (id) => getCable(id),
     getPortById: (id) => getPort(id),
     isFromModal: props.isFromModal,
+    entityInModalName: state.formModal.entityName,
+    editedSubEntity: state.formModal.entityEditedId,
+    entitySavedId: state.formModal.entitySavedId,
+    entityRemovedId: state.formModal.entityRemovedId,
   };
 };
 

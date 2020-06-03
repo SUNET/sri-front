@@ -24,6 +24,18 @@ class _GroupFormParentClass extends React.Component {
     MODEL_NAME = "group";
     ROUTE_LIST_DIRECTION = "/community/groups";
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.entitySavedId) {
+            const { fieldModalOpened } = nextState;
+            const selectionData = {
+                id: nextProps.entitySavedId,
+            };
+            this.handleSelectedMember(selectionData);
+            return false;
+        }
+        return true;
+    }
+
     componentDidMount() {
         if (this.IS_UPDATED_FORM) {
             this.updateBreadcrumbsData();
