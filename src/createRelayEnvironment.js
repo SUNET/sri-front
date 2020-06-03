@@ -20,7 +20,7 @@ async function getCsrfToken() {
     return _csrfToken;
 }
 
-function fetchQuery(operation, variables, cacheConfig, uploadables) {
+async function fetchQuery(operation, variables, cacheConfig, uploadables) {
     const queryId = operation.name;
     const isMutation = operation.operationKind === "mutation";
     const isQuery = operation.operationKind === "query";
@@ -42,7 +42,7 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "X-CSRFToken": getCsrfToken()
+            "X-CSRFToken": await getCsrfToken()
         },
         body: JSON.stringify({
             query: operation.text,
@@ -51,7 +51,7 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
     })
         .then((response) => {
             if (response.redirected) {
-                return window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+                return window.location.replace(`${API_HOST}/login/?next=/`);
             }
             return response.json();
         })
@@ -74,7 +74,7 @@ function fetchQuery(operation, variables, cacheConfig, uploadables) {
             return jsonResult
         })
         .catch((err) => {
-            window.location.replace(`${API_HOST}/authn?next=${document.location.href}`);
+            window.location.replace(`${API_HOST}/login/?next=/`);
         });
 }
 

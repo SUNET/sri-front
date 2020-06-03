@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import Cookies from 'js-cookie';
 import { Logout } from '../../components/Logout';
 
 let LogoutWrapper;
@@ -23,7 +22,6 @@ beforeEach(() => {
   LogoutComponent = LogoutWrapper.find('Logout');
   delete window.location;
   window.location = { replace: jest.fn() };
-  Cookies.remove = jest.fn();
 });
 afterEach(() => {
   LogoutWrapper.unmount();
@@ -40,6 +38,5 @@ describe('Actions', () => {
   it('Click in Logout', () => {
     LogoutComponent.simulate('click');
     expect(window.location.replace).toHaveBeenCalled();
-    expect(Cookies.remove).toHaveBeenCalled();
   });
 });
