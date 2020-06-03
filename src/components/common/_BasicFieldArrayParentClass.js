@@ -103,7 +103,6 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   removeRow(id) {
-    console.log('id: ', id);
     const currentValue = this.getValueById(id);
     this.hideDataModal();
     if (currentValue.data.origin === 'store') {
@@ -238,22 +237,30 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderEditButton(row) {
+    // at the moment it will only show the details
     const { t } = this.props;
     return (
       <button
         type="button"
-        onClick={() => {
-          this.props.showRowEditModal(row.__typename, row.id);
-        }}
-        className="btn outline btn-edit"
+        className="btn outline btn-add more-info"
+        onClick={() => this.props.showRowEditModal(row.__typename, row.id)}
       >
-        <i className="icon-pencil"></i>
-        <span>{t('actions.edit')}</span>
+        <span>{t('actions.info')}</span>
       </button>
+      // <button
+      //   type="button"
+      //   onClick={() => {
+      //     this.props.showRowEditModal(row.__typename, row.id);
+      //   }}
+      //   className="btn outline btn-edit"
+      // >
+      //   <i className="icon-pencil"></i>
+      //   <span>{t('actions.edit')}</span>
+      // </button>
     );
   }
 
-  renderRemoveCtaCrossAndEditButton(row) {
+  renderRemoveCtaCrossAndEditButton(row, editable) {
     return (
       <div
         className={`contact-in-organization__body__buttons-in-the-final-row ${
@@ -261,10 +268,10 @@ class _BasicFieldArrayParentClass extends React.Component {
         }`}
       >
         {isBrowser && this.renderEditButton(row)}
-        <div
+        {editable && <div
           className={`row-remove-cta ${isBrowser ? 'row-remove-cta--desktop-version' : ''}`}
           onClick={() => this.removeRow(row.id)}
-        ></div>
+        ></div>}
       </div>
     );
   }
@@ -349,7 +356,7 @@ class _BasicFieldArrayParentClass extends React.Component {
                   {isBrowser && <div className="contact-in-organization__body__row__element">{row.type.name}</div>}
                   {isBrowser && <div className="contact-in-organization__body__row__element">{row.description}</div>}
 
-                  {editable && this.renderRemoveCtaCrossAndEditButton(row)}
+                  {this.renderRemoveCtaCrossAndEditButton(row, editable)}
                 </div>
               );
             })}

@@ -26,7 +26,6 @@ class _GroupFormParentClass extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.entitySavedId) {
-            const { fieldModalOpened } = nextState;
             const selectionData = {
                 id: nextProps.entitySavedId,
             };

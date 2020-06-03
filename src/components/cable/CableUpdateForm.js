@@ -55,7 +55,6 @@ class CableUpdateForm extends _CableFormParentClass {
 }
 
 CableUpdateForm = reduxForm({
-  form: 'updateCable',
   validate: ValidationsCableForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {

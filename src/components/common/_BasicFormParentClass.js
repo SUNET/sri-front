@@ -118,19 +118,21 @@ class _BasicFormParentClass extends React.Component {
   }
   renderHeaderName(editMode = true, showBackButton = true) {
     const editionModeClass = editMode ? 'title-section__name-inputs--edition-mode' : '';
+    const { isFromModal } = this.props;
     return (
       <div className="title-section">
         {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
-        {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
+        {!isFromModal && this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
         <div className="vertical-separator"></div>
         <div className={`title-section__name-inputs ${editionModeClass}`}>{this.renderInputName('name', editMode)}</div>
       </div>
     );
   }
   renderHeaderRight() {
+    const { isFromModal } = this.props;
     return (
       <div className="title-section__right-block">
-        {isBrowser && this.renderEditButton()}
+        {!isFromModal && isBrowser && this.renderEditButton()}
         <InfoCreatorModifier model={this.props[this.MODEL_NAME]} />
       </div>
     );

@@ -258,30 +258,37 @@ class FieldArrayContactsOrganization extends React.Component {
         );
     }
 
-    renderEditContactButton(id) {
+    renderEditButton(id) {
         const { t } = this.props;
         return (
             <button
-                    type="button"
-                    onClick={() => {
-                        this.props.handleShowContactDetail(id);
-                    }}
-                    className="btn outline btn-edit"
+                type="button"
+                className="btn outline btn-add more-info"
+                onClick={() => this.props.handleShowContactDetail(id)}
             >
-                <i className="icon-pencil"></i>
-                <span>{t("actions.edit")}</span>
+                <span>{t('actions.info')}</span>
             </button>
+            // <button
+            //         type="button"
+            //         onClick={() => {
+            //             this.props.handleShowContactDetail(id);
+            //         }}
+            //         className="btn outline btn-edit"
+            // >
+            //     <i className="icon-pencil"></i>
+            //     <span>{t("actions.edit")}</span>
+            // </button>
         );
     }
 
-    renderRemoveCtaCrossAndEditButton(id) {
+    renderRemoveCtaCrossAndEditButton(id, editable) {
         return (
             <div className={`contact-in-organization__body__buttons-in-the-final-row ${isBrowser ? "contact-in-organization__body__buttons-in-the-final-row--desktop-version" : ""}`}>
-                {isBrowser && this.renderEditContactButton(id)}
-                <div
+                {isBrowser && this.renderEditButton(id)}
+                {editable && <div
                     className={`row-remove-cta ${isBrowser ? "row-remove-cta--desktop-version" : ""}`}
                     onClick={() => this.removeRow(id)}
-                ></div>
+                ></div>}
             </div>
         );
     }
@@ -367,7 +374,7 @@ class FieldArrayContactsOrganization extends React.Component {
                                 <div className="contact-in-organization__body__row__element">{row.name}</div>
                                 {isMobile && (
                                     <div className="contact-in-organization__body__row__element info-button">
-                                        {editable && this.renderEditContactButton(row.id)}
+                                        {editable && this.renderEditButton(row.id)}
                                         {!editable && this.renderMoreInfoButton(row.id)}
                                     </div>
                                 )}
@@ -382,7 +389,7 @@ class FieldArrayContactsOrganization extends React.Component {
                                         {this.generateSubDataList(row, "phone")}
                                     </div>
                                 )}
-                                {editable && this.renderRemoveCtaCrossAndEditButton(row.id)}
+                                {this.renderRemoveCtaCrossAndEditButton(row.id, editable)}
                             </div>
                         );
                     })}
