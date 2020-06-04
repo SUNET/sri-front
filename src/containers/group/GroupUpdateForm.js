@@ -71,6 +71,7 @@ const mapStateToProps = (state, props) => {
     fields: getFormMeta('updateGroup')(state),
     getContact: (id) => getContact(id),
     entityRemovedId: state.formModal.entityRemovedId,
+    entitySavedId: state.formModal.entitySavedId,
   };
 };
 

@@ -20,6 +20,7 @@ const mutation = graphql`
           name
           port_type {
             value
+            name
           }
           description
           parent {
@@ -28,12 +29,14 @@ const mutation = graphql`
             ... on Port {
               type: port_type {
                 value
+                name
               }
               description
             }
             ... on Cable {
               type: cable_type {
                 value
+                name
               }
               description
             }
@@ -44,6 +47,7 @@ const mutation = graphql`
             ... on Cable {
               type: cable_type {
                 value
+                name
               }
               description
             }
@@ -61,6 +65,7 @@ const mutation = graphql`
           description
           type: cable_type {
             value
+            name
           }
         }
       }
@@ -128,19 +133,22 @@ export default function UpdatePortMutation(port, form) {
       // delete_subinputs: [],
     },
   };
-  console.log(JSON.stringify(variables));
+
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      console.log('response: ', response);
       if (response.composite_port.updated.errors) {
         form.props.notify(i18n.t('notify.error'), 'error');
         return response.update_port.updated.errors;
       }
       form.props.reset();
-      form.refetch();
-      form.props.notify(i18n.t('notify.changes-saved'), 'success');
+      // form.refetch();
+      if (form.props.isFromModal) {
+        form.props.editedEntity('Port', response.composite_port.updated.port.id);
+      } else {
+        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+      }
     },
     updater: (store) => {},
     onError: (err) => console.error(err),

@@ -6,7 +6,6 @@ import PortDetails from '../../components/port/PortDetails';
 
 const mapStateToProps = (state, props) => {
   return {
-    isInsideModal: state.formModal.showModalForm,
     idFromModal: state.formModal.entityId,
     history: props.history,
   };
@@ -20,8 +19,8 @@ const mapDispatchToProps = (dispatch, props) => {
     hideModalForm: () => {
       dispatch(formModalActions.hideModalForm());
     },
-    deletedEntity: (contactId) => {
-      dispatch(formModalActions.deletedEntity('Port', contactId));
+    deletedEntity: (portId) => {
+      dispatch(formModalActions.deletedEntity('Port', portId));
     },
   };
 };

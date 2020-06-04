@@ -6,15 +6,17 @@ import * as formModalActions from '../../actions/FormModal';
 import CreateContactForm from '../../components/contact/CreateContactForm';
 
 const mapStateToProps = (state, props) => {
+  const formName = props.isFromModal ? 'createContactInModal' : 'createContact';
   const updateContactSelector = formValueSelector('createContact');
   return {
-    fields: getFormMeta('createContact')(state),
-    formSyncErrors: getFormSyncErrors('createContact')(state),
+    form: formName,
+    fields: getFormMeta(formName)(state),
+    formSyncErrors: getFormSyncErrors(formName)(state),
     name: updateContactSelector(state, 'name'),
     first_name: updateContactSelector(state, 'first_name'),
     last_name: updateContactSelector(state, 'last_name'),
     organizationValues: updateContactSelector(state, 'organizations'),
-    shownInModal: state.formModal.showModalForm,
+    isFromModal: props.isFromModal,
   };
 };
 
@@ -25,6 +27,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     hideContactModal: () => {
       dispatch(formModalActions.hideModalForm(props.index));
+    },
+    createdEntity: (entityName, entityId) => {
+      dispatch(formModalActions.createdEntity(entityName, entityId));
     },
   };
 };

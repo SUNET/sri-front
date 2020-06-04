@@ -9,16 +9,6 @@ import DeletePortMutation from '../../mutations/port/DeletePortMutation';
 import PortDetailsQuery from '../../queries/port/PortDetailsQuery';
 
 class PortDetails extends React.Component {
-  // componentDidMount() {
-  //   console.log('MOUNT port details');
-  // }
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   console.log('UPDATE port detals');
-  // }
-  // componentWillUnmount() {
-  //   console.log('UNMOUT port details');
-  // }
-
   ID_ENTITY_KEY = 'portId';
   static propTypes = {
     match: PropTypes.shape({
@@ -29,13 +19,13 @@ class PortDetails extends React.Component {
   };
 
   getId() {
-    const { isInsideModal, idFromModal, match } = this.props;
-    const entityId = isInsideModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
+    const { isFromModal, idFromModal, match } = this.props;
+    const entityId = isFromModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
     return entityId;
   }
 
   handleDelete = () => {
-    const { history, isInsideModal, deletedEntity } = this.props;
+    const { history, isFromModal, deletedEntity } = this.props;
     const idEntity = this.getId();
     const callbackAfterDeleteInModal = () => {
       deletedEntity(idEntity);
@@ -43,7 +33,7 @@ class PortDetails extends React.Component {
     const callbackInRouteForm = () => {
       history.push(`/network/ports`);
     };
-    DeletePortMutation(idEntity, isInsideModal ? callbackAfterDeleteInModal : callbackInRouteForm);
+    DeletePortMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 
   render() {
@@ -62,6 +52,7 @@ class PortDetails extends React.Component {
             return (
               <section className="model-details port-details">
                 <PortUpdateFormContainer
+                  isFromModal={this.props.isFromModal}
                   onDelete={this.handleDelete}
                   port={props.getPortById}
                   history={this.props.history}

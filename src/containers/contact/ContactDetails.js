@@ -6,7 +6,7 @@ import ContactDetails from '../../components/contact/ContactDetails';
 
 const mapStateToProps = (state, props) => {
   return {
-    isInsideModal: state.formModal.showModalForm,
+    isFromModal: props.isFromModal,
     idFromModal: state.formModal.entityId,
     history: props.history,
   };

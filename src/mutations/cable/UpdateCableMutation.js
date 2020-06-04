@@ -43,8 +43,12 @@ export default function UpdateCableMutation(cable, form) {
         return response.update_cable.updated.errors;
       }
       form.props.reset();
-      form.refetch();
-      form.props.notify(i18n.t('notify.changes-saved'), 'success');
+      // form.refetch();
+      if (form.props.isFromModal) {
+        form.props.editedEntity('Cable', response.update_cable.updated.cable.id);
+      } else {
+        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+      }
     },
     updater: () => {},
     onError: (err) => console.error(err),

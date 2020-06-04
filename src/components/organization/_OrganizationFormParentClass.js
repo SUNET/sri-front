@@ -38,20 +38,22 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
 };
 
 class _OrganizationFormParentClass extends React.Component {
-    // componentDidMount() {
-    //     console.log('MOUNT organizations FORM ');
-    // }
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     console.log('UPDATE organizations FORM ');
-    // }
-    // componentWillUnmount() {
-    //     console.log('UNMOUT organizations FORM ');
-    // }
     // GLOBAL VARs
     IS_UPDATED_FORM = false;
     FORM_ID;
     MODEL_NAME = "organization";
     ROUTE_LIST_DIRECTION = "/community/organizations";
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.entitySavedId) {
+            const selectionData = {
+                id: nextProps.entitySavedId,
+            };
+            this.handleSelectedContact(selectionData);
+            return false;
+        }
+        return true;
+    }
 
     componentDidMount() {
         if (this.IS_UPDATED_FORM) {

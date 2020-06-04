@@ -7,7 +7,8 @@ import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import { getProvider } from '../../components/provider/Provider';
 
 const mapStateToProps = (state, props) => {
-  const updateCableSelector = formValueSelector('updateCable');
+  const formName = props.isFromModal ? 'updateCableInModal' : 'updateCable';
+  const updateCableSelector = formValueSelector(formName);
   const { cable } = props;
   const initialValues = {
     id: cable.id,
@@ -17,15 +18,20 @@ const mapStateToProps = (state, props) => {
     cableTypeObj: cable.cable_type,
   };
   return {
+    form: formName,
     initialValues,
     name: updateCableSelector(state, 'name'),
     description: updateCableSelector(state, 'description'),
     cable_type: updateCableSelector(state, 'cable_type'),
     cableTypeObj: updateCableSelector(state, 'cableTypeObj'),
-    formSyncErrors: getFormSyncErrors('updateCable')(state),
-    fields: getFormMeta('updateCable')(state),
+    formSyncErrors: getFormSyncErrors(formName)(state),
+    fields: getFormMeta(formName)(state),
     getProvider: (id) => getProvider(id),
-    shownInModal: state.formModal.showModalForm,
+    isFromModal: props.isFromModal,
+    entityInModalName: state.formModal.entityName,
+    editedSubEntity: state.formModal.entityEditedId,
+    entitySavedId: state.formModal.entitySavedId,
+    entityRemovedId: state.formModal.entityRemovedId,
   };
 };
 
