@@ -13,6 +13,8 @@ const mapStateToProps = (state) => {
     formSyncErrors: getFormSyncErrors('createGroup')(state),
     memberValues: updateGroupSelector(state, 'members'),
     name: updateGroupSelector(state, 'name'),
+    entityRemovedId: state.formModal.entityRemovedId,
+    entitySavedId: state.formModal.entitySavedId,
     getContact: (id) => getContact(id),
   };
 };
@@ -24,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     showNewContactForm: () => {
       dispatch(formModalActions.showModalCreateForm('Contact'));
+    },
+    hideModalForm: () => {
+      dispatch(formModalActions.hideModalForm());
     },
   };
 };

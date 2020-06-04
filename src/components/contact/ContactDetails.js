@@ -18,13 +18,13 @@ class ContactDetails extends React.Component {
   };
 
   getId() {
-    const { isInsideModal, idFromModal, match } = this.props;
-    const entityId = isInsideModal && idFromModal ? idFromModal : match.params.contactId;
+    const { isFromModal, idFromModal, match } = this.props;
+    const entityId = isFromModal && idFromModal ? idFromModal : match.params.contactId;
     return entityId;
   }
 
   handleDelete = () => {
-    const { history, isInsideModal, deletedEntity } = this.props;
+    const { history, isFromModal, deletedEntity } = this.props;
     const contactId = this.getId();
     const callbackAfterDeleteInModal = () => {
       deletedEntity(contactId);
@@ -32,7 +32,7 @@ class ContactDetails extends React.Component {
     const callbackInRouteForm = () => {
       history.push(`/community/contacts`);
     };
-    DeleteContactMutation(contactId, isInsideModal ? callbackAfterDeleteInModal : callbackInRouteForm);
+    DeleteContactMutation(contactId, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 
   render() {
@@ -51,6 +51,7 @@ class ContactDetails extends React.Component {
             return (
               <section className="model-details contact-details">
                 <ContactUpdateFormContainer
+                  isFromModal={this.props.isFromModal}
                   onDelete={this.handleDelete}
                   contact={props.getContactById}
                   history={this.props.history}

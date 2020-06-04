@@ -19,6 +19,7 @@ class PortUpdateForm extends _PortFormParentClass {
   state = {
     editMode: false,
   };
+
   refetch = () => {
     this.props.relay.refetch(
       { portId: this.props.port.id }, // Our refetchQuery needs to know the `portID`

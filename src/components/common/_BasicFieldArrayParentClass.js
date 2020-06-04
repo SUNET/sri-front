@@ -26,15 +26,14 @@ class _BasicFieldArrayParentClass extends React.Component {
       selectedRowKey: null, // DEFAULT: null
       currentPreFilterModel: '',
       preFilterMethod: '',
+      fieldModalOpened: '',
     };
   }
-
   // lifecycle
   shouldComponentUpdate(nextProps, nextState) {
-    const newRemovedRow = !!nextProps.removedContactId && nextProps.removedContactId !== this.props.removedContactId;
+    const newRemovedRow = !!nextProps.entityRemovedId && nextProps.entityRemovedId !== this.props.entityRemovedId;
     if (newRemovedRow) {
-      this.props.removedContactDeletedFromTheList();
-      this.removeRow(nextProps.removedContactId);
+      this.removeRow(nextProps.entityRemovedId);
     }
     return !newRemovedRow;
   }
@@ -97,7 +96,9 @@ class _BasicFieldArrayParentClass extends React.Component {
   };
 
   showCreateForm() {
-    const entityToShow = this.PRE_FILTER_SELECT.entityMandatory ? this.PRE_FILTER_SELECT.entityMandatory : this.state.currentPreFilterModel;
+    const entityToShow = this.PRE_FILTER_SELECT.entityMandatory
+      ? this.PRE_FILTER_SELECT.entityMandatory
+      : this.state.currentPreFilterModel;
     this.props.handleDeployCreateForm(entityToShow);
   }
 
@@ -236,22 +237,30 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderEditButton(row) {
+    // at the moment it will only show the details
     const { t } = this.props;
     return (
       <button
         type="button"
-        onClick={() => {
-          this.props.showRowEditModal(row.__typename, row.id);
-        }}
-        className="btn outline btn-edit"
+        className="btn outline btn-add more-info"
+        onClick={() => this.props.showRowEditModal(row.__typename, row.id)}
       >
-        <i className="icon-pencil"></i>
-        <span>{t('actions.edit')}</span>
+        <span>{t('actions.info')}</span>
       </button>
+      // <button
+      //   type="button"
+      //   onClick={() => {
+      //     this.props.showRowEditModal(row.__typename, row.id);
+      //   }}
+      //   className="btn outline btn-edit"
+      // >
+      //   <i className="icon-pencil"></i>
+      //   <span>{t('actions.edit')}</span>
+      // </button>
     );
   }
 
-  renderRemoveCtaCrossAndEditButton(row) {
+  renderRemoveCtaCrossAndEditButton(row, editable) {
     return (
       <div
         className={`contact-in-organization__body__buttons-in-the-final-row ${
@@ -259,10 +268,10 @@ class _BasicFieldArrayParentClass extends React.Component {
         }`}
       >
         {isBrowser && this.renderEditButton(row)}
-        <div
+        {editable && <div
           className={`row-remove-cta ${isBrowser ? 'row-remove-cta--desktop-version' : ''}`}
           onClick={() => this.removeRow(row.id)}
-        ></div>
+        ></div>}
       </div>
     );
   }
@@ -347,7 +356,7 @@ class _BasicFieldArrayParentClass extends React.Component {
                   {isBrowser && <div className="contact-in-organization__body__row__element">{row.type.name}</div>}
                   {isBrowser && <div className="contact-in-organization__body__row__element">{row.description}</div>}
 
-                  {editable && this.renderRemoveCtaCrossAndEditButton(row)}
+                  {this.renderRemoveCtaCrossAndEditButton(row, editable)}
                 </div>
               );
             })}
@@ -375,7 +384,14 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderDropDownSearch() {
-    const { t } = this.props;
+    const { t, fields } = this.props;
+    let existingElements = [];
+    if (fields.getAll()) {
+      existingElements = fields
+        .getAll()
+        .filter((el) => el.status === 'saved')
+        .map((row) => row.id);
+    }
     return (
       <DropdownSearch
         disabled={this.PRE_FILTER_SELECT ? !this.state.currentPreFilterModel : false}
@@ -384,6 +400,7 @@ class _BasicFieldArrayParentClass extends React.Component {
           this.props.handleSearchResult(selectedElement, this.state.preFilterMethod);
         }}
         placeholder={`${t(`search-filter.search`)} ${this.state.currentPreFilterModel}`}
+        skipElements={existingElements}
       />
     );
   }

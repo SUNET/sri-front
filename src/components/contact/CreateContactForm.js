@@ -19,15 +19,16 @@ class CreateContactForm extends _ContactFormParentClass {
   };
 
   render() {
-    const { handleSubmit, shownInModal } = this.props;
+    const { handleSubmit, isFromModal } = this.props;
     const editMode = true;
-    const showBackButton = isBrowser && !shownInModal;
+    const showBackButton = isBrowser && !isFromModal;
     const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
-          {this.renderHeader(editMode, showBackButton, shownInModal)}
+          {this.renderHeader(editMode, showBackButton, isFromModal)}
           {this.renderModelMainSection(editMode)}
           {this.renderWorkLog(editMode)}
         </div>
@@ -38,7 +39,6 @@ class CreateContactForm extends _ContactFormParentClass {
 }
 
 CreateContactForm = reduxForm({
-  form: 'createContact',
   validate: ValidationsContactForm.contactFormValidate,
   initialValues: {},
 })(CreateContactForm);

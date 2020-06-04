@@ -29,6 +29,8 @@ const mapStateToProps = (state, props) => {
       provider: createOrganizationSelector(state, 'affiliation_provider'),
       site_owner: createOrganizationSelector(state, 'affiliation_site_owner'),
     },
+    entityRemovedId: state.formModal.entityRemovedId,
+    entitySavedId: state.formModal.entitySavedId,
     getContact: (id) => getContact(id),
   };
 };

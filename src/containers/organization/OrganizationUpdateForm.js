@@ -129,6 +129,7 @@ const mapStateToProps = (state, props) => {
       site_owner: updateOrganizationSelector(state, 'affiliation_site_owner'),
     },
     entityRemovedId: state.formModal.entityRemovedId,
+    entitySavedId: state.formModal.entitySavedId,
     getContact: (id) => getContact(id),
   };
 };

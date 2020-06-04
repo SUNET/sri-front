@@ -21,7 +21,7 @@ class ContactUpdateForm extends _ContactFormParentClass {
     constructor(props) {
         super(props);
         this.state = {
-            editMode: props.shownInModal,
+            editMode: props.isFromModal,
         }
     }
     refetch = () => {
@@ -40,13 +40,14 @@ class ContactUpdateForm extends _ContactFormParentClass {
         UpdateContactMutation(contact, this);
     };
     render() {
-        let { shownInModal, handleSubmit } = this.props;
-        const showBackButton = isBrowser && !shownInModal;
+        const { isFromModal, handleSubmit } = this.props;
+        const showBackButton = isBrowser && !isFromModal;
         const showSaveCancelInHeader = showBackButton;
+        const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
         return (
-            <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
+            <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
                 {showSaveCancelInHeader && this.renderSaveCancelButtons()}
-                {this.renderHeader(this.state.editMode, showBackButton, shownInModal)}
+                {this.renderHeader(this.state.editMode, showBackButton, isFromModal)}
                 {this.renderModelMainSection(this.state.editMode)}
                 {this.renderWorkLog(this.state.editMode)}
                 {this.renderSaveCancelButtons()}
@@ -56,7 +57,6 @@ class ContactUpdateForm extends _ContactFormParentClass {
 }
 
 ContactUpdateForm = reduxForm({
-    form: "updateContact",
     validate: ValidationsContactForm.contactFormValidate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {

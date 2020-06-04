@@ -11,12 +11,12 @@ import graphql from "babel-plugin-relay/macro";
 // Components imports
 import PortList from "../../containers/port/PortList";
 import PortDetailsContainer from "../../containers/port/PortDetails";
-import CreatePort from "./CreatePort";
+import CreatePortRoute from "./CreatePortRoute/CreatePortRoute";
 // Constants
 
 class SearchPort extends _SearchEntityParentClass {
     LIST_CONTAINER = PortList;
-    CREATE_COMPONENT = CreatePort;
+    CREATE_COMPONENT = CreatePortRoute;
     DETAIL_CONTAINER = PortDetailsContainer;
 
     MODEL_NAME = "port";
