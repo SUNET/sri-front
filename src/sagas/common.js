@@ -3,16 +3,11 @@ import CONFIG from '../config';
 const { API_HOST } = CONFIG;
 
 export async function getCsrfToken() {
-  let _csrfToken = null;
-  if (_csrfToken === null) {
-    const response = await fetch(`${API_HOST}/csrf/`, {
-      credentials: 'include',
-    });
-    const data = await response.json();
-    _csrfToken = data.csrfToken;
-  }
-
-  return _csrfToken;
+  const response = await fetch(`${API_HOST}/csrf/`, {
+    credentials: 'include',
+  });
+  const data = await response.json();
+  return data.csrfToken;
 }
 
 async function getHeaders() {
