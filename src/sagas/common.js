@@ -58,6 +58,11 @@ export const checkStatus = function(response) {
     if (response.status >= 200 && response.status < 300) {
         return response;
     } else {
-        throw new Error(response.statusText);
+        fetch(`${API_HOST}/login/?next=/`, {
+            method: "GET"
+        }).then((response) => {
+            document.location.href = response.url;
+        });
+        //throw new Error(response.statusText);
     }
 };
