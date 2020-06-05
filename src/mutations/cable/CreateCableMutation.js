@@ -2,23 +2,36 @@ import { commitMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
-import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
+import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
 
 const mutation = graphql`
-  mutation CreateCableMutation($input: CreateCableInput!) {
-    create_cable(input: $input) {
-      errors {
-        field
-        messages
-      }
-      cable {
-        id
-        name
-        description
-        cable_type {
+  mutation CreateCableMutation($input: CompositeCableMutationInput!) {
+    composite_cable(input: $input) {
+      created {
+        errors {
+          field
+          messages
+        }
+        cable {
+          id
           name
-          value
+          cable_type {
+            value
+          }
+          description
+          ports {
+            id
+            name
+            port_type {
+              value
+            }
+            description
+            connected_to {
+              id
+              name
+            }
+          }
         }
       }
     }
@@ -28,30 +41,27 @@ const mutation = graphql`
 function CreateCableMutation(cable, form) {
   const variables = {
     input: {
-      name: cable.name,
-      description: cable.description,
-      cable_type: cable.cable_type,
+      create_input: {
+        name: cable.name,
+        description: cable.description,
+        cable_type: cable.cable_type,
+      },
+      // provider: cable.provider_id,
     },
   };
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.create_cable.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
-        return response.create_cable.errors;
-      }
-      const cableId = response.create_cable.cable.id;
-      if (cable.comment) {
-        CreateCommentMutation(cableId, cable.comment);
-      }
-      if (form.props.history) {
-        form.props.history.push(`/network/cables/${cableId}`);
-      } else {
-        form.props.createdEntity('Cable', cableId);
-        form.props.hideModalForm();
-      }
-      form.props.notify(i18n.t('notify.network/cables-created-success'), 'success');
+      onCompleteCompositeCreationEntity(
+        form,
+        response,
+        cable,
+        'Cable',
+        'composite_cable',
+        'cables',
+        CreateCommentMutation,
+      );
     },
     onError: (errors) => console.error(errors),
     configs: [

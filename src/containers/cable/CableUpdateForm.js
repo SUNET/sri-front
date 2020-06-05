@@ -5,6 +5,15 @@ import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import { getProvider } from '../../components/provider/Provider';
+import getPort from '../../components/port/Port';
+
+function formatterSubInputs(subInputs) {
+  return subInputs.map((element) => ({
+    ...element,
+    status: 'saved',
+    origin: 'store',
+  }));
+}
 
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'updateCableInModal' : 'updateCable';
@@ -23,6 +32,7 @@ const mapStateToProps = (state, props) => {
     cableTypeObj: cable.cable_type,
     providerObj: undefined,
     provider_id: undefined,
+    connections: formatterSubInputs(cable.ports),
   };
   return {
     form: formName,
@@ -33,9 +43,11 @@ const mapStateToProps = (state, props) => {
     cableTypeObj: updateCableSelector(state, 'cableTypeObj'),
     provider_id: updateCableSelector(state, 'provider_id'),
     providerObj: updateCableSelector(state, 'providerObj'),
+    connections: updateCableSelector(state, 'connections'),
     formSyncErrors: getFormSyncErrors(formName)(state),
     fields: getFormMeta(formName)(state),
     getProvider: (id) => getProvider(id),
+    getPortById: (id) => getPort(id),
     isFromModal: props.isFromModal,
     entityInModalName: state.formModal.entityName,
     editedSubEntity: state.formModal.entityEditedId,
@@ -57,6 +69,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     hideModalForm: () => {
       dispatch(formModalActions.hideModalForm());
+    },
+    showModalCreateForm: (entityName) => {
+      dispatch(formModalActions.showModalCreateForm(entityName));
+    },
+    showModalUpdateForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalUpdateForm(entityName, entityId));
     },
   };
 };

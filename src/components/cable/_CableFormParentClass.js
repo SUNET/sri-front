@@ -1,11 +1,13 @@
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // Common imports
 import React from 'react';
+import { FieldArray, arrayPush } from 'redux-form';
+import { change } from 'redux-form';
 // components
 import Dropdown from '../Dropdown';
 import DropdownSearch from '../DropdownSearch';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import { change } from 'redux-form';
+import FieldArrayConnections from './FieldArrayConnections';
 // const
 import { isBrowser } from 'react-device-detect';
 // scss
@@ -35,6 +37,21 @@ class _CableFormParentClass extends _BasicFormParentClass {
   MODEL_NAME = 'cable';
   ROUTE_LIST_DIRECTION = '/network/cables';
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'connections') {
+        this.getConnectionDetails(selectionData, methodName);
+      }
+      return false;
+    }
+    return true;
+  }
+
   // handleProviderSearch = (selection) => {
   //   if (selection !== null) {
   //     this.props.getProvider(selection.id).then((provider) => {
@@ -44,6 +61,19 @@ class _CableFormParentClass extends _BasicFormParentClass {
   //   }
   // };
 
+  getConnectionDetails(selectionData) {
+    if (selectionData !== null) {
+      this.props.getPortById(selectionData.id).then((port) => {
+        this.handleConnectionSearch(port);
+      });
+    }
+  }
+
+  handleConnectionSearch(newConnection) {
+    if (newConnection !== null) {
+      this.props.dispatch(arrayPush(this.props.form, 'connections', { ...newConnection, ...{ status: 'saved' } }));
+    }
+  }
   // Specific toggle sections RENDERS
   renderGeneralInfoToggleSection(editMode = true) {
     const { t, cableTypeObj, provider_id, providerObj } = this.props;
@@ -102,6 +132,44 @@ class _CableFormParentClass extends _BasicFormParentClass {
       </ToggleSection>
     );
   }
+
+  renderConnectionsSection(editMode = false) {
+    const { t, entityRemovedId } = this.props;
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('network.details.connections')}</h2>
+          </ToggleHeading>
+
+          <TogglePanel>
+            <FieldArray
+              name="connections"
+              component={FieldArrayConnections}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.connectedTo}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'connections' });
+                this.props.showModalCreateForm('Port');
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'connections' });
+                this.props.showModalUpdateForm('Port', entityId);
+              }}
+              handleSearchResult={(newConnection) => {
+                this.handleConnectionSearch(newConnection);
+              }}
+              rerenderOnEveryChange={true}
+              entityRemovedId={entityRemovedId}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
   // Main RENDER
   render() {
     console.error('This method should be overwritten in the child class');

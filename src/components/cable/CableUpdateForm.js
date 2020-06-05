@@ -47,6 +47,7 @@ class CableUpdateForm extends _CableFormParentClass {
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
+        {this.renderConnectionsSection(editMode)}
         {this.renderWorkLog()}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>

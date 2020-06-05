@@ -8,30 +8,202 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+export type CompositeCableMutationInput = {|
+  create_input?: ?CreateCableInput,
+  update_input?: ?UpdateCableInput,
+  create_subinputs?: ?$ReadOnlyArray<?CreatePortInput>,
+  update_subinputs?: ?$ReadOnlyArray<?UpdatePortInput>,
+  delete_subinputs?: ?$ReadOnlyArray<?DeletePortInput>,
+  unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
+  create_has_port?: ?CreatePortInput,
+  update_has_port?: ?UpdatePortInput,
+  deleted_has_port?: ?DeletePortInput,
+  create_has_cable?: ?CreateCableInput,
+  update_has_cable?: ?UpdateCableInput,
+  deleted_has_cable?: ?DeleteCableInput,
+  create_part_of_group?: ?CreateGroupInput,
+  update_part_of_group?: ?UpdateGroupInput,
+  deleted_part_of_group?: ?DeleteGroupInput,
+  create_part_of_procedure?: ?CreateProcedureInput,
+  update_part_of_procedure?: ?UpdateProcedureInput,
+  deleted_part_of_procedure?: ?DeleteProcedureInput,
+  create_part_of_address?: ?CreateAddressInput,
+  update_part_of_address?: ?UpdateAddressInput,
+  deleted_part_of_address?: ?DeleteAddressInput,
+  create_part_of_phone?: ?CreatePhoneInput,
+  update_part_of_phone?: ?UpdatePhoneInput,
+  deleted_part_of_phone?: ?DeletePhoneInput,
+  create_part_of_email?: ?CreateEmailInput,
+  update_part_of_email?: ?UpdateEmailInput,
+  deleted_part_of_email?: ?DeleteEmailInput,
+  create_parent_port?: ?$ReadOnlyArray<?CreatePortInput>,
+  update_parent_port?: ?$ReadOnlyArray<?UpdatePortInput>,
+  deleted_parent_port?: ?$ReadOnlyArray<?DeletePortInput>,
+  create_parent_cable?: ?$ReadOnlyArray<?CreateCableInput>,
+  update_parent_cable?: ?$ReadOnlyArray<?UpdateCableInput>,
+  deleted_parent_cable?: ?$ReadOnlyArray<?DeleteCableInput>,
+  clientMutationId?: ?string,
+|};
 export type CreateCableInput = {|
   name: string,
   cable_type: any,
   description?: ?string,
   clientMutationId?: ?string,
 |};
+export type UpdateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  relationship_end_a?: ?number,
+  relationship_end_b?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePortInput = {|
+  name: string,
+  port_type?: ?any,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePortInput = {|
+  name: string,
+  port_type?: ?any,
+  description?: ?string,
+  relationship_connected_to?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePortInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteRelationshipInput = {|
+  relation_id: number,
+  clientMutationId?: ?string,
+|};
+export type DeleteCableInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateGroupInput = {|
+  name: string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateGroupInput = {|
+  name: string,
+  description?: ?string,
+  relationship_member_of?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteGroupInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateProcedureInput = {|
+  name: string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateProcedureInput = {|
+  name: string,
+  description?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteProcedureInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateAddressInput = {|
+  organization?: ?any,
+  name: string,
+  phone?: ?string,
+  street?: ?string,
+  postal_code?: ?string,
+  postal_area?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateAddressInput = {|
+  organization?: ?any,
+  name: string,
+  phone?: ?string,
+  street?: ?string,
+  postal_code?: ?string,
+  postal_area?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteAddressInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePhoneInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateEmailInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdateEmailInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteEmailInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type CreateCableMutationVariables = {|
-  input: CreateCableInput
+  input: CompositeCableMutationInput
 |};
 export type CreateCableMutationResponse = {|
-  +create_cable: ?{|
-    +errors: ?$ReadOnlyArray<?{|
-      +field: string,
-      +messages: $ReadOnlyArray<string>,
-    |}>,
-    +cable: ?{|
-      +id: string,
-      +name: string,
-      +description: ?string,
-      +cable_type: ?{|
+  +composite_cable: ?{|
+    +created: ?{|
+      +errors: ?$ReadOnlyArray<?{|
+        +field: string,
+        +messages: $ReadOnlyArray<string>,
+      |}>,
+      +cable: ?{|
+        +id: string,
         +name: string,
-        +value: string,
+        +cable_type: ?{|
+          +value: string
+        |},
+        +description: ?string,
+        +ports: ?$ReadOnlyArray<?{|
+          +id: string,
+          +name: string,
+          +port_type: ?{|
+            +value: string
+          |},
+          +description: ?string,
+          +connected_to: ?$ReadOnlyArray<?{|
+            +id: string,
+            +name: string,
+          |}>,
+        |}>,
       |},
-    |},
+    |}
   |}
 |};
 export type CreateCableMutation = {|
@@ -43,21 +215,36 @@ export type CreateCableMutation = {|
 
 /*
 mutation CreateCableMutation(
-  $input: CreateCableInput!
+  $input: CompositeCableMutationInput!
 ) {
-  create_cable(input: $input) {
-    errors {
-      field
-      messages
-    }
-    cable {
-      id
-      name
-      description
-      cable_type {
-        name
-        value
+  composite_cable(input: $input) {
+    created {
+      errors {
+        field
+        messages
+      }
+      cable {
         id
+        name
+        cable_type {
+          value
+          id
+        }
+        description
+        ports {
+          id
+          name
+          port_type {
+            value
+            id
+          }
+          description
+          connected_to {
+            __typename
+            id
+            name
+          }
+        }
       }
     }
   }
@@ -70,7 +257,7 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCableInput!"
+    "type": "CompositeCableMutationInput!"
   }
 ],
 v1 = [
@@ -123,16 +310,23 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "description",
+  "name": "value",
   "storageKey": null
 },
-v6 = {
+v6 = [
+  (v5/*: any*/)
+],
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "value",
+  "name": "description",
   "storageKey": null
-};
+},
+v8 = [
+  (v5/*: any*/),
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -143,33 +337,78 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateCablePayload",
+        "concreteType": "CompositeCableMutationPayload",
         "kind": "LinkedField",
-        "name": "create_cable",
+        "name": "composite_cable",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "Cable",
+            "concreteType": "CreateCablePayload",
             "kind": "LinkedField",
-            "name": "cable",
+            "name": "created",
             "plural": false,
             "selections": [
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Choice",
+                "concreteType": "Cable",
                 "kind": "LinkedField",
-                "name": "cable_type",
+                "name": "cable",
                 "plural": false,
                 "selections": [
+                  (v3/*: any*/),
                   (v4/*: any*/),
-                  (v6/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "cable_type",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
+                  },
+                  (v7/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Port",
+                    "kind": "LinkedField",
+                    "name": "ports",
+                    "plural": true,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "Choice",
+                        "kind": "LinkedField",
+                        "name": "port_type",
+                        "plural": false,
+                        "selections": (v6/*: any*/),
+                        "storageKey": null
+                      },
+                      (v7/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": null,
+                        "kind": "LinkedField",
+                        "name": "connected_to",
+                        "plural": true,
+                        "selections": [
+                          (v3/*: any*/),
+                          (v4/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -191,34 +430,85 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateCablePayload",
+        "concreteType": "CompositeCableMutationPayload",
         "kind": "LinkedField",
-        "name": "create_cable",
+        "name": "composite_cable",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "Cable",
+            "concreteType": "CreateCablePayload",
             "kind": "LinkedField",
-            "name": "cable",
+            "name": "created",
             "plural": false,
             "selections": [
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Choice",
+                "concreteType": "Cable",
                 "kind": "LinkedField",
-                "name": "cable_type",
+                "name": "cable",
                 "plural": false,
                 "selections": [
+                  (v3/*: any*/),
                   (v4/*: any*/),
-                  (v6/*: any*/),
-                  (v3/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "cable_type",
+                    "plural": false,
+                    "selections": (v8/*: any*/),
+                    "storageKey": null
+                  },
+                  (v7/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Port",
+                    "kind": "LinkedField",
+                    "name": "ports",
+                    "plural": true,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "Choice",
+                        "kind": "LinkedField",
+                        "name": "port_type",
+                        "plural": false,
+                        "selections": (v8/*: any*/),
+                        "storageKey": null
+                      },
+                      (v7/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": null,
+                        "kind": "LinkedField",
+                        "name": "connected_to",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "__typename",
+                            "storageKey": null
+                          },
+                          (v3/*: any*/),
+                          (v4/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -235,11 +525,11 @@ return {
     "metadata": {},
     "name": "CreateCableMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCableMutation(\n  $input: CreateCableInput!\n) {\n  create_cable(input: $input) {\n    errors {\n      field\n      messages\n    }\n    cable {\n      id\n      name\n      description\n      cable_type {\n        name\n        value\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateCableMutation(\n  $input: CompositeCableMutationInput!\n) {\n  composite_cable(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        cable_type {\n          value\n          id\n        }\n        description\n        ports {\n          id\n          name\n          port_type {\n            value\n            id\n          }\n          description\n          connected_to {\n            __typename\n            id\n            name\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f0b86cfd1391a98d96e16a8ffcb6bcc6';
+(node/*: any*/).hash = 'b0292dda45b92f13427ffee2134574f9';
 
 module.exports = node;

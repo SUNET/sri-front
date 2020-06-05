@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { UNLINK, REMOVE, SAVED } from '../../utils/constants';
+import { generateSubInputs } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation UpdatePortMutation($input: CompositePortMutationInput!) {
@@ -78,34 +78,6 @@ const mutation = graphql`
     }
   }
 `;
-
-function generateSubInputs(subInputObject, typeFieldName) {
-  const result = {
-    toUpdate: [],
-    toUnlink: [],
-    toDelete: [],
-  };
-
-  if (subInputObject) {
-    result.toUpdate = subInputObject
-      .filter((element) => element.status === SAVED)
-      .map((element) => ({
-        id: element.id,
-        name: element.name,
-        [typeFieldName]: element.type.value,
-        description: element.description,
-      }));
-
-    result.toUnlink = subInputObject
-      .filter((element) => element.status === UNLINK)
-      .map((element) => ({ relation_id: element.relation_id, clientMutationId: element.id }));
-
-    result.toDelete = subInputObject
-      .filter((element) => element.status === REMOVE)
-      .map((element) => element.relation_id);
-  }
-  return result;
-}
 
 function formatterParentsByType(parents, parentType) {
   return generateSubInputs(

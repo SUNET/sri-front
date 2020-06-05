@@ -42,6 +42,7 @@
             "network.details.parent_element_detail": "Parent Element Detail",
             "network.details.connectedTo": "Connected To",
             "network.details.connectedTo_element_detail": "Connected To Element Detail",
+            "network.details.connections": "Connects",
             "network.sub-menu.physical": "Physical",
             "network.sub-menu.logical": "Logical",
             "network.sub-menu.locations": "Locations",

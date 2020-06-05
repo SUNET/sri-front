@@ -16,6 +16,16 @@ const CableDetailsQuery = graphql`
         relation_id
         name
       }
+      ports {
+        id
+        name
+        description
+        relation_id
+        type: port_type {
+          name
+          value
+        }
+      }
       comments {
         id
         user {
