@@ -29,6 +29,15 @@ const DropdownOrganizationsAllQuery = graphql`
   }
 `;
 
+const DropdownProvidersAllQuery = graphql`
+  query DropdownProvidersAllQuery {
+    all_providers {
+      id
+      name
+    }
+  }
+`;
+
 const DropdownRolesQuery = graphql`
   query DropdownRolesQuery {
     roles(orderBy: name_ASC) {
@@ -78,6 +87,9 @@ class Dropdown extends React.PureComponent {
       case 'organization':
         queryModel = DropdownOrganizationsAllQuery;
         break;
+      case 'provider':
+        queryModel = DropdownProvidersAllQuery;
+        break;
       case 'roles':
         queryModel = DropdownRolesQuery;
         break;
@@ -94,22 +106,29 @@ class Dropdown extends React.PureComponent {
     return queryModel;
   }
 
-  getFormattedOrganizationsList(organizationsList) {
-    return organizationsList.all_organizations.map((org) => {
+  getCustomLabel(element) {
+    const { labelElementsArray } = this.props;
+    return labelElementsArray.map((e) => element[e]).join(' - ');
+  }
+
+  getFormattedDataList(dataList) {
+    const { valueField } = this.props;
+    return dataList.map((element) => {
       return {
-        value: org.organization_id,
-        label: `${org.name} - ${org.organization_id}`,
-        id: org.id,
-        data: org,
+        value: element[valueField],
+        label: this.getCustomLabel(element),
+        id: element.id,
+        data: element,
       };
     });
   }
 
-  getParentOrganizationValue(parentOrganization) {
-    const { organization_id, id, name } = parentOrganization;
+  getInitialValue(objectValue) {
+    const { valueField } = this.props;
+    const { id } = objectValue;
     return {
-      value: organization_id,
-      label: `${name} - ${organization_id}`,
+      value: objectValue[valueField],
+      label: this.getCustomLabel(objectValue),
       id,
     };
   }
@@ -145,19 +164,19 @@ class Dropdown extends React.PureComponent {
     });
   };
 
-  renderComboSelect(organizationsList) {
-    const { organization_parent_id } = this.props;
-    const formattedOrganizationList = this.getFormattedOrganizationsList(organizationsList);
-    const currentValue = formattedOrganizationList.find((org) => org.value && org.value === organization_parent_id);
+  renderComboSelect(dataList) {
+    const { currentValue, nameDataInsideRequest } = this.props;
+    const formattedDataList = this.getFormattedDataList(dataList[nameDataInsideRequest]);
+    const currentValueFromList = formattedDataList.find((org) => org.value && org.value === currentValue);
     return (
       <Select
         isClearable
-        value={currentValue}
+        value={currentValueFromList}
         onChange={(newValue) => {
           const data = newValue ? newValue.data : null;
           this.props.onChange(data);
         }}
-        options={formattedOrganizationList}
+        options={formattedDataList}
         placeholder={this.props.placeholder}
         className="combo-select-container"
         classNamePrefix="combo-select"
@@ -193,6 +212,26 @@ class Dropdown extends React.PureComponent {
     );
   }
 
+  renderComboSelectDefault() {
+    return (
+      <Select
+        value={this.props.objectCurrentValue ? this.getInitialValue(this.props.objectCurrentValue) : undefined}
+        options={[]}
+        placeholder={this.props.placeholder}
+        className="combo-select-container"
+        classNamePrefix="combo-select"
+      />
+    );
+  }
+
+  renderDefaultSelect() {
+    return (
+      <select className={this.props.className}>
+        <option value="">{this.props.emptyLabel}</option>
+      </select>
+    );
+  }
+
   render() {
     let dropdownQuery = this.getQueryByModel(this.props.model);
     const variables =
@@ -212,34 +251,14 @@ class Dropdown extends React.PureComponent {
             if (error) {
               return <div>{this.props.t('general.error')}</div>;
             } else if (props) {
-              let options = undefined;
-              if (this.props.model !== undefined) {
-                options = props[Object.keys(props)[0]];
+              const options = props[Object.keys(props)[0]];
+              if (this.props.type === 'combo_list') {
+                return this.renderComboSelect(props);
               } else {
-                options = props.getChoicesForDropdown;
+                return this.renderField(options);
               }
-
-              return this.props.type === 'organization_combo_list'
-                ? this.renderComboSelect(props)
-                : this.renderField(options);
             }
-            return this.props.type === 'organization_combo_list' ? (
-              <Select
-                value={
-                  this.props.parent_organization
-                    ? this.getParentOrganizationValue(this.props.parent_organization)
-                    : undefined
-                }
-                options={[]}
-                placeholder={this.props.placeholder}
-                className="combo-select-container"
-                classNamePrefix="combo-select"
-              />
-            ) : (
-              <select className={this.props.className}>
-                <option value="">{this.props.emptyLabel}</option>
-              </select>
-            );
+            return this.props.type === 'combo_list' ? this.renderComboSelectDefault() : this.renderDefaultSelect();
           }}
         />
       </Form.Group>

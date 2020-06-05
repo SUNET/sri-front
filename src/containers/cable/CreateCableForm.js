@@ -7,12 +7,14 @@ import CreateCableForm from '../../components/cable/CreateCableForm';
 
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'createCableInModal' : 'createCable';
-  const updateCableSelector = formValueSelector('createCable');
+  const createCableSelector = formValueSelector('createCable');
   return {
     form: formName,
     fields: getFormMeta(formName)(state),
     formSyncErrors: getFormSyncErrors(formName)(state),
-    name: updateCableSelector(state, 'name'),
+    name: createCableSelector(state, 'name'),
+    provider_id: createCableSelector(state, 'provider_id'),
+    providerObj: createCableSelector(state, 'providerObj'),
     isFromModal: props.isFromModal,
   };
 };

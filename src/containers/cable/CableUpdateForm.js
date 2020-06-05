@@ -10,12 +10,19 @@ const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'updateCableInModal' : 'updateCable';
   const updateCableSelector = formValueSelector(formName);
   const { cable } = props;
+  const MOCK_PROVIDER = {
+    name: 'Jonsson Björk AB',
+    id: 'UHJvdmlkZXI6MjczNw==',
+    relation_id: 10,
+  };
   const initialValues = {
     id: cable.id,
     name: cable.name,
     description: cable.description,
     cable_type: cable.cable_type ? cable.cable_type.value : undefined,
     cableTypeObj: cable.cable_type,
+    providerObj: undefined,
+    provider_id: undefined,
   };
   return {
     form: formName,
@@ -24,6 +31,8 @@ const mapStateToProps = (state, props) => {
     description: updateCableSelector(state, 'description'),
     cable_type: updateCableSelector(state, 'cable_type'),
     cableTypeObj: updateCableSelector(state, 'cableTypeObj'),
+    provider_id: updateCableSelector(state, 'provider_id'),
+    providerObj: updateCableSelector(state, 'providerObj'),
     formSyncErrors: getFormSyncErrors(formName)(state),
     fields: getFormMeta(formName)(state),
     getProvider: (id) => getProvider(id),

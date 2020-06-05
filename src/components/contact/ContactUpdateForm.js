@@ -21,7 +21,7 @@ class ContactUpdateForm extends _ContactFormParentClass {
     constructor(props) {
         super(props);
         this.state = {
-            editMode: props.isFromModal,
+            editMode: false,
         }
     }
     refetch = () => {
@@ -50,7 +50,7 @@ class ContactUpdateForm extends _ContactFormParentClass {
                 {this.renderHeader(this.state.editMode, showBackButton, isFromModal)}
                 {this.renderModelMainSection(this.state.editMode)}
                 {this.renderWorkLog(this.state.editMode)}
-                {this.renderSaveCancelButtons()}
+                {!isFromModal && this.renderSaveCancelButtons()}
             </form>
         );
     }

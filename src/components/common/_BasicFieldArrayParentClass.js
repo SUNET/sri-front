@@ -389,7 +389,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     if (fields.getAll()) {
       existingElements = fields
         .getAll()
-        .filter((el) => el.status === 'saved')
+        .filter((el) => el.status === SAVED)
         .map((row) => row.id);
     }
     return (

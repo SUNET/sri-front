@@ -316,16 +316,20 @@ class _OrganizationFormParentClass extends React.Component {
                 presentContent: this.props.organization_parent
                     ? `${this.props.organization_parent.name} - ${this.props.organization_parent.organization_id}`
                     : '',
+                        
                 editContent: (
                     <Dropdown
                         className={`${isBrowser ? "auto" : "xlg mw-100"}`}
                         emptyLabel="Select parent"
-                        type="organization_combo_list"
+                        type="combo_list"
                         name="organization_parent_id"
                         model="organization"
                         placeholder={t("organization-details.add-id")}
-                        organization_parent_id={organization_parent_id}
-                        parent_organization={this.props.organization_parent}
+                        currentValue={organization_parent_id}
+                        objectCurrentValue={this.props.organization_parent}
+                        nameDataInsideRequest="all_organizations"
+                        valueField="organization_id"
+                        labelElementsArray={["name", "organization_id"]}
                         onChange={(newOrganizationParent) => {
                             if (newOrganizationParent) {
                                 this.props.dispatch(
@@ -359,6 +363,7 @@ class _OrganizationFormParentClass extends React.Component {
                 )
             }
         ];
+        console.log('this.props.organization_parent: ', this.props.organization_parent);
         const generalInfoSecondRow = [
             {
                 title: t("organization-details.website"),

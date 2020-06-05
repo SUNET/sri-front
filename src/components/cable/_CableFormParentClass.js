@@ -5,6 +5,7 @@ import React from 'react';
 import Dropdown from '../Dropdown';
 import DropdownSearch from '../DropdownSearch';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
+import { change } from 'redux-form';
 // const
 import { isBrowser } from 'react-device-detect';
 // scss
@@ -34,17 +35,18 @@ class _CableFormParentClass extends _BasicFormParentClass {
   MODEL_NAME = 'cable';
   ROUTE_LIST_DIRECTION = '/network/cables';
 
-  handleProviderSearch = (selection) => {
-    if (selection !== null) {
-      this.props.getProvider(selection.id).then((provider) => {
-        // this.props.dispatch(this.props.form, "provider", provider);
-      });
-    }
-  };
+  // handleProviderSearch = (selection) => {
+  //   if (selection !== null) {
+  //     this.props.getProvider(selection.id).then((provider) => {
+  //       console.log('provider: ', provider);
+  //       // this.props.dispatch(this.props.form, "provider", provider);
+  //     });
+  //   }
+  // };
 
   // Specific toggle sections RENDERS
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, cableTypeObj } = this.props;
+    const { t, cableTypeObj, provider_id, providerObj } = this.props;
     const generalInfoFirstRow = [
       {
         title: t('organization-details.type'),
@@ -61,18 +63,23 @@ class _CableFormParentClass extends _BasicFormParentClass {
       },
       {
         title: t('network.cable.details.provider'),
-        presentContent: (
-          <DropdownSearch
-            selection={this.handleProviderSearch}
-            placeholder={t('search-filter.search-contacts')}
-            model="providers"
-          />
-        ),
+        presentContent: providerObj ? providerObj.name : '',
         editContent: (
-          <DropdownSearch
-            selection={this.handleProviderSearch}
-            placeholder={t('search-filter.search-contacts')}
-            model="providers"
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            type="combo_list"
+            name="provider_id"
+            model="provider"
+            placeholder={t('search-filter.search-providers')}
+            currentValue={provider_id}
+            objectCurrentValue={providerObj}
+            nameDataInsideRequest="all_providers"
+            valueField="id"
+            labelElementsArray={['name']}
+            onChange={(newProvider) => {
+              this.props.dispatch(change(this.props.form, 'provider_id', newProvider ? newProvider.id : null));
+              this.props.dispatch(change(this.props.form, 'providerObj', newProvider ? newProvider : null));
+            }}
           />
         ),
       },
