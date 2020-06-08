@@ -1,12 +1,15 @@
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // Common imports
 import React from 'react';
+import { FieldArray, arrayPush } from 'redux-form';
+import { change } from 'redux-form';
 // components
 import Dropdown from '../Dropdown';
-import DropdownSearch from '../DropdownSearch';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
+import FieldArrayConnections from './FieldArrayConnections';
 // const
 import { isBrowser } from 'react-device-detect';
+import { SAVED } from '../../utils/constants';
 // scss
 import '../../style/ModelDetails.scss';
 
@@ -33,18 +36,48 @@ class _CableFormParentClass extends _BasicFormParentClass {
   FORM_ID = '';
   MODEL_NAME = 'cable';
   ROUTE_LIST_DIRECTION = '/network/cables';
+  MAX_CONNECTIONS = 2;
 
-  handleProviderSearch = (selection) => {
-    if (selection !== null) {
-      this.props.getProvider(selection.id).then((provider) => {
-        // this.props.dispatch(this.props.form, "provider", provider);
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'connections') {
+        this.getConnectionDetails(selectionData, methodName);
+      }
+      return false;
+    }
+    return true;
+  }
+
+  // handleProviderSearch = (selection) => {
+  //   if (selection !== null) {
+  //     this.props.getProvider(selection.id).then((provider) => {
+  //       console.log('provider: ', provider);
+  //       // this.props.dispatch(this.props.form, "provider", provider);
+  //     });
+  //   }
+  // };
+
+  getConnectionDetails(selectionData) {
+    if (selectionData !== null) {
+      this.props.getPortById(selectionData.id).then((port) => {
+        this.handleConnectionSearch(port);
       });
     }
-  };
+  }
 
+  handleConnectionSearch(newConnection) {
+    if (newConnection !== null) {
+      this.props.dispatch(arrayPush(this.props.form, 'connections', { ...newConnection, ...{ status: 'saved' } }));
+    }
+  }
   // Specific toggle sections RENDERS
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, cableTypeObj } = this.props;
+    const { t, cableTypeObj, provider_id, providerObj } = this.props;
     const generalInfoFirstRow = [
       {
         title: t('organization-details.type'),
@@ -61,18 +94,23 @@ class _CableFormParentClass extends _BasicFormParentClass {
       },
       {
         title: t('network.cable.details.provider'),
-        presentContent: (
-          <DropdownSearch
-            selection={this.handleProviderSearch}
-            placeholder={t('search-filter.search-contacts')}
-            model="providers"
-          />
-        ),
+        presentContent: providerObj ? providerObj.name : '',
         editContent: (
-          <DropdownSearch
-            selection={this.handleProviderSearch}
-            placeholder={t('search-filter.search-contacts')}
-            model="providers"
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            type="combo_list"
+            name="provider_id"
+            model="provider"
+            placeholder={t('search-filter.search-providers')}
+            currentValue={provider_id}
+            objectCurrentValue={providerObj}
+            nameDataInsideRequest="all_providers"
+            valueField="id"
+            labelElementsArray={['name']}
+            onChange={(newProvider) => {
+              this.props.dispatch(change(this.props.form, 'provider_id', newProvider ? newProvider.id : null));
+              this.props.dispatch(change(this.props.form, 'providerObj', newProvider ? newProvider : null));
+            }}
           />
         ),
       },
@@ -95,6 +133,47 @@ class _CableFormParentClass extends _BasicFormParentClass {
       </ToggleSection>
     );
   }
+
+  renderConnectionsSection(editMode = false) {
+    const { t, entityRemovedId } = this.props;
+    const disabledFilters =
+      !!this.props.connections && (!this.props.connections || this.props.connections.filter(cn => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('network.details.connections')}</h2>
+          </ToggleHeading>
+
+          <TogglePanel>
+            <FieldArray
+              name="connections"
+              component={FieldArrayConnections}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.connectedTo}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'connections' });
+                this.props.showModalCreateForm('Port');
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'connections' });
+                this.props.showModalUpdateForm('Port', entityId);
+              }}
+              handleSearchResult={(newConnection) => {
+                this.handleConnectionSearch(newConnection);
+              }}
+              rerenderOnEveryChange={true}
+              entityRemovedId={entityRemovedId}
+              disabledFilters={disabledFilters}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
   // Main RENDER
   render() {
     console.error('This method should be overwritten in the child class');

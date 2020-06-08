@@ -49,7 +49,7 @@ class PortUpdateForm extends _PortFormParentClass {
         {!isFromModal && this.renderParentToggleSection(editMode)}
         {!isFromModal && this.renderConnectedToToggleSection(editMode)}
         {this.renderWorkLog()}
-        {this.renderSaveCancelButtons()}
+        {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
   }

@@ -162,6 +162,9 @@ class _BasicFieldArrayParentClass extends React.Component {
       return row[keys[0]];
     }
   }
+  isDisabledFilters() {
+    return this.props.disabledFilters || this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false;
+  }
 
   // common Renders
   renderModal() {
@@ -268,10 +271,12 @@ class _BasicFieldArrayParentClass extends React.Component {
         }`}
       >
         {isBrowser && this.renderEditButton(row)}
-        {editable && <div
-          className={`row-remove-cta ${isBrowser ? 'row-remove-cta--desktop-version' : ''}`}
-          onClick={() => this.removeRow(row.id)}
-        ></div>}
+        {editable && (
+          <div
+            className={`row-remove-cta ${isBrowser ? 'row-remove-cta--desktop-version' : ''}`}
+            onClick={() => this.removeRow(row.id)}
+          ></div>
+        )}
       </div>
     );
   }
@@ -346,20 +351,33 @@ class _BasicFieldArrayParentClass extends React.Component {
             .map((row, index) => {
               return (
                 <div key={index} className={`contact-in-organization__body__row`}>
-                  <div className="contact-in-organization__body__row__element">{row.name}</div>
+                  {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
+                  {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                   {isMobile && (
                     <div className="contact-in-organization__body__row__element info-button">
                       {editable && this.renderEditButton(row.id)}
                       {!editable && this.renderMoreInfoButton(row.id)}
                     </div>
                   )}
-                  {isBrowser && <div className="contact-in-organization__body__row__element">{row.type.name}</div>}
-                  {isBrowser && <div className="contact-in-organization__body__row__element">{row.description}</div>}
-
                   {this.renderRemoveCtaCrossAndEditButton(row, editable)}
                 </div>
               );
             })}
+      </div>
+    );
+  }
+
+  renderFieldRow(row, fieldName) {
+    const nestedFieldName = fieldName.split('.');
+    let text;
+    if (nestedFieldName.length > 1) {
+      text = row[nestedFieldName[0]][nestedFieldName[1]];
+    } else {
+      text = row[nestedFieldName[0]];
+    }
+    return (
+      <div key={Math.random()} className="contact-in-organization__body__row__element">
+        {text}
       </div>
     );
   }
@@ -389,13 +407,13 @@ class _BasicFieldArrayParentClass extends React.Component {
     if (fields.getAll()) {
       existingElements = fields
         .getAll()
-        .filter((el) => el.status === 'saved')
+        .filter((el) => el.status === SAVED)
         .map((row) => row.id);
     }
     return (
       <DropdownSearch
-        disabled={this.PRE_FILTER_SELECT ? !this.state.currentPreFilterModel : false}
-        model={this.state.currentPreFilterModel}
+        disabled={this.isDisabledFilters()}
+        model={this.PRE_FILTER_SELECT.type ? this.state.currentPreFilterModel : this.MODEL_TO_SEARCH}
         selection={(selectedElement) => {
           this.props.handleSearchResult(selectedElement, this.state.preFilterMethod);
         }}
@@ -411,12 +429,12 @@ class _BasicFieldArrayParentClass extends React.Component {
       <div className="contact-in-organization__footer">
         {editable && (
           <>
-            {this.renderPreFilterDropDown()}
+            {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
             {this.renderDropDownSearch()}
             <button
               type="button"
               className="contact-in-organization__footer__add btn btn-add outline"
-              disabled={this.PRE_FILTER_SELECT ? !this.state.currentPreFilterModel : false}
+              disabled={this.isDisabledFilters()}
               onClick={(e) => this.showCreateForm()}
             >
               {t('actions.add-new')}

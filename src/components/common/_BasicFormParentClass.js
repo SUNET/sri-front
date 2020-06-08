@@ -72,9 +72,9 @@ class _BasicFormParentClass extends React.Component {
     this.props.onDelete();
   };
   onClickCancel = () => {
-    const { isFromModal, history, hideContactModal } = this.props;
+    const { isFromModal, history, hideModalForm } = this.props;
     if (isFromModal) {
-      hideContactModal();
+      hideModalForm();
     } else {
       history.push(this.ROUTE_LIST_DIRECTION);
     }
