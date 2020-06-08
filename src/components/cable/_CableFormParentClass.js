@@ -5,7 +5,6 @@ import { FieldArray, arrayPush } from 'redux-form';
 import { change } from 'redux-form';
 // components
 import Dropdown from '../Dropdown';
-import DropdownSearch from '../DropdownSearch';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayConnections from './FieldArrayConnections';
 // const

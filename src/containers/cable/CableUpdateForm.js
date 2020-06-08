@@ -19,11 +19,11 @@ const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'updateCableInModal' : 'updateCable';
   const updateCableSelector = formValueSelector(formName);
   const { cable } = props;
-  const MOCK_PROVIDER = {
-    name: 'Jonsson Björk AB',
-    id: 'UHJvdmlkZXI6MjczNw==',
-    relation_id: 10,
-  };
+  // const MOCK_PROVIDER = {
+  //   name: 'Jonsson Björk AB',
+  //   id: 'UHJvdmlkZXI6MjczNw==',
+  //   relation_id: 10,
+  // };
   const initialValues = {
     id: cable.id,
     name: cable.name,
