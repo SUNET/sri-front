@@ -63,6 +63,19 @@ const DropdownSearchAllPortsQuery = graphql`
     }
   }
 `;
+const DropdownSearchTypeHeadPortsQuery = graphql`
+  query DropdownSearchTypeHeadPortsQuery($filter: GenericFilter) {
+    search_port(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -93,6 +106,10 @@ class DropdownSearch extends React.Component {
       case 'ports':
         queryModel.query = DropdownSearchAllPortsQuery;
         break;
+      case 'ports-type-head':
+        queryModel.query = DropdownSearchTypeHeadPortsQuery;
+        queryModel.modelName = 'search_port';
+        break;
       case 'Patch':
       case 'Power Cable':
       case 'Dark Fiber':
@@ -109,19 +126,24 @@ class DropdownSearch extends React.Component {
 
   getItems = debounce((filter) => {
     const { modelName, query, typeFilter } = this.getQueryByModel(this.props.model);
-    const { skipElements } = this.props;
+    const { skipElements, model } = this.props;
     let variables = {
-      filter: { AND: [{ name_contains: filter }] },
+      filter: {},
     };
+    if (model === 'ports-type-head') {
+      variables.filter.query = filter;
+    } else {
+      variables.filter = { AND: [{ name_contains: filter }] };
 
-    if (typeFilter) {
-      variables.filter.AND.push(typeFilter);
-    }
+      if (typeFilter) {
+        variables.filter.AND.push(typeFilter);
+      }
 
-    if (skipElements && skipElements.length) {
-      variables.filter.AND.push({
-        id_not_in: skipElements,
-      });
+      if (skipElements && skipElements.length) {
+        variables.filter.AND.push({
+          id_not_in: skipElements,
+        });
+      }
     }
 
     if (filter.length > MIN_CHAR_TO_FIND) {

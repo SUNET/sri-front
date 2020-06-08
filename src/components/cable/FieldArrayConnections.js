@@ -27,7 +27,7 @@ class FieldArrayConnections extends _BasicFieldArrayParentClass {
       name: null,
       entityMandatory: 'Port',
     };
-    this.MODEL_TO_SEARCH = 'ports';
+    this.MODEL_TO_SEARCH = 'ports-type-head';
   }
 }
 
