@@ -18,6 +18,7 @@ const mapStateToProps = (state, props) => {
     name: createCableSelector(state, 'name'),
     provider_id: createCableSelector(state, 'provider_id'),
     providerObj: createCableSelector(state, 'providerObj'),
+    connections: createCableSelector(state, 'connections'),
     getProvider: (id) => getProvider(id),
     getPortById: (id) => getPort(id),
     isFromModal: props.isFromModal,

@@ -162,6 +162,9 @@ class _BasicFieldArrayParentClass extends React.Component {
       return row[keys[0]];
     }
   }
+  isDisabledFilters() {
+    return this.props.disabledFilters || this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false;
+  }
 
   // common Renders
   renderModal() {
@@ -409,7 +412,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     }
     return (
       <DropdownSearch
-        disabled={this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false}
+        disabled={this.isDisabledFilters()}
         model={this.PRE_FILTER_SELECT.type ? this.state.currentPreFilterModel : this.MODEL_TO_SEARCH}
         selection={(selectedElement) => {
           this.props.handleSearchResult(selectedElement, this.state.preFilterMethod);
@@ -431,7 +434,7 @@ class _BasicFieldArrayParentClass extends React.Component {
             <button
               type="button"
               className="contact-in-organization__footer__add btn btn-add outline"
-              disabled={this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false}
+              disabled={this.isDisabledFilters()}
               onClick={(e) => this.showCreateForm()}
             >
               {t('actions.add-new')}

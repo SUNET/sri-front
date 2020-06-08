@@ -10,6 +10,7 @@ import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/Togg
 import FieldArrayConnections from './FieldArrayConnections';
 // const
 import { isBrowser } from 'react-device-detect';
+import { SAVED } from '../../utils/constants';
 // scss
 import '../../style/ModelDetails.scss';
 
@@ -36,6 +37,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
   FORM_ID = '';
   MODEL_NAME = 'cable';
   ROUTE_LIST_DIRECTION = '/network/cables';
+  MAX_CONNECTIONS = 2;
 
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.entitySavedId) {
@@ -135,6 +137,8 @@ class _CableFormParentClass extends _BasicFormParentClass {
 
   renderConnectionsSection(editMode = false) {
     const { t, entityRemovedId } = this.props;
+    const disabledFilters =
+      !!this.props.connections && (!this.props.connections || this.props.connections.filter(cn => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
     return (
       <section className="model-section">
         <ToggleSection>
@@ -163,6 +167,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
               }}
               rerenderOnEveryChange={true}
               entityRemovedId={entityRemovedId}
+              disabledFilters={disabledFilters}
             />
           </TogglePanel>
         </ToggleSection>
