@@ -19,7 +19,7 @@ export function generateSubInputs(subInputObject, typeFieldName) {
         if (element.description) {
           resultElement.description = element.description;
         }
-        if (element[typeFieldName]) {
+        if (element.type) {
           resultElement[typeFieldName] = element.type.value;
         }
         return resultElement;

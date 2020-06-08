@@ -4,6 +4,7 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
 import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
+import { generateSubInputs } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation CreateCableMutation($input: CompositeCableMutationInput!) {
@@ -39,6 +40,7 @@ const mutation = graphql`
 `;
 
 function CreateCableMutation(cable, form) {
+  const connections = generateSubInputs(cable.connections, 'cable_type');
   const variables = {
     input: {
       create_input: {
@@ -47,6 +49,8 @@ function CreateCableMutation(cable, form) {
         cable_type: cable.cable_type,
       },
       // provider: cable.provider_id,
+      update_subinputs: connections.toUpdate,
+      unlink_subinputs: connections.toUnlink,
     },
   };
   commitMutation(environment, {

@@ -5,6 +5,9 @@ import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import CreateCableForm from '../../components/cable/CreateCableForm';
 
+import { getProvider } from '../../components/provider/Provider';
+import getPort from '../../components/port/Port';
+
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'createCableInModal' : 'createCable';
   const createCableSelector = formValueSelector('createCable');
@@ -15,7 +18,13 @@ const mapStateToProps = (state, props) => {
     name: createCableSelector(state, 'name'),
     provider_id: createCableSelector(state, 'provider_id'),
     providerObj: createCableSelector(state, 'providerObj'),
+    getProvider: (id) => getProvider(id),
+    getPortById: (id) => getPort(id),
     isFromModal: props.isFromModal,
+    entityInModalName: state.formModal.entityName,
+    editedSubEntity: state.formModal.entityEditedId,
+    entitySavedId: state.formModal.entitySavedId,
+    entityRemovedId: state.formModal.entityRemovedId,
   };
 };
 
