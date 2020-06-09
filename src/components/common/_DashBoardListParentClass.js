@@ -38,27 +38,29 @@ class _DashBoardListParentClass extends React.Component {
     const { t } = this.props;
     return (
       <header>
-        <h2>{this.HEADER_DATA.title}</h2>
-        <div className="pretty custom p-icon p-toggle p-plain icon-right order-by">
-          <input
-            type="checkbox"
-            name="elements-orderby"
-            checked={this.props.orderBy.includes('_ASC')}
-            onChange={(e) => {
-              this.props.changeOrderBy(e, this.MAIN_PROP_NAME);
-            }}
-          />
-          <div className="state p-on">
-            <label>
-              <span>{t(`${this.HEADER_DATA.sortKey.defaultUp}`)}</span> <FontAwesomeIcon icon={faAngleUp} />
-            </label>
+        <h2>{t(this.HEADER_DATA.title)}</h2>
+        {this.HEADER_DATA.sortKey && (
+          <div className="pretty custom p-icon p-toggle p-plain icon-right order-by">
+            <input
+              type="checkbox"
+              name="elements-orderby"
+              checked={this.props.orderBy.includes('_ASC')}
+              onChange={(e) => {
+                this.props.changeOrderBy(e, this.MAIN_PROP_NAME);
+              }}
+            />
+            <div className="state p-on">
+              <label>
+                <span>{t(`${this.HEADER_DATA.sortKey.defaultUp}`)}</span> <FontAwesomeIcon icon={faAngleUp} />
+              </label>
+            </div>
+            <div className="state p-off">
+              <label>
+                <span>{t(`${this.HEADER_DATA.sortKey.down}`)}</span> <FontAwesomeIcon icon={faAngleDown} />
+              </label>
+            </div>
           </div>
-          <div className="state p-off">
-            <label>
-              <span>{t(`${this.HEADER_DATA.sortKey.down}`)}</span> <FontAwesomeIcon icon={faAngleDown} />
-            </label>
-          </div>
-        </div>
+        )}
       </header>
     );
   }
@@ -97,7 +99,7 @@ class _DashBoardListParentClass extends React.Component {
       <div className="dashboard-list">
         {this.renderHeader()}
         {this.renderList()}
-        {this.renderFooter()}
+        {this.FOOTER_DATA && this.renderFooter()}
       </div>
     );
   }

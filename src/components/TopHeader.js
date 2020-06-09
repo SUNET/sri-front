@@ -7,16 +7,30 @@ import Logout from './Logout';
 import AccordionMenuOptions from './AccordionMenuOptions';
 import { BrowserView, MobileView } from 'react-device-detect';
 import PropTypes from 'prop-types';
-
+import { debounce } from '../utils';
+import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from '../utils/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../style/TopHeader.scss';
 
 export class TopHeader extends React.Component {
   state = {
     isMenuOpen: false,
+    generalFilterValue: '',
   };
   closeMenu() {
     this.setState({ isMenuOpen: false });
   }
+
+  handleGeneralSearch = debounce((filter) => {
+    this.props.startGeneralSearch(filter);
+  }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
+
+  cleanGeneralSearch() {
+    this.setState({ generalFilterValue: '' });
+    this.props.cleanGeneralSearch();
+  }
+
   renderBrand() {
     return (
       <Navbar.Brand className="top-header__brand" as={Link} to="/">
@@ -53,7 +67,25 @@ export class TopHeader extends React.Component {
       <Nav.Item>
         <Form inline>
           <Form.Group className="search-global">
-            <Form.Control type="text" placeholder="Search" />
+            <Form.Control
+              type="text"
+              placeholder="Search"
+              value={this.state.generalFilterValue}
+              onChange={(event) => {
+                this.setState({ generalFilterValue: event.target.value });
+                this.handleGeneralSearch(event.target.value);
+              }}
+            />
+            {this.state.generalFilterValue && (
+              <div
+                className="clear-input-cta"
+                onClick={() => {
+                  this.cleanGeneralSearch();
+                }}
+              >
+                <FontAwesomeIcon className="clear-input" icon={faTimes} />
+              </div>
+            )}
           </Form.Group>
         </Form>
       </Nav.Item>
@@ -120,7 +152,7 @@ export class TopHeader extends React.Component {
     return (
       <Navbar className="top-header">
         {this.renderBrand()}
-        {/* {this.renderSearchItem()} */}
+        {this.renderSearchItem()}
       </Navbar>
     );
   }
@@ -253,7 +285,7 @@ export class TopHeader extends React.Component {
         {this.renderBrand()}
         {this.renderHeaderTopMenu()}
         <Nav className="top-header__user-block">
-          {/* {this.renderSearchItem()} */}
+          {this.renderSearchItem()}
           {/* {this.renderNotificationsItem()} */}
           {/* {this.renderMoreItem()} */}
           {this.renderProfileSettingsItem()}

@@ -363,7 +363,7 @@ class _OrganizationFormParentClass extends React.Component {
                 )
             }
         ];
-        console.log('this.props.organization_parent: ', this.props.organization_parent);
+
         const generalInfoSecondRow = [
             {
                 title: t("organization-details.website"),

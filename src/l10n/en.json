@@ -171,7 +171,9 @@
             "search-filter.search-providers": "Search provider",
             "search-filter.search-ports": "Search port",
             "search-filter.search-cables": "Search cable",
-            "search-filter.no-matches": "No Matches"
+            "search-filter.no-matches": "No Matches",
+            "search-filter.results": "Search Results",
+            "search-filter.match": "Match String"
         }
     }
 }
