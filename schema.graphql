@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Fri May 29 2020 13:59:52 GMT+0200 (GMT+02:00)
+# timestamp: Mon Jun 08 2020 14:38:37 GMT+0200 (GMT+02:00)
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -1932,6 +1932,28 @@ enum EndUserOrderBy {
 type ErrorType {
   field: String!
   messages: [String!]!
+}
+
+type GeneralSearch {
+  ninode: NINode!
+  match_txt: String
+}
+
+type GeneralSearchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [GeneralSearchEdge]!
+}
+
+"""A Relay edge containing a `GeneralSearch` and its cursor."""
+type GeneralSearchEdge {
+  """The item at the end of the edge"""
+  node: GeneralSearch
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 input GenericFilter {
@@ -3945,6 +3967,7 @@ type Query {
   count_peeringgroups: Int
   peeringGroups(filter: PeeringGroupFilter, orderBy: PeeringGroupOrderBy, before: String, after: String, first: Int, last: Int): peeringGroupConnection
   getPeeringGroupById(id: ID): PeeringGroup
+  search_generalsearch(filter: GenericFilter, before: String, after: String, first: Int, last: Int): GeneralSearchConnection
   search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
 }
 
