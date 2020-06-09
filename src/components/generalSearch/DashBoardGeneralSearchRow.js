@@ -1,6 +1,6 @@
 import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { createFragmentContainer } from 'react-relay';
 import _DashBoardRowParentClass from '../common/_DashBoardRowParentClass';
 
