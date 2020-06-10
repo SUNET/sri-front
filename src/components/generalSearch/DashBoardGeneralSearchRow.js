@@ -56,9 +56,6 @@ export class DashBoardGeneralSearchRow extends _DashBoardRowParentClass {
     const urlTemplate = getUrlByType(__typename);
 
     const indexString = match_txt.toLowerCase().indexOf(filterText.toLowerCase());
-
-    const replacement = '++++++';
-
     const matchTxtToPresent = {
       initText: match_txt.substr(0, indexString),
       boldText: match_txt.substr(indexString, filterText.length),
