@@ -8,6 +8,8 @@ import DashBoardContactBlock from './contact/DashBoardContactBlock';
 
 import GeneralSearchContainer from './generalSearch/GeneralSearch';
 
+import DashBoardActivityNetworkBlock from './activityLogs/network/DashBoardActivityNetworkBlock';
+
 import '../style/query-renderer-spinner.scss';
 
 const Home = (filterText) => (
@@ -18,6 +20,9 @@ const Home = (filterText) => (
           <GeneralSearchContainer environment={environment} />
         </Col>
       )}
+      <Col xl={8} lg={8} md={6} sm={12}>
+        <DashBoardActivityNetworkBlock environment={environment} />
+      </Col>
       <Col xl={4} lg={4} md={6} sm={12}>
         <DashBoardContactBlock environment={environment} />
       </Col>

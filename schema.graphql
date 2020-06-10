@@ -1,5 +1,47 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Mon Jun 08 2020 14:38:37 GMT+0200 (GMT+02:00)
+# timestamp: Tue Jun 09 2020 17:27:13 GMT+0200 (GMT+02:00)
+
+"""This class represents an Action from the activity log"""
+type Action implements Node {
+  verb: String!
+  description: String
+  timestamp: DateTime!
+  public: Boolean!
+
+  """The ID of the object."""
+  id: ID!
+  text: String!
+  action_object: NINode
+  target_object: NINode
+  actor: User
+  actorname: String
+}
+
+type ActionConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [ActionEdge]!
+}
+
+"""A Relay edge containing a `Action` and its cursor."""
+type ActionEdge {
+  """The item at the end of the edge"""
+  node: Action
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ActionFilter {
+  context: String!
+}
+
+enum ActionOrderBy {
+  timestamp_ASC
+  timestamp_DESC
+}
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -3899,6 +3941,8 @@ type Query {
   getRolesFromRoleGroup(name: String): [Role]
   getMetatypes: [MetaType]
   getTypesForMetatype(metatype: MetaType): [TypeInfo]
+  getAvailableContexts: [String]
+  getContextActivity(filter: ActionFilter!, orderBy: ActionOrderBy, before: String, after: String, first: Int, last: Int): ActionConnection
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection

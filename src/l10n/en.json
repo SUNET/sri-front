@@ -66,6 +66,8 @@
             "paginator.load_less": "Load Less",
             "paginator.load_all": "Load All",
             "dashboard.contacts": "See Contacts",
+            "dashboard.network": "See Networks",
+            "dashboard.network_activity": "Network Activity",
             "dashboard.order.recent_first": "Recent first",
             "dashboard.order.recent_last": "Recent last",
             "filter_columns.header": "Show/Hide Columns",

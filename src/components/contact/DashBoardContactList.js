@@ -32,7 +32,11 @@ export default createPaginationContainer(
   {
     contacts: graphql`
       fragment DashBoardContactList_contacts on Query
-        @argumentDefinitions(count: { type: "Int" }, cursor: { type: "String" }, orderBy: { type: ContactOrderBy }) {
+        @argumentDefinitions(
+          count: { type: "Int" },
+          cursor: { type: "String" },
+          orderBy: { type: ContactOrderBy }
+        ) {
         contacts(first: $count, after: $cursor, orderBy: $orderBy)
           @connection(key: "DashBoardContactList_contacts", filters: []) {
           edges {
