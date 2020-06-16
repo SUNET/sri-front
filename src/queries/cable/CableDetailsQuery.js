@@ -11,9 +11,8 @@ const CableDetailsQuery = graphql`
         name
         value
       }
-      providers {
+      provider {
         id
-        relation_id
         name
       }
       ports {
