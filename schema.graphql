@@ -1,5 +1,47 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Fri May 29 2020 13:59:52 GMT+0200 (GMT+02:00)
+# timestamp: Wed Jun 10 2020 12:46:09 GMT+0200 (GMT+02:00)
+
+"""This class represents an Action from the activity log"""
+type Action implements Node {
+  verb: String!
+  description: String
+  timestamp: DateTime!
+  public: Boolean!
+
+  """The ID of the object."""
+  id: ID!
+  text: String!
+  action_object: NINode
+  target_object: NINode
+  actor: User
+  actorname: String
+}
+
+type ActionConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [ActionEdge]!
+}
+
+"""A Relay edge containing a `Action` and its cursor."""
+type ActionEdge {
+  """The item at the end of the edge"""
+  node: Action
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ActionFilter {
+  context: String!
+}
+
+enum ActionOrderBy {
+  timestamp_ASC
+  timestamp_DESC
+}
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -224,8 +266,7 @@ type Cable implements NINode & Physical {
   comments: [CommentType]
   cable_type: Choice
   description: String
-  providers: [Provider]
-  providers_relations: [IDRelation]
+  provider: Provider
   ports: [Port]
 }
 
@@ -1035,6 +1076,7 @@ input CreateCableInput {
   name: String!
   cable_type: ChoiceScalar!
   description: String
+  relationship_provider: ChoiceScalar
   clientMutationId: String
 }
 
@@ -1932,6 +1974,28 @@ enum EndUserOrderBy {
 type ErrorType {
   field: String!
   messages: [String!]!
+}
+
+type GeneralSearch {
+  ninode: NINode!
+  match_txt: String
+}
+
+type GeneralSearchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [GeneralSearchEdge]!
+}
+
+"""A Relay edge containing a `GeneralSearch` and its cursor."""
+type GeneralSearchEdge {
+  """The item at the end of the edge"""
+  node: GeneralSearch
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 input GenericFilter {
@@ -3877,6 +3941,8 @@ type Query {
   getRolesFromRoleGroup(name: String): [Role]
   getMetatypes: [MetaType]
   getTypesForMetatype(metatype: MetaType): [TypeInfo]
+  getAvailableContexts: [String]
+  getContextActivity(filter: ActionFilter!, orderBy: ActionOrderBy, before: String, after: String, first: Int, last: Int): ActionConnection
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -3945,6 +4011,7 @@ type Query {
   count_peeringgroups: Int
   peeringGroups(filter: PeeringGroupFilter, orderBy: PeeringGroupOrderBy, before: String, after: String, first: Int, last: Int): peeringGroupConnection
   getPeeringGroupById(id: ID): PeeringGroup
+  search_generalsearch(filter: GenericFilter, before: String, after: String, first: Int, last: Int): GeneralSearchConnection
   search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
 }
 
@@ -4435,6 +4502,7 @@ input UpdateCableInput {
   name: String!
   cable_type: ChoiceScalar!
   description: String
+  relationship_provider: ChoiceScalar
   relationship_end_a: Int
   relationship_end_b: Int
   id: ID!
