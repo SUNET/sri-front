@@ -48,12 +48,14 @@ export type CreateCableInput = {|
   name: string,
   cable_type: any,
   description?: ?string,
+  relationship_provider?: ?any,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
   name: string,
   cable_type: any,
   description?: ?string,
+  relationship_provider?: ?any,
   relationship_end_a?: ?number,
   relationship_end_b?: ?number,
   id: string,
@@ -190,6 +192,10 @@ export type UpdateCableMutationResponse = {|
           +value: string
         |},
         +description: ?string,
+        +provider: ?{|
+          +id: string,
+          +name: string,
+        |},
         +ports: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
@@ -250,6 +256,10 @@ mutation UpdateCableMutation(
           id
         }
         description
+        provider {
+          id
+          name
+        }
         ports {
           id
           name
@@ -363,7 +373,21 @@ v7 = {
   "name": "description",
   "storageKey": null
 },
-v8 = {
+v8 = [
+  (v3/*: any*/),
+  (v4/*: any*/)
+],
+v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Provider",
+  "kind": "LinkedField",
+  "name": "provider",
+  "plural": false,
+  "selections": (v8/*: any*/),
+  "storageKey": null
+},
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "Choice",
@@ -373,41 +397,38 @@ v8 = {
   "selections": (v6/*: any*/),
   "storageKey": null
 },
-v9 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "relation_id",
   "storageKey": null
 },
-v10 = {
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": null,
   "kind": "LinkedField",
   "name": "connected_to",
   "plural": true,
-  "selections": [
-    (v3/*: any*/),
-    (v4/*: any*/)
-  ],
+  "selections": (v8/*: any*/),
   "storageKey": null
 },
-v11 = [
+v13 = [
   (v5/*: any*/),
   (v3/*: any*/)
 ],
-v12 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "Choice",
   "kind": "LinkedField",
   "name": "port_type",
   "plural": false,
-  "selections": (v11/*: any*/),
+  "selections": (v13/*: any*/),
   "storageKey": null
 },
-v13 = {
+v15 = {
   "alias": null,
   "args": null,
   "concreteType": null,
@@ -472,6 +493,7 @@ return {
                     "storageKey": null
                   },
                   (v7/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -482,10 +504,10 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v8/*: any*/),
+                      (v10/*: any*/),
                       (v7/*: any*/),
-                      (v9/*: any*/),
-                      (v10/*: any*/)
+                      (v11/*: any*/),
+                      (v12/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -514,9 +536,9 @@ return {
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v8/*: any*/),
+                  (v10/*: any*/),
                   (v7/*: any*/),
-                  (v10/*: any*/)
+                  (v12/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -569,10 +591,11 @@ return {
                     "kind": "LinkedField",
                     "name": "cable_type",
                     "plural": false,
-                    "selections": (v11/*: any*/),
+                    "selections": (v13/*: any*/),
                     "storageKey": null
                   },
                   (v7/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -583,10 +606,10 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v12/*: any*/),
+                      (v14/*: any*/),
                       (v7/*: any*/),
-                      (v9/*: any*/),
-                      (v13/*: any*/)
+                      (v11/*: any*/),
+                      (v15/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -615,9 +638,9 @@ return {
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v12/*: any*/),
+                  (v14/*: any*/),
                   (v7/*: any*/),
-                  (v13/*: any*/)
+                  (v15/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -634,11 +657,11 @@ return {
     "metadata": {},
     "name": "UpdateCableMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateCableMutation(\n  $input: CompositeCableMutationInput!\n) {\n  composite_cable(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        cable_type {\n          value\n          id\n        }\n        description\n        ports {\n          id\n          name\n          port_type {\n            value\n            id\n          }\n          description\n          relation_id\n          connected_to {\n            __typename\n            id\n            name\n          }\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          id\n        }\n        description\n        connected_to {\n          __typename\n          id\n          name\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateCableMutation(\n  $input: CompositeCableMutationInput!\n) {\n  composite_cable(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        cable_type {\n          value\n          id\n        }\n        description\n        provider {\n          id\n          name\n        }\n        ports {\n          id\n          name\n          port_type {\n            value\n            id\n          }\n          description\n          relation_id\n          connected_to {\n            __typename\n            id\n            name\n          }\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          id\n        }\n        description\n        connected_to {\n          __typename\n          id\n          name\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '466e8a8b138156f07c5b7bd0afc6f736';
+(node/*: any*/).hash = 'e2c54afa2c9cc1bed233605b329d1689';
 
 module.exports = node;

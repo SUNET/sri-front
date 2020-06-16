@@ -21,6 +21,10 @@ const mutation = graphql`
             value
           }
           description
+          provider {
+            id
+            name
+          }
           ports {
             id
             name
@@ -67,8 +71,8 @@ export default function UpdateCableMutation(cable, form) {
         name: cable.name,
         description: cable.description,
         cable_type: cable.cable_type,
+        relationship_provider: cable.provider_id,
       },
-      // provider: cable.provider_id,
       update_subinputs: connections.toUpdate,
       unlink_subinputs: connections.toUnlink,
     },

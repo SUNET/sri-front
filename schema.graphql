@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Tue Jun 09 2020 17:27:13 GMT+0200 (GMT+02:00)
+# timestamp: Tue Jun 16 2020 07:44:54 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -266,8 +266,7 @@ type Cable implements NINode & Physical {
   comments: [CommentType]
   cable_type: Choice
   description: String
-  providers: [Provider]
-  providers_relations: [IDRelation]
+  provider: Provider
   ports: [Port]
 }
 
@@ -1077,6 +1076,7 @@ input CreateCableInput {
   name: String!
   cable_type: ChoiceScalar!
   description: String
+  relationship_provider: ChoiceScalar
   clientMutationId: String
 }
 
@@ -4502,6 +4502,7 @@ input UpdateCableInput {
   name: String!
   cable_type: ChoiceScalar!
   description: String
+  relationship_provider: ChoiceScalar
   relationship_end_a: Int
   relationship_end_b: Int
   id: ID!

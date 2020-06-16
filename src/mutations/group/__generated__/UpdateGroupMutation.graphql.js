@@ -106,12 +106,14 @@ export type CreateCableInput = {|
   name: string,
   cable_type: any,
   description?: ?string,
+  relationship_provider?: ?any,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
   name: string,
   cable_type: any,
   description?: ?string,
+  relationship_provider?: ?any,
   relationship_end_a?: ?number,
   relationship_end_b?: ?number,
   id: string,
