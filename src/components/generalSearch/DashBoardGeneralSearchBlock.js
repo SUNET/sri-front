@@ -37,6 +37,7 @@ class DashBoardGeneralSearchBlock extends _DashBoardBlockParentClass {
           Component: DashBoardGeneralSearchList,
           mainProps: ['search_generalsearch'],
           componentProps: {
+            filterText: this.props.filter,
             onClickDetails: this.props.onClickDetails,
           },
         }}

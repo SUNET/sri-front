@@ -23,7 +23,7 @@ class DashBoardGeneralSearchList extends _DashBoardListParentClass {
   }
 
   renderList() {
-    const { t } = this.props;
+    const { t, filterText } = this.props;
     const dataEntity = this.props[this.MAIN_PROP_NAME];
     return (
       <Table responsive={isMobile} className="model-list" borderless>
@@ -41,6 +41,7 @@ class DashBoardGeneralSearchList extends _DashBoardListParentClass {
               const props = {
                 [this.SINGLE_ELEMENT_NAME]: node,
                 key: node.__id,
+                filterText,
                 onClick: (urlTemplate, id) => this.props.onClickDetails(urlTemplate.replace('__dataId__', id)),
               };
               return <this.RowComponent {...props} />;

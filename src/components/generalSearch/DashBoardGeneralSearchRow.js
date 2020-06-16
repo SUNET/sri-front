@@ -50,9 +50,18 @@ export class DashBoardGeneralSearchRow extends _DashBoardRowParentClass {
 
   renderInfo() {
     const element = this.props[this.MAIN_PROP];
+    const { filterText } = this.props;
     const { match_txt, ninode } = element;
     const { __typename, name, id } = ninode;
     const urlTemplate = getUrlByType(__typename);
+
+    const indexString = match_txt.toLowerCase().indexOf(filterText.toLowerCase());
+    const matchTxtToPresent = {
+      initText: match_txt.substr(0, indexString),
+      boldText: match_txt.substr(indexString, filterText.length),
+      finalText: match_txt.substr(indexString + filterText.length),
+    };
+
     return (
       <tr
         className={!urlTemplate ? 'not-clickable' : ''}
@@ -64,7 +73,13 @@ export class DashBoardGeneralSearchRow extends _DashBoardRowParentClass {
       >
         <td>{__typename}</td>
         <td>{name}</td>
-        <td>{match_txt}</td>
+        <td>
+          <div>
+            {matchTxtToPresent.initText}
+            <span className="font-weight-bold">{matchTxtToPresent.boldText}</span>
+            {matchTxtToPresent.finalText}
+          </div>
+        </td>
       </tr>
     );
   }
