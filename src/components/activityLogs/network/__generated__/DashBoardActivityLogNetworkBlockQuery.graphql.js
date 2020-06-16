@@ -8,40 +8,40 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type DashBoardActivityNetworkList_getContextActivity$ref = any;
+type DashBoardActivityLogNetworkList_getContextActivity$ref = any;
 export type ActionOrderBy = "timestamp_ASC" | "timestamp_DESC" | "%future added value";
 export type ActionFilter = {|
   context: string
 |};
-export type DashBoardActivityNetworkBlockQueryVariables = {|
+export type DashBoardActivityLogNetworkBlockQueryVariables = {|
   filter: ActionFilter,
   orderBy?: ?ActionOrderBy,
   first?: ?number,
 |};
-export type DashBoardActivityNetworkBlockQueryResponse = {|
-  +$fragmentRefs: DashBoardActivityNetworkList_getContextActivity$ref
+export type DashBoardActivityLogNetworkBlockQueryResponse = {|
+  +$fragmentRefs: DashBoardActivityLogNetworkList_getContextActivity$ref
 |};
-export type DashBoardActivityNetworkBlockQuery = {|
-  variables: DashBoardActivityNetworkBlockQueryVariables,
-  response: DashBoardActivityNetworkBlockQueryResponse,
+export type DashBoardActivityLogNetworkBlockQuery = {|
+  variables: DashBoardActivityLogNetworkBlockQueryVariables,
+  response: DashBoardActivityLogNetworkBlockQueryResponse,
 |};
 */
 
 
 /*
-query DashBoardActivityNetworkBlockQuery(
+query DashBoardActivityLogNetworkBlockQuery(
   $filter: ActionFilter!
   $orderBy: ActionOrderBy
   $first: Int
 ) {
-  ...DashBoardActivityNetworkList_getContextActivity_2d34Kc
+  ...DashBoardActivityLogNetworkList_getContextActivity_2d34Kc
 }
 
-fragment DashBoardActivityNetworkList_getContextActivity_2d34Kc on Query {
+fragment DashBoardActivityLogNetworkList_getContextActivity_2d34Kc on Query {
   getContextActivity(filter: $filter, orderBy: $orderBy, first: $first) {
     edges {
       node {
-        ...DashBoardActivityNetworkRow_log
+        ...DashBoardActivityLogNetworkRow_log
         id
         __typename
       }
@@ -56,7 +56,7 @@ fragment DashBoardActivityNetworkList_getContextActivity_2d34Kc on Query {
   }
 }
 
-fragment DashBoardActivityNetworkRow_log on Action {
+fragment DashBoardActivityLogNetworkRow_log on Action {
   id
   text
   actorname
@@ -151,12 +151,12 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DashBoardActivityNetworkBlockQuery",
+    "name": "DashBoardActivityLogNetworkBlockQuery",
     "selections": [
       {
         "args": (v1/*: any*/),
         "kind": "FragmentSpread",
-        "name": "DashBoardActivityNetworkList_getContextActivity"
+        "name": "DashBoardActivityLogNetworkList_getContextActivity"
       }
     ],
     "type": "Query"
@@ -165,7 +165,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DashBoardActivityNetworkBlockQuery",
+    "name": "DashBoardActivityLogNetworkBlockQuery",
     "selections": [
       {
         "alias": null,
@@ -348,7 +348,7 @@ return {
         "args": (v1/*: any*/),
         "filters": [],
         "handle": "connection",
-        "key": "DashBoardActivityNetworkList_getContextActivity",
+        "key": "DashBoardActivityLogNetworkList_getContextActivity",
         "kind": "LinkedHandle",
         "name": "getContextActivity"
       }
@@ -357,13 +357,13 @@ return {
   "params": {
     "id": null,
     "metadata": {},
-    "name": "DashBoardActivityNetworkBlockQuery",
+    "name": "DashBoardActivityLogNetworkBlockQuery",
     "operationKind": "query",
-    "text": "query DashBoardActivityNetworkBlockQuery(\n  $filter: ActionFilter!\n  $orderBy: ActionOrderBy\n  $first: Int\n) {\n  ...DashBoardActivityNetworkList_getContextActivity_2d34Kc\n}\n\nfragment DashBoardActivityNetworkList_getContextActivity_2d34Kc on Query {\n  getContextActivity(filter: $filter, orderBy: $orderBy, first: $first) {\n    edges {\n      node {\n        ...DashBoardActivityNetworkRow_log\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment DashBoardActivityNetworkRow_log on Action {\n  id\n  text\n  actorname\n  actor {\n    id\n    username\n    first_name\n    last_name\n    email\n  }\n  verb\n  action_object {\n    id\n    name\n    __typename\n  }\n  target_object {\n    id\n    name\n    __typename\n  }\n  description\n  timestamp\n}\n"
+    "text": "query DashBoardActivityLogNetworkBlockQuery(\n  $filter: ActionFilter!\n  $orderBy: ActionOrderBy\n  $first: Int\n) {\n  ...DashBoardActivityLogNetworkList_getContextActivity_2d34Kc\n}\n\nfragment DashBoardActivityLogNetworkList_getContextActivity_2d34Kc on Query {\n  getContextActivity(filter: $filter, orderBy: $orderBy, first: $first) {\n    edges {\n      node {\n        ...DashBoardActivityLogNetworkRow_log\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment DashBoardActivityLogNetworkRow_log on Action {\n  id\n  text\n  actorname\n  actor {\n    id\n    username\n    first_name\n    last_name\n    email\n  }\n  verb\n  action_object {\n    id\n    name\n    __typename\n  }\n  target_object {\n    id\n    name\n    __typename\n  }\n  description\n  timestamp\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2f507163dfb16767e70a36f6711064d2';
+(node/*: any*/).hash = '380e65ace9b3018b4dfde00480e1b1c6';
 
 module.exports = node;

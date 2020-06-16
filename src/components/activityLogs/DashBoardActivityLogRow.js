@@ -1,11 +1,10 @@
 import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
-import PropTypes from 'prop-types';
 import { createFragmentContainer } from 'react-relay';
-import { Col, Image } from 'react-bootstrap';
-import _DashBoardRowParentClass from '../../common/_DashBoardRowParentClass';
+import { Col } from 'react-bootstrap';
+import _DashBoardRowParentClass from '../common/_DashBoardRowParentClass';
 
-export class DashBoardActivityNetworkRow extends _DashBoardRowParentClass {
+export class DashBoardActivityLogRow extends _DashBoardRowParentClass {
   constructor(props) {
     super(props);
     this.MAIN_PROP = 'log';
@@ -14,7 +13,7 @@ export class DashBoardActivityNetworkRow extends _DashBoardRowParentClass {
 
   renderInfo() {
     const element = this.props[this.MAIN_PROP];
-    const { text, actorname, verb, action_object } = element;
+    const { actorname, verb, action_object } = element;
     return (
       <>
         <Col className="px-0 dash-board-row__info">
@@ -41,11 +40,11 @@ export class DashBoardActivityNetworkRow extends _DashBoardRowParentClass {
   }
 }
 
-DashBoardActivityNetworkRow.propTypes = {};
+DashBoardActivityLogRow.propTypes = {};
 
-const ActivityNetworkRowFragment = createFragmentContainer(DashBoardActivityNetworkRow, {
+const ActivityNetworkRowFragment = createFragmentContainer(DashBoardActivityLogRow, {
   log: graphql`
-    fragment DashBoardActivityNetworkRow_log on Action {
+    fragment DashBoardActivityLogRow_log on Action {
       id
       text
       actorname

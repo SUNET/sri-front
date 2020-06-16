@@ -4,24 +4,27 @@ import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import graphql from 'babel-plugin-relay/macro';
 
-import DashBoardActivityNetworkRowComponent from './DashBoardActivityNetworkRow';
+import DashBoardActivityLogRowComponent from './DashBoardActivityLogRow';
 
-import _DashBoardListParentClass from '../../common/_DashBoardListParentClass';
+import _DashBoardListParentClass from '../common/_DashBoardListParentClass';
 
-class DashBoardActivityNetworkList extends _DashBoardListParentClass {
+import { ACTIVITY_LOGS_PARAMS } from '../../utils/constants';
+
+export class DashBoardActivityLogList extends _DashBoardListParentClass {
   constructor(props) {
     super(props);
     this.MAIN_PROP_NAME = 'getContextActivity';
     this.SINGLE_ELEMENT_NAME = 'log';
-    this.RowComponent = DashBoardActivityNetworkRowComponent;
+    this.RowComponent = DashBoardActivityLogRowComponent;
+    const paramsByLogType = ACTIVITY_LOGS_PARAMS[props.typeActivityLog];
     this.HEADER_DATA = {
-      title: 'dashboard.network_activity',
+      title: paramsByLogType.header.title,
       sortKey: {
         defaultUp: 'dashboard.order.recent_last',
         down: 'dashboard.order.recent_first',
       },
     };
-    this.FOOTER_DATA = { label: 'dashboard.network', link: '/network' };
+    this.FOOTER_DATA = { label: paramsByLogType.footer.label, link: paramsByLogType.footer.link };
     this.DETAILS_LINK = null;
   }
 
@@ -44,20 +47,20 @@ class DashBoardActivityNetworkList extends _DashBoardListParentClass {
 }
 
 export default createPaginationContainer(
-  withTranslation()(withRouter(DashBoardActivityNetworkList)),
+  withTranslation()(withRouter(DashBoardActivityLogList)),
   {
     getContextActivity: graphql`
-      fragment DashBoardActivityNetworkList_getContextActivity on Query
+      fragment DashBoardActivityLogList_getContextActivity on Query
         @argumentDefinitions(
           filter: { type: "ActionFilter!" }
           orderBy: { type: ActionOrderBy }
           first: { type: "Int" }
         ) {
         getContextActivity(filter: $filter, orderBy: $orderBy, first: $first)
-          @connection(key: "DashBoardActivityNetworkList_getContextActivity", filters: []) {
+          @connection(key: "DashBoardActivityLogList_getContextActivity", filters: []) {
           edges {
             node {
-              ...DashBoardActivityNetworkRow_log
+              ...DashBoardActivityLogRow_log
             }
           }
           pageInfo {

@@ -44,3 +44,33 @@ export const AFFILIATION_ORGANIZATION_NAMES = {
   affiliation_provider: 'Provider',
   affiliation_site_owner: 'Site owner',
 };
+
+// Activity Log Params
+export const MAX_ROWS_CONTACT_DASHBOARD = 8;
+export const ACTIVITY_LOG_NETWORK = 'network';
+export const ACTIVITY_LOG_COMMUNITY = 'community';
+
+export const ACTIVITY_LOGS_PARAMS = {
+  [ACTIVITY_LOG_NETWORK]: {
+    filterContext: 'Network',
+    maxNumberRows: 4,
+    header: {
+      title: 'dashboard.network_activity',
+    },
+    footer: {
+      label: 'dashboard.network',
+      link: '/network',
+    },
+  },
+  [ACTIVITY_LOG_COMMUNITY]: {
+    filterContext: 'Community',
+    maxNumberRows: 4,
+    header: {
+      title: 'dashboard.community_news',
+    },
+    footer: {
+      label: 'dashboard.community',
+      link: '/community',
+    },
+  },
+};

@@ -1,27 +1,23 @@
 import React from 'react';
-import { withTranslation } from 'react-i18next';
 import graphql from 'babel-plugin-relay/macro';
-import DashBoardActivityNetworkList from './DashBoardActivityNetworkList';
-import CustomQueryRenderer from '../../../components/CustomQueryRenderer';
-import _DashBoardBlockParentClass from '../../common/_DashBoardBlockParentClass';
+import CustomQueryRenderer from '../../components/CustomQueryRenderer';
+import _DashBoardBlockParentClass from '../common/_DashBoardBlockParentClass';
+import { ACTIVITY_LOGS_PARAMS } from '../../utils/constants';
 
-const DashBoardActivityNetworkBlockQuery = graphql`
-  query DashBoardActivityNetworkBlockQuery($filter: ActionFilter!, $orderBy: ActionOrderBy, $first: Int) {
-    ...DashBoardActivityNetworkList_getContextActivity @arguments(filter: $filter, orderBy: $orderBy, first: $first)
+const DashBoardActivityLogBlockQuery = graphql`
+  query DashBoardActivityLogBlockQuery($filter: ActionFilter!, $orderBy: ActionOrderBy, $first: Int) {
+    ...DashBoardActivityLogList_getContextActivity @arguments(filter: $filter, orderBy: $orderBy, first: $first)
   }
 `;
 
-class DashBoardActivityNetworkBlock extends _DashBoardBlockParentClass {
+class DashBoardActivityLogBlock extends _DashBoardBlockParentClass {
   constructor(props) {
     super(props);
+    this.typeActivityLog = '';
     this.COMPONENT_LIST = CustomQueryRenderer;
-    this.QUERY = CustomQueryRenderer;
+    this.QUERY = DashBoardActivityLogBlockQuery;
     this.state = {
       orderBy: 'timestamp_DESC',
-      filter: {
-        context: 'Network',
-      },
-      first: 3,
     };
   }
 
@@ -37,28 +33,29 @@ class DashBoardActivityNetworkBlock extends _DashBoardBlockParentClass {
     }
   };
 
-  renderListComponent() {
+  renderListComponent(activityParams) {
     const { environment } = this.props;
     return (
       <this.COMPONENT_LIST
         environment={environment}
-        query={DashBoardActivityNetworkBlockQuery}
+        query={this.QUERY}
         variables={{
-          count: this.NUMBER_MAX_ROWS,
+          count: activityParams.maxNumberRows,
           orderBy: this.state.orderBy,
           filter: {
-            context: 'Network',
+            context: activityParams.filterContext,
           },
-          first: 3,
+          first: activityParams.maxNumberRows,
         }}
         errorMessage={this.props.t('general.error')}
         mainClass={this.MAIN_CLASS}
         componentToRender={{
-          Component: DashBoardActivityNetworkList,
+          Component: this.DASH_BOARD_LIST_COMPONENT,
           mainProps: ['getContextActivity'],
           componentProps: {
             changeOrderBy: this.handleChangeOrderBy,
             orderBy: this.state.orderBy,
+            typeActivityLog: this.typeActivityLog,
           },
         }}
       />
@@ -66,8 +63,8 @@ class DashBoardActivityNetworkBlock extends _DashBoardBlockParentClass {
   }
 
   render() {
-    return this.renderListComponent();
+    return this.renderListComponent(ACTIVITY_LOGS_PARAMS[this.typeActivityLog]);
   }
 }
 
-export default withTranslation()(DashBoardActivityNetworkBlock);
+export default DashBoardActivityLogBlock;

@@ -9,9 +9,9 @@
 /*::
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type DashBoardActivityNetworkRow_log$ref: FragmentReference;
-declare export opaque type DashBoardActivityNetworkRow_log$fragmentType: DashBoardActivityNetworkRow_log$ref;
-export type DashBoardActivityNetworkRow_log = {|
+declare export opaque type DashBoardActivityLogNetworkRow_log$ref: FragmentReference;
+declare export opaque type DashBoardActivityLogNetworkRow_log$fragmentType: DashBoardActivityLogNetworkRow_log$ref;
+export type DashBoardActivityLogNetworkRow_log = {|
   +id: string,
   +text: string,
   +actorname: ?string,
@@ -35,12 +35,12 @@ export type DashBoardActivityNetworkRow_log = {|
   |},
   +description: ?string,
   +timestamp: any,
-  +$refType: DashBoardActivityNetworkRow_log$ref,
+  +$refType: DashBoardActivityLogNetworkRow_log$ref,
 |};
-export type DashBoardActivityNetworkRow_log$data = DashBoardActivityNetworkRow_log;
-export type DashBoardActivityNetworkRow_log$key = {
-  +$data?: DashBoardActivityNetworkRow_log$data,
-  +$fragmentRefs: DashBoardActivityNetworkRow_log$ref,
+export type DashBoardActivityLogNetworkRow_log$data = DashBoardActivityLogNetworkRow_log;
+export type DashBoardActivityLogNetworkRow_log$key = {
+  +$data?: DashBoardActivityLogNetworkRow_log$data,
+  +$fragmentRefs: DashBoardActivityLogNetworkRow_log$ref,
   ...
 };
 */
@@ -75,7 +75,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "DashBoardActivityNetworkRow_log",
+  "name": "DashBoardActivityLogNetworkRow_log",
   "selections": [
     (v0/*: any*/),
     {
@@ -178,6 +178,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'fa166ef4a1bc7129c2d22a7e0a2e0f4d';
+(node/*: any*/).hash = '75d1d232c0eb252522f55465f9d1ca9c';
 
 module.exports = node;

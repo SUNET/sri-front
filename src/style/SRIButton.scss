@@ -293,6 +293,17 @@ button.btn {
             color: $complementary-color;
             vertical-align: middle;
         }
+        &.dash-board-footer-button {
+            width: 100%;
+            box-sizing: border-box;
+            border: solid 1px transparent;
+            font-weight: bold;
+            &:hover {
+                border-radius: initial;
+                border-bottom: solid 1px $complementary-color;
+                background-color: transparent;
+            }
+        }
 
         &:hover {
             background-color: $tertiary-color-3;

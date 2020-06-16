@@ -8,15 +8,15 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
-type DashBoardActivityNetworkRow_log$ref = any;
+type DashBoardActivityLogNetworkRow_log$ref = any;
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type DashBoardActivityNetworkList_getContextActivity$ref: FragmentReference;
-declare export opaque type DashBoardActivityNetworkList_getContextActivity$fragmentType: DashBoardActivityNetworkList_getContextActivity$ref;
-export type DashBoardActivityNetworkList_getContextActivity = {|
+declare export opaque type DashBoardActivityLogNetworkList_getContextActivity$ref: FragmentReference;
+declare export opaque type DashBoardActivityLogNetworkList_getContextActivity$fragmentType: DashBoardActivityLogNetworkList_getContextActivity$ref;
+export type DashBoardActivityLogNetworkList_getContextActivity = {|
   +getContextActivity: ?{|
     +edges: $ReadOnlyArray<?{|
       +node: ?{|
-        +$fragmentRefs: DashBoardActivityNetworkRow_log$ref
+        +$fragmentRefs: DashBoardActivityLogNetworkRow_log$ref
       |}
     |}>,
     +pageInfo: {|
@@ -26,12 +26,12 @@ export type DashBoardActivityNetworkList_getContextActivity = {|
       +startCursor: ?string,
     |},
   |},
-  +$refType: DashBoardActivityNetworkList_getContextActivity$ref,
+  +$refType: DashBoardActivityLogNetworkList_getContextActivity$ref,
 |};
-export type DashBoardActivityNetworkList_getContextActivity$data = DashBoardActivityNetworkList_getContextActivity;
-export type DashBoardActivityNetworkList_getContextActivity$key = {
-  +$data?: DashBoardActivityNetworkList_getContextActivity$data,
-  +$fragmentRefs: DashBoardActivityNetworkList_getContextActivity$ref,
+export type DashBoardActivityLogNetworkList_getContextActivity$data = DashBoardActivityLogNetworkList_getContextActivity;
+export type DashBoardActivityLogNetworkList_getContextActivity$key = {
+  +$data?: DashBoardActivityLogNetworkList_getContextActivity$data,
+  +$fragmentRefs: DashBoardActivityLogNetworkList_getContextActivity$ref,
   ...
 };
 */
@@ -71,14 +71,14 @@ const node/*: ReaderFragment*/ = {
       }
     ]
   },
-  "name": "DashBoardActivityNetworkList_getContextActivity",
+  "name": "DashBoardActivityLogNetworkList_getContextActivity",
   "selections": [
     {
       "alias": "getContextActivity",
       "args": null,
       "concreteType": "ActionConnection",
       "kind": "LinkedField",
-      "name": "__DashBoardActivityNetworkList_getContextActivity_connection",
+      "name": "__DashBoardActivityLogNetworkList_getContextActivity_connection",
       "plural": false,
       "selections": [
         {
@@ -107,7 +107,7 @@ const node/*: ReaderFragment*/ = {
                 {
                   "args": null,
                   "kind": "FragmentSpread",
-                  "name": "DashBoardActivityNetworkRow_log"
+                  "name": "DashBoardActivityLogNetworkRow_log"
                 }
               ],
               "storageKey": null
@@ -168,6 +168,6 @@ const node/*: ReaderFragment*/ = {
   "type": "Query"
 };
 // prettier-ignore
-(node/*: any*/).hash = 'dc0434963bccf3a248b1d94d27217c66';
+(node/*: any*/).hash = 'a9a5897bb2304479de0c0a38382ed66f';
 
 module.exports = node;
