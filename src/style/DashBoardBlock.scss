@@ -31,10 +31,10 @@
         }
     }
 
-    article {
+    .dash-board-row {
         border-bottom: solid 1px $tertiary-color-20;
         padding: 12px 24px;
-
+        min-height: 64px;
         &:hover {
             cursor: pointer;
         }
@@ -62,7 +62,7 @@
 
     > div:last-child {
         text-align: center;
-        padding-top: 15px;
+        padding: 15px 15px 15px;
 
         button {
             span {

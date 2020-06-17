@@ -9,6 +9,7 @@ export class DashBoardContactRow extends _DashBoardRowParentClass {
   constructor(props) {
     super(props);
     this.MAIN_PROP = 'contact';
+    this.TIME_PROP = 'modified';
   }
 
   renderInfo() {

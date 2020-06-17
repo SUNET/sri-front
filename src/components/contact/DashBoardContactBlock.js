@@ -4,6 +4,7 @@ import graphql from 'babel-plugin-relay/macro';
 import DashBoardContactList from './DashBoardContactList';
 import CustomQueryRenderer from '../../components/CustomQueryRenderer';
 import _DashBoardBlockParentClass from '../common/_DashBoardBlockParentClass';
+import { MAX_ROWS_CONTACT_DASHBOARD } from '../../utils/constants';
 
 const DashBoardContactBlockQuery = graphql`
   query DashBoardContactBlockQuery($count: Int!, $orderBy: ContactOrderBy) {
@@ -15,7 +16,8 @@ class DashBoardContactBlock extends _DashBoardBlockParentClass {
   constructor(props) {
     super(props);
     this.COMPONENT_LIST = CustomQueryRenderer;
-    this.QUERY = CustomQueryRenderer;
+    this.NUMBER_MAX_ROWS = MAX_ROWS_CONTACT_DASHBOARD;
+    this.QUERY = DashBoardContactBlockQuery;
     this.state = {
       orderBy: 'modified_DESC',
     };
@@ -38,7 +40,7 @@ class DashBoardContactBlock extends _DashBoardBlockParentClass {
     return (
       <this.COMPONENT_LIST
         environment={environment}
-        query={DashBoardContactBlockQuery}
+        query={this.QUERY}
         variables={{
           count: this.NUMBER_MAX_ROWS,
           orderBy: this.state.orderBy,

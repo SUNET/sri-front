@@ -87,7 +87,7 @@ class _DashBoardListParentClass extends React.Component {
     const { t } = this.props;
     return (
       <div>
-        <button type="button" onClick={() => this.onFooterButtonClick()} className="btn outline">
+        <button type="button" onClick={() => this.onFooterButtonClick()} className="btn outline dash-board-footer-button">
           <span>{t(this.FOOTER_DATA.label)}</span>
         </button>
       </div>

@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Wed Jun 17 2020 10:36:51 GMT+0200 (GMT+02:00)
+# timestamp: Wed Jun 17 2020 10:41:10 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
