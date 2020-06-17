@@ -705,6 +705,42 @@ exports[`Some Component Renders correctly 1`] = `
                         className="top-header__user-block navbar-nav"
                         onKeyDown={[Function]}
                       >
+                        <NavItem>
+                          <div
+                            className="nav-item"
+                          >
+                            <Form
+                              inline={true}
+                            >
+                              <form
+                                className="form-inline"
+                              >
+                                <FormGroup
+                                  className="search-global"
+                                >
+                                  <div
+                                    className="search-global form-group"
+                                  >
+                                    <FormControl
+                                      onChange={[Function]}
+                                      placeholder="Search"
+                                      type="text"
+                                      value=""
+                                    >
+                                      <input
+                                        className="form-control"
+                                        onChange={[Function]}
+                                        placeholder="Search"
+                                        type="text"
+                                        value=""
+                                      />
+                                    </FormControl>
+                                  </div>
+                                </FormGroup>
+                              </form>
+                            </Form>
+                          </div>
+                        </NavItem>
                         <NavItem
                           className="top-header__user-block__profile px-0"
                         >

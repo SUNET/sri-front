@@ -32,18 +32,6 @@
             width: 100%;
         }
     }
-
-    .clear-input {
-        position: absolute;
-        right: 14px;
-        top: 9px;
-        color: $secondary-color-30;
-        cursor: pointer;
-
-        &:hover {
-            color: $complementary-color;
-        }
-    }
 }
 .data-filter-by-date {
     display: flex;
@@ -70,6 +58,19 @@
                     font-size: 10px;
                 }
             }
+        }
+    }
+}
+.clear-input-cta {
+    .clear-input {
+        position: absolute;
+        right: 14px;
+        top: 9px;
+        color: $secondary-color-30;
+        cursor: pointer;
+
+        &:hover {
+            color: $complementary-color;
         }
     }
 }

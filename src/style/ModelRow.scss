@@ -6,6 +6,12 @@
     -moz-box-shadow: $list--row-box-shadow;
     box-shadow: $list--row-box-shadow;
     cursor: pointer;
+    &.not-clickable {
+        cursor: auto;
+        &:hover:after {
+            display: none;
+        }
+    }
 
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
