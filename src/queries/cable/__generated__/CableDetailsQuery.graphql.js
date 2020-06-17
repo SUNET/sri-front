@@ -21,11 +21,10 @@ export type CableDetailsQueryResponse = {|
       +name: string,
       +value: string,
     |},
-    +providers: ?$ReadOnlyArray<?{|
+    +provider: ?{|
       +id: string,
-      +relation_id: ?number,
       +name: string,
-    |}>,
+    |},
     +ports: ?$ReadOnlyArray<?{|
       +id: string,
       +name: string,
@@ -77,9 +76,8 @@ query CableDetailsQuery(
       value
       id
     }
-    providers {
+    provider {
       id
-      relation_id
       name
     }
     ports {
@@ -199,22 +197,21 @@ v6 = [
 v7 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "relation_id",
+  "concreteType": "Provider",
+  "kind": "LinkedField",
+  "name": "provider",
+  "plural": false,
+  "selections": [
+    (v2/*: any*/),
+    (v3/*: any*/)
+  ],
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
-  "concreteType": "Provider",
-  "kind": "LinkedField",
-  "name": "providers",
-  "plural": true,
-  "selections": [
-    (v2/*: any*/),
-    (v7/*: any*/),
-    (v3/*: any*/)
-  ],
+  "kind": "ScalarField",
+  "name": "relation_id",
   "storageKey": null
 },
 v9 = {
@@ -306,7 +303,7 @@ return {
             "selections": (v6/*: any*/),
             "storageKey": null
           },
-          (v8/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -318,7 +315,7 @@ return {
               (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
-              (v7/*: any*/),
+              (v8/*: any*/),
               {
                 "alias": "type",
                 "args": null,
@@ -469,7 +466,7 @@ return {
             "selections": (v18/*: any*/),
             "storageKey": null
           },
-          (v8/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -481,7 +478,7 @@ return {
               (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
-              (v7/*: any*/),
+              (v8/*: any*/),
               {
                 "alias": "type",
                 "args": null,
@@ -505,11 +502,11 @@ return {
     "metadata": {},
     "name": "CableDetailsQuery",
     "operationKind": "query",
-    "text": "query CableDetailsQuery(\n  $cableId: ID!\n) {\n  getCableById(id: $cableId) {\n    ...CableUpdateForm_cable\n    id\n    name\n    description\n    cable_type {\n      name\n      value\n      id\n    }\n    providers {\n      id\n      relation_id\n      name\n    }\n    ports {\n      id\n      name\n      description\n      relation_id\n      type: port_type {\n        name\n        value\n        id\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment CableUpdateForm_cable on Cable {\n  id\n  name\n  description\n  cable_type {\n    name\n    value\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query CableDetailsQuery(\n  $cableId: ID!\n) {\n  getCableById(id: $cableId) {\n    ...CableUpdateForm_cable\n    id\n    name\n    description\n    cable_type {\n      name\n      value\n      id\n    }\n    provider {\n      id\n      name\n    }\n    ports {\n      id\n      name\n      description\n      relation_id\n      type: port_type {\n        name\n        value\n        id\n      }\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment CableUpdateForm_cable on Cable {\n  id\n  name\n  description\n  cable_type {\n    name\n    value\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '21ee7f129d03a1354fc1a5680e049129';
+(node/*: any*/).hash = '657988d8e86cf6327c280d817f30ed6d';
 
 module.exports = node;

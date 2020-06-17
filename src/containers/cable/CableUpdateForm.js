@@ -19,19 +19,14 @@ const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'updateCableInModal' : 'updateCable';
   const updateCableSelector = formValueSelector(formName);
   const { cable } = props;
-  // const MOCK_PROVIDER = {
-  //   name: 'Jonsson Björk AB',
-  //   id: 'UHJvdmlkZXI6MjczNw==',
-  //   relation_id: 10,
-  // };
   const initialValues = {
     id: cable.id,
     name: cable.name,
     description: cable.description,
     cable_type: cable.cable_type ? cable.cable_type.value : undefined,
     cableTypeObj: cable.cable_type,
-    providerObj: undefined,
-    provider_id: undefined,
+    providerObj: cable.provider ? cable.provider : undefined,
+    provider_id: cable.provider ? cable.provider.id : undefined,
     connections: formatterSubInputs(cable.ports),
   };
   return {

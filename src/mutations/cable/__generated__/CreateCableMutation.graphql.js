@@ -48,12 +48,14 @@ export type CreateCableInput = {|
   name: string,
   cable_type: any,
   description?: ?string,
+  relationship_provider?: ?any,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
   name: string,
   cable_type: any,
   description?: ?string,
+  relationship_provider?: ?any,
   relationship_end_a?: ?number,
   relationship_end_b?: ?number,
   id: string,
@@ -190,6 +192,10 @@ export type CreateCableMutationResponse = {|
           +value: string
         |},
         +description: ?string,
+        +provider: ?{|
+          +id: string,
+          +name: string,
+        |},
         +ports: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
@@ -231,6 +237,10 @@ mutation CreateCableMutation(
           id
         }
         description
+        provider {
+          id
+          name
+        }
         ports {
           id
           name
@@ -324,6 +334,20 @@ v7 = {
   "storageKey": null
 },
 v8 = [
+  (v3/*: any*/),
+  (v4/*: any*/)
+],
+v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Provider",
+  "kind": "LinkedField",
+  "name": "provider",
+  "plural": false,
+  "selections": (v8/*: any*/),
+  "storageKey": null
+},
+v10 = [
   (v5/*: any*/),
   (v3/*: any*/)
 ];
@@ -372,6 +396,7 @@ return {
                     "storageKey": null
                   },
                   (v7/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -400,10 +425,7 @@ return {
                         "kind": "LinkedField",
                         "name": "connected_to",
                         "plural": true,
-                        "selections": [
-                          (v3/*: any*/),
-                          (v4/*: any*/)
-                        ],
+                        "selections": (v8/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -461,10 +483,11 @@ return {
                     "kind": "LinkedField",
                     "name": "cable_type",
                     "plural": false,
-                    "selections": (v8/*: any*/),
+                    "selections": (v10/*: any*/),
                     "storageKey": null
                   },
                   (v7/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -482,7 +505,7 @@ return {
                         "kind": "LinkedField",
                         "name": "port_type",
                         "plural": false,
-                        "selections": (v8/*: any*/),
+                        "selections": (v10/*: any*/),
                         "storageKey": null
                       },
                       (v7/*: any*/),
@@ -525,11 +548,11 @@ return {
     "metadata": {},
     "name": "CreateCableMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCableMutation(\n  $input: CompositeCableMutationInput!\n) {\n  composite_cable(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        cable_type {\n          value\n          id\n        }\n        description\n        ports {\n          id\n          name\n          port_type {\n            value\n            id\n          }\n          description\n          connected_to {\n            __typename\n            id\n            name\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateCableMutation(\n  $input: CompositeCableMutationInput!\n) {\n  composite_cable(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        cable_type {\n          value\n          id\n        }\n        description\n        provider {\n          id\n          name\n        }\n        ports {\n          id\n          name\n          port_type {\n            value\n            id\n          }\n          description\n          connected_to {\n            __typename\n            id\n            name\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b0292dda45b92f13427ffee2134574f9';
+(node/*: any*/).hash = '293bb9af9bb8e9e557d9c075680fd7d2';
 
 module.exports = node;
