@@ -311,29 +311,20 @@ button.btn {
     }
 }
 
-.row-remove-cta {
+.row-cta {
     width: 15px;
     height: 15px;
     position: relative;
     cursor: pointer;
-    &:after,
-    &:before {
-        content: "";
-        display: inline-block;
-        background-color: $gray-color;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    &.remove {
+        background-image: url("../static/img/trash.svg");
     }
-
-    &:before {
-        height: 14px;
-        width: 2px;
+    &.edit {
+        background-image: url("../static/img/grey-pencil-icon.svg");
     }
-
-    &:after {
-        height: 2px;
-        width: 14px;
+    &.unlink {
+        background-image: url("../static/img/unlink.svg");
     }
 }

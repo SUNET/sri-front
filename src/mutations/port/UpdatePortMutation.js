@@ -88,8 +88,11 @@ function formatterParentsByType(parents, parentType) {
 
 export default function UpdatePortMutation(port, form) {
   const cableParents = formatterParentsByType(port.parents, 'Cable');
+  console.log('cableParents: ', cableParents);
   const portParents = formatterParentsByType(port.parents, 'Port');
+  console.log('portParents: ', portParents);
   const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
+  console.log('connectedTo: ', connectedTo);
   const variables = {
     input: {
       update_input: {
@@ -102,10 +105,10 @@ export default function UpdatePortMutation(port, form) {
       update_parent_port: portParents.toUpdate,
       update_parent_cable: cableParents.toUpdate,
       unlink_subinputs: [...connectedTo.toUnlink, ...cableParents.toUnlink, ...portParents.toUnlink],
-      // delete_subinputs: [],
+      delete_subinputs: [...connectedTo.toDelete, ...cableParents.toDelete, ...portParents.toDelete],
     },
   };
-
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

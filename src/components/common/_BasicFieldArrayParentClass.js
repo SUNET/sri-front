@@ -1,9 +1,9 @@
 import React from 'react';
 import { change } from 'redux-form';
 import CopyToClipboard from '../CopyToClipboard';
-import { Modal } from 'react-bootstrap';
+import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { isBrowser, isMobile } from 'react-device-detect';
-import { UNLINK, SAVED } from '../../utils/constants';
+import { UNLINK, SAVED, REMOVE } from '../../utils/constants';
 
 import DropdownSearch from '../DropdownSearch';
 import Dropdown from '../Dropdown';
@@ -105,6 +105,14 @@ class _BasicFieldArrayParentClass extends React.Component {
   removeRow(id) {
     const currentValue = this.getValueById(id);
     this.hideDataModal();
+    this.props.dispatch(
+      change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, REMOVE),
+    );
+  }
+
+  unlinkRow(id) {
+    const currentValue = this.getValueById(id);
+    this.hideDataModal();
     if (currentValue.data.origin === 'store') {
       this.props.dispatch(
         change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, UNLINK),
@@ -112,6 +120,12 @@ class _BasicFieldArrayParentClass extends React.Component {
     } else {
       this.props.fields.remove(currentValue.index);
     }
+  }
+
+  openEditRow(id) {
+    const dataValue = this.getValueById(id);
+    this.props.showRowEditModal(dataValue.data.__typename, dataValue.data.id);
+    console.log('openEditRow: ', id);
   }
 
   generateSubDataList = (field, keyName, secondaryKeyName) => {
@@ -243,40 +257,31 @@ class _BasicFieldArrayParentClass extends React.Component {
     // at the moment it will only show the details
     const { t } = this.props;
     return (
-      <button
-        type="button"
-        className="btn outline btn-add more-info"
-        onClick={() => this.props.showRowEditModal(row.__typename, row.id)}
-      >
-        <span>{t('actions.info')}</span>
-      </button>
-      // <button
-      //   type="button"
-      //   onClick={() => {
-      //     this.props.showRowEditModal(row.__typename, row.id);
-      //   }}
-      //   className="btn outline btn-edit"
-      // >
-      //   <i className="icon-pencil"></i>
-      //   <span>{t('actions.edit')}</span>
-      // </button>
+      <div className="contact-in-organization__body__buttons-in-the-final-row">
+        <button
+          type="button"
+          className="btn outline btn-add more-info"
+          onClick={() => this.props.showRowEditModal(row.__typename, row.id)}
+        >
+          <span>{t('actions.info')}</span>
+        </button>
+      </div>
     );
   }
 
-  renderRemoveCtaCrossAndEditButton(row, editable) {
+  renderButtonsBox(id) {
+    const { t } = this.props;
     return (
-      <div
-        className={`contact-in-organization__body__buttons-in-the-final-row ${
-          isBrowser ? 'contact-in-organization__body__buttons-in-the-final-row--desktop-version' : ''
-        }`}
-      >
-        {isBrowser && this.renderEditButton(row)}
-        {editable && (
-          <div
-            className={`row-remove-cta ${isBrowser ? 'row-remove-cta--desktop-version' : ''}`}
-            onClick={() => this.removeRow(row.id)}
-          ></div>
-        )}
+      <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions.unlink')}</Tooltip>}>
+          <div className={`row-cta unlink`} onClick={() => this.unlinkRow(id)}></div>
+        </OverlayTrigger>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
+          <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}></div>
+        </OverlayTrigger>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
+          <div className={`row-cta remove`} onClick={() => this.removeRow(id)}></div>
+        </OverlayTrigger>
       </div>
     );
   }
@@ -341,25 +346,27 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderBody() {
-    const { editable, fields } = this.props;
+    const { t, editable, fields } = this.props;
     const values = fields.getAll();
     return (
       <div className="contact-in-organization__body">
         {values &&
           values
-            .filter((row) => row.status === SAVED)
             .map((row, index) => {
               return (
                 <div key={index} className={`contact-in-organization__body__row`}>
                   {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                   {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                  {isMobile && (
-                    <div className="contact-in-organization__body__row__element info-button">
-                      {editable && this.renderEditButton(row.id)}
-                      {!editable && this.renderMoreInfoButton(row.id)}
+                  {editable && row.status === SAVED && this.renderButtonsBox(row.id)}
+                  {!editable && row.status === SAVED && this.renderEditButton(row)}
+                  {row.status === UNLINK && (
+                    <div className="contact-in-organization__body__row__action-message">{t('actions.unlinked')}</div>
+                  )}
+                  {row.status === REMOVE && (
+                    <div className="contact-in-organization__body__row__action-message">
+                      {t('actions.moved_to_trash')}
                     </div>
                   )}
-                  {this.renderRemoveCtaCrossAndEditButton(row, editable)}
                 </div>
               );
             })}
@@ -409,6 +416,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         .getAll()
         .filter((el) => el.status === SAVED)
         .map((row) => row.id);
+      console.log('existingElements: ', existingElements);
     }
     return (
       <DropdownSearch
