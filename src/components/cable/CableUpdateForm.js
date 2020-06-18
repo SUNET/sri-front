@@ -18,7 +18,7 @@ class CableUpdateForm extends _CableFormParentClass {
   MODEL_NAME = 'cable';
   ROUTE_LIST_DIRECTION = '/network/cables';
   state = {
-    editMode: true,
+    editMode: false,
   };
   refetch = () => {
     this.props.relay.refetch(
