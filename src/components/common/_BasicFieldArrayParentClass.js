@@ -68,19 +68,6 @@ class _BasicFieldArrayParentClass extends React.Component {
       index: valueIndex,
     };
   }
-  // methods validation
-  // validateMember = (index) => {
-  //     const errors = this.props.errors;
-  //     const values = this.props.fields.getAll();
-  //     const hasBlankFields =
-  //         values[index].name === "" ||
-  //         values[index].name === undefined ||
-  //         values[index].email === "" ||
-  //         values[index].email === undefined ||
-  //         values[index].phone === "" ||
-  //         values[index].phone === undefined;
-  //     return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
-  // };
 
   // methods rows
   newResultInSearch = (selection) => {
@@ -125,7 +112,6 @@ class _BasicFieldArrayParentClass extends React.Component {
   openEditRow(id) {
     const dataValue = this.getValueById(id);
     this.props.showRowEditModal(dataValue.data.__typename, dataValue.data.id);
-    console.log('openEditRow: ', id);
   }
 
   generateSubDataList = (field, keyName, secondaryKeyName) => {
@@ -244,16 +230,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
-  renderMoreInfoButton(id) {
-    const { t } = this.props;
-    return (
-      <button type="button" className="btn outline btn-add more-info" onClick={() => this.showDataModal(id)}>
-        <span>{t('actions.info')}</span>
-      </button>
-    );
-  }
-
-  renderEditButton(row) {
+  renderMoreInfoButton(row) {
     // at the moment it will only show the details
     const { t } = this.props;
     return (
@@ -261,7 +238,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         <button
           type="button"
           className="btn outline btn-add more-info"
-          onClick={() => this.props.showRowEditModal(row.__typename, row.id)}
+          onClick={() => this.props.showRowDetailModal(row.__typename, row.id)}
         >
           <span>{t('actions.info')}</span>
         </button>
@@ -358,7 +335,7 @@ class _BasicFieldArrayParentClass extends React.Component {
                   {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                   {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                   {editable && row.status === SAVED && this.renderButtonsBox(row.id)}
-                  {!editable && row.status === SAVED && this.renderEditButton(row)}
+                  {!editable && row.status === SAVED && this.renderMoreInfoButton(row)}
                   {row.status === UNLINK && (
                     <div className="contact-in-organization__body__row__action-message">{t('actions.unlinked')}</div>
                   )}
@@ -416,7 +393,6 @@ class _BasicFieldArrayParentClass extends React.Component {
         .getAll()
         .filter((el) => el.status === SAVED)
         .map((row) => row.id);
-      console.log('existingElements: ', existingElements);
     }
     return (
       <DropdownSearch

@@ -147,7 +147,11 @@ class _PortFormParentClass extends _BasicFormParentClass {
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
                 this.setState({ fieldModalOpened: 'parents' });
-                this.props.showModalUpdateForm(typeEntityToShowForm, entityId);
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'parents' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedParent}
               rerenderOnEveryChange={true}
@@ -182,7 +186,11 @@ class _PortFormParentClass extends _BasicFormParentClass {
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
                 this.setState({ fieldModalOpened: 'connectedTo' });
-                this.props.showModalUpdateForm(typeEntityToShowForm, entityId);
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'connectedTo' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedConnectedTo}
               rerenderOnEveryChange={true}

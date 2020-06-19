@@ -96,7 +96,8 @@ const mapStateToProps = (state, props) => {
       }),
     formSyncErrors: getFormSyncErrors(formName)(state),
     fields: getFormMeta(formName)(state),
-    isFromModal: props.isFromModal,
+    isFromModal: Boolean(props.isFromModal),
+    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
   };
 };
 

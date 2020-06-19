@@ -141,6 +141,7 @@ export type UpdateGroupMutationResponse = {|
           +id: string,
           +first_name: string,
           +last_name: string,
+          +relation_id: ?number,
           +contact_type: ?{|
             +name: string,
             +value: string,
@@ -280,6 +281,7 @@ mutation UpdateGroupMutation(
           id
           first_name
           last_name
+          relation_id
           contact_type {
             name
             value
@@ -488,24 +490,31 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "relation_id",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "value",
   "storageKey": null
 },
-v9 = [
+v10 = [
   (v4/*: any*/),
-  (v8/*: any*/)
+  (v9/*: any*/)
 ],
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "Choice",
   "kind": "LinkedField",
   "name": "contact_type",
   "plural": false,
-  "selections": (v9/*: any*/),
+  "selections": (v10/*: any*/),
   "storageKey": null
 },
-v11 = [
+v12 = [
   (v3/*: any*/),
   (v4/*: any*/),
   {
@@ -515,35 +524,35 @@ v11 = [
     "kind": "LinkedField",
     "name": "type",
     "plural": false,
-    "selections": (v9/*: any*/),
+    "selections": (v10/*: any*/),
     "storageKey": null
   }
 ],
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "Email",
   "kind": "LinkedField",
   "name": "emails",
   "plural": true,
-  "selections": (v11/*: any*/),
+  "selections": (v12/*: any*/),
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "Phone",
   "kind": "LinkedField",
   "name": "phones",
   "plural": true,
-  "selections": (v11/*: any*/),
+  "selections": (v12/*: any*/),
   "storageKey": null
 },
-v14 = [
+v15 = [
   (v3/*: any*/),
   (v4/*: any*/)
 ],
-v15 = {
+v16 = {
   "alias": null,
   "args": null,
   "concreteType": "RoleRelation",
@@ -558,7 +567,7 @@ v15 = {
       "kind": "LinkedField",
       "name": "role_data",
       "plural": false,
-      "selections": (v14/*: any*/),
+      "selections": (v15/*: any*/),
       "storageKey": null
     },
     {
@@ -568,17 +577,10 @@ v15 = {
       "kind": "LinkedField",
       "name": "end",
       "plural": false,
-      "selections": (v14/*: any*/),
+      "selections": (v15/*: any*/),
       "storageKey": null
     }
   ],
-  "storageKey": null
-},
-v16 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "relation_id",
   "storageKey": null
 },
 v17 = {
@@ -620,9 +622,9 @@ v19 = [
       (v3/*: any*/),
       (v6/*: any*/),
       (v7/*: any*/),
-      (v10/*: any*/),
-      (v12/*: any*/),
+      (v11/*: any*/),
       (v13/*: any*/),
+      (v14/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -641,7 +643,7 @@ v19 = [
 ],
 v20 = [
   (v4/*: any*/),
-  (v8/*: any*/),
+  (v9/*: any*/),
   (v3/*: any*/)
 ],
 v21 = {
@@ -767,10 +769,11 @@ return {
                       (v3/*: any*/),
                       (v6/*: any*/),
                       (v7/*: any*/),
-                      (v10/*: any*/),
-                      (v12/*: any*/),
+                      (v8/*: any*/),
+                      (v11/*: any*/),
                       (v13/*: any*/),
-                      (v15/*: any*/),
+                      (v14/*: any*/),
+                      (v16/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -788,7 +791,7 @@ return {
                             "name": "relation",
                             "plural": false,
                             "selections": [
-                              (v16/*: any*/),
+                              (v8/*: any*/),
                               (v17/*: any*/),
                               (v18/*: any*/)
                             ],
@@ -877,10 +880,11 @@ return {
                       (v3/*: any*/),
                       (v6/*: any*/),
                       (v7/*: any*/),
+                      (v8/*: any*/),
                       (v21/*: any*/),
                       (v23/*: any*/),
                       (v24/*: any*/),
-                      (v15/*: any*/),
+                      (v16/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -898,7 +902,7 @@ return {
                             "name": "relation",
                             "plural": false,
                             "selections": [
-                              (v16/*: any*/),
+                              (v8/*: any*/),
                               (v17/*: any*/),
                               (v18/*: any*/),
                               (v3/*: any*/)
@@ -947,11 +951,11 @@ return {
     "metadata": {},
     "name": "UpdateGroupMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateGroupMutation(\n  $input: CompositeGroupMutationInput!\n) {\n  composite_group(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      group {\n        id\n        name\n        description\n        contacts {\n          id\n          first_name\n          last_name\n          contact_type {\n            name\n            value\n            id\n          }\n          emails {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          phones {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          roles {\n            role_data {\n              id\n              name\n            }\n            end {\n              id\n              name\n            }\n          }\n          outgoing {\n            name\n            relation {\n              relation_id\n              type\n              end {\n                id\n                node_name\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateGroupMutation(\n  $input: CompositeGroupMutationInput!\n) {\n  composite_group(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      group {\n        id\n        name\n        description\n        contacts {\n          id\n          first_name\n          last_name\n          relation_id\n          contact_type {\n            name\n            value\n            id\n          }\n          emails {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          phones {\n            id\n            name\n            type {\n              name\n              value\n              id\n            }\n          }\n          roles {\n            role_data {\n              id\n              name\n            }\n            end {\n              id\n              name\n            }\n          }\n          outgoing {\n            name\n            relation {\n              relation_id\n              type\n              end {\n                id\n                node_name\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      contact {\n        id\n        first_name\n        last_name\n        contact_type {\n          name\n          value\n          id\n        }\n        emails {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        phones {\n          id\n          name\n          type {\n            name\n            value\n            id\n          }\n        }\n        member_of_groups {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'fa59f7c06ed3c8df7b0f8bcf9da9d07c';
+(node/*: any*/).hash = 'a0bb79ecd4eff22678b24c3f8ff3099b';
 
 module.exports = node;

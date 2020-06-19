@@ -65,7 +65,7 @@ class ModalNewContact extends React.Component {
   }
 
   render() {
-    const { t, isVisibleModalForm } = this.props;
+    const { t, isVisibleModalForm, isEditing } = this.props;
     const classModalTitle = isMobile ? 'd-flex flex-column align-items-start' : '';
     const classButtons = isMobile ? 'w-100 d-flex justify-content-end' : '';
     const { ComponentToRender, textHeader, formId } = this.getDataByEntity();
@@ -75,9 +75,15 @@ class ModalNewContact extends React.Component {
           <Modal.Header closeButton={false}>
             <Modal.Title className={classModalTitle}>
               <div className="new-contact-modal-form__header__title">{t(textHeader)}</div>
-              <div className={`new-contact-modal-form__header__buttons ${classButtons}`}>
-                <SaveCancelCTAs formId={`${formId}InModal`} cancelText={t('actions.cancel')} onCancel={() => this.handleClose()} />
-              </div>
+              {isEditing && (
+                <div className={`new-contact-modal-form__header__buttons ${classButtons}`}>
+                  <SaveCancelCTAs
+                    formId={`${formId}InModal`}
+                    cancelText={t('actions.cancel')}
+                    onCancel={() => this.handleClose()}
+                  />
+                </div>
+              )}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

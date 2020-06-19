@@ -26,6 +26,7 @@ const mutation = graphql`
           parent {
             id
             name
+            relation_id
             ... on Port {
               type: port_type {
                 value
@@ -44,6 +45,7 @@ const mutation = graphql`
           connected_to {
             id
             name
+            relation_id
             ... on Cable {
               type: cable_type {
                 value
@@ -88,11 +90,8 @@ function formatterParentsByType(parents, parentType) {
 
 export default function UpdatePortMutation(port, form) {
   const cableParents = formatterParentsByType(port.parents, 'Cable');
-  console.log('cableParents: ', cableParents);
   const portParents = formatterParentsByType(port.parents, 'Port');
-  console.log('portParents: ', portParents);
   const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
-  console.log('connectedTo: ', connectedTo);
   const variables = {
     input: {
       update_input: {
@@ -108,14 +107,13 @@ export default function UpdatePortMutation(port, form) {
       delete_subinputs: [...connectedTo.toDelete, ...cableParents.toDelete, ...portParents.toDelete],
     },
   };
-  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_port.updated.errors) {
         form.props.notify(i18n.t('notify.error'), 'error');
-        return response.update_port.updated.errors;
+        return response.composite_port.updated.errors;
       }
       form.props.reset();
       // form.refetch();

@@ -43,7 +43,8 @@ const mapStateToProps = (state, props) => {
     connectedTo: updatePortSelector(state, 'connectedTo'),
     getCableById: (id) => getCable(id),
     getPortById: (id) => getPort(id),
-    isFromModal: props.isFromModal,
+    isFromModal: Boolean(props.isFromModal),
+    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
     entityInModalName: state.formModal.entityName,
     editedSubEntity: state.formModal.entityEditedId,
     entitySavedId: state.formModal.entitySavedId,
@@ -65,8 +66,11 @@ const mapDispatchToProps = (dispatch) => {
     showModalCreateForm: (entityName) => {
       dispatch(formModalActions.showModalCreateForm(entityName));
     },
-    showModalUpdateForm: (entityName, entityId) => {
-      dispatch(formModalActions.showModalUpdateForm(entityName, entityId));
+    showModalDetailForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalDetailForm(entityName, entityId));
+    },
+    showModalEditForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalEditForm(entityName, entityId));
     },
     editedEntity: (entityName, entityId) => {
       dispatch(formModalActions.editedEntity(entityName, entityId));

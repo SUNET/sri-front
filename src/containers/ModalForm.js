@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
     isVisibleModalForm: state.formModal.showModalForm,
     entityName: state.formModal.entityName,
     entityInModalId: state.formModal.entityId,
+    isEditing: state.formModal.editing,
   };
 };
 

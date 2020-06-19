@@ -106,16 +106,18 @@ class _BasicFormParentClass extends React.Component {
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return <SaveCancelCTAs formId={formId} cancelText={textToButtons} onCancel={functionToCancel} />;
   }
+
   renderHeader(editMode = true, showBackButton = true) {
     return (
-      <Form.Row>
-        <Col className={`d-inline-flex align-items-center ${isMobile ? 'mb-3' : ''}`}>
+      <Form.Row className="justify-content-between">
+        <div className={`d-inline-flex align-items-center ${isMobile ? 'mb-3' : ''}`}>
           {this.renderHeaderName(editMode, showBackButton)}
-        </Col>
-        {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight()}</Col>}
+        </div>
+        {this.IS_UPDATED_FORM && <div>{this.renderHeaderRight()}</div>}
       </Form.Row>
     );
   }
+
   renderHeaderName(editMode = true, showBackButton = true) {
     const editionModeClass = editMode ? 'title-section__name-inputs--edition-mode' : '';
     const { isFromModal } = this.props;
