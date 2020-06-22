@@ -9,6 +9,7 @@ import SearchProvidersContainer from "../containers/provider/SearchProvider";
 import SearchSiteOwnersContainer from "../containers/siteOwner/SearchSiteOwner";
 import SearchCablesContainer from "../containers/cable/SearchCable";
 import SearchPortsContainer from "../containers/port/SearchPort";
+import SearchSwitchesContainer from "../containers/switch/SearchSwitch";
 
 class Network extends React.Component {
     render() {
@@ -25,6 +26,7 @@ class Network extends React.Component {
                         <Route path="/network/site-owners" component={SearchSiteOwnersContainer} />
                         <Route path="/network/cables" component={SearchCablesContainer} />
                         <Route path="/network/ports" component={SearchPortsContainer} />
+                        <Route path="/network/switches" component={SearchSwitchesContainer} />
                     </Switch>
                 </Col>
             </Row>
@@ -33,3 +35,4 @@ class Network extends React.Component {
 }
 
 export default withTranslation()(Network);
+

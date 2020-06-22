@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Wed Jun 17 2020 10:41:10 GMT+0200 (GMT+02:00)
+# timestamp: Mon Jun 22 2020 07:24:35 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -260,6 +260,7 @@ type Cable implements NINode & Physical {
   has: Physical
   part_of: Logical
   parent: [Physical]
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -457,6 +458,9 @@ input CompositeCableMutationInput {
   create_has_cable: CreateCableInput
   update_has_cable: UpdateCableInput
   deleted_has_cable: DeleteCableInput
+  create_has_switch: CreateSwitchInput
+  update_has_switch: UpdateSwitchInput
+  deleted_has_switch: DeleteSwitchInput
   create_part_of_group: CreateGroupInput
   update_part_of_group: UpdateGroupInput
   deleted_part_of_group: DeleteGroupInput
@@ -478,6 +482,24 @@ input CompositeCableMutationInput {
   create_parent_cable: [CreateCableInput]
   update_parent_cable: [UpdateCableInput]
   deleted_parent_cable: [DeleteCableInput]
+  create_parent_switch: [CreateSwitchInput]
+  update_parent_switch: [UpdateSwitchInput]
+  deleted_parent_switch: [DeleteSwitchInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
   clientMutationId: String
 }
 
@@ -494,6 +516,9 @@ type CompositeCableMutationPayload {
   has_cable_created: CreateCablePayload
   has_cable_updated: UpdateCablePayload
   has_cable_deleted: DeleteCablePayload
+  has_switch_created: CreateSwitchPayload
+  has_switch_updated: UpdateSwitchPayload
+  has_switch_deleted: DeleteSwitchPayload
   part_of_group_created: CreateGroupPayload
   part_of_group_updated: UpdateGroupPayload
   part_of_group_deleted: DeleteGroupPayload
@@ -515,6 +540,24 @@ type CompositeCableMutationPayload {
   parent_cable_created: [CreateCablePayload]
   parent_cable_updated: [UpdateCablePayload]
   parent_cable_deleted: [DeleteCablePayload]
+  parent_switch_created: [CreateSwitchPayload]
+  parent_switch_updated: [UpdateSwitchPayload]
+  parent_switch_deleted: [DeleteSwitchPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
   clientMutationId: String
 }
 
@@ -550,6 +593,9 @@ input CompositeContactMutationInput {
   create_owns_cable: CreateCableInput
   update_owns_cable: UpdateCableInput
   deleted_owns_cable: DeleteCableInput
+  create_owns_switch: CreateSwitchInput
+  update_owns_switch: UpdateSwitchInput
+  deleted_owns_switch: DeleteSwitchInput
   clientMutationId: String
 }
 
@@ -585,6 +631,9 @@ type CompositeContactMutationPayload {
   owns_cable_created: CreateCablePayload
   owns_cable_updated: UpdateCablePayload
   owns_cable_deleted: DeleteCablePayload
+  owns_switch_created: CreateSwitchPayload
+  owns_switch_updated: UpdateSwitchPayload
+  owns_switch_deleted: DeleteSwitchPayload
   clientMutationId: String
 }
 
@@ -601,6 +650,9 @@ input CompositeGroupMutationInput {
   create_part_of_cable: CreateCableInput
   update_part_of_cable: UpdateCableInput
   deleted_part_of_cable: DeleteCableInput
+  create_part_of_switch: CreateSwitchInput
+  update_part_of_switch: UpdateSwitchInput
+  deleted_part_of_switch: DeleteSwitchInput
   clientMutationId: String
 }
 
@@ -617,6 +669,9 @@ type CompositeGroupMutationPayload {
   part_of_cable_created: CreateCablePayload
   part_of_cable_updated: UpdateCablePayload
   part_of_cable_deleted: DeleteCablePayload
+  part_of_switch_created: CreateSwitchPayload
+  part_of_switch_updated: UpdateSwitchPayload
+  part_of_switch_deleted: DeleteSwitchPayload
   clientMutationId: String
 }
 
@@ -651,6 +706,9 @@ input CompositeOrganizationMutationInput {
   create_owns_cable: CreateCableInput
   update_owns_cable: UpdateCableInput
   deleted_owns_cable: DeleteCableInput
+  create_owns_switch: CreateSwitchInput
+  update_owns_switch: UpdateSwitchInput
+  deleted_owns_switch: DeleteSwitchInput
   clientMutationId: String
 }
 
@@ -685,6 +743,9 @@ type CompositeOrganizationMutationPayload {
   owns_cable_created: CreateCablePayload
   owns_cable_updated: UpdateCablePayload
   owns_cable_deleted: DeleteCablePayload
+  owns_switch_created: CreateSwitchPayload
+  owns_switch_updated: UpdateSwitchPayload
+  owns_switch_deleted: DeleteSwitchPayload
   clientMutationId: String
 }
 
@@ -701,6 +762,9 @@ input CompositePortMutationInput {
   create_parent_cable: [CreateCableInput]
   update_parent_cable: [UpdateCableInput]
   deleted_parent_cable: [DeleteCableInput]
+  create_parent_switch: [CreateSwitchInput]
+  update_parent_switch: [UpdateSwitchInput]
+  deleted_parent_switch: [DeleteSwitchInput]
   clientMutationId: String
 }
 
@@ -717,6 +781,53 @@ type CompositePortMutationPayload {
   parent_cable_created: [CreateCablePayload]
   parent_cable_updated: [UpdateCablePayload]
   parent_cable_deleted: [DeleteCablePayload]
+  parent_switch_created: [CreateSwitchPayload]
+  parent_switch_updated: [UpdateSwitchPayload]
+  parent_switch_deleted: [DeleteSwitchPayload]
+  clientMutationId: String
+}
+
+input CompositeSwitchMutationInput {
+  create_input: CreateSwitchInput
+  update_input: UpdateSwitchInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  clientMutationId: String
+}
+
+type CompositeSwitchMutationPayload {
+  created: CreateSwitchPayload
+  updated: UpdateSwitchPayload
+  unlinked: [DeleteRelationshipPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
   clientMutationId: String
 }
 
@@ -1295,6 +1406,40 @@ type CreateSiteOwnerPayload {
   clientMutationId: String
 }
 
+input CreateSwitchInput {
+  name: String!
+  description: String
+  ip_addresses: String
+  rack_units: Int
+  rack_position: Int
+  operational_state: ChoiceScalar! = "Reserved"
+  managed_by: ChoiceScalar
+  responsible_group: ChoiceScalar
+  support_group: ChoiceScalar
+  backup: String
+  security_class: ChoiceScalar
+  security_comment: String
+  os: String
+  os_version: String
+  model: String
+  vendor: String
+  service_tag: String
+  end_support: String
+  contract_number: String
+  relationship_location: Int
+  relationship_owner: Int
+  max_number_of_ports: Int
+  relationship_provider: ChoiceScalar
+  switch_type: ChoiceScalar!
+  clientMutationId: String
+}
+
+type CreateSwitchPayload {
+  errors: [ErrorType]
+  switch: Switch
+  clientMutationId: String
+}
+
 type Customer implements NINode & Relation {
   handle_id: ID!
   node_name: String!
@@ -1635,6 +1780,17 @@ input DeleteSiteOwnerInput {
 }
 
 type DeleteSiteOwnerPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteSwitchInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteSwitchPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -2562,6 +2718,10 @@ type Mutation {
   update_cable(input: UpdateCableInput!): UpdateCablePayload
   delete_cable(input: DeleteCableInput!): DeleteCablePayload
   composite_cable(input: CompositeCableMutationInput!): CompositeCableMutationPayload
+  create_switch(input: CreateSwitchInput!): CreateSwitchPayload
+  update_switch(input: UpdateSwitchInput!): UpdateSwitchPayload
+  delete_switch(input: DeleteSwitchInput!): DeleteSwitchPayload
+  composite_switch(input: CompositeSwitchMutationInput!): CompositeSwitchMutationPayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -3447,6 +3607,7 @@ interface Physical {
   has: Physical
   part_of: Logical
   parent: [Physical]
+  dependents: [Logical]
 }
 
 type Port implements NINode & Physical {
@@ -3467,6 +3628,7 @@ type Port implements NINode & Physical {
   has: Physical
   part_of: Logical
   parent: [Physical]
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -3943,6 +4105,7 @@ type Query {
   getTypesForMetatype(metatype: MetaType): [TypeInfo]
   getAvailableContexts: [String]
   getContextActivity(filter: ActionFilter!, orderBy: ActionOrderBy, before: String, after: String, first: Int, last: Int): ActionConnection
+  getSwitchTypes: [SwitchType]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -4003,6 +4166,10 @@ type Query {
   count_routers: Int
   routers(filter: RouterFilter, orderBy: RouterOrderBy, before: String, after: String, first: Int, last: Int): routerConnection
   getRouterById(id: ID): Router
+  all_switchs: [Switch]
+  count_switchs: Int
+  switchs(filter: SwitchFilter, orderBy: SwitchOrderBy, before: String, after: String, first: Int, last: Int): switchConnection
+  getSwitchById(id: ID): Switch
   all_peeringpartners: [PeeringPartner]
   count_peeringpartners: Int
   peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
@@ -4134,6 +4301,7 @@ type Router implements NINode & Physical {
   has: Physical
   part_of: Logical
   parent: [Physical]
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -4474,6 +4642,302 @@ enum SiteOwnerOrderBy {
   handle_id_DESC
 }
 
+type Switch implements NINode & Physical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: Physical
+  part_of: Logical
+  parent: [Physical]
+  dependents: [Logical]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  operational_state: String!
+  ip_addresses: IPAddr
+  responsible_group: Group
+  support_group: Group
+  managed_by: Choice
+  backup: String
+  os: String
+  os_version: String
+  contract_number: String
+  rack_units: Int
+  rack_position: Int
+  provider: Provider
+  max_number_of_ports: Int
+}
+
+type switchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [switchEdge]!
+}
+
+"""A Relay edge containing a `switch` and its cursor."""
+type switchEdge {
+  """The item at the end of the edge"""
+  node: Switch
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input SwitchFilter {
+  AND: [SwitchNestedFilter!]
+  OR: [SwitchNestedFilter!]
+}
+
+input SwitchNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  operational_state: String
+  operational_state_not: String
+  operational_state_lt: String
+  operational_state_lte: String
+  operational_state_gt: String
+  operational_state_gte: String
+  operational_state_contains: String
+  operational_state_not_contains: String
+  operational_state_starts_with: String
+  operational_state_not_starts_with: String
+  operational_state_ends_with: String
+  operational_state_not_ends_with: String
+  operational_state_in: [String!]
+  operational_state_not_in: [String!]
+  managed_by: ChoiceScalar
+  managed_by_not: ChoiceScalar
+  managed_by_lt: ChoiceScalar
+  managed_by_lte: ChoiceScalar
+  managed_by_gt: ChoiceScalar
+  managed_by_gte: ChoiceScalar
+  managed_by_contains: ChoiceScalar
+  managed_by_not_contains: ChoiceScalar
+  managed_by_starts_with: ChoiceScalar
+  managed_by_not_starts_with: ChoiceScalar
+  managed_by_ends_with: ChoiceScalar
+  managed_by_not_ends_with: ChoiceScalar
+  managed_by_in: [ChoiceScalar!]
+  managed_by_not_in: [ChoiceScalar!]
+  backup: String
+  backup_not: String
+  backup_lt: String
+  backup_lte: String
+  backup_gt: String
+  backup_gte: String
+  backup_contains: String
+  backup_not_contains: String
+  backup_starts_with: String
+  backup_not_starts_with: String
+  backup_ends_with: String
+  backup_not_ends_with: String
+  backup_in: [String!]
+  backup_not_in: [String!]
+  os: String
+  os_not: String
+  os_lt: String
+  os_lte: String
+  os_gt: String
+  os_gte: String
+  os_contains: String
+  os_not_contains: String
+  os_starts_with: String
+  os_not_starts_with: String
+  os_ends_with: String
+  os_not_ends_with: String
+  os_in: [String!]
+  os_not_in: [String!]
+  os_version: String
+  os_version_not: String
+  os_version_lt: String
+  os_version_lte: String
+  os_version_gt: String
+  os_version_gte: String
+  os_version_contains: String
+  os_version_not_contains: String
+  os_version_starts_with: String
+  os_version_not_starts_with: String
+  os_version_ends_with: String
+  os_version_not_ends_with: String
+  os_version_in: [String!]
+  os_version_not_in: [String!]
+  contract_number: String
+  contract_number_not: String
+  contract_number_lt: String
+  contract_number_lte: String
+  contract_number_gt: String
+  contract_number_gte: String
+  contract_number_contains: String
+  contract_number_not_contains: String
+  contract_number_starts_with: String
+  contract_number_not_starts_with: String
+  contract_number_ends_with: String
+  contract_number_not_ends_with: String
+  contract_number_in: [String!]
+  contract_number_not_in: [String!]
+  rack_units: Int
+  rack_units_not: Int
+  rack_units_lt: Int
+  rack_units_lte: Int
+  rack_units_gt: Int
+  rack_units_gte: Int
+  rack_units_in: [Int!]
+  rack_units_not_in: [Int!]
+  rack_position: Int
+  rack_position_not: Int
+  rack_position_lt: Int
+  rack_position_lte: Int
+  rack_position_gt: Int
+  rack_position_gte: Int
+  rack_position_in: [Int!]
+  rack_position_not_in: [Int!]
+  max_number_of_ports: Int
+  max_number_of_ports_not: Int
+  max_number_of_ports_lt: Int
+  max_number_of_ports_lte: Int
+  max_number_of_ports_gt: Int
+  max_number_of_ports_gte: Int
+  max_number_of_ports_in: [Int!]
+  max_number_of_ports_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum SwitchOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  operational_state_ASC
+  operational_state_DESC
+  managed_by_ASC
+  managed_by_DESC
+  backup_ASC
+  backup_DESC
+  os_ASC
+  os_DESC
+  os_version_ASC
+  os_version_DESC
+  contract_number_ASC
+  contract_number_DESC
+  rack_units_ASC
+  rack_units_DESC
+  rack_position_ASC
+  rack_position_DESC
+  max_number_of_ports_ASC
+  max_number_of_ports_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+"""This class represents a SwitchType for switch's mutations"""
+type SwitchType implements Node {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+
+  """
+  Autogenerate ports. "," separator. ex: Et1,Et2,Et3 alt ge-0/0/0,ge-0/0/1
+  """
+  ports: String!
+}
+
 type TypeInfo {
   type_name: String!
   connection_name: String!
@@ -4722,6 +5186,40 @@ input UpdateSiteOwnerInput {
 type UpdateSiteOwnerPayload {
   errors: [ErrorType]
   siteOwner: SiteOwner
+  clientMutationId: String
+}
+
+input UpdateSwitchInput {
+  name: String!
+  description: String
+  ip_addresses: String
+  rack_units: Int
+  rack_position: Int
+  operational_state: ChoiceScalar! = "Reserved"
+  managed_by: ChoiceScalar
+  responsible_group: ChoiceScalar
+  support_group: ChoiceScalar
+  backup: String
+  security_class: ChoiceScalar
+  security_comment: String
+  os: String
+  os_version: String
+  model: String
+  vendor: String
+  service_tag: String
+  end_support: String
+  contract_number: String
+  relationship_location: Int
+  relationship_owner: Int
+  max_number_of_ports: Int
+  relationship_provider: ChoiceScalar
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateSwitchPayload {
+  errors: [ErrorType]
+  switch: Switch
   clientMutationId: String
 }
 

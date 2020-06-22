@@ -30,6 +30,8 @@ const Routes = {
   '/network/cables/create': 'Create Cable',
   '/network/ports': 'Ports',
   '/network/ports/create': 'Create Port',
+  '/network/switches': 'Switches',
+  '/network/switches/create': 'Create Switch',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',

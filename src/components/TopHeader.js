@@ -194,10 +194,10 @@ export class TopHeader extends React.Component {
             subSubOptions: [
               { name: t('network.sub-menu.equipment/cables'), route: '/network/cables' },
               { name: t('network.sub-menu.equipment/ports'), route: '/network/ports' },
+              { name: t('network.sub-menu.equipment/switches'), route: '/network/switches' },
               // { name: "Hosts", route: "/network/customers" },
               // { name: "Firewalls", route: "/network/customers" },
               // { name: "Routers", route: "/network/customers" },
-              // { name: "Switches", route: "/network/customers" },
               // { name: "External equipment", route: "/network/customers" },
               // { name: "Optical nodes", route: "/network/customers" },
               // { name: "ODFs", route: "/network/customers" }
