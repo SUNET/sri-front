@@ -19,7 +19,6 @@ const mapDispatchToProps = (dispatch, props) => {
     notify: (msg, level) => {
       dispatch(actions.notify(msg, level));
     },
-    showNewContactForm,
   };
 };
 

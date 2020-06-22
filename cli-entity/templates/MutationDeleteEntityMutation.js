@@ -14,7 +14,7 @@ const mutation = graphql`
 export default function Delete__EntityClassName__Mutation(id, callback) {
   const variables = {
     input: {
-      id: id,
+      id,
       clientMutationId: '',
     },
   };

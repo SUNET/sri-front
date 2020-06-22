@@ -21,7 +21,7 @@ class __EntityClassName__Details extends React.Component {
   handleDelete = () => {
     const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
     Delete__EntityClassName__Mutation(idEntity, () =>
-      this.props.history.push(`/__entityBlock__s/__entityInternalRoutePath__`),
+      this.props.history.push(`/__entityBlock__/__entityInternalRoutePath__s`),
     );
   };
 
