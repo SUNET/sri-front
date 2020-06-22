@@ -6,17 +6,6 @@ const readFileAsync = promisify(fs.readFile);
 const writeFileAsync = promisify(fs.writeFile);
 const writeDirectoryAsync = promisify(fs.mkdirSync);
 
-const getNamingObject = (blockName, entityName) => {
-  const entityClassName = entityName.charAt(0).toUpperCase() + entityName.slice(1);
-  const entityInternalRoutePath = camelToSnake(entityName);
-  return {
-    blockName,
-    entityName,
-    entityClassName,
-    entityInternalRoutePath,
-  };
-};
-
 const createDirectory = async (dirPath) => {
   await writeDirectoryAsync(process.cwd() + dirPath, { recursive: true }, (error) => {
     if (error) {
@@ -38,6 +27,17 @@ const camelToSnake = (string) => {
       return '-' + y.toLowerCase();
     })
     .replace(/^_/, '');
+};
+
+const getNamingObject = (blockName, entityName) => {
+  const entityClassName = entityName.charAt(0).toUpperCase() + entityName.slice(1);
+  const entityInternalRoutePath = camelToSnake(entityName);
+  return {
+    blockName,
+    entityName,
+    entityClassName,
+    entityInternalRoutePath,
+  };
 };
 
 const generateContent = async (namingObj, template) => {
