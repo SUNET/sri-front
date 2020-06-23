@@ -68,26 +68,30 @@ const mutation = graphql`
 `;
 
 export default function UpdateSwitchMutation(switchData, form) {
-  console.log('switchData: ', switchData);
   const variables = {
     input: {
       update_input: {
         id: switchData.id,
         name: switchData.name,
+
         description: switchData.description,
-        ip_addresses: switchData.ip_addresses ? switchData.ip_addresses.join('\n') : null,
-        rack_units: 2,
-        rack_position: 3,
-        operational_state: switchData.operational_state,
-        relationship_provider: null,
-        responsible_group: null,
-        support_group: null,
         managed_by: switchData.managed_by,
-        backup: 'Manual script',
-        os: 'GNU/Linux',
-        os_version: '5.8',
-        contract_number: '001',
+        operational_state: switchData.operational_state,
+        ip_addresses: switchData.ip_addresses ? switchData.ip_addresses.join('\n') : null,
+
+        contract_number: switchData.contract_number,
+        backup: switchData.backup,
+        rack_position: switchData.rack_position,
+
+        os: switchData.os,
+        os_version: switchData.os_version,
+
+        support_group: null,
+        responsible_group: null,
+
+        rack_units: 2,
         max_number_of_ports: 20,
+        relationship_provider: null,
       },
     },
   };

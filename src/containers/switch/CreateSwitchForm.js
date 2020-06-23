@@ -10,7 +10,16 @@ const mapStateToProps = (state, props) => {
     fields: getFormMeta('createSwitch')(state),
     formSyncErrors: getFormSyncErrors('createSwitch')(state),
     name: updateSwitchSelector(state, 'name'),
-    url: updateSwitchSelector(state, 'url'),
+    managed_by: updateSwitchSelector(state, 'managed_by'),
+    switch_type: updateSwitchSelector(state, 'switch_type'),
+    switchManagedByObj: updateSwitchSelector(state, 'switchManagedByObj'),
+    operational_state: updateSwitchSelector(state, 'operational_state'),
+    ip_addresses: updateSwitchSelector(state, 'ip_addresses'),
+    contract_number: updateSwitchSelector(state, 'contract_number'),
+    backup: updateSwitchSelector(state, 'backup'),
+    rack_position: updateSwitchSelector(state, 'rack_position'),
+    os: updateSwitchSelector(state, 'os'),
+    os_version: updateSwitchSelector(state, 'os_version'),
   };
 };
 
@@ -22,9 +31,6 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-const CreateSwitchFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateSwitchForm);
+const CreateSwitchFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateSwitchForm);
 
 export default CreateSwitchFormContainer;

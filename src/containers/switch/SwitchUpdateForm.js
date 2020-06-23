@@ -15,6 +15,11 @@ const mapStateToProps = (state, props) => {
     switchManagedByObj: switchData.managed_by,
     operational_state: switchData.operational_state,
     ip_addresses: switchData.ip_addresses,
+    contract_number: switchData.contract_number,
+    backup: switchData.backup,
+    rack_position: switchData.rack_position,
+    os: switchData.os,
+    os_version: switchData.os_version,
   };
   return {
     initialValues,
@@ -24,6 +29,11 @@ const mapStateToProps = (state, props) => {
     switchManagedByObj: updateSwitchSelector(state, 'switchManagedByObj'),
     operational_state: updateSwitchSelector(state, 'operational_state'),
     ip_addresses: updateSwitchSelector(state, 'ip_addresses'),
+    contract_number: updateSwitchSelector(state, 'contract_number'),
+    backup: updateSwitchSelector(state, 'backup'),
+    rack_position: updateSwitchSelector(state, 'rack_position'),
+    os: updateSwitchSelector(state, 'os'),
+    os_version: updateSwitchSelector(state, 'os_version'),
     formSyncErrors: getFormSyncErrors('updateSwitch')(state),
     fields: getFormMeta('updateSwitch')(state),
   };

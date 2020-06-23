@@ -37,7 +37,6 @@ class SwitchDetails extends React.Component {
           if (error) {
             return <div>{this.props.t('general.error')}</div>;
           } else if (props) {
-          console.log('props: ', props);
             return (
               <section className="model-details switch-details">
                 <SwitchUpdateFormContainer

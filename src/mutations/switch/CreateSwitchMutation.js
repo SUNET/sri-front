@@ -2,7 +2,6 @@ import { commitMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
-import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
 
@@ -29,20 +28,24 @@ function CreateSwitchMutation(switchData, form) {
     input: {
       create_input: {
         name: switchData.name,
+
+        operational_state: switchData.operational_state,
         description: switchData.description,
-        switch_type: 'U3dpdGNoVHlwZTox',
-        ip_addresses: '127.0.0.1\n168.192.0.1',
+        switch_type: switchData.switch_type,
+        ip_addresses: switchData.ip_addresses ? switchData.ip_addresses.join('\n') : null,
+
+        contract_number: switchData.contract_number,
+        backup: switchData.backup,
+        rack_position: switchData.rack_position,
+
+        os: switchData.os,
+        os_version: switchData.os_version,
+
         rack_units: 2,
-        rack_position: 3,
-        operational_state: 'In service',
         relationship_provider: null,
         responsible_group: null,
         support_group: null,
-        managed_by: 'Puppet',
-        backup: 'Manual script',
-        os: 'GNU/Linux',
-        os_version: '5.8',
-        contract_number: '001',
+        managed_by: switchData.managed_by,
         max_number_of_ports: 20,
       },
     },

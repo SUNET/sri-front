@@ -71,6 +71,15 @@ const DropdownPhysicalTypesQuery = graphql`
   }
 `;
 
+const DropdownSwitchTypesQuery = graphql`
+  query DropdownSwitchTypesQuery {
+    getSwitchTypes {
+      value: id
+      name
+    }
+  }
+`;
+
 class Dropdown extends React.PureComponent {
   static propTypes = {
     type: PropTypes.string,
@@ -98,6 +107,9 @@ class Dropdown extends React.PureComponent {
         break;
       case 'physical_types':
         queryModel = DropdownPhysicalTypesQuery;
+        break;
+      case 'switch_types':
+        queryModel = DropdownSwitchTypesQuery;
         break;
       default:
         queryModel = DropdownQuery;
@@ -207,6 +219,7 @@ class Dropdown extends React.PureComponent {
         {this.props.model === 'organization' && this.renderOptionsModelOptimized(options)}
         {(this.props.model === 'roles' || this.props.model === 'default_roles') && this.renderOptionsModel(options)}
         {this.props.model === 'physical_types' && this.renderOptions(options)}
+        {this.props.model === 'switch_types' && this.renderOptions(options)}
         {this.props.model === undefined && this.renderOptions(options)}
       </Field>
     );

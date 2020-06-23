@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateSwitchMutation from '../../mutations/switch/CreateSwitchMutation';
-import ValidationsSwitchForm from '../common/_BasicValidationForm';
+import ValidationsSwitchForm from './ValidationsSwitchForm';
 // const
 import { CREATE_SWITCH_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -40,7 +40,7 @@ class CreateSwitchForm extends _SwitchFormParentClass {
 
 CreateSwitchForm = reduxForm({
   form: 'createSwitch',
-  validate: ValidationsSwitchForm.validate,
+  validate: ValidationsSwitchForm.validateWithType,
   initialValues: {
     name: '',
   },

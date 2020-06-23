@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import UpdateSwitchMutation from '../../mutations/switch/UpdateSwitchMutation';
-import BasicValidation from '../common/_BasicValidationForm';
+import ValidationsSwitchForm from './ValidationsSwitchForm';
 // const
 import { UPDATE_SWITCH_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -17,7 +17,7 @@ class SwitchUpdateForm extends _SwitchFormParentClass {
   MODEL_NAME = 'switch';
   ROUTE_LIST_DIRECTION = '/network/switches';
   state = {
-    editMode: false,
+    editMode: true,
   };
   refetch = () => {
     this.props.relay.refetch(
@@ -51,7 +51,7 @@ class SwitchUpdateForm extends _SwitchFormParentClass {
 
 SwitchUpdateForm = reduxForm({
   form: 'updateSwitch',
-  validate: BasicValidation.validate,
+  validate: ValidationsSwitchForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
