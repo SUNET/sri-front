@@ -159,7 +159,7 @@
             "network.cable.details.provider": "Provider",
             "network.cable.details.write-provider": "Write Provider",
             "network.switch.details.managed-by": "Managed By",
-            "network.switch.details.status": "Managed By",
+            "network.switch.details.status": "Status",
             "network.switch.details.ip-address": "IP Address",
             "network.switch.details.ip-address.write-address": "Write Address",
             "network.switch.details.ip-address.invalid-ip": "Invalid IP",
