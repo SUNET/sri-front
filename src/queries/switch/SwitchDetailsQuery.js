@@ -10,6 +10,8 @@ const SwitchDetailsQuery = graphql`
       ip_addresses
       rack_units
       rack_position
+      operational_state
+      ip_addresses
       provider {
         id
         name
@@ -24,6 +26,7 @@ const SwitchDetailsQuery = graphql`
       }
       managed_by {
         value
+        name
       }
       backup
       os

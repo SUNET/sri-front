@@ -1,6 +1,14 @@
 import React from 'react';
+import { change, FieldArray, Field } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
+
+// components
+import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
+import IpAddressesList from './IpAddressesList';
+
+// const
+import { isBrowser } from 'react-device-detect';
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
   const isPresentState = !editable;
@@ -19,10 +27,79 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
   );
 };
 
-class _CableFormParentClass extends _BasicFormParentClass {
+class _SwitchFormParentClass extends _BasicFormParentClass {
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t } = this.props;
-    const generalInfoFirstRow = [];
+    const { t, switchManagedByObj, operational_state, ip_addresses } = this.props;
+    const generalInfoFirstRow = [
+      {
+        title: t('network.switch.details.managed-by'),
+        presentContent: switchManagedByObj ? switchManagedByObj.name : undefined,
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            emptyLabel="Select type"
+            type="host_management_sw"
+            name="managed_by"
+            onChange={(e) => {}}
+          />
+        ),
+      },
+      {
+        title: t('network.switch.details.status'),
+        presentContent: operational_state,
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            emptyLabel="Select type"
+            type="operational_states"
+            name="operational_state"
+            onChange={(e) => {}}
+          />
+        ),
+      },
+      {
+        title: t('network.switch.details.ip-address'),
+        presentContent: (
+          <IpAddressesList
+            ipList={ip_addresses ? ip_addresses : []}
+            editMode={editMode}
+            onChangeIpList={(newList) => {
+              this.props.dispatch(change(this.props.form, 'ip_addresses', newList));
+            }}
+          />
+        ),
+        editContent: (
+          <IpAddressesList
+            ipList={ip_addresses ? ip_addresses : []}
+            editMode={editMode}
+            onChangeIpList={(newList) => {
+              this.props.dispatch(change(this.props.form, 'ip_addresses', newList));
+            }}
+          />
+        ),
+      },
+      // {
+      //   title: 'Phone',
+      //   presentContent: (
+      //     <FieldArray
+      //       name="phones"
+      //       t={t}
+      //       component={ContactPhones}
+      //       editable={editMode}
+      //       dispatch={this.props.dispatch}
+      //     />
+      //   ),
+      //   editContent: (
+      //     <FieldArray
+      //       name="phones"
+      //       t={t}
+      //       component={ContactPhones}
+      //       editable={editMode}
+      //       dispatch={this.props.dispatch}
+      //     />
+      //   ),
+      // },
+    ];
 
     return (
       <ToggleSection>
@@ -43,4 +120,4 @@ class _CableFormParentClass extends _BasicFormParentClass {
   }
 }
 
-export default _CableFormParentClass;
+export default _SwitchFormParentClass;
