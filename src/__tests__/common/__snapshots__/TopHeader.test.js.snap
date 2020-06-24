@@ -207,6 +207,9 @@ exports[`Some Component Renders correctly 1`] = `
                 "network.sub-menu.equipment/ports",
               ],
               Array [
+                "network.sub-menu.equipment/switches",
+              ],
+              Array [
                 "header.main-menu.home",
               ],
               Array [
@@ -260,6 +263,10 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "network.sub-menu.equipment/ports",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.equipment/switches",
               },
               Object {
                 "type": "return",
