@@ -7,6 +7,7 @@ import CopyToClipboard from '../CopyToClipboard';
 import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { isBrowser, isMobile } from 'react-device-detect';
 import { UNLINK, SAVED, REMOVE } from '../../utils/constants';
+import ReactSVG from 'react-svg';
 import '../../style/FieldArrayContacts.scss';
 
 class FieldArrayContactsOrganization extends React.Component {
@@ -264,16 +265,31 @@ class FieldArrayContactsOrganization extends React.Component {
 
   renderButtonsBox(id) {
     const { t } = this.props;
+    const rowDetails = this.getValueById(id);
     return (
       <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
         <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions.unlink')}</Tooltip>}>
-          <div className={`row-cta unlink`} onClick={() => this.unlinkRow(id)}></div>
+          <div
+            className={`row-cta unlink ${rowDetails.data.status === UNLINK ? 'active' : ''}`}
+            onClick={() => this.unlinkRow(id)}
+          >
+            <ReactSVG src={require(`../../static/img/unlink.svg`)} wrapper="span" />
+          </div>
         </OverlayTrigger>
+
         <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
-          <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}></div>
+          <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
+            <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
+          </div>
         </OverlayTrigger>
+
         <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
-          <div className={`row-cta remove`} onClick={() => this.removeRow(id)}></div>
+          <div
+            className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}
+            onClick={() => this.removeRow(id)}
+          >
+            <ReactSVG src={require(`../../static/img/trash.svg`)} wrapper="span" />
+          </div>
         </OverlayTrigger>
       </div>
     );
@@ -334,16 +350,8 @@ class FieldArrayContactsOrganization extends React.Component {
                     {this.generateSubDataList(row, 'phone')}
                   </div>
                 )}
-                {editable && row.status === SAVED && this.renderButtonsBox(row.id)}
+                {editable && this.renderButtonsBox(row.id)}
                 {!editable && row.status === SAVED && this.renderMoreInfoButton(row.id)}
-                {row.status === UNLINK && (
-                  <div className="contact-in-organization__body__row__action-message">{t('actions.unlinked')}</div>
-                )}
-                {row.status === REMOVE && (
-                  <div className="contact-in-organization__body__row__action-message">
-                    {t('actions.moved_to_trash')}
-                  </div>
-                )}
               </div>
             );
           })}

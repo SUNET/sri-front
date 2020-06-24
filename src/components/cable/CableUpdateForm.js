@@ -20,7 +20,7 @@ class CableUpdateForm extends _CableFormParentClass {
   constructor(props) {
     super(props);
     this.state = {
-      editMode: props.isEditModeModal,
+      editMode: props.isEditModeModal || true,
     };
   }
   refetch = () => {
