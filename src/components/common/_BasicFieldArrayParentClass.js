@@ -4,6 +4,7 @@ import CopyToClipboard from '../CopyToClipboard';
 import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { isBrowser, isMobile } from 'react-device-detect';
 import { UNLINK, SAVED, REMOVE } from '../../utils/constants';
+import ReactSVG from 'react-svg';
 
 import DropdownSearch from '../DropdownSearch';
 import Dropdown from '../Dropdown';
@@ -91,18 +92,20 @@ class _BasicFieldArrayParentClass extends React.Component {
 
   removeRow(id) {
     const currentValue = this.getValueById(id);
+    const newStatus = currentValue.data.status === REMOVE ? SAVED : REMOVE;
     this.hideDataModal();
     this.props.dispatch(
-      change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, REMOVE),
+      change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, newStatus),
     );
   }
 
   unlinkRow(id) {
     const currentValue = this.getValueById(id);
+    const newStatus = currentValue.data.status === UNLINK ? SAVED : UNLINK;
     this.hideDataModal();
     if (currentValue.data.origin === 'store') {
       this.props.dispatch(
-        change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, UNLINK),
+        change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, newStatus),
       );
     } else {
       this.props.fields.remove(currentValue.index);
@@ -248,16 +251,31 @@ class _BasicFieldArrayParentClass extends React.Component {
 
   renderButtonsBox(id) {
     const { t } = this.props;
+    const rowDetails = this.getValueById(id);
     return (
       <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
         <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions.unlink')}</Tooltip>}>
-          <div className={`row-cta unlink`} onClick={() => this.unlinkRow(id)}></div>
+          <div
+            className={`row-cta unlink ${rowDetails.data.status === UNLINK ? 'active' : ''}`}
+            onClick={() => this.unlinkRow(id)}
+          >
+            <ReactSVG src={require(`../../static/img/unlink.svg`)} wrapper="span" />
+          </div>
         </OverlayTrigger>
+
         <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
-          <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}></div>
+          <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
+            <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
+          </div>
         </OverlayTrigger>
+
         <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
-          <div className={`row-cta remove`} onClick={() => this.removeRow(id)}></div>
+          <div
+            className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}
+            onClick={() => this.removeRow(id)}
+          >
+            <ReactSVG src={require(`../../static/img/trash.svg`)} wrapper="span" />
+          </div>
         </OverlayTrigger>
       </div>
     );
@@ -328,25 +346,29 @@ class _BasicFieldArrayParentClass extends React.Component {
     return (
       <div className="contact-in-organization__body">
         {values &&
-          values
-            .map((row, index) => {
-              return (
-                <div key={index} className={`contact-in-organization__body__row`}>
-                  {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                  {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                  {editable && row.status === SAVED && this.renderButtonsBox(row.id)}
-                  {!editable && row.status === SAVED && this.renderMoreInfoButton(row)}
-                  {row.status === UNLINK && (
+          values.map((row, index) => {
+            return (
+              <div
+                key={index}
+                className={`contact-in-organization__body__row ${
+                  row.status !== SAVED ? 'contact-in-organization__body__row--disabled' : ''
+                }`}
+              >
+                {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
+                {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
+                {editable && this.renderButtonsBox(row.id)}
+                {!editable && row.status === SAVED && this.renderMoreInfoButton(row)}
+                {/* {row.status === UNLINK && (
                     <div className="contact-in-organization__body__row__action-message">{t('actions.unlinked')}</div>
                   )}
                   {row.status === REMOVE && (
                     <div className="contact-in-organization__body__row__action-message">
                       {t('actions.moved_to_trash')}
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                )} */}
+              </div>
+            );
+          })}
       </div>
     );
   }

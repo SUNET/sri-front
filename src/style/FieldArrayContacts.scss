@@ -41,6 +41,11 @@
             margin-top: 15px;
             width: 100%;
             align-items: center;
+            &--disabled {
+                .contact-in-organization__body__row__element {
+                    color: $tertiary-color;
+                }
+            }
             &__element--ellipsis {
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -100,7 +105,7 @@
             margin-bottom: 1em;
             display: flex;
             align-items: center;
-            width: 70px;
+            width: 75px;
             justify-content: space-between;
             margin-left: auto;
         }
