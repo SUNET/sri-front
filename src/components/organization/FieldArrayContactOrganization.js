@@ -337,7 +337,12 @@ class FieldArrayContactsOrganization extends React.Component {
         {values &&
           values.map((row, index) => {
             return (
-              <div key={index} className={`contact-in-organization__body__row`}>
+              <div
+                key={index}
+                className={`contact-in-organization__body__row ${
+                  row.status !== SAVED ? 'contact-in-organization__body__row--disabled' : ''
+                }`}
+              >
                 <div className="contact-in-organization__body__row__element">{row.name}</div>
                 {isBrowser && this.renderDropDownRole(row.role_label, index)}
                 {isBrowser && (

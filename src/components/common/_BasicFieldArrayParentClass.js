@@ -348,7 +348,12 @@ class _BasicFieldArrayParentClass extends React.Component {
         {values &&
           values.map((row, index) => {
             return (
-              <div key={index} className={`contact-in-organization__body__row`}>
+              <div
+                key={index}
+                className={`contact-in-organization__body__row ${
+                  row.status !== SAVED ? 'contact-in-organization__body__row--disabled' : ''
+                }`}
+              >
                 {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                 {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                 {editable && this.renderButtonsBox(row.id)}
