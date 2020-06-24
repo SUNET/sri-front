@@ -36,12 +36,12 @@ function CreateSwitchMutation(switchData, form) {
 
         contract_number: switchData.contract_number,
         backup: switchData.backup,
+        rack_units: switchData.rack_units,
         rack_position: switchData.rack_position,
 
         os: switchData.os,
         os_version: switchData.os_version,
 
-        rack_units: 2,
         relationship_provider: null,
         responsible_group: null,
         support_group: null,

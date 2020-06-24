@@ -81,6 +81,7 @@ export default function UpdateSwitchMutation(switchData, form) {
 
         contract_number: switchData.contract_number,
         backup: switchData.backup,
+        rack_units: switchData.rack_units,
         rack_position: switchData.rack_position,
 
         os: switchData.os,
@@ -89,7 +90,6 @@ export default function UpdateSwitchMutation(switchData, form) {
         support_group: null,
         responsible_group: null,
 
-        rack_units: 2,
         max_number_of_ports: 20,
         relationship_provider: null,
       },

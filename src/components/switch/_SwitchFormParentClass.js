@@ -133,7 +133,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
   }
 
   renderDetailsToggleSection(editMode = true) {
-    const { t, contract_number, backup, rack_position } = this.props;
+    const { t, contract_number, backup, rack_position, rack_units } = this.props;
     const detailsInfo = [
       {
         title: t('network.switch.details.contract-number'),
@@ -159,6 +159,20 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               name="backup"
               component={FieldInput}
               placeholder={t('network.switch.details.write-backup')}
+            />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.switch.details.equipment-height'),
+        presentContent: rack_units,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="rack_units"
+              component={FieldInput}
+              placeholder={t('network.switch.details.write-equipment-height')}
             />
           </Form.Group>
         ),

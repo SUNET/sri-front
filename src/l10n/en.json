@@ -176,6 +176,8 @@
             "network.switch.details.os-version": "Operating system version",
             "network.switch.details.write-os": "Write text",
             "network.switch.details.write-os-version": "Write text",
+            "network.switch.details.equipment-height": "Equipment Height",
+            "network.switch.details.write-equipment-height": "Write number",
             "info.created": "Created",
             "info.last_update": "Last update",
             "notify.contact-created-success": "Contact created successfully",

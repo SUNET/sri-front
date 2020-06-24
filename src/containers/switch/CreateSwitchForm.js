@@ -17,6 +17,7 @@ const mapStateToProps = (state, props) => {
     ip_addresses: updateSwitchSelector(state, 'ip_addresses'),
     contract_number: updateSwitchSelector(state, 'contract_number'),
     backup: updateSwitchSelector(state, 'backup'),
+    rack_units: updateSwitchSelector(state, 'rack_units'),
     rack_position: updateSwitchSelector(state, 'rack_position'),
     os: updateSwitchSelector(state, 'os'),
     os_version: updateSwitchSelector(state, 'os_version'),
