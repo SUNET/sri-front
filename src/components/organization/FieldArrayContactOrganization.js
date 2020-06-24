@@ -329,7 +329,7 @@ class FieldArrayContactsOrganization extends React.Component {
   }
 
   renderBody() {
-    const { t, editable, fields } = this.props;
+    const { editable, fields } = this.props;
     const values = fields.getAll();
 
     return (

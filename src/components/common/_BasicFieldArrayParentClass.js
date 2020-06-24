@@ -341,7 +341,7 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderBody() {
-    const { t, editable, fields } = this.props;
+    const { editable, fields } = this.props;
     const values = fields.getAll();
     return (
       <div className="contact-in-organization__body">
@@ -358,14 +358,6 @@ class _BasicFieldArrayParentClass extends React.Component {
                 {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                 {editable && this.renderButtonsBox(row.id)}
                 {!editable && row.status === SAVED && this.renderMoreInfoButton(row)}
-                {/* {row.status === UNLINK && (
-                    <div className="contact-in-organization__body__row__action-message">{t('actions.unlinked')}</div>
-                  )}
-                  {row.status === REMOVE && (
-                    <div className="contact-in-organization__body__row__action-message">
-                      {t('actions.moved_to_trash')}
-                    </div>
-                )} */}
               </div>
             );
           })}
