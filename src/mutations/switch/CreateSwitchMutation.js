@@ -75,6 +75,7 @@ function CreateSwitchMutation(switchData, form) {
 
         operational_state: switchData.operational_state,
         description: switchData.description,
+        managed_by: switchData.managed_by,
         switch_type: switchData.switch_type,
         ip_addresses: switchData.ip_addresses ? switchData.ip_addresses.join('\n') : null,
         relationship_provider: switchData.provider_id,
@@ -86,11 +87,10 @@ function CreateSwitchMutation(switchData, form) {
 
         os: switchData.os,
         os_version: switchData.os_version,
+        support_group: switchData.support_group_id,
+        responsible_group: switchData.responsible_group_id,
 
-        responsible_group: null,
-        support_group: null,
-        managed_by: switchData.managed_by,
-        max_number_of_ports: 20,
+        max_number_of_ports: switchData.max_number_of_ports,
       },
     },
   };

@@ -23,6 +23,11 @@ const mapStateToProps = (state, props) => {
     rack_position: updateSwitchSelector(state, 'rack_position'),
     os: updateSwitchSelector(state, 'os'),
     os_version: updateSwitchSelector(state, 'os_version'),
+    support_group_id: updateSwitchSelector(state, 'support_group_id'),
+    supportGroupObj: updateSwitchSelector(state, 'supportGroupObj'),
+    responsible_group_id: updateSwitchSelector(state, 'responsible_group_id'),
+    responsibleGroupObj: updateSwitchSelector(state, 'responsibleGroupObj'),
+    max_number_of_ports: updateSwitchSelector(state, 'max_number_of_ports'),
   };
 };
 

@@ -23,7 +23,13 @@ const mapStateToProps = (state, props) => {
     rack_position: switchData.rack_position,
     os: switchData.os,
     os_version: switchData.os_version,
+    supportGroupObj: switchData.support_group ? switchData.support_group : undefined,
+    support_group_id: switchData.support_group ? switchData.support_group.id : undefined,
+    responsibleGroupObj: switchData.responsible_group ? switchData.responsible_group : undefined,
+    responsible_group_id: switchData.responsible_group ? switchData.responsible_group.id : undefined,
+    max_number_of_ports: switchData.max_number_of_ports,
   };
+
   return {
     initialValues,
     name: updateSwitchSelector(state, 'name'),
@@ -40,6 +46,11 @@ const mapStateToProps = (state, props) => {
     rack_position: updateSwitchSelector(state, 'rack_position'),
     os: updateSwitchSelector(state, 'os'),
     os_version: updateSwitchSelector(state, 'os_version'),
+    support_group_id: updateSwitchSelector(state, 'support_group_id'),
+    supportGroupObj: updateSwitchSelector(state, 'supportGroupObj'),
+    responsible_group_id: updateSwitchSelector(state, 'responsible_group_id'),
+    responsibleGroupObj: updateSwitchSelector(state, 'responsibleGroupObj'),
+    max_number_of_ports: updateSwitchSelector(state, 'max_number_of_ports'),
     formSyncErrors: getFormSyncErrors('updateSwitch')(state),
     fields: getFormMeta('updateSwitch')(state),
   };

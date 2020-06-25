@@ -87,11 +87,10 @@ export default function UpdateSwitchMutation(switchData, form) {
 
         os: switchData.os,
         os_version: switchData.os_version,
+        support_group: switchData.support_group_id,
+        responsible_group: switchData.responsible_group_id,
 
-        support_group: null,
-        responsible_group: null,
-
-        max_number_of_ports: 20,
+        max_number_of_ports: switchData.max_number_of_ports,
       },
     },
   };

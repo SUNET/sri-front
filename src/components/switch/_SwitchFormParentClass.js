@@ -41,6 +41,8 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
             <Col>{this.renderDetailsToggleSection(editMode)}</Col>
             <hr />
             <Col>{this.renderSecurityToggleSection(editMode)}</Col>
+            <hr />
+            <Col>{this.renderHostToggleSection(editMode)}</Col>
           </Col>
         </Form.Row>
       </section>
@@ -242,8 +244,17 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
   }
 
   renderSecurityToggleSection(editMode = true) {
-    const { t, os, os_version } = this.props;
-    const detailsInfo = [
+    const {
+      t,
+      os,
+      os_version,
+      support_group_id,
+      supportGroupObj,
+      responsible_group_id,
+      responsibleGroupObj,
+    } = this.props;
+
+    const detailsInfoFirstRow = [
       {
         title: t('network.switch.details.os'),
         presentContent: os,
@@ -269,10 +280,109 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
       },
     ];
 
+    const detailsInfoSecondRow = [
+      {
+        title: t('network.switch.details.support-group'),
+        presentContent: supportGroupObj ? supportGroupObj.name : '',
+        editContent: (
+          <div className="mr-3">
+            <Dropdown
+              className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+              type="combo_list"
+              name="support_group_id"
+              model="group"
+              placeholder={t('network.switch.details.write-support-group')}
+              currentValue={support_group_id}
+              objectCurrentValue={supportGroupObj}
+              nameDataInsideRequest="all_groups"
+              valueField="id"
+              labelElementsArray={['name']}
+              onChange={(newSupportGroup) => {
+                this.props.dispatch(
+                  change(this.props.form, 'support_group_id', newSupportGroup ? newSupportGroup.id : null),
+                );
+                this.props.dispatch(
+                  change(this.props.form, 'supportGroupObj', newSupportGroup ? newSupportGroup : null),
+                );
+              }}
+            />
+          </div>
+        ),
+      },
+      {
+        title: t('network.switch.details.responsible-group'),
+        presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            type="combo_list"
+            name="responsible_group_id"
+            model="group"
+            placeholder={t('network.switch.details.write-responsible-group')}
+            currentValue={responsible_group_id}
+            objectCurrentValue={responsibleGroupObj}
+            nameDataInsideRequest="all_groups"
+            valueField="id"
+            labelElementsArray={['name']}
+            onChange={(newSupportGroup) => {
+              this.props.dispatch(
+                change(this.props.form, 'responsible_group_id', newSupportGroup ? newSupportGroup.id : null),
+              );
+              this.props.dispatch(
+                change(this.props.form, 'responsibleGroupObj', newSupportGroup ? newSupportGroup : null),
+              );
+            }}
+          />
+        ),
+      },
+    ];
+
     return (
       <ToggleSection>
         <ToggleHeading>
           <h2>{t('network.switch.details.security')}</h2>
+        </ToggleHeading>
+        <TogglePanel>
+          <div>
+            <div className="form-internal-block">
+              {detailsInfoFirstRow.map((formData, index) => {
+                return renderFormBlockSection(editMode, formData, index);
+              })}
+            </div>
+            <div className="form-internal-block">
+              {detailsInfoSecondRow.map((formData, index) => {
+                return renderFormBlockSection(editMode, formData, index);
+              })}
+            </div>
+          </div>
+        </TogglePanel>
+      </ToggleSection>
+    );
+  }
+
+  renderHostToggleSection(editMode = true) {
+    const { t, max_number_of_ports } = this.props;
+    const detailsInfo = [
+      {
+        title: t('network.switch.details.max-number-of-ports'),
+        presentContent: max_number_of_ports,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="max_number_of_ports"
+              component={FieldInput}
+              placeholder={t('network.switch.details.write-max-number-of-ports')}
+            />
+          </Form.Group>
+        ),
+      },
+    ];
+
+    return (
+      <ToggleSection>
+        <ToggleHeading>
+          <h2>{t('network.sub-menu.physical.host')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>

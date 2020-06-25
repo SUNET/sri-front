@@ -37,7 +37,14 @@ const DropdownProvidersAllQuery = graphql`
     }
   }
 `;
-
+const DropdownGroupsAllQuery = graphql`
+  query DropdownGroupsAllQuery {
+    all_groups {
+      id
+      name
+    }
+  }
+`;
 const DropdownRolesQuery = graphql`
   query DropdownRolesQuery {
     roles(orderBy: name_ASC) {
@@ -98,6 +105,9 @@ class Dropdown extends React.PureComponent {
         break;
       case 'provider':
         queryModel = DropdownProvidersAllQuery;
+        break;
+      case 'group':
+        queryModel = DropdownGroupsAllQuery;
         break;
       case 'roles':
         queryModel = DropdownRolesQuery;
