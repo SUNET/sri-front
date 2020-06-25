@@ -20,6 +20,11 @@ export type DropdownSearchTypeHeadPortsQueryResponse = {|
       +node: ?{|
         +id: string,
         +name: string,
+        +type: ?{|
+          +id: string,
+          +name: string,
+          +value: string,
+        |},
       |}
     |}>
   |}
@@ -40,6 +45,11 @@ query DropdownSearchTypeHeadPortsQuery(
       node {
         id
         name
+        type: port_type {
+          id
+          name
+          value
+        }
       }
     }
   }
@@ -55,7 +65,21 @@ var v0 = [
     "type": "GenericFilter"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v3 = [
   {
     "alias": null,
     "args": [
@@ -86,18 +110,26 @@ v1 = [
             "name": "node",
             "plural": false,
             "selections": [
+              (v1/*: any*/),
+              (v2/*: any*/),
               {
-                "alias": null,
+                "alias": "type",
                 "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "port_type",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/),
+                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "value",
+                    "storageKey": null
+                  }
+                ],
                 "storageKey": null
               }
             ],
@@ -116,7 +148,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "DropdownSearchTypeHeadPortsQuery",
-    "selections": (v1/*: any*/),
+    "selections": (v3/*: any*/),
     "type": "Query"
   },
   "kind": "Request",
@@ -124,18 +156,18 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DropdownSearchTypeHeadPortsQuery",
-    "selections": (v1/*: any*/)
+    "selections": (v3/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "DropdownSearchTypeHeadPortsQuery",
     "operationKind": "query",
-    "text": "query DropdownSearchTypeHeadPortsQuery(\n  $filter: GenericFilter\n) {\n  search_port(filter: $filter) {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n"
+    "text": "query DropdownSearchTypeHeadPortsQuery(\n  $filter: GenericFilter\n) {\n  search_port(filter: $filter) {\n    edges {\n      node {\n        id\n        name\n        type: port_type {\n          id\n          name\n          value\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'caa12aed120b854f7678da1aad931689';
+(node/*: any*/).hash = '88a89998c4739f36310bbea6994e3cc1';
 
 module.exports = node;
