@@ -16,13 +16,15 @@ export class DashBoardActivityLogRow extends _DashBoardRowParentClass {
     const { actorname, verb, action_object } = element;
     return (
       <>
-        <Col className="px-0 dash-board-row__info">
-          <div>
-            <div className="dash-board-row__info__name">
-              {`${actorname} ${verb} ${action_object.__typename} ${action_object.name}`}
+        {action_object && (
+          <Col className="px-0 dash-board-row__info">
+            <div>
+              <div className="dash-board-row__info__name">
+                {`${actorname} ${verb} ${action_object.__typename} ${action_object.name}`}
+              </div>
             </div>
-          </div>
-        </Col>
+          </Col>
+        )}
       </>
     );
   }
