@@ -78,6 +78,7 @@ export default function UpdateSwitchMutation(switchData, form) {
         managed_by: switchData.managed_by,
         operational_state: switchData.operational_state,
         ip_addresses: switchData.ip_addresses ? switchData.ip_addresses.join('\n') : null,
+        relationship_provider: switchData.provider_id,
 
         contract_number: switchData.contract_number,
         backup: switchData.backup,
@@ -91,7 +92,6 @@ export default function UpdateSwitchMutation(switchData, form) {
         responsible_group: null,
 
         max_number_of_ports: 20,
-        relationship_provider: null,
       },
     },
   };

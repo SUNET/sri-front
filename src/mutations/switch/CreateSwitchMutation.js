@@ -17,6 +17,50 @@ const mutation = graphql`
           id
           name
           description
+          ip_addresses
+          rack_units
+          rack_position
+          operational_state
+          ip_addresses
+          provider {
+            id
+            name
+          }
+          responsible_group {
+            id
+            name
+          }
+          support_group {
+            id
+            name
+          }
+          managed_by {
+            value
+            name
+          }
+          backup
+          os
+          os_version
+          contract_number
+          max_number_of_ports
+          __typename
+          comments {
+            id
+            user {
+              first_name
+              last_name
+            }
+            comment
+            submit_date
+          }
+          created
+          creator {
+            email
+          }
+          modified
+          modifier {
+            email
+          }
         }
       }
     }
@@ -33,6 +77,7 @@ function CreateSwitchMutation(switchData, form) {
         description: switchData.description,
         switch_type: switchData.switch_type,
         ip_addresses: switchData.ip_addresses ? switchData.ip_addresses.join('\n') : null,
+        relationship_provider: switchData.provider_id,
 
         contract_number: switchData.contract_number,
         backup: switchData.backup,
@@ -42,7 +87,6 @@ function CreateSwitchMutation(switchData, form) {
         os: switchData.os,
         os_version: switchData.os_version,
 
-        relationship_provider: null,
         responsible_group: null,
         support_group: null,
         managed_by: switchData.managed_by,

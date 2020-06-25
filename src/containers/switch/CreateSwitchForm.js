@@ -13,6 +13,8 @@ const mapStateToProps = (state, props) => {
     managed_by: updateSwitchSelector(state, 'managed_by'),
     switch_type: updateSwitchSelector(state, 'switch_type'),
     switchManagedByObj: updateSwitchSelector(state, 'switchManagedByObj'),
+    provider_id: updateSwitchSelector(state, 'provider_id'),
+    providerObj: updateSwitchSelector(state, 'providerObj'),
     operational_state: updateSwitchSelector(state, 'operational_state'),
     ip_addresses: updateSwitchSelector(state, 'ip_addresses'),
     contract_number: updateSwitchSelector(state, 'contract_number'),

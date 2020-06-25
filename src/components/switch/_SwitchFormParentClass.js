@@ -48,8 +48,8 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, switchManagedByObj, operational_state, ip_addresses } = this.props;
-    let generalInfoFirstRow = [];
+    const { t, switchManagedByObj, operational_state, ip_addresses, provider_id, providerObj } = this.props;
+    const generalInfoFirstRow = [];
 
     if (!this.IS_UPDATED_FORM) {
       // only for create Form
@@ -114,6 +114,31 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
       ],
     );
 
+    const generalInfoSecondRow = [
+      {
+        title: t('network.cable.details.provider'),
+        presentContent: providerObj ? providerObj.name : '',
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            type="combo_list"
+            name="provider_id"
+            model="provider"
+            placeholder={t('search-filter.search-providers')}
+            currentValue={provider_id}
+            objectCurrentValue={providerObj}
+            nameDataInsideRequest="all_providers"
+            valueField="id"
+            labelElementsArray={['name']}
+            onChange={(newProvider) => {
+              this.props.dispatch(change(this.props.form, 'provider_id', newProvider ? newProvider.id : null));
+              this.props.dispatch(change(this.props.form, 'providerObj', newProvider ? newProvider : null));
+            }}
+          />
+        ),
+      },
+    ];
+
     return (
       <ToggleSection>
         <ToggleHeading>
@@ -123,6 +148,11 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
           <div>
             <div className="form-internal-block">
               {generalInfoFirstRow.map((formData, index) => {
+                return renderFormBlockSection(editMode, formData, index);
+              })}
+            </div>
+            <div className="form-internal-block">
+              {generalInfoSecondRow.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>
