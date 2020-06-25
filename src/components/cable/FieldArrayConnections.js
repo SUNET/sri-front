@@ -17,6 +17,9 @@ class FieldArrayConnections extends _BasicFieldArrayParentClass {
         {
           text: 'contact-details.name',
           fieldKey: 'name',
+        },{
+          text: 'organization-details.type',
+          fieldKey: 'type.name',
         },
       ],
       modal: ['network.details.parent_element_detail'],
