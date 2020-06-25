@@ -70,6 +70,11 @@ const DropdownSearchTypeHeadPortsQuery = graphql`
         node {
           id
           name
+          type: port_type {
+            id
+            name
+            value
+          }
         }
       }
     }

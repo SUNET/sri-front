@@ -21,6 +21,9 @@ export type CompositeGroupMutationInput = {|
   create_part_of_cable?: ?CreateCableInput,
   update_part_of_cable?: ?UpdateCableInput,
   deleted_part_of_cable?: ?DeleteCableInput,
+  create_part_of_router?: ?CreateRouterInput,
+  update_part_of_router?: ?UpdateRouterInput,
+  deleted_part_of_router?: ?DeleteRouterInput,
   create_part_of_switch?: ?CreateSwitchInput,
   update_part_of_switch?: ?UpdateSwitchInput,
   deleted_part_of_switch?: ?DeleteSwitchInput,
@@ -123,6 +126,28 @@ export type UpdateCableInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteCableInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateRouterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  operational_state: any,
+  relationship_location?: ?number,
+  relationship_ports?: ?string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateRouterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  operational_state: any,
+  relationship_location?: ?number,
+  description?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteRouterInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

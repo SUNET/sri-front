@@ -21,6 +21,9 @@ export type CompositePortMutationInput = {|
   create_parent_cable?: ?$ReadOnlyArray<?CreateCableInput>,
   update_parent_cable?: ?$ReadOnlyArray<?UpdateCableInput>,
   deleted_parent_cable?: ?$ReadOnlyArray<?DeleteCableInput>,
+  create_parent_router?: ?$ReadOnlyArray<?CreateRouterInput>,
+  update_parent_router?: ?$ReadOnlyArray<?UpdateRouterInput>,
+  deleted_parent_router?: ?$ReadOnlyArray<?DeleteRouterInput>,
   create_parent_switch?: ?$ReadOnlyArray<?CreateSwitchInput>,
   update_parent_switch?: ?$ReadOnlyArray<?UpdateSwitchInput>,
   deleted_parent_switch?: ?$ReadOnlyArray<?DeleteSwitchInput>,
@@ -66,6 +69,28 @@ export type DeleteRelationshipInput = {|
   clientMutationId?: ?string,
 |};
 export type DeletePortInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateRouterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  operational_state: any,
+  relationship_location?: ?number,
+  relationship_ports?: ?string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateRouterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  operational_state: any,
+  relationship_location?: ?number,
+  description?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteRouterInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
