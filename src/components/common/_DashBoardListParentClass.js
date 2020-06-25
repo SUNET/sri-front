@@ -30,8 +30,10 @@ class _DashBoardListParentClass extends React.Component {
   }
 
   handleClickInRow(event, data) {
-    const { history } = this.props;
-    history.push(this.DETAILS_LINK.replace('__dataId__', data.id));
+    if (this.DETAILS_LINK) {
+      const { history } = this.props;
+      history.push(this.DETAILS_LINK.replace('__dataId__', data.id));
+    }
   }
 
   renderHeader() {
@@ -67,6 +69,7 @@ class _DashBoardListParentClass extends React.Component {
 
   renderList() {
     const dataEntity = this.props[this.MAIN_PROP_NAME];
+    console.log('dataEntity: ', dataEntity);
     return (
       <div>
         {dataEntity &&
@@ -87,7 +90,11 @@ class _DashBoardListParentClass extends React.Component {
     const { t } = this.props;
     return (
       <div>
-        <button type="button" onClick={() => this.onFooterButtonClick()} className="btn outline dash-board-footer-button">
+        <button
+          type="button"
+          onClick={() => this.onFooterButtonClick()}
+          className="btn outline dash-board-footer-button"
+        >
           <span>{t(this.FOOTER_DATA.label)}</span>
         </button>
       </div>

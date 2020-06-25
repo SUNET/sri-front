@@ -38,6 +38,7 @@ export class DashBoardActivityLogList extends _DashBoardListParentClass {
             const props = {
               [this.SINGLE_ELEMENT_NAME]: node,
               key: node.__id,
+              onClick: (event, data) => this.handleClickInRow(event, data),
             };
             return <this.RowComponent {...props} />;
           })}
