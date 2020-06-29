@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import _FirewallFormParentClass from './_FirewallFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import ValidationsFirewallForm from '../common/_BasicValidationForm';
 import { UPDATE_FIREWALL_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class FirewallUpdateForm extends _BasicFormParentClass {
+class FirewallUpdateForm extends _FirewallFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_FIREWALL_FORM;
   MODEL_NAME = 'firewall';

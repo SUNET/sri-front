@@ -189,6 +189,7 @@
             "network.switch.details.write-responsible-group": "Search Group",
             "network.switch.details.max-number-of-ports": "Max number of ports",
             "network.switch.details.write-max-number-of-ports": "Write number",
+            "network.firewall.details.location": "Location",
             "info.created": "Created",
             "info.last_update": "Last update",
             "notify.contact-created-success": "Contact created successfully",
