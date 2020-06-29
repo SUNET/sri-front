@@ -44,6 +44,7 @@ class SideNavNetwork extends React.Component {
         { path: 'cables', i18nText: 'network.sub-menu.equipment/cables' },
         { path: 'ports', i18nText: 'network.sub-menu.equipment/ports' },
         { path: 'switches', i18nText: 'network.sub-menu.equipment/switches' },
+        { path: 'firewalls', i18nText: 'network.sub-menu.equipment/firewalls' },
       ],
     },
   ];
