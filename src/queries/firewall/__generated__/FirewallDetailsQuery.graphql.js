@@ -20,6 +20,7 @@ export type FirewallDetailsQueryResponse = {|
     +operational_state: string,
     +managed_by: ?{|
       +id: string,
+      +name: string,
       +value: string,
     |},
     +responsible_group: ?{|
@@ -94,6 +95,7 @@ query FirewallDetailsQuery(
     operational_state
     managed_by {
       id
+      name
       value
     }
     responsible_group {
@@ -242,6 +244,7 @@ v7 = {
   "plural": false,
   "selections": [
     (v2/*: any*/),
+    (v3/*: any*/),
     (v6/*: any*/)
   ],
   "storageKey": null
@@ -678,11 +681,11 @@ return {
     "metadata": {},
     "name": "FirewallDetailsQuery",
     "operationKind": "query",
-    "text": "query FirewallDetailsQuery(\n  $firewallId: ID!\n) {\n  getFirewallById(id: $firewallId) {\n    ...FirewallUpdateForm_firewall\n    id\n    name\n    description\n    operational_state\n    managed_by {\n      id\n      value\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    backup\n    security_class {\n      name\n      value\n      id\n    }\n    security_comment\n    os\n    os_version\n    model\n    vendor\n    service_tag\n    end_support\n    max_number_of_ports\n    rack_units\n    rack_position\n    contract_number\n    location {\n      __typename\n      id\n      name\n    }\n    owner {\n      __typename\n      id\n      name\n    }\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment FirewallUpdateForm_firewall on Firewall {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query FirewallDetailsQuery(\n  $firewallId: ID!\n) {\n  getFirewallById(id: $firewallId) {\n    ...FirewallUpdateForm_firewall\n    id\n    name\n    description\n    operational_state\n    managed_by {\n      id\n      name\n      value\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    backup\n    security_class {\n      name\n      value\n      id\n    }\n    security_comment\n    os\n    os_version\n    model\n    vendor\n    service_tag\n    end_support\n    max_number_of_ports\n    rack_units\n    rack_position\n    contract_number\n    location {\n      __typename\n      id\n      name\n    }\n    owner {\n      __typename\n      id\n      name\n    }\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment FirewallUpdateForm_firewall on Firewall {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '31fd2dd7a1cf5571425b1914492e1845';
+(node/*: any*/).hash = '5ef3f8c8878c00dad431bf7c6dbd85ba';
 
 module.exports = node;

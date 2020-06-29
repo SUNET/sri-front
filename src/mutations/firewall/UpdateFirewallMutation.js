@@ -17,6 +17,62 @@ const mutation = graphql`
           id
           name
           description
+          operational_state
+          managed_by {
+            id
+            value
+            name
+          }
+          responsible_group {
+            id
+            name
+          }
+          support_group {
+            id
+            name
+          }
+          backup
+          security_class {
+            name
+            value
+          }
+          security_comment
+          os
+          os_version
+          model
+          vendor
+          service_tag
+          end_support
+          max_number_of_ports
+          rack_units
+          rack_position
+          contract_number
+          location {
+            id
+            name
+          }
+          owner {
+            id
+            name
+          }
+          __typename
+          comments {
+            id
+            user {
+              first_name
+              last_name
+            }
+            comment
+            submit_date
+          }
+          created
+          creator {
+            email
+          }
+          modified
+          modifier {
+            email
+          }
         }
       }
     }
@@ -24,12 +80,36 @@ const mutation = graphql`
 `;
 
 export default function UpdateFirewallMutation(firewall, form) {
+  console.log('firewall: ', firewall);
   const variables = {
     input: {
       update_input: {
         id: firewall.id,
         name: firewall.name,
         description: firewall.description,
+
+        operational_state: firewall.operational_state,
+        contract_number: firewall.contract_number,
+        managed_by: firewall.managed_by,
+
+        model: firewall.firewallModel,
+        vendor: firewall.vendor,
+        backup: firewall.backup,
+        end_support: firewall.end_support,
+
+        security_class: '2',
+        security_comment: "It's updated manually",
+        support_group: firewall.support_group_id,
+        responsible_group: firewall.responsible_group_id,
+
+        os: firewall.os,
+        os_version: firewall.os_version,
+        max_number_of_ports: firewall.max_number_of_ports,
+        service_tag: firewall.service_tag,
+
+        rack_units: 2,
+        rack_position: 3,
+        relationship_owner: null,
       },
     },
   };

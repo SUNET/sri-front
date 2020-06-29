@@ -10,6 +10,7 @@ const FirewallDetailsQuery = graphql`
       operational_state
       managed_by {
         id
+        name
         value
       }
       responsible_group {

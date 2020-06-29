@@ -60,6 +60,49 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       firewallManagedByObj,
     );
 
+    const generalInfo = [
+      {
+        title: t('network.firewall.details.operational-state'),
+        presentContent: operational_state,
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            emptyLabel="Select type"
+            type="operational_states"
+            name="operational_state"
+            onChange={(e) => {}}
+          />
+        ),
+      },
+      {
+        title: t('network.switch.details.contract-number'),
+        presentContent: contract_number,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="contract_number"
+              component={FieldInput}
+              placeholder={t('general-forms.write-text')}
+            />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.switch.details.managed-by'),
+        presentContent: firewallManagedByObj ? firewallManagedByObj.name : undefined,
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            emptyLabel="Select type"
+            type="host_management_sw"
+            name="managed_by"
+            onChange={(e) => {}}
+          />
+        ),
+      },
+    ];
+
     return (
       <ToggleSection>
         <ToggleHeading>
@@ -68,12 +111,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         <TogglePanel>
           <div>
             <div className="form-internal-block">
-              {[[]].map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-            <div className="form-internal-block">
-              {[].map((formData, index) => {
+              {generalInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>
@@ -85,7 +123,49 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
   renderDetailsToggleSection(editMode = true) {
     const { t, firewallModel, vendor, backup, end_support } = this.props;
-    console.log('firewallModel, vendor, backup, end_support: ', firewallModel, vendor, backup, end_support);
+    const detailsInfo = [
+      {
+        title: t('network.firewall.details.model'),
+        presentContent: firewallModel,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="firewallModel"
+              component={FieldInput}
+              placeholder={t('general-forms.write-text')}
+            />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.firewall.details.vendor'),
+        presentContent: vendor,
+        editContent: (
+          <Form.Group>
+            <Field type="text" name="vendor" component={FieldInput} placeholder={t('general-forms.write-text')} />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.switch.details.backup'),
+        presentContent: backup,
+        editContent: (
+          <Form.Group>
+            <Field type="text" name="backup" component={FieldInput} placeholder={t('general-forms.write-text')} />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.firewall.details.end-support'),
+        presentContent: end_support,
+        editContent: (
+          <Form.Group>
+            <Field type="text" name="end_support" component={FieldInput} placeholder={t('general-forms.write-text')} />
+          </Form.Group>
+        ),
+      },
+    ];
     return (
       <ToggleSection>
         <ToggleHeading>
@@ -94,12 +174,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         <TogglePanel>
           <div>
             <div className="form-internal-block">
-              {[[]].map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-            <div className="form-internal-block">
-              {[].map((formData, index) => {
+              {detailsInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>
@@ -120,16 +195,73 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       responsibleGroupObj,
       responsible_group_id,
     } = this.props;
-    console.log(
-      'security_class,securityClassObj,security_comment,supportGroupObj,support_group_id,responsibleGroupObj,responsible_group_id: ',
-      security_class,
-      securityClassObj,
-      security_comment,
-      supportGroupObj,
-      support_group_id,
-      responsibleGroupObj,
-      responsible_group_id,
-    );
+    // console.log(
+    //   'security_class,securityClassObj,security_comment,supportGroupObj,support_group_id,responsibleGroupObj,responsible_group_id: ',
+    //   security_class,
+    //   securityClassObj,
+    //   security_comment,
+    //   supportGroupObj,
+    //   support_group_id,
+    //   responsibleGroupObj,
+    //   responsible_group_id,
+    // );
+    const securityInfo = [];
+    const securitySecondRowInfo = [
+      {
+        title: t('network.switch.details.support-group'),
+        presentContent: supportGroupObj ? supportGroupObj.name : '',
+        editContent: (
+          <div className="mr-3">
+            <Dropdown
+              className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+              type="combo_list"
+              name="support_group_id"
+              model="group"
+              placeholder={t('network.switch.details.write-support-group')}
+              currentValue={support_group_id}
+              objectCurrentValue={supportGroupObj}
+              nameDataInsideRequest="all_groups"
+              valueField="id"
+              labelElementsArray={['name']}
+              onChange={(newSupportGroup) => {
+                this.props.dispatch(
+                  change(this.props.form, 'support_group_id', newSupportGroup ? newSupportGroup.id : null),
+                );
+                this.props.dispatch(
+                  change(this.props.form, 'supportGroupObj', newSupportGroup ? newSupportGroup : null),
+                );
+              }}
+            />
+          </div>
+        ),
+      },
+      {
+        title: t('network.switch.details.responsible-group'),
+        presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            type="combo_list"
+            name="responsible_group_id"
+            model="group"
+            placeholder={t('network.switch.details.write-responsible-group')}
+            currentValue={responsible_group_id}
+            objectCurrentValue={responsibleGroupObj}
+            nameDataInsideRequest="all_groups"
+            valueField="id"
+            labelElementsArray={['name']}
+            onChange={(newSupportGroup) => {
+              this.props.dispatch(
+                change(this.props.form, 'responsible_group_id', newSupportGroup ? newSupportGroup.id : null),
+              );
+              this.props.dispatch(
+                change(this.props.form, 'responsibleGroupObj', newSupportGroup ? newSupportGroup : null),
+              );
+            }}
+          />
+        ),
+      },
+    ];
     return (
       <ToggleSection>
         <ToggleHeading>
@@ -138,12 +270,12 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         <TogglePanel>
           <div>
             <div className="form-internal-block">
-              {[[]].map((formData, index) => {
+              {securityInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>
             <div className="form-internal-block">
-              {[].map((formData, index) => {
+              {securitySecondRowInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>
@@ -155,7 +287,66 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
   renderOSToggleSection(editMode = true) {
     const { t, os, os_version, max_number_of_ports, service_tag } = this.props;
-    console.log('os, os_version, max_number_of_ports, service_tag: ', os, os_version, max_number_of_ports, service_tag);
+    // console.log(
+    //   'os: TEXT, os_version: TEXT, max_number_of_ports: INT, service_tag: TEXT: ',
+    //   os,
+    //   os_version,
+    //   max_number_of_ports,
+    //   service_tag,
+    // );
+    const osInfo = [
+      {
+        title: t('network.switch.details.os'),
+        presentContent: os,
+        editContent: (
+          <Form.Group>
+            <Field type="text" name="os" component={FieldInput} placeholder={t('network.switch.details.write-os')} />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.switch.details.os-version'),
+        presentContent: os_version,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="os_version"
+              component={FieldInput}
+              placeholder={t('network.switch.details.write-os-version')}
+            />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.switch.details.max-number-of-ports'),
+        presentContent: max_number_of_ports,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="max_number_of_ports"
+              component={FieldInput}
+              placeholder={t('network.switch.details.write-max-number-of-ports')}
+            />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.firewall.details.service-tag'),
+        presentContent: service_tag,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="service_tag"
+              component={FieldInput}
+              placeholder={t('network.switch.details.write-os-version')}
+            />
+          </Form.Group>
+        ),
+      },
+    ];
     return (
       <ToggleSection>
         <ToggleHeading>
@@ -164,12 +355,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         <TogglePanel>
           <div>
             <div className="form-internal-block">
-              {[[]].map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-            <div className="form-internal-block">
-              {[].map((formData, index) => {
+              {osInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>
@@ -181,7 +367,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
   renderLocationToggleSection(editMode = true) {
     const { t, rack_units, rack_position, ownerObj } = this.props;
-    console.log('rack_units, rack_position, ownerObj: ', rack_units, rack_position, ownerObj);
+    // console.log('rack_units, rack_position, ownerObj: ', rack_units, rack_position, ownerObj);
     return (
       <ToggleSection>
         <ToggleHeading>
