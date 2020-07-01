@@ -4,7 +4,7 @@ import { getContact } from '../../components/contact/Contact';
 
 import * as actions from '../../actions/Notify';
 import CreateGroupForm from '../../components/group/CreateGroupForm';
-import { showNewContactForm } from '../../actions/ComponentFormRow';
+import * as formModalActions from '../../actions/FormModal';
 
 const mapStateToProps = (state) => {
   const updateGroupSelector = formValueSelector('createGroup');
@@ -13,6 +13,8 @@ const mapStateToProps = (state) => {
     formSyncErrors: getFormSyncErrors('createGroup')(state),
     memberValues: updateGroupSelector(state, 'members'),
     name: updateGroupSelector(state, 'name'),
+    entityRemovedId: state.formModal.entityRemovedId,
+    entitySavedId: state.formModal.entitySavedId,
     getContact: (id) => getContact(id),
   };
 };
@@ -22,7 +24,12 @@ const mapDispatchToProps = (dispatch) => {
     notify: (msg, level) => {
       dispatch(actions.notify(msg, level));
     },
-    showNewContactForm,
+    showNewContactForm: () => {
+      dispatch(formModalActions.showModalCreateForm('Contact'));
+    },
+    hideModalForm: () => {
+      dispatch(formModalActions.hideModalForm());
+    },
   };
 };
 

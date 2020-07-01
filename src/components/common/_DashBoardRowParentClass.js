@@ -13,6 +13,7 @@ class _DashBoardRowParentClass extends React.Component {
   constructor(props) {
     super(props);
     this.MAIN_PROP = '';
+    this.TIME_PROP = '';
   }
 
   renderInfo() {
@@ -23,7 +24,7 @@ class _DashBoardRowParentClass extends React.Component {
     const element = this.props[this.MAIN_PROP];
     return (
       <Col className="col-md-auto dash-board-row__modified_time">
-        <span>{formatDate(element.modified)}</span>
+        <span>{formatDate(element[this.TIME_PROP])}</span>
       </Col>
     );
   }

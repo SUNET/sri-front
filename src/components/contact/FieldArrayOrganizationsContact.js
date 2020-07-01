@@ -235,25 +235,31 @@ class FieldArrayOrganizationsContact extends React.Component {
 
     saveLabel = (event, key) => {
         const indexForThisFieldKey = this.getValueByKey(key).index;
-        const input_label = event.target.options[event.target.selectedIndex].text;
-        const input_name = event.target.name.split(".")[1];
-        function updateOrganizationIdField(props, orgId) {
+        const input_label = event.options[event.selectedIndex].text;
+        const input_name = event.name.split(".")[1];
+        
+        function updateOrganizationIdField(props, orgId, organization_id) {
             props.dispatch(
                 change(
                     props.meta.form,
                     `organizations[${indexForThisFieldKey}].organization_id`,
-                    orgId
+                    organization_id
                 )
             );
+            props.dispatch(
+                change(props.meta.form, `organizations[${indexForThisFieldKey}].organization`, orgId)
+            );
         }
+
         this.props.dispatch(
             change(this.props.meta.form, `organizations[${indexForThisFieldKey}].${input_name}_label`, input_label)
         );
 
+
         if (input_name === "organization") {
-            getOrganization(event.target.value).then((organization) => {
+            getOrganization(event.value).then((organization) => {
                 if (organization) {
-                    updateOrganizationIdField(this.props, organization.id);    
+                    updateOrganizationIdField(this.props, organization.id, organization.organization_id);    
                 }
             }).catch(err => {
                 updateOrganizationIdField(this.props, null);

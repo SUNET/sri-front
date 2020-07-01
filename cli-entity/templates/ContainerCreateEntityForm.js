@@ -3,7 +3,6 @@ import { getFormMeta, getFormSyncErrors, formValueSelector } from "redux-form";
 
 import * as actions from "../../actions/Notify";
 import Create__EntityClassName__Form from "../../components/__entityName__/Create__EntityClassName__Form";
-import { showNewContactForm } from "../../actions/ComponentFormRow";
 
 const mapStateToProps = (state, props) => {
     const update__EntityClassName__Selector = formValueSelector("create__EntityClassName__");

@@ -15,6 +15,18 @@ export type CompositeGroupMutationInput = {|
   update_subinputs?: ?$ReadOnlyArray<?UpdateContactInput>,
   delete_subinputs?: ?$ReadOnlyArray<?DeleteContactInput>,
   unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
+  create_part_of_port?: ?CreatePortInput,
+  update_part_of_port?: ?UpdatePortInput,
+  deleted_part_of_port?: ?DeletePortInput,
+  create_part_of_cable?: ?CreateCableInput,
+  update_part_of_cable?: ?UpdateCableInput,
+  deleted_part_of_cable?: ?DeleteCableInput,
+  create_part_of_router?: ?CreateRouterInput,
+  update_part_of_router?: ?UpdateRouterInput,
+  deleted_part_of_router?: ?DeleteRouterInput,
+  create_part_of_switch?: ?CreateSwitchInput,
+  update_part_of_switch?: ?UpdateSwitchInput,
+  deleted_part_of_switch?: ?DeleteSwitchInput,
   clientMutationId?: ?string,
 |};
 export type CreateGroupInput = {|
@@ -76,6 +88,125 @@ export type DeleteContactInput = {|
 |};
 export type DeleteRelationshipInput = {|
   relation_id: number,
+  clientMutationId?: ?string,
+|};
+export type CreatePortInput = {|
+  name: string,
+  port_type?: ?any,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePortInput = {|
+  name: string,
+  port_type?: ?any,
+  description?: ?string,
+  relationship_connected_to?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePortInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  relationship_end_a?: ?number,
+  relationship_end_b?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteCableInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateRouterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  operational_state: any,
+  relationship_location?: ?number,
+  relationship_ports?: ?string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateRouterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  operational_state: any,
+  relationship_location?: ?number,
+  description?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteRouterInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateSwitchInput = {|
+  name: string,
+  description?: ?string,
+  ip_addresses?: ?string,
+  rack_units?: ?number,
+  rack_position?: ?number,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?string,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?number,
+  max_number_of_ports?: ?number,
+  relationship_provider?: ?any,
+  switch_type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdateSwitchInput = {|
+  name: string,
+  description?: ?string,
+  ip_addresses?: ?string,
+  rack_units?: ?number,
+  rack_position?: ?number,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?string,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?number,
+  max_number_of_ports?: ?number,
+  relationship_provider?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteSwitchInput = {|
+  id: string,
   clientMutationId?: ?string,
 |};
 export type UpdateGroupMutationVariables = {|

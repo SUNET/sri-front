@@ -1,7 +1,6 @@
 @import "../variables.scss";
 
 .dashboard-list {
-    padding: 0 24px 24px;
     background-color: white;
     -webkit-box-shadow: 0 0 4px -1px #d6d6d6;
     -moz-box-shadow: 0 0 4px -1px #d6d6d6;
@@ -16,8 +15,6 @@
         font-weight: bold;
         background-color: $tertiary-color-20;
         padding: 10px 8px 10px 24px;
-        margin-right: -24px;
-        margin-left: -24px;
 
         h2 {
             font-size: 14px;
@@ -34,10 +31,10 @@
         }
     }
 
-    article {
+    .dash-board-row {
         border-bottom: solid 1px $tertiary-color-20;
-        padding: 12px 0;
-
+        padding: 12px 24px;
+        min-height: 64px;
         &:hover {
             cursor: pointer;
         }
@@ -65,7 +62,7 @@
 
     > div:last-child {
         text-align: center;
-        padding-top: 15px;
+        padding: 15px 15px 15px;
 
         button {
             span {

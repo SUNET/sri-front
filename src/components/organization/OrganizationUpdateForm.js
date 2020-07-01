@@ -19,7 +19,7 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
     MODEL_NAME = "organization";
     ROUTE_LIST_DIRECTION = "/community/organizations";
     state = {
-        editMode: false
+        editMode: false,
     };
 
     static propTypes = {

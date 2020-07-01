@@ -1,7 +1,6 @@
 // Common imports
 import React from "react";
 import { arrayPush, FieldArray, Field, change } from "redux-form";
-import uuidv4 from "uuid/v4";
 import { Form, Col } from "react-bootstrap";
 // components
 import BackCTA from "../common/BackCTA";
@@ -44,6 +43,17 @@ class _OrganizationFormParentClass extends React.Component {
     FORM_ID;
     MODEL_NAME = "organization";
     ROUTE_LIST_DIRECTION = "/community/organizations";
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.entitySavedId) {
+            const selectionData = {
+                id: nextProps.entitySavedId,
+            };
+            this.handleSelectedContact(selectionData);
+            return false;
+        }
+        return true;
+    }
 
     componentDidMount() {
         if (this.IS_UPDATED_FORM) {
@@ -104,11 +114,8 @@ class _OrganizationFormParentClass extends React.Component {
                     phone_obj: contact.phones,
                     created: true,
                     origin: "new",
-                    status: "saved",
-                    key: uuidv4()
+                    status: "saved"
                 };
-                // if (!this._hasBeenAdded(newContact)) {
-                // }
                 this.props.dispatch(arrayPush(this.props.form, "contacts", newContact));
             });
         }
@@ -309,16 +316,20 @@ class _OrganizationFormParentClass extends React.Component {
                 presentContent: this.props.organization_parent
                     ? `${this.props.organization_parent.name} - ${this.props.organization_parent.organization_id}`
                     : '',
+                        
                 editContent: (
                     <Dropdown
                         className={`${isBrowser ? "auto" : "xlg mw-100"}`}
                         emptyLabel="Select parent"
-                        type="organization_combo_list"
+                        type="combo_list"
                         name="organization_parent_id"
                         model="organization"
                         placeholder={t("organization-details.add-id")}
-                        organization_parent_id={organization_parent_id}
-                        parent_organization={this.props.organization_parent}
+                        currentValue={organization_parent_id}
+                        objectCurrentValue={this.props.organization_parent}
+                        nameDataInsideRequest="all_organizations"
+                        valueField="organization_id"
+                        labelElementsArray={["name", "organization_id"]}
                         onChange={(newOrganizationParent) => {
                             if (newOrganizationParent) {
                                 this.props.dispatch(
@@ -352,6 +363,7 @@ class _OrganizationFormParentClass extends React.Component {
                 )
             }
         ];
+
         const generalInfoSecondRow = [
             {
                 title: t("organization-details.website"),
@@ -432,7 +444,7 @@ class _OrganizationFormParentClass extends React.Component {
         );
     }
     renderContactsToggleSection(editMode = true) {
-        const { t } = this.props;
+        const { t, entityRemovedId } = this.props;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -450,7 +462,14 @@ class _OrganizationFormParentClass extends React.Component {
                         rerenderOnEveryChange={true}
                         handleContactSearch={this.handleSelectedContact}
                         handleAddContactRow={() => {
-                            this.props.dispatch(this.props.showNewContactForm());
+                            this.props.showNewContactForm();
+                        }}
+                        handleShowContactDetail={(contactId) => {
+                            this.props.showContactDetailForm(contactId);
+                        }}
+                        removedContactId={entityRemovedId}
+                        removedContactDeletedFromTheList={() => {
+                            this.props.hideContactForm();
                         }}
                     />
                 </TogglePanel>

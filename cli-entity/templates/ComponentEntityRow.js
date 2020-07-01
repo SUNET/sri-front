@@ -29,7 +29,7 @@ class __EntityClassName__Row extends React.PureComponent {
     render() {
         let __entityName__ = this.props.__entityName__;
         return (
-            <tr /*onClick={(e) => this.props.onClick(e, __entityName__)}*/>
+            <tr onClick={(e) => this.props.onClick(e, __entityName__)}>
                 {this.renderCellSection("name", __entityName__.name)}
                 {this.renderCellSection("url", __entityName__.url)}
                 {this.renderCellSection("description", __entityName__.description)}

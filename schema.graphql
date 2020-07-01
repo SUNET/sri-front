@@ -1,5 +1,47 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Wed May 06 2020 16:38:50 GMT+0200 (GMT+02:00)
+# timestamp: Thu Jun 25 2020 12:21:54 GMT+0200 (GMT+02:00)
+
+"""This class represents an Action from the activity log"""
+type Action implements Node {
+  verb: String!
+  description: String
+  timestamp: DateTime!
+  public: Boolean!
+
+  """The ID of the object."""
+  id: ID!
+  text: String!
+  action_object: NINode
+  target_object: NINode
+  actor: User
+  actorname: String
+}
+
+type ActionConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [ActionEdge]!
+}
+
+"""A Relay edge containing a `Action` and its cursor."""
+type ActionEdge {
+  """The item at the end of the edge"""
+  node: Action
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ActionFilter {
+  context: String!
+}
+
+enum ActionOrderBy {
+  timestamp_ASC
+  timestamp_DESC
+}
 
 """Phone entity to be used inside contact"""
 type Address implements NINode & Logical {
@@ -218,14 +260,14 @@ type Cable implements NINode & Physical {
   has: Physical
   part_of: Logical
   parent: [Physical]
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
   cable_type: Choice
   description: String
-  providers: [Provider]
-  providers_relations: [IDRelation]
+  provider: Provider
   ports: [Port]
 }
 
@@ -403,31 +445,213 @@ type CommentType implements Node {
   object_id: ID!
 }
 
+input CompositeCableMutationInput {
+  create_input: CreateCableInput
+  update_input: UpdateCableInput
+  create_subinputs: [CreatePortInput]
+  update_subinputs: [UpdatePortInput]
+  delete_subinputs: [DeletePortInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_has_port: CreatePortInput
+  update_has_port: UpdatePortInput
+  deleted_has_port: DeletePortInput
+  create_has_cable: CreateCableInput
+  update_has_cable: UpdateCableInput
+  deleted_has_cable: DeleteCableInput
+  create_has_router: CreateRouterInput
+  update_has_router: UpdateRouterInput
+  deleted_has_router: DeleteRouterInput
+  create_has_switch: CreateSwitchInput
+  update_has_switch: UpdateSwitchInput
+  deleted_has_switch: DeleteSwitchInput
+  create_part_of_group: CreateGroupInput
+  update_part_of_group: UpdateGroupInput
+  deleted_part_of_group: DeleteGroupInput
+  create_part_of_procedure: CreateProcedureInput
+  update_part_of_procedure: UpdateProcedureInput
+  deleted_part_of_procedure: DeleteProcedureInput
+  create_part_of_address: CreateAddressInput
+  update_part_of_address: UpdateAddressInput
+  deleted_part_of_address: DeleteAddressInput
+  create_part_of_phone: CreatePhoneInput
+  update_part_of_phone: UpdatePhoneInput
+  deleted_part_of_phone: DeletePhoneInput
+  create_part_of_email: CreateEmailInput
+  update_part_of_email: UpdateEmailInput
+  deleted_part_of_email: DeleteEmailInput
+  create_parent_port: [CreatePortInput]
+  update_parent_port: [UpdatePortInput]
+  deleted_parent_port: [DeletePortInput]
+  create_parent_cable: [CreateCableInput]
+  update_parent_cable: [UpdateCableInput]
+  deleted_parent_cable: [DeleteCableInput]
+  create_parent_router: [CreateRouterInput]
+  update_parent_router: [UpdateRouterInput]
+  deleted_parent_router: [DeleteRouterInput]
+  create_parent_switch: [CreateSwitchInput]
+  update_parent_switch: [UpdateSwitchInput]
+  deleted_parent_switch: [DeleteSwitchInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  clientMutationId: String
+}
+
+type CompositeCableMutationPayload {
+  created: CreateCablePayload
+  updated: UpdateCablePayload
+  subcreated: [CreatePortPayload]
+  subupdated: [UpdatePortPayload]
+  subdeleted: [DeletePortPayload]
+  unlinked: [DeleteRelationshipPayload]
+  has_port_created: CreatePortPayload
+  has_port_updated: UpdatePortPayload
+  has_port_deleted: DeletePortPayload
+  has_cable_created: CreateCablePayload
+  has_cable_updated: UpdateCablePayload
+  has_cable_deleted: DeleteCablePayload
+  has_router_created: CreateRouterPayload
+  has_router_updated: UpdateRouterPayload
+  has_router_deleted: DeleteRouterPayload
+  has_switch_created: CreateSwitchPayload
+  has_switch_updated: UpdateSwitchPayload
+  has_switch_deleted: DeleteSwitchPayload
+  part_of_group_created: CreateGroupPayload
+  part_of_group_updated: UpdateGroupPayload
+  part_of_group_deleted: DeleteGroupPayload
+  part_of_procedure_created: CreateProcedurePayload
+  part_of_procedure_updated: UpdateProcedurePayload
+  part_of_procedure_deleted: DeleteProcedurePayload
+  part_of_address_created: CreateAddressPayload
+  part_of_address_updated: UpdateAddressPayload
+  part_of_address_deleted: DeleteAddressPayload
+  part_of_phone_created: CreatePhonePayload
+  part_of_phone_updated: UpdatePhonePayload
+  part_of_phone_deleted: DeletePhonePayload
+  part_of_email_created: CreateEmailPayload
+  part_of_email_updated: UpdateEmailPayload
+  part_of_email_deleted: DeleteEmailPayload
+  parent_port_created: [CreatePortPayload]
+  parent_port_updated: [UpdatePortPayload]
+  parent_port_deleted: [DeletePortPayload]
+  parent_cable_created: [CreateCablePayload]
+  parent_cable_updated: [UpdateCablePayload]
+  parent_cable_deleted: [DeleteCablePayload]
+  parent_router_created: [CreateRouterPayload]
+  parent_router_updated: [UpdateRouterPayload]
+  parent_router_deleted: [DeleteRouterPayload]
+  parent_switch_created: [CreateSwitchPayload]
+  parent_switch_updated: [UpdateSwitchPayload]
+  parent_switch_deleted: [DeleteSwitchPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  clientMutationId: String
+}
+
 input CompositeContactMutationInput {
+  create_phones: [CreatePhoneInput]
+  update_phones: [UpdatePhoneInput]
+  delete_phones: [DeletePhoneInput]
+  link_rolerelations: [RoleRelationMutationInput]
   create_input: CreateContactInput
   update_input: UpdateContactInput
   create_subinputs: [CreateEmailInput]
   update_subinputs: [UpdateEmailInput]
   delete_subinputs: [DeleteEmailInput]
   unlink_subinputs: [DeleteRelationshipInput]
-  create_phones: [CreatePhoneInput]
-  update_phones: [UpdatePhoneInput]
-  delete_phones: [DeletePhoneInput]
-  link_rolerelations: [RoleRelationMutationInput]
+  create_uses_group: CreateGroupInput
+  update_uses_group: UpdateGroupInput
+  deleted_uses_group: DeleteGroupInput
+  create_uses_procedure: CreateProcedureInput
+  update_uses_procedure: UpdateProcedureInput
+  deleted_uses_procedure: DeleteProcedureInput
+  create_uses_address: CreateAddressInput
+  update_uses_address: UpdateAddressInput
+  deleted_uses_address: DeleteAddressInput
+  create_uses_phone: CreatePhoneInput
+  update_uses_phone: UpdatePhoneInput
+  deleted_uses_phone: DeletePhoneInput
+  create_uses_email: CreateEmailInput
+  update_uses_email: UpdateEmailInput
+  deleted_uses_email: DeleteEmailInput
+  create_owns_port: CreatePortInput
+  update_owns_port: UpdatePortInput
+  deleted_owns_port: DeletePortInput
+  create_owns_cable: CreateCableInput
+  update_owns_cable: UpdateCableInput
+  deleted_owns_cable: DeleteCableInput
+  create_owns_router: CreateRouterInput
+  update_owns_router: UpdateRouterInput
+  deleted_owns_router: DeleteRouterInput
+  create_owns_switch: CreateSwitchInput
+  update_owns_switch: UpdateSwitchInput
+  deleted_owns_switch: DeleteSwitchInput
   clientMutationId: String
 }
 
 type CompositeContactMutationPayload {
+  phones_created: [CreatePhonePayload]
+  phones_updated: [UpdatePhonePayload]
+  phones_deleted: [DeletePhonePayload]
+  rolerelations: [RoleRelationMutationPayload]
   created: CreateContactPayload
   updated: UpdateContactPayload
   subcreated: [CreateEmailPayload]
   subupdated: [UpdateEmailPayload]
   subdeleted: [DeleteEmailPayload]
   unlinked: [DeleteRelationshipPayload]
-  phones_created: [CreatePhonePayload]
-  phones_updated: [UpdatePhonePayload]
-  phones_deleted: [DeletePhonePayload]
-  rolerelations: [RoleRelationMutationPayload]
+  uses_group_created: CreateGroupPayload
+  uses_group_updated: UpdateGroupPayload
+  uses_group_deleted: DeleteGroupPayload
+  uses_procedure_created: CreateProcedurePayload
+  uses_procedure_updated: UpdateProcedurePayload
+  uses_procedure_deleted: DeleteProcedurePayload
+  uses_address_created: CreateAddressPayload
+  uses_address_updated: UpdateAddressPayload
+  uses_address_deleted: DeleteAddressPayload
+  uses_phone_created: CreatePhonePayload
+  uses_phone_updated: UpdatePhonePayload
+  uses_phone_deleted: DeletePhonePayload
+  uses_email_created: CreateEmailPayload
+  uses_email_updated: UpdateEmailPayload
+  uses_email_deleted: DeleteEmailPayload
+  owns_port_created: CreatePortPayload
+  owns_port_updated: UpdatePortPayload
+  owns_port_deleted: DeletePortPayload
+  owns_cable_created: CreateCablePayload
+  owns_cable_updated: UpdateCablePayload
+  owns_cable_deleted: DeleteCablePayload
+  owns_router_created: CreateRouterPayload
+  owns_router_updated: UpdateRouterPayload
+  owns_router_deleted: DeleteRouterPayload
+  owns_switch_created: CreateSwitchPayload
+  owns_switch_updated: UpdateSwitchPayload
+  owns_switch_deleted: DeleteSwitchPayload
   clientMutationId: String
 }
 
@@ -438,6 +662,18 @@ input CompositeGroupMutationInput {
   update_subinputs: [UpdateContactInput]
   delete_subinputs: [DeleteContactInput]
   unlink_subinputs: [DeleteRelationshipInput]
+  create_part_of_port: CreatePortInput
+  update_part_of_port: UpdatePortInput
+  deleted_part_of_port: DeletePortInput
+  create_part_of_cable: CreateCableInput
+  update_part_of_cable: UpdateCableInput
+  deleted_part_of_cable: DeleteCableInput
+  create_part_of_router: CreateRouterInput
+  update_part_of_router: UpdateRouterInput
+  deleted_part_of_router: DeleteRouterInput
+  create_part_of_switch: CreateSwitchInput
+  update_part_of_switch: UpdateSwitchInput
+  deleted_part_of_switch: DeleteSwitchInput
   clientMutationId: String
 }
 
@@ -448,6 +684,18 @@ type CompositeGroupMutationPayload {
   subupdated: [UpdateContactPayload]
   subdeleted: [DeleteContactPayload]
   unlinked: [DeleteRelationshipPayload]
+  part_of_port_created: CreatePortPayload
+  part_of_port_updated: UpdatePortPayload
+  part_of_port_deleted: DeletePortPayload
+  part_of_cable_created: CreateCablePayload
+  part_of_cable_updated: UpdateCablePayload
+  part_of_cable_deleted: DeleteCablePayload
+  part_of_router_created: CreateRouterPayload
+  part_of_router_updated: UpdateRouterPayload
+  part_of_router_deleted: DeleteRouterPayload
+  part_of_switch_created: CreateSwitchPayload
+  part_of_switch_updated: UpdateSwitchPayload
+  part_of_switch_deleted: DeleteSwitchPayload
   clientMutationId: String
 }
 
@@ -457,10 +705,37 @@ input CompositeOrganizationMutationInput {
   create_subinputs: [CreateContactInput]
   update_subinputs: [UpdateContactInput]
   delete_subinputs: [DeleteContactInput]
-  unlink_subinputs: [DeleteRelationshipInput]
   create_address: [CreateAddressInput]
   update_address: [UpdateAddressInput]
   delete_address: [DeleteAddressInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_uses_group: CreateGroupInput
+  update_uses_group: UpdateGroupInput
+  deleted_uses_group: DeleteGroupInput
+  create_uses_procedure: CreateProcedureInput
+  update_uses_procedure: UpdateProcedureInput
+  deleted_uses_procedure: DeleteProcedureInput
+  create_uses_address: CreateAddressInput
+  update_uses_address: UpdateAddressInput
+  deleted_uses_address: DeleteAddressInput
+  create_uses_phone: CreatePhoneInput
+  update_uses_phone: UpdatePhoneInput
+  deleted_uses_phone: DeletePhoneInput
+  create_uses_email: CreateEmailInput
+  update_uses_email: UpdateEmailInput
+  deleted_uses_email: DeleteEmailInput
+  create_owns_port: CreatePortInput
+  update_owns_port: UpdatePortInput
+  deleted_owns_port: DeletePortInput
+  create_owns_cable: CreateCableInput
+  update_owns_cable: UpdateCableInput
+  deleted_owns_cable: DeleteCableInput
+  create_owns_router: CreateRouterInput
+  update_owns_router: UpdateRouterInput
+  deleted_owns_router: DeleteRouterInput
+  create_owns_switch: CreateSwitchInput
+  update_owns_switch: UpdateSwitchInput
+  deleted_owns_switch: DeleteSwitchInput
   clientMutationId: String
 }
 
@@ -470,10 +745,251 @@ type CompositeOrganizationMutationPayload {
   subcreated: [CreateContactPayload]
   subupdated: [UpdateContactPayload]
   subdeleted: [DeleteContactPayload]
-  unlinked: [DeleteRelationshipPayload]
   address_created: [CreateAddressPayload]
   address_updated: [UpdateAddressPayload]
   address_deleted: [DeleteAddressPayload]
+  unlinked: [DeleteRelationshipPayload]
+  uses_group_created: CreateGroupPayload
+  uses_group_updated: UpdateGroupPayload
+  uses_group_deleted: DeleteGroupPayload
+  uses_procedure_created: CreateProcedurePayload
+  uses_procedure_updated: UpdateProcedurePayload
+  uses_procedure_deleted: DeleteProcedurePayload
+  uses_address_created: CreateAddressPayload
+  uses_address_updated: UpdateAddressPayload
+  uses_address_deleted: DeleteAddressPayload
+  uses_phone_created: CreatePhonePayload
+  uses_phone_updated: UpdatePhonePayload
+  uses_phone_deleted: DeletePhonePayload
+  uses_email_created: CreateEmailPayload
+  uses_email_updated: UpdateEmailPayload
+  uses_email_deleted: DeleteEmailPayload
+  owns_port_created: CreatePortPayload
+  owns_port_updated: UpdatePortPayload
+  owns_port_deleted: DeletePortPayload
+  owns_cable_created: CreateCablePayload
+  owns_cable_updated: UpdateCablePayload
+  owns_cable_deleted: DeleteCablePayload
+  owns_router_created: CreateRouterPayload
+  owns_router_updated: UpdateRouterPayload
+  owns_router_deleted: DeleteRouterPayload
+  owns_switch_created: CreateSwitchPayload
+  owns_switch_updated: UpdateSwitchPayload
+  owns_switch_deleted: DeleteSwitchPayload
+  clientMutationId: String
+}
+
+input CompositePortMutationInput {
+  create_input: CreatePortInput
+  update_input: UpdatePortInput
+  create_subinputs: [CreateCableInput]
+  update_subinputs: [UpdateCableInput]
+  delete_subinputs: [DeleteCableInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_parent_port: [CreatePortInput]
+  update_parent_port: [UpdatePortInput]
+  deleted_parent_port: [DeletePortInput]
+  create_parent_cable: [CreateCableInput]
+  update_parent_cable: [UpdateCableInput]
+  deleted_parent_cable: [DeleteCableInput]
+  create_parent_router: [CreateRouterInput]
+  update_parent_router: [UpdateRouterInput]
+  deleted_parent_router: [DeleteRouterInput]
+  create_parent_switch: [CreateSwitchInput]
+  update_parent_switch: [UpdateSwitchInput]
+  deleted_parent_switch: [DeleteSwitchInput]
+  clientMutationId: String
+}
+
+type CompositePortMutationPayload {
+  created: CreatePortPayload
+  updated: UpdatePortPayload
+  subcreated: [CreateCablePayload]
+  subupdated: [UpdateCablePayload]
+  subdeleted: [DeleteCablePayload]
+  unlinked: [DeleteRelationshipPayload]
+  parent_port_created: [CreatePortPayload]
+  parent_port_updated: [UpdatePortPayload]
+  parent_port_deleted: [DeletePortPayload]
+  parent_cable_created: [CreateCablePayload]
+  parent_cable_updated: [UpdateCablePayload]
+  parent_cable_deleted: [DeleteCablePayload]
+  parent_router_created: [CreateRouterPayload]
+  parent_router_updated: [UpdateRouterPayload]
+  parent_router_deleted: [DeleteRouterPayload]
+  parent_switch_created: [CreateSwitchPayload]
+  parent_switch_updated: [UpdateSwitchPayload]
+  parent_switch_deleted: [DeleteSwitchPayload]
+  clientMutationId: String
+}
+
+input CompositeRouterMutationInput {
+  update_input: UpdateRouterInput
+  create_subinputs: [CreatePortInput]
+  update_subinputs: [UpdatePortInput]
+  delete_subinputs: [DeletePortInput]
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_has_port: CreatePortInput
+  update_has_port: UpdatePortInput
+  deleted_has_port: DeletePortInput
+  create_has_cable: CreateCableInput
+  update_has_cable: UpdateCableInput
+  deleted_has_cable: DeleteCableInput
+  create_has_router: CreateRouterInput
+  update_has_router: UpdateRouterInput
+  deleted_has_router: DeleteRouterInput
+  create_has_switch: CreateSwitchInput
+  update_has_switch: UpdateSwitchInput
+  deleted_has_switch: DeleteSwitchInput
+  create_part_of_group: CreateGroupInput
+  update_part_of_group: UpdateGroupInput
+  deleted_part_of_group: DeleteGroupInput
+  create_part_of_procedure: CreateProcedureInput
+  update_part_of_procedure: UpdateProcedureInput
+  deleted_part_of_procedure: DeleteProcedureInput
+  create_part_of_address: CreateAddressInput
+  update_part_of_address: UpdateAddressInput
+  deleted_part_of_address: DeleteAddressInput
+  create_part_of_phone: CreatePhoneInput
+  update_part_of_phone: UpdatePhoneInput
+  deleted_part_of_phone: DeletePhoneInput
+  create_part_of_email: CreateEmailInput
+  update_part_of_email: UpdateEmailInput
+  deleted_part_of_email: DeleteEmailInput
+  create_parent_port: [CreatePortInput]
+  update_parent_port: [UpdatePortInput]
+  deleted_parent_port: [DeletePortInput]
+  create_parent_cable: [CreateCableInput]
+  update_parent_cable: [UpdateCableInput]
+  deleted_parent_cable: [DeleteCableInput]
+  create_parent_router: [CreateRouterInput]
+  update_parent_router: [UpdateRouterInput]
+  deleted_parent_router: [DeleteRouterInput]
+  create_parent_switch: [CreateSwitchInput]
+  update_parent_switch: [UpdateSwitchInput]
+  deleted_parent_switch: [DeleteSwitchInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  clientMutationId: String
+}
+
+type CompositeRouterMutationPayload {
+  updated: UpdateRouterPayload
+  subcreated: [CreatePortPayload]
+  subupdated: [UpdatePortPayload]
+  subdeleted: [DeletePortPayload]
+  unlinked: [DeleteRelationshipPayload]
+  has_port_created: CreatePortPayload
+  has_port_updated: UpdatePortPayload
+  has_port_deleted: DeletePortPayload
+  has_cable_created: CreateCablePayload
+  has_cable_updated: UpdateCablePayload
+  has_cable_deleted: DeleteCablePayload
+  has_router_created: CreateRouterPayload
+  has_router_updated: UpdateRouterPayload
+  has_router_deleted: DeleteRouterPayload
+  has_switch_created: CreateSwitchPayload
+  has_switch_updated: UpdateSwitchPayload
+  has_switch_deleted: DeleteSwitchPayload
+  part_of_group_created: CreateGroupPayload
+  part_of_group_updated: UpdateGroupPayload
+  part_of_group_deleted: DeleteGroupPayload
+  part_of_procedure_created: CreateProcedurePayload
+  part_of_procedure_updated: UpdateProcedurePayload
+  part_of_procedure_deleted: DeleteProcedurePayload
+  part_of_address_created: CreateAddressPayload
+  part_of_address_updated: UpdateAddressPayload
+  part_of_address_deleted: DeleteAddressPayload
+  part_of_phone_created: CreatePhonePayload
+  part_of_phone_updated: UpdatePhonePayload
+  part_of_phone_deleted: DeletePhonePayload
+  part_of_email_created: CreateEmailPayload
+  part_of_email_updated: UpdateEmailPayload
+  part_of_email_deleted: DeleteEmailPayload
+  parent_port_created: [CreatePortPayload]
+  parent_port_updated: [UpdatePortPayload]
+  parent_port_deleted: [DeletePortPayload]
+  parent_cable_created: [CreateCablePayload]
+  parent_cable_updated: [UpdateCablePayload]
+  parent_cable_deleted: [DeleteCablePayload]
+  parent_router_created: [CreateRouterPayload]
+  parent_router_updated: [UpdateRouterPayload]
+  parent_router_deleted: [DeleteRouterPayload]
+  parent_switch_created: [CreateSwitchPayload]
+  parent_switch_updated: [UpdateSwitchPayload]
+  parent_switch_deleted: [DeleteSwitchPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  clientMutationId: String
+}
+
+input CompositeSwitchMutationInput {
+  create_input: CreateSwitchInput
+  update_input: UpdateSwitchInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  clientMutationId: String
+}
+
+type CompositeSwitchMutationPayload {
+  created: CreateSwitchPayload
+  updated: UpdateSwitchPayload
+  unlinked: [DeleteRelationshipPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
   clientMutationId: String
 }
 
@@ -833,6 +1349,7 @@ input CreateCableInput {
   name: String!
   cable_type: ChoiceScalar!
   description: String
+  relationship_provider: ChoiceScalar
   clientMutationId: String
 }
 
@@ -1038,6 +1555,22 @@ type CreateRolePayload {
   clientMutationId: String
 }
 
+input CreateRouterInput {
+  rack_units: Int
+  rack_position: Int
+  operational_state: ChoiceScalar!
+  relationship_location: Int
+  relationship_ports: String
+  description: String
+  clientMutationId: String
+}
+
+type CreateRouterPayload {
+  errors: [ErrorType]
+  router: Router
+  clientMutationId: String
+}
+
 input CreateSiteOwnerInput {
   name: String!
   description: String
@@ -1048,6 +1581,40 @@ input CreateSiteOwnerInput {
 type CreateSiteOwnerPayload {
   errors: [ErrorType]
   siteOwner: SiteOwner
+  clientMutationId: String
+}
+
+input CreateSwitchInput {
+  name: String!
+  description: String
+  ip_addresses: String
+  rack_units: Int
+  rack_position: Int
+  operational_state: ChoiceScalar! = "Reserved"
+  managed_by: ChoiceScalar
+  responsible_group: ChoiceScalar
+  support_group: ChoiceScalar
+  backup: String
+  security_class: ChoiceScalar
+  security_comment: String
+  os: String
+  os_version: String
+  model: String
+  vendor: String
+  service_tag: String
+  end_support: String
+  contract_number: String
+  relationship_location: Int
+  relationship_owner: Int
+  max_number_of_ports: Int
+  relationship_provider: ChoiceScalar
+  switch_type: ChoiceScalar!
+  clientMutationId: String
+}
+
+type CreateSwitchPayload {
+  errors: [ErrorType]
+  switch: Switch
   clientMutationId: String
 }
 
@@ -1385,12 +1952,34 @@ type DeleteRolePayload {
   clientMutationId: String
 }
 
+input DeleteRouterInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteRouterPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteSiteOwnerInput {
   id: ID!
   clientMutationId: String
 }
 
 type DeleteSiteOwnerPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteSwitchInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteSwitchPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -1732,6 +2321,32 @@ type ErrorType {
   messages: [String!]!
 }
 
+type GeneralSearch {
+  ninode: NINode!
+  match_txt: String
+}
+
+type GeneralSearchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [GeneralSearchEdge]!
+}
+
+"""A Relay edge containing a `GeneralSearch` and its cursor."""
+type GeneralSearchEdge {
+  """The item at the end of the edge"""
+  node: GeneralSearch
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input GenericFilter {
+  query: String!
+}
+
 """
 The `GenericScalar` scalar type represents a generic
 GraphQL scalar value that could be:
@@ -1915,7 +2530,7 @@ type Host implements NINode & Logical {
   comments: [CommentType]
   ip_addresses: IPAddr
   description: String
-  operational_state: String!
+  operational_state: Choice
   os: String
   os_version: String
   vendor: String
@@ -1978,20 +2593,20 @@ input HostNestedFilter {
   description_not_ends_with: String
   description_in: [String!]
   description_not_in: [String!]
-  operational_state: String
-  operational_state_not: String
-  operational_state_lt: String
-  operational_state_lte: String
-  operational_state_gt: String
-  operational_state_gte: String
-  operational_state_contains: String
-  operational_state_not_contains: String
-  operational_state_starts_with: String
-  operational_state_not_starts_with: String
-  operational_state_ends_with: String
-  operational_state_not_ends_with: String
-  operational_state_in: [String!]
-  operational_state_not_in: [String!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
   os: String
   os_not: String
   os_lt: String
@@ -2237,6 +2852,13 @@ interface Logical {
   part_of: Physical
 }
 
+enum MetaType {
+  Logical
+  Relation
+  Physical
+  Location
+}
+
 type Mutation {
   create_group(input: CreateGroupInput!): CreateGroupPayload
   update_group(input: UpdateGroupInput!): UpdateGroupPayload
@@ -2280,9 +2902,18 @@ type Mutation {
   create_port(input: CreatePortInput!): CreatePortPayload
   update_port(input: UpdatePortInput!): UpdatePortPayload
   delete_port(input: DeletePortInput!): DeletePortPayload
+  composite_port(input: CompositePortMutationInput!): CompositePortMutationPayload
   create_cable(input: CreateCableInput!): CreateCablePayload
   update_cable(input: UpdateCableInput!): UpdateCablePayload
   delete_cable(input: DeleteCableInput!): DeleteCablePayload
+  composite_cable(input: CompositeCableMutationInput!): CompositeCableMutationPayload
+  create_switch(input: CreateSwitchInput!): CreateSwitchPayload
+  update_switch(input: UpdateSwitchInput!): UpdateSwitchPayload
+  delete_switch(input: DeleteSwitchInput!): DeleteSwitchPayload
+  composite_switch(input: CompositeSwitchMutationInput!): CompositeSwitchMutationPayload
+  update_router(input: UpdateRouterInput!): UpdateRouterPayload
+  delete_router(input: DeleteRouterInput!): DeleteRouterPayload
+  composite_router(input: CompositeRouterMutationInput!): CompositeRouterMutationPayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -3168,6 +3799,7 @@ interface Physical {
   has: Physical
   part_of: Logical
   parent: [Physical]
+  dependents: [Logical]
 }
 
 type Port implements NINode & Physical {
@@ -3188,6 +3820,7 @@ type Port implements NINode & Physical {
   has: Physical
   part_of: Logical
   parent: [Physical]
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -3330,6 +3963,23 @@ enum PortOrderBy {
   modified_DESC
   handle_id_ASC
   handle_id_DESC
+}
+
+type PortSearchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [PortSearchEdge]!
+}
+
+"""A Relay edge containing a `PortSearch` and its cursor."""
+type PortSearchEdge {
+  """The item at the end of the edge"""
+  node: Port
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 """The group type is used to group contacts"""
@@ -3643,6 +4293,11 @@ type Query {
   checkExistentOrganizationId(organization_id: String!, id: ID): Boolean
   getAvailableRoleGroups: [RoleGroup]
   getRolesFromRoleGroup(name: String): [Role]
+  getMetatypes: [MetaType]
+  getTypesForMetatype(metatype: MetaType): [TypeInfo]
+  getAvailableContexts: [String]
+  getContextActivity(filter: ActionFilter!, orderBy: ActionOrderBy, before: String, after: String, first: Int, last: Int): ActionConnection
+  getSwitchTypes: [SwitchType]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -3703,6 +4358,10 @@ type Query {
   count_routers: Int
   routers(filter: RouterFilter, orderBy: RouterOrderBy, before: String, after: String, first: Int, last: Int): routerConnection
   getRouterById(id: ID): Router
+  all_switchs: [Switch]
+  count_switchs: Int
+  switchs(filter: SwitchFilter, orderBy: SwitchOrderBy, before: String, after: String, first: Int, last: Int): switchConnection
+  getSwitchById(id: ID): Switch
   all_peeringpartners: [PeeringPartner]
   count_peeringpartners: Int
   peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
@@ -3711,6 +4370,8 @@ type Query {
   count_peeringgroups: Int
   peeringGroups(filter: PeeringGroupFilter, orderBy: PeeringGroupOrderBy, before: String, after: String, first: Int, last: Int): peeringGroupConnection
   getPeeringGroupById(id: ID): PeeringGroup
+  search_generalsearch(filter: GenericFilter, before: String, after: String, first: Int, last: Int): GeneralSearchConnection
+  search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
 }
 
 input RefreshInput {
@@ -3832,6 +4493,7 @@ type Router implements NINode & Physical {
   has: Physical
   part_of: Logical
   parent: [Physical]
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -3840,6 +4502,7 @@ type Router implements NINode & Physical {
   operational_state: Choice
   model: String
   version: String
+  rack_units: Int
   ports: [Port]
 }
 
@@ -3936,6 +4599,14 @@ input RouterNestedFilter {
   version_not_ends_with: String
   version_in: [String!]
   version_not_in: [String!]
+  rack_units: Int
+  rack_units_not: Int
+  rack_units_lt: Int
+  rack_units_lte: Int
+  rack_units_gt: Int
+  rack_units_gte: Int
+  rack_units_in: [Int!]
+  rack_units_not_in: [Int!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -4002,6 +4673,8 @@ enum RouterOrderBy {
   model_DESC
   version_ASC
   version_DESC
+  rack_units_ASC
+  rack_units_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -4172,6 +4845,309 @@ enum SiteOwnerOrderBy {
   handle_id_DESC
 }
 
+type Switch implements NINode & Physical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: Physical
+  part_of: Logical
+  parent: [Physical]
+  dependents: [Logical]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  operational_state: String!
+  ip_addresses: IPAddr
+  responsible_group: Group
+  support_group: Group
+  managed_by: Choice
+  backup: String
+  os: String
+  os_version: String
+  contract_number: String
+  rack_units: Int
+  rack_position: Int
+  provider: Provider
+  max_number_of_ports: Int
+}
+
+type switchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [switchEdge]!
+}
+
+"""A Relay edge containing a `switch` and its cursor."""
+type switchEdge {
+  """The item at the end of the edge"""
+  node: Switch
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input SwitchFilter {
+  AND: [SwitchNestedFilter!]
+  OR: [SwitchNestedFilter!]
+}
+
+input SwitchNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  operational_state: String
+  operational_state_not: String
+  operational_state_lt: String
+  operational_state_lte: String
+  operational_state_gt: String
+  operational_state_gte: String
+  operational_state_contains: String
+  operational_state_not_contains: String
+  operational_state_starts_with: String
+  operational_state_not_starts_with: String
+  operational_state_ends_with: String
+  operational_state_not_ends_with: String
+  operational_state_in: [String!]
+  operational_state_not_in: [String!]
+  managed_by: ChoiceScalar
+  managed_by_not: ChoiceScalar
+  managed_by_lt: ChoiceScalar
+  managed_by_lte: ChoiceScalar
+  managed_by_gt: ChoiceScalar
+  managed_by_gte: ChoiceScalar
+  managed_by_contains: ChoiceScalar
+  managed_by_not_contains: ChoiceScalar
+  managed_by_starts_with: ChoiceScalar
+  managed_by_not_starts_with: ChoiceScalar
+  managed_by_ends_with: ChoiceScalar
+  managed_by_not_ends_with: ChoiceScalar
+  managed_by_in: [ChoiceScalar!]
+  managed_by_not_in: [ChoiceScalar!]
+  backup: String
+  backup_not: String
+  backup_lt: String
+  backup_lte: String
+  backup_gt: String
+  backup_gte: String
+  backup_contains: String
+  backup_not_contains: String
+  backup_starts_with: String
+  backup_not_starts_with: String
+  backup_ends_with: String
+  backup_not_ends_with: String
+  backup_in: [String!]
+  backup_not_in: [String!]
+  os: String
+  os_not: String
+  os_lt: String
+  os_lte: String
+  os_gt: String
+  os_gte: String
+  os_contains: String
+  os_not_contains: String
+  os_starts_with: String
+  os_not_starts_with: String
+  os_ends_with: String
+  os_not_ends_with: String
+  os_in: [String!]
+  os_not_in: [String!]
+  os_version: String
+  os_version_not: String
+  os_version_lt: String
+  os_version_lte: String
+  os_version_gt: String
+  os_version_gte: String
+  os_version_contains: String
+  os_version_not_contains: String
+  os_version_starts_with: String
+  os_version_not_starts_with: String
+  os_version_ends_with: String
+  os_version_not_ends_with: String
+  os_version_in: [String!]
+  os_version_not_in: [String!]
+  contract_number: String
+  contract_number_not: String
+  contract_number_lt: String
+  contract_number_lte: String
+  contract_number_gt: String
+  contract_number_gte: String
+  contract_number_contains: String
+  contract_number_not_contains: String
+  contract_number_starts_with: String
+  contract_number_not_starts_with: String
+  contract_number_ends_with: String
+  contract_number_not_ends_with: String
+  contract_number_in: [String!]
+  contract_number_not_in: [String!]
+  rack_units: Int
+  rack_units_not: Int
+  rack_units_lt: Int
+  rack_units_lte: Int
+  rack_units_gt: Int
+  rack_units_gte: Int
+  rack_units_in: [Int!]
+  rack_units_not_in: [Int!]
+  rack_position: Int
+  rack_position_not: Int
+  rack_position_lt: Int
+  rack_position_lte: Int
+  rack_position_gt: Int
+  rack_position_gte: Int
+  rack_position_in: [Int!]
+  rack_position_not_in: [Int!]
+  max_number_of_ports: Int
+  max_number_of_ports_not: Int
+  max_number_of_ports_lt: Int
+  max_number_of_ports_lte: Int
+  max_number_of_ports_gt: Int
+  max_number_of_ports_gte: Int
+  max_number_of_ports_in: [Int!]
+  max_number_of_ports_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum SwitchOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  operational_state_ASC
+  operational_state_DESC
+  managed_by_ASC
+  managed_by_DESC
+  backup_ASC
+  backup_DESC
+  os_ASC
+  os_DESC
+  os_version_ASC
+  os_version_DESC
+  contract_number_ASC
+  contract_number_DESC
+  rack_units_ASC
+  rack_units_DESC
+  rack_position_ASC
+  rack_position_DESC
+  max_number_of_ports_ASC
+  max_number_of_ports_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+"""This class represents a SwitchType for switch's mutations"""
+type SwitchType implements Node {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+
+  """
+  Autogenerate ports. "," separator. ex: Et1,Et2,Et3 alt ge-0/0/0,ge-0/0/1
+  """
+  ports: String!
+}
+
+type TypeInfo {
+  type_name: String!
+  connection_name: String!
+  byid_name: String!
+  all_name: String!
+}
+
 input UpdateAddressInput {
   organization: ChoiceScalar
   name: String!
@@ -4193,6 +5169,7 @@ input UpdateCableInput {
   name: String!
   cable_type: ChoiceScalar!
   description: String
+  relationship_provider: ChoiceScalar
   relationship_end_a: Int
   relationship_end_b: Int
   id: ID!
@@ -4401,6 +5378,22 @@ type UpdateRolePayload {
   clientMutationId: String
 }
 
+input UpdateRouterInput {
+  rack_units: Int
+  rack_position: Int
+  operational_state: ChoiceScalar!
+  relationship_location: Int
+  description: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateRouterPayload {
+  errors: [ErrorType]
+  router: Router
+  clientMutationId: String
+}
+
 input UpdateSiteOwnerInput {
   name: String!
   description: String
@@ -4412,6 +5405,40 @@ input UpdateSiteOwnerInput {
 type UpdateSiteOwnerPayload {
   errors: [ErrorType]
   siteOwner: SiteOwner
+  clientMutationId: String
+}
+
+input UpdateSwitchInput {
+  name: String!
+  description: String
+  ip_addresses: String
+  rack_units: Int
+  rack_position: Int
+  operational_state: ChoiceScalar! = "Reserved"
+  managed_by: ChoiceScalar
+  responsible_group: ChoiceScalar
+  support_group: ChoiceScalar
+  backup: String
+  security_class: ChoiceScalar
+  security_comment: String
+  os: String
+  os_version: String
+  model: String
+  vendor: String
+  service_tag: String
+  end_support: String
+  contract_number: String
+  relationship_location: Int
+  relationship_owner: Int
+  max_number_of_ports: Int
+  relationship_provider: ChoiceScalar
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateSwitchPayload {
+  errors: [ErrorType]
+  switch: Switch
   clientMutationId: String
 }
 

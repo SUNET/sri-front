@@ -41,6 +41,7 @@
         "react-relay": "^9.0.0",
         "react-router-dom": "^5.1.2",
         "react-router-modal": "^1.5.2",
+        "react-scripts": "^3.4.1",
         "react-select": "^3.1.0",
         "react-svg": "^10.0.26",
         "redux": "^4.0.5",
@@ -73,7 +74,6 @@
         "jest-mock": "^24.9.0",
         "prettier": "^1.19.1",
         "react-addons-test-utils": "^15.6.2",
-        "react-scripts": "^3.4.1",
         "redux-mock-store": "^1.5.4",
         "relay-compiler": "^9.0.0",
         "relay-test-utils": "^9.0.0"

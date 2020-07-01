@@ -1,55 +1,70 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { QueryRenderer } from "react-relay";
-import { withTranslation } from "react-i18next";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { QueryRenderer } from 'react-relay';
+import { withTranslation } from 'react-i18next';
 
-import ContactUpdateFormContainer from "../../containers/contact/ContactUpdateForm";
-import DeleteContactMutation from "../../mutations/contact/DeleteContactMutation";
-import environment from "../../createRelayEnvironment";
-import ContactDetailsQuery from "../../queries/contact/ContactDetailsQuery";
+import ContactUpdateFormContainer from '../../containers/contact/ContactUpdateForm';
+import DeleteContactMutation from '../../mutations/contact/DeleteContactMutation';
+import environment from '../../createRelayEnvironment';
+import ContactDetailsQuery from '../../queries/contact/ContactDetailsQuery';
 
 class ContactDetails extends React.Component {
-    static propTypes = {
-        match: PropTypes.shape({
-            params: PropTypes.shape({
-                id: PropTypes.node
-            }).isRequired
-        }).isRequired
-    };
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        id: PropTypes.node,
+      }),
+    }),
+  };
 
-    handleDelete = () => {
-        const contactId = this.props.match.params.contactId;
-        DeleteContactMutation(contactId, () => this.props.history.push(`/community/contacts`));
-    };
+  getId() {
+    const { isFromModal, idFromModal, match } = this.props;
+    const entityId = isFromModal && idFromModal ? idFromModal : match.params.contactId;
+    return entityId;
+  }
 
-    render() {
-        return (
-            <QueryRenderer
-                environment={environment}
-                query={ContactDetailsQuery}
-                variables={{
-                    contactId: this.props.match.params.contactId
-                }}
-                render={({ error, props, retry }) => {
-                    if (error) {
-                        return <div>{this.props.t('general.error')}</div>;
-                    } else if (props) {
-                        return (
-                            <section className="model-details contact-details">
-                                <ContactUpdateFormContainer
-                                    onDelete={this.handleDelete}
-                                    contact={props.getContactById}
-                                    history={this.props.history}
-                                    refetch={retry}
-                                />
-                            </section>
-                        );
-                    }
-                    return <div>Loading</div>;
-                }}
-            />
-        );
-    }
+  handleDelete = () => {
+    const { history, isFromModal, deletedEntity } = this.props;
+    const contactId = this.getId();
+    const callbackAfterDeleteInModal = () => {
+      deletedEntity(contactId);
+    };
+    const callbackInRouteForm = () => {
+      history.push(`/community/contacts`);
+    };
+    DeleteContactMutation(contactId, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
+  };
+
+  render() {
+    const contactId = this.getId();
+    return (
+      <QueryRenderer
+        environment={environment}
+        query={ContactDetailsQuery}
+        variables={{
+          contactId,
+        }}
+        render={({ error, props, retry }) => {
+          if (error) {
+            return <div>{this.props.t('general.error')}</div>;
+          } else if (props) {
+            return (
+              <section className="model-details contact-details">
+                <ContactUpdateFormContainer
+                  isFromModal={this.props.isFromModal}
+                  onDelete={this.handleDelete}
+                  contact={props.getContactById}
+                  history={this.props.history}
+                  refetch={retry}
+                />
+              </section>
+            );
+          }
+          return <div>Loading</div>;
+        }}
+      />
+    );
+  }
 }
 
 export default withTranslation()(ContactDetails);

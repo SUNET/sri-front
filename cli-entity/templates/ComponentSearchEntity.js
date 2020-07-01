@@ -23,7 +23,7 @@ class Search__EntityClassName__ extends _SearchEntityParentClass {
     MODEL_LIST_NAME = "__entityName__s";
 
     PATH_ENTITY = `/__entityBlock__/__entityInternalRoutePath__s`;
-    PATH_ENTITY_ID = "";
+    PATH_ENTITY_ID = "__entityName__Id";
     DEFAULT_COLUMNS = [
         { name: "Name", value: "name", filter: "order" },
         { name: "URL", value: "url" },

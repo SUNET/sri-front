@@ -16,6 +16,14 @@ class FieldArrayMembersGroup extends React.Component {
     };
 
     // lifecycle
+    shouldComponentUpdate(nextProps, nextState) {
+        const newRemovedContact = !!nextProps.removedContactId && nextProps.removedContactId !== this.props.removedContactId;
+        if (newRemovedContact) {
+            this.props.removedContactDeletedFromTheList();
+            this.removeRow(nextProps.removedContactId);
+        }
+        return !newRemovedContact;
+    }
 
     // methods events
     onClickAccept() {
@@ -132,7 +140,8 @@ class FieldArrayMembersGroup extends React.Component {
         let result = [];
         if (values) {
             result = values.map((member) => {
-                return member.status === "saved" ? member.email.map((email) => email.name) : null;
+                const isNecessaryGetEmails = member.status === "saved" && member.email;
+                return isNecessaryGetEmails ? member.email.map((email) => email.name) : [];
             });
         }
         return result;
@@ -223,10 +232,30 @@ class FieldArrayMembersGroup extends React.Component {
         );
     }
 
-    renderRemoveCtaCross(key) {
+    renderEditContactButton(key) {
+        const { t } = this.props;
         return (
-            <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--right">
-                <div className="row-remove-cta" onClick={() => this.removeRow(key)}></div>
+            <button
+                    type="button"
+                    onClick={() => {
+                        this.props.handleShowContactDetail(key);
+                    }}
+                    className="btn outline btn-edit"
+            >
+                <i className="icon-pencil"></i>
+                <span>{t("actions.edit")}</span>
+            </button>
+        );
+    }
+
+    renderRemoveCtaCrossAndEditButton(key) {
+        return (
+            <div className={`contact-in-organization__body__buttons-in-the-final-row ${isBrowser ? "contact-in-organization__body__buttons-in-the-final-row--desktop-version" : ""}`}>
+                {isBrowser && this.renderEditContactButton(key)}
+                <div
+                    className={`row-remove-cta ${isBrowser ? "row-remove-cta--desktop-version" : ""}`}
+                    onClick={() => this.removeRow(key)}
+                ></div>
             </div>
         );
     }
@@ -311,7 +340,8 @@ class FieldArrayMembersGroup extends React.Component {
                                 <div className="contact-in-organization__body__row__element">{row.name}</div>
                                 {isMobile && (
                                     <div className="contact-in-organization__body__row__element info-button">
-                                        {this.renderMoreInfoButton(row.key)}
+                                        {editable && this.renderEditContactButton(row.key)}
+                                        {!editable && this.renderMoreInfoButton(row.key)}
                                     </div>
                                 )}
                                 {isBrowser && (
@@ -330,7 +360,7 @@ class FieldArrayMembersGroup extends React.Component {
                                     </div>
                                 )}
 
-                                {editable && this.renderRemoveCtaCross(row.key)}
+                                {editable && this.renderRemoveCtaCrossAndEditButton(row.key)}
                             </div>
                         );
                     })}
@@ -345,6 +375,7 @@ class FieldArrayMembersGroup extends React.Component {
                 {editable && (
                     <>
                         <DropdownSearch
+                            model={'contacts'}
                             selection={this.props.handleContactSearch}
                             placeholder={t("search-filter.search-member")}
                         />

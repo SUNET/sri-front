@@ -15,12 +15,15 @@ import { isBrowser } from "react-device-detect";
 class ContactUpdateForm extends _ContactFormParentClass {
     IS_UPDATED_FORM = true;
     FORM_ID = UPDATE_CONTACT_FORM;
-    state = {
-        editMode: false
-    };
     static propTypes = {
         onChange: PropTypes.func
     };
+    constructor(props) {
+        super(props);
+        this.state = {
+            editMode: false,
+        }
+    }
     refetch = () => {
         this.props.relay.refetch(
             { contactId: this.props.contact.id }, // Our refetchQuery needs to know the `contactID`
@@ -33,25 +36,27 @@ class ContactUpdateForm extends _ContactFormParentClass {
     };
     handleSubmit = (contact) => {
         this.setState({ editMode: false });
+        this.props.hideContactModal();
         UpdateContactMutation(contact, this);
     };
     render() {
-        let { handleSubmit } = this.props;
-        const showBackButton = isBrowser;
+        const { isFromModal, handleSubmit } = this.props;
+        const showBackButton = isBrowser && !isFromModal;
+        const showSaveCancelInHeader = showBackButton;
+        const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
         return (
-            <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {isBrowser && this.renderSaveCancelButtons()}
-                {this.renderHeader(this.state.editMode, showBackButton)}
+            <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+                {showSaveCancelInHeader && this.renderSaveCancelButtons()}
+                {this.renderHeader(this.state.editMode, showBackButton, isFromModal)}
                 {this.renderModelMainSection(this.state.editMode)}
                 {this.renderWorkLog(this.state.editMode)}
-                {this.renderSaveCancelButtons()}
+                {!isFromModal && this.renderSaveCancelButtons()}
             </form>
         );
     }
 }
 
 ContactUpdateForm = reduxForm({
-    form: "updateContact",
     validate: ValidationsContactForm.contactFormValidate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {

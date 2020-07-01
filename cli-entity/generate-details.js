@@ -17,16 +17,16 @@ const generateDetails = (blockEntity, nameEntity) => {
     const containersPaths = {
         directory: `/src/containers/${entityName}`,
         files: [
-            // { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ContainerEntityDetails.js" },
-            // { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ContainerEntityUpdateForm.js" },
+            { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ContainerEntityDetails.js" },
+            { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ContainerEntityUpdateForm.js" },
             { path: `Create${entityClassName}Form.js`, template: "cli-entity/templates/ContainerCreateEntityForm.js" }
         ]
     };
     const componentsPaths = {
         directory: `/src/components/${entityName}`,
         files: [
-            // { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ComponentEntityDetails.js" },
-            // { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ComponentEntityUpdateForm.js" },
+            { path: `${entityClassName}Details.js`, template: "cli-entity/templates/ComponentEntityDetails.js" },
+            { path: `${entityClassName}UpdateForm.js`, template: "cli-entity/templates/ComponentEntityUpdateForm.js" },
             { path: `Create${entityClassName}.js`, template: "cli-entity/templates/ComponentCreateEntity.js" },
             { path: `Create${entityClassName}Form.js`, template: "cli-entity/templates/ComponentCreateEntityForm.js" },
         ]
@@ -48,7 +48,7 @@ const generateDetails = (blockEntity, nameEntity) => {
     }
 
     createPathAndFiles(containersPaths);
-    // createPathAndFiles(queriesPaths);
+    createPathAndFiles(queriesPaths);
     createPathAndFiles(componentsPaths);
     createPathAndFiles(mutationsPaths);
 };

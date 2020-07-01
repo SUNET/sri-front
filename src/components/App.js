@@ -16,7 +16,7 @@ import SideNavNetwork from './SideNavNetwork';
 import SideNavCommunity from './SideNavCommunity';
 import SubMenuActions from './SubMenuActions';
 import Breadcrumbs from '../containers/Breadcrumbs';
-import ModalNewContactContainer from '../containers/ModalNewContact';
+import ModalFormContainer from '../containers/ModalForm';
 
 import 'bootstrap/scss/bootstrap.scss';
 import '../style/App.scss';
@@ -25,10 +25,9 @@ import '../style/SRIButton.scss';
 
 import { history } from '../store';
 
-const App = ({ is_fetching, is_app_loaded }) => {
+const App = ({ is_fetching, is_app_loaded, generalFilter }) => {
   const isDashBoardPath = history.location.pathname === '/dashboard';
   const columnsToMainContainer = isDashBoardPath || isMobile ? 12 : 10;
-
   return (
     <FetchingContext.Provider value={is_fetching}>
       <div className="App container-fluid">
@@ -56,7 +55,7 @@ const App = ({ is_fetching, is_app_loaded }) => {
                   <SubMenuActions />
                 </Col>
               </Row>
-              {is_app_loaded && <BaseContainer />}
+              {is_app_loaded && <BaseContainer generalFilter={generalFilter} />}
             </Col>
           </Row>
           <Row>
@@ -66,7 +65,7 @@ const App = ({ is_fetching, is_app_loaded }) => {
           </Row>
         </ConnectedRouter>
       </div>
-      <ModalNewContactContainer />
+      <ModalFormContainer />
     </FetchingContext.Provider>
   );
 };

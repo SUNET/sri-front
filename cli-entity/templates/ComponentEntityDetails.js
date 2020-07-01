@@ -4,7 +4,7 @@ import { QueryRenderer } from "react-relay";
 import environment from "../../createRelayEnvironment";
 
 import __EntityClassName__UpdateFormContainer from "../../containers/__entityName__/__EntityClassName__UpdateForm";
-// import Delete__EntityClassName__Mutation from "../../mutations/__entityName__/Delete__EntityClassName__Mutation";
+import Delete__EntityClassName__Mutation from "../../mutations/__entityName__/Delete__EntityClassName__Mutation";
 
 import __EntityClassName__DetailsQuery from "../../queries/__entityName__/__EntityClassName__DetailsQuery";
 
@@ -20,7 +20,7 @@ class __EntityClassName__Details extends React.Component {
 
     handleDelete = () => {
         const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-        Delete__EntityClassName__Mutation(idEntity, () => this.props.history.push(`/__entityBlock__/__entityInternalRoutePath__`));
+        Delete__EntityClassName__Mutation(idEntity, () => this.props.history.push(`/__entityBlock__s/__entityInternalRoutePath__`));
     };
 
     render() {

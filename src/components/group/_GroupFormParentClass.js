@@ -24,6 +24,17 @@ class _GroupFormParentClass extends React.Component {
     MODEL_NAME = "group";
     ROUTE_LIST_DIRECTION = "/community/groups";
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.entitySavedId) {
+            const selectionData = {
+                id: nextProps.entitySavedId,
+            };
+            this.handleSelectedMember(selectionData);
+            return false;
+        }
+        return true;
+    }
+
     componentDidMount() {
         if (this.IS_UPDATED_FORM) {
             this.updateBreadcrumbsData();
@@ -74,9 +85,9 @@ class _GroupFormParentClass extends React.Component {
                     organization: member.roles,
                     organization_obj: member.roles.length ? member.roles.map((elem) => elem.end) : [],
                     organization_label: member.roles.length ? member.roles.map((elem) => elem.end) : [],
-                    email: member.emails,
+                    email: member.emails && member.emails.length ? member.emails : [],
                     email_obj: member.emails,
-                    phone: member.phones,
+                    phone: member.phones && member.phones.length ? member.phones : [],
                     phone_obj: member.phones,
                     created: true,
                     origin: "new",
@@ -221,7 +232,7 @@ class _GroupFormParentClass extends React.Component {
         );
     }
     renderContactsToggleSection(editMode = true) {
-        const { t } = this.props;
+        const { t, entityRemovedId } = this.props;
         return (
             <ToggleSection>
                 <ToggleHeading>
@@ -238,7 +249,14 @@ class _GroupFormParentClass extends React.Component {
                         metaFields={this.props.fields}
                         handleContactSearch={this.handleSelectedMember}
                         handleAddContactRow={() => {
-                            this.props.dispatch(this.props.showNewContactForm());
+                            this.props.showNewContactForm();
+                        }}
+                        handleShowContactDetail={(contactId) => {
+                            this.props.showContactDetailForm(contactId);
+                        }}
+                        removedContactId={entityRemovedId}
+                        removedContactDeletedFromTheList={() => {
+                            this.props.hideContactForm();
                         }}
                     />
                 </TogglePanel>

@@ -87,10 +87,32 @@
                 }
             }
         }
+        &__buttons-in-the-final-row {
+            margin-bottom: 1em;
+            @include desktop {
+                margin-bottom: 0;
+            }
+            &--desktop-version {
+                button {
+                    margin-right: 20px;
+                }
+                position: relative;
+                left: -70px;
+                display: flex;
+                align-items: center;
+            }
+        }
     }
     &__footer {
         display: flex;
         padding-top: 10px;
+        @include mobile {
+            flex-direction: column;
+            max-width: 80%;
+            > * {
+                margin-bottom: 1em;
+            }
+        }
         > * {
             margin-right: $margin-lateral-line-elements;
         }

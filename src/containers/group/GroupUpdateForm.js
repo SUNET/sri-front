@@ -5,7 +5,7 @@ import uuidv4 from 'uuid/v4';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import { getContact } from '../../components/contact/Contact';
-import { showNewContactForm } from '../../actions/ComponentFormRow';
+import * as formModalActions from '../../actions/FormModal';
 
 const mapStateToProps = (state, props) => {
   const updateGroupSelector = formValueSelector('updateGroup');
@@ -70,6 +70,8 @@ const mapStateToProps = (state, props) => {
     formSyncErrors: getFormSyncErrors('updateGroup')(state),
     fields: getFormMeta('updateGroup')(state),
     getContact: (id) => getContact(id),
+    entityRemovedId: state.formModal.entityRemovedId,
+    entitySavedId: state.formModal.entitySavedId,
   };
 };
 
@@ -84,7 +86,15 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    showNewContactForm,
+    showNewContactForm: () => {
+      dispatch(formModalActions.showModalCreateForm('Contact'));
+    },
+    hideContactForm: () => {
+      dispatch(formModalActions.hideModalForm());
+    },
+    showContactDetailForm: (contactId) => {
+      dispatch(formModalActions.showModalUpdateForm('Contact', contactId));
+    },
   };
 };
 

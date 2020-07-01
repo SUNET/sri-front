@@ -11,6 +11,11 @@ button.btn {
     position: relative;
     font-family: karla;
     border: none;
+
+    &:disabled {
+        cursor: auto;
+    }
+
     &.md {
         width: 100px;
         height: 36px;
@@ -287,6 +292,17 @@ button.btn {
             margin-right: 8px;
             color: $complementary-color;
             vertical-align: middle;
+        }
+        &.dash-board-footer-button {
+            width: 100%;
+            box-sizing: border-box;
+            border: solid 1px transparent;
+            font-weight: bold;
+            &:hover {
+                border-radius: initial;
+                border-bottom: solid 1px $complementary-color;
+                background-color: transparent;
+            }
         }
 
         &:hover {

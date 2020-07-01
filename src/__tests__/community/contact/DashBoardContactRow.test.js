@@ -59,7 +59,7 @@ afterEach(() => {
   DashBoardContactRowWrapper.unmount();
 });
 
-describe('Some Component', () => {
+describe('DashBoardContactRow Component', () => {
   it('Renders correctly', () => {
     expect(toJson(DashBoardContactRowWrapper)).toMatchSnapshot();
     expect(DashBoardContactRowComponent.find('.dash-board-row')).toHaveLength(1);

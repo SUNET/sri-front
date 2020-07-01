@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Cookies from "js-cookie";
 
 import { Provider } from "react-redux";
 
@@ -9,14 +8,11 @@ import configureStore from "./store";
 import * as actions from "./actions/App";
 import AppContainer from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
-import CONFIG from "./config";
 
 import "./i18n";
 
 import "./style/reset.css";
 import "@fortawesome/fontawesome-free/css/all.css";
-
-const { API_HOST } = CONFIG;
 
 /* Store */
 export const store = configureStore();
@@ -30,19 +26,7 @@ const app = (
 );
 
 const initialAction = () => {
-    const cookie_jwt = Cookies.get("JWT");
-    // if there is no cookie jwt is redirected to the login
-    if (!cookie_jwt) {
-        fetch(`${API_HOST}/authn?next=${document.location.href}`, {
-            method: "GET"
-        }).then((response) => {
-            if (response.redirected) {
-                document.location.href = response.url;
-            }
-        });
-    } else {
-        store.dispatch(actions.appLoaded());
-    }
+    store.dispatch(actions.appLoaded());
 };
 
 ReactDOM.render(app, document.getElementById("root"), initialAction);

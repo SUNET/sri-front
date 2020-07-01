@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Some Component Renders correctly 1`] = `
+exports[`DashBoardContactRow Component Renders correctly 1`] = `
 <CreateDashBoardContactRowWrapper>
   <div>
     <DashBoardContactRow
