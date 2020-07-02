@@ -42,6 +42,7 @@ const FirewallDetailsQuery = graphql`
         name
       }
       owner {
+        __typename
         id
         name
       }

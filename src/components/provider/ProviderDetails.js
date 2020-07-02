@@ -14,9 +14,15 @@ class ProviderDetails extends React.Component {
         match: PropTypes.shape({
             params: PropTypes.shape({
                 id: PropTypes.node
-            }).isRequired
-        }).isRequired
+            }),
+        }),
     };
+
+    getId() {
+        const { isFromModal, idFromModal, match } = this.props;
+        const entityId = isFromModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
+        return entityId;
+    }
 
     handleDelete = () => {
         const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
@@ -24,12 +30,13 @@ class ProviderDetails extends React.Component {
     };
 
     render() {
+        const entityId = this.getId();
         return (
             <QueryRenderer
                 environment={environment}
                 query={ProviderDetailsQuery}
                 variables={{
-                    [this.ID_ENTITY_KEY]: this.props.match.params[this.ID_ENTITY_KEY]
+                    [this.ID_ENTITY_KEY]: entityId
                 }}
                 render={({ error, props, retry }) => {
                     if (error) {
@@ -38,6 +45,7 @@ class ProviderDetails extends React.Component {
                         return (
                             <section className="model-details provider-details">
                                 <ProviderUpdateFormContainer
+                                    isFromModal={this.props.isFromModal}
                                     onDelete={this.handleDelete}
                                     provider={props.getProviderById}
                                     history={this.props.history}

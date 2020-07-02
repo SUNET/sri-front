@@ -34,24 +34,25 @@ class CustomerUpdateForm extends _BasicFormParentClass {
         UpdateCustomerMutation(customer, this);
     };
     render() {
-        let { relatedEntities, handleSubmit } = this.props;
+        let { relatedEntities, handleSubmit, isFromModal } = this.props;
         const { editMode } = this.state;
-        const showBackButton = isBrowser;
+        const showBackButton = isBrowser && !isFromModal;
+        const showSaveCancelInHeader = showBackButton;
+        const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
         return (
             <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-                {isBrowser && this.renderSaveCancelButtons()}
+                {showSaveCancelInHeader && this.renderSaveCancelButtons()}
                 {this.renderHeader(editMode, showBackButton)}
                 {this.renderModelMainSection(editMode)}
                 {relatedEntities && this.renderRelatedEntities(relatedEntities)}
                 {this.renderWorkLog()}
-                {this.renderSaveCancelButtons()}
+                {!isFromModal && this.renderSaveCancelButtons()}
             </form>
         );
     }
 }
 
 CustomerUpdateForm = reduxForm({
-    form: "updateCustomer",
     validate: BasicValidation.validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {

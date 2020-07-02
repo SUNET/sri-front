@@ -52,6 +52,7 @@ export type FirewallDetailsQueryResponse = {|
       +name: string,
     |},
     +owner: ?{|
+      +__typename: string,
       +id: string,
       +name: string,
     |},
@@ -364,66 +365,76 @@ v23 = {
   "name": "__typename",
   "storageKey": null
 },
-v24 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "first_name",
-  "storageKey": null
-},
+v24 = [
+  (v23/*: any*/),
+  (v2/*: any*/),
+  (v3/*: any*/)
+],
 v25 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "last_name",
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "owner",
+  "plural": false,
+  "selections": (v24/*: any*/),
   "storageKey": null
 },
 v26 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "comment",
+  "name": "first_name",
   "storageKey": null
 },
 v27 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "submit_date",
+  "name": "last_name",
   "storageKey": null
 },
 v28 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "created",
+  "name": "comment",
   "storageKey": null
 },
 v29 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "submit_date",
+  "storageKey": null
+},
+v30 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "created",
+  "storageKey": null
+},
+v31 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v30 = [
-  (v29/*: any*/)
+v32 = [
+  (v31/*: any*/)
 ],
-v31 = {
+v33 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v32 = [
-  (v29/*: any*/),
+v34 = [
+  (v31/*: any*/),
   (v2/*: any*/)
-],
-v33 = [
-  (v23/*: any*/),
-  (v2/*: any*/),
-  (v3/*: any*/)
 ];
 return {
   "fragment": {
@@ -482,16 +493,7 @@ return {
             "selections": (v8/*: any*/),
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": null,
-            "kind": "LinkedField",
-            "name": "owner",
-            "plural": false,
-            "selections": (v8/*: any*/),
-            "storageKey": null
-          },
+          (v25/*: any*/),
           (v23/*: any*/),
           {
             "alias": null,
@@ -510,17 +512,17 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v24/*: any*/),
-                  (v25/*: any*/)
+                  (v26/*: any*/),
+                  (v27/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v26/*: any*/),
-              (v27/*: any*/)
+              (v28/*: any*/),
+              (v29/*: any*/)
             ],
             "storageKey": null
           },
-          (v28/*: any*/),
+          (v30/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -528,10 +530,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v30/*: any*/),
+            "selections": (v32/*: any*/),
             "storageKey": null
           },
-          (v31/*: any*/),
+          (v33/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -539,7 +541,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v30/*: any*/),
+            "selections": (v32/*: any*/),
             "storageKey": null
           },
           {
@@ -587,18 +589,18 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v24/*: any*/),
-                  (v25/*: any*/),
+                  (v26/*: any*/),
+                  (v27/*: any*/),
                   (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v26/*: any*/),
-              (v27/*: any*/)
+              (v28/*: any*/),
+              (v29/*: any*/)
             ],
             "storageKey": null
           },
-          (v28/*: any*/),
+          (v30/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -606,10 +608,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v32/*: any*/),
+            "selections": (v34/*: any*/),
             "storageKey": null
           },
-          (v31/*: any*/),
+          (v33/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -617,7 +619,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v32/*: any*/),
+            "selections": (v34/*: any*/),
             "storageKey": null
           },
           (v5/*: any*/),
@@ -657,19 +659,10 @@ return {
             "kind": "LinkedField",
             "name": "location",
             "plural": false,
-            "selections": (v33/*: any*/),
+            "selections": (v24/*: any*/),
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": null,
-            "kind": "LinkedField",
-            "name": "owner",
-            "plural": false,
-            "selections": (v33/*: any*/),
-            "storageKey": null
-          },
+          (v25/*: any*/),
           (v23/*: any*/)
         ],
         "storageKey": null
@@ -686,6 +679,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5ef3f8c8878c00dad431bf7c6dbd85ba';
+(node/*: any*/).hash = 'c99424e19bb1028cac443eb2cb733702';
 
 module.exports = node;

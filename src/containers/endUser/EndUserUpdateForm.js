@@ -2,9 +2,11 @@ import { connect } from 'react-redux';
 import EndUserUpdateForm from '../../components/endUser/EndUserUpdateForm';
 import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import * as notifyActions from '../../actions/Notify';
+import * as formModalActions from '../../actions/FormModal';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 
 const mapStateToProps = (state, props) => {
+  const formName = props.isFromModal ? 'updateEndUserInModal' : 'updateEndUser';
   const updateEndUserSelector = formValueSelector('updateEndUser');
   const { endUser } = props;
 
@@ -15,6 +17,7 @@ const mapStateToProps = (state, props) => {
     url: endUser.url,
   };
   return {
+    form: formName,
     initialValues,
     name: updateEndUserSelector(state, 'name'),
     description: updateEndUserSelector(state, 'description'),
@@ -22,6 +25,8 @@ const mapStateToProps = (state, props) => {
     formSyncErrors: getFormSyncErrors('updateEndUser')(state),
     fields: getFormMeta('updateEndUser')(state),
     relatedEntities: endUser.with_same_name,
+    isFromModal: Boolean(props.isFromModal),
+    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
   };
 };
 
@@ -35,6 +40,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
+    },
+    hideModalForm: () => {
+      dispatch(formModalActions.hideModalForm());
     },
   };
 };

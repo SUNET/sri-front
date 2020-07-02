@@ -2,7 +2,16 @@ import { connect } from 'react-redux';
 import FirewallUpdateForm from '../../components/firewall/FirewallUpdateForm';
 import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import * as notifyActions from '../../actions/Notify';
+import * as formModalActions from '../../actions/FormModal';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
+
+function formatterSubInputs(subInputs) {
+  return subInputs.map((element) => ({
+    ...element,
+    status: 'saved',
+    origin: 'store',
+  }));
+}
 
 const mapStateToProps = (state, props) => {
   const updateFirewallSelector = formValueSelector('updateFirewall');
@@ -27,7 +36,7 @@ const mapStateToProps = (state, props) => {
     end_support: firewall.end_support,
 
     // Security
-    security_class: firewall.security_class ? firewall.security_class.id : undefined,
+    security_class: firewall.security_class ? firewall.security_class.value : undefined,
     securityClassObj: firewall.security_class,
     security_comment: firewall.security_comment,
     supportGroupObj: firewall.support_group ? firewall.support_group : undefined,
@@ -44,8 +53,9 @@ const mapStateToProps = (state, props) => {
     // Location
     rack_units: firewall.rack_units,
     rack_position: firewall.rack_position,
-    ownerObj: firewall.owner,
+    owner: firewall.owner ? formatterSubInputs([firewall.owner]) : [],
   };
+
   return {
     initialValues,
     name: updateFirewallSelector(state, 'name'),
@@ -71,7 +81,7 @@ const mapStateToProps = (state, props) => {
     service_tag: updateFirewallSelector(state, 'service_tag'),
     rack_units: updateFirewallSelector(state, 'rack_units'),
     rack_position: updateFirewallSelector(state, 'rack_position'),
-    ownerObj: updateFirewallSelector(state, 'ownerObj'),
+    owner: updateFirewallSelector(state, 'owner'),
     formSyncErrors: getFormSyncErrors('updateFirewall')(state),
     fields: getFormMeta('updateFirewall')(state),
   };
@@ -87,6 +97,15 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
+    },
+    showModalCreateForm: (entityName) => {
+      dispatch(formModalActions.showModalCreateForm(entityName));
+    },
+    showModalDetailForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalDetailForm(entityName, entityId));
+    },
+    showModalEditForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalEditForm(entityName, entityId));
     },
   };
 };

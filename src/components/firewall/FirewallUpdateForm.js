@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import UpdateFirewallMutation from '../../mutations/firewall/UpdateFirewallMutation';
-import ValidationsFirewallForm from '../common/_BasicValidationForm';
+import ValidationsFirewallForm from './ValidationsFirewallForm';
 // const
 import { UPDATE_FIREWALL_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -17,7 +17,7 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   MODEL_NAME = 'firewall';
   ROUTE_LIST_DIRECTION = '/network/firewalls';
   state = {
-    editMode: false,
+    editMode: true,
   };
   refetch = () => {
     this.props.relay.refetch(
@@ -42,6 +42,7 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
+        {this.renderOwnerToggleSection(editMode)}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>

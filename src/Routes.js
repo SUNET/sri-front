@@ -32,6 +32,7 @@ const Routes = {
   '/network/ports/create': 'Create Port',
   '/network/switches': 'Switches',
   '/network/switches/create': 'Create Switch',
+  '/network/firewalls': 'Firewalls',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',

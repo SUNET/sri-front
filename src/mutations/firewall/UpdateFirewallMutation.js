@@ -52,6 +52,7 @@ const mutation = graphql`
             name
           }
           owner {
+            __typename
             id
             name
           }
@@ -97,8 +98,8 @@ export default function UpdateFirewallMutation(firewall, form) {
         backup: firewall.backup,
         end_support: firewall.end_support,
 
-        security_class: '2',
-        security_comment: "It's updated manually",
+        security_class: firewall.security_class,
+        security_comment: firewall.security_comment,
         support_group: firewall.support_group_id,
         responsible_group: firewall.responsible_group_id,
 
@@ -107,12 +108,13 @@ export default function UpdateFirewallMutation(firewall, form) {
         max_number_of_ports: firewall.max_number_of_ports,
         service_tag: firewall.service_tag,
 
-        rack_units: 2,
-        rack_position: 3,
-        relationship_owner: null,
+        rack_units: firewall.rack_units,
+        rack_position: firewall.rack_position,
+        relationship_owner: 'Q3VzdG9tZXI6MzA5Ng==', // id customer/siteOwner/provider/endUser
       },
     },
   };
+  // console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

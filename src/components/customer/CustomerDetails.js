@@ -14,9 +14,15 @@ class CustomerDetails extends React.Component {
         match: PropTypes.shape({
             params: PropTypes.shape({
                 id: PropTypes.node
-            }).isRequired
-        }).isRequired
+            }),
+        }),
     };
+
+    getId() {
+        const { isFromModal, idFromModal, match } = this.props;
+        const entityId = isFromModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
+        return entityId;
+    }
 
     handleDelete = () => {
         const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
@@ -24,12 +30,13 @@ class CustomerDetails extends React.Component {
     };
 
     render() {
+        const entityId = this.getId();
         return (
             <QueryRenderer
                 environment={environment}
                 query={CustomerDetailsQuery}
                 variables={{
-                    [this.ID_ENTITY_KEY]: this.props.match.params[this.ID_ENTITY_KEY]
+                    [this.ID_ENTITY_KEY]: entityId
                 }}
                 render={({ error, props, retry }) => {
                     if (error) {
@@ -38,6 +45,7 @@ class CustomerDetails extends React.Component {
                         return (
                             <section className="model-details customer-details">
                                 <CustomerUpdateFormContainer
+                                    isFromModal={this.props.isFromModal}
                                     onDelete={this.handleDelete}
                                     customer={props.getCustomerById}
                                     history={this.props.history}
