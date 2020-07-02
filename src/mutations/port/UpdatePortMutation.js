@@ -116,10 +116,10 @@ export default function UpdatePortMutation(port, form) {
         return response.composite_port.updated.errors;
       }
       form.props.reset();
-      // form.refetch();
       if (form.props.isFromModal) {
         form.props.editedEntity('Port', response.composite_port.updated.port.id);
       } else {
+        form.refetch();
         form.props.notify(i18n.t('notify.changes-saved'), 'success');
       }
     },

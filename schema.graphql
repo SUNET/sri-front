@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Mon Jun 29 2020 07:46:09 GMT+0200 (GMT+02:00)
+# timestamp: Wed Jul 01 2020 14:10:23 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -4907,6 +4907,7 @@ type Query {
   getAvailableContexts: [String]
   getContextActivity(filter: ActionFilter!, orderBy: ActionOrderBy, before: String, after: String, first: Int, last: Int): ActionConnection
   getSwitchTypes: [SwitchType]
+  getNetworkOrgTypes: [TypeInfo]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection

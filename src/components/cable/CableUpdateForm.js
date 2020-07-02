@@ -28,7 +28,7 @@ class CableUpdateForm extends _CableFormParentClass {
       { cableId: this.props.cable.id }, // Our refetchQuery needs to know the `cableID`
       null, // We can use the refetchVariables as renderVariables
       () => {
-        console.log('Refetch done');
+        this.updateBreadcrumbsData();
       },
       { force: true },
     );

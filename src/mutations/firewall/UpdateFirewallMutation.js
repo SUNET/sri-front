@@ -124,10 +124,10 @@ export default function UpdateFirewallMutation(firewall, form) {
         return response.update_firewall.updated.errors;
       }
       form.props.reset();
-      // form.refetch();
       if (form.props.isFromModal) {
         form.props.editedEntity('Firewall', response.composite_firewall.updated.firewall.id);
       } else {
+        form.refetch();
         form.props.notify(i18n.t('notify.changes-saved'), 'success');
       }
     },
