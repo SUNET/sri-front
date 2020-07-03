@@ -9,26 +9,32 @@ import * as FormModalActions from '../../actions/FormModal';
 
 function formattedContacts(organization) {
   const { contacts } = organization;
-  return contacts.map((contact) => {
-    const contactRelationIdObj = contact.roles.find((relationNode) => relationNode.end.id === organization.id);
-    return {
-      id: contact.id,
-      name: contact.first_name + ' ' + contact.last_name,
-      contact_type: contact.contact_type,
-      role: contactRelationIdObj ? contactRelationIdObj.role_data.id : '',
-      role_label: contactRelationIdObj ? contactRelationIdObj.role_data.name : '',
-      role_obj: contactRelationIdObj,
-      role_relation_id: contactRelationIdObj ? contactRelationIdObj.relation_id : '',
-      email: contact.emails,
-      email_obj: contact.emails,
-      phone: contact.phones,
-      phone_obj: contact.phones,
-      status: 'saved',
-      origin: 'store',
-      created: true,
-      key: contact.id,
-    };
-  });
+  let allFormattedContacts = [];
+  if (contacts) {
+    allFormattedContacts = contacts.map((contact) => {
+      const contactRelationIdObj = contact.roles.find((relationNode) => relationNode.end.id === organization.id);
+      return {
+        id: contact.id,
+        first_name: contact.first_name,
+        last_name: contact.last_name,
+        name: `${contact.first_name} ${contact.last_name}`,
+        contact_type: contact.contact_type,
+        role: contactRelationIdObj ? contactRelationIdObj.role_data.id : '',
+        role_label: contactRelationIdObj ? contactRelationIdObj.role_data.name : '',
+        role_obj: contactRelationIdObj,
+        role_relation_id: contactRelationIdObj ? contactRelationIdObj.relation_id : '',
+        email: contact.emails,
+        email_obj: contact.emails,
+        phone: contact.phones,
+        phone_obj: contact.phones,
+        status: 'saved',
+        origin: 'store',
+        created: true,
+        key: contact.id,
+      };
+    });
+  }
+  return allFormattedContacts;
 }
 function formattedAddresses(addresses) {
   if (addresses) {
@@ -146,14 +152,17 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    showNewContactForm: () => {
-      dispatch(FormModalActions.showModalCreateForm('Contact'));
-    },
     hideContactForm: () => {
       dispatch(FormModalActions.hideModalForm());
     },
+    showNewContactForm: () => {
+      dispatch(FormModalActions.showModalCreateForm('Contact'));
+    },
     showContactDetailForm: (idContact) => {
-      dispatch(FormModalActions.showModalUpdateForm('Contact', idContact));
+      dispatch(FormModalActions.showModalDetailForm('Contact', idContact));
+    },
+    showContactEditForm: (idContact) => {
+      dispatch(FormModalActions.showModalEditForm('Contact', idContact));
     },
   };
 };

@@ -234,7 +234,7 @@ export class TopHeader extends React.Component {
         right
         disableAutoFocus
         disableOverlayClick={() => this.closeMenu()}
-        customCrossIcon={<div className="row-remove-cta"></div>}
+        customCrossIcon={<div className="row-cross-remove-cta"></div>}
         isOpen={this.state.isMenuOpen}
         onStateChange={(newState) => {
           this.setState({ isMenuOpen: newState.isOpen });

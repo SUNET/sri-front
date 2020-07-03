@@ -21,6 +21,7 @@ export type GroupDetailsQueryResponse = {|
       +id: string,
       +first_name: string,
       +last_name: string,
+      +relation_id: ?number,
       +contact_type: ?{|
         +name: string,
         +value: string,
@@ -107,6 +108,7 @@ query GroupDetailsQuery(
       id
       first_name
       last_name
+      relation_id
       contact_type {
         name
         value
@@ -312,14 +314,21 @@ v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "relation_id",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "value",
   "storageKey": null
 },
-v8 = [
-  (v3/*: any*/),
-  (v7/*: any*/)
-],
 v9 = [
+  (v3/*: any*/),
+  (v8/*: any*/)
+],
+v10 = [
   (v2/*: any*/),
   (v3/*: any*/),
   {
@@ -329,15 +338,15 @@ v9 = [
     "kind": "LinkedField",
     "name": "type",
     "plural": false,
-    "selections": (v8/*: any*/),
+    "selections": (v9/*: any*/),
     "storageKey": null
   }
 ],
-v10 = [
+v11 = [
   (v2/*: any*/),
   (v3/*: any*/)
 ],
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "RoleRelation",
@@ -352,7 +361,7 @@ v11 = {
       "kind": "LinkedField",
       "name": "role_data",
       "plural": false,
-      "selections": (v10/*: any*/),
+      "selections": (v11/*: any*/),
       "storageKey": null
     },
     {
@@ -362,17 +371,10 @@ v11 = {
       "kind": "LinkedField",
       "name": "end",
       "plural": false,
-      "selections": (v10/*: any*/),
+      "selections": (v11/*: any*/),
       "storageKey": null
     }
   ],
-  "storageKey": null
-},
-v12 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "relation_id",
   "storageKey": null
 },
 v13 = {
@@ -416,7 +418,7 @@ v15 = {
       "name": "entity_id",
       "storageKey": null
     },
-    (v12/*: any*/)
+    (v7/*: any*/)
   ],
   "storageKey": null
 },
@@ -460,7 +462,7 @@ v21 = {
 },
 v22 = [
   (v3/*: any*/),
-  (v7/*: any*/),
+  (v8/*: any*/),
   (v2/*: any*/)
 ],
 v23 = [
@@ -510,6 +512,7 @@ return {
               (v2/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -517,7 +520,7 @@ return {
                 "kind": "LinkedField",
                 "name": "contact_type",
                 "plural": false,
-                "selections": (v8/*: any*/),
+                "selections": (v9/*: any*/),
                 "storageKey": null
               },
               {
@@ -527,7 +530,7 @@ return {
                 "kind": "LinkedField",
                 "name": "emails",
                 "plural": true,
-                "selections": (v9/*: any*/),
+                "selections": (v10/*: any*/),
                 "storageKey": null
               },
               {
@@ -537,10 +540,10 @@ return {
                 "kind": "LinkedField",
                 "name": "phones",
                 "plural": true,
-                "selections": (v9/*: any*/),
+                "selections": (v10/*: any*/),
                 "storageKey": null
               },
-              (v11/*: any*/),
+              (v12/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -558,7 +561,7 @@ return {
                     "name": "relation",
                     "plural": false,
                     "selections": [
-                      (v12/*: any*/),
+                      (v7/*: any*/),
                       (v13/*: any*/),
                       (v14/*: any*/)
                     ],
@@ -689,7 +692,7 @@ return {
                 "selections": (v23/*: any*/),
                 "storageKey": null
               },
-              (v11/*: any*/),
+              (v12/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -707,7 +710,7 @@ return {
                     "name": "relation",
                     "plural": false,
                     "selections": [
-                      (v12/*: any*/),
+                      (v7/*: any*/),
                       (v13/*: any*/),
                       (v14/*: any*/),
                       (v2/*: any*/)
@@ -716,7 +719,8 @@ return {
                   }
                 ],
                 "storageKey": null
-              }
+              },
+              (v7/*: any*/)
             ],
             "storageKey": null
           },
@@ -781,11 +785,11 @@ return {
     "metadata": {},
     "name": "GroupDetailsQuery",
     "operationKind": "query",
-    "text": "query GroupDetailsQuery(\n  $groupId: ID!\n) {\n  getGroupById(id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n    name\n    description\n    contacts {\n      id\n      first_name\n      last_name\n      contact_type {\n        name\n        value\n        id\n      }\n      emails {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      phones {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      roles {\n        role_data {\n          id\n          name\n        }\n        end {\n          id\n          name\n        }\n      }\n      outgoing {\n        name\n        relation {\n          relation_id\n          type\n          end {\n            id\n            node_name\n          }\n          id\n        }\n      }\n    }\n    contact_relations {\n      entity_id\n      relation_id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  id\n  name\n  description\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type {\n      name\n      value\n      id\n    }\n    emails {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    phones {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    roles {\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n    outgoing {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        id\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query GroupDetailsQuery(\n  $groupId: ID!\n) {\n  getGroupById(id: $groupId) {\n    ...GroupUpdateForm_group\n    id\n    name\n    description\n    contacts {\n      id\n      first_name\n      last_name\n      relation_id\n      contact_type {\n        name\n        value\n        id\n      }\n      emails {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      phones {\n        id\n        name\n        type {\n          name\n          value\n          id\n        }\n      }\n      roles {\n        role_data {\n          id\n          name\n        }\n        end {\n          id\n          name\n        }\n      }\n      outgoing {\n        name\n        relation {\n          relation_id\n          type\n          end {\n            id\n            node_name\n          }\n          id\n        }\n      }\n    }\n    contact_relations {\n      entity_id\n      relation_id\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment GroupUpdateForm_group on Group {\n  id\n  name\n  description\n  contacts {\n    id\n    first_name\n    last_name\n    contact_type {\n      name\n      value\n      id\n    }\n    emails {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    phones {\n      id\n      name\n      type {\n        name\n        value\n        id\n      }\n    }\n    roles {\n      role_data {\n        id\n        name\n      }\n      end {\n        id\n        name\n      }\n    }\n    outgoing {\n      name\n      relation {\n        relation_id\n        type\n        end {\n          id\n          node_name\n        }\n        id\n      }\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6c039ae664ff1816f854b70c685f2e44';
+(node/*: any*/).hash = 'b719c9f684c4ad8d18bfe74ce3f41f76';
 
 module.exports = node;

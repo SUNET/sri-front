@@ -14,7 +14,7 @@ class LateralSliderMenu extends Component {
                 </div>
                 <div className="lateral-slider-menu__content__header__text">{this.props.header.text}</div>
                 <div
-                    className="lateral-slider-menu__content__header__close row-remove-cta"
+                    className="lateral-slider-menu__content__header__close row-cross-remove-cta"
                     onClick={() => this.props.clickInClose()}
                 ></div>
             </div>

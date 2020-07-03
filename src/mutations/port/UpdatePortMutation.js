@@ -26,6 +26,7 @@ const mutation = graphql`
           parent {
             id
             name
+            relation_id
             ... on Port {
               type: port_type {
                 value
@@ -44,6 +45,7 @@ const mutation = graphql`
           connected_to {
             id
             name
+            relation_id
             ... on Cable {
               type: cable_type {
                 value
@@ -102,17 +104,16 @@ export default function UpdatePortMutation(port, form) {
       update_parent_port: portParents.toUpdate,
       update_parent_cable: cableParents.toUpdate,
       unlink_subinputs: [...connectedTo.toUnlink, ...cableParents.toUnlink, ...portParents.toUnlink],
-      // delete_subinputs: [],
+      delete_subinputs: [...connectedTo.toDelete, ...cableParents.toDelete, ...portParents.toDelete],
     },
   };
-
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_port.updated.errors) {
         form.props.notify(i18n.t('notify.error'), 'error');
-        return response.update_port.updated.errors;
+        return response.composite_port.updated.errors;
       }
       form.props.reset();
       // form.refetch();

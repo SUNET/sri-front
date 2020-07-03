@@ -16,10 +16,12 @@ class PortUpdateForm extends _PortFormParentClass {
   FORM_ID = UPDATE_PORT_FORM;
   MODEL_NAME = 'port';
   ROUTE_LIST_DIRECTION = '/network/ports';
-  state = {
-    editMode: false,
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { portId: this.props.port.id }, // Our refetchQuery needs to know the `portID`

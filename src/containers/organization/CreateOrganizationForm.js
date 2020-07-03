@@ -44,11 +44,14 @@ const mapDispatchToProps = (dispatch, props) => {
     showNewContactForm: () => {
       dispatch(FormModalActions.showModalCreateForm('Contact'));
     },
-    showContactDetailForm: (idContact) => {
-      dispatch(FormModalActions.showModalUpdateForm('Contact', idContact));
-    },
     hideContactDetailForm: () => {
       dispatch(FormModalActions.hideModalForm());
+    },
+    showContactDetailForm: (idContact) => {
+      dispatch(FormModalActions.showModalDetailForm('Contact', idContact));
+    },
+    showContactEditForm: (idContact) => {
+      dispatch(FormModalActions.showModalEditForm('Contact', idContact));
     },
   };
 };

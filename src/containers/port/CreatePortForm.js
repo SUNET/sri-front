@@ -33,8 +33,11 @@ const mapDispatchToProps = (dispatch, props) => {
     showModalCreateForm: (entityName) => {
       dispatch(formModalActions.showModalCreateForm(entityName));
     },
-    showModalUpdateForm: (entityName, entityId) => {
-      dispatch(formModalActions.showModalUpdateForm(entityName, entityId));
+    showModalDetailForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalDetailForm(entityName, entityId));
+    },
+    showModalEditForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalEditForm(entityName, entityId));
     },
     hideModalForm: () => {
       dispatch(formModalActions.hideModalForm());

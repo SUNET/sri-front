@@ -17,9 +17,12 @@ class CableUpdateForm extends _CableFormParentClass {
   FORM_ID = UPDATE_CABLE_FORM;
   MODEL_NAME = 'cable';
   ROUTE_LIST_DIRECTION = '/network/cables';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { cableId: this.props.cable.id }, // Our refetchQuery needs to know the `cableID`

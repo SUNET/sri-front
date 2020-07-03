@@ -173,6 +173,7 @@ export type UpdatePortMutationResponse = {|
         +parent: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
+          +relation_id: ?number,
           +type?: ?{|
             +value: string,
             +name: string,
@@ -182,6 +183,7 @@ export type UpdatePortMutationResponse = {|
         +connected_to: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
+          +relation_id: ?number,
           +type?: ?{|
             +value: string,
             +name: string,
@@ -243,6 +245,7 @@ mutation UpdatePortMutation(
           __typename
           id
           name
+          relation_id
           ... on Port {
             type: port_type {
               value
@@ -264,6 +267,7 @@ mutation UpdatePortMutation(
           __typename
           id
           name
+          relation_id
           ... on Cable {
             type: cable_type {
               value
@@ -375,6 +379,13 @@ v7 = {
   "storageKey": null
 },
 v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "relation_id",
+  "storageKey": null
+},
+v9 = {
   "alias": "type",
   "args": null,
   "concreteType": "Choice",
@@ -384,15 +395,15 @@ v8 = {
   "selections": (v6/*: any*/),
   "storageKey": null
 },
-v9 = {
+v10 = {
   "kind": "InlineFragment",
   "selections": [
-    (v8/*: any*/),
+    (v9/*: any*/),
     (v7/*: any*/)
   ],
   "type": "Cable"
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "UpdatePortPayload",
@@ -404,32 +415,32 @@ v10 = {
   ],
   "storageKey": null
 },
-v11 = [
+v12 = [
   (v5/*: any*/),
   (v4/*: any*/),
   (v3/*: any*/)
 ],
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": "type",
   "args": null,
   "concreteType": "Choice",
   "kind": "LinkedField",
   "name": "cable_type",
   "plural": false,
-  "selections": (v11/*: any*/),
+  "selections": (v12/*: any*/),
   "storageKey": null
 },
-v14 = {
+v15 = {
   "kind": "InlineFragment",
   "selections": [
-    (v13/*: any*/),
+    (v14/*: any*/),
     (v7/*: any*/)
   ],
   "type": "Cable"
@@ -489,6 +500,7 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
+                      (v8/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
@@ -506,7 +518,7 @@ return {
                         ],
                         "type": "Port"
                       },
-                      (v9/*: any*/)
+                      (v10/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -520,7 +532,8 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v9/*: any*/)
+                      (v8/*: any*/),
+                      (v10/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -550,14 +563,14 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v7/*: any*/),
-                  (v8/*: any*/)
+                  (v9/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v10/*: any*/)
+          (v11/*: any*/)
         ],
         "storageKey": null
       }
@@ -604,7 +617,7 @@ return {
                     "kind": "LinkedField",
                     "name": "port_type",
                     "plural": false,
-                    "selections": (v11/*: any*/),
+                    "selections": (v12/*: any*/),
                     "storageKey": null
                   },
                   (v7/*: any*/),
@@ -616,9 +629,10 @@ return {
                     "name": "parent",
                     "plural": true,
                     "selections": [
-                      (v12/*: any*/),
+                      (v13/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
+                      (v8/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
@@ -629,14 +643,14 @@ return {
                             "kind": "LinkedField",
                             "name": "port_type",
                             "plural": false,
-                            "selections": (v11/*: any*/),
+                            "selections": (v12/*: any*/),
                             "storageKey": null
                           },
                           (v7/*: any*/)
                         ],
                         "type": "Port"
                       },
-                      (v14/*: any*/)
+                      (v15/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -648,10 +662,11 @@ return {
                     "name": "connected_to",
                     "plural": true,
                     "selections": [
-                      (v12/*: any*/),
+                      (v13/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v14/*: any*/)
+                      (v8/*: any*/),
+                      (v15/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -681,14 +696,14 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v7/*: any*/),
-                  (v13/*: any*/)
+                  (v14/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v10/*: any*/)
+          (v11/*: any*/)
         ],
         "storageKey": null
       }
@@ -699,11 +714,11 @@ return {
     "metadata": {},
     "name": "UpdatePortMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdatePortMutation(\n  $input: CompositePortMutationInput!\n) {\n  composite_port(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          name\n          id\n        }\n        description\n        parent {\n          __typename\n          id\n          name\n          ... on Port {\n            type: port_type {\n              value\n              name\n              id\n            }\n            description\n          }\n          ... on Cable {\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n        }\n        connected_to {\n          __typename\n          id\n          name\n          ... on Cable {\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        description\n        type: cable_type {\n          value\n          name\n          id\n        }\n      }\n    }\n    parent_port_updated {\n      errors {\n        field\n        messages\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdatePortMutation(\n  $input: CompositePortMutationInput!\n) {\n  composite_port(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          name\n          id\n        }\n        description\n        parent {\n          __typename\n          id\n          name\n          relation_id\n          ... on Port {\n            type: port_type {\n              value\n              name\n              id\n            }\n            description\n          }\n          ... on Cable {\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n        }\n        connected_to {\n          __typename\n          id\n          name\n          relation_id\n          ... on Cable {\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        description\n        type: cable_type {\n          value\n          name\n          id\n        }\n      }\n    }\n    parent_port_updated {\n      errors {\n        field\n        messages\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '03fabc03d23b269da36142a091752b7f';
+(node/*: any*/).hash = 'e86751f42006d2196cf156f15e8ed99b';
 
 module.exports = node;

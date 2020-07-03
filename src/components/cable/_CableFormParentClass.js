@@ -53,15 +53,6 @@ class _CableFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
-  // handleProviderSearch = (selection) => {
-  //   if (selection !== null) {
-  //     this.props.getProvider(selection.id).then((provider) => {
-  //       console.log('provider: ', provider);
-  //       // this.props.dispatch(this.props.form, "provider", provider);
-  //     });
-  //   }
-  // };
-
   getConnectionDetails(selectionData) {
     if (selectionData !== null) {
       this.props.getPortById(selectionData.id).then((port) => {
@@ -159,7 +150,11 @@ class _CableFormParentClass extends _BasicFormParentClass {
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
                 this.setState({ fieldModalOpened: 'connections' });
-                this.props.showModalUpdateForm('Port', entityId);
+                this.props.showModalEditForm('Port', entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'connections' });
+                this.props.showModalDetailForm('Port', entityId);
               }}
               handleSearchResult={(newConnection) => {
                 this.handleConnectionSearch(newConnection);

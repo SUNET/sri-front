@@ -32,12 +32,16 @@ export class DashBoardActivityLogRow extends _DashBoardRowParentClass {
   render() {
     const element = this.props[this.MAIN_PROP];
     return (
-      <article className="dash-board-row" onClick={(e) => this.props.onClick(e, element)}>
-        <div className="d-flex">
-          {this.renderInfo()}
-          {this.renderModifiedDate()}
-        </div>
-      </article>
+      <>
+        {element.action_object && (
+          <article className="dash-board-row" onClick={(e) => this.props.onClick(e, element)}>
+            <div className="d-flex">
+              {this.renderInfo()}
+              {this.renderModifiedDate()}
+            </div>
+          </article>
+        )}
+      </>
     );
   }
 }

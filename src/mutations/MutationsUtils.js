@@ -31,7 +31,7 @@ export function generateSubInputs(subInputObject, typeFieldName) {
 
     result.toDelete = subInputObject
       .filter((element) => element.status === REMOVE)
-      .map((element) => element.relation_id);
+      .map((element) => ({ id: element.id }));
   }
   return result;
 }

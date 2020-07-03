@@ -311,7 +311,41 @@ button.btn {
     }
 }
 
-.row-remove-cta {
+.row-cta {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+        width: 15px;
+        height: 15px;
+    }
+    &.active {
+        background-color: $gray-color;
+        border-radius: 1em;
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+    }
+    &.remove {
+        // background-image: url("../static/img/trash.svg");
+    }
+    &.edit {
+        // background-image: url("../static/img/grey-pencil-icon.svg");
+    }
+    &.unlink {
+        // background-image: url("../static/img/unlink.svg");
+    }
+}
+
+.row-cross-remove-cta {
     width: 15px;
     height: 15px;
     position: relative;
