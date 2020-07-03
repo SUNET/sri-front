@@ -1,18 +1,18 @@
-import { connect } from "react-redux";
-import * as actions from "../../actions/Notify";
+import { connect } from 'react-redux';
+import * as actions from '../../actions/Notify';
 
-import __EntityClassName__Details from "../../components/__entityName__/__EntityClassName__Details";
+import __EntityClassName__Details from '../../components/__entityName__/__EntityClassName__Details';
 
 const mapStateToProps = (state, props) => {
-    return {};
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
-        notify: (msg, level) => {
-            dispatch(actions.notify(msg, level));
-        }
-    };
+  return {
+    notify: (msg, level) => {
+      dispatch(actions.notify(msg, level));
+    },
+  };
 };
 
 const __EntityClassName__DetailsContainer = connect(mapStateToProps, mapDispatchToProps)(__EntityClassName__Details);

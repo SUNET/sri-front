@@ -17,6 +17,8 @@ export const CREATE_CABLE_FORM = 'create-cable-form';
 export const UPDATE_CABLE_FORM = 'update-cable-form';
 export const CREATE_PORT_FORM = 'create-port-form';
 export const UPDATE_PORT_FORM = 'update-port-form';
+export const CREATE_SWITCH_FORM = 'create-switch-form';
+export const UPDATE_SWITCH_FORM = 'update-switch-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';

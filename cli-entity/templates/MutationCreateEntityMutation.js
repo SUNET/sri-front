@@ -4,19 +4,22 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
+import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
 
 const mutation = graphql`
-  mutation Create__EntityClassName__Mutation($input: Create__EntityClassName__Input!) {
-    create___entityName__(input: $input) {
-      errors {
-        field
-        messages
-      }
-      __entityName__ {
-        id
-        name
-        description
-        url
+  mutation Create__EntityClassName__Mutation($input: Composite__EntityClassName__Input!) {
+    composite___entityName__(input: $input) {
+      created {
+        errors {
+          field
+          messages
+        }
+        __entityName__ {
+          id
+          name
+          description
+          url
+        }
       }
     }
   }
@@ -25,25 +28,25 @@ const mutation = graphql`
 function Create__EntityClassName__Mutation(__entityName__, form) {
   const variables = {
     input: {
-      name: __entityName__.name,
-      description: __entityName__.description,
-      url: __entityName__.url,
+      create_input: {
+        name: __entityName__.name,
+        description: __entityName__.description,
+      },
     },
   };
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.create___entityName__.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
-        return response.create___entityName__.updated.errors;
-      }
-      const __entityName__Id = response.create___entityName__.__entityName__.id;
-      if (__entityName__.comment) {
-        CreateCommentMutation(__entityName__Id, __entityName__.comment);
-      }
-      form.props.history.push(`/__entityBlock__/__entityInternalRoutePath__s/${__entityName__Id}`);
-      form.props.notify(i18n.t('notify.__entityBlock__/__entityName__s-created-success'), 'success');
+      onCompleteCompositeCreationEntity(
+        form,
+        response,
+        __entityName__,
+        '__EntityClassName__',
+        'composite___entityName__',
+        '__entityName__s',
+        CreateCommentMutation,
+      );
     },
     onError: (errors) => console.error(errors),
     configs: [
