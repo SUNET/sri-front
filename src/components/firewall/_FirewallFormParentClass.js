@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldArray, change, Field } from 'redux-form';
+import { FieldArray, change, Field, arrayPush } from 'redux-form';
 import { Form, Col } from 'react-bootstrap';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
@@ -11,6 +11,7 @@ import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/momen
 import FieldArrayOwner from './FieldArrayOwner';
 
 // const
+import { UNLINK, SAVED, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
@@ -42,16 +43,26 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       const selectionData = {
         id: nextProps.entitySavedId,
       };
-      // const methodName = `get${nextProps.entityInModalName}ById`;
-      this.handleSelectedNetworkOrganization(selectionData);
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      this.handleSelectedNetworkOrganization(selectionData, methodName);
       return false;
     }
     return true;
   }
 
-  handleSelectedNetworkOrganization(selectionData) {
-    console.log('selectionData: ', selectionData);
-  }
+  handleSelectedNetworkOrganization = (selection, typeOfSelection) => {
+    if (selection !== null) {
+      this.props[typeOfSelection](selection.id).then((entity) => {
+        const newEntity = {
+          __typename: entity.__typename,
+          name: entity.name,
+          id: entity.id,
+          status: 'saved',
+        };
+        this.props.dispatch(arrayPush(this.props.form, 'owner', newEntity));
+      });
+    }
+  };
 
   renderModelMainSection(editMode = true) {
     return (
@@ -478,7 +489,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   }
 
   renderOwnerToggleSection(editMode = false) {
-    const { t, entityRemovedId } = this.props;
+    const { t, entityRemovedId, owner } = this.props;
     return (
       <section className="model-section">
         <ToggleSection>
@@ -495,21 +506,18 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               errors={this.props.formSyncErrors.parents}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
-                console.log('typeEntityToShowForm: ', typeEntityToShowForm);
                 this.props.showModalCreateForm(typeEntityToShowForm);
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
-                console.log('typeEntityToShowForm: ', typeEntityToShowForm);
-                console.log('entityId: ', entityId);
                 this.props.showModalEditForm(typeEntityToShowForm, entityId);
               }}
               showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                console.log('typeEntityToShowForm: ', typeEntityToShowForm);
                 // this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedNetworkOrganization}
               // rerenderOnEveryChange={true}
               // entityRemovedId={this.state.fieldModalOpened === 'parents' ? entityRemovedId : null}
+              disabledFilters={owner && owner.filter(o => o.status === SAVED).length > 0}
             />
           </TogglePanel>
         </ToggleSection>

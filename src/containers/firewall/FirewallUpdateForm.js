@@ -4,6 +4,10 @@ import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
+import getProvider from '../../components/provider/Provider';
+import getCustomer from '../../components/customer/Customer';
+import getEndUser from '../../components/endUser/EndUser';
+import getSiteOwner from '../../components/siteOwner/SiteOwner';
 
 function formatterSubInputs(subInputs) {
   return subInputs.map((element) => ({
@@ -84,6 +88,14 @@ const mapStateToProps = (state, props) => {
     owner: updateFirewallSelector(state, 'owner'),
     formSyncErrors: getFormSyncErrors('updateFirewall')(state),
     fields: getFormMeta('updateFirewall')(state),
+    getProviderById: (id) => getProvider(id),
+    getCustomerById: (id) => getCustomer(id),
+    getEndUserById: (id) => getEndUser(id),
+    getSiteOwnerById: (id) => getSiteOwner(id),
+    entityInModalName: state.formModal.entityName,
+    editedSubEntity: state.formModal.entityEditedId,
+    entitySavedId: state.formModal.entitySavedId,
+    entityRemovedId: state.formModal.entityRemovedId,
   };
 };
 

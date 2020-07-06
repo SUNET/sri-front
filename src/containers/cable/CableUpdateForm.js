@@ -4,7 +4,7 @@ import CableUpdateForm from '../../components/cable/CableUpdateForm';
 import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
-import { getProvider } from '../../components/provider/Provider';
+import getProvider from '../../components/provider/Provider';
 import getPort from '../../components/port/Port';
 
 function formatterSubInputs(subInputs) {

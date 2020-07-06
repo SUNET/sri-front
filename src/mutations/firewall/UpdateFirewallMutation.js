@@ -5,6 +5,8 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { UNLINK, SAVED, REMOVE } from '../../utils/constants';
+
 const mutation = graphql`
   mutation UpdateFirewallMutation($input: CompositeFirewallMutationInput!) {
     composite_firewall(input: $input) {
@@ -82,6 +84,7 @@ const mutation = graphql`
 
 export default function UpdateFirewallMutation(firewall, form) {
   console.log('firewall: ', firewall);
+  const ownerToSaved = firewall.owner.find(o => o.status === SAVED);
   const variables = {
     input: {
       update_input: {
@@ -110,7 +113,7 @@ export default function UpdateFirewallMutation(firewall, form) {
 
         rack_units: firewall.rack_units,
         rack_position: firewall.rack_position,
-        relationship_owner: 'Q3VzdG9tZXI6MzA5Ng==', // id customer/siteOwner/provider/endUser
+        relationship_owner: ownerToSaved ? ownerToSaved.id : '', // id customer/siteOwner/provider/endUser
       },
     },
   };
