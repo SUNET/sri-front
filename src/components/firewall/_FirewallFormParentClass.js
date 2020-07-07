@@ -11,7 +11,7 @@ import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/momen
 import FieldArrayOwner from './FieldArrayOwner';
 
 // const
-import { UNLINK, SAVED, REMOVE } from '../../utils/constants';
+import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
@@ -54,6 +54,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     if (selection !== null) {
       this.props[typeOfSelection](selection.id).then((entity) => {
         const newEntity = {
+          type: entity.__typename,
           __typename: entity.__typename,
           name: entity.name,
           id: entity.id,
@@ -87,7 +88,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, operational_state, contract_number, managed_by, firewallManagedByObj } = this.props;
+    const { t, operational_state, contract_number, firewallManagedByObj } = this.props;
 
     const generalInfo = [
       {
@@ -231,9 +232,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   renderSecurityToggleSection(editMode = true) {
     const {
       t,
-      security_class,
       securityClassObj,
-      security_comment,
       supportGroupObj,
       support_group_id,
       responsibleGroupObj,
@@ -437,7 +436,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   }
 
   renderLocationToggleSection(editMode = true) {
-    const { t, rack_units, rack_position, ownerObj, owner } = this.props;
+    const { t, rack_units, rack_position } = this.props;
 
     const locationInfoFirstRow = [
       {
@@ -489,7 +488,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   }
 
   renderOwnerToggleSection(editMode = false) {
-    const { t, entityRemovedId, owner } = this.props;
+    const { t, owner } = this.props;
     return (
       <section className="model-section">
         <ToggleSection>
@@ -512,12 +511,12 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
                 this.props.showModalEditForm(typeEntityToShowForm, entityId);
               }}
               showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                // this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedNetworkOrganization}
-              // rerenderOnEveryChange={true}
+              rerenderOnEveryChange={true}
               // entityRemovedId={this.state.fieldModalOpened === 'parents' ? entityRemovedId : null}
-              disabledFilters={owner && owner.filter(o => o.status === SAVED).length > 0}
+              disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
             />
           </TogglePanel>
         </ToggleSection>

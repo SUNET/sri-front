@@ -5,7 +5,8 @@ import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 
 const mapStateToProps = (state, props) => {
-  const update__EntityClassName__Selector = formValueSelector('update__EntityClassName__');
+  const formName = props.isFromModal ? 'update__EntityClassName__InModal' : 'update__EntityClassName__';
+  const update__EntityClassName__Selector = formValueSelector(formName);
   const { __entityName__ } = props;
 
   const initialValues = {
@@ -15,6 +16,7 @@ const mapStateToProps = (state, props) => {
     url: __entityName__.url,
   };
   return {
+    form: formName,
     initialValues,
     name: update__EntityClassName__Selector(state, 'name'),
     description: update__EntityClassName__Selector(state, 'description'),

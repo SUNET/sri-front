@@ -131,7 +131,6 @@ class DropdownSearch extends React.Component {
     };
   }
   getQueryByModel(model) {
-    console.log('model: ', model);
     let queryModel = {
       modelName: model,
     };

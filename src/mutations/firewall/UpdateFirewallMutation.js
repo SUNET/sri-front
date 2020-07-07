@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { UNLINK, SAVED, REMOVE } from '../../utils/constants';
+import { SAVED, REMOVE } from '../../utils/constants';
 
 const mutation = graphql`
   mutation UpdateFirewallMutation($input: CompositeFirewallMutationInput!) {
@@ -57,6 +57,26 @@ const mutation = graphql`
             __typename
             id
             name
+            ... on EndUser {
+              type: node_type {
+                name: type
+              }
+            }
+            ... on Customer {
+              type: node_type {
+                name: type
+              }
+            }
+            ... on SiteOwner {
+              type: node_type {
+                name: type
+              }
+            }
+            ... on Provider {
+              type: node_type {
+                name: type
+              }
+            }
           }
           __typename
           comments {
@@ -83,8 +103,8 @@ const mutation = graphql`
 `;
 
 export default function UpdateFirewallMutation(firewall, form) {
-  console.log('firewall: ', firewall);
-  const ownerToSaved = firewall.owner.find(o => o.status === SAVED);
+  const ownerToSaved = firewall.owner.find((o) => o.status === SAVED);
+  const ownerToRemove = firewall.owner.find((o) => o.status === REMOVE);
   const variables = {
     input: {
       update_input: {
@@ -117,6 +137,11 @@ export default function UpdateFirewallMutation(firewall, form) {
       },
     },
   };
+  if (ownerToRemove) {
+    variables.input.delete_owner = {
+      id: ownerToRemove.id,
+    };
+  }
   // console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,

@@ -7,7 +7,7 @@ import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'updateSiteOwnerInModal' : 'updateSiteOwner';
-  const updateSiteOwnerSelector = formValueSelector('updateSiteOwner');
+  const updateSiteOwnerSelector = formValueSelector(formName);
   const { siteOwner } = props;
 
   const initialValues = {

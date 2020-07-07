@@ -17,7 +17,7 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   MODEL_NAME = 'firewall';
   ROUTE_LIST_DIRECTION = '/network/firewalls';
   state = {
-    editMode: true,
+    editMode: false,
   };
   refetch = () => {
     this.props.relay.refetch(

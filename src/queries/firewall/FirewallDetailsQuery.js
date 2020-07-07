@@ -45,6 +45,26 @@ const FirewallDetailsQuery = graphql`
         __typename
         id
         name
+        ... on EndUser {
+          type: node_type {
+            name: type
+          }
+        }
+        ... on Customer {
+          type: node_type {
+            name: type
+          }
+        }
+        ... on SiteOwner {
+          type: node_type {
+            name: type
+          }
+        }
+        ... on Provider {
+          type: node_type {
+            name: type
+          }
+        }
       }
       __typename
       comments {
