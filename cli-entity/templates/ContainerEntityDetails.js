@@ -5,7 +5,10 @@ import * as confirmModalActions from '../../actions/ConfirmModal';
 import __EntityClassName__Details from '../../components/__entityName__/__EntityClassName__Details';
 
 const mapStateToProps = (state, props) => {
-  return {};
+  return {
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {

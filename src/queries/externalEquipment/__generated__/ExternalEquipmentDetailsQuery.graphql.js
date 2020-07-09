@@ -24,8 +24,12 @@ export type ExternalEquipmentDetailsQueryResponse = {|
       +name: string,
     |}>,
     +owner: ?{|
+      +__typename: string,
       +id: string,
       +name: string,
+      +type?: {|
+        +name: string
+      |},
     |},
     +has: ?$ReadOnlyArray<?{|
       +id: string,
@@ -78,6 +82,30 @@ query ExternalEquipmentDetailsQuery(
       __typename
       id
       name
+      ... on EndUser {
+        type: node_type {
+          name: type
+          id
+        }
+      }
+      ... on Customer {
+        type: node_type {
+          name: type
+          id
+        }
+      }
+      ... on SiteOwner {
+        type: node_type {
+          name: type
+          id
+        }
+      }
+      ... on Provider {
+        type: node_type {
+          name: type
+          id
+        }
+      }
     }
     has {
       __typename
@@ -208,65 +236,96 @@ v9 = {
   "storageKey": null
 },
 v10 = {
+  "alias": "name",
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v11 = [
+  {
+    "alias": "type",
+    "args": null,
+    "concreteType": "NINodeType",
+    "kind": "LinkedField",
+    "name": "node_type",
+    "plural": false,
+    "selections": [
+      (v10/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "first_name",
   "storageKey": null
 },
-v11 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "last_name",
   "storageKey": null
 },
-v12 = {
+v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "comment",
   "storageKey": null
 },
-v13 = {
+v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "submit_date",
   "storageKey": null
 },
-v14 = {
+v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "created",
   "storageKey": null
 },
-v15 = {
+v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v16 = [
-  (v15/*: any*/)
+v18 = [
+  (v17/*: any*/)
 ],
-v17 = {
+v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v18 = [
-  (v15/*: any*/),
+v20 = [
+  (v17/*: any*/),
   (v2/*: any*/)
 ],
-v19 = [
-  (v9/*: any*/),
-  (v2/*: any*/),
-  (v3/*: any*/)
+v21 = [
+  {
+    "alias": "type",
+    "args": null,
+    "concreteType": "NINodeType",
+    "kind": "LinkedField",
+    "name": "node_type",
+    "plural": false,
+    "selections": [
+      (v10/*: any*/),
+      (v2/*: any*/)
+    ],
+    "storageKey": null
+  }
 ];
 return {
   "fragment": {
@@ -296,7 +355,31 @@ return {
             "kind": "LinkedField",
             "name": "owner",
             "plural": false,
-            "selections": (v7/*: any*/),
+            "selections": [
+              (v9/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/),
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "EndUser"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "Customer"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "SiteOwner"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "Provider"
+              }
+            ],
             "storageKey": null
           },
           {
@@ -327,17 +410,17 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v10/*: any*/),
-                  (v11/*: any*/)
+                  (v12/*: any*/),
+                  (v13/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v12/*: any*/),
-              (v13/*: any*/)
+              (v14/*: any*/),
+              (v15/*: any*/)
             ],
             "storageKey": null
           },
-          (v14/*: any*/),
+          (v16/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -345,10 +428,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v16/*: any*/),
+            "selections": (v18/*: any*/),
             "storageKey": null
           },
-          (v17/*: any*/),
+          (v19/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -356,7 +439,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v16/*: any*/),
+            "selections": (v18/*: any*/),
             "storageKey": null
           },
           {
@@ -404,18 +487,18 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v10/*: any*/),
-                  (v11/*: any*/),
+                  (v12/*: any*/),
+                  (v13/*: any*/),
                   (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v12/*: any*/),
-              (v13/*: any*/)
+              (v14/*: any*/),
+              (v15/*: any*/)
             ],
             "storageKey": null
           },
-          (v14/*: any*/),
+          (v16/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -423,10 +506,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v18/*: any*/),
+            "selections": (v20/*: any*/),
             "storageKey": null
           },
-          (v17/*: any*/),
+          (v19/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -434,7 +517,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v18/*: any*/),
+            "selections": (v20/*: any*/),
             "storageKey": null
           },
           (v5/*: any*/),
@@ -447,7 +530,31 @@ return {
             "kind": "LinkedField",
             "name": "owner",
             "plural": false,
-            "selections": (v19/*: any*/),
+            "selections": [
+              (v9/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/),
+              {
+                "kind": "InlineFragment",
+                "selections": (v21/*: any*/),
+                "type": "EndUser"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v21/*: any*/),
+                "type": "Customer"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v21/*: any*/),
+                "type": "SiteOwner"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v21/*: any*/),
+                "type": "Provider"
+              }
+            ],
             "storageKey": null
           },
           {
@@ -457,7 +564,11 @@ return {
             "kind": "LinkedField",
             "name": "has",
             "plural": true,
-            "selections": (v19/*: any*/),
+            "selections": [
+              (v9/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/)
+            ],
             "storageKey": null
           },
           (v9/*: any*/)
@@ -471,11 +582,11 @@ return {
     "metadata": {},
     "name": "ExternalEquipmentDetailsQuery",
     "operationKind": "query",
-    "text": "query ExternalEquipmentDetailsQuery(\n  $externalEquipmentId: ID!\n) {\n  getExternalEquipmentById(id: $externalEquipmentId) {\n    ...ExternalEquipmentUpdateForm_externalEquipment\n    id\n    name\n    description\n    rack_units\n    rack_position\n    ports {\n      id\n      name\n    }\n    owner {\n      __typename\n      id\n      name\n    }\n    has {\n      __typename\n      id\n      name\n    }\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ExternalEquipmentUpdateForm_externalEquipment on ExternalEquipment {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query ExternalEquipmentDetailsQuery(\n  $externalEquipmentId: ID!\n) {\n  getExternalEquipmentById(id: $externalEquipmentId) {\n    ...ExternalEquipmentUpdateForm_externalEquipment\n    id\n    name\n    description\n    rack_units\n    rack_position\n    ports {\n      id\n      name\n    }\n    owner {\n      __typename\n      id\n      name\n      ... on EndUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Customer {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on SiteOwner {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Provider {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n    }\n    has {\n      __typename\n      id\n      name\n    }\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ExternalEquipmentUpdateForm_externalEquipment on ExternalEquipment {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '11c61d047dee14b0e88602e6145f5039';
+(node/*: any*/).hash = 'fc3ba2ebd0a5fe566149bae35fef149c';
 
 module.exports = node;

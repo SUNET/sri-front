@@ -12,7 +12,7 @@ class ExternalEquipmentDetails extends _BasicDetailsParentClass {
   classDetails = 'externalEquipment-details';
 
   handleDelete = () => {
-    DeleteExternalEquipmentMutation(this.getId(), () => this.props.history.push(`/network/externalEquipments`));
+    DeleteExternalEquipmentMutation(this.getId(), () => this.props.history.push(`/network/external-equipments`));
   };
 }
 

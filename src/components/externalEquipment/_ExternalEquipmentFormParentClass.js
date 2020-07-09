@@ -6,7 +6,7 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
-
+import FieldArrayOwner from '../firewall/FieldArrayOwner';
 // const
 import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -34,6 +34,38 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   FORM_ID = '';
   MODEL_NAME = 'externalEquipment';
   ROUTE_LIST_DIRECTION = '/network/external-equipments';
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
+    if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
+      this.props.hideModalConfirm();
+      this.updateMutation(this.entityDataToUpdate, this);
+    }
+    if (nextProps.entitySavedId) {
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      this.handleSelectedNetworkOrganization(selectionData, methodName);
+      return false;
+    }
+    return true;
+  }
+
+  handleSelectedNetworkOrganization = (selection, typeOfSelection) => {
+    if (selection !== null) {
+      this.props[typeOfSelection](selection.id).then((entity) => {
+        const newEntity = {
+          type: entity.__typename,
+          __typename: entity.__typename,
+          name: entity.name,
+          id: entity.id,
+          status: 'saved',
+        };
+        this.props.dispatch(arrayPush(this.props.form, 'owner', newEntity));
+      });
+    }
+  };
 
   renderGeneralInfoToggleSection(editMode = true) {
     const { t, rack_units, rack_position } = this.props;
@@ -84,6 +116,43 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
           </div>
         </TogglePanel>
       </ToggleSection>
+    );
+  }
+
+  renderOwnerToggleSection(editMode = false) {
+    const { t, owner } = this.props;
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('network.firewall.details.owner')}</h2>
+          </ToggleHeading>
+
+          <TogglePanel>
+            <FieldArray
+              name="owner"
+              component={FieldArrayOwner}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={this.handleSelectedNetworkOrganization}
+              rerenderOnEveryChange={true}
+              // entityRemovedId={this.state.fieldModalOpened === 'parents' ? entityRemovedId : null}
+              disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 }

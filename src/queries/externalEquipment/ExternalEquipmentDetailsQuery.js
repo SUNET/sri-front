@@ -14,8 +14,29 @@ const ExternalEquipmentDetailsQuery = graphql`
         name
       }
       owner {
+        __typename
         id
         name
+        ... on EndUser {
+          type: node_type {
+            name: type
+          }
+        }
+        ... on Customer {
+          type: node_type {
+            name: type
+          }
+        }
+        ... on SiteOwner {
+          type: node_type {
+            name: type
+          }
+        }
+        ... on Provider {
+          type: node_type {
+            name: type
+          }
+        }
       }
       has {
         id

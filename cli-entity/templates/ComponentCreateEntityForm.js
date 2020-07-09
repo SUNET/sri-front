@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import ___EntityClassName__FormParentClass from './___EntityClassName__FormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ import Validations__EntityClassName__Form from '../common/_BasicValidationForm';
 import { CREATE___CONST_NAME___FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class Create__EntityClassName__Form extends _BasicFormParentClass {
+class Create__EntityClassName__Form extends ___EntityClassName__FormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE___CONST_NAME___FORM;
   ROUTE_LIST_DIRECTION = '/__entityBlock__/__entityInternalRoutePath__s';

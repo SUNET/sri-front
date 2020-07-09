@@ -5,7 +5,10 @@ import * as confirmModalActions from '../../actions/ConfirmModal';
 import ExternalEquipmentDetails from '../../components/externalEquipment/ExternalEquipmentDetails';
 
 const mapStateToProps = (state, props) => {
-  return {};
+  return {
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {

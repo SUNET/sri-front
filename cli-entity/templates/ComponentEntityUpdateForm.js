@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import ___EntityClassName__FormParentClass from './___EntityClassName__FormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import Validations__EntityClassName__Form from '../common/_BasicValidationForm';
 import { UPDATE___CONST_NAME___FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class __EntityClassName__UpdateForm extends _BasicFormParentClass {
+class __EntityClassName__UpdateForm extends ___EntityClassName__FormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE___CONST_NAME___FORM;
   MODEL_NAME = '__entityName__';

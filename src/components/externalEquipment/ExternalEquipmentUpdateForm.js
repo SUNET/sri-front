@@ -29,10 +29,12 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
       { force: true },
     );
   };
+
   handleSubmit = (externalEquipment) => {
     this.setState({ editMode: false });
     UpdateExternalEquipmentMutation(externalEquipment, this);
   };
+
   render() {
     let { handleSubmit } = this.props;
     const { editMode } = this.state;
@@ -42,6 +44,7 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
+        {this.renderOwnerToggleSection(editMode)}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>
