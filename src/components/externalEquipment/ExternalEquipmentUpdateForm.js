@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateExternalEquipmentMutation from '../../mutations/externalEquipment/UpdateExternalEquipmentMutation';
 import ValidationsExternalEquipmentForm from '../common/_BasicValidationForm';
 // const
-import { UPDATE_EXTERNALEQUIPMENT_FORM } from '../../utils/constants';
+import { UPDATE_EXTERNALEQUIPMENT_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
@@ -30,10 +30,21 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
     );
   };
 
-  handleSubmit = (externalEquipment) => {
-    this.setState({ editMode: false });
-    UpdateExternalEquipmentMutation(externalEquipment, this);
+  handleSubmit = (entityData) => {
+    this.setState({ editMode: !this.state.editMode });
+    const ownerToRemove = entityData.owner.filter((ow) => ow.status === REMOVE);
+    const someItemWillBeDeleted = ownerToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateExternalEquipmentMutation(entityData, form);
+  }
 
   render() {
     let { handleSubmit } = this.props;
