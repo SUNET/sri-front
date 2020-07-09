@@ -7,6 +7,20 @@ const ExternalEquipmentDetailsQuery = graphql`
       id
       name
       description
+      rack_units
+      rack_position
+      ports {
+        id
+        name
+      }
+      owner {
+        id
+        name
+      }
+      has {
+        id
+        name
+      }
       __typename
       comments {
         id

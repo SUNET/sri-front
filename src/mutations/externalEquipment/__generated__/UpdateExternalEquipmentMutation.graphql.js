@@ -578,6 +578,21 @@ export type UpdateExternalEquipmentMutationResponse = {|
         +id: string,
         +name: string,
         +description: ?string,
+        +rack_units: ?number,
+        +rack_position: ?number,
+        +ports: ?$ReadOnlyArray<?{|
+          +id: string,
+          +name: string,
+        |}>,
+        +owner: ?{|
+          +id: string,
+          +name: string,
+        |},
+        +has: ?$ReadOnlyArray<?{|
+          +id: string,
+          +name: string,
+        |}>,
+        +__typename: string,
       |},
     |}
   |}
@@ -603,6 +618,23 @@ mutation UpdateExternalEquipmentMutation(
         id
         name
         description
+        rack_units
+        rack_position
+        ports {
+          id
+          name
+        }
+        owner {
+          __typename
+          id
+          name
+        }
+        has {
+          __typename
+          id
+          name
+        }
+        __typename
       }
     }
   }
@@ -620,79 +652,157 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "CompositeExternalEquipmentMutationPayload",
-    "kind": "LinkedField",
-    "name": "composite_externalEquipment",
-    "plural": false,
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ErrorType",
+  "kind": "LinkedField",
+  "name": "errors",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "field",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "messages",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_units",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_position",
+  "storageKey": null
+},
+v8 = [
+  (v3/*: any*/),
+  (v4/*: any*/)
+],
+v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Port",
+  "kind": "LinkedField",
+  "name": "ports",
+  "plural": true,
+  "selections": (v8/*: any*/),
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v11 = [
+  (v10/*: any*/),
+  (v3/*: any*/),
+  (v4/*: any*/)
+];
+return {
+  "fragment": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateExternalEquipmentMutation",
     "selections": [
       {
         "alias": null,
-        "args": null,
-        "concreteType": "UpdateExternalEquipmentPayload",
+        "args": (v1/*: any*/),
+        "concreteType": "CompositeExternalEquipmentMutationPayload",
         "kind": "LinkedField",
-        "name": "updated",
+        "name": "composite_externalEquipment",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "ErrorType",
+            "concreteType": "UpdateExternalEquipmentPayload",
             "kind": "LinkedField",
-            "name": "errors",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "field",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "messages",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ExternalEquipment",
-            "kind": "LinkedField",
-            "name": "externalEquipment",
+            "name": "updated",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "description",
+                "concreteType": "ExternalEquipment",
+                "kind": "LinkedField",
+                "name": "externalEquipment",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/),
+                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "owner",
+                    "plural": false,
+                    "selections": (v8/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "has",
+                    "plural": true,
+                    "selections": (v8/*: any*/),
+                    "storageKey": null
+                  },
+                  (v10/*: any*/)
+                ],
                 "storageKey": null
               }
             ],
@@ -702,16 +812,6 @@ v1 = [
         "storageKey": null
       }
     ],
-    "storageKey": null
-  }
-];
-return {
-  "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
-    "kind": "Fragment",
-    "metadata": null,
-    "name": "UpdateExternalEquipmentMutation",
-    "selections": (v1/*: any*/),
     "type": "Mutation"
   },
   "kind": "Request",
@@ -719,18 +819,80 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateExternalEquipmentMutation",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CompositeExternalEquipmentMutationPayload",
+        "kind": "LinkedField",
+        "name": "composite_externalEquipment",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "UpdateExternalEquipmentPayload",
+            "kind": "LinkedField",
+            "name": "updated",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ExternalEquipment",
+                "kind": "LinkedField",
+                "name": "externalEquipment",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/),
+                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "owner",
+                    "plural": false,
+                    "selections": (v11/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "has",
+                    "plural": true,
+                    "selections": (v11/*: any*/),
+                    "storageKey": null
+                  },
+                  (v10/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "UpdateExternalEquipmentMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n        rack_units\n        rack_position\n        ports {\n          id\n          name\n        }\n        owner {\n          __typename\n          id\n          name\n        }\n        has {\n          __typename\n          id\n          name\n        }\n        __typename\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a4f1ffea6b0b098ccff883938ae29d96';
+(node/*: any*/).hash = 'd2b115ae77202e969cb1dc610aa84283';
 
 module.exports = node;

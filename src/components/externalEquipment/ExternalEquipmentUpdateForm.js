@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import _ExternalEquipmentFormParentClass from './_ExternalEquipmentFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import ValidationsExternalEquipmentForm from '../common/_BasicValidationForm';
 import { UPDATE_EXTERNALEQUIPMENT_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class ExternalEquipmentUpdateForm extends _BasicFormParentClass {
+class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_EXTERNALEQUIPMENT_FORM;
   MODEL_NAME = 'externalEquipment';

@@ -41,32 +41,7 @@ entityName           ||     + EntityDetails.js
                      ||     + EntityUpdateForm.js
 
 2.Add FORM_ID in constants
-
-3.Add in SearchEntity component:
-    + DETAIL_CONTAINER = EntityDetailsContainer
-    + PATH_ENTITY_ID = "entityId"
-
-4.Enable click on the row list (in EntityRow)
-
-
-MUTATIONS
-1.Create Files:
-    + Mutations/entity/UpdateEntityMutation.js
-    + Mutations/entity/CreateEntityMutation.js
-    + Mutations/entity/DeleteEntityMutation.js
-
-2. Create Containers:
-    + containers/entity/CreateEntityForm.js
-
-3. Create Components:
-    + components/entity/CreateEntity.js
-    + components/entity/CreateEntityForm.js
-
-4. Enable Validation, CTAs Save/cancel, Edit and Delete (components/entity/EntityUpdateForm)
-
-5. Add create component in SearchEntity (CREATE_COMPONENT)
-6. Add Create route in SubMenuActions
-7. Enable method handleDelete in components/entity/EntityDetails
+3. Add in Routes.js
 
 Samples:
 

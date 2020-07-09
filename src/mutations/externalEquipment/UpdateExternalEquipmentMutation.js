@@ -17,6 +17,21 @@ const mutation = graphql`
           id
           name
           description
+          rack_units
+          rack_position
+          ports {
+            id
+            name
+          }
+          owner {
+            id
+            name
+          }
+          has {
+            id
+            name
+          }
+          __typename
         }
       }
     }
@@ -30,6 +45,10 @@ export default function UpdateExternalEquipmentMutation(externalEquipment, form)
         id: externalEquipment.id,
         name: externalEquipment.name,
         description: externalEquipment.description,
+
+        // General info
+        rack_units: externalEquipment.rack_units,
+        rack_position: externalEquipment.rack_position,
       },
     },
   };
