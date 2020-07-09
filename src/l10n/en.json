@@ -125,7 +125,7 @@
             "actions.moved_to_trash": "Moved to trash",
             "actions.confirm-delete.main-text": "Are you sure you want to delete this item?",
             "actions.confirm-delete.secondary-text": "This will take effect immediately, and the action is not reversible.",
-            "actions.confirm-partial-delete.main-text": "PREGUNTA _ BORRADO PARCIAL ",
+            "actions.confirm-partial-delete.main-text": "Updating this item will delete any dependents, are you sure?",
             "actions.confirm-partial-delete.secondary-text": "This will take effect immediately, and the action is not reversible.",
             "contact-details.add-new-contact": "Add new contact",
             "contact-details.modify-contact": "Modify contact",
