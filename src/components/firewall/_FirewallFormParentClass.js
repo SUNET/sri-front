@@ -39,6 +39,11 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   ROUTE_LIST_DIRECTION = '/network/firewalls';
 
   shouldComponentUpdate(nextProps, nextState) {
+    const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
+    if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
+      this.props.hideModalConfirm();
+      this.updateMutation(this.entityDataToUpdate, this);
+    }
     if (nextProps.entitySavedId) {
       const selectionData = {
         id: nextProps.entitySavedId,

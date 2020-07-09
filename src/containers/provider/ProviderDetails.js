@@ -10,6 +10,7 @@ const mapStateToProps = (state, props) => {
     idFromModal: state.formModal.entityId,
     history: props.history,
     isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 

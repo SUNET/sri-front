@@ -6,6 +6,8 @@ import * as formModalActions from '../../actions/FormModal';
 import CreatePortForm from '../../components/port/CreatePortForm';
 import getCable from '../../components/cable/Cable';
 import getPort from '../../components/port/Port';
+import getSwitch from '../../components/switch/Switch';
+import getFirewall from '../../components/firewall/Firewall';
 
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'createPortInModal' : 'createPort';
@@ -17,6 +19,8 @@ const mapStateToProps = (state, props) => {
     name: updatePortSelector(state, 'name'),
     getCableById: (id) => getCable(id),
     getPortById: (id) => getPort(id),
+    getSwitchById: (id) => getSwitch(id),
+    getFirewallById: (id) => getFirewall(id),
     isFromModal: props.isFromModal,
     entityInModalName: state.formModal.entityName,
     editedSubEntity: state.formModal.entityEditedId,

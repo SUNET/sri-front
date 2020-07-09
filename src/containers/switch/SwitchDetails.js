@@ -7,6 +7,7 @@ import SwitchDetails from '../../components/switch/SwitchDetails';
 const mapStateToProps = (state, props) => {
   return {
     isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 

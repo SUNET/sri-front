@@ -6,6 +6,7 @@ import uuidv4 from 'uuid/v4';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import * as FormModalActions from '../../actions/FormModal';
+import * as confirmModalActions from '../../actions/ConfirmModal';
 
 function formattedContacts(organization) {
   const { contacts } = organization;
@@ -137,6 +138,9 @@ const mapStateToProps = (state, props) => {
     entityRemovedId: state.formModal.entityRemovedId,
     entitySavedId: state.formModal.entitySavedId,
     getContact: (id) => getContact(id),
+    // these props are because this form has entities listed as attributes
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 
@@ -163,6 +167,13 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     showContactEditForm: (idContact) => {
       dispatch(FormModalActions.showModalEditForm('Contact', idContact));
+    },
+    // these methods are because this form has entities listed as attributes
+    showModalConfirm: (type) => {
+      dispatch(confirmModalActions.showModalConfirm(type));
+    },
+    hideModalConfirm: () => {
+      dispatch(confirmModalActions.hideModalConfirm());
     },
   };
 };

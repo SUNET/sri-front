@@ -2,7 +2,7 @@ import types from '../types/confirmModal';
 
 const initialState = {
   showModalConfirm: false,
-  modalConfirmType: '', // delete ||
+  modalConfirmType: '', // delete || partialDelete
   confirmDelete: false,
 };
 

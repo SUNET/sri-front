@@ -7,6 +7,7 @@ import FirewallDetails from '../../components/firewall/FirewallDetails';
 const mapStateToProps = (state, props) => {
   return {
     isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 

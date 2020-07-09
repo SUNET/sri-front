@@ -25,6 +25,11 @@ class _GroupFormParentClass extends React.Component {
   ROUTE_LIST_DIRECTION = '/community/groups';
 
   shouldComponentUpdate(nextProps, nextState) {
+    const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
+    if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
+      this.props.hideModalConfirm();
+      this.updateMutation(this.entityDataToUpdate, this);
+    }
     if (nextProps.entitySavedId) {
       const selectionData = {
         id: nextProps.entitySavedId,

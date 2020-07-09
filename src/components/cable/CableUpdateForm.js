@@ -9,7 +9,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateCableMutation from '../../mutations/cable/UpdateCableMutation';
 import ValidationsCableForm from './ValidationsCableForm';
 // const
-import { UPDATE_CABLE_FORM } from '../../utils/constants';
+import { UPDATE_CABLE_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class CableUpdateForm extends _CableFormParentClass {
@@ -23,6 +23,7 @@ class CableUpdateForm extends _CableFormParentClass {
       editMode: props.isEditModeModal,
     };
   }
+
   refetch = () => {
     this.props.relay.refetch(
       { cableId: this.props.cable.id }, // Our refetchQuery needs to know the `cableID`
@@ -33,11 +34,23 @@ class CableUpdateForm extends _CableFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (cable) => {
+
+  handleSubmit = (entityData) => {
     this.setState({ editMode: !this.state.editMode });
     this.props.hideModalForm();
-    UpdateCableMutation(cable, this);
+    const connectionsToRemove = entityData.connections.filter((connection) => connection.status === REMOVE);
+    const someItemWillBeDeleted = connectionsToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateCableMutation(entityData, form);
+  }
 
   render() {
     let { handleSubmit, isFromModal } = this.props;

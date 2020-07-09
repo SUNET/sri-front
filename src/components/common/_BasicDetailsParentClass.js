@@ -13,7 +13,7 @@ class _BasicDetailsParentClass extends React.Component {
   // lifecycle
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
-    if (confirmedDelete) {
+    if (confirmedDelete && nextProps.confirmModalType === 'delete') {
       this.props.hideModalConfirm();
       this.handleDelete();
     }

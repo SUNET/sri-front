@@ -7,6 +7,7 @@ import OrganizationDetails from '../../components/organization/OrganizationDetai
 const mapStateToProps = (state, props) => {
   return {
     isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 

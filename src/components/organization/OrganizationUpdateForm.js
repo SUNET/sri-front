@@ -9,7 +9,7 @@ import UpdateOrganizationMutation from '../../mutations/organization/UpdateOrgan
 import ValidationsOrganizationForm from './ValidationOrganizationForm';
 import PropTypes from 'prop-types';
 // const
-import { UPDATE_ORGANIZATION_FORM } from '../../utils/constants';
+import { UPDATE_ORGANIZATION_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class OrganizationUpdateForm extends _OrganizationFormParentClass {
@@ -37,10 +37,20 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
     );
   };
 
-  handleSubmit = (organization) => {
+  handleSubmit = (entityData) => {
     this.setState({ editMode: false });
-    UpdateOrganizationMutation(organization, this);
+    const someItemWillBeDeleted = entityData.contacts.filter((contact) => contact.status === REMOVE).length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateOrganizationMutation(entityData, form);
+  }
 
   render() {
     let { handleSubmit } = this.props;

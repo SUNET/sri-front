@@ -117,6 +117,32 @@ const DropdownSearchTypeHeadPortsQuery = graphql`
   }
 `;
 
+const DropdownSearchAllSwitchsQuery = graphql`
+  query DropdownSearchAllSwitchsQuery($filter: SwitchFilter) {
+    switchs(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllFirewallsQuery = graphql`
+  query DropdownSearchAllFirewallsQuery($filter: FirewallFilter) {
+    firewalls(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -155,6 +181,12 @@ class DropdownSearch extends React.Component {
         break;
       case 'ports':
         queryModel.query = DropdownSearchAllPortsQuery;
+        break;
+      case 'switchs':
+        queryModel.query = DropdownSearchAllSwitchsQuery;
+        break;
+      case 'firewalls':
+        queryModel.query = DropdownSearchAllFirewallsQuery;
         break;
       case 'ports-type-head':
         queryModel.query = DropdownSearchTypeHeadPortsQuery;

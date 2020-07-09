@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateFirewallMutation from '../../mutations/firewall/UpdateFirewallMutation';
 import ValidationsFirewallForm from './ValidationsFirewallForm';
 // const
-import { UPDATE_FIREWALL_FORM } from '../../utils/constants';
+import { UPDATE_FIREWALL_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class FirewallUpdateForm extends _FirewallFormParentClass {
@@ -19,6 +19,7 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   state = {
     editMode: false,
   };
+
   refetch = () => {
     this.props.relay.refetch(
       { firewallId: this.props.firewall.id }, // Our refetchQuery needs to know the `firewallID`
@@ -29,10 +30,23 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (firewall) => {
-    this.setState({ editMode: false });
-    UpdateFirewallMutation(firewall, this);
+
+  handleSubmit = (entityData) => {
+    this.setState({ editMode: !this.state.editMode });
+    const ownerToRemove = entityData.owner.filter((ow) => ow.status === REMOVE);
+    const someItemWillBeDeleted = ownerToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateFirewallMutation(entityData, form);
+  }
+
   render() {
     let { handleSubmit } = this.props;
     const { editMode } = this.state;
