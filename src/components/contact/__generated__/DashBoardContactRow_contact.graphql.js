@@ -14,7 +14,7 @@ declare export opaque type DashBoardContactRow_contact$fragmentType: DashBoardCo
 export type DashBoardContactRow_contact = {|
   +id: string,
   +first_name: string,
-  +last_name: string,
+  +last_name: ?string,
   +modified: any,
   +roles: ?$ReadOnlyArray<?{|
     +name: ?string,

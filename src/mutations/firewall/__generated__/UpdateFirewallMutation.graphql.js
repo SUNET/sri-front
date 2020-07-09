@@ -9,6 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CompositeFirewallMutationInput = {|
+  delete_owner?: ?DeleteOwnerMutationInput,
   update_input?: ?UpdateFirewallInput,
   unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
   create_dependents_group?: ?$ReadOnlyArray<?CreateGroupInput>,
@@ -26,6 +27,10 @@ export type CompositeFirewallMutationInput = {|
   create_dependents_email?: ?$ReadOnlyArray<?CreateEmailInput>,
   update_dependents_email?: ?$ReadOnlyArray<?UpdateEmailInput>,
   deleted_dependents_email?: ?$ReadOnlyArray<?DeleteEmailInput>,
+  clientMutationId?: ?string,
+|};
+export type DeleteOwnerMutationInput = {|
+  id: string,
   clientMutationId?: ?string,
 |};
 export type UpdateFirewallInput = {|

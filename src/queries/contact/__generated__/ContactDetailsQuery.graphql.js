@@ -23,7 +23,7 @@ export type ContactDetailsQueryResponse = {|
       +value: string,
     |},
     +first_name: string,
-    +last_name: string,
+    +last_name: ?string,
     +pgp_fingerprint: ?string,
     +emails: ?$ReadOnlyArray<?{|
       +id: string,

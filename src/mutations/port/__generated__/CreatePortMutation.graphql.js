@@ -30,6 +30,9 @@ export type CompositePortMutationInput = {|
   create_parent_firewall?: ?$ReadOnlyArray<?CreateFirewallInput>,
   update_parent_firewall?: ?$ReadOnlyArray<?UpdateFirewallInput>,
   deleted_parent_firewall?: ?$ReadOnlyArray<?DeleteFirewallInput>,
+  create_parent_externalequipment?: ?$ReadOnlyArray<?CreateExternalEquipmentInput>,
+  update_parent_externalequipment?: ?$ReadOnlyArray<?UpdateExternalEquipmentInput>,
+  deleted_parent_externalequipment?: ?$ReadOnlyArray<?DeleteExternalEquipmentInput>,
   clientMutationId?: ?string,
 |};
 export type CreatePortInput = {|
@@ -217,6 +220,30 @@ export type UpdateFirewallInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteFirewallInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateExternalEquipmentInput = {|
+  name: string,
+  description?: ?string,
+  rack_units?: ?number,
+  rack_position?: ?number,
+  relationship_owner?: ?any,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateExternalEquipmentInput = {|
+  name: string,
+  description?: ?string,
+  rack_units?: ?number,
+  rack_position?: ?number,
+  relationship_owner?: ?any,
+  relationship_location?: ?number,
+  relationship_ports?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteExternalEquipmentInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

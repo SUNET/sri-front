@@ -30,6 +30,9 @@ export type CompositeGroupMutationInput = {|
   create_part_of_firewall?: ?CreateFirewallInput,
   update_part_of_firewall?: ?UpdateFirewallInput,
   deleted_part_of_firewall?: ?DeleteFirewallInput,
+  create_part_of_externalequipment?: ?CreateExternalEquipmentInput,
+  update_part_of_externalequipment?: ?UpdateExternalEquipmentInput,
+  deleted_part_of_externalequipment?: ?DeleteExternalEquipmentInput,
   clientMutationId?: ?string,
 |};
 export type CreateGroupInput = {|
@@ -277,6 +280,30 @@ export type DeleteFirewallInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
+export type CreateExternalEquipmentInput = {|
+  name: string,
+  description?: ?string,
+  rack_units?: ?number,
+  rack_position?: ?number,
+  relationship_owner?: ?any,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateExternalEquipmentInput = {|
+  name: string,
+  description?: ?string,
+  rack_units?: ?number,
+  rack_position?: ?number,
+  relationship_owner?: ?any,
+  relationship_location?: ?number,
+  relationship_ports?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteExternalEquipmentInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type CreateGroupMutationVariables = {|
   input: CompositeGroupMutationInput
 |};
@@ -301,7 +328,7 @@ export type CreateGroupMutationResponse = {|
       +contact: ?{|
         +id: string,
         +first_name: string,
-        +last_name: string,
+        +last_name: ?string,
         +contact_type: ?{|
           +name: string,
           +value: string,
@@ -335,7 +362,7 @@ export type CreateGroupMutationResponse = {|
       +contact: ?{|
         +id: string,
         +first_name: string,
-        +last_name: string,
+        +last_name: ?string,
         +contact_type: ?{|
           +name: string,
           +value: string,

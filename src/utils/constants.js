@@ -21,6 +21,8 @@ export const CREATE_SWITCH_FORM = 'create-switch-form';
 export const UPDATE_SWITCH_FORM = 'update-switch-form';
 export const CREATE_FIREWALL_FORM = 'create-firewall-form';
 export const UPDATE_FIREWALL_FORM = 'update-firewall-form';
+export const CREATE_EXTERNALEQUIPMENT_FORM = 'create-external-equipment-form';
+export const UPDATE_EXTERNALEQUIPMENT_FORM = 'update-external-equipment-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';

@@ -20,7 +20,7 @@ export type GroupDetailsQueryResponse = {|
     +contacts: ?$ReadOnlyArray<?{|
       +id: string,
       +first_name: string,
-      +last_name: string,
+      +last_name: ?string,
       +relation_id: ?number,
       +contact_type: ?{|
         +name: string,
