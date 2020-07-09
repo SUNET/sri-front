@@ -1,70 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { QueryRenderer } from 'react-relay';
-import { withTranslation } from 'react-i18next';
-
+import _BasicDetailsParentClass from '../common/_BasicDetailsParentClass';
 import ContactUpdateFormContainer from '../../containers/contact/ContactUpdateForm';
 import DeleteContactMutation from '../../mutations/contact/DeleteContactMutation';
-import environment from '../../createRelayEnvironment';
 import ContactDetailsQuery from '../../queries/contact/ContactDetailsQuery';
 
-class ContactDetails extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.node,
-      }),
-    }),
-  };
-
-  getId() {
-    const { isFromModal, idFromModal, match } = this.props;
-    const entityId = isFromModal && idFromModal ? idFromModal : match.params.contactId;
-    return entityId;
-  }
+class ContactDetails extends _BasicDetailsParentClass {
+  ID_ENTITY_KEY = 'contactId';
+  UpdateFormContainer = ContactUpdateFormContainer;
+  DetailsQuery = ContactDetailsQuery;
+  entityNameProp = 'contact';
+  entityGetDetailsMethodName = 'getContactById';
+  classDetails = 'contact-details';
 
   handleDelete = () => {
     const { history, isFromModal, deletedEntity } = this.props;
-    const contactId = this.getId();
+    const idEntity = this.getId();
     const callbackAfterDeleteInModal = () => {
-      deletedEntity(contactId);
+      deletedEntity(idEntity);
     };
     const callbackInRouteForm = () => {
       history.push(`/community/contacts`);
     };
-    DeleteContactMutation(contactId, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
+    DeleteContactMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
-
-  render() {
-    const contactId = this.getId();
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={ContactDetailsQuery}
-        variables={{
-          contactId,
-        }}
-        render={({ error, props, retry }) => {
-          if (error) {
-            return <div>{this.props.t('general.error')}</div>;
-          } else if (props) {
-            return (
-              <section className="model-details contact-details">
-                <ContactUpdateFormContainer
-                  isFromModal={this.props.isFromModal}
-                  onDelete={this.handleDelete}
-                  contact={props.getContactById}
-                  history={this.props.history}
-                  refetch={retry}
-                />
-              </section>
-            );
-          }
-          return <div>Loading</div>;
-        }}
-      />
-    );
-  }
 }
 
-export default withTranslation()(ContactDetails);
+export default ContactDetails;

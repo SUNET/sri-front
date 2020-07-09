@@ -17,6 +17,7 @@ import SideNavCommunity from './SideNavCommunity';
 import SubMenuActions from './SubMenuActions';
 import Breadcrumbs from '../containers/Breadcrumbs';
 import ModalFormContainer from '../containers/ModalForm';
+import ConfirmModal from './ConfirmModal';
 
 import 'bootstrap/scss/bootstrap.scss';
 import '../style/App.scss';
@@ -66,6 +67,7 @@ const App = ({ is_fetching, is_app_loaded, generalFilter }) => {
         </ConnectedRouter>
       </div>
       <ModalFormContainer />
+      <ConfirmModal />
     </FetchingContext.Provider>
   );
 };

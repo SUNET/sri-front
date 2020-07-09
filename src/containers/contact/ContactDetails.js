@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
+import * as confirmModalActions from '../../actions/ConfirmModal';
 
 import ContactDetails from '../../components/contact/ContactDetails';
 
@@ -9,6 +10,7 @@ const mapStateToProps = (state, props) => {
     isFromModal: props.isFromModal,
     idFromModal: state.formModal.entityId,
     history: props.history,
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
   };
 };
 
@@ -19,6 +21,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     deletedEntity: (contactId) => {
       dispatch(formModalActions.deletedEntity('Contact', contactId));
+    },
+    showModalConfirm: (type) => {
+      dispatch(confirmModalActions.showModalConfirm(type));
+    },
+    hideModalConfirm: () => {
+      dispatch(confirmModalActions.hideModalConfirm());
     },
   };
 };

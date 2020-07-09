@@ -1,0 +1,37 @@
+@import "../variables.scss";
+@import "./viewports.scss";
+
+.confirm-modal {
+    @include desktop {
+        min-width: 600px;
+    }
+    .modal-content {
+        font-family: "Karla", sans-serif;
+        border: none;
+        border-radius: 0;
+        .modal-header {
+            padding: 8px;
+            border: none;
+            button.close {
+                font-weight: 400;
+                opacity: 0.2;
+            }
+        }
+        .confirm-modal__body {
+            padding: 75px 160px 60px;
+            text-align: center;
+            color: $gray-font-color;
+            &__main-text {
+                font-size: 1.3em;
+                margin-bottom: 1.5em;
+            }
+            &__secondary-text {
+                font-size: 0.9em;
+                margin-bottom: 4em;
+            }
+            &__buttons {
+                margin-bottom: 1em;
+            }
+        }
+    }
+}
