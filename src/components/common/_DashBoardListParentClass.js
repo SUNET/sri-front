@@ -69,7 +69,6 @@ class _DashBoardListParentClass extends React.Component {
 
   renderList() {
     const dataEntity = this.props[this.MAIN_PROP_NAME];
-    console.log('dataEntity: ', dataEntity);
     return (
       <div>
         {dataEntity &&

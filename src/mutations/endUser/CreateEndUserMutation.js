@@ -42,7 +42,12 @@ function CreateEndUserMutation(endUser, form) {
                 if (endUser.comment) {
                     CreateCommentMutation(endUser_id, endUser.comment);
                 }
-                form.props.history.push("/network/end-users/" + endUser_id);
+                if (form.props.history) {
+                    form.props.history.push("/network/end-users/" + endUser_id);
+                } else {
+                    form.props.createdEntity('EndUser', endUser_id);
+                    form.props.hideModalForm();
+                }
                 form.props.notify(i18n.t("notify.network/endUsers-created-success"), "success");
             }
         },

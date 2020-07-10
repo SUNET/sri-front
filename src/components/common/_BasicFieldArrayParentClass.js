@@ -166,7 +166,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     }
   }
   isDisabledFilters() {
-    return this.props.disabledFilters || this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false;
+    return this.props.disabledFilters || (this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false);
   }
 
   // common Renders

@@ -11,12 +11,12 @@ import graphql from "babel-plugin-relay/macro";
 // Components imports
 import SiteOwnerList from "../../containers/siteOwner/SiteOwnerList";
 import SiteOwnerDetailsContainer from "../../containers/siteOwner/SiteOwnerDetails";
-import CreateSiteOwner from "./CreateSiteOwner";
+import CreateSiteOwnerRoute from "./CreateSiteOwnerRoute/CreateSiteOwnerRoute";
 // Constants
 
 class SearchSiteOwner extends _SearchEntityParentClass {
     LIST_CONTAINER = SiteOwnerList;
-    CREATE_COMPONENT = CreateSiteOwner;
+    CREATE_COMPONENT = CreateSiteOwnerRoute;
     DETAIL_CONTAINER = SiteOwnerDetailsContainer;
 
     MODEL_NAME = "siteOwner";

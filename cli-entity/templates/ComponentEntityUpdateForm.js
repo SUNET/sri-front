@@ -50,7 +50,6 @@ class __EntityClassName__UpdateForm extends _BasicFormParentClass {
 }
 
 __EntityClassName__UpdateForm = reduxForm({
-  form: 'update__EntityClassName__',
   validate: Validations__EntityClassName__Form.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {

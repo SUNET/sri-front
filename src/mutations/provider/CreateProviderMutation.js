@@ -42,7 +42,12 @@ function CreateProviderMutation(provider, form) {
                 if (provider.comment) {
                     CreateCommentMutation(provider_id, provider.comment);
                 }
-                form.props.history.push("/network/providers/" + provider_id);
+                if (form.props.history) {
+                    form.props.history.push("/network/providers/" + provider_id);
+                } else {
+                    form.props.createdEntity('Provider', provider_id);
+                    form.props.hideModalForm();
+                }
                 form.props.notify(i18n.t("notify.network/providers-created-success"), "success");
             }
         },

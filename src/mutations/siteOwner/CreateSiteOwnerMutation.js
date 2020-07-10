@@ -42,7 +42,12 @@ function CreateSiteOwnerMutation(siteOwner, form) {
                 if (siteOwner.comment) {
                     CreateCommentMutation(siteOwner_id, siteOwner.comment);
                 }
-                form.props.history.push("/network/site-owners/" + siteOwner_id);
+                if (form.props.history) {
+                    form.props.history.push("/network/site-owners/" + siteOwner_id);
+                } else {
+                    form.props.createdEntity('SiteOwner', siteOwner_id);
+                    form.props.hideModalForm();
+                }
                 form.props.notify(i18n.t("notify.network/siteOwners-created-success"), "success");
             }
         },
