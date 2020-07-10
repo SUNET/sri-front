@@ -42,7 +42,12 @@ function CreateCustomerMutation(customer, form) {
                 if (customer.comment) {
                     CreateCommentMutation(customer_id, customer.comment);
                 }
-                form.props.history.push("/network/customers/" + customer_id);
+                if (form.props.history) {
+                    form.props.history.push("/network/customers/" + customer_id);
+                } else {
+                    form.props.createdEntity('Customer', customer_id);
+                    form.props.hideModalForm();
+                }
                 form.props.notify(i18n.t("notify.network/customers-created-success"), "success");
             }
         },

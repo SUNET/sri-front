@@ -103,10 +103,10 @@ export default function UpdateSwitchMutation(switchData, form) {
         return response.composite_switch.updated.errors;
       }
       form.props.reset();
-      // form.refetch();
       if (form.props.isFromModal) {
         form.props.editedEntity('Switch', response.composite_switch.updated.switch.id);
       } else {
+        form.refetch();
         form.props.notify(i18n.t('notify.changes-saved'), 'success');
       }
     },

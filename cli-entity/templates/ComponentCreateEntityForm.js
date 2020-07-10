@@ -39,7 +39,6 @@ class Create__EntityClassName__Form extends _BasicFormParentClass {
 }
 
 Create__EntityClassName__Form = reduxForm({
-  form: 'create__EntityClassName__',
   validate: Validations__EntityClassName__Form.validate,
   initialValues: {
     name: '',

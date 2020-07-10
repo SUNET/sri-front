@@ -5,7 +5,7 @@ import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import CreateCableForm from '../../components/cable/CreateCableForm';
 
-import { getProvider } from '../../components/provider/Provider';
+import getProvider from '../../components/provider/Provider';
 import getPort from '../../components/port/Port';
 
 const mapStateToProps = (state, props) => {

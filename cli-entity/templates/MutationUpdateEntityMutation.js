@@ -42,10 +42,10 @@ export default function Update__EntityClassName__Mutation(__entityName__, form) 
         return response.update___entityName__.updated.errors;
       }
       form.props.reset();
-      // form.refetch();
       if (form.props.isFromModal) {
         form.props.editedEntity('__EntityClassName__', response.composite___entityName__.updated.__entityName__.id);
       } else {
+        form.refetch();
         form.props.notify(i18n.t('notify.changes-saved'), 'success');
       }
     },

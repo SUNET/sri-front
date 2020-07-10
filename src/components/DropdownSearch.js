@@ -39,6 +39,42 @@ const DropdownSearchAllProvidersQuery = graphql`
     }
   }
 `;
+const DropdownSearchAllCustomersQuery = graphql`
+  query DropdownSearchAllCustomersQuery($filter: CustomerFilter) {
+    customers(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+const DropdownSearchAllEndUsersQuery = graphql`
+  query DropdownSearchAllEndUsersQuery($filter: EndUserFilter) {
+    endUsers(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+const DropdownSearchAllSiteOwnersQuery = graphql`
+  query DropdownSearchAllSiteOwnersQuery($filter: SiteOwnerFilter) {
+    siteOwners(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 const DropdownSearchAllCablesQuery = graphql`
   query DropdownSearchAllCablesQuery($filter: CableFilter) {
     cables(filter: $filter) {
@@ -104,6 +140,15 @@ class DropdownSearch extends React.Component {
         break;
       case 'providers':
         queryModel.query = DropdownSearchAllProvidersQuery;
+        break;
+      case 'customers':
+        queryModel.query = DropdownSearchAllCustomersQuery;
+        break;
+      case 'endUsers':
+        queryModel.query = DropdownSearchAllEndUsersQuery;
+        break;
+      case 'siteOwners':
+        queryModel.query = DropdownSearchAllSiteOwnersQuery;
         break;
       case 'cables':
         queryModel.query = DropdownSearchAllCablesQuery;

@@ -27,7 +27,7 @@ class PortUpdateForm extends _PortFormParentClass {
       { portId: this.props.port.id }, // Our refetchQuery needs to know the `portID`
       null, // We can use the refetchVariables as renderVariables
       () => {
-        console.log('Refetch done');
+        this.updateBreadcrumbsData();
       },
       { force: true },
     );

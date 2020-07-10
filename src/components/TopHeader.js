@@ -195,6 +195,7 @@ export class TopHeader extends React.Component {
               { name: t('network.sub-menu.equipment/cables'), route: '/network/cables' },
               { name: t('network.sub-menu.equipment/ports'), route: '/network/ports' },
               { name: t('network.sub-menu.equipment/switches'), route: '/network/switches' },
+              { name: t('network.sub-menu.equipment/firewalls'), route: '/network/firewalls' },
               // { name: "Hosts", route: "/network/customers" },
               // { name: "Firewalls", route: "/network/customers" },
               // { name: "Routers", route: "/network/customers" },
