@@ -8,36 +8,34 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type SwitchQueryVariables = {|
-  switchId: string
+export type ExternalEquipmentQueryVariables = {|
+  externalEquipmentId: string
 |};
-export type SwitchQueryResponse = {|
-  +getSwitchById: ?{|
+export type ExternalEquipmentQueryResponse = {|
+  +getExternalEquipmentById: ?{|
     +__typename: string,
     +id: string,
     +name: string,
     +description: ?string,
-    +operational_state: string,
     +type: string,
   |}
 |};
-export type SwitchQuery = {|
-  variables: SwitchQueryVariables,
-  response: SwitchQueryResponse,
+export type ExternalEquipmentQuery = {|
+  variables: ExternalEquipmentQueryVariables,
+  response: ExternalEquipmentQueryResponse,
 |};
 */
 
 
 /*
-query SwitchQuery(
-  $switchId: ID!
+query ExternalEquipmentQuery(
+  $externalEquipmentId: ID!
 ) {
-  getSwitchById(id: $switchId) {
+  getExternalEquipmentById(id: $externalEquipmentId) {
     __typename
     id
     name
     description
-    operational_state
     type: __typename
   }
 }
@@ -48,7 +46,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "switchId",
+    "name": "externalEquipmentId",
     "type": "ID!"
   }
 ],
@@ -59,12 +57,12 @@ v1 = [
       {
         "kind": "Variable",
         "name": "id",
-        "variableName": "switchId"
+        "variableName": "externalEquipmentId"
       }
     ],
-    "concreteType": "Switch",
+    "concreteType": "ExternalEquipment",
     "kind": "LinkedField",
-    "name": "getSwitchById",
+    "name": "getExternalEquipmentById",
     "plural": false,
     "selections": [
       {
@@ -96,13 +94,6 @@ v1 = [
         "storageKey": null
       },
       {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "operational_state",
-        "storageKey": null
-      },
-      {
         "alias": "type",
         "args": null,
         "kind": "ScalarField",
@@ -118,7 +109,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SwitchQuery",
+    "name": "ExternalEquipmentQuery",
     "selections": (v1/*: any*/),
     "type": "Query"
   },
@@ -126,19 +117,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SwitchQuery",
+    "name": "ExternalEquipmentQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "SwitchQuery",
+    "name": "ExternalEquipmentQuery",
     "operationKind": "query",
-    "text": "query SwitchQuery(\n  $switchId: ID!\n) {\n  getSwitchById(id: $switchId) {\n    __typename\n    id\n    name\n    description\n    operational_state\n    type: __typename\n  }\n}\n"
+    "text": "query ExternalEquipmentQuery(\n  $externalEquipmentId: ID!\n) {\n  getExternalEquipmentById(id: $externalEquipmentId) {\n    __typename\n    id\n    name\n    description\n    type: __typename\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '141b2fafaa94acbc6e7a494a2f0b1899';
+(node/*: any*/).hash = 'dda429fcb38de818723f952a44b1a38a';
 
 module.exports = node;

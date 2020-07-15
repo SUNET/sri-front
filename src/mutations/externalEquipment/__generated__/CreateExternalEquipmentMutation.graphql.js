@@ -578,6 +578,25 @@ export type CreateExternalEquipmentMutationResponse = {|
         +id: string,
         +name: string,
         +description: ?string,
+        +rack_units: ?number,
+        +rack_position: ?number,
+        +ports: ?$ReadOnlyArray<?{|
+          +id: string,
+          +name: string,
+        |}>,
+        +owner: ?{|
+          +__typename: string,
+          +id: string,
+          +name: string,
+          +type?: {|
+            +name: string
+          |},
+        |},
+        +has: ?$ReadOnlyArray<?{|
+          +id: string,
+          +name: string,
+        |}>,
+        +__typename: string,
       |},
     |}
   |}
@@ -603,6 +622,47 @@ mutation CreateExternalEquipmentMutation(
         id
         name
         description
+        rack_units
+        rack_position
+        ports {
+          id
+          name
+        }
+        owner {
+          __typename
+          id
+          name
+          ... on EndUser {
+            type: node_type {
+              name: type
+              id
+            }
+          }
+          ... on Customer {
+            type: node_type {
+              name: type
+              id
+            }
+          }
+          ... on SiteOwner {
+            type: node_type {
+              name: type
+              id
+            }
+          }
+          ... on Provider {
+            type: node_type {
+              name: type
+              id
+            }
+          }
+        }
+        has {
+          __typename
+          id
+          name
+        }
+        __typename
       }
     }
   }
@@ -620,87 +680,124 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "CompositeExternalEquipmentMutationPayload",
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ErrorType",
+  "kind": "LinkedField",
+  "name": "errors",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "field",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "messages",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_units",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_position",
+  "storageKey": null
+},
+v8 = [
+  (v3/*: any*/),
+  (v4/*: any*/)
+],
+v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Port",
+  "kind": "LinkedField",
+  "name": "ports",
+  "plural": true,
+  "selections": (v8/*: any*/),
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v11 = {
+  "alias": "name",
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v12 = [
+  {
+    "alias": "type",
+    "args": null,
+    "concreteType": "NINodeType",
     "kind": "LinkedField",
-    "name": "composite_externalEquipment",
+    "name": "node_type",
     "plural": false,
     "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "CreateExternalEquipmentPayload",
-        "kind": "LinkedField",
-        "name": "created",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ErrorType",
-            "kind": "LinkedField",
-            "name": "errors",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "field",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "messages",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ExternalEquipment",
-            "kind": "LinkedField",
-            "name": "externalEquipment",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "description",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
+      (v11/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
+v13 = [
+  {
+    "alias": "type",
+    "args": null,
+    "concreteType": "NINodeType",
+    "kind": "LinkedField",
+    "name": "node_type",
+    "plural": false,
+    "selections": [
+      (v11/*: any*/),
+      (v3/*: any*/)
     ],
     "storageKey": null
   }
@@ -711,7 +808,93 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateExternalEquipmentMutation",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CompositeExternalEquipmentMutationPayload",
+        "kind": "LinkedField",
+        "name": "composite_externalEquipment",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CreateExternalEquipmentPayload",
+            "kind": "LinkedField",
+            "name": "created",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ExternalEquipment",
+                "kind": "LinkedField",
+                "name": "externalEquipment",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/),
+                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "owner",
+                    "plural": false,
+                    "selections": [
+                      (v10/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v12/*: any*/),
+                        "type": "EndUser"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v12/*: any*/),
+                        "type": "Customer"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v12/*: any*/),
+                        "type": "SiteOwner"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v12/*: any*/),
+                        "type": "Provider"
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "has",
+                    "plural": true,
+                    "selections": (v8/*: any*/),
+                    "storageKey": null
+                  },
+                  (v10/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation"
   },
   "kind": "Request",
@@ -719,18 +902,108 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateExternalEquipmentMutation",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CompositeExternalEquipmentMutationPayload",
+        "kind": "LinkedField",
+        "name": "composite_externalEquipment",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CreateExternalEquipmentPayload",
+            "kind": "LinkedField",
+            "name": "created",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ExternalEquipment",
+                "kind": "LinkedField",
+                "name": "externalEquipment",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/),
+                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "owner",
+                    "plural": false,
+                    "selections": [
+                      (v10/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v13/*: any*/),
+                        "type": "EndUser"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v13/*: any*/),
+                        "type": "Customer"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v13/*: any*/),
+                        "type": "SiteOwner"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v13/*: any*/),
+                        "type": "Provider"
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "has",
+                    "plural": true,
+                    "selections": [
+                      (v10/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  (v10/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "CreateExternalEquipmentMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n        rack_units\n        rack_position\n        ports {\n          id\n          name\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on SiteOwner {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        has {\n          __typename\n          id\n          name\n        }\n        __typename\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '80247e44f2c8072f6ddf8868a2d807e6';
+(node/*: any*/).hash = '438a669b685f995ef0beb4d7dea9fc25';
 
 module.exports = node;

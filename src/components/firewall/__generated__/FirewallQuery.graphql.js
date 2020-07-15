@@ -17,6 +17,7 @@ export type FirewallQueryResponse = {|
     +id: string,
     +name: string,
     +description: ?string,
+    +operational_state: string,
     +type: string,
   |}
 |};
@@ -36,6 +37,7 @@ query FirewallQuery(
     id
     name
     description
+    operational_state
     type: __typename
   }
 }
@@ -94,6 +96,13 @@ v1 = [
         "storageKey": null
       },
       {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "operational_state",
+        "storageKey": null
+      },
+      {
         "alias": "type",
         "args": null,
         "kind": "ScalarField",
@@ -125,11 +134,11 @@ return {
     "metadata": {},
     "name": "FirewallQuery",
     "operationKind": "query",
-    "text": "query FirewallQuery(\n  $firewallId: ID!\n) {\n  getFirewallById(id: $firewallId) {\n    __typename\n    id\n    name\n    description\n    type: __typename\n  }\n}\n"
+    "text": "query FirewallQuery(\n  $firewallId: ID!\n) {\n  getFirewallById(id: $firewallId) {\n    __typename\n    id\n    name\n    description\n    operational_state\n    type: __typename\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0fae354ed4f2214831aff5d50d2e4e5c';
+(node/*: any*/).hash = '741505a509022de6ced36512d77cc9e2';
 
 module.exports = node;
