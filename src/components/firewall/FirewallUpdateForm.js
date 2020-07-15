@@ -32,7 +32,7 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   };
 
   handleSubmit = (entityData) => {
-    this.setState({ editMode: !this.state.editMode });
+    this.setState({ editMode: false });
     const ownerToRemove = entityData.owner.filter((ow) => ow.status === REMOVE);
     const someItemWillBeDeleted = ownerToRemove.length > 0;
     if (someItemWillBeDeleted) {

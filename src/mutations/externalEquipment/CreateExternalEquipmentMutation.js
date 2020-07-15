@@ -4,7 +4,7 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
+import { formatExternalEquipmentVariables } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation CreateExternalEquipmentMutation($input: CompositeExternalEquipmentMutationInput!) {
@@ -18,6 +18,42 @@ const mutation = graphql`
           id
           name
           description
+          rack_units
+          rack_position
+          ports {
+            id
+            name
+          }
+          owner {
+            __typename
+            id
+            name
+            ... on EndUser {
+              type: node_type {
+                name: type
+              }
+            }
+            ... on Customer {
+              type: node_type {
+                name: type
+              }
+            }
+            ... on SiteOwner {
+              type: node_type {
+                name: type
+              }
+            }
+            ... on Provider {
+              type: node_type {
+                name: type
+              }
+            }
+          }
+          has {
+            id
+            name
+          }
+          __typename
         }
       }
     }
@@ -25,27 +61,26 @@ const mutation = graphql`
 `;
 
 function CreateExternalEquipmentMutation(externalEquipment, form) {
-  const variables = {
-    input: {
-      create_input: {
-        name: externalEquipment.name,
-        description: externalEquipment.description,
-      },
-    },
-  };
+  const variables = formatExternalEquipmentVariables(externalEquipment, false);
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      onCompleteCompositeCreationEntity(
-        form,
-        response,
-        externalEquipment,
-        'ExternalEquipment',
-        'composite_externalEquipment',
-        'externalEquipments',
-        CreateCommentMutation,
-      );
+      if (response.composite_externalEquipment.created.errors) {
+        form.props.notify(i18n.t('notify.error'), 'error');
+        return response.composite_externalEquipment.created.errors;
+      }
+      const externalEquipmentId = response.composite_externalEquipment.created.externalEquipment.id;
+      if (externalEquipment.comment) {
+        CreateCommentMutation(externalEquipmentId, externalEquipment.comment);
+      }
+      form.props.notify(i18n.t('notify.network/externalEquipments-created-success'), 'success');
+      if (form.props.history) {
+        form.props.history.push(`/network/external-equipments/${externalEquipmentId}`);
+      } else {
+        form.props.createdEntity('ExternalEquipment', externalEquipmentId);
+        form.props.hideModalForm();
+      }
     },
     onError: (errors) => console.error(errors),
     configs: [

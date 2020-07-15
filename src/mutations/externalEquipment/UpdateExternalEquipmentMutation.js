@@ -4,7 +4,8 @@ import graphql from 'babel-plugin-relay/macro';
 
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
-import { SAVED, REMOVE } from '../../utils/constants';
+
+import { formatExternalEquipmentVariables } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation UpdateExternalEquipmentMutation($input: CompositeExternalEquipmentMutationInput!) {
@@ -61,29 +62,9 @@ const mutation = graphql`
 `;
 
 export default function UpdateExternalEquipmentMutation(externalEquipment, form) {
-  const ownerToSaved = externalEquipment.owner.find((o) => o.status === SAVED);
-  const ownerToRemove = externalEquipment.owner.find((o) => o.status === REMOVE);
-  const variables = {
-    input: {
-      update_input: {
-        id: externalEquipment.id,
-        name: externalEquipment.name,
-        description: externalEquipment.description,
 
-        // General info
-        rack_units: externalEquipment.rack_units,
-        rack_position: externalEquipment.rack_position,
+  const variables = formatExternalEquipmentVariables(externalEquipment, true);
 
-        // owner
-        relationship_owner: ownerToSaved ? ownerToSaved.id : '', // id customer/siteOwner/provider/endUser
-      },
-    },
-  };
-  if (ownerToRemove) {
-    variables.input.delete_owner = {
-      id: ownerToRemove.id,
-    };
-  }
   commitMutation(environment, {
     mutation,
     variables,

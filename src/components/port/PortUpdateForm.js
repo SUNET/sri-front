@@ -35,7 +35,7 @@ class PortUpdateForm extends _PortFormParentClass {
   };
 
   handleSubmit = (entityData) => {
-    this.setState({ editMode: !this.state.editMode });
+    this.setState({ editMode: false });
     this.props.hideModalForm();
     const parentsToRemove = entityData.parents.filter((parent) => parent.status === REMOVE);
     const connectionsToRemove = entityData.connectedTo.filter((connection) => connection.status === REMOVE);

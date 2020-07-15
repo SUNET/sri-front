@@ -367,11 +367,9 @@ class _BasicFieldArrayParentClass extends React.Component {
 
   renderFieldRow(row, fieldName) {
     const nestedFieldName = fieldName.split('.');
-    let text;
-    if (nestedFieldName.length > 1) {
+    let text = row[nestedFieldName[0]];
+    if (text && nestedFieldName.length > 1) {
       text = row[nestedFieldName[0]][nestedFieldName[1]];
-    } else {
-      text = row[nestedFieldName[0]];
     }
     return (
       <div key={Math.random()} className="contact-in-organization__body__row__element">

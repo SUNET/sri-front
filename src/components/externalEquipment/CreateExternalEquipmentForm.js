@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import _ExternalEquipmentFormParentClass from './_ExternalEquipmentFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ import ValidationsExternalEquipmentForm from '../common/_BasicValidationForm';
 import { CREATE_EXTERNALEQUIPMENT_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CreateExternalEquipmentForm extends _BasicFormParentClass {
+class CreateExternalEquipmentForm extends _ExternalEquipmentFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_EXTERNALEQUIPMENT_FORM;
   ROUTE_LIST_DIRECTION = '/network/external-equipments';
@@ -28,9 +28,11 @@ class CreateExternalEquipmentForm extends _BasicFormParentClass {
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
-          {this.renderHeader(editMode, showBackButton)}
-          {this.renderModelMainSection(editMode)}
-          {this.renderWorkLog(editMode)}
+        {this.renderHeader(editMode, showBackButton)}
+        {this.renderModelMainSection(editMode)}
+        {this.renderOwnerToggleSection(editMode)}
+        {this.renderPortsToggleSection(editMode)}
+        {this.renderWorkLog()}
         </div>
         {this.renderSaveCancelButtons()}
       </form>

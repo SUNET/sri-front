@@ -9,6 +9,7 @@ const SwitchQuery = graphql`
       id
       name
       description
+      operational_state
       type: __typename
     }
   }

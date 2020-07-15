@@ -8,6 +8,7 @@ import getCable from '../../components/cable/Cable';
 import getPort from '../../components/port/Port';
 import getSwitch from '../../components/switch/Switch';
 import getFirewall from '../../components/firewall/Firewall';
+import getExternalEquipment from '../../components/externalEquipment/ExternalEquipment';
 
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'createPortInModal' : 'createPort';
@@ -21,6 +22,7 @@ const mapStateToProps = (state, props) => {
     getPortById: (id) => getPort(id),
     getSwitchById: (id) => getSwitch(id),
     getFirewallById: (id) => getFirewall(id),
+    getExternalEquipmentById: (id) => getExternalEquipment(id),
     isFromModal: props.isFromModal,
     entityInModalName: state.formModal.entityName,
     editedSubEntity: state.formModal.entityEditedId,

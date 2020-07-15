@@ -9,6 +9,7 @@ const FirewallQuery = graphql`
       id
       name
       description
+      operational_state
       type: __typename
     }
   }

@@ -2,10 +2,10 @@ import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 // Common imports
 import { withTranslation } from 'react-i18next';
 
-class FieldArrayParentPort extends _BasicFieldArrayParentClass {
+class FieldArrayPorts extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
-    this.FIELD_NAME_IN_FORM = 'parents';
+    this.FIELD_NAME_IN_FORM = 'ports';
     this.HEADER_TEXTS = {
       summary: [
         {
@@ -19,27 +19,20 @@ class FieldArrayParentPort extends _BasicFieldArrayParentClass {
           fieldKey: 'name',
         },
         {
-          text: 'network.details.entity_type',
-          fieldKey: 'entityType.name',
-        },
-        {
           text: 'organization-details.type',
           fieldKey: 'type.name',
-        },
-        {
-          text: 'group-details.description',
-          fieldKey: 'description',
         },
       ],
       modal: ['network.details.parent_element_detail'],
     };
     this.PRE_FILTER_SELECT = {
-      label: 'physical.select_type',
-      type: 'physical_types',
-      model: 'physical_types',
-      name: 'physical_types_preFilter',
+      label: null,
+      type: null,
+      name: null,
+      entityMandatory: 'Port',
     };
+    this.MODEL_TO_SEARCH = 'ports-type-head';
   }
 }
 
-export default withTranslation()(FieldArrayParentPort);
+export default withTranslation()(FieldArrayPorts);

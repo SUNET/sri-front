@@ -31,7 +31,7 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
   };
 
   handleSubmit = (entityData) => {
-    this.setState({ editMode: !this.state.editMode });
+    this.setState({ editMode: false });
     const ownerToRemove = entityData.owner.filter((ow) => ow.status === REMOVE);
     const someItemWillBeDeleted = ownerToRemove.length > 0;
     if (someItemWillBeDeleted) {
@@ -56,6 +56,7 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
         {this.renderOwnerToggleSection(editMode)}
+        {this.renderPortsToggleSection(editMode)}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>

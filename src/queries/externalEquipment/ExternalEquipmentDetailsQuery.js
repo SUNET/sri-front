@@ -12,6 +12,11 @@ const ExternalEquipmentDetailsQuery = graphql`
       ports {
         id
         name
+        __typename
+        relation_id
+        type: port_type {
+          name
+        }
       }
       owner {
         __typename

@@ -1,15 +1,14 @@
 import React from 'react';
-import { FieldArray, change, Field, arrayPush } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
+import { FieldArray, Field, arrayPush } from 'redux-form';
+import { Form } from 'react-bootstrap';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
-import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
+import FieldArrayPorts from './FieldArrayPorts';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
 // const
 import { SAVED } from '../../utils/constants';
-import { isBrowser } from 'react-device-detect';
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
   const isPresentState = !editable;
@@ -42,11 +41,16 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
       this.updateMutation(this.entityDataToUpdate, this);
     }
     if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
       const selectionData = {
         id: nextProps.entitySavedId,
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
-      this.handleSelectedNetworkOrganization(selectionData, methodName);
+      if (fieldModalOpened === 'owner') {
+        this.handleSelectedNetworkOrganization(selectionData, methodName);
+      } else if (fieldModalOpened === 'ports') {
+        this.handleSelectedPort(selectionData);
+      }
       return false;
     }
     return true;
@@ -63,6 +67,21 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
           status: 'saved',
         };
         this.props.dispatch(arrayPush(this.props.form, 'owner', newEntity));
+      });
+    }
+  };
+
+  handleSelectedPort = (selection) => {
+    if (selection !== null) {
+      this.props.getPortById(selection.id).then((entity) => {
+        const newEntity = {
+          type: entity.type,
+          __typename: entity.__typename,
+          name: entity.name,
+          id: entity.id,
+          status: 'saved',
+        };
+        this.props.dispatch(arrayPush(this.props.form, 'ports', newEntity));
       });
     }
   };
@@ -120,7 +139,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   }
 
   renderOwnerToggleSection(editMode = false) {
-    const { t, owner } = this.props;
+    const { t, owner, entityRemovedId } = this.props;
     return (
       <section className="model-section">
         <ToggleSection>
@@ -137,18 +156,60 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
               errors={this.props.formSyncErrors.parents}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'owner' });
                 this.props.showModalCreateForm(typeEntityToShowForm);
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'owner' });
                 this.props.showModalEditForm(typeEntityToShowForm, entityId);
               }}
               showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'owner' });
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedNetworkOrganization}
               rerenderOnEveryChange={true}
-              // entityRemovedId={this.state.fieldModalOpened === 'parents' ? entityRemovedId : null}
+              entityRemovedId={this.state.fieldModalOpened === 'owner' ? entityRemovedId : null}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderPortsToggleSection(editMode = false) {
+    const { t, entityRemovedId} = this.props;
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('network.external-equipment.details.ports')}</h2>
+          </ToggleHeading>
+
+          <TogglePanel>
+            <FieldArray
+              name="ports"
+              component={FieldArrayPorts}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'ports' });
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'ports' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'ports' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={this.handleSelectedPort}
+              rerenderOnEveryChange={true}
+              entityRemovedId={this.state.fieldModalOpened === 'ports' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>
