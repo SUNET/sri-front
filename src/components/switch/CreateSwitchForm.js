@@ -39,7 +39,6 @@ class CreateSwitchForm extends _SwitchFormParentClass {
 }
 
 CreateSwitchForm = reduxForm({
-  form: 'createSwitch',
   validate: ValidationsSwitchForm.validateWithType,
   initialValues: {
     name: '',

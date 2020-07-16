@@ -3,9 +3,11 @@ import SwitchUpdateForm from '../../components/switch/SwitchUpdateForm';
 import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
+import * as formModalActions from '../../actions/FormModal';
 
 const mapStateToProps = (state, props) => {
-  const updateSwitchSelector = formValueSelector('updateSwitch');
+  const formName = props.isFromModal ? 'updateSwitchInModal' : 'updateSwitch';
+  const updateSwitchSelector = formValueSelector(formName);
   const switchData = props.switch;
   const initialValues = {
     id: switchData.id,
@@ -32,6 +34,7 @@ const mapStateToProps = (state, props) => {
 
   return {
     initialValues,
+    form: formName,
     name: updateSwitchSelector(state, 'name'),
     description: updateSwitchSelector(state, 'description'),
     managed_by: updateSwitchSelector(state, 'managed_by'),
@@ -53,6 +56,8 @@ const mapStateToProps = (state, props) => {
     max_number_of_ports: updateSwitchSelector(state, 'max_number_of_ports'),
     formSyncErrors: getFormSyncErrors('updateSwitch')(state),
     fields: getFormMeta('updateSwitch')(state),
+    isFromModal: Boolean(props.isFromModal),
+    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
   };
 };
 
@@ -66,6 +71,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
+    },
+    hideModalForm: () => {
+      dispatch(formModalActions.hideModalForm());
     },
   };
 };

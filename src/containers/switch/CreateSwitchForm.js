@@ -5,8 +5,10 @@ import * as actions from '../../actions/Notify';
 import CreateSwitchForm from '../../components/switch/CreateSwitchForm';
 
 const mapStateToProps = (state, props) => {
+  const formName = props.isFromModal ? 'updateSwitchInModal' : 'updateSwitch';
   const updateSwitchSelector = formValueSelector('createSwitch');
   return {
+    form: formName,
     fields: getFormMeta('createSwitch')(state),
     formSyncErrors: getFormSyncErrors('createSwitch')(state),
     name: updateSwitchSelector(state, 'name'),

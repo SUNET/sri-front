@@ -55,6 +55,14 @@ const mutation = graphql`
             }
             ... on Switch {
               description
+              operational_state
+              entityType: node_type {
+                name: type
+              }
+            }
+            ... on Firewall {
+              description
+              operational_state
               entityType: node_type {
                 name: type
               }

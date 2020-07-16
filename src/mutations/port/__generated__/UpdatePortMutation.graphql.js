@@ -277,6 +277,7 @@ export type UpdatePortMutationResponse = {|
             +name: string,
           |},
           +description?: ?string,
+          +operational_state?: string,
         |}>,
         +connected_to: ?$ReadOnlyArray<?{|
           +id: string,
@@ -377,6 +378,15 @@ mutation UpdatePortMutation(
           }
           ... on Switch {
             description
+            operational_state
+            entityType: node_type {
+              name: type
+              id
+            }
+          }
+          ... on Firewall {
+            description
+            operational_state
             entityType: node_type {
               name: type
               id
@@ -534,11 +544,19 @@ v11 = {
   "selections": (v6/*: any*/),
   "storageKey": null
 },
-v12 = [
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "operational_state",
+  "storageKey": null
+},
+v13 = [
   (v7/*: any*/),
+  (v12/*: any*/),
   (v10/*: any*/)
 ],
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "UpdatePortPayload",
@@ -550,19 +568,19 @@ v13 = {
   ],
   "storageKey": null
 },
-v14 = [
+v15 = [
   (v5/*: any*/),
   (v4/*: any*/),
   (v3/*: any*/)
 ],
-v15 = {
+v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v16 = {
+v17 = {
   "alias": "entityType",
   "args": null,
   "concreteType": "NINodeType",
@@ -575,19 +593,20 @@ v16 = {
   ],
   "storageKey": null
 },
-v17 = {
+v18 = {
   "alias": "type",
   "args": null,
   "concreteType": "Choice",
   "kind": "LinkedField",
   "name": "cable_type",
   "plural": false,
-  "selections": (v14/*: any*/),
+  "selections": (v15/*: any*/),
   "storageKey": null
 },
-v18 = [
+v19 = [
   (v7/*: any*/),
-  (v16/*: any*/)
+  (v12/*: any*/),
+  (v17/*: any*/)
 ];
 return {
   "fragment": {
@@ -674,13 +693,21 @@ return {
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": [
+                          (v7/*: any*/),
+                          (v10/*: any*/)
+                        ],
                         "type": "ExternalEquipment"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": (v13/*: any*/),
                         "type": "Switch"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v13/*: any*/),
+                        "type": "Firewall"
                       }
                     ],
                     "storageKey": null
@@ -740,7 +767,7 @@ return {
             ],
             "storageKey": null
           },
-          (v13/*: any*/)
+          (v14/*: any*/)
         ],
         "storageKey": null
       }
@@ -787,7 +814,7 @@ return {
                     "kind": "LinkedField",
                     "name": "port_type",
                     "plural": false,
-                    "selections": (v14/*: any*/),
+                    "selections": (v15/*: any*/),
                     "storageKey": null
                   },
                   (v7/*: any*/),
@@ -799,14 +826,14 @@ return {
                     "name": "parent",
                     "plural": true,
                     "selections": [
-                      (v15/*: any*/),
+                      (v16/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
                       (v8/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v16/*: any*/),
+                          (v17/*: any*/),
                           {
                             "alias": "type",
                             "args": null,
@@ -814,7 +841,7 @@ return {
                             "kind": "LinkedField",
                             "name": "port_type",
                             "plural": false,
-                            "selections": (v14/*: any*/),
+                            "selections": (v15/*: any*/),
                             "storageKey": null
                           },
                           (v7/*: any*/)
@@ -824,21 +851,29 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v16/*: any*/),
                           (v17/*: any*/),
+                          (v18/*: any*/),
                           (v7/*: any*/)
                         ],
                         "type": "Cable"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v18/*: any*/),
+                        "selections": [
+                          (v7/*: any*/),
+                          (v17/*: any*/)
+                        ],
                         "type": "ExternalEquipment"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v18/*: any*/),
+                        "selections": (v19/*: any*/),
                         "type": "Switch"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v19/*: any*/),
+                        "type": "Firewall"
                       }
                     ],
                     "storageKey": null
@@ -851,14 +886,14 @@ return {
                     "name": "connected_to",
                     "plural": true,
                     "selections": [
-                      (v15/*: any*/),
+                      (v16/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
                       (v8/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v17/*: any*/),
+                          (v18/*: any*/),
                           (v7/*: any*/)
                         ],
                         "type": "Cable"
@@ -892,14 +927,14 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v7/*: any*/),
-                  (v17/*: any*/)
+                  (v18/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v13/*: any*/)
+          (v14/*: any*/)
         ],
         "storageKey": null
       }
@@ -910,11 +945,11 @@ return {
     "metadata": {},
     "name": "UpdatePortMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdatePortMutation(\n  $input: CompositePortMutationInput!\n) {\n  composite_port(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          name\n          id\n        }\n        description\n        parent {\n          __typename\n          id\n          name\n          relation_id\n          ... on Port {\n            entityType: node_type {\n              name: type\n              id\n            }\n            type: port_type {\n              value\n              name\n              id\n            }\n            description\n          }\n          ... on Cable {\n            entityType: node_type {\n              name: type\n              id\n            }\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n          ... on ExternalEquipment {\n            description\n            entityType: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Switch {\n            description\n            entityType: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        connected_to {\n          __typename\n          id\n          name\n          relation_id\n          ... on Cable {\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        description\n        type: cable_type {\n          value\n          name\n          id\n        }\n      }\n    }\n    parent_port_updated {\n      errors {\n        field\n        messages\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdatePortMutation(\n  $input: CompositePortMutationInput!\n) {\n  composite_port(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          name\n          id\n        }\n        description\n        parent {\n          __typename\n          id\n          name\n          relation_id\n          ... on Port {\n            entityType: node_type {\n              name: type\n              id\n            }\n            type: port_type {\n              value\n              name\n              id\n            }\n            description\n          }\n          ... on Cable {\n            entityType: node_type {\n              name: type\n              id\n            }\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n          ... on ExternalEquipment {\n            description\n            entityType: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Switch {\n            description\n            operational_state\n            entityType: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Firewall {\n            description\n            operational_state\n            entityType: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        connected_to {\n          __typename\n          id\n          name\n          relation_id\n          ... on Cable {\n            type: cable_type {\n              value\n              name\n              id\n            }\n            description\n          }\n        }\n      }\n    }\n    subupdated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        description\n        type: cable_type {\n          value\n          name\n          id\n        }\n      }\n    }\n    parent_port_updated {\n      errors {\n        field\n        messages\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '33c0ae822555483017ee687ba1cb6a6b';
+(node/*: any*/).hash = '5715c77e514fb27505b5ca759871fb03';
 
 module.exports = node;

@@ -33,7 +33,7 @@ class CreateProviderForm extends _BasicFormParentClass {
                     {this.renderModelMainSection(editMode)}
                     {this.renderWorkLog(editMode)}
                 </div>
-                {this.renderSaveCancelButtons()}
+                {!isFromModal && this.renderSaveCancelButtons()}
             </form>
         );
     }

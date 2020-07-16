@@ -56,6 +56,8 @@ const mapStateToProps = (state, props) => {
     // these props are because this form has entities listed as attributes
     isDeleteConfirmed: state.confirmModal.confirmDelete,
     confirmModalType: state.confirmModal.type,
+    isFromModal: Boolean(props.isFromModal),
+    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
   };
 };
 
