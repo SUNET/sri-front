@@ -16,10 +16,12 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   FORM_ID = UPDATE_FIREWALL_FORM;
   MODEL_NAME = 'firewall';
   ROUTE_LIST_DIRECTION = '/network/firewalls';
-  state = {
-    editMode: false,
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { firewallId: this.props.firewall.id }, // Our refetchQuery needs to know the `firewallID`
@@ -50,11 +52,12 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   render() {
     let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
         {this.renderOwnerToggleSection(editMode)}
@@ -66,7 +69,6 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
 }
 
 FirewallUpdateForm = reduxForm({
-  form: 'updateFirewall',
   validate: ValidationsFirewallForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {

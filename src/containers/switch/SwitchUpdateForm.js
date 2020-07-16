@@ -72,6 +72,18 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
+    showModalCreateForm: (entityName) => {
+      dispatch(formModalActions.showModalCreateForm(entityName));
+    },
+    showModalDetailForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalDetailForm(entityName, entityId));
+    },
+    showModalEditForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalEditForm(entityName, entityId));
+    },
+    editedEntity: (entityName, entityId) => {
+      dispatch(formModalActions.editedEntity(entityName, entityId));
+    },
     hideModalForm: () => {
       dispatch(formModalActions.hideModalForm());
     },
