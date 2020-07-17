@@ -132,7 +132,9 @@ class ModalNewContact extends React.Component {
       case 'externalEquipments':
         entityData = {
           ComponentToRender: isUpdateForm ? ExternalEquipmentDetailsContainer : CreateExternalEquipmentFormContainer,
-          textHeader: isUpdateForm ? 'network.details.modify/externalEquipments' : 'network.details.new/externalEquipments',
+          textHeader: isUpdateForm
+            ? 'network.details.modify/externalEquipments'
+            : 'network.details.new/externalEquipments',
           formId: isUpdateForm ? UPDATE_EXTERNALEQUIPMENT_FORM : CREATE_EXTERNALEQUIPMENT_FORM,
         };
         break;
@@ -170,7 +172,7 @@ class ModalNewContact extends React.Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ComponentToRender isFromModal t={t} />
+            {ComponentToRender && <ComponentToRender isFromModal t={t} />}
           </Modal.Body>
         </Modal>
       </div>

@@ -72,6 +72,9 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
+    hideModalForm: () => {
+      dispatch(formModalActions.hideModalForm());
+    },
     showModalCreateForm: (entityName) => {
       dispatch(formModalActions.showModalCreateForm(entityName));
     },
@@ -83,9 +86,6 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     editedEntity: (entityName, entityId) => {
       dispatch(formModalActions.editedEntity(entityName, entityId));
-    },
-    hideModalForm: () => {
-      dispatch(formModalActions.hideModalForm());
     },
   };
 };

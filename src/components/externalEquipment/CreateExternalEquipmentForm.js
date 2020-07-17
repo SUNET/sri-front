@@ -2,7 +2,6 @@ import _ExternalEquipmentFormParentClass from './_ExternalEquipmentFormParentCla
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateExternalEquipmentMutation from '../../mutations/externalEquipment/CreateExternalEquipmentMutation';
 import ValidationsExternalEquipmentForm from '../common/_BasicValidationForm';
@@ -47,4 +46,4 @@ CreateExternalEquipmentForm = reduxForm({
   },
 })(CreateExternalEquipmentForm);
 
-export default withTranslation()(withRouter(CreateExternalEquipmentForm));
+export default withTranslation()(CreateExternalEquipmentForm);

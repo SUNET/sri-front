@@ -16,9 +16,12 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
   FORM_ID = UPDATE_EXTERNALEQUIPMENT_FORM;
   MODEL_NAME = 'externalEquipment';
   ROUTE_LIST_DIRECTION = '/network/externalEquipments';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { externalEquipmentId: this.props.externalEquipment.id }, // Our refetchQuery needs to know the `externalEquipmentID`

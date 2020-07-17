@@ -11,12 +11,12 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import ExternalEquipmentList from '../../containers/externalEquipment/ExternalEquipmentList';
 import ExternalEquipmentDetailsContainer from '../../containers/externalEquipment/ExternalEquipmentDetails';
-import CreateExternalEquipment from './CreateExternalEquipment';
+import CreateExternalEquipmentRoute from "./CreateExternalEquipmentRoute/CreateExternalEquipmentRoute";
 // Constants
 
 class SearchExternalEquipment extends _SearchEntityParentClass {
   LIST_CONTAINER = ExternalEquipmentList;
-  CREATE_COMPONENT = CreateExternalEquipment;
+  CREATE_COMPONENT = CreateExternalEquipmentRoute;
   DETAIL_CONTAINER = ExternalEquipmentDetailsContainer;
 
   MODEL_NAME = 'externalEquipment';

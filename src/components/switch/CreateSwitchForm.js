@@ -2,7 +2,6 @@ import _SwitchFormParentClass from './_SwitchFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateSwitchMutation from '../../mutations/switch/CreateSwitchMutation';
 import ValidationsSwitchForm from './ValidationsSwitchForm';
@@ -45,4 +44,4 @@ CreateSwitchForm = reduxForm({
   },
 })(CreateSwitchForm);
 
-export default withTranslation()(withRouter(CreateSwitchForm));
+export default withTranslation()(CreateSwitchForm);
