@@ -1,5 +1,5 @@
-let api_host_suffix = process.env.REACT_APP_API_HOST ? process.env.REACT_APP_API_HOST : "sri.localenv.loc/api";
-let cookie_domain = process.env.REACT_APP_COOKIE_DOMAIN ? process.env.REACT_APP_COOKIE_DOMAIN : "sri.localenv.loc";
+let api_host_suffix = "__API_HOST__";
+let cookie_domain = "__COOKIE_DOMAIN__";
 const config = {
     API_HOST: window.location.protocol + '//' + api_host_suffix,
     COOKIE_DOMAIN: cookie_domain
