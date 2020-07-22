@@ -11,12 +11,12 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import SwitchList from '../../containers/switch/SwitchList';
 import SwitchDetailsContainer from '../../containers/switch/SwitchDetails';
-import CreateSwitch from './CreateSwitch';
+import CreateSwitchRoute from "./CreateSwitchRoute/CreateSwitchRoute";
 // Constants
 
 class SearchSwitch extends _SearchEntityParentClass {
   LIST_CONTAINER = SwitchList;
-  CREATE_COMPONENT = CreateSwitch;
+  CREATE_COMPONENT = CreateSwitchRoute;
   DETAIL_CONTAINER = SwitchDetailsContainer;
 
   MODEL_NAME = 'switch';

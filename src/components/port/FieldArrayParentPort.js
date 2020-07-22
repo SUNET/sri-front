@@ -19,6 +19,10 @@ class FieldArrayParentPort extends _BasicFieldArrayParentClass {
           fieldKey: 'name',
         },
         {
+          text: 'network.details.entity_type',
+          fieldKey: 'entityType.name',
+        },
+        {
           text: 'organization-details.type',
           fieldKey: 'type.name',
         },

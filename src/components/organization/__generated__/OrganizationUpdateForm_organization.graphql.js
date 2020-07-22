@@ -55,7 +55,7 @@ export type OrganizationUpdateForm_organization = {|
   +contacts: ?$ReadOnlyArray<?{|
     +id: string,
     +first_name: string,
-    +last_name: string,
+    +last_name: ?string,
     +contact_type: ?{|
       +name: string,
       +value: string,

@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Wed Jul 01 2020 14:10:23 GMT+0200 (GMT+02:00)
+# timestamp: Thu Jul 09 2020 14:17:07 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -257,7 +257,7 @@ type Cable implements NINode & Physical {
   name: String!
   relation_id: Int
   location: Location
-  has: Physical
+  has: [Physical]
   part_of: Logical
   parent: [Physical]
   dependents: [Logical]
@@ -453,21 +453,24 @@ input CompositeCableMutationInput {
   update_subinputs: [UpdatePortInput]
   delete_subinputs: [DeletePortInput]
   unlink_subinputs: [DeleteRelationshipInput]
-  create_has_port: CreatePortInput
-  update_has_port: UpdatePortInput
-  deleted_has_port: DeletePortInput
-  create_has_cable: CreateCableInput
-  update_has_cable: UpdateCableInput
-  deleted_has_cable: DeleteCableInput
-  create_has_router: CreateRouterInput
-  update_has_router: UpdateRouterInput
-  deleted_has_router: DeleteRouterInput
-  create_has_switch: CreateSwitchInput
-  update_has_switch: UpdateSwitchInput
-  deleted_has_switch: DeleteSwitchInput
-  create_has_firewall: CreateFirewallInput
-  update_has_firewall: UpdateFirewallInput
-  deleted_has_firewall: DeleteFirewallInput
+  create_has_port: [CreatePortInput]
+  update_has_port: [UpdatePortInput]
+  deleted_has_port: [DeletePortInput]
+  create_has_cable: [CreateCableInput]
+  update_has_cable: [UpdateCableInput]
+  deleted_has_cable: [DeleteCableInput]
+  create_has_router: [CreateRouterInput]
+  update_has_router: [UpdateRouterInput]
+  deleted_has_router: [DeleteRouterInput]
+  create_has_switch: [CreateSwitchInput]
+  update_has_switch: [UpdateSwitchInput]
+  deleted_has_switch: [DeleteSwitchInput]
+  create_has_firewall: [CreateFirewallInput]
+  update_has_firewall: [UpdateFirewallInput]
+  deleted_has_firewall: [DeleteFirewallInput]
+  create_has_externalequipment: [CreateExternalEquipmentInput]
+  update_has_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_has_externalequipment: [DeleteExternalEquipmentInput]
   create_part_of_group: CreateGroupInput
   update_part_of_group: UpdateGroupInput
   deleted_part_of_group: DeleteGroupInput
@@ -498,6 +501,9 @@ input CompositeCableMutationInput {
   create_parent_firewall: [CreateFirewallInput]
   update_parent_firewall: [UpdateFirewallInput]
   deleted_parent_firewall: [DeleteFirewallInput]
+  create_parent_externalequipment: [CreateExternalEquipmentInput]
+  update_parent_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_parent_externalequipment: [DeleteExternalEquipmentInput]
   create_dependents_group: [CreateGroupInput]
   update_dependents_group: [UpdateGroupInput]
   deleted_dependents_group: [DeleteGroupInput]
@@ -541,21 +547,24 @@ type CompositeCableMutationPayload {
   subupdated: [UpdatePortPayload]
   subdeleted: [DeletePortPayload]
   unlinked: [DeleteRelationshipPayload]
-  has_port_created: CreatePortPayload
-  has_port_updated: UpdatePortPayload
-  has_port_deleted: DeletePortPayload
-  has_cable_created: CreateCablePayload
-  has_cable_updated: UpdateCablePayload
-  has_cable_deleted: DeleteCablePayload
-  has_router_created: CreateRouterPayload
-  has_router_updated: UpdateRouterPayload
-  has_router_deleted: DeleteRouterPayload
-  has_switch_created: CreateSwitchPayload
-  has_switch_updated: UpdateSwitchPayload
-  has_switch_deleted: DeleteSwitchPayload
-  has_firewall_created: CreateFirewallPayload
-  has_firewall_updated: UpdateFirewallPayload
-  has_firewall_deleted: DeleteFirewallPayload
+  has_port_created: [CreatePortPayload]
+  has_port_updated: [UpdatePortPayload]
+  has_port_deleted: [DeletePortPayload]
+  has_cable_created: [CreateCablePayload]
+  has_cable_updated: [UpdateCablePayload]
+  has_cable_deleted: [DeleteCablePayload]
+  has_router_created: [CreateRouterPayload]
+  has_router_updated: [UpdateRouterPayload]
+  has_router_deleted: [DeleteRouterPayload]
+  has_switch_created: [CreateSwitchPayload]
+  has_switch_updated: [UpdateSwitchPayload]
+  has_switch_deleted: [DeleteSwitchPayload]
+  has_firewall_created: [CreateFirewallPayload]
+  has_firewall_updated: [UpdateFirewallPayload]
+  has_firewall_deleted: [DeleteFirewallPayload]
+  has_externalequipment_created: [CreateExternalEquipmentPayload]
+  has_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  has_externalequipment_deleted: [DeleteExternalEquipmentPayload]
   part_of_group_created: CreateGroupPayload
   part_of_group_updated: UpdateGroupPayload
   part_of_group_deleted: DeleteGroupPayload
@@ -586,6 +595,9 @@ type CompositeCableMutationPayload {
   parent_firewall_created: [CreateFirewallPayload]
   parent_firewall_updated: [UpdateFirewallPayload]
   parent_firewall_deleted: [DeleteFirewallPayload]
+  parent_externalequipment_created: [CreateExternalEquipmentPayload]
+  parent_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  parent_externalequipment_deleted: [DeleteExternalEquipmentPayload]
   dependents_group_created: [CreateGroupPayload]
   dependents_group_updated: [UpdateGroupPayload]
   dependents_group_deleted: [DeleteGroupPayload]
@@ -663,6 +675,9 @@ input CompositeContactMutationInput {
   create_owns_firewall: [CreateFirewallInput]
   update_owns_firewall: [UpdateFirewallInput]
   deleted_owns_firewall: [DeleteFirewallInput]
+  create_owns_externalequipment: [CreateExternalEquipmentInput]
+  update_owns_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_owns_externalequipment: [DeleteExternalEquipmentInput]
   clientMutationId: String
 }
 
@@ -707,10 +722,196 @@ type CompositeContactMutationPayload {
   owns_firewall_created: [CreateFirewallPayload]
   owns_firewall_updated: [UpdateFirewallPayload]
   owns_firewall_deleted: [DeleteFirewallPayload]
+  owns_externalequipment_created: [CreateExternalEquipmentPayload]
+  owns_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  owns_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  clientMutationId: String
+}
+
+input CompositeExternalEquipmentMutationInput {
+  create_input: CreateExternalEquipmentInput
+  update_input: UpdateExternalEquipmentInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_has_port: [CreatePortInput]
+  update_has_port: [UpdatePortInput]
+  deleted_has_port: [DeletePortInput]
+  create_has_cable: [CreateCableInput]
+  update_has_cable: [UpdateCableInput]
+  deleted_has_cable: [DeleteCableInput]
+  create_has_router: [CreateRouterInput]
+  update_has_router: [UpdateRouterInput]
+  deleted_has_router: [DeleteRouterInput]
+  create_has_switch: [CreateSwitchInput]
+  update_has_switch: [UpdateSwitchInput]
+  deleted_has_switch: [DeleteSwitchInput]
+  create_has_firewall: [CreateFirewallInput]
+  update_has_firewall: [UpdateFirewallInput]
+  deleted_has_firewall: [DeleteFirewallInput]
+  create_has_externalequipment: [CreateExternalEquipmentInput]
+  update_has_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_has_externalequipment: [DeleteExternalEquipmentInput]
+  create_part_of_group: CreateGroupInput
+  update_part_of_group: UpdateGroupInput
+  deleted_part_of_group: DeleteGroupInput
+  create_part_of_procedure: CreateProcedureInput
+  update_part_of_procedure: UpdateProcedureInput
+  deleted_part_of_procedure: DeleteProcedureInput
+  create_part_of_address: CreateAddressInput
+  update_part_of_address: UpdateAddressInput
+  deleted_part_of_address: DeleteAddressInput
+  create_part_of_phone: CreatePhoneInput
+  update_part_of_phone: UpdatePhoneInput
+  deleted_part_of_phone: DeletePhoneInput
+  create_part_of_email: CreateEmailInput
+  update_part_of_email: UpdateEmailInput
+  deleted_part_of_email: DeleteEmailInput
+  create_parent_port: [CreatePortInput]
+  update_parent_port: [UpdatePortInput]
+  deleted_parent_port: [DeletePortInput]
+  create_parent_cable: [CreateCableInput]
+  update_parent_cable: [UpdateCableInput]
+  deleted_parent_cable: [DeleteCableInput]
+  create_parent_router: [CreateRouterInput]
+  update_parent_router: [UpdateRouterInput]
+  deleted_parent_router: [DeleteRouterInput]
+  create_parent_switch: [CreateSwitchInput]
+  update_parent_switch: [UpdateSwitchInput]
+  deleted_parent_switch: [DeleteSwitchInput]
+  create_parent_firewall: [CreateFirewallInput]
+  update_parent_firewall: [UpdateFirewallInput]
+  deleted_parent_firewall: [DeleteFirewallInput]
+  create_parent_externalequipment: [CreateExternalEquipmentInput]
+  update_parent_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_parent_externalequipment: [DeleteExternalEquipmentInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  create_owner_organization: CreateOrganizationInput
+  update_owner_organization: UpdateOrganizationInput
+  deleted_owner_organization: DeleteOrganizationInput
+  create_owner_contact: CreateContactInput
+  update_owner_contact: UpdateContactInput
+  deleted_owner_contact: DeleteContactInput
+  create_owner_customer: CreateCustomerInput
+  update_owner_customer: UpdateCustomerInput
+  deleted_owner_customer: DeleteCustomerInput
+  create_owner_enduser: CreateEndUserInput
+  update_owner_enduser: UpdateEndUserInput
+  deleted_owner_enduser: DeleteEndUserInput
+  create_owner_provider: CreateProviderInput
+  update_owner_provider: UpdateProviderInput
+  deleted_owner_provider: DeleteProviderInput
+  create_owner_siteowner: CreateSiteOwnerInput
+  update_owner_siteowner: UpdateSiteOwnerInput
+  deleted_owner_siteowner: DeleteSiteOwnerInput
+  clientMutationId: String
+}
+
+type CompositeExternalEquipmentMutationPayload {
+  created: CreateExternalEquipmentPayload
+  updated: UpdateExternalEquipmentPayload
+  unlinked: [DeleteRelationshipPayload]
+  has_port_created: [CreatePortPayload]
+  has_port_updated: [UpdatePortPayload]
+  has_port_deleted: [DeletePortPayload]
+  has_cable_created: [CreateCablePayload]
+  has_cable_updated: [UpdateCablePayload]
+  has_cable_deleted: [DeleteCablePayload]
+  has_router_created: [CreateRouterPayload]
+  has_router_updated: [UpdateRouterPayload]
+  has_router_deleted: [DeleteRouterPayload]
+  has_switch_created: [CreateSwitchPayload]
+  has_switch_updated: [UpdateSwitchPayload]
+  has_switch_deleted: [DeleteSwitchPayload]
+  has_firewall_created: [CreateFirewallPayload]
+  has_firewall_updated: [UpdateFirewallPayload]
+  has_firewall_deleted: [DeleteFirewallPayload]
+  has_externalequipment_created: [CreateExternalEquipmentPayload]
+  has_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  has_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  part_of_group_created: CreateGroupPayload
+  part_of_group_updated: UpdateGroupPayload
+  part_of_group_deleted: DeleteGroupPayload
+  part_of_procedure_created: CreateProcedurePayload
+  part_of_procedure_updated: UpdateProcedurePayload
+  part_of_procedure_deleted: DeleteProcedurePayload
+  part_of_address_created: CreateAddressPayload
+  part_of_address_updated: UpdateAddressPayload
+  part_of_address_deleted: DeleteAddressPayload
+  part_of_phone_created: CreatePhonePayload
+  part_of_phone_updated: UpdatePhonePayload
+  part_of_phone_deleted: DeletePhonePayload
+  part_of_email_created: CreateEmailPayload
+  part_of_email_updated: UpdateEmailPayload
+  part_of_email_deleted: DeleteEmailPayload
+  parent_port_created: [CreatePortPayload]
+  parent_port_updated: [UpdatePortPayload]
+  parent_port_deleted: [DeletePortPayload]
+  parent_cable_created: [CreateCablePayload]
+  parent_cable_updated: [UpdateCablePayload]
+  parent_cable_deleted: [DeleteCablePayload]
+  parent_router_created: [CreateRouterPayload]
+  parent_router_updated: [UpdateRouterPayload]
+  parent_router_deleted: [DeleteRouterPayload]
+  parent_switch_created: [CreateSwitchPayload]
+  parent_switch_updated: [UpdateSwitchPayload]
+  parent_switch_deleted: [DeleteSwitchPayload]
+  parent_firewall_created: [CreateFirewallPayload]
+  parent_firewall_updated: [UpdateFirewallPayload]
+  parent_firewall_deleted: [DeleteFirewallPayload]
+  parent_externalequipment_created: [CreateExternalEquipmentPayload]
+  parent_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  parent_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  owner_organization_created: CreateOrganizationPayload
+  owner_organization_updated: UpdateOrganizationPayload
+  owner_organization_deleted: DeleteOrganizationPayload
+  owner_contact_created: CreateContactPayload
+  owner_contact_updated: UpdateContactPayload
+  owner_contact_deleted: DeleteContactPayload
+  owner_customer_created: CreateCustomerPayload
+  owner_customer_updated: UpdateCustomerPayload
+  owner_customer_deleted: DeleteCustomerPayload
+  owner_enduser_created: CreateEndUserPayload
+  owner_enduser_updated: UpdateEndUserPayload
+  owner_enduser_deleted: DeleteEndUserPayload
+  owner_provider_created: CreateProviderPayload
+  owner_provider_updated: UpdateProviderPayload
+  owner_provider_deleted: DeleteProviderPayload
+  owner_siteowner_created: CreateSiteOwnerPayload
+  owner_siteowner_updated: UpdateSiteOwnerPayload
+  owner_siteowner_deleted: DeleteSiteOwnerPayload
   clientMutationId: String
 }
 
 input CompositeFirewallMutationInput {
+  delete_owner: DeleteOwnerMutationInput
   update_input: UpdateFirewallInput
   unlink_subinputs: [DeleteRelationshipInput]
   create_dependents_group: [CreateGroupInput]
@@ -732,6 +933,7 @@ input CompositeFirewallMutationInput {
 }
 
 type CompositeFirewallMutationPayload {
+  deleted_owner: DeleteOwnerMutationPayload
   updated: UpdateFirewallPayload
   unlinked: [DeleteRelationshipPayload]
   dependents_group_created: [CreateGroupPayload]
@@ -774,6 +976,9 @@ input CompositeGroupMutationInput {
   create_part_of_firewall: CreateFirewallInput
   update_part_of_firewall: UpdateFirewallInput
   deleted_part_of_firewall: DeleteFirewallInput
+  create_part_of_externalequipment: CreateExternalEquipmentInput
+  update_part_of_externalequipment: UpdateExternalEquipmentInput
+  deleted_part_of_externalequipment: DeleteExternalEquipmentInput
   clientMutationId: String
 }
 
@@ -799,6 +1004,9 @@ type CompositeGroupMutationPayload {
   part_of_firewall_created: CreateFirewallPayload
   part_of_firewall_updated: UpdateFirewallPayload
   part_of_firewall_deleted: DeleteFirewallPayload
+  part_of_externalequipment_created: CreateExternalEquipmentPayload
+  part_of_externalequipment_updated: UpdateExternalEquipmentPayload
+  part_of_externalequipment_deleted: DeleteExternalEquipmentPayload
   clientMutationId: String
 }
 
@@ -842,6 +1050,9 @@ input CompositeOrganizationMutationInput {
   create_owns_firewall: [CreateFirewallInput]
   update_owns_firewall: [UpdateFirewallInput]
   deleted_owns_firewall: [DeleteFirewallInput]
+  create_owns_externalequipment: [CreateExternalEquipmentInput]
+  update_owns_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_owns_externalequipment: [DeleteExternalEquipmentInput]
   clientMutationId: String
 }
 
@@ -885,6 +1096,9 @@ type CompositeOrganizationMutationPayload {
   owns_firewall_created: [CreateFirewallPayload]
   owns_firewall_updated: [UpdateFirewallPayload]
   owns_firewall_deleted: [DeleteFirewallPayload]
+  owns_externalequipment_created: [CreateExternalEquipmentPayload]
+  owns_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  owns_externalequipment_deleted: [DeleteExternalEquipmentPayload]
   clientMutationId: String
 }
 
@@ -910,6 +1124,9 @@ input CompositePortMutationInput {
   create_parent_firewall: [CreateFirewallInput]
   update_parent_firewall: [UpdateFirewallInput]
   deleted_parent_firewall: [DeleteFirewallInput]
+  create_parent_externalequipment: [CreateExternalEquipmentInput]
+  update_parent_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_parent_externalequipment: [DeleteExternalEquipmentInput]
   clientMutationId: String
 }
 
@@ -935,6 +1152,9 @@ type CompositePortMutationPayload {
   parent_firewall_created: [CreateFirewallPayload]
   parent_firewall_updated: [UpdateFirewallPayload]
   parent_firewall_deleted: [DeleteFirewallPayload]
+  parent_externalequipment_created: [CreateExternalEquipmentPayload]
+  parent_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  parent_externalequipment_deleted: [DeleteExternalEquipmentPayload]
   clientMutationId: String
 }
 
@@ -944,21 +1164,24 @@ input CompositeRouterMutationInput {
   update_subinputs: [UpdatePortInput]
   delete_subinputs: [DeletePortInput]
   unlink_subinputs: [DeleteRelationshipInput]
-  create_has_port: CreatePortInput
-  update_has_port: UpdatePortInput
-  deleted_has_port: DeletePortInput
-  create_has_cable: CreateCableInput
-  update_has_cable: UpdateCableInput
-  deleted_has_cable: DeleteCableInput
-  create_has_router: CreateRouterInput
-  update_has_router: UpdateRouterInput
-  deleted_has_router: DeleteRouterInput
-  create_has_switch: CreateSwitchInput
-  update_has_switch: UpdateSwitchInput
-  deleted_has_switch: DeleteSwitchInput
-  create_has_firewall: CreateFirewallInput
-  update_has_firewall: UpdateFirewallInput
-  deleted_has_firewall: DeleteFirewallInput
+  create_has_port: [CreatePortInput]
+  update_has_port: [UpdatePortInput]
+  deleted_has_port: [DeletePortInput]
+  create_has_cable: [CreateCableInput]
+  update_has_cable: [UpdateCableInput]
+  deleted_has_cable: [DeleteCableInput]
+  create_has_router: [CreateRouterInput]
+  update_has_router: [UpdateRouterInput]
+  deleted_has_router: [DeleteRouterInput]
+  create_has_switch: [CreateSwitchInput]
+  update_has_switch: [UpdateSwitchInput]
+  deleted_has_switch: [DeleteSwitchInput]
+  create_has_firewall: [CreateFirewallInput]
+  update_has_firewall: [UpdateFirewallInput]
+  deleted_has_firewall: [DeleteFirewallInput]
+  create_has_externalequipment: [CreateExternalEquipmentInput]
+  update_has_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_has_externalequipment: [DeleteExternalEquipmentInput]
   create_part_of_group: CreateGroupInput
   update_part_of_group: UpdateGroupInput
   deleted_part_of_group: DeleteGroupInput
@@ -989,6 +1212,9 @@ input CompositeRouterMutationInput {
   create_parent_firewall: [CreateFirewallInput]
   update_parent_firewall: [UpdateFirewallInput]
   deleted_parent_firewall: [DeleteFirewallInput]
+  create_parent_externalequipment: [CreateExternalEquipmentInput]
+  update_parent_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_parent_externalequipment: [DeleteExternalEquipmentInput]
   create_dependents_group: [CreateGroupInput]
   update_dependents_group: [UpdateGroupInput]
   deleted_dependents_group: [DeleteGroupInput]
@@ -1031,21 +1257,24 @@ type CompositeRouterMutationPayload {
   subupdated: [UpdatePortPayload]
   subdeleted: [DeletePortPayload]
   unlinked: [DeleteRelationshipPayload]
-  has_port_created: CreatePortPayload
-  has_port_updated: UpdatePortPayload
-  has_port_deleted: DeletePortPayload
-  has_cable_created: CreateCablePayload
-  has_cable_updated: UpdateCablePayload
-  has_cable_deleted: DeleteCablePayload
-  has_router_created: CreateRouterPayload
-  has_router_updated: UpdateRouterPayload
-  has_router_deleted: DeleteRouterPayload
-  has_switch_created: CreateSwitchPayload
-  has_switch_updated: UpdateSwitchPayload
-  has_switch_deleted: DeleteSwitchPayload
-  has_firewall_created: CreateFirewallPayload
-  has_firewall_updated: UpdateFirewallPayload
-  has_firewall_deleted: DeleteFirewallPayload
+  has_port_created: [CreatePortPayload]
+  has_port_updated: [UpdatePortPayload]
+  has_port_deleted: [DeletePortPayload]
+  has_cable_created: [CreateCablePayload]
+  has_cable_updated: [UpdateCablePayload]
+  has_cable_deleted: [DeleteCablePayload]
+  has_router_created: [CreateRouterPayload]
+  has_router_updated: [UpdateRouterPayload]
+  has_router_deleted: [DeleteRouterPayload]
+  has_switch_created: [CreateSwitchPayload]
+  has_switch_updated: [UpdateSwitchPayload]
+  has_switch_deleted: [DeleteSwitchPayload]
+  has_firewall_created: [CreateFirewallPayload]
+  has_firewall_updated: [UpdateFirewallPayload]
+  has_firewall_deleted: [DeleteFirewallPayload]
+  has_externalequipment_created: [CreateExternalEquipmentPayload]
+  has_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  has_externalequipment_deleted: [DeleteExternalEquipmentPayload]
   part_of_group_created: CreateGroupPayload
   part_of_group_updated: UpdateGroupPayload
   part_of_group_deleted: DeleteGroupPayload
@@ -1076,6 +1305,9 @@ type CompositeRouterMutationPayload {
   parent_firewall_created: [CreateFirewallPayload]
   parent_firewall_updated: [UpdateFirewallPayload]
   parent_firewall_deleted: [DeleteFirewallPayload]
+  parent_externalequipment_created: [CreateExternalEquipmentPayload]
+  parent_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  parent_externalequipment_deleted: [DeleteExternalEquipmentPayload]
   dependents_group_created: [CreateGroupPayload]
   dependents_group_updated: [UpdateGroupPayload]
   dependents_group_deleted: [DeleteGroupPayload]
@@ -1181,7 +1413,7 @@ type Contact implements NINode & Relation {
   outgoing: [DictRelationType]
   comments: [CommentType]
   first_name: String!
-  last_name: String!
+  last_name: String
   title: String
   salutation: String
   contact_type: Choice
@@ -1596,6 +1828,22 @@ input CreateEndUserInput {
 type CreateEndUserPayload {
   errors: [ErrorType]
   endUser: EndUser
+  clientMutationId: String
+}
+
+input CreateExternalEquipmentInput {
+  name: String!
+  description: String
+  rack_units: Int
+  rack_position: Int
+  relationship_owner: ChoiceScalar
+  relationship_location: Int
+  clientMutationId: String
+}
+
+type CreateExternalEquipmentPayload {
+  errors: [ErrorType]
+  externalEquipment: ExternalEquipment
   clientMutationId: String
 }
 
@@ -2071,6 +2319,17 @@ type DeleteEndUserPayload {
   clientMutationId: String
 }
 
+input DeleteExternalEquipmentInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteExternalEquipmentPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteFirewallInput {
   id: ID!
   clientMutationId: String
@@ -2099,6 +2358,17 @@ input DeleteOrganizationInput {
 }
 
 type DeleteOrganizationPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteOwnerMutationInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteOwnerMutationPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -2539,6 +2809,175 @@ type ErrorType {
   messages: [String!]!
 }
 
+type ExternalEquipment implements NINode & Physical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  location: Location
+  has: [Physical]
+  part_of: Logical
+  parent: [Physical]
+  dependents: [Logical]
+  owner: Relation
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  ports: [Port]
+  rack_units: Int
+  rack_position: Int
+}
+
+type externalEquipmentConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [externalEquipmentEdge]!
+}
+
+"""A Relay edge containing a `externalEquipment` and its cursor."""
+type externalEquipmentEdge {
+  """The item at the end of the edge"""
+  node: ExternalEquipment
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ExternalEquipmentFilter {
+  AND: [ExternalEquipmentNestedFilter!]
+  OR: [ExternalEquipmentNestedFilter!]
+}
+
+input ExternalEquipmentNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  rack_units: Int
+  rack_units_not: Int
+  rack_units_lt: Int
+  rack_units_lte: Int
+  rack_units_gt: Int
+  rack_units_gte: Int
+  rack_units_in: [Int!]
+  rack_units_not_in: [Int!]
+  rack_position: Int
+  rack_position_not: Int
+  rack_position_lt: Int
+  rack_position_lte: Int
+  rack_position_gt: Int
+  rack_position_gte: Int
+  rack_position_in: [Int!]
+  rack_position_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum ExternalEquipmentOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  rack_units_ASC
+  rack_units_DESC
+  rack_position_ASC
+  rack_position_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 type Firewall implements NINode & Physical {
   handle_id: ID!
   node_name: String!
@@ -2554,7 +2993,7 @@ type Firewall implements NINode & Physical {
   name: String!
   relation_id: Int
   location: Location
-  has: Physical
+  has: [Physical]
   part_of: Logical
   parent: [Physical]
   dependents: [Logical]
@@ -3521,6 +3960,10 @@ type Mutation {
   update_firewall(input: UpdateFirewallInput!): UpdateFirewallPayload
   delete_firewall(input: DeleteFirewallInput!): DeleteFirewallPayload
   composite_firewall(input: CompositeFirewallMutationInput!): CompositeFirewallMutationPayload
+  create_externalEquipment(input: CreateExternalEquipmentInput!): CreateExternalEquipmentPayload
+  update_externalEquipment(input: UpdateExternalEquipmentInput!): UpdateExternalEquipmentPayload
+  delete_externalEquipment(input: DeleteExternalEquipmentInput!): DeleteExternalEquipmentPayload
+  composite_externalEquipment(input: CompositeExternalEquipmentMutationInput!): CompositeExternalEquipmentMutationPayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -4403,7 +4846,7 @@ interface Physical {
   name: String!
   relation_id: Int
   location: Location
-  has: Physical
+  has: [Physical]
   part_of: Logical
   parent: [Physical]
   dependents: [Logical]
@@ -4425,7 +4868,7 @@ type Port implements NINode & Physical {
   name: String!
   relation_id: Int
   location: Location
-  has: Physical
+  has: [Physical]
   part_of: Logical
   parent: [Physical]
   dependents: [Logical]
@@ -4976,6 +5419,10 @@ type Query {
   count_firewalls: Int
   firewalls(filter: FirewallFilter, orderBy: FirewallOrderBy, before: String, after: String, first: Int, last: Int): firewallConnection
   getFirewallById(id: ID): Firewall
+  all_externalequipments: [ExternalEquipment]
+  count_externalequipments: Int
+  externalEquipments(filter: ExternalEquipmentFilter, orderBy: ExternalEquipmentOrderBy, before: String, after: String, first: Int, last: Int): externalEquipmentConnection
+  getExternalEquipmentById(id: ID): ExternalEquipment
   all_peeringpartners: [PeeringPartner]
   count_peeringpartners: Int
   peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
@@ -5104,7 +5551,7 @@ type Router implements NINode & Physical {
   name: String!
   relation_id: Int
   location: Location
-  has: Physical
+  has: [Physical]
   part_of: Logical
   parent: [Physical]
   dependents: [Logical]
@@ -5475,7 +5922,7 @@ type Switch implements NINode & Physical {
   name: String!
   relation_id: Int
   location: Location
-  has: Physical
+  has: [Physical]
   part_of: Logical
   parent: [Physical]
   dependents: [Logical]
@@ -5876,6 +6323,24 @@ input UpdateEndUserInput {
 type UpdateEndUserPayload {
   errors: [ErrorType]
   endUser: EndUser
+  clientMutationId: String
+}
+
+input UpdateExternalEquipmentInput {
+  name: String!
+  description: String
+  rack_units: Int
+  rack_position: Int
+  relationship_owner: ChoiceScalar
+  relationship_location: Int
+  relationship_ports: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateExternalEquipmentPayload {
+  errors: [ErrorType]
+  externalEquipment: ExternalEquipment
   clientMutationId: String
 }
 

@@ -213,6 +213,9 @@ exports[`Some Component Renders correctly 1`] = `
                 "network.sub-menu.equipment/firewalls",
               ],
               Array [
+                "network.sub-menu.equipment/external-equipment",
+              ],
+              Array [
                 "header.main-menu.home",
               ],
               Array [
@@ -274,6 +277,10 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "network.sub-menu.equipment/firewalls",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.equipment/external-equipment",
               },
               Object {
                 "type": "return",

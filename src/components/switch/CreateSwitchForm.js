@@ -2,7 +2,6 @@ import _SwitchFormParentClass from './_SwitchFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateSwitchMutation from '../../mutations/switch/CreateSwitchMutation';
 import ValidationsSwitchForm from './ValidationsSwitchForm';
@@ -39,11 +38,10 @@ class CreateSwitchForm extends _SwitchFormParentClass {
 }
 
 CreateSwitchForm = reduxForm({
-  form: 'createSwitch',
   validate: ValidationsSwitchForm.validateWithType,
   initialValues: {
     name: '',
   },
 })(CreateSwitchForm);
 
-export default withTranslation()(withRouter(CreateSwitchForm));
+export default withTranslation()(CreateSwitchForm);

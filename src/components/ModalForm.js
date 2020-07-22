@@ -17,6 +17,11 @@ import CreateProviderFormContainer from '../containers/provider/CreateProviderFo
 import ProviderDetailsContainer from '../containers/provider/ProviderDetails';
 import CreateSiteOwnerFormContainer from '../containers/siteOwner/CreateSiteOwnerForm';
 import SiteOwnerDetailsContainer from '../containers/siteOwner/SiteOwnerDetails';
+import FirewallDetailsContainer from '../containers/firewall/FirewallDetails';
+import CreateSwitchFormContainer from '../containers/switch/CreateSwitchForm';
+import SwitchDetailsContainer from '../containers/switch/SwitchDetails';
+import CreateExternalEquipmentFormContainer from '../containers/externalEquipment/CreateExternalEquipmentForm';
+import ExternalEquipmentDetailsContainer from '../containers/externalEquipment/ExternalEquipmentDetails';
 
 import {
   CREATE_CONTACT_FORM,
@@ -33,6 +38,12 @@ import {
   CREATE_PROVIDER_FORM,
   UPDATE_SITEOWNER_FORM,
   CREATE_SITEOWNER_FORM,
+  UPDATE_FIREWALL_FORM,
+  CREATE_FIREWALL_FORM,
+  UPDATE_SWITCH_FORM,
+  CREATE_SWITCH_FORM,
+  UPDATE_EXTERNALEQUIPMENT_FORM,
+  CREATE_EXTERNALEQUIPMENT_FORM,
 } from '../utils/constants';
 import '../style/ModalNewContact.scss';
 
@@ -101,6 +112,32 @@ class ModalNewContact extends React.Component {
           formId: isUpdateForm ? UPDATE_SITEOWNER_FORM : CREATE_SITEOWNER_FORM,
         };
         break;
+      case 'Firewall':
+      case 'firewalls':
+        entityData = {
+          ComponentToRender: isUpdateForm ? FirewallDetailsContainer : null,
+          textHeader: isUpdateForm ? 'network.details.modify/firewalls' : 'network.details.new/firewalls',
+          formId: isUpdateForm ? UPDATE_FIREWALL_FORM : CREATE_FIREWALL_FORM,
+        };
+        break;
+      case 'Switch':
+      case 'switchs':
+        entityData = {
+          ComponentToRender: isUpdateForm ? SwitchDetailsContainer : CreateSwitchFormContainer,
+          textHeader: isUpdateForm ? 'network.details.modify/switches' : 'network.details.new/switches',
+          formId: isUpdateForm ? UPDATE_SWITCH_FORM : CREATE_SWITCH_FORM,
+        };
+        break;
+      case 'ExternalEquipment':
+      case 'externalEquipments':
+        entityData = {
+          ComponentToRender: isUpdateForm ? ExternalEquipmentDetailsContainer : CreateExternalEquipmentFormContainer,
+          textHeader: isUpdateForm
+            ? 'network.details.modify/externalEquipments'
+            : 'network.details.new/externalEquipments',
+          formId: isUpdateForm ? UPDATE_EXTERNALEQUIPMENT_FORM : CREATE_EXTERNALEQUIPMENT_FORM,
+        };
+        break;
       default:
         break;
     }
@@ -135,7 +172,7 @@ class ModalNewContact extends React.Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ComponentToRender isFromModal />
+            {ComponentToRender && <ComponentToRender isFromModal t={t} />}
           </Modal.Body>
         </Modal>
       </div>

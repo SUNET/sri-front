@@ -18,6 +18,9 @@ const PortDetailsQuery = graphql`
         relation_id
         ... on Port {
           description
+          entityType: node_type {
+            name: type
+          }
           type: port_type {
             name
             value
@@ -25,9 +28,32 @@ const PortDetailsQuery = graphql`
         }
         ... on Cable {
           description
+          entityType: node_type {
+            name: type
+          }
           type: cable_type {
             name
             value
+          }
+        }
+        ... on ExternalEquipment {
+          description
+          entityType: node_type {
+            name: type
+          }
+        }
+        ... on Switch {
+          description
+          operational_state
+          entityType: node_type {
+            name: type
+          }
+        }
+        ... on Firewall {
+          description
+          operational_state
+          entityType: node_type {
+            name: type
           }
         }
       }

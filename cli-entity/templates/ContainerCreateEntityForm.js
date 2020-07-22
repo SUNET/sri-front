@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { getFormMeta, getFormSyncErrors, formValueSelector } from 'redux-form';
 
-import * as actions from '../../actions/Notify';
+import * as notifyActions from '../../actions/Notify';
 import Create__EntityClassName__Form from '../../components/__entityName__/Create__EntityClassName__Form';
 
 const mapStateToProps = (state, props) => {
@@ -19,7 +19,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     notify: (msg, level) => {
-      dispatch(actions.notify(msg, level));
+      dispatch(notifyActions.notify(msg, level));
     },
   };
 };

@@ -19,7 +19,8 @@ function formatterSubInputs(subInputs) {
 }
 
 const mapStateToProps = (state, props) => {
-  const updateFirewallSelector = formValueSelector('updateFirewall');
+  const formName = props.isFromModal ? 'updateFirewallInModal' : 'updateFirewall';
+  const updateFirewallSelector = formValueSelector(formName);
   const { firewall } = props;
 
   const initialValues = {
@@ -63,6 +64,7 @@ const mapStateToProps = (state, props) => {
 
   return {
     initialValues,
+    form: formName,
     name: updateFirewallSelector(state, 'name'),
     description: updateFirewallSelector(state, 'description'),
     operational_state: updateFirewallSelector(state, 'operational_state'),
@@ -100,6 +102,8 @@ const mapStateToProps = (state, props) => {
     // these props are because this form has entities listed as attributes
     isDeleteConfirmed: state.confirmModal.confirmDelete,
     confirmModalType: state.confirmModal.type,
+    isFromModal: Boolean(props.isFromModal),
+    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
   };
 };
 
@@ -122,6 +126,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     showModalEditForm: (entityName, entityId) => {
       dispatch(formModalActions.showModalEditForm(entityName, entityId));
+    },
+    editedEntity: (entityName, entityId) => {
+      dispatch(formModalActions.editedEntity(entityName, entityId));
+    },
+    hideModalForm: () => {
+      dispatch(formModalActions.hideModalForm());
     },
     // these methods are because this form has entities listed as attributes
     showModalConfirm: (type) => {

@@ -48,6 +48,9 @@ export type CompositeOrganizationMutationInput = {|
   create_owns_firewall?: ?$ReadOnlyArray<?CreateFirewallInput>,
   update_owns_firewall?: ?$ReadOnlyArray<?UpdateFirewallInput>,
   deleted_owns_firewall?: ?$ReadOnlyArray<?DeleteFirewallInput>,
+  create_owns_externalequipment?: ?$ReadOnlyArray<?CreateExternalEquipmentInput>,
+  update_owns_externalequipment?: ?$ReadOnlyArray<?UpdateExternalEquipmentInput>,
+  deleted_owns_externalequipment?: ?$ReadOnlyArray<?DeleteExternalEquipmentInput>,
   clientMutationId?: ?string,
 |};
 export type CreateOrganizationInput = {|
@@ -420,6 +423,30 @@ export type DeleteFirewallInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
+export type CreateExternalEquipmentInput = {|
+  name: string,
+  description?: ?string,
+  rack_units?: ?number,
+  rack_position?: ?number,
+  relationship_owner?: ?any,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateExternalEquipmentInput = {|
+  name: string,
+  description?: ?string,
+  rack_units?: ?number,
+  rack_position?: ?number,
+  relationship_owner?: ?any,
+  relationship_location?: ?number,
+  relationship_ports?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteExternalEquipmentInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type UpdateOrganizationMutationVariables = {|
   input: CompositeOrganizationMutationInput
 |};
@@ -452,7 +479,7 @@ export type UpdateOrganizationMutationResponse = {|
         +contacts: ?$ReadOnlyArray<?{|
           +id: string,
           +first_name: string,
-          +last_name: string,
+          +last_name: ?string,
           +contact_type: ?{|
             +name: string,
             +value: string,
@@ -542,7 +569,7 @@ export type UpdateOrganizationMutationResponse = {|
       +contact: ?{|
         +id: string,
         +first_name: string,
-        +last_name: string,
+        +last_name: ?string,
         +contact_type: ?{|
           +name: string,
           +value: string,
@@ -587,7 +614,7 @@ export type UpdateOrganizationMutationResponse = {|
       +contact: ?{|
         +id: string,
         +first_name: string,
-        +last_name: string,
+        +last_name: ?string,
         +contact_type: ?{|
           +name: string,
           +value: string,

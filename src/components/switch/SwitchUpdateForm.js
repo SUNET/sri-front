@@ -16,9 +16,12 @@ class SwitchUpdateForm extends _SwitchFormParentClass {
   FORM_ID = UPDATE_SWITCH_FORM;
   MODEL_NAME = 'switch';
   ROUTE_LIST_DIRECTION = '/network/switches';
-  state = {
-    editMode: true,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { switchId: this.props.switch.id }, // Our refetchQuery needs to know the `switchID`
@@ -34,23 +37,24 @@ class SwitchUpdateForm extends _SwitchFormParentClass {
     UpdateSwitchMutation(switchData, this);
   };
   render() {
-    let { handleSubmit } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
         {this.renderWorkLog()}
-        {this.renderSaveCancelButtons()}
+        {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
   }
 }
 
 SwitchUpdateForm = reduxForm({
-  form: 'updateSwitch',
   validate: ValidationsSwitchForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {

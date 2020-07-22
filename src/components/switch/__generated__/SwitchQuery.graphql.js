@@ -17,6 +17,7 @@ export type SwitchQueryResponse = {|
     +id: string,
     +name: string,
     +description: ?string,
+    +operational_state: string,
     +type: string,
   |}
 |};
@@ -36,6 +37,7 @@ query SwitchQuery(
     id
     name
     description
+    operational_state
     type: __typename
   }
 }
@@ -94,6 +96,13 @@ v1 = [
         "storageKey": null
       },
       {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "operational_state",
+        "storageKey": null
+      },
+      {
         "alias": "type",
         "args": null,
         "kind": "ScalarField",
@@ -125,11 +134,11 @@ return {
     "metadata": {},
     "name": "SwitchQuery",
     "operationKind": "query",
-    "text": "query SwitchQuery(\n  $switchId: ID!\n) {\n  getSwitchById(id: $switchId) {\n    __typename\n    id\n    name\n    description\n    type: __typename\n  }\n}\n"
+    "text": "query SwitchQuery(\n  $switchId: ID!\n) {\n  getSwitchById(id: $switchId) {\n    __typename\n    id\n    name\n    description\n    operational_state\n    type: __typename\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '1041ffffe7d0a61f0335a4b71724b442';
+(node/*: any*/).hash = '141b2fafaa94acbc6e7a494a2f0b1899';
 
 module.exports = node;

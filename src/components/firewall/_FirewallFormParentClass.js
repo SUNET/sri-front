@@ -493,7 +493,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   }
 
   renderOwnerToggleSection(editMode = false) {
-    const { t, owner } = this.props;
+    const { t, owner, entityRemovedId } = this.props;
     return (
       <section className="model-section">
         <ToggleSection>
@@ -520,7 +520,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               }}
               handleSearchResult={this.handleSelectedNetworkOrganization}
               rerenderOnEveryChange={true}
-              // entityRemovedId={this.state.fieldModalOpened === 'parents' ? entityRemovedId : null}
+              entityRemovedId={entityRemovedId}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
             />
           </TogglePanel>

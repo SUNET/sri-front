@@ -42,7 +42,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
     if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
       this.props.hideModalConfirm();
-      this.updateMutation(this.entityDataToUpdate, this)
+      this.updateMutation(this.entityDataToUpdate, this);
     }
     if (nextProps.entitySavedId) {
       const { fieldModalOpened } = nextState;
@@ -68,9 +68,15 @@ class _PortFormParentClass extends _BasicFormParentClass {
           name: entity.name,
           description: entity.description,
           type: entity.type,
+          entityType: {
+            name: entity.__typename,
+          },
           id: entity.id,
           status: 'saved',
         };
+        if (entity.operational_state) {
+          newEntity.operational_state = entity.operational_state;
+        }
         this.props.dispatch(arrayPush(this.props.form, 'parents', newEntity));
       });
     }

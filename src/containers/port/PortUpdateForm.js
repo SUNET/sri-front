@@ -9,6 +9,7 @@ import getCable from '../../components/cable/Cable';
 import getPort from '../../components/port/Port';
 import getSwitch from '../../components/switch/Switch';
 import getFirewall from '../../components/firewall/Firewall';
+import getExternalEquipment from '../../components/externalEquipment/ExternalEquipment';
 
 function formatterSubInputs(subInputs) {
   return subInputs.map((element) => ({
@@ -48,6 +49,7 @@ const mapStateToProps = (state, props) => {
     getPortById: (id) => getPort(id),
     getSwitchById: (id) => getSwitch(id),
     getFirewallById: (id) => getFirewall(id),
+    getExternalEquipmentById: (id) => getExternalEquipment(id),
     isFromModal: Boolean(props.isFromModal),
     isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
     entityInModalName: state.formModal.entityName,

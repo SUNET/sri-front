@@ -26,7 +26,11 @@ const mutation = graphql`
           parent {
             id
             name
+            relation_id
             ... on Port {
+              entityType: node_type {
+                name: type
+              }
               type: port_type {
                 value
                 name
@@ -34,11 +38,20 @@ const mutation = graphql`
               description
             }
             ... on Cable {
+              entityType: node_type {
+                name: type
+              }
               type: cable_type {
                 value
                 name
               }
               description
+            }
+            ... on ExternalEquipment {
+              description
+              entityType: node_type {
+                name: type
+              }
             }
           }
           connected_to {
@@ -121,7 +134,7 @@ function CreatePortMutation(port, form) {
       } else {
         form.props.createdEntity('Port', portId);
         form.props.hideModalForm();
-      } 
+      }
     },
     onError: (errors) => console.error(errors),
     configs: [

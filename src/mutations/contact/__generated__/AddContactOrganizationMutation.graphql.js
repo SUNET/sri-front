@@ -37,7 +37,7 @@ export type AddContactOrganizationMutationResponse = {|
     +contact: ?{|
       +id: string,
       +first_name: string,
-      +last_name: string,
+      +last_name: ?string,
       +contact_type: ?{|
         +name: string,
         +value: string,

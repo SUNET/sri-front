@@ -143,6 +143,18 @@ const DropdownSearchAllFirewallsQuery = graphql`
   }
 `;
 
+const DropdownSearchAllExternalEquipmentsQuery = graphql`
+  query DropdownSearchAllExternalEquipmentsQuery($filter: ExternalEquipmentFilter) {
+    externalEquipments(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -187,6 +199,9 @@ class DropdownSearch extends React.Component {
         break;
       case 'firewalls':
         queryModel.query = DropdownSearchAllFirewallsQuery;
+        break;
+      case 'externalEquipments':
+        queryModel.query = DropdownSearchAllExternalEquipmentsQuery;
         break;
       case 'ports-type-head':
         queryModel.query = DropdownSearchTypeHeadPortsQuery;

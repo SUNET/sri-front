@@ -142,7 +142,7 @@ export default function UpdateFirewallMutation(firewall, form) {
       id: ownerToRemove.id,
     };
   }
-  // console.log(JSON.stringify(variables));
+
   commitMutation(environment, {
     mutation,
     variables,

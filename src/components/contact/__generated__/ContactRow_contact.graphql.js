@@ -14,7 +14,7 @@ declare export opaque type ContactRow_contact$fragmentType: ContactRow_contact$r
 export type ContactRow_contact = {|
   +id: string,
   +first_name: string,
-  +last_name: string,
+  +last_name: ?string,
   +contact_type: ?{|
     +name: string,
     +value: string,
