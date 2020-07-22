@@ -7,5 +7,4 @@ yarn
 yarn add babel-plugin-relay
 yarn build
 
-rm -rf /bundle/*
-cp -r build/* /bundle/
+sh ./copy-bundle.sh
