@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdatePortMutation from '../../mutations/port/UpdatePortMutation';
 import BasicValidation from '../common/_BasicValidationForm';
 // const
-import { UPDATE_PORT_FORM } from '../../utils/constants';
+import { UPDATE_PORT_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class PortUpdateForm extends _PortFormParentClass {
@@ -22,6 +22,7 @@ class PortUpdateForm extends _PortFormParentClass {
       editMode: props.isEditModeModal,
     };
   }
+
   refetch = () => {
     this.props.relay.refetch(
       { portId: this.props.port.id }, // Our refetchQuery needs to know the `portID`
@@ -32,11 +33,25 @@ class PortUpdateForm extends _PortFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (port) => {
+
+  handleSubmit = (entityData) => {
     this.setState({ editMode: !this.state.editMode });
     this.props.hideModalForm();
-    UpdatePortMutation(port, this);
+    const parentsToRemove = entityData.parents.filter((parent) => parent.status === REMOVE);
+    const connectionsToRemove = entityData.connectedTo.filter((connection) => connection.status === REMOVE);
+    const someItemWillBeDeleted = parentsToRemove.length > 0 || connectionsToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdatePortMutation(entityData, form);
+  }
+
   render() {
     let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;

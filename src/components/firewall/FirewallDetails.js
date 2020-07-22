@@ -1,58 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { QueryRenderer } from 'react-relay';
-import environment from '../../createRelayEnvironment';
-
+import _BasicDetailsParentClass from '../common/_BasicDetailsParentClass';
 import FirewallUpdateFormContainer from '../../containers/firewall/FirewallUpdateForm';
 import DeleteFirewallMutation from '../../mutations/firewall/DeleteFirewallMutation';
-
 import FirewallDetailsQuery from '../../queries/firewall/FirewallDetailsQuery';
 
-class FirewallDetails extends React.Component {
+class FirewallDetails extends _BasicDetailsParentClass {
   ID_ENTITY_KEY = 'firewallId';
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.node,
-      }).isRequired,
-    }).isRequired,
-  };
+  UpdateFormContainer = FirewallUpdateFormContainer;
+  DetailsQuery = FirewallDetailsQuery;
+  entityNameProp = 'firewall';
+  entityGetDetailsMethodName = 'getFirewallById';
+  classDetails = 'firewall-details';
 
   handleDelete = () => {
-    const idEntity = this.props.match.params[this.ID_ENTITY_KEY];
-    DeleteFirewallMutation(idEntity, () =>
-      this.props.history.push(`/network/firewalls`),
-    );
+    const { history, isFromModal, deletedEntity } = this.props;
+    const idEntity = this.getId();
+    const callbackAfterDeleteInModal = () => {
+      deletedEntity(idEntity);
+    };
+    const callbackInRouteForm = () => {
+      history.push(`/network/firewalls`);
+    };
+    DeleteFirewallMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
-
-  render() {
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={FirewallDetailsQuery}
-        variables={{
-          [this.ID_ENTITY_KEY]: this.props.match.params[this.ID_ENTITY_KEY],
-        }}
-        render={({ error, props, retry }) => {
-          if (error) {
-            return <div>{this.props.t('general.error')}</div>;
-          } else if (props) {
-            return (
-              <section className="model-details firewall-details">
-                <FirewallUpdateFormContainer
-                  onDelete={this.handleDelete}
-                  firewall={props.getFirewallById}
-                  history={this.props.history}
-                  refetch={retry}
-                />
-              </section>
-            );
-          }
-          return <div>Loading</div>;
-        }}
-      />
-    );
-  }
 }
 
 export default FirewallDetails;

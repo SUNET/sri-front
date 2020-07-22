@@ -4,6 +4,7 @@ import CableUpdateForm from '../../components/cable/CableUpdateForm';
 import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
+import * as confirmModalActions from '../../actions/ConfirmModal';
 import getProvider from '../../components/provider/Provider';
 import getPort from '../../components/port/Port';
 
@@ -49,6 +50,9 @@ const mapStateToProps = (state, props) => {
     editedSubEntity: state.formModal.entityEditedId,
     entitySavedId: state.formModal.entitySavedId,
     entityRemovedId: state.formModal.entityRemovedId,
+    // these props are because this form has entities listed as attributes
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 
@@ -77,6 +81,13 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     editedEntity: (entityName, entityId) => {
       dispatch(formModalActions.editedEntity(entityName, entityId));
+    },
+    // these methods are because this form has entities listed as attributes
+    showModalConfirm: (type) => {
+      dispatch(confirmModalActions.showModalConfirm(type));
+    },
+    hideModalConfirm: () => {
+      dispatch(confirmModalActions.hideModalConfirm());
     },
   };
 };

@@ -39,6 +39,11 @@ class _CableFormParentClass extends _BasicFormParentClass {
   MAX_CONNECTIONS = 2;
 
   shouldComponentUpdate(nextProps, nextState) {
+    const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
+    if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
+      this.props.hideModalConfirm();
+      this.updateMutation(this.entityDataToUpdate, this);
+    }
     if (nextProps.entitySavedId) {
       const { fieldModalOpened } = nextState;
       const selectionData = {
@@ -128,7 +133,9 @@ class _CableFormParentClass extends _BasicFormParentClass {
   renderConnectionsSection(editMode = false) {
     const { t, entityRemovedId } = this.props;
     const disabledFilters =
-      !!this.props.connections && (!this.props.connections || this.props.connections.filter(cn => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
+      !!this.props.connections &&
+      (!this.props.connections ||
+        this.props.connections.filter((cn) => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
     return (
       <section className="model-section">
         <ToggleSection>

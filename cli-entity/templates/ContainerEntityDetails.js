@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import * as actions from '../../actions/Notify';
+import * as notifyActions from '../../actions/Notify';
+import * as confirmModalActions from '../../actions/ConfirmModal';
 
 import __EntityClassName__Details from '../../components/__entityName__/__EntityClassName__Details';
 
@@ -10,7 +11,13 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     notify: (msg, level) => {
-      dispatch(actions.notify(msg, level));
+      dispatch(notifyActions.notify(msg, level));
+    },
+    showModalConfirm: (type) => {
+      dispatch(confirmModalActions.showModalConfirm(type));
+    },
+    hideModalConfirm: () => {
+      dispatch(confirmModalActions.hideModalConfirm());
     },
   };
 };

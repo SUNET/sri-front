@@ -5,7 +5,6 @@ import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 
-
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'updateCustomerInModal' : 'updateCustomer';
   const updateCustomerSelector = formValueSelector(formName);

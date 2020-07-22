@@ -9,6 +9,7 @@ import filterColumnsReducer from './filterColumns';
 import formModalReducer from './FormModal';
 import notifyReducer from './Notify';
 import breadcrumbsReducer from './Breadcrumbs';
+import confirmModalReducer from './ConfirmModal';
 
 const reducers = (history) =>
   combineReducers({
@@ -16,6 +17,7 @@ const reducers = (history) =>
     generalSearch: generalSearchReducer,
     filterColumns: filterColumnsReducer,
     formModal: formModalReducer,
+    confirmModal: confirmModalReducer,
     form: formReducer,
     notify: notifyReducer,
     router: connectRouter(history),

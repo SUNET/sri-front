@@ -45,6 +45,11 @@ class _OrganizationFormParentClass extends React.Component {
   ROUTE_LIST_DIRECTION = '/community/organizations';
 
   shouldComponentUpdate(nextProps, nextState) {
+    const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
+    if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
+      this.props.hideModalConfirm();
+      this.updateMutation(this.entityDataToUpdate, this);
+    }
     if (nextProps.entitySavedId) {
       const selectionData = {
         id: nextProps.entitySavedId,
