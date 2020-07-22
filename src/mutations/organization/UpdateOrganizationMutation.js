@@ -250,26 +250,42 @@ function formatContacts(form, contacts) {
     toUpdate: [],
     toUnlink: [],
     toDelete: [],
+    rolesToUnlink: [],
   };
 
   if (contacts) {
     result.toUnlink = contacts
-      .filter(
-        (contact, index) =>
-          contact.status === UNLINK || (contact.origin === 'store' && form.props.isDirty_contacts_roles[index]),
-      )
-      .map((contact) => ({ relation_id: contact.role_obj.relation_id }));
+      .filter((contact) => contact.status === UNLINK)
+      .map((contact) => contact.roles.map((role) => ({ relation_id: role.relation_id })))
+      .flat();
 
     result.toUpdate = contacts
       .filter((contact) => contact.status === SAVED)
-      .map((contact) => ({
-        id: contact.id,
-        first_name: contact.first_name,
-        last_name: contact.last_name,
-        contact_type: contact.contact_type.value,
-        role_id: contact.role,
-      }));
-
+      .map((contact) => {
+        const rolesToAdd = contact.roles.filter((role) => role.status === SAVED);
+        const basicData = {
+          id: contact.id,
+          first_name: contact.first_name,
+          last_name: contact.last_name,
+          contact_type: contact.contact_type.value,
+        };
+        if (rolesToAdd.length > 0) {
+          return rolesToAdd.map((role) => ({
+            ...basicData,
+            role_id: role.id,
+          }));
+        }
+        return basicData;
+      })
+      .flat();
+    result.rolesToUnlink = contacts
+      .filter((contact) => contact.status === SAVED)
+      .map((contact) => {
+        return contact.roles
+          .filter((role) => role.status === UNLINK)
+          .map((role) => ({ relation_id: role.relation_id }));
+      })
+      .flat();
     result.toDelete = contacts.filter((contact) => contact.status === REMOVE).map((contact) => ({ id: contact.id }));
   }
   return result;
@@ -312,7 +328,11 @@ export default function UpdateOrganizationMutation(organization, form) {
       delete_address: formattedAddresses.toDelete,
       create_subinputs: [],
       update_subinputs: formattedContacts.toUpdate,
-      unlink_subinputs: [...parentOrganizationUnlink, ...formattedContacts.toUnlink],
+      unlink_subinputs: [
+        ...parentOrganizationUnlink,
+        ...formattedContacts.toUnlink,
+        ...formattedContacts.rolesToUnlink,
+      ],
       delete_subinputs: formattedContacts.toDelete,
     },
   };

@@ -13,17 +13,23 @@ function formattedContacts(organization) {
   let allFormattedContacts = [];
   if (contacts) {
     allFormattedContacts = contacts.map((contact) => {
-      const contactRelationIdObj = contact.roles.find((relationNode) => relationNode.end.id === organization.id);
+      const contactRelationIdObj = contact.roles.filter((relationNode) => relationNode.end.id === organization.id);
       return {
         id: contact.id,
         first_name: contact.first_name,
         last_name: contact.last_name,
         name: `${contact.first_name} ${contact.last_name}`,
         contact_type: contact.contact_type,
-        role: contactRelationIdObj ? contactRelationIdObj.role_data.id : '',
-        role_label: contactRelationIdObj ? contactRelationIdObj.role_data.name : '',
-        role_obj: contactRelationIdObj,
-        role_relation_id: contactRelationIdObj ? contactRelationIdObj.relation_id : '',
+        originalRoles: contactRelationIdObj.map((relationNode) => ({
+          ...relationNode.role_data,
+          relation_id: relationNode.relation_id,
+          status: 'saved',
+        })),
+        roles: contactRelationIdObj.map((relationNode) => ({
+          ...relationNode.role_data,
+          relation_id: relationNode.relation_id,
+          status: 'saved',
+        })),
         email: contact.emails,
         email_obj: contact.emails,
         phone: contact.phones,
