@@ -148,8 +148,14 @@ class Dropdown extends React.PureComponent {
   }
 
   getFormattedDataList(dataList) {
-    const { valueField } = this.props;
-    return dataList.map((element) => {
+    const { valueField, model } = this.props;
+    let list;
+    if (model === 'roles') {
+      list = dataList.edges.map((e) => ({ id: e.node.id, name: e.node.name }));
+    } else {
+      list = [...dataList];
+    }
+    return list.map((element) => {
       return {
         value: element[valueField],
         label: this.getCustomLabel(element),
@@ -203,13 +209,22 @@ class Dropdown extends React.PureComponent {
   renderComboSelect(dataList) {
     const { currentValue, nameDataInsideRequest } = this.props;
     const formattedDataList = this.getFormattedDataList(dataList[nameDataInsideRequest]);
-    const currentValueFromList = formattedDataList.find((org) => org.value && org.value === currentValue);
+    const currentValueFromList =
+      nameDataInsideRequest === 'roles'
+        ? formattedDataList.filter((el) => el.value && currentValue.map((cv) => cv.id).includes(el.value))
+        : formattedDataList.find((el) => el.value && el.value === currentValue);
     return (
       <Select
         isClearable
+        isMulti={nameDataInsideRequest === 'roles'}
         value={currentValueFromList}
         onChange={(newValue) => {
-          const data = newValue ? newValue.data : null;
+          let data;
+          if (nameDataInsideRequest === 'roles') {
+            data = newValue ? newValue.map((e) => e.data) : [];
+          } else {
+            data = newValue ? newValue.data : null;
+          }
           this.props.onChange(data);
         }}
         options={formattedDataList}
@@ -242,7 +257,8 @@ class Dropdown extends React.PureComponent {
         )}
         {this.props.model === 'organization' && this.renderOptionsModelOptimized(options)}
         {(this.props.model === 'roles' || this.props.model === 'default_roles') && this.renderOptionsModel(options)}
-        {(this.props.model === 'physical_types' || this.props.model === 'network_org_types') && this.renderOptions(options)}
+        {(this.props.model === 'physical_types' || this.props.model === 'network_org_types') &&
+          this.renderOptions(options)}
         {this.props.model === 'switch_types' && this.renderOptions(options)}
         {this.props.model === undefined && this.renderOptions(options)}
       </Field>

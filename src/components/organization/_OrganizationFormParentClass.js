@@ -109,6 +109,7 @@ class _OrganizationFormParentClass extends React.Component {
           last_name: contact.last_name,
           id: contact.id,
           contact_type: contact.contact_type,
+          roles: [],
           role: contact.roles[0] ? contact.roles[0].role_data.id : '',
           role_obj: contact.roles[0],
           role_label: contact.roles[0] ? contact.roles[0].role_data.name : '',

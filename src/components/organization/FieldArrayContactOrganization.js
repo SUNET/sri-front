@@ -344,7 +344,7 @@ class FieldArrayContactsOrganization extends React.Component {
                 }`}
               >
                 <div className="contact-in-organization__body__row__element">{row.name}</div>
-                {isBrowser && this.renderDropDownRole(row.role_label, index)}
+                {isBrowser && this.renderDropDownMultiSelectRole(row, index)}
                 {isBrowser && (
                   <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
                     {this.generateSubDataList(row, 'email', 'type.name')}
@@ -396,22 +396,39 @@ class FieldArrayContactsOrganization extends React.Component {
   }
 
   // specific renders
-  renderDropDownRole(role_label, index) {
-    const { editable } = this.props;
+  renderDropDownMultiSelectRole(contact, index) {
+    const { t, editable } = this.props;
+    const { roles, originalRoles } = contact;
     return (
       <div className="contact-in-organization__body__row__element">
         {editable ? (
           <Dropdown
-            className="auto"
-            emptyLabel="Select role"
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            type="combo_list"
+            name="roles"
             model="roles"
-            onChange={(e) => {
-              this.onChangeRole(e, index);
+            placeholder={t('organization-details.add-role')}
+            currentValue={roles.filter((role) => role.status === SAVED)}
+            objectCurrentValue={roles.filter((role) => role.status === SAVED)}
+            nameDataInsideRequest="roles"
+            valueField="id"
+            labelElementsArray={['name']}
+            onChange={(newRoles) => {
+              const newRolesWithStatus = [
+                ...newRoles.map((role) => ({ ...role, status: 'saved' })),
+                ...originalRoles
+                  .filter((role) => !newRoles.find((newRole) => newRole.id === role.id))
+                  .map((e) => ({ ...e, status: 'unlink' })),
+              ];
+              this.props.dispatch(change(this.props.meta.form, `contacts[${index}].roles`, newRolesWithStatus));
             }}
-            name={`contacts[${index}].role`}
           />
         ) : (
-          role_label
+          <div>
+            {roles.map((role) => (
+              <p key={Math.random()}>{role.name}</p>
+            ))}
+          </div>
         )}
       </div>
     );

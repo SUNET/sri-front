@@ -2,14 +2,14 @@
 
 .combo-select-container {
     display: block !important;
-    height: $input--height;
+    // height: $input--height;
     line-height: normal;
     .combo-select__control {
-        height: $input--height;
-        min-height: $input--height;
+        // height: $input--height;
+        // min-height: $input--height;
         &--is-focused {
-            height: $input--height;
-            min-height: $input--height;
+            // height: $input--height;
+            // min-height: $input--height;
             color: #495057;
             background-color: #fff;
             border-color: #80bdff;
