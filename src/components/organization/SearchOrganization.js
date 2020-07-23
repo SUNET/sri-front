@@ -45,6 +45,7 @@ class SearchOrganization extends React.Component {
 
         this.state = {
             countList: ITEMS_PER_PAGE,
+            filterValueText: '',
             filterValue: {},
             filterColumnValue: {},
             filterDateType: "created",
@@ -93,6 +94,7 @@ class SearchOrganization extends React.Component {
     // these filters cannot be generalized by backend implementation
     handleOnChangeFilter = (filterValue) => {
         this.setState({
+            filterValueText: filterValue,
             filterValue: [
                 { name_contains: filterValue },
                 { organization_id_contains: filterValue },
@@ -217,6 +219,7 @@ class SearchOrganization extends React.Component {
     renderFilterBox() {
         return (
             <FilterRowsBlock
+                initialTextValue={this.state.filterValueText}
                 handleOnChangeFilter={this.handleOnChangeFilter}
                 handleOnChangeOrderBy={this.handleOnChangeOrderBy}
                 filterDateType={this.state.filterDateType}
