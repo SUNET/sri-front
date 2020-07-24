@@ -14,7 +14,7 @@ export class Filter extends React.Component {
     super(props);
 
     this.state = {
-      filterValue: '',
+      filterValue: props.initialValue || '',
     };
   }
 
@@ -54,7 +54,12 @@ export class Filter extends React.Component {
   }
 }
 
+Filter.defaultValues = {
+  initialValue: '',
+};
+
 Filter.propTypes = {
+  initialValue: PropTypes.string,
   changeFilter: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };

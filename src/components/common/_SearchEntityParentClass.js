@@ -37,6 +37,7 @@ class _SearchEntityParentClass extends React.Component {
     state = {
         itemsPerPage: ITEMS_PER_PAGE,
         countList: ITEMS_PER_PAGE,
+        filterValueText: '',
         filterValue: {},
         filterDateType: "created",
         filterDateFrom: undefined,
@@ -76,6 +77,7 @@ class _SearchEntityParentClass extends React.Component {
     };
     handleOnChangeFilter = (filterValue) => {
         this.setState({
+            filterValueText: filterValue,
             filterValue: this.DEFAULT_COLUMNS.map((column) => {
                 return { [column.value + "_contains"]: filterValue };
             })
@@ -171,6 +173,7 @@ class _SearchEntityParentClass extends React.Component {
     renderFilterBox() {
         return (
             <FilterRowsBlock
+                initialTextValue={this.state.filterValueText}
                 handleOnChangeFilter={this.handleOnChangeFilter}
                 handleOnChangeOrderBy={this.handleOnChangeOrderBy}
                 filterDateType={this.state.filterDateType}

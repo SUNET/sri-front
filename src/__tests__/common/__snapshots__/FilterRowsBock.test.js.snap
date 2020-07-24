@@ -11,6 +11,7 @@ exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
       handleOnChangeFilter={[MockFunction]}
       handleOnChangeOrderBy={[MockFunction]}
       handleResetDate={[MockFunction]}
+      initialTextValue=""
       t={
         [MockFunction] {
           "calls": Array [
@@ -279,6 +280,7 @@ exports[`Filter Row Block Component Renders correctly Desktop Version 1`] = `
               >
                 <Filter
                   changeFilter={[MockFunction]}
+                  initialValue=""
                   t={[Function]}
                 >
                   <div
@@ -464,6 +466,7 @@ exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
       handleOnChangeFilter={[MockFunction]}
       handleOnChangeOrderBy={[MockFunction]}
       handleResetDate={[MockFunction]}
+      initialTextValue=""
       t={
         [MockFunction] {
           "calls": Array [
@@ -746,6 +749,7 @@ exports[`Filter Row Block Component Renders correctly Mobile Version 1`] = `
               >
                 <Filter
                   changeFilter={[MockFunction]}
+                  initialValue=""
                   t={[Function]}
                 >
                   <div

@@ -53,8 +53,8 @@ export class FilterRowsBlock extends React.Component {
   }
 
   renderFilterByWord() {
-    const { handleOnChangeFilter } = this.props;
-    return <Filter changeFilter={handleOnChangeFilter} />;
+    const { handleOnChangeFilter, initialTextValue } = this.props;
+    return <Filter initialValue={initialTextValue} changeFilter={handleOnChangeFilter} />;
   }
 
   renderOrderBy() {
@@ -101,6 +101,10 @@ export class FilterRowsBlock extends React.Component {
   }
 }
 
+FilterRowsBlock.defaultProps = {
+  initialTextValue: '',
+};
+
 FilterRowsBlock.propTypes = {
   handleOnChangeFilter: PropTypes.func.isRequired,
   handleOnChangeOrderBy: PropTypes.func.isRequired,
@@ -110,6 +114,7 @@ FilterRowsBlock.propTypes = {
   handleResetDate: PropTypes.func.isRequired,
   changeFilterDateType: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  initialTextValue: PropTypes.string,
 };
 
 export default withTranslation()(FilterRowsBlock);
