@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
-import { formValueSelector, getFormMeta, getFormSyncErrors, isDirty } from 'redux-form';
-import uuidv4 from 'uuid/v4';
+import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
 import ContactUpdateForm from '../../components/contact/ContactUpdateForm';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import * as FormModalActions from '../../actions/FormModal';
-import { UNLINK, REMOVE, SAVED } from '../../utils/constants';
+import { SAVED } from '../../utils/constants';
 
 const formatRoles = (roles = []) => {
   const emptyObject = {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { Field, change, touch, arrayPush } from 'redux-form';
+import { Field, change, arrayPush } from 'redux-form';
 import Dropdown from '../Dropdown';
-import { UNLINK, SAVED, REMOVE, CHANGED } from '../../utils/constants';
+import { UNLINK, SAVED, CHANGED } from '../../utils/constants';
 import FieldInput from '../FieldInput';
 import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 import { isBrowser, isMobile } from 'react-device-detect';
-import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ReactSVG from 'react-svg';
 // Common imports
 import { withTranslation } from 'react-i18next';
@@ -131,7 +131,7 @@ class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
   }
 
   renderBody() {
-    const { editable, fields, t } = this.props;
+    const { editable, fields } = this.props;
     const values = fields.getAll();
     return (
       <div className="contact-in-organization__body">
@@ -199,7 +199,7 @@ class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
   }
 
   renderOrganizationID(row) {
-    const { editable, t } = this.props;
+    const { editable } = this.props;
     const indexRow = this.getIndexRow(row.id);
     const content = editable ? (
       <Form.Group>
