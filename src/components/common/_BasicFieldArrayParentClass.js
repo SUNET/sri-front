@@ -426,7 +426,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         {editable && (
           <>
             {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
-            {this.renderDropDownSearch()}
+            {this.PRE_FILTER_SELECT.entityMandatory && this.renderDropDownSearch()}
             <button
               type="button"
               className="contact-in-organization__footer__add btn btn-add outline"
@@ -448,7 +448,7 @@ class _BasicFieldArrayParentClass extends React.Component {
       <div className="contact-in-organization">
         {this.renderHeader()}
         {this.renderBody()}
-        {this.renderFooter()}
+        {this.PRE_FILTER_SELECT && this.renderFooter()}
         {this.state.showModal && this.renderModal()}
       </div>
     );

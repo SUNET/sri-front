@@ -5,6 +5,47 @@ import ContactUpdateForm from '../../components/contact/ContactUpdateForm';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import * as FormModalActions from '../../actions/FormModal';
+import { UNLINK, REMOVE, SAVED } from '../../utils/constants';
+
+const formatRoles = (roles = []) => {
+  const emptyObject = {
+    id: '',
+    name: '',
+    organization_id: '',
+    organization_number: null,
+    roles: [
+      {
+        id: '',
+        status: 'editing',
+        origin: 'store',
+        created: false,
+        relation_id: null,
+      },
+    ],
+  };
+  const rolesByOrganizations = [];
+
+  roles.forEach((role) => {
+    const indexInResultArray = rolesByOrganizations.findIndex((org) => org.id === role.end.id);
+    const roleData = {
+      ...role.role_data,
+      ...{
+        relation_id: role.relation_id,
+        status: 'saved',
+        origin: 'store',
+        created: true,
+      },
+    };
+
+    if (indexInResultArray < 0) {
+      const organizationData = { ...role.end, status: SAVED, origin: 'store' };
+      rolesByOrganizations.push({ ...organizationData, roles: [roleData] });
+    } else {
+      rolesByOrganizations[indexInResultArray].roles.push(roleData);
+    }
+  });
+  return roles.length > 0 ? rolesByOrganizations : [emptyObject];
+};
 
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'updateContactInModal' : 'updateContact';
@@ -48,33 +89,9 @@ const mapStateToProps = (state, props) => {
         })
       : [{ phone: '', type: '' }],
 
-    organizations: props.contact.roles
-      ? props.contact.roles.map((role) => {
-          const role_node = role.role_data;
-          return {
-            role: role_node ? role_node.id : '',
-            role_label: role_node ? role_node.name : '',
-            role_obj: role,
-            organization: role.end ? role.end.id : '',
-            organization_id: role.end ? role.end.organization_id : '',
-            organization_label: role.end ? role.end.name : '',
-            status: 'saved',
-            origin: 'store',
-            created: true,
-            key: role.relation_id,
-          };
-        })
-      : [
-          {
-            role: '',
-            organization: '',
-            key: uuidv4(),
-            created: false,
-            status: 'editing',
-          },
-        ],
+    organizations: formatRoles(props.contact.roles),
   };
-  const organizationValues = updateContactSelector(state, 'organizations');
+
   return {
     form: formName,
     initialValues,
@@ -88,12 +105,7 @@ const mapStateToProps = (state, props) => {
     contactTypeObj: updateContactSelector(state, 'contactTypeObj'),
     emailValues: updateContactSelector(state, 'emails'),
     phoneValues: updateContactSelector(state, 'phones'),
-    organizationValues,
-    isDirty_organizations_roles:
-      organizationValues &&
-      organizationValues.map((organization, index) => {
-        return isDirty('updateContact')(state, [`organizations[${index}]`]);
-      }),
+    organizations: updateContactSelector(state, 'organizations'),
     formSyncErrors: getFormSyncErrors(formName)(state),
     fields: getFormMeta(formName)(state),
     isFromModal: Boolean(props.isFromModal),
