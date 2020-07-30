@@ -398,7 +398,7 @@ class FieldArrayContactsOrganization extends React.Component {
   // specific renders
   renderDropDownMultiSelectRole(contact, index) {
     const { t, editable } = this.props;
-    const { roles, originalRoles } = contact;
+    const { roles, originalRoles = [] } = contact;
     return (
       <div className="contact-in-organization__body__row__element">
         {editable ? (

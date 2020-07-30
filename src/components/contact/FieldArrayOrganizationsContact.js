@@ -1,248 +1,69 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { withTranslation } from 'react-i18next';
-import { Field, change, touch } from 'redux-form';
-import uuidv4 from 'uuid/v4';
-
-import FieldInput from '../FieldInput';
-import { getOrganization } from '../organization/Organization';
+import { Field, change, arrayPush } from 'redux-form';
 import Dropdown from '../Dropdown';
-import CONFIG from '../../config';
-import { Modal } from 'react-bootstrap';
+import { UNLINK, SAVED, CHANGED } from '../../utils/constants';
+import FieldInput from '../FieldInput';
+import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 import { isBrowser, isMobile } from 'react-device-detect';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import ReactSVG from 'react-svg';
+// Common imports
+import { withTranslation } from 'react-i18next';
 
-import '../../style/InternalModal.scss';
+import { getOrganization } from '../organization/Organization';
 
-const { LIMIT_NEW_CONTACTS } = CONFIG;
-
-class FieldArrayOrganizationsContact extends React.Component {
-  state = {
-    showModal: false, // DEFAULT: false
-    selectedRowKey: null, // DEFAULT: null
-  };
-  // lifecycle
-  UNSAFE_componentWillUpdate(nextProps, nextState) {
-    const newFields = nextProps.fields.getAll();
-    if (newFields && newFields.length && nextProps.editable) {
-      newFields.forEach((field, index) => {
-        const validated = this.validateOrganization(field, index);
-        if (field && field.status === 'editing' && validated) {
-          this.props.dispatch(change(this.props.meta.form, `organizations[${index}].status`, 'saved'));
-        } else if (!validated && field.status === 'saved') {
-          nextProps.dispatch(change(nextProps.meta.form, `organizations[${index}].status`, 'editing'));
-        }
-      });
-    }
-  }
-  // methods onClick
-  onClickAccept() {
-    const currentValue = this.getValueByKey(this.state.selectedRowKey);
-    const validated = this.validateOrganization(currentValue.data, currentValue.index);
-    if (validated) {
-      this.hideDataModal();
-    } else {
-      this.props.dispatch(touch(this.props.meta.form, `organizations[${currentValue.index}].role`));
-      this.props.dispatch(touch(this.props.meta.form, `organizations[${currentValue.index}].organization`));
-    }
-  }
-  // methods state
-  showDataModal(key) {
-    this.setState({
-      showModal: true,
-      selectedRowKey: key,
-    });
-  }
-
-  hideDataModal() {
-    this.setState({
-      showModal: false,
-      selectedRowKey: null,
-    });
-  }
-
-  // methods getData
-  getValueByKey(key) {
-    const allValues = this.props.fields.getAll();
-    const valueData = allValues.find((value) => value.key === key);
-    const valueIndex = allValues.findIndex((value) => value.key === key);
-
-    return {
-      data: valueData,
-      index: valueIndex,
+class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
+  constructor(props) {
+    super(props);
+    this.FIELD_NAME_IN_FORM = 'organizations';
+    this.HEADER_TEXTS = {
+      summary: [
+        {
+          text: 'contact-details.role',
+          fieldKey: '',
+        },
+      ],
+      all: [
+        {
+          text: 'contact-details.role',
+          fieldKey: '',
+        },
+        {
+          text: 'organization-details.organization-id',
+          fieldKey: 'organization_id',
+        },
+        {
+          text: 'group-details.organization',
+          fieldKey: 'name',
+        },
+      ],
+      // modal: ['network.details.parent_element_detail'],
+      modal: null,
     };
-  }
-  getRowsData(selectedRowKey) {
-    const { fields, t } = this.props;
-
-    let valuesToShow, indexForThisFieldKey;
-
-    if (selectedRowKey !== undefined) {
-      const currentValue = this.getValueByKey(selectedRowKey);
-      valuesToShow = [currentValue.data];
-      indexForThisFieldKey = currentValue.index;
-    } else {
-      valuesToShow = fields.getAll() || [];
-    }
-
-    return [
-      {
-        title: 'Role',
-        presentContent: valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.role_label) : [],
-        editContent: valuesToShow.map((member, index) => {
-          return {
-            element: (
-              <Dropdown
-                className="auto"
-                emptyLabel="Select role"
-                model="roles"
-                onChange={(e) => {
-                  this.saveLabel(e, member.key);
-                }}
-                name={`organizations[${selectedRowKey ? indexForThisFieldKey : index}].role`}
-              />
-            ),
-            status: member.status,
-          };
-        }),
-      },
-      {
-        title: 'Organization ID',
-        presentContent: valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.organization_id) : [],
-        editContent: valuesToShow.map((member, index) => {
-          return {
-            element: (
-              <Form.Group>
-                <Field
-                  type="text"
-                  disabled
-                  component={FieldInput}
-                  placeholder="Type ID"
-                  name={`organizations[${selectedRowKey ? indexForThisFieldKey : index}].organization_id`}
-                />
-              </Form.Group>
-            ),
-            status: member.status,
-          };
-        }),
-      },
-      {
-        title: 'Organization',
-        presentContent:
-          valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.organization_label) : [],
-        editContent: valuesToShow.map((member, index) => {
-          return {
-            element: (
-              <>
-                <Form.Group style={isBrowser ? { width: '170px' } : {}}>
-                  <Dropdown
-                    className={`${isBrowser ? 'auto' : 'w-100'}`}
-                    emptyLabel={t('organization-details.select-organization')}
-                    model="organization"
-                    onChange={(e) => {
-                      this.saveLabel(e, member.key);
-                    }}
-                    name={`organizations[${selectedRowKey ? indexForThisFieldKey : index}].organization`}
-                  />
-                </Form.Group>
-                {isBrowser && this.renderRemoveCtaCross(member.key)}
-                {isMobile && this.renderMobileFooterModalButtons(member.key)}
-              </>
-            ),
-            status: member.status,
-          };
-        }),
-      },
-    ];
+    this.PRE_FILTER_SELECT = {};
+    this.MODEL_TO_SEARCH = null;
   }
 
-  getRowsMobileData() {
-    const { fields, t } = this.props;
-    const valuesToShow = fields.getAll() || [];
-    const editContent = valuesToShow.map((member, index) => {
-      return {
-        element: (
-          <div className="d-flex">
-            <Dropdown
-              className=""
-              emptyLabel="Select role"
-              model="roles"
-              onChange={(e) => {
-                this.saveLabel(e, member.key);
-              }}
-              name={`organizations[${index}].role`}
-            />
-            {this.renderButtonsMobile(member.key)}
-          </div>
-        ),
-        status: member.status,
-      };
-    });
-
-    const presentContent =
-      valuesToShow &&
-      valuesToShow.map((value, index) => {
-        return (
-          <div className="d-flex align-items-center justify-content-between">
-            <span className="mr-3">{value.role_label}</span>
-            {this.renderMoreInfoButton(value.key)}
-          </div>
-        );
-      });
-
-    return [
-      {
-        title: t('contact-details.role'),
-        presentContent,
-        editContent,
-      },
-    ];
+  getIndexRow(id) {
+    const values = this.props.fields.getAll();
+    const indexRow = values.findIndex((value) => value.id === id);
+    return indexRow;
   }
 
-  // methods validation
-  validateOrganization = (field, index) => {
-    const errors = this.props.errors;
-    const hasBlankFields = field.organization === '' || field.organization === undefined;
-    return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
-  };
-
-  // methods rows
-  addRow = (event) => {
-    if (this.props.fields.length < LIMIT_NEW_CONTACTS) {
-      const key = uuidv4();
-      this.props.fields.push({ key, status: 'editing' });
-      if (isMobile) {
-        this.showDataModal(key);
-      }
-    }
-  };
-
-  removeRow = (key) => {
-    const currentValue = this.getValueByKey(key);
-
-    this.hideDataModal();
-    if (currentValue.data.origin === 'store') {
-      this.props.dispatch(change('updateContact', `organizations[${currentValue.index}].status`, 'remove'));
-    } else {
-      this.props.fields.remove(currentValue.index);
-    }
-  };
-
-  saveLabel = (event, key) => {
-    const indexForThisFieldKey = this.getValueByKey(key).index;
+  saveLabel = (event, index) => {
+    const indexForThisFieldKey = index;
     const input_label = event.options[event.selectedIndex].text;
     const input_name = event.name.split('.')[1];
-
     function updateOrganizationIdField(props, orgId, organization_id) {
       props.dispatch(
         change(props.meta.form, `organizations[${indexForThisFieldKey}].organization_id`, organization_id),
       );
       props.dispatch(change(props.meta.form, `organizations[${indexForThisFieldKey}].organization`, orgId));
     }
-
     this.props.dispatch(
       change(this.props.meta.form, `organizations[${indexForThisFieldKey}].${input_name}_label`, input_label),
     );
-
     if (input_name === 'organization') {
       getOrganization(event.value)
         .then((organization) => {
@@ -256,165 +77,188 @@ class FieldArrayOrganizationsContact extends React.Component {
     }
   };
 
-  // common Renders
-  renderModal() {
-    const { t, editable } = this.props;
-    return (
-      <Modal
-        centered
-        dialogClassName="internal-modal role-organization"
-        show={this.state.showModal}
-        onHide={() => this.setState({ showModal: false })}
-      >
-        <Modal.Header closeButton={!editable}>
-          <h2>{t('contact-details.professional-details')}</h2>
-        </Modal.Header>
-        <Modal.Body className="organizations-contacts">
-          <div className="model-details">
-            <div className="model-section model-section--in-modal">
-              {this.renderInternalModalForm(this.state.selectedRowKey)}
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
-    );
+  isDisabledFilters() {
+    return false;
   }
 
-  renderInternalModalForm(fieldKey) {
-    const { editable } = this.props;
-
-    const rowsData = this.getRowsData(fieldKey);
-    return (
-      <div className="form-internal-block form-internal-block--organizations-contacts">
-        {rowsData.map((value, index) => {
-          return this.renderFormBlockSection(editable, value, index);
-        })}
-      </div>
-    );
+  showCreateForm() {
+    const emptyOrganization = {
+      id: '',
+      name: '',
+      organization_id: '',
+      organization_number: null,
+      roles: [
+        {
+          id: '',
+          status: 'editing',
+          origin: 'store',
+          created: false,
+          relation_id: null,
+        },
+      ],
+    };
+    this.props.dispatch(arrayPush(this.props.meta.form, 'organizations', emptyOrganization));
   }
 
-  renderFormBlockSection = (editable, data, index) => {
-    const isPresentState = !editable && data.presentContent;
+  renderButtonsBox(id) {
+    const { t } = this.props;
+    const rowDetails = this.getValueById(id);
     return (
-      <div className="form-internal-block--organizations-contacts__section form-internal-block__section" key={index}>
-        <div
-          className={`form-internal-block--organizations-contacts__section_title form-internal-block__section__title`}
-        >
-          {data.title}
-        </div>
-
-        {data.editContent.map((content, contentIndex) => (
+      <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions.unlink')}</Tooltip>}>
           <div
-            key={`${contentIndex} - ${index}`}
-            className={`form-internal-block--organizations-contacts__section__content form-internal-block__section__content 
-                        ${
-                          editable
-                            ? 'form-internal-block--organizations-contacts__section__content--edition-mode form-internal-block__section__content--edition-mode'
-                            : ''
-                        }
-                        ${editable && content.status === 'remove' ? 'd-none' : ''}`}
+            className={`row-cta unlink ${rowDetails.data.status === UNLINK ? 'active' : ''}`}
+            onClick={() => this.unlinkRow(id)}
           >
-            {isPresentState ? data.presentContent[contentIndex] : data.editContent[contentIndex].element}
+            <ReactSVG src={require(`../../static/img/unlink.svg`)} wrapper="span" />
           </div>
-        ))}
-      </div>
-    );
-  };
-
-  renderButtonsMobile(key) {
-    return (
-      <div className="d-flex ml-5 align-items-center">
-        {this.renderMoreInfoButton(key)}
-        {this.renderRemoveCtaCross(key)}
+        </OverlayTrigger>
       </div>
     );
   }
 
-  renderMoreInfoButton(key) {
-    const { t } = this.props;
-    return (
-      <button type="button" className="btn outline btn-add more-info  mr-3" onClick={() => this.showDataModal(key)}>
-        <span>{t('actions.info')}</span>
-      </button>
-    );
+  unlinkRow(id) {
+    const currentValue = this.getValueById(id);
+    const newStatus = currentValue.data.status === UNLINK ? SAVED : UNLINK;
+    this.hideDataModal();
+    if (currentValue.data.origin === 'store') {
+      this.props.dispatch(
+        change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, newStatus),
+      );
+    } else {
+      this.props.fields.remove(currentValue.index);
+    }
   }
 
-  renderRemoveCtaCross(key) {
+  renderBody() {
+    const { editable, fields } = this.props;
+    const values = fields.getAll();
     return (
-      <div
-        className={`row-cross-remove-cta ${isBrowser ? 'row-cross-remove-cta--desktop-version' : ''}`}
-        onClick={() => this.removeRow(key)}
-      ></div>
-    );
-  }
-
-  renderMobileFooterModalButtons(key) {
-    return (
-      <div className="d-flex justify-content-around">
-        {this.renderAcceptModalButton()}
-        {this.renderRemoveCtaButton(key)}
+      <div className="contact-in-organization__body">
+        {values &&
+          values.map((row, index) => {
+            return (
+              <div
+                key={index}
+                className={`contact-in-organization__body__row ${
+                  row.status !== SAVED ? 'contact-in-organization__body__row--disabled' : ''
+                }`}
+              >
+                {isBrowser && this.renderRolesCell(row)}
+                {isBrowser && this.renderOrganizationID(row)}
+                {isBrowser && this.renderOrganizationName(row)}
+                {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
+                {editable && this.renderButtonsBox(row.id)}
+              </div>
+            );
+          })}
       </div>
     );
   }
 
-  renderAcceptModalButton() {
-    const { t } = this.props;
-    return (
-      <button
-        type="button"
-        className="btn outline check mt-3"
-        onClick={() => {
-          this.onClickAccept();
+  renderRolesCell(organization) {
+    const { editable, t } = this.props;
+    const { roles } = organization;
+    const indexRow = this.getIndexRow(organization.id);
+    const content = editable ? (
+      <Dropdown
+        className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+        type="combo_list"
+        name="roles"
+        model="roles"
+        placeholder={t('organization-details.add-role')}
+        currentValue={roles.filter((role) => role.status === SAVED)}
+        objectCurrentValue={roles.filter((role) => role.status === SAVED)}
+        nameDataInsideRequest="roles"
+        valueField="id"
+        labelElementsArray={['name']}
+        onChange={(newRoles) => {
+          const newRolesWithStatus = [
+            ...newRoles
+              .filter((newRole) => !roles.find((role) => role.id === newRole.id))
+              .map((newRole) => ({ ...newRole, status: SAVED })),
+            ...roles
+              .filter((role) => !newRoles.find((newRole) => newRole.id === role.id))
+              .map((role) => ({ ...role, status: UNLINK })),
+            ...roles
+              .filter((role) => newRoles.find((newRole) => newRole.id === role.id))
+              .map((role) => ({ ...role, status: SAVED })),
+          ];
+          this.props.dispatch(change(this.props.meta.form, `organizations[${indexRow}].roles`, newRolesWithStatus));
         }}
-      >
-        <span> {t('actions.accept')}</span>
-      </button>
+      />
+    ) : (
+      organization.roles && organization.roles.map((role) => <p key={Math.random()}>{role.name}</p>)
     );
-  }
 
-  renderRemoveCtaButton(key) {
-    const { t } = this.props;
     return (
-      <button
-        type="button"
-        className="btn outline btn-trash mt-3"
-        onClick={() => {
-          this.hideDataModal();
-          this.removeRow(key);
-        }}
-      >
-        <span> {t('actions.delete')}</span>
-      </button>
+      <div key={Math.random()} className="contact-in-organization__body__row__element">
+        {content}
+      </div>
     );
   }
 
-  renderRowsData() {
+  renderOrganizationID(row) {
     const { editable } = this.props;
-    const rowsData = this.getRowsData();
-    const rowsDataMobile = this.getRowsMobileData();
-
-    const dataToShow = isMobile ? rowsDataMobile : rowsData;
+    const indexRow = this.getIndexRow(row.id);
+    const content = editable ? (
+      <Form.Group>
+        <Field
+          type="text"
+          disabled
+          component={FieldInput}
+          placeholder="Type ID"
+          name={`organizations[${indexRow}].organization_id`}
+        />
+      </Form.Group>
+    ) : (
+      row.organization_id
+    );
     return (
-      <div className="form-internal-block form-internal-block--organizations-contacts">
-        {dataToShow.map((data, index) => {
-          return this.renderFormBlockSection(editable, data, index);
-        })}
+      <div key={Math.random()} className="contact-in-organization__body__row__element">
+        {content}
       </div>
     );
   }
 
-  render() {
-    const { meta, t, editable } = this.props;
+  renderOrganizationName(row) {
+    const { editable, t } = this.props;
+    const indexRow = this.getIndexRow(row.id);
+    const content = editable ? (
+      <Form.Group style={isBrowser ? { width: '170px' } : {}}>
+        <Dropdown
+          className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+          emptyLabel=""
+          type="combo_list"
+          name={`organizations[${indexRow}].id`}
+          model="organization"
+          placeholder={t('organization-details.add-id')}
+          currentValue={row.name}
+          objectCurrentValue={{
+            id: row.id,
+            name: row.name,
+            organization_id: row.organization_id,
+          }}
+          nameDataInsideRequest="all_organizations"
+          valueField="organization_id"
+          labelElementsArray={['name']}
+          onChange={(newOrganization) => {
+            const newOrgID = newOrganization ? newOrganization.organization_id : null;
+            const newID = newOrganization ? newOrganization.id : null;
+            const newName = newOrganization ? newOrganization.name : null;
+            this.props.dispatch(change(this.props.meta.form, `organizations[${indexRow}].organization_id`, newOrgID));
+            this.props.dispatch(change(this.props.meta.form, `organizations[${indexRow}].id`, newID));
+            this.props.dispatch(change(this.props.meta.form, `organizations[${indexRow}].name`, newName));
+            this.props.dispatch(change(this.props.meta.form, `organizations[${indexRow}].status`, CHANGED));
+          }}
+        />
+      </Form.Group>
+    ) : (
+      row.name
+    );
     return (
-      <div className="organizations-contacts">
-        {this.renderRowsData()}
-        {meta.error && <div>{meta.error}</div>}
-        {editable && (
-          <button type="button" className="btn btn-add outline" onClick={(e) => this.addRow(e)}>
-            {t('actions.add-new')}
-          </button>
-        )}
-        {this.state.showModal && this.renderModal()}
+      <div key={Math.random()} className="contact-in-organization__body__row__element">
+        {content}
       </div>
     );
   }
