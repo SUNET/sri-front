@@ -25,7 +25,7 @@ const generateDetails = (blockEntity, nameEntity) => {
   const componentsPaths = {
     directory: `/src/components/${entityName}`,
     files: [
-      { path: `_${entityClassName}FormParentClass.js`, template: 'cli-entity/templates/Component_entityFormParentClass.js' },
+      { path: `_${entityClassName}FormParentClass.js`, template: 'cli-entity/templates/Component_EntityFormParentClass.js' },
       { path: `${entityClassName}Details.js`, template: 'cli-entity/templates/ComponentEntityDetails.js' },
       { path: `${entityClassName}UpdateForm.js`, template: 'cli-entity/templates/ComponentEntityUpdateForm.js' },
       { path: `Create${entityClassName}.js`, template: 'cli-entity/templates/ComponentCreateEntity.js' },

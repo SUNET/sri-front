@@ -18,7 +18,7 @@ entityName           ||     containers/entity/EntityList
 
 eg: npm run create-entity-list network provider
 
-5. Add Reducer/action FilterColumns
+5. Add Reducer FilterColumns
 
 6. Add Query and generate files: npm run relay
 

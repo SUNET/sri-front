@@ -65,7 +65,6 @@ const __EntityClassName__UpdateFragment = createRefetchContainer(
         id
         name
         description
-        url
         comments {
           id
           user {

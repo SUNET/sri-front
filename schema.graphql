@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Thu Jul 09 2020 14:17:07 GMT+0200 (GMT+02:00)
+# timestamp: Mon Aug 03 2020 10:55:29 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -486,6 +486,9 @@ input CompositeCableMutationInput {
   create_part_of_email: CreateEmailInput
   update_part_of_email: UpdateEmailInput
   deleted_part_of_email: DeleteEmailInput
+  create_part_of_host: CreateHostInput
+  update_part_of_host: UpdateHostInput
+  deleted_part_of_host: DeleteHostInput
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -519,6 +522,9 @@ input CompositeCableMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [UpdateHostInput]
+  deleted_dependents_host: [DeleteHostInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -580,6 +586,9 @@ type CompositeCableMutationPayload {
   part_of_email_created: CreateEmailPayload
   part_of_email_updated: UpdateEmailPayload
   part_of_email_deleted: DeleteEmailPayload
+  part_of_host_created: CreateHostPayload
+  part_of_host_updated: UpdateHostPayload
+  part_of_host_deleted: DeleteHostPayload
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -613,6 +622,9 @@ type CompositeCableMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [UpdateHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -660,6 +672,9 @@ input CompositeContactMutationInput {
   create_uses_email: CreateEmailInput
   update_uses_email: UpdateEmailInput
   deleted_uses_email: DeleteEmailInput
+  create_uses_host: CreateHostInput
+  update_uses_host: UpdateHostInput
+  deleted_uses_host: DeleteHostInput
   create_owns_port: [CreatePortInput]
   update_owns_port: [UpdatePortInput]
   deleted_owns_port: [DeletePortInput]
@@ -707,6 +722,9 @@ type CompositeContactMutationPayload {
   uses_email_created: CreateEmailPayload
   uses_email_updated: UpdateEmailPayload
   uses_email_deleted: DeleteEmailPayload
+  uses_host_created: CreateHostPayload
+  uses_host_updated: UpdateHostPayload
+  uses_host_deleted: DeleteHostPayload
   owns_port_created: [CreatePortPayload]
   owns_port_updated: [UpdatePortPayload]
   owns_port_deleted: [DeletePortPayload]
@@ -765,6 +783,9 @@ input CompositeExternalEquipmentMutationInput {
   create_part_of_email: CreateEmailInput
   update_part_of_email: UpdateEmailInput
   deleted_part_of_email: DeleteEmailInput
+  create_part_of_host: CreateHostInput
+  update_part_of_host: UpdateHostInput
+  deleted_part_of_host: DeleteHostInput
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -798,6 +819,9 @@ input CompositeExternalEquipmentMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [UpdateHostInput]
+  deleted_dependents_host: [DeleteHostInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -856,6 +880,9 @@ type CompositeExternalEquipmentMutationPayload {
   part_of_email_created: CreateEmailPayload
   part_of_email_updated: UpdateEmailPayload
   part_of_email_deleted: DeleteEmailPayload
+  part_of_host_created: CreateHostPayload
+  part_of_host_updated: UpdateHostPayload
+  part_of_host_deleted: DeleteHostPayload
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -889,6 +916,9 @@ type CompositeExternalEquipmentMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [UpdateHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -929,6 +959,9 @@ input CompositeFirewallMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [UpdateHostInput]
+  deleted_dependents_host: [DeleteHostInput]
   clientMutationId: String
 }
 
@@ -951,6 +984,9 @@ type CompositeFirewallMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [UpdateHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
   clientMutationId: String
 }
 
@@ -1010,6 +1046,20 @@ type CompositeGroupMutationPayload {
   clientMutationId: String
 }
 
+input CompositeHostMutationInput {
+  create_input: CreateHostInput
+  update_input: UpdateHostInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  clientMutationId: String
+}
+
+type CompositeHostMutationPayload {
+  created: CreateHostPayload
+  updated: UpdateHostPayload
+  unlinked: [DeleteRelationshipPayload]
+  clientMutationId: String
+}
+
 input CompositeOrganizationMutationInput {
   create_input: CreateOrganizationInput
   update_input: UpdateOrganizationInput
@@ -1035,6 +1085,9 @@ input CompositeOrganizationMutationInput {
   create_uses_email: CreateEmailInput
   update_uses_email: UpdateEmailInput
   deleted_uses_email: DeleteEmailInput
+  create_uses_host: CreateHostInput
+  update_uses_host: UpdateHostInput
+  deleted_uses_host: DeleteHostInput
   create_owns_port: [CreatePortInput]
   update_owns_port: [UpdatePortInput]
   deleted_owns_port: [DeletePortInput]
@@ -1081,6 +1134,9 @@ type CompositeOrganizationMutationPayload {
   uses_email_created: CreateEmailPayload
   uses_email_updated: UpdateEmailPayload
   uses_email_deleted: DeleteEmailPayload
+  uses_host_created: CreateHostPayload
+  uses_host_updated: UpdateHostPayload
+  uses_host_deleted: DeleteHostPayload
   owns_port_created: [CreatePortPayload]
   owns_port_updated: [UpdatePortPayload]
   owns_port_deleted: [DeletePortPayload]
@@ -1197,6 +1253,9 @@ input CompositeRouterMutationInput {
   create_part_of_email: CreateEmailInput
   update_part_of_email: UpdateEmailInput
   deleted_part_of_email: DeleteEmailInput
+  create_part_of_host: CreateHostInput
+  update_part_of_host: UpdateHostInput
+  deleted_part_of_host: DeleteHostInput
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -1230,6 +1289,9 @@ input CompositeRouterMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [UpdateHostInput]
+  deleted_dependents_host: [DeleteHostInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -1290,6 +1352,9 @@ type CompositeRouterMutationPayload {
   part_of_email_created: CreateEmailPayload
   part_of_email_updated: UpdateEmailPayload
   part_of_email_deleted: DeleteEmailPayload
+  part_of_host_created: CreateHostPayload
+  part_of_host_updated: UpdateHostPayload
+  part_of_host_deleted: DeleteHostPayload
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -1323,6 +1388,9 @@ type CompositeRouterMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [UpdateHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -1363,6 +1431,9 @@ input CompositeSwitchMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [UpdateHostInput]
+  deleted_dependents_host: [DeleteHostInput]
   clientMutationId: String
 }
 
@@ -1385,6 +1456,9 @@ type CompositeSwitchMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [UpdateHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
   clientMutationId: String
 }
 
@@ -1724,6 +1798,17 @@ enum ContactOrderBy {
   handle_id_DESC
 }
 
+input ConvertHostInput {
+  id: ID!
+  slug: String!
+  clientMutationId: String
+}
+
+type ConvertHostPayload {
+  success: Boolean!
+  clientMutationId: String
+}
+
 input CreateAddressInput {
   organization: ChoiceScalar
   name: String!
@@ -1832,10 +1917,11 @@ type CreateEndUserPayload {
 }
 
 input CreateExternalEquipmentInput {
-  name: String!
-  description: String
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
+  name: String!
+  description: String
   relationship_owner: ChoiceScalar
   relationship_location: Int
   clientMutationId: String
@@ -1848,11 +1934,12 @@ type CreateExternalEquipmentPayload {
 }
 
 input CreateFirewallInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
   name: String!
   description: String
   ip_addresses: String
-  rack_units: Int
-  rack_position: Int
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -1871,7 +1958,6 @@ input CreateFirewallInput {
   relationship_owner: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
-  relationship_ports: String
   services_locked: Boolean
   services_checked: Boolean
   max_number_of_ports: Int
@@ -1893,6 +1979,38 @@ input CreateGroupInput {
 type CreateGroupPayload {
   errors: [ErrorType]
   group: Group
+  clientMutationId: String
+}
+
+input CreateHostInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
+  name: String!
+  description: String
+  ip_addresses: String
+  operational_state: ChoiceScalar! = "In service"
+  managed_by: ChoiceScalar
+  responsible_group: ChoiceScalar
+  support_group: ChoiceScalar
+  backup: String
+  security_class: ChoiceScalar
+  security_comment: String
+  os: String
+  os_version: String
+  model: String
+  vendor: String
+  service_tag: String
+  end_support: Date
+  contract_number: String
+  relationship_location: Int
+  relationship_owner: ChoiceScalar
+  clientMutationId: String
+}
+
+type CreateHostPayload {
+  errors: [ErrorType]
+  host: Host
   clientMutationId: String
 }
 
@@ -2006,6 +2124,7 @@ type CreateRolePayload {
 input CreateRouterInput {
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
   operational_state: ChoiceScalar!
   relationship_location: Int
   relationship_ports: String
@@ -2033,11 +2152,12 @@ type CreateSiteOwnerPayload {
 }
 
 input CreateSwitchInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
   name: String!
   description: String
   ip_addresses: String
-  rack_units: Int
-  rack_position: Int
   operational_state: ChoiceScalar! = "Reserved"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -2347,6 +2467,17 @@ input DeleteGroupInput {
 }
 
 type DeleteGroupPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteHostInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteHostPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -3551,7 +3682,6 @@ enum GroupOrderBy {
   handle_id_DESC
 }
 
-"""A host in the SRI system"""
 type Host implements NINode & Logical {
   handle_id: ID!
   node_name: String!
@@ -3571,18 +3701,21 @@ type Host implements NINode & Logical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  ip_addresses: IPAddr
+  host_type: String
   description: String
-  operational_state: Choice
+  operational_state: String!
+  ip_addresses: IPAddr
+  responsible_group: Group
+  support_group: Group
+  managed_by: Choice
+  backup: String
   os: String
   os_version: String
-  vendor: String
-  backup: String
-  managed_by: String
-  responsible_group: String
-  support_group: String
-  security_class: String
-  security_comment: String
+  contract_number: String
+  rack_units: Int
+  rack_position: Int
+  host_owner: Relation
+  host_services: String
 }
 
 type hostConnection {
@@ -3636,20 +3769,62 @@ input HostNestedFilter {
   description_not_ends_with: String
   description_in: [String!]
   description_not_in: [String!]
-  operational_state: ChoiceScalar
-  operational_state_not: ChoiceScalar
-  operational_state_lt: ChoiceScalar
-  operational_state_lte: ChoiceScalar
-  operational_state_gt: ChoiceScalar
-  operational_state_gte: ChoiceScalar
-  operational_state_contains: ChoiceScalar
-  operational_state_not_contains: ChoiceScalar
-  operational_state_starts_with: ChoiceScalar
-  operational_state_not_starts_with: ChoiceScalar
-  operational_state_ends_with: ChoiceScalar
-  operational_state_not_ends_with: ChoiceScalar
-  operational_state_in: [ChoiceScalar!]
-  operational_state_not_in: [ChoiceScalar!]
+  host_type: String
+  host_type_not: String
+  host_type_lt: String
+  host_type_lte: String
+  host_type_gt: String
+  host_type_gte: String
+  host_type_contains: String
+  host_type_not_contains: String
+  host_type_starts_with: String
+  host_type_not_starts_with: String
+  host_type_ends_with: String
+  host_type_not_ends_with: String
+  host_type_in: [String!]
+  host_type_not_in: [String!]
+  operational_state: String
+  operational_state_not: String
+  operational_state_lt: String
+  operational_state_lte: String
+  operational_state_gt: String
+  operational_state_gte: String
+  operational_state_contains: String
+  operational_state_not_contains: String
+  operational_state_starts_with: String
+  operational_state_not_starts_with: String
+  operational_state_ends_with: String
+  operational_state_not_ends_with: String
+  operational_state_in: [String!]
+  operational_state_not_in: [String!]
+  managed_by: ChoiceScalar
+  managed_by_not: ChoiceScalar
+  managed_by_lt: ChoiceScalar
+  managed_by_lte: ChoiceScalar
+  managed_by_gt: ChoiceScalar
+  managed_by_gte: ChoiceScalar
+  managed_by_contains: ChoiceScalar
+  managed_by_not_contains: ChoiceScalar
+  managed_by_starts_with: ChoiceScalar
+  managed_by_not_starts_with: ChoiceScalar
+  managed_by_ends_with: ChoiceScalar
+  managed_by_not_ends_with: ChoiceScalar
+  managed_by_in: [ChoiceScalar!]
+  managed_by_not_in: [ChoiceScalar!]
+  backup: String
+  backup_not: String
+  backup_lt: String
+  backup_lte: String
+  backup_gt: String
+  backup_gte: String
+  backup_contains: String
+  backup_not_contains: String
+  backup_starts_with: String
+  backup_not_starts_with: String
+  backup_ends_with: String
+  backup_not_ends_with: String
+  backup_in: [String!]
+  backup_not_in: [String!]
   os: String
   os_not: String
   os_lt: String
@@ -3678,104 +3853,50 @@ input HostNestedFilter {
   os_version_not_ends_with: String
   os_version_in: [String!]
   os_version_not_in: [String!]
-  vendor: String
-  vendor_not: String
-  vendor_lt: String
-  vendor_lte: String
-  vendor_gt: String
-  vendor_gte: String
-  vendor_contains: String
-  vendor_not_contains: String
-  vendor_starts_with: String
-  vendor_not_starts_with: String
-  vendor_ends_with: String
-  vendor_not_ends_with: String
-  vendor_in: [String!]
-  vendor_not_in: [String!]
-  backup: String
-  backup_not: String
-  backup_lt: String
-  backup_lte: String
-  backup_gt: String
-  backup_gte: String
-  backup_contains: String
-  backup_not_contains: String
-  backup_starts_with: String
-  backup_not_starts_with: String
-  backup_ends_with: String
-  backup_not_ends_with: String
-  backup_in: [String!]
-  backup_not_in: [String!]
-  managed_by: String
-  managed_by_not: String
-  managed_by_lt: String
-  managed_by_lte: String
-  managed_by_gt: String
-  managed_by_gte: String
-  managed_by_contains: String
-  managed_by_not_contains: String
-  managed_by_starts_with: String
-  managed_by_not_starts_with: String
-  managed_by_ends_with: String
-  managed_by_not_ends_with: String
-  managed_by_in: [String!]
-  managed_by_not_in: [String!]
-  responsible_group: String
-  responsible_group_not: String
-  responsible_group_lt: String
-  responsible_group_lte: String
-  responsible_group_gt: String
-  responsible_group_gte: String
-  responsible_group_contains: String
-  responsible_group_not_contains: String
-  responsible_group_starts_with: String
-  responsible_group_not_starts_with: String
-  responsible_group_ends_with: String
-  responsible_group_not_ends_with: String
-  responsible_group_in: [String!]
-  responsible_group_not_in: [String!]
-  support_group: String
-  support_group_not: String
-  support_group_lt: String
-  support_group_lte: String
-  support_group_gt: String
-  support_group_gte: String
-  support_group_contains: String
-  support_group_not_contains: String
-  support_group_starts_with: String
-  support_group_not_starts_with: String
-  support_group_ends_with: String
-  support_group_not_ends_with: String
-  support_group_in: [String!]
-  support_group_not_in: [String!]
-  security_class: String
-  security_class_not: String
-  security_class_lt: String
-  security_class_lte: String
-  security_class_gt: String
-  security_class_gte: String
-  security_class_contains: String
-  security_class_not_contains: String
-  security_class_starts_with: String
-  security_class_not_starts_with: String
-  security_class_ends_with: String
-  security_class_not_ends_with: String
-  security_class_in: [String!]
-  security_class_not_in: [String!]
-  security_comment: String
-  security_comment_not: String
-  security_comment_lt: String
-  security_comment_lte: String
-  security_comment_gt: String
-  security_comment_gte: String
-  security_comment_contains: String
-  security_comment_not_contains: String
-  security_comment_starts_with: String
-  security_comment_not_starts_with: String
-  security_comment_ends_with: String
-  security_comment_not_ends_with: String
-  security_comment_in: [String!]
-  security_comment_not_in: [String!]
+  contract_number: String
+  contract_number_not: String
+  contract_number_lt: String
+  contract_number_lte: String
+  contract_number_gt: String
+  contract_number_gte: String
+  contract_number_contains: String
+  contract_number_not_contains: String
+  contract_number_starts_with: String
+  contract_number_not_starts_with: String
+  contract_number_ends_with: String
+  contract_number_not_ends_with: String
+  contract_number_in: [String!]
+  contract_number_not_in: [String!]
+  rack_units: Int
+  rack_units_not: Int
+  rack_units_lt: Int
+  rack_units_lte: Int
+  rack_units_gt: Int
+  rack_units_gte: Int
+  rack_units_in: [Int!]
+  rack_units_not_in: [Int!]
+  rack_position: Int
+  rack_position_not: Int
+  rack_position_lt: Int
+  rack_position_lte: Int
+  rack_position_gt: Int
+  rack_position_gte: Int
+  rack_position_in: [Int!]
+  rack_position_not_in: [Int!]
+  host_services: String
+  host_services_not: String
+  host_services_lt: String
+  host_services_lte: String
+  host_services_gt: String
+  host_services_gte: String
+  host_services_contains: String
+  host_services_not_contains: String
+  host_services_starts_with: String
+  host_services_not_starts_with: String
+  host_services_ends_with: String
+  host_services_not_ends_with: String
+  host_services_in: [String!]
+  host_services_not_in: [String!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -3836,26 +3957,188 @@ enum HostOrderBy {
   name_DESC
   description_ASC
   description_DESC
+  host_type_ASC
+  host_type_DESC
   operational_state_ASC
   operational_state_DESC
+  managed_by_ASC
+  managed_by_DESC
+  backup_ASC
+  backup_DESC
   os_ASC
   os_DESC
   os_version_ASC
   os_version_DESC
-  vendor_ASC
-  vendor_DESC
-  backup_ASC
-  backup_DESC
-  managed_by_ASC
-  managed_by_DESC
-  responsible_group_ASC
-  responsible_group_DESC
-  support_group_ASC
-  support_group_DESC
-  security_class_ASC
-  security_class_DESC
-  security_comment_ASC
-  security_comment_DESC
+  contract_number_ASC
+  contract_number_DESC
+  rack_units_ASC
+  rack_units_DESC
+  rack_position_ASC
+  rack_position_DESC
+  host_services_ASC
+  host_services_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+type HostUser implements NINode & Relation {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  with_same_name: [Relation]
+  uses: Logical
+  provides: NINode
+  owns: [Physical]
+  responsible_for: Location
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  url: String
+  description: String
+}
+
+type hostUserConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [hostUserEdge]!
+}
+
+"""A Relay edge containing a `hostUser` and its cursor."""
+type hostUserEdge {
+  """The item at the end of the edge"""
+  node: HostUser
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input HostUserFilter {
+  AND: [HostUserNestedFilter!]
+  OR: [HostUserNestedFilter!]
+}
+
+input HostUserNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  url: String
+  url_not: String
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  url_in: [String!]
+  url_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum HostUserOrderBy {
+  name_ASC
+  name_DESC
+  url_ASC
+  url_DESC
+  description_ASC
+  description_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -3960,6 +4243,11 @@ type Mutation {
   update_firewall(input: UpdateFirewallInput!): UpdateFirewallPayload
   delete_firewall(input: DeleteFirewallInput!): DeleteFirewallPayload
   composite_firewall(input: CompositeFirewallMutationInput!): CompositeFirewallMutationPayload
+  create_host(input: CreateHostInput!): CreateHostPayload
+  update_host(input: UpdateHostInput!): UpdateHostPayload
+  delete_host(input: DeleteHostInput!): DeleteHostPayload
+  composite_host(input: CompositeHostMutationInput!): CompositeHostMutationPayload
+  convert_host(input: ConvertHostInput!): ConvertHostPayload
   create_externalEquipment(input: CreateExternalEquipmentInput!): CreateExternalEquipmentPayload
   update_externalEquipment(input: UpdateExternalEquipmentInput!): UpdateExternalEquipmentPayload
   delete_externalEquipment(input: DeleteExternalEquipmentInput!): DeleteExternalEquipmentPayload
@@ -5351,6 +5639,7 @@ type Query {
   getContextActivity(filter: ActionFilter!, orderBy: ActionOrderBy, before: String, after: String, first: Int, last: Int): ActionConnection
   getSwitchTypes: [SwitchType]
   getNetworkOrgTypes: [TypeInfo]
+  getAllowedTypesConvertHost: [String]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -5431,6 +5720,10 @@ type Query {
   count_peeringgroups: Int
   peeringGroups(filter: PeeringGroupFilter, orderBy: PeeringGroupOrderBy, before: String, after: String, first: Int, last: Int): peeringGroupConnection
   getPeeringGroupById(id: ID): PeeringGroup
+  all_hostusers: [HostUser]
+  count_hostusers: Int
+  hostUsers(filter: HostUserFilter, orderBy: HostUserOrderBy, before: String, after: String, first: Int, last: Int): hostUserConnection
+  getHostUserById(id: ID): HostUser
   search_generalsearch(filter: GenericFilter, before: String, after: String, first: Int, last: Int): GeneralSearchConnection
   search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
 }
@@ -6327,10 +6620,11 @@ type UpdateEndUserPayload {
 }
 
 input UpdateExternalEquipmentInput {
-  name: String!
-  description: String
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
+  name: String!
+  description: String
   relationship_owner: ChoiceScalar
   relationship_location: Int
   relationship_ports: String
@@ -6345,11 +6639,12 @@ type UpdateExternalEquipmentPayload {
 }
 
 input UpdateFirewallInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
   name: String!
   description: String
   ip_addresses: String
-  rack_units: Int
-  rack_position: Int
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -6368,7 +6663,6 @@ input UpdateFirewallInput {
   relationship_owner: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
-  relationship_ports: String
   services_locked: Boolean
   services_checked: Boolean
   max_number_of_ports: Int
@@ -6393,6 +6687,43 @@ input UpdateGroupInput {
 type UpdateGroupPayload {
   errors: [ErrorType]
   group: Group
+  clientMutationId: String
+}
+
+input UpdateHostInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
+  name: String!
+  description: String
+  ip_addresses: String
+  operational_state: ChoiceScalar! = "In service"
+  managed_by: ChoiceScalar
+  responsible_group: ChoiceScalar
+  support_group: ChoiceScalar
+  backup: String
+  security_class: ChoiceScalar
+  security_comment: String
+  os: String
+  os_version: String
+  model: String
+  vendor: String
+  service_tag: String
+  end_support: Date
+  contract_number: String
+  relationship_location: Int
+  relationship_owner: ChoiceScalar
+  relationship_user: Int
+  relationship_depends_on: Int
+  services_locked: Boolean
+  services_checked: Boolean
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateHostPayload {
+  errors: [ErrorType]
+  host: Host
   clientMutationId: String
 }
 
@@ -6500,6 +6831,7 @@ type UpdateRolePayload {
 input UpdateRouterInput {
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
   operational_state: ChoiceScalar!
   relationship_location: Int
   description: String
@@ -6528,11 +6860,12 @@ type UpdateSiteOwnerPayload {
 }
 
 input UpdateSwitchInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
   name: String!
   description: String
   ip_addresses: String
-  rack_units: Int
-  rack_position: Int
   operational_state: ChoiceScalar! = "Reserved"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar

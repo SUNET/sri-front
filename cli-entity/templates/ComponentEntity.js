@@ -9,7 +9,6 @@ const __EntityClassName__Query = graphql`
       id
       name
       description
-      url
       __typename
       with_same_name {
         id

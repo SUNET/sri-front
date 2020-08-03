@@ -12,6 +12,7 @@ import SearchPortsContainer from '../containers/port/SearchPort';
 import SearchSwitchesContainer from '../containers/switch/SearchSwitch';
 import SearchFirewallsContainer from '../containers/firewall/SearchFirewall';
 import SearchExternalEquipmentContainer from '../containers/externalEquipment/SearchExternalEquipment';
+import SearchHostsContainer from '../containers/host/SearchHost';
 
 class Network extends React.Component {
   render() {
@@ -31,6 +32,7 @@ class Network extends React.Component {
             <Route path="/network/switches" component={SearchSwitchesContainer} />
             <Route path="/network/firewalls" component={SearchFirewallsContainer} />
             <Route path="/network/external-equipments" component={SearchExternalEquipmentContainer} />
+            <Route path="/network/hosts" component={SearchHostsContainer} />
           </Switch>
         </Col>
       </Row>
