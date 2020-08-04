@@ -10,4 +10,4 @@ RUN yarn; yarn add babel-plugin-relay; yarn build
 RUN mkdir -p /bundle
 VOLUME /bundle
 
-ENTRYPOINT ["/app/bundle-pj.sh"]
+ENTRYPOINT ["/app/copy-bundle.sh"]
