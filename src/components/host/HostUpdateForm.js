@@ -42,6 +42,7 @@ class HostUpdateForm extends _HostFormParentClass {
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
+        {this.renderOwnerToggleSection(editMode)}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>

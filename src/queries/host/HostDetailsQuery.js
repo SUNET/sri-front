@@ -6,25 +6,54 @@ const HostDetailsQuery = graphql`
       ...HostUpdateForm_host
       id
       name
+      operational_state {
+        value
+      }
       description
-      __typename
-      comments {
+      host_type
+      ip_addresses
+      owner: host_owner {
+        __typename
         id
-        user {
-          first_name
-          last_name
+        name
+        ... on EndUser {
+          type: node_type {
+            name: type
+          }
         }
-        comment
-        submit_date
+        ... on Customer {
+          type: node_type {
+            name: type
+          }
+        }
+        ... on SiteOwner {
+          type: node_type {
+            name: type
+          }
+        }
+        ... on Provider {
+          type: node_type {
+            name: type
+          }
+        }
       }
-      created
-      creator {
-        email
+      responsible_group {
+        id
+        name
       }
-      modified
-      modifier {
-        email
+      support_group {
+        id
+        name
       }
+      managed_by {
+        value
+      }
+      backup
+      os
+      os_version
+      contract_number
+      rack_units
+      rack_position
     }
   }
 `;

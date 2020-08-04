@@ -24,6 +24,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateHostMutation(host, form) {
+  console.log('host: ', host);
   const variables = {
     input: {
       update_input: {

@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Mon Aug 03 2020 10:55:29 GMT+0200 (GMT+02:00)
+# timestamp: Mon Aug 03 2020 14:29:29 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -3703,7 +3703,7 @@ type Host implements NINode & Logical {
   comments: [CommentType]
   host_type: String
   description: String
-  operational_state: String!
+  operational_state: Choice
   ip_addresses: IPAddr
   responsible_group: Group
   support_group: Group
@@ -3783,20 +3783,20 @@ input HostNestedFilter {
   host_type_not_ends_with: String
   host_type_in: [String!]
   host_type_not_in: [String!]
-  operational_state: String
-  operational_state_not: String
-  operational_state_lt: String
-  operational_state_lte: String
-  operational_state_gt: String
-  operational_state_gte: String
-  operational_state_contains: String
-  operational_state_not_contains: String
-  operational_state_starts_with: String
-  operational_state_not_starts_with: String
-  operational_state_ends_with: String
-  operational_state_not_ends_with: String
-  operational_state_in: [String!]
-  operational_state_not_in: [String!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
   managed_by: ChoiceScalar
   managed_by_not: ChoiceScalar
   managed_by_lt: ChoiceScalar

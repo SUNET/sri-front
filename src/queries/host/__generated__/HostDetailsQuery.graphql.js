@@ -16,25 +16,37 @@ export type HostDetailsQueryResponse = {|
   +getHostById: ?{|
     +id: string,
     +name: string,
+    +operational_state: ?{|
+      +value: string
+    |},
     +description: ?string,
-    +__typename: string,
-    +comments: ?$ReadOnlyArray<?{|
+    +host_type: ?string,
+    +ip_addresses: ?any,
+    +owner: ?{|
+      +__typename: string,
       +id: string,
-      +user: ?{|
-        +first_name: string,
-        +last_name: string,
+      +name: string,
+      +type?: {|
+        +name: string
       |},
-      +comment: string,
-      +submit_date: any,
-    |}>,
-    +created: any,
-    +creator: ?{|
-      +email: string
     |},
-    +modified: any,
-    +modifier: ?{|
-      +email: string
+    +responsible_group: ?{|
+      +id: string,
+      +name: string,
     |},
+    +support_group: ?{|
+      +id: string,
+      +name: string,
+    |},
+    +managed_by: ?{|
+      +value: string
+    |},
+    +backup: ?string,
+    +os: ?string,
+    +os_version: ?string,
+    +contract_number: ?string,
+    +rack_units: ?number,
+    +rack_position: ?number,
     +$fragmentRefs: HostUpdateForm_host$ref,
   |}
 |};
@@ -53,28 +65,60 @@ query HostDetailsQuery(
     ...HostUpdateForm_host
     id
     name
+    operational_state {
+      value
+      id
+    }
     description
-    __typename
-    comments {
+    host_type
+    ip_addresses
+    owner: host_owner {
+      __typename
       id
-      user {
-        first_name
-        last_name
-        id
+      name
+      ... on EndUser {
+        type: node_type {
+          name: type
+          id
+        }
       }
-      comment
-      submit_date
+      ... on Customer {
+        type: node_type {
+          name: type
+          id
+        }
+      }
+      ... on SiteOwner {
+        type: node_type {
+          name: type
+          id
+        }
+      }
+      ... on Provider {
+        type: node_type {
+          name: type
+          id
+        }
+      }
     }
-    created
-    creator {
-      email
+    responsible_group {
+      id
+      name
+    }
+    support_group {
+      id
+      name
+    }
+    managed_by {
+      value
       id
     }
-    modified
-    modifier {
-      email
-      id
-    }
+    backup
+    os
+    os_version
+    contract_number
+    rack_units
+    rack_position
   }
 }
 
@@ -139,71 +183,155 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "description",
+  "name": "value",
   "storageKey": null
 },
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
+v5 = [
+  (v4/*: any*/)
+],
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "first_name",
+  "name": "description",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "last_name",
+  "name": "host_type",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "comment",
+  "name": "ip_addresses",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "submit_date",
+  "name": "__typename",
   "storageKey": null
 },
 v10 = {
-  "alias": null,
+  "alias": "name",
   "args": null,
   "kind": "ScalarField",
-  "name": "created",
+  "name": "type",
   "storageKey": null
 },
-v11 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "email",
-  "storageKey": null
-},
+v11 = [
+  {
+    "alias": "type",
+    "args": null,
+    "concreteType": "NINodeType",
+    "kind": "LinkedField",
+    "name": "node_type",
+    "plural": false,
+    "selections": [
+      (v10/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
 v12 = [
-  (v11/*: any*/)
+  (v2/*: any*/),
+  (v3/*: any*/)
 ],
 v13 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "modified",
+  "concreteType": "Group",
+  "kind": "LinkedField",
+  "name": "responsible_group",
+  "plural": false,
+  "selections": (v12/*: any*/),
   "storageKey": null
 },
-v14 = [
-  (v11/*: any*/),
+v14 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Group",
+  "kind": "LinkedField",
+  "name": "support_group",
+  "plural": false,
+  "selections": (v12/*: any*/),
+  "storageKey": null
+},
+v15 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "backup",
+  "storageKey": null
+},
+v16 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "os",
+  "storageKey": null
+},
+v17 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "os_version",
+  "storageKey": null
+},
+v18 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "contract_number",
+  "storageKey": null
+},
+v19 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_units",
+  "storageKey": null
+},
+v20 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_position",
+  "storageKey": null
+},
+v21 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "email",
+    "storageKey": null
+  },
   (v2/*: any*/)
+],
+v22 = [
+  (v4/*: any*/),
+  (v2/*: any*/)
+],
+v23 = [
+  {
+    "alias": "type",
+    "args": null,
+    "concreteType": "NINodeType",
+    "kind": "LinkedField",
+    "name": "node_type",
+    "plural": false,
+    "selections": [
+      (v10/*: any*/),
+      (v2/*: any*/)
+    ],
+    "storageKey": null
+  }
 ];
 return {
   "fragment": {
@@ -222,57 +350,71 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
-          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "CommentType",
+            "concreteType": "Choice",
             "kind": "LinkedField",
-            "name": "comments",
-            "plural": true,
+            "name": "operational_state",
+            "plural": false,
+            "selections": (v5/*: any*/),
+            "storageKey": null
+          },
+          (v6/*: any*/),
+          (v7/*: any*/),
+          (v8/*: any*/),
+          {
+            "alias": "owner",
+            "args": null,
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "host_owner",
+            "plural": false,
             "selections": [
+              (v9/*: any*/),
               (v2/*: any*/),
+              (v3/*: any*/),
               {
-                "alias": null,
-                "args": null,
-                "concreteType": "User",
-                "kind": "LinkedField",
-                "name": "user",
-                "plural": false,
-                "selections": [
-                  (v6/*: any*/),
-                  (v7/*: any*/)
-                ],
-                "storageKey": null
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "EndUser"
               },
-              (v8/*: any*/),
-              (v9/*: any*/)
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "Customer"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "SiteOwner"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "Provider"
+              }
             ],
             "storageKey": null
           },
-          (v10/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "User",
-            "kind": "LinkedField",
-            "name": "creator",
-            "plural": false,
-            "selections": (v12/*: any*/),
-            "storageKey": null
-          },
           (v13/*: any*/),
+          (v14/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "User",
+            "concreteType": "Choice",
             "kind": "LinkedField",
-            "name": "modifier",
+            "name": "managed_by",
             "plural": false,
-            "selections": (v12/*: any*/),
+            "selections": (v5/*: any*/),
             "storageKey": null
           },
+          (v15/*: any*/),
+          (v16/*: any*/),
+          (v17/*: any*/),
+          (v18/*: any*/),
+          (v19/*: any*/),
+          (v20/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -300,7 +442,7 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -318,18 +460,48 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v6/*: any*/),
-                  (v7/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "first_name",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "last_name",
+                    "storageKey": null
+                  },
                   (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v8/*: any*/),
-              (v9/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "comment",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "submit_date",
+                "storageKey": null
+              }
             ],
             "storageKey": null
           },
-          (v10/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "created",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -337,10 +509,16 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v14/*: any*/),
+            "selections": (v21/*: any*/),
             "storageKey": null
           },
-          (v13/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "modified",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -348,10 +526,73 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v14/*: any*/),
+            "selections": (v21/*: any*/),
             "storageKey": null
           },
-          (v5/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Choice",
+            "kind": "LinkedField",
+            "name": "operational_state",
+            "plural": false,
+            "selections": (v22/*: any*/),
+            "storageKey": null
+          },
+          (v7/*: any*/),
+          (v8/*: any*/),
+          {
+            "alias": "owner",
+            "args": null,
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "host_owner",
+            "plural": false,
+            "selections": [
+              (v9/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/),
+              {
+                "kind": "InlineFragment",
+                "selections": (v23/*: any*/),
+                "type": "EndUser"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v23/*: any*/),
+                "type": "Customer"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v23/*: any*/),
+                "type": "SiteOwner"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v23/*: any*/),
+                "type": "Provider"
+              }
+            ],
+            "storageKey": null
+          },
+          (v13/*: any*/),
+          (v14/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Choice",
+            "kind": "LinkedField",
+            "name": "managed_by",
+            "plural": false,
+            "selections": (v22/*: any*/),
+            "storageKey": null
+          },
+          (v15/*: any*/),
+          (v16/*: any*/),
+          (v17/*: any*/),
+          (v18/*: any*/),
+          (v19/*: any*/),
+          (v20/*: any*/)
         ],
         "storageKey": null
       }
@@ -362,11 +603,11 @@ return {
     "metadata": {},
     "name": "HostDetailsQuery",
     "operationKind": "query",
-    "text": "query HostDetailsQuery(\n  $hostId: ID!\n) {\n  getHostById(id: $hostId) {\n    ...HostUpdateForm_host\n    id\n    name\n    description\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment HostUpdateForm_host on Host {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query HostDetailsQuery(\n  $hostId: ID!\n) {\n  getHostById(id: $hostId) {\n    ...HostUpdateForm_host\n    id\n    name\n    operational_state {\n      value\n      id\n    }\n    description\n    host_type\n    ip_addresses\n    owner: host_owner {\n      __typename\n      id\n      name\n      ... on EndUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Customer {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on SiteOwner {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Provider {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    managed_by {\n      value\n      id\n    }\n    backup\n    os\n    os_version\n    contract_number\n    rack_units\n    rack_position\n  }\n}\n\nfragment HostUpdateForm_host on Host {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4b1d84f3448d17f8242a6d22def7b282';
+(node/*: any*/).hash = 'd7109e9d4327e9b1db365c6ad73fda82';
 
 module.exports = node;
