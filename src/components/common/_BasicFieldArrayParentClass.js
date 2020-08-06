@@ -426,7 +426,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         {editable && (
           <>
             {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
-            {this.PRE_FILTER_SELECT.model && this.renderDropDownSearch()}
+            {(this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) && this.renderDropDownSearch()}
             <button
               type="button"
               className="contact-in-organization__footer__add btn btn-add outline"

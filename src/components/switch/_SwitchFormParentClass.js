@@ -5,7 +5,7 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import IpAddressesList from './IpAddressesList';
+import IpAddressesList from '../IpAddressesList';
 import FieldInput from '../FieldInput';
 
 // const

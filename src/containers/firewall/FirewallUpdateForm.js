@@ -8,7 +8,7 @@ import * as confirmModalActions from '../../actions/ConfirmModal';
 import getProvider from '../../components/provider/Provider';
 import getCustomer from '../../components/customer/Customer';
 import getEndUser from '../../components/endUser/EndUser';
-import getSiteOwner from '../../components/siteOwner/SiteOwner';
+import getHostUser from '../../components/hostUser/HostUser';
 
 function formatterSubInputs(subInputs) {
   return subInputs.map((element) => ({
@@ -91,10 +91,6 @@ const mapStateToProps = (state, props) => {
     owner: updateFirewallSelector(state, 'owner'),
     formSyncErrors: getFormSyncErrors('updateFirewall')(state),
     fields: getFormMeta('updateFirewall')(state),
-    getProviderById: (id) => getProvider(id),
-    getCustomerById: (id) => getCustomer(id),
-    getEndUserById: (id) => getEndUser(id),
-    getSiteOwnerById: (id) => getSiteOwner(id),
     entityInModalName: state.formModal.entityName,
     editedSubEntity: state.formModal.entityEditedId,
     entitySavedId: state.formModal.entitySavedId,
@@ -140,6 +136,10 @@ const mapDispatchToProps = (dispatch, props) => {
     hideModalConfirm: () => {
       dispatch(confirmModalActions.hideModalConfirm());
     },
+    getProviderById: (id) => getProvider(id),
+    getCustomerById: (id) => getCustomer(id),
+    getEndUserById: (id) => getEndUser(id),
+    getHostUserById: (id) => getHostUser(id),
   };
 };
 const FirewallUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(FirewallUpdateForm);

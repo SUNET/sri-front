@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Mon Aug 03 2020 14:29:29 GMT+0200 (GMT+02:00)
+# timestamp: Wed Aug 05 2020 11:53:35 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -2173,7 +2173,7 @@ input CreateSwitchInput {
   end_support: Date
   contract_number: String
   relationship_location: Int
-  relationship_owner: Int
+  relationship_owner: ChoiceScalar
   max_number_of_ports: Int
   relationship_provider: ChoiceScalar
   switch_type: ChoiceScalar!
@@ -5640,6 +5640,7 @@ type Query {
   getSwitchTypes: [SwitchType]
   getNetworkOrgTypes: [TypeInfo]
   getAllowedTypesConvertHost: [String]
+  getHostOwnerTypes: [TypeInfo]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -6713,7 +6714,7 @@ input UpdateHostInput {
   contract_number: String
   relationship_location: Int
   relationship_owner: ChoiceScalar
-  relationship_user: Int
+  relationship_user: ChoiceScalar
   relationship_depends_on: Int
   services_locked: Boolean
   services_checked: Boolean
@@ -6881,7 +6882,7 @@ input UpdateSwitchInput {
   end_support: Date
   contract_number: String
   relationship_location: Int
-  relationship_owner: Int
+  relationship_owner: ChoiceScalar
   max_number_of_ports: Int
   relationship_provider: ChoiceScalar
   id: ID!

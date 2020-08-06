@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 // import { withTranslation } from 'react-i18next';
 
-import '../../style/IpAddressesList.scss';
+import '../style/IpAddressesList.scss';
 
 const isValidIp = (ipText) => {
   const IP_REGEX = /([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}|(\d{1,3}\.){3}\d{1,3}/;

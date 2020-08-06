@@ -207,7 +207,7 @@ export type UpdateHostInput = {|
   contract_number?: ?string,
   relationship_location?: ?number,
   relationship_owner?: ?any,
-  relationship_user?: ?number,
+  relationship_user?: ?any,
   relationship_depends_on?: ?number,
   services_locked?: ?boolean,
   services_checked?: ?boolean,
