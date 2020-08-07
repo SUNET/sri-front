@@ -20,7 +20,10 @@ export type SwitchDetailsQueryResponse = {|
     +ip_addresses: ?any,
     +rack_units: ?number,
     +rack_position: ?number,
-    +operational_state: string,
+    +operational_state: ?{|
+      +name: string,
+      +value: string,
+    |},
     +provider: ?{|
       +id: string,
       +name: string,
@@ -82,7 +85,11 @@ query SwitchDetailsQuery(
     ip_addresses
     rack_units
     rack_position
-    operational_state
+    operational_state {
+      name
+      value
+      id
+    }
     provider {
       id
       name
@@ -218,7 +225,7 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "operational_state",
+  "name": "value",
   "storageKey": null
 },
 v9 = [
@@ -259,105 +266,98 @@ v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "value",
+  "name": "backup",
   "storageKey": null
 },
 v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "backup",
+  "name": "os",
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "os",
+  "name": "os_version",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "os_version",
+  "name": "contract_number",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "contract_number",
+  "name": "max_number_of_ports",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "max_number_of_ports",
+  "name": "__typename",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "first_name",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "first_name",
+  "name": "last_name",
   "storageKey": null
 },
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "last_name",
+  "name": "comment",
   "storageKey": null
 },
 v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "comment",
+  "name": "submit_date",
   "storageKey": null
 },
 v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "submit_date",
+  "name": "created",
   "storageKey": null
 },
 v24 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "created",
-  "storageKey": null
-},
-v25 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v26 = [
-  (v25/*: any*/)
+v25 = [
+  (v24/*: any*/)
 ],
-v27 = {
+v26 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v28 = [
-  (v25/*: any*/),
+v27 = [
+  (v24/*: any*/),
   (v2/*: any*/)
 ];
 return {
@@ -381,7 +381,19 @@ return {
           (v5/*: any*/),
           (v6/*: any*/),
           (v7/*: any*/),
-          (v8/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Choice",
+            "kind": "LinkedField",
+            "name": "operational_state",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v8/*: any*/)
+            ],
+            "storageKey": null
+          },
           (v10/*: any*/),
           (v11/*: any*/),
           (v12/*: any*/),
@@ -393,17 +405,17 @@ return {
             "name": "managed_by",
             "plural": false,
             "selections": [
-              (v13/*: any*/),
+              (v8/*: any*/),
               (v3/*: any*/)
             ],
             "storageKey": null
           },
+          (v13/*: any*/),
           (v14/*: any*/),
           (v15/*: any*/),
           (v16/*: any*/),
           (v17/*: any*/),
           (v18/*: any*/),
-          (v19/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -421,17 +433,17 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v20/*: any*/),
-                  (v21/*: any*/)
+                  (v19/*: any*/),
+                  (v20/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v22/*: any*/),
-              (v23/*: any*/)
+              (v21/*: any*/),
+              (v22/*: any*/)
             ],
             "storageKey": null
           },
-          (v24/*: any*/),
+          (v23/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -439,10 +451,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v26/*: any*/),
+            "selections": (v25/*: any*/),
             "storageKey": null
           },
-          (v27/*: any*/),
+          (v26/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -450,7 +462,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v26/*: any*/),
+            "selections": (v25/*: any*/),
             "storageKey": null
           },
           {
@@ -498,18 +510,18 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
+                  (v19/*: any*/),
                   (v20/*: any*/),
-                  (v21/*: any*/),
                   (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v22/*: any*/),
-              (v23/*: any*/)
+              (v21/*: any*/),
+              (v22/*: any*/)
             ],
             "storageKey": null
           },
-          (v24/*: any*/),
+          (v23/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -517,10 +529,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v28/*: any*/),
+            "selections": (v27/*: any*/),
             "storageKey": null
           },
-          (v27/*: any*/),
+          (v26/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -528,13 +540,26 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v28/*: any*/),
+            "selections": (v27/*: any*/),
             "storageKey": null
           },
           (v5/*: any*/),
           (v6/*: any*/),
           (v7/*: any*/),
-          (v8/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Choice",
+            "kind": "LinkedField",
+            "name": "operational_state",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v8/*: any*/),
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          },
           (v10/*: any*/),
           (v11/*: any*/),
           (v12/*: any*/),
@@ -546,18 +571,18 @@ return {
             "name": "managed_by",
             "plural": false,
             "selections": [
-              (v13/*: any*/),
+              (v8/*: any*/),
               (v3/*: any*/),
               (v2/*: any*/)
             ],
             "storageKey": null
           },
+          (v13/*: any*/),
           (v14/*: any*/),
           (v15/*: any*/),
           (v16/*: any*/),
           (v17/*: any*/),
-          (v18/*: any*/),
-          (v19/*: any*/)
+          (v18/*: any*/)
         ],
         "storageKey": null
       }
@@ -568,11 +593,11 @@ return {
     "metadata": {},
     "name": "SwitchDetailsQuery",
     "operationKind": "query",
-    "text": "query SwitchDetailsQuery(\n  $switchId: ID!\n) {\n  getSwitchById(id: $switchId) {\n    ...SwitchUpdateForm_switch\n    id\n    name\n    description\n    ip_addresses\n    rack_units\n    rack_position\n    operational_state\n    provider {\n      id\n      name\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    managed_by {\n      value\n      name\n      id\n    }\n    backup\n    os\n    os_version\n    contract_number\n    max_number_of_ports\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment SwitchUpdateForm_switch on Switch {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query SwitchDetailsQuery(\n  $switchId: ID!\n) {\n  getSwitchById(id: $switchId) {\n    ...SwitchUpdateForm_switch\n    id\n    name\n    description\n    ip_addresses\n    rack_units\n    rack_position\n    operational_state {\n      name\n      value\n      id\n    }\n    provider {\n      id\n      name\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    managed_by {\n      value\n      name\n      id\n    }\n    backup\n    os\n    os_version\n    contract_number\n    max_number_of_ports\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment SwitchUpdateForm_switch on Switch {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2461ca0112b7175847250ef33e364310';
+(node/*: any*/).hash = 'f9fe69d5c7d84c971c9af808374fa171';
 
 module.exports = node;

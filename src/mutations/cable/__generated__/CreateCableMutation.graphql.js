@@ -49,7 +49,7 @@ export type CompositeCableMutationInput = {|
   update_part_of_email?: ?UpdateEmailInput,
   deleted_part_of_email?: ?DeleteEmailInput,
   create_part_of_host?: ?CreateHostInput,
-  update_part_of_host?: ?UpdateHostInput,
+  update_part_of_host?: ?EditHostInput,
   deleted_part_of_host?: ?DeleteHostInput,
   create_parent_port?: ?$ReadOnlyArray<?CreatePortInput>,
   update_parent_port?: ?$ReadOnlyArray<?UpdatePortInput>,
@@ -85,7 +85,7 @@ export type CompositeCableMutationInput = {|
   update_dependents_email?: ?$ReadOnlyArray<?UpdateEmailInput>,
   deleted_dependents_email?: ?$ReadOnlyArray<?DeleteEmailInput>,
   create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
-  update_dependents_host?: ?$ReadOnlyArray<?UpdateHostInput>,
+  update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
   deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
   create_owner_organization?: ?CreateOrganizationInput,
   update_owner_organization?: ?UpdateOrganizationInput,
@@ -438,7 +438,7 @@ export type CreateHostInput = {|
   relationship_owner?: ?any,
   clientMutationId?: ?string,
 |};
-export type UpdateHostInput = {|
+export type EditHostInput = {|
   rack_units?: ?number,
   rack_position?: ?number,
   rack_back?: ?boolean,

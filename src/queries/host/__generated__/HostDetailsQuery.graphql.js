@@ -23,6 +23,11 @@ export type HostDetailsQueryResponse = {|
     +description: ?string,
     +host_type: ?string,
     +ip_addresses: ?any,
+    +host_user: ?{|
+      +id: string,
+      +name: string,
+      +__typename: string,
+    |},
     +owner: ?{|
       +__typename: string,
       +id: string,
@@ -74,6 +79,11 @@ query HostDetailsQuery(
     description
     host_type
     ip_addresses
+    host_user {
+      id
+      name
+      __typename
+    }
     owner: host_owner {
       __typename
       id
@@ -90,19 +100,13 @@ query HostDetailsQuery(
           id
         }
       }
-      ... on SiteOwner {
+      ... on HostUser {
         type: node_type {
           name: type
           id
         }
       }
       ... on Provider {
-        type: node_type {
-          name: type
-          id
-        }
-      }
-      ... on HostUser {
         type: node_type {
           name: type
           id
@@ -223,13 +227,27 @@ v8 = {
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "HostUser",
+  "kind": "LinkedField",
+  "name": "host_user",
+  "plural": false,
+  "selections": [
+    (v2/*: any*/),
+    (v3/*: any*/),
+    (v8/*: any*/)
+  ],
+  "storageKey": null
+},
+v10 = {
   "alias": "name",
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v10 = [
+v11 = [
   {
     "alias": "type",
     "args": null,
@@ -238,78 +256,78 @@ v10 = [
     "name": "node_type",
     "plural": false,
     "selections": [
-      (v9/*: any*/)
+      (v10/*: any*/)
     ],
     "storageKey": null
   }
 ],
-v11 = [
+v12 = [
   (v2/*: any*/),
   (v3/*: any*/)
 ],
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "Group",
   "kind": "LinkedField",
   "name": "responsible_group",
   "plural": false,
-  "selections": (v11/*: any*/),
+  "selections": (v12/*: any*/),
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "Group",
   "kind": "LinkedField",
   "name": "support_group",
   "plural": false,
-  "selections": (v11/*: any*/),
-  "storageKey": null
-},
-v14 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "backup",
+  "selections": (v12/*: any*/),
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "os",
+  "name": "backup",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "os_version",
+  "name": "os",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "contract_number",
+  "name": "os_version",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "rack_units",
+  "name": "contract_number",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "rack_units",
+  "storageKey": null
+},
+v20 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "rack_position",
   "storageKey": null
 },
-v20 = [
+v21 = [
   {
     "alias": null,
     "args": null,
@@ -319,7 +337,7 @@ v20 = [
   },
   (v2/*: any*/)
 ],
-v21 = [
+v22 = [
   {
     "alias": "type",
     "args": null,
@@ -328,7 +346,7 @@ v21 = [
     "name": "node_type",
     "plural": false,
     "selections": [
-      (v9/*: any*/),
+      (v10/*: any*/),
       (v2/*: any*/)
     ],
     "storageKey": null
@@ -367,6 +385,7 @@ return {
           (v5/*: any*/),
           (v6/*: any*/),
           (v7/*: any*/),
+          (v9/*: any*/),
           {
             "alias": "owner",
             "args": null,
@@ -380,34 +399,29 @@ return {
               (v3/*: any*/),
               {
                 "kind": "InlineFragment",
-                "selections": (v10/*: any*/),
+                "selections": (v11/*: any*/),
                 "type": "EndUser"
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v10/*: any*/),
+                "selections": (v11/*: any*/),
                 "type": "Customer"
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v10/*: any*/),
-                "type": "SiteOwner"
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": (v10/*: any*/),
-                "type": "Provider"
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": (v10/*: any*/),
+                "selections": (v11/*: any*/),
                 "type": "HostUser"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "Provider"
               }
             ],
             "storageKey": null
           },
-          (v12/*: any*/),
           (v13/*: any*/),
+          (v14/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -420,12 +434,12 @@ return {
             ],
             "storageKey": null
           },
-          (v14/*: any*/),
           (v15/*: any*/),
           (v16/*: any*/),
           (v17/*: any*/),
           (v18/*: any*/),
           (v19/*: any*/),
+          (v20/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -520,7 +534,7 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v20/*: any*/),
+            "selections": (v21/*: any*/),
             "storageKey": null
           },
           {
@@ -537,7 +551,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v20/*: any*/),
+            "selections": (v21/*: any*/),
             "storageKey": null
           },
           {
@@ -556,6 +570,7 @@ return {
           },
           (v6/*: any*/),
           (v7/*: any*/),
+          (v9/*: any*/),
           {
             "alias": "owner",
             "args": null,
@@ -569,34 +584,29 @@ return {
               (v3/*: any*/),
               {
                 "kind": "InlineFragment",
-                "selections": (v21/*: any*/),
+                "selections": (v22/*: any*/),
                 "type": "EndUser"
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v21/*: any*/),
+                "selections": (v22/*: any*/),
                 "type": "Customer"
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v21/*: any*/),
-                "type": "SiteOwner"
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": (v21/*: any*/),
-                "type": "Provider"
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": (v21/*: any*/),
+                "selections": (v22/*: any*/),
                 "type": "HostUser"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v22/*: any*/),
+                "type": "Provider"
               }
             ],
             "storageKey": null
           },
-          (v12/*: any*/),
           (v13/*: any*/),
+          (v14/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -610,12 +620,12 @@ return {
             ],
             "storageKey": null
           },
-          (v14/*: any*/),
           (v15/*: any*/),
           (v16/*: any*/),
           (v17/*: any*/),
           (v18/*: any*/),
-          (v19/*: any*/)
+          (v19/*: any*/),
+          (v20/*: any*/)
         ],
         "storageKey": null
       }
@@ -626,11 +636,11 @@ return {
     "metadata": {},
     "name": "HostDetailsQuery",
     "operationKind": "query",
-    "text": "query HostDetailsQuery(\n  $hostId: ID!\n) {\n  getHostById(id: $hostId) {\n    ...HostUpdateForm_host\n    id\n    name\n    operational_state {\n      name\n      value\n      id\n    }\n    description\n    host_type\n    ip_addresses\n    owner: host_owner {\n      __typename\n      id\n      name\n      ... on EndUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Customer {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on SiteOwner {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Provider {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on HostUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    managed_by {\n      value\n      id\n    }\n    backup\n    os\n    os_version\n    contract_number\n    rack_units\n    rack_position\n  }\n}\n\nfragment HostUpdateForm_host on Host {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query HostDetailsQuery(\n  $hostId: ID!\n) {\n  getHostById(id: $hostId) {\n    ...HostUpdateForm_host\n    id\n    name\n    operational_state {\n      name\n      value\n      id\n    }\n    description\n    host_type\n    ip_addresses\n    host_user {\n      id\n      name\n      __typename\n    }\n    owner: host_owner {\n      __typename\n      id\n      name\n      ... on EndUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Customer {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on HostUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Provider {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    managed_by {\n      value\n      id\n    }\n    backup\n    os\n    os_version\n    contract_number\n    rack_units\n    rack_position\n  }\n}\n\nfragment HostUpdateForm_host on Host {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a1dec3517ef376b3f088308b6f4ba94f';
+(node/*: any*/).hash = 'c64e6ac52cbae30a7031e298bc827a4a';
 
 module.exports = node;

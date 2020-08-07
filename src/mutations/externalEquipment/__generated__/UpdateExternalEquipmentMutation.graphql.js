@@ -9,6 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CompositeExternalEquipmentMutationInput = {|
+  delete_owner?: ?DeleteOwnerMutationInput,
   create_input?: ?CreateExternalEquipmentInput,
   update_input?: ?UpdateExternalEquipmentInput,
   unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
@@ -46,7 +47,7 @@ export type CompositeExternalEquipmentMutationInput = {|
   update_part_of_email?: ?UpdateEmailInput,
   deleted_part_of_email?: ?DeleteEmailInput,
   create_part_of_host?: ?CreateHostInput,
-  update_part_of_host?: ?UpdateHostInput,
+  update_part_of_host?: ?EditHostInput,
   deleted_part_of_host?: ?DeleteHostInput,
   create_parent_port?: ?$ReadOnlyArray<?CreatePortInput>,
   update_parent_port?: ?$ReadOnlyArray<?UpdatePortInput>,
@@ -82,7 +83,7 @@ export type CompositeExternalEquipmentMutationInput = {|
   update_dependents_email?: ?$ReadOnlyArray<?UpdateEmailInput>,
   deleted_dependents_email?: ?$ReadOnlyArray<?DeleteEmailInput>,
   create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
-  update_dependents_host?: ?$ReadOnlyArray<?UpdateHostInput>,
+  update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
   deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
   create_owner_organization?: ?CreateOrganizationInput,
   update_owner_organization?: ?UpdateOrganizationInput,
@@ -102,6 +103,10 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_owner_siteowner?: ?CreateSiteOwnerInput,
   update_owner_siteowner?: ?UpdateSiteOwnerInput,
   deleted_owner_siteowner?: ?DeleteSiteOwnerInput,
+  clientMutationId?: ?string,
+|};
+export type DeleteOwnerMutationInput = {|
+  id: string,
   clientMutationId?: ?string,
 |};
 export type CreateExternalEquipmentInput = {|
@@ -435,7 +440,7 @@ export type CreateHostInput = {|
   relationship_owner?: ?any,
   clientMutationId?: ?string,
 |};
-export type UpdateHostInput = {|
+export type EditHostInput = {|
   rack_units?: ?number,
   rack_position?: ?number,
   rack_back?: ?boolean,
@@ -726,7 +731,7 @@ mutation UpdateExternalEquipmentMutation(
               id
             }
           }
-          ... on SiteOwner {
+          ... on HostUser {
             type: node_type {
               name: type
               id
@@ -965,7 +970,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": (v11/*: any*/),
-                        "type": "SiteOwner"
+                        "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
@@ -1089,7 +1094,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": (v12/*: any*/),
-                        "type": "SiteOwner"
+                        "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
@@ -1130,11 +1135,11 @@ return {
     "metadata": {},
     "name": "UpdateExternalEquipmentMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n        rack_units\n        rack_position\n        ports {\n          id\n          name\n          __typename\n          relation_id\n          type: port_type {\n            name\n            id\n          }\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on SiteOwner {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        has {\n          __typename\n          id\n          name\n        }\n        __typename\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n        rack_units\n        rack_position\n        ports {\n          id\n          name\n          __typename\n          relation_id\n          type: port_type {\n            name\n            id\n          }\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        has {\n          __typename\n          id\n          name\n        }\n        __typename\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '946f0c56a57e64ad47cbdc08c09ac065';
+(node/*: any*/).hash = 'efeccf79c8028e4af5e47c3e1202a611';
 
 module.exports = node;

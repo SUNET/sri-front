@@ -9,7 +9,10 @@ const SwitchQuery = graphql`
       id
       name
       description
-      operational_state
+      operational_state {
+        name
+        value
+      }
       type: __typename
     }
   }

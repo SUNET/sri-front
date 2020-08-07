@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateHostMutation from '../../mutations/host/CreateHostMutation';
-import ValidationsHostForm from '../common/_BasicValidationForm';
+import ValidationsHostForm from './ValidationsHostForm';
 // const
 import { CREATE_HOST_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -30,6 +30,7 @@ class CreateHostForm extends _HostFormParentClass {
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
           {this.renderModelMainSection(editMode)}
+          {this.renderOwnerToggleSection(editMode)}
           {this.renderWorkLog(editMode)}
         </div>
         {this.renderSaveCancelButtons()}

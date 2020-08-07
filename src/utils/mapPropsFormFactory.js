@@ -47,9 +47,26 @@ function getDataByFieldType({ fieldName, dataField, fieldType, state, selector }
         result.selectorValue = { [fieldName]: selector(state, fieldName) };
       }
       break;
+    case FIELD_TYPES.ARRAY_LIST:
+      result.initialValue = {
+        [fieldName]: dataField ? formatterSubInputs(dataField) : undefined,
+      };
+      if (state) {
+        result.selectorValue = { [fieldName]: selector(state, fieldName) };
+      }
+      break;
     default:
   }
   return result;
+}
+
+function getStateModalsProps(state, props) {
+  return {
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
+    isFromModal: Boolean(props.isFromModal),
+    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
+  };
 }
 
 function generatePropsByConfigList(fieldList, { operationType, data, state, selector }) {
@@ -85,28 +102,47 @@ function getFieldsFormProps(fieldList, state, selector) {
   return generatePropsByConfigList(fieldList, { operationType: 'fieldsFormProps', state, selector });
 }
 
-function createPropsObject(formStructureData, entityData, state, isUpdateForm = false) {
+function createPropsObject({ formStructureData, entityData, state, isUpdateForm = false, isFromModal = false }) {
   const formType = isUpdateForm ? 'update' : 'create';
-  const selector = formValueSelector(formStructureData.formName[formType]);
+  const formName = isFromModal
+    ? `${formStructureData.formName[formType]}InModal`
+    : `${formStructureData.formName[formType]}`;
+  const selector = formValueSelector(formName);
 
   const propsObject = {
-    form: formStructureData.formName[formType],
-    formSyncErrors: getFormSyncErrors('updateHost')(state),
-    fields: getFormMeta('updateHost')(state),
+    form: formName,
+    formSyncErrors: getFormSyncErrors(formName)(state),
+    fields: getFormMeta(formName)(state),
     ...getFieldsFormProps(formStructureData.fields, state, selector),
   };
   if (isUpdateForm) {
     propsObject.initialValues = getInitialValues(formStructureData.fields, entityData);
   }
-  console.log('propsObject: ', propsObject);
   return propsObject;
 }
 
-export function getUpdateProps(nameEntity, entityData, state) {
-  console.log('entityData: ', entityData);
-  return createPropsObject(FIELDS_FORMS[nameEntity], entityData, state, true);
+export function getUpdateProps(nameEntity, props, state) {
+  const propsFieldsObject = createPropsObject({
+    formStructureData: FIELDS_FORMS[nameEntity],
+    entityData: props[nameEntity],
+    state,
+    isUpdateForm: true,
+    isFromModal: props.isFromModal,
+  });
+  const propsModals = getStateModalsProps(state, props);
+  return {
+    ...propsFieldsObject,
+    ...propsModals,
+  };
 }
 
-export function getCreateProps(nameEntity, data) {
-  return {};
+export function getCreateProps(nameEntity, props, state) {
+  const propsFieldsObject = createPropsObject({
+    formStructureData: FIELDS_FORMS[nameEntity],
+    entityData: props[nameEntity],
+    state,
+    isUpdateForm: false,
+    isFromModal: props.isFromModal,
+  });
+  return propsFieldsObject;
 }

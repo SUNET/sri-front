@@ -61,7 +61,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
   }
 
   handleSelectedParent = (selection, typeOfSelection) => {
-    if (selection !== null) {
+    if (selection !== null && selection.id) {
       this.props[typeOfSelection](selection.id).then((entity) => {
         const newEntity = {
           __typename: entity.__typename,
@@ -83,7 +83,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
   };
 
   handleSelectedConnectedTo = (selection) => {
-    if (selection !== null) {
+    if (selection !== null && selection.id) {
       this.props.getCableById(selection.id).then((cable) => {
         const newCable = {
           __typename: cable.__typename,

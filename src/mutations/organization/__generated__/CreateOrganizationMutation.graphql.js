@@ -34,7 +34,7 @@ export type CompositeOrganizationMutationInput = {|
   update_uses_email?: ?UpdateEmailInput,
   deleted_uses_email?: ?DeleteEmailInput,
   create_uses_host?: ?CreateHostInput,
-  update_uses_host?: ?UpdateHostInput,
+  update_uses_host?: ?EditHostInput,
   deleted_uses_host?: ?DeleteHostInput,
   create_owns_port?: ?$ReadOnlyArray<?CreatePortInput>,
   update_owns_port?: ?$ReadOnlyArray<?UpdatePortInput>,
@@ -267,7 +267,7 @@ export type CreateHostInput = {|
   relationship_owner?: ?any,
   clientMutationId?: ?string,
 |};
-export type UpdateHostInput = {|
+export type EditHostInput = {|
   rack_units?: ?number,
   rack_position?: ?number,
   rack_back?: ?boolean,

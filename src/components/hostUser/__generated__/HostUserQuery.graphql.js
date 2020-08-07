@@ -16,6 +16,9 @@ export type HostUserQueryResponse = {|
     +__typename: string,
     +id: string,
     +name: string,
+    +type: {|
+      +name: string
+    |},
   |}
 |};
 export type HostUserQuery = {|
@@ -33,6 +36,10 @@ query HostUserQuery(
     __typename
     id
     name
+    type: node_type {
+      name: type
+      id
+    }
   }
 }
 */
@@ -48,51 +55,73 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "hostUserId"
-      }
-    ],
-    "concreteType": "HostUser",
-    "kind": "LinkedField",
-    "name": "getHostUserById",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "__typename",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "hostUserId"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": "name",
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "HostUserQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HostUser",
+        "kind": "LinkedField",
+        "name": "getHostUserById",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": "type",
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "node_type",
+            "plural": false,
+            "selections": [
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query"
   },
   "kind": "Request",
@@ -100,18 +129,46 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "HostUserQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HostUser",
+        "kind": "LinkedField",
+        "name": "getHostUserById",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": "type",
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "node_type",
+            "plural": false,
+            "selections": [
+              (v5/*: any*/),
+              (v3/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "HostUserQuery",
     "operationKind": "query",
-    "text": "query HostUserQuery(\n  $hostUserId: ID!\n) {\n  getHostUserById(id: $hostUserId) {\n    __typename\n    id\n    name\n  }\n}\n"
+    "text": "query HostUserQuery(\n  $hostUserId: ID!\n) {\n  getHostUserById(id: $hostUserId) {\n    __typename\n    id\n    name\n    type: node_type {\n      name: type\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6e7fd01b211d3b844090fcc7f4107701';
+(node/*: any*/).hash = '4451ab944163fcddd5207e216da559de';
 
 module.exports = node;

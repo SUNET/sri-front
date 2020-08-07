@@ -5,9 +5,12 @@ import graphql from 'babel-plugin-relay/macro';
 const CustomerQuery = graphql`
   query CustomerQuery($customerId: ID!) {
     getCustomerById(id: $customerId) {
-        __typename
+      __typename
       id
       name
+      type: node_type {
+        name: type
+      }
     }
   }
 `;

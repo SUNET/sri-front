@@ -9,9 +9,14 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CompositeHostMutationInput = {|
+  delete_owner?: ?DeleteOwnerMutationInput,
   create_input?: ?CreateHostInput,
-  update_input?: ?UpdateHostInput,
+  update_input?: ?EditHostInput,
   unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
+  clientMutationId?: ?string,
+|};
+export type DeleteOwnerMutationInput = {|
+  id: string,
   clientMutationId?: ?string,
 |};
 export type CreateHostInput = {|
@@ -39,7 +44,7 @@ export type CreateHostInput = {|
   relationship_owner?: ?any,
   clientMutationId?: ?string,
 |};
-export type UpdateHostInput = {|
+export type EditHostInput = {|
   rack_units?: ?number,
   rack_position?: ?number,
   rack_back?: ?boolean,
@@ -93,6 +98,11 @@ export type UpdateHostMutationResponse = {|
         +description: ?string,
         +host_type: ?string,
         +ip_addresses: ?any,
+        +host_user: ?{|
+          +id: string,
+          +name: string,
+          +__typename: string,
+        |},
         +owner: ?{|
           +__typename: string,
           +id: string,
@@ -150,6 +160,11 @@ mutation UpdateHostMutation(
         description
         host_type
         ip_addresses
+        host_user {
+          id
+          name
+          __typename
+        }
         owner: host_owner {
           __typename
           id
@@ -161,12 +176,6 @@ mutation UpdateHostMutation(
             }
           }
           ... on Customer {
-            type: node_type {
-              name: type
-              id
-            }
-          }
-          ... on SiteOwner {
             type: node_type {
               name: type
               id
@@ -300,13 +309,27 @@ v9 = {
   "storageKey": null
 },
 v10 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "HostUser",
+  "kind": "LinkedField",
+  "name": "host_user",
+  "plural": false,
+  "selections": [
+    (v3/*: any*/),
+    (v4/*: any*/),
+    (v9/*: any*/)
+  ],
+  "storageKey": null
+},
+v11 = {
   "alias": "name",
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v11 = [
+v12 = [
   {
     "alias": "type",
     "args": null,
@@ -315,78 +338,78 @@ v11 = [
     "name": "node_type",
     "plural": false,
     "selections": [
-      (v10/*: any*/)
+      (v11/*: any*/)
     ],
     "storageKey": null
   }
 ],
-v12 = [
+v13 = [
   (v3/*: any*/),
   (v4/*: any*/)
 ],
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "Group",
   "kind": "LinkedField",
   "name": "responsible_group",
   "plural": false,
-  "selections": (v12/*: any*/),
+  "selections": (v13/*: any*/),
   "storageKey": null
 },
-v14 = {
+v15 = {
   "alias": null,
   "args": null,
   "concreteType": "Group",
   "kind": "LinkedField",
   "name": "support_group",
   "plural": false,
-  "selections": (v12/*: any*/),
-  "storageKey": null
-},
-v15 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "backup",
+  "selections": (v13/*: any*/),
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "os",
+  "name": "backup",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "os_version",
+  "name": "os",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "contract_number",
+  "name": "os_version",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "rack_units",
+  "name": "contract_number",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "rack_units",
+  "storageKey": null
+},
+v21 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "rack_position",
   "storageKey": null
 },
-v21 = [
+v22 = [
   {
     "alias": "type",
     "args": null,
@@ -395,7 +418,7 @@ v21 = [
     "name": "node_type",
     "plural": false,
     "selections": [
-      (v10/*: any*/),
+      (v11/*: any*/),
       (v3/*: any*/)
     ],
     "storageKey": null
@@ -419,7 +442,7 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "UpdateHostPayload",
+            "concreteType": "EditHostPayload",
             "kind": "LinkedField",
             "name": "updated",
             "plural": false,
@@ -451,6 +474,7 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": "owner",
                     "args": null,
@@ -464,34 +488,29 @@ return {
                       (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "EndUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "Customer"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
-                        "type": "SiteOwner"
-                      },
-                      {
-                        "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "Provider"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "HostUser"
                       }
                     ],
                     "storageKey": null
                   },
-                  (v13/*: any*/),
                   (v14/*: any*/),
+                  (v15/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -504,12 +523,12 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v15/*: any*/),
                   (v16/*: any*/),
                   (v17/*: any*/),
                   (v18/*: any*/),
                   (v19/*: any*/),
-                  (v20/*: any*/)
+                  (v20/*: any*/),
+                  (v21/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -539,7 +558,7 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "UpdateHostPayload",
+            "concreteType": "EditHostPayload",
             "kind": "LinkedField",
             "name": "updated",
             "plural": false,
@@ -572,6 +591,7 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": "owner",
                     "args": null,
@@ -585,34 +605,29 @@ return {
                       (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v21/*: any*/),
+                        "selections": (v22/*: any*/),
                         "type": "EndUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v21/*: any*/),
+                        "selections": (v22/*: any*/),
                         "type": "Customer"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v21/*: any*/),
-                        "type": "SiteOwner"
-                      },
-                      {
-                        "kind": "InlineFragment",
-                        "selections": (v21/*: any*/),
+                        "selections": (v22/*: any*/),
                         "type": "Provider"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v21/*: any*/),
+                        "selections": (v22/*: any*/),
                         "type": "HostUser"
                       }
                     ],
                     "storageKey": null
                   },
-                  (v13/*: any*/),
                   (v14/*: any*/),
+                  (v15/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -626,12 +641,12 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v15/*: any*/),
                   (v16/*: any*/),
                   (v17/*: any*/),
                   (v18/*: any*/),
                   (v19/*: any*/),
-                  (v20/*: any*/)
+                  (v20/*: any*/),
+                  (v21/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -648,11 +663,11 @@ return {
     "metadata": {},
     "name": "UpdateHostMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateHostMutation(\n  $input: CompositeHostMutationInput!\n) {\n  composite_host(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      host {\n        id\n        name\n        operational_state {\n          value\n          name\n          id\n        }\n        description\n        host_type\n        ip_addresses\n        owner: host_owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on SiteOwner {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        responsible_group {\n          id\n          name\n        }\n        support_group {\n          id\n          name\n        }\n        managed_by {\n          value\n          id\n        }\n        backup\n        os\n        os_version\n        contract_number\n        rack_units\n        rack_position\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateHostMutation(\n  $input: CompositeHostMutationInput!\n) {\n  composite_host(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      host {\n        id\n        name\n        operational_state {\n          value\n          name\n          id\n        }\n        description\n        host_type\n        ip_addresses\n        host_user {\n          id\n          name\n          __typename\n        }\n        owner: host_owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        responsible_group {\n          id\n          name\n        }\n        support_group {\n          id\n          name\n        }\n        managed_by {\n          value\n          id\n        }\n        backup\n        os\n        os_version\n        contract_number\n        rack_units\n        rack_position\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4a515e06405d85f3bae1fcb1ebdd83dc';
+(node/*: any*/).hash = '227100fda0369470e7eaa367f5b7a4db';
 
 module.exports = node;

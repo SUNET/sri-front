@@ -32,7 +32,7 @@ const ExternalEquipmentDetailsQuery = graphql`
             name: type
           }
         }
-        ... on SiteOwner {
+        ... on HostUser {
           type: node_type {
             name: type
           }

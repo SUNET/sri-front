@@ -5,10 +5,10 @@ import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import UpdateHostMutation from '../../mutations/host/UpdateHostMutation';
-import ValidationsHostForm from '../common/_BasicValidationForm';
+import UpdateMutation from '../../mutations/host/UpdateHostMutation';
+import ValidationsHostForm from './ValidationsHostForm';
 // const
-import { UPDATE_HOST_FORM } from '../../utils/constants';
+import { UPDATE_HOST_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class HostUpdateForm extends _HostFormParentClass {
@@ -29,12 +29,26 @@ class HostUpdateForm extends _HostFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (host) => {
+
+  handleSubmit = (entityData) => {
     this.setState({ editMode: false });
-    UpdateHostMutation(host, this);
+    const ownerToRemove = entityData.owner.filter((ow) => ow.status === REMOVE);
+    const someItemWillBeDeleted = ownerToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateMutation(entityData, form);
+  }
+
   render() {
-    let { handleSubmit } = this.props;
+    let { handleSubmit, host_type } = this.props;
+    const isLogicalHost = host_type === 'Logical';
     const { editMode } = this.state;
     const showBackButton = isBrowser;
     return (
@@ -42,7 +56,8 @@ class HostUpdateForm extends _HostFormParentClass {
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
-        {this.renderOwnerToggleSection(editMode)}
+        {!isLogicalHost && this.renderOwnerToggleSection(editMode)}
+        {isLogicalHost && this.renderHostUserToggleSection(editMode)}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>

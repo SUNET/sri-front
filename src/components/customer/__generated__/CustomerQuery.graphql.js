@@ -16,6 +16,9 @@ export type CustomerQueryResponse = {|
     +__typename: string,
     +id: string,
     +name: string,
+    +type: {|
+      +name: string
+    |},
   |}
 |};
 export type CustomerQuery = {|
@@ -33,6 +36,10 @@ query CustomerQuery(
     __typename
     id
     name
+    type: node_type {
+      name: type
+      id
+    }
   }
 }
 */
@@ -48,51 +55,73 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "customerId"
-      }
-    ],
-    "concreteType": "Customer",
-    "kind": "LinkedField",
-    "name": "getCustomerById",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "__typename",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "customerId"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": "name",
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "CustomerQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Customer",
+        "kind": "LinkedField",
+        "name": "getCustomerById",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": "type",
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "node_type",
+            "plural": false,
+            "selections": [
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query"
   },
   "kind": "Request",
@@ -100,18 +129,46 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CustomerQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Customer",
+        "kind": "LinkedField",
+        "name": "getCustomerById",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": "type",
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "node_type",
+            "plural": false,
+            "selections": [
+              (v5/*: any*/),
+              (v3/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "CustomerQuery",
     "operationKind": "query",
-    "text": "query CustomerQuery(\n  $customerId: ID!\n) {\n  getCustomerById(id: $customerId) {\n    __typename\n    id\n    name\n  }\n}\n"
+    "text": "query CustomerQuery(\n  $customerId: ID!\n) {\n  getCustomerById(id: $customerId) {\n    __typename\n    id\n    name\n    type: node_type {\n      name: type\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c8c50cc38e57bd2936f12f7de05f1009';
+(node/*: any*/).hash = '54526d8f01b00cf2bcd2486b400c58a7';
 
 module.exports = node;

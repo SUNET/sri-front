@@ -16,6 +16,9 @@ export type EndUserQueryResponse = {|
     +__typename: string,
     +id: string,
     +name: string,
+    +type: {|
+      +name: string
+    |},
   |}
 |};
 export type EndUserQuery = {|
@@ -33,6 +36,10 @@ query EndUserQuery(
     __typename
     id
     name
+    type: node_type {
+      name: type
+      id
+    }
   }
 }
 */
@@ -48,51 +55,73 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "endUserId"
-      }
-    ],
-    "concreteType": "EndUser",
-    "kind": "LinkedField",
-    "name": "getEndUserById",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "__typename",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "endUserId"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": "name",
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "EndUserQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "EndUser",
+        "kind": "LinkedField",
+        "name": "getEndUserById",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": "type",
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "node_type",
+            "plural": false,
+            "selections": [
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query"
   },
   "kind": "Request",
@@ -100,18 +129,46 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "EndUserQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "EndUser",
+        "kind": "LinkedField",
+        "name": "getEndUserById",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": "type",
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "node_type",
+            "plural": false,
+            "selections": [
+              (v5/*: any*/),
+              (v3/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "EndUserQuery",
     "operationKind": "query",
-    "text": "query EndUserQuery(\n  $endUserId: ID!\n) {\n  getEndUserById(id: $endUserId) {\n    __typename\n    id\n    name\n  }\n}\n"
+    "text": "query EndUserQuery(\n  $endUserId: ID!\n) {\n  getEndUserById(id: $endUserId) {\n    __typename\n    id\n    name\n    type: node_type {\n      name: type\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'be3ba3491ea995e7fa104cd38d55bd15';
+(node/*: any*/).hash = '8690a461b02b5963e208e223d7afffb2';
 
 module.exports = node;

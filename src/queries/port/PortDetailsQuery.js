@@ -44,14 +44,20 @@ const PortDetailsQuery = graphql`
         }
         ... on Switch {
           description
-          operational_state
+          operational_state {
+            name
+            value
+          }
           entityType: node_type {
             name: type
           }
         }
         ... on Firewall {
           description
-          operational_state
+          operational_state {
+            name
+            value
+          }
           entityType: node_type {
             name: type
           }

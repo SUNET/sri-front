@@ -9,6 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CompositeExternalEquipmentMutationInput = {|
+  delete_owner?: ?DeleteOwnerMutationInput,
   create_input?: ?CreateExternalEquipmentInput,
   update_input?: ?UpdateExternalEquipmentInput,
   unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
@@ -46,7 +47,7 @@ export type CompositeExternalEquipmentMutationInput = {|
   update_part_of_email?: ?UpdateEmailInput,
   deleted_part_of_email?: ?DeleteEmailInput,
   create_part_of_host?: ?CreateHostInput,
-  update_part_of_host?: ?UpdateHostInput,
+  update_part_of_host?: ?EditHostInput,
   deleted_part_of_host?: ?DeleteHostInput,
   create_parent_port?: ?$ReadOnlyArray<?CreatePortInput>,
   update_parent_port?: ?$ReadOnlyArray<?UpdatePortInput>,
@@ -82,7 +83,7 @@ export type CompositeExternalEquipmentMutationInput = {|
   update_dependents_email?: ?$ReadOnlyArray<?UpdateEmailInput>,
   deleted_dependents_email?: ?$ReadOnlyArray<?DeleteEmailInput>,
   create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
-  update_dependents_host?: ?$ReadOnlyArray<?UpdateHostInput>,
+  update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
   deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
   create_owner_organization?: ?CreateOrganizationInput,
   update_owner_organization?: ?UpdateOrganizationInput,
@@ -102,6 +103,10 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_owner_siteowner?: ?CreateSiteOwnerInput,
   update_owner_siteowner?: ?UpdateSiteOwnerInput,
   deleted_owner_siteowner?: ?DeleteSiteOwnerInput,
+  clientMutationId?: ?string,
+|};
+export type DeleteOwnerMutationInput = {|
+  id: string,
   clientMutationId?: ?string,
 |};
 export type CreateExternalEquipmentInput = {|
@@ -435,7 +440,7 @@ export type CreateHostInput = {|
   relationship_owner?: ?any,
   clientMutationId?: ?string,
 |};
-export type UpdateHostInput = {|
+export type EditHostInput = {|
   rack_units?: ?number,
   rack_position?: ?number,
   rack_back?: ?boolean,
@@ -654,6 +659,11 @@ export type CreateExternalEquipmentMutationResponse = {|
         +ports: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
+          +__typename: string,
+          +relation_id: ?number,
+          +type: ?{|
+            +name: string
+          |},
         |}>,
         +owner: ?{|
           +__typename: string,
@@ -698,6 +708,12 @@ mutation CreateExternalEquipmentMutation(
         ports {
           id
           name
+          __typename
+          relation_id
+          type: port_type {
+            name
+            id
+          }
         }
         owner {
           __typename
@@ -715,7 +731,7 @@ mutation CreateExternalEquipmentMutation(
               id
             }
           }
-          ... on SiteOwner {
+          ... on HostUser {
             type: node_type {
               name: type
               id
@@ -816,34 +832,41 @@ v7 = {
   "name": "rack_position",
   "storageKey": null
 },
-v8 = [
-  (v3/*: any*/),
-  (v4/*: any*/)
-],
-v9 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Port",
-  "kind": "LinkedField",
-  "name": "ports",
-  "plural": true,
-  "selections": (v8/*: any*/),
-  "storageKey": null
-},
-v10 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v11 = {
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "relation_id",
+  "storageKey": null
+},
+v10 = {
   "alias": "name",
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
+v11 = [
+  {
+    "alias": "type",
+    "args": null,
+    "concreteType": "NINodeType",
+    "kind": "LinkedField",
+    "name": "node_type",
+    "plural": false,
+    "selections": [
+      (v10/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
 v12 = [
   {
     "alias": "type",
@@ -853,21 +876,7 @@ v12 = [
     "name": "node_type",
     "plural": false,
     "selections": [
-      (v11/*: any*/)
-    ],
-    "storageKey": null
-  }
-],
-v13 = [
-  {
-    "alias": "type",
-    "args": null,
-    "concreteType": "NINodeType",
-    "kind": "LinkedField",
-    "name": "node_type",
-    "plural": false,
-    "selections": [
-      (v11/*: any*/),
+      (v10/*: any*/),
       (v3/*: any*/)
     ],
     "storageKey": null
@@ -910,7 +919,33 @@ return {
                   (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
-                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Port",
+                    "kind": "LinkedField",
+                    "name": "ports",
+                    "plural": true,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      (v8/*: any*/),
+                      (v9/*: any*/),
+                      {
+                        "alias": "type",
+                        "args": null,
+                        "concreteType": "Choice",
+                        "kind": "LinkedField",
+                        "name": "port_type",
+                        "plural": false,
+                        "selections": [
+                          (v4/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -919,27 +954,27 @@ return {
                     "name": "owner",
                     "plural": false,
                     "selections": [
-                      (v10/*: any*/),
+                      (v8/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": (v11/*: any*/),
                         "type": "EndUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": (v11/*: any*/),
                         "type": "Customer"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
-                        "type": "SiteOwner"
+                        "selections": (v11/*: any*/),
+                        "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": (v11/*: any*/),
                         "type": "Provider"
                       }
                     ],
@@ -952,10 +987,13 @@ return {
                     "kind": "LinkedField",
                     "name": "has",
                     "plural": true,
-                    "selections": (v8/*: any*/),
+                    "selections": [
+                      (v3/*: any*/),
+                      (v4/*: any*/)
+                    ],
                     "storageKey": null
                   },
-                  (v10/*: any*/)
+                  (v8/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -1004,7 +1042,34 @@ return {
                   (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
-                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Port",
+                    "kind": "LinkedField",
+                    "name": "ports",
+                    "plural": true,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      (v8/*: any*/),
+                      (v9/*: any*/),
+                      {
+                        "alias": "type",
+                        "args": null,
+                        "concreteType": "Choice",
+                        "kind": "LinkedField",
+                        "name": "port_type",
+                        "plural": false,
+                        "selections": [
+                          (v4/*: any*/),
+                          (v3/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -1013,27 +1078,27 @@ return {
                     "name": "owner",
                     "plural": false,
                     "selections": [
-                      (v10/*: any*/),
+                      (v8/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v13/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "EndUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v13/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "Customer"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v13/*: any*/),
-                        "type": "SiteOwner"
+                        "selections": (v12/*: any*/),
+                        "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v13/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "Provider"
                       }
                     ],
@@ -1047,13 +1112,13 @@ return {
                     "name": "has",
                     "plural": true,
                     "selections": [
-                      (v10/*: any*/),
+                      (v8/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v10/*: any*/)
+                  (v8/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -1070,11 +1135,11 @@ return {
     "metadata": {},
     "name": "CreateExternalEquipmentMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n        rack_units\n        rack_position\n        ports {\n          id\n          name\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on SiteOwner {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        has {\n          __typename\n          id\n          name\n        }\n        __typename\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n        rack_units\n        rack_position\n        ports {\n          id\n          name\n          __typename\n          relation_id\n          type: port_type {\n            name\n            id\n          }\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        has {\n          __typename\n          id\n          name\n        }\n        __typename\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '438a669b685f995ef0beb4d7dea9fc25';
+(node/*: any*/).hash = '8093859e07e4530d073bc8298a196405';
 
 module.exports = node;

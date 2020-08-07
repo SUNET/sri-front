@@ -7,11 +7,17 @@ const HostDetailsQuery = graphql`
       id
       name
       operational_state {
+        name
         value
       }
       description
       host_type
       ip_addresses
+      host_user {
+        id
+        name
+        __typename
+      }
       owner: host_owner {
         __typename
         id
@@ -26,7 +32,7 @@ const HostDetailsQuery = graphql`
             name: type
           }
         }
-        ... on SiteOwner {
+        ... on HostUser {
           type: node_type {
             name: type
           }

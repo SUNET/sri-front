@@ -79,7 +79,7 @@ class _GroupFormParentClass extends React.Component {
     return false;
   };
   handleSelectedMember = (selection) => {
-    if (selection !== null) {
+    if (selection !== null && selection.id) {
       this.props.getContact(selection.id).then((member) => {
         const newMember = {
           name: member.name,

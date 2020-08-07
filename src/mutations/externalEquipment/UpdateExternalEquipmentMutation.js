@@ -24,6 +24,11 @@ const mutation = graphql`
           ports {
             id
             name
+            __typename
+            relation_id
+            type: port_type {
+              name
+            }
           }
           owner {
             __typename
@@ -39,7 +44,7 @@ const mutation = graphql`
                 name: type
               }
             }
-            ... on SiteOwner {
+            ... on HostUser {
               type: node_type {
                 name: type
               }
@@ -62,8 +67,8 @@ const mutation = graphql`
 `;
 
 export default function UpdateExternalEquipmentMutation(externalEquipment, form) {
-
   const variables = formatExternalEquipmentVariables(externalEquipment, true);
+  console.log('variables: ', variables);
 
   commitMutation(environment, {
     mutation,
@@ -71,7 +76,7 @@ export default function UpdateExternalEquipmentMutation(externalEquipment, form)
     onCompleted: (response, errors) => {
       if (response.composite_externalEquipment.updated.errors) {
         form.props.notify(i18n.t('notify.error'), 'error');
-        return response.update_externalEquipment.updated.errors;
+        return response.composite_externalEquipment.updated.errors;
       }
       form.props.reset();
       if (form.props.isFromModal) {

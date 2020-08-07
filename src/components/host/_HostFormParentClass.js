@@ -6,9 +6,9 @@ import { Form, Col } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
+import FieldArrayHostUser from './FieldArrayHostUser';
+import IpAddressesList from '../IpAddressesList';
 
 // const
 import { SAVED } from '../../utils/constants';
@@ -38,13 +38,6 @@ class _HostFormParentClass extends _BasicFormParentClass {
   MODEL_NAME = 'host';
   ROUTE_LIST_DIRECTION = '/network/hosts';
 
-  constructor(props) {
-    console.log(props);
-    const { name } = props;
-    console.log('name: ', name);
-    super(props);
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
     if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
@@ -53,6 +46,36 @@ class _HostFormParentClass extends _BasicFormParentClass {
     }
     return true;
   }
+
+  handleSelectedOwner = (selection, typeOfSelection) => {
+    if (selection !== null && selection.id) {
+      this.props[typeOfSelection](selection.id).then((entity) => {
+        const newEntity = {
+          type: entity.type,
+          __typename: entity.__typename,
+          name: entity.name,
+          id: entity.id,
+          status: 'saved',
+        };
+        this.props.dispatch(arrayPush(this.props.form, 'owner', newEntity));
+      });
+    }
+  };
+
+  handleSelectedHostUser = (selection, typeOfSelection) => {
+    if (selection !== null && selection.id) {
+      this.props[typeOfSelection](selection.id).then((entity) => {
+        const newEntity = {
+          type: entity.type,
+          __typename: entity.__typename,
+          name: entity.name,
+          id: entity.id,
+          status: 'saved',
+        };
+        this.props.dispatch(arrayPush(this.props.form, 'host_user', newEntity));
+      });
+    }
+  };
 
   renderModelMainSection(editMode = true) {
     return (
@@ -74,7 +97,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
     );
   }
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, managed_by, host_type } = this.props;
+    const { t, managed_by, host_type, ip_addresses, operational_state } = this.props;
 
     const generalInfo = [
       {
@@ -92,6 +115,34 @@ class _HostFormParentClass extends _BasicFormParentClass {
             type="host_management_sw"
             name="managed_by"
             onChange={(e) => {}}
+          />
+        ),
+      },
+      {
+        title: t('network.firewall.details.operational-state'),
+        presentContent: operational_state,
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            emptyLabel="Select type"
+            type="operational_states"
+            name="operational_state"
+            onChange={(e) => {}}
+          />
+        ),
+      },
+      {
+        title: t('network.switch.details.ip-address'),
+        presentContent: (
+          <IpAddressesList ipList={ip_addresses ? ip_addresses : []} editMode={editMode} onChangeIpList={() => {}} />
+        ),
+        editContent: (
+          <IpAddressesList
+            ipList={ip_addresses ? ip_addresses : []}
+            editMode={editMode}
+            onChangeIpList={(newList) => {
+              this.props.dispatch(change(this.props.form, 'ip_addresses', newList));
+            }}
           />
         ),
       },
@@ -180,6 +231,8 @@ class _HostFormParentClass extends _BasicFormParentClass {
           </div>
         ),
       },
+    ];
+    const detailsSecondRow = [
       {
         title: t('network.switch.details.backup'),
         presentContent: backup,
@@ -211,6 +264,11 @@ class _HostFormParentClass extends _BasicFormParentClass {
         </ToggleHeading>
         <TogglePanel>
           <div>
+            <div className="form-internal-block">
+              {detailsSecondRow.map((formData, index) => {
+                return renderFormBlockSection(editMode, formData, index);
+              })}
+            </div>
             <div className="form-internal-block">
               {detailsRowInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
@@ -322,7 +380,6 @@ class _HostFormParentClass extends _BasicFormParentClass {
 
   renderOwnerToggleSection(editMode = false) {
     const { t, owner, entityRemovedId } = this.props;
-    console.log('owner: ', owner);
     return (
       <section className="model-section">
         <ToggleSection>
@@ -347,10 +404,39 @@ class _HostFormParentClass extends _BasicFormParentClass {
               showRowDetailModal={(typeEntityToShowForm, entityId) => {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
-              handleSearchResult={this.handleSelectedNetworkOrganization}
+              handleSearchResult={this.handleSelectedOwner}
               rerenderOnEveryChange={true}
               entityRemovedId={entityRemovedId}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderHostUserToggleSection(editMode = false) {
+    const { t, host_user } = this.props;
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('network.host.details.host_user')}</h2>
+          </ToggleHeading>
+
+          <TogglePanel>
+            <FieldArray
+              name="host_user"
+              component={FieldArrayHostUser}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleSearchResult={(selection) => {
+                this.handleSelectedHostUser(selection, 'getHostUserById');
+              }}
+              rerenderOnEveryChange={true}
+              disabledFilters={host_user && host_user.filter((hu) => hu.status === SAVED).length > 0}
             />
           </TogglePanel>
         </ToggleSection>

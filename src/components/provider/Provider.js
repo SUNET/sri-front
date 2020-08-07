@@ -11,6 +11,9 @@ const ProviderQuery = graphql`
       description
       url
       __typename
+      type: node_type {
+        name: type
+      }
       with_same_name {
         id
         name
