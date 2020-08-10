@@ -31,7 +31,6 @@ class __EntityClassName__Row extends React.PureComponent {
     return (
       <tr onClick={(e) => this.props.onClick(e, __entityName__)}>
         {this.renderCellSection('name', __entityName__.name)}
-        {this.renderCellSection('url', __entityName__.url)}
         {this.renderCellSection('description', __entityName__.description)}
         {/* td for generate the space for the final cta */}
         <td></td>
@@ -46,7 +45,6 @@ const __EntityClassName__RowFragment = createFragmentContainer(__EntityClassName
       id
       name
       description
-      url
     }
   `,
 });

@@ -56,7 +56,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   }
 
   handleSelectedNetworkOrganization = (selection, typeOfSelection) => {
-    if (selection !== null) {
+    if (selection !== null && selection.id) {
       this.props[typeOfSelection](selection.id).then((entity) => {
         const newEntity = {
           type: entity.__typename,
@@ -93,7 +93,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, operational_state, contract_number, firewallManagedByObj } = this.props;
+    const { t, operational_state, contract_number, managed_by } = this.props;
 
     const generalInfo = [
       {
@@ -125,7 +125,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       },
       {
         title: t('network.switch.details.managed-by'),
-        presentContent: firewallManagedByObj ? firewallManagedByObj.name : undefined,
+        presentContent: managed_by,
         editContent: (
           <Dropdown
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
@@ -157,16 +157,16 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   }
 
   renderDetailsToggleSection(editMode = true) {
-    const { t, firewallModel, vendor, backup, end_support } = this.props;
+    const { t, model, vendor, backup, end_support } = this.props;
     const detailsInfo = [
       {
         title: t('network.firewall.details.model'),
-        presentContent: firewallModel,
+        presentContent: model,
         editContent: (
           <Form.Group>
             <Field
               type="text"
-              name="firewallModel"
+              name="model"
               component={FieldInput}
               placeholder={t('general-forms.write-text')}
             />

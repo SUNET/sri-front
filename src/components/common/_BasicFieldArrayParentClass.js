@@ -249,7 +249,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
-  renderButtonsBox(id) {
+  renderButtonsBox(id, willHaveModalsButtons) {
     const { t } = this.props;
     const rowDetails = this.getValueById(id);
     return (
@@ -263,20 +263,24 @@ class _BasicFieldArrayParentClass extends React.Component {
           </div>
         </OverlayTrigger>
 
-        <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
-          <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
-            <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
-          </div>
-        </OverlayTrigger>
+        {willHaveModalsButtons && (
+          <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
+            <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
+              <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
+            </div>
+          </OverlayTrigger>
+        )}
 
-        <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
-          <div
-            className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}
-            onClick={() => this.removeRow(id)}
-          >
-            <ReactSVG src={require(`../../static/img/trash.svg`)} wrapper="span" />
-          </div>
-        </OverlayTrigger>
+        {willHaveModalsButtons && (
+          <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
+            <div
+              className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}
+              onClick={() => this.removeRow(id)}
+            >
+              <ReactSVG src={require(`../../static/img/trash.svg`)} wrapper="span" />
+            </div>
+          </OverlayTrigger>
+        )}
       </div>
     );
   }
@@ -347,6 +351,9 @@ class _BasicFieldArrayParentClass extends React.Component {
       <div className="contact-in-organization__body">
         {values &&
           values.map((row, index) => {
+            const willHaveModalsButtons = this.ENTITIES_WITHOUT_MODAL
+              ? !this.ENTITIES_WITHOUT_MODAL.some((e) => e === row['__typename'])
+              : true;
             return (
               <div
                 key={index}
@@ -356,8 +363,8 @@ class _BasicFieldArrayParentClass extends React.Component {
               >
                 {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                 {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                {editable && this.renderButtonsBox(row.id)}
-                {!editable && row.status === SAVED && this.renderMoreInfoButton(row)}
+                {editable && this.renderButtonsBox(row.id, willHaveModalsButtons)}
+                {!editable && row.status === SAVED && willHaveModalsButtons && this.renderMoreInfoButton(row)}
               </div>
             );
           })}
@@ -426,7 +433,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         {editable && (
           <>
             {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
-            {this.PRE_FILTER_SELECT.entityMandatory && this.renderDropDownSearch()}
+            {(this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) && this.renderDropDownSearch()}
             <button
               type="button"
               className="contact-in-organization__footer__add btn btn-add outline"

@@ -8,25 +8,25 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type DropdownNetworkOrgTypesQueryVariables = {||};
-export type DropdownNetworkOrgTypesQueryResponse = {|
-  +getNetworkOrgTypes: ?$ReadOnlyArray<?{|
+export type DropdownOwnersQueryVariables = {||};
+export type DropdownOwnersQueryResponse = {|
+  +getHostOwnerTypes: ?$ReadOnlyArray<?{|
     +name: string,
     +value: string,
     +getDetailsMethodName: string,
     +all_name: string,
   |}>
 |};
-export type DropdownNetworkOrgTypesQuery = {|
-  variables: DropdownNetworkOrgTypesQueryVariables,
-  response: DropdownNetworkOrgTypesQueryResponse,
+export type DropdownOwnersQuery = {|
+  variables: DropdownOwnersQueryVariables,
+  response: DropdownOwnersQueryResponse,
 |};
 */
 
 
 /*
-query DropdownNetworkOrgTypesQuery {
-  getNetworkOrgTypes {
+query DropdownOwnersQuery {
+  getHostOwnerTypes {
     name: type_name
     value: connection_name
     getDetailsMethodName: byid_name
@@ -42,7 +42,7 @@ var v0 = [
     "args": null,
     "concreteType": "TypeInfo",
     "kind": "LinkedField",
-    "name": "getNetworkOrgTypes",
+    "name": "getHostOwnerTypes",
     "plural": true,
     "selections": [
       {
@@ -82,7 +82,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "DropdownNetworkOrgTypesQuery",
+    "name": "DropdownOwnersQuery",
     "selections": (v0/*: any*/),
     "type": "Query"
   },
@@ -90,19 +90,19 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "DropdownNetworkOrgTypesQuery",
+    "name": "DropdownOwnersQuery",
     "selections": (v0/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
-    "name": "DropdownNetworkOrgTypesQuery",
+    "name": "DropdownOwnersQuery",
     "operationKind": "query",
-    "text": "query DropdownNetworkOrgTypesQuery {\n  getNetworkOrgTypes {\n    name: type_name\n    value: connection_name\n    getDetailsMethodName: byid_name\n    all_name\n  }\n}\n"
+    "text": "query DropdownOwnersQuery {\n  getHostOwnerTypes {\n    name: type_name\n    value: connection_name\n    getDetailsMethodName: byid_name\n    all_name\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'fccd54e4edf00f11a6c11de27bb1f6f1';
+(node/*: any*/).hash = '44cf37c1f343e36b2bff7259ec8e9dbd';
 
 module.exports = node;

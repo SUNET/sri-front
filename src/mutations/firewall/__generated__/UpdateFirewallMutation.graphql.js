@@ -27,6 +27,9 @@ export type CompositeFirewallMutationInput = {|
   create_dependents_email?: ?$ReadOnlyArray<?CreateEmailInput>,
   update_dependents_email?: ?$ReadOnlyArray<?UpdateEmailInput>,
   deleted_dependents_email?: ?$ReadOnlyArray<?DeleteEmailInput>,
+  create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
+  update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
+  deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
   clientMutationId?: ?string,
 |};
 export type DeleteOwnerMutationInput = {|
@@ -34,11 +37,12 @@ export type DeleteOwnerMutationInput = {|
   clientMutationId?: ?string,
 |};
 export type UpdateFirewallInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
   name: string,
   description?: ?string,
   ip_addresses?: ?string,
-  rack_units?: ?number,
-  rack_position?: ?number,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -57,7 +61,6 @@ export type UpdateFirewallInput = {|
   relationship_owner?: ?any,
   relationship_user?: ?number,
   relationship_depends_on?: ?number,
-  relationship_ports?: ?string,
   services_locked?: ?boolean,
   services_checked?: ?boolean,
   max_number_of_ports?: ?number,
@@ -156,6 +159,65 @@ export type DeleteEmailInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
+export type CreateHostInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  ip_addresses?: ?string,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?any,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?any,
+  clientMutationId?: ?string,
+|};
+export type EditHostInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  ip_addresses?: ?string,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?any,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?any,
+  relationship_user?: ?any,
+  relationship_depends_on?: ?number,
+  services_locked?: ?boolean,
+  services_checked?: ?boolean,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type UpdateFirewallMutationVariables = {|
   input: CompositeFirewallMutationInput
 |};
@@ -170,7 +232,10 @@ export type UpdateFirewallMutationResponse = {|
         +id: string,
         +name: string,
         +description: ?string,
-        +operational_state: string,
+        +operational_state: ?{|
+          +name: string,
+          +value: string,
+        |},
         +managed_by: ?{|
           +id: string,
           +value: string,
@@ -255,7 +320,11 @@ mutation UpdateFirewallMutation(
         id
         name
         description
-        operational_state
+        operational_state {
+          name
+          value
+          id
+        }
         managed_by {
           id
           value
@@ -307,7 +376,7 @@ mutation UpdateFirewallMutation(
               id
             }
           }
-          ... on SiteOwner {
+          ... on HostUser {
             type: node_type {
               name: type
               id
@@ -413,16 +482,13 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "operational_state",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "value",
   "storageKey": null
 },
+v7 = [
+  (v4/*: any*/),
+  (v6/*: any*/)
+],
 v8 = {
   "alias": null,
   "args": null,
@@ -432,7 +498,7 @@ v8 = {
   "plural": false,
   "selections": [
     (v3/*: any*/),
-    (v7/*: any*/),
+    (v6/*: any*/),
     (v4/*: any*/)
   ],
   "storageKey": null
@@ -626,6 +692,11 @@ v34 = {
   "storageKey": null
 },
 v35 = [
+  (v4/*: any*/),
+  (v6/*: any*/),
+  (v3/*: any*/)
+],
+v36 = [
   {
     "alias": "type",
     "args": null,
@@ -640,7 +711,7 @@ v35 = [
     "storageKey": null
   }
 ],
-v36 = [
+v37 = [
   (v32/*: any*/),
   (v3/*: any*/)
 ];
@@ -679,7 +750,16 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "operational_state",
+                    "plural": false,
+                    "selections": (v7/*: any*/),
+                    "storageKey": null
+                  },
                   (v8/*: any*/),
                   (v10/*: any*/),
                   (v11/*: any*/),
@@ -691,10 +771,7 @@ return {
                     "kind": "LinkedField",
                     "name": "security_class",
                     "plural": false,
-                    "selections": [
-                      (v4/*: any*/),
-                      (v7/*: any*/)
-                    ],
+                    "selections": (v7/*: any*/),
                     "storageKey": null
                   },
                   (v13/*: any*/),
@@ -742,7 +819,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": (v26/*: any*/),
-                        "type": "SiteOwner"
+                        "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
@@ -848,7 +925,16 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "operational_state",
+                    "plural": false,
+                    "selections": (v35/*: any*/),
+                    "storageKey": null
+                  },
                   (v8/*: any*/),
                   (v10/*: any*/),
                   (v11/*: any*/),
@@ -860,11 +946,7 @@ return {
                     "kind": "LinkedField",
                     "name": "security_class",
                     "plural": false,
-                    "selections": [
-                      (v4/*: any*/),
-                      (v7/*: any*/),
-                      (v3/*: any*/)
-                    ],
+                    "selections": (v35/*: any*/),
                     "storageKey": null
                   },
                   (v13/*: any*/),
@@ -905,22 +987,22 @@ return {
                       (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v35/*: any*/),
+                        "selections": (v36/*: any*/),
                         "type": "EndUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v35/*: any*/),
+                        "selections": (v36/*: any*/),
                         "type": "Customer"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v35/*: any*/),
-                        "type": "SiteOwner"
+                        "selections": (v36/*: any*/),
+                        "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v35/*: any*/),
+                        "selections": (v36/*: any*/),
                         "type": "Provider"
                       }
                     ],
@@ -963,7 +1045,7 @@ return {
                     "kind": "LinkedField",
                     "name": "creator",
                     "plural": false,
-                    "selections": (v36/*: any*/),
+                    "selections": (v37/*: any*/),
                     "storageKey": null
                   },
                   (v34/*: any*/),
@@ -974,7 +1056,7 @@ return {
                     "kind": "LinkedField",
                     "name": "modifier",
                     "plural": false,
-                    "selections": (v36/*: any*/),
+                    "selections": (v37/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -993,11 +1075,11 @@ return {
     "metadata": {},
     "name": "UpdateFirewallMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateFirewallMutation(\n  $input: CompositeFirewallMutationInput!\n) {\n  composite_firewall(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      firewall {\n        id\n        name\n        description\n        operational_state\n        managed_by {\n          id\n          value\n          name\n        }\n        responsible_group {\n          id\n          name\n        }\n        support_group {\n          id\n          name\n        }\n        backup\n        security_class {\n          name\n          value\n          id\n        }\n        security_comment\n        os\n        os_version\n        model\n        vendor\n        service_tag\n        end_support\n        max_number_of_ports\n        rack_units\n        rack_position\n        contract_number\n        location {\n          __typename\n          id\n          name\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on SiteOwner {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        __typename\n        comments {\n          id\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateFirewallMutation(\n  $input: CompositeFirewallMutationInput!\n) {\n  composite_firewall(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      firewall {\n        id\n        name\n        description\n        operational_state {\n          name\n          value\n          id\n        }\n        managed_by {\n          id\n          value\n          name\n        }\n        responsible_group {\n          id\n          name\n        }\n        support_group {\n          id\n          name\n        }\n        backup\n        security_class {\n          name\n          value\n          id\n        }\n        security_comment\n        os\n        os_version\n        model\n        vendor\n        service_tag\n        end_support\n        max_number_of_ports\n        rack_units\n        rack_position\n        contract_number\n        location {\n          __typename\n          id\n          name\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        __typename\n        comments {\n          id\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '9181bd7bea7687a61da69a6b123718bf';
+(node/*: any*/).hash = '6bbb8b76045f4b0cf2ea494631bd3236';
 
 module.exports = node;

@@ -87,9 +87,10 @@ const DropdownSwitchTypesQuery = graphql`
   }
 `;
 
-const DropdownNetworkOrgTypesQuery = graphql`
-  query DropdownNetworkOrgTypesQuery {
-    getNetworkOrgTypes {
+
+const DropdownOwnersQuery = graphql`
+  query DropdownOwnersQuery {
+    getHostOwnerTypes {
       name: type_name
       value: connection_name
       getDetailsMethodName: byid_name
@@ -129,8 +130,8 @@ class Dropdown extends React.PureComponent {
       case 'physical_types':
         queryModel = DropdownPhysicalTypesQuery;
         break;
-      case 'network_org_types':
-        queryModel = DropdownNetworkOrgTypesQuery;
+      case 'owners_types':
+        queryModel = DropdownOwnersQuery;
         break;
       case 'switch_types':
         queryModel = DropdownSwitchTypesQuery;
@@ -241,7 +242,7 @@ class Dropdown extends React.PureComponent {
         className={this.props.className}
         component={FieldSelect}
         onChange={(e) => {
-          if (this.props.model === 'physical_types' || this.props.model === 'network_org_types') {
+          if (this.props.model === 'physical_types' || this.props.model === 'owners_types') {
             this.props.onChange(options.find((o) => o.value === e.target.value));
           } else {
             this.props.onChange(e.target);
@@ -257,7 +258,7 @@ class Dropdown extends React.PureComponent {
         )}
         {this.props.model === 'organization' && this.renderOptionsModelOptimized(options)}
         {(this.props.model === 'roles' || this.props.model === 'default_roles') && this.renderOptionsModel(options)}
-        {(this.props.model === 'physical_types' || this.props.model === 'network_org_types') &&
+        {(this.props.model === 'physical_types' || this.props.model === 'owners_types') &&
           this.renderOptions(options)}
         {this.props.model === 'switch_types' && this.renderOptions(options)}
         {this.props.model === undefined && this.renderOptions(options)}

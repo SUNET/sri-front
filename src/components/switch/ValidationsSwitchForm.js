@@ -1,6 +1,6 @@
 const REQUIRED_TEXT = '* Required!';
 
-export default class ValidationsCableForm {
+export default class ValidationsSwitchForm {
   static validate = (values, isCreationForm = false) => {
     const errors = {};
     if (!values.name) {
@@ -18,6 +18,6 @@ export default class ValidationsCableForm {
     return errors;
   };
   static validateWithType = (values) => {
-    return ValidationsCableForm.validate(values, true);
+    return ValidationsSwitchForm.validate(values, true);
   };
 }

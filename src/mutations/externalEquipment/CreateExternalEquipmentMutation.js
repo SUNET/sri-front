@@ -23,6 +23,11 @@ const mutation = graphql`
           ports {
             id
             name
+            __typename
+            relation_id
+            type: port_type {
+              name
+            }
           }
           owner {
             __typename
@@ -38,7 +43,7 @@ const mutation = graphql`
                 name: type
               }
             }
-            ... on SiteOwner {
+            ... on HostUser {
               type: node_type {
                 name: type
               }
@@ -62,6 +67,7 @@ const mutation = graphql`
 
 function CreateExternalEquipmentMutation(externalEquipment, form) {
   const variables = formatExternalEquipmentVariables(externalEquipment, false);
+  console.log('variables: ', variables);
   commitMutation(environment, {
     mutation,
     variables,

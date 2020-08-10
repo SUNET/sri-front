@@ -27,14 +27,18 @@ export type CompositeSwitchMutationInput = {|
   create_dependents_email?: ?$ReadOnlyArray<?CreateEmailInput>,
   update_dependents_email?: ?$ReadOnlyArray<?UpdateEmailInput>,
   deleted_dependents_email?: ?$ReadOnlyArray<?DeleteEmailInput>,
+  create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
+  update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
+  deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
   clientMutationId?: ?string,
 |};
 export type CreateSwitchInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
   name: string,
   description?: ?string,
   ip_addresses?: ?string,
-  rack_units?: ?number,
-  rack_position?: ?number,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -50,18 +54,19 @@ export type CreateSwitchInput = {|
   end_support?: ?any,
   contract_number?: ?string,
   relationship_location?: ?number,
-  relationship_owner?: ?number,
+  relationship_owner?: ?any,
   max_number_of_ports?: ?number,
   relationship_provider?: ?any,
   switch_type: any,
   clientMutationId?: ?string,
 |};
 export type UpdateSwitchInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
   name: string,
   description?: ?string,
   ip_addresses?: ?string,
-  rack_units?: ?number,
-  rack_position?: ?number,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -77,7 +82,7 @@ export type UpdateSwitchInput = {|
   end_support?: ?any,
   contract_number?: ?string,
   relationship_location?: ?number,
-  relationship_owner?: ?number,
+  relationship_owner?: ?any,
   max_number_of_ports?: ?number,
   relationship_provider?: ?any,
   id: string,
@@ -175,6 +180,65 @@ export type DeleteEmailInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
+export type CreateHostInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  ip_addresses?: ?string,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?any,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?any,
+  clientMutationId?: ?string,
+|};
+export type EditHostInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  ip_addresses?: ?string,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?any,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?any,
+  relationship_user?: ?any,
+  relationship_depends_on?: ?number,
+  services_locked?: ?boolean,
+  services_checked?: ?boolean,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type CreateSwitchMutationVariables = {|
   input: CompositeSwitchMutationInput
 |};
@@ -192,7 +256,10 @@ export type CreateSwitchMutationResponse = {|
         +ip_addresses: ?any,
         +rack_units: ?number,
         +rack_position: ?number,
-        +operational_state: string,
+        +operational_state: ?{|
+          +name: string,
+          +value: string,
+        |},
         +provider: ?{|
           +id: string,
           +name: string,
@@ -260,7 +327,11 @@ mutation CreateSwitchMutation(
         ip_addresses
         rack_units
         rack_position
-        operational_state
+        operational_state {
+          name
+          value
+          id
+        }
         provider {
           id
           name
@@ -397,7 +468,7 @@ v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "operational_state",
+  "name": "value",
   "storageKey": null
 },
 v10 = [
@@ -438,105 +509,98 @@ v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "value",
+  "name": "backup",
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "backup",
+  "name": "os",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "os",
+  "name": "os_version",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "os_version",
+  "name": "contract_number",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "contract_number",
+  "name": "max_number_of_ports",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "max_number_of_ports",
+  "name": "__typename",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "first_name",
   "storageKey": null
 },
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "first_name",
+  "name": "last_name",
   "storageKey": null
 },
 v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "last_name",
+  "name": "comment",
   "storageKey": null
 },
 v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "comment",
+  "name": "submit_date",
   "storageKey": null
 },
 v24 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "submit_date",
+  "name": "created",
   "storageKey": null
 },
 v25 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "created",
-  "storageKey": null
-},
-v26 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v27 = [
-  (v26/*: any*/)
+v26 = [
+  (v25/*: any*/)
 ],
-v28 = {
+v27 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v29 = [
-  (v26/*: any*/),
+v28 = [
+  (v25/*: any*/),
   (v3/*: any*/)
 ];
 return {
@@ -577,7 +641,19 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
-                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "operational_state",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      (v9/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
                   (v11/*: any*/),
                   (v12/*: any*/),
                   (v13/*: any*/),
@@ -589,17 +665,17 @@ return {
                     "name": "managed_by",
                     "plural": false,
                     "selections": [
-                      (v14/*: any*/),
+                      (v9/*: any*/),
                       (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
+                  (v14/*: any*/),
                   (v15/*: any*/),
                   (v16/*: any*/),
                   (v17/*: any*/),
                   (v18/*: any*/),
                   (v19/*: any*/),
-                  (v20/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -617,17 +693,17 @@ return {
                         "name": "user",
                         "plural": false,
                         "selections": [
-                          (v21/*: any*/),
-                          (v22/*: any*/)
+                          (v20/*: any*/),
+                          (v21/*: any*/)
                         ],
                         "storageKey": null
                       },
-                      (v23/*: any*/),
-                      (v24/*: any*/)
+                      (v22/*: any*/),
+                      (v23/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v25/*: any*/),
+                  (v24/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -635,10 +711,10 @@ return {
                     "kind": "LinkedField",
                     "name": "creator",
                     "plural": false,
-                    "selections": (v27/*: any*/),
+                    "selections": (v26/*: any*/),
                     "storageKey": null
                   },
-                  (v28/*: any*/),
+                  (v27/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -646,7 +722,7 @@ return {
                     "kind": "LinkedField",
                     "name": "modifier",
                     "plural": false,
-                    "selections": (v27/*: any*/),
+                    "selections": (v26/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -698,7 +774,20 @@ return {
                   (v6/*: any*/),
                   (v7/*: any*/),
                   (v8/*: any*/),
-                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "operational_state",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      (v9/*: any*/),
+                      (v3/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
                   (v11/*: any*/),
                   (v12/*: any*/),
                   (v13/*: any*/),
@@ -710,18 +799,18 @@ return {
                     "name": "managed_by",
                     "plural": false,
                     "selections": [
-                      (v14/*: any*/),
+                      (v9/*: any*/),
                       (v4/*: any*/),
                       (v3/*: any*/)
                     ],
                     "storageKey": null
                   },
+                  (v14/*: any*/),
                   (v15/*: any*/),
                   (v16/*: any*/),
                   (v17/*: any*/),
                   (v18/*: any*/),
                   (v19/*: any*/),
-                  (v20/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -739,18 +828,18 @@ return {
                         "name": "user",
                         "plural": false,
                         "selections": [
+                          (v20/*: any*/),
                           (v21/*: any*/),
-                          (v22/*: any*/),
                           (v3/*: any*/)
                         ],
                         "storageKey": null
                       },
-                      (v23/*: any*/),
-                      (v24/*: any*/)
+                      (v22/*: any*/),
+                      (v23/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v25/*: any*/),
+                  (v24/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -758,10 +847,10 @@ return {
                     "kind": "LinkedField",
                     "name": "creator",
                     "plural": false,
-                    "selections": (v29/*: any*/),
+                    "selections": (v28/*: any*/),
                     "storageKey": null
                   },
-                  (v28/*: any*/),
+                  (v27/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -769,7 +858,7 @@ return {
                     "kind": "LinkedField",
                     "name": "modifier",
                     "plural": false,
-                    "selections": (v29/*: any*/),
+                    "selections": (v28/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -788,11 +877,11 @@ return {
     "metadata": {},
     "name": "CreateSwitchMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateSwitchMutation(\n  $input: CompositeSwitchMutationInput!\n) {\n  composite_switch(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      switch {\n        id\n        name\n        description\n        ip_addresses\n        rack_units\n        rack_position\n        operational_state\n        provider {\n          id\n          name\n        }\n        responsible_group {\n          id\n          name\n        }\n        support_group {\n          id\n          name\n        }\n        managed_by {\n          value\n          name\n          id\n        }\n        backup\n        os\n        os_version\n        contract_number\n        max_number_of_ports\n        __typename\n        comments {\n          id\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateSwitchMutation(\n  $input: CompositeSwitchMutationInput!\n) {\n  composite_switch(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      switch {\n        id\n        name\n        description\n        ip_addresses\n        rack_units\n        rack_position\n        operational_state {\n          name\n          value\n          id\n        }\n        provider {\n          id\n          name\n        }\n        responsible_group {\n          id\n          name\n        }\n        support_group {\n          id\n          name\n        }\n        managed_by {\n          value\n          name\n          id\n        }\n        backup\n        os\n        os_version\n        contract_number\n        max_number_of_ports\n        __typename\n        comments {\n          id\n          user {\n            first_name\n            last_name\n            id\n          }\n          comment\n          submit_date\n        }\n        created\n        creator {\n          email\n          id\n        }\n        modified\n        modifier {\n          email\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2483dece8316b54da0bedb78ed0ea7dd';
+(node/*: any*/).hash = 'd5d5ebeec11785cdc3332bfaa63eb8da';
 
 module.exports = node;

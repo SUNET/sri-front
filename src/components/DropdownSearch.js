@@ -155,6 +155,20 @@ const DropdownSearchAllExternalEquipmentsQuery = graphql`
     }
   }
 `;
+
+const DropdownSearchAllHostUsersQuery = graphql`
+  query DropdownSearchAllHostUsersQuery($filter: HostUserFilter) {
+    hostUsers(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -213,6 +227,9 @@ class DropdownSearch extends React.Component {
         queryModel.query = DropdownSearchAllCablesQuery;
         queryModel.typeFilter = { cable_type: model };
         queryModel.modelName = 'cables';
+        break;
+      case 'hostUsers':
+        queryModel.query = DropdownSearchAllHostUsersQuery;
         break;
       default:
         queryModel.query = DropdownSearchAllContactsQuery;

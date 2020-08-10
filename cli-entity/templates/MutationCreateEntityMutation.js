@@ -18,7 +18,6 @@ const mutation = graphql`
           id
           name
           description
-          url
         }
       }
     }

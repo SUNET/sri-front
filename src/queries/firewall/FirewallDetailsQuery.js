@@ -7,7 +7,10 @@ const FirewallDetailsQuery = graphql`
       id
       name
       description
-      operational_state
+      operational_state {
+        name
+        value
+      }
       managed_by {
         id
         name
@@ -55,7 +58,7 @@ const FirewallDetailsQuery = graphql`
             name: type
           }
         }
-        ... on SiteOwner {
+        ... on HostUser {
           type: node_type {
             name: type
           }

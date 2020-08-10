@@ -101,7 +101,7 @@ class _OrganizationFormParentClass extends React.Component {
     return false;
   };
   handleSelectedContact = (selection) => {
-    if (selection !== null) {
+    if (selection !== null && selection.id) {
       this.props.getContact(selection.id).then((contact) => {
         const newContact = {
           name: contact.name,

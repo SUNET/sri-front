@@ -19,6 +19,9 @@ export type ProviderQueryResponse = {|
     +description: ?string,
     +url: ?string,
     +__typename: string,
+    +type: {|
+      +name: string
+    |},
     +with_same_name: ?$ReadOnlyArray<?{|
       +id: string,
       +name: string,
@@ -62,6 +65,10 @@ query ProviderQuery(
     description
     url
     __typename
+    type: node_type {
+      name: type
+      id
+    }
     with_same_name {
       id
       name
@@ -170,6 +177,13 @@ v6 = {
   "storageKey": null
 },
 v7 = {
+  "alias": "name",
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "concreteType": null,
@@ -183,60 +197,60 @@ v7 = {
   ],
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "first_name",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "last_name",
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "comment",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "submit_date",
   "storageKey": null
 },
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "created",
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v14 = [
-  (v13/*: any*/)
+v15 = [
+  (v14/*: any*/)
 ],
-v15 = {
+v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v16 = [
-  (v13/*: any*/),
+v17 = [
+  (v14/*: any*/),
   (v2/*: any*/)
 ];
 return {
@@ -259,7 +273,19 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           (v6/*: any*/),
-          (v7/*: any*/),
+          {
+            "alias": "type",
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "node_type",
+            "plural": false,
+            "selections": [
+              (v7/*: any*/)
+            ],
+            "storageKey": null
+          },
+          (v8/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -277,17 +303,17 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v8/*: any*/),
-                  (v9/*: any*/)
+                  (v9/*: any*/),
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v10/*: any*/),
-              (v11/*: any*/)
+              (v11/*: any*/),
+              (v12/*: any*/)
             ],
             "storageKey": null
           },
-          (v12/*: any*/),
+          (v13/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -295,10 +321,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v14/*: any*/),
+            "selections": (v15/*: any*/),
             "storageKey": null
           },
-          (v15/*: any*/),
+          (v16/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -306,7 +332,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v14/*: any*/),
+            "selections": (v15/*: any*/),
             "storageKey": null
           },
           {
@@ -355,18 +381,18 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
                   (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v10/*: any*/),
-              (v11/*: any*/)
+              (v11/*: any*/),
+              (v12/*: any*/)
             ],
             "storageKey": null
           },
-          (v12/*: any*/),
+          (v13/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -374,10 +400,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v16/*: any*/),
+            "selections": (v17/*: any*/),
             "storageKey": null
           },
-          (v15/*: any*/),
+          (v16/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -385,11 +411,24 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v16/*: any*/),
+            "selections": (v17/*: any*/),
             "storageKey": null
           },
           (v6/*: any*/),
-          (v7/*: any*/)
+          {
+            "alias": "type",
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "node_type",
+            "plural": false,
+            "selections": [
+              (v7/*: any*/),
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          },
+          (v8/*: any*/)
         ],
         "storageKey": null
       }
@@ -400,11 +439,11 @@ return {
     "metadata": {},
     "name": "ProviderQuery",
     "operationKind": "query",
-    "text": "query ProviderQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    __typename\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query ProviderQuery(\n  $providerId: ID!\n) {\n  getProviderById(id: $providerId) {\n    ...ProviderUpdateForm_provider\n    id\n    name\n    description\n    url\n    __typename\n    type: node_type {\n      name: type\n      id\n    }\n    with_same_name {\n      id\n      name\n      __typename\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment ProviderUpdateForm_provider on Provider {\n  id\n  name\n  description\n  url\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '64d482bb7c7d4d473065aad7d20c6d2c';
+(node/*: any*/).hash = 'c9f4aaaad3575ce59be310bba897249f';
 
 module.exports = node;

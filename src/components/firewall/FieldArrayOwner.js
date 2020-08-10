@@ -27,10 +27,11 @@ class FieldArrayOwner extends _BasicFieldArrayParentClass {
     };
     this.PRE_FILTER_SELECT = {
       label: 'physical.select_type',
-      type: 'network_org_types',
-      model: 'network_org_types',
-      name: 'network_org_types_preFilter',
+      type: 'owners_types',
+      model: 'owners_types',
+      name: 'owners_types_preFilter',
     };
+    this.ENTITIES_WITHOUT_MODAL = ['HostUser'];
   }
 }
 

@@ -57,22 +57,23 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   }
 
   handleSelectedNetworkOrganization = (selection, typeOfSelection) => {
-    if (selection !== null) {
+    if (selection !== null && selection.id) {
       this.props[typeOfSelection](selection.id).then((entity) => {
         const newEntity = {
-          type: entity.__typename,
+          type: entity.type,
           __typename: entity.__typename,
           name: entity.name,
           id: entity.id,
           status: 'saved',
         };
+        console.log('newEntity: ', newEntity);
         this.props.dispatch(arrayPush(this.props.form, 'owner', newEntity));
       });
     }
   };
 
   handleSelectedPort = (selection) => {
-    if (selection !== null) {
+    if (selection !== null && selection.id) {
       this.props.getPortById(selection.id).then((entity) => {
         const newEntity = {
           type: entity.type,

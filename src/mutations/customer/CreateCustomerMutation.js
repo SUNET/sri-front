@@ -34,9 +34,10 @@ function CreateCustomerMutation(customer, form) {
         mutation,
         variables,
         onCompleted: (response, errors) => {
+            console.log('response: ', response);
             if (response.create_customer.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
-                return response.create_customer.updated.errors;
+                return response.create_customer.errors;
             } else {
                 const customer_id = response.create_customer.customer.id;
                 if (customer.comment) {

@@ -1,50 +1,18 @@
 import { connect } from 'react-redux';
 import SiteOwnerUpdateForm from '../../components/siteOwner/SiteOwnerUpdateForm';
-import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
-import * as notifyActions from '../../actions/Notify';
-import * as formModalActions from '../../actions/FormModal';
-import * as breadcrumbsActions from '../../actions/Breadcrumbs';
+import { getUpdateProps } from '../../utils/mapPropsFormFactory';
+import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
+
+const ENTITY_NAME = 'siteOwner';
 
 const mapStateToProps = (state, props) => {
-  const formName = props.isFromModal ? 'updateSiteOwnerInModal' : 'updateSiteOwner';
-  const updateSiteOwnerSelector = formValueSelector(formName);
-  const { siteOwner } = props;
-
-  const initialValues = {
-    id: siteOwner.id,
-    name: siteOwner.name,
-    description: siteOwner.description,
-    url: siteOwner.url,
-  };
-  return {
-    form: formName,
-    initialValues,
-    name: updateSiteOwnerSelector(state, 'name'),
-    description: updateSiteOwnerSelector(state, 'description'),
-    url: updateSiteOwnerSelector(state, 'url'),
-    formSyncErrors: getFormSyncErrors('updateSiteOwner')(state),
-    fields: getFormMeta('updateSiteOwner')(state),
-    relatedEntities: siteOwner.with_same_name,
-    isFromModal: Boolean(props.isFromModal),
-    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
-  };
+  const mappedStateToProps = getUpdateProps(ENTITY_NAME, props, state);
+  return mappedStateToProps;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-  return {
-    notify: (msg, level) => {
-      dispatch(notifyActions.notify(msg, level));
-    },
-    moveToDetails: (entityData) => {
-      dispatch(breadcrumbsActions.moveToDetails(entityData));
-    },
-    getOutOfDetails: (entityData) => {
-      dispatch(breadcrumbsActions.getOutOfDetails(entityData));
-    },
-    hideModalForm: () => {
-      dispatch(formModalActions.hideModalForm());
-    },
-  };
+  const mappedDispatchToProps = getDispatchPropsUpdate(dispatch, props, ENTITY_NAME);
+  return mappedDispatchToProps;
 };
 
 const SiteOwnerUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(SiteOwnerUpdateForm);

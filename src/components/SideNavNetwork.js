@@ -19,7 +19,7 @@ import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT } from '../utils/constants';
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
-  NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments'];
+  NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments', 'hosts'];
   MENU_DATA = [
     {
       header: {
@@ -46,6 +46,7 @@ class SideNavNetwork extends React.Component {
         { path: 'switches', i18nText: 'network.sub-menu.equipment/switches' },
         { path: 'firewalls', i18nText: 'network.sub-menu.equipment/firewalls' },
         { path: 'external-equipments', i18nText: 'network.sub-menu.equipment/external-equipments' },
+        { path: 'hosts', i18nText: 'network.sub-menu.equipment/hosts' },
       ],
     },
   ];

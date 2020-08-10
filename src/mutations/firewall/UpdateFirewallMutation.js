@@ -19,7 +19,10 @@ const mutation = graphql`
           id
           name
           description
-          operational_state
+          operational_state {
+            name
+            value
+          }
           managed_by {
             id
             value
@@ -67,7 +70,7 @@ const mutation = graphql`
                 name: type
               }
             }
-            ... on SiteOwner {
+            ... on HostUser {
               type: node_type {
                 name: type
               }
@@ -133,7 +136,7 @@ export default function UpdateFirewallMutation(firewall, form) {
 
         rack_units: firewall.rack_units,
         rack_position: firewall.rack_position,
-        relationship_owner: ownerToSaved ? ownerToSaved.id : '', // id customer/siteOwner/provider/endUser
+        relationship_owner: ownerToSaved ? ownerToSaved.id : '',
       },
     },
   };

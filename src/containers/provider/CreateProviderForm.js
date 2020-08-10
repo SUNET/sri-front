@@ -1,35 +1,18 @@
 import { connect } from 'react-redux';
-import { getFormMeta, getFormSyncErrors, formValueSelector } from 'redux-form';
-
-import * as notifyActions from '../../actions/Notify';
-import * as formModalActions from '../../actions/FormModal';
 import CreateProviderForm from '../../components/provider/CreateProviderForm';
+import { getCreateProps } from '../../utils/mapPropsFormFactory';
+import { getDispatchPropsCreate } from '../../utils/mapDispatchFormFactory';
+
+const ENTITY_NAME = 'provider';
 
 const mapStateToProps = (state, props) => {
-  const formName = props.isFromModal ? 'createProviderInModal' : 'createProvider';
-  const updateProviderSelector = formValueSelector('createProvider');
-  return {
-    form: formName,
-    fields: getFormMeta('createProvider')(state),
-    formSyncErrors: getFormSyncErrors('createProvider')(state),
-    name: updateProviderSelector(state, 'name'),
-    url: updateProviderSelector(state, 'url'),
-    isFromModal: props.isFromModal,
-  };
+  const mappedStateToProps = getCreateProps(ENTITY_NAME, props, state);
+  return mappedStateToProps;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-  return {
-    notify: (msg, level) => {
-      dispatch(notifyActions.notify(msg, level));
-    },
-    hideModalForm: () => {
-      dispatch(formModalActions.hideModalForm());
-    },
-    createdEntity: (entityName, entityId) => {
-      dispatch(formModalActions.createdEntity(entityName, entityId));
-    },
-  };
+  const mappedDispatchToProps = getDispatchPropsCreate(dispatch, props, ENTITY_NAME);
+  return mappedDispatchToProps;
 };
 
 const CreateProviderFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateProviderForm);

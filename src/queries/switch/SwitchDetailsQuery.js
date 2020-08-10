@@ -10,7 +10,10 @@ const SwitchDetailsQuery = graphql`
       ip_addresses
       rack_units
       rack_position
-      operational_state
+      operational_state {
+        name
+        value
+      }
       ip_addresses
       provider {
         id

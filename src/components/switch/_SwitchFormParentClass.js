@@ -5,7 +5,7 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import IpAddressesList from './IpAddressesList';
+import IpAddressesList from '../IpAddressesList';
 import FieldInput from '../FieldInput';
 
 // const
@@ -50,7 +50,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, switchManagedByObj, operational_state, ip_addresses, provider_id, providerObj } = this.props;
+    const { t, managed_by, operational_state, ip_addresses, provider_id, provider_obj } = this.props;
     const generalInfoFirstRow = [];
 
     if (!this.IS_UPDATED_FORM) {
@@ -87,7 +87,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         },
         {
           title: t('network.switch.details.managed-by'),
-          presentContent: switchManagedByObj ? switchManagedByObj.name : undefined,
+          presentContent: managed_by,
           editContent: (
             <Dropdown
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
@@ -119,7 +119,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     const generalInfoSecondRow = [
       {
         title: t('network.cable.details.provider'),
-        presentContent: providerObj ? providerObj.name : '',
+        presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
@@ -128,13 +128,13 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
             model="provider"
             placeholder={t('search-filter.search-providers')}
             currentValue={provider_id}
-            objectCurrentValue={providerObj}
+            objectCurrentValue={provider_obj}
             nameDataInsideRequest="all_providers"
             valueField="id"
             labelElementsArray={['name']}
             onChange={(newProvider) => {
               this.props.dispatch(change(this.props.form, 'provider_id', newProvider ? newProvider.id : null));
-              this.props.dispatch(change(this.props.form, 'providerObj', newProvider ? newProvider : null));
+              this.props.dispatch(change(this.props.form, 'provider_obj', newProvider ? newProvider : null));
             }}
           />
         ),
