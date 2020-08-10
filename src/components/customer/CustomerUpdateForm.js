@@ -38,7 +38,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
     UpdateCustomerMutation(customer, this);
   };
   render() {
-    let { relatedEntities, handleSubmit, isFromModal } = this.props;
+    let { with_same_name, handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
     const showBackButton = isBrowser && !isFromModal;
     const showSaveCancelInHeader = showBackButton;
@@ -48,7 +48,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
-        {relatedEntities && this.renderRelatedEntities(relatedEntities)}
+        {with_same_name && this.renderRelatedEntities(with_same_name)}
         {this.renderWorkLog()}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>

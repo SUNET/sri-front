@@ -1,35 +1,18 @@
 import { connect } from 'react-redux';
-import { getFormMeta, getFormSyncErrors, formValueSelector } from 'redux-form';
-
-import * as notifyActions from '../../actions/Notify';
-import * as formModalActions from '../../actions/FormModal';
 import CreateSiteOwnerForm from '../../components/siteOwner/CreateSiteOwnerForm';
+import { getCreateProps } from '../../utils/mapPropsFormFactory';
+import { getDispatchPropsCreate } from '../../utils/mapDispatchFormFactory';
+
+const ENTITY_NAME = 'siteOwner';
 
 const mapStateToProps = (state, props) => {
-  const formName = props.isFromModal ? 'createSiteOwnerInModal' : 'createSiteOwner';
-  const updateSiteOwnerSelector = formValueSelector('createSiteOwner');
-  return {
-    form: formName,
-    fields: getFormMeta('createSiteOwner')(state),
-    formSyncErrors: getFormSyncErrors('createSiteOwner')(state),
-    name: updateSiteOwnerSelector(state, 'name'),
-    url: updateSiteOwnerSelector(state, 'url'),
-    isFromModal: props.isFromModal,
-  };
+  const mappedStateToProps = getCreateProps(ENTITY_NAME, props, state);
+  return mappedStateToProps;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-  return {
-    notify: (msg, level) => {
-      dispatch(notifyActions.notify(msg, level));
-    },
-    hideModalForm: () => {
-      dispatch(formModalActions.hideModalForm());
-    },
-    createdEntity: (entityName, entityId) => {
-      dispatch(formModalActions.createdEntity(entityName, entityId));
-    },
-  };
+  const mappedDispatchToProps = getDispatchPropsCreate(dispatch, props, ENTITY_NAME);
+  return mappedDispatchToProps;
 };
 
 const CreateSiteOwnerFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateSiteOwnerForm);

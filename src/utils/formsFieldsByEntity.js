@@ -27,13 +27,50 @@ const PHYSICAL_BASIC_DATA = [
   { type: FIELD_TYPES.SINGLE, name: 'contract_number' },
   { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
 ];
+const genericNetworkOrganization = {
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+  ],
+};
+const customer = {
+  formName: {
+    create: 'createCustomer',
+    update: 'updateCustomer',
+  },
+  ...genericNetworkOrganization,
+};
+const endUser = {
+  formName: {
+    create: 'createEndUser',
+    update: 'updateEndUser',
+  },
+  ...genericNetworkOrganization,
+};
+const provider = {
+  formName: {
+    create: 'createProvider',
+    update: 'updateProvider',
+  },
+  ...genericNetworkOrganization,
+};
+const siteOwner = {
+  formName: {
+    create: 'createSiteOwner',
+    update: 'updateSiteOwner',
+  },
+  ...genericNetworkOrganization,
+};
 const switchEntity = {
   formName: {
     create: 'createSwitch',
     update: 'updateSwitch',
   },
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails'],
   dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails'],
   fields: [
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,
@@ -50,8 +87,8 @@ const firewall = {
     create: 'createSwitch',
     update: 'updateSwitch',
   },
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
   dispatchPropertiesListCreate: ['notify'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
   fields: [
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,
@@ -74,8 +111,8 @@ const externalEquipment = {
     create: 'createExternalEquipment',
     update: 'updateExternalEquipment',
   },
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails', 'portDetails'],
   dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails', 'portDetails'],
   fields: [
     ...BASIC_INFO,
     ...LOCATION_INFO,
@@ -88,8 +125,8 @@ const host = {
     create: 'createHost',
     update: 'updateHost',
   },
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails'],
   dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails'],
   fields: [
     ...BASIC_INFO,
     ...RELATION_GROUP_INFO,
@@ -103,6 +140,10 @@ const host = {
   ],
 };
 export default {
+  customer,
+  endUser,
+  provider,
+  siteOwner,
   host,
   externalEquipment,
   switch: switchEntity,

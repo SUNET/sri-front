@@ -36,7 +36,7 @@ function CreateSiteOwnerMutation(siteOwner, form) {
         onCompleted: (response, errors) => {
             if (response.create_siteOwner.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
-                return response.create_siteOwner.updated.errors;
+                return response.create_siteOwner.errors;
             } else {
                 const siteOwner_id = response.create_siteOwner.siteOwner.id;
                 if (siteOwner.comment) {
