@@ -12,7 +12,7 @@ export type DropdownGroupsAllQueryVariables = {||};
 export type DropdownGroupsAllQueryResponse = {|
   +all_groups: ?$ReadOnlyArray<?{|
     +id: string,
-    +name: string,
+    +name: ?string,
   |}>
 |};
 export type DropdownGroupsAllQuery = {|
@@ -24,7 +24,7 @@ export type DropdownGroupsAllQuery = {|
 
 /*
 query DropdownGroupsAllQuery {
-  all_groups {
+  all_groups: getPlainGroups {
     id
     name
   }
@@ -34,11 +34,11 @@ query DropdownGroupsAllQuery {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
-    "alias": null,
+    "alias": "all_groups",
     "args": null,
-    "concreteType": "Group",
+    "concreteType": "PlainGroup",
     "kind": "LinkedField",
-    "name": "all_groups",
+    "name": "getPlainGroups",
     "plural": true,
     "selections": [
       {
@@ -80,11 +80,11 @@ return {
     "metadata": {},
     "name": "DropdownGroupsAllQuery",
     "operationKind": "query",
-    "text": "query DropdownGroupsAllQuery {\n  all_groups {\n    id\n    name\n  }\n}\n"
+    "text": "query DropdownGroupsAllQuery {\n  all_groups: getPlainGroups {\n    id\n    name\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '92f11ba21e30772aa66684dbd79a7699';
+(node/*: any*/).hash = '2a8d9b0f71f2e9879ae1017e5625c0bb';
 
 module.exports = node;
