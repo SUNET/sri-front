@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Fri Aug 07 2020 09:14:50 GMT+0200 (GMT+02:00)
+# timestamp: Mon Aug 10 2020 14:48:13 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -52,6 +52,7 @@ type Address implements NINode & Logical {
   name: String!
   relation_id: Int
   part_of: Physical
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -489,6 +490,9 @@ input CompositeCableMutationInput {
   create_part_of_host: CreateHostInput
   update_part_of_host: EditHostInput
   deleted_part_of_host: DeleteHostInput
+  create_part_of_peeringgroup: CreatePeeringGroupInput
+  update_part_of_peeringgroup: UpdatePeeringGroupInput
+  deleted_part_of_peeringgroup: DeletePeeringGroupInput
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -525,6 +529,9 @@ input CompositeCableMutationInput {
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -543,6 +550,9 @@ input CompositeCableMutationInput {
   create_owner_siteowner: CreateSiteOwnerInput
   update_owner_siteowner: UpdateSiteOwnerInput
   deleted_owner_siteowner: DeleteSiteOwnerInput
+  create_owner_peeringpartner: CreatePeeringPartnerInput
+  update_owner_peeringpartner: UpdatePeeringPartnerInput
+  deleted_owner_peeringpartner: DeletePeeringPartnerInput
   clientMutationId: String
 }
 
@@ -589,6 +599,9 @@ type CompositeCableMutationPayload {
   part_of_host_created: CreateHostPayload
   part_of_host_updated: EditHostPayload
   part_of_host_deleted: DeleteHostPayload
+  part_of_peeringgroup_created: CreatePeeringGroupPayload
+  part_of_peeringgroup_updated: UpdatePeeringGroupPayload
+  part_of_peeringgroup_deleted: DeletePeeringGroupPayload
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -625,6 +638,9 @@ type CompositeCableMutationPayload {
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -643,6 +659,9 @@ type CompositeCableMutationPayload {
   owner_siteowner_created: CreateSiteOwnerPayload
   owner_siteowner_updated: UpdateSiteOwnerPayload
   owner_siteowner_deleted: DeleteSiteOwnerPayload
+  owner_peeringpartner_created: CreatePeeringPartnerPayload
+  owner_peeringpartner_updated: UpdatePeeringPartnerPayload
+  owner_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -675,6 +694,9 @@ input CompositeContactMutationInput {
   create_uses_host: CreateHostInput
   update_uses_host: EditHostInput
   deleted_uses_host: DeleteHostInput
+  create_uses_peeringgroup: CreatePeeringGroupInput
+  update_uses_peeringgroup: UpdatePeeringGroupInput
+  deleted_uses_peeringgroup: DeletePeeringGroupInput
   create_owns_port: [CreatePortInput]
   update_owns_port: [UpdatePortInput]
   deleted_owns_port: [DeletePortInput]
@@ -725,6 +747,9 @@ type CompositeContactMutationPayload {
   uses_host_created: CreateHostPayload
   uses_host_updated: EditHostPayload
   uses_host_deleted: DeleteHostPayload
+  uses_peeringgroup_created: CreatePeeringGroupPayload
+  uses_peeringgroup_updated: UpdatePeeringGroupPayload
+  uses_peeringgroup_deleted: DeletePeeringGroupPayload
   owns_port_created: [CreatePortPayload]
   owns_port_updated: [UpdatePortPayload]
   owns_port_deleted: [DeletePortPayload]
@@ -787,6 +812,9 @@ input CompositeExternalEquipmentMutationInput {
   create_part_of_host: CreateHostInput
   update_part_of_host: EditHostInput
   deleted_part_of_host: DeleteHostInput
+  create_part_of_peeringgroup: CreatePeeringGroupInput
+  update_part_of_peeringgroup: UpdatePeeringGroupInput
+  deleted_part_of_peeringgroup: DeletePeeringGroupInput
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -823,6 +851,9 @@ input CompositeExternalEquipmentMutationInput {
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -841,6 +872,9 @@ input CompositeExternalEquipmentMutationInput {
   create_owner_siteowner: CreateSiteOwnerInput
   update_owner_siteowner: UpdateSiteOwnerInput
   deleted_owner_siteowner: DeleteSiteOwnerInput
+  create_owner_peeringpartner: CreatePeeringPartnerInput
+  update_owner_peeringpartner: UpdatePeeringPartnerInput
+  deleted_owner_peeringpartner: DeletePeeringPartnerInput
   clientMutationId: String
 }
 
@@ -885,6 +919,9 @@ type CompositeExternalEquipmentMutationPayload {
   part_of_host_created: CreateHostPayload
   part_of_host_updated: EditHostPayload
   part_of_host_deleted: DeleteHostPayload
+  part_of_peeringgroup_created: CreatePeeringGroupPayload
+  part_of_peeringgroup_updated: UpdatePeeringGroupPayload
+  part_of_peeringgroup_deleted: DeletePeeringGroupPayload
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -921,6 +958,9 @@ type CompositeExternalEquipmentMutationPayload {
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -939,6 +979,9 @@ type CompositeExternalEquipmentMutationPayload {
   owner_siteowner_created: CreateSiteOwnerPayload
   owner_siteowner_updated: UpdateSiteOwnerPayload
   owner_siteowner_deleted: DeleteSiteOwnerPayload
+  owner_peeringpartner_created: CreatePeeringPartnerPayload
+  owner_peeringpartner_updated: UpdatePeeringPartnerPayload
+  owner_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -964,6 +1007,9 @@ input CompositeFirewallMutationInput {
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
   clientMutationId: String
 }
 
@@ -989,6 +1035,9 @@ type CompositeFirewallMutationPayload {
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
   clientMutationId: String
 }
 
@@ -1017,6 +1066,27 @@ input CompositeGroupMutationInput {
   create_part_of_externalequipment: CreateExternalEquipmentInput
   update_part_of_externalequipment: UpdateExternalEquipmentInput
   deleted_part_of_externalequipment: DeleteExternalEquipmentInput
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [EditHostInput]
+  deleted_dependents_host: [DeleteHostInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
   clientMutationId: String
 }
 
@@ -1045,6 +1115,27 @@ type CompositeGroupMutationPayload {
   part_of_externalequipment_created: CreateExternalEquipmentPayload
   part_of_externalequipment_updated: UpdateExternalEquipmentPayload
   part_of_externalequipment_deleted: DeleteExternalEquipmentPayload
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [EditHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
   clientMutationId: String
 }
 
@@ -1053,6 +1144,27 @@ input CompositeHostMutationInput {
   create_input: CreateHostInput
   update_input: EditHostInput
   unlink_subinputs: [DeleteRelationshipInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [EditHostInput]
+  deleted_dependents_host: [DeleteHostInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
   clientMutationId: String
 }
 
@@ -1061,6 +1173,27 @@ type CompositeHostMutationPayload {
   created: CreateHostPayload
   updated: EditHostPayload
   unlinked: [DeleteRelationshipPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [EditHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
   clientMutationId: String
 }
 
@@ -1092,6 +1225,9 @@ input CompositeOrganizationMutationInput {
   create_uses_host: CreateHostInput
   update_uses_host: EditHostInput
   deleted_uses_host: DeleteHostInput
+  create_uses_peeringgroup: CreatePeeringGroupInput
+  update_uses_peeringgroup: UpdatePeeringGroupInput
+  deleted_uses_peeringgroup: DeletePeeringGroupInput
   create_owns_port: [CreatePortInput]
   update_owns_port: [UpdatePortInput]
   deleted_owns_port: [DeletePortInput]
@@ -1141,6 +1277,9 @@ type CompositeOrganizationMutationPayload {
   uses_host_created: CreateHostPayload
   uses_host_updated: EditHostPayload
   uses_host_deleted: DeleteHostPayload
+  uses_peeringgroup_created: CreatePeeringGroupPayload
+  uses_peeringgroup_updated: UpdatePeeringGroupPayload
+  uses_peeringgroup_deleted: DeletePeeringGroupPayload
   owns_port_created: [CreatePortPayload]
   owns_port_updated: [UpdatePortPayload]
   owns_port_deleted: [DeletePortPayload]
@@ -1159,6 +1298,60 @@ type CompositeOrganizationMutationPayload {
   owns_externalequipment_created: [CreateExternalEquipmentPayload]
   owns_externalequipment_updated: [UpdateExternalEquipmentPayload]
   owns_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  clientMutationId: String
+}
+
+input CompositePortGroupMutationInput {
+  update_input: UpdatePeeringGroupInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [EditHostInput]
+  deleted_dependents_host: [DeleteHostInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  clientMutationId: String
+}
+
+type CompositePortGroupMutationPayload {
+  updated: UpdatePeeringGroupPayload
+  unlinked: [DeleteRelationshipPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [EditHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
   clientMutationId: String
 }
 
@@ -1260,6 +1453,9 @@ input CompositeRouterMutationInput {
   create_part_of_host: CreateHostInput
   update_part_of_host: EditHostInput
   deleted_part_of_host: DeleteHostInput
+  create_part_of_peeringgroup: CreatePeeringGroupInput
+  update_part_of_peeringgroup: UpdatePeeringGroupInput
+  deleted_part_of_peeringgroup: DeletePeeringGroupInput
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -1296,6 +1492,9 @@ input CompositeRouterMutationInput {
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -1314,6 +1513,9 @@ input CompositeRouterMutationInput {
   create_owner_siteowner: CreateSiteOwnerInput
   update_owner_siteowner: UpdateSiteOwnerInput
   deleted_owner_siteowner: DeleteSiteOwnerInput
+  create_owner_peeringpartner: CreatePeeringPartnerInput
+  update_owner_peeringpartner: UpdatePeeringPartnerInput
+  deleted_owner_peeringpartner: DeletePeeringPartnerInput
   clientMutationId: String
 }
 
@@ -1359,6 +1561,9 @@ type CompositeRouterMutationPayload {
   part_of_host_created: CreateHostPayload
   part_of_host_updated: EditHostPayload
   part_of_host_deleted: DeleteHostPayload
+  part_of_peeringgroup_created: CreatePeeringGroupPayload
+  part_of_peeringgroup_updated: UpdatePeeringGroupPayload
+  part_of_peeringgroup_deleted: DeletePeeringGroupPayload
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -1395,6 +1600,9 @@ type CompositeRouterMutationPayload {
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -1413,6 +1621,9 @@ type CompositeRouterMutationPayload {
   owner_siteowner_created: CreateSiteOwnerPayload
   owner_siteowner_updated: UpdateSiteOwnerPayload
   owner_siteowner_deleted: DeleteSiteOwnerPayload
+  owner_peeringpartner_created: CreatePeeringPartnerPayload
+  owner_peeringpartner_updated: UpdatePeeringPartnerPayload
+  owner_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -1438,6 +1649,9 @@ input CompositeSwitchMutationInput {
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
   clientMutationId: String
 }
 
@@ -1463,6 +1677,9 @@ type CompositeSwitchMutationPayload {
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
   clientMutationId: String
 }
 
@@ -2061,6 +2278,28 @@ type CreateOrganizationPayload {
   clientMutationId: String
 }
 
+input CreatePeeringGroupInput {
+  name: String!
+  clientMutationId: String
+}
+
+type CreatePeeringGroupPayload {
+  errors: [ErrorType]
+  peeringGroup: PeeringGroup
+  clientMutationId: String
+}
+
+input CreatePeeringPartnerInput {
+  name: String!
+  clientMutationId: String
+}
+
+type CreatePeeringPartnerPayload {
+  errors: [ErrorType]
+  peeringPartner: PeeringPartner
+  clientMutationId: String
+}
+
 input CreatePhoneInput {
   contact: ChoiceScalar
   name: String!
@@ -2509,6 +2748,28 @@ type DeleteOwnerMutationPayload {
   clientMutationId: String
 }
 
+input DeletePeeringGroupInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeletePeeringGroupPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeletePeeringPartnerInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeletePeeringPartnerPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeletePhoneInput {
   id: ID!
   clientMutationId: String
@@ -2678,6 +2939,7 @@ type Email implements NINode & Logical {
   name: String!
   relation_id: Int
   part_of: Physical
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -3585,6 +3847,7 @@ type Group implements NINode & Logical {
   name: String!
   relation_id: Int
   part_of: Physical
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -3738,6 +4001,7 @@ type Host implements NINode & Logical {
   name: String!
   relation_id: Int
   part_of: Physical
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -4218,6 +4482,7 @@ interface Logical {
   name: String!
   relation_id: Int
   part_of: Physical
+  dependents: [Logical]
 }
 
 enum MetaType {
@@ -4294,6 +4559,11 @@ type Mutation {
   update_externalEquipment(input: UpdateExternalEquipmentInput!): UpdateExternalEquipmentPayload
   delete_externalEquipment(input: DeleteExternalEquipmentInput!): DeleteExternalEquipmentPayload
   composite_externalEquipment(input: CompositeExternalEquipmentMutationInput!): CompositeExternalEquipmentMutationPayload
+  update_peeringPartner(input: UpdatePeeringPartnerInput!): UpdatePeeringPartnerPayload
+  delete_peeringPartner(input: DeletePeeringPartnerInput!): DeletePeeringPartnerPayload
+  update_peeringGroup(input: UpdatePeeringGroupInput!): UpdatePeeringGroupPayload
+  delete_peeringGroup(input: DeletePeeringGroupInput!): DeletePeeringGroupPayload
+  composite_peeringGroup(input: CompositePortGroupMutationInput!): CompositePortGroupMutationPayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -4771,6 +5041,7 @@ type PeeringGroup implements NINode & Logical {
   name: String!
   relation_id: Int
   part_of: Physical
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -4903,6 +5174,7 @@ type PeeringPartner implements NINode & Relation {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
+  peering_link: String
   as_number: String
 }
 
@@ -4957,6 +5229,20 @@ input PeeringPartnerNestedFilter {
   as_number_not_ends_with: String
   as_number_in: [String!]
   as_number_not_in: [String!]
+  peering_link: String
+  peering_link_not: String
+  peering_link_lt: String
+  peering_link_lte: String
+  peering_link_gt: String
+  peering_link_gte: String
+  peering_link_contains: String
+  peering_link_not_contains: String
+  peering_link_starts_with: String
+  peering_link_not_starts_with: String
+  peering_link_ends_with: String
+  peering_link_not_ends_with: String
+  peering_link_in: [String!]
+  peering_link_not_in: [String!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -5017,6 +5303,8 @@ enum PeeringPartnerOrderBy {
   name_DESC
   as_number_ASC
   as_number_DESC
+  peering_link_ASC
+  peering_link_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -5034,6 +5322,7 @@ type Phone implements NINode & Logical {
   name: String!
   relation_id: Int
   part_of: Physical
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -5385,6 +5674,7 @@ type Procedure implements NINode & Logical {
   name: String!
   relation_id: Int
   part_of: Physical
+  dependents: [Logical]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -6768,6 +7058,30 @@ input UpdateOrganizationInput {
 type UpdateOrganizationPayload {
   errors: [ErrorType]
   organization: Organization
+  clientMutationId: String
+}
+
+input UpdatePeeringGroupInput {
+  name: String!
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdatePeeringGroupPayload {
+  errors: [ErrorType]
+  peeringGroup: PeeringGroup
+  clientMutationId: String
+}
+
+input UpdatePeeringPartnerInput {
+  name: String!
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdatePeeringPartnerPayload {
+  errors: [ErrorType]
+  peeringPartner: PeeringPartner
   clientMutationId: String
 }
 

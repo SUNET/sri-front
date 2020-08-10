@@ -41,6 +41,9 @@ const CustomerDetailsQuery = graphql`
                 ... on Provider {
                     url
                 }
+                ... on PeeringPartner {
+                    peering_link
+                }
                 __typename
             }
             comments {

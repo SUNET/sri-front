@@ -30,6 +30,9 @@ export type CompositeSwitchMutationInput = {|
   create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
   update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
   deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
+  create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
+  update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
+  deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
   clientMutationId?: ?string,
 |};
 export type CreateSwitchInput = {|
@@ -236,6 +239,19 @@ export type EditHostInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePeeringGroupInput = {|
+  name: string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePeeringGroupInput = {|
+  name: string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePeeringGroupInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

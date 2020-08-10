@@ -36,6 +36,9 @@ export type CompositeOrganizationMutationInput = {|
   create_uses_host?: ?CreateHostInput,
   update_uses_host?: ?EditHostInput,
   deleted_uses_host?: ?DeleteHostInput,
+  create_uses_peeringgroup?: ?CreatePeeringGroupInput,
+  update_uses_peeringgroup?: ?UpdatePeeringGroupInput,
+  deleted_uses_peeringgroup?: ?DeletePeeringGroupInput,
   create_owns_port?: ?$ReadOnlyArray<?CreatePortInput>,
   update_owns_port?: ?$ReadOnlyArray<?UpdatePortInput>,
   deleted_owns_port?: ?$ReadOnlyArray<?DeletePortInput>,
@@ -298,6 +301,19 @@ export type EditHostInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePeeringGroupInput = {|
+  name: string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePeeringGroupInput = {|
+  name: string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePeeringGroupInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

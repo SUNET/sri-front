@@ -51,6 +51,9 @@ export type CompositeCableMutationInput = {|
   create_part_of_host?: ?CreateHostInput,
   update_part_of_host?: ?EditHostInput,
   deleted_part_of_host?: ?DeleteHostInput,
+  create_part_of_peeringgroup?: ?CreatePeeringGroupInput,
+  update_part_of_peeringgroup?: ?UpdatePeeringGroupInput,
+  deleted_part_of_peeringgroup?: ?DeletePeeringGroupInput,
   create_parent_port?: ?$ReadOnlyArray<?CreatePortInput>,
   update_parent_port?: ?$ReadOnlyArray<?UpdatePortInput>,
   deleted_parent_port?: ?$ReadOnlyArray<?DeletePortInput>,
@@ -87,6 +90,9 @@ export type CompositeCableMutationInput = {|
   create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
   update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
   deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
+  create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
+  update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
+  deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
   create_owner_organization?: ?CreateOrganizationInput,
   update_owner_organization?: ?UpdateOrganizationInput,
   deleted_owner_organization?: ?DeleteOrganizationInput,
@@ -105,6 +111,9 @@ export type CompositeCableMutationInput = {|
   create_owner_siteowner?: ?CreateSiteOwnerInput,
   update_owner_siteowner?: ?UpdateSiteOwnerInput,
   deleted_owner_siteowner?: ?DeleteSiteOwnerInput,
+  create_owner_peeringpartner?: ?CreatePeeringPartnerInput,
+  update_owner_peeringpartner?: ?UpdatePeeringPartnerInput,
+  deleted_owner_peeringpartner?: ?DeletePeeringPartnerInput,
   clientMutationId?: ?string,
 |};
 export type CreateCableInput = {|
@@ -472,6 +481,19 @@ export type DeleteHostInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
+export type CreatePeeringGroupInput = {|
+  name: string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePeeringGroupInput = {|
+  name: string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePeeringGroupInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type CreateOrganizationInput = {|
   organization_number?: ?string,
   name: string,
@@ -635,6 +657,19 @@ export type UpdateSiteOwnerInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteSiteOwnerInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePeeringPartnerInput = {|
+  name: string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePeeringPartnerInput = {|
+  name: string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePeeringPartnerInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

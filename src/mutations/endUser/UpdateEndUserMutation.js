@@ -50,6 +50,9 @@ const mutation = graphql`
           ... on Provider {
             url
           }
+          ... on PeeringPartner {
+            peering_link
+          }
           __typename
         }
         comments {

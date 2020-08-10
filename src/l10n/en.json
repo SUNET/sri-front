@@ -221,6 +221,8 @@
             "network.firewall.details.owner": "Owner",
             "network.host.details.host_user": "Host User",
             "network.external-equipment.details.ports": "Ports",
+            "network.peering-partners.name": "Peering Partners",
+            "network.peering-partners.link": "Peering Link",
             "info.created": "Created",
             "info.last_update": "Last update",
             "notify.contact-created-success": "Contact created successfully",
