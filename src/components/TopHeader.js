@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../style/TopHeader.scss';
 
+import profileImage from '../static/img/profile.png';
+
 export class TopHeader extends React.Component {
   state = {
     isMenuOpen: false,
@@ -138,7 +140,7 @@ export class TopHeader extends React.Component {
       <Nav.Item className="top-header__user-block__profile px-0">
         <Link to="/personal-area/profile-settings">
           <Image
-            src={require('../static/img/profile.png')}
+            src={profileImage}
             roundedCircle
             img-fluid="true"
             onClick={() => this.closeMenu()}

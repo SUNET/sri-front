@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer } from 'react-relay';
 import { Col, Image } from 'react-bootstrap';
 import _DashBoardRowParentClass from '../common/_DashBoardRowParentClass';
+import profileImage from '../../static/img/profile.png';
 
 export class DashBoardContactRow extends _DashBoardRowParentClass {
   constructor(props) {
@@ -18,7 +19,7 @@ export class DashBoardContactRow extends _DashBoardRowParentClass {
       <>
         <Col className="dash-board-row__image col-auto">
           <div>
-            <Image src={require('../../static/img/profile.png')} roundedCircle img-fluid="true" />
+            <Image src={profileImage} roundedCircle img-fluid="true" />
           </div>
         </Col>
         <Col className="px-0 dash-board-row__info">
