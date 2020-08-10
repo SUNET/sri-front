@@ -39,7 +39,7 @@ const DropdownProvidersAllQuery = graphql`
 `;
 const DropdownGroupsAllQuery = graphql`
   query DropdownGroupsAllQuery {
-    all_groups {
+    all_groups: getPlainGroups {
       id
       name
     }
@@ -86,7 +86,6 @@ const DropdownSwitchTypesQuery = graphql`
     }
   }
 `;
-
 
 const DropdownOwnersQuery = graphql`
   query DropdownOwnersQuery {
@@ -258,8 +257,7 @@ class Dropdown extends React.PureComponent {
         )}
         {this.props.model === 'organization' && this.renderOptionsModelOptimized(options)}
         {(this.props.model === 'roles' || this.props.model === 'default_roles') && this.renderOptionsModel(options)}
-        {(this.props.model === 'physical_types' || this.props.model === 'owners_types') &&
-          this.renderOptions(options)}
+        {(this.props.model === 'physical_types' || this.props.model === 'owners_types') && this.renderOptions(options)}
         {this.props.model === 'switch_types' && this.renderOptions(options)}
         {this.props.model === undefined && this.renderOptions(options)}
       </Field>
