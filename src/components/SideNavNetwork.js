@@ -15,11 +15,12 @@ import { withRouter } from 'react-router-dom';
 import { path } from '../Routes';
 
 import '../style/SideNav.scss';
-import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT } from '../utils/constants';
+import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT, NETWORK_PEERING } from '../utils/constants';
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
   NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments', 'hosts'];
+  NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
   MENU_DATA = [
     {
       header: {
@@ -49,21 +50,31 @@ class SideNavNetwork extends React.Component {
         { path: 'hosts', i18nText: 'network.sub-menu.equipment/hosts' },
       ],
     },
+    {
+      header: {
+        name: NETWORK_PEERING,
+        icon: 'equipment-icon.svg',
+        i18nText: 'network.peering',
+      },
+      items: [
+        { path: 'peering-partners', i18nText: 'network.peering-partners.name' },
+        { path: 'peering-groups', i18nText: 'network.peering-groups.name' },
+      ],
+    },
   ];
 
   matchUrl = () => {
-    const [, blockPath, entityPath] = this.props.location.pathname.split('/');
+    const [, blockPath, entityPath] = this.props.location.pathname.split('/');  
     if (
       blockPath === 'network' &&
       (entityPath === undefined || this.NETWORK_ORGANIZATIONS_ROUTES.includes(entityPath))
     ) {
-      return 'network-organizations';
+      return NETWORK_ORGANIZATIONS;
     } else if (this.NETWORK_EQUIPMENT_ROUTES.includes(entityPath)) {
-      return 'network-equipment';
+      return NETWORK_EQUIPMENT;
+    } else if (this.NETWORK_PEERING_ROUTES.includes(entityPath)) {
+      return NETWORK_PEERING;
     }
-    // else if (this.props.location.pathname.includes("locations")) {
-    //     return "locations";
-    // }
   };
 
   renderAccordionItem(idPath, icon, i18nText, items) {

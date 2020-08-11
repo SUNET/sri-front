@@ -35,6 +35,8 @@ const Routes = {
   '/network/external-equipments/create': 'Create External Equipment',
   '/network/hosts': 'Hosts',
   '/network/hosts/create': 'Create Host',
+  '/network/peering-partners': 'Peering Partner',
+  '/network/peering-groups': 'Peering Group',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',

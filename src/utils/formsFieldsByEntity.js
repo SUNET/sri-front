@@ -84,8 +84,8 @@ const switchEntity = {
 };
 const firewall = {
   formName: {
-    create: 'createSwitch',
-    update: 'updateSwitch',
+    create: 'createFirewall',
+    update: 'updateFirewall',
   },
   dispatchPropertiesListCreate: ['notify'],
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
@@ -139,6 +139,27 @@ const host = {
     { type: FIELD_TYPES.SINGLE, name: 'host_type' },
   ],
 };
+const peeringPartner = {
+  formName: {
+    update: 'updatePeeringPartner',
+  },
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [
+    { type: FIELD_TYPES.SINGLE, name: 'name' },
+    { type: FIELD_TYPES.SINGLE, name: 'peering_link' },
+    { type: FIELD_TYPES.SINGLE, name: 'as_number' },
+    { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+  ],
+};
+const peeringGroup = {
+  formName: {
+    update: 'updatePeeringGroup',
+  },
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [
+    { type: FIELD_TYPES.SINGLE, name: 'name' },
+  ],
+};
 export default {
   customer,
   endUser,
@@ -148,4 +169,6 @@ export default {
   externalEquipment,
   switch: switchEntity,
   firewall,
+  peeringPartner,
+  peeringGroup,
 };

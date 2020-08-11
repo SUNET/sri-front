@@ -51,6 +51,14 @@ const initialState = {
     all_columns: true,
     columns_visible: {},
   },
+  peeringPartner: {
+    all_columns: true,
+    columns_visible: {},
+  },
+  peeringGroup: {
+    all_columns: true,
+    columns_visible: {},
+  },
 };
 
 const filterColumnsReducer = (state = initialState, action) => {

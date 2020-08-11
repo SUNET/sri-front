@@ -13,6 +13,8 @@ import SearchSwitchesContainer from '../containers/switch/SearchSwitch';
 import SearchFirewallsContainer from '../containers/firewall/SearchFirewall';
 import SearchExternalEquipmentContainer from '../containers/externalEquipment/SearchExternalEquipment';
 import SearchHostsContainer from '../containers/host/SearchHost';
+import SearchPeeringPartnerContainer from '../containers/peeringPartner/SearchPeeringPartner';
+import SearchPeeringGroupContainer from '../containers/peeringGroup/SearchPeeringGroup';
 
 class Network extends React.Component {
   render() {
@@ -33,6 +35,8 @@ class Network extends React.Component {
             <Route path="/network/firewalls" component={SearchFirewallsContainer} />
             <Route path="/network/external-equipments" component={SearchExternalEquipmentContainer} />
             <Route path="/network/hosts" component={SearchHostsContainer} />
+            <Route path="/network/peering-partners" component={SearchPeeringPartnerContainer} />
+            <Route path="/network/peering-groups" component={SearchPeeringGroupContainer} />
           </Switch>
         </Col>
       </Row>

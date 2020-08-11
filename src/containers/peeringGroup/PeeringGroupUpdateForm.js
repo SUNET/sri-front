@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import __EntityClassName__UpdateForm from '../../components/__entityName__/__EntityClassName__UpdateForm';
+import PeeringGroupUpdateForm from '../../components/peeringGroup/PeeringGroupUpdateForm';
 
 import { getUpdateProps } from '../../utils/mapPropsFormFactory';
 import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
 
-const ENTITY_NAME = '__entityName__';
+const ENTITY_NAME = 'peeringGroup';
 
 const mapStateToProps = (state, props) => {
   const mappedStateToProps = getUpdateProps(ENTITY_NAME, props, state);
@@ -16,9 +16,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const __EntityClassName__UpdateFormContainer = connect(
+const PeeringGroupUpdateFormContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(__EntityClassName__UpdateForm);
+)(PeeringGroupUpdateForm);
 
-export default __EntityClassName__UpdateFormContainer;
+export default PeeringGroupUpdateFormContainer;

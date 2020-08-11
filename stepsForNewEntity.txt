@@ -40,8 +40,9 @@ entityName           ||     + EntityDetails.js
                      ||     + _EntityFormParentClass.js
                      ||     + EntityUpdateForm.js
 
-2.Add FORM_ID in constants
+2. Add FORM_ID in constants
 3. Add in Routes.js
+4. Add fields in utils/formsFieldsByEntity.js
 
 Samples:
 
