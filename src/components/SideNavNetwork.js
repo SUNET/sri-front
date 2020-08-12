@@ -52,6 +52,14 @@ class SideNavNetwork extends React.Component {
     },
     {
       header: {
+        name: 'Optical layers',
+        icon: 'peering-icon.svg',
+        i18nText: 'network.optical-layers.name',
+      },
+      items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
+    },
+    {
+      header: {
         name: NETWORK_PEERING,
         icon: 'peering-icon.svg',
         i18nText: 'network.peering',
@@ -64,7 +72,7 @@ class SideNavNetwork extends React.Component {
   ];
 
   matchUrl = () => {
-    const [, blockPath, entityPath] = this.props.location.pathname.split('/');  
+    const [, blockPath, entityPath] = this.props.location.pathname.split('/');
     if (
       blockPath === 'network' &&
       (entityPath === undefined || this.NETWORK_ORGANIZATIONS_ROUTES.includes(entityPath))

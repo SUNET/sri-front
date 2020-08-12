@@ -9,7 +9,6 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CompositeHostMutationInput = {|
-  delete_owner?: ?DeleteOwnerMutationInput,
   create_input?: ?CreateHostInput,
   update_input?: ?EditHostInput,
   unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
@@ -34,10 +33,6 @@ export type CompositeHostMutationInput = {|
   create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
   update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
   deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
-  clientMutationId?: ?string,
-|};
-export type DeleteOwnerMutationInput = {|
-  id: string,
   clientMutationId?: ?string,
 |};
 export type CreateHostInput = {|

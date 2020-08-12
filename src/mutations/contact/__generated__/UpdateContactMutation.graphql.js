@@ -58,6 +58,9 @@ export type CompositeContactMutationInput = {|
   create_owns_externalequipment?: ?$ReadOnlyArray<?CreateExternalEquipmentInput>,
   update_owns_externalequipment?: ?$ReadOnlyArray<?UpdateExternalEquipmentInput>,
   deleted_owns_externalequipment?: ?$ReadOnlyArray<?DeleteExternalEquipmentInput>,
+  create_owns_opticalnode?: ?$ReadOnlyArray<?CreateOpticalNodeInput>,
+  update_owns_opticalnode?: ?$ReadOnlyArray<?UpdateOpticalNodeInput>,
+  deleted_owns_opticalnode?: ?$ReadOnlyArray<?DeleteOpticalNodeInput>,
   clientMutationId?: ?string,
 |};
 export type CreatePhoneInput = {|
@@ -482,6 +485,33 @@ export type UpdateExternalEquipmentInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteExternalEquipmentInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalNodeInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalNodeInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_location?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalNodeInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

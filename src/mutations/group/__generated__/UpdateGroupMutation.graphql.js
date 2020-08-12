@@ -33,6 +33,9 @@ export type CompositeGroupMutationInput = {|
   create_part_of_externalequipment?: ?CreateExternalEquipmentInput,
   update_part_of_externalequipment?: ?UpdateExternalEquipmentInput,
   deleted_part_of_externalequipment?: ?DeleteExternalEquipmentInput,
+  create_part_of_opticalnode?: ?CreateOpticalNodeInput,
+  update_part_of_opticalnode?: ?UpdateOpticalNodeInput,
+  deleted_part_of_opticalnode?: ?DeleteOpticalNodeInput,
   create_dependents_group?: ?$ReadOnlyArray<?CreateGroupInput>,
   update_dependents_group?: ?$ReadOnlyArray<?UpdateGroupInput>,
   deleted_dependents_group?: ?$ReadOnlyArray<?DeleteGroupInput>,
@@ -328,6 +331,33 @@ export type UpdateExternalEquipmentInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteExternalEquipmentInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalNodeInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalNodeInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_location?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalNodeInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

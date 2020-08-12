@@ -227,6 +227,8 @@
             "network.peering-groups.name": "Groups",
             "network.peering.details.as-number": "AS Number",
             "network.peering.details.peering-db-link": "Peering DB Link",
+            "network.optical-layers.name": "Optical Layers",
+            "network.optical-layers.node.name": "Optical Node",
             "info.created": "Created",
             "info.last_update": "Last update",
             "notify.contact-created-success": "Contact created successfully",
