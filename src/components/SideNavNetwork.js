@@ -53,7 +53,7 @@ class SideNavNetwork extends React.Component {
     {
       header: {
         name: NETWORK_PEERING,
-        icon: 'equipment-icon.svg',
+        icon: 'peering-icon.svg',
         i18nText: 'network.peering',
       },
       items: [

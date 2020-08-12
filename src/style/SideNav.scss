@@ -51,6 +51,7 @@
 
                 &.with-arrow {
                     display: flex;
+                    align-items: center;
                     &[aria-expanded="true"]::after,
                     &[aria-selected="true"]::after {
                         margin-left: 0.75em;
