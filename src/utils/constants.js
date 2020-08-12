@@ -25,10 +25,10 @@ export const CREATE_EXTERNALEQUIPMENT_FORM = 'create-external-equipment-form';
 export const UPDATE_EXTERNALEQUIPMENT_FORM = 'update-external-equipment-form';
 export const CREATE_HOST_FORM = 'create-host-form';
 export const UPDATE_HOST_FORM = 'update-host-form';
-export const CREATE_PEERINGPARTNER_FORM = 'create-peering-partner-form';
 export const UPDATE_PEERINGPARTNER_FORM = 'update-peering-partner-form';
-export const CREATE_PEERINGGROUP_FORM = 'create-peering-group-form';
 export const UPDATE_PEERINGGROUP_FORM = 'update-peering-group-form';
+export const CREATE_OPTICALNODE_FORM = 'create-optical-node-form';
+export const UPDATE_OPTICALNODE_FORM = 'update-optical-node-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';
@@ -37,6 +37,7 @@ export const COMMUNITY_CONTACTS = 'contacts';
 export const NETWORK_ORGANIZATIONS = 'network-organizations';
 export const NETWORK_EQUIPMENT = 'network-equipment';
 export const NETWORK_PEERING = 'network-peering';
+export const NETWORK_OPTICAL = 'network-optical';
 // Contact data TYPE
 export const CONTACT_PERSONAL = 'personal';
 export const CONTACT_WORK = 'work';

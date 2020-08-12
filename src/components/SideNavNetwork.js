@@ -15,12 +15,14 @@ import { withRouter } from 'react-router-dom';
 import { path } from '../Routes';
 
 import '../style/SideNav.scss';
-import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT, NETWORK_PEERING } from '../utils/constants';
+import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT, NETWORK_PEERING, NETWORK_OPTICAL } from '../utils/constants';
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
   NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments', 'hosts'];
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
+  NETWORK_OPTICAL_ROUTES = ['optical-nodes'];
+
   MENU_DATA = [
     {
       header: {
@@ -52,7 +54,7 @@ class SideNavNetwork extends React.Component {
     },
     {
       header: {
-        name: 'Optical layers',
+        name: NETWORK_OPTICAL,
         icon: 'peering-icon.svg',
         i18nText: 'network.optical-layers.name',
       },
@@ -82,6 +84,8 @@ class SideNavNetwork extends React.Component {
       return NETWORK_EQUIPMENT;
     } else if (this.NETWORK_PEERING_ROUTES.includes(entityPath)) {
       return NETWORK_PEERING;
+    } else if (this.NETWORK_OPTICAL_ROUTES.includes(entityPath)) {
+      return NETWORK_OPTICAL;
     }
   };
 

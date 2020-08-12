@@ -156,10 +156,26 @@ const peeringGroup = {
     update: 'updatePeeringGroup',
   },
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [{ type: FIELD_TYPES.SINGLE, name: 'name' }],
+};
+
+const opticalNode = {
+  formName: {
+    create: 'createOpticalNode',
+    update: 'updateOpticalNode',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
   fields: [
-    { type: FIELD_TYPES.SINGLE, name: 'name' },
+    ...BASIC_INFO,
+    ...LOCATION_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'rack_back' }, // boolean
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.OBJECT, name: 'type' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
   ],
 };
+
 export default {
   customer,
   endUser,
@@ -171,4 +187,5 @@ export default {
   firewall,
   peeringPartner,
   peeringGroup,
+  opticalNode,
 };

@@ -67,7 +67,6 @@ const mutation = graphql`
 
 function CreateExternalEquipmentMutation(externalEquipment, form) {
   const variables = formatExternalEquipmentVariables(externalEquipment, false);
-  console.log('variables: ', variables);
   commitMutation(environment, {
     mutation,
     variables,

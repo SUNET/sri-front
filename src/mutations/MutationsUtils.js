@@ -48,9 +48,9 @@ export function onCompleteCompositeCreationEntity(
   entityNameList,
   CreateCommentMutation,
 ) {
-  if (response[responseFieldName].errors) {
+  if (response[responseFieldName].created.errors) {
     form.props.notify(i18n.t('notify.error'), 'error');
-    return response[responseFieldName].updated.errors;
+    return response[responseFieldName].created.errors;
   }
   const entityId = response[responseFieldName].created[entityName.toLowerCase()].id;
   if (entityObj.comment) {

@@ -37,6 +37,8 @@ const Routes = {
   '/network/hosts/create': 'Create Host',
   '/network/peering-partners': 'Peering Partner',
   '/network/peering-groups': 'Peering Group',
+  '/network/optical-nodes': 'Optical Nodes',
+  '/network/optical-nodes/create': 'Create Optical Node',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',
