@@ -66,7 +66,6 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
           id: entity.id,
           status: 'saved',
         };
-        console.log('newEntity: ', newEntity);
         this.props.dispatch(arrayPush(this.props.form, 'owner', newEntity));
       });
     }

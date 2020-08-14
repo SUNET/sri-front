@@ -34,4 +34,31 @@
             }
         }
     }
+
+    &--convert-host {
+        .modal-content {
+            .confirm-modal__body {
+                padding: 75px 45px 60px;
+                &__secondary-text {
+                    margin-bottom: 10px;
+                }
+                &__final-text {
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin-top: 2em;
+                    color: $warning-alert-color;
+                }
+                &__buttons {
+                    margin-top: 3em;
+                    button:not(:last-child) {
+                        margin-right: 10px;
+                    }
+                    button {
+                        width: 109px;
+                        height: 36px;
+                    }
+                }
+            }
+        }
+    }
 }

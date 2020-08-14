@@ -36,7 +36,7 @@ function CreateEndUserMutation(endUser, form) {
         onCompleted: (response, errors) => {
             if (response.create_endUser.errors) {
                 form.props.notify(i18n.t("notify.error"), "error");
-                return response.create_endUser.updated.errors;
+                return response.create_endUser.errors;
             } else {
                 const endUser_id = response.create_endUser.endUser.id;
                 if (endUser.comment) {

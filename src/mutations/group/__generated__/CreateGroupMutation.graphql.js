@@ -33,6 +33,30 @@ export type CompositeGroupMutationInput = {|
   create_part_of_externalequipment?: ?CreateExternalEquipmentInput,
   update_part_of_externalequipment?: ?UpdateExternalEquipmentInput,
   deleted_part_of_externalequipment?: ?DeleteExternalEquipmentInput,
+  create_part_of_opticalnode?: ?CreateOpticalNodeInput,
+  update_part_of_opticalnode?: ?UpdateOpticalNodeInput,
+  deleted_part_of_opticalnode?: ?DeleteOpticalNodeInput,
+  create_dependents_group?: ?$ReadOnlyArray<?CreateGroupInput>,
+  update_dependents_group?: ?$ReadOnlyArray<?UpdateGroupInput>,
+  deleted_dependents_group?: ?$ReadOnlyArray<?DeleteGroupInput>,
+  create_dependents_procedure?: ?$ReadOnlyArray<?CreateProcedureInput>,
+  update_dependents_procedure?: ?$ReadOnlyArray<?UpdateProcedureInput>,
+  deleted_dependents_procedure?: ?$ReadOnlyArray<?DeleteProcedureInput>,
+  create_dependents_address?: ?$ReadOnlyArray<?CreateAddressInput>,
+  update_dependents_address?: ?$ReadOnlyArray<?UpdateAddressInput>,
+  deleted_dependents_address?: ?$ReadOnlyArray<?DeleteAddressInput>,
+  create_dependents_phone?: ?$ReadOnlyArray<?CreatePhoneInput>,
+  update_dependents_phone?: ?$ReadOnlyArray<?UpdatePhoneInput>,
+  deleted_dependents_phone?: ?$ReadOnlyArray<?DeletePhoneInput>,
+  create_dependents_email?: ?$ReadOnlyArray<?CreateEmailInput>,
+  update_dependents_email?: ?$ReadOnlyArray<?UpdateEmailInput>,
+  deleted_dependents_email?: ?$ReadOnlyArray<?DeleteEmailInput>,
+  create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
+  update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
+  deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
+  create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
+  update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
+  deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
   clientMutationId?: ?string,
 |};
 export type CreateGroupInput = {|
@@ -307,6 +331,181 @@ export type UpdateExternalEquipmentInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteExternalEquipmentInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalNodeInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalNodeInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_location?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalNodeInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteGroupInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateProcedureInput = {|
+  name: string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateProcedureInput = {|
+  name: string,
+  description?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteProcedureInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateAddressInput = {|
+  organization?: ?any,
+  name: string,
+  phone?: ?string,
+  street?: ?string,
+  postal_code?: ?string,
+  postal_area?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateAddressInput = {|
+  organization?: ?any,
+  name: string,
+  phone?: ?string,
+  street?: ?string,
+  postal_code?: ?string,
+  postal_area?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteAddressInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePhoneInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateEmailInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdateEmailInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteEmailInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateHostInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  ip_addresses?: ?string,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?any,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?any,
+  clientMutationId?: ?string,
+|};
+export type EditHostInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  ip_addresses?: ?string,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?any,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?any,
+  relationship_user?: ?any,
+  relationship_depends_on?: ?number,
+  services_locked?: ?boolean,
+  services_checked?: ?boolean,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePeeringGroupInput = {|
+  name: string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePeeringGroupInput = {|
+  name: string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePeeringGroupInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

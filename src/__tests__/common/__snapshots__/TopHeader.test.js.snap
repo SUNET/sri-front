@@ -219,6 +219,15 @@ exports[`Some Component Renders correctly 1`] = `
                 "network.sub-menu.equipment/hosts",
               ],
               Array [
+                "network.optical-layers.node.name",
+              ],
+              Array [
+                "network.peering-partners.name",
+              ],
+              Array [
+                "network.peering-groups.name",
+              ],
+              Array [
                 "header.main-menu.home",
               ],
               Array [
@@ -288,6 +297,18 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "network.sub-menu.equipment/hosts",
+              },
+              Object {
+                "type": "return",
+                "value": "network.optical-layers.node.name",
+              },
+              Object {
+                "type": "return",
+                "value": "network.peering-partners.name",
+              },
+              Object {
+                "type": "return",
+                "value": "network.peering-groups.name",
               },
               Object {
                 "type": "return",

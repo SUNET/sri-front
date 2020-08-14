@@ -68,8 +68,6 @@ const mutation = graphql`
 
 export default function UpdateExternalEquipmentMutation(externalEquipment, form) {
   const variables = formatExternalEquipmentVariables(externalEquipment, true);
-  console.log('variables: ', variables);
-
   commitMutation(environment, {
     mutation,
     variables,

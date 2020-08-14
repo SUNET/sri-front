@@ -15,11 +15,14 @@ import { withRouter } from 'react-router-dom';
 import { path } from '../Routes';
 
 import '../style/SideNav.scss';
-import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT } from '../utils/constants';
+import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT, NETWORK_PEERING, NETWORK_OPTICAL } from '../utils/constants';
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
-  NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments', 'hosts'];
+  NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments', 'hosts', 'optical-nodes'];
+  NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
+  NETWORK_OPTICAL_ROUTES = [''];
+
   MENU_DATA = [
     {
       header: {
@@ -47,6 +50,26 @@ class SideNavNetwork extends React.Component {
         { path: 'firewalls', i18nText: 'network.sub-menu.equipment/firewalls' },
         { path: 'external-equipments', i18nText: 'network.sub-menu.equipment/external-equipments' },
         { path: 'hosts', i18nText: 'network.sub-menu.equipment/hosts' },
+        { path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' },
+      ],
+    },
+    // {
+    //   header: {
+    //     name: NETWORK_OPTICAL,
+    //     icon: 'peering-icon.svg',
+    //     i18nText: 'network.optical-layers.name',
+    //   },
+    //   items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
+    // },
+    {
+      header: {
+        name: NETWORK_PEERING,
+        icon: 'peering-icon.svg',
+        i18nText: 'network.peering',
+      },
+      items: [
+        { path: 'peering-partners', i18nText: 'network.peering-partners.name' },
+        { path: 'peering-groups', i18nText: 'network.peering-groups.name' },
       ],
     },
   ];
@@ -57,13 +80,14 @@ class SideNavNetwork extends React.Component {
       blockPath === 'network' &&
       (entityPath === undefined || this.NETWORK_ORGANIZATIONS_ROUTES.includes(entityPath))
     ) {
-      return 'network-organizations';
+      return NETWORK_ORGANIZATIONS;
     } else if (this.NETWORK_EQUIPMENT_ROUTES.includes(entityPath)) {
-      return 'network-equipment';
+      return NETWORK_EQUIPMENT;
+    } else if (this.NETWORK_PEERING_ROUTES.includes(entityPath)) {
+      return NETWORK_PEERING;
+    } else if (this.NETWORK_OPTICAL_ROUTES.includes(entityPath)) {
+      return NETWORK_OPTICAL;
     }
-    // else if (this.props.location.pathname.includes("locations")) {
-    //     return "locations";
-    // }
   };
 
   renderAccordionItem(idPath, icon, i18nText, items) {

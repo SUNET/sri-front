@@ -50,6 +50,7 @@ export type UpdateProviderMutationResponse = {|
           +value: string,
         |},
         +url?: ?string,
+        +peering_link?: ?string,
       |}>,
       +comments: ?$ReadOnlyArray<?{|
         +id: string,
@@ -126,6 +127,9 @@ mutation UpdateProviderMutation(
         }
         ... on Provider {
           url
+        }
+        ... on PeeringPartner {
+          peering_link
         }
         __typename
       }
@@ -317,59 +321,72 @@ v21 = {
   "type": "Provider"
 },
 v22 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "peering_link",
+      "storageKey": null
+    }
+  ],
+  "type": "PeeringPartner"
+},
+v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "first_name",
   "storageKey": null
 },
-v23 = {
+v24 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "last_name",
   "storageKey": null
 },
-v24 = {
+v25 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "comment",
   "storageKey": null
 },
-v25 = {
+v26 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "submit_date",
   "storageKey": null
 },
-v26 = {
+v27 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "created",
   "storageKey": null
 },
-v27 = {
+v28 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v28 = [
-  (v27/*: any*/)
+v29 = [
+  (v28/*: any*/)
 ],
-v29 = {
+v30 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v30 = [
-  (v27/*: any*/),
+v31 = [
+  (v28/*: any*/),
   (v3/*: any*/)
 ];
 return {
@@ -454,7 +471,8 @@ return {
                   (v18/*: any*/),
                   (v19/*: any*/),
                   (v20/*: any*/),
-                  (v21/*: any*/)
+                  (v21/*: any*/),
+                  (v22/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -475,17 +493,17 @@ return {
                     "name": "user",
                     "plural": false,
                     "selections": [
-                      (v22/*: any*/),
-                      (v23/*: any*/)
+                      (v23/*: any*/),
+                      (v24/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v24/*: any*/),
-                  (v25/*: any*/)
+                  (v25/*: any*/),
+                  (v26/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v26/*: any*/),
+              (v27/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -493,10 +511,10 @@ return {
                 "kind": "LinkedField",
                 "name": "creator",
                 "plural": false,
-                "selections": (v28/*: any*/),
+                "selections": (v29/*: any*/),
                 "storageKey": null
               },
-              (v29/*: any*/),
+              (v30/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -504,7 +522,7 @@ return {
                 "kind": "LinkedField",
                 "name": "modifier",
                 "plural": false,
-                "selections": (v28/*: any*/),
+                "selections": (v29/*: any*/),
                 "storageKey": null
               }
             ],
@@ -599,7 +617,8 @@ return {
                   (v18/*: any*/),
                   (v19/*: any*/),
                   (v20/*: any*/),
-                  (v21/*: any*/)
+                  (v21/*: any*/),
+                  (v22/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -620,18 +639,18 @@ return {
                     "name": "user",
                     "plural": false,
                     "selections": [
-                      (v22/*: any*/),
                       (v23/*: any*/),
+                      (v24/*: any*/),
                       (v3/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v24/*: any*/),
-                  (v25/*: any*/)
+                  (v25/*: any*/),
+                  (v26/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v26/*: any*/),
+              (v27/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -639,10 +658,10 @@ return {
                 "kind": "LinkedField",
                 "name": "creator",
                 "plural": false,
-                "selections": (v30/*: any*/),
+                "selections": (v31/*: any*/),
                 "storageKey": null
               },
-              (v29/*: any*/),
+              (v30/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -650,7 +669,7 @@ return {
                 "kind": "LinkedField",
                 "name": "modifier",
                 "plural": false,
-                "selections": (v30/*: any*/),
+                "selections": (v31/*: any*/),
                 "storageKey": null
               }
             ],
@@ -666,11 +685,11 @@ return {
     "metadata": {},
     "name": "UpdateProviderMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateProviderMutation(\n  $input: UpdateProviderInput!\n) {\n  update_provider(input: $input) {\n    errors {\n      field\n      messages\n    }\n    provider {\n      id\n      name\n      description\n      url\n      __typename\n      with_same_name {\n        id\n        name\n        ... on Organization {\n          website\n          organization_id\n          parent_organization {\n            organization_id\n            id\n          }\n          affiliation_partner\n          affiliation_customer\n          affiliation_provider\n          affiliation_host_user\n          affiliation_site_owner\n          affiliation_end_customer\n          type {\n            name\n            value\n            id\n          }\n        }\n        ... on EndUser {\n          url\n        }\n        ... on Customer {\n          url\n        }\n        ... on SiteOwner {\n          url\n        }\n        ... on Provider {\n          url\n        }\n        __typename\n      }\n      comments {\n        id\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n      }\n      created\n      creator {\n        email\n        id\n      }\n      modified\n      modifier {\n        email\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateProviderMutation(\n  $input: UpdateProviderInput!\n) {\n  update_provider(input: $input) {\n    errors {\n      field\n      messages\n    }\n    provider {\n      id\n      name\n      description\n      url\n      __typename\n      with_same_name {\n        id\n        name\n        ... on Organization {\n          website\n          organization_id\n          parent_organization {\n            organization_id\n            id\n          }\n          affiliation_partner\n          affiliation_customer\n          affiliation_provider\n          affiliation_host_user\n          affiliation_site_owner\n          affiliation_end_customer\n          type {\n            name\n            value\n            id\n          }\n        }\n        ... on EndUser {\n          url\n        }\n        ... on Customer {\n          url\n        }\n        ... on SiteOwner {\n          url\n        }\n        ... on Provider {\n          url\n        }\n        ... on PeeringPartner {\n          peering_link\n        }\n        __typename\n      }\n      comments {\n        id\n        user {\n          first_name\n          last_name\n          id\n        }\n        comment\n        submit_date\n      }\n      created\n      creator {\n        email\n        id\n      }\n      modified\n      modifier {\n        email\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '45222405cc5cf0d8fdfdcbe799acc3da';
+(node/*: any*/).hash = '70e4819d23463bf3a3c1d44ad918d229';
 
 module.exports = node;

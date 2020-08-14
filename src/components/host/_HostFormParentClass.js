@@ -2,6 +2,7 @@ import React from 'react';
 import { FieldArray, change, Field, arrayPush } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
+import EditField from '../EditField';
 import { Form, Col } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
@@ -9,6 +10,7 @@ import FieldInput from '../FieldInput';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
 import FieldArrayHostUser from './FieldArrayHostUser';
 import IpAddressesList from '../IpAddressesList';
+import { Modal } from 'react-bootstrap';
 
 // const
 import { SAVED } from '../../utils/constants';
@@ -76,6 +78,88 @@ class _HostFormParentClass extends _BasicFormParentClass {
       });
     }
   };
+
+  onClickConvertHostCTA = () => {
+    this.showConvertHostModal();
+  };
+
+  showConvertHostModal() {
+    this.setState({ visibleConvertHostModal: true });
+  }
+
+  clickInConvertHostOption(optionName) {
+    console.log(optionName);
+  }
+
+  renderConvertHostCTA() {
+    const { t } = this.props;
+    return (
+      <div className="cta-convert-host" onClick={this.onClickConvertHostCTA}>
+        <button type="button" className="btn convert-host outline mr-3">
+          <span>{t('host-modal.convert.to.cta')}</span>
+        </button>
+      </div>
+    );
+  }
+
+  renderInputName(kindOfName, editMode = true) {
+    // INFO: kindOfName = 'first_name' || 'last_name' || 'name'
+    const { t, formSyncErrors, fields, form, dispatch } = this.props;
+    let placeHolderString = t('contact-details.name');
+    if (kindOfName === 'last_name') {
+      placeHolderString = t('contact-details.lastName');
+    }
+    return (
+      <>
+        <EditField
+          error={formSyncErrors[kindOfName]}
+          meta={fields[kindOfName]}
+          form={form}
+          dispatch={dispatch}
+          editable={editMode}
+          placeholder={placeHolderString}
+          name={kindOfName}
+        >
+          <h1>{this.props[kindOfName]}</h1>
+        </EditField>
+        {/* {editMode && this.renderConvertHostCTA()} */}
+      </>
+    );
+  }
+
+  renderConvertHostModal() {
+    const { t } = this.props;
+    const { visibleConvertHostModal } = this.state;
+    return (
+      <Modal
+        centered
+        dialogClassName="confirm-modal confirm-modal--convert-host"
+        show={visibleConvertHostModal}
+        onHide={() => this.setState({ visibleConvertHostModal: false })}
+      >
+        <Modal.Header closeButton />
+        <Modal.Body className="confirm-modal__body">
+          <div className="confirm-modal__body__main-text">{t('host-modal.title')}</div>
+          <div className="confirm-modal__body__secondary-text">{t('host-modal.question')}</div>
+          <div className="confirm-modal__body__secondary-text">{t('host-modal.introduction')}</div>
+          <div className="confirm-modal__body__buttons confirm-modal__body__buttons">
+            {['firewall', 'switch', 'pdu', 'router'].map((buttonName) => (
+              <button
+                type="button"
+                className="btn secondary"
+                onClick={() => {
+                  this.clickInConvertHostOption(buttonName);
+                }}
+              >
+                <span>{buttonName}</span>
+              </button>
+            ))}
+            <div className="confirm-modal__body__final-text">{t('host-modal.warning')}</div>
+          </div>
+        </Modal.Body>
+      </Modal>
+    );
+  }
 
   renderModelMainSection(editMode = true) {
     return (

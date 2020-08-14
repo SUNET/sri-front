@@ -31,6 +31,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_has_externalequipment?: ?$ReadOnlyArray<?CreateExternalEquipmentInput>,
   update_has_externalequipment?: ?$ReadOnlyArray<?UpdateExternalEquipmentInput>,
   deleted_has_externalequipment?: ?$ReadOnlyArray<?DeleteExternalEquipmentInput>,
+  create_has_opticalnode?: ?$ReadOnlyArray<?CreateOpticalNodeInput>,
+  update_has_opticalnode?: ?$ReadOnlyArray<?UpdateOpticalNodeInput>,
+  deleted_has_opticalnode?: ?$ReadOnlyArray<?DeleteOpticalNodeInput>,
   create_part_of_group?: ?CreateGroupInput,
   update_part_of_group?: ?UpdateGroupInput,
   deleted_part_of_group?: ?DeleteGroupInput,
@@ -49,6 +52,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_part_of_host?: ?CreateHostInput,
   update_part_of_host?: ?EditHostInput,
   deleted_part_of_host?: ?DeleteHostInput,
+  create_part_of_peeringgroup?: ?CreatePeeringGroupInput,
+  update_part_of_peeringgroup?: ?UpdatePeeringGroupInput,
+  deleted_part_of_peeringgroup?: ?DeletePeeringGroupInput,
   create_parent_port?: ?$ReadOnlyArray<?CreatePortInput>,
   update_parent_port?: ?$ReadOnlyArray<?UpdatePortInput>,
   deleted_parent_port?: ?$ReadOnlyArray<?DeletePortInput>,
@@ -67,6 +73,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_parent_externalequipment?: ?$ReadOnlyArray<?CreateExternalEquipmentInput>,
   update_parent_externalequipment?: ?$ReadOnlyArray<?UpdateExternalEquipmentInput>,
   deleted_parent_externalequipment?: ?$ReadOnlyArray<?DeleteExternalEquipmentInput>,
+  create_parent_opticalnode?: ?$ReadOnlyArray<?CreateOpticalNodeInput>,
+  update_parent_opticalnode?: ?$ReadOnlyArray<?UpdateOpticalNodeInput>,
+  deleted_parent_opticalnode?: ?$ReadOnlyArray<?DeleteOpticalNodeInput>,
   create_dependents_group?: ?$ReadOnlyArray<?CreateGroupInput>,
   update_dependents_group?: ?$ReadOnlyArray<?UpdateGroupInput>,
   deleted_dependents_group?: ?$ReadOnlyArray<?DeleteGroupInput>,
@@ -85,6 +94,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
   update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
   deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
+  create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
+  update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
+  deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
   create_owner_organization?: ?CreateOrganizationInput,
   update_owner_organization?: ?UpdateOrganizationInput,
   deleted_owner_organization?: ?DeleteOrganizationInput,
@@ -103,6 +115,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_owner_siteowner?: ?CreateSiteOwnerInput,
   update_owner_siteowner?: ?UpdateSiteOwnerInput,
   deleted_owner_siteowner?: ?DeleteSiteOwnerInput,
+  create_owner_peeringpartner?: ?CreatePeeringPartnerInput,
+  update_owner_peeringpartner?: ?UpdatePeeringPartnerInput,
+  deleted_owner_peeringpartner?: ?DeletePeeringPartnerInput,
   clientMutationId?: ?string,
 |};
 export type DeleteOwnerMutationInput = {|
@@ -327,6 +342,33 @@ export type DeleteExternalEquipmentInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
+export type CreateOpticalNodeInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalNodeInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_location?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalNodeInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type CreateGroupInput = {|
   name: string,
   description?: ?string,
@@ -471,6 +513,19 @@ export type EditHostInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePeeringGroupInput = {|
+  name: string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePeeringGroupInput = {|
+  name: string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePeeringGroupInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
@@ -637,6 +692,19 @@ export type UpdateSiteOwnerInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteSiteOwnerInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePeeringPartnerInput = {|
+  name: string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePeeringPartnerInput = {|
+  name: string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePeeringPartnerInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

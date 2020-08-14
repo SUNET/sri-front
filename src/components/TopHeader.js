@@ -139,12 +139,7 @@ export class TopHeader extends React.Component {
     return (
       <Nav.Item className="top-header__user-block__profile px-0">
         <Link to="/personal-area/profile-settings">
-          <Image
-            src={profileImage}
-            roundedCircle
-            img-fluid="true"
-            onClick={() => this.closeMenu()}
-          />
+          <Image src={profileImage} roundedCircle img-fluid="true" onClick={() => this.closeMenu()} />
         </Link>
       </Nav.Item>
     );
@@ -205,6 +200,21 @@ export class TopHeader extends React.Component {
               // { name: "External equipment", route: "/network/customers" },
               // { name: "Optical nodes", route: "/network/customers" },
               // { name: "ODFs", route: "/network/customers" }
+            ],
+          },
+          {
+            name: 'Optical layers',
+            route: '/network/optical-nodes',
+            iconClass: 'icon-organization',
+            subSubOptions: [{ name: t('network.optical-layers.node.name'), route: '/network/optical-nodes' }],
+          },
+          {
+            name: 'Peering',
+            route: '/network/peering-partners',
+            iconClass: 'icon-organization',
+            subSubOptions: [
+              { name: t('network.peering-partners.name'), route: '/network/peering-partners' },
+              { name: t('network.peering-groups.name'), route: '/network/peering-groups' },
             ],
           },
         ],

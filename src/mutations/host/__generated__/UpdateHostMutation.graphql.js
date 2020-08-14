@@ -9,14 +9,30 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CompositeHostMutationInput = {|
-  delete_owner?: ?DeleteOwnerMutationInput,
   create_input?: ?CreateHostInput,
   update_input?: ?EditHostInput,
   unlink_subinputs?: ?$ReadOnlyArray<?DeleteRelationshipInput>,
-  clientMutationId?: ?string,
-|};
-export type DeleteOwnerMutationInput = {|
-  id: string,
+  create_dependents_group?: ?$ReadOnlyArray<?CreateGroupInput>,
+  update_dependents_group?: ?$ReadOnlyArray<?UpdateGroupInput>,
+  deleted_dependents_group?: ?$ReadOnlyArray<?DeleteGroupInput>,
+  create_dependents_procedure?: ?$ReadOnlyArray<?CreateProcedureInput>,
+  update_dependents_procedure?: ?$ReadOnlyArray<?UpdateProcedureInput>,
+  deleted_dependents_procedure?: ?$ReadOnlyArray<?DeleteProcedureInput>,
+  create_dependents_address?: ?$ReadOnlyArray<?CreateAddressInput>,
+  update_dependents_address?: ?$ReadOnlyArray<?UpdateAddressInput>,
+  deleted_dependents_address?: ?$ReadOnlyArray<?DeleteAddressInput>,
+  create_dependents_phone?: ?$ReadOnlyArray<?CreatePhoneInput>,
+  update_dependents_phone?: ?$ReadOnlyArray<?UpdatePhoneInput>,
+  deleted_dependents_phone?: ?$ReadOnlyArray<?DeletePhoneInput>,
+  create_dependents_email?: ?$ReadOnlyArray<?CreateEmailInput>,
+  update_dependents_email?: ?$ReadOnlyArray<?UpdateEmailInput>,
+  deleted_dependents_email?: ?$ReadOnlyArray<?DeleteEmailInput>,
+  create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
+  update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
+  deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
+  create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
+  update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
+  deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
   clientMutationId?: ?string,
 |};
 export type CreateHostInput = {|
@@ -76,6 +92,111 @@ export type EditHostInput = {|
 |};
 export type DeleteRelationshipInput = {|
   relation_id: number,
+  clientMutationId?: ?string,
+|};
+export type CreateGroupInput = {|
+  name: string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateGroupInput = {|
+  name: string,
+  description?: ?string,
+  relationship_member_of?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteGroupInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateProcedureInput = {|
+  name: string,
+  description?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateProcedureInput = {|
+  name: string,
+  description?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteProcedureInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateAddressInput = {|
+  organization?: ?any,
+  name: string,
+  phone?: ?string,
+  street?: ?string,
+  postal_code?: ?string,
+  postal_area?: ?string,
+  clientMutationId?: ?string,
+|};
+export type UpdateAddressInput = {|
+  organization?: ?any,
+  name: string,
+  phone?: ?string,
+  street?: ?string,
+  postal_code?: ?string,
+  postal_area?: ?string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteAddressInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdatePhoneInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePhoneInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateEmailInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  clientMutationId?: ?string,
+|};
+export type UpdateEmailInput = {|
+  contact?: ?any,
+  name: string,
+  type: any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteEmailInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreatePeeringGroupInput = {|
+  name: string,
+  clientMutationId?: ?string,
+|};
+export type UpdatePeeringGroupInput = {|
+  name: string,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeletePeeringGroupInput = {|
+  id: string,
   clientMutationId?: ?string,
 |};
 export type UpdateHostMutationVariables = {|

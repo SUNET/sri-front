@@ -18,6 +18,7 @@ class HostUpdateForm extends _HostFormParentClass {
   ROUTE_LIST_DIRECTION = '/network/hosts';
   state = {
     editMode: false,
+    visibleConvertHostModal: false,
   };
   refetch = () => {
     this.props.relay.refetch(
@@ -60,6 +61,7 @@ class HostUpdateForm extends _HostFormParentClass {
         {isLogicalHost && this.renderHostUserToggleSection(editMode)}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
+        {this.state.visibleConvertHostModal && this.renderConvertHostModal()}
       </form>
     );
   }

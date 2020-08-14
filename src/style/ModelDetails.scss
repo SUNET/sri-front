@@ -42,6 +42,7 @@
             @include desktop {
                 &--edition-mode {
                     flex-direction: row;
+                    align-items: center;
                 }
             }
         }

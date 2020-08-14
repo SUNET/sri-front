@@ -84,8 +84,8 @@ const switchEntity = {
 };
 const firewall = {
   formName: {
-    create: 'createSwitch',
-    update: 'updateSwitch',
+    create: 'createFirewall',
+    update: 'updateFirewall',
   },
   dispatchPropertiesListCreate: ['notify'],
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
@@ -139,6 +139,43 @@ const host = {
     { type: FIELD_TYPES.SINGLE, name: 'host_type' },
   ],
 };
+const peeringPartner = {
+  formName: {
+    update: 'updatePeeringPartner',
+  },
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [
+    { type: FIELD_TYPES.SINGLE, name: 'name' },
+    { type: FIELD_TYPES.SINGLE, name: 'peering_link' },
+    { type: FIELD_TYPES.SINGLE, name: 'as_number' },
+    { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+  ],
+};
+const peeringGroup = {
+  formName: {
+    update: 'updatePeeringGroup',
+  },
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [{ type: FIELD_TYPES.SINGLE, name: 'name' }],
+};
+
+const opticalNode = {
+  formName: {
+    create: 'createOpticalNode',
+    update: 'updateOpticalNode',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  fields: [
+    ...BASIC_INFO,
+    ...LOCATION_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.OBJECT, name: 'type' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -148,4 +185,7 @@ export default {
   externalEquipment,
   switch: switchEntity,
   firewall,
+  peeringPartner,
+  peeringGroup,
+  opticalNode,
 };
