@@ -19,9 +19,9 @@ import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT, NETWORK_PEERING, NETWORK_OPTI
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
-  NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments', 'hosts'];
+  NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments', 'hosts', 'optical-nodes'];
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
-  NETWORK_OPTICAL_ROUTES = ['optical-nodes'];
+  NETWORK_OPTICAL_ROUTES = [''];
 
   MENU_DATA = [
     {
@@ -50,16 +50,17 @@ class SideNavNetwork extends React.Component {
         { path: 'firewalls', i18nText: 'network.sub-menu.equipment/firewalls' },
         { path: 'external-equipments', i18nText: 'network.sub-menu.equipment/external-equipments' },
         { path: 'hosts', i18nText: 'network.sub-menu.equipment/hosts' },
+        { path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' },
       ],
     },
-    {
-      header: {
-        name: NETWORK_OPTICAL,
-        icon: 'peering-icon.svg',
-        i18nText: 'network.optical-layers.name',
-      },
-      items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
-    },
+    // {
+    //   header: {
+    //     name: NETWORK_OPTICAL,
+    //     icon: 'peering-icon.svg',
+    //     i18nText: 'network.optical-layers.name',
+    //   },
+    //   items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
+    // },
     {
       header: {
         name: NETWORK_PEERING,

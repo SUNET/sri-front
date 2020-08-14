@@ -15,9 +15,25 @@ const mutation = graphql`
           messages
         }
         opticalNode {
+          __typename
           id
           name
           description
+          type {
+            id
+            name
+          }
+          ports {
+            id
+            name
+          }
+          rack_units
+          rack_position
+          rack_back
+          operational_state {
+            id
+            name
+          }
         }
       }
     }
@@ -48,7 +64,7 @@ function CreateOpticalNodeMutation(opticalNode, form) {
         opticalNode,
         'OpticalNode',
         'composite_opticalNode',
-        'opticalNodes',
+        'optical-nodes',
         CreateCommentMutation,
       );
     },

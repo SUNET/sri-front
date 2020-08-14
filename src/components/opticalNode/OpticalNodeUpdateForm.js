@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import UpdateOpticalNodeMutation from '../../mutations/opticalNode/UpdateOpticalNodeMutation';
-import ValidationsOpticalNodeForm from '../common/_BasicValidationForm';
+import ValidationsOpticalNodeForm from './ValidationsOpticalNodeForm';
 // const
 import { UPDATE_OPTICALNODE_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -63,9 +63,32 @@ const OpticalNodeUpdateFragment = createRefetchContainer(
   {
     opticalNode: graphql`
       fragment OpticalNodeUpdateForm_opticalNode on OpticalNode {
+        __typename
         id
         name
         description
+        type {
+          id
+          name
+          value
+        }
+        ports {
+          id
+          name
+          __typename
+          relation_id
+          type: port_type {
+            name
+          }
+        }
+        rack_units
+        rack_position
+        rack_back
+        operational_state {
+          id
+          name
+          value
+        }
         comments {
           id
           user {

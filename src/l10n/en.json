@@ -243,6 +243,7 @@
             "notify.network/cables-created-success": "Cable created successfully",
             "notify.network/ports-created-success": "Port created successfully",
             "notify.network/switches-created-success": "Switch created successfully",
+            "notify.network/optical-nodes-created-success": "Optical Node created successfully",
             "notify.changes-saved": "Changes saved",
             "notify.error": "An error has occurred",
             "general.error": "Server error, redirecting to login please wait",

@@ -86,7 +86,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
           <Dropdown
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
-            type="optical_link_types"
+            type="optical_node_types"
             name="type"
             onChange={(e) => {}}
           />
@@ -126,7 +126,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
   }
 
   renderLocationToggleSection(editMode = true) {
-    const { t, rack_units, rack_position } = this.props;
+    const { t, rack_units, rack_position, rack_back } = this.props;
 
     const locationInfoFirstRow = [
       {
@@ -159,12 +159,22 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
       },
       {
         title: t('network.optical-layers.details.rack-back'),
-        presentContent: rack_position,
+        presentContent: (
+          <Form.Group>
+            <Field
+              type="checkbox"
+              name="rack_back"
+              component={FieldInput}
+              disabled
+              placeholder={t('network.switch.details.write-rack-position')}
+            />
+          </Form.Group>
+        ),
         editContent: (
           <Form.Group>
             <Field
-              type="text"
-              name="rack_position"
+              type="checkbox"
+              name="rack_back"
               component={FieldInput}
               placeholder={t('network.switch.details.write-rack-position')}
             />

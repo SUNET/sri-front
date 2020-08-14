@@ -296,9 +296,32 @@ export type UpdateOpticalNodeMutationResponse = {|
         +messages: $ReadOnlyArray<string>,
       |}>,
       +opticalNode: ?{|
+        +__typename: string,
         +id: string,
         +name: string,
         +description: ?string,
+        +type: ?{|
+          +id: string,
+          +name: string,
+          +value: string,
+        |},
+        +ports: ?$ReadOnlyArray<?{|
+          +id: string,
+          +name: string,
+          +__typename: string,
+          +relation_id: ?number,
+          +type: ?{|
+            +name: string
+          |},
+        |}>,
+        +rack_units: ?number,
+        +rack_position: ?number,
+        +rack_back: ?boolean,
+        +operational_state: ?{|
+          +id: string,
+          +name: string,
+          +value: string,
+        |},
       |},
     |}
   |}
@@ -321,9 +344,33 @@ mutation UpdateOpticalNodeMutation(
         messages
       }
       opticalNode {
+        __typename
         id
         name
         description
+        type {
+          id
+          name
+          value
+        }
+        ports {
+          id
+          name
+          __typename
+          relation_id
+          type: port_type {
+            name
+            id
+          }
+        }
+        rack_units
+        rack_position
+        rack_back
+        operational_state {
+          id
+          name
+          value
+        }
       }
     }
   }
@@ -341,79 +388,192 @@ var v0 = [
 ],
 v1 = [
   {
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ErrorType",
+  "kind": "LinkedField",
+  "name": "errors",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "field",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "messages",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v7 = [
+  (v4/*: any*/),
+  (v5/*: any*/),
+  {
     "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "CompositeOpticalNodeMutationPayload",
-    "kind": "LinkedField",
-    "name": "composite_opticalNode",
-    "plural": false,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "value",
+    "storageKey": null
+  }
+],
+v8 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Choice",
+  "kind": "LinkedField",
+  "name": "type",
+  "plural": false,
+  "selections": (v7/*: any*/),
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "relation_id",
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_units",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_position",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_back",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Choice",
+  "kind": "LinkedField",
+  "name": "operational_state",
+  "plural": false,
+  "selections": (v7/*: any*/),
+  "storageKey": null
+};
+return {
+  "fragment": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateOpticalNodeMutation",
     "selections": [
       {
         "alias": null,
-        "args": null,
-        "concreteType": "UpdateOpticalNodePayload",
+        "args": (v1/*: any*/),
+        "concreteType": "CompositeOpticalNodeMutationPayload",
         "kind": "LinkedField",
-        "name": "updated",
+        "name": "composite_opticalNode",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "ErrorType",
+            "concreteType": "UpdateOpticalNodePayload",
             "kind": "LinkedField",
-            "name": "errors",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "field",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "messages",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "OpticalNode",
-            "kind": "LinkedField",
-            "name": "opticalNode",
+            "name": "updated",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "description",
+                "concreteType": "OpticalNode",
+                "kind": "LinkedField",
+                "name": "opticalNode",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v8/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Port",
+                    "kind": "LinkedField",
+                    "name": "ports",
+                    "plural": true,
+                    "selections": [
+                      (v4/*: any*/),
+                      (v5/*: any*/),
+                      (v3/*: any*/),
+                      (v9/*: any*/),
+                      {
+                        "alias": "type",
+                        "args": null,
+                        "concreteType": "Choice",
+                        "kind": "LinkedField",
+                        "name": "port_type",
+                        "plural": false,
+                        "selections": [
+                          (v5/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  (v10/*: any*/),
+                  (v11/*: any*/),
+                  (v12/*: any*/),
+                  (v13/*: any*/)
+                ],
                 "storageKey": null
               }
             ],
@@ -423,16 +583,6 @@ v1 = [
         "storageKey": null
       }
     ],
-    "storageKey": null
-  }
-];
-return {
-  "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
-    "kind": "Fragment",
-    "metadata": null,
-    "name": "UpdateOpticalNodeMutation",
-    "selections": (v1/*: any*/),
     "type": "Mutation"
   },
   "kind": "Request",
@@ -440,18 +590,90 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateOpticalNodeMutation",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CompositeOpticalNodeMutationPayload",
+        "kind": "LinkedField",
+        "name": "composite_opticalNode",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "UpdateOpticalNodePayload",
+            "kind": "LinkedField",
+            "name": "updated",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "OpticalNode",
+                "kind": "LinkedField",
+                "name": "opticalNode",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v8/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Port",
+                    "kind": "LinkedField",
+                    "name": "ports",
+                    "plural": true,
+                    "selections": [
+                      (v4/*: any*/),
+                      (v5/*: any*/),
+                      (v3/*: any*/),
+                      (v9/*: any*/),
+                      {
+                        "alias": "type",
+                        "args": null,
+                        "concreteType": "Choice",
+                        "kind": "LinkedField",
+                        "name": "port_type",
+                        "plural": false,
+                        "selections": [
+                          (v5/*: any*/),
+                          (v4/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  (v10/*: any*/),
+                  (v11/*: any*/),
+                  (v12/*: any*/),
+                  (v13/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "UpdateOpticalNodeMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateOpticalNodeMutation(\n  $input: CompositeOpticalNodeMutationInput!\n) {\n  composite_opticalNode(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      opticalNode {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateOpticalNodeMutation(\n  $input: CompositeOpticalNodeMutationInput!\n) {\n  composite_opticalNode(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      opticalNode {\n        __typename\n        id\n        name\n        description\n        type {\n          id\n          name\n          value\n        }\n        ports {\n          id\n          name\n          __typename\n          relation_id\n          type: port_type {\n            name\n            id\n          }\n        }\n        rack_units\n        rack_position\n        rack_back\n        operational_state {\n          id\n          name\n          value\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd4904aed4a19a7667cf888ed449ee65d';
+(node/*: any*/).hash = '79ca71b8377302ad2265de9975320e39';
 
 module.exports = node;

@@ -15,6 +15,28 @@ export type OpticalNodeUpdateForm_opticalNode = {|
   +id: string,
   +name: string,
   +description: ?string,
+  +type: ?{|
+    +id: string,
+    +name: string,
+    +value: string,
+  |},
+  +ports: ?$ReadOnlyArray<?{|
+    +id: string,
+    +name: string,
+    +__typename: string,
+    +relation_id: ?number,
+    +type: ?{|
+      +name: string
+    |},
+  |}>,
+  +rack_units: ?number,
+  +rack_position: ?number,
+  +rack_back: ?boolean,
+  +operational_state: ?{|
+    +id: string,
+    +name: string,
+    +value: string,
+  |},
   +comments: ?$ReadOnlyArray<?{|
     +id: string,
     +user: ?{|
@@ -32,6 +54,7 @@ export type OpticalNodeUpdateForm_opticalNode = {|
   +modifier: ?{|
     +email: string
   |},
+  +__typename: "OpticalNode",
   +$refType: OpticalNodeUpdateForm_opticalNode$ref,
 |};
 export type OpticalNodeUpdateForm_opticalNode$data = OpticalNodeUpdateForm_opticalNode;
@@ -48,10 +71,35 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v1 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v3 = [
+  (v1/*: any*/),
+  (v2/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "value",
+    "storageKey": null
+  }
+],
+v4 = [
   {
     "alias": null,
     "args": null,
@@ -67,13 +115,8 @@ return {
   "name": "OpticalNodeUpdateForm_opticalNode",
   "selections": [
     (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
+    (v1/*: any*/),
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -84,12 +127,86 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "Choice",
+      "kind": "LinkedField",
+      "name": "type",
+      "plural": false,
+      "selections": (v3/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Port",
+      "kind": "LinkedField",
+      "name": "ports",
+      "plural": true,
+      "selections": [
+        (v1/*: any*/),
+        (v2/*: any*/),
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "relation_id",
+          "storageKey": null
+        },
+        {
+          "alias": "type",
+          "args": null,
+          "concreteType": "Choice",
+          "kind": "LinkedField",
+          "name": "port_type",
+          "plural": false,
+          "selections": [
+            (v2/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "rack_units",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "rack_position",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "rack_back",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Choice",
+      "kind": "LinkedField",
+      "name": "operational_state",
+      "plural": false,
+      "selections": (v3/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "CommentType",
       "kind": "LinkedField",
       "name": "comments",
       "plural": true,
       "selections": [
-        (v0/*: any*/),
+        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -146,7 +263,7 @@ return {
       "kind": "LinkedField",
       "name": "creator",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     },
     {
@@ -163,7 +280,7 @@ return {
       "kind": "LinkedField",
       "name": "modifier",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     }
   ],
@@ -171,6 +288,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '1670e0ad1c0481ee98f01af7a811986e';
+(node/*: any*/).hash = '6749ac17a5e2071c5b0c44c1f3a8731e';
 
 module.exports = node;

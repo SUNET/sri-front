@@ -5,6 +5,8 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { UNLINK, REMOVE, SAVED } from '../../utils/constants';
+
 const mutation = graphql`
   mutation UpdateOpticalNodeMutation($input: CompositeOpticalNodeMutationInput!) {
     composite_opticalNode(input: $input) {
@@ -14,9 +16,32 @@ const mutation = graphql`
           messages
         }
         opticalNode {
+          __typename
           id
           name
           description
+          type {
+            id
+            name
+            value
+          }
+          ports {
+            id
+            name
+            __typename
+            relation_id
+            type: port_type {
+              name
+            }
+          }
+          rack_units
+          rack_position
+          rack_back
+          operational_state {
+            id
+            name
+            value
+          }
         }
       }
     }
@@ -24,6 +49,18 @@ const mutation = graphql`
 `;
 
 export default function UpdateOpticalNodeMutation(opticalNode, form) {
+  const portsToSaved = opticalNode.ports
+    ? opticalNode.ports.filter((port) => port.status === SAVED).map((e) => ({ id: e.id, name: e.name }))
+    : [];
+
+  const portsToUnlink = opticalNode.ports
+    ? opticalNode.ports.filter((port) => port.status === UNLINK).map((e) => ({ relation_id: e.relation_id }))
+    : [];
+
+  const portsToRemove = opticalNode.ports
+    ? opticalNode.ports.filter((port) => port.status === REMOVE).map((e) => ({ id: e.id }))
+    : [];
+
   const variables = {
     input: {
       update_input: {
@@ -36,6 +73,9 @@ export default function UpdateOpticalNodeMutation(opticalNode, form) {
         operational_state: opticalNode.operational_state,
         type: opticalNode.type,
       },
+      update_has_port: portsToSaved,
+      unlink_subinputs: portsToUnlink,
+      deleted_has_port: portsToRemove,
     },
   };
   commitMutation(environment, {
@@ -44,7 +84,7 @@ export default function UpdateOpticalNodeMutation(opticalNode, form) {
     onCompleted: (response, errors) => {
       if (response.composite_opticalNode.updated.errors) {
         form.props.notify(i18n.t('notify.error'), 'error');
-        return response.update_opticalNode.updated.errors;
+        return response.composite_opticalNode.updated.errors;
       }
       form.props.reset();
       if (form.props.isFromModal) {

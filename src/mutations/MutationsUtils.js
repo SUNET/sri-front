@@ -1,5 +1,6 @@
 import i18n from '../i18n';
 import { UNLINK, REMOVE, SAVED } from '../utils/constants';
+import { camelize } from '../utils';
 
 export function generateSubInputs(subInputObject, typeFieldName, specificFieldName = null) {
   const result = {
@@ -52,7 +53,7 @@ export function onCompleteCompositeCreationEntity(
     form.props.notify(i18n.t('notify.error'), 'error');
     return response[responseFieldName].created.errors;
   }
-  const entityId = response[responseFieldName].created[entityName.toLowerCase()].id;
+  const entityId = response[responseFieldName].created[camelize(entityName)].id;
   if (entityObj.comment) {
     CreateCommentMutation(entityId, entityObj.comment);
   }

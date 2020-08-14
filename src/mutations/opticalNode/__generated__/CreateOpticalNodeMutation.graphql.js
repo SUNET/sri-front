@@ -296,9 +296,25 @@ export type CreateOpticalNodeMutationResponse = {|
         +messages: $ReadOnlyArray<string>,
       |}>,
       +opticalNode: ?{|
+        +__typename: string,
         +id: string,
         +name: string,
         +description: ?string,
+        +type: ?{|
+          +id: string,
+          +name: string,
+        |},
+        +ports: ?$ReadOnlyArray<?{|
+          +id: string,
+          +name: string,
+        |}>,
+        +rack_units: ?number,
+        +rack_position: ?number,
+        +rack_back: ?boolean,
+        +operational_state: ?{|
+          +id: string,
+          +name: string,
+        |},
       |},
     |}
   |}
@@ -321,9 +337,25 @@ mutation CreateOpticalNodeMutation(
         messages
       }
       opticalNode {
+        __typename
         id
         name
         description
+        type {
+          id
+          name
+        }
+        ports {
+          id
+          name
+        }
+        rack_units
+        rack_position
+        rack_back
+        operational_state {
+          id
+          name
+        }
       }
     }
   }
@@ -339,7 +371,25 @@ var v0 = [
     "type": "CompositeOpticalNodeMutationInput!"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v3 = [
+  (v1/*: any*/),
+  (v2/*: any*/)
+],
+v4 = [
   {
     "alias": null,
     "args": [
@@ -399,21 +449,67 @@ v1 = [
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "id",
+                "name": "__typename",
                 "storageKey": null
               },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
+              (v1/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "description",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "type",
+                "plural": false,
+                "selections": (v3/*: any*/),
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Port",
+                "kind": "LinkedField",
+                "name": "ports",
+                "plural": true,
+                "selections": (v3/*: any*/),
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "rack_units",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "rack_position",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "rack_back",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "operational_state",
+                "plural": false,
+                "selections": (v3/*: any*/),
                 "storageKey": null
               }
             ],
@@ -432,7 +528,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateOpticalNodeMutation",
-    "selections": (v1/*: any*/),
+    "selections": (v4/*: any*/),
     "type": "Mutation"
   },
   "kind": "Request",
@@ -440,18 +536,18 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateOpticalNodeMutation",
-    "selections": (v1/*: any*/)
+    "selections": (v4/*: any*/)
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "CreateOpticalNodeMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateOpticalNodeMutation(\n  $input: CompositeOpticalNodeMutationInput!\n) {\n  composite_opticalNode(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      opticalNode {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateOpticalNodeMutation(\n  $input: CompositeOpticalNodeMutationInput!\n) {\n  composite_opticalNode(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      opticalNode {\n        __typename\n        id\n        name\n        description\n        type {\n          id\n          name\n        }\n        ports {\n          id\n          name\n        }\n        rack_units\n        rack_position\n        rack_back\n        operational_state {\n          id\n          name\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '958bb7dc233a05d4f4931544f0067af4';
+(node/*: any*/).hash = '0b5f02d798c6107078327efa5397661f';
 
 module.exports = node;
