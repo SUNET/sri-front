@@ -169,7 +169,7 @@ const opticalNode = {
   fields: [
     ...BASIC_INFO,
     ...LOCATION_INFO,
-    { type: FIELD_TYPES.SINGLE, name: 'rack_back' }, // boolean
+    { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.OBJECT, name: 'type' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
