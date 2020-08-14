@@ -311,6 +311,30 @@ button.btn {
     }
 }
 
+.cta-convert-host {
+    height: 50px;
+    width: 120px;
+    button.outline {
+        height: 100%;
+        width: 100%;
+        border-radius: 25px;
+    }
+    &:after {
+        content: "\f071";
+        margin-right: 4px;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        color: #fff;
+        vertical-align: middle;
+        position: relative;
+        bottom: 50px;
+        left: 97px;
+        background-color: #ff500d;
+        padding: 7px;
+        border-radius: 50%;
+    }
+}
+
 .row-cta {
     width: 25px;
     height: 25px;
