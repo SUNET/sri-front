@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldArray, change, Field, arrayPush } from 'redux-form';
+import { FieldArray, Field, arrayPush } from 'redux-form';
 import { Form, Col } from 'react-bootstrap';
 
 // components
@@ -9,7 +9,6 @@ import FieldInput from '../FieldInput';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayPorts from '../externalEquipment/FieldArrayPorts';
 // const
-import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
@@ -126,7 +125,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
   }
 
   renderLocationToggleSection(editMode = true) {
-    const { t, rack_units, rack_position, rack_back } = this.props;
+    const { t, rack_units, rack_position } = this.props;
 
     const locationInfoFirstRow = [
       {

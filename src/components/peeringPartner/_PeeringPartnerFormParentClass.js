@@ -3,12 +3,11 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import { Field } from 'redux-form';
 import { Form, Col } from 'react-bootstrap';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import { generateURL, formatAffiliationOrganizationData } from '../../utils';
-import { isBrowser, isMobile } from 'react-device-detect';
+import { generateURL } from '../../utils';
+import { isBrowser } from 'react-device-detect';
 import FieldInput from '../FieldInput';
 // components
 // const
-import { SAVED } from '../../utils/constants';
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
   const isPresentState = !editable;

@@ -10,7 +10,7 @@ import FieldInput from '../FieldInput';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
 import FieldArrayHostUser from './FieldArrayHostUser';
 import IpAddressesList from '../IpAddressesList';
-import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 // const
 import { SAVED } from '../../utils/constants';
