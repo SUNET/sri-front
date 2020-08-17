@@ -139,7 +139,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
         >
           <h1>{this.props[kindOfName]}</h1>
         </EditField>
-        {IS_UPDATED_FORM && editMode && this.renderConvertHostCTA()}
+        {this.IS_UPDATED_FORM && editMode && this.renderConvertHostCTA()}
       </>
     );
   }
