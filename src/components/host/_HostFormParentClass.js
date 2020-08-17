@@ -1,6 +1,7 @@
 import React from 'react';
 import { FieldArray, change, Field, arrayPush } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import ConvertHostMutation from '../../mutations/host/ConvertHostMutation';
 // components
 import EditField from '../EditField';
 import { Form, Col } from 'react-bootstrap';
@@ -10,8 +11,7 @@ import FieldInput from '../FieldInput';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
 import FieldArrayHostUser from './FieldArrayHostUser';
 import IpAddressesList from '../IpAddressesList';
-import { Modal } from 'react-bootstrap';
-
+import ConvertHostModal from './ConvertHostModal';
 // const
 import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -87,9 +87,15 @@ class _HostFormParentClass extends _BasicFormParentClass {
     this.setState({ visibleConvertHostModal: true });
   }
 
-  clickInConvertHostOption(optionName) {
-    console.log(optionName);
-  }
+  clickInConvertHostOption = (optionName) => {
+    ConvertHostMutation(
+      {
+        id: this.props.host.id,
+        slug: optionName,
+      },
+      this,
+    );
+  };
 
   renderConvertHostCTA() {
     const { t } = this.props;
@@ -99,6 +105,17 @@ class _HostFormParentClass extends _BasicFormParentClass {
           <span>{t('host-modal.convert.to.cta')}</span>
         </button>
       </div>
+    );
+  }
+
+  renderConvertHostModal() {
+    const { visibleConvertHostModal } = this.state;
+    return (
+      <ConvertHostModal
+        isVisibleModal={visibleConvertHostModal}
+        onHide={() => this.setState({ visibleConvertHostModal: false })}
+        clickInConvertHostOption={this.clickInConvertHostOption}
+      ></ConvertHostModal>
     );
   }
 
@@ -122,42 +139,8 @@ class _HostFormParentClass extends _BasicFormParentClass {
         >
           <h1>{this.props[kindOfName]}</h1>
         </EditField>
-        {/* {editMode && this.renderConvertHostCTA()} */}
+        {this.IS_UPDATED_FORM && editMode && this.renderConvertHostCTA()}
       </>
-    );
-  }
-
-  renderConvertHostModal() {
-    const { t } = this.props;
-    const { visibleConvertHostModal } = this.state;
-    return (
-      <Modal
-        centered
-        dialogClassName="confirm-modal confirm-modal--convert-host"
-        show={visibleConvertHostModal}
-        onHide={() => this.setState({ visibleConvertHostModal: false })}
-      >
-        <Modal.Header closeButton />
-        <Modal.Body className="confirm-modal__body">
-          <div className="confirm-modal__body__main-text">{t('host-modal.title')}</div>
-          <div className="confirm-modal__body__secondary-text">{t('host-modal.question')}</div>
-          <div className="confirm-modal__body__secondary-text">{t('host-modal.introduction')}</div>
-          <div className="confirm-modal__body__buttons confirm-modal__body__buttons">
-            {['firewall', 'switch', 'pdu', 'router'].map((buttonName) => (
-              <button
-                type="button"
-                className="btn secondary"
-                onClick={() => {
-                  this.clickInConvertHostOption(buttonName);
-                }}
-              >
-                <span>{buttonName}</span>
-              </button>
-            ))}
-            <div className="confirm-modal__body__final-text">{t('host-modal.warning')}</div>
-          </div>
-        </Modal.Body>
-      </Modal>
     );
   }
 

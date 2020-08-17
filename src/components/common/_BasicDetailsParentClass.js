@@ -1,6 +1,7 @@
 import React from 'react';
 import { QueryRenderer } from 'react-relay';
 import environment from '../../createRelayEnvironment';
+import i18n from '../../i18n';
 
 class _BasicDetailsParentClass extends React.Component {
   ID_ENTITY_KEY = '';
@@ -41,7 +42,7 @@ class _BasicDetailsParentClass extends React.Component {
         }}
         render={({ error, props, retry }) => {
           if (error) {
-            return <div>{this.props.t('general.error')}</div>;
+            return <div>{i18n.t('general.error')}</div>;
           } else if (props) {
             const customProps = {
               [this.entityNameProp]: props[this.entityGetDetailsMethodName],
