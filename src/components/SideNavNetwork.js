@@ -19,7 +19,16 @@ import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT, NETWORK_PEERING, NETWORK_OPTI
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
-  NETWORK_EQUIPMENT_ROUTES = ['cables', 'ports', 'switches', 'firewalls', 'external-equipments', 'hosts', 'optical-nodes'];
+  NETWORK_EQUIPMENT_ROUTES = [
+    'cables',
+    'ports',
+    'switches',
+    'firewalls',
+    'routers',
+    'external-equipments',
+    'hosts',
+    'optical-nodes',
+  ];
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
   NETWORK_OPTICAL_ROUTES = [''];
 
@@ -48,6 +57,7 @@ class SideNavNetwork extends React.Component {
         { path: 'ports', i18nText: 'network.sub-menu.equipment/ports' },
         { path: 'switches', i18nText: 'network.sub-menu.equipment/switches' },
         { path: 'firewalls', i18nText: 'network.sub-menu.equipment/firewalls' },
+        { path: 'routers', i18nText: 'network.sub-menu.equipment/routers' },
         { path: 'external-equipments', i18nText: 'network.sub-menu.equipment/external-equipments' },
         { path: 'hosts', i18nText: 'network.sub-menu.equipment/hosts' },
         { path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' },

@@ -1,27 +1,27 @@
-import _PeeringGroupFormParentClass from './_PeeringGroupFormParentClass';
+import _RouterFormParentClass from './_RouterFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import UpdatePeeringGroupMutation from '../../mutations/peeringGroup/UpdatePeeringGroupMutation';
-import ValidationsPeeringGroupForm from '../common/_BasicValidationForm';
+import UpdateRouterMutation from '../../mutations/router/UpdateRouterMutation';
+import ValidationsRouterForm from '../common/_BasicValidationForm';
 // const
-import { UPDATE_PEERINGGROUP_FORM } from '../../utils/constants';
+import { UPDATE_ROUTER_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class PeeringGroupUpdateForm extends _PeeringGroupFormParentClass {
+class RouterUpdateForm extends _RouterFormParentClass {
   IS_UPDATED_FORM = true;
-  FORM_ID = UPDATE_PEERINGGROUP_FORM;
-  MODEL_NAME = 'peeringGroup';
-  ROUTE_LIST_DIRECTION = '/network/peeringGroups';
+  FORM_ID = UPDATE_ROUTER_FORM;
+  MODEL_NAME = 'router';
+  ROUTE_LIST_DIRECTION = '/network/routers';
   state = {
     editMode: false,
   };
   refetch = () => {
     this.props.relay.refetch(
-      { peeringGroupId: this.props.peeringGroup.id }, // Our refetchQuery needs to know the `peeringGroupID`
+      { routerId: this.props.router.id }, // Our refetchQuery needs to know the `routerID`
       null, // We can use the refetchVariables as renderVariables
       () => {
         this.updateBreadcrumbsData();
@@ -29,19 +29,21 @@ class PeeringGroupUpdateForm extends _PeeringGroupFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (peeringGroup) => {
+  handleSubmit = (router) => {
     this.setState({ editMode: false });
-    UpdatePeeringGroupMutation(peeringGroup, this);
+    UpdateRouterMutation(router, this);
   };
   render() {
     let { handleSubmit } = this.props;
     const { editMode } = this.state;
     const showBackButton = isBrowser;
+    const nameIsEditable = false;
     return (
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
-        {this.renderHeader(editMode, showBackButton)}
-        {this.renderDependenciesToggleSection(editMode)}
+        {this.renderHeader(nameIsEditable, showBackButton)}
+        {this.renderModelMainSection(editMode)}
+        {this.renderPortsToggleSection(editMode)}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>
@@ -49,21 +51,22 @@ class PeeringGroupUpdateForm extends _PeeringGroupFormParentClass {
   }
 }
 
-PeeringGroupUpdateForm = reduxForm({
-  validate: ValidationsPeeringGroupForm.validate,
+RouterUpdateForm = reduxForm({
+  validate: ValidationsRouterForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
   },
-})(PeeringGroupUpdateForm);
+})(RouterUpdateForm);
 
-const PeeringGroupUpdateFragment = createRefetchContainer(
-  withTranslation()(PeeringGroupUpdateForm),
+const RouterUpdateFragment = createRefetchContainer(
+  withTranslation()(RouterUpdateForm),
   {
-    peeringGroup: graphql`
-      fragment PeeringGroupUpdateForm_peeringGroup on PeeringGroup {
+    router: graphql`
+      fragment RouterUpdateForm_router on Router {
         id
         name
+        description
         comments {
           id
           user {
@@ -88,12 +91,12 @@ const PeeringGroupUpdateFragment = createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling 'refetch'.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query PeeringGroupUpdateFormRefetchQuery($peeringGroupId: ID!) {
-      getPeeringGroupById(id: $peeringGroupId) {
-        ...PeeringGroupUpdateForm_peeringGroup
+    query RouterUpdateFormRefetchQuery($routerId: ID!) {
+      getRouterById(id: $routerId) {
+        ...RouterUpdateForm_router
       }
     }
   `,
 );
 
-export default PeeringGroupUpdateFragment;
+export default RouterUpdateFragment;

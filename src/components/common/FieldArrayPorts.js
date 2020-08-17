@@ -1,4 +1,4 @@
-import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
+import _BasicFieldArrayParentClass from './_BasicFieldArrayParentClass';
 // Common imports
 import { withTranslation } from 'react-i18next';
 

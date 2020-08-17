@@ -1,12 +1,11 @@
 import React from 'react';
 import { FieldArray, Field, arrayPush } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
-
-// components
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
+// components
+import { Form } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
-import FieldInput from '../FieldInput';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
+import FieldInput from '../FieldInput';
 import FieldArrayPorts from '../common/FieldArrayPorts';
 // const
 import { isBrowser } from 'react-device-detect';
@@ -28,18 +27,28 @@ const renderFormBlockSection = (editable, data, uniqueKey) => {
   );
 };
 
-class _OpticalNodeFormParentClass extends _BasicFormParentClass {
+class _RouterFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
   IS_UPDATED_FORM = false;
   FORM_ID;
-  MODEL_NAME = 'opticalNode';
-  ROUTE_LIST_DIRECTION = '/network/optical-nodes';
+  MODEL_NAME = 'router';
+  ROUTE_LIST_DIRECTION = '/network/routers';
 
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
     if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
       this.props.hideModalConfirm();
       this.updateMutation(this.entityDataToUpdate, this);
+    }
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      if (fieldModalOpened === 'ports') {
+        this.handleSelectedPort(selectionData);
+      }
+      return false;
     }
     return true;
   }
@@ -59,38 +68,10 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
     }
   };
 
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderLocationToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
-      </section>
-    );
-  }
-
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, type, operational_state } = this.props;
-    const generalInfoFirstRow = [
-      {
-        title: t('organization-details.type'),
-        presentContent: type,
-        editContent: (
-          <Dropdown
-            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
-            emptyLabel="Select type"
-            type="optical_node_types"
-            name="type"
-            onChange={(e) => {}}
-          />
-        ),
-      },
+    const { t, operational_state, model, version } = this.props;
+
+    const generalInfo = [
       {
         title: t('network.firewall.details.operational-state'),
         presentContent: operational_state,
@@ -104,6 +85,30 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
           />
         ),
       },
+      {
+        title: t('network.firewall.details.model'),
+        presentContent: model,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="model"
+              component={FieldInput}
+              disabled
+              placeholder={t('general-forms.write-text')}
+            />
+          </Form.Group>
+        ),
+      },
+      {
+        title: t('network.router.details.junos-version'),
+        presentContent: version,
+        editContent: (
+          <Form.Group>
+            <Field type="text" name="version" component={FieldInput} disabled />
+          </Form.Group>
+        ),
+      },
     ];
 
     return (
@@ -114,83 +119,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         <TogglePanel>
           <div>
             <div className="form-internal-block">
-              {generalInfoFirstRow.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
-    );
-  }
-
-  renderLocationToggleSection(editMode = true) {
-    const { t, rack_units, rack_position } = this.props;
-
-    const locationInfoFirstRow = [
-      {
-        title: t('network.switch.details.equipment-height'),
-        presentContent: rack_units,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_units"
-              component={FieldInput}
-              placeholder={t('network.switch.details.write-equipment-height')}
-            />
-          </Form.Group>
-        ),
-      },
-      {
-        title: t('network.switch.details.rack-position'),
-        presentContent: rack_position,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_position"
-              component={FieldInput}
-              placeholder={t('network.switch.details.write-rack-position')}
-            />
-          </Form.Group>
-        ),
-      },
-      {
-        title: t('network.optical-layers.details.rack-back'),
-        presentContent: (
-          <Form.Group>
-            <Field
-              type="checkbox"
-              name="rack_back"
-              component={FieldInput}
-              disabled
-              placeholder={t('network.switch.details.write-rack-position')}
-            />
-          </Form.Group>
-        ),
-        editContent: (
-          <Form.Group>
-            <Field
-              type="checkbox"
-              name="rack_back"
-              component={FieldInput}
-              placeholder={t('network.switch.details.write-rack-position')}
-            />
-          </Form.Group>
-        ),
-      },
-    ];
-
-    return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('network.firewall.details.location')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {locationInfoFirstRow.map((formData, index) => {
+              {generalInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>
@@ -240,4 +169,4 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
   }
 }
 
-export default _OpticalNodeFormParentClass;
+export default _RouterFormParentClass;

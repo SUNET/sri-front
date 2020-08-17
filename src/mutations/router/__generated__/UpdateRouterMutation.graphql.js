@@ -8,9 +8,8 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type CompositeCableMutationInput = {|
-  create_input?: ?CreateCableInput,
-  update_input?: ?UpdateCableInput,
+export type CompositeRouterMutationInput = {|
+  update_input?: ?UpdateRouterInput,
   create_subinputs?: ?$ReadOnlyArray<?CreatePortInput>,
   update_subinputs?: ?$ReadOnlyArray<?UpdatePortInput>,
   delete_subinputs?: ?$ReadOnlyArray<?DeletePortInput>,
@@ -122,20 +121,13 @@ export type CompositeCableMutationInput = {|
   deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
   clientMutationId?: ?string,
 |};
-export type CreateCableInput = {|
-  name: string,
-  cable_type: any,
+export type UpdateRouterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  operational_state: any,
+  relationship_location?: ?number,
   description?: ?string,
-  relationship_provider?: ?any,
-  clientMutationId?: ?string,
-|};
-export type UpdateCableInput = {|
-  name: string,
-  cable_type: any,
-  description?: ?string,
-  relationship_provider?: ?any,
-  relationship_end_a?: ?number,
-  relationship_end_b?: ?number,
   id: string,
   clientMutationId?: ?string,
 |};
@@ -161,6 +153,23 @@ export type DeleteRelationshipInput = {|
   relation_id: number,
   clientMutationId?: ?string,
 |};
+export type CreateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateCableInput = {|
+  name: string,
+  cable_type: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  relationship_end_a?: ?number,
+  relationship_end_b?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type DeleteCableInput = {|
   id: string,
   clientMutationId?: ?string,
@@ -173,16 +182,6 @@ export type CreateRouterInput = {|
   relationship_location?: ?number,
   relationship_ports?: ?string,
   description?: ?string,
-  clientMutationId?: ?string,
-|};
-export type UpdateRouterInput = {|
-  rack_units?: ?number,
-  rack_position?: ?number,
-  rack_back?: ?boolean,
-  operational_state: any,
-  relationship_location?: ?number,
-  description?: ?string,
-  id: string,
   clientMutationId?: ?string,
 |};
 export type DeleteRouterInput = {|
@@ -706,84 +705,76 @@ export type DeletePeeringPartnerInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
-export type CreateCableMutationVariables = {|
-  input: CompositeCableMutationInput
+export type UpdateRouterMutationVariables = {|
+  input: CompositeRouterMutationInput
 |};
-export type CreateCableMutationResponse = {|
-  +composite_cable: ?{|
-    +created: ?{|
+export type UpdateRouterMutationResponse = {|
+  +composite_router: ?{|
+    +updated: ?{|
       +errors: ?$ReadOnlyArray<?{|
         +field: string,
         +messages: $ReadOnlyArray<string>,
       |}>,
-      +cable: ?{|
+      +router: ?{|
         +id: string,
         +name: string,
-        +cable_type: ?{|
-          +value: string
-        |},
         +description: ?string,
-        +provider: ?{|
+        +operational_state: ?{|
           +id: string,
           +name: string,
+          +value: string,
         |},
+        +model: ?string,
+        +version: ?string,
         +ports: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
-          +port_type: ?{|
-            +value: string
+          +__typename: string,
+          +relation_id: ?number,
+          +type: ?{|
+            +name: string
           |},
-          +description: ?string,
-          +connected_to: ?$ReadOnlyArray<?{|
-            +id: string,
-            +name: string,
-          |}>,
         |}>,
       |},
     |}
   |}
 |};
-export type CreateCableMutation = {|
-  variables: CreateCableMutationVariables,
-  response: CreateCableMutationResponse,
+export type UpdateRouterMutation = {|
+  variables: UpdateRouterMutationVariables,
+  response: UpdateRouterMutationResponse,
 |};
 */
 
 
 /*
-mutation CreateCableMutation(
-  $input: CompositeCableMutationInput!
+mutation UpdateRouterMutation(
+  $input: CompositeRouterMutationInput!
 ) {
-  composite_cable(input: $input) {
-    created {
+  composite_router(input: $input) {
+    updated {
       errors {
         field
         messages
       }
-      cable {
+      router {
         id
         name
-        cable_type {
-          value
-          id
-        }
         description
-        provider {
+        operational_state {
           id
           name
+          value
         }
+        model
+        version
         ports {
           id
           name
-          port_type {
-            value
-            id
-          }
-          description
-          connected_to {
-            __typename
-            id
+          __typename
+          relation_id
+          type: port_type {
             name
+            id
           }
         }
       }
@@ -798,7 +789,7 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CompositeCableMutationInput!"
+    "type": "CompositeRouterMutationInput!"
   }
 ],
 v1 = [
@@ -851,83 +842,95 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "value",
+  "name": "description",
   "storageKey": null
 },
-v6 = [
-  (v5/*: any*/)
-],
+v6 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Choice",
+  "kind": "LinkedField",
+  "name": "operational_state",
+  "plural": false,
+  "selections": [
+    (v3/*: any*/),
+    (v4/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "value",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "description",
+  "name": "model",
   "storageKey": null
 },
-v8 = [
-  (v3/*: any*/),
-  (v4/*: any*/)
-],
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "version",
+  "storageKey": null
+},
 v9 = {
   "alias": null,
   "args": null,
-  "concreteType": "Provider",
-  "kind": "LinkedField",
-  "name": "provider",
-  "plural": false,
-  "selections": (v8/*: any*/),
+  "kind": "ScalarField",
+  "name": "__typename",
   "storageKey": null
 },
-v10 = [
-  (v5/*: any*/),
-  (v3/*: any*/)
-];
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "relation_id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CreateCableMutation",
+    "name": "UpdateRouterMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CompositeCableMutationPayload",
+        "concreteType": "CompositeRouterMutationPayload",
         "kind": "LinkedField",
-        "name": "composite_cable",
+        "name": "composite_router",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "CreateCablePayload",
+            "concreteType": "UpdateRouterPayload",
             "kind": "LinkedField",
-            "name": "created",
+            "name": "updated",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Cable",
+                "concreteType": "Router",
                 "kind": "LinkedField",
-                "name": "cable",
+                "name": "router",
                 "plural": false,
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Choice",
-                    "kind": "LinkedField",
-                    "name": "cable_type",
-                    "plural": false,
-                    "selections": (v6/*: any*/),
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
+                  (v6/*: any*/),
                   (v7/*: any*/),
-                  (v9/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -938,25 +941,18 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
+                      (v9/*: any*/),
+                      (v10/*: any*/),
                       {
-                        "alias": null,
+                        "alias": "type",
                         "args": null,
                         "concreteType": "Choice",
                         "kind": "LinkedField",
                         "name": "port_type",
                         "plural": false,
-                        "selections": (v6/*: any*/),
-                        "storageKey": null
-                      },
-                      (v7/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": null,
-                        "kind": "LinkedField",
-                        "name": "connected_to",
-                        "plural": true,
-                        "selections": (v8/*: any*/),
+                        "selections": [
+                          (v4/*: any*/)
+                        ],
                         "storageKey": null
                       }
                     ],
@@ -978,47 +974,39 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CreateCableMutation",
+    "name": "UpdateRouterMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CompositeCableMutationPayload",
+        "concreteType": "CompositeRouterMutationPayload",
         "kind": "LinkedField",
-        "name": "composite_cable",
+        "name": "composite_router",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "CreateCablePayload",
+            "concreteType": "UpdateRouterPayload",
             "kind": "LinkedField",
-            "name": "created",
+            "name": "updated",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Cable",
+                "concreteType": "Router",
                 "kind": "LinkedField",
-                "name": "cable",
+                "name": "router",
                 "plural": false,
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Choice",
-                    "kind": "LinkedField",
-                    "name": "cable_type",
-                    "plural": false,
-                    "selections": (v10/*: any*/),
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
+                  (v6/*: any*/),
                   (v7/*: any*/),
-                  (v9/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -1029,34 +1017,18 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
+                      (v9/*: any*/),
+                      (v10/*: any*/),
                       {
-                        "alias": null,
+                        "alias": "type",
                         "args": null,
                         "concreteType": "Choice",
                         "kind": "LinkedField",
                         "name": "port_type",
                         "plural": false,
-                        "selections": (v10/*: any*/),
-                        "storageKey": null
-                      },
-                      (v7/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": null,
-                        "kind": "LinkedField",
-                        "name": "connected_to",
-                        "plural": true,
                         "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "__typename",
-                            "storageKey": null
-                          },
-                          (v3/*: any*/),
-                          (v4/*: any*/)
+                          (v4/*: any*/),
+                          (v3/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -1077,13 +1049,13 @@ return {
   "params": {
     "id": null,
     "metadata": {},
-    "name": "CreateCableMutation",
+    "name": "UpdateRouterMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCableMutation(\n  $input: CompositeCableMutationInput!\n) {\n  composite_cable(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        cable_type {\n          value\n          id\n        }\n        description\n        provider {\n          id\n          name\n        }\n        ports {\n          id\n          name\n          port_type {\n            value\n            id\n          }\n          description\n          connected_to {\n            __typename\n            id\n            name\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateRouterMutation(\n  $input: CompositeRouterMutationInput!\n) {\n  composite_router(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      router {\n        id\n        name\n        description\n        operational_state {\n          id\n          name\n          value\n        }\n        model\n        version\n        ports {\n          id\n          name\n          __typename\n          relation_id\n          type: port_type {\n            name\n            id\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '293bb9af9bb8e9e557d9c075680fd7d2';
+(node/*: any*/).hash = '6ea8ec2691580f89f02f7b76086d9af0';
 
 module.exports = node;

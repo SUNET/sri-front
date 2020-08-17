@@ -7,6 +7,13 @@ const PeeringGroupDetailsQuery = graphql`
       __typename
       id
       name
+      dependencies {
+        __typename
+        type: __typename
+        relation_id
+        id
+        name
+      }
       comments {
         id
         user {

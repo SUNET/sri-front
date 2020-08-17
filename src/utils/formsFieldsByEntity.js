@@ -106,6 +106,20 @@ const firewall = {
     { type: FIELD_TYPES.SINGLE, name: 'service_tag' },
   ],
 };
+const router = {
+  formName: {
+    create: 'createRouter',
+    update: 'updateRouter',
+  },
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.SINGLE, name: 'model' },
+    { type: FIELD_TYPES.SINGLE, name: 'version' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+  ],
+};
 const externalEquipment = {
   formName: {
     create: 'createExternalEquipment',
@@ -156,7 +170,10 @@ const peeringGroup = {
     update: 'updatePeeringGroup',
   },
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
-  fields: [{ type: FIELD_TYPES.SINGLE, name: 'name' }],
+  fields: [
+    { type: FIELD_TYPES.SINGLE, name: 'name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+  ],
 };
 
 const opticalNode = {
@@ -185,6 +202,7 @@ export default {
   externalEquipment,
   switch: switchEntity,
   firewall,
+  router,
   peeringPartner,
   peeringGroup,
   opticalNode,

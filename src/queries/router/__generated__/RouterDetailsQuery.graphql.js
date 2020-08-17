@@ -8,22 +8,32 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type PeeringGroupUpdateForm_peeringGroup$ref = any;
-export type PeeringGroupDetailsQueryVariables = {|
-  peeringGroupId: string
+type RouterUpdateForm_router$ref = any;
+export type RouterDetailsQueryVariables = {|
+  routerId: string
 |};
-export type PeeringGroupDetailsQueryResponse = {|
-  +getPeeringGroupById: ?{|
-    +__typename: string,
+export type RouterDetailsQueryResponse = {|
+  +getRouterById: ?{|
     +id: string,
     +name: string,
-    +dependencies: ?$ReadOnlyArray<?{|
-      +__typename: string,
-      +type: string,
-      +relation_id: ?number,
+    +description: ?string,
+    +operational_state: ?{|
       +id: string,
       +name: string,
+      +value: string,
+    |},
+    +model: ?string,
+    +version: ?string,
+    +ports: ?$ReadOnlyArray<?{|
+      +id: string,
+      +name: string,
+      +__typename: string,
+      +relation_id: ?number,
+      +type: ?{|
+        +name: string
+      |},
     |}>,
+    +__typename: string,
     +comments: ?$ReadOnlyArray<?{|
       +id: string,
       +user: ?{|
@@ -41,32 +51,43 @@ export type PeeringGroupDetailsQueryResponse = {|
     +modifier: ?{|
       +email: string
     |},
-    +$fragmentRefs: PeeringGroupUpdateForm_peeringGroup$ref,
+    +$fragmentRefs: RouterUpdateForm_router$ref,
   |}
 |};
-export type PeeringGroupDetailsQuery = {|
-  variables: PeeringGroupDetailsQueryVariables,
-  response: PeeringGroupDetailsQueryResponse,
+export type RouterDetailsQuery = {|
+  variables: RouterDetailsQueryVariables,
+  response: RouterDetailsQueryResponse,
 |};
 */
 
 
 /*
-query PeeringGroupDetailsQuery(
-  $peeringGroupId: ID!
+query RouterDetailsQuery(
+  $routerId: ID!
 ) {
-  getPeeringGroupById(id: $peeringGroupId) {
-    ...PeeringGroupUpdateForm_peeringGroup
-    __typename
+  getRouterById(id: $routerId) {
+    ...RouterUpdateForm_router
     id
     name
-    dependencies {
-      __typename
-      type: __typename
-      relation_id
+    description
+    operational_state {
       id
       name
+      value
     }
+    model
+    version
+    ports {
+      id
+      name
+      __typename
+      relation_id
+      type: port_type {
+        name
+        id
+      }
+    }
+    __typename
     comments {
       id
       user {
@@ -90,9 +111,10 @@ query PeeringGroupDetailsQuery(
   }
 }
 
-fragment PeeringGroupUpdateForm_peeringGroup on PeeringGroup {
+fragment RouterUpdateForm_router on Router {
   id
   name
+  description
   comments {
     id
     user {
@@ -121,7 +143,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "peeringGroupId",
+    "name": "routerId",
     "type": "ID!"
   }
 ],
@@ -129,55 +151,47 @@ v1 = [
   {
     "kind": "Variable",
     "name": "id",
-    "variableName": "peeringGroupId"
+    "variableName": "routerId"
   }
 ],
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "name",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "description",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
-  "concreteType": null,
+  "concreteType": "Choice",
   "kind": "LinkedField",
-  "name": "dependencies",
-  "plural": true,
+  "name": "operational_state",
+  "plural": false,
   "selections": [
     (v2/*: any*/),
-    {
-      "alias": "type",
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
+    (v3/*: any*/),
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "relation_id",
+      "name": "value",
       "storageKey": null
-    },
-    (v3/*: any*/),
-    (v4/*: any*/)
+    }
   ],
   "storageKey": null
 },
@@ -185,77 +199,135 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "first_name",
+  "name": "model",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "last_name",
+  "name": "version",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "comment",
+  "name": "__typename",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "submit_date",
+  "name": "relation_id",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "created",
+  "name": "first_name",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "last_name",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "comment",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "submit_date",
+  "storageKey": null
+},
+v14 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "created",
+  "storageKey": null
+},
+v15 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v12 = [
-  (v11/*: any*/)
+v16 = [
+  (v15/*: any*/)
 ],
-v13 = {
+v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v14 = [
-  (v11/*: any*/),
-  (v3/*: any*/)
+v18 = [
+  (v15/*: any*/),
+  (v2/*: any*/)
 ];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "PeeringGroupDetailsQuery",
+    "name": "RouterDetailsQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "PeeringGroup",
+        "concreteType": "Router",
         "kind": "LinkedField",
-        "name": "getPeeringGroupById",
+        "name": "getRouterById",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
+          (v7/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Port",
+            "kind": "LinkedField",
+            "name": "ports",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              {
+                "alias": "type",
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "port_type",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          (v8/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -264,7 +336,7 @@ return {
             "name": "comments",
             "plural": true,
             "selections": [
-              (v3/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -273,17 +345,17 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v6/*: any*/),
-                  (v7/*: any*/)
+                  (v10/*: any*/),
+                  (v11/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v8/*: any*/),
-              (v9/*: any*/)
+              (v12/*: any*/),
+              (v13/*: any*/)
             ],
             "storageKey": null
           },
-          (v10/*: any*/),
+          (v14/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -291,10 +363,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v12/*: any*/),
+            "selections": (v16/*: any*/),
             "storageKey": null
           },
-          (v13/*: any*/),
+          (v17/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -302,13 +374,13 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v12/*: any*/),
+            "selections": (v16/*: any*/),
             "storageKey": null
           },
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "PeeringGroupUpdateForm_peeringGroup"
+            "name": "RouterUpdateForm_router"
           }
         ],
         "storageKey": null
@@ -320,16 +392,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "PeeringGroupDetailsQuery",
+    "name": "RouterDetailsQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "PeeringGroup",
+        "concreteType": "Router",
         "kind": "LinkedField",
-        "name": "getPeeringGroupById",
+        "name": "getRouterById",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
           {
@@ -340,7 +413,7 @@ return {
             "name": "comments",
             "plural": true,
             "selections": [
-              (v3/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -349,18 +422,18 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v6/*: any*/),
-                  (v7/*: any*/),
-                  (v3/*: any*/)
+                  (v10/*: any*/),
+                  (v11/*: any*/),
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v8/*: any*/),
-              (v9/*: any*/)
+              (v12/*: any*/),
+              (v13/*: any*/)
             ],
             "storageKey": null
           },
-          (v10/*: any*/),
+          (v14/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -368,10 +441,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v14/*: any*/),
+            "selections": (v18/*: any*/),
             "storageKey": null
           },
-          (v13/*: any*/),
+          (v17/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -379,11 +452,41 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v14/*: any*/),
+            "selections": (v18/*: any*/),
             "storageKey": null
           },
-          (v2/*: any*/),
-          (v5/*: any*/)
+          (v5/*: any*/),
+          (v6/*: any*/),
+          (v7/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Port",
+            "kind": "LinkedField",
+            "name": "ports",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              {
+                "alias": "type",
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "port_type",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          (v8/*: any*/)
         ],
         "storageKey": null
       }
@@ -392,13 +495,13 @@ return {
   "params": {
     "id": null,
     "metadata": {},
-    "name": "PeeringGroupDetailsQuery",
+    "name": "RouterDetailsQuery",
     "operationKind": "query",
-    "text": "query PeeringGroupDetailsQuery(\n  $peeringGroupId: ID!\n) {\n  getPeeringGroupById(id: $peeringGroupId) {\n    ...PeeringGroupUpdateForm_peeringGroup\n    __typename\n    id\n    name\n    dependencies {\n      __typename\n      type: __typename\n      relation_id\n      id\n      name\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment PeeringGroupUpdateForm_peeringGroup on PeeringGroup {\n  id\n  name\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query RouterDetailsQuery(\n  $routerId: ID!\n) {\n  getRouterById(id: $routerId) {\n    ...RouterUpdateForm_router\n    id\n    name\n    description\n    operational_state {\n      id\n      name\n      value\n    }\n    model\n    version\n    ports {\n      id\n      name\n      __typename\n      relation_id\n      type: port_type {\n        name\n        id\n      }\n    }\n    __typename\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment RouterUpdateForm_router on Router {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '694e78a2c05cf11e5e044d0c9b54f347';
+(node/*: any*/).hash = '9202f56711609bed72babfd46dc3dbe7';
 
 module.exports = node;

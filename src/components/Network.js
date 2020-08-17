@@ -11,6 +11,7 @@ import SearchCablesContainer from '../containers/cable/SearchCable';
 import SearchPortsContainer from '../containers/port/SearchPort';
 import SearchSwitchesContainer from '../containers/switch/SearchSwitch';
 import SearchFirewallsContainer from '../containers/firewall/SearchFirewall';
+import SearchRoutersContainer from '../containers/router/SearchRouter';
 import SearchExternalEquipmentContainer from '../containers/externalEquipment/SearchExternalEquipment';
 import SearchHostsContainer from '../containers/host/SearchHost';
 import SearchPeeringPartnerContainer from '../containers/peeringPartner/SearchPeeringPartner';
@@ -34,6 +35,7 @@ class Network extends React.Component {
             <Route path="/network/ports" component={SearchPortsContainer} />
             <Route path="/network/switches" component={SearchSwitchesContainer} />
             <Route path="/network/firewalls" component={SearchFirewallsContainer} />
+            <Route path="/network/routers" component={SearchRoutersContainer} />
             <Route path="/network/external-equipments" component={SearchExternalEquipmentContainer} />
             <Route path="/network/hosts" component={SearchHostsContainer} />
             <Route path="/network/peering-partners" component={SearchPeeringPartnerContainer} />
