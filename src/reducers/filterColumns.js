@@ -43,6 +43,10 @@ const initialState = {
     all_columns: true,
     columns_visible: {},
   },
+  router: {
+    all_columns: true,
+    columns_visible: {},
+  },
   externalEquipment: {
     all_columns: true,
     columns_visible: {},

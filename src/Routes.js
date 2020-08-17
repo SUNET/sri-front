@@ -31,6 +31,8 @@ const Routes = {
   '/network/switches': 'Switches',
   '/network/switches/create': 'Create Switch',
   '/network/firewalls': 'Firewalls',
+  '/network/routers': 'Routers',
+  '/network/routers/create': 'Create Router',
   '/network/external-equipments': 'External Equipments',
   '/network/external-equipments/create': 'Create External Equipment',
   '/network/hosts': 'Hosts',
