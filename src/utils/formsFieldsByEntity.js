@@ -170,7 +170,10 @@ const peeringGroup = {
     update: 'updatePeeringGroup',
   },
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
-  fields: [{ type: FIELD_TYPES.SINGLE, name: 'name' }],
+  fields: [
+    { type: FIELD_TYPES.SINGLE, name: 'name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+  ],
 };
 
 const opticalNode = {

@@ -17,6 +17,13 @@ export type PeeringGroupDetailsQueryResponse = {|
     +__typename: string,
     +id: string,
     +name: string,
+    +dependencies: ?$ReadOnlyArray<?{|
+      +__typename: string,
+      +type: string,
+      +relation_id: ?number,
+      +id: string,
+      +name: string,
+    |}>,
     +comments: ?$ReadOnlyArray<?{|
       +id: string,
       +user: ?{|
@@ -53,6 +60,13 @@ query PeeringGroupDetailsQuery(
     __typename
     id
     name
+    dependencies {
+      __typename
+      type: __typename
+      relation_id
+      id
+      name
+    }
     comments {
       id
       user {
@@ -142,57 +156,85 @@ v4 = {
 v5 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "first_name",
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "dependencies",
+  "plural": true,
+  "selections": [
+    (v2/*: any*/),
+    {
+      "alias": "type",
+      "args": null,
+      "kind": "ScalarField",
+      "name": "__typename",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "relation_id",
+      "storageKey": null
+    },
+    (v3/*: any*/),
+    (v4/*: any*/)
+  ],
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "last_name",
+  "name": "first_name",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "comment",
+  "name": "last_name",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "submit_date",
+  "name": "comment",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "created",
+  "name": "submit_date",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "created",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v11 = [
-  (v10/*: any*/)
+v12 = [
+  (v11/*: any*/)
 ],
-v12 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "modified",
   "storageKey": null
 },
-v13 = [
-  (v10/*: any*/),
+v14 = [
+  (v11/*: any*/),
   (v3/*: any*/)
 ];
 return {
@@ -213,6 +255,7 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -230,17 +273,17 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v5/*: any*/),
-                  (v6/*: any*/)
+                  (v6/*: any*/),
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v7/*: any*/),
-              (v8/*: any*/)
+              (v8/*: any*/),
+              (v9/*: any*/)
             ],
             "storageKey": null
           },
-          (v9/*: any*/),
+          (v10/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -248,10 +291,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v11/*: any*/),
+            "selections": (v12/*: any*/),
             "storageKey": null
           },
-          (v12/*: any*/),
+          (v13/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -259,7 +302,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v11/*: any*/),
+            "selections": (v12/*: any*/),
             "storageKey": null
           },
           {
@@ -306,18 +349,18 @@ return {
                 "name": "user",
                 "plural": false,
                 "selections": [
-                  (v5/*: any*/),
                   (v6/*: any*/),
+                  (v7/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v7/*: any*/),
-              (v8/*: any*/)
+              (v8/*: any*/),
+              (v9/*: any*/)
             ],
             "storageKey": null
           },
-          (v9/*: any*/),
+          (v10/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -325,10 +368,10 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v13/*: any*/),
+            "selections": (v14/*: any*/),
             "storageKey": null
           },
-          (v12/*: any*/),
+          (v13/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -336,10 +379,11 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v13/*: any*/),
+            "selections": (v14/*: any*/),
             "storageKey": null
           },
-          (v2/*: any*/)
+          (v2/*: any*/),
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
@@ -350,11 +394,11 @@ return {
     "metadata": {},
     "name": "PeeringGroupDetailsQuery",
     "operationKind": "query",
-    "text": "query PeeringGroupDetailsQuery(\n  $peeringGroupId: ID!\n) {\n  getPeeringGroupById(id: $peeringGroupId) {\n    ...PeeringGroupUpdateForm_peeringGroup\n    __typename\n    id\n    name\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment PeeringGroupUpdateForm_peeringGroup on PeeringGroup {\n  id\n  name\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query PeeringGroupDetailsQuery(\n  $peeringGroupId: ID!\n) {\n  getPeeringGroupById(id: $peeringGroupId) {\n    ...PeeringGroupUpdateForm_peeringGroup\n    __typename\n    id\n    name\n    dependencies {\n      __typename\n      type: __typename\n      relation_id\n      id\n      name\n    }\n    comments {\n      id\n      user {\n        first_name\n        last_name\n        id\n      }\n      comment\n      submit_date\n    }\n    created\n    creator {\n      email\n      id\n    }\n    modified\n    modifier {\n      email\n      id\n    }\n  }\n}\n\nfragment PeeringGroupUpdateForm_peeringGroup on PeeringGroup {\n  id\n  name\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '898dd4038b57b0800cc3dddb399929c9';
+(node/*: any*/).hash = '694e78a2c05cf11e5e044d0c9b54f347';
 
 module.exports = node;
