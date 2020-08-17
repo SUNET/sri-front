@@ -249,6 +249,7 @@
             "notify.network/ports-created-success": "Port created successfully",
             "notify.network/switches-created-success": "Switch created successfully",
             "notify.network/optical-nodes-created-success": "Optical Node created successfully",
+            "notify.network/convert-host-success": "Host converted successfully",
             "notify.changes-saved": "Changes saved",
             "notify.error": "An error has occurred",
             "general.error": "Server error, redirecting to login please wait",
