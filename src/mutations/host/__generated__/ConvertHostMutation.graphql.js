@@ -18,7 +18,11 @@ export type ConvertHostMutationVariables = {|
 |};
 export type ConvertHostMutationResponse = {|
   +convert_host: ?{|
-    +success: boolean
+    +success: boolean,
+    +new_id: ?string,
+    +new_type: ?{|
+      +slug: string
+    |},
   |}
 |};
 export type ConvertHostMutation = {|
@@ -34,6 +38,11 @@ mutation ConvertHostMutation(
 ) {
   convert_host(input: $input) {
     success
+    new_id
+    new_type {
+      slug
+      id
+    }
   }
 }
 */
@@ -49,37 +58,65 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "ConvertHostPayload",
-    "kind": "LinkedField",
-    "name": "convert_host",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "success",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "success",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "new_id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ConvertHostMutation",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "ConvertHostPayload",
+        "kind": "LinkedField",
+        "name": "convert_host",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "new_type",
+            "plural": false,
+            "selections": [
+              (v4/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation"
   },
   "kind": "Request",
@@ -87,18 +124,51 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ConvertHostMutation",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "ConvertHostPayload",
+        "kind": "LinkedField",
+        "name": "convert_host",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "NINodeType",
+            "kind": "LinkedField",
+            "name": "new_type",
+            "plural": false,
+            "selections": [
+              (v4/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "id",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
     "id": null,
     "metadata": {},
     "name": "ConvertHostMutation",
     "operationKind": "mutation",
-    "text": "mutation ConvertHostMutation(\n  $input: ConvertHostInput!\n) {\n  convert_host(input: $input) {\n    success\n  }\n}\n"
+    "text": "mutation ConvertHostMutation(\n  $input: ConvertHostInput!\n) {\n  convert_host(input: $input) {\n    success\n    new_id\n    new_type {\n      slug\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c66845e986871bf0e26cb18d34618b63';
+(node/*: any*/).hash = '70a59d00af05f793a749b881ffdde718';
 
 module.exports = node;

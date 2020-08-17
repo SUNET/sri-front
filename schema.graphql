@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Wed Aug 12 2020 11:15:36 GMT+0200 (GMT+02:00)
+# timestamp: Mon Aug 17 2020 11:07:49 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -2185,6 +2185,8 @@ input ConvertHostInput {
 
 type ConvertHostPayload {
   success: Boolean!
+  new_id: ID
+  new_type: NINodeType
   clientMutationId: String
 }
 

@@ -4,10 +4,24 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 
+const getUrlBySlug = (slugName, idEntity) => {
+  const entityUrl = {
+    firewall: `/network/firewalls/${idEntity}`,
+    switch: `/network/switches/${idEntity}`,
+    pdu: `/network/pdus/${idEntity}`,
+    router: `/network/routers/${idEntity}`,
+  };
+  return entityUrl[slugName];
+};
+
 const mutation = graphql`
   mutation ConvertHostMutation($input: ConvertHostInput!) {
     convert_host(input: $input) {
       success
+      new_id
+      new_type {
+        slug
+      }
     }
   }
 `;
@@ -23,7 +37,7 @@ function ConvertHostMutation(data, form) {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      const { success } = response.convert_host;
+      const { success, new_id, new_type } = response.convert_host;
       if (!success) {
         form.props.notify(i18n.t('notify.error'), 'error');
         return ['error'];
@@ -31,8 +45,7 @@ function ConvertHostMutation(data, form) {
 
       form.props.notify(i18n.t('notify.network/convert-host-success'), 'success');
       if (form.props.history) {
-        // form.props.history.push(`/network/${data.slug}s`);
-        form.props.history.push('/network/hosts');
+        form.props.history.push(getUrlBySlug(new_type.slug, new_id));
       }
     },
     onError: (errors) => console.error(errors),
