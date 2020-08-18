@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import UpdateRouterMutation from '../../mutations/router/UpdateRouterMutation';
-import ValidationsRouterForm from '../common/_BasicValidationForm';
+import ValidationsRouterForm from './ValidationsRouteForm';
 // const
 import { UPDATE_ROUTER_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';

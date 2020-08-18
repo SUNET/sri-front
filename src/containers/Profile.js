@@ -4,6 +4,7 @@ import { formValueSelector, getFormMeta, getFormSyncErrors } from "redux-form";
 import * as actions from "../actions/Notify";
 
 const mapStateToProps = (state, props) => {
+    console.log('state: ', state);
     const updateGroupSelector = formValueSelector("profile");
 
     if (state.app.user) {
