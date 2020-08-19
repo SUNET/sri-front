@@ -48,6 +48,7 @@ export const CONTACT_WORK = 'work';
 export const UNLINK = 'unlink';
 export const REMOVE = 'remove';
 export const SAVED = 'saved';
+export const CREATE = 'created';
 export const CHANGED = 'changed';
 
 // TIMES WAIT
