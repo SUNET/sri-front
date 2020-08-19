@@ -7,7 +7,7 @@ import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
 import FieldArrayPorts from '../common/FieldArrayPorts';
-import BulPort from './BulkPort';
+import BulPort from '../common/BulkPort';
 import { SAVED } from '../../utils/constants';
 
 // const
