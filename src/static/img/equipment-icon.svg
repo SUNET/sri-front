@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" viewBox="0 0 19 19">
-    <g fill="none" fill-rule="evenodd" stroke="currentColor" opacity=".5" transform="translate(1)">
+    <g fill="none" fill-rule="evenodd" stroke="currentColor" transform="translate(1)">
         <rect width="3.04" height="2.28" x="7.8" y="0.5" rx="0.2"/>
         <rect width="4.56" height="6.08" x="7" y="2.78" rx="0.2"/>
         <rect width="1" height="10.64" x="8.75" y="9" rx="0"/>

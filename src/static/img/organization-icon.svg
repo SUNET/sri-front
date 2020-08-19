@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
-    <g fill="none" fill-rule="evenodd" stroke="currentColor" opacity=".5">
+    <g fill="none" fill-rule="evenodd" stroke="currentColor">
         <rect width="3.26" height="3.26" x="15.71" y="12.99" stroke-width="1.5" rx="1.5"/>
         <rect width="3.26" height="3.26" x="8.23" y="12.99" stroke-width="1.5" rx="1.5"/>
         <rect width="3.26" height="3.26" x=".75" y="12.99" stroke-width="1.5" rx="1.5"/>
