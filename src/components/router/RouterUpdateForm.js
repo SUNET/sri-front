@@ -44,6 +44,7 @@ class RouterUpdateForm extends _RouterFormParentClass {
         {this.renderHeader(nameIsEditable, showBackButton)}
         {this.renderModelMainSection(editMode)}
         {this.renderPortsToggleSection(editMode)}
+        {editMode && this.renderBulkPortToggleSection()}
         {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>

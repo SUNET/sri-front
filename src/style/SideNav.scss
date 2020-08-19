@@ -47,6 +47,9 @@
                     background-color: rgba(#fff, 0.1);
                     color: #fff;
                     margin-bottom: 0;
+                    svg {
+                        opacity: 0.5;
+                    }
                 }
 
                 &.with-arrow {

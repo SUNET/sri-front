@@ -63,14 +63,14 @@ class SideNavNetwork extends React.Component {
         { path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' },
       ],
     },
-    // {
-    //   header: {
-    //     name: NETWORK_OPTICAL,
-    //     icon: 'peering-icon.svg',
-    //     i18nText: 'network.optical-layers.name',
-    //   },
-    //   items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
-    // },
+    {
+      header: {
+        name: NETWORK_OPTICAL,
+        icon: 'optical_layers.svg',
+        i18nText: 'network.optical-layers.name',
+      },
+      items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
+    },
     {
       header: {
         name: NETWORK_PEERING,
@@ -140,7 +140,7 @@ class SideNavNetwork extends React.Component {
     return (
       <Col sm={2} className="pl-0">
         <Nav className="flex-column side-nav">
-          <Accordion preExpanded={[this.matchUrl()]} className="accordion">
+          <Accordion preExpanded={[this.matchUrl()]} allowZeroExpanded className="accordion">
             {this.MENU_DATA.map((data) => {
               const { header, items } = data;
               return this.renderAccordionItem(header.name, header.icon, header.i18nText, items);

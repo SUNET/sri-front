@@ -3,7 +3,7 @@ import { change } from 'redux-form';
 import CopyToClipboard from '../CopyToClipboard';
 import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { isBrowser, isMobile } from 'react-device-detect';
-import { UNLINK, SAVED, REMOVE } from '../../utils/constants';
+import { UNLINK, SAVED, REMOVE, CREATE } from '../../utils/constants';
 import ReactSVG from 'react-svg';
 
 import DropdownSearch from '../DropdownSearch';
@@ -263,7 +263,7 @@ class _BasicFieldArrayParentClass extends React.Component {
           </div>
         </OverlayTrigger>
 
-        {willHaveModalsButtons && (
+        {rowDetails.data.status !== CREATE && willHaveModalsButtons && (
           <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
             <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
               <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
@@ -271,7 +271,7 @@ class _BasicFieldArrayParentClass extends React.Component {
           </OverlayTrigger>
         )}
 
-        {willHaveModalsButtons && (
+        {rowDetails.data.status !== CREATE && willHaveModalsButtons && (
           <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
             <div
               className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}

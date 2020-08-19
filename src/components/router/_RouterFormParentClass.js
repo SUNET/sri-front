@@ -7,6 +7,9 @@ import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
 import FieldArrayPorts from '../common/FieldArrayPorts';
+import BulPort from '../common/BulkPort';
+import { SAVED } from '../../utils/constants';
+
 // const
 import { isBrowser } from 'react-device-detect';
 
@@ -61,7 +64,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
           __typename: entity.__typename,
           name: entity.name,
           id: entity.id,
-          status: 'saved',
+          status: SAVED,
         };
         this.props.dispatch(arrayPush(this.props.form, 'ports', newEntity));
       });
@@ -162,6 +165,28 @@ class _RouterFormParentClass extends _BasicFormParentClass {
               rerenderOnEveryChange={true}
               entityRemovedId={this.state.fieldModalOpened === 'ports' ? entityRemovedId : null}
             />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderBulkPortToggleSection() {
+    const { t } = this.props;
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('network.router.details.bulk-port')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <BulPort
+              handleBulkPortResponse={(dataForBulkPortCreate) => {
+                dataForBulkPortCreate.forEach((portData) => {
+                  this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
+                });
+              }}
+            ></BulPort>
           </TogglePanel>
         </ToggleSection>
       </section>

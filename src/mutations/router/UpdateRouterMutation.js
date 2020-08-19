@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { UNLINK, REMOVE, SAVED } from '../../utils/constants';
+import { UNLINK, REMOVE, SAVED, CREATE } from '../../utils/constants';
 
 const mutation = graphql`
   mutation UpdateRouterMutation($input: CompositeRouterMutationInput!) {
@@ -42,6 +42,10 @@ const mutation = graphql`
 `;
 
 export default function UpdateRouterMutation(router, form) {
+  const portsToCreate = router.ports
+    ? router.ports.filter((port) => port.status === CREATE).map((e) => ({ name: e.name, port_type: e.type.value }))
+    : [];
+
   const portsToSaved = router.ports
     ? router.ports.filter((port) => port.status === SAVED).map((e) => ({ id: e.id, name: e.name }))
     : [];
@@ -53,6 +57,7 @@ export default function UpdateRouterMutation(router, form) {
   const portsToRemove = router.ports
     ? router.ports.filter((port) => port.status === REMOVE).map((e) => ({ id: e.id }))
     : [];
+
   const variables = {
     input: {
       update_input: {
@@ -63,6 +68,7 @@ export default function UpdateRouterMutation(router, form) {
       update_has_port: portsToSaved,
       unlink_subinputs: portsToUnlink,
       deleted_has_port: portsToRemove,
+      create_has_port: portsToCreate,
     },
   };
 
