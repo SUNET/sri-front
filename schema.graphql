@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Mon Aug 17 2020 13:10:36 GMT+0200 (GMT+02:00)
+# timestamp: Wed Aug 19 2020 14:59:30 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -476,6 +476,12 @@ input CompositeCableMutationInput {
   create_has_opticalnode: [CreateOpticalNodeInput]
   update_has_opticalnode: [UpdateOpticalNodeInput]
   deleted_has_opticalnode: [DeleteOpticalNodeInput]
+  create_has_odf: [CreateOdfInput]
+  update_has_odf: [UpdateOdfInput]
+  deleted_has_odf: [DeleteOdfInput]
+  create_has_opticalfilter: [CreateOpticalFilterInput]
+  update_has_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_has_opticalfilter: [DeleteOpticalFilterInput]
   create_part_of_group: CreateGroupInput
   update_part_of_group: UpdateGroupInput
   deleted_part_of_group: DeleteGroupInput
@@ -518,6 +524,12 @@ input CompositeCableMutationInput {
   create_parent_opticalnode: [CreateOpticalNodeInput]
   update_parent_opticalnode: [UpdateOpticalNodeInput]
   deleted_parent_opticalnode: [DeleteOpticalNodeInput]
+  create_parent_odf: [CreateOdfInput]
+  update_parent_odf: [UpdateOdfInput]
+  deleted_parent_odf: [DeleteOdfInput]
+  create_parent_opticalfilter: [CreateOpticalFilterInput]
+  update_parent_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -591,6 +603,12 @@ type CompositeCableMutationPayload {
   has_opticalnode_created: [CreateOpticalNodePayload]
   has_opticalnode_updated: [UpdateOpticalNodePayload]
   has_opticalnode_deleted: [DeleteOpticalNodePayload]
+  has_odf_created: [CreateOdfPayload]
+  has_odf_updated: [UpdateOdfPayload]
+  has_odf_deleted: [DeleteOdfPayload]
+  has_opticalfilter_created: [CreateOpticalFilterPayload]
+  has_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  has_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   part_of_group_created: CreateGroupPayload
   part_of_group_updated: UpdateGroupPayload
   part_of_group_deleted: DeleteGroupPayload
@@ -633,6 +651,12 @@ type CompositeCableMutationPayload {
   parent_opticalnode_created: [CreateOpticalNodePayload]
   parent_opticalnode_updated: [UpdateOpticalNodePayload]
   parent_opticalnode_deleted: [DeleteOpticalNodePayload]
+  parent_odf_created: [CreateOdfPayload]
+  parent_odf_updated: [UpdateOdfPayload]
+  parent_odf_deleted: [DeleteOdfPayload]
+  parent_opticalfilter_created: [CreateOpticalFilterPayload]
+  parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -731,6 +755,12 @@ input CompositeContactMutationInput {
   create_owns_opticalnode: [CreateOpticalNodeInput]
   update_owns_opticalnode: [UpdateOpticalNodeInput]
   deleted_owns_opticalnode: [DeleteOpticalNodeInput]
+  create_owns_odf: [CreateOdfInput]
+  update_owns_odf: [UpdateOdfInput]
+  deleted_owns_odf: [DeleteOdfInput]
+  create_owns_opticalfilter: [CreateOpticalFilterInput]
+  update_owns_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_owns_opticalfilter: [DeleteOpticalFilterInput]
   clientMutationId: String
 }
 
@@ -787,6 +817,12 @@ type CompositeContactMutationPayload {
   owns_opticalnode_created: [CreateOpticalNodePayload]
   owns_opticalnode_updated: [UpdateOpticalNodePayload]
   owns_opticalnode_deleted: [DeleteOpticalNodePayload]
+  owns_odf_created: [CreateOdfPayload]
+  owns_odf_updated: [UpdateOdfPayload]
+  owns_odf_deleted: [DeleteOdfPayload]
+  owns_opticalfilter_created: [CreateOpticalFilterPayload]
+  owns_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  owns_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   clientMutationId: String
 }
 
@@ -816,6 +852,12 @@ input CompositeExternalEquipmentMutationInput {
   create_has_opticalnode: [CreateOpticalNodeInput]
   update_has_opticalnode: [UpdateOpticalNodeInput]
   deleted_has_opticalnode: [DeleteOpticalNodeInput]
+  create_has_odf: [CreateOdfInput]
+  update_has_odf: [UpdateOdfInput]
+  deleted_has_odf: [DeleteOdfInput]
+  create_has_opticalfilter: [CreateOpticalFilterInput]
+  update_has_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_has_opticalfilter: [DeleteOpticalFilterInput]
   create_part_of_group: CreateGroupInput
   update_part_of_group: UpdateGroupInput
   deleted_part_of_group: DeleteGroupInput
@@ -858,6 +900,12 @@ input CompositeExternalEquipmentMutationInput {
   create_parent_opticalnode: [CreateOpticalNodeInput]
   update_parent_opticalnode: [UpdateOpticalNodeInput]
   deleted_parent_opticalnode: [DeleteOpticalNodeInput]
+  create_parent_odf: [CreateOdfInput]
+  update_parent_odf: [UpdateOdfInput]
+  deleted_parent_odf: [DeleteOdfInput]
+  create_parent_opticalfilter: [CreateOpticalFilterInput]
+  update_parent_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -929,6 +977,12 @@ type CompositeExternalEquipmentMutationPayload {
   has_opticalnode_created: [CreateOpticalNodePayload]
   has_opticalnode_updated: [UpdateOpticalNodePayload]
   has_opticalnode_deleted: [DeleteOpticalNodePayload]
+  has_odf_created: [CreateOdfPayload]
+  has_odf_updated: [UpdateOdfPayload]
+  has_odf_deleted: [DeleteOdfPayload]
+  has_opticalfilter_created: [CreateOpticalFilterPayload]
+  has_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  has_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   part_of_group_created: CreateGroupPayload
   part_of_group_updated: UpdateGroupPayload
   part_of_group_deleted: DeleteGroupPayload
@@ -971,6 +1025,12 @@ type CompositeExternalEquipmentMutationPayload {
   parent_opticalnode_created: [CreateOpticalNodePayload]
   parent_opticalnode_updated: [UpdateOpticalNodePayload]
   parent_opticalnode_deleted: [DeleteOpticalNodePayload]
+  parent_odf_created: [CreateOdfPayload]
+  parent_odf_updated: [UpdateOdfPayload]
+  parent_odf_deleted: [DeleteOdfPayload]
+  parent_opticalfilter_created: [CreateOpticalFilterPayload]
+  parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -1100,6 +1160,12 @@ input CompositeGroupMutationInput {
   create_part_of_opticalnode: CreateOpticalNodeInput
   update_part_of_opticalnode: UpdateOpticalNodeInput
   deleted_part_of_opticalnode: DeleteOpticalNodeInput
+  create_part_of_odf: CreateOdfInput
+  update_part_of_odf: UpdateOdfInput
+  deleted_part_of_odf: DeleteOdfInput
+  create_part_of_opticalfilter: CreateOpticalFilterInput
+  update_part_of_opticalfilter: UpdateOpticalFilterInput
+  deleted_part_of_opticalfilter: DeleteOpticalFilterInput
   create_dependencies_group: [CreateGroupInput]
   update_dependencies_group: [UpdateGroupInput]
   deleted_dependencies_group: [DeleteGroupInput]
@@ -1139,6 +1205,12 @@ input CompositeGroupMutationInput {
   create_dependencies_opticalnode: [CreateOpticalNodeInput]
   update_dependencies_opticalnode: [UpdateOpticalNodeInput]
   deleted_dependencies_opticalnode: [DeleteOpticalNodeInput]
+  create_dependencies_odf: [CreateOdfInput]
+  update_dependencies_odf: [UpdateOdfInput]
+  deleted_dependencies_odf: [DeleteOdfInput]
+  create_dependencies_opticalfilter: [CreateOpticalFilterInput]
+  update_dependencies_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_dependencies_opticalfilter: [DeleteOpticalFilterInput]
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
@@ -1194,6 +1266,12 @@ type CompositeGroupMutationPayload {
   part_of_opticalnode_created: CreateOpticalNodePayload
   part_of_opticalnode_updated: UpdateOpticalNodePayload
   part_of_opticalnode_deleted: DeleteOpticalNodePayload
+  part_of_odf_created: CreateOdfPayload
+  part_of_odf_updated: UpdateOdfPayload
+  part_of_odf_deleted: DeleteOdfPayload
+  part_of_opticalfilter_created: CreateOpticalFilterPayload
+  part_of_opticalfilter_updated: UpdateOpticalFilterPayload
+  part_of_opticalfilter_deleted: DeleteOpticalFilterPayload
   dependencies_group_created: [CreateGroupPayload]
   dependencies_group_updated: [UpdateGroupPayload]
   dependencies_group_deleted: [DeleteGroupPayload]
@@ -1233,6 +1311,12 @@ type CompositeGroupMutationPayload {
   dependencies_opticalnode_created: [CreateOpticalNodePayload]
   dependencies_opticalnode_updated: [UpdateOpticalNodePayload]
   dependencies_opticalnode_deleted: [DeleteOpticalNodePayload]
+  dependencies_odf_created: [CreateOdfPayload]
+  dependencies_odf_updated: [UpdateOdfPayload]
+  dependencies_odf_deleted: [DeleteOdfPayload]
+  dependencies_opticalfilter_created: [CreateOpticalFilterPayload]
+  dependencies_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  dependencies_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1316,6 +1400,142 @@ type CompositeHostMutationPayload {
   clientMutationId: String
 }
 
+input CompositeODFMutationInput {
+  create_input: CreateOdfInput
+  update_input: UpdateOdfInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_has_port: [CreatePortInput]
+  update_has_port: [UpdatePortInput]
+  deleted_has_port: [DeletePortInput]
+  create_has_cable: [CreateCableInput]
+  update_has_cable: [UpdateCableInput]
+  deleted_has_cable: [DeleteCableInput]
+  create_has_router: [CreateRouterInput]
+  update_has_router: [UpdateRouterInput]
+  deleted_has_router: [DeleteRouterInput]
+  create_has_switch: [CreateSwitchInput]
+  update_has_switch: [UpdateSwitchInput]
+  deleted_has_switch: [DeleteSwitchInput]
+  create_has_firewall: [CreateFirewallInput]
+  update_has_firewall: [UpdateFirewallInput]
+  deleted_has_firewall: [DeleteFirewallInput]
+  create_has_externalequipment: [CreateExternalEquipmentInput]
+  update_has_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_has_externalequipment: [DeleteExternalEquipmentInput]
+  create_has_opticalnode: [CreateOpticalNodeInput]
+  update_has_opticalnode: [UpdateOpticalNodeInput]
+  deleted_has_opticalnode: [DeleteOpticalNodeInput]
+  create_has_odf: [CreateOdfInput]
+  update_has_odf: [UpdateOdfInput]
+  deleted_has_odf: [DeleteOdfInput]
+  create_has_opticalfilter: [CreateOpticalFilterInput]
+  update_has_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_has_opticalfilter: [DeleteOpticalFilterInput]
+  clientMutationId: String
+}
+
+type CompositeODFMutationPayload {
+  created: CreateOdfPayload
+  updated: UpdateOdfPayload
+  unlinked: [DeleteRelationshipPayload]
+  has_port_created: [CreatePortPayload]
+  has_port_updated: [UpdatePortPayload]
+  has_port_deleted: [DeletePortPayload]
+  has_cable_created: [CreateCablePayload]
+  has_cable_updated: [UpdateCablePayload]
+  has_cable_deleted: [DeleteCablePayload]
+  has_router_created: [CreateRouterPayload]
+  has_router_updated: [UpdateRouterPayload]
+  has_router_deleted: [DeleteRouterPayload]
+  has_switch_created: [CreateSwitchPayload]
+  has_switch_updated: [UpdateSwitchPayload]
+  has_switch_deleted: [DeleteSwitchPayload]
+  has_firewall_created: [CreateFirewallPayload]
+  has_firewall_updated: [UpdateFirewallPayload]
+  has_firewall_deleted: [DeleteFirewallPayload]
+  has_externalequipment_created: [CreateExternalEquipmentPayload]
+  has_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  has_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  has_opticalnode_created: [CreateOpticalNodePayload]
+  has_opticalnode_updated: [UpdateOpticalNodePayload]
+  has_opticalnode_deleted: [DeleteOpticalNodePayload]
+  has_odf_created: [CreateOdfPayload]
+  has_odf_updated: [UpdateOdfPayload]
+  has_odf_deleted: [DeleteOdfPayload]
+  has_opticalfilter_created: [CreateOpticalFilterPayload]
+  has_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  has_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  clientMutationId: String
+}
+
+input CompositeOpticalFilterMutationInput {
+  create_input: CreateOpticalFilterInput
+  update_input: UpdateOpticalFilterInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_has_port: [CreatePortInput]
+  update_has_port: [UpdatePortInput]
+  deleted_has_port: [DeletePortInput]
+  create_has_cable: [CreateCableInput]
+  update_has_cable: [UpdateCableInput]
+  deleted_has_cable: [DeleteCableInput]
+  create_has_router: [CreateRouterInput]
+  update_has_router: [UpdateRouterInput]
+  deleted_has_router: [DeleteRouterInput]
+  create_has_switch: [CreateSwitchInput]
+  update_has_switch: [UpdateSwitchInput]
+  deleted_has_switch: [DeleteSwitchInput]
+  create_has_firewall: [CreateFirewallInput]
+  update_has_firewall: [UpdateFirewallInput]
+  deleted_has_firewall: [DeleteFirewallInput]
+  create_has_externalequipment: [CreateExternalEquipmentInput]
+  update_has_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_has_externalequipment: [DeleteExternalEquipmentInput]
+  create_has_opticalnode: [CreateOpticalNodeInput]
+  update_has_opticalnode: [UpdateOpticalNodeInput]
+  deleted_has_opticalnode: [DeleteOpticalNodeInput]
+  create_has_odf: [CreateOdfInput]
+  update_has_odf: [UpdateOdfInput]
+  deleted_has_odf: [DeleteOdfInput]
+  create_has_opticalfilter: [CreateOpticalFilterInput]
+  update_has_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_has_opticalfilter: [DeleteOpticalFilterInput]
+  clientMutationId: String
+}
+
+type CompositeOpticalFilterMutationPayload {
+  created: CreateOpticalFilterPayload
+  updated: UpdateOpticalFilterPayload
+  unlinked: [DeleteRelationshipPayload]
+  has_port_created: [CreatePortPayload]
+  has_port_updated: [UpdatePortPayload]
+  has_port_deleted: [DeletePortPayload]
+  has_cable_created: [CreateCablePayload]
+  has_cable_updated: [UpdateCablePayload]
+  has_cable_deleted: [DeleteCablePayload]
+  has_router_created: [CreateRouterPayload]
+  has_router_updated: [UpdateRouterPayload]
+  has_router_deleted: [DeleteRouterPayload]
+  has_switch_created: [CreateSwitchPayload]
+  has_switch_updated: [UpdateSwitchPayload]
+  has_switch_deleted: [DeleteSwitchPayload]
+  has_firewall_created: [CreateFirewallPayload]
+  has_firewall_updated: [UpdateFirewallPayload]
+  has_firewall_deleted: [DeleteFirewallPayload]
+  has_externalequipment_created: [CreateExternalEquipmentPayload]
+  has_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  has_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  has_opticalnode_created: [CreateOpticalNodePayload]
+  has_opticalnode_updated: [UpdateOpticalNodePayload]
+  has_opticalnode_deleted: [DeleteOpticalNodePayload]
+  has_odf_created: [CreateOdfPayload]
+  has_odf_updated: [UpdateOdfPayload]
+  has_odf_deleted: [DeleteOdfPayload]
+  has_opticalfilter_created: [CreateOpticalFilterPayload]
+  has_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  has_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  clientMutationId: String
+}
+
 input CompositeOpticalNodeMutationInput {
   delete_owner: DeleteOwnerMutationInput
   create_input: CreateOpticalNodeInput
@@ -1342,6 +1562,12 @@ input CompositeOpticalNodeMutationInput {
   create_has_opticalnode: [CreateOpticalNodeInput]
   update_has_opticalnode: [UpdateOpticalNodeInput]
   deleted_has_opticalnode: [DeleteOpticalNodeInput]
+  create_has_odf: [CreateOdfInput]
+  update_has_odf: [UpdateOdfInput]
+  deleted_has_odf: [DeleteOdfInput]
+  create_has_opticalfilter: [CreateOpticalFilterInput]
+  update_has_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_has_opticalfilter: [DeleteOpticalFilterInput]
   clientMutationId: String
 }
 
@@ -1371,6 +1597,12 @@ type CompositeOpticalNodeMutationPayload {
   has_opticalnode_created: [CreateOpticalNodePayload]
   has_opticalnode_updated: [UpdateOpticalNodePayload]
   has_opticalnode_deleted: [DeleteOpticalNodePayload]
+  has_odf_created: [CreateOdfPayload]
+  has_odf_updated: [UpdateOdfPayload]
+  has_odf_deleted: [DeleteOdfPayload]
+  has_opticalfilter_created: [CreateOpticalFilterPayload]
+  has_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  has_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   clientMutationId: String
 }
 
@@ -1426,6 +1658,12 @@ input CompositeOrganizationMutationInput {
   create_owns_opticalnode: [CreateOpticalNodeInput]
   update_owns_opticalnode: [UpdateOpticalNodeInput]
   deleted_owns_opticalnode: [DeleteOpticalNodeInput]
+  create_owns_odf: [CreateOdfInput]
+  update_owns_odf: [UpdateOdfInput]
+  deleted_owns_odf: [DeleteOdfInput]
+  create_owns_opticalfilter: [CreateOpticalFilterInput]
+  update_owns_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_owns_opticalfilter: [DeleteOpticalFilterInput]
   clientMutationId: String
 }
 
@@ -1481,6 +1719,12 @@ type CompositeOrganizationMutationPayload {
   owns_opticalnode_created: [CreateOpticalNodePayload]
   owns_opticalnode_updated: [UpdateOpticalNodePayload]
   owns_opticalnode_deleted: [DeleteOpticalNodePayload]
+  owns_odf_created: [CreateOdfPayload]
+  owns_odf_updated: [UpdateOdfPayload]
+  owns_odf_deleted: [DeleteOdfPayload]
+  owns_opticalfilter_created: [CreateOpticalFilterPayload]
+  owns_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  owns_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   clientMutationId: String
 }
 
@@ -1526,6 +1770,12 @@ input CompositePeeringGroupMutationInput {
   create_dependencies_opticalnode: [CreateOpticalNodeInput]
   update_dependencies_opticalnode: [UpdateOpticalNodeInput]
   deleted_dependencies_opticalnode: [DeleteOpticalNodeInput]
+  create_dependencies_odf: [CreateOdfInput]
+  update_dependencies_odf: [UpdateOdfInput]
+  deleted_dependencies_odf: [DeleteOdfInput]
+  create_dependencies_opticalfilter: [CreateOpticalFilterInput]
+  update_dependencies_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_dependencies_opticalfilter: [DeleteOpticalFilterInput]
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
@@ -1574,6 +1824,12 @@ type CompositePeeringGroupMutationPayload {
   dependencies_opticalnode_created: [CreateOpticalNodePayload]
   dependencies_opticalnode_updated: [UpdateOpticalNodePayload]
   dependencies_opticalnode_deleted: [DeleteOpticalNodePayload]
+  dependencies_odf_created: [CreateOdfPayload]
+  dependencies_odf_updated: [UpdateOdfPayload]
+  dependencies_odf_deleted: [DeleteOdfPayload]
+  dependencies_opticalfilter_created: [CreateOpticalFilterPayload]
+  dependencies_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  dependencies_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1608,6 +1864,12 @@ input CompositePortMutationInput {
   create_parent_opticalnode: [CreateOpticalNodeInput]
   update_parent_opticalnode: [UpdateOpticalNodeInput]
   deleted_parent_opticalnode: [DeleteOpticalNodeInput]
+  create_parent_odf: [CreateOdfInput]
+  update_parent_odf: [UpdateOdfInput]
+  deleted_parent_odf: [DeleteOdfInput]
+  create_parent_opticalfilter: [CreateOpticalFilterInput]
+  update_parent_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
   clientMutationId: String
 }
 
@@ -1639,6 +1901,12 @@ type CompositePortMutationPayload {
   parent_opticalnode_created: [CreateOpticalNodePayload]
   parent_opticalnode_updated: [UpdateOpticalNodePayload]
   parent_opticalnode_deleted: [DeleteOpticalNodePayload]
+  parent_odf_created: [CreateOdfPayload]
+  parent_odf_updated: [UpdateOdfPayload]
+  parent_odf_deleted: [DeleteOdfPayload]
+  parent_opticalfilter_created: [CreateOpticalFilterPayload]
+  parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   clientMutationId: String
 }
 
@@ -1669,6 +1937,12 @@ input CompositeRouterMutationInput {
   create_has_opticalnode: [CreateOpticalNodeInput]
   update_has_opticalnode: [UpdateOpticalNodeInput]
   deleted_has_opticalnode: [DeleteOpticalNodeInput]
+  create_has_odf: [CreateOdfInput]
+  update_has_odf: [UpdateOdfInput]
+  deleted_has_odf: [DeleteOdfInput]
+  create_has_opticalfilter: [CreateOpticalFilterInput]
+  update_has_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_has_opticalfilter: [DeleteOpticalFilterInput]
   create_part_of_group: CreateGroupInput
   update_part_of_group: UpdateGroupInput
   deleted_part_of_group: DeleteGroupInput
@@ -1711,6 +1985,12 @@ input CompositeRouterMutationInput {
   create_parent_opticalnode: [CreateOpticalNodeInput]
   update_parent_opticalnode: [UpdateOpticalNodeInput]
   deleted_parent_opticalnode: [DeleteOpticalNodeInput]
+  create_parent_odf: [CreateOdfInput]
+  update_parent_odf: [UpdateOdfInput]
+  deleted_parent_odf: [DeleteOdfInput]
+  create_parent_opticalfilter: [CreateOpticalFilterInput]
+  update_parent_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -1783,6 +2063,12 @@ type CompositeRouterMutationPayload {
   has_opticalnode_created: [CreateOpticalNodePayload]
   has_opticalnode_updated: [UpdateOpticalNodePayload]
   has_opticalnode_deleted: [DeleteOpticalNodePayload]
+  has_odf_created: [CreateOdfPayload]
+  has_odf_updated: [UpdateOdfPayload]
+  has_odf_deleted: [DeleteOdfPayload]
+  has_opticalfilter_created: [CreateOpticalFilterPayload]
+  has_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  has_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   part_of_group_created: CreateGroupPayload
   part_of_group_updated: UpdateGroupPayload
   part_of_group_deleted: DeleteGroupPayload
@@ -1825,6 +2111,12 @@ type CompositeRouterMutationPayload {
   parent_opticalnode_created: [CreateOpticalNodePayload]
   parent_opticalnode_updated: [UpdateOpticalNodePayload]
   parent_opticalnode_deleted: [DeleteOpticalNodePayload]
+  parent_odf_created: [CreateOdfPayload]
+  parent_odf_updated: [UpdateOdfPayload]
+  parent_odf_deleted: [DeleteOdfPayload]
+  parent_opticalfilter_created: [CreateOpticalFilterPayload]
+  parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -2480,6 +2772,42 @@ type CreateHostPayload {
   clientMutationId: String
 }
 
+input CreateOdfInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
+  name: String!
+  description: String
+  max_number_of_ports: ChoiceScalar
+  operational_state: ChoiceScalar
+  relationship_location: Int
+  clientMutationId: String
+}
+
+type CreateOdfPayload {
+  errors: [ErrorType]
+  oDF: ODF
+  clientMutationId: String
+}
+
+input CreateOpticalFilterInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
+  name: String!
+  description: String
+  max_number_of_ports: ChoiceScalar
+  operational_state: ChoiceScalar
+  relationship_location: Int
+  clientMutationId: String
+}
+
+type CreateOpticalFilterPayload {
+  errors: [ErrorType]
+  opticalFilter: OpticalFilter
+  clientMutationId: String
+}
+
 input CreateOpticalNodeInput {
   rack_units: Int
   rack_position: Int
@@ -2984,6 +3312,28 @@ input DeleteHostInput {
 }
 
 type DeleteHostPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteOdfInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteOdfPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteOpticalFilterInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteOpticalFilterPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -4841,6 +5191,14 @@ type Mutation {
   update_opticalNode(input: UpdateOpticalNodeInput!): UpdateOpticalNodePayload
   delete_opticalNode(input: DeleteOpticalNodeInput!): DeleteOpticalNodePayload
   composite_opticalNode(input: CompositeOpticalNodeMutationInput!): CompositeOpticalNodeMutationPayload
+  create_oDF(input: CreateOdfInput!): CreateOdfPayload
+  update_oDF(input: UpdateOdfInput!): UpdateOdfPayload
+  delete_oDF(input: DeleteOdfInput!): DeleteOdfPayload
+  composite_oDF(input: CompositeODFMutationInput!): CompositeODFMutationPayload
+  create_opticalFilter(input: CreateOpticalFilterInput!): CreateOpticalFilterPayload
+  update_opticalFilter(input: UpdateOpticalFilterInput!): UpdateOpticalFilterPayload
+  delete_opticalFilter(input: DeleteOpticalFilterInput!): DeleteOpticalFilterPayload
+  composite_opticalFilter(input: CompositeOpticalFilterMutationInput!): CompositeOpticalFilterMutationPayload
   update_peeringPartner(input: UpdatePeeringPartnerInput!): UpdatePeeringPartnerPayload
   delete_peeringPartner(input: DeletePeeringPartnerInput!): DeletePeeringPartnerPayload
   update_peeringGroup(input: UpdatePeeringGroupInput!): UpdatePeeringGroupPayload
@@ -4961,6 +5319,418 @@ type ObtainJSONWebTokenPayload {
   refresh_expires_in: Int!
   clientMutationId: String
   token: String!
+}
+
+type ODF implements NINode & Physical & PhysicalLogical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  dependents: [Logical]
+  location: Location
+  has: [Physical]
+  part_of: Logical
+  parent: [Physical]
+  owner: Relation
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  operational_state: Choice
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
+  max_number_of_ports: Int
+  ports: [Port]
+}
+
+type odfConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [odfEdge]!
+}
+
+"""A Relay edge containing a `odf` and its cursor."""
+type odfEdge {
+  """The item at the end of the edge"""
+  node: ODF
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ODFFilter {
+  AND: [ODFNestedFilter!]
+  OR: [ODFNestedFilter!]
+}
+
+input ODFNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
+  rack_units: Int
+  rack_units_not: Int
+  rack_units_lt: Int
+  rack_units_lte: Int
+  rack_units_gt: Int
+  rack_units_gte: Int
+  rack_units_in: [Int!]
+  rack_units_not_in: [Int!]
+  rack_position: Int
+  rack_position_not: Int
+  rack_position_lt: Int
+  rack_position_lte: Int
+  rack_position_gt: Int
+  rack_position_gte: Int
+  rack_position_in: [Int!]
+  rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
+  max_number_of_ports: Int
+  max_number_of_ports_not: Int
+  max_number_of_ports_lt: Int
+  max_number_of_ports_lte: Int
+  max_number_of_ports_gt: Int
+  max_number_of_ports_gte: Int
+  max_number_of_ports_in: [Int!]
+  max_number_of_ports_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum ODFOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  operational_state_ASC
+  operational_state_DESC
+  rack_units_ASC
+  rack_units_DESC
+  rack_position_ASC
+  rack_position_DESC
+  max_number_of_ports_ASC
+  max_number_of_ports_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+type OpticalFilter implements NINode & Physical & PhysicalLogical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  dependents: [Logical]
+  location: Location
+  has: [Physical]
+  part_of: Logical
+  parent: [Physical]
+  owner: Relation
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  operational_state: Choice
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
+  max_number_of_ports: Int
+  ports: [Port]
+}
+
+type opticalFilterConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [opticalFilterEdge]!
+}
+
+"""A Relay edge containing a `opticalFilter` and its cursor."""
+type opticalFilterEdge {
+  """The item at the end of the edge"""
+  node: OpticalFilter
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input OpticalFilterFilter {
+  AND: [OpticalFilterNestedFilter!]
+  OR: [OpticalFilterNestedFilter!]
+}
+
+input OpticalFilterNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
+  rack_units: Int
+  rack_units_not: Int
+  rack_units_lt: Int
+  rack_units_lte: Int
+  rack_units_gt: Int
+  rack_units_gte: Int
+  rack_units_in: [Int!]
+  rack_units_not_in: [Int!]
+  rack_position: Int
+  rack_position_not: Int
+  rack_position_lt: Int
+  rack_position_lte: Int
+  rack_position_gt: Int
+  rack_position_gte: Int
+  rack_position_in: [Int!]
+  rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
+  max_number_of_ports: Int
+  max_number_of_ports_not: Int
+  max_number_of_ports_lt: Int
+  max_number_of_ports_lte: Int
+  max_number_of_ports_gt: Int
+  max_number_of_ports_gte: Int
+  max_number_of_ports_in: [Int!]
+  max_number_of_ports_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum OpticalFilterOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  operational_state_ASC
+  operational_state_DESC
+  rack_units_ASC
+  rack_units_DESC
+  rack_position_ASC
+  rack_position_DESC
+  max_number_of_ports_ASC
+  max_number_of_ports_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 type OpticalNode implements NINode & Physical & PhysicalLogical {
@@ -6560,6 +7330,14 @@ type Query {
   count_opticalnodes: Int
   opticalNodes(filter: OpticalNodeFilter, orderBy: OpticalNodeOrderBy, before: String, after: String, first: Int, last: Int): opticalNodeConnection
   getOpticalNodeById(id: ID): OpticalNode
+  all_odfs: [ODF]
+  count_odfs: Int
+  odfs(filter: ODFFilter, orderBy: ODFOrderBy, before: String, after: String, first: Int, last: Int): odfConnection
+  getODFById(id: ID): ODF
+  all_opticalfilters: [OpticalFilter]
+  count_opticalfilters: Int
+  opticalFilters(filter: OpticalFilterFilter, orderBy: OpticalFilterOrderBy, before: String, after: String, first: Int, last: Int): opticalFilterConnection
+  getOpticalFilterById(id: ID): OpticalFilter
   all_peeringpartners: [PeeringPartner]
   count_peeringpartners: Int
   peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
@@ -7535,6 +8313,46 @@ input UpdateGroupInput {
 type UpdateGroupPayload {
   errors: [ErrorType]
   group: Group
+  clientMutationId: String
+}
+
+input UpdateOdfInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
+  name: String!
+  description: String
+  max_number_of_ports: Int
+  operational_state: ChoiceScalar
+  relationship_ports: String
+  relationship_location: Int
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateOdfPayload {
+  errors: [ErrorType]
+  oDF: ODF
+  clientMutationId: String
+}
+
+input UpdateOpticalFilterInput {
+  rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
+  name: String!
+  description: String
+  max_number_of_ports: Int
+  operational_state: ChoiceScalar
+  relationship_ports: String
+  relationship_location: Int
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateOpticalFilterPayload {
+  errors: [ErrorType]
+  opticalFilter: OpticalFilter
   clientMutationId: String
 }
 

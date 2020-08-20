@@ -67,6 +67,10 @@ const initialState = {
     all_columns: true,
     columns_visible: {},
   },
+  odf: {
+    all_columns: true,
+    columns_visible: {},
+  },
 };
 
 const filterColumnsReducer = (state = initialState, action) => {

@@ -36,6 +36,12 @@ export type CompositePortMutationInput = {|
   create_parent_opticalnode?: ?$ReadOnlyArray<?CreateOpticalNodeInput>,
   update_parent_opticalnode?: ?$ReadOnlyArray<?UpdateOpticalNodeInput>,
   deleted_parent_opticalnode?: ?$ReadOnlyArray<?DeleteOpticalNodeInput>,
+  create_parent_odf?: ?$ReadOnlyArray<?CreateOdfInput>,
+  update_parent_odf?: ?$ReadOnlyArray<?UpdateOdfInput>,
+  deleted_parent_odf?: ?$ReadOnlyArray<?DeleteOdfInput>,
+  create_parent_opticalfilter?: ?$ReadOnlyArray<?CreateOpticalFilterInput>,
+  update_parent_opticalfilter?: ?$ReadOnlyArray<?UpdateOpticalFilterInput>,
+  deleted_parent_opticalfilter?: ?$ReadOnlyArray<?DeleteOpticalFilterInput>,
   clientMutationId?: ?string,
 |};
 export type CreatePortInput = {|
@@ -280,6 +286,62 @@ export type UpdateOpticalNodeInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteOpticalNodeInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOdfInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  max_number_of_ports?: ?any,
+  operational_state?: ?any,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateOdfInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  max_number_of_ports?: ?number,
+  operational_state?: ?any,
+  relationship_ports?: ?string,
+  relationship_location?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOdfInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalFilterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  max_number_of_ports?: ?any,
+  operational_state?: ?any,
+  relationship_location?: ?number,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalFilterInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  description?: ?string,
+  max_number_of_ports?: ?number,
+  operational_state?: ?any,
+  relationship_ports?: ?string,
+  relationship_location?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalFilterInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

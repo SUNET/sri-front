@@ -28,7 +28,7 @@ class _PeeringGroupFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.external-equipment.details.ports')}</h2>
+            <h2>{t('network.peering.details.dependencies')}</h2>
           </ToggleHeading>
 
           <TogglePanel>

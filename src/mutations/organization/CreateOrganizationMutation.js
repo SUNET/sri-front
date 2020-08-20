@@ -256,7 +256,7 @@ export default function CreateOrganizationMutation(organization, form) {
       delete_address: deleteAddress,
     },
   };
-  console.log('variables: ', JSON.stringify(variables));
+
   commitMutation(environment, {
     mutation,
     variables,

@@ -41,6 +41,8 @@ const Routes = {
   '/network/peering-groups': 'Peering Group',
   '/network/optical-nodes': 'Optical Nodes',
   '/network/optical-nodes/create': 'Create Optical Node',
+  '/network/odfs': 'ODFs',
+  '/network/odfs/create': 'Create ODF',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',

@@ -28,6 +28,7 @@ class SideNavNetwork extends React.Component {
     'external-equipments',
     'hosts',
     'optical-nodes',
+    'odfs',
   ];
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
   NETWORK_OPTICAL_ROUTES = [''];
@@ -61,16 +62,17 @@ class SideNavNetwork extends React.Component {
         { path: 'external-equipments', i18nText: 'network.sub-menu.equipment/external-equipments' },
         { path: 'hosts', i18nText: 'network.sub-menu.equipment/hosts' },
         { path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' },
+        { path: 'odfs', i18nText: 'network.sub-menu.equipment/odfs' },
       ],
     },
-    {
-      header: {
-        name: NETWORK_OPTICAL,
-        icon: 'optical_layers.svg',
-        i18nText: 'network.optical-layers.name',
-      },
-      items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
-    },
+    // {
+    //   header: {
+    //     name: NETWORK_OPTICAL,
+    //     icon: 'optical_layers.svg',
+    //     i18nText: 'network.optical-layers.name',
+    //   },
+    //   items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
+    // },
     {
       header: {
         name: NETWORK_PEERING,

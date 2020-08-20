@@ -193,6 +193,23 @@ const opticalNode = {
   ],
 };
 
+const ODF = {
+  formName: {
+    create: 'createODF',
+    update: 'updateODF',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  fields: [
+    ...BASIC_INFO,
+    ...LOCATION_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
+    { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -206,4 +223,5 @@ export default {
   peeringPartner,
   peeringGroup,
   opticalNode,
+  ODF,
 };
