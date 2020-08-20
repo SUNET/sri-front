@@ -225,6 +225,9 @@ exports[`Some Component Renders correctly 1`] = `
                 "network.optical-layers.node.name",
               ],
               Array [
+                "network.sub-menu.equipment/odfs",
+              ],
+              Array [
                 "network.peering-partners.name",
               ],
               Array [
@@ -308,6 +311,10 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "network.optical-layers.node.name",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.equipment/odfs",
               },
               Object {
                 "type": "return",
