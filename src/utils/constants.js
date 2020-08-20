@@ -31,6 +31,8 @@ export const UPDATE_PEERINGPARTNER_FORM = 'update-peering-partner-form';
 export const UPDATE_PEERINGGROUP_FORM = 'update-peering-group-form';
 export const CREATE_OPTICALNODE_FORM = 'create-optical-node-form';
 export const UPDATE_OPTICALNODE_FORM = 'update-optical-node-form';
+export const CREATE_ODF_FORM = 'create-odf-form';
+export const UPDATE_ODF_FORM = 'update-odf-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';

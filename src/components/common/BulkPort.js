@@ -51,10 +51,10 @@ class BulkPort extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: { value: 'RJ45', valid: true },
-      prefix: { value: `test-${Math.round(Math.random() * (25 - 0)) + 0}`, valid: true },
-      offset: { value: Math.round(Math.random() * (25 - 0)) + 0, valid: true },
-      numberOfPorts: { value: Math.round(Math.random() * (25 - 0)) + 0, valid: true },
+      type: { value: '', valid: true },
+      prefix: { value: '', valid: true },
+      offset: { value: 0, valid: true },
+      numberOfPorts: { value: '', valid: true },
     };
   }
 
