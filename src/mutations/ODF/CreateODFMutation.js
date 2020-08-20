@@ -4,7 +4,6 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
 
 import { UNLINK, REMOVE, SAVED, CREATE } from '../../utils/constants';
 
