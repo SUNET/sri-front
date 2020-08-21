@@ -37,6 +37,9 @@ export type CompositeContactMutationInput = {|
   create_uses_host?: ?CreateHostInput,
   update_uses_host?: ?EditHostInput,
   deleted_uses_host?: ?DeleteHostInput,
+  create_uses_opticallink?: ?CreateOpticalLinkInput,
+  update_uses_opticallink?: ?UpdateOpticalLinkInput,
+  deleted_uses_opticallink?: ?DeleteOpticalLinkInput,
   create_uses_peeringgroup?: ?CreatePeeringGroupInput,
   update_uses_peeringgroup?: ?UpdatePeeringGroupInput,
   deleted_uses_peeringgroup?: ?DeletePeeringGroupInput,
@@ -264,6 +267,31 @@ export type EditHostInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalLinkInput = {|
+  name: string,
+  link_type: any,
+  interface_type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalLinkInput = {|
+  name: string,
+  link_type: any,
+  interface_type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  relationship_end_a?: ?number,
+  relationship_end_b?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalLinkInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

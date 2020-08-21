@@ -56,6 +56,9 @@ export type CompositePeeringGroupMutationInput = {|
   create_dependencies_opticalfilter?: ?$ReadOnlyArray<?CreateOpticalFilterInput>,
   update_dependencies_opticalfilter?: ?$ReadOnlyArray<?UpdateOpticalFilterInput>,
   deleted_dependencies_opticalfilter?: ?$ReadOnlyArray<?DeleteOpticalFilterInput>,
+  create_dependencies_opticallink?: ?$ReadOnlyArray<?CreateOpticalLinkInput>,
+  update_dependencies_opticallink?: ?$ReadOnlyArray<?UpdateOpticalLinkInput>,
+  deleted_dependencies_opticallink?: ?$ReadOnlyArray<?DeleteOpticalLinkInput>,
   create_dependencies_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
   update_dependencies_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
   deleted_dependencies_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
@@ -511,6 +514,31 @@ export type UpdateOpticalFilterInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteOpticalFilterInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalLinkInput = {|
+  name: string,
+  link_type: any,
+  interface_type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalLinkInput = {|
+  name: string,
+  link_type: any,
+  interface_type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  relationship_end_a?: ?number,
+  relationship_end_b?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalLinkInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

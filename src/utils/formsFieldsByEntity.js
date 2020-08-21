@@ -210,6 +210,24 @@ const ODF = {
   ],
 };
 
+const opticalLink = {
+  formName: {
+    create: 'createOpticalLink',
+    update: 'updateOpticalLink',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.OBJECT, name: 'type' },
+    { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+  ],
+};
+
+
 export default {
   customer,
   endUser,
@@ -224,4 +242,5 @@ export default {
   peeringGroup,
   opticalNode,
   ODF,
+  opticalLink,
 };

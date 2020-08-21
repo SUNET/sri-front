@@ -1,77 +1,31 @@
-const initialState = {
-  contact: {
+const entityList = [
+  'contact',
+  'organization',
+  'group',
+  'customer',
+  'endUser',
+  'provider',
+  'siteOwner',
+  'cable',
+  'port',
+  'switch',
+  'firewall',
+  'router',
+  'externalEquipment',
+  'host',
+  'peeringPartner',
+  'peeringGroup',
+  'opticalNode',
+  'odf',
+  'opticalLink',
+];
+const initialState = entityList.reduce((acc, curr) => {
+  acc[curr] = {
     all_columns: true,
     columns_visible: {},
-  },
-  organization: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  group: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  customer: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  endUser: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  provider: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  siteOwner: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  cable: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  port: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  switch: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  firewall: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  router: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  externalEquipment: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  host: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  peeringPartner: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  peeringGroup: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  opticalNode: {
-    all_columns: true,
-    columns_visible: {},
-  },
-  odf: {
-    all_columns: true,
-    columns_visible: {},
-  },
-};
+  };
+  return acc;
+}, {});
 
 const filterColumnsReducer = (state = initialState, action) => {
   let nextState = {};

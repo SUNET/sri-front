@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { UNLINK, REMOVE, SAVED, CREATE } from '../../utils/constants';
+import { generatePortForInput } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation UpdateODFMutation($input: CompositeODFMutationInput!) {
@@ -43,19 +43,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateODFMutation(ODF, form) {
-  const portsToCreate = ODF.ports
-    ? ODF.ports.filter((port) => port.status === CREATE).map((e) => ({ name: e.name, port_type: e.type.value }))
-    : [];
-
-  const portsToSaved = ODF.ports
-    ? ODF.ports.filter((port) => port.status === SAVED).map((e) => ({ id: e.id, name: e.name }))
-    : [];
-
-  const portsToUnlink = ODF.ports
-    ? ODF.ports.filter((port) => port.status === UNLINK).map((e) => ({ relation_id: e.relation_id }))
-    : [];
-
-  const portsToRemove = ODF.ports ? ODF.ports.filter((port) => port.status === REMOVE).map((e) => ({ id: e.id })) : [];
+  const ports = generatePortForInput(ODF.ports);
 
   const variables = {
     input: {
@@ -69,10 +57,10 @@ export default function UpdateODFMutation(ODF, form) {
         rack_position: ODF.rack_position,
         rack_back: ODF.rack_back,
       },
-      update_has_port: portsToSaved,
-      unlink_subinputs: portsToUnlink,
-      deleted_has_port: portsToRemove,
-      create_has_port: portsToCreate,
+      update_has_port: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      deleted_has_port: ports.toRemove,
+      create_has_port: ports.toCreate,
     },
   };
   

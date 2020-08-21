@@ -207,7 +207,10 @@ export class TopHeader extends React.Component {
             name: 'Optical layers',
             route: '/network/optical-nodes',
             iconClass: 'icon-organization',
-            subSubOptions: [],
+            subSubOptions: [
+              { name: t('network.sub-menu.optical-layers/optical-links'), route: 'optical-links' },
+              { name: t('network.sub-menu.optical-layers/optical-filters'), route: 'optical-filters' },
+            ],
           },
           {
             name: 'Peering',
