@@ -92,11 +92,11 @@ export default function UpdateProviderMutation(provider, form) {
     onCompleted: (response, errors) => {
       console.log('response: ', response);
       if (response.update_provider.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_provider.updated.errors;
       }
       form.props.reset();
-      form.props.notify(i18n.t('notify.changes-saved'), 'success');
+      form.props.notify(i18n.t('notify/changes-saved'), 'success');
       if (!form.props.isFromModal) {
         form.refetch();
       }

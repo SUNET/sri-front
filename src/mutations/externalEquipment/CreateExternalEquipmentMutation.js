@@ -72,7 +72,7 @@ function CreateExternalEquipmentMutation(externalEquipment, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_externalEquipment.created.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_externalEquipment.created.errors;
       }
       const externalEquipmentId = response.composite_externalEquipment.created.externalEquipment.id;

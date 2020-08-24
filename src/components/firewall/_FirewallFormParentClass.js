@@ -97,7 +97,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
     const generalInfo = [
       {
-        title: t('network.firewall.details.operational-state'),
+        title: t('general-forms/operational-state'),
         presentContent: operational_state,
         editContent: (
           <Dropdown
@@ -110,7 +110,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.switch.details.contract-number'),
+        title: t('general-forms/contract-number'),
         presentContent: contract_number,
         editContent: (
           <Form.Group>
@@ -118,13 +118,13 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="text"
               name="contract_number"
               component={FieldInput}
-              placeholder={t('general-forms.write-text')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.managed-by'),
+        title: t('general-forms/managed-by'),
         presentContent: managed_by,
         editContent: (
           <Dropdown
@@ -141,7 +141,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -160,7 +160,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     const { t, model, vendor, backup, end_support } = this.props;
     const detailsInfo = [
       {
-        title: t('network.firewall.details.model'),
+        title: t('general-forms/model'),
         presentContent: model,
         editContent: (
           <Form.Group>
@@ -168,31 +168,31 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="text"
               name="model"
               component={FieldInput}
-              placeholder={t('general-forms.write-text')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.firewall.details.vendor'),
+        title: t('general-forms/vendor'),
         presentContent: vendor,
         editContent: (
           <Form.Group>
-            <Field type="text" name="vendor" component={FieldInput} placeholder={t('general-forms.write-text')} />
+            <Field type="text" name="vendor" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.backup'),
+        title: t('general-forms/contract-backup'),
         presentContent: backup,
         editContent: (
           <Form.Group>
-            <Field type="text" name="backup" component={FieldInput} placeholder={t('general-forms.write-text')} />
+            <Field type="text" name="backup" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
       {
-        title: t('network.firewall.details.end-support'),
+        title: t('general-forms/end-support'),
         presentContent: end_support,
         editContent: (
           <Form.Group>
@@ -219,7 +219,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.switch.details.details')}</h2>
+          <h2>{t('general-forms/details')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -246,7 +246,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
     const securityInfo = [
       {
-        title: t('network.firewall.details.security-class'),
+        title: t('general-forms/security-class'),
         presentContent: securityClassObj ? securityClassObj.name : undefined,
         editContent: (
           <Dropdown
@@ -259,7 +259,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.firewall.details.security-comment'),
+        title: t('general-forms/security-comment'),
         presentContent: (
           <Form.Group>
             <Field
@@ -269,7 +269,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               name="security_comment"
               disabled
               component={FieldInput}
-              placeholder={t('general-forms.write-text')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
@@ -281,7 +281,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="text"
               name="security_comment"
               component={FieldInput}
-              placeholder={t('general-forms.write-text')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
@@ -289,7 +289,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     ];
     const securitySecondRowInfo = [
       {
-        title: t('network.switch.details.support-group'),
+        title: t('general-forms/support-group'),
         presentContent: supportGroupObj ? supportGroupObj.name : '',
         editContent: (
           <div className="mr-3">
@@ -298,7 +298,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="combo_list"
               name="support_group_id"
               model="group"
-              placeholder={t('network.switch.details.write-support-group')}
+              placeholder={t('general-forms/write-support-group')}
               currentValue={support_group_id}
               objectCurrentValue={supportGroupObj}
               nameDataInsideRequest="all_groups"
@@ -317,7 +317,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.switch.details.responsible-group'),
+        title: t('general-forms/responsible-group'),
         presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
         editContent: (
           <Dropdown
@@ -325,7 +325,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
             type="combo_list"
             name="responsible_group_id"
             model="group"
-            placeholder={t('network.switch.details.write-responsible-group')}
+            placeholder={t('general-forms/write-responsible-group')}
             currentValue={responsible_group_id}
             objectCurrentValue={responsibleGroupObj}
             nameDataInsideRequest="all_groups"
@@ -346,7 +346,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.switch.details.security')}</h2>
+          <h2>{t('general-forms/security')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -371,16 +371,16 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
     const osInfo = [
       {
-        title: t('network.switch.details.os'),
+        title: t('general-forms/os'),
         presentContent: os,
         editContent: (
           <Form.Group>
-            <Field type="text" name="os" component={FieldInput} placeholder={t('network.switch.details.write-os')} />
+            <Field type="text" name="os" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.os-version'),
+        title: t('general-forms/os-version'),
         presentContent: os_version,
         editContent: (
           <Form.Group>
@@ -388,13 +388,13 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="text"
               name="os_version"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-os-version')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.max-number-of-ports'),
+        title: t('general-forms/max-number-of-ports'),
         presentContent: max_number_of_ports,
         editContent: (
           <Form.Group>
@@ -402,13 +402,13 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="text"
               name="max_number_of_ports"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-max-number-of-ports')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.firewall.details.service-tag'),
+        title: t('general-forms/service-tag'),
         presentContent: service_tag,
         editContent: (
           <Form.Group>
@@ -416,7 +416,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="text"
               name="service_tag"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-os-version')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
@@ -425,7 +425,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.switch.details.os')}</h2>
+          <h2>{t('general-forms/os')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -445,7 +445,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
     const locationInfoFirstRow = [
       {
-        title: t('network.switch.details.equipment-height'),
+        title: t('general-forms/equipment-height'),
         presentContent: rack_units,
         editContent: (
           <Form.Group>
@@ -453,13 +453,13 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_units"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-equipment-height')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.rack-position'),
+        title: t('general-forms/rack-position'),
         presentContent: rack_position,
         editContent: (
           <Form.Group>
@@ -467,7 +467,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_position"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-rack-position')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -477,7 +477,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.firewall.details.location')}</h2>
+          <h2>{t('general-forms/location')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -498,7 +498,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.firewall.details.owner')}</h2>
+            <h2>{t('general-forms/owner')}</h2>
           </ToggleHeading>
 
           <TogglePanel>

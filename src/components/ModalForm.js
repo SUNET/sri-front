@@ -60,7 +60,7 @@ class ModalNewContact extends React.Component {
       case 'Contact':
         entityData = {
           ComponentToRender: isUpdateForm ? ContactDetailsContainer : CreateContactFormContainer,
-          textHeader: isUpdateForm ? 'contact-details.modify-contact' : 'contact-details.add-new-contact',
+          textHeader: isUpdateForm ? 'entity-modify/contacts' : 'entity-add-new/contacts',
           formId: isUpdateForm ? UPDATE_CONTACT_FORM : CREATE_CONTACT_FORM,
         };
         break;
@@ -68,7 +68,7 @@ class ModalNewContact extends React.Component {
       case 'ports':
         entityData = {
           ComponentToRender: isUpdateForm ? PortDetailsContainer : CreatePortFormContainer,
-          textHeader: isUpdateForm ? 'network.details.modify/ports' : 'network.details.new/ports',
+          textHeader: isUpdateForm ? 'entity-modify/ports' : 'entity-add-new/ports',
           formId: isUpdateForm ? UPDATE_PORT_FORM : CREATE_PORT_FORM,
         };
         break;
@@ -76,7 +76,7 @@ class ModalNewContact extends React.Component {
       case 'cables':
         entityData = {
           ComponentToRender: isUpdateForm ? CableDetailsContainer : CreateCableFormContainer,
-          textHeader: isUpdateForm ? 'network.details.modify/cables' : 'network.details.new/cables',
+          textHeader: isUpdateForm ? 'entity-modify/cables' : 'entity-add-new/cables',
           formId: isUpdateForm ? UPDATE_CABLE_FORM : CREATE_CABLE_FORM,
         };
         break;
@@ -84,7 +84,7 @@ class ModalNewContact extends React.Component {
       case 'customers':
         entityData = {
           ComponentToRender: isUpdateForm ? CustomerDetailsContainer : CreateCustomerFormContainer,
-          textHeader: isUpdateForm ? 'network.details.modify/customers' : 'network.details.new/customers',
+          textHeader: isUpdateForm ? 'entity-modify/customers' : 'entity-add-new/customers',
           formId: isUpdateForm ? UPDATE_CUSTOMER_FORM : CREATE_CUSTOMER_FORM,
         };
         break;
@@ -92,7 +92,7 @@ class ModalNewContact extends React.Component {
       case 'endUsers':
         entityData = {
           ComponentToRender: isUpdateForm ? EndUserDetailsContainer : CreateEndUserFormContainer,
-          textHeader: isUpdateForm ? 'network.details.modify/end-users' : 'network.details.new/end-users',
+          textHeader: isUpdateForm ? 'entity-modify/end-users' : 'entity-add-new/end-users',
           formId: isUpdateForm ? UPDATE_ENDUSER_FORM : CREATE_ENDUSER_FORM,
         };
         break;
@@ -100,7 +100,7 @@ class ModalNewContact extends React.Component {
       case 'providers':
         entityData = {
           ComponentToRender: isUpdateForm ? ProviderDetailsContainer : CreateProviderFormContainer,
-          textHeader: isUpdateForm ? 'network.details.modify/providers' : 'network.details.new/providers',
+          textHeader: isUpdateForm ? 'entity-modify/providers' : 'entity-add-new/providers',
           formId: isUpdateForm ? UPDATE_PROVIDER_FORM : CREATE_PROVIDER_FORM,
         };
         break;
@@ -108,7 +108,7 @@ class ModalNewContact extends React.Component {
       case 'siteOwners':
         entityData = {
           ComponentToRender: isUpdateForm ? SiteOwnerDetailsContainer : CreateSiteOwnerFormContainer,
-          textHeader: isUpdateForm ? 'network.details.modify/site-owners' : 'network.details.new/site-owners',
+          textHeader: isUpdateForm ? 'entity-modify/site-owners' : 'entity-add-new/site-owners',
           formId: isUpdateForm ? UPDATE_SITEOWNER_FORM : CREATE_SITEOWNER_FORM,
         };
         break;
@@ -116,7 +116,7 @@ class ModalNewContact extends React.Component {
       case 'firewalls':
         entityData = {
           ComponentToRender: isUpdateForm ? FirewallDetailsContainer : null,
-          textHeader: isUpdateForm ? 'network.details.modify/firewalls' : 'network.details.new/firewalls',
+          textHeader: isUpdateForm ? 'entity-modify/firewalls' : 'entity-add-new/firewalls',
           formId: isUpdateForm ? UPDATE_FIREWALL_FORM : CREATE_FIREWALL_FORM,
         };
         break;
@@ -124,7 +124,7 @@ class ModalNewContact extends React.Component {
       case 'switchs':
         entityData = {
           ComponentToRender: isUpdateForm ? SwitchDetailsContainer : CreateSwitchFormContainer,
-          textHeader: isUpdateForm ? 'network.details.modify/switches' : 'network.details.new/switches',
+          textHeader: isUpdateForm ? 'entity-modify/switches' : 'entity-add-new/switches',
           formId: isUpdateForm ? UPDATE_SWITCH_FORM : CREATE_SWITCH_FORM,
         };
         break;
@@ -133,8 +133,8 @@ class ModalNewContact extends React.Component {
         entityData = {
           ComponentToRender: isUpdateForm ? ExternalEquipmentDetailsContainer : CreateExternalEquipmentFormContainer,
           textHeader: isUpdateForm
-            ? 'network.details.modify/externalEquipments'
-            : 'network.details.new/externalEquipments',
+            ? 'entity-modify/externalEquipments'
+            : 'entity-add-new/external-equipments',
           formId: isUpdateForm ? UPDATE_EXTERNALEQUIPMENT_FORM : CREATE_EXTERNALEQUIPMENT_FORM,
         };
         break;
@@ -164,7 +164,7 @@ class ModalNewContact extends React.Component {
                 <div className={`new-contact-modal-form__header__buttons ${classButtons}`}>
                   <SaveCancelCTAs
                     formId={`${formId}InModal`}
-                    cancelText={t('actions.cancel')}
+                    cancelText={t('actions/cancel')}
                     onCancel={() => this.handleClose()}
                   />
                 </div>

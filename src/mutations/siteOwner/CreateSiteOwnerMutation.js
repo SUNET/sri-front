@@ -35,7 +35,7 @@ function CreateSiteOwnerMutation(siteOwner, form) {
         variables,
         onCompleted: (response, errors) => {
             if (response.create_siteOwner.errors) {
-                form.props.notify(i18n.t("notify.error"), "error");
+                form.props.notify(i18n.t("notify/generic-error"), "error");
                 return response.create_siteOwner.errors;
             } else {
                 const siteOwner_id = response.create_siteOwner.siteOwner.id;
@@ -48,7 +48,7 @@ function CreateSiteOwnerMutation(siteOwner, form) {
                     form.props.createdEntity('SiteOwner', siteOwner_id);
                     form.props.hideModalForm();
                 }
-                form.props.notify(i18n.t("notify.network/siteOwners-created-success"), "success");
+                form.props.notify(i18n.t("entity-notify-create/site-owners"), "success");
             }
         },
         onError: (errors) => console.error(errors),

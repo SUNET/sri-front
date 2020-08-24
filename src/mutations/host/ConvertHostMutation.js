@@ -39,7 +39,7 @@ function ConvertHostMutation(data, form) {
     onCompleted: (response, errors) => {
       const { success, new_id, new_type } = response.convert_host;
       if (!success) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return ['error'];
       }
 

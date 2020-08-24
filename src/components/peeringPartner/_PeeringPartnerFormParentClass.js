@@ -58,7 +58,7 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
     const { t, peering_link, as_number } = this.props;
     const generalInfoFirstRow = [
       {
-        title: t('network.peering.details.as-number'),
+        title: t('general-forms/as-number'),
         presentContent: (
           as_number
         ),
@@ -70,13 +70,13 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
               name="as_number"
               component={FieldInput}
               disabled
-              placeholder={t('general-forms.write-number')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.peering.details.peering-db-link'),
+        title: t('general-forms/peering-db-link'),
         presentContent: (
           <a href={generateURL(peering_link)} target="_blank" rel="noopener noreferrer">
             {peering_link}
@@ -90,7 +90,7 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
               name="peering_link"
               component={FieldInput}
               disabled
-              placeholder={t('organization-details.add-website')}
+              placeholder={t('general-forms/write-website')}
             />
           </Form.Group>
         ),
@@ -100,7 +100,7 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>

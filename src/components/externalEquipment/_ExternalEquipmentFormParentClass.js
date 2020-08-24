@@ -91,7 +91,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
 
     const locationInfoFirstRow = [
       {
-        title: t('network.switch.details.equipment-height'),
+        title: t('general-forms/equipment-height'),
         presentContent: rack_units,
         editContent: (
           <Form.Group>
@@ -99,13 +99,13 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_units"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-equipment-height')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.rack-position'),
+        title: t('general-forms/rack-position'),
         presentContent: rack_position,
         editContent: (
           <Form.Group>
@@ -113,7 +113,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_position"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-rack-position')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -123,7 +123,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.firewall.details.location')}</h2>
+          <h2>{t('general-forms/location')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -144,7 +144,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.firewall.details.owner')}</h2>
+            <h2>{t('general-forms/owner')}</h2>
           </ToggleHeading>
 
           <TogglePanel>
@@ -184,7 +184,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.external-equipment.details.ports')}</h2>
+            <h2>{t('main-entity-name/ports')}</h2>
           </ToggleHeading>
 
           <TogglePanel>

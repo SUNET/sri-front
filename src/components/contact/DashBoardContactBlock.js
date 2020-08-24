@@ -45,7 +45,7 @@ class DashBoardContactBlock extends _DashBoardBlockParentClass {
           count: this.NUMBER_MAX_ROWS,
           orderBy: this.state.orderBy,
         }}
-        errorMessage={this.props.t('general.error')}
+        errorMessage={this.props.t('general/error')}
         mainClass={this.MAIN_CLASS}
         componentToRender={{
           Component: DashBoardContactList,

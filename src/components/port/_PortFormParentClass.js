@@ -103,7 +103,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
     const { t, portTypeObj } = this.props;
     const generalInfoFirstRow = [
       {
-        title: t('organization-details.type'),
+        title: t('general-forms/type'),
         presentContent: portTypeObj ? portTypeObj.name : undefined,
         editContent: (
           <Dropdown
@@ -120,7 +120,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -141,7 +141,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.details.parent')}</h2>
+            <h2>{t('general-forms/parent')}</h2>
           </ToggleHeading>
 
           <TogglePanel>
@@ -180,7 +180,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.details.connectedTo')}</h2>
+            <h2>{t('general-forms/connected-to')}</h2>
           </ToggleHeading>
 
           <TogglePanel>

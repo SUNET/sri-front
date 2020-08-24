@@ -16,7 +16,7 @@ class DashBoardContactList extends _DashBoardListParentClass {
     this.SINGLE_ELEMENT_NAME = 'contact';
     this.RowComponent = DashBoardContactRowComponent;
     this.HEADER_DATA = {
-      title: 'community.sub-menu.contacts',
+      title: 'main-entity-name/contacts',
       sortKey: {
         defaultUp: 'dashboard.order.recent_last',
         down: 'dashboard.order.recent_first',

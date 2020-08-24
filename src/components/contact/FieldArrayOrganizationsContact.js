@@ -20,25 +20,25 @@ class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
     this.HEADER_TEXTS = {
       summary: [
         {
-          text: 'contact-details.role',
+          text: 'general-forms/role',
           fieldKey: '',
         },
       ],
       all: [
         {
-          text: 'contact-details.role',
+          text: 'general-forms/role',
           fieldKey: '',
         },
         {
-          text: 'organization-details.organization-id',
+          text: 'general-forms/organization-id',
           fieldKey: 'organization_id',
         },
         {
-          text: 'group-details.organization',
+          text: 'entity-name/organization',
           fieldKey: 'name',
         },
       ],
-      // modal: ['network.details.parent_element_detail'],
+      // modal: ['general-forms/parent-element-detail'],
       modal: null,
     };
     this.PRE_FILTER_SELECT = {};
@@ -105,7 +105,7 @@ class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
     const rowDetails = this.getValueById(id);
     return (
       <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
-        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions.unlink')}</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions/unlink')}</Tooltip>}>
           <div
             className={`row-cta unlink ${rowDetails.data.status === UNLINK ? 'active' : ''}`}
             onClick={() => this.unlinkRow(id)}
@@ -166,7 +166,7 @@ class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
         type="combo_list"
         name="roles"
         model="roles"
-        placeholder={t('organization-details.add-role')}
+        placeholder={t('general-forms/write-role')}
         currentValue={roles.filter((role) => role.status === SAVED)}
         objectCurrentValue={roles.filter((role) => role.status === SAVED)}
         nameDataInsideRequest="roles"
@@ -232,7 +232,7 @@ class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
           type="combo_list"
           name={`organizations[${indexRow}].id`}
           model="organization"
-          placeholder={t('organization-details.add-id')}
+          placeholder={t('general-forms/write-id')}
           currentValue={row.name}
           objectCurrentValue={{
             id: row.id,

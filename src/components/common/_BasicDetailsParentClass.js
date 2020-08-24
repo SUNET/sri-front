@@ -42,7 +42,7 @@ class _BasicDetailsParentClass extends React.Component {
         }}
         render={({ error, props, retry }) => {
           if (error) {
-            return <div>{i18n.t('general.error')}</div>;
+            return <div>{i18n.t('general/error')}</div>;
           } else if (props) {
             const customProps = {
               [this.entityNameProp]: props[this.entityGetDetailsMethodName],

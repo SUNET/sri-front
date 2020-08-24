@@ -102,7 +102,7 @@ export default function UpdateSwitchMutation(switchData, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_switch.updated.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_switch.updated.errors;
       }
       form.props.reset();
@@ -110,7 +110,7 @@ export default function UpdateSwitchMutation(switchData, form) {
         form.props.editedEntity('Switch', response.composite_switch.updated.switch.id);
       } else {
         form.refetch();
-        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

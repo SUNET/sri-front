@@ -35,7 +35,7 @@ function CreateEndUserMutation(endUser, form) {
         variables,
         onCompleted: (response, errors) => {
             if (response.create_endUser.errors) {
-                form.props.notify(i18n.t("notify.error"), "error");
+                form.props.notify(i18n.t("notify/generic-error"), "error");
                 return response.create_endUser.errors;
             } else {
                 const endUser_id = response.create_endUser.endUser.id;
@@ -48,7 +48,7 @@ function CreateEndUserMutation(endUser, form) {
                     form.props.createdEntity('EndUser', endUser_id);
                     form.props.hideModalForm();
                 }
-                form.props.notify(i18n.t("notify.network/endUsers-created-success"), "success");
+                form.props.notify(i18n.t("entity-notify-create/end-users"), "success");
             }
         },
         onError: (errors) => console.error(errors),

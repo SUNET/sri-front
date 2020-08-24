@@ -11,23 +11,23 @@ import { CREATE } from '../../utils/constants';
 import '../../style/bulkCreate.scss';
 
 const titleByInputName = {
-  type: 'network.router.details.bulk-port.type',
-  prefix: 'network.router.details.bulk-port.prefix',
-  offset: 'network.router.details.bulk-port.offset',
+  type: 'general-forms/type',
+  prefix: 'general-forms/bulk-port/prefix',
+  offset: 'general-forms/bulk-port/offset',
 };
 
 const placeHolderByInputName = {
-  type: 'network.router.details.bulk-port.type-placeholder',
-  prefix: 'network.router.details.bulk-port.prefix-placeholder',
-  offset: 'network.router.details.bulk-port.offset-placeholder',
-  numberOfPorts: 'network.router.details.bulk-port.Number-of-ports',
+  type: 'general-forms/write-type',
+  prefix: 'general-forms/bulk-port/prefix-placeholder',
+  offset: 'general-forms/bulk-port/offset-placeholder',
+  numberOfPorts: 'general-forms/bulk-port/Number-of-ports',
 };
 
 const errorByInputName = {
-  type: 'form.validation.error.required',
-  prefix: 'form.validation.error.required',
-  offset: 'form.validation.error.must-be-int',
-  numberOfPorts: 'form.validation.error.must-be-int',
+  type: 'general-forms/validations/required',
+  prefix: 'general-forms/validations/required',
+  offset: 'general-forms/validations/must-be-int',
+  numberOfPorts: 'general-forms/validations/must-be-int',
 };
 
 function validRegularInput(value) {
@@ -188,7 +188,7 @@ class BulkPort extends Component {
     return (
       <div className="bulk-create__right-block__add-button">
         <button type="button" className="btn btn-add outline" onClick={(e) => this.handleCreatePorts(e)}>
-          <span>{t('actions.add-new')}</span>
+          <span>{t('actions/add-new')}</span>
         </button>
       </div>
     );

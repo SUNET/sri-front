@@ -31,7 +31,7 @@ class DashBoardGeneralSearchBlock extends _DashBoardBlockParentClass {
             query: this.props.filter,
           },
         }}
-        errorMessage={this.props.t('general.error')}
+        errorMessage={this.props.t('general/error')}
         mainClass={this.MAIN_CLASS}
         componentToRender={{
           Component: DashBoardGeneralSearchList,

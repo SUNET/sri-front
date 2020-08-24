@@ -91,11 +91,11 @@ export default function UpdateCustomerMutation(customer, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.update_customer.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_customer.updated.errors;
       }
       form.props.reset();
-      form.props.notify(i18n.t('notify.changes-saved'), 'success');
+      form.props.notify(i18n.t('notify/changes-saved'), 'success');
       if (!form.props.isFromModal) {
         form.refetch();
       }

@@ -38,13 +38,13 @@ class SideNavNetwork extends React.Component {
       header: {
         name: NETWORK_ORGANIZATIONS,
         icon: 'organization-icon.svg',
-        i18nText: 'community.sub-menu.organizations',
+        i18nText: 'main-entity-name/organizations',
       },
       items: [
-        { path: 'customers', i18nText: 'network.sub-menu.organizations/customers' },
-        { path: 'end-users', i18nText: 'network.sub-menu.organizations/end-users' },
-        { path: 'providers', i18nText: 'network.sub-menu.organizations/providers' },
-        { path: 'site-owners', i18nText: 'network.sub-menu.organizations/site-owners' },
+        { path: 'customers', i18nText: 'main-entity-name/customers' },
+        { path: 'end-users', i18nText: 'main-entity-name/end-users' },
+        { path: 'providers', i18nText: 'main-entity-name/providers' },
+        { path: 'site-owners', i18nText: 'main-entity-name/site-owners' },
       ],
     },
     {
@@ -54,15 +54,15 @@ class SideNavNetwork extends React.Component {
         i18nText: 'network.sub-menu.equipment',
       },
       items: [
-        { path: 'cables', i18nText: 'network.sub-menu.equipment/cables' },
-        { path: 'ports', i18nText: 'network.sub-menu.equipment/ports' },
-        { path: 'switches', i18nText: 'network.sub-menu.equipment/switches' },
-        { path: 'firewalls', i18nText: 'network.sub-menu.equipment/firewalls' },
-        { path: 'routers', i18nText: 'network.sub-menu.equipment/routers' },
-        { path: 'external-equipments', i18nText: 'network.sub-menu.equipment/external-equipments' },
-        { path: 'hosts', i18nText: 'network.sub-menu.equipment/hosts' },
-        { path: 'optical-nodes', i18nText: 'network.sub-menu.equipment/optical-nodes' },
-        { path: 'odfs', i18nText: 'network.sub-menu.equipment/odfs' },
+        { path: 'cables', i18nText: 'main-entity-name/cables' },
+        { path: 'ports', i18nText: 'main-entity-name/ports' },
+        { path: 'switches', i18nText: 'main-entity-name/switches' },
+        { path: 'firewalls', i18nText: 'main-entity-name/firewalls' },
+        { path: 'routers', i18nText: 'main-entity-name/routers' },
+        { path: 'external-equipments', i18nText: 'main-entity-name/external-equipments' },
+        { path: 'hosts', i18nText: 'main-entity-name/hosts' },
+        { path: 'optical-nodes', i18nText: 'main-entity-name/optical-nodes' },
+        { path: 'odfs', i18nText: 'main-entity-name/odfs' },
       ],
     },
     {
@@ -72,8 +72,8 @@ class SideNavNetwork extends React.Component {
         i18nText: 'network.optical-layers.name',
       },
       items: [
-        { path: 'optical-links', i18nText: 'network.sub-menu.optical-layers/optical-links' },
-        { path: 'optical-filters', i18nText: 'network.sub-menu.optical-layers/optical-filters' },
+        { path: 'optical-links', i18nText: 'main-entity-name/optical-links' },
+        { path: 'optical-filters', i18nText: 'main-entity-name/optical-filters' },
       ],
     },
     {
@@ -83,8 +83,8 @@ class SideNavNetwork extends React.Component {
         i18nText: 'network.peering',
       },
       items: [
-        { path: 'peering-partners', i18nText: 'network.peering-partners.name' },
-        { path: 'peering-groups', i18nText: 'network.peering-groups.name' },
+        { path: 'peering-partners', i18nText: 'main-entity-name/peering-partners' },
+        { path: 'peering-groups', i18nText: 'main-entity-name/peering-groups' },
       ],
     },
   ];

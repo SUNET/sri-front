@@ -79,7 +79,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
     const { t, type, operational_state } = this.props;
     const generalInfoFirstRow = [
       {
-        title: t('organization-details.type'),
+        title: t('general-forms/type'),
         presentContent: type,
         editContent: (
           <Dropdown
@@ -92,7 +92,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.firewall.details.operational-state'),
+        title: t('general-forms/operational-state'),
         presentContent: operational_state,
         editContent: (
           <Dropdown
@@ -109,7 +109,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -129,7 +129,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
 
     const locationInfoFirstRow = [
       {
-        title: t('network.switch.details.equipment-height'),
+        title: t('general-forms/equipment-height'),
         presentContent: rack_units,
         editContent: (
           <Form.Group>
@@ -137,13 +137,13 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_units"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-equipment-height')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.rack-position'),
+        title: t('general-forms/rack-position'),
         presentContent: rack_position,
         editContent: (
           <Form.Group>
@@ -151,13 +151,13 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_position"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-rack-position')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.optical-layers.details.rack-back'),
+        title: t('general-forms/rack-back'),
         presentContent: (
           <Form.Group>
             <Field
@@ -165,7 +165,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
               name="rack_back"
               component={FieldInput}
               disabled
-              placeholder={t('network.switch.details.write-rack-position')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -175,7 +175,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
               type="checkbox"
               name="rack_back"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-rack-position')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -185,7 +185,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.firewall.details.location')}</h2>
+          <h2>{t('general-forms/location')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -206,7 +206,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.external-equipment.details.ports')}</h2>
+            <h2>{t('main-entity-name/ports')}</h2>
           </ToggleHeading>
 
           <TogglePanel>

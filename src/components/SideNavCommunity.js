@@ -61,14 +61,14 @@ class SideNavCommunity extends React.Component {
                         {this.renderAccordionItem(
                             COMMUNITY_ORGANIZATIONS,
                             "organization-icon.svg",
-                            t(`community.sub-menu.organizations`)
+                            t(`main-entity-name/organizations`)
                         )}
                         {this.renderAccordionItem(
                             COMMUNITY_CONTACTS,
                             "contact-icon.svg",
-                            t(`community.sub-menu.contacts`)
+                            t(`main-entity-name/contacts`)
                         )}
-                        {this.renderAccordionItem(COMMUNITY_GROUPS, "groups-icon.svg", t(`community.sub-menu.groups`))}
+                        {this.renderAccordionItem(COMMUNITY_GROUPS, "groups-icon.svg", t(`main-entity-name/groups`))}
                     </Accordion>
                 </Nav>
             </Col>

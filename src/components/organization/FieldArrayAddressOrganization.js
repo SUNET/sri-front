@@ -85,7 +85,7 @@ class FieldArrayAddressOrganization extends React.Component {
     }
     return [
       {
-        title: t('organization-details.street'),
+        title: t('general-forms/street'),
         presentContent: valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.street) : [],
         editContent: valuesToShow.map((address, index) => {
           return {
@@ -95,7 +95,7 @@ class FieldArrayAddressOrganization extends React.Component {
                   type="text"
                   name={`addresses[${selectedRowKey ? indexForThisFieldKey : index}].street`}
                   component={FieldInput}
-                  placeholder={t('organization-details.add-street')}
+                  placeholder={t('general-forms/write-street')}
                 />
               </Form.Group>
             ),
@@ -114,7 +114,7 @@ class FieldArrayAddressOrganization extends React.Component {
                   type="text"
                   name={`addresses[${selectedRowKey ? indexForThisFieldKey : index}].postal_code`}
                   component={FieldInput}
-                  placeholder={t('organization-details.add-postalCode')}
+                  placeholder={t('general-forms/write-postal-code')}
                 />
               </Form.Group>
             ),
@@ -123,7 +123,7 @@ class FieldArrayAddressOrganization extends React.Component {
         }),
       },
       {
-        title: t('organization-details.postal-area'),
+        title: t('general-forms/posta-area'),
         presentContent: valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.postal_area) : [],
         editContent: valuesToShow.map((address, index) => {
           return {
@@ -133,7 +133,7 @@ class FieldArrayAddressOrganization extends React.Component {
                   type="text"
                   name={`addresses[${selectedRowKey ? indexForThisFieldKey : index}].postal_area`}
                   component={FieldInput}
-                  placeholder={t('organization-details.add-postalArea')}
+                  placeholder={t('general-forms/write-postal-area')}
                 />
               </Form.Group>
             ),
@@ -142,7 +142,7 @@ class FieldArrayAddressOrganization extends React.Component {
         }),
       },
       {
-        title: t('organization-details.phone'),
+        title: t('general-forms/phone'),
         presentContent: valuesToShow && valuesToShow.length ? valuesToShow.map((value) => value.phone) : [],
         editContent: valuesToShow.map((address, index) => {
           return {
@@ -153,7 +153,7 @@ class FieldArrayAddressOrganization extends React.Component {
                     type="text"
                     name={`addresses[${selectedRowKey ? indexForThisFieldKey : index}].phone`}
                     component={FieldInput}
-                    placeholder={t('organization-details.add-phone')}
+                    placeholder={t('general-forms/write-phone')}
                   />
                 </Form.Group>
                 {isBrowser && this.renderRemoveCtaCross(address.key)}
@@ -178,7 +178,7 @@ class FieldArrayAddressOrganization extends React.Component {
                 type="text"
                 name={`addresses[${index}].street`}
                 component={FieldInput}
-                placeholder={t('organization-details.add-street')}
+                placeholder={t('general-forms/write-street')}
               />
             </Form.Group>
             {this.renderButtonsMobile(address.key)}
@@ -201,7 +201,7 @@ class FieldArrayAddressOrganization extends React.Component {
 
     return [
       {
-        title: t('organization-details.street'),
+        title: t('general-forms/street'),
         presentContent,
         editContent,
       },
@@ -286,7 +286,7 @@ class FieldArrayAddressOrganization extends React.Component {
         onHide={() => this.setState({ showModal: false })}
       >
         <Modal.Header closeButton={!editable}>
-          <h2>{t('contact-details.professional-details')}</h2>
+          <h2>{t('general-forms/professional-details')}</h2>
         </Modal.Header>
         <Modal.Body className="organizations-contacts">
           <div className="model-details">
@@ -353,7 +353,7 @@ class FieldArrayAddressOrganization extends React.Component {
     const { t } = this.props;
     return (
       <button type="button" className="btn outline btn-add more-info mr-3" onClick={() => this.showDataModal(key)}>
-        <span>{t('actions.info')}</span>
+        <span>{t('actions/info')}</span>
       </button>
     );
   }
@@ -386,7 +386,7 @@ class FieldArrayAddressOrganization extends React.Component {
           this.onClickAccept();
         }}
       >
-        <span> {t('actions.accept')}</span>
+        <span> {t('actions/accept')}</span>
       </button>
     );
   }
@@ -402,7 +402,7 @@ class FieldArrayAddressOrganization extends React.Component {
           this.removeRow(key);
         }}
       >
-        <span> {t('actions.delete')}</span>
+        <span> {t('actions/delete')}</span>
       </button>
     );
   }
@@ -430,7 +430,7 @@ class FieldArrayAddressOrganization extends React.Component {
         {errors && <div>{meta.error}</div>}
         {editable && (
           <button type="button" className="btn btn-add outline" onClick={(e) => this.addRow(e)}>
-            {t('actions.add-new')}
+            {t('actions/add-new')}
           </button>
         )}
         {this.state.showModal && this.renderModal()}

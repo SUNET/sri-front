@@ -8,77 +8,77 @@ class SubMenuActions extends React.Component {
     {
       path: '/community/organizations/',
       pathTo: '/community/organizations/create',
-      textButton: 'organization-details.add-organization',
+      textButton: 'entity-add/organizations',
     },
     {
       path: '/community/contacts/',
       pathTo: '/community/contacts/create',
-      textButton: 'contact-details.add-contact',
+      textButton: 'entity-add/contacts',
     },
     {
       path: '/community/groups/',
       pathTo: '/community/groups/create',
-      textButton: 'group-details.add-group',
+      textButton: 'entity-add/groups',
     },
     {
       path: '/network/customers/',
       pathTo: '/network/customers/create',
-      textButton: 'network.details.add/customers',
+      textButton: 'entity-add/customers',
     },
     {
       path: '/network/providers/',
       pathTo: '/network/providers/create',
-      textButton: 'network.details.add/providers',
+      textButton: 'entity-add/providers',
     },
     {
       path: '/network/site-owners/',
       pathTo: '/network/site-owners/create',
-      textButton: 'network.details.add/site-owners',
+      textButton: 'entity-add/site-owners',
     },
     {
       path: '/network/end-users/',
       pathTo: '/network/end-users/create',
-      textButton: 'network.details.add/end-users',
+      textButton: 'entity-add/end-users',
     },
     {
       path: '/network/cables/',
       pathTo: '/network/cables/create',
-      textButton: 'network.details.add/cables',
+      textButton: 'entity-add/cables',
     },
     {
       path: '/network/ports/',
       pathTo: '/network/ports/create',
-      textButton: 'network.details.add/ports',
+      textButton: 'entity-add/ports',
     },
     {
       path: '/network/switches/',
       pathTo: '/network/switches/create',
-      textButton: 'network.details.add/switches',
+      textButton: 'entity-add/switches',
     },
     {
       path: '/network/external-equipments/',
       pathTo: '/network/external-equipments/create',
-      textButton: 'network.details.add/external-equipments',
+      textButton: 'entity-add/external-equipments',
     },
     {
       path: '/network/hosts/',
       pathTo: '/network/hosts/create',
-      textButton: 'network.details.add/hosts',
+      textButton: 'entity-add/hosts',
     },
     {
       path: '/network/optical-nodes/',
       pathTo: '/network/optical-nodes/create',
-      textButton: 'network.details.add/optical-nodes',
+      textButton: 'entity-add/optical-nodes',
     },
     {
       path: '/network/odfs/',
       pathTo: '/network/odfs/create',
-      textButton: 'network.details.add/odfs',
+      textButton: 'entity-add/odfs',
     },
     {
       path: '/network/optical-links/',
       pathTo: '/network/optical-links/create',
-      textButton: 'network.details.add/optical-links',
+      textButton: 'entity-add/optical-links',
     },
   ];
   render() {

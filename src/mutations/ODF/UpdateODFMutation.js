@@ -69,7 +69,7 @@ export default function UpdateODFMutation(ODF, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_oDF.updated.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_ODF.updated.errors;
       }
       form.props.reset();
@@ -77,7 +77,7 @@ export default function UpdateODFMutation(ODF, form) {
         form.props.editedEntity('ODF', response.composite_ODF.updated.ODF.id);
       } else {
         form.refetch();
-        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

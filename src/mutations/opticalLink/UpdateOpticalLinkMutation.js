@@ -76,7 +76,7 @@ export default function UpdateOpticalLinkMutation(opticalLink, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_opticalLink.updated.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_opticalLink.updated.errors;
       }
       form.props.reset();
@@ -84,7 +84,7 @@ export default function UpdateOpticalLinkMutation(opticalLink, form) {
         form.props.editedEntity('OpticalLink', response.composite_opticalLink.updated.opticalLink.id);
       } else {
         form.refetch();
-        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},
