@@ -1,6 +1,28 @@
 import i18n from '../i18n';
-import { UNLINK, REMOVE, SAVED } from '../utils/constants';
+import { CREATE, UNLINK, REMOVE, SAVED } from '../utils/constants';
 import { camelize } from '../utils';
+
+export function generatePortForInput(portList) {
+  const toCreate = portList
+    ? portList.filter((port) => port.status === CREATE).map((e) => ({ name: e.name, port_type: e.type.value }))
+    : [];
+
+  const toSaved = portList
+    ? portList.filter((port) => port.status === SAVED).map((e) => ({ id: e.id, name: e.name }))
+    : [];
+
+  const toUnlink = portList
+    ? portList.filter((port) => port.status === UNLINK).map((e) => ({ relation_id: e.relation_id }))
+    : [];
+
+  const toRemove = portList ? portList.filter((port) => port.status === REMOVE).map((e) => ({ id: e.id })) : [];
+  return {
+    toCreate,
+    toSaved,
+    toUnlink,
+    toRemove,
+  };
+}
 
 export function generateSubInputs(subInputObject, typeFieldName, specificFieldName = null) {
   const result = {

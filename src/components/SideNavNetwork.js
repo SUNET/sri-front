@@ -31,7 +31,7 @@ class SideNavNetwork extends React.Component {
     'odfs',
   ];
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
-  NETWORK_OPTICAL_ROUTES = [''];
+  NETWORK_OPTICAL_ROUTES = ['optical-links', 'optical-filters'];
 
   MENU_DATA = [
     {
@@ -61,18 +61,21 @@ class SideNavNetwork extends React.Component {
         { path: 'routers', i18nText: 'network.sub-menu.equipment/routers' },
         { path: 'external-equipments', i18nText: 'network.sub-menu.equipment/external-equipments' },
         { path: 'hosts', i18nText: 'network.sub-menu.equipment/hosts' },
-        { path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' },
+        { path: 'optical-nodes', i18nText: 'network.sub-menu.equipment/optical-nodes' },
         { path: 'odfs', i18nText: 'network.sub-menu.equipment/odfs' },
       ],
     },
-    // {
-    //   header: {
-    //     name: NETWORK_OPTICAL,
-    //     icon: 'optical_layers.svg',
-    //     i18nText: 'network.optical-layers.name',
-    //   },
-    //   items: [{ path: 'optical-nodes', i18nText: 'network.optical-layers.node.name' }],
-    // },
+    {
+      header: {
+        name: NETWORK_OPTICAL,
+        icon: 'optical_layers.svg',
+        i18nText: 'network.optical-layers.name',
+      },
+      items: [
+        { path: 'optical-links', i18nText: 'network.sub-menu.optical-layers/optical-links' },
+        { path: 'optical-filters', i18nText: 'network.sub-menu.optical-layers/optical-filters' },
+      ],
+    },
     {
       header: {
         name: NETWORK_PEERING,

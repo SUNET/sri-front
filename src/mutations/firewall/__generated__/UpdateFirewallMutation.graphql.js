@@ -30,6 +30,9 @@ export type CompositeFirewallMutationInput = {|
   create_dependents_host?: ?$ReadOnlyArray<?CreateHostInput>,
   update_dependents_host?: ?$ReadOnlyArray<?EditHostInput>,
   deleted_dependents_host?: ?$ReadOnlyArray<?DeleteHostInput>,
+  create_dependents_opticallink?: ?$ReadOnlyArray<?CreateOpticalLinkInput>,
+  update_dependents_opticallink?: ?$ReadOnlyArray<?UpdateOpticalLinkInput>,
+  deleted_dependents_opticallink?: ?$ReadOnlyArray<?DeleteOpticalLinkInput>,
   create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
   update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
   deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
@@ -218,6 +221,31 @@ export type EditHostInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteHostInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalLinkInput = {|
+  name: string,
+  link_type: any,
+  interface_type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalLinkInput = {|
+  name: string,
+  link_type: any,
+  interface_type: any,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  relationship_end_a?: ?number,
+  relationship_end_b?: ?number,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalLinkInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

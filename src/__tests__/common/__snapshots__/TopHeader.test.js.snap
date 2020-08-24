@@ -228,6 +228,12 @@ exports[`Some Component Renders correctly 1`] = `
                 "network.sub-menu.equipment/odfs",
               ],
               Array [
+                "network.sub-menu.optical-layers/optical-links",
+              ],
+              Array [
+                "network.sub-menu.optical-layers/optical-filters",
+              ],
+              Array [
                 "network.peering-partners.name",
               ],
               Array [
@@ -315,6 +321,14 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "network.sub-menu.equipment/odfs",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.optical-layers/optical-links",
+              },
+              Object {
+                "type": "return",
+                "value": "network.sub-menu.optical-layers/optical-filters",
               },
               Object {
                 "type": "return",

@@ -43,6 +43,8 @@ const Routes = {
   '/network/optical-nodes/create': 'Create Optical Node',
   '/network/odfs': 'ODFs',
   '/network/odfs/create': 'Create ODF',
+  '/network/optical-links': 'Optical Links',
+  '/network/optical-links/create': 'Create Optical Link',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',
