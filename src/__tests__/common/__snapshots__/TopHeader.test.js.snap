@@ -177,67 +177,67 @@ exports[`Some Component Renders correctly 1`] = `
                 "header.main-menu.community",
               ],
               Array [
-                "community.sub-menu.organizations",
+                "main-entity-name/organizations",
               ],
               Array [
-                "community.sub-menu.contacts",
+                "main-entity-name/contacts",
               ],
               Array [
-                "community.sub-menu.groups",
+                "main-entity-name/groups",
               ],
               Array [
                 "header.main-menu.network",
               ],
               Array [
-                "network.sub-menu.organizations/customers",
+                "main-entity-name/customers",
               ],
               Array [
-                "network.sub-menu.organizations/end-users",
+                "main-entity-name/end-users",
               ],
               Array [
-                "network.sub-menu.organizations/providers",
+                "main-entity-name/providers",
               ],
               Array [
-                "network.sub-menu.organizations/site-owners",
+                "main-entity-name/site-owners",
               ],
               Array [
-                "network.sub-menu.equipment/cables",
+                "main-entity-name/cables",
               ],
               Array [
-                "network.sub-menu.equipment/ports",
+                "main-entity-name/ports",
               ],
               Array [
-                "network.sub-menu.equipment/switches",
+                "main-entity-name/switches",
               ],
               Array [
-                "network.sub-menu.equipment/firewalls",
+                "main-entity-name/firewalls",
               ],
               Array [
-                "network.sub-menu.equipment/routers",
+                "main-entity-name/routers",
               ],
               Array [
-                "network.sub-menu.equipment/external-equipment",
+                "main-entity-name/external-equipment",
               ],
               Array [
-                "network.sub-menu.equipment/hosts",
+                "main-entity-name/hosts",
               ],
               Array [
-                "network.optical-layers.node.name",
+                "main-entity-name/optical-nodes",
               ],
               Array [
-                "network.sub-menu.equipment/odfs",
+                "main-entity-name/odfs",
               ],
               Array [
-                "network.sub-menu.optical-layers/optical-links",
+                "main-entity-name/optical-links",
               ],
               Array [
-                "network.sub-menu.optical-layers/optical-filters",
+                "main-entity-name/optical-filters",
               ],
               Array [
-                "network.peering-partners.name",
+                "main-entity-name/peering-partners",
               ],
               Array [
-                "network.peering-groups.name",
+                "main-entity-name/peering-groups",
               ],
               Array [
                 "header.main-menu.home",
@@ -256,15 +256,15 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
-                "value": "community.sub-menu.organizations",
+                "value": "main-entity-name/organizations",
               },
               Object {
                 "type": "return",
-                "value": "community.sub-menu.contacts",
+                "value": "main-entity-name/contacts",
               },
               Object {
                 "type": "return",
-                "value": "community.sub-menu.groups",
+                "value": "main-entity-name/groups",
               },
               Object {
                 "type": "return",
@@ -272,71 +272,71 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.organizations/customers",
+                "value": "main-entity-name/customers",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.organizations/end-users",
+                "value": "main-entity-name/end-users",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.organizations/providers",
+                "value": "main-entity-name/providers",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.organizations/site-owners",
+                "value": "main-entity-name/site-owners",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.equipment/cables",
+                "value": "main-entity-name/cables",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.equipment/ports",
+                "value": "main-entity-name/ports",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.equipment/switches",
+                "value": "main-entity-name/switches",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.equipment/firewalls",
+                "value": "main-entity-name/firewalls",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.equipment/routers",
+                "value": "main-entity-name/routers",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.equipment/external-equipment",
+                "value": "main-entity-name/external-equipment",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.equipment/hosts",
+                "value": "main-entity-name/hosts",
               },
               Object {
                 "type": "return",
-                "value": "network.optical-layers.node.name",
+                "value": "main-entity-name/optical-nodes",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.equipment/odfs",
+                "value": "main-entity-name/odfs",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.optical-layers/optical-links",
+                "value": "main-entity-name/optical-links",
               },
               Object {
                 "type": "return",
-                "value": "network.sub-menu.optical-layers/optical-filters",
+                "value": "main-entity-name/optical-filters",
               },
               Object {
                 "type": "return",
-                "value": "network.peering-partners.name",
+                "value": "main-entity-name/peering-partners",
               },
               Object {
                 "type": "return",
-                "value": "network.peering-groups.name",
+                "value": "main-entity-name/peering-groups",
               },
               Object {
                 "type": "return",
