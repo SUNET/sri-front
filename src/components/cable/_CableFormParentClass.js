@@ -89,7 +89,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('main-entity-name/providers'),
+        title: t('entity-name/provider'),
         presentContent: providerObj ? providerObj.name : '',
         editContent: (
           <Dropdown

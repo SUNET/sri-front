@@ -2,7 +2,7 @@ import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 // Common imports
 import { withTranslation } from 'react-i18next';
 
-class FieldArrayPeeringGroupDependencies extends _BasicFieldArrayParentClass {
+class FieldArrayDependencies extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
     this.FIELD_NAME_IN_FORM = 'dependencies';
@@ -36,4 +36,4 @@ class FieldArrayPeeringGroupDependencies extends _BasicFieldArrayParentClass {
   }
 }
 
-export default withTranslation()(FieldArrayPeeringGroupDependencies);
+export default withTranslation()(FieldArrayDependencies);

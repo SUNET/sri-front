@@ -209,7 +209,8 @@ export class TopHeader extends React.Component {
             iconClass: 'icon-organization',
             subSubOptions: [
               { name: t('main-entity-name/optical-links'), route: 'optical-links' },
-              { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
+              // { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
+              { name: t('main-entity-name/optical-multiplex-sections'), route: 'optical-multiplex-sections' },
             ],
           },
           {

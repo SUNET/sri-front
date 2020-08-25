@@ -31,7 +31,7 @@ class SideNavNetwork extends React.Component {
     'odfs',
   ];
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
-  NETWORK_OPTICAL_ROUTES = ['optical-links', 'optical-filters'];
+  NETWORK_OPTICAL_ROUTES = ['optical-links', 'optical-filters', 'optical-multiplex-sections'];
 
   MENU_DATA = [
     {
@@ -73,7 +73,8 @@ class SideNavNetwork extends React.Component {
       },
       items: [
         { path: 'optical-links', i18nText: 'main-entity-name/optical-links' },
-        { path: 'optical-filters', i18nText: 'main-entity-name/optical-filters' },
+        // { path: 'optical-filters', i18nText: 'main-entity-name/optical-filters' },
+        { path: 'optical-multiplex-sections', i18nText: 'main-entity-name/optical-multiplex-sections' },
       ],
     },
     {

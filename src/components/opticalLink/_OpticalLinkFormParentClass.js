@@ -104,7 +104,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('main-entity-name/providers'),
+        title: t('entity-name/provider'),
         presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown

@@ -118,7 +118,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
 
     const generalInfoSecondRow = [
       {
-        title: t('main-entity-name/providers'),
+        title: t('entity-name/provider'),
         presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown

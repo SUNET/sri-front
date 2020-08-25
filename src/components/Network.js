@@ -19,6 +19,7 @@ import SearchPeeringGroupContainer from '../containers/peeringGroup/SearchPeerin
 import SearchOpticalNodeContainer from '../containers/opticalNode/SearchOpticalNode';
 import SearchOdfContainer from '../containers/ODF/SearchODF';
 import SearchOpticalLinkContainer from '../containers/opticalLink/SearchOpticalLink';
+import SearchOpticalMultiplexSectionContainer from '../containers/opticalMultiplexSection/SearchOpticalMultiplexSection';
 
 class Network extends React.Component {
   render() {
@@ -45,6 +46,7 @@ class Network extends React.Component {
             <Route path="/network/optical-nodes" component={SearchOpticalNodeContainer} />
             <Route path="/network/odfs" component={SearchOdfContainer} />{' '}
             <Route path="/network/optical-links" component={SearchOpticalLinkContainer} />
+            <Route path="/network/optical-multiplex-sections" component={SearchOpticalMultiplexSectionContainer} />
           </Switch>
         </Col>
       </Row>
