@@ -1,12 +1,11 @@
 import React from 'react';
-import { FieldArray, arrayPush, change } from 'redux-form';
+import { FieldArray, change } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayDependencies from '../common/FieldArrayDependencies';
 // const
-import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
