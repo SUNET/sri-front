@@ -13,7 +13,7 @@ class SaveCancelCTAs extends React.Component {
           {this.props.cancelText}
         </button>
         <button form={formId} className="save-cancel-ctas__save btn primary lg" type="submit">
-          {t('actions.save')}
+          {t('actions/save')}
         </button>
       </div>
     );

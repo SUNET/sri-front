@@ -67,7 +67,7 @@ function CreateODFMutation(ODF, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_oDF.created.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_oDF.created.errors;
       }
       const entityId = response.composite_oDF.created.oDF.id;

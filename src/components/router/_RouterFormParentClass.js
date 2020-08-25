@@ -76,7 +76,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
 
     const generalInfo = [
       {
-        title: t('network.firewall.details.operational-state'),
+        title: t('general-forms/operational-state'),
         presentContent: operational_state,
         editContent: (
           <Dropdown
@@ -89,7 +89,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.firewall.details.model'),
+        title: t('general-forms/model'),
         presentContent: model,
         editContent: (
           <Form.Group>
@@ -98,13 +98,13 @@ class _RouterFormParentClass extends _BasicFormParentClass {
               name="model"
               component={FieldInput}
               disabled
-              placeholder={t('general-forms.write-text')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.router.details.junos-version'),
+        title: t('general-forms/junos-version'),
         presentContent: version,
         editContent: (
           <Form.Group>
@@ -117,7 +117,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -138,7 +138,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.external-equipment.details.ports')}</h2>
+            <h2>{t('main-entity-name/ports')}</h2>
           </ToggleHeading>
 
           <TogglePanel>
@@ -177,7 +177,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.router.details.bulk-port')}</h2>
+            <h2>{t('general-forms/bulk-port')}</h2>
           </ToggleHeading>
           <TogglePanel>
             <BulPort

@@ -151,7 +151,7 @@ export default function UpdateFirewallMutation(firewall, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_firewall.updated.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_firewall.updated.errors;
       }
       form.props.reset();
@@ -159,7 +159,7 @@ export default function UpdateFirewallMutation(firewall, form) {
         form.props.editedEntity('Firewall', response.composite_firewall.updated.firewall.id);
       } else {
         form.refetch();
-        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

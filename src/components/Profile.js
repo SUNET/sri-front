@@ -48,7 +48,7 @@ class ProfileForm extends React.Component {
                                     onClick={() => this.props.history.goBack()}
                                     className="btn btn-back outline"
                                 >
-                                    <span>{t("actions.back")}</span>
+                                    <span>{t("actions/back")}</span>
                                 </button>
                                 <h1>{t("profile-settings.title")}</h1>
                             </div>
@@ -146,7 +146,7 @@ class ProfileForm extends React.Component {
                                             <div className="pretty custom p-switch">
                                                 <Field component="input" type="checkbox" name="emails-notification" />
                                                 <div className="state p-primary">
-                                                    <label>{t("settings.emails")}</label>
+                                                    <label>{t("general-forms/emails")}</label>
                                                 </div>
                                             </div>
                                         </ListGroup.Item>
@@ -185,7 +185,7 @@ ProfileForm = reduxForm({
     validate,
     enableReinitialize: true,
     onSubmitSuccess: (result, dispatch, props) => {
-        props.notify(props.t("notify.changes-saved"), "success");
+        props.notify(props.t("notify/changes-saved"), "success");
     }
 })(ProfileForm);
 

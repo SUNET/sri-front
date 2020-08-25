@@ -173,7 +173,7 @@ class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
     const { t } = this.props;
-    this.LOADING_VALUE = [{ id: '', name: t('actions.loading') }];
+    this.LOADING_VALUE = [{ id: '', name: t('actions/loading') }];
 
     this.NO_MATCHES_RESULT = [{ id: '', name: t('search-filter.no-matches') }];
 

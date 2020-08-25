@@ -191,7 +191,7 @@ class FieldArrayMembersGroup extends React.Component {
         onHide={() => this.setState({ showModal: false })}
       >
         <Modal.Header closeButton={true}>
-          <h2>{t('contact-details.professional-details')}</h2>
+          <h2>{t('general-forms/professional-details')}</h2>
         </Modal.Header>
         <Modal.Body className="organizations-contacts">
           <div className="model-details">
@@ -229,19 +229,19 @@ class FieldArrayMembersGroup extends React.Component {
   //           }`}
   //         >
   //           <div className="contact-in-organization__body__row__element">
-  //             <div className="contact-in-organization__header__title">{t('contact-details.name')}</div>
+  //             <div className="contact-in-organization__header__title">{t('general-forms/name')}</div>
   //             {row.name}
   //           </div>
   //           <div className="contact-in-organization__body__row__element">
-  //             <div className="contact-in-organization__header__title">{t('community.sub-menu.organizations')}</div>
+  //             <div className="contact-in-organization__header__title">{t('main-entity-name/organizations')}</div>
   //             {this.generateSubDataList(row, 'organization_label')}
   //           </div>
   //           <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
-  //             <div className="contact-in-organization__header__title">{t('settings.emails')}</div>
+  //             <div className="contact-in-organization__header__title">{t('general-forms/emails')}</div>
   //             {this.generateSubDataList(row, 'email', 'type.name')}
   //           </div>
   //           <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
-  //             <div className="contact-in-organization__header__title">{t('organization-details.phone')}</div>
+  //             <div className="contact-in-organization__header__title">{t('general-forms/phone')}</div>
   //             {this.generateSubDataList(row, 'phone')}
   //           </div>
   //         </div>
@@ -257,7 +257,7 @@ class FieldArrayMembersGroup extends React.Component {
         className="btn outline btn-add more-info"
         onClick={() => this.props.handleShowContactDetail(id)}
       >
-        <span>{t('actions.info')}</span>
+        <span>{t('actions/info')}</span>
       </button>
     );
   }
@@ -273,7 +273,7 @@ class FieldArrayMembersGroup extends React.Component {
   //         className="btn outline btn-edit"
   //       >
   //         <i className="icon-pencil"></i>
-  //         <span>{t('actions.edit')}</span>
+  //         <span>{t('actions/edit')}</span>
   //       </button>
   //     );
   //   }
@@ -308,7 +308,7 @@ class FieldArrayMembersGroup extends React.Component {
     const rowDetails = this.getValueById(id);
     return (
       <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
-        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions.unlink')}</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions/unlink')}</Tooltip>}>
           <div
             className={`row-cta unlink ${rowDetails.data.status === UNLINK ? 'active' : ''}`}
             onClick={() => this.unlinkRow(id)}
@@ -317,13 +317,13 @@ class FieldArrayMembersGroup extends React.Component {
           </div>
         </OverlayTrigger>
 
-        <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions/open_edition')}</Tooltip>}>
           <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
             <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
           </div>
         </OverlayTrigger>
 
-        <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions/move_to_trash')}</Tooltip>}>
           <div
             className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}
             onClick={() => this.removeRow(id)}
@@ -345,7 +345,7 @@ class FieldArrayMembersGroup extends React.Component {
           this.onClickAccept();
         }}
       >
-        <span> {t('actions.accept')}</span>
+        <span> {t('actions/accept')}</span>
       </button>
     );
   }
@@ -361,7 +361,7 @@ class FieldArrayMembersGroup extends React.Component {
           this.removeRow(key);
         }}
       >
-        <span> {t('actions.delete')}</span>
+        <span> {t('actions/delete')}</span>
       </button>
     );
   }
@@ -369,12 +369,12 @@ class FieldArrayMembersGroup extends React.Component {
   renderHeader() {
     const { t } = this.props;
     const headers = isMobile
-      ? [t('contact-details.name')]
+      ? [t('general-forms/name')]
       : [
-          t('contact-details.name'),
-          t('community.sub-menu.organizations'),
+          t('general-forms/name'),
+          t('main-entity-name/organizations'),
           this.renderEmailsHeader(),
-          t('organization-details.phone'),
+          t('general-forms/phone'),
         ];
     return (
       <div className="contact-in-organization__header">
@@ -445,7 +445,7 @@ class FieldArrayMembersGroup extends React.Component {
               className="contact-in-organization__footer__add btn btn-add outline"
               onClick={(e) => this.addRow(e)}
             >
-              {t('actions.add-new')}
+              {t('actions/add-new')}
             </button>
           </>
         )}
@@ -458,10 +458,10 @@ class FieldArrayMembersGroup extends React.Component {
     const { t } = this.props;
     return (
       <div className="contact-in-organization__header__title--with-cta">
-        <span>{t('settings.emails')}</span>
+        <span>{t('general-forms/emails')}</span>
         {this.getAllEmailsFromAllContacts().length > 0 && (
           <button type="button" onClick={() => this.copyAllEmails()} className="btn outline btn-copy">
-            <span>{t('actions.copy-all')}</span>
+            <span>{t('actions/copy-all')}</span>
           </button>
         )}
       </div>

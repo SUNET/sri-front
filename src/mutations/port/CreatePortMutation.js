@@ -121,7 +121,7 @@ function CreatePortMutation(port, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_port.created.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_port.created.errors;
       }
       const portId = response.composite_port.created.port.id;

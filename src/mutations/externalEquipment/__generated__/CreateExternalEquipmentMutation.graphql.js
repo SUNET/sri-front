@@ -61,6 +61,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_part_of_opticallink?: ?CreateOpticalLinkInput,
   update_part_of_opticallink?: ?UpdateOpticalLinkInput,
   deleted_part_of_opticallink?: ?DeleteOpticalLinkInput,
+  create_part_of_opticalmultiplexsection?: ?CreateOpticalMultiplexSectionInput,
+  update_part_of_opticalmultiplexsection?: ?UpdateOpticalMultiplexSectionInput,
+  deleted_part_of_opticalmultiplexsection?: ?DeleteOpticalMultiplexSectionInput,
   create_part_of_peeringgroup?: ?CreatePeeringGroupInput,
   update_part_of_peeringgroup?: ?UpdatePeeringGroupInput,
   deleted_part_of_peeringgroup?: ?DeletePeeringGroupInput,
@@ -133,6 +136,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_dependents_opticallink?: ?$ReadOnlyArray<?CreateOpticalLinkInput>,
   update_dependents_opticallink?: ?$ReadOnlyArray<?UpdateOpticalLinkInput>,
   deleted_dependents_opticallink?: ?$ReadOnlyArray<?DeleteOpticalLinkInput>,
+  create_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?CreateOpticalMultiplexSectionInput>,
+  update_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?UpdateOpticalMultiplexSectionInput>,
+  deleted_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?DeleteOpticalMultiplexSectionInput>,
   create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
   update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
   deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
@@ -612,6 +618,25 @@ export type UpdateOpticalLinkInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteOpticalLinkInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalMultiplexSectionInput = {|
+  name: string,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalMultiplexSectionInput = {|
+  name: string,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalMultiplexSectionInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

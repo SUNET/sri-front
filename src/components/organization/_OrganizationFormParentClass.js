@@ -145,14 +145,14 @@ class _OrganizationFormParentClass extends React.Component {
           className="btn outline btn-edit"
         >
           <i className="icon-pencil"></i>
-          <span>{t('actions.edit')}</span>
+          <span>{t('actions/edit')}</span>
         </button>
       </div>
     );
   }
   renderSaveCancelButtons() {
     const { t } = this.props;
-    const textToButtons = this.IS_UPDATED_FORM ? t('actions.delete') : t('actions.cancel');
+    const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
     return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
   }
@@ -188,9 +188,9 @@ class _OrganizationFormParentClass extends React.Component {
   renderInputName(kindOfName, editMode = true) {
     // INFO: kindOfName = 'first_name' || 'last_name' || 'name'
     const { t, formSyncErrors, fields, form, dispatch } = this.props;
-    let placeHolderString = t('contact-details.name');
+    let placeHolderString = t('general-forms/name');
     if (kindOfName === 'last_name') {
-      placeHolderString = t('contact-details.lastName');
+      placeHolderString = t('general-forms/last-name');
     }
     return (
       <EditField
@@ -215,7 +215,7 @@ class _OrganizationFormParentClass extends React.Component {
         ) : (
           <ToggleSection defaultEditable={false}>
             <ToggleHeading>
-              <h2>{t('contact-details.worklog')}</h2>
+              <h2>{t('general-forms/worklog')}</h2>
             </ToggleHeading>
             <TogglePanel>
               <Field
@@ -223,7 +223,7 @@ class _OrganizationFormParentClass extends React.Component {
                 component={FieldInput}
                 as="textarea"
                 rows="3"
-                placeholder={t('worklog.add-comment')}
+                placeholder={t('general-forms/worklog-add-comment')}
                 onBlur={(e) => {
                   this.setState({ comment: e.target.value });
                 }}
@@ -241,7 +241,7 @@ class _OrganizationFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.description')}</h2>
+          <h2>{t('general-forms/description')}</h2>
         </ToggleHeading>
         <TogglePanel>
           {editMode ? (
@@ -250,7 +250,7 @@ class _OrganizationFormParentClass extends React.Component {
               component={FieldInput}
               as="textarea"
               rows="3"
-              placeholder={t('group-details.add-description')}
+              placeholder={t('general-forms/add-description')}
             ></Field>
           ) : (
             <span className="pre-text">{description}</span>
@@ -263,7 +263,7 @@ class _OrganizationFormParentClass extends React.Component {
     const { typeObj, organization_id, organization_number, website, organization_parent_id, t } = this.props;
     const generalInfoFirstRow = [
       {
-        title: t('organization-details.type'),
+        title: t('general-forms/type'),
         presentContent: typeObj ? typeObj.name : undefined,
         editContent: (
           <Dropdown
@@ -276,7 +276,7 @@ class _OrganizationFormParentClass extends React.Component {
         ),
       },
       {
-        title: t('organization-details.affiliation'),
+        title: t('general-forms/affiliation'),
         presentContent: (
           <FiledArrayCheckbox
             data={INPUTS}
@@ -301,7 +301,7 @@ class _OrganizationFormParentClass extends React.Component {
         ),
       },
       {
-        title: t('organization-details.organization-id'),
+        title: t('general-forms/organization-id'),
         presentContent: organization_id,
         editContent: (
           <Form.Group>
@@ -309,13 +309,13 @@ class _OrganizationFormParentClass extends React.Component {
               type="text"
               name="organization_id"
               component={FieldInput}
-              placeholder={t('organization-details.add-id')}
+              placeholder={t('general-forms/write-id')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('organization-details.parent-org'),
+        title: t('general-forms/parent-organization'),
         presentContent: this.props.organization_parent
           ? `${this.props.organization_parent.name} - ${this.props.organization_parent.organization_id}`
           : '',
@@ -327,7 +327,7 @@ class _OrganizationFormParentClass extends React.Component {
             type="combo_list"
             name="organization_parent_id"
             model="organization"
-            placeholder={t('organization-details.add-id')}
+            placeholder={t('general-forms/write-id')}
             currentValue={organization_parent_id}
             objectCurrentValue={this.props.organization_parent}
             nameDataInsideRequest="all_organizations"
@@ -361,7 +361,7 @@ class _OrganizationFormParentClass extends React.Component {
 
     const generalInfoSecondRow = [
       {
-        title: t('organization-details.website'),
+        title: t('general-forms/website'),
         presentContent: (
           <a href={this.generateURL(website)} target="_blank" rel="noopener noreferrer">
             {website}
@@ -374,13 +374,13 @@ class _OrganizationFormParentClass extends React.Component {
               className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
               name="website"
               component={FieldInput}
-              placeholder={t('organization-details.add-website')}
+              placeholder={t('general-forms/write-website')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('organization-details.org-number'),
+        title: t('general-forms/organization-number'),
         presentContent: organization_number,
         editContent: (
           <Form.Group>
@@ -388,7 +388,7 @@ class _OrganizationFormParentClass extends React.Component {
               type="text"
               name="organization_number"
               component={FieldInput}
-              placeholder={t('organization-details.add-number')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -398,7 +398,7 @@ class _OrganizationFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -422,7 +422,7 @@ class _OrganizationFormParentClass extends React.Component {
     return (
       <ToggleSection defaultEditable={false}>
         <ToggleHeading>
-          <h2>{t('organization-details.address')}</h2>
+          <h2>{t('general-forms/address')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <FieldArray
@@ -443,7 +443,7 @@ class _OrganizationFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.contacts')}</h2>
+          <h2>{t('main-entity-name/contacts')}</h2>
         </ToggleHeading>
 
         <TogglePanel>
@@ -479,7 +479,7 @@ class _OrganizationFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.additional-info')}</h2>
+          <h2>{t('general-forms/additional-info-incident')}</h2>
         </ToggleHeading>
         <TogglePanel>
           {editMode ? (
@@ -488,7 +488,7 @@ class _OrganizationFormParentClass extends React.Component {
               component={FieldInput}
               as="textarea"
               rows="3"
-              placeholder={t('group-details.add-description')}
+              placeholder={t('general-forms/add-description')}
             />
           ) : (
             <span className="pre-text">{incident_management_info}</span>

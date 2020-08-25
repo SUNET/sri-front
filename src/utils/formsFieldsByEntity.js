@@ -227,6 +227,20 @@ const opticalLink = {
   ],
 };
 
+const opticalMultiplexSection = {
+  formName: {
+    create: 'createOpticalMultiplexSection',
+    update: 'updateOpticalMultiplexSection',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+  ],
+};
 
 export default {
   customer,
@@ -243,4 +257,5 @@ export default {
   opticalNode,
   ODF,
   opticalLink,
+  opticalMultiplexSection,
 };

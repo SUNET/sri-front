@@ -40,6 +40,9 @@ export type CompositeContactMutationInput = {|
   create_uses_opticallink?: ?CreateOpticalLinkInput,
   update_uses_opticallink?: ?UpdateOpticalLinkInput,
   deleted_uses_opticallink?: ?DeleteOpticalLinkInput,
+  create_uses_opticalmultiplexsection?: ?CreateOpticalMultiplexSectionInput,
+  update_uses_opticalmultiplexsection?: ?UpdateOpticalMultiplexSectionInput,
+  deleted_uses_opticalmultiplexsection?: ?DeleteOpticalMultiplexSectionInput,
   create_uses_peeringgroup?: ?CreatePeeringGroupInput,
   update_uses_peeringgroup?: ?UpdatePeeringGroupInput,
   deleted_uses_peeringgroup?: ?DeletePeeringGroupInput,
@@ -292,6 +295,25 @@ export type UpdateOpticalLinkInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteOpticalLinkInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalMultiplexSectionInput = {|
+  name: string,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalMultiplexSectionInput = {|
+  name: string,
+  operational_state: any,
+  description?: ?string,
+  relationship_provider?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalMultiplexSectionInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

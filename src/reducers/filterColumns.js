@@ -18,6 +18,7 @@ const entityList = [
   'opticalNode',
   'odf',
   'opticalLink',
+  'opticalMultiplexSection',
 ];
 const initialState = entityList.reduce((acc, curr) => {
   acc[curr] = {

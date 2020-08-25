@@ -9,28 +9,28 @@ class FieldArrayConnectedToPort extends _BasicFieldArrayParentClass {
     this.HEADER_TEXTS = {
       summary: [
         {
-          text: 'contact-details.name',
+          text: 'general-forms/name',
           fieldKey: 'name',
         },
       ],
       all: [
         {
-          text: 'contact-details.name',
+          text: 'general-forms/name',
           fieldKey: 'name',
         },
         {
-          text: 'organization-details.type',
+          text: 'general-forms/type',
           fieldKey: 'type.name',
         },
         {
-          text: 'group-details.description',
+          text: 'general-forms/description',
           fieldKey: 'description',
         },
       ],
-      modal: ['network.details.connectedTo_element_detail'],
+      modal: ['general-forms/connected-to-element-detail'],
     };
     this.PRE_FILTER_SELECT = {
-      label: 'cable.select_type',
+      label: 'general-forms/select-cable-type',
       type: 'cable_types',
       name: 'cable_types_preFilter',
       entityMandatory: 'Cable',

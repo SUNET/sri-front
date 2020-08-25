@@ -50,7 +50,7 @@ export default function UpdatePeeringGroupMutation(peeringGroup, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_peeringGroup.updated.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_peeringGroup.updated.errors;
       }
       form.props.reset();
@@ -58,7 +58,7 @@ export default function UpdatePeeringGroupMutation(peeringGroup, form) {
         form.props.editedEntity('PeeringGroup', response.composite_peeringGroup.updated.peeringGroup.id);
       } else {
         form.refetch();
-        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

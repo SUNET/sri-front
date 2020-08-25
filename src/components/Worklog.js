@@ -51,7 +51,7 @@ export class Worklog extends React.Component {
         return (
             <ToggleSection defaultEditable={false}>
                 <ToggleHeading>
-                    <h2>{t("contact-details.worklog")}</h2>
+                    <h2>{t("general-forms/worklog")}</h2>
                 </ToggleHeading>
                 <TogglePanel>
                     <div className="worklog">
@@ -66,7 +66,7 @@ export class Worklog extends React.Component {
                                                     <div className="worklog__messages__item__body__content">
                                                         <header className="worklog__messages__item__body__content__header">
                                                             {comment.user.first_name} {comment.user.last_name}{" "}
-                                                            {t("worklog.wrote")}:
+                                                            {t("general-forms/worklog-wrote")}:
                                                         </header>
                                                         <div className="worklog__messages__item__body__content__comment pre-text">
                                                             {comment.comment}
@@ -87,7 +87,7 @@ export class Worklog extends React.Component {
                                 <Form.Control
                                     as="textarea"
                                     rows="3"
-                                    placeholder={t("worklog.add-comment")}
+                                    placeholder={t("general-forms/worklog-add-comment")}
                                     onChange={(e) => {
                                         this.handleCommentChange(e);
                                     }}
@@ -96,7 +96,7 @@ export class Worklog extends React.Component {
                             </Form.Group>
                             <div className="actions">
                                 <Button type="button" onClick={() => this.createComment()} className="secondary md">
-                                    {t("worklog.send")}
+                                    {t("general-forms/worklog-send")}
                                 </Button>
                             </div>
                         </div>

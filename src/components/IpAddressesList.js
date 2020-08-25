@@ -75,11 +75,11 @@ class IpAddressesList extends React.Component {
           className={`ip-addresses-list__add-new-block__text-input form-control ${!validIp ? 'invalid-input' : ''}`}
           type="text"
           ref={this.input}
-          placeholder={t('network.switch.details.ip-address.write-address')}
+          placeholder={t('general-forms/write-address')}
         />
         {!validIp && (
           <div className="ip-addresses-list__add-new-block__invalid-ip">
-            {`* ${t('network.switch.details.ip-address.invalid-ip')}`}
+            {`* ${t('general-forms/validations/invalid-ip')}`}
           </div>
         )}
         <div className="ip-addresses-list__add-new-block__new-button form-control">
@@ -87,7 +87,7 @@ class IpAddressesList extends React.Component {
             <span className="ip-addresses-list__add-new-block__new-button__icon">
               <FontAwesomeIcon icon={faPlus} className="" />
             </span>
-            <span className="ip-addresses-list__add-new-block__new-button__text">{t('actions.add-new')}</span>
+            <span className="ip-addresses-list__add-new-block__new-button__text">{t('actions/add-new')}</span>
           </button>
         </div>
       </div>

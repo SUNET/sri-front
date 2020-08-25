@@ -9,32 +9,32 @@ class FieldArrayParentPort extends _BasicFieldArrayParentClass {
     this.HEADER_TEXTS = {
       summary: [
         {
-          text: 'contact-details.name',
+          text: 'general-forms/name',
           fieldKey: 'name',
         },
       ],
       all: [
         {
-          text: 'contact-details.name',
+          text: 'general-forms/name',
           fieldKey: 'name',
         },
         {
-          text: 'network.details.entity_type',
+          text: 'general-forms/entity-type',
           fieldKey: 'entityType.name',
         },
         {
-          text: 'organization-details.type',
+          text: 'general-forms/type',
           fieldKey: 'type.name',
         },
         {
-          text: 'group-details.description',
+          text: 'general-forms/description',
           fieldKey: 'description',
         },
       ],
-      modal: ['network.details.parent_element_detail'],
+      modal: ['general-forms/parent-element-detail'],
     };
     this.PRE_FILTER_SELECT = {
-      label: 'physical.select_type',
+      label: 'general-forms/select-physical-type',
       type: 'physical_types',
       model: 'physical_types',
       name: 'physical_types_preFilter',

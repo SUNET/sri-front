@@ -301,7 +301,7 @@ class Dropdown extends React.PureComponent {
           variables={variables}
           render={({ error, props }) => {
             if (error) {
-              return <div>{this.props.t('general.error')}</div>;
+              return <div>{this.props.t('general/error')}</div>;
             } else if (props) {
               const options = props[Object.keys(props)[0]];
               if (this.props.type === 'combo_list') {

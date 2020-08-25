@@ -47,7 +47,7 @@ class DashBoardActivityLogBlock extends _DashBoardBlockParentClass {
           },
           first: activityParams.maxNumberRows,
         }}
-        errorMessage={this.props.t('general.error')}
+        errorMessage={this.props.t('general/error')}
         mainClass={this.MAIN_CLASS}
         componentToRender={{
           Component: this.DASH_BOARD_LIST_COMPONENT,

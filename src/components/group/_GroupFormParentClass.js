@@ -120,14 +120,14 @@ class _GroupFormParentClass extends React.Component {
           className="btn outline btn-edit"
         >
           <i className="icon-pencil"></i>
-          <span>{t('actions.edit')}</span>
+          <span>{t('actions/edit')}</span>
         </button>
       </div>
     );
   }
   renderSaveCancelButtons() {
     const { t } = this.props;
-    const textToButtons = this.IS_UPDATED_FORM ? t('actions.delete') : t('actions.cancel');
+    const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
     return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
   }
@@ -165,9 +165,9 @@ class _GroupFormParentClass extends React.Component {
   renderInputName(kindOfName, editMode = true) {
     // INFO: kindOfName = 'first_name' || 'last_name' || 'name'
     const { t, formSyncErrors, fields, form, dispatch } = this.props;
-    let placeHolderString = t('contact-details.name');
+    let placeHolderString = t('general-forms/name');
     if (kindOfName === 'last_name') {
-      placeHolderString = t('contact-details.lastName');
+      placeHolderString = t('general-forms/last-name');
     }
     return (
       <EditField
@@ -192,7 +192,7 @@ class _GroupFormParentClass extends React.Component {
         ) : (
           <ToggleSection defaultEditable={false}>
             <ToggleHeading>
-              <h2>{t('contact-details.worklog')}</h2>
+              <h2>{t('general-forms/worklog')}</h2>
             </ToggleHeading>
             <TogglePanel>
               <Field
@@ -200,7 +200,7 @@ class _GroupFormParentClass extends React.Component {
                 component={FieldInput}
                 as="textarea"
                 rows="3"
-                placeholder={t('worklog.add-comment')}
+                placeholder={t('general-forms/worklog-add-comment')}
                 onBlur={(e) => {
                   this.setState({ comment: e.target.value });
                 }}
@@ -218,7 +218,7 @@ class _GroupFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.description')}</h2>
+          <h2>{t('general-forms/description')}</h2>
         </ToggleHeading>
         <TogglePanel>
           {editMode ? (
@@ -227,7 +227,7 @@ class _GroupFormParentClass extends React.Component {
               component={FieldInput}
               as="textarea"
               rows="3"
-              placeholder={t('group-details.add-description')}
+              placeholder={t('general-forms/add-description')}
             ></Field>
           ) : (
             <span className="pre-text">{description}</span>
@@ -241,7 +241,7 @@ class _GroupFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.contacts')}</h2>
+          <h2>{t('main-entity-name/contacts')}</h2>
         </ToggleHeading>
 
         <TogglePanel>

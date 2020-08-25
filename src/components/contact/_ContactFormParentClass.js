@@ -94,14 +94,14 @@ class _ContactFormParentClass extends React.Component {
           className="btn outline btn-edit"
         >
           <i className="icon-pencil"></i>
-          <span>{t('actions.edit')}</span>
+          <span>{t('actions/edit')}</span>
         </button>
       </div>
     );
   }
   renderSaveCancelButtons() {
     const { t, isFromModal } = this.props;
-    const textToButtons = this.IS_UPDATED_FORM ? t('actions.delete') : t('actions.cancel');
+    const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return <SaveCancelCTAs formId={formId} cancelText={textToButtons} onCancel={functionToCancel} />;
@@ -141,7 +141,7 @@ class _ContactFormParentClass extends React.Component {
   renderInputName(kindOfName, editMode = true) {
     // INFO: kindOfName = 'first_name' || 'last_name'
     const { t, formSyncErrors, fields, form, dispatch } = this.props;
-    const placeHolderString = kindOfName === 'first_name' ? t('contact-details.name') : t('contact-details.lastName');
+    const placeHolderString = kindOfName === 'first_name' ? t('general-forms/name') : t('general-forms/last-name');
     return (
       <EditField
         error={formSyncErrors[kindOfName]}
@@ -165,7 +165,7 @@ class _ContactFormParentClass extends React.Component {
         ) : (
           <ToggleSection defaultEditable={false}>
             <ToggleHeading>
-              <h2>{t('contact-details.worklog')}</h2>
+              <h2>{t('general-forms/worklog')}</h2>
             </ToggleHeading>
             <TogglePanel>
               <Field
@@ -173,7 +173,7 @@ class _ContactFormParentClass extends React.Component {
                 component={FieldInput}
                 as="textarea"
                 rows="3"
-                placeholder={t('worklog.add-comment')}
+                placeholder={t('general-forms/worklog-add-comment')}
               />
             </TogglePanel>
           </ToggleSection>
@@ -188,7 +188,7 @@ class _ContactFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('contact-details.notes')}</h2>
+          <h2>{t('general-forms/notes')}</h2>
         </ToggleHeading>
         <TogglePanel>
           {editMode ? (
@@ -197,7 +197,7 @@ class _ContactFormParentClass extends React.Component {
               component={FieldInput}
               as="textarea"
               rows="3"
-              placeholder={t('contact-details.add-notes')}
+              placeholder={t('general-forms/add-notes')}
             />
           ) : (
             <span className="pre-text">{this.props.notes}</span>
@@ -277,7 +277,7 @@ class _ContactFormParentClass extends React.Component {
     return (
       <ToggleSection defaultEditable={false}>
         <ToggleHeading>
-          <h2>{t('contact-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <>
@@ -300,7 +300,7 @@ class _ContactFormParentClass extends React.Component {
                         type="text"
                         component={FieldInput}
                         className={`${isBrowser ? 'xlg' : 'auto'}`}
-                        placeholder={t('contact-details.pgp-fingerprint')}
+                        placeholder={t('general-forms/pgp-fingerprint')}
                         name="pgp_fingerprint"
                       />
                     </Form.Group>
@@ -318,7 +318,7 @@ class _ContactFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('contact-details.professional-details')}</h2>
+          <h2>{t('general-forms/professional-details')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <FieldArray

@@ -72,14 +72,14 @@ export function onCompleteCompositeCreationEntity(
   CreateCommentMutation,
 ) {
   if (response[responseFieldName].created.errors) {
-    form.props.notify(i18n.t('notify.error'), 'error');
+    form.props.notify(i18n.t('notify/generic-error'), 'error');
     return response[responseFieldName].created.errors;
   }
   const entityId = response[responseFieldName].created[camelize(entityName)].id;
   if (entityObj.comment) {
     CreateCommentMutation(entityId, entityObj.comment);
   }
-  form.props.notify(i18n.t(`notify.network/${entityNameList}-created-success`), 'success');
+  form.props.notify(i18n.t(`entity-notify-create/${entityNameList}`), 'success');
   if (form.props.history) {
     form.props.history.push(`/network/${entityNameList}/${entityId}`);
   } else {

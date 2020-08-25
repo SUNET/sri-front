@@ -9,21 +9,21 @@ class FieldArrayPorts extends _BasicFieldArrayParentClass {
     this.HEADER_TEXTS = {
       summary: [
         {
-          text: 'contact-details.name',
+          text: 'general-forms/name',
           fieldKey: 'name',
         },
       ],
       all: [
         {
-          text: 'contact-details.name',
+          text: 'general-forms/name',
           fieldKey: 'name',
         },
         {
-          text: 'organization-details.type',
+          text: 'general-forms/type',
           fieldKey: 'type.name',
         },
       ],
-      modal: ['network.details.parent_element_detail'],
+      modal: ['general-forms/parent-element-detail'],
     };
     this.PRE_FILTER_SELECT = {
       label: null,

@@ -56,7 +56,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     if (!this.IS_UPDATED_FORM) {
       // only for create Form
       generalInfoFirstRow.push({
-        title: t('network.switch.details.type'),
+        title: t('general-forms/type'),
         presentContent: operational_state,
         editContent: (
           <Dropdown
@@ -73,7 +73,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     generalInfoFirstRow.push(
       ...[
         {
-          title: t('network.switch.details.status'),
+          title: t('general-forms/status'),
           presentContent: operational_state,
           editContent: (
             <Dropdown
@@ -86,7 +86,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
           ),
         },
         {
-          title: t('network.switch.details.managed-by'),
+          title: t('general-forms/managed-by'),
           presentContent: managed_by,
           editContent: (
             <Dropdown
@@ -118,7 +118,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
 
     const generalInfoSecondRow = [
       {
-        title: t('network.cable.details.provider'),
+        title: t('entity-name/provider'),
         presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown
@@ -144,7 +144,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -168,7 +168,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     const { t, contract_number, backup, rack_position, rack_units } = this.props;
     const detailsInfo = [
       {
-        title: t('network.switch.details.contract-number'),
+        title: t('general-forms/contract-number'),
         presentContent: contract_number,
         editContent: (
           <Form.Group>
@@ -176,13 +176,13 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               type="text"
               name="contract_number"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-contract-number')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.backup'),
+        title: t('general-forms/contract-backup'),
         presentContent: backup,
         editContent: (
           <Form.Group>
@@ -190,13 +190,13 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               type="text"
               name="backup"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-backup')}
+              placeholder={t('general-forms/write-backup')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.equipment-height'),
+        title: t('general-forms/equipment-height'),
         presentContent: rack_units,
         editContent: (
           <Form.Group>
@@ -204,13 +204,13 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_units"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-equipment-height')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.rack-position'),
+        title: t('general-forms/rack-position'),
         presentContent: rack_position,
         editContent: (
           <Form.Group>
@@ -218,7 +218,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_position"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-rack-position')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -228,7 +228,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.switch.details.details')}</h2>
+          <h2>{t('general-forms/details')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -256,16 +256,16 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
 
     const detailsInfoFirstRow = [
       {
-        title: t('network.switch.details.os'),
+        title: t('general-forms/os'),
         presentContent: os,
         editContent: (
           <Form.Group>
-            <Field type="text" name="os" component={FieldInput} placeholder={t('network.switch.details.write-os')} />
+            <Field type="text" name="os" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.os-version'),
+        title: t('general-forms/os-version'),
         presentContent: os_version,
         editContent: (
           <Form.Group>
@@ -273,7 +273,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               type="text"
               name="os_version"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-os-version')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
@@ -282,7 +282,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
 
     const detailsInfoSecondRow = [
       {
-        title: t('network.switch.details.support-group'),
+        title: t('general-forms/support-group'),
         presentContent: supportGroupObj ? supportGroupObj.name : '',
         editContent: (
           <div className="mr-3">
@@ -291,7 +291,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               type="combo_list"
               name="support_group_id"
               model="group"
-              placeholder={t('network.switch.details.write-support-group')}
+              placeholder={t('general-forms/write-support-group')}
               currentValue={support_group_id}
               objectCurrentValue={supportGroupObj}
               nameDataInsideRequest="all_groups"
@@ -310,7 +310,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.switch.details.responsible-group'),
+        title: t('general-forms/responsible-group'),
         presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
         editContent: (
           <Dropdown
@@ -318,7 +318,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
             type="combo_list"
             name="responsible_group_id"
             model="group"
-            placeholder={t('network.switch.details.write-responsible-group')}
+            placeholder={t('general-forms/write-responsible-group')}
             currentValue={responsible_group_id}
             objectCurrentValue={responsibleGroupObj}
             nameDataInsideRequest="all_groups"
@@ -340,7 +340,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.switch.details.security')}</h2>
+          <h2>{t('general-forms/security')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -364,7 +364,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     const { t, max_number_of_ports } = this.props;
     const detailsInfo = [
       {
-        title: t('network.switch.details.max-number-of-ports'),
+        title: t('general-forms/max-number-of-ports'),
         presentContent: max_number_of_ports,
         editContent: (
           <Form.Group>
@@ -372,7 +372,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               type="text"
               name="max_number_of_ports"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-max-number-of-ports')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -382,7 +382,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.sub-menu.physical.host')}</h2>
+          <h2>{t('entity-name/host')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>

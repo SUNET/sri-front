@@ -9,7 +9,7 @@ class BackCTA extends React.Component {
         const { t } = this.props;
         return (
             <button data-action="back" type="button" onClick={() => this.onClick()} className="btn btn-back outline mr-3">
-                <span>{t("actions.back")}</span>
+                <span>{t("actions/back")}</span>
             </button>
         );
     }

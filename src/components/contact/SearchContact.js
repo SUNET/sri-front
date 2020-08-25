@@ -213,7 +213,7 @@ class Search extends React.Component {
                             ...this.state.orderBy,
                             filter: this.getFilters(),
                         }}
-                        errorMessage={this.props.t('general.error')}
+                        errorMessage={this.props.t('general/error')}
                         mainClass=""
                         componentToRender={{
                             Component: ContactListContainer,

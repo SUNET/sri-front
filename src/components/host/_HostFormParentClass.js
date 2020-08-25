@@ -102,7 +102,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
     return (
       <div className="cta-convert-host" onClick={this.onClickConvertHostCTA}>
         <button type="button" className="btn convert-host outline mr-3">
-          <span>{t('host-modal.convert.to.cta')}</span>
+          <span>{t('host-modal/convert-to-cta')}</span>
         </button>
       </div>
     );
@@ -122,9 +122,9 @@ class _HostFormParentClass extends _BasicFormParentClass {
   renderInputName(kindOfName, editMode = true) {
     // INFO: kindOfName = 'first_name' || 'last_name' || 'name'
     const { t, formSyncErrors, fields, form, dispatch } = this.props;
-    let placeHolderString = t('contact-details.name');
+    let placeHolderString = t('general-forms/name');
     if (kindOfName === 'last_name') {
-      placeHolderString = t('contact-details.lastName');
+      placeHolderString = t('general-forms/last-name');
     }
     return (
       <>
@@ -168,12 +168,12 @@ class _HostFormParentClass extends _BasicFormParentClass {
 
     const generalInfo = [
       {
-        title: t('network.switch.details.type'),
+        title: t('general-forms/type'),
         presentContent: host_type,
         editContent: host_type,
       },
       {
-        title: t('network.switch.details.managed-by'),
+        title: t('general-forms/managed-by'),
         presentContent: managed_by,
         editContent: (
           <Dropdown
@@ -186,7 +186,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.firewall.details.operational-state'),
+        title: t('general-forms/operational-state'),
         presentContent: operational_state,
         editContent: (
           <Dropdown
@@ -218,7 +218,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -245,7 +245,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
     } = this.props;
     const detailsRowInfo = [
       {
-        title: t('network.switch.details.responsible-group'),
+        title: t('general-forms/responsible-group'),
         presentContent: responsible_group_obj ? responsible_group_obj.name : '',
         editContent: (
           <Dropdown
@@ -253,7 +253,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
             type="combo_list"
             name="responsible_group_id"
             model="group"
-            placeholder={t('network.switch.details.write-responsible-group')}
+            placeholder={t('general-forms/write-responsible-group')}
             currentValue={responsible_group_id}
             objectCurrentValue={responsible_group_obj}
             nameDataInsideRequest="all_groups"
@@ -271,7 +271,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.switch.details.support-group'),
+        title: t('general-forms/support-group'),
         presentContent: support_group_obj ? support_group_obj.name : '',
         editContent: (
           <div className="mr-3">
@@ -280,7 +280,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
               type="combo_list"
               name="support_group_id"
               model="group"
-              placeholder={t('network.switch.details.write-support-group')}
+              placeholder={t('general-forms/write-support-group')}
               currentValue={support_group_id}
               objectCurrentValue={support_group_obj}
               nameDataInsideRequest="all_groups"
@@ -301,16 +301,16 @@ class _HostFormParentClass extends _BasicFormParentClass {
     ];
     const detailsSecondRow = [
       {
-        title: t('network.switch.details.backup'),
+        title: t('general-forms/contract-backup'),
         presentContent: backup,
         editContent: (
           <Form.Group>
-            <Field type="text" name="backup" component={FieldInput} placeholder={t('general-forms.write-text')} />
+            <Field type="text" name="backup" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.contract-number'),
+        title: t('general-forms/contract-number'),
         presentContent: contract_number,
         editContent: (
           <Form.Group>
@@ -318,7 +318,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
               type="text"
               name="contract_number"
               component={FieldInput}
-              placeholder={t('general-forms.write-text')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
@@ -327,7 +327,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.switch.details.details')}</h2>
+          <h2>{t('general-forms/details')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -352,16 +352,16 @@ class _HostFormParentClass extends _BasicFormParentClass {
 
     const osInfo = [
       {
-        title: t('network.switch.details.os'),
+        title: t('general-forms/os'),
         presentContent: os,
         editContent: (
           <Form.Group>
-            <Field type="text" name="os" component={FieldInput} placeholder={t('network.switch.details.write-os')} />
+            <Field type="text" name="os" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.os-version'),
+        title: t('general-forms/os-version'),
         presentContent: os_version,
         editContent: (
           <Form.Group>
@@ -369,7 +369,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
               type="text"
               name="os_version"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-os-version')}
+              placeholder={t('general-forms/write-text')}
             />
           </Form.Group>
         ),
@@ -378,7 +378,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.switch.details.os')}</h2>
+          <h2>{t('general-forms/os')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -398,7 +398,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
 
     const locationInfoFirstRow = [
       {
-        title: t('network.switch.details.equipment-height'),
+        title: t('general-forms/equipment-height'),
         presentContent: rack_units,
         editContent: (
           <Form.Group>
@@ -406,13 +406,13 @@ class _HostFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_units"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-equipment-height')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
       },
       {
-        title: t('network.switch.details.rack-position'),
+        title: t('general-forms/rack-position'),
         presentContent: rack_position,
         editContent: (
           <Form.Group>
@@ -420,7 +420,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
               type="text"
               name="rack_position"
               component={FieldInput}
-              placeholder={t('network.switch.details.write-rack-position')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -430,7 +430,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('network.firewall.details.location')}</h2>
+          <h2>{t('general-forms/location')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -451,7 +451,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.firewall.details.owner')}</h2>
+            <h2>{t('general-forms/owner')}</h2>
           </ToggleHeading>
 
           <TogglePanel>
@@ -488,7 +488,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.host.details.host_user')}</h2>
+            <h2>{t('general-forms/host-user')}</h2>
           </ToggleHeading>
 
           <TogglePanel>

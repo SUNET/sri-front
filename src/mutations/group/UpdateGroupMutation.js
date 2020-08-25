@@ -188,12 +188,12 @@ export default function UpdateGroupMutation(group, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_group.updated.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_group.updated.errors;
       }
       form.props.reset();
       form.refetch();
-      form.props.notify(i18n.t('notify.changes-saved'), 'success');
+      form.props.notify(i18n.t('notify/changes-saved'), 'success');
     },
     updater: (store) => {},
     onError: (err) => console.error(err),

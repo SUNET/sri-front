@@ -346,7 +346,7 @@ export default function UpdateOrganizationMutation(organization, form) {
       } else {
         form.props.reset();
         form.refetch();
-        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (proxyStore) => {},

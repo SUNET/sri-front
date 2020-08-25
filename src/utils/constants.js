@@ -33,8 +33,10 @@ export const CREATE_OPTICALNODE_FORM = 'create-optical-node-form';
 export const UPDATE_OPTICALNODE_FORM = 'update-optical-node-form';
 export const CREATE_ODF_FORM = 'create-odf-form';
 export const UPDATE_ODF_FORM = 'update-odf-form';
-export const CREATE_OPTICALLINK_FORM = 'create-optical-links-form';
-export const UPDATE_OPTICALLINK_FORM = 'update-optical-links-form';
+export const CREATE_OPTICALLINK_FORM = 'create-optical-link-form';
+export const UPDATE_OPTICALLINK_FORM = 'update-optical-link-form';
+export const CREATE_OPTICALMULTIPLEXSECTION_FORM = 'create-optical-multiple-section-form';
+export const UPDATE_OPTICALMULTIPLEXSECTION_FORM = 'update-optical-multiple-section-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';

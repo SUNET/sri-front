@@ -162,12 +162,12 @@ export class TopHeader extends React.Component {
         header: t('header.main-menu.community'),
         subOptions: [
           {
-            name: t(`community.sub-menu.organizations`),
+            name: t(`main-entity-name/organizations`),
             route: '/community/organizations',
             iconClass: 'icon-organization',
           },
-          { name: t(`community.sub-menu.contacts`), route: '/community/contacts', iconClass: 'icon-contact' },
-          { name: t(`community.sub-menu.groups`), route: '/community/groups', iconClass: 'icon-groups' },
+          { name: t(`main-entity-name/contacts`), route: '/community/contacts', iconClass: 'icon-contact' },
+          { name: t(`main-entity-name/groups`), route: '/community/groups', iconClass: 'icon-groups' },
         ],
       },
       {
@@ -178,10 +178,10 @@ export class TopHeader extends React.Component {
             route: '/network/customers',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('network.sub-menu.organizations/customers'), route: '/network/customers' },
-              { name: t('network.sub-menu.organizations/end-users'), route: '/network/end-users' },
-              { name: t('network.sub-menu.organizations/providers'), route: '/network/providers' },
-              { name: t('network.sub-menu.organizations/site-owners'), route: '/network/site-owners' },
+              { name: t('main-entity-name/customers'), route: '/network/customers' },
+              { name: t('main-entity-name/end-users'), route: '/network/end-users' },
+              { name: t('main-entity-name/providers'), route: '/network/providers' },
+              { name: t('main-entity-name/site-owners'), route: '/network/site-owners' },
             ],
           },
           {
@@ -189,15 +189,15 @@ export class TopHeader extends React.Component {
             route: '/network/cables',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('network.sub-menu.equipment/cables'), route: '/network/cables' },
-              { name: t('network.sub-menu.equipment/ports'), route: '/network/ports' },
-              { name: t('network.sub-menu.equipment/switches'), route: '/network/switches' },
-              { name: t('network.sub-menu.equipment/firewalls'), route: '/network/firewalls' },
-              { name: t('network.sub-menu.equipment/routers'), route: '/network/routers' },
-              { name: t('network.sub-menu.equipment/external-equipment'), route: '/network/external-equipments' },
-              { name: t('network.sub-menu.equipment/hosts'), route: '/network/hosts' },
-              { name: t('network.optical-layers.node.name'), route: '/network/optical-nodes' },
-              { name: t('network.sub-menu.equipment/odfs'), route: '/network/odfs' },
+              { name: t('main-entity-name/cables'), route: '/network/cables' },
+              { name: t('main-entity-name/ports'), route: '/network/ports' },
+              { name: t('main-entity-name/switches'), route: '/network/switches' },
+              { name: t('main-entity-name/firewalls'), route: '/network/firewalls' },
+              { name: t('main-entity-name/routers'), route: '/network/routers' },
+              { name: t('main-entity-name/external-equipment'), route: '/network/external-equipments' },
+              { name: t('main-entity-name/hosts'), route: '/network/hosts' },
+              { name: t('main-entity-name/optical-nodes'), route: '/network/optical-nodes' },
+              { name: t('main-entity-name/odfs'), route: '/network/odfs' },
               // { name: "External equipment", route: "/network/customers" },
               // { name: "Optical nodes", route: "/network/customers" },
               // { name: "ODFs", route: "/network/customers" }
@@ -208,8 +208,9 @@ export class TopHeader extends React.Component {
             route: '/network/optical-nodes',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('network.sub-menu.optical-layers/optical-links'), route: 'optical-links' },
-              { name: t('network.sub-menu.optical-layers/optical-filters'), route: 'optical-filters' },
+              { name: t('main-entity-name/optical-links'), route: 'optical-links' },
+              // { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
+              { name: t('main-entity-name/optical-multiplex-sections'), route: 'optical-multiplex-sections' },
             ],
           },
           {
@@ -217,8 +218,8 @@ export class TopHeader extends React.Component {
             route: '/network/peering-partners',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('network.peering-partners.name'), route: '/network/peering-partners' },
-              { name: t('network.peering-groups.name'), route: '/network/peering-groups' },
+              { name: t('main-entity-name/peering-partners'), route: '/network/peering-partners' },
+              { name: t('main-entity-name/peering-groups'), route: '/network/peering-groups' },
             ],
           },
         ],

@@ -170,7 +170,7 @@ class FieldArrayContactsOrganization extends React.Component {
         onHide={() => this.setState({ showModal: false })}
       >
         <Modal.Header closeButton={true}>
-          <h2>{t('contact-details.professional-details')}</h2>
+          <h2>{t('general-forms/professional-details')}</h2>
         </Modal.Header>
         <Modal.Body className="organizations-contacts">
           <div className="model-details">
@@ -210,11 +210,11 @@ class FieldArrayContactsOrganization extends React.Component {
           }`}
         >
           <div className="contact-in-organization__body__row__element">
-            <div className="contact-in-organization__header__title">{t('contact-details.name')}</div>
+            <div className="contact-in-organization__header__title">{t('general-forms/name')}</div>
             {row.name}
           </div>
           <div className="contact-in-organization__body__row__element">
-            <div className="contact-in-organization__header__title">{t('contact-details.role')}</div>
+            <div className="contact-in-organization__header__title">{t('general-forms/role')}</div>
             {editable ? (
               <Dropdown
                 className="auto"
@@ -230,11 +230,11 @@ class FieldArrayContactsOrganization extends React.Component {
             )}
           </div>
           <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
-            <div className="contact-in-organization__header__title">{t('settings.emails')}</div>
+            <div className="contact-in-organization__header__title">{t('general-forms/emails')}</div>
             {this.generateSubDataList(row, 'email', 'type.name')}
           </div>
           <div className="contact-in-organization__body__row__element contact-in-organization__body__row__element--ellipsis">
-            <div className="contact-in-organization__header__title">{t('organization-details.phone')}</div>
+            <div className="contact-in-organization__header__title">{t('general-forms/phone')}</div>
             {this.generateSubDataList(row, 'phone')}
           </div>
         </div>
@@ -258,7 +258,7 @@ class FieldArrayContactsOrganization extends React.Component {
         className="btn outline btn-add more-info"
         onClick={() => this.props.handleShowContactDetail(id)}
       >
-        <span>{t('actions.info')}</span>
+        <span>{t('actions/info')}</span>
       </button>
     );
   }
@@ -268,7 +268,7 @@ class FieldArrayContactsOrganization extends React.Component {
     const rowDetails = this.getValueById(id);
     return (
       <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
-        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions.unlink')}</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions/unlink')}</Tooltip>}>
           <div
             className={`row-cta unlink ${rowDetails.data.status === UNLINK ? 'active' : ''}`}
             onClick={() => this.unlinkRow(id)}
@@ -277,13 +277,13 @@ class FieldArrayContactsOrganization extends React.Component {
           </div>
         </OverlayTrigger>
 
-        <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions/open_edition')}</Tooltip>}>
           <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
             <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
           </div>
         </OverlayTrigger>
 
-        <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions/move_to_trash')}</Tooltip>}>
           <div
             className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}
             onClick={() => this.removeRow(id)}
@@ -305,7 +305,7 @@ class FieldArrayContactsOrganization extends React.Component {
           this.onClickAccept();
         }}
       >
-        <span> {t('actions.accept')}</span>
+        <span> {t('actions/accept')}</span>
       </button>
     );
   }
@@ -313,8 +313,8 @@ class FieldArrayContactsOrganization extends React.Component {
   renderHeader() {
     const { t } = this.props;
     const headers = isMobile
-      ? [t('contact-details.name')]
-      : [t('contact-details.name'), t('contact-details.role'), t('settings.emails'), t('organization-details.phone')];
+      ? [t('general-forms/name')]
+      : [t('general-forms/name'), t('general-forms/role'), t('general-forms/emails'), t('general-forms/phone')];
     return (
       <div className="contact-in-organization__header">
         {headers.map((title, index) => {
@@ -387,7 +387,7 @@ class FieldArrayContactsOrganization extends React.Component {
               className="contact-in-organization__footer__add btn btn-add outline"
               onClick={(e) => this.addRow(e)}
             >
-              {t('actions.add-new')}
+              {t('actions/add-new')}
             </button>
           </>
         )}
@@ -407,7 +407,7 @@ class FieldArrayContactsOrganization extends React.Component {
             type="combo_list"
             name="roles"
             model="roles"
-            placeholder={t('organization-details.add-role')}
+            placeholder={t('general-forms/write-role')}
             currentValue={roles.filter((role) => role.status === SAVED)}
             objectCurrentValue={roles.filter((role) => role.status === SAVED)}
             nameDataInsideRequest="roles"

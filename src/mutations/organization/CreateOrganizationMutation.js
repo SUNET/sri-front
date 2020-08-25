@@ -262,7 +262,7 @@ export default function CreateOrganizationMutation(organization, form) {
     variables,
     onCompleted: (response) => {
       if (response.composite_organization.created.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_organization.created.errors;
       }
       const organizationId = response.composite_organization.created.organization.id;
@@ -270,7 +270,7 @@ export default function CreateOrganizationMutation(organization, form) {
         CreateComentMutation(organizationId, organization.comment);
       }
       form.props.history.push(`/community/organizations/${organizationId}`);
-      form.props.notify(i18n.t('notify.organization-created-success'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/organization'), 'success');
     },
     updater: () => {},
     onError: (err) => console.error(err),

@@ -38,7 +38,7 @@ export default function Update__EntityClassName__Mutation(__entityName__, form) 
     variables,
     onCompleted: (response, errors) => {
       if (response.composite___entityName__.updated.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update___entityName__.updated.errors;
       }
       form.props.reset();
@@ -46,7 +46,7 @@ export default function Update__EntityClassName__Mutation(__entityName__, form) 
         form.props.editedEntity('__EntityClassName__', response.composite___entityName__.updated.__entityName__.id);
       } else {
         form.refetch();
-        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

@@ -76,7 +76,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
     const { t, cableTypeObj, provider_id, providerObj } = this.props;
     const generalInfoFirstRow = [
       {
-        title: t('organization-details.type'),
+        title: t('general-forms/type'),
         presentContent: cableTypeObj ? cableTypeObj.name : undefined,
         editContent: (
           <Dropdown
@@ -89,7 +89,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.cable.details.provider'),
+        title: t('entity-name/provider'),
         presentContent: providerObj ? providerObj.name : '',
         editContent: (
           <Dropdown
@@ -115,7 +115,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -140,7 +140,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.details.connections')}</h2>
+            <h2>{t('general-forms/connects')}</h2>
           </ToggleHeading>
 
           <TogglePanel>

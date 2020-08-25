@@ -2,28 +2,28 @@ import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 // Common imports
 import { withTranslation } from 'react-i18next';
 
-class FieldArrayPeeringGroupDependencies extends _BasicFieldArrayParentClass {
+class FieldArrayDependencies extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
     this.FIELD_NAME_IN_FORM = 'dependencies';
     this.HEADER_TEXTS = {
       summary: [
         {
-          text: 'contact-details.name',
+          text: 'general-forms/name',
           fieldKey: 'name',
         },
       ],
       all: [
         {
-          text: 'contact-details.name',
+          text: 'general-forms/name',
           fieldKey: 'name',
         },
         {
-          text: 'organization-details.type',
+          text: 'general-forms/type',
           fieldKey: 'type',
         },
       ],
-      modal: null, // ['network.details.parent_element_detail'],
+      modal: null, // ['general-forms/parent-element-detail'],
     };
     this.PRE_FILTER_SELECT = {
       label: null,
@@ -36,4 +36,4 @@ class FieldArrayPeeringGroupDependencies extends _BasicFieldArrayParentClass {
   }
 }
 
-export default withTranslation()(FieldArrayPeeringGroupDependencies);
+export default withTranslation()(FieldArrayDependencies);

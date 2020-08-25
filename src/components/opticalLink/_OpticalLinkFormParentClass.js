@@ -65,7 +65,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
 
     const generalInfo = [
       {
-        title: t('network.firewall.details.operational-state'),
+        title: t('general-forms/operational-state'),
         presentContent: operational_state,
         editContent: (
           <Dropdown
@@ -78,7 +78,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('organization-details.type'),
+        title: t('general-forms/type'),
         presentContent: type,
         editContent: (
           <Dropdown
@@ -91,7 +91,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.optical-links.details.interface-type'),
+        title: t('general-forms/interface-type'),
         presentContent: interface_type,
         editContent: (
           <Dropdown
@@ -104,7 +104,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.cable.details.provider'),
+        title: t('entity-name/provider'),
         presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown
@@ -130,7 +130,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -151,7 +151,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.external-equipment.details.ports')}</h2>
+            <h2>{t('main-entity-name/ports')}</h2>
           </ToggleHeading>
 
           <TogglePanel>
@@ -190,7 +190,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.router.details.bulk-port')}</h2>
+            <h2>{t('general-forms/bulk-port')}</h2>
           </ToggleHeading>
           <TogglePanel>
             <BulPort

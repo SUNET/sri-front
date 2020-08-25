@@ -3,7 +3,7 @@ import { FieldArray } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import FieldArrayPeeringGroupDependencies from './FieldArrayPeeringGroupDependencies';
+import FieldArrayDependencies from '../common/FieldArrayDependencies';
 // const
 
 class _PeeringGroupFormParentClass extends _BasicFormParentClass {
@@ -28,13 +28,13 @@ class _PeeringGroupFormParentClass extends _BasicFormParentClass {
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.peering.details.dependencies')}</h2>
+            <h2>{t('general-forms/dependencies')}</h2>
           </ToggleHeading>
 
           <TogglePanel>
             <FieldArray
               name="dependencies"
-              component={FieldArrayPeeringGroupDependencies}
+              component={FieldArrayDependencies}
               editable={editMode}
               dispatch={this.props.dispatch}
               errors={this.props.formSyncErrors.parents}

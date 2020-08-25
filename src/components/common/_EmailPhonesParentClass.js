@@ -85,7 +85,7 @@ class _EmailPhonesParentClass extends React.Component {
     const { t } = this.props;
     return (
       <button type="button" className="btn btn-add outline" onClick={(e) => this.pushField(e)}>
-        <span>{t('actions.add-new')}</span>
+        <span>{t('actions/add-new')}</span>
       </button>
     );
   }

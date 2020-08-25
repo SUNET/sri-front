@@ -243,7 +243,7 @@ class _BasicFieldArrayParentClass extends React.Component {
           className="btn outline btn-add more-info"
           onClick={() => this.props.showRowDetailModal(row.__typename, row.id)}
         >
-          <span>{t('actions.info')}</span>
+          <span>{t('actions/info')}</span>
         </button>
       </div>
     );
@@ -254,7 +254,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     const rowDetails = this.getValueById(id);
     return (
       <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
-        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions.unlink')}</Tooltip>}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions/unlink')}</Tooltip>}>
           <div
             className={`row-cta unlink ${rowDetails.data.status === UNLINK ? 'active' : ''}`}
             onClick={() => this.unlinkRow(id)}
@@ -264,7 +264,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         </OverlayTrigger>
 
         {rowDetails.data.status !== CREATE && willHaveModalsButtons && (
-          <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions.open_edition')}</Tooltip>}>
+          <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions/open_edition')}</Tooltip>}>
             <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
               <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
             </div>
@@ -272,7 +272,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         )}
 
         {rowDetails.data.status !== CREATE && willHaveModalsButtons && (
-          <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions.move_to_trash')}</Tooltip>}>
+          <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions/move_to_trash')}</Tooltip>}>
             <div
               className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}
               onClick={() => this.removeRow(id)}
@@ -440,7 +440,7 @@ class _BasicFieldArrayParentClass extends React.Component {
               disabled={this.isDisabledFilters()}
               onClick={(e) => this.showCreateForm()}
             >
-              {t('actions.add-new')}
+              {t('actions/add-new')}
             </button>
           </>
         )}

@@ -36,7 +36,7 @@ function CreateCustomerMutation(customer, form) {
         onCompleted: (response, errors) => {
             console.log('response: ', response);
             if (response.create_customer.errors) {
-                form.props.notify(i18n.t("notify.error"), "error");
+                form.props.notify(i18n.t("notify/generic-error"), "error");
                 return response.create_customer.errors;
             } else {
                 const customer_id = response.create_customer.customer.id;
@@ -49,7 +49,7 @@ function CreateCustomerMutation(customer, form) {
                     form.props.createdEntity('Customer', customer_id);
                     form.props.hideModalForm();
                 }
-                form.props.notify(i18n.t("notify.network/customers-created-success"), "success");
+                form.props.notify(i18n.t("entity-notify-create/customers"), "success");
             }
         },
         onError: (errors) => console.error(errors),
