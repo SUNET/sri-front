@@ -231,7 +231,7 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/optical-links",
               ],
               Array [
-                "main-entity-name/optical-filters",
+                "main-entity-name/optical-multiplex-sections",
               ],
               Array [
                 "main-entity-name/peering-partners",
@@ -328,7 +328,7 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
-                "value": "main-entity-name/optical-filters",
+                "value": "main-entity-name/optical-multiplex-sections",
               },
               Object {
                 "type": "return",
