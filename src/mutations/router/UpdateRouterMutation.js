@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { UNLINK, REMOVE, SAVED, CREATE } from '../../utils/constants';
+import { generatePortForInput } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation UpdateRouterMutation($input: CompositeRouterMutationInput!) {
@@ -42,21 +42,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateRouterMutation(router, form) {
-  const portsToCreate = router.ports
-    ? router.ports.filter((port) => port.status === CREATE).map((e) => ({ name: e.name, port_type: e.type.value }))
-    : [];
-
-  const portsToSaved = router.ports
-    ? router.ports.filter((port) => port.status === SAVED).map((e) => ({ id: e.id, name: e.name }))
-    : [];
-
-  const portsToUnlink = router.ports
-    ? router.ports.filter((port) => port.status === UNLINK).map((e) => ({ relation_id: e.relation_id }))
-    : [];
-
-  const portsToRemove = router.ports
-    ? router.ports.filter((port) => port.status === REMOVE).map((e) => ({ id: e.id }))
-    : [];
+  const ports = generatePortForInput(router.ports);
 
   const variables = {
     input: {
@@ -65,10 +51,10 @@ export default function UpdateRouterMutation(router, form) {
         description: router.description,
         operational_state: router.operational_state,
       },
-      update_has_port: portsToSaved,
-      unlink_subinputs: portsToUnlink,
-      deleted_has_port: portsToRemove,
-      create_has_port: portsToCreate,
+      update_has_port: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      deleted_has_port: ports.toRemove,
+      create_has_port: ports.toCreate,
     },
   };
 

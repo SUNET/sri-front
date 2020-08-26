@@ -7,6 +7,7 @@ import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/Togg
 import FieldInput from '../FieldInput';
 import FieldArrayPorts from '../common/FieldArrayPorts';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
+import BulPort from '../common/BulkPort';
 // const
 import { SAVED } from '../../utils/constants';
 
@@ -95,12 +96,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
         presentContent: rack_units,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="rack_units"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
+            <Field type="text" name="rack_units" component={FieldInput} placeholder={t('general-forms/write-number')} />
           </Form.Group>
         ),
       },
@@ -179,7 +175,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   }
 
   renderPortsToggleSection(editMode = false) {
-    const { t, entityRemovedId} = this.props;
+    const { t, entityRemovedId } = this.props;
     return (
       <section className="model-section">
         <ToggleSection>
@@ -210,6 +206,28 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
               handleSearchResult={this.handleSelectedPort}
               rerenderOnEveryChange={true}
               entityRemovedId={this.state.fieldModalOpened === 'ports' ? entityRemovedId : null}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderBulkPortToggleSection() {
+    const { t } = this.props;
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/bulk-port')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <BulPort
+              handleBulkPortResponse={(dataForBulkPortCreate) => {
+                dataForBulkPortCreate.forEach((portData) => {
+                  this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
+                });
+              }}
             />
           </TogglePanel>
         </ToggleSection>

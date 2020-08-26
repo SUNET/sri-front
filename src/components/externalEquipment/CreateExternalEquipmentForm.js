@@ -31,6 +31,7 @@ class CreateExternalEquipmentForm extends _ExternalEquipmentFormParentClass {
         {this.renderModelMainSection(editMode)}
         {this.renderOwnerToggleSection(editMode)}
         {this.renderPortsToggleSection(editMode)}
+        {editMode && this.renderBulkPortToggleSection()}
         {this.renderWorkLog()}
         </div>
         {this.renderSaveCancelButtons()}

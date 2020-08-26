@@ -3,7 +3,7 @@ import graphql from 'babel-plugin-relay/macro';
 import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
+import { onCompleteCompositeCreationEntity, generatePortForInput } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation CreateOpticalNodeMutation($input: CompositeOpticalNodeMutationInput!) {
@@ -40,6 +40,7 @@ const mutation = graphql`
 `;
 
 function CreateOpticalNodeMutation(opticalNode, form) {
+  const ports = generatePortForInput(opticalNode.ports);
   const variables = {
     input: {
       create_input: {
@@ -51,6 +52,10 @@ function CreateOpticalNodeMutation(opticalNode, form) {
         operational_state: opticalNode.operational_state,
         type: opticalNode.type,
       },
+      update_has_port: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      deleted_has_port: ports.toRemove,
+      create_has_port: ports.toCreate,
     },
   };
   commitMutation(environment, {

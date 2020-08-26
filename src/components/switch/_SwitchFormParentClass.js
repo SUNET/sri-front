@@ -1,5 +1,5 @@
 import React from 'react';
-import { change, Field } from 'redux-form';
+import { change, Field, arrayPush } from 'redux-form';
 import { Form, Col } from 'react-bootstrap';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
@@ -7,6 +7,7 @@ import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import IpAddressesList from '../IpAddressesList';
 import FieldInput from '../FieldInput';
+import BulPort from '../common/BulkPort';
 
 // const
 import { isBrowser } from 'react-device-detect';
@@ -57,7 +58,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
       // only for create Form
       generalInfoFirstRow.push({
         title: t('general-forms/type'),
-        presentContent: operational_state,
+        presentContent: null,
         editContent: (
           <Dropdown
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
@@ -73,7 +74,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     generalInfoFirstRow.push(
       ...[
         {
-          title: t('general-forms/status'),
+          title: t('general-forms/operational-state'),
           presentContent: operational_state,
           editContent: (
             <Dropdown
@@ -186,12 +187,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: backup,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="backup"
-              component={FieldInput}
-              placeholder={t('general-forms/write-backup')}
-            />
+            <Field type="text" name="backup" component={FieldInput} placeholder={t('general-forms/write-backup')} />
           </Form.Group>
         ),
       },
@@ -200,12 +196,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: rack_units,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="rack_units"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
+            <Field type="text" name="rack_units" component={FieldInput} placeholder={t('general-forms/write-number')} />
           </Form.Group>
         ),
       },
@@ -269,12 +260,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: os_version,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="os_version"
-              component={FieldInput}
-              placeholder={t('general-forms/write-text')}
-            />
+            <Field type="text" name="os_version" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
@@ -394,6 +380,28 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
           </div>
         </TogglePanel>
       </ToggleSection>
+    );
+  }
+
+  renderBulkPortToggleSection() {
+    const { t } = this.props;
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/bulk-port')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <BulPort
+              handleBulkPortResponse={(dataForBulkPortCreate) => {
+                dataForBulkPortCreate.forEach((portData) => {
+                  this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
+                });
+              }}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 }
