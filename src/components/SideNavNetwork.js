@@ -54,13 +54,13 @@ class SideNavNetwork extends React.Component {
         i18nText: 'network.sub-menu.equipment',
       },
       items: [
-        { path: 'cables', i18nText: 'main-entity-name/cables' },
         { path: 'ports', i18nText: 'main-entity-name/ports' },
-        { path: 'switches', i18nText: 'main-entity-name/switches' },
+        { path: 'cables', i18nText: 'main-entity-name/cables' },
+        { path: 'hosts', i18nText: 'main-entity-name/hosts' },
         { path: 'firewalls', i18nText: 'main-entity-name/firewalls' },
         { path: 'routers', i18nText: 'main-entity-name/routers' },
+        { path: 'switches', i18nText: 'main-entity-name/switches' },
         { path: 'external-equipments', i18nText: 'main-entity-name/external-equipments' },
-        { path: 'hosts', i18nText: 'main-entity-name/hosts' },
         { path: 'optical-nodes', i18nText: 'main-entity-name/optical-nodes' },
         { path: 'odfs', i18nText: 'main-entity-name/odfs' },
       ],
@@ -72,9 +72,10 @@ class SideNavNetwork extends React.Component {
         i18nText: 'network.optical-layers.name',
       },
       items: [
-        { path: 'optical-links', i18nText: 'main-entity-name/optical-links' },
         // { path: 'optical-filters', i18nText: 'main-entity-name/optical-filters' },
+        { path: 'optical-links', i18nText: 'main-entity-name/optical-links' },
         { path: 'optical-multiplex-sections', i18nText: 'main-entity-name/optical-multiplex-sections' },
+        // { path: 'optical-paths', i18nText: 'main-entity-name/optical-paths' },
       ],
     },
     {
@@ -84,8 +85,8 @@ class SideNavNetwork extends React.Component {
         i18nText: 'network.peering',
       },
       items: [
-        { path: 'peering-partners', i18nText: 'main-entity-name/peering-partners' },
         { path: 'peering-groups', i18nText: 'main-entity-name/peering-groups' },
+        { path: 'peering-partners', i18nText: 'main-entity-name/peering-partners' },
       ],
     },
   ];

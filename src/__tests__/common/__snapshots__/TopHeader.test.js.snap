@@ -201,13 +201,13 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/site-owners",
               ],
               Array [
-                "main-entity-name/cables",
-              ],
-              Array [
                 "main-entity-name/ports",
               ],
               Array [
-                "main-entity-name/switches",
+                "main-entity-name/cables",
+              ],
+              Array [
+                "main-entity-name/hosts",
               ],
               Array [
                 "main-entity-name/firewalls",
@@ -216,10 +216,10 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/routers",
               ],
               Array [
-                "main-entity-name/external-equipment",
+                "main-entity-name/switches",
               ],
               Array [
-                "main-entity-name/hosts",
+                "main-entity-name/external-equipment",
               ],
               Array [
                 "main-entity-name/optical-nodes",
@@ -234,10 +234,10 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/optical-multiplex-sections",
               ],
               Array [
-                "main-entity-name/peering-partners",
+                "main-entity-name/peering-groups",
               ],
               Array [
-                "main-entity-name/peering-groups",
+                "main-entity-name/peering-partners",
               ],
               Array [
                 "header.main-menu.home",
@@ -288,15 +288,15 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
-                "value": "main-entity-name/cables",
-              },
-              Object {
-                "type": "return",
                 "value": "main-entity-name/ports",
               },
               Object {
                 "type": "return",
-                "value": "main-entity-name/switches",
+                "value": "main-entity-name/cables",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/hosts",
               },
               Object {
                 "type": "return",
@@ -308,11 +308,11 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
-                "value": "main-entity-name/external-equipment",
+                "value": "main-entity-name/switches",
               },
               Object {
                 "type": "return",
-                "value": "main-entity-name/hosts",
+                "value": "main-entity-name/external-equipment",
               },
               Object {
                 "type": "return",
@@ -332,11 +332,11 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
-                "value": "main-entity-name/peering-partners",
+                "value": "main-entity-name/peering-groups",
               },
               Object {
                 "type": "return",
-                "value": "main-entity-name/peering-groups",
+                "value": "main-entity-name/peering-partners",
               },
               Object {
                 "type": "return",
