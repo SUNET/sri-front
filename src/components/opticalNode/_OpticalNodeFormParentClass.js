@@ -8,6 +8,7 @@ import Dropdown from '../Dropdown';
 import FieldInput from '../FieldInput';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayPorts from '../common/FieldArrayPorts';
+import BulPort from '../common/BulkPort';
 // const
 import { isBrowser } from 'react-device-detect';
 
@@ -133,12 +134,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         presentContent: rack_units,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="rack_units"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
+            <Field type="text" name="rack_units" component={FieldInput} placeholder={t('general-forms/write-number')} />
           </Form.Group>
         ),
       },
@@ -233,6 +229,28 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
               rerenderOnEveryChange={true}
               entityRemovedId={this.state.fieldModalOpened === 'ports' ? entityRemovedId : null}
             />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderBulkPortToggleSection() {
+    const { t } = this.props;
+    return (
+      <section className="model-section">
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/bulk-port')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <BulPort
+              handleBulkPortResponse={(dataForBulkPortCreate) => {
+                dataForBulkPortCreate.forEach((portData) => {
+                  this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
+                });
+              }}
+            ></BulPort>
           </TogglePanel>
         </ToggleSection>
       </section>

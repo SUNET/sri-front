@@ -31,6 +31,7 @@ class CreateOpticalNodeForm extends _OpticalNodeFormParentClass {
           {this.renderHeader(editMode, showBackButton)}
           {this.renderModelMainSection(editMode)}
           {this.renderPortsToggleSection(editMode)}
+          {editMode && this.renderBulkPortToggleSection()}
           {this.renderWorkLog(editMode)}
         </div>
         {this.renderSaveCancelButtons()}

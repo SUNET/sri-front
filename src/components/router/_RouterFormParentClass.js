@@ -186,7 +186,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
                   this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
                 });
               }}
-            ></BulPort>
+            />
           </TogglePanel>
         </ToggleSection>
       </section>

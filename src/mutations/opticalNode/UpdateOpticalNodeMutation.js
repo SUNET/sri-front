@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { UNLINK, REMOVE, SAVED } from '../../utils/constants';
+import { generatePortForInput } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation UpdateOpticalNodeMutation($input: CompositeOpticalNodeMutationInput!) {
@@ -49,17 +49,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateOpticalNodeMutation(opticalNode, form) {
-  const portsToSaved = opticalNode.ports
-    ? opticalNode.ports.filter((port) => port.status === SAVED).map((e) => ({ id: e.id, name: e.name }))
-    : [];
-
-  const portsToUnlink = opticalNode.ports
-    ? opticalNode.ports.filter((port) => port.status === UNLINK).map((e) => ({ relation_id: e.relation_id }))
-    : [];
-
-  const portsToRemove = opticalNode.ports
-    ? opticalNode.ports.filter((port) => port.status === REMOVE).map((e) => ({ id: e.id }))
-    : [];
+  const ports = generatePortForInput(opticalNode.ports);
 
   const variables = {
     input: {
@@ -73,9 +63,10 @@ export default function UpdateOpticalNodeMutation(opticalNode, form) {
         operational_state: opticalNode.operational_state,
         type: opticalNode.type,
       },
-      update_has_port: portsToSaved,
-      unlink_subinputs: portsToUnlink,
-      deleted_has_port: portsToRemove,
+      update_has_port: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      deleted_has_port: ports.toRemove,
+      create_has_port: ports.toCreate,
     },
   };
   commitMutation(environment, {

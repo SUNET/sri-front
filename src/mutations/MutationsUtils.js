@@ -93,17 +93,7 @@ export function formatExternalEquipmentVariables(data, isUpdate) {
   const ownerToSaved = data.owner ? data.owner.find((o) => o.status === SAVED) : [];
   const ownerToRemove = data.owner ? data.owner.find((o) => o.status === REMOVE) : [];
 
-  const portsToSaved = data.ports
-    ? data.ports.filter((port) => port.status === SAVED).map((e) => ({ id: e.id, name: e.name }))
-    : [];
-
-  const portsToUnlink = data.ports
-    ? data.ports.filter((port) => port.status === UNLINK).map((e) => ({ relation_id: e.relation_id }))
-    : [];
-
-  const portsToRemove = data.ports
-    ? data.ports.filter((port) => port.status === REMOVE).map((e) => ({ id: e.id }))
-    : [];
+  const ports = generatePortForInput(data.ports);
 
   const variables = {
     input: {
@@ -119,9 +109,10 @@ export function formatExternalEquipmentVariables(data, isUpdate) {
         relationship_owner: ownerToSaved ? ownerToSaved.id : '', // id customer/siteOwner/provider/endUser
       },
       // ports
-      update_has_port: portsToSaved,
-      unlink_subinputs: portsToUnlink,
-      deleted_has_port: portsToRemove,
+      update_has_port: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      deleted_has_port: ports.toRemove,
+      create_has_port: ports.toCreate,
     },
   };
   if (isUpdate) {
