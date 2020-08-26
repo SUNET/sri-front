@@ -189,13 +189,13 @@ export class TopHeader extends React.Component {
             route: '/network/cables',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('main-entity-name/cables'), route: '/network/cables' },
               { name: t('main-entity-name/ports'), route: '/network/ports' },
-              { name: t('main-entity-name/switches'), route: '/network/switches' },
+              { name: t('main-entity-name/cables'), route: '/network/cables' },
+              { name: t('main-entity-name/hosts'), route: '/network/hosts' },
               { name: t('main-entity-name/firewalls'), route: '/network/firewalls' },
               { name: t('main-entity-name/routers'), route: '/network/routers' },
+              { name: t('main-entity-name/switches'), route: '/network/switches' },
               { name: t('main-entity-name/external-equipment'), route: '/network/external-equipments' },
-              { name: t('main-entity-name/hosts'), route: '/network/hosts' },
               { name: t('main-entity-name/optical-nodes'), route: '/network/optical-nodes' },
               { name: t('main-entity-name/odfs'), route: '/network/odfs' },
               // { name: "External equipment", route: "/network/customers" },
@@ -208,9 +208,10 @@ export class TopHeader extends React.Component {
             route: '/network/optical-nodes',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('main-entity-name/optical-links'), route: 'optical-links' },
               // { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
+              { name: t('main-entity-name/optical-links'), route: 'optical-links' },
               { name: t('main-entity-name/optical-multiplex-sections'), route: 'optical-multiplex-sections' },
+              // { name: t('main-entity-name/optical-paths'), route: 'optical-paths' },
             ],
           },
           {
@@ -218,8 +219,8 @@ export class TopHeader extends React.Component {
             route: '/network/peering-partners',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('main-entity-name/peering-partners'), route: '/network/peering-partners' },
               { name: t('main-entity-name/peering-groups'), route: '/network/peering-groups' },
+              { name: t('main-entity-name/peering-partners'), route: '/network/peering-partners' },
             ],
           },
         ],
