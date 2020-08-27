@@ -72,6 +72,7 @@ const mutation = graphql`
           contract_number
           rack_units
           rack_position
+          rack_back
         }
       }
     }
@@ -91,6 +92,7 @@ export default function UpdateHostMutation(host, form) {
         ip_addresses: host.ip_addresses ? host.ip_addresses.join('\n') : null,
         rack_units: host.rack_units,
         rack_position: host.rack_position,
+        rack_back: host.rack_back,
         operational_state: host.operational_state,
         responsible_group: host.responsible_group_id,
         support_group: host.support_group_id,

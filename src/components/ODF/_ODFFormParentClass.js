@@ -12,22 +12,8 @@ import BulPort from '../common/BulkPort';
 import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
+import renderFormBlockSection from '../common/BlockSection';
 
 class _ODFFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -70,6 +56,19 @@ class _ODFFormParentClass extends _BasicFormParentClass {
     }
   };
 
+  renderSections(editMode) {
+    const { t, rack_position, rack_units } = this.props;
+    return (
+      <>
+        {this.renderModelMainSection(editMode)}
+        {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
+        {this.renderPortsToggleSection(editMode)}
+        {editMode && this.renderBulkPortToggleSection()}
+        {this.renderWorkLog()}
+      </>
+    );
+  }
+
   renderModelMainSection(editMode = true) {
     return (
       <section className="model-section">
@@ -78,8 +77,6 @@ class _ODFFormParentClass extends _BasicFormParentClass {
             <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
             <hr />
             <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderDetailsToggleSection(editMode)}</Col>
           </Col>
         </Form.Row>
       </section>
@@ -87,7 +84,7 @@ class _ODFFormParentClass extends _BasicFormParentClass {
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, operational_state, rack_units, max_number_of_ports } = this.props;
+    const { t, operational_state, max_number_of_ports } = this.props;
 
     const generalInfo = [
       {
@@ -101,20 +98,6 @@ class _ODFFormParentClass extends _BasicFormParentClass {
             name="operational_state"
             onChange={(e) => {}}
           />
-        ),
-      },
-      {
-        title: t('general-forms/equipment-height'),
-        presentContent: rack_units,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_units"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
-          </Form.Group>
         ),
       },
       {
@@ -142,66 +125,6 @@ class _ODFFormParentClass extends _BasicFormParentClass {
           <div>
             <div className="form-internal-block">
               {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
-    );
-  }
-
-  renderDetailsToggleSection(editMode = true) {
-    const { t, rack_position } = this.props;
-    const detailsRowInfo = [
-      {
-        title: t('general-forms/rack-position'),
-        presentContent: rack_position,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_position"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
-          </Form.Group>
-        ),
-      },
-      {
-        title: t('general-forms/rack-back'),
-        presentContent: (
-          <Form.Group>
-            <Field
-              type="checkbox"
-              name="rack_back"
-              component={FieldInput}
-              disabled
-              placeholder={t('general-forms/write-number')}
-            />
-          </Form.Group>
-        ),
-        editContent: (
-          <Form.Group>
-            <Field
-              type="checkbox"
-              name="rack_back"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
-          </Form.Group>
-        ),
-      },
-    ];
-    return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/details')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {detailsRowInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>

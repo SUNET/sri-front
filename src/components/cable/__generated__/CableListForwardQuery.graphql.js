@@ -9,7 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type CableList_cables$ref = any;
-export type CableOrderBy = "cable_type_ASC" | "cable_type_DESC" | "created_ASC" | "created_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "%future added value";
+export type CableOrderBy = "cable_type_ASC" | "cable_type_DESC" | "created_ASC" | "created_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "tele2_alternative_circuit_id_ASC" | "tele2_alternative_circuit_id_DESC" | "tele2_cable_contract_ASC" | "tele2_cable_contract_DESC" | "%future added value";
 export type CableListForwardQueryVariables = {|
   count: number,
   cursor?: ?string,

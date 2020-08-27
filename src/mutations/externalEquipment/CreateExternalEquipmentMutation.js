@@ -20,6 +20,7 @@ const mutation = graphql`
           description
           rack_units
           rack_position
+          rack_back
           ports {
             id
             name

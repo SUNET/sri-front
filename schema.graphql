@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Tue Aug 25 2020 11:05:56 GMT+0200 (GMT+02:00)
+# timestamp: Thu Aug 27 2020 11:40:20 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -272,6 +272,8 @@ type Cable implements NINode & Physical & PhysicalLogical {
   description: String
   provider: Provider
   ports: [Port]
+  tele2_cable_contract: Choice
+  tele2_alternative_circuit_id: String
 }
 
 type cableConnection {
@@ -339,6 +341,34 @@ input CableNestedFilter {
   description_not_ends_with: String
   description_in: [String!]
   description_not_in: [String!]
+  tele2_cable_contract: ChoiceScalar
+  tele2_cable_contract_not: ChoiceScalar
+  tele2_cable_contract_lt: ChoiceScalar
+  tele2_cable_contract_lte: ChoiceScalar
+  tele2_cable_contract_gt: ChoiceScalar
+  tele2_cable_contract_gte: ChoiceScalar
+  tele2_cable_contract_contains: ChoiceScalar
+  tele2_cable_contract_not_contains: ChoiceScalar
+  tele2_cable_contract_starts_with: ChoiceScalar
+  tele2_cable_contract_not_starts_with: ChoiceScalar
+  tele2_cable_contract_ends_with: ChoiceScalar
+  tele2_cable_contract_not_ends_with: ChoiceScalar
+  tele2_cable_contract_in: [ChoiceScalar!]
+  tele2_cable_contract_not_in: [ChoiceScalar!]
+  tele2_alternative_circuit_id: String
+  tele2_alternative_circuit_id_not: String
+  tele2_alternative_circuit_id_lt: String
+  tele2_alternative_circuit_id_lte: String
+  tele2_alternative_circuit_id_gt: String
+  tele2_alternative_circuit_id_gte: String
+  tele2_alternative_circuit_id_contains: String
+  tele2_alternative_circuit_id_not_contains: String
+  tele2_alternative_circuit_id_starts_with: String
+  tele2_alternative_circuit_id_not_starts_with: String
+  tele2_alternative_circuit_id_ends_with: String
+  tele2_alternative_circuit_id_not_ends_with: String
+  tele2_alternative_circuit_id_in: [String!]
+  tele2_alternative_circuit_id_not_in: [String!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -401,6 +431,10 @@ enum CableOrderBy {
   cable_type_DESC
   description_ASC
   description_DESC
+  tele2_cable_contract_ASC
+  tele2_cable_contract_DESC
+  tele2_alternative_circuit_id_ASC
+  tele2_alternative_circuit_id_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -2565,6 +2599,9 @@ type CompositeRouterMutationPayload {
 input CompositeSwitchMutationInput {
   create_input: CreateSwitchInput
   update_input: UpdateSwitchInput
+  create_subinputs: [CreatePortInput]
+  update_subinputs: [UpdatePortInput]
+  delete_subinputs: [DeletePortInput]
   unlink_subinputs: [DeleteRelationshipInput]
   create_dependents_group: [CreateGroupInput]
   update_dependents_group: [UpdateGroupInput]
@@ -2599,6 +2636,9 @@ input CompositeSwitchMutationInput {
 type CompositeSwitchMutationPayload {
   created: CreateSwitchPayload
   updated: UpdateSwitchPayload
+  subcreated: [CreatePortPayload]
+  subupdated: [UpdatePortPayload]
+  subdeleted: [DeletePortPayload]
   unlinked: [DeleteRelationshipPayload]
   dependents_group_created: [CreateGroupPayload]
   dependents_group_updated: [UpdateGroupPayload]
@@ -3000,6 +3040,8 @@ input CreateCableInput {
   cable_type: ChoiceScalar!
   description: String
   relationship_provider: ChoiceScalar
+  tele2_cable_contract: ChoiceScalar
+  tele2_alternative_circuit_id: String
   clientMutationId: String
 }
 
@@ -3108,8 +3150,8 @@ input CreateFirewallInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -3128,6 +3170,7 @@ input CreateFirewallInput {
   relationship_owner: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
+  relationship_ports: String
   services_locked: Boolean
   services_checked: Boolean
   max_number_of_ports: Int
@@ -3157,8 +3200,8 @@ input CreateHostInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -3175,6 +3218,11 @@ input CreateHostInput {
   contract_number: String
   relationship_location: Int
   relationship_owner: ChoiceScalar
+  relationship_user: ChoiceScalar
+  relationship_depends_on: Int
+  relationship_ports: String
+  services_locked: Boolean
+  services_checked: Boolean
   clientMutationId: String
 }
 
@@ -3432,8 +3480,8 @@ input CreateSwitchInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "Reserved"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -3450,6 +3498,11 @@ input CreateSwitchInput {
   contract_number: String
   relationship_location: Int
   relationship_owner: ChoiceScalar
+  relationship_user: Int
+  relationship_depends_on: Int
+  relationship_ports: String
+  services_locked: Boolean
+  services_checked: Boolean
   max_number_of_ports: Int
   relationship_provider: ChoiceScalar
   switch_type: ChoiceScalar!
@@ -3986,8 +4039,8 @@ input EditHostInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -4005,7 +4058,6 @@ input EditHostInput {
   relationship_location: Int
   relationship_owner: ChoiceScalar
   relationship_user: ChoiceScalar
-  relationship_depends_on: Int
   services_locked: Boolean
   services_checked: Boolean
   id: ID!
@@ -4360,6 +4412,7 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   ports: [Port]
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
 }
 
 type externalEquipmentConnection {
@@ -4429,6 +4482,14 @@ input ExternalEquipmentNestedFilter {
   rack_position_gte: Int
   rack_position_in: [Int!]
   rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -4543,7 +4604,10 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   contract_number: String
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
   max_number_of_ports: Int
+  services_locked: Boolean
+  services_checked: Boolean
 }
 
 type firewallConnection {
@@ -4781,6 +4845,14 @@ input FirewallNestedFilter {
   rack_position_gte: Int
   rack_position_in: [Int!]
   rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   max_number_of_ports: Int
   max_number_of_ports_not: Int
   max_number_of_ports_lt: Int
@@ -4789,6 +4861,22 @@ input FirewallNestedFilter {
   max_number_of_ports_gte: Int
   max_number_of_ports_in: [Int!]
   max_number_of_ports_not_in: [Int!]
+  services_locked: Boolean
+  services_locked_not: Boolean
+  services_locked_lt: Boolean
+  services_locked_lte: Boolean
+  services_locked_gt: Boolean
+  services_locked_gte: Boolean
+  services_locked_in: [Boolean!]
+  services_locked_not_in: [Boolean!]
+  services_checked: Boolean
+  services_checked_not: Boolean
+  services_checked_lt: Boolean
+  services_checked_lte: Boolean
+  services_checked_gt: Boolean
+  services_checked_gte: Boolean
+  services_checked_in: [Boolean!]
+  services_checked_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -5110,9 +5198,12 @@ type Host implements NINode & Logical & PhysicalLogical {
   contract_number: String
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
   host_owner: Relation
   host_user: HostUser
   host_services: String
+  services_locked: Boolean
+  services_checked: Boolean
 }
 
 type hostConnection {
@@ -5280,6 +5371,14 @@ input HostNestedFilter {
   rack_position_gte: Int
   rack_position_in: [Int!]
   rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   host_services: String
   host_services_not: String
   host_services_lt: String
@@ -5294,6 +5393,22 @@ input HostNestedFilter {
   host_services_not_ends_with: String
   host_services_in: [String!]
   host_services_not_in: [String!]
+  services_locked: Boolean
+  services_locked_not: Boolean
+  services_locked_lt: Boolean
+  services_locked_lte: Boolean
+  services_locked_gt: Boolean
+  services_locked_gte: Boolean
+  services_locked_in: [Boolean!]
+  services_locked_not_in: [Boolean!]
+  services_checked: Boolean
+  services_checked_not: Boolean
+  services_checked_lt: Boolean
+  services_checked_lte: Boolean
+  services_checked_gt: Boolean
+  services_checked_gte: Boolean
+  services_checked_in: [Boolean!]
+  services_checked_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -8321,6 +8436,8 @@ type Router implements NINode & Physical & PhysicalLogical {
   model: String
   version: String
   rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
   ports: [Port]
 }
 
@@ -8425,6 +8542,22 @@ input RouterNestedFilter {
   rack_units_gte: Int
   rack_units_in: [Int!]
   rack_units_not_in: [Int!]
+  rack_position: Int
+  rack_position_not: Int
+  rack_position_lt: Int
+  rack_position_lte: Int
+  rack_position_gt: Int
+  rack_position_gte: Int
+  rack_position_in: [Int!]
+  rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -8493,6 +8626,8 @@ enum RouterOrderBy {
   version_DESC
   rack_units_ASC
   rack_units_DESC
+  rack_position_ASC
+  rack_position_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -8699,8 +8834,12 @@ type Switch implements NINode & Physical & PhysicalLogical {
   contract_number: String
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
   provider: Provider
   max_number_of_ports: Int
+  ports: [Port]
+  services_locked: Boolean
+  services_checked: Boolean
 }
 
 type switchConnection {
@@ -8854,6 +8993,14 @@ input SwitchNestedFilter {
   rack_position_gte: Int
   rack_position_in: [Int!]
   rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   max_number_of_ports: Int
   max_number_of_ports_not: Int
   max_number_of_ports_lt: Int
@@ -8862,6 +9009,22 @@ input SwitchNestedFilter {
   max_number_of_ports_gte: Int
   max_number_of_ports_in: [Int!]
   max_number_of_ports_not_in: [Int!]
+  services_locked: Boolean
+  services_locked_not: Boolean
+  services_locked_lt: Boolean
+  services_locked_lte: Boolean
+  services_locked_gt: Boolean
+  services_locked_gte: Boolean
+  services_locked_in: [Boolean!]
+  services_locked_not_in: [Boolean!]
+  services_checked: Boolean
+  services_checked_not: Boolean
+  services_checked_lt: Boolean
+  services_checked_lte: Boolean
+  services_checked_gt: Boolean
+  services_checked_gte: Boolean
+  services_checked_in: [Boolean!]
+  services_checked_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -8989,8 +9152,8 @@ input UpdateCableInput {
   cable_type: ChoiceScalar!
   description: String
   relationship_provider: ChoiceScalar
-  relationship_end_a: Int
-  relationship_end_b: Int
+  tele2_cable_contract: ChoiceScalar
+  tele2_alternative_circuit_id: String
   id: ID!
   clientMutationId: String
 }
@@ -9106,8 +9269,8 @@ input UpdateFirewallInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -9126,6 +9289,7 @@ input UpdateFirewallInput {
   relationship_owner: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
+  relationship_ports: String
   services_locked: Boolean
   services_checked: Boolean
   max_number_of_ports: Int
@@ -9407,8 +9571,8 @@ input UpdateSwitchInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "Reserved"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -9425,6 +9589,11 @@ input UpdateSwitchInput {
   contract_number: String
   relationship_location: Int
   relationship_owner: ChoiceScalar
+  relationship_user: Int
+  relationship_depends_on: Int
+  relationship_ports: String
+  services_locked: Boolean
+  services_checked: Boolean
   max_number_of_ports: Int
   relationship_provider: ChoiceScalar
   id: ID!

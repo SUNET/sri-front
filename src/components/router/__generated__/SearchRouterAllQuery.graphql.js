@@ -9,7 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type RouterList_routers$ref = any;
-export type RouterOrderBy = "created_ASC" | "created_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "model_ASC" | "model_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "operational_state_ASC" | "operational_state_DESC" | "rack_units_ASC" | "rack_units_DESC" | "version_ASC" | "version_DESC" | "%future added value";
+export type RouterOrderBy = "created_ASC" | "created_DESC" | "description_ASC" | "description_DESC" | "handle_id_ASC" | "handle_id_DESC" | "model_ASC" | "model_DESC" | "modified_ASC" | "modified_DESC" | "name_ASC" | "name_DESC" | "operational_state_ASC" | "operational_state_DESC" | "rack_position_ASC" | "rack_position_DESC" | "rack_units_ASC" | "rack_units_DESC" | "version_ASC" | "version_DESC" | "%future added value";
 export type RouterFilter = {|
   AND?: ?$ReadOnlyArray<RouterNestedFilter>,
   OR?: ?$ReadOnlyArray<RouterNestedFilter>,
@@ -93,6 +93,22 @@ export type RouterNestedFilter = {|
   rack_units_gte?: ?number,
   rack_units_in?: ?$ReadOnlyArray<number>,
   rack_units_not_in?: ?$ReadOnlyArray<number>,
+  rack_position?: ?number,
+  rack_position_not?: ?number,
+  rack_position_lt?: ?number,
+  rack_position_lte?: ?number,
+  rack_position_gt?: ?number,
+  rack_position_gte?: ?number,
+  rack_position_in?: ?$ReadOnlyArray<number>,
+  rack_position_not_in?: ?$ReadOnlyArray<number>,
+  rack_back?: ?boolean,
+  rack_back_not?: ?boolean,
+  rack_back_lt?: ?boolean,
+  rack_back_lte?: ?boolean,
+  rack_back_gt?: ?boolean,
+  rack_back_gte?: ?boolean,
+  rack_back_in?: ?$ReadOnlyArray<boolean>,
+  rack_back_not_in?: ?$ReadOnlyArray<boolean>,
   id?: ?string,
   id_not?: ?string,
   id_lt?: ?string,

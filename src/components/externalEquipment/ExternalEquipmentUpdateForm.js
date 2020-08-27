@@ -59,11 +59,7 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {this.renderOwnerToggleSection(editMode)}
-        {this.renderPortsToggleSection(editMode)}
-        {editMode && this.renderBulkPortToggleSection()}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );

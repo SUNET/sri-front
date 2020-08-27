@@ -29,9 +29,7 @@ class CreateHostForm extends _HostFormParentClass {
         {isBrowser && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
-          {this.renderModelMainSection(editMode)}
-          {this.renderOwnerToggleSection(editMode)}
-          {this.renderWorkLog(editMode)}
+          {this.renderSections(editMode)}
         </div>
         {this.renderSaveCancelButtons()}
       </form>

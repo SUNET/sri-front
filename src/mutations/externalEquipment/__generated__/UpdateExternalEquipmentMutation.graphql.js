@@ -197,6 +197,8 @@ export type CreateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
+  tele2_cable_contract?: ?any,
+  tele2_alternative_circuit_id?: ?string,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
@@ -204,8 +206,8 @@ export type UpdateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  relationship_end_a?: ?number,
-  relationship_end_b?: ?number,
+  tele2_cable_contract?: ?any,
+  tele2_alternative_circuit_id?: ?string,
   id: string,
   clientMutationId?: ?string,
 |};
@@ -242,8 +244,8 @@ export type CreateSwitchInput = {|
   rack_position?: ?number,
   rack_back?: ?boolean,
   name: string,
-  description?: ?string,
   ip_addresses?: ?string,
+  description?: ?string,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -260,6 +262,11 @@ export type CreateSwitchInput = {|
   contract_number?: ?string,
   relationship_location?: ?number,
   relationship_owner?: ?any,
+  relationship_user?: ?number,
+  relationship_depends_on?: ?number,
+  relationship_ports?: ?string,
+  services_locked?: ?boolean,
+  services_checked?: ?boolean,
   max_number_of_ports?: ?number,
   relationship_provider?: ?any,
   switch_type: any,
@@ -270,8 +277,8 @@ export type UpdateSwitchInput = {|
   rack_position?: ?number,
   rack_back?: ?boolean,
   name: string,
-  description?: ?string,
   ip_addresses?: ?string,
+  description?: ?string,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -288,6 +295,11 @@ export type UpdateSwitchInput = {|
   contract_number?: ?string,
   relationship_location?: ?number,
   relationship_owner?: ?any,
+  relationship_user?: ?number,
+  relationship_depends_on?: ?number,
+  relationship_ports?: ?string,
+  services_locked?: ?boolean,
+  services_checked?: ?boolean,
   max_number_of_ports?: ?number,
   relationship_provider?: ?any,
   id: string,
@@ -302,8 +314,8 @@ export type CreateFirewallInput = {|
   rack_position?: ?number,
   rack_back?: ?boolean,
   name: string,
-  description?: ?string,
   ip_addresses?: ?string,
+  description?: ?string,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -322,6 +334,7 @@ export type CreateFirewallInput = {|
   relationship_owner?: ?any,
   relationship_user?: ?number,
   relationship_depends_on?: ?number,
+  relationship_ports?: ?string,
   services_locked?: ?boolean,
   services_checked?: ?boolean,
   max_number_of_ports?: ?number,
@@ -332,8 +345,8 @@ export type UpdateFirewallInput = {|
   rack_position?: ?number,
   rack_back?: ?boolean,
   name: string,
-  description?: ?string,
   ip_addresses?: ?string,
+  description?: ?string,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -352,6 +365,7 @@ export type UpdateFirewallInput = {|
   relationship_owner?: ?any,
   relationship_user?: ?number,
   relationship_depends_on?: ?number,
+  relationship_ports?: ?string,
   services_locked?: ?boolean,
   services_checked?: ?boolean,
   max_number_of_ports?: ?number,
@@ -542,33 +556,8 @@ export type CreateHostInput = {|
   rack_position?: ?number,
   rack_back?: ?boolean,
   name: string,
-  description?: ?string,
   ip_addresses?: ?string,
-  operational_state: any,
-  managed_by?: ?any,
-  responsible_group?: ?any,
-  support_group?: ?any,
-  backup?: ?string,
-  security_class?: ?any,
-  security_comment?: ?string,
-  os?: ?string,
-  os_version?: ?string,
-  model?: ?string,
-  vendor?: ?string,
-  service_tag?: ?string,
-  end_support?: ?any,
-  contract_number?: ?string,
-  relationship_location?: ?number,
-  relationship_owner?: ?any,
-  clientMutationId?: ?string,
-|};
-export type EditHostInput = {|
-  rack_units?: ?number,
-  rack_position?: ?number,
-  rack_back?: ?boolean,
-  name: string,
   description?: ?string,
-  ip_addresses?: ?string,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -587,6 +576,35 @@ export type EditHostInput = {|
   relationship_owner?: ?any,
   relationship_user?: ?any,
   relationship_depends_on?: ?number,
+  relationship_ports?: ?string,
+  services_locked?: ?boolean,
+  services_checked?: ?boolean,
+  clientMutationId?: ?string,
+|};
+export type EditHostInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  ip_addresses?: ?string,
+  description?: ?string,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?any,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?any,
+  relationship_user?: ?any,
   services_locked?: ?boolean,
   services_checked?: ?boolean,
   id: string,
@@ -848,6 +866,7 @@ export type UpdateExternalEquipmentMutationResponse = {|
         +description: ?string,
         +rack_units: ?number,
         +rack_position: ?number,
+        +rack_back: ?boolean,
         +ports: ?$ReadOnlyArray<?{|
           +id: string,
           +name: string,
@@ -897,6 +916,7 @@ mutation UpdateExternalEquipmentMutation(
         description
         rack_units
         rack_position
+        rack_back
         ports {
           id
           name
@@ -1028,37 +1048,30 @@ v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "rack_back",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "relation_id",
+  "name": "__typename",
   "storageKey": null
 },
 v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "relation_id",
+  "storageKey": null
+},
+v11 = {
   "alias": "name",
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v11 = [
-  {
-    "alias": "type",
-    "args": null,
-    "concreteType": "NINodeType",
-    "kind": "LinkedField",
-    "name": "node_type",
-    "plural": false,
-    "selections": [
-      (v10/*: any*/)
-    ],
-    "storageKey": null
-  }
-],
 v12 = [
   {
     "alias": "type",
@@ -1068,7 +1081,21 @@ v12 = [
     "name": "node_type",
     "plural": false,
     "selections": [
-      (v10/*: any*/),
+      (v11/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
+v13 = [
+  {
+    "alias": "type",
+    "args": null,
+    "concreteType": "NINodeType",
+    "kind": "LinkedField",
+    "name": "node_type",
+    "plural": false,
+    "selections": [
+      (v11/*: any*/),
       (v3/*: any*/)
     ],
     "storageKey": null
@@ -1111,6 +1138,7 @@ return {
                   (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -1121,8 +1149,8 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v8/*: any*/),
                       (v9/*: any*/),
+                      (v10/*: any*/),
                       {
                         "alias": "type",
                         "args": null,
@@ -1146,27 +1174,27 @@ return {
                     "name": "owner",
                     "plural": false,
                     "selections": [
-                      (v8/*: any*/),
+                      (v9/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "EndUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "Customer"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v11/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "Provider"
                       }
                     ],
@@ -1185,7 +1213,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v8/*: any*/)
+                  (v9/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -1234,6 +1262,7 @@ return {
                   (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -1244,8 +1273,8 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v8/*: any*/),
                       (v9/*: any*/),
+                      (v10/*: any*/),
                       {
                         "alias": "type",
                         "args": null,
@@ -1270,27 +1299,27 @@ return {
                     "name": "owner",
                     "plural": false,
                     "selections": [
-                      (v8/*: any*/),
+                      (v9/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": (v13/*: any*/),
                         "type": "EndUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": (v13/*: any*/),
                         "type": "Customer"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": (v13/*: any*/),
                         "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v12/*: any*/),
+                        "selections": (v13/*: any*/),
                         "type": "Provider"
                       }
                     ],
@@ -1304,13 +1333,13 @@ return {
                     "name": "has",
                     "plural": true,
                     "selections": [
-                      (v8/*: any*/),
+                      (v9/*: any*/),
                       (v3/*: any*/),
                       (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v8/*: any*/)
+                  (v9/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -1327,11 +1356,11 @@ return {
     "metadata": {},
     "name": "UpdateExternalEquipmentMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n        rack_units\n        rack_position\n        ports {\n          id\n          name\n          __typename\n          relation_id\n          type: port_type {\n            name\n            id\n          }\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        has {\n          __typename\n          id\n          name\n        }\n        __typename\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateExternalEquipmentMutation(\n  $input: CompositeExternalEquipmentMutationInput!\n) {\n  composite_externalEquipment(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      externalEquipment {\n        id\n        name\n        description\n        rack_units\n        rack_position\n        rack_back\n        ports {\n          id\n          name\n          __typename\n          relation_id\n          type: port_type {\n            name\n            id\n          }\n        }\n        owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        has {\n          __typename\n          id\n          name\n        }\n        __typename\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'efeccf79c8028e4af5e47c3e1202a611';
+(node/*: any*/).hash = '4eb201fc739f97dbb59d01c7b930904e';
 
 module.exports = node;

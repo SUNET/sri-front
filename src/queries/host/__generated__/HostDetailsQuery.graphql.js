@@ -53,6 +53,7 @@ export type HostDetailsQueryResponse = {|
     +contract_number: ?string,
     +rack_units: ?number,
     +rack_position: ?number,
+    +rack_back: ?boolean,
     +$fragmentRefs: HostUpdateForm_host$ref,
   |}
 |};
@@ -131,6 +132,7 @@ query HostDetailsQuery(
     contract_number
     rack_units
     rack_position
+    rack_back
   }
 }
 
@@ -327,7 +329,14 @@ v20 = {
   "name": "rack_position",
   "storageKey": null
 },
-v21 = [
+v21 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_back",
+  "storageKey": null
+},
+v22 = [
   {
     "alias": null,
     "args": null,
@@ -337,7 +346,7 @@ v21 = [
   },
   (v2/*: any*/)
 ],
-v22 = [
+v23 = [
   {
     "alias": "type",
     "args": null,
@@ -440,6 +449,7 @@ return {
           (v18/*: any*/),
           (v19/*: any*/),
           (v20/*: any*/),
+          (v21/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -534,7 +544,7 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v21/*: any*/),
+            "selections": (v22/*: any*/),
             "storageKey": null
           },
           {
@@ -551,7 +561,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v21/*: any*/),
+            "selections": (v22/*: any*/),
             "storageKey": null
           },
           {
@@ -584,22 +594,22 @@ return {
               (v3/*: any*/),
               {
                 "kind": "InlineFragment",
-                "selections": (v22/*: any*/),
+                "selections": (v23/*: any*/),
                 "type": "EndUser"
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v22/*: any*/),
+                "selections": (v23/*: any*/),
                 "type": "Customer"
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v22/*: any*/),
+                "selections": (v23/*: any*/),
                 "type": "HostUser"
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v22/*: any*/),
+                "selections": (v23/*: any*/),
                 "type": "Provider"
               }
             ],
@@ -625,7 +635,8 @@ return {
           (v17/*: any*/),
           (v18/*: any*/),
           (v19/*: any*/),
-          (v20/*: any*/)
+          (v20/*: any*/),
+          (v21/*: any*/)
         ],
         "storageKey": null
       }
@@ -636,11 +647,11 @@ return {
     "metadata": {},
     "name": "HostDetailsQuery",
     "operationKind": "query",
-    "text": "query HostDetailsQuery(\n  $hostId: ID!\n) {\n  getHostById(id: $hostId) {\n    ...HostUpdateForm_host\n    id\n    name\n    operational_state {\n      name\n      value\n      id\n    }\n    description\n    host_type\n    ip_addresses\n    host_user {\n      id\n      name\n      __typename\n    }\n    owner: host_owner {\n      __typename\n      id\n      name\n      ... on EndUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Customer {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on HostUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Provider {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    managed_by {\n      value\n      id\n    }\n    backup\n    os\n    os_version\n    contract_number\n    rack_units\n    rack_position\n  }\n}\n\nfragment HostUpdateForm_host on Host {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query HostDetailsQuery(\n  $hostId: ID!\n) {\n  getHostById(id: $hostId) {\n    ...HostUpdateForm_host\n    id\n    name\n    operational_state {\n      name\n      value\n      id\n    }\n    description\n    host_type\n    ip_addresses\n    host_user {\n      id\n      name\n      __typename\n    }\n    owner: host_owner {\n      __typename\n      id\n      name\n      ... on EndUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Customer {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on HostUser {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n      ... on Provider {\n        type: node_type {\n          name: type\n          id\n        }\n      }\n    }\n    responsible_group {\n      id\n      name\n    }\n    support_group {\n      id\n      name\n    }\n    managed_by {\n      value\n      id\n    }\n    backup\n    os\n    os_version\n    contract_number\n    rack_units\n    rack_position\n    rack_back\n  }\n}\n\nfragment HostUpdateForm_host on Host {\n  id\n  name\n  description\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'c64e6ac52cbae30a7031e298bc827a4a';
+(node/*: any*/).hash = '77729ac22011ab8e8b4dfd3d3edfd4ba';
 
 module.exports = node;

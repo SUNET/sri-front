@@ -46,33 +46,8 @@ export type CreateHostInput = {|
   rack_position?: ?number,
   rack_back?: ?boolean,
   name: string,
-  description?: ?string,
   ip_addresses?: ?string,
-  operational_state: any,
-  managed_by?: ?any,
-  responsible_group?: ?any,
-  support_group?: ?any,
-  backup?: ?string,
-  security_class?: ?any,
-  security_comment?: ?string,
-  os?: ?string,
-  os_version?: ?string,
-  model?: ?string,
-  vendor?: ?string,
-  service_tag?: ?string,
-  end_support?: ?any,
-  contract_number?: ?string,
-  relationship_location?: ?number,
-  relationship_owner?: ?any,
-  clientMutationId?: ?string,
-|};
-export type EditHostInput = {|
-  rack_units?: ?number,
-  rack_position?: ?number,
-  rack_back?: ?boolean,
-  name: string,
   description?: ?string,
-  ip_addresses?: ?string,
   operational_state: any,
   managed_by?: ?any,
   responsible_group?: ?any,
@@ -91,6 +66,35 @@ export type EditHostInput = {|
   relationship_owner?: ?any,
   relationship_user?: ?any,
   relationship_depends_on?: ?number,
+  relationship_ports?: ?string,
+  services_locked?: ?boolean,
+  services_checked?: ?boolean,
+  clientMutationId?: ?string,
+|};
+export type EditHostInput = {|
+  rack_units?: ?number,
+  rack_position?: ?number,
+  rack_back?: ?boolean,
+  name: string,
+  ip_addresses?: ?string,
+  description?: ?string,
+  operational_state: any,
+  managed_by?: ?any,
+  responsible_group?: ?any,
+  support_group?: ?any,
+  backup?: ?string,
+  security_class?: ?any,
+  security_comment?: ?string,
+  os?: ?string,
+  os_version?: ?string,
+  model?: ?string,
+  vendor?: ?string,
+  service_tag?: ?string,
+  end_support?: ?any,
+  contract_number?: ?string,
+  relationship_location?: ?number,
+  relationship_owner?: ?any,
+  relationship_user?: ?any,
   services_locked?: ?boolean,
   services_checked?: ?boolean,
   id: string,
@@ -299,6 +303,7 @@ export type CreateHostMutationResponse = {|
         +contract_number: ?string,
         +rack_units: ?number,
         +rack_position: ?number,
+        +rack_back: ?boolean,
       |},
     |}
   |}
@@ -383,6 +388,7 @@ mutation CreateHostMutation(
         contract_number
         rack_units
         rack_position
+        rack_back
       }
     }
   }
@@ -580,7 +586,14 @@ v21 = {
   "name": "rack_position",
   "storageKey": null
 },
-v22 = [
+v22 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rack_back",
+  "storageKey": null
+},
+v23 = [
   {
     "alias": "type",
     "args": null,
@@ -699,7 +712,8 @@ return {
                   (v18/*: any*/),
                   (v19/*: any*/),
                   (v20/*: any*/),
-                  (v21/*: any*/)
+                  (v21/*: any*/),
+                  (v22/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -776,22 +790,22 @@ return {
                       (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v22/*: any*/),
+                        "selections": (v23/*: any*/),
                         "type": "EndUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v22/*: any*/),
+                        "selections": (v23/*: any*/),
                         "type": "Customer"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v22/*: any*/),
+                        "selections": (v23/*: any*/),
                         "type": "HostUser"
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v22/*: any*/),
+                        "selections": (v23/*: any*/),
                         "type": "Provider"
                       }
                     ],
@@ -817,7 +831,8 @@ return {
                   (v18/*: any*/),
                   (v19/*: any*/),
                   (v20/*: any*/),
-                  (v21/*: any*/)
+                  (v21/*: any*/),
+                  (v22/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -834,11 +849,11 @@ return {
     "metadata": {},
     "name": "CreateHostMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateHostMutation(\n  $input: CompositeHostMutationInput!\n) {\n  composite_host(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      host {\n        id\n        name\n        operational_state {\n          name\n          value\n          id\n        }\n        description\n        host_type\n        ip_addresses\n        host_user {\n          id\n          name\n          __typename\n        }\n        owner: host_owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        responsible_group {\n          id\n          name\n        }\n        support_group {\n          id\n          name\n        }\n        managed_by {\n          value\n          id\n        }\n        backup\n        os\n        os_version\n        contract_number\n        rack_units\n        rack_position\n      }\n    }\n  }\n}\n"
+    "text": "mutation CreateHostMutation(\n  $input: CompositeHostMutationInput!\n) {\n  composite_host(input: $input) {\n    created {\n      errors {\n        field\n        messages\n      }\n      host {\n        id\n        name\n        operational_state {\n          name\n          value\n          id\n        }\n        description\n        host_type\n        ip_addresses\n        host_user {\n          id\n          name\n          __typename\n        }\n        owner: host_owner {\n          __typename\n          id\n          name\n          ... on EndUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Customer {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on HostUser {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n          ... on Provider {\n            type: node_type {\n              name: type\n              id\n            }\n          }\n        }\n        responsible_group {\n          id\n          name\n        }\n        support_group {\n          id\n          name\n        }\n        managed_by {\n          value\n          id\n        }\n        backup\n        os\n        os_version\n        contract_number\n        rack_units\n        rack_position\n        rack_back\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '9be137da0a17848b2543d20cb01ed336';
+(node/*: any*/).hash = 'e19b14f647b174cd2227c20b46380013';
 
 module.exports = node;

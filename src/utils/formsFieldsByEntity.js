@@ -13,9 +13,10 @@ const RELATION_GROUP_INFO = [
   { type: FIELD_TYPES.ID_OBJECT, name: 'responsible_group' },
   { type: FIELD_TYPES.ID_OBJECT, name: 'support_group' },
 ];
-const LOCATION_INFO = [
+const RACK_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_position' },
+  { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
 ];
 const BASIC_OPERATIVE_SYSTEM = [
   { type: FIELD_TYPES.SINGLE, name: 'os' },
@@ -75,7 +76,7 @@ const switchEntity = {
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,
     ...BASIC_OPERATIVE_SYSTEM,
-    ...LOCATION_INFO,
+    ...RACK_INFO,
     ...RELATION_GROUP_INFO,
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
     { type: FIELD_TYPES.SINGLE, name: 'ip_addresses' },
@@ -93,7 +94,7 @@ const firewall = {
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,
     ...BASIC_OPERATIVE_SYSTEM,
-    ...LOCATION_INFO,
+    ...RACK_INFO,
     ...RELATION_GROUP_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'owner' },
@@ -129,7 +130,7 @@ const externalEquipment = {
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails', 'portDetails'],
   fields: [
     ...BASIC_INFO,
-    ...LOCATION_INFO,
+    ...RACK_INFO,
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'owner' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
   ],
@@ -145,7 +146,7 @@ const host = {
     ...BASIC_INFO,
     ...RELATION_GROUP_INFO,
     ...BASIC_OPERATIVE_SYSTEM,
-    ...LOCATION_INFO,
+    ...RACK_INFO,
     ...PHYSICAL_BASIC_DATA,
     { type: FIELD_TYPES.SINGLE, name: 'ip_addresses' },
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'owner' },
@@ -185,7 +186,7 @@ const opticalNode = {
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
   fields: [
     ...BASIC_INFO,
-    ...LOCATION_INFO,
+    ...RACK_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.OBJECT, name: 'type' },
@@ -202,7 +203,7 @@ const ODF = {
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
   fields: [
     ...BASIC_INFO,
-    ...LOCATION_INFO,
+    ...RACK_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
     { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
