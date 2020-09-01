@@ -5,6 +5,7 @@ const CableDetailsQuery = graphql`
     getCableById(id: $cableId) {
       ...CableUpdateForm_cable
       ___CABLE_FIELDS___
+    }
   }
 `;
 
