@@ -19,6 +19,20 @@ export type CableUpdateForm_cable = {|
     +name: string,
     +value: string,
   |},
+  +provider: ?{|
+    +id: string,
+    +name: string,
+  |},
+  +ports: ?$ReadOnlyArray<?{|
+    +id: string,
+    +name: string,
+    +description: ?string,
+    +relation_id: ?number,
+    +type: ?{|
+      +name: string,
+      +value: string,
+    |},
+  |}>,
   +comments: ?$ReadOnlyArray<?{|
     +id: string,
     +user: ?{|
@@ -62,7 +76,24 @@ v1 = {
   "name": "name",
   "storageKey": null
 },
-v2 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v3 = [
+  (v1/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "value",
+    "storageKey": null
+  }
+],
+v4 = [
   {
     "alias": null,
     "args": null,
@@ -79,13 +110,7 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "description",
-      "storageKey": null
-    },
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -93,13 +118,48 @@ return {
       "kind": "LinkedField",
       "name": "cable_type",
       "plural": false,
+      "selections": (v3/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Provider",
+      "kind": "LinkedField",
+      "name": "provider",
+      "plural": false,
       "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/)
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Port",
+      "kind": "LinkedField",
+      "name": "ports",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/),
         (v1/*: any*/),
+        (v2/*: any*/),
         {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "value",
+          "name": "relation_id",
+          "storageKey": null
+        },
+        {
+          "alias": "type",
+          "args": null,
+          "concreteType": "Choice",
+          "kind": "LinkedField",
+          "name": "port_type",
+          "plural": false,
+          "selections": (v3/*: any*/),
           "storageKey": null
         }
       ],
@@ -170,7 +230,7 @@ return {
       "kind": "LinkedField",
       "name": "creator",
       "plural": false,
-      "selections": (v2/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     },
     {
@@ -187,7 +247,7 @@ return {
       "kind": "LinkedField",
       "name": "modifier",
       "plural": false,
-      "selections": (v2/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     }
   ],
@@ -195,6 +255,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a089c49afd689cdb21c612aea89c0342';
+(node/*: any*/).hash = 'c697e9c1104048ffb5ea54cf7b6e6123';
 
 module.exports = node;

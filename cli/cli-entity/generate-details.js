@@ -1,5 +1,5 @@
 const fs = require('fs');
-const utils = require('./utils');
+const utils = require('../utils');
 const { createDirectory, createFile, readFileAsync, camelToSnake, getNamingObject, generateContent } = utils;
 
 const generateDetails = (blockEntity, nameEntity) => {

@@ -43,6 +43,21 @@ fragment CableUpdateForm_cable on Cable {
     value
     id
   }
+  provider {
+    id
+    name
+  }
+  ports {
+    id
+    name
+    description
+    relation_id
+    type: port_type {
+      name
+      value
+      id
+    }
+  }
   comments {
     id
     user {
@@ -96,7 +111,25 @@ v3 = {
   "name": "name",
   "storageKey": null
 },
-v4 = [
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v5 = [
+  (v3/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "value",
+    "storageKey": null
+  },
+  (v2/*: any*/)
+],
+v6 = [
   {
     "alias": null,
     "args": null,
@@ -148,13 +181,7 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "description",
-            "storageKey": null
-          },
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -162,16 +189,50 @@ return {
             "kind": "LinkedField",
             "name": "cable_type",
             "plural": false,
+            "selections": (v5/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Provider",
+            "kind": "LinkedField",
+            "name": "provider",
+            "plural": false,
             "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Port",
+            "kind": "LinkedField",
+            "name": "ports",
+            "plural": true,
+            "selections": [
+              (v2/*: any*/),
               (v3/*: any*/),
+              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "value",
+                "name": "relation_id",
                 "storageKey": null
               },
-              (v2/*: any*/)
+              {
+                "alias": "type",
+                "args": null,
+                "concreteType": "Choice",
+                "kind": "LinkedField",
+                "name": "port_type",
+                "plural": false,
+                "selections": (v5/*: any*/),
+                "storageKey": null
+              }
             ],
             "storageKey": null
           },
@@ -241,7 +302,7 @@ return {
             "kind": "LinkedField",
             "name": "creator",
             "plural": false,
-            "selections": (v4/*: any*/),
+            "selections": (v6/*: any*/),
             "storageKey": null
           },
           {
@@ -258,7 +319,7 @@ return {
             "kind": "LinkedField",
             "name": "modifier",
             "plural": false,
-            "selections": (v4/*: any*/),
+            "selections": (v6/*: any*/),
             "storageKey": null
           }
         ],
@@ -271,7 +332,7 @@ return {
     "metadata": {},
     "name": "CableUpdateFormRefetchQuery",
     "operationKind": "query",
-    "text": "query CableUpdateFormRefetchQuery(\n  $cableId: ID!\n) {\n  getCableById(id: $cableId) {\n    ...CableUpdateForm_cable\n    id\n  }\n}\n\nfragment CableUpdateForm_cable on Cable {\n  id\n  name\n  description\n  cable_type {\n    name\n    value\n    id\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
+    "text": "query CableUpdateFormRefetchQuery(\n  $cableId: ID!\n) {\n  getCableById(id: $cableId) {\n    ...CableUpdateForm_cable\n    id\n  }\n}\n\nfragment CableUpdateForm_cable on Cable {\n  id\n  name\n  description\n  cable_type {\n    name\n    value\n    id\n  }\n  provider {\n    id\n    name\n  }\n  ports {\n    id\n    name\n    description\n    relation_id\n    type: port_type {\n      name\n      value\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
