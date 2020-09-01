@@ -94,7 +94,6 @@ module.exports = [
   {
     entity: 'Cable',
     files: ['src/queries/cable/CableDetailsQuery.js', 'src/components/cable/CableUpdateForm.js'],
-    // files: ['src/queries/cable/CableDetailsQuery.js'],
     reference: '___CABLE_FIELDS___',
     queries: {
       common: {
