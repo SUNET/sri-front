@@ -2,5 +2,5 @@ language: node_js
 node_js:
   - "stable"
 before_script:
-  - npm install && npm run adapt-queries && npm run relay;
+  - npm install && npm run adapt-queries common && npm run relay-common;
 script: npm run test && npm run-script build && find src/ -regex ".*\.\(js\|json\|scss\)$" -exec prettier -c {} \;

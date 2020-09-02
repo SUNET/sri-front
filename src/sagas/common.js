@@ -51,6 +51,7 @@ export const getRequest = {
 
 export const checkStatus = function(response) {
   if (response.status >= 200 && response.status < 300) {
+    console.log('SCHEMA_VERSION: ', CONFIG.SCHEMA_VERSION);
     return response;
   }
   fetch(`${API_HOST}/login/?next=/`, {
