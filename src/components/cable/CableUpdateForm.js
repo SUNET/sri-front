@@ -84,30 +84,7 @@ const CableUpdateFragment = createRefetchContainer(
   {
     cable: graphql`
       fragment CableUpdateForm_cable on Cable {
-        id
-        name
-        description
-        cable_type {
-          name
-          value
-        }
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
-        }
+        ___CABLE_FIELDS___
       }
     `,
   },

@@ -15,29 +15,7 @@ const mutation = graphql`
           messages
         }
         cable {
-          id
-          name
-          cable_type {
-            value
-          }
-          description
-          provider {
-            id
-            name
-          }
-          ports {
-            id
-            name
-            port_type {
-              value
-            }
-            description
-            relation_id
-            connected_to {
-              id
-              name
-            }
-          }
+          ...CableUpdateForm_cable
         }
       }
       subcreated {

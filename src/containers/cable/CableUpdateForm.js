@@ -28,7 +28,7 @@ const mapStateToProps = (state, props) => {
     cableTypeObj: cable.cable_type,
     providerObj: cable.provider ? cable.provider : undefined,
     provider_id: cable.provider ? cable.provider.id : undefined,
-    connections: formatterSubInputs(cable.ports),
+    connections: formatterSubInputs(cable.ports || []),
   };
   return {
     form: formName,
