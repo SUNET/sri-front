@@ -1,11 +1,10 @@
 import React from 'react';
-import { FieldArray, Field, arrayPush } from 'redux-form';
+import { FieldArray, arrayPush } from 'redux-form';
 import { Form, Col } from 'react-bootstrap';
 
 // components
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import Dropdown from '../Dropdown';
-import FieldInput from '../FieldInput';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayPorts from '../common/FieldArrayPorts';
 import BulPort from '../common/BulkPort';

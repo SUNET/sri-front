@@ -1,10 +1,8 @@
 import React from 'react';
-import { FieldArray, Field, arrayPush } from 'redux-form';
-import { Form } from 'react-bootstrap';
+import { FieldArray, arrayPush } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import FieldInput from '../FieldInput';
 import FieldArrayPorts from '../common/FieldArrayPorts';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
 import BulPort from '../common/BulkPort';
@@ -12,7 +10,6 @@ import BulPort from '../common/BulkPort';
 import { SAVED } from '../../utils/constants';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
-import renderFormBlockSection from '../common/BlockSection';
 
 class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
