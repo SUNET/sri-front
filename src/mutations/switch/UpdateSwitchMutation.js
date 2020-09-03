@@ -14,56 +14,7 @@ const mutation = graphql`
           messages
         }
         switch {
-          id
-          name
-          description
-          ip_addresses
-          rack_units
-          rack_position
-          operational_state {
-            name
-            value
-          }
-          ip_addresses
-          provider {
-            id
-            name
-          }
-          responsible_group {
-            id
-            name
-          }
-          support_group {
-            id
-            name
-          }
-          managed_by {
-            value
-            name
-          }
-          backup
-          os
-          os_version
-          contract_number
-          max_number_of_ports
-          __typename
-          comments {
-            id
-            user {
-              first_name
-              last_name
-            }
-            comment
-            submit_date
-          }
-          created
-          creator {
-            email
-          }
-          modified
-          modifier {
-            email
-          }
+          ...SwitchUpdateForm_switch
         }
       }
     }

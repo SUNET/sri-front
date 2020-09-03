@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Tue Aug 25 2020 11:05:56 GMT+0200 (GMT+02:00)
+# timestamp: Thu Sep 03 2020 07:43:35 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -506,6 +506,9 @@ input CompositeCableMutationInput {
   create_part_of_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
   update_part_of_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
   deleted_part_of_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_part_of_opticalpath: CreateOpticalPathInput
+  update_part_of_opticalpath: UpdateOpticalPathInput
+  deleted_part_of_opticalpath: DeleteOpticalPathInput
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
@@ -581,6 +584,9 @@ input CompositeCableMutationInput {
   create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
@@ -645,6 +651,9 @@ type CompositeCableMutationPayload {
   part_of_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
   part_of_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
   part_of_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  part_of_opticalpath_created: CreateOpticalPathPayload
+  part_of_opticalpath_updated: UpdateOpticalPathPayload
+  part_of_opticalpath_deleted: DeleteOpticalPathPayload
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
@@ -720,6 +729,9 @@ type CompositeCableMutationPayload {
   dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -761,6 +773,9 @@ input CompositeContactMutationInput {
   create_uses_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
   update_uses_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
   deleted_uses_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_uses_opticalpath: CreateOpticalPathInput
+  update_uses_opticalpath: UpdateOpticalPathInput
+  deleted_uses_opticalpath: DeleteOpticalPathInput
   create_uses_peeringgroup: CreatePeeringGroupInput
   update_uses_peeringgroup: UpdatePeeringGroupInput
   deleted_uses_peeringgroup: DeletePeeringGroupInput
@@ -829,6 +844,9 @@ type CompositeContactMutationPayload {
   uses_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
   uses_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
   uses_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  uses_opticalpath_created: CreateOpticalPathPayload
+  uses_opticalpath_updated: UpdateOpticalPathPayload
+  uses_opticalpath_deleted: DeleteOpticalPathPayload
   uses_peeringgroup_created: CreatePeeringGroupPayload
   uses_peeringgroup_updated: UpdatePeeringGroupPayload
   uses_peeringgroup_deleted: DeletePeeringGroupPayload
@@ -918,6 +936,9 @@ input CompositeExternalEquipmentMutationInput {
   create_part_of_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
   update_part_of_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
   deleted_part_of_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_part_of_opticalpath: CreateOpticalPathInput
+  update_part_of_opticalpath: UpdateOpticalPathInput
+  deleted_part_of_opticalpath: DeleteOpticalPathInput
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
@@ -993,6 +1014,9 @@ input CompositeExternalEquipmentMutationInput {
   create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
@@ -1055,6 +1079,9 @@ type CompositeExternalEquipmentMutationPayload {
   part_of_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
   part_of_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
   part_of_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  part_of_opticalpath_created: CreateOpticalPathPayload
+  part_of_opticalpath_updated: UpdateOpticalPathPayload
+  part_of_opticalpath_deleted: DeleteOpticalPathPayload
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
@@ -1130,6 +1157,9 @@ type CompositeExternalEquipmentMutationPayload {
   dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1164,6 +1194,9 @@ input CompositeFirewallMutationInput {
   create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
@@ -1198,6 +1231,9 @@ type CompositeFirewallMutationPayload {
   dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1289,6 +1325,9 @@ input CompositeGroupMutationInput {
   create_dependencies_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependencies_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependencies_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependencies_opticalpath: [CreateOpticalPathInput]
+  update_dependencies_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependencies_opticalpath: [DeleteOpticalPathInput]
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
@@ -1316,6 +1355,9 @@ input CompositeGroupMutationInput {
   create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
@@ -1407,6 +1449,9 @@ type CompositeGroupMutationPayload {
   dependencies_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependencies_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependencies_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependencies_opticalpath_created: [CreateOpticalPathPayload]
+  dependencies_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependencies_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1434,6 +1479,9 @@ type CompositeGroupMutationPayload {
   dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1468,6 +1516,9 @@ input CompositeHostMutationInput {
   create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
@@ -1502,6 +1553,9 @@ type CompositeHostMutationPayload {
   dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1699,6 +1753,9 @@ input CompositeOpticalLinkMutationInput {
   create_dependencies_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependencies_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependencies_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependencies_opticalpath: [CreateOpticalPathInput]
+  update_dependencies_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependencies_opticalpath: [DeleteOpticalPathInput]
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
@@ -1760,6 +1817,9 @@ type CompositeOpticalLinkMutationPayload {
   dependencies_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependencies_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependencies_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependencies_opticalpath_created: [CreateOpticalPathPayload]
+  dependencies_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependencies_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1821,6 +1881,9 @@ input CompositeOpticalMultiplexSectionMutationInput {
   create_dependencies_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependencies_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependencies_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependencies_opticalpath: [CreateOpticalPathInput]
+  update_dependencies_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependencies_opticalpath: [DeleteOpticalPathInput]
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
@@ -1882,6 +1945,9 @@ type CompositeOpticalMultiplexSectionMutationPayload {
   dependencies_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependencies_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependencies_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependencies_opticalpath_created: [CreateOpticalPathPayload]
+  dependencies_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependencies_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -1958,6 +2024,134 @@ type CompositeOpticalNodeMutationPayload {
   clientMutationId: String
 }
 
+input CompositeOpticalPathMutationInput {
+  create_input: CreateOpticalPathInput
+  update_input: UpdateOpticalPathInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_dependencies_group: [CreateGroupInput]
+  update_dependencies_group: [UpdateGroupInput]
+  deleted_dependencies_group: [DeleteGroupInput]
+  create_dependencies_procedure: [CreateProcedureInput]
+  update_dependencies_procedure: [UpdateProcedureInput]
+  deleted_dependencies_procedure: [DeleteProcedureInput]
+  create_dependencies_address: [CreateAddressInput]
+  update_dependencies_address: [UpdateAddressInput]
+  deleted_dependencies_address: [DeleteAddressInput]
+  create_dependencies_phone: [CreatePhoneInput]
+  update_dependencies_phone: [UpdatePhoneInput]
+  deleted_dependencies_phone: [DeletePhoneInput]
+  create_dependencies_email: [CreateEmailInput]
+  update_dependencies_email: [UpdateEmailInput]
+  deleted_dependencies_email: [DeleteEmailInput]
+  create_dependencies_port: [CreatePortInput]
+  update_dependencies_port: [UpdatePortInput]
+  deleted_dependencies_port: [DeletePortInput]
+  create_dependencies_cable: [CreateCableInput]
+  update_dependencies_cable: [UpdateCableInput]
+  deleted_dependencies_cable: [DeleteCableInput]
+  create_dependencies_host: [CreateHostInput]
+  update_dependencies_host: [EditHostInput]
+  deleted_dependencies_host: [DeleteHostInput]
+  create_dependencies_router: [CreateRouterInput]
+  update_dependencies_router: [UpdateRouterInput]
+  deleted_dependencies_router: [DeleteRouterInput]
+  create_dependencies_switch: [CreateSwitchInput]
+  update_dependencies_switch: [UpdateSwitchInput]
+  deleted_dependencies_switch: [DeleteSwitchInput]
+  create_dependencies_firewall: [CreateFirewallInput]
+  update_dependencies_firewall: [UpdateFirewallInput]
+  deleted_dependencies_firewall: [DeleteFirewallInput]
+  create_dependencies_externalequipment: [CreateExternalEquipmentInput]
+  update_dependencies_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_dependencies_externalequipment: [DeleteExternalEquipmentInput]
+  create_dependencies_opticalnode: [CreateOpticalNodeInput]
+  update_dependencies_opticalnode: [UpdateOpticalNodeInput]
+  deleted_dependencies_opticalnode: [DeleteOpticalNodeInput]
+  create_dependencies_odf: [CreateOdfInput]
+  update_dependencies_odf: [UpdateOdfInput]
+  deleted_dependencies_odf: [DeleteOdfInput]
+  create_dependencies_opticalfilter: [CreateOpticalFilterInput]
+  update_dependencies_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_dependencies_opticalfilter: [DeleteOpticalFilterInput]
+  create_dependencies_opticallink: [CreateOpticalLinkInput]
+  update_dependencies_opticallink: [UpdateOpticalLinkInput]
+  deleted_dependencies_opticallink: [DeleteOpticalLinkInput]
+  create_dependencies_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_dependencies_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_dependencies_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependencies_opticalpath: [CreateOpticalPathInput]
+  update_dependencies_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependencies_opticalpath: [DeleteOpticalPathInput]
+  create_dependencies_peeringgroup: [CreatePeeringGroupInput]
+  update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
+  clientMutationId: String
+}
+
+type CompositeOpticalPathMutationPayload {
+  created: CreateOpticalPathPayload
+  updated: UpdateOpticalPathPayload
+  unlinked: [DeleteRelationshipPayload]
+  dependencies_group_created: [CreateGroupPayload]
+  dependencies_group_updated: [UpdateGroupPayload]
+  dependencies_group_deleted: [DeleteGroupPayload]
+  dependencies_procedure_created: [CreateProcedurePayload]
+  dependencies_procedure_updated: [UpdateProcedurePayload]
+  dependencies_procedure_deleted: [DeleteProcedurePayload]
+  dependencies_address_created: [CreateAddressPayload]
+  dependencies_address_updated: [UpdateAddressPayload]
+  dependencies_address_deleted: [DeleteAddressPayload]
+  dependencies_phone_created: [CreatePhonePayload]
+  dependencies_phone_updated: [UpdatePhonePayload]
+  dependencies_phone_deleted: [DeletePhonePayload]
+  dependencies_email_created: [CreateEmailPayload]
+  dependencies_email_updated: [UpdateEmailPayload]
+  dependencies_email_deleted: [DeleteEmailPayload]
+  dependencies_port_created: [CreatePortPayload]
+  dependencies_port_updated: [UpdatePortPayload]
+  dependencies_port_deleted: [DeletePortPayload]
+  dependencies_cable_created: [CreateCablePayload]
+  dependencies_cable_updated: [UpdateCablePayload]
+  dependencies_cable_deleted: [DeleteCablePayload]
+  dependencies_host_created: [CreateHostPayload]
+  dependencies_host_updated: [EditHostPayload]
+  dependencies_host_deleted: [DeleteHostPayload]
+  dependencies_router_created: [CreateRouterPayload]
+  dependencies_router_updated: [UpdateRouterPayload]
+  dependencies_router_deleted: [DeleteRouterPayload]
+  dependencies_switch_created: [CreateSwitchPayload]
+  dependencies_switch_updated: [UpdateSwitchPayload]
+  dependencies_switch_deleted: [DeleteSwitchPayload]
+  dependencies_firewall_created: [CreateFirewallPayload]
+  dependencies_firewall_updated: [UpdateFirewallPayload]
+  dependencies_firewall_deleted: [DeleteFirewallPayload]
+  dependencies_externalequipment_created: [CreateExternalEquipmentPayload]
+  dependencies_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  dependencies_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  dependencies_opticalnode_created: [CreateOpticalNodePayload]
+  dependencies_opticalnode_updated: [UpdateOpticalNodePayload]
+  dependencies_opticalnode_deleted: [DeleteOpticalNodePayload]
+  dependencies_odf_created: [CreateOdfPayload]
+  dependencies_odf_updated: [UpdateOdfPayload]
+  dependencies_odf_deleted: [DeleteOdfPayload]
+  dependencies_opticalfilter_created: [CreateOpticalFilterPayload]
+  dependencies_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  dependencies_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  dependencies_opticallink_created: [CreateOpticalLinkPayload]
+  dependencies_opticallink_updated: [UpdateOpticalLinkPayload]
+  dependencies_opticallink_deleted: [DeleteOpticalLinkPayload]
+  dependencies_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  dependencies_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  dependencies_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependencies_opticalpath_created: [CreateOpticalPathPayload]
+  dependencies_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependencies_opticalpath_deleted: [DeleteOpticalPathPayload]
+  dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  clientMutationId: String
+}
+
 input CompositeOrganizationMutationInput {
   create_input: CreateOrganizationInput
   update_input: UpdateOrganizationInput
@@ -1992,6 +2186,9 @@ input CompositeOrganizationMutationInput {
   create_uses_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
   update_uses_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
   deleted_uses_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_uses_opticalpath: CreateOpticalPathInput
+  update_uses_opticalpath: UpdateOpticalPathInput
+  deleted_uses_opticalpath: DeleteOpticalPathInput
   create_uses_peeringgroup: CreatePeeringGroupInput
   update_uses_peeringgroup: UpdatePeeringGroupInput
   deleted_uses_peeringgroup: DeletePeeringGroupInput
@@ -2059,6 +2256,9 @@ type CompositeOrganizationMutationPayload {
   uses_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
   uses_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
   uses_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  uses_opticalpath_created: CreateOpticalPathPayload
+  uses_opticalpath_updated: UpdateOpticalPathPayload
+  uses_opticalpath_deleted: DeleteOpticalPathPayload
   uses_peeringgroup_created: CreatePeeringGroupPayload
   uses_peeringgroup_updated: UpdatePeeringGroupPayload
   uses_peeringgroup_deleted: DeletePeeringGroupPayload
@@ -2146,6 +2346,9 @@ input CompositePeeringGroupMutationInput {
   create_dependencies_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependencies_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependencies_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependencies_opticalpath: [CreateOpticalPathInput]
+  update_dependencies_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependencies_opticalpath: [DeleteOpticalPathInput]
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
@@ -2206,6 +2409,9 @@ type CompositePeeringGroupMutationPayload {
   dependencies_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependencies_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependencies_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependencies_opticalpath_created: [CreateOpticalPathPayload]
+  dependencies_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependencies_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -2343,6 +2549,9 @@ input CompositeRouterMutationInput {
   create_part_of_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
   update_part_of_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
   deleted_part_of_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_part_of_opticalpath: CreateOpticalPathInput
+  update_part_of_opticalpath: UpdateOpticalPathInput
+  deleted_part_of_opticalpath: DeleteOpticalPathInput
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
@@ -2418,6 +2627,9 @@ input CompositeRouterMutationInput {
   create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
@@ -2481,6 +2693,9 @@ type CompositeRouterMutationPayload {
   part_of_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
   part_of_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
   part_of_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  part_of_opticalpath_created: CreateOpticalPathPayload
+  part_of_opticalpath_updated: UpdateOpticalPathPayload
+  part_of_opticalpath_deleted: DeleteOpticalPathPayload
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
@@ -2556,6 +2771,9 @@ type CompositeRouterMutationPayload {
   dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -2565,6 +2783,9 @@ type CompositeRouterMutationPayload {
 input CompositeSwitchMutationInput {
   create_input: CreateSwitchInput
   update_input: UpdateSwitchInput
+  create_subinputs: [CreatePortInput]
+  update_subinputs: [UpdatePortInput]
+  delete_subinputs: [DeletePortInput]
   unlink_subinputs: [DeleteRelationshipInput]
   create_dependents_group: [CreateGroupInput]
   update_dependents_group: [UpdateGroupInput]
@@ -2590,6 +2811,9 @@ input CompositeSwitchMutationInput {
   create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
   update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
   deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
@@ -2599,6 +2823,9 @@ input CompositeSwitchMutationInput {
 type CompositeSwitchMutationPayload {
   created: CreateSwitchPayload
   updated: UpdateSwitchPayload
+  subcreated: [CreatePortPayload]
+  subupdated: [UpdatePortPayload]
+  subdeleted: [DeletePortPayload]
   unlinked: [DeleteRelationshipPayload]
   dependents_group_created: [CreateGroupPayload]
   dependents_group_updated: [UpdateGroupPayload]
@@ -2624,6 +2851,9 @@ type CompositeSwitchMutationPayload {
   dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
   dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
@@ -3108,8 +3338,8 @@ input CreateFirewallInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -3128,6 +3358,7 @@ input CreateFirewallInput {
   relationship_owner: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
+  relationship_ports: String
   services_locked: Boolean
   services_checked: Boolean
   max_number_of_ports: Int
@@ -3157,8 +3388,8 @@ input CreateHostInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -3175,6 +3406,11 @@ input CreateHostInput {
   contract_number: String
   relationship_location: Int
   relationship_owner: ChoiceScalar
+  relationship_user: ChoiceScalar
+  relationship_depends_on: Int
+  relationship_ports: String
+  services_locked: Boolean
+  services_checked: Boolean
   clientMutationId: String
 }
 
@@ -3265,6 +3501,24 @@ input CreateOpticalNodeInput {
 type CreateOpticalNodePayload {
   errors: [ErrorType]
   opticalNode: OpticalNode
+  clientMutationId: String
+}
+
+input CreateOpticalPathInput {
+  name: String!
+  framing: ChoiceScalar!
+  capacity: ChoiceScalar!
+  wavelength: Int
+  operational_state: ChoiceScalar!
+  description: String
+  enrs: String
+  relationship_provider: ChoiceScalar
+  clientMutationId: String
+}
+
+type CreateOpticalPathPayload {
+  errors: [ErrorType]
+  opticalPath: OpticalPath
   clientMutationId: String
 }
 
@@ -3432,8 +3686,8 @@ input CreateSwitchInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "Reserved"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -3450,6 +3704,11 @@ input CreateSwitchInput {
   contract_number: String
   relationship_location: Int
   relationship_owner: ChoiceScalar
+  relationship_user: Int
+  relationship_depends_on: Int
+  relationship_ports: String
+  services_locked: Boolean
+  services_checked: Boolean
   max_number_of_ports: Int
   relationship_provider: ChoiceScalar
   switch_type: ChoiceScalar!
@@ -3814,6 +4073,17 @@ type DeleteOpticalNodePayload {
   clientMutationId: String
 }
 
+input DeleteOpticalPathInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteOpticalPathPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteOrganizationInput {
   id: ID!
   clientMutationId: String
@@ -3986,8 +4256,8 @@ input EditHostInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -4005,7 +4275,6 @@ input EditHostInput {
   relationship_location: Int
   relationship_owner: ChoiceScalar
   relationship_user: ChoiceScalar
-  relationship_depends_on: Int
   services_locked: Boolean
   services_checked: Boolean
   id: ID!
@@ -4360,6 +4629,7 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   ports: [Port]
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
 }
 
 type externalEquipmentConnection {
@@ -4429,6 +4699,14 @@ input ExternalEquipmentNestedFilter {
   rack_position_gte: Int
   rack_position_in: [Int!]
   rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -4543,7 +4821,10 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   contract_number: String
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
   max_number_of_ports: Int
+  services_locked: Boolean
+  services_checked: Boolean
 }
 
 type firewallConnection {
@@ -4781,6 +5062,14 @@ input FirewallNestedFilter {
   rack_position_gte: Int
   rack_position_in: [Int!]
   rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   max_number_of_ports: Int
   max_number_of_ports_not: Int
   max_number_of_ports_lt: Int
@@ -4789,6 +5078,22 @@ input FirewallNestedFilter {
   max_number_of_ports_gte: Int
   max_number_of_ports_in: [Int!]
   max_number_of_ports_not_in: [Int!]
+  services_locked: Boolean
+  services_locked_not: Boolean
+  services_locked_lt: Boolean
+  services_locked_lte: Boolean
+  services_locked_gt: Boolean
+  services_locked_gte: Boolean
+  services_locked_in: [Boolean!]
+  services_locked_not_in: [Boolean!]
+  services_checked: Boolean
+  services_checked_not: Boolean
+  services_checked_lt: Boolean
+  services_checked_lte: Boolean
+  services_checked_gt: Boolean
+  services_checked_gte: Boolean
+  services_checked_in: [Boolean!]
+  services_checked_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -5110,9 +5415,12 @@ type Host implements NINode & Logical & PhysicalLogical {
   contract_number: String
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
   host_owner: Relation
   host_user: HostUser
   host_services: String
+  services_locked: Boolean
+  services_checked: Boolean
 }
 
 type hostConnection {
@@ -5280,6 +5588,14 @@ input HostNestedFilter {
   rack_position_gte: Int
   rack_position_in: [Int!]
   rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   host_services: String
   host_services_not: String
   host_services_lt: String
@@ -5294,6 +5610,22 @@ input HostNestedFilter {
   host_services_not_ends_with: String
   host_services_in: [String!]
   host_services_not_in: [String!]
+  services_locked: Boolean
+  services_locked_not: Boolean
+  services_locked_lt: Boolean
+  services_locked_lte: Boolean
+  services_locked_gt: Boolean
+  services_locked_gte: Boolean
+  services_locked_in: [Boolean!]
+  services_locked_not_in: [Boolean!]
+  services_checked: Boolean
+  services_checked_not: Boolean
+  services_checked_lt: Boolean
+  services_checked_lte: Boolean
+  services_checked_gt: Boolean
+  services_checked_gte: Boolean
+  services_checked_in: [Boolean!]
+  services_checked_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -5552,6 +5884,9 @@ type IDRelation {
 """IPAddr scalar to be matched with the IPAddrField in a django form"""
 scalar IPAddr
 
+"""JSON scalar to be matched with the JSONField in a django form"""
+scalar JSON
+
 interface KeyValue {
   name: String!
   value: String!
@@ -5671,6 +6006,10 @@ type Mutation {
   update_opticalMultiplexSection(input: UpdateOpticalMultiplexSectionInput!): UpdateOpticalMultiplexSectionPayload
   delete_opticalMultiplexSection(input: DeleteOpticalMultiplexSectionInput!): DeleteOpticalMultiplexSectionPayload
   composite_opticalMultiplexSection(input: CompositeOpticalMultiplexSectionMutationInput!): CompositeOpticalMultiplexSectionMutationPayload
+  create_opticalPath(input: CreateOpticalPathInput!): CreateOpticalPathPayload
+  update_opticalPath(input: UpdateOpticalPathInput!): UpdateOpticalPathPayload
+  delete_opticalPath(input: DeleteOpticalPathInput!): DeleteOpticalPathPayload
+  composite_opticalPath(input: CompositeOpticalPathMutationInput!): CompositeOpticalPathMutationPayload
   update_peeringPartner(input: UpdatePeeringPartnerInput!): UpdatePeeringPartnerPayload
   delete_peeringPartner(input: DeletePeeringPartnerInput!): DeletePeeringPartnerPayload
   update_peeringGroup(input: UpdatePeeringGroupInput!): UpdatePeeringGroupPayload
@@ -6764,6 +7103,213 @@ enum OpticalNodeOrderBy {
   rack_units_DESC
   rack_position_ASC
   rack_position_DESC
+  operational_state_ASC
+  operational_state_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+type OpticalPath implements NINode & Logical & PhysicalLogical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  dependents: [Logical]
+  part_of: Physical
+  dependencies: [PhysicalLogical]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  description: String
+  framing: Choice
+  capacity: Choice
+  wavelength: Int
+  operational_state: Choice
+  enrs: JSON
+  provider: Provider
+}
+
+type opticalPathConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [opticalPathEdge]!
+}
+
+"""A Relay edge containing a `opticalPath` and its cursor."""
+type opticalPathEdge {
+  """The item at the end of the edge"""
+  node: OpticalPath
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input OpticalPathFilter {
+  AND: [OpticalPathNestedFilter!]
+  OR: [OpticalPathNestedFilter!]
+}
+
+input OpticalPathNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  framing: ChoiceScalar
+  framing_not: ChoiceScalar
+  framing_lt: ChoiceScalar
+  framing_lte: ChoiceScalar
+  framing_gt: ChoiceScalar
+  framing_gte: ChoiceScalar
+  framing_contains: ChoiceScalar
+  framing_not_contains: ChoiceScalar
+  framing_starts_with: ChoiceScalar
+  framing_not_starts_with: ChoiceScalar
+  framing_ends_with: ChoiceScalar
+  framing_not_ends_with: ChoiceScalar
+  framing_in: [ChoiceScalar!]
+  framing_not_in: [ChoiceScalar!]
+  capacity: ChoiceScalar
+  capacity_not: ChoiceScalar
+  capacity_lt: ChoiceScalar
+  capacity_lte: ChoiceScalar
+  capacity_gt: ChoiceScalar
+  capacity_gte: ChoiceScalar
+  capacity_contains: ChoiceScalar
+  capacity_not_contains: ChoiceScalar
+  capacity_starts_with: ChoiceScalar
+  capacity_not_starts_with: ChoiceScalar
+  capacity_ends_with: ChoiceScalar
+  capacity_not_ends_with: ChoiceScalar
+  capacity_in: [ChoiceScalar!]
+  capacity_not_in: [ChoiceScalar!]
+  wavelength: Int
+  wavelength_not: Int
+  wavelength_lt: Int
+  wavelength_lte: Int
+  wavelength_gt: Int
+  wavelength_gte: Int
+  wavelength_in: [Int!]
+  wavelength_not_in: [Int!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum OpticalPathOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  framing_ASC
+  framing_DESC
+  capacity_ASC
+  capacity_DESC
+  wavelength_ASC
+  wavelength_DESC
   operational_state_ASC
   operational_state_DESC
   created_ASC
@@ -8083,6 +8629,7 @@ type Query {
   getAllowedTypesConvertHost: [String]
   getHostOwnerTypes: [TypeInfo]
   getPlainGroups: [PlainGroup]
+  getOpticalPathDependencyTypes: [TypeInfo]
   all_groups: [Group]
   count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -8175,6 +8722,10 @@ type Query {
   count_opticalmultiplexsections: Int
   opticalMultiplexSections(filter: OpticalMultiplexSectionFilter, orderBy: OpticalMultiplexSectionOrderBy, before: String, after: String, first: Int, last: Int): opticalMultiplexSectionConnection
   getOpticalMultiplexSectionById(id: ID): OpticalMultiplexSection
+  all_opticalpaths: [OpticalPath]
+  count_opticalpaths: Int
+  opticalPaths(filter: OpticalPathFilter, orderBy: OpticalPathOrderBy, before: String, after: String, first: Int, last: Int): opticalPathConnection
+  getOpticalPathById(id: ID): OpticalPath
   all_peeringpartners: [PeeringPartner]
   count_peeringpartners: Int
   peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
@@ -8321,6 +8872,8 @@ type Router implements NINode & Physical & PhysicalLogical {
   model: String
   version: String
   rack_units: Int
+  rack_position: Int
+  rack_back: Boolean
   ports: [Port]
 }
 
@@ -8425,6 +8978,22 @@ input RouterNestedFilter {
   rack_units_gte: Int
   rack_units_in: [Int!]
   rack_units_not_in: [Int!]
+  rack_position: Int
+  rack_position_not: Int
+  rack_position_lt: Int
+  rack_position_lte: Int
+  rack_position_gt: Int
+  rack_position_gte: Int
+  rack_position_in: [Int!]
+  rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -8493,6 +9062,8 @@ enum RouterOrderBy {
   version_DESC
   rack_units_ASC
   rack_units_DESC
+  rack_position_ASC
+  rack_position_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -8699,8 +9270,12 @@ type Switch implements NINode & Physical & PhysicalLogical {
   contract_number: String
   rack_units: Int
   rack_position: Int
+  rack_back: Boolean
   provider: Provider
   max_number_of_ports: Int
+  ports: [Port]
+  services_locked: Boolean
+  services_checked: Boolean
 }
 
 type switchConnection {
@@ -8854,6 +9429,14 @@ input SwitchNestedFilter {
   rack_position_gte: Int
   rack_position_in: [Int!]
   rack_position_not_in: [Int!]
+  rack_back: Boolean
+  rack_back_not: Boolean
+  rack_back_lt: Boolean
+  rack_back_lte: Boolean
+  rack_back_gt: Boolean
+  rack_back_gte: Boolean
+  rack_back_in: [Boolean!]
+  rack_back_not_in: [Boolean!]
   max_number_of_ports: Int
   max_number_of_ports_not: Int
   max_number_of_ports_lt: Int
@@ -8862,6 +9445,22 @@ input SwitchNestedFilter {
   max_number_of_ports_gte: Int
   max_number_of_ports_in: [Int!]
   max_number_of_ports_not_in: [Int!]
+  services_locked: Boolean
+  services_locked_not: Boolean
+  services_locked_lt: Boolean
+  services_locked_lte: Boolean
+  services_locked_gt: Boolean
+  services_locked_gte: Boolean
+  services_locked_in: [Boolean!]
+  services_locked_not_in: [Boolean!]
+  services_checked: Boolean
+  services_checked_not: Boolean
+  services_checked_lt: Boolean
+  services_checked_lte: Boolean
+  services_checked_gt: Boolean
+  services_checked_gte: Boolean
+  services_checked_in: [Boolean!]
+  services_checked_not_in: [Boolean!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -8989,8 +9588,6 @@ input UpdateCableInput {
   cable_type: ChoiceScalar!
   description: String
   relationship_provider: ChoiceScalar
-  relationship_end_a: Int
-  relationship_end_b: Int
   id: ID!
   clientMutationId: String
 }
@@ -9106,8 +9703,8 @@ input UpdateFirewallInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "In service"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -9126,6 +9723,7 @@ input UpdateFirewallInput {
   relationship_owner: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
+  relationship_ports: String
   services_locked: Boolean
   services_checked: Boolean
   max_number_of_ports: Int
@@ -9243,6 +9841,25 @@ input UpdateOpticalNodeInput {
 type UpdateOpticalNodePayload {
   errors: [ErrorType]
   opticalNode: OpticalNode
+  clientMutationId: String
+}
+
+input UpdateOpticalPathInput {
+  name: String!
+  framing: ChoiceScalar!
+  capacity: ChoiceScalar!
+  wavelength: Int
+  operational_state: ChoiceScalar!
+  description: String
+  enrs: String
+  relationship_provider: ChoiceScalar
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateOpticalPathPayload {
+  errors: [ErrorType]
+  opticalPath: OpticalPath
   clientMutationId: String
 }
 
@@ -9407,8 +10024,8 @@ input UpdateSwitchInput {
   rack_position: Int
   rack_back: Boolean
   name: String!
-  description: String
   ip_addresses: String
+  description: String
   operational_state: ChoiceScalar! = "Reserved"
   managed_by: ChoiceScalar
   responsible_group: ChoiceScalar
@@ -9425,6 +10042,11 @@ input UpdateSwitchInput {
   contract_number: String
   relationship_location: Int
   relationship_owner: ChoiceScalar
+  relationship_user: Int
+  relationship_depends_on: Int
+  relationship_ports: String
+  services_locked: Boolean
+  services_checked: Boolean
   max_number_of_ports: Int
   relationship_provider: ChoiceScalar
   id: ID!

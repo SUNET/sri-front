@@ -68,26 +68,7 @@ const SwitchUpdateFragment = createRefetchContainer(
   {
     switch: graphql`
       fragment SwitchUpdateForm_switch on Switch {
-        id
-        name
-        description
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
-        }
+        ___SWITCH_FIELDS___
       }
     `,
   },
