@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const RouterDetailsQuery = graphql`
+  query RouterDetailsQuery($routerId: ID!) {
+    getRouterById(id: $routerId) {
+      ...RouterUpdateForm_router
+      ___ROUTER_FIELDS___
+    }
+  }
+`;
+
+export default RouterDetailsQuery;

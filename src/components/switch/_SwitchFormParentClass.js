@@ -14,22 +14,8 @@ import BulPort from '../common/BulkPort';
 import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
+import renderFormBlockSection from '../common/BlockSection';
 
 class _SwitchFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -71,6 +57,19 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
       });
     }
   };
+
+  renderSections(editMode) {
+    const { t, rack_position, rack_units } = this.props;
+    return (
+      <>
+        {this.renderModelMainSection(editMode)}
+        {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
+        {this.renderPortsToggleSection(editMode)}
+        {editMode && this.renderBulkPortToggleSection()}
+        {this.renderWorkLog()}
+      </>
+    );
+  }
 
   renderModelMainSection(editMode = true) {
     return (
@@ -208,7 +207,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
   }
 
   renderDetailsToggleSection(editMode = true) {
-    const { t, contract_number, backup, rack_position, rack_units } = this.props;
+    const { t, contract_number, backup } = this.props;
     const detailsInfo = [
       {
         title: t('general-forms/contract-number'),
@@ -230,29 +229,6 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         editContent: (
           <Form.Group>
             <Field type="text" name="backup" component={FieldInput} placeholder={t('general-forms/write-backup')} />
-          </Form.Group>
-        ),
-      },
-      {
-        title: t('general-forms/equipment-height'),
-        presentContent: rack_units,
-        editContent: (
-          <Form.Group>
-            <Field type="text" name="rack_units" component={FieldInput} placeholder={t('general-forms/write-number')} />
-          </Form.Group>
-        ),
-      },
-      {
-        title: t('general-forms/rack-position'),
-        presentContent: rack_position,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_position"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
           </Form.Group>
         ),
       },

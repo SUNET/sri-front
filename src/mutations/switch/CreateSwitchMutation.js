@@ -40,6 +40,7 @@ function CreateSwitchMutation(switchData, form) {
         backup: switchData.backup,
         rack_units: switchData.rack_units,
         rack_position: switchData.rack_position,
+        rack_back: switchData.rack_back,
 
         os: switchData.os,
         os_version: switchData.os_version,
