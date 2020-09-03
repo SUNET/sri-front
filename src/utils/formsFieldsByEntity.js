@@ -69,8 +69,8 @@ const switchEntity = {
     create: 'createSwitch',
     update: 'updateSwitch',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails', 'portDetails'],
   fields: [
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,
@@ -80,6 +80,7 @@ const switchEntity = {
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
     { type: FIELD_TYPES.SINGLE, name: 'ip_addresses' },
     { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
   ],
 };
 const firewall = {

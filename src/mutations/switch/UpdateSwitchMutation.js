@@ -5,6 +5,8 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { generatePortForInput } from '../MutationsUtils';
+
 const mutation = graphql`
   mutation UpdateSwitchMutation($input: CompositeSwitchMutationInput!) {
     composite_switch(input: $input) {
@@ -14,56 +16,7 @@ const mutation = graphql`
           messages
         }
         switch {
-          id
-          name
-          description
-          ip_addresses
-          rack_units
-          rack_position
-          operational_state {
-            name
-            value
-          }
-          ip_addresses
-          provider {
-            id
-            name
-          }
-          responsible_group {
-            id
-            name
-          }
-          support_group {
-            id
-            name
-          }
-          managed_by {
-            value
-            name
-          }
-          backup
-          os
-          os_version
-          contract_number
-          max_number_of_ports
-          __typename
-          comments {
-            id
-            user {
-              first_name
-              last_name
-            }
-            comment
-            submit_date
-          }
-          created
-          creator {
-            email
-          }
-          modified
-          modifier {
-            email
-          }
+          ...SwitchUpdateForm_switch
         }
       }
     }
@@ -71,6 +24,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateSwitchMutation(switchData, form) {
+  const ports = generatePortForInput(switchData.ports);
   const variables = {
     input: {
       update_input: {
@@ -95,8 +49,13 @@ export default function UpdateSwitchMutation(switchData, form) {
 
         max_number_of_ports: switchData.max_number_of_ports,
       },
+      update_subinputs: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      delete_subinputs: ports.toRemove,
+      create_subinputs: ports.toCreate,
     },
   };
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

@@ -47,7 +47,8 @@ class SwitchUpdateForm extends _SwitchFormParentClass {
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderModelMainSection(editMode)}
-        {/* {editMode && this.renderBulkPortToggleSection()} */}
+        {this.renderPortsToggleSection(editMode)}
+        {editMode && this.renderBulkPortToggleSection()}
         {this.renderWorkLog()}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>
@@ -68,26 +69,7 @@ const SwitchUpdateFragment = createRefetchContainer(
   {
     switch: graphql`
       fragment SwitchUpdateForm_switch on Switch {
-        id
-        name
-        description
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
-        }
+        ___SWITCH_FIELDS___
       }
     `,
   },

@@ -432,7 +432,7 @@ class _OrganizationFormParentClass extends React.Component {
             dispatch={this.props.dispatch}
             errors={this.props.formSyncErrors.addresses}
             metaFields={this.props.fields}
-            rerenderOnEveryChange={true}
+            rerenderOnEveryChange
           />
         </TogglePanel>
       </ToggleSection>
@@ -454,7 +454,7 @@ class _OrganizationFormParentClass extends React.Component {
             dispatch={this.props.dispatch}
             errors={this.props.formSyncErrors.contacts}
             metaFields={this.props.fields}
-            rerenderOnEveryChange={true}
+            rerenderOnEveryChange
             handleContactSearch={this.handleSelectedContact}
             handleAddContactRow={() => {
               this.props.showNewContactForm();
