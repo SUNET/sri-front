@@ -3,8 +3,8 @@ import graphql from 'babel-plugin-relay/macro';
 import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
 import { generateSubInputs } from '../MutationsUtils';
+import i18n from '../../i18n';
 
 const mutation = graphql`
   mutation CreateCableMutation($input: CompositeCableMutationInput!) {
@@ -40,15 +40,21 @@ function CreateCableMutation(cable, form) {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      onCompleteCompositeCreationEntity(
-        form,
-        response,
-        cable,
-        'Cable',
-        'composite_cable',
-        'cables',
-        CreateCommentMutation,
-      );
+      if (response.composite_cable.created.errors) {
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
+        return response.composite_cable.created.errors;
+      }
+      const entityId = response.composite_cable.created.cable.__id;
+      if (cable.comment) {
+        CreateCommentMutation(entityId, cable.comment);
+      }
+      form.props.notify(i18n.t('entity-notify-create/cables'), 'success');
+      if (form.props.history) {
+        form.props.history.push(`/network/cables/${entityId}`);
+      } else {
+        form.props.createdEntity('Cable', entityId);
+        form.props.hideModalForm();
+      }
     },
     onError: (errors) => console.error(errors),
     configs: [
