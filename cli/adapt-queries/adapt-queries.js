@@ -1,14 +1,10 @@
+const fs = require('fs');
+const { promisify } = require('util');
 const replace = require('replace-in-file');
 
 const CONFIG_QUERIES = require('../../ConfigEntities/FieldsBySchema');
 
-// const FIELD_TYPES = {
-//   SINGLE: 'single_text',
-//   ARRAY_LIST: 'field_array_list',
-//   OBJ_TO_LIST: 'field_array_object_to_list',
-//   OBJECT: 'name_value_object',
-//   ID_OBJECT: 'id_name_object',
-// };
+const copyFileAsync = promisify(fs.copyFile);
 
 const getNameWithAlias = (fieldInfo) => {
   if (fieldInfo.alias) {
@@ -47,8 +43,12 @@ const STRUCTURE_BY_FIELD_TYPE = {
 
 const adaptQueries = async (schemaName = 'common') => {
   CONFIG_QUERIES.forEach(async (entityFields) => {
+    entityFields.files.forEach(async (file) => {
+      await copyFileAsync(`${__dirname}/../../${file}.template`, `${__dirname}/../../${file}.js`);
+    });
+
     const options = {
-      files: entityFields.files,
+      files: entityFields.files.map((file) => `${file}.js`),
       from: entityFields.reference,
       to: mountStringToInsert(entityFields.queries[schemaName].fields),
     };

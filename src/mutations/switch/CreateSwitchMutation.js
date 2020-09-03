@@ -3,7 +3,8 @@ import graphql from 'babel-plugin-relay/macro';
 import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { generatePortForInput, onCompleteCompositeCreationEntity } from '../MutationsUtils';
+import { generatePortForInput } from '../MutationsUtils';
+import i18n from '../../i18n';
 
 const mutation = graphql`
   mutation CreateSwitchMutation($input: CompositeSwitchMutationInput!) {
@@ -57,15 +58,21 @@ function CreateSwitchMutation(switchData, form) {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      onCompleteCompositeCreationEntity(
-        form,
-        response,
-        switchData,
-        'Switch',
-        'composite_switch',
-        'switches',
-        CreateCommentMutation,
-      );
+      if (response.composite_switch.created.errors) {
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
+        return response.composite_switch.created.errors;
+      }
+      const entityId = response.composite_switch.created.switch.__id;
+      if (switchData.comment) {
+        CreateCommentMutation(entityId, switchData.comment);
+      }
+      form.props.notify(i18n.t('entity-notify-create/switches'), 'success');
+      if (form.props.history) {
+        form.props.history.push(`/network/switches/${entityId}`);
+      } else {
+        form.props.createdEntity('Switch', entityId);
+        form.props.hideModalForm();
+      }
     },
     onError: (errors) => console.error(errors),
     configs: [

@@ -4,7 +4,7 @@ const SWITCH_FIELDS = require('./entities/SwitchFields');
 module.exports = [
   {
     entity: 'Cable',
-    files: ['src/queries/cable/CableDetailsQuery.js', 'src/components/cable/CableUpdateForm.js'],
+    files: ['src/queries/cable/CableDetailsQuery', 'src/components/cable/CableUpdateForm'],
     reference: '___CABLE_FIELDS___',
     queries: {
       common: {
@@ -20,7 +20,7 @@ module.exports = [
   },
   {
     entity: 'Switch',
-    files: ['src/queries/switch/SwitchDetailsQuery.js', 'src/components/switch/SwitchUpdateForm.js'],
+    files: ['src/queries/switch/SwitchDetailsQuery', 'src/components/switch/SwitchUpdateForm'],
     reference: '___SWITCH_FIELDS___',
     queries: {
       common: {
