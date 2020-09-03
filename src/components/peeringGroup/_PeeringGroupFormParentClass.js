@@ -48,7 +48,7 @@ class _PeeringGroupFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedPort}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'dependencies' ? entityRemovedId : null}
             />
           </TogglePanel>

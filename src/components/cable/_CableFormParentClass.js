@@ -166,7 +166,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
               handleSearchResult={(newConnection) => {
                 this.handleConnectionSearch(newConnection);
               }}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={entityRemovedId}
               disabledFilters={disabledFilters}
             />

@@ -69,8 +69,8 @@ const switchEntity = {
     create: 'createSwitch',
     update: 'updateSwitch',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails', 'portDetails'],
   fields: [
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,

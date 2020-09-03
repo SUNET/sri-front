@@ -5,6 +5,8 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { generatePortForInput } from '../MutationsUtils';
+
 const mutation = graphql`
   mutation UpdateSwitchMutation($input: CompositeSwitchMutationInput!) {
     composite_switch(input: $input) {
@@ -22,6 +24,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateSwitchMutation(switchData, form) {
+  const ports = generatePortForInput(switchData.ports);
   const variables = {
     input: {
       update_input: {
@@ -46,8 +49,13 @@ export default function UpdateSwitchMutation(switchData, form) {
 
         max_number_of_ports: switchData.max_number_of_ports,
       },
+      update_subinputs: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      delete_subinputs: ports.toRemove,
+      create_subinputs: ports.toCreate,
     },
   };
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,
