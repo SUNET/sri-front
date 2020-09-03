@@ -16,25 +16,7 @@ const mutation = graphql`
           messages
         }
         router {
-          id
-          name
-          description
-          operational_state {
-            id
-            name
-            value
-          }
-          model
-          version
-          ports {
-            id
-            name
-            __typename
-            relation_id
-            type: port_type {
-              name
-            }
-          }
+          ...RouterUpdateForm_router
         }
       }
     }
@@ -50,6 +32,9 @@ export default function UpdateRouterMutation(router, form) {
         id: router.id,
         description: router.description,
         operational_state: router.operational_state,
+        rack_units: router.rack_units,
+        rack_position: router.rack_position,
+        rack_back: router.rack_back,
       },
       update_has_port: ports.toSaved,
       unlink_subinputs: ports.toUnlink,

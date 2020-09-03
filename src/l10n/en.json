@@ -203,7 +203,7 @@
             "general-forms/dependencies": "Dependencies",
             "general-forms/as-number": "AS Number",
             "general-forms/peering-db-link": "Peering DB Link",
-            "general-forms/rack-section": "Racks",
+            "general-forms/rack-section": "Racks Details",
             "general-forms/equipment-height": "Equipment Height",
             "general-forms/rack-position": "Rack position",
             "general-forms/rack-back": "Rack back",

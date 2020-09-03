@@ -63,9 +63,10 @@ const RELATION_GROUP_INFO = [
   { type: FIELD_TYPES.ID_OBJECT, name: 'responsible_group' },
   { type: FIELD_TYPES.ID_OBJECT, name: 'support_group' },
 ];
-const LOCATION_INFO = [
+const RACK_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_position' },
+  { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
 ];
 
 const PORT_LIST = [
@@ -90,5 +91,5 @@ module.exports = {
   PHYSICAL_BASIC_DATA,
   BASIC_OPERATIVE_SYSTEM,
   RELATION_GROUP_INFO,
-  LOCATION_INFO,
+  RACK_INFO,
 };

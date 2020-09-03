@@ -116,6 +116,7 @@ const router = {
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
   fields: [
     ...BASIC_INFO,
+    ...RACK_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.SINGLE, name: 'model' },
     { type: FIELD_TYPES.SINGLE, name: 'version' },

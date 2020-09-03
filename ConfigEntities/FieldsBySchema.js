@@ -1,5 +1,6 @@
 const CABLE_FIELDS = require('./entities/CableFields');
 const SWITCH_FIELDS = require('./entities/SwitchFields');
+const ROUTER_FIELDS = require('./entities/RouterFields');
 
 module.exports = [
   {
@@ -31,6 +32,22 @@ module.exports = [
       },
       nordunet: {
         fields: [...SWITCH_FIELDS.SWITCH_COMMON_FIELDS, ...SWITCH_FIELDS.SWITCH_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Router',
+    files: ['src/queries/router/RouterDetailsQuery', 'src/components/router/RouterUpdateForm'],
+    reference: '___ROUTER_FIELDS___',
+    queries: {
+      common: {
+        fields: [...ROUTER_FIELDS.ROUTER_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...ROUTER_FIELDS.ROUTER_COMMON_FIELDS, ...ROUTER_FIELDS.ROUTER_SUNET],
+      },
+      nordunet: {
+        fields: [...ROUTER_FIELDS.ROUTER_COMMON_FIELDS, ...ROUTER_FIELDS.ROUTER_NORDUNI],
       },
     },
   },
