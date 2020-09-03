@@ -64,6 +64,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_part_of_opticalmultiplexsection?: ?CreateOpticalMultiplexSectionInput,
   update_part_of_opticalmultiplexsection?: ?UpdateOpticalMultiplexSectionInput,
   deleted_part_of_opticalmultiplexsection?: ?DeleteOpticalMultiplexSectionInput,
+  create_part_of_opticalpath?: ?CreateOpticalPathInput,
+  update_part_of_opticalpath?: ?UpdateOpticalPathInput,
+  deleted_part_of_opticalpath?: ?DeleteOpticalPathInput,
   create_part_of_peeringgroup?: ?CreatePeeringGroupInput,
   update_part_of_peeringgroup?: ?UpdatePeeringGroupInput,
   deleted_part_of_peeringgroup?: ?DeletePeeringGroupInput,
@@ -139,6 +142,9 @@ export type CompositeExternalEquipmentMutationInput = {|
   create_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?CreateOpticalMultiplexSectionInput>,
   update_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?UpdateOpticalMultiplexSectionInput>,
   deleted_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?DeleteOpticalMultiplexSectionInput>,
+  create_dependents_opticalpath?: ?$ReadOnlyArray<?CreateOpticalPathInput>,
+  update_dependents_opticalpath?: ?$ReadOnlyArray<?UpdateOpticalPathInput>,
+  deleted_dependents_opticalpath?: ?$ReadOnlyArray<?DeleteOpticalPathInput>,
   create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
   update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
   deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
@@ -197,8 +203,6 @@ export type CreateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
@@ -206,8 +210,6 @@ export type UpdateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   id: string,
   clientMutationId?: ?string,
 |};
@@ -655,6 +657,33 @@ export type UpdateOpticalMultiplexSectionInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteOpticalMultiplexSectionInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalPathInput = {|
+  name: string,
+  framing: any,
+  capacity: any,
+  wavelength?: ?number,
+  operational_state: any,
+  description?: ?string,
+  enrs?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalPathInput = {|
+  name: string,
+  framing: any,
+  capacity: any,
+  wavelength?: ?number,
+  operational_state: any,
+  description?: ?string,
+  enrs?: ?string,
+  relationship_provider?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalPathInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

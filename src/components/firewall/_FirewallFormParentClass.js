@@ -448,7 +448,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedNetworkOrganization}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={entityRemovedId}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
             />

@@ -63,6 +63,9 @@ export type CompositeOpticalMultiplexSectionMutationInput = {|
   create_dependencies_opticalmultiplexsection?: ?$ReadOnlyArray<?CreateOpticalMultiplexSectionInput>,
   update_dependencies_opticalmultiplexsection?: ?$ReadOnlyArray<?UpdateOpticalMultiplexSectionInput>,
   deleted_dependencies_opticalmultiplexsection?: ?$ReadOnlyArray<?DeleteOpticalMultiplexSectionInput>,
+  create_dependencies_opticalpath?: ?$ReadOnlyArray<?CreateOpticalPathInput>,
+  update_dependencies_opticalpath?: ?$ReadOnlyArray<?UpdateOpticalPathInput>,
+  deleted_dependencies_opticalpath?: ?$ReadOnlyArray<?DeleteOpticalPathInput>,
   create_dependencies_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
   update_dependencies_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
   deleted_dependencies_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
@@ -198,8 +201,6 @@ export type CreateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
@@ -207,8 +208,6 @@ export type UpdateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   id: string,
   clientMutationId?: ?string,
 |};
@@ -575,6 +574,33 @@ export type DeleteOpticalLinkInput = {|
   clientMutationId?: ?string,
 |};
 export type DeleteOpticalMultiplexSectionInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type CreateOpticalPathInput = {|
+  name: string,
+  framing: any,
+  capacity: any,
+  wavelength?: ?number,
+  operational_state: any,
+  description?: ?string,
+  enrs?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalPathInput = {|
+  name: string,
+  framing: any,
+  capacity: any,
+  wavelength?: ?number,
+  operational_state: any,
+  description?: ?string,
+  enrs?: ?string,
+  relationship_provider?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalPathInput = {|
   id: string,
   clientMutationId?: ?string,
 |};

@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Generated Files
+src/**/__generated__/
+src/**/**/__generated__/
+
+src/queries/cable/CableDetailsQuery.js
+src/components/cable/CableUpdateForm.js
+
+src/queries/switch/SwitchDetailsQuery.js
+src/components/switch/SwitchUpdateForm.js

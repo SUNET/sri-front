@@ -117,7 +117,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedNetworkOrganization}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'owner' ? entityRemovedId : null}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
             />
@@ -157,7 +157,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedPort}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'ports' ? entityRemovedId : null}
             />
           </TogglePanel>

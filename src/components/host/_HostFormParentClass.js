@@ -413,7 +413,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedOwner}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={entityRemovedId}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
             />
@@ -443,7 +443,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
               handleSearchResult={(selection) => {
                 this.handleSelectedHostUser(selection, 'getHostUserById');
               }}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               disabledFilters={host_user && host_user.filter((hu) => hu.status === SAVED).length > 0}
             />
           </TogglePanel>

@@ -92,8 +92,6 @@ export type CreateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
@@ -101,8 +99,6 @@ export type UpdateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   id: string,
   clientMutationId?: ?string,
 |};

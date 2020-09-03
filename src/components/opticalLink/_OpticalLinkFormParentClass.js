@@ -175,7 +175,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedPort}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'ports' ? entityRemovedId : null}
             />
           </TogglePanel>

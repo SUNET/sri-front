@@ -1,13 +1,13 @@
-let api_host_suffix = "__API_HOST__";
-let cookie_domain = "__COOKIE_DOMAIN__";
-const config = {
-    API_HOST: window.location.protocol + '//' + api_host_suffix,
-    COOKIE_DOMAIN: cookie_domain
-};
+const PROTOCOL = window.location.protocol;
+const API_HOST_SUFFIX = '__API_HOST__';
+const COOKIE_DOMAIN = '__COOKIE_DOMAIN__';
+const SCHEMA_VERSION = '__SCHEMA_VERSION__';
 
 export default {
-    ...config,
-    ITEMS_PER_PAGE: 10,
-    ALL_ITEMS: 100000,
-    LIMIT_NEW_CONTACTS: 20
+  API_HOST: `${PROTOCOL}//${API_HOST_SUFFIX}`,
+  COOKIE_DOMAIN,
+  SCHEMA_VERSION,
+  ITEMS_PER_PAGE: 10,
+  ALL_ITEMS: 100000,
+  LIMIT_NEW_CONTACTS: 20,
 };

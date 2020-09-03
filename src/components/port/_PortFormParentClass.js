@@ -165,7 +165,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedParent}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'parents' ? entityRemovedId : null}
             />
           </TogglePanel>
@@ -204,7 +204,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedConnectedTo}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'connectedTo' ? entityRemovedId : null}
             />
           </TogglePanel>

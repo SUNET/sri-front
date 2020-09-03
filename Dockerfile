@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . ./
 RUN chmod +x bundle-pj.sh; chmod +x copy-bundle.sh
 
-RUN yarn; yarn add babel-plugin-relay; yarn build
+RUN npm i; npm run adapt-queries common; npm run relay-common; npm run build
 
 RUN mkdir -p /bundle
 VOLUME /bundle

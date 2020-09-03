@@ -43,6 +43,9 @@ export type CompositeContactMutationInput = {|
   create_uses_opticalmultiplexsection?: ?CreateOpticalMultiplexSectionInput,
   update_uses_opticalmultiplexsection?: ?UpdateOpticalMultiplexSectionInput,
   deleted_uses_opticalmultiplexsection?: ?DeleteOpticalMultiplexSectionInput,
+  create_uses_opticalpath?: ?CreateOpticalPathInput,
+  update_uses_opticalpath?: ?UpdateOpticalPathInput,
+  deleted_uses_opticalpath?: ?DeleteOpticalPathInput,
   create_uses_peeringgroup?: ?CreatePeeringGroupInput,
   update_uses_peeringgroup?: ?UpdatePeeringGroupInput,
   deleted_uses_peeringgroup?: ?DeletePeeringGroupInput,
@@ -321,6 +324,33 @@ export type DeleteOpticalMultiplexSectionInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
+export type CreateOpticalPathInput = {|
+  name: string,
+  framing: any,
+  capacity: any,
+  wavelength?: ?number,
+  operational_state: any,
+  description?: ?string,
+  enrs?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalPathInput = {|
+  name: string,
+  framing: any,
+  capacity: any,
+  wavelength?: ?number,
+  operational_state: any,
+  description?: ?string,
+  enrs?: ?string,
+  relationship_provider?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalPathInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type CreatePeeringGroupInput = {|
   name: string,
   clientMutationId?: ?string,
@@ -357,8 +387,6 @@ export type CreateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
@@ -366,8 +394,6 @@ export type UpdateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   id: string,
   clientMutationId?: ?string,
 |};

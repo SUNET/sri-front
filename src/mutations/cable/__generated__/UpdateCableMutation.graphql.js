@@ -8,6 +8,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type CableUpdateForm_cable$ref = any;
 export type CompositeCableMutationInput = {|
   create_input?: ?CreateCableInput,
   update_input?: ?UpdateCableInput,
@@ -66,6 +67,9 @@ export type CompositeCableMutationInput = {|
   create_part_of_opticalmultiplexsection?: ?CreateOpticalMultiplexSectionInput,
   update_part_of_opticalmultiplexsection?: ?UpdateOpticalMultiplexSectionInput,
   deleted_part_of_opticalmultiplexsection?: ?DeleteOpticalMultiplexSectionInput,
+  create_part_of_opticalpath?: ?CreateOpticalPathInput,
+  update_part_of_opticalpath?: ?UpdateOpticalPathInput,
+  deleted_part_of_opticalpath?: ?DeleteOpticalPathInput,
   create_part_of_peeringgroup?: ?CreatePeeringGroupInput,
   update_part_of_peeringgroup?: ?UpdatePeeringGroupInput,
   deleted_part_of_peeringgroup?: ?DeletePeeringGroupInput,
@@ -141,6 +145,9 @@ export type CompositeCableMutationInput = {|
   create_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?CreateOpticalMultiplexSectionInput>,
   update_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?UpdateOpticalMultiplexSectionInput>,
   deleted_dependents_opticalmultiplexsection?: ?$ReadOnlyArray<?DeleteOpticalMultiplexSectionInput>,
+  create_dependents_opticalpath?: ?$ReadOnlyArray<?CreateOpticalPathInput>,
+  update_dependents_opticalpath?: ?$ReadOnlyArray<?UpdateOpticalPathInput>,
+  deleted_dependents_opticalpath?: ?$ReadOnlyArray<?DeleteOpticalPathInput>,
   create_dependents_peeringgroup?: ?$ReadOnlyArray<?CreatePeeringGroupInput>,
   update_dependents_peeringgroup?: ?$ReadOnlyArray<?UpdatePeeringGroupInput>,
   deleted_dependents_peeringgroup?: ?$ReadOnlyArray<?DeletePeeringGroupInput>,
@@ -151,8 +158,6 @@ export type CreateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   clientMutationId?: ?string,
 |};
 export type UpdateCableInput = {|
@@ -160,8 +165,6 @@ export type UpdateCableInput = {|
   cable_type: any,
   description?: ?string,
   relationship_provider?: ?any,
-  tele2_cable_contract?: ?any,
-  tele2_alternative_circuit_id?: ?string,
   id: string,
   clientMutationId?: ?string,
 |};
@@ -656,6 +659,33 @@ export type DeleteOpticalMultiplexSectionInput = {|
   id: string,
   clientMutationId?: ?string,
 |};
+export type CreateOpticalPathInput = {|
+  name: string,
+  framing: any,
+  capacity: any,
+  wavelength?: ?number,
+  operational_state: any,
+  description?: ?string,
+  enrs?: ?string,
+  relationship_provider?: ?any,
+  clientMutationId?: ?string,
+|};
+export type UpdateOpticalPathInput = {|
+  name: string,
+  framing: any,
+  capacity: any,
+  wavelength?: ?number,
+  operational_state: any,
+  description?: ?string,
+  enrs?: ?string,
+  relationship_provider?: ?any,
+  id: string,
+  clientMutationId?: ?string,
+|};
+export type DeleteOpticalPathInput = {|
+  id: string,
+  clientMutationId?: ?string,
+|};
 export type CreatePeeringGroupInput = {|
   name: string,
   clientMutationId?: ?string,
@@ -859,29 +889,7 @@ export type UpdateCableMutationResponse = {|
         +messages: $ReadOnlyArray<string>,
       |}>,
       +cable: ?{|
-        +id: string,
-        +name: string,
-        +cable_type: ?{|
-          +value: string
-        |},
-        +description: ?string,
-        +provider: ?{|
-          +id: string,
-          +name: string,
-        |},
-        +ports: ?$ReadOnlyArray<?{|
-          +id: string,
-          +name: string,
-          +port_type: ?{|
-            +value: string
-          |},
-          +description: ?string,
-          +relation_id: ?number,
-          +connected_to: ?$ReadOnlyArray<?{|
-            +id: string,
-            +name: string,
-          |}>,
-        |}>,
+        +$fragmentRefs: CableUpdateForm_cable$ref
       |},
     |},
     +subcreated: ?$ReadOnlyArray<?{|
@@ -922,32 +930,8 @@ mutation UpdateCableMutation(
         messages
       }
       cable {
+        ...CableUpdateForm_cable
         id
-        name
-        cable_type {
-          value
-          id
-        }
-        description
-        provider {
-          id
-          name
-        }
-        ports {
-          id
-          name
-          port_type {
-            value
-            id
-          }
-          description
-          relation_id
-          connected_to {
-            __typename
-            id
-            name
-          }
-        }
       }
     }
     subcreated {
@@ -970,6 +954,52 @@ mutation UpdateCableMutation(
         }
       }
     }
+  }
+}
+
+fragment CableUpdateForm_cable on Cable {
+  id
+  name
+  description
+  cable_type {
+    name
+    value
+    id
+  }
+  provider {
+    id
+    name
+  }
+  ports {
+    id
+    name
+    description
+    relation_id
+    type: port_type {
+      name
+      value
+      id
+    }
+  }
+  comments {
+    id
+    user {
+      first_name
+      last_name
+      id
+    }
+    comment
+    submit_date
+  }
+  created
+  creator {
+    email
+    id
+  }
+  modified
+  modifier {
+    email
+    id
   }
 }
 */
@@ -1036,91 +1066,32 @@ v5 = {
   "name": "value",
   "storageKey": null
 },
-v6 = [
-  (v5/*: any*/)
-],
-v7 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "description",
   "storageKey": null
 },
-v8 = [
+v7 = [
   (v3/*: any*/),
   (v4/*: any*/)
 ],
-v9 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Provider",
-  "kind": "LinkedField",
-  "name": "provider",
-  "plural": false,
-  "selections": (v8/*: any*/),
-  "storageKey": null
-},
-v10 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Choice",
-  "kind": "LinkedField",
-  "name": "port_type",
-  "plural": false,
-  "selections": (v6/*: any*/),
-  "storageKey": null
-},
-v11 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "relation_id",
-  "storageKey": null
-},
-v12 = {
-  "alias": null,
-  "args": null,
-  "concreteType": null,
-  "kind": "LinkedField",
-  "name": "connected_to",
-  "plural": true,
-  "selections": (v8/*: any*/),
-  "storageKey": null
-},
-v13 = [
+v8 = [
+  (v4/*: any*/),
   (v5/*: any*/),
   (v3/*: any*/)
 ],
-v14 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "Choice",
-  "kind": "LinkedField",
-  "name": "port_type",
-  "plural": false,
-  "selections": (v13/*: any*/),
-  "storageKey": null
-},
-v15 = {
-  "alias": null,
-  "args": null,
-  "concreteType": null,
-  "kind": "LinkedField",
-  "name": "connected_to",
-  "plural": true,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
-    (v3/*: any*/),
-    (v4/*: any*/)
-  ],
-  "storageKey": null
-};
+v9 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "email",
+    "storageKey": null
+  },
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -1153,36 +1124,10 @@ return {
                 "name": "cable",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
-                  (v4/*: any*/),
                   {
-                    "alias": null,
                     "args": null,
-                    "concreteType": "Choice",
-                    "kind": "LinkedField",
-                    "name": "cable_type",
-                    "plural": false,
-                    "selections": (v6/*: any*/),
-                    "storageKey": null
-                  },
-                  (v7/*: any*/),
-                  (v9/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Port",
-                    "kind": "LinkedField",
-                    "name": "ports",
-                    "plural": true,
-                    "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v10/*: any*/),
-                      (v7/*: any*/),
-                      (v11/*: any*/),
-                      (v12/*: any*/)
-                    ],
-                    "storageKey": null
+                    "kind": "FragmentSpread",
+                    "name": "CableUpdateForm_cable"
                   }
                 ],
                 "storageKey": null
@@ -1209,9 +1154,29 @@ return {
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v10/*: any*/),
-                  (v7/*: any*/),
-                  (v12/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "port_type",
+                    "plural": false,
+                    "selections": [
+                      (v5/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "connected_to",
+                    "plural": true,
+                    "selections": (v7/*: any*/),
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -1257,6 +1222,7 @@ return {
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -1264,11 +1230,19 @@ return {
                     "kind": "LinkedField",
                     "name": "cable_type",
                     "plural": false,
-                    "selections": (v13/*: any*/),
+                    "selections": (v8/*: any*/),
                     "storageKey": null
                   },
-                  (v7/*: any*/),
-                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Provider",
+                    "kind": "LinkedField",
+                    "name": "provider",
+                    "plural": false,
+                    "selections": (v7/*: any*/),
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -1279,11 +1253,111 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      (v14/*: any*/),
-                      (v7/*: any*/),
-                      (v11/*: any*/),
-                      (v15/*: any*/)
+                      (v6/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "relation_id",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": "type",
+                        "args": null,
+                        "concreteType": "Choice",
+                        "kind": "LinkedField",
+                        "name": "port_type",
+                        "plural": false,
+                        "selections": (v8/*: any*/),
+                        "storageKey": null
+                      }
                     ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "CommentType",
+                    "kind": "LinkedField",
+                    "name": "comments",
+                    "plural": true,
+                    "selections": [
+                      (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "User",
+                        "kind": "LinkedField",
+                        "name": "user",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "first_name",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "last_name",
+                            "storageKey": null
+                          },
+                          (v3/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "comment",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "submit_date",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "created",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "creator",
+                    "plural": false,
+                    "selections": (v9/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "modified",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "modifier",
+                    "plural": false,
+                    "selections": (v9/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -1311,9 +1385,40 @@ return {
                 "selections": [
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v14/*: any*/),
-                  (v7/*: any*/),
-                  (v15/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Choice",
+                    "kind": "LinkedField",
+                    "name": "port_type",
+                    "plural": false,
+                    "selections": [
+                      (v5/*: any*/),
+                      (v3/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "connected_to",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__typename",
+                        "storageKey": null
+                      },
+                      (v3/*: any*/),
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -1330,11 +1435,11 @@ return {
     "metadata": {},
     "name": "UpdateCableMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateCableMutation(\n  $input: CompositeCableMutationInput!\n) {\n  composite_cable(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        id\n        name\n        cable_type {\n          value\n          id\n        }\n        description\n        provider {\n          id\n          name\n        }\n        ports {\n          id\n          name\n          port_type {\n            value\n            id\n          }\n          description\n          relation_id\n          connected_to {\n            __typename\n            id\n            name\n          }\n        }\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          id\n        }\n        description\n        connected_to {\n          __typename\n          id\n          name\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation UpdateCableMutation(\n  $input: CompositeCableMutationInput!\n) {\n  composite_cable(input: $input) {\n    updated {\n      errors {\n        field\n        messages\n      }\n      cable {\n        ...CableUpdateForm_cable\n        id\n      }\n    }\n    subcreated {\n      errors {\n        field\n        messages\n      }\n      port {\n        id\n        name\n        port_type {\n          value\n          id\n        }\n        description\n        connected_to {\n          __typename\n          id\n          name\n        }\n      }\n    }\n  }\n}\n\nfragment CableUpdateForm_cable on Cable {\n  id\n  name\n  description\n  cable_type {\n    name\n    value\n    id\n  }\n  provider {\n    id\n    name\n  }\n  ports {\n    id\n    name\n    description\n    relation_id\n    type: port_type {\n      name\n      value\n      id\n    }\n  }\n  comments {\n    id\n    user {\n      first_name\n      last_name\n      id\n    }\n    comment\n    submit_date\n  }\n  created\n  creator {\n    email\n    id\n  }\n  modified\n  modifier {\n    email\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e2c54afa2c9cc1bed233605b329d1689';
+(node/*: any*/).hash = '29dc59de7666e7eaab0ac9dc6dd08c00';
 
 module.exports = node;

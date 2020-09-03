@@ -30,7 +30,8 @@ class CreateSwitchForm extends _SwitchFormParentClass {
           {this.renderHeader(editMode, showBackButton)}
           {this.renderModelMainSection(editMode)}
           {this.renderWorkLog(editMode)}
-          {/* {editMode && this.renderBulkPortToggleSection()} */}
+          {this.renderPortsToggleSection(editMode)}
+          {editMode && this.renderBulkPortToggleSection()}
         </div>
         {this.renderSaveCancelButtons()}
       </form>

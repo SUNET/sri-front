@@ -3,7 +3,8 @@ import graphql from 'babel-plugin-relay/macro';
 import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
+import { generatePortForInput } from '../MutationsUtils';
+import i18n from '../../i18n';
 
 const mutation = graphql`
   mutation CreateSwitchMutation($input: CompositeSwitchMutationInput!) {
@@ -14,56 +15,7 @@ const mutation = graphql`
           messages
         }
         switch {
-          id
-          name
-          description
-          ip_addresses
-          rack_units
-          rack_position
-          operational_state {
-            name
-            value
-          }
-          ip_addresses
-          provider {
-            id
-            name
-          }
-          responsible_group {
-            id
-            name
-          }
-          support_group {
-            id
-            name
-          }
-          managed_by {
-            value
-            name
-          }
-          backup
-          os
-          os_version
-          contract_number
-          max_number_of_ports
-          __typename
-          comments {
-            id
-            user {
-              first_name
-              last_name
-            }
-            comment
-            submit_date
-          }
-          created
-          creator {
-            email
-          }
-          modified
-          modifier {
-            email
-          }
+          ...SwitchUpdateForm_switch
         }
       }
     }
@@ -71,6 +23,7 @@ const mutation = graphql`
 `;
 
 function CreateSwitchMutation(switchData, form) {
+  const ports = generatePortForInput(switchData.ports);
   const variables = {
     input: {
       create_input: {
@@ -95,21 +48,31 @@ function CreateSwitchMutation(switchData, form) {
 
         max_number_of_ports: switchData.max_number_of_ports,
       },
+      update_subinputs: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      delete_subinputs: ports.toRemove,
+      create_subinputs: ports.toCreate,
     },
   };
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      onCompleteCompositeCreationEntity(
-        form,
-        response,
-        switchData,
-        'Switch',
-        'composite_switch',
-        'switches',
-        CreateCommentMutation,
-      );
+      if (response.composite_switch.created.errors) {
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
+        return response.composite_switch.created.errors;
+      }
+      const entityId = response.composite_switch.created.switch.__id;
+      if (switchData.comment) {
+        CreateCommentMutation(entityId, switchData.comment);
+      }
+      form.props.notify(i18n.t('entity-notify-create/switches'), 'success');
+      if (form.props.history) {
+        form.props.history.push(`/network/switches/${entityId}`);
+      } else {
+        form.props.createdEntity('Switch', entityId);
+        form.props.hideModalForm();
+      }
     },
     onError: (errors) => console.error(errors),
     configs: [
