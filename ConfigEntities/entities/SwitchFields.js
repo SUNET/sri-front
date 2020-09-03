@@ -7,6 +7,7 @@ const SWITCH_COMMON_FIELDS = [
   ...COMMON_FIELDS.BASIC_OPERATIVE_SYSTEM,
   ...COMMON_FIELDS.LOCATION_INFO,
   ...COMMON_FIELDS.RELATION_GROUP_INFO,
+  ...COMMON_FIELDS.PORT_LIST,
   { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
   { type: FIELD_TYPES.SINGLE, name: 'ip_addresses' },
   { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
