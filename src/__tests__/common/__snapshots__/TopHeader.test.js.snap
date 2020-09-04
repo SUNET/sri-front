@@ -234,6 +234,9 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/optical-multiplex-sections",
               ],
               Array [
+                "main-entity-name/optical-paths",
+              ],
+              Array [
                 "main-entity-name/peering-groups",
               ],
               Array [
@@ -329,6 +332,10 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "main-entity-name/optical-multiplex-sections",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/optical-paths",
               },
               Object {
                 "type": "return",
