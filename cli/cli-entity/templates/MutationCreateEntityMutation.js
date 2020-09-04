@@ -4,10 +4,9 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
 
 const mutation = graphql`
-  mutation Create__EntityClassName__Mutation($input: Composite__EntityClassName__Input!) {
+  mutation Create__EntityClassName__Mutation($input: Composite__EntityClassName__MutationInput!) {
     composite___entityName__(input: $input) {
       created {
         errors {

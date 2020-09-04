@@ -6,28 +6,28 @@ import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
 const mutation = graphql`
-  mutation Update__EntityClassName__Mutation($input: Composite__EntityClassName__MutationInput!) {
-    composite___entityName__(input: $input) {
+  mutation UpdateOpticalPathMutation($input: CompositeOpticalPathMutationInput!) {
+    composite_opticalPath(input: $input) {
       updated {
         errors {
           field
           messages
         }
-        __entityName__ {
-          ...__EntityClassName__UpdateForm___entityName__
+        opticalPath {
+          ...OpticalPathUpdateForm_opticalPath
         }
       }
     }
   }
 `;
 
-export default function Update__EntityClassName__Mutation(__entityName__, form) {
+export default function UpdateOpticalPathMutation(opticalPath, form) {
   const variables = {
     input: {
       update_input: {
-        id: __entityName__.id,
-        name: __entityName__.name,
-        description: __entityName__.description,
+        id: opticalPath.id,
+        name: opticalPath.name,
+        description: opticalPath.description,
       },
     },
   };
@@ -35,13 +35,13 @@ export default function Update__EntityClassName__Mutation(__entityName__, form) 
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.composite___entityName__.updated.errors) {
+      if (response.composite_opticalPath.updated.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
-        return response.update___entityName__.updated.errors;
+        return response.update_opticalPath.updated.errors;
       }
       form.props.reset();
       if (form.props.isFromModal) {
-        form.props.editedEntity('__EntityClassName__', response.composite___entityName__.updated.__entityName__.id);
+        form.props.editedEntity('OpticalPath', response.composite_opticalPath.updated.opticalPath.id);
       } else {
         form.refetch();
         form.props.notify(i18n.t('notify/changes-saved'), 'success');

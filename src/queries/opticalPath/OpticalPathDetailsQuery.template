@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const OpticalPathDetailsQuery = graphql`
+  query OpticalPathDetailsQuery($opticalPathId: ID!) {
+    getOpticalPathById(id: $opticalPathId) {
+      ...OpticalPathUpdateForm_opticalPath
+      ___OPTICALPATH_FIELDS___
+    }
+  }
+`;
+
+export default OpticalPathDetailsQuery;

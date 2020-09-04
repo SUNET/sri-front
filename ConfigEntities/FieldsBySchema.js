@@ -1,6 +1,7 @@
 const CABLE_FIELDS = require('./entities/CableFields');
 const SWITCH_FIELDS = require('./entities/SwitchFields');
 const ROUTER_FIELDS = require('./entities/RouterFields');
+const OPTICALPATH_FIELDS = require('./entities/OpticalPathFields');
 
 module.exports = [
   {

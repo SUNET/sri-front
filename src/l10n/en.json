@@ -108,7 +108,7 @@
             "entity-modify/optical-multiplex-sections": "Modify Optical Multiplex Section",
             "entity-add-new/optical-multiplex-sections": "Add new Optical Multiplex Section",
             "entity-notify-create/optical-multiplex-sections": "Optical Multiplex Section created successfully",
-            "main-entity-name/optical-paths": "Optical Path",
+            "main-entity-name/optical-paths": "Optical Paths",
             "entity-add/optical-paths": "Add Optical Path",
             "entity-modify/optical-paths": "Modify Optical Path",
             "entity-add-new/optical-paths": "Add new Optical Path",
