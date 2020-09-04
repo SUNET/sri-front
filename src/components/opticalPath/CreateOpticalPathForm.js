@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateOpticalPathMutation from '../../mutations/opticalPath/CreateOpticalPathMutation';
-import ValidationsOpticalPathForm from '../common/_BasicValidationForm';
+import ValidationsOpticalPathForm from './ValidationsOpticalPathForm';
 // const
 import { CREATE_OPTICALPATH_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';

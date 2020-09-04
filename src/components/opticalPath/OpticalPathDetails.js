@@ -12,7 +12,7 @@ class OpticalPathDetails extends _BasicDetailsParentClass {
   classDetails = 'opticalPath-details';
 
   handleDelete = () => {
-    DeleteOpticalPathMutation(this.getId(), () => this.props.history.push(`/network/opticalPaths`));
+    DeleteOpticalPathMutation(this.getId(), () => this.props.history.push(`/network/optical-paths`));
   };
 }
 

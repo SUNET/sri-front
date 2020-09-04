@@ -6,7 +6,7 @@ import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
 const mutation = graphql`
-  mutation CreateOpticalPathMutation($input: CompositeOpticalPathMutationInput!) {
+  mutation CreateOpticalPathMutation($input: CompositeOpticalPathMutationInput!)   {
     composite_opticalPath(input: $input) {
       created {
         errors {
@@ -31,7 +31,7 @@ function CreateOpticalPathMutation(opticalPath, form) {
         framing: opticalPath.framing,
         capacity: opticalPath.capacity,
         wavelength: opticalPath.wavelength,
-        provider: opticalPath.provider,
+        relationship_provider: opticalPath.provider_id,
       },
     },
   };
@@ -49,7 +49,7 @@ function CreateOpticalPathMutation(opticalPath, form) {
       }
       form.props.notify(i18n.t('entity-notify-create/opticalPaths'), 'success');
       if (form.props.history) {
-        form.props.history.push(`/network/opticalPaths/${entityId}`);
+        form.props.history.push(`/network/optical-paths/${entityId}`);
       } else {
         form.props.createdEntity('OpticalPath', entityId);
         form.props.hideModalForm();

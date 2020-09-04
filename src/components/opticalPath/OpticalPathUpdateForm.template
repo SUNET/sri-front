@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import UpdateOpticalPathMutation from '../../mutations/opticalPath/UpdateOpticalPathMutation';
-import ValidationsOpticalPathForm from '../common/_BasicValidationForm';
+import ValidationsOpticalPathForm from './ValidationsOpticalPathForm';
 // const
 import { UPDATE_OPTICALPATH_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -15,7 +15,7 @@ class OpticalPathUpdateForm extends _OpticalPathFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_OPTICALPATH_FORM;
   MODEL_NAME = 'opticalPath';
-  ROUTE_LIST_DIRECTION = '/network/opticalPaths';
+  ROUTE_LIST_DIRECTION = '/network/optical-paths';
   state = {
     editMode: false,
   };

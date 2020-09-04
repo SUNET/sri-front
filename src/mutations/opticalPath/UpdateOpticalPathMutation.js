@@ -32,7 +32,7 @@ export default function UpdateOpticalPathMutation(opticalPath, form) {
         framing: opticalPath.framing,
         capacity: opticalPath.capacity,
         wavelength: opticalPath.wavelength,
-        provider: opticalPath.provider,
+        relationship_provider: opticalPath.provider_id,
       },
     },
   };

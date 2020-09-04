@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldArray, Field, arrayPush } from 'redux-form';
+import { FieldArray, Field, arrayPush, change } from 'redux-form';
 import { Form, Col } from 'react-bootstrap';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
@@ -33,6 +33,22 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
         {this.renderModelMainSection(editMode)}
         {this.renderWorkLog()}
       </>
+    );
+  }
+
+  renderModelMainSection(editMode = true) {
+    return (
+      <section className="model-section">
+        <Form.Row>
+          <Col>
+            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
+            <hr />
+            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
+            <hr />
+            <Col>{this.renderDetailsToggleSection(editMode)}</Col>
+          </Col>
+        </Form.Row>
+      </section>
     );
   }
 
@@ -84,12 +100,7 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
         presentContent: wavelength,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="wavelength"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
+            <Field type="text" name="wavelength" component={FieldInput} placeholder={t('general-forms/write-number')} />
           </Form.Group>
         ),
       },
@@ -104,6 +115,50 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
           <div>
             <div className="form-internal-block">
               {generalInfo.map((formData, index) => {
+                return renderFormBlockSection(editMode, formData, index);
+              })}
+            </div>
+          </div>
+        </TogglePanel>
+      </ToggleSection>
+    );
+  }
+  renderDetailsToggleSection(editMode = true) {
+    const { t, provider_obj, provider_id } = this.props;
+    const detailsInfo = [
+      {
+        title: t('entity-name/provider'),
+        presentContent: provider_obj ? provider_obj.name : '',
+        editContent: (
+          <Dropdown
+            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+            type="combo_list"
+            name="provider_id"
+            model="provider"
+            placeholder={t('search-filter.search-providers')}
+            currentValue={provider_id}
+            objectCurrentValue={provider_obj}
+            nameDataInsideRequest="all_providers"
+            valueField="id"
+            labelElementsArray={['name']}
+            onChange={(newProvider) => {
+              this.props.dispatch(change(this.props.form, 'provider_id', newProvider ? newProvider.id : null));
+              this.props.dispatch(change(this.props.form, 'provider_obj', newProvider ? newProvider : null));
+            }}
+          />
+        ),
+      },
+    ];
+
+    return (
+      <ToggleSection>
+        <ToggleHeading>
+          <h2>{t('general-forms/details')}</h2>
+        </ToggleHeading>
+        <TogglePanel>
+          <div>
+            <div className="form-internal-block">
+              {detailsInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>

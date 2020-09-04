@@ -42,7 +42,7 @@ function Create__EntityClassName__Mutation(__entityName__, form) {
       if (__entityName__.comment) {
         CreateCommentMutation(entityId, __entityName__.comment);
       }
-      form.props.notify(i18n.t('entity-notify-create/__entityName__s'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/__entityInternalRoutePath__s'), 'success');
       if (form.props.history) {
         form.props.history.push(`/network/__entityName__s/${entityId}`);
       } else {
