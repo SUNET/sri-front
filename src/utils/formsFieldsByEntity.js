@@ -245,6 +245,16 @@ const opticalMultiplexSection = {
   ],
 };
 
+const opticalPath = {
+  formName: {
+    create: 'createOpticalPath',
+    update: 'updateOpticalPath',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [...BASIC_INFO],
+};
+
 export default {
   customer,
   endUser,
@@ -261,4 +271,5 @@ export default {
   ODF,
   opticalLink,
   opticalMultiplexSection,
+  opticalPath,
 };

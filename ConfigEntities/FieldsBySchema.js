@@ -51,4 +51,20 @@ module.exports = [
       },
     },
   },
+  {
+    entity: 'OpticalPath',
+    files: ['src/queries/opticalPath/OpticalPathDetailsQuery', 'src/components/opticalPath/OpticalPathUpdateForm'],
+    reference: '___OPTICALPATH_FIELDS___',
+    queries: {
+      common: {
+        fields: [...OPTICALPATH_FIELDS.OPTICALPATH_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...OPTICALPATH_FIELDS.OPTICALPATH_COMMON_FIELDS, ...OPTICALPATH_FIELDS.OPTICALPATH_SUNET],
+      },
+      nordunet: {
+        fields: [...OPTICALPATH_FIELDS.OPTICALPATH_COMMON_FIELDS, ...OPTICALPATH_FIELDS.OPTICALPATH_NORDUNI],
+      },
+    },
+  },
 ];

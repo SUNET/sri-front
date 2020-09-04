@@ -1,7 +1,20 @@
-LIST:
 1.Add path in navs:
     + TopHeader
     + SideNavNetWork
+
+5. Add Reducer FilterColumns
+7. Add Container in Route (Network.js)
+
+. npm run create-entity-list network entityInCamelCase
+. npm run create-entity-details network entityInCamelCase
+
+1. Add New entity in /ConfigEntities/FieldsBySchema.js
+2. Add DetailsQuery and UpdateForm in .gitignore
+2. Add FORM_ID in constants
+3. Add in Routes.js
+4. Add fields in utils/formsFieldsByEntity.js
+5. Add create CTA in SubMenuActions.js
+
 
                      || 2. create Containers:
                      ||     + folder /containers/NAME_ENTITY
@@ -18,34 +31,24 @@ entityName           ||     containers/entity/EntityList
 
 eg: npm run create-entity-list network opticalMultiplexSection
 
-5. Add Reducer FilterColumns
-
-6. Add Query and generate files: npm run relay
-
-7. Add Container in Route (Network.js)
-
-
-DETAILS:
-
 
                      || 1.Create Query:
-                     ||       + queries/entity/EntityDetailsQuery.js
+                     ||       + queries/entity/EntityDetailsQuery.template
                      || 
                      || 2.Create containers
 replaced with script ||     + EntityDetails.js
-npm run              ||     + EntityUpdateForm.js
+npm run              ||     + EntityUpdateForm.template
 create-entity-details|| 
 entityBlock          || 3.Create Components
 entityName           ||     + EntityDetails.js
                      ||     + _EntityFormParentClass.js
                      ||     + EntityUpdateForm.js
+                     ||
+                     || 4.Create ConfigFile
+                            + /ConfigEntities/entities/EntityFields.js
 
 eg: npm run create-entity-details network provider
 
-2. Add FORM_ID in constants
-3. Add in Routes.js
-4. Add fields in utils/formsFieldsByEntity.js
-5. Add create CTA in SubMenuActions.js
 
 Samples:
 
