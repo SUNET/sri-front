@@ -14,9 +14,7 @@ const mutation = graphql`
           messages
         }
         __entityName__ {
-          id
-          name
-          description
+          ...__EntityClassName__UpdateForm___entityName__
         }
       }
     }

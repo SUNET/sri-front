@@ -29,8 +29,7 @@ class Create__EntityClassName__Form extends ___EntityClassName__FormParentClass 
         {isBrowser && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
-          {this.renderModelMainSection(editMode)}
-          {this.renderWorkLog(editMode)}
+          {this.renderSections(editMode)}
         </div>
         {this.renderSaveCancelButtons()}
       </form>

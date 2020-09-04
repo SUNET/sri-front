@@ -41,8 +41,7 @@ class __EntityClassName__UpdateForm extends ___EntityClassName__FormParentClass 
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {this.renderSaveCancelButtons()}
       </form>
     );
@@ -62,26 +61,7 @@ const __EntityClassName__UpdateFragment = createRefetchContainer(
   {
     __entityName__: graphql`
       fragment __EntityClassName__UpdateForm___entityName__ on __EntityClassName__ {
-        id
-        name
-        description
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
-        }
+        _____EntityUpperName___FIELDS___
       }
     `,
   },

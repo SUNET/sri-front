@@ -27,14 +27,14 @@ const generateDetails = (blockEntity, nameEntity) => {
     files: [
       { path: `_${entityClassName}FormParentClass.js`, template: 'cli-entity/templates/Component_EntityFormParentClass.js' },
       { path: `${entityClassName}Details.js`, template: 'cli-entity/templates/ComponentEntityDetails.js' },
-      { path: `${entityClassName}UpdateForm.js`, template: 'cli-entity/templates/ComponentEntityUpdateForm.js' },
+      { path: `${entityClassName}UpdateForm.template`, template: 'cli-entity/templates/ComponentEntityUpdateForm.template' },
       { path: `Create${entityClassName}.js`, template: 'cli-entity/templates/ComponentCreateEntity.js' },
       { path: `Create${entityClassName}Form.js`, template: 'cli-entity/templates/ComponentCreateEntityForm.js' },
     ],
   };
   const queriesPaths = {
     directory: `/src/queries/${entityName}`,
-    files: [{ path: `${entityClassName}DetailsQuery.js`, template: 'cli-entity/templates/QueryEntityDetailsQuery.js' }],
+    files: [{ path: `${entityClassName}DetailsQuery.template`, template: 'cli-entity/templates/QueryEntityDetailsQuery.template' }],
   };
 
   const mutationsPaths = {
