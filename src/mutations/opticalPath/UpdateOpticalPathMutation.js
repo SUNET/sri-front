@@ -28,6 +28,11 @@ export default function UpdateOpticalPathMutation(opticalPath, form) {
         id: opticalPath.id,
         name: opticalPath.name,
         description: opticalPath.description,
+        operational_state: opticalPath.operational_state,
+        framing: opticalPath.framing,
+        capacity: opticalPath.capacity,
+        wavelength: opticalPath.wavelength,
+        provider: opticalPath.provider,
       },
     },
   };

@@ -27,6 +27,11 @@ function CreateOpticalPathMutation(opticalPath, form) {
       create_input: {
         name: opticalPath.name,
         description: opticalPath.description,
+        operational_state: opticalPath.operational_state,
+        framing: opticalPath.framing,
+        capacity: opticalPath.capacity,
+        wavelength: opticalPath.wavelength,
+        provider: opticalPath.provider,
       },
     },
   };

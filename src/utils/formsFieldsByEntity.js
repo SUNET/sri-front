@@ -252,7 +252,14 @@ const opticalPath = {
   },
   dispatchPropertiesListCreate: ['notify', 'modal'],
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
-  fields: [...BASIC_INFO],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.OBJECT, name: 'framing' },
+    { type: FIELD_TYPES.OBJECT, name: 'capacity' },
+    { type: FIELD_TYPES.SINGLE, name: 'wavelength' },
+    { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
+  ],
 };
 
 export default {

@@ -1,54 +1,46 @@
 1.Add path in navs:
     + TopHeader
     + SideNavNetWork
-
-5. Add Reducer FilterColumns
-7. Add Container in Route (Network.js)
-
-. npm run create-entity-list network entityInCamelCase
-. npm run create-entity-details network entityInCamelCase
-
-1. Add New entity in /ConfigEntities/FieldsBySchema.js
-2. Add DetailsQuery and UpdateForm in .gitignore
-2. Add FORM_ID in constants
-3. Add in Routes.js
-4. Add fields in utils/formsFieldsByEntity.js
-5. Add create CTA in SubMenuActions.js
+2. Add Reducer FilterColumns
+3. Add Container in Route (Network.js)
+4. Generate list components and containers: npm run create-entity-list network entityInCamelCase
+5. Generate details components and containers: npm run create-entity-details network entityInCamelCase
+6. Add New entity in /ConfigEntities/FieldsBySchema.js
+7. Add DetailsQuery and UpdateForm in .gitignore
+8. Add FORM_ID in constants
+9. Add in Routes.js
+10. Add fields in utils/formsFieldsByEntity.js
+11. Add create CTA in SubMenuActions.js (need refactor)
 
 
-                     || 2. create Containers:
+                     || - create Containers:
                      ||     + folder /containers/NAME_ENTITY
                      ||     + file: SearchNAME_ENTITY
                      || 
-                     || 3. create Component:
+                     || - create Component:
 replaced with script ||     + folder /components/NAME_ENTITY
 npm run              ||     + file: SearchNAME_ENTITY
 create-entity-list   || 
-entityBlock          || 4. Create
+entityBlock          || - Create
 entityName           ||     containers/entity/EntityList
                      ||     components/entity/EntityList
                      ||     components/entity/EntityRow
 
-eg: npm run create-entity-list network opticalMultiplexSection
 
-
-                     || 1.Create Query:
+                     || - Create Query:
                      ||       + queries/entity/EntityDetailsQuery.template
                      || 
-                     || 2.Create containers
+                     || - Create containers
 replaced with script ||     + EntityDetails.js
 npm run              ||     + EntityUpdateForm.template
 create-entity-details|| 
-entityBlock          || 3.Create Components
+entityBlock          || - Create Components
 entityName           ||     + EntityDetails.js
                      ||     + _EntityFormParentClass.js
                      ||     + EntityUpdateForm.js
                      ||
-                     || 4.Create ConfigFile
+                     || - Create ConfigFile
                             + /ConfigEntities/entities/EntityFields.js
-
-eg: npm run create-entity-details network provider
-
 
 Samples:
 
