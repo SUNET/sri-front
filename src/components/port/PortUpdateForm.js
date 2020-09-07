@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import UpdatePortMutation from '../../mutations/port/UpdatePortMutation';
-import BasicValidation from '../common/_BasicValidationForm';
+import ValidationsPortForm from './ValidationsPortForm';
 // const
 import { UPDATE_PORT_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -73,7 +73,7 @@ class PortUpdateForm extends _PortFormParentClass {
 }
 
 PortUpdateForm = reduxForm({
-  validate: BasicValidation.validate,
+  validate: ValidationsPortForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
