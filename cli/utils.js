@@ -50,6 +50,7 @@ const generateContent = async (namingObj, template) => {
     content = content.split('__entityInternalRoutePath__').join(`${entityInternalRoutePath}`);
     content = content.split('__entityBlock__').join(`${blockName}`);
     content = content.split('__CONST_NAME__').join(`${entityName.toUpperCase()}`);
+    content = content.split('__EntityUpperName__').join(`${entityName.toUpperCase()}`);
   } catch (err) {
     throw err;
   }

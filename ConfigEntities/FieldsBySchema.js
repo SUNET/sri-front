@@ -1,5 +1,7 @@
 const CABLE_FIELDS = require('./entities/CableFields');
 const SWITCH_FIELDS = require('./entities/SwitchFields');
+const ROUTER_FIELDS = require('./entities/RouterFields');
+const OPTICALPATH_FIELDS = require('./entities/OpticalPathFields');
 
 module.exports = [
   {
@@ -31,6 +33,38 @@ module.exports = [
       },
       nordunet: {
         fields: [...SWITCH_FIELDS.SWITCH_COMMON_FIELDS, ...SWITCH_FIELDS.SWITCH_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Router',
+    files: ['src/queries/router/RouterDetailsQuery', 'src/components/router/RouterUpdateForm'],
+    reference: '___ROUTER_FIELDS___',
+    queries: {
+      common: {
+        fields: [...ROUTER_FIELDS.ROUTER_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...ROUTER_FIELDS.ROUTER_COMMON_FIELDS, ...ROUTER_FIELDS.ROUTER_SUNET],
+      },
+      nordunet: {
+        fields: [...ROUTER_FIELDS.ROUTER_COMMON_FIELDS, ...ROUTER_FIELDS.ROUTER_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'OpticalPath',
+    files: ['src/queries/opticalPath/OpticalPathDetailsQuery', 'src/components/opticalPath/OpticalPathUpdateForm'],
+    reference: '___OPTICALPATH_FIELDS___',
+    queries: {
+      common: {
+        fields: [...OPTICALPATH_FIELDS.OPTICALPATH_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...OPTICALPATH_FIELDS.OPTICALPATH_COMMON_FIELDS, ...OPTICALPATH_FIELDS.OPTICALPATH_SUNET],
+      },
+      nordunet: {
+        fields: [...OPTICALPATH_FIELDS.OPTICALPATH_COMMON_FIELDS, ...OPTICALPATH_FIELDS.OPTICALPATH_NORDUNI],
       },
     },
   },

@@ -48,18 +48,14 @@ class HostUpdateForm extends _HostFormParentClass {
   }
 
   render() {
-    let { handleSubmit, host_type } = this.props;
-    const isLogicalHost = host_type === 'Logical';
+    let { handleSubmit } = this.props;
     const { editMode } = this.state;
     const showBackButton = isBrowser;
     return (
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {!isLogicalHost && this.renderOwnerToggleSection(editMode)}
-        {isLogicalHost && this.renderHostUserToggleSection(editMode)}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {this.renderSaveCancelButtons()}
         {this.state.visibleConvertHostModal && this.renderConvertHostModal()}
       </form>

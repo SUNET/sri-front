@@ -31,3 +31,9 @@ src/components/cable/CableUpdateForm.js
 
 src/queries/switch/SwitchDetailsQuery.js
 src/components/switch/SwitchUpdateForm.js
+
+src/queries/router/RouterDetailsQuery.js
+src/components/router/RouterUpdateForm.js
+
+src/queries/opticalPath/OpticalPathDetailsQuery.js
+src/components/opticalPath/OpticalPathUpdateForm.js

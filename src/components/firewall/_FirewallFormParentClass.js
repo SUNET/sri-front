@@ -14,22 +14,8 @@ import FieldArrayOwner from './FieldArrayOwner';
 import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
+import renderFormBlockSection from '../common/BlockSection';
 
 class _FirewallFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -70,6 +56,18 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     }
   };
 
+  renderSections(editMode) {
+    const { t, rack_position, rack_units } = this.props;
+    return (
+      <>
+        {this.renderModelMainSection(editMode)}
+        {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
+        {this.renderOwnerToggleSection(editMode)}
+        {this.renderWorkLog()}
+      </>
+    );
+  }
+
   renderModelMainSection(editMode = true) {
     return (
       <section className="model-section">
@@ -84,8 +82,6 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
             <Col>{this.renderSecurityToggleSection(editMode)}</Col>
             <hr />
             <Col>{this.renderOSToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderLocationToggleSection(editMode)}</Col>
           </Col>
         </Form.Row>
       </section>
@@ -164,12 +160,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: model,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="model"
-              component={FieldInput}
-              placeholder={t('general-forms/write-text')}
-            />
+            <Field type="text" name="model" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
@@ -384,12 +375,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: os_version,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="os_version"
-              component={FieldInput}
-              placeholder={t('general-forms/write-text')}
-            />
+            <Field type="text" name="os_version" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
@@ -412,12 +398,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: service_tag,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="service_tag"
-              component={FieldInput}
-              placeholder={t('general-forms/write-text')}
-            />
+            <Field type="text" name="service_tag" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
@@ -431,58 +412,6 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
           <div>
             <div className="form-internal-block">
               {osInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
-    );
-  }
-
-  renderLocationToggleSection(editMode = true) {
-    const { t, rack_units, rack_position } = this.props;
-
-    const locationInfoFirstRow = [
-      {
-        title: t('general-forms/equipment-height'),
-        presentContent: rack_units,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_units"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
-          </Form.Group>
-        ),
-      },
-      {
-        title: t('general-forms/rack-position'),
-        presentContent: rack_position,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_position"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
-          </Form.Group>
-        ),
-      },
-    ];
-
-    return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/location')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {locationInfoFirstRow.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>

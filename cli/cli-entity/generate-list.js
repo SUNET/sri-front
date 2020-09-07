@@ -17,17 +17,17 @@ const generateList = (blockEntity, nameEntity) => {
   const containersPaths = {
     directory: `/src/containers/${entityName}`,
     files: [
-      { path: `${entityClassName}List.js`, template: 'cli-entity/templates/ContainerEntityList.js' },
-      { path: `Search${entityClassName}.js`, template: 'cli-entity/templates/ContainerSearchEntity.js' },
+      { path: `${entityClassName}List.js`, template: 'cli/cli-entity/templates/ContainerEntityList.js' },
+      { path: `Search${entityClassName}.js`, template: 'cli/cli-entity/templates/ContainerSearchEntity.js' },
     ],
   };
 
   const componentsPaths = {
     directory: `/src/components/${entityName}`,
     files: [
-      { path: `/Search${entityClassName}.js`, template: 'cli-entity/templates/ComponentSearchEntity.js' },
-      { path: `/${entityClassName}List.js`, template: 'cli-entity/templates/ComponentEntityList.js' },
-      { path: `/${entityClassName}Row.js`, template: 'cli-entity/templates/ComponentEntityRow.js' },
+      { path: `/Search${entityClassName}.js`, template: 'cli/cli-entity/templates/ComponentSearchEntity.js' },
+      { path: `/${entityClassName}List.js`, template: 'cli/cli-entity/templates/ComponentEntityList.js' },
+      { path: `/${entityClassName}Row.js`, template: 'cli/cli-entity/templates/ComponentEntityRow.js' },
     ],
   };
 

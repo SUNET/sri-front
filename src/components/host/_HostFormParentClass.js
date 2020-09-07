@@ -16,22 +16,8 @@ import ConvertHostModal from './ConvertHostModal';
 import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
+import renderFormBlockSection from '../common/BlockSection';
 
 class _HostFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -97,6 +83,20 @@ class _HostFormParentClass extends _BasicFormParentClass {
     );
   };
 
+  renderSections(editMode) {
+    const { host_type, t, rack_position, rack_units } = this.props;
+    const isLogicalHost = host_type === 'Logical';
+    return (
+      <>
+        {this.renderModelMainSection(editMode)}
+        {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
+        {(!this.IS_UPDATED_FORM || (this.IS_UPDATED_FORM && !isLogicalHost)) && this.renderOwnerToggleSection(editMode)}
+        {this.IS_UPDATED_FORM && isLogicalHost && this.renderHostUserToggleSection(editMode)}
+        {this.renderWorkLog(editMode)}
+      </>
+    );
+  }
+
   renderConvertHostCTA() {
     const { t } = this.props;
     return (
@@ -156,8 +156,6 @@ class _HostFormParentClass extends _BasicFormParentClass {
             <Col>{this.renderDetailsToggleSection(editMode)}</Col>
             <hr />
             <Col>{this.renderOSToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderLocationToggleSection(editMode)}</Col>
           </Col>
         </Form.Row>
       </section>
@@ -365,12 +363,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
         presentContent: os_version,
         editContent: (
           <Form.Group>
-            <Field
-              type="text"
-              name="os_version"
-              component={FieldInput}
-              placeholder={t('general-forms/write-text')}
-            />
+            <Field type="text" name="os_version" component={FieldInput} placeholder={t('general-forms/write-text')} />
           </Form.Group>
         ),
       },
@@ -384,58 +377,6 @@ class _HostFormParentClass extends _BasicFormParentClass {
           <div>
             <div className="form-internal-block">
               {osInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
-    );
-  }
-
-  renderLocationToggleSection(editMode = true) {
-    const { t, rack_units, rack_position } = this.props;
-
-    const locationInfoFirstRow = [
-      {
-        title: t('general-forms/equipment-height'),
-        presentContent: rack_units,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_units"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
-          </Form.Group>
-        ),
-      },
-      {
-        title: t('general-forms/rack-position'),
-        presentContent: rack_position,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="rack_position"
-              component={FieldInput}
-              placeholder={t('general-forms/write-number')}
-            />
-          </Form.Group>
-        ),
-      },
-    ];
-
-    return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/location')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {locationInfoFirstRow.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>

@@ -41,10 +41,7 @@ class ODFUpdateForm extends _ODFFormParentClass {
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {this.renderPortsToggleSection(editMode)}
-        {editMode && this.renderBulkPortToggleSection()}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {this.renderSaveCancelButtons()}
       </form>
     );

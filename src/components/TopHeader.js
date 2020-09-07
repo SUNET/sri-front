@@ -211,7 +211,7 @@ export class TopHeader extends React.Component {
               // { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
               { name: t('main-entity-name/optical-links'), route: 'optical-links' },
               { name: t('main-entity-name/optical-multiplex-sections'), route: 'optical-multiplex-sections' },
-              // { name: t('main-entity-name/optical-paths'), route: 'optical-paths' },
+              { name: t('main-entity-name/optical-paths'), route: 'optical-paths' },
             ],
           },
           {

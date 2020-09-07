@@ -51,6 +51,7 @@ const mutation = graphql`
           max_number_of_ports
           rack_units
           rack_position
+          rack_back
           contract_number
           location {
             id
@@ -136,6 +137,8 @@ export default function UpdateFirewallMutation(firewall, form) {
 
         rack_units: firewall.rack_units,
         rack_position: firewall.rack_position,
+        rack_back: firewall.rack_back,
+
         relationship_owner: ownerToSaved ? ownerToSaved.id : '',
       },
     },

@@ -6,7 +6,7 @@ import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
 const mutation = graphql`
-  mutation Update__EntityClassName__Mutation($input: Composite__EntityClassName__Input!) {
+  mutation Update__EntityClassName__Mutation($input: Composite__EntityClassName__MutationInput!) {
     composite___entityName__(input: $input) {
       updated {
         errors {
@@ -14,9 +14,7 @@ const mutation = graphql`
           messages
         }
         __entityName__ {
-          id
-          name
-          description
+          ...__EntityClassName__UpdateForm___entityName__
         }
       }
     }

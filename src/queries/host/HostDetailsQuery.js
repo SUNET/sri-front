@@ -60,6 +60,7 @@ const HostDetailsQuery = graphql`
       contract_number
       rack_units
       rack_position
+      rack_back
     }
   }
 `;

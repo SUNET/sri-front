@@ -39,6 +39,7 @@ const FirewallDetailsQuery = graphql`
       max_number_of_ports
       rack_units
       rack_position
+      rack_back
       contract_number
       location {
         id

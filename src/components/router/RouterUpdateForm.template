@@ -42,10 +42,7 @@ class RouterUpdateForm extends _RouterFormParentClass {
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(nameIsEditable, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {this.renderPortsToggleSection(editMode)}
-        {editMode && this.renderBulkPortToggleSection()}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {this.renderSaveCancelButtons()}
       </form>
     );
@@ -65,26 +62,7 @@ const RouterUpdateFragment = createRefetchContainer(
   {
     router: graphql`
       fragment RouterUpdateForm_router on Router {
-        id
-        name
-        description
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
-        }
+        ___ROUTER_FIELDS___
       }
     `,
   },

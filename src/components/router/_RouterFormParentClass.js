@@ -13,22 +13,8 @@ import { SAVED } from '../../utils/constants';
 // const
 import { isBrowser } from 'react-device-detect';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
+import renderFormBlockSection from '../common/BlockSection';
 
 class _RouterFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -70,6 +56,19 @@ class _RouterFormParentClass extends _BasicFormParentClass {
       });
     }
   };
+
+  renderSections(editMode) {
+    const { t, rack_position, rack_units } = this.props;
+    return (
+      <>
+        {this.renderModelMainSection(editMode)}
+        {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
+        {this.renderPortsToggleSection(editMode)}
+        {editMode && this.renderBulkPortToggleSection()}
+        {this.renderWorkLog()}
+      </>
+    );
+  }
 
   renderGeneralInfoToggleSection(editMode = true) {
     const { t, operational_state, model, version } = this.props;

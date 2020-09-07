@@ -37,6 +37,8 @@ export const CREATE_OPTICALLINK_FORM = 'create-optical-link-form';
 export const UPDATE_OPTICALLINK_FORM = 'update-optical-link-form';
 export const CREATE_OPTICALMULTIPLEXSECTION_FORM = 'create-optical-multiple-section-form';
 export const UPDATE_OPTICALMULTIPLEXSECTION_FORM = 'update-optical-multiple-section-form';
+export const CREATE_OPTICALPATH_FORM = 'create-optical-path-form';
+export const UPDATE_OPTICALPATH_FORM = 'update-optical-path-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';

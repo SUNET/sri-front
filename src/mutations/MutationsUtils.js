@@ -104,6 +104,7 @@ export function formatExternalEquipmentVariables(data, isUpdate) {
         // General info
         rack_units: data.rack_units,
         rack_position: data.rack_position,
+        rack_back: data.rack_back,
 
         // owner
         relationship_owner: ownerToSaved ? ownerToSaved.id : '', // id customer/siteOwner/provider/endUser

@@ -1,3 +1,9 @@
+<<<<<<< HEAD:schema.graphql
+# source: http://sri.localenv.loc/api/graphql/
+# timestamp: Thu Aug 27 2020 11:40:20 GMT+0200 (GMT+02:00)
+
+=======
+>>>>>>> 6c256f6b9fdd2853cd091efe595050e965253a8f:schema_sunet.graphql
 """This class represents an Action from the activity log"""
 type Action implements Node {
   verb: String!
