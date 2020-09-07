@@ -12,7 +12,9 @@ class __EntityClassName__Details extends _BasicDetailsParentClass {
   classDetails = '__entityName__-details';
 
   handleDelete = () => {
-    Delete__EntityClassName__Mutation(this.getId(), () => this.props.history.push(`/__entityBlock__/__entityInternalRoutePath__s));
+    Delete__EntityClassName__Mutation(this.getId(), () =>
+      this.props.history.push('/__entityBlock__/__entityInternalRoutePath__s'),
+    );
   };
 }
 

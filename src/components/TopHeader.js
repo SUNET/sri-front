@@ -198,9 +198,6 @@ export class TopHeader extends React.Component {
               { name: t('main-entity-name/external-equipment'), route: '/network/external-equipments' },
               { name: t('main-entity-name/optical-nodes'), route: '/network/optical-nodes' },
               { name: t('main-entity-name/odfs'), route: '/network/odfs' },
-              // { name: "External equipment", route: "/network/customers" },
-              // { name: "Optical nodes", route: "/network/customers" },
-              // { name: "ODFs", route: "/network/customers" }
             ],
           },
           {
@@ -208,7 +205,7 @@ export class TopHeader extends React.Component {
             route: '/network/optical-nodes',
             iconClass: 'icon-organization',
             subSubOptions: [
-              // { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
+              { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
               { name: t('main-entity-name/optical-links'), route: 'optical-links' },
               { name: t('main-entity-name/optical-multiplex-sections'), route: 'optical-multiplex-sections' },
               { name: t('main-entity-name/optical-paths'), route: 'optical-paths' },

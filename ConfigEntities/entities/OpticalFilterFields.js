@@ -1,0 +1,22 @@
+const FIELD_TYPES = require('../FieldsTypes');
+const COMMON_FIELDS = require('../CommonFields');
+
+const OPTICALFILTER_COMMON_FIELDS = [
+  ...COMMON_FIELDS.BASIC_INFO,
+  ...COMMON_FIELDS.COMMENTS_FIELDS,
+  ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
+  ...COMMON_FIELDS.RACK_INFO,
+  ...COMMON_FIELDS.PORT_LIST,
+  { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+  { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
+];
+
+const OPTICALFILTER_SUNET = [];
+
+const OPTICALFILTER_NORDUNI = [];
+
+module.exports = {
+  OPTICALFILTER_COMMON_FIELDS,
+  OPTICALFILTER_SUNET,
+  OPTICALFILTER_NORDUNI,
+};

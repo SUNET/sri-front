@@ -44,7 +44,7 @@ function Create__EntityClassName__Mutation(__entityName__, form) {
       }
       form.props.notify(i18n.t('entity-notify-create/__entityInternalRoutePath__s'), 'success');
       if (form.props.history) {
-        form.props.history.push(`/network/__entityName__s/${entityId}`);
+        form.props.history.push(`/network/__entityInternalRoutePath__s/${entityId}`);
       } else {
         form.props.createdEntity('__EntityClassName__', entityId);
         form.props.hideModalForm();

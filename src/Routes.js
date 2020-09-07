@@ -47,6 +47,8 @@ const Routes = {
   '/network/optical-multiplex-sections/create': 'Create Optical Multiplex Section',
   '/network/optical-paths': 'Optical Path',
   '/network/optical-paths/create': 'Create Optical Path',
+  '/network/optical-filters': 'Optical Filter',
+  '/network/optical-filters/create': 'Create Optical Filter',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',

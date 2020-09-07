@@ -2,6 +2,7 @@ const CABLE_FIELDS = require('./entities/CableFields');
 const SWITCH_FIELDS = require('./entities/SwitchFields');
 const ROUTER_FIELDS = require('./entities/RouterFields');
 const OPTICALPATH_FIELDS = require('./entities/OpticalPathFields');
+const OPTICALFILTER_FIELDS = require('./entities/OpticalFilterFields');
 
 module.exports = [
   {
@@ -65,6 +66,25 @@ module.exports = [
       },
       nordunet: {
         fields: [...OPTICALPATH_FIELDS.OPTICALPATH_COMMON_FIELDS, ...OPTICALPATH_FIELDS.OPTICALPATH_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'OpticalFilter',
+    files: [
+      'src/queries/opticalFilter/OpticalFilterDetailsQuery',
+      'src/components/opticalFilter/OpticalFilterUpdateForm',
+    ],
+    reference: '___OPTICALFILTER_FIELDS___',
+    queries: {
+      common: {
+        fields: [...OPTICALFILTER_FIELDS.OPTICALFILTER_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...OPTICALFILTER_FIELDS.OPTICALFILTER_COMMON_FIELDS, ...OPTICALFILTER_FIELDS.OPTICALFILTER_SUNET],
+      },
+      nordunet: {
+        fields: [...OPTICALFILTER_FIELDS.OPTICALFILTER_COMMON_FIELDS, ...OPTICALFILTER_FIELDS.OPTICALFILTER_NORDUNI],
       },
     },
   },

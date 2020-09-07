@@ -72,7 +72,7 @@ class SideNavNetwork extends React.Component {
         i18nText: 'network.optical-layers.name',
       },
       items: [
-        // { path: 'optical-filters', i18nText: 'main-entity-name/optical-filters' },
+        { path: 'optical-filters', i18nText: 'main-entity-name/optical-filters' },
         { path: 'optical-links', i18nText: 'main-entity-name/optical-links' },
         { path: 'optical-multiplex-sections', i18nText: 'main-entity-name/optical-multiplex-sections' },
         { path: 'optical-paths', i18nText: 'main-entity-name/optical-paths' },
