@@ -32,7 +32,6 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
       const selectionData = {
         id: nextProps.entitySavedId,
       };
-      const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'ports') {
         this.handleSelectedPort(selectionData);
       }

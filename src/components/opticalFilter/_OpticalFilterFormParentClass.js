@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldArray, arrayPush, Field } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
-import { Form, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 // components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
@@ -11,7 +11,6 @@ import renderFormBlockSection from '../common/BlockSection';
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import BulPort from '../common/BulkPort';
 // const
-import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class _OpticalFilterFormParentClass extends _BasicFormParentClass {
@@ -32,7 +31,6 @@ class _OpticalFilterFormParentClass extends _BasicFormParentClass {
       const selectionData = {
         id: nextProps.entitySavedId,
       };
-      const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'ports') {
         this.handleSelectedPort(selectionData);
       }
