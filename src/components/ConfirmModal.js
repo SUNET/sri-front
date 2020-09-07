@@ -8,18 +8,18 @@ import '../style/ConfirmModal.scss';
 
 const INFO_CONFIRM_MODAL_BY_TYPE = {
   delete: {
-    mainText: 'actions.confirm-delete.main-text',
-    secondaryText: 'actions.confirm-delete.secondary-text',
+    mainText: 'actions/confirm-delete.main-text',
+    secondaryText: 'actions/confirm-delete.secondary-text',
     buttons: {
-      action: { text: 'actions.delete', methodName: 'onConfirmDeleteModal' },
+      action: { text: 'actions/delete', methodName: 'onConfirmDeleteModal' },
       // cancel: { text: 'Cancel', methodName: '' },
     },
   },
   partialDelete: {
-    mainText: 'actions.confirm-partial-delete.main-text',
-    secondaryText: 'actions.confirm-partial-delete.secondary-text',
+    mainText: 'actions/confirm-partial-delete.main-text',
+    secondaryText: 'actions/confirm-partial-delete.secondary-text',
     buttons: {
-      action: { text: 'actions.update', methodName: 'onConfirmDeleteModal' },
+      action: { text: 'actions/update', methodName: 'onConfirmDeleteModal' },
       // cancel: { text: 'Cancel', methodName: '' },
     },
   },

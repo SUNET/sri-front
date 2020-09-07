@@ -45,6 +45,7 @@ const BASIC_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'id' },
   { type: FIELD_TYPES.SINGLE, name: 'name' },
   { type: FIELD_TYPES.SINGLE, name: 'description' },
+  { type: FIELD_TYPES.SINGLE, name: '__typename' },
 ];
 
 const PHYSICAL_BASIC_DATA = [

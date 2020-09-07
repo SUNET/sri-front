@@ -121,11 +121,16 @@ function formatterParentsByType(parents, parentType) {
 }
 
 function formatterParentsByTypeWithOperationState(parents, parentType) {
-  return generateSubInputs(
+  const subInpunts = generateSubInputs(
     parents.filter((el) => el['__typename'] === parentType),
     null,
     'operational_state',
   );
+  return {
+    toUpdate: subInpunts.toUpdate.map((entity) => ({ ...entity, operational_state: entity.operational_state.value })),
+    toUnlink: subInpunts.toUnlink,
+    toDelete: subInpunts.toDelete,
+  };
 }
 
 function formatterParentsByTypeWithoutSpecificFields(parents, parentType) {
@@ -151,14 +156,28 @@ export default function UpdatePortMutation(port, form) {
         description: port.description,
         port_type: port.port_type,
       },
-      update_subinputs: connectedTo.toUpdate,
       update_parent_port: portParents.toUpdate,
       update_parent_cable: cableParents.toUpdate,
       update_parent_firewall: firewallParents.toUpdate,
       update_parent_externalequipment: externalEquipmentParents.toUpdate,
       update_parent_switch: switchesParents.toUpdate,
-      unlink_subinputs: [...connectedTo.toUnlink, ...cableParents.toUnlink, ...portParents.toUnlink],
-      delete_subinputs: [...connectedTo.toDelete, ...cableParents.toDelete, ...portParents.toDelete],
+      deleted_parent_port: portParents.toDelete,
+      deleted_parent_cable: cableParents.toDelete,
+      deleted_parent_firewall: firewallParents.toDelete,
+      deleted_parent_externalequipment: externalEquipmentParents.toDelete,
+      deleted_parent_switch: switchesParents.toDelete,
+
+      update_subinputs: connectedTo.toUpdate,
+      unlink_subinputs: [
+        ...connectedTo.toUnlink,
+        ...cableParents.toUnlink,
+        ...portParents.toUnlink,
+        ...cableParents.toUnlink,
+        ...firewallParents.toUnlink,
+        ...externalEquipmentParents.toUnlink,
+        ...switchesParents.toUnlink,
+      ],
+      delete_subinputs: [],
     },
   };
 
