@@ -6,9 +6,6 @@ export default class ValidationsPortForm {
     if (!values.name) {
       errors.name = REQUIRED_TEXT;
     }
-    if (!values.port_type) {
-      errors.port_type = REQUIRED_TEXT;
-    }
     return errors;
   };
   static validateWithType = (values) => {
