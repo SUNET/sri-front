@@ -8,6 +8,15 @@ import FieldInput from '../../FieldInput';
 import '../../../style/RackBackInput.scss';
 
 export function renderRackToggleSection(editMode = true, { t, rack_position, rack_units }) {
+  const renderRackBackInput = (disabled) => (
+    <div className="rack-back-section">
+      <Form.Group>
+        <Field type="checkbox" name="rack_back" component={FieldInput} disabled={disabled} />
+      </Form.Group>
+      <span className="rack-back-section__text">{t('general-forms/rack-back-text')}</span>
+    </div>
+  );
+
   const rackInfo = [
     {
       title: t('general-forms/equipment-height'),
@@ -34,19 +43,8 @@ export function renderRackToggleSection(editMode = true, { t, rack_position, rac
     },
     {
       title: t('general-forms/rack-back'),
-      presentContent: (
-        <div className="rack-back-section">
-          <Form.Group>
-            <input type="checkbox" name="reck_back" />
-          </Form.Group>
-          <span className="rack-back-section__text">Is back of rack</span>
-        </div>
-      ),
-      editContent: (
-        <Form.Group>
-          <Field type="checkbox" name="rack_back" component={FieldInput} />
-        </Form.Group>
-      ),
+      presentContent: renderRackBackInput(true),
+      editContent: renderRackBackInput(false),
     },
   ];
   return (

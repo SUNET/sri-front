@@ -215,6 +215,7 @@
             "general-forms/equipment-height": "Equipment Height",
             "general-forms/rack-position": "Rack position",
             "general-forms/rack-back": "Back of the rack",
+            "general-forms/rack-back-text": "Is back of rack",
             "general-forms/interface-type": "Interface Type",
             "general-forms/select-physical-type": "Select a Physical Type ",
             "general-forms/select-cable-type": "Select a Cable Type ",
