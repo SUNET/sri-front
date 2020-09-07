@@ -1,0 +1,14 @@
+.rack-back-section {
+    display: flex;
+    align-items: center;
+
+    &__text {
+        font-style: italic;
+        margin-left: 0.75em;
+    }
+    .form-group {
+        input {
+            width: 35px;
+        }
+    }
+}

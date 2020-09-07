@@ -5,6 +5,8 @@ import renderFormBlockSection from '../BlockSection';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../ToggleSection';
 import FieldInput from '../../FieldInput';
 
+import '../../../style/RackBackInput.scss';
+
 export function renderRackToggleSection(editMode = true, { t, rack_position, rack_units }) {
   const rackInfo = [
     {
@@ -33,24 +35,16 @@ export function renderRackToggleSection(editMode = true, { t, rack_position, rac
     {
       title: t('general-forms/rack-back'),
       presentContent: (
-        <Form.Group>
-          <Field
-            type="checkbox"
-            name="rack_back"
-            component={FieldInput}
-            disabled
-            placeholder={t('general-forms/write-number')}
-          />
-        </Form.Group>
+        <div className="rack-back-section">
+          <Form.Group>
+            <input type="checkbox" name="reck_back" />
+          </Form.Group>
+          <span className="rack-back-section__text">Is back of rack</span>
+        </div>
       ),
       editContent: (
         <Form.Group>
-          <Field
-            type="checkbox"
-            name="rack_back"
-            component={FieldInput}
-            placeholder={t('general-forms/write-number')}
-          />
+          <Field type="checkbox" name="rack_back" component={FieldInput} />
         </Form.Group>
       ),
     },
