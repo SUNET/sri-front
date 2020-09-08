@@ -158,6 +158,10 @@ const PortUpdateFragment = createRefetchContainer(
             entityType: node_type {
               name: type
             }
+            type {
+              name
+              value
+            }
           }
           ... on Router {
             description

@@ -85,11 +85,13 @@ function formatterRouterParents(parents) {
 }
 
 function formatterOpticalNodeParents(parents) {
+  console.log('parents: ', parents);
   const optNodesElements = generateSubInputs(
     parents.filter((el) => el['__typename'] === 'OpticalNode'),
     'type',
     'operational_state',
   );
+  console.log('optNodesElements: ', optNodesElements);
   return {
     toUpdate: optNodesElements.toUpdate.map((entity) => ({
       ...entity,

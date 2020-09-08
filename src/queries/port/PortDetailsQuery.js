@@ -77,6 +77,10 @@ const PortDetailsQuery = graphql`
           entityType: node_type {
             name: type
           }
+          type {
+            name
+            value
+          }
         }
         ... on Router {
           description
