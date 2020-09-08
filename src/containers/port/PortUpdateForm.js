@@ -10,6 +10,10 @@ import getPort from '../../components/port/Port';
 import getSwitch from '../../components/switch/Switch';
 import getFirewall from '../../components/firewall/Firewall';
 import getExternalEquipment from '../../components/externalEquipment/ExternalEquipment';
+import getOpticalFilter from '../../components/opticalFilter/OpticalFilter';
+import getRouter from '../../components/router/Router';
+import getOpticalNode from '../../components/opticalNode/OpticalNode';
+import getODF from '../../components/ODF/ODF';
 
 function formatterSubInputs(subInputs) {
   return subInputs.map((element) => ({
@@ -50,6 +54,10 @@ const mapStateToProps = (state, props) => {
     getSwitchById: (id) => getSwitch(id),
     getFirewallById: (id) => getFirewall(id),
     getExternalEquipmentById: (id) => getExternalEquipment(id),
+    getOpticalFilterById: (id) => getOpticalFilter(id),
+    getRouterById: (id) => getRouter(id),
+    getOpticalNodeById: (id) => getOpticalNode(id),
+    getODFById: (id) => getODF(id),
     isFromModal: Boolean(props.isFromModal),
     isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
     entityInModalName: state.formModal.entityName,

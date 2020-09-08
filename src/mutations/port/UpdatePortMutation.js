@@ -16,76 +16,7 @@ const mutation = graphql`
           messages
         }
         port {
-          id
-          name
-          port_type {
-            value
-            name
-          }
-          description
-          parent {
-            id
-            name
-            relation_id
-            ... on Port {
-              entityType: node_type {
-                name: type
-              }
-              type: port_type {
-                value
-                name
-              }
-              description
-            }
-            ... on Cable {
-              entityType: node_type {
-                name: type
-              }
-              type: cable_type {
-                value
-                name
-              }
-              description
-            }
-            ... on ExternalEquipment {
-              description
-              entityType: node_type {
-                name: type
-              }
-            }
-            ... on Switch {
-              description
-              operational_state {
-                name
-                value
-              }
-              entityType: node_type {
-                name: type
-              }
-            }
-            ... on Firewall {
-              description
-              operational_state {
-                name
-                value
-              }
-              entityType: node_type {
-                name: type
-              }
-            }
-          }
-          connected_to {
-            id
-            name
-            relation_id
-            ... on Cable {
-              type: cable_type {
-                value
-                name
-              }
-              description
-            }
-          }
+          ...PortUpdateForm_port
         }
       }
       subupdated {
@@ -141,13 +72,87 @@ function formatterParentsByTypeWithoutSpecificFields(parents, parentType) {
   );
 }
 
+function formatterRouterParents(parents) {
+  const routerListWithName = formatterParentsByTypeWithOperationState(parents, 'Router');
+  const routerListWithoutName = {
+    ...routerListWithName,
+    toUpdate: routerListWithName.toUpdate.map((router) => {
+      const { name, ...routerWithoutName } = router;
+      return routerWithoutName;
+    }),
+  };
+  return routerListWithoutName;
+}
+
+function formatterOpticalNodeParents(parents) {
+  const optNodesElements = generateSubInputs(
+    parents.filter((el) => el['__typename'] === 'OpticalNode'),
+    'type',
+    'operational_state',
+  );
+  return {
+    toUpdate: optNodesElements.toUpdate.map((entity) => ({
+      ...entity,
+      operational_state: entity.operational_state.value,
+    })),
+    toUnlink: optNodesElements.toUnlink,
+    toDelete: optNodesElements.toDelete,
+  };
+}
+
+function formatAndMergeAllPortsParentsEntities(parentsList) {
+  const portParents = formatterParentsByType(parentsList, 'Port');
+  const cableParents = formatterParentsByType(parentsList, 'Cable');
+  const firewallParents = formatterParentsByTypeWithOperationState(parentsList, 'Firewall');
+  const switchesParents = formatterParentsByTypeWithOperationState(parentsList, 'Switch');
+  const externalEquipmentParents = formatterParentsByTypeWithoutSpecificFields(parentsList, 'ExternalEquipment');
+  const opticalFilterParents = formatterParentsByTypeWithoutSpecificFields(parentsList, 'OpticalFilter');
+
+  const routerParents = formatterRouterParents(parentsList);
+  const opticalNodeParents = formatterOpticalNodeParents(parentsList);
+  const odfParents = formatterParentsByTypeWithOperationState(parentsList, 'ODF');
+
+  return {
+    toUpdateObject: {
+      update_parent_port: portParents.toUpdate,
+      update_parent_cable: cableParents.toUpdate,
+      update_parent_firewall: firewallParents.toUpdate,
+      update_parent_externalequipment: externalEquipmentParents.toUpdate,
+      update_parent_switch: switchesParents.toUpdate,
+      update_parent_opticalfilter: opticalFilterParents.toUpdate,
+      update_parent_opticalnode: opticalNodeParents.toUpdate,
+      update_parent_router: routerParents.toUpdate,
+      update_parent_odf: odfParents.toUpdate,
+    },
+    toDeleteObject: {
+      deleted_parent_port: portParents.toDelete,
+      deleted_parent_cable: cableParents.toDelete,
+      deleted_parent_firewall: firewallParents.toDelete,
+      deleted_parent_externalequipment: externalEquipmentParents.toDelete,
+      deleted_parent_switch: switchesParents.toDelete,
+      deleted_parent_opticalfilter: opticalFilterParents.toDelete,
+      deleted_parent_opticalnode: opticalNodeParents.toDelete,
+      deleted_parent_router: routerParents.toDelete,
+      deleted_parent_odf: odfParents.toDelete,
+    },
+    toUnlinkList: [
+      ...cableParents.toUnlink,
+      ...portParents.toUnlink,
+      ...cableParents.toUnlink,
+      ...firewallParents.toUnlink,
+      ...externalEquipmentParents.toUnlink,
+      ...switchesParents.toUnlink,
+      ...opticalFilterParents.toUnlink,
+      ...opticalNodeParents.toUnlink,
+      ...routerParents.toUnlink,
+      ...odfParents.toUnlink,
+    ],
+  };
+}
+
 export default function UpdatePortMutation(port, form) {
-  const cableParents = formatterParentsByType(port.parents, 'Cable');
-  const portParents = formatterParentsByType(port.parents, 'Port');
-  const firewallParents = formatterParentsByTypeWithOperationState(port.parents, 'Firewall');
-  const switchesParents = formatterParentsByTypeWithOperationState(port.parents, 'Switch');
-  const externalEquipmentParents = formatterParentsByTypeWithoutSpecificFields(port.parents, 'ExternalEquipment');
   const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
+  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parents);
   const variables = {
     input: {
       update_input: {
@@ -156,31 +161,15 @@ export default function UpdatePortMutation(port, form) {
         description: port.description,
         port_type: port.port_type,
       },
-      update_parent_port: portParents.toUpdate,
-      update_parent_cable: cableParents.toUpdate,
-      update_parent_firewall: firewallParents.toUpdate,
-      update_parent_externalequipment: externalEquipmentParents.toUpdate,
-      update_parent_switch: switchesParents.toUpdate,
-      deleted_parent_port: portParents.toDelete,
-      deleted_parent_cable: cableParents.toDelete,
-      deleted_parent_firewall: firewallParents.toDelete,
-      deleted_parent_externalequipment: externalEquipmentParents.toDelete,
-      deleted_parent_switch: switchesParents.toDelete,
-
+      ...parentsFormatted.toUpdateObject,
+      ...parentsFormatted.toDeleteObject,
       update_subinputs: connectedTo.toUpdate,
-      unlink_subinputs: [
-        ...connectedTo.toUnlink,
-        ...cableParents.toUnlink,
-        ...portParents.toUnlink,
-        ...cableParents.toUnlink,
-        ...firewallParents.toUnlink,
-        ...externalEquipmentParents.toUnlink,
-        ...switchesParents.toUnlink,
-      ],
-      delete_subinputs: [],
+      unlink_subinputs: [...connectedTo.toUnlink, ...parentsFormatted.toUnlinkList],
+      delete_subinputs: [...connectedTo.toDelete],
     },
   };
 
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

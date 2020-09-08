@@ -88,6 +88,112 @@ const PortUpdateFragment = createRefetchContainer(
         id
         name
         description
+        port_type {
+          name
+          value
+        }
+        parent {
+          __typename
+          id
+          name
+          relation_id
+          ... on Port {
+            description
+            entityType: node_type {
+              name: type
+            }
+            type: port_type {
+              name
+              value
+            }
+          }
+          ... on Cable {
+            description
+            entityType: node_type {
+              name: type
+            }
+            type: cable_type {
+              name
+              value
+            }
+          }
+          ... on ExternalEquipment {
+            description
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on Switch {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on Firewall {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on OpticalFilter {
+            description
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on OpticalNode {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on Router {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on ODF {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+        }
+        connected_to {
+          __typename
+          id
+          name
+          relation_id
+          ... on Cable {
+            description
+            type: cable_type {
+              name
+              value
+            }
+          }
+        }
+        __typename
         comments {
           id
           user {

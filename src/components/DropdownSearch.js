@@ -169,6 +169,58 @@ const DropdownSearchAllHostUsersQuery = graphql`
   }
 `;
 
+const DropdownSearchAllOpticalFiltersQuery = graphql`
+  query DropdownSearchAllOpticalFiltersQuery($filter: OpticalFilterFilter) {
+    opticalFilters(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllOpticalNodesQuery = graphql`
+  query DropdownSearchAllOpticalNodesQuery($filter: OpticalNodeFilter) {
+    opticalNodes(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllRoutersQuery = graphql`
+  query DropdownSearchAllRoutersQuery($filter: RouterFilter) {
+    routers(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllODFsQuery = graphql`
+  query DropdownSearchAllODFsQuery($filter: ODFFilter) {
+    odfs(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -230,6 +282,18 @@ class DropdownSearch extends React.Component {
         break;
       case 'hostUsers':
         queryModel.query = DropdownSearchAllHostUsersQuery;
+        break;
+      case 'opticalFilters':
+        queryModel.query = DropdownSearchAllOpticalFiltersQuery;
+        break;
+      case 'opticalNodes':
+        queryModel.query = DropdownSearchAllOpticalNodesQuery;
+        break;
+      case 'routers':
+        queryModel.query = DropdownSearchAllRoutersQuery;
+        break;
+      case 'odfs':
+        queryModel.query = DropdownSearchAllODFsQuery;
         break;
       default:
         queryModel.query = DropdownSearchAllContactsQuery;
