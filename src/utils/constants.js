@@ -39,6 +39,8 @@ export const CREATE_OPTICALMULTIPLEXSECTION_FORM = 'create-optical-multiple-sect
 export const UPDATE_OPTICALMULTIPLEXSECTION_FORM = 'update-optical-multiple-section-form';
 export const CREATE_OPTICALPATH_FORM = 'create-optical-path-form';
 export const UPDATE_OPTICALPATH_FORM = 'update-optical-path-form';
+export const CREATE_OPTICALFILTER_FORM = 'create-optical-filter-form';
+export const UPDATE_OPTICALFILTER_FORM = 'update-optical-filter-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';

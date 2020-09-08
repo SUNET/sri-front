@@ -21,6 +21,7 @@ import SearchOdfContainer from '../containers/ODF/SearchODF';
 import SearchOpticalLinkContainer from '../containers/opticalLink/SearchOpticalLink';
 import SearchOpticalMultiplexSectionContainer from '../containers/opticalMultiplexSection/SearchOpticalMultiplexSection';
 import SearchOpticalPathContainer from '../containers/opticalPath/SearchOpticalPath';
+import SearchOpticalFilterContainer from '../containers/opticalFilter/SearchOpticalFilter';
 
 class Network extends React.Component {
   render() {
@@ -49,6 +50,7 @@ class Network extends React.Component {
             <Route path="/network/optical-links" component={SearchOpticalLinkContainer} />
             <Route path="/network/optical-multiplex-sections" component={SearchOpticalMultiplexSectionContainer} />
             <Route path="/network/optical-paths" component={SearchOpticalPathContainer} />
+            <Route path="/network/optical-filters" component={SearchOpticalFilterContainer} />
           </Switch>
         </Col>
       </Row>

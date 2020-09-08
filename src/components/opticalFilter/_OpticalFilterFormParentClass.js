@@ -1,25 +1,24 @@
 import React from 'react';
-import { FieldArray, arrayPush } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
-
-// components
+import { FieldArray, arrayPush, Field } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import { Form } from 'react-bootstrap';
+// components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
+import FieldInput from '../FieldInput';
 import FieldArrayPorts from '../common/FieldArrayPorts';
+import renderFormBlockSection from '../common/BlockSection';
+import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import BulPort from '../common/BulkPort';
 // const
 import { isBrowser } from 'react-device-detect';
 
-import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
-import renderFormBlockSection from '../common/BlockSection';
-
-class _OpticalNodeFormParentClass extends _BasicFormParentClass {
+class _OpticalFilterFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
   IS_UPDATED_FORM = false;
   FORM_ID;
-  MODEL_NAME = 'opticalNode';
-  ROUTE_LIST_DIRECTION = '/network/optical-nodes';
+  MODEL_NAME = 'opticalFilter';
+  ROUTE_LIST_DIRECTION = '/network/optical-filters';
 
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
@@ -63,41 +62,15 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {this.renderPortsToggleSection(editMode)}
         {editMode && this.renderBulkPortToggleSection()}
-        {this.renderWorkLog(editMode)}
+        {this.renderWorkLog()}
       </>
     );
   }
 
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
-      </section>
-    );
-  }
-
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, type, operational_state } = this.props;
-    const generalInfoFirstRow = [
-      {
-        title: t('general-forms/type'),
-        presentContent: type,
-        editContent: (
-          <Dropdown
-            className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
-            emptyLabel="Select type"
-            type="optical_node_types"
-            name="type"
-            onChange={(e) => {}}
-          />
-        ),
-      },
+    const { t, operational_state, max_number_of_ports } = this.props;
+
+    const generalInfo = [
       {
         title: t('general-forms/operational-state'),
         presentContent: operational_state,
@@ -111,6 +84,20 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
           />
         ),
       },
+      {
+        title: t('general-forms/max-number-of-ports'),
+        presentContent: max_number_of_ports,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="max_number_of_ports"
+              component={FieldInput}
+              placeholder={t('general-forms/write-number')}
+            />
+          </Form.Group>
+        ),
+      },
     ];
 
     return (
@@ -121,7 +108,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         <TogglePanel>
           <div>
             <div className="form-internal-block">
-              {generalInfoFirstRow.map((formData, index) => {
+              {generalInfo.map((formData, index) => {
                 return renderFormBlockSection(editMode, formData, index);
               })}
             </div>
@@ -193,4 +180,4 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
   }
 }
 
-export default _OpticalNodeFormParentClass;
+export default _OpticalFilterFormParentClass;

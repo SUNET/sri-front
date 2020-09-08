@@ -262,6 +262,22 @@ const opticalPath = {
   ],
 };
 
+const opticalFilter = {
+  formName: {
+    create: 'createOpticalFilter',
+    update: 'updateOpticalFilter',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  fields: [
+    ...BASIC_INFO,
+    ...RACK_INFO,
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -279,4 +295,5 @@ export default {
   opticalLink,
   opticalMultiplexSection,
   opticalPath,
+  opticalFilter,
 };

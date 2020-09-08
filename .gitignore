@@ -37,3 +37,6 @@ src/components/router/RouterUpdateForm.js
 
 src/queries/opticalPath/OpticalPathDetailsQuery.js
 src/components/opticalPath/OpticalPathUpdateForm.js
+
+src/queries/opticalFilter/OpticalFilterDetailsQuery.js
+src/components/opticalFilter/OpticalFilterUpdateForm.js

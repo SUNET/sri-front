@@ -228,6 +228,9 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/odfs",
               ],
               Array [
+                "main-entity-name/optical-filters",
+              ],
+              Array [
                 "main-entity-name/optical-links",
               ],
               Array [
@@ -324,6 +327,10 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "main-entity-name/odfs",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/optical-filters",
               },
               Object {
                 "type": "return",
