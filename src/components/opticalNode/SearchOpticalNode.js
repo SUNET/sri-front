@@ -11,12 +11,12 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import OpticalNodeList from '../../containers/opticalNode/OpticalNodeList';
 import OpticalNodeDetailsContainer from '../../containers/opticalNode/OpticalNodeDetails';
-import CreateOpticalNode from './CreateOpticalNode';
+import CreateOpticalNodeRoute from "./CreateOpticalNodeRoute/CreateOpticalNodeRoute";
 // Constants
 
 class SearchOpticalNode extends _SearchEntityParentClass {
   LIST_CONTAINER = OpticalNodeList;
-  CREATE_COMPONENT = CreateOpticalNode;
+  CREATE_COMPONENT = CreateOpticalNodeRoute;
   DETAIL_CONTAINER = OpticalNodeDetailsContainer;
 
   MODEL_NAME = 'opticalNode';

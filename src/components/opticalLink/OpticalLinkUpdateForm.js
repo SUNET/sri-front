@@ -16,9 +16,12 @@ class OpticalLinkUpdateForm extends _OpticalLinkFormParentClass {
   FORM_ID = UPDATE_OPTICALLINK_FORM;
   MODEL_NAME = 'opticalLink';
   ROUTE_LIST_DIRECTION = '/network/opticalLinks';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { opticalLinkId: this.props.opticalLink.id }, // Our refetchQuery needs to know the `opticalLinkID`

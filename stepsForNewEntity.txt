@@ -13,6 +13,15 @@
 11. Add create CTA in SubMenuActions.js (need refactor)
 
 
+MAKE 'MODABLE'
+1. Create /components/CreateEntity.js
+2. Create components/CreateEntityRoute/CreateEntityRoute.js
+3. Add new Entity in ModalForm.js (switch case)
+4. Add idFromModal and history in containers/EntityDetails.js
+5. Remove withRouter in components/CreateEntityForm
+6. Modify criterials render in CreateEntityForm and EntityUpdateForm
+
+
                      || - create Containers:
                      ||     + folder /containers/NAME_ENTITY
                      ||     + file: SearchNAME_ENTITY

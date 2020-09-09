@@ -11,12 +11,12 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import ODFList from '../../containers/ODF/ODFList';
 import ODFDetailsContainer from '../../containers/ODF/ODFDetails';
-import CreateODF from './CreateODF';
+import CreateODFRoute from "./CreateODFRoute/CreateODFRoute";
 // Constants
 
 class SearchODF extends _SearchEntityParentClass {
   LIST_CONTAINER = ODFList;
-  CREATE_COMPONENT = CreateODF;
+  CREATE_COMPONENT = CreateODFRoute;
   DETAIL_CONTAINER = ODFDetailsContainer;
 
   MODEL_NAME = 'odf';

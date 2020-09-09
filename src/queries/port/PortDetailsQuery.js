@@ -62,6 +62,46 @@ const PortDetailsQuery = graphql`
             name: type
           }
         }
+        ... on OpticalFilter {
+          description
+          entityType: node_type {
+            name: type
+          }
+        }
+        ... on OpticalNode {
+          description
+          operational_state {
+            name
+            value
+          }
+          entityType: node_type {
+            name: type
+          }
+          type {
+            name
+            value
+          }
+        }
+        ... on Router {
+          description
+          operational_state {
+            name
+            value
+          }
+          entityType: node_type {
+            name: type
+          }
+        }
+        ... on ODF {
+          description
+          operational_state {
+            name
+            value
+          }
+          entityType: node_type {
+            name: type
+          }
+        }
       }
       connected_to {
         __typename

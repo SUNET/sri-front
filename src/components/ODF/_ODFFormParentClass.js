@@ -57,13 +57,13 @@ class _ODFFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units } = this.props;
+    const { t, rack_position, rack_units, isFromModal } = this.props;
     return (
       <>
         {this.renderModelMainSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
-        {this.renderPortsToggleSection(editMode)}
-        {editMode && this.renderBulkPortToggleSection()}
+        {!isFromModal && this.renderPortsToggleSection(editMode)}
+        {!isFromModal && editMode && this.renderBulkPortToggleSection()}
         {this.renderWorkLog()}
       </>
     );

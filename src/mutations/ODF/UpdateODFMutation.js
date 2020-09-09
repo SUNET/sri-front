@@ -74,7 +74,7 @@ export default function UpdateODFMutation(ODF, form) {
       }
       form.props.reset();
       if (form.props.isFromModal) {
-        form.props.editedEntity('ODF', response.composite_ODF.updated.ODF.id);
+        form.props.editedEntity('ODF', response.composite_oDF.updated.oDF.id);
       } else {
         form.refetch();
         form.props.notify(i18n.t('notify/changes-saved'), 'success');

@@ -11,12 +11,12 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import OpticalFilterList from '../../containers/opticalFilter/OpticalFilterList';
 import OpticalFilterDetailsContainer from '../../containers/opticalFilter/OpticalFilterDetails';
-import CreateOpticalFilter from './CreateOpticalFilter';
+import CreateOpticalFilterRoute from "./CreateOpticalFilterRoute/CreateOpticalFilterRoute";
 // Constants
 
 class SearchOpticalFilter extends _SearchEntityParentClass {
   LIST_CONTAINER = OpticalFilterList;
-  CREATE_COMPONENT = CreateOpticalFilter;
+  CREATE_COMPONENT = CreateOpticalFilterRoute;
   DETAIL_CONTAINER = OpticalFilterDetailsContainer;
 
   MODEL_NAME = 'opticalFilter';

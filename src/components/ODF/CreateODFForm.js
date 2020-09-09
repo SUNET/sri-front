@@ -2,7 +2,6 @@ import _ODFFormParentClass from './_ODFFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateODFMutation from '../../mutations/ODF/CreateODFMutation';
 import ValidationsODFForm from '../common/_BasicValidationForm';
@@ -21,12 +20,14 @@ class CreateODFForm extends _ODFFormParentClass {
     CreateODFMutation(ODF, this);
   };
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, isFromModal } = this.props;
     const editMode = true;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
           {this.renderSections(editMode)}
@@ -44,4 +45,4 @@ CreateODFForm = reduxForm({
   },
 })(CreateODFForm);
 
-export default withTranslation()(withRouter(CreateODFForm));
+export default withTranslation()(CreateODFForm);

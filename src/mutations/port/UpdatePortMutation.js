@@ -6,6 +6,7 @@ import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
 import { generateSubInputs } from '../MutationsUtils';
+import formatAndMergeAllPortsParentsEntities from './PortFormatter';
 
 const mutation = graphql`
   mutation UpdatePortMutation($input: CompositePortMutationInput!) {
@@ -16,76 +17,7 @@ const mutation = graphql`
           messages
         }
         port {
-          id
-          name
-          port_type {
-            value
-            name
-          }
-          description
-          parent {
-            id
-            name
-            relation_id
-            ... on Port {
-              entityType: node_type {
-                name: type
-              }
-              type: port_type {
-                value
-                name
-              }
-              description
-            }
-            ... on Cable {
-              entityType: node_type {
-                name: type
-              }
-              type: cable_type {
-                value
-                name
-              }
-              description
-            }
-            ... on ExternalEquipment {
-              description
-              entityType: node_type {
-                name: type
-              }
-            }
-            ... on Switch {
-              description
-              operational_state {
-                name
-                value
-              }
-              entityType: node_type {
-                name: type
-              }
-            }
-            ... on Firewall {
-              description
-              operational_state {
-                name
-                value
-              }
-              entityType: node_type {
-                name: type
-              }
-            }
-          }
-          connected_to {
-            id
-            name
-            relation_id
-            ... on Cable {
-              type: cable_type {
-                value
-                name
-              }
-              description
-            }
-          }
+          ...PortUpdateForm_port
         }
       }
       subupdated {
@@ -113,41 +45,9 @@ const mutation = graphql`
   }
 `;
 
-function formatterParentsByType(parents, parentType) {
-  return generateSubInputs(
-    parents.filter((el) => el['__typename'] === parentType),
-    `${parentType.toLowerCase()}_type`,
-  );
-}
-
-function formatterParentsByTypeWithOperationState(parents, parentType) {
-  const subInpunts = generateSubInputs(
-    parents.filter((el) => el['__typename'] === parentType),
-    null,
-    'operational_state',
-  );
-  return {
-    toUpdate: subInpunts.toUpdate.map((entity) => ({ ...entity, operational_state: entity.operational_state.value })),
-    toUnlink: subInpunts.toUnlink,
-    toDelete: subInpunts.toDelete,
-  };
-}
-
-function formatterParentsByTypeWithoutSpecificFields(parents, parentType) {
-  return generateSubInputs(
-    parents.filter((el) => el['__typename'] === parentType),
-    null,
-    null,
-  );
-}
-
 export default function UpdatePortMutation(port, form) {
-  const cableParents = formatterParentsByType(port.parents, 'Cable');
-  const portParents = formatterParentsByType(port.parents, 'Port');
-  const firewallParents = formatterParentsByTypeWithOperationState(port.parents, 'Firewall');
-  const switchesParents = formatterParentsByTypeWithOperationState(port.parents, 'Switch');
-  const externalEquipmentParents = formatterParentsByTypeWithoutSpecificFields(port.parents, 'ExternalEquipment');
   const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
+  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parents);
   const variables = {
     input: {
       update_input: {
@@ -156,28 +56,11 @@ export default function UpdatePortMutation(port, form) {
         description: port.description,
         port_type: port.port_type,
       },
-      update_parent_port: portParents.toUpdate,
-      update_parent_cable: cableParents.toUpdate,
-      update_parent_firewall: firewallParents.toUpdate,
-      update_parent_externalequipment: externalEquipmentParents.toUpdate,
-      update_parent_switch: switchesParents.toUpdate,
-      deleted_parent_port: portParents.toDelete,
-      deleted_parent_cable: cableParents.toDelete,
-      deleted_parent_firewall: firewallParents.toDelete,
-      deleted_parent_externalequipment: externalEquipmentParents.toDelete,
-      deleted_parent_switch: switchesParents.toDelete,
-
+      ...parentsFormatted.toUpdateObject,
+      ...parentsFormatted.toDeleteObject,
       update_subinputs: connectedTo.toUpdate,
-      unlink_subinputs: [
-        ...connectedTo.toUnlink,
-        ...cableParents.toUnlink,
-        ...portParents.toUnlink,
-        ...cableParents.toUnlink,
-        ...firewallParents.toUnlink,
-        ...externalEquipmentParents.toUnlink,
-        ...switchesParents.toUnlink,
-      ],
-      delete_subinputs: [],
+      unlink_subinputs: [...connectedTo.toUnlink, ...parentsFormatted.toUnlinkList],
+      delete_subinputs: [...connectedTo.toDelete],
     },
   };
 
