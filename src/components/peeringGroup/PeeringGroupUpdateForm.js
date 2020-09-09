@@ -16,9 +16,12 @@ class PeeringGroupUpdateForm extends _PeeringGroupFormParentClass {
   FORM_ID = UPDATE_PEERINGGROUP_FORM;
   MODEL_NAME = 'peeringGroup';
   ROUTE_LIST_DIRECTION = '/network/peeringGroups';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { peeringGroupId: this.props.peeringGroup.id }, // Our refetchQuery needs to know the `peeringGroupID`

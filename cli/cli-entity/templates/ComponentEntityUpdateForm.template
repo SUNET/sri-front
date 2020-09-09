@@ -16,9 +16,12 @@ class __EntityClassName__UpdateForm extends ___EntityClassName__FormParentClass 
   FORM_ID = UPDATE___CONST_NAME___FORM;
   MODEL_NAME = '__entityName__';
   ROUTE_LIST_DIRECTION = '/__entityBlock__/__entityInternalRoutePath__s';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { __entityName__Id: this.props.__entityName__.id }, // Our refetchQuery needs to know the `__entityName__ID`

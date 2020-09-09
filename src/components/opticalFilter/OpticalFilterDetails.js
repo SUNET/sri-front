@@ -12,7 +12,15 @@ class OpticalFilterDetails extends _BasicDetailsParentClass {
   classDetails = 'opticalFilter-details';
 
   handleDelete = () => {
-    DeleteOpticalFilterMutation(this.getId(), () => this.props.history.push('/network/optical-filters'));
+    const { history, isFromModal, deletedEntity } = this.props;
+    const idEntity = this.getId();
+    const callbackAfterDeleteInModal = () => {
+      deletedEntity(idEntity);
+    };
+    const callbackInRouteForm = () => {
+      history.push(`/network/optical-filters`);
+    };
+    DeleteOpticalFilterMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 }
 

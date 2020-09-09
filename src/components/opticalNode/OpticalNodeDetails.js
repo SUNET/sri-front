@@ -12,7 +12,15 @@ class OpticalNodeDetails extends _BasicDetailsParentClass {
   classDetails = 'opticalNode-details';
 
   handleDelete = () => {
-    DeleteOpticalNodeMutation(this.getId(), () => this.props.history.push(`/network/opticalNodes`));
+    const { history, isFromModal, deletedEntity } = this.props;
+    const idEntity = this.getId();
+    const callbackAfterDeleteInModal = () => {
+      deletedEntity(idEntity);
+    };
+    const callbackInRouteForm = () => {
+      history.push(`/network/opticalNodes`);
+    };
+    DeleteOpticalNodeMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 }
 

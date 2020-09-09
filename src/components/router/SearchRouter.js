@@ -15,7 +15,7 @@ import RouterDetailsContainer from '../../containers/router/RouterDetails';
 
 class SearchRouter extends _SearchEntityParentClass {
   LIST_CONTAINER = RouterList;
-  CREATE_COMPONENT = undefined;
+  CREATE_COMPONENT = null;
   DETAIL_CONTAINER = RouterDetailsContainer;
 
   MODEL_NAME = 'router';

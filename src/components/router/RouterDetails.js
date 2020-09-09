@@ -12,7 +12,15 @@ class RouterDetails extends _BasicDetailsParentClass {
   classDetails = 'router-details';
 
   handleDelete = () => {
-    DeleteRouterMutation(this.getId(), () => this.props.history.push(`/network/routers`));
+    const { history, isFromModal, deletedEntity } = this.props;
+    const idEntity = this.getId();
+    const callbackAfterDeleteInModal = () => {
+      deletedEntity(idEntity);
+    };
+    const callbackInRouteForm = () => {
+      history.push(`/network/routers`);
+    };
+    DeleteRouterMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 }
 

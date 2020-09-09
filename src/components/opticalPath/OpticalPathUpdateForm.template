@@ -16,9 +16,12 @@ class OpticalPathUpdateForm extends _OpticalPathFormParentClass {
   FORM_ID = UPDATE_OPTICALPATH_FORM;
   MODEL_NAME = 'opticalPath';
   ROUTE_LIST_DIRECTION = '/network/optical-paths';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { opticalPathId: this.props.opticalPath.id }, // Our refetchQuery needs to know the `opticalPathID`

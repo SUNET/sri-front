@@ -16,9 +16,12 @@ class OpticalFilterUpdateForm extends _OpticalFilterFormParentClass {
   FORM_ID = UPDATE_OPTICALFILTER_FORM;
   MODEL_NAME = 'opticalFilter';
   ROUTE_LIST_DIRECTION = '/network/optical-filters';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { opticalFilterId: this.props.opticalFilter.id }, // Our refetchQuery needs to know the `opticalFilterID`
@@ -34,15 +37,17 @@ class OpticalFilterUpdateForm extends _OpticalFilterFormParentClass {
     UpdateOpticalFilterMutation(opticalFilter, this);
   };
   render() {
-    let { handleSubmit } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
-        {this.renderSaveCancelButtons()}
+        {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
   }

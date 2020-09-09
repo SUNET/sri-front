@@ -22,6 +22,14 @@ import CreateSwitchFormContainer from '../containers/switch/CreateSwitchForm';
 import SwitchDetailsContainer from '../containers/switch/SwitchDetails';
 import CreateExternalEquipmentFormContainer from '../containers/externalEquipment/CreateExternalEquipmentForm';
 import ExternalEquipmentDetailsContainer from '../containers/externalEquipment/ExternalEquipmentDetails';
+// import CreateRouterFormContainer from '../containers/router/CreateRouterForm';
+import RouterDetailsContainer from '../containers/router/RouterDetails';
+import CreateODFFormContainer from '../containers/ODF/CreateODFForm';
+import ODFDetailsContainer from '../containers/ODF/ODFDetails';
+import CreateOpticalFilterFormContainer from '../containers/opticalFilter/CreateOpticalFilterForm';
+import OpticalFilterDetailsContainer from '../containers/opticalFilter/OpticalFilterDetails';
+import CreateOpticalNodeFormContainer from '../containers/opticalNode/CreateOpticalNodeForm';
+import OpticalNodeDetailsContainer from '../containers/opticalNode/OpticalNodeDetails';
 
 import {
   CREATE_CONTACT_FORM,
@@ -44,6 +52,14 @@ import {
   CREATE_SWITCH_FORM,
   UPDATE_EXTERNALEQUIPMENT_FORM,
   CREATE_EXTERNALEQUIPMENT_FORM,
+  UPDATE_ROUTER_FORM,
+  CREATE_ROUTER_FORM,
+  UPDATE_ODF_FORM,
+  CREATE_ODF_FORM,
+  UPDATE_OPTICALFILTER_FORM,
+  CREATE_OPTICALFILTER_FORM,
+  UPDATE_OPTICALNODE_FORM,
+  CREATE_OPTICALNODE_FORM,
 } from '../utils/constants';
 import '../style/ModalNewContact.scss';
 
@@ -132,10 +148,40 @@ class ModalNewContact extends React.Component {
       case 'externalEquipments':
         entityData = {
           ComponentToRender: isUpdateForm ? ExternalEquipmentDetailsContainer : CreateExternalEquipmentFormContainer,
-          textHeader: isUpdateForm
-            ? 'entity-modify/externalEquipments'
-            : 'entity-add-new/external-equipments',
+          textHeader: isUpdateForm ? 'entity-modify/external-equipments' : 'entity-add-new/external-equipments',
           formId: isUpdateForm ? UPDATE_EXTERNALEQUIPMENT_FORM : CREATE_EXTERNALEQUIPMENT_FORM,
+        };
+        break;
+      case 'odfs':
+      case 'ODF':
+        entityData = {
+          ComponentToRender: isUpdateForm ? ODFDetailsContainer : CreateODFFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/odfs' : 'entity-add-new/odfs',
+          formId: isUpdateForm ? UPDATE_ODF_FORM : CREATE_ODF_FORM,
+        };
+        break;
+      case 'routers':
+      case 'Router':
+        entityData = {
+          ComponentToRender: isUpdateForm ? RouterDetailsContainer : null,
+          textHeader: isUpdateForm ? 'entity-modify/routers' : 'entity-add-new/routers',
+          formId: isUpdateForm ? UPDATE_ROUTER_FORM : CREATE_ROUTER_FORM,
+        };
+        break;
+      case 'opticalNodes':
+      case 'OpticalNode':
+        entityData = {
+          ComponentToRender: isUpdateForm ? OpticalNodeDetailsContainer : CreateOpticalNodeFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/optical-nodes' : 'entity-add-new/optical-nodes',
+          formId: isUpdateForm ? UPDATE_OPTICALNODE_FORM : CREATE_OPTICALNODE_FORM,
+        };
+        break;
+      case 'opticalFilters':
+      case 'OpticalFilter':
+        entityData = {
+          ComponentToRender: isUpdateForm ? OpticalFilterDetailsContainer : CreateOpticalFilterFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/optical-filters' : 'entity-add-new/optical-filters',
+          formId: isUpdateForm ? UPDATE_OPTICALFILTER_FORM : CREATE_OPTICALFILTER_FORM,
         };
         break;
       default:
@@ -171,9 +217,7 @@ class ModalNewContact extends React.Component {
               )}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            {ComponentToRender && <ComponentToRender isFromModal t={t} />}
-          </Modal.Body>
+          <Modal.Body>{ComponentToRender && <ComponentToRender isFromModal t={t} />}</Modal.Body>
         </Modal>
       </div>
     );

@@ -16,9 +16,12 @@ class PeeringPartnerUpdateForm extends _PeeringPartnerFormParentClass {
   FORM_ID = UPDATE_PEERINGPARTNER_FORM;
   MODEL_NAME = 'peeringPartner';
   ROUTE_LIST_DIRECTION = '/network/peeringPartners';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { peeringPartnerId: this.props.peeringPartner.id }, // Our refetchQuery needs to know the `peeringPartnerID`

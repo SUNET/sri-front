@@ -6,6 +6,8 @@ import __EntityClassName__Details from '../../components/__entityName__/__Entity
 
 const mapStateToProps = (state, props) => {
   return {
+    idFromModal: state.formModal.entityId,
+    history: props.history,
     isDeleteConfirmed: state.confirmModal.confirmDelete,
     confirmModalType: state.confirmModal.type,
   };

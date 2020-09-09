@@ -16,9 +16,12 @@ class OpticalMultiplexSectionUpdateForm extends _OpticalMultiplexSectionFormPare
   FORM_ID = UPDATE_OPTICALMULTIPLEXSECTION_FORM;
   MODEL_NAME = 'opticalMultiplexSection';
   ROUTE_LIST_DIRECTION = '/network/optical-multiplex-sections';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { opticalMultiplexSectionId: this.props.opticalMultiplexSection.id }, // Our refetchQuery needs to know the `opticalMultiplexSectionID`

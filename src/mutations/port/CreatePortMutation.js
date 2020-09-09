@@ -6,6 +6,7 @@ import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
 import { generateSubInputs } from '../MutationsUtils';
+import formatAndMergeAllPortsParentsEntities from './PortFormatter';
 
 const mutation = graphql`
   mutation CreatePortMutation($input: CompositePortMutationInput!) {
@@ -92,15 +93,9 @@ const mutation = graphql`
   }
 `;
 
-function formatterParentsByType(parents = [], parentType) {
-  const parentsFiltered = parents.filter((el) => el['__typename'] === parentType);
-  return generateSubInputs(parentsFiltered, `${parentType.toLowerCase()}_type`);
-}
-
 function CreatePortMutation(port, form) {
-  const cableParents = formatterParentsByType(port.parents, 'Cable');
-  const portParents = formatterParentsByType(port.parents, 'Port');
   const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
+  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parents);
 
   const variables = {
     input: {
@@ -109,11 +104,11 @@ function CreatePortMutation(port, form) {
         description: port.description,
         port_type: port.port_type,
       },
+      ...parentsFormatted.toUpdateObject,
+      ...parentsFormatted.toDeleteObject,
       update_subinputs: connectedTo.toUpdate,
-      update_parent_port: portParents.toUpdate,
-      update_parent_cable: cableParents.toUpdate,
-      unlink_subinputs: [...connectedTo.toUnlink, ...cableParents.toUnlink, ...portParents.toUnlink],
-      // delete_subinputs: [],
+      unlink_subinputs: [...connectedTo.toUnlink, ...parentsFormatted.toUnlinkList],
+      delete_subinputs: [...connectedTo.toDelete],
     },
   };
   commitMutation(environment, {

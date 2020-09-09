@@ -16,9 +16,12 @@ class RouterUpdateForm extends _RouterFormParentClass {
   FORM_ID = UPDATE_ROUTER_FORM;
   MODEL_NAME = 'router';
   ROUTE_LIST_DIRECTION = '/network/routers';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { routerId: this.props.router.id }, // Our refetchQuery needs to know the `routerID`
@@ -34,16 +37,18 @@ class RouterUpdateForm extends _RouterFormParentClass {
     UpdateRouterMutation(router, this);
   };
   render() {
-    let { handleSubmit } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     const nameIsEditable = false;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(nameIsEditable, showBackButton)}
         {this.renderSections(editMode)}
-        {this.renderSaveCancelButtons()}
+        {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
   }

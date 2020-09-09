@@ -12,7 +12,15 @@ class ODFDetails extends _BasicDetailsParentClass {
   classDetails = 'ODF-details';
 
   handleDelete = () => {
-    DeleteODFMutation(this.getId(), () => this.props.history.push(`/network/odfs`));
+    const { history, isFromModal, deletedEntity } = this.props;
+    const idEntity = this.getId();
+    const callbackAfterDeleteInModal = () => {
+      deletedEntity(idEntity);
+    };
+    const callbackInRouteForm = () => {
+      history.push(`/network/odfs`);
+    };
+    DeleteODFMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
 }
 
