@@ -43,18 +43,21 @@ const STRUCTURE_BY_FIELD_TYPE = {
 
 const adaptQueries = async (schemaName = 'common') => {
   CONFIG_QUERIES.forEach(async (entityFields) => {
-    entityFields.files.forEach(async (file) => {
-      await copyFileAsync(`${__dirname}/../../${file}.template`, `${__dirname}/../../${file}.js`);
-    });
+    await Promise.all(
+      entityFields.files.map(async (file) => {
+        await copyFileAsync(`${__dirname}/../../${file}.template`, `${__dirname}/../../${file}.js`);
+      }),
+    );
 
     const options = {
       files: entityFields.files.map((file) => `${file}.js`),
       from: entityFields.reference,
       to: mountStringToInsert(entityFields.queries[schemaName].fields),
     };
+
     try {
-      const results = await replace(options);
-      // console.log('Replacement results:', results);
+      await replace(options);
+      console.log(`${entityFields.entity} Adapt Query Done!`);
     } catch (error) {
       console.error('Error occurred:', error);
     }
