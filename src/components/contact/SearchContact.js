@@ -49,6 +49,7 @@ class Search extends React.Component {
         this.state = {
             itemsPerPage: ITEMS_PER_PAGE,
             countList: ITEMS_PER_PAGE,
+            filterValueText: '',
             filterValue: {},
             filterColumnValue: {},
             filterColumnValueCallBack: [],
@@ -106,6 +107,7 @@ class Search extends React.Component {
     // these filters cannot be generalized by backend implementation
     handleOnChangeFilter = (filterValue) => {
         this.setState({
+            filterValueText: filterValue,
             filterValue: [
                 { name_contains: filterValue },
                 // { DE00-004: the text filter with this field does not work
@@ -211,7 +213,7 @@ class Search extends React.Component {
                             ...this.state.orderBy,
                             filter: this.getFilters(),
                         }}
-                        errorMessage={this.props.t('general.error')}
+                        errorMessage={this.props.t('general/error')}
                         mainClass=""
                         componentToRender={{
                             Component: ContactListContainer,
@@ -239,6 +241,7 @@ class Search extends React.Component {
     renderFilterBox() {
         return (
             <FilterRowsBlock
+                initialTextValue={this.state.filterValueText}
                 handleOnChangeFilter={this.handleOnChangeFilter}
                 handleOnChangeOrderBy={this.handleOnChangeOrderBy}
                 filterDateType={this.state.filterDateType}

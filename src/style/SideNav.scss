@@ -47,10 +47,14 @@
                     background-color: rgba(#fff, 0.1);
                     color: #fff;
                     margin-bottom: 0;
+                    svg {
+                        opacity: 0.5;
+                    }
                 }
 
                 &.with-arrow {
                     display: flex;
+                    align-items: center;
                     &[aria-expanded="true"]::after,
                     &[aria-selected="true"]::after {
                         margin-left: 0.75em;

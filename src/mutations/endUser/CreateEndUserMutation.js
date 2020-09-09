@@ -35,15 +35,20 @@ function CreateEndUserMutation(endUser, form) {
         variables,
         onCompleted: (response, errors) => {
             if (response.create_endUser.errors) {
-                form.props.notify(i18n.t("notify.error"), "error");
-                return response.create_endUser.updated.errors;
+                form.props.notify(i18n.t("notify/generic-error"), "error");
+                return response.create_endUser.errors;
             } else {
                 const endUser_id = response.create_endUser.endUser.id;
                 if (endUser.comment) {
                     CreateCommentMutation(endUser_id, endUser.comment);
                 }
-                form.props.history.push("/network/end-users/" + endUser_id);
-                form.props.notify(i18n.t("notify.network/endUsers-created-success"), "success");
+                if (form.props.history) {
+                    form.props.history.push("/network/end-users/" + endUser_id);
+                } else {
+                    form.props.createdEntity('EndUser', endUser_id);
+                    form.props.hideModalForm();
+                }
+                form.props.notify(i18n.t("entity-notify-create/end-users"), "success");
             }
         },
         onError: (errors) => console.error(errors),

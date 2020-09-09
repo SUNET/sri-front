@@ -17,6 +17,30 @@ export const CREATE_CABLE_FORM = 'create-cable-form';
 export const UPDATE_CABLE_FORM = 'update-cable-form';
 export const CREATE_PORT_FORM = 'create-port-form';
 export const UPDATE_PORT_FORM = 'update-port-form';
+export const CREATE_SWITCH_FORM = 'create-switch-form';
+export const UPDATE_SWITCH_FORM = 'update-switch-form';
+export const CREATE_FIREWALL_FORM = 'create-firewall-form';
+export const UPDATE_FIREWALL_FORM = 'update-firewall-form';
+export const CREATE_ROUTER_FORM = 'create-router-form';
+export const UPDATE_ROUTER_FORM = 'update-router-form';
+export const CREATE_EXTERNALEQUIPMENT_FORM = 'create-external-equipment-form';
+export const UPDATE_EXTERNALEQUIPMENT_FORM = 'update-external-equipment-form';
+export const CREATE_HOST_FORM = 'create-host-form';
+export const UPDATE_HOST_FORM = 'update-host-form';
+export const UPDATE_PEERINGPARTNER_FORM = 'update-peering-partner-form';
+export const UPDATE_PEERINGGROUP_FORM = 'update-peering-group-form';
+export const CREATE_OPTICALNODE_FORM = 'create-optical-node-form';
+export const UPDATE_OPTICALNODE_FORM = 'update-optical-node-form';
+export const CREATE_ODF_FORM = 'create-odf-form';
+export const UPDATE_ODF_FORM = 'update-odf-form';
+export const CREATE_OPTICALLINK_FORM = 'create-optical-link-form';
+export const UPDATE_OPTICALLINK_FORM = 'update-optical-link-form';
+export const CREATE_OPTICALMULTIPLEXSECTION_FORM = 'create-optical-multiple-section-form';
+export const UPDATE_OPTICALMULTIPLEXSECTION_FORM = 'update-optical-multiple-section-form';
+export const CREATE_OPTICALPATH_FORM = 'create-optical-path-form';
+export const UPDATE_OPTICALPATH_FORM = 'update-optical-path-form';
+export const CREATE_OPTICALFILTER_FORM = 'create-optical-filter-form';
+export const UPDATE_OPTICALFILTER_FORM = 'update-optical-filter-form';
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';
@@ -24,6 +48,8 @@ export const COMMUNITY_CONTACTS = 'contacts';
 // Network Tabs
 export const NETWORK_ORGANIZATIONS = 'network-organizations';
 export const NETWORK_EQUIPMENT = 'network-equipment';
+export const NETWORK_PEERING = 'network-peering';
+export const NETWORK_OPTICAL = 'network-optical';
 // Contact data TYPE
 export const CONTACT_PERSONAL = 'personal';
 export const CONTACT_WORK = 'work';
@@ -32,6 +58,8 @@ export const CONTACT_WORK = 'work';
 export const UNLINK = 'unlink';
 export const REMOVE = 'remove';
 export const SAVED = 'saved';
+export const CREATE = 'created';
+export const CHANGED = 'changed';
 
 // TIMES WAIT
 export const MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE = 250;

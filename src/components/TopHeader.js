@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../style/TopHeader.scss';
 
+import profileImage from '../static/img/profile.png';
+
 export class TopHeader extends React.Component {
   state = {
     isMenuOpen: false,
@@ -137,12 +139,7 @@ export class TopHeader extends React.Component {
     return (
       <Nav.Item className="top-header__user-block__profile px-0">
         <Link to="/personal-area/profile-settings">
-          <Image
-            src={require('../static/img/profile.png')}
-            roundedCircle
-            img-fluid="true"
-            onClick={() => this.closeMenu()}
-          />
+          <Image src={profileImage} roundedCircle img-fluid="true" onClick={() => this.closeMenu()} />
         </Link>
       </Nav.Item>
     );
@@ -165,12 +162,12 @@ export class TopHeader extends React.Component {
         header: t('header.main-menu.community'),
         subOptions: [
           {
-            name: t(`community.sub-menu.organizations`),
+            name: t(`main-entity-name/organizations`),
             route: '/community/organizations',
             iconClass: 'icon-organization',
           },
-          { name: t(`community.sub-menu.contacts`), route: '/community/contacts', iconClass: 'icon-contact' },
-          { name: t(`community.sub-menu.groups`), route: '/community/groups', iconClass: 'icon-groups' },
+          { name: t(`main-entity-name/contacts`), route: '/community/contacts', iconClass: 'icon-contact' },
+          { name: t(`main-entity-name/groups`), route: '/community/groups', iconClass: 'icon-groups' },
         ],
       },
       {
@@ -181,10 +178,10 @@ export class TopHeader extends React.Component {
             route: '/network/customers',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('network.sub-menu.organizations/customers'), route: '/network/customers' },
-              { name: t('network.sub-menu.organizations/end-users'), route: '/network/end-users' },
-              { name: t('network.sub-menu.organizations/providers'), route: '/network/providers' },
-              { name: t('network.sub-menu.organizations/site-owners'), route: '/network/site-owners' },
+              { name: t('main-entity-name/customers'), route: '/network/customers' },
+              { name: t('main-entity-name/end-users'), route: '/network/end-users' },
+              { name: t('main-entity-name/providers'), route: '/network/providers' },
+              { name: t('main-entity-name/site-owners'), route: '/network/site-owners' },
             ],
           },
           {
@@ -192,15 +189,35 @@ export class TopHeader extends React.Component {
             route: '/network/cables',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('network.sub-menu.equipment/cables'), route: '/network/cables' },
-              { name: t('network.sub-menu.equipment/ports'), route: '/network/ports' },
-              // { name: "Hosts", route: "/network/customers" },
-              // { name: "Firewalls", route: "/network/customers" },
-              // { name: "Routers", route: "/network/customers" },
-              // { name: "Switches", route: "/network/customers" },
-              // { name: "External equipment", route: "/network/customers" },
-              // { name: "Optical nodes", route: "/network/customers" },
-              // { name: "ODFs", route: "/network/customers" }
+              { name: t('main-entity-name/ports'), route: '/network/ports' },
+              { name: t('main-entity-name/cables'), route: '/network/cables' },
+              { name: t('main-entity-name/hosts'), route: '/network/hosts' },
+              { name: t('main-entity-name/firewalls'), route: '/network/firewalls' },
+              { name: t('main-entity-name/routers'), route: '/network/routers' },
+              { name: t('main-entity-name/switches'), route: '/network/switches' },
+              { name: t('main-entity-name/external-equipment'), route: '/network/external-equipments' },
+              { name: t('main-entity-name/optical-nodes'), route: '/network/optical-nodes' },
+              { name: t('main-entity-name/odfs'), route: '/network/odfs' },
+            ],
+          },
+          {
+            name: 'Optical layers',
+            route: '/network/optical-nodes',
+            iconClass: 'icon-organization',
+            subSubOptions: [
+              { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
+              { name: t('main-entity-name/optical-links'), route: 'optical-links' },
+              { name: t('main-entity-name/optical-multiplex-sections'), route: 'optical-multiplex-sections' },
+              { name: t('main-entity-name/optical-paths'), route: 'optical-paths' },
+            ],
+          },
+          {
+            name: 'Peering',
+            route: '/network/peering-partners',
+            iconClass: 'icon-organization',
+            subSubOptions: [
+              { name: t('main-entity-name/peering-groups'), route: '/network/peering-groups' },
+              { name: t('main-entity-name/peering-partners'), route: '/network/peering-partners' },
             ],
           },
         ],
@@ -234,7 +251,7 @@ export class TopHeader extends React.Component {
         right
         disableAutoFocus
         disableOverlayClick={() => this.closeMenu()}
-        customCrossIcon={<div className="row-remove-cta"></div>}
+        customCrossIcon={<div className="row-cross-remove-cta"></div>}
         isOpen={this.state.isMenuOpen}
         onStateChange={(newState) => {
           this.setState({ isMenuOpen: newState.isOpen });

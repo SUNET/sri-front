@@ -29,8 +29,8 @@ class DashBoardGeneralSearchList extends _DashBoardListParentClass {
       <Table responsive={isMobile} className="model-list" borderless>
         <thead>
           <tr>
-            <th>{t('organization-details.type')}</th>
-            <th>{t('contact-details.name')}</th>
+            <th>{t('general-forms/type')}</th>
+            <th>{t('general-forms/name')}</th>
             <th>{t('search-filter.match')}</th>
           </tr>
         </thead>

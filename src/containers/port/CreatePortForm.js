@@ -6,6 +6,13 @@ import * as formModalActions from '../../actions/FormModal';
 import CreatePortForm from '../../components/port/CreatePortForm';
 import getCable from '../../components/cable/Cable';
 import getPort from '../../components/port/Port';
+import getSwitch from '../../components/switch/Switch';
+import getFirewall from '../../components/firewall/Firewall';
+import getExternalEquipment from '../../components/externalEquipment/ExternalEquipment';
+import getOpticalFilter from '../../components/opticalFilter/OpticalFilter';
+import getRouter from '../../components/router/Router';
+import getOpticalNode from '../../components/opticalNode/OpticalNode';
+import getODF from '../../components/ODF/ODF';
 
 const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'createPortInModal' : 'createPort';
@@ -17,6 +24,13 @@ const mapStateToProps = (state, props) => {
     name: updatePortSelector(state, 'name'),
     getCableById: (id) => getCable(id),
     getPortById: (id) => getPort(id),
+    getSwitchById: (id) => getSwitch(id),
+    getFirewallById: (id) => getFirewall(id),
+    getExternalEquipmentById: (id) => getExternalEquipment(id),
+    getOpticalFilterById: (id) => getOpticalFilter(id),
+    getRouterById: (id) => getRouter(id),
+    getOpticalNodeById: (id) => getOpticalNode(id),
+    getODFById: (id) => getODF(id),
     isFromModal: props.isFromModal,
     entityInModalName: state.formModal.entityName,
     editedSubEntity: state.formModal.entityEditedId,
@@ -33,8 +47,11 @@ const mapDispatchToProps = (dispatch, props) => {
     showModalCreateForm: (entityName) => {
       dispatch(formModalActions.showModalCreateForm(entityName));
     },
-    showModalUpdateForm: (entityName, entityId) => {
-      dispatch(formModalActions.showModalUpdateForm(entityName, entityId));
+    showModalDetailForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalDetailForm(entityName, entityId));
+    },
+    showModalEditForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalEditForm(entityName, entityId));
     },
     hideModalForm: () => {
       dispatch(formModalActions.hideModalForm());

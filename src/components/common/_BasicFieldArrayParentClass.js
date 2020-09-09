@@ -1,9 +1,10 @@
 import React from 'react';
 import { change } from 'redux-form';
 import CopyToClipboard from '../CopyToClipboard';
-import { Modal } from 'react-bootstrap';
+import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { isBrowser, isMobile } from 'react-device-detect';
-import { UNLINK, SAVED } from '../../utils/constants';
+import { UNLINK, SAVED, REMOVE, CREATE } from '../../utils/constants';
+import ReactSVG from 'react-svg';
 
 import DropdownSearch from '../DropdownSearch';
 import Dropdown from '../Dropdown';
@@ -68,19 +69,6 @@ class _BasicFieldArrayParentClass extends React.Component {
       index: valueIndex,
     };
   }
-  // methods validation
-  // validateMember = (index) => {
-  //     const errors = this.props.errors;
-  //     const values = this.props.fields.getAll();
-  //     const hasBlankFields =
-  //         values[index].name === "" ||
-  //         values[index].name === undefined ||
-  //         values[index].email === "" ||
-  //         values[index].email === undefined ||
-  //         values[index].phone === "" ||
-  //         values[index].phone === undefined;
-  //     return (errors && errors[index] === undefined) || (errors === undefined && !hasBlankFields);
-  // };
 
   // methods rows
   newResultInSearch = (selection) => {
@@ -104,14 +92,29 @@ class _BasicFieldArrayParentClass extends React.Component {
 
   removeRow(id) {
     const currentValue = this.getValueById(id);
+    const newStatus = currentValue.data.status === REMOVE ? SAVED : REMOVE;
+    this.hideDataModal();
+    this.props.dispatch(
+      change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, newStatus),
+    );
+  }
+
+  unlinkRow(id) {
+    const currentValue = this.getValueById(id);
+    const newStatus = currentValue.data.status === UNLINK ? SAVED : UNLINK;
     this.hideDataModal();
     if (currentValue.data.origin === 'store') {
       this.props.dispatch(
-        change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, UNLINK),
+        change(this.props.meta.form, `${this.FIELD_NAME_IN_FORM}[${currentValue.index}].status`, newStatus),
       );
     } else {
       this.props.fields.remove(currentValue.index);
     }
+  }
+
+  openEditRow(id) {
+    const dataValue = this.getValueById(id);
+    this.props.showRowEditModal(dataValue.data.__typename, dataValue.data.id);
   }
 
   generateSubDataList = (field, keyName, secondaryKeyName) => {
@@ -163,7 +166,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     }
   }
   isDisabledFilters() {
-    return this.props.disabledFilters || this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false;
+    return this.props.disabledFilters || (this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false);
   }
 
   // common Renders
@@ -230,52 +233,53 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
-  renderMoreInfoButton(id) {
-    const { t } = this.props;
-    return (
-      <button type="button" className="btn outline btn-add more-info" onClick={() => this.showDataModal(id)}>
-        <span>{t('actions.info')}</span>
-      </button>
-    );
-  }
-
-  renderEditButton(row) {
+  renderMoreInfoButton(row) {
     // at the moment it will only show the details
     const { t } = this.props;
     return (
-      <button
-        type="button"
-        className="btn outline btn-add more-info"
-        onClick={() => this.props.showRowEditModal(row.__typename, row.id)}
-      >
-        <span>{t('actions.info')}</span>
-      </button>
-      // <button
-      //   type="button"
-      //   onClick={() => {
-      //     this.props.showRowEditModal(row.__typename, row.id);
-      //   }}
-      //   className="btn outline btn-edit"
-      // >
-      //   <i className="icon-pencil"></i>
-      //   <span>{t('actions.edit')}</span>
-      // </button>
+      <div className="contact-in-organization__body__buttons-in-the-final-row">
+        <button
+          type="button"
+          className="btn outline btn-add more-info"
+          onClick={() => this.props.showRowDetailModal(row.__typename, row.id)}
+        >
+          <span>{t('actions/info')}</span>
+        </button>
+      </div>
     );
   }
 
-  renderRemoveCtaCrossAndEditButton(row, editable) {
+  renderButtonsBox(id, willHaveModalsButtons) {
+    const { t } = this.props;
+    const rowDetails = this.getValueById(id);
     return (
-      <div
-        className={`contact-in-organization__body__buttons-in-the-final-row ${
-          isBrowser ? 'contact-in-organization__body__buttons-in-the-final-row--desktop-version' : ''
-        }`}
-      >
-        {isBrowser && this.renderEditButton(row)}
-        {editable && (
+      <div className={`contact-in-organization__body__buttons-in-the-final-row`}>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-unlink">{t('actions/unlink')}</Tooltip>}>
           <div
-            className={`row-remove-cta ${isBrowser ? 'row-remove-cta--desktop-version' : ''}`}
-            onClick={() => this.removeRow(row.id)}
-          ></div>
+            className={`row-cta unlink ${rowDetails.data.status === UNLINK ? 'active' : ''}`}
+            onClick={() => this.unlinkRow(id)}
+          >
+            <ReactSVG src={require(`../../static/img/unlink.svg`)} wrapper="span" />
+          </div>
+        </OverlayTrigger>
+
+        {rowDetails.data.status !== CREATE && willHaveModalsButtons && (
+          <OverlayTrigger overlay={<Tooltip id="tooltip-openEdit">{t('actions/open_edition')}</Tooltip>}>
+            <div className={`row-cta edit`} onClick={() => this.openEditRow(id)}>
+              <ReactSVG src={require(`../../static/img/grey-pencil-icon.svg`)} wrapper="span" />
+            </div>
+          </OverlayTrigger>
+        )}
+
+        {rowDetails.data.status !== CREATE && willHaveModalsButtons && (
+          <OverlayTrigger overlay={<Tooltip id="tooltip-remove">{t('actions/move_to_trash')}</Tooltip>}>
+            <div
+              className={`row-cta remove ${rowDetails.data.status === REMOVE ? 'active' : ''}`}
+              onClick={() => this.removeRow(id)}
+            >
+              <ReactSVG src={require(`../../static/img/trash.svg`)} wrapper="span" />
+            </div>
+          </OverlayTrigger>
         )}
       </div>
     );
@@ -346,34 +350,33 @@ class _BasicFieldArrayParentClass extends React.Component {
     return (
       <div className="contact-in-organization__body">
         {values &&
-          values
-            .filter((row) => row.status === SAVED)
-            .map((row, index) => {
-              return (
-                <div key={index} className={`contact-in-organization__body__row`}>
-                  {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                  {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                  {isMobile && (
-                    <div className="contact-in-organization__body__row__element info-button">
-                      {editable && this.renderEditButton(row.id)}
-                      {!editable && this.renderMoreInfoButton(row.id)}
-                    </div>
-                  )}
-                  {this.renderRemoveCtaCrossAndEditButton(row, editable)}
-                </div>
-              );
-            })}
+          values.map((row, index) => {
+            const willHaveModalsButtons = this.ENTITIES_WITHOUT_MODAL
+              ? !this.ENTITIES_WITHOUT_MODAL.some((e) => e === row['__typename'])
+              : true;
+            return (
+              <div
+                key={index}
+                className={`contact-in-organization__body__row ${
+                  row.status !== SAVED ? 'contact-in-organization__body__row--disabled' : ''
+                }`}
+              >
+                {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
+                {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
+                {editable && this.renderButtonsBox(row.id, willHaveModalsButtons)}
+                {!editable && row.status === SAVED && willHaveModalsButtons && this.renderMoreInfoButton(row)}
+              </div>
+            );
+          })}
       </div>
     );
   }
 
   renderFieldRow(row, fieldName) {
     const nestedFieldName = fieldName.split('.');
-    let text;
-    if (nestedFieldName.length > 1) {
+    let text = row[nestedFieldName[0]];
+    if (text && nestedFieldName.length > 1) {
       text = row[nestedFieldName[0]][nestedFieldName[1]];
-    } else {
-      text = row[nestedFieldName[0]];
     }
     return (
       <div key={Math.random()} className="contact-in-organization__body__row__element">
@@ -430,14 +433,14 @@ class _BasicFieldArrayParentClass extends React.Component {
         {editable && (
           <>
             {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
-            {this.renderDropDownSearch()}
+            {(this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) && this.renderDropDownSearch()}
             <button
               type="button"
               className="contact-in-organization__footer__add btn btn-add outline"
               disabled={this.isDisabledFilters()}
               onClick={(e) => this.showCreateForm()}
             >
-              {t('actions.add-new')}
+              {t('actions/add-new')}
             </button>
           </>
         )}
@@ -452,7 +455,7 @@ class _BasicFieldArrayParentClass extends React.Component {
       <div className="contact-in-organization">
         {this.renderHeader()}
         {this.renderBody()}
-        {this.renderFooter()}
+        {this.PRE_FILTER_SELECT && this.renderFooter()}
         {this.state.showModal && this.renderModal()}
       </div>
     );

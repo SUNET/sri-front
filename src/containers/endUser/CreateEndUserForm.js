@@ -1,25 +1,18 @@
 import { connect } from 'react-redux';
-import { getFormMeta, getFormSyncErrors, formValueSelector } from 'redux-form';
-
-import * as actions from '../../actions/Notify';
 import CreateEndUserForm from '../../components/endUser/CreateEndUserForm';
+import { getCreateProps } from '../../utils/mapPropsFormFactory';
+import { getDispatchPropsCreate } from '../../utils/mapDispatchFormFactory';
+
+const ENTITY_NAME = 'endUser';
 
 const mapStateToProps = (state, props) => {
-  const updateEndUserSelector = formValueSelector('createEndUser');
-  return {
-    fields: getFormMeta('createEndUser')(state),
-    formSyncErrors: getFormSyncErrors('createEndUser')(state),
-    name: updateEndUserSelector(state, 'name'),
-    url: updateEndUserSelector(state, 'url'),
-  };
+  const mappedStateToProps = getCreateProps(ENTITY_NAME, props, state);
+  return mappedStateToProps;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-  return {
-    notify: (msg, level) => {
-      dispatch(actions.notify(msg, level));
-    },
-  };
+  const mappedDispatchToProps = getDispatchPropsCreate(dispatch, props, ENTITY_NAME);
+  return mappedDispatchToProps;
 };
 
 const CreateEndUserFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateEndUserForm);

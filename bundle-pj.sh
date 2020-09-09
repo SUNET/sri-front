@@ -3,9 +3,9 @@
 set -e
 set -x
 
-yarn
-yarn add babel-plugin-relay
-yarn build
+npm i
+npm run adapt-queries common
+npm run relay-common
+npm run build
 
-rm -rf /bundle/*
-cp -r build/* /bundle/
+sh ./copy-bundle.sh

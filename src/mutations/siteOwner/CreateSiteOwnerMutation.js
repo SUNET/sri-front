@@ -35,15 +35,20 @@ function CreateSiteOwnerMutation(siteOwner, form) {
         variables,
         onCompleted: (response, errors) => {
             if (response.create_siteOwner.errors) {
-                form.props.notify(i18n.t("notify.error"), "error");
-                return response.create_siteOwner.updated.errors;
+                form.props.notify(i18n.t("notify/generic-error"), "error");
+                return response.create_siteOwner.errors;
             } else {
                 const siteOwner_id = response.create_siteOwner.siteOwner.id;
                 if (siteOwner.comment) {
                     CreateCommentMutation(siteOwner_id, siteOwner.comment);
                 }
-                form.props.history.push("/network/site-owners/" + siteOwner_id);
-                form.props.notify(i18n.t("notify.network/siteOwners-created-success"), "success");
+                if (form.props.history) {
+                    form.props.history.push("/network/site-owners/" + siteOwner_id);
+                } else {
+                    form.props.createdEntity('SiteOwner', siteOwner_id);
+                    form.props.hideModalForm();
+                }
+                form.props.notify(i18n.t("entity-notify-create/site-owners"), "success");
             }
         },
         onError: (errors) => console.error(errors),

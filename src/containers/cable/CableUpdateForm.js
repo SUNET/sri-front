@@ -4,7 +4,8 @@ import CableUpdateForm from '../../components/cable/CableUpdateForm';
 import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
-import { getProvider } from '../../components/provider/Provider';
+import * as confirmModalActions from '../../actions/ConfirmModal';
+import getProvider from '../../components/provider/Provider';
 import getPort from '../../components/port/Port';
 
 function formatterSubInputs(subInputs) {
@@ -27,7 +28,7 @@ const mapStateToProps = (state, props) => {
     cableTypeObj: cable.cable_type,
     providerObj: cable.provider ? cable.provider : undefined,
     provider_id: cable.provider ? cable.provider.id : undefined,
-    connections: formatterSubInputs(cable.ports),
+    connections: formatterSubInputs(cable.ports || []),
   };
   return {
     form: formName,
@@ -43,11 +44,15 @@ const mapStateToProps = (state, props) => {
     fields: getFormMeta(formName)(state),
     getProvider: (id) => getProvider(id),
     getPortById: (id) => getPort(id),
-    isFromModal: props.isFromModal,
+    isFromModal: Boolean(props.isFromModal),
+    isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
     entityInModalName: state.formModal.entityName,
     editedSubEntity: state.formModal.entityEditedId,
     entitySavedId: state.formModal.entitySavedId,
     entityRemovedId: state.formModal.entityRemovedId,
+    // these props are because this form has entities listed as attributes
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 
@@ -68,8 +73,21 @@ const mapDispatchToProps = (dispatch, props) => {
     showModalCreateForm: (entityName) => {
       dispatch(formModalActions.showModalCreateForm(entityName));
     },
-    showModalUpdateForm: (entityName, entityId) => {
-      dispatch(formModalActions.showModalUpdateForm(entityName, entityId));
+    showModalDetailForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalDetailForm(entityName, entityId));
+    },
+    showModalEditForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalEditForm(entityName, entityId));
+    },
+    editedEntity: (entityName, entityId) => {
+      dispatch(formModalActions.editedEntity(entityName, entityId));
+    },
+    // these methods are because this form has entities listed as attributes
+    showModalConfirm: (type) => {
+      dispatch(confirmModalActions.showModalConfirm(type));
+    },
+    hideModalConfirm: () => {
+      dispatch(confirmModalActions.hideModalConfirm());
     },
   };
 };

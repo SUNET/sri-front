@@ -15,29 +15,7 @@ const mutation = graphql`
           messages
         }
         cable {
-          id
-          name
-          cable_type {
-            value
-          }
-          description
-          provider {
-            id
-            name
-          }
-          ports {
-            id
-            name
-            port_type {
-              value
-            }
-            description
-            relation_id
-            connected_to {
-              id
-              name
-            }
-          }
+          ...CableUpdateForm_cable
         }
       }
       subcreated {
@@ -75,6 +53,7 @@ export default function UpdateCableMutation(cable, form) {
       },
       update_subinputs: connections.toUpdate,
       unlink_subinputs: connections.toUnlink,
+      delete_subinputs: connections.toDelete,
     },
   };
   commitMutation(environment, {
@@ -82,15 +61,15 @@ export default function UpdateCableMutation(cable, form) {
     variables,
     onCompleted: (response) => {
       if (response.composite_cable.updated.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_cable.updated.errors;
       }
       form.props.reset();
-      // form.refetch();
       if (form.props.isFromModal) {
-        form.props.editedEntity('Cable', response.update_cable.updated.cable.id);
+        form.props.editedEntity('Cable', response.composite_cable.updated.cable.id);
       } else {
-        form.props.notify(i18n.t('notify.changes-saved'), 'success');
+        form.refetch();
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: () => {},

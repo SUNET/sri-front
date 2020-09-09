@@ -6,9 +6,9 @@ import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import UpdatePortMutation from '../../mutations/port/UpdatePortMutation';
-import BasicValidation from '../common/_BasicValidationForm';
+import ValidationsPortForm from './ValidationsPortForm';
 // const
-import { UPDATE_PORT_FORM } from '../../utils/constants';
+import { UPDATE_PORT_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class PortUpdateForm extends _PortFormParentClass {
@@ -16,25 +16,42 @@ class PortUpdateForm extends _PortFormParentClass {
   FORM_ID = UPDATE_PORT_FORM;
   MODEL_NAME = 'port';
   ROUTE_LIST_DIRECTION = '/network/ports';
-  state = {
-    editMode: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
 
   refetch = () => {
     this.props.relay.refetch(
       { portId: this.props.port.id }, // Our refetchQuery needs to know the `portID`
       null, // We can use the refetchVariables as renderVariables
       () => {
-        console.log('Refetch done');
+        this.updateBreadcrumbsData();
       },
       { force: true },
     );
   };
-  handleSubmit = (port) => {
-    this.setState({ editMode: !this.state.editMode });
+
+  handleSubmit = (entityData) => {
+    this.setState({ editMode: false });
     this.props.hideModalForm();
-    UpdatePortMutation(port, this);
+    const parentsToRemove = entityData.parents.filter((parent) => parent.status === REMOVE);
+    const connectionsToRemove = entityData.connectedTo.filter((connection) => connection.status === REMOVE);
+    const someItemWillBeDeleted = parentsToRemove.length > 0 || connectionsToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdatePortMutation(entityData, form);
+  }
+
   render() {
     let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
@@ -56,7 +73,7 @@ class PortUpdateForm extends _PortFormParentClass {
 }
 
 PortUpdateForm = reduxForm({
-  validate: BasicValidation.validate,
+  validate: ValidationsPortForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
@@ -71,6 +88,116 @@ const PortUpdateFragment = createRefetchContainer(
         id
         name
         description
+        port_type {
+          name
+          value
+        }
+        parent {
+          __typename
+          id
+          name
+          relation_id
+          ... on Port {
+            description
+            entityType: node_type {
+              name: type
+            }
+            type: port_type {
+              name
+              value
+            }
+          }
+          ... on Cable {
+            description
+            entityType: node_type {
+              name: type
+            }
+            type: cable_type {
+              name
+              value
+            }
+          }
+          ... on ExternalEquipment {
+            description
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on Switch {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on Firewall {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on OpticalFilter {
+            description
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on OpticalNode {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+            type {
+              name
+              value
+            }
+          }
+          ... on Router {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+          ... on ODF {
+            description
+            operational_state {
+              name
+              value
+            }
+            entityType: node_type {
+              name: type
+            }
+          }
+        }
+        connected_to {
+          __typename
+          id
+          name
+          relation_id
+          ... on Cable {
+            description
+            type: cable_type {
+              name
+              value
+            }
+          }
+        }
+        __typename
         comments {
           id
           user {

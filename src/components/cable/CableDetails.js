@@ -1,28 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { QueryRenderer } from 'react-relay';
-import environment from '../../createRelayEnvironment';
-
+import _BasicDetailsParentClass from '../common/_BasicDetailsParentClass';
 import CableUpdateFormContainer from '../../containers/cable/CableUpdateForm';
 import DeleteCableMutation from '../../mutations/cable/DeleteCableMutation';
-
 import CableDetailsQuery from '../../queries/cable/CableDetailsQuery';
 
-class CableDetails extends React.Component {
+class CableDetails extends _BasicDetailsParentClass {
   ID_ENTITY_KEY = 'cableId';
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.node,
-      }),
-    }),
-  };
-
-  getId() {
-    const { isFromModal, idFromModal, match } = this.props;
-    const entityId = isFromModal && idFromModal ? idFromModal : match.params[this.ID_ENTITY_KEY];
-    return entityId;
-  }
+  UpdateFormContainer = CableUpdateFormContainer;
+  DetailsQuery = CableDetailsQuery;
+  entityNameProp = 'cable';
+  entityGetDetailsMethodName = 'getCableById';
+  classDetails = 'cable-details';
 
   handleDelete = () => {
     const { history, isFromModal, deletedEntity } = this.props;
@@ -35,37 +22,6 @@ class CableDetails extends React.Component {
     };
     DeleteCableMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };
-
-  render() {
-    const entityId = this.getId();
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={CableDetailsQuery}
-        variables={{
-          [this.ID_ENTITY_KEY]: entityId,
-        }}
-        render={({ error, props, retry }) => {
-          if (error) {
-            return <div>{error.message}</div>;
-          } else if (props) {
-            return (
-              <section className="model-details cable-details">
-                <CableUpdateFormContainer
-                  isFromModal={this.props.isFromModal}
-                  onDelete={this.handleDelete}
-                  cable={props.getCableById}
-                  history={this.props.history}
-                  refetch={retry}
-                />
-              </section>
-            );
-          }
-          return <div>Loading</div>;
-        }}
-      />
-    );
-  }
 }
 
 export default CableDetails;

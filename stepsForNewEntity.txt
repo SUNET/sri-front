@@ -1,72 +1,55 @@
-LIST:
 1.Add path in navs:
     + TopHeader
     + SideNavNetWork
+2. Add Reducer FilterColumns
+3. Add Container in Route (Network.js)
+4. Generate list components and containers: npm run create-entity-list network entityInCamelCase
+5. Generate details components and containers: npm run create-entity-details network entityInCamelCase
+6. Add New entity in /ConfigEntities/FieldsBySchema.js
+7. Add DetailsQuery and UpdateForm in .gitignore
+8. Add FORM_ID in constants
+9. Add in Routes.js
+10. Add fields in utils/formsFieldsByEntity.js
+11. Add create CTA in SubMenuActions.js (need refactor)
 
-                     || 2. create Containers:
+
+MAKE 'MODABLE'
+1. Create /components/CreateEntity.js
+2. Create components/CreateEntityRoute/CreateEntityRoute.js
+3. Add new Entity in ModalForm.js (switch case)
+4. Add idFromModal and history in containers/EntityDetails.js
+5. Remove withRouter in components/CreateEntityForm
+6. Modify criterials render in CreateEntityForm and EntityUpdateForm
+
+
+                     || - create Containers:
                      ||     + folder /containers/NAME_ENTITY
                      ||     + file: SearchNAME_ENTITY
                      || 
-                     || 3. create Component:
+                     || - create Component:
 replaced with script ||     + folder /components/NAME_ENTITY
 npm run              ||     + file: SearchNAME_ENTITY
 create-entity-list   || 
-entityBlock          || 4. Create
+entityBlock          || - Create
 entityName           ||     containers/entity/EntityList
                      ||     components/entity/EntityList
                      ||     components/entity/EntityRow
 
-eg: npm run create-entity-list network provider
 
-5. Add Reducer/action FilterColumns
-
-6. Add Query and generate files: npm run relay
-
-7. Add Container in Route (Network.js)
-
-
-DETAILS:
-
-
-                     || 1.Create Query:
-                     ||       + queries/entity/EntityDetailsQuery.js
+                     || - Create Query:
+                     ||       + queries/entity/EntityDetailsQuery.template
                      || 
-                     || 2.Create containers
+                     || - Create containers
 replaced with script ||     + EntityDetails.js
-npm run              ||     + EntityUpdateForm.js
+npm run              ||     + EntityUpdateForm.template
 create-entity-details|| 
-entityBlock          || 3.Create Components
+entityBlock          || - Create Components
 entityName           ||     + EntityDetails.js
                      ||     + _EntityFormParentClass.js
                      ||     + EntityUpdateForm.js
-
-2.Add FORM_ID in constants
-
-3.Add in SearchEntity component:
-    + DETAIL_CONTAINER = EntityDetailsContainer
-    + PATH_ENTITY_ID = "entityId"
-
-4.Enable click on the row list (in EntityRow)
-
-
-MUTATIONS
-1.Create Files:
-    + Mutations/entity/UpdateEntityMutation.js
-    + Mutations/entity/CreateEntityMutation.js
-    + Mutations/entity/DeleteEntityMutation.js
-
-2. Create Containers:
-    + containers/entity/CreateEntityForm.js
-
-3. Create Components:
-    + components/entity/CreateEntity.js
-    + components/entity/CreateEntityForm.js
-
-4. Enable Validation, CTAs Save/cancel, Edit and Delete (components/entity/EntityUpdateForm)
-
-5. Add create component in SearchEntity (CREATE_COMPONENT)
-6. Add Create route in SubMenuActions
-7. Enable method handleDelete in components/entity/EntityDetails
+                     ||
+                     || - Create ConfigFile
+                            + /ConfigEntities/entities/EntityFields.js
 
 Samples:
 
@@ -74,10 +57,10 @@ Samples:
 rm -rf src/**/testEntity && npm run create-entity-list testBlock testEntity && npm run create-entity-details testBlock testEntity
 
 - To create list entity
-npm run create-entity-list network customer
+npm run create-entity-list network opticalMultiplexSection
 
 - To create details entity
-npm run create-entity-details network customer
+npm run create-entity-details network opticalMultiplexSection
 
 
 - To create create/delete/update components and Mutations

@@ -39,6 +39,11 @@ class _CableFormParentClass extends _BasicFormParentClass {
   MAX_CONNECTIONS = 2;
 
   shouldComponentUpdate(nextProps, nextState) {
+    const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
+    if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
+      this.props.hideModalConfirm();
+      this.updateMutation(this.entityDataToUpdate, this);
+    }
     if (nextProps.entitySavedId) {
       const { fieldModalOpened } = nextState;
       const selectionData = {
@@ -52,15 +57,6 @@ class _CableFormParentClass extends _BasicFormParentClass {
     }
     return true;
   }
-
-  // handleProviderSearch = (selection) => {
-  //   if (selection !== null) {
-  //     this.props.getProvider(selection.id).then((provider) => {
-  //       console.log('provider: ', provider);
-  //       // this.props.dispatch(this.props.form, "provider", provider);
-  //     });
-  //   }
-  // };
 
   getConnectionDetails(selectionData) {
     if (selectionData !== null) {
@@ -80,7 +76,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
     const { t, cableTypeObj, provider_id, providerObj } = this.props;
     const generalInfoFirstRow = [
       {
-        title: t('organization-details.type'),
+        title: t('general-forms/type'),
         presentContent: cableTypeObj ? cableTypeObj.name : undefined,
         editContent: (
           <Dropdown
@@ -93,7 +89,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
         ),
       },
       {
-        title: t('network.cable.details.provider'),
+        title: t('entity-name/provider'),
         presentContent: providerObj ? providerObj.name : '',
         editContent: (
           <Dropdown
@@ -119,7 +115,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>
@@ -137,12 +133,14 @@ class _CableFormParentClass extends _BasicFormParentClass {
   renderConnectionsSection(editMode = false) {
     const { t, entityRemovedId } = this.props;
     const disabledFilters =
-      !!this.props.connections && (!this.props.connections || this.props.connections.filter(cn => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
+      !!this.props.connections &&
+      (!this.props.connections ||
+        this.props.connections.filter((cn) => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
     return (
       <section className="model-section">
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('network.details.connections')}</h2>
+            <h2>{t('general-forms/connects')}</h2>
           </ToggleHeading>
 
           <TogglePanel>
@@ -159,12 +157,16 @@ class _CableFormParentClass extends _BasicFormParentClass {
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
                 this.setState({ fieldModalOpened: 'connections' });
-                this.props.showModalUpdateForm('Port', entityId);
+                this.props.showModalEditForm('Port', entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'connections' });
+                this.props.showModalDetailForm('Port', entityId);
               }}
               handleSearchResult={(newConnection) => {
                 this.handleConnectionSearch(newConnection);
               }}
-              rerenderOnEveryChange={true}
+              rerenderOnEveryChange
               entityRemovedId={entityRemovedId}
               disabledFilters={disabledFilters}
             />

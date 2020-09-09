@@ -94,28 +94,30 @@ class _BasicFormParentClass extends React.Component {
           className="btn outline btn-edit"
         >
           <i className="icon-pencil"></i>
-          <span>{t('actions.edit')}</span>
+          <span>{t('actions/edit')}</span>
         </button>
       </div>
     );
   }
   renderSaveCancelButtons() {
     const { t, isFromModal } = this.props;
-    const textToButtons = this.IS_UPDATED_FORM ? t('actions.delete') : t('actions.cancel');
+    const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return <SaveCancelCTAs formId={formId} cancelText={textToButtons} onCancel={functionToCancel} />;
   }
+
   renderHeader(editMode = true, showBackButton = true) {
     return (
-      <Form.Row>
-        <Col className={`d-inline-flex align-items-center ${isMobile ? 'mb-3' : ''}`}>
+      <Form.Row className="justify-content-between">
+        <div className={`d-inline-flex align-items-center ${isMobile ? 'mb-3' : ''}`}>
           {this.renderHeaderName(editMode, showBackButton)}
-        </Col>
-        {this.IS_UPDATED_FORM && <Col>{this.renderHeaderRight()}</Col>}
+        </div>
+        {this.IS_UPDATED_FORM && <div>{this.renderHeaderRight()}</div>}
       </Form.Row>
     );
   }
+
   renderHeaderName(editMode = true, showBackButton = true) {
     const editionModeClass = editMode ? 'title-section__name-inputs--edition-mode' : '';
     const { isFromModal } = this.props;
@@ -140,9 +142,9 @@ class _BasicFormParentClass extends React.Component {
   renderInputName(kindOfName, editMode = true) {
     // INFO: kindOfName = 'first_name' || 'last_name' || 'name'
     const { t, formSyncErrors, fields, form, dispatch } = this.props;
-    let placeHolderString = t('contact-details.name');
+    let placeHolderString = t('general-forms/name');
     if (kindOfName === 'last_name') {
-      placeHolderString = t('contact-details.lastName');
+      placeHolderString = t('general-forms/last-name');
     }
     return (
       <EditField
@@ -167,7 +169,7 @@ class _BasicFormParentClass extends React.Component {
         ) : (
           <ToggleSection defaultEditable={false}>
             <ToggleHeading>
-              <h2>{t('contact-details.worklog')}</h2>
+              <h2>{t('general-forms/worklog')}</h2>
             </ToggleHeading>
             <TogglePanel>
               <Field
@@ -175,7 +177,7 @@ class _BasicFormParentClass extends React.Component {
                 component={FieldInput}
                 as="textarea"
                 rows="3"
-                placeholder={t('worklog.add-comment')}
+                placeholder={t('general-forms/worklog-add-comment')}
                 onBlur={(e) => {
                   this.setState({ comment: e.target.value });
                 }}
@@ -193,7 +195,7 @@ class _BasicFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.description')}</h2>
+          <h2>{t('general-forms/description')}</h2>
         </ToggleHeading>
         <TogglePanel>
           {editMode ? (
@@ -202,7 +204,7 @@ class _BasicFormParentClass extends React.Component {
               component={FieldInput}
               as="textarea"
               rows="3"
-              placeholder={t(`group-details.add-description`)}
+              placeholder={t(`general-forms/add-description`)}
             ></Field>
           ) : (
             <span className="pre-text">{description}</span>
@@ -216,7 +218,7 @@ class _BasicFormParentClass extends React.Component {
     const { t, url } = this.props;
     const generalInfoFirstRow = [
       {
-        title: t('organization-details.website'),
+        title: t('general-forms/website'),
         presentContent: (
           <a href={generateURL(url)} target="_blank" rel="noopener noreferrer">
             {url}
@@ -229,7 +231,7 @@ class _BasicFormParentClass extends React.Component {
               className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
               name="url"
               component={FieldInput}
-              placeholder={t('organization-details.add-website')}
+              placeholder={t('general-forms/write-website')}
             />
           </Form.Group>
         ),
@@ -239,7 +241,7 @@ class _BasicFormParentClass extends React.Component {
     return (
       <ToggleSection>
         <ToggleHeading>
-          <h2>{t('organization-details.general-information')}</h2>
+          <h2>{t('general-forms/general-information')}</h2>
         </ToggleHeading>
         <TogglePanel>
           <div>

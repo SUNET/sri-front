@@ -4,7 +4,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import CreatePortMutation from '../../mutations/port/CreatePortMutation';
-import ValidationsPortForm from '../common/_BasicValidationForm';
+import ValidationsPortForm from './ValidationsPortForm';
 // const
 import { CREATE_PORT_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';

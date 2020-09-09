@@ -176,7 +176,7 @@ export default function CreateOrganizationMutation(organization, form) {
   const deleteAddress = [];
 
   const newContacts = [];
-  const updateContacts = [];
+  let updateContacts = [];
   const deleteContacts = [];
 
   const { addresses } = organization;
@@ -207,32 +207,26 @@ export default function CreateOrganizationMutation(organization, form) {
       }
     });
   }
-  const contacts = organization.contacts;
+  const { contacts } = organization;
   if (contacts) {
-    Object.keys(contacts).forEach((contactKey) => {
-      let contact = contacts[contactKey];
-      if (contact.status === 'saved') {
-        // let fullName = contact.name.trim();
-        // if (fullName.includes(' ')) {
-        //   fullName = fullName.split(' ');
-        //   contact.first_name = fullName[0];
-        //   contact.last_name = fullName[1];
-        // } else {
-        //   contact.first_name = fullName;
-        //   contact.last_name = fullName;
-        // }
-
-        if (contact.created || contact.created !== undefined) {
-          updateContacts.push({
-            id: contact.id,
-            first_name: contact.first_name,
-            last_name: contact.last_name,
-            contact_type: contact.contact_type.value,
-            role_id: contact.role,
-          });
+    updateContacts = contacts
+      .filter((contact) => contact.created || contact.created !== undefined)
+      .map((contact) => {
+        const basicData = {
+          id: contact.id,
+          first_name: contact.first_name,
+          last_name: contact.last_name,
+          contact_type: contact.contact_type.value,
+        };
+        if (contact.roles.length > 0) {
+          return contact.roles.map((role) => ({
+            ...basicData,
+            role_id: role.id,
+          }));
         }
-      }
-    });
+        return basicData;
+      })
+      .flat();
   }
 
   const variables = {
@@ -262,12 +256,13 @@ export default function CreateOrganizationMutation(organization, form) {
       delete_address: deleteAddress,
     },
   };
+
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response) => {
       if (response.composite_organization.created.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_organization.created.errors;
       }
       const organizationId = response.composite_organization.created.organization.id;
@@ -275,7 +270,7 @@ export default function CreateOrganizationMutation(organization, form) {
         CreateComentMutation(organizationId, organization.comment);
       }
       form.props.history.push(`/community/organizations/${organizationId}`);
-      form.props.notify(i18n.t('notify.organization-created-success'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/organization'), 'success');
     },
     updater: () => {},
     onError: (err) => console.error(err),

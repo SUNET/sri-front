@@ -1,25 +1,18 @@
 import { connect } from 'react-redux';
-import { getFormMeta, getFormSyncErrors, formValueSelector } from 'redux-form';
-
-import * as actions from '../../actions/Notify';
 import CreateProviderForm from '../../components/provider/CreateProviderForm';
+import { getCreateProps } from '../../utils/mapPropsFormFactory';
+import { getDispatchPropsCreate } from '../../utils/mapDispatchFormFactory';
+
+const ENTITY_NAME = 'provider';
 
 const mapStateToProps = (state, props) => {
-  const updateProviderSelector = formValueSelector('createProvider');
-  return {
-    fields: getFormMeta('createProvider')(state),
-    formSyncErrors: getFormSyncErrors('createProvider')(state),
-    name: updateProviderSelector(state, 'name'),
-    url: updateProviderSelector(state, 'url'),
-  };
+  const mappedStateToProps = getCreateProps(ENTITY_NAME, props, state);
+  return mappedStateToProps;
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-  return {
-    notify: (msg, level) => {
-      dispatch(actions.notify(msg, level));
-    },
-  };
+  const mappedDispatchToProps = getDispatchPropsCreate(dispatch, props, ENTITY_NAME);
+  return mappedDispatchToProps;
 };
 
 const CreateProviderFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateProviderForm);

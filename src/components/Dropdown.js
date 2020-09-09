@@ -37,7 +37,14 @@ const DropdownProvidersAllQuery = graphql`
     }
   }
 `;
-
+const DropdownGroupsAllQuery = graphql`
+  query DropdownGroupsAllQuery {
+    all_groups: getPlainGroups {
+      id
+      name
+    }
+  }
+`;
 const DropdownRolesQuery = graphql`
   query DropdownRolesQuery {
     roles(orderBy: name_ASC) {
@@ -71,6 +78,26 @@ const DropdownPhysicalTypesQuery = graphql`
   }
 `;
 
+const DropdownSwitchTypesQuery = graphql`
+  query DropdownSwitchTypesQuery {
+    getSwitchTypes {
+      value: id
+      name
+    }
+  }
+`;
+
+const DropdownOwnersQuery = graphql`
+  query DropdownOwnersQuery {
+    getHostOwnerTypes {
+      name: type_name
+      value: connection_name
+      getDetailsMethodName: byid_name
+      all_name
+    }
+  }
+`;
+
 class Dropdown extends React.PureComponent {
   static propTypes = {
     type: PropTypes.string,
@@ -90,6 +117,9 @@ class Dropdown extends React.PureComponent {
       case 'provider':
         queryModel = DropdownProvidersAllQuery;
         break;
+      case 'group':
+        queryModel = DropdownGroupsAllQuery;
+        break;
       case 'roles':
         queryModel = DropdownRolesQuery;
         break;
@@ -98,6 +128,12 @@ class Dropdown extends React.PureComponent {
         break;
       case 'physical_types':
         queryModel = DropdownPhysicalTypesQuery;
+        break;
+      case 'owners_types':
+        queryModel = DropdownOwnersQuery;
+        break;
+      case 'switch_types':
+        queryModel = DropdownSwitchTypesQuery;
         break;
       default:
         queryModel = DropdownQuery;
@@ -112,8 +148,14 @@ class Dropdown extends React.PureComponent {
   }
 
   getFormattedDataList(dataList) {
-    const { valueField } = this.props;
-    return dataList.map((element) => {
+    const { valueField, model } = this.props;
+    let list;
+    if (model === 'roles') {
+      list = dataList.edges.map((e) => ({ id: e.node.id, name: e.node.name }));
+    } else {
+      list = [...dataList];
+    }
+    return list.map((element) => {
       return {
         value: element[valueField],
         label: this.getCustomLabel(element),
@@ -167,13 +209,22 @@ class Dropdown extends React.PureComponent {
   renderComboSelect(dataList) {
     const { currentValue, nameDataInsideRequest } = this.props;
     const formattedDataList = this.getFormattedDataList(dataList[nameDataInsideRequest]);
-    const currentValueFromList = formattedDataList.find((org) => org.value && org.value === currentValue);
+    const currentValueFromList =
+      nameDataInsideRequest === 'roles'
+        ? formattedDataList.filter((el) => el.value && currentValue.map((cv) => cv.id).includes(el.value))
+        : formattedDataList.find((el) => el.value && el.value === currentValue);
     return (
       <Select
         isClearable
+        isMulti={nameDataInsideRequest === 'roles'}
         value={currentValueFromList}
         onChange={(newValue) => {
-          const data = newValue ? newValue.data : null;
+          let data;
+          if (nameDataInsideRequest === 'roles') {
+            data = newValue ? newValue.map((e) => e.data) : [];
+          } else {
+            data = newValue ? newValue.data : null;
+          }
           this.props.onChange(data);
         }}
         options={formattedDataList}
@@ -190,7 +241,7 @@ class Dropdown extends React.PureComponent {
         className={this.props.className}
         component={FieldSelect}
         onChange={(e) => {
-          if (this.props.model === 'physical_types') {
+          if (this.props.model === 'physical_types' || this.props.model === 'owners_types') {
             this.props.onChange(options.find((o) => o.value === e.target.value));
           } else {
             this.props.onChange(e.target);
@@ -206,7 +257,8 @@ class Dropdown extends React.PureComponent {
         )}
         {this.props.model === 'organization' && this.renderOptionsModelOptimized(options)}
         {(this.props.model === 'roles' || this.props.model === 'default_roles') && this.renderOptionsModel(options)}
-        {this.props.model === 'physical_types' && this.renderOptions(options)}
+        {(this.props.model === 'physical_types' || this.props.model === 'owners_types') && this.renderOptions(options)}
+        {this.props.model === 'switch_types' && this.renderOptions(options)}
         {this.props.model === undefined && this.renderOptions(options)}
       </Field>
     );
@@ -249,7 +301,7 @@ class Dropdown extends React.PureComponent {
           variables={variables}
           render={({ error, props }) => {
             if (error) {
-              return <div>{this.props.t('general.error')}</div>;
+              return <div>{this.props.t('general/error')}</div>;
             } else if (props) {
               const options = props[Object.keys(props)[0]];
               if (this.props.type === 'combo_list') {

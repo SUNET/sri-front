@@ -39,6 +39,42 @@ const DropdownSearchAllProvidersQuery = graphql`
     }
   }
 `;
+const DropdownSearchAllCustomersQuery = graphql`
+  query DropdownSearchAllCustomersQuery($filter: CustomerFilter) {
+    customers(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+const DropdownSearchAllEndUsersQuery = graphql`
+  query DropdownSearchAllEndUsersQuery($filter: EndUserFilter) {
+    endUsers(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+const DropdownSearchAllSiteOwnersQuery = graphql`
+  query DropdownSearchAllSiteOwnersQuery($filter: SiteOwnerFilter) {
+    siteOwners(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 const DropdownSearchAllCablesQuery = graphql`
   query DropdownSearchAllCablesQuery($filter: CableFilter) {
     cables(filter: $filter) {
@@ -81,11 +117,115 @@ const DropdownSearchTypeHeadPortsQuery = graphql`
   }
 `;
 
+const DropdownSearchAllSwitchsQuery = graphql`
+  query DropdownSearchAllSwitchsQuery($filter: SwitchFilter) {
+    switchs(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllFirewallsQuery = graphql`
+  query DropdownSearchAllFirewallsQuery($filter: FirewallFilter) {
+    firewalls(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllExternalEquipmentsQuery = graphql`
+  query DropdownSearchAllExternalEquipmentsQuery($filter: ExternalEquipmentFilter) {
+    externalEquipments(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllHostUsersQuery = graphql`
+  query DropdownSearchAllHostUsersQuery($filter: HostUserFilter) {
+    hostUsers(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllOpticalFiltersQuery = graphql`
+  query DropdownSearchAllOpticalFiltersQuery($filter: OpticalFilterFilter) {
+    opticalFilters(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllOpticalNodesQuery = graphql`
+  query DropdownSearchAllOpticalNodesQuery($filter: OpticalNodeFilter) {
+    opticalNodes(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllRoutersQuery = graphql`
+  query DropdownSearchAllRoutersQuery($filter: RouterFilter) {
+    routers(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllODFsQuery = graphql`
+  query DropdownSearchAllODFsQuery($filter: ODFFilter) {
+    odfs(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
     const { t } = this.props;
-    this.LOADING_VALUE = [{ id: '', name: t('actions.loading') }];
+    this.LOADING_VALUE = [{ id: '', name: t('actions/loading') }];
 
     this.NO_MATCHES_RESULT = [{ id: '', name: t('search-filter.no-matches') }];
 
@@ -105,11 +245,29 @@ class DropdownSearch extends React.Component {
       case 'providers':
         queryModel.query = DropdownSearchAllProvidersQuery;
         break;
+      case 'customers':
+        queryModel.query = DropdownSearchAllCustomersQuery;
+        break;
+      case 'endUsers':
+        queryModel.query = DropdownSearchAllEndUsersQuery;
+        break;
+      case 'siteOwners':
+        queryModel.query = DropdownSearchAllSiteOwnersQuery;
+        break;
       case 'cables':
         queryModel.query = DropdownSearchAllCablesQuery;
         break;
       case 'ports':
         queryModel.query = DropdownSearchAllPortsQuery;
+        break;
+      case 'switchs':
+        queryModel.query = DropdownSearchAllSwitchsQuery;
+        break;
+      case 'firewalls':
+        queryModel.query = DropdownSearchAllFirewallsQuery;
+        break;
+      case 'externalEquipments':
+        queryModel.query = DropdownSearchAllExternalEquipmentsQuery;
         break;
       case 'ports-type-head':
         queryModel.query = DropdownSearchTypeHeadPortsQuery;
@@ -121,6 +279,21 @@ class DropdownSearch extends React.Component {
         queryModel.query = DropdownSearchAllCablesQuery;
         queryModel.typeFilter = { cable_type: model };
         queryModel.modelName = 'cables';
+        break;
+      case 'hostUsers':
+        queryModel.query = DropdownSearchAllHostUsersQuery;
+        break;
+      case 'opticalFilters':
+        queryModel.query = DropdownSearchAllOpticalFiltersQuery;
+        break;
+      case 'opticalNodes':
+        queryModel.query = DropdownSearchAllOpticalNodesQuery;
+        break;
+      case 'routers':
+        queryModel.query = DropdownSearchAllRoutersQuery;
+        break;
+      case 'odfs':
+        queryModel.query = DropdownSearchAllODFsQuery;
         break;
       default:
         queryModel.query = DropdownSearchAllContactsQuery;

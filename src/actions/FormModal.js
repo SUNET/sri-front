@@ -11,8 +11,16 @@ export const hideModalForm = () => ({
   type: types.HIDE_MODAL_FORM,
 });
 
-export const showModalUpdateForm = (entityName, entityId) => ({
+export const showModalDetailForm = (entityName, entityId) => ({
   type: types.SHOW_MODAL_DETAIL_FORM,
+  payload: {
+    entityName,
+    entityId,
+  },
+});
+
+export const showModalEditForm = (entityName, entityId) => ({
+  type: types.SHOW_MODAL_EDIT_FORM,
   payload: {
     entityName,
     entityId,

@@ -195,7 +195,7 @@ export default function CreateContactMutation(contact, form) {
     variables,
     onCompleted: (response, errors) => {
       if (response.composite_contact.created.errors) {
-        form.props.notify(i18n.t('notify.error'), 'error');
+        form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_contact.created.errors;
       }
       const contactId = response.composite_contact.created.contact.id;
@@ -208,7 +208,7 @@ export default function CreateContactMutation(contact, form) {
         form.props.createdEntity('Contact', contactId);
         form.props.hideContactModal();
       }
-      form.props.notify(i18n.t('notify.contact-created-success'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/contact'), 'success');
     },
     updater: (proxyStore, data) => {},
     onError: (err) => console.error(err),

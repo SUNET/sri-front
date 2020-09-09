@@ -11,7 +11,7 @@
         @include desktop {
             flex-grow: 1;
             flex-shrink: 0;
-            flex-basis: 25%;
+            flex-basis: 20%;
         }
     }
     &__header {
@@ -41,6 +41,11 @@
             margin-top: 15px;
             width: 100%;
             align-items: center;
+            &--disabled {
+                .contact-in-organization__body__row__element {
+                    color: $tertiary-color;
+                }
+            }
             &__element--ellipsis {
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -61,7 +66,7 @@
                     padding-left: 24px;
                     flex-grow: 1;
                     flex-shrink: 0;
-                    flex-basis: 25%;
+                    flex-basis: 20%;
                 }
                 color: $secondary-color;
                 &--right {
@@ -86,21 +91,23 @@
                     margin-left: auto;
                 }
             }
+            &__action-message {
+                background-color: $gray-color;
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-weight: bold;
+                display: flex;
+                margin-left: auto;
+                margin-bottom: 1em;
+            }
         }
         &__buttons-in-the-final-row {
             margin-bottom: 1em;
-            @include desktop {
-                margin-bottom: 0;
-            }
-            &--desktop-version {
-                button {
-                    margin-right: 20px;
-                }
-                position: relative;
-                left: -70px;
-                display: flex;
-                align-items: center;
-            }
+            display: flex;
+            align-items: center;
+            width: 75px;
+            justify-content: space-between;
+            margin-left: auto;
         }
     }
     &__footer {

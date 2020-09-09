@@ -5,7 +5,7 @@ import * as notifyActions from '../../actions/Notify';
 import * as formModalActions from '../../actions/FormModal';
 import CreateCableForm from '../../components/cable/CreateCableForm';
 
-import { getProvider } from '../../components/provider/Provider';
+import getProvider from '../../components/provider/Provider';
 import getPort from '../../components/port/Port';
 
 const mapStateToProps = (state, props) => {
@@ -37,8 +37,11 @@ const mapDispatchToProps = (dispatch, props) => {
     showModalCreateForm: (entityName) => {
       dispatch(formModalActions.showModalCreateForm(entityName));
     },
-    showModalUpdateForm: (entityName, entityId) => {
-      dispatch(formModalActions.showModalUpdateForm(entityName, entityId));
+    showModalDetailForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalDetailForm(entityName, entityId));
+    },
+    showModalEditForm: (entityName, entityId) => {
+      dispatch(formModalActions.showModalEditForm(entityName, entityId));
     },
     hideModalForm: () => {
       dispatch(formModalActions.hideModalForm());

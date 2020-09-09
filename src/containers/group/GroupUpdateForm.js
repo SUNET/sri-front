@@ -5,7 +5,8 @@ import uuidv4 from 'uuid/v4';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import { getContact } from '../../components/contact/Contact';
-import * as formModalActions from '../../actions/FormModal';
+import * as FormModalActions from '../../actions/FormModal';
+import * as confirmModalActions from '../../actions/ConfirmModal';
 
 const mapStateToProps = (state, props) => {
   const updateGroupSelector = formValueSelector('updateGroup');
@@ -17,29 +18,15 @@ const mapStateToProps = (state, props) => {
     description: group.description,
     members: group.contacts
       ? group.contacts.map((member) => {
-          let group_relation_id_obj = group.contact_relations.find((relation) => relation.entity_id === member.id);
-          // TODO:
-          // relation_id vendrá directamente de member:
-          // por tanto:
-          // const group_relation_id_obj = member.relation_id
-          // console.log(group);
-          // console.log(member);
-          // console.log(group_relation_id_obj);
-
-          // member.outgoing &&
-          // member.outgoing.find((relation_node) => {
-          //     return (
-          //         relation_node.relation.type === "Member_of" &&
-          //         relation_node.relation.end.id === group.id
-          //     );
-          // });
           return {
             id: member.id,
-            name: member.first_name + ' ' + member.last_name,
+            first_name: member.first_name,
+            last_name: member.last_name,
+            name: `${member.first_name} ${member.last_name}`,
             contact_type: member.contact_type,
             organization: member.roles,
             organization_label: member.roles.length ? member.roles.map((elem) => elem.end) : [],
-            group_relation_id: group_relation_id_obj && group_relation_id_obj.relation_id,
+            group_relation_id: member.relation_id,
             email: member.emails,
             email_obj: member.emails,
             phone: member.phones,
@@ -72,6 +59,9 @@ const mapStateToProps = (state, props) => {
     getContact: (id) => getContact(id),
     entityRemovedId: state.formModal.entityRemovedId,
     entitySavedId: state.formModal.entitySavedId,
+    // these props are because this form has entities listed as attributes
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 
@@ -87,13 +77,23 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
     showNewContactForm: () => {
-      dispatch(formModalActions.showModalCreateForm('Contact'));
+      dispatch(FormModalActions.showModalCreateForm('Contact'));
     },
     hideContactForm: () => {
-      dispatch(formModalActions.hideModalForm());
+      dispatch(FormModalActions.hideModalForm());
     },
-    showContactDetailForm: (contactId) => {
-      dispatch(formModalActions.showModalUpdateForm('Contact', contactId));
+    showContactDetailForm: (idContact) => {
+      dispatch(FormModalActions.showModalDetailForm('Contact', idContact));
+    },
+    showContactEditForm: (idContact) => {
+      dispatch(FormModalActions.showModalEditForm('Contact', idContact));
+    },
+    // these methods are because this form has entities listed as attributes
+    showModalConfirm: (type) => {
+      dispatch(confirmModalActions.showModalConfirm(type));
+    },
+    hideModalConfirm: () => {
+      dispatch(confirmModalActions.hideModalConfirm());
     },
   };
 };

@@ -28,10 +28,11 @@ class PortRow extends React.PureComponent {
 
   render() {
     const { port } = this.props;
+    const portTypeName = port.port_type ? port.port_type.name : null;
     return (
       <tr onClick={(e) => this.props.onClick(e, port)}>
         {this.renderCellSection('name', port.name)}
-        {this.renderCellSection('port_type', port.port_type.name)}
+        {this.renderCellSection('port_type', portTypeName)}
         {this.renderCellSection('description', port.description)}
         {/* td for generate the space for the final cta */}
         <td></td>

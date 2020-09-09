@@ -1,0 +1,61 @@
+@import "../variables.scss";
+@import "./viewports.scss";
+
+.bulk-create {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    @include desktop {
+        flex-direction: row;
+    }
+
+    &__left-block {
+        .select-input {
+            .form-group {
+                display: block !important;
+                width: 155px;
+                height: 34px;
+                select {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &__right-block {
+        &__number-input {
+            margin-right: 1em;
+            .form-group {
+                div {
+                    input {
+                        width: 155px;
+                        height: 34px;
+                        font-size: 14px;
+                        color: $complementary-color;
+                        border-radius: $input-outline--border-radius;
+                        border: solid 1px $complementary-color;
+                        background: none;
+                    }
+                }
+            }
+        }
+
+        &__add-button {
+            button {
+                width: 155px;
+                height: 34px;
+            }
+        }
+    }
+    .has-error {
+        position: relative;
+        span {
+            position: absolute;
+            right: 0;
+        }
+    }
+    .form-internal-block__section {
+        margin-right: 2em;
+    }
+}

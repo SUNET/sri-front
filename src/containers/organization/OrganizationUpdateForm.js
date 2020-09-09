@@ -6,29 +6,42 @@ import uuidv4 from 'uuid/v4';
 import * as notifyActions from '../../actions/Notify';
 import * as breadcrumbsActions from '../../actions/Breadcrumbs';
 import * as FormModalActions from '../../actions/FormModal';
+import * as confirmModalActions from '../../actions/ConfirmModal';
 
 function formattedContacts(organization) {
   const { contacts } = organization;
-  return contacts.map((contact) => {
-    const contactRelationIdObj = contact.roles.find((relationNode) => relationNode.end.id === organization.id);
-    return {
-      id: contact.id,
-      name: contact.first_name + ' ' + contact.last_name,
-      contact_type: contact.contact_type,
-      role: contactRelationIdObj ? contactRelationIdObj.role_data.id : '',
-      role_label: contactRelationIdObj ? contactRelationIdObj.role_data.name : '',
-      role_obj: contactRelationIdObj,
-      role_relation_id: contactRelationIdObj ? contactRelationIdObj.relation_id : '',
-      email: contact.emails,
-      email_obj: contact.emails,
-      phone: contact.phones,
-      phone_obj: contact.phones,
-      status: 'saved',
-      origin: 'store',
-      created: true,
-      key: contact.id,
-    };
-  });
+  let allFormattedContacts = [];
+  if (contacts) {
+    allFormattedContacts = contacts.map((contact) => {
+      const contactRelationIdObj = contact.roles.filter((relationNode) => relationNode.end.id === organization.id);
+      return {
+        id: contact.id,
+        first_name: contact.first_name,
+        last_name: contact.last_name,
+        name: `${contact.first_name} ${contact.last_name}`,
+        contact_type: contact.contact_type,
+        originalRoles: contactRelationIdObj.map((relationNode) => ({
+          ...relationNode.role_data,
+          relation_id: relationNode.relation_id,
+          status: 'saved',
+        })),
+        roles: contactRelationIdObj.map((relationNode) => ({
+          ...relationNode.role_data,
+          relation_id: relationNode.relation_id,
+          status: 'saved',
+        })),
+        email: contact.emails,
+        email_obj: contact.emails,
+        phone: contact.phones,
+        phone_obj: contact.phones,
+        status: 'saved',
+        origin: 'store',
+        created: true,
+        key: contact.id,
+      };
+    });
+  }
+  return allFormattedContacts;
 }
 function formattedAddresses(addresses) {
   if (addresses) {
@@ -131,6 +144,9 @@ const mapStateToProps = (state, props) => {
     entityRemovedId: state.formModal.entityRemovedId,
     entitySavedId: state.formModal.entitySavedId,
     getContact: (id) => getContact(id),
+    // these props are because this form has entities listed as attributes
+    isDeleteConfirmed: state.confirmModal.confirmDelete,
+    confirmModalType: state.confirmModal.type,
   };
 };
 
@@ -146,14 +162,24 @@ const mapDispatchToProps = (dispatch, props) => {
     getOutOfDetails: (entityData) => {
       dispatch(breadcrumbsActions.getOutOfDetails(entityData));
     },
-    showNewContactForm: () => {
-      dispatch(FormModalActions.showModalCreateForm('Contact'));
-    },
     hideContactForm: () => {
       dispatch(FormModalActions.hideModalForm());
     },
+    showNewContactForm: () => {
+      dispatch(FormModalActions.showModalCreateForm('Contact'));
+    },
     showContactDetailForm: (idContact) => {
-      dispatch(FormModalActions.showModalUpdateForm('Contact', idContact));
+      dispatch(FormModalActions.showModalDetailForm('Contact', idContact));
+    },
+    showContactEditForm: (idContact) => {
+      dispatch(FormModalActions.showModalEditForm('Contact', idContact));
+    },
+    // these methods are because this form has entities listed as attributes
+    showModalConfirm: (type) => {
+      dispatch(confirmModalActions.showModalConfirm(type));
+    },
+    hideModalConfirm: () => {
+      dispatch(confirmModalActions.hideModalConfirm());
     },
   };
 };

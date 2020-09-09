@@ -311,7 +311,65 @@ button.btn {
     }
 }
 
-.row-remove-cta {
+.cta-convert-host {
+    height: 50px;
+    width: 120px;
+    button.outline {
+        height: 100%;
+        width: 100%;
+        border-radius: 25px;
+    }
+    &:after {
+        content: "\f071";
+        margin-right: 4px;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        color: #fff;
+        vertical-align: middle;
+        position: relative;
+        bottom: 50px;
+        left: 97px;
+        background-color: #ff500d;
+        padding: 7px;
+        border-radius: 50%;
+    }
+}
+
+.row-cta {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+        width: 15px;
+        height: 15px;
+    }
+    &.active {
+        background-color: $gray-color;
+        border-radius: 1em;
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+    }
+    &.remove {
+        // background-image: url("../static/img/trash.svg");
+    }
+    &.edit {
+        // background-image: url("../static/img/grey-pencil-icon.svg");
+    }
+    &.unlink {
+        // background-image: url("../static/img/unlink.svg");
+    }
+}
+
+.row-cross-remove-cta {
     width: 15px;
     height: 15px;
     position: relative;
