@@ -47,7 +47,6 @@ class _PortFormParentClass extends _BasicFormParentClass {
   handleSelectedParent = (selection, typeOfSelection) => {
     if (selection !== null && selection.id) {
       this.props[typeOfSelection](selection.id).then((entity) => {
-        console.log('entity: ', entity);
         const newEntity = {
           __typename: entity.__typename,
           name: entity.name,
