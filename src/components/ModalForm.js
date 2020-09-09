@@ -202,23 +202,25 @@ class ModalNewContact extends React.Component {
     const { ComponentToRender, textHeader, formId } = this.getDataByEntity();
     return (
       <div>
-        <Modal dialogClassName="new-contact-modal-form" show={isVisibleModalForm} onHide={() => this.handleClose()}>
-          <Modal.Header closeButton={false}>
-            <Modal.Title className={classModalTitle}>
-              <div className="new-contact-modal-form__header__title">{t(textHeader)}</div>
-              {isEditing && (
-                <div className={`new-contact-modal-form__header__buttons ${classButtons}`}>
-                  <SaveCancelCTAs
-                    formId={`${formId}InModal`}
-                    cancelText={t('actions/cancel')}
-                    onCancel={() => this.handleClose()}
-                  />
-                </div>
-              )}
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{ComponentToRender && <ComponentToRender isFromModal t={t} />}</Modal.Body>
-        </Modal>
+        {ComponentToRender && (
+          <Modal dialogClassName="new-contact-modal-form" show={isVisibleModalForm} onHide={() => this.handleClose()}>
+            <Modal.Header closeButton={false}>
+              <Modal.Title className={classModalTitle}>
+                <div className="new-contact-modal-form__header__title">{t(textHeader)}</div>
+                {isEditing && (
+                  <div className={`new-contact-modal-form__header__buttons ${classButtons}`}>
+                    <SaveCancelCTAs
+                      formId={`${formId}InModal`}
+                      cancelText={t('actions/cancel')}
+                      onCancel={() => this.handleClose()}
+                    />
+                  </div>
+                )}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{ComponentToRender && <ComponentToRender isFromModal t={t} />}</Modal.Body>
+          </Modal>
+        )}
       </div>
     );
   }

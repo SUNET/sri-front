@@ -11,10 +11,6 @@ export default class ValidationsContactForm {
             errors.first_name = REQUIRED_TEXT;
         }
 
-        if (!values.last_name) {
-            errors.last_name = REQUIRED_TEXT;
-        }
-
         if (!values.contact_type) {
             errors.contact_type = REQUIRED_TEXT;
         }
