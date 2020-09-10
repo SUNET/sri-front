@@ -5,7 +5,7 @@ import FieldArrayPorts from '../FieldArrayPorts';
 import { SAVED } from '../../../utils/constants';
 
 export function getSelectedPort(selection, getMethod) {
-  if (selection !== null && selection.id) {
+  if (selection && selection.id) {
     return getMethod(selection.id).then((entity) => ({
       ...entity,
       status: SAVED,
