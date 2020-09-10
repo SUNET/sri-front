@@ -55,20 +55,17 @@
                 &.with-arrow {
                     display: flex;
                     align-items: center;
-                    &[aria-expanded="true"]::after,
-                    &[aria-selected="true"]::after {
-                        margin-left: 0.75em;
-                        transform: rotate(45deg);
+                    justify-content: space-between;
+                    padding-right: 1em;
+                    .accordion__button__title {
+                        display: flex;
+                        align-items: center;
                     }
-                    &::after {
-                        margin-left: 0.75em;
-                        display: inline-block;
-                        content: "";
-                        height: 10px;
-                        width: 10px;
-                        border-bottom: 2px solid currentColor;
-                        border-right: 2px solid currentColor;
-                        transform: rotate(-45deg);
+                    .accordion__button__arrow {
+                        transform: rotate(-90deg);
+                        &--expanded {
+                            transform: rotate(0deg);
+                        }
                     }
                 }
             }
@@ -83,7 +80,7 @@
                     margin-bottom: 4px;
 
                     &.active {
-                        background-color: rgb(88,112,133);
+                        background-color: rgb(88, 112, 133);
                         // background-color: $secondary-color-30;
                     }
                 }
