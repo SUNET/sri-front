@@ -10,6 +10,7 @@ import FieldArrayPorts from '../common/FieldArrayPorts';
 import BulPort from '../common/BulkPort';
 // const
 import { isBrowser } from 'react-device-detect';
+import { SAVED } from '../../utils/constants';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
@@ -48,7 +49,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
           __typename: entity.__typename,
           name: entity.name,
           id: entity.id,
-          status: 'saved',
+          status: SAVED,
         };
         this.props.dispatch(arrayPush(this.props.form, 'ports', newEntity));
       });

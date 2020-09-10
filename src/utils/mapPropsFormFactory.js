@@ -66,6 +66,10 @@ function getStateModalsProps(state, props) {
     confirmModalType: state.confirmModal.type,
     isFromModal: Boolean(props.isFromModal),
     isEditModeModal: Boolean(props.isFromModal && state.formModal.editing),
+    entityInModalName: state.formModal.entityName,
+    editedSubEntity: state.formModal.entityEditedId,
+    entitySavedId: state.formModal.entitySavedId,
+    entityRemovedId: state.formModal.entityRemovedId,
   };
 }
 

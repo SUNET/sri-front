@@ -121,7 +121,7 @@ class SideNavNetwork extends React.Component {
                     <span>{t(i18nText)}</span>
                   </div>
                   <div className={`accordion__button__arrow ${expanded ? 'accordion__button__arrow--expanded' : ''}`}>
-                    <i class="icon-arrow"></i>
+                    <i className="icon-arrow"></i>
                   </div>
                 </AccordionItemButton>
               </AccordionItemHeading>

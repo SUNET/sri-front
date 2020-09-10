@@ -63,7 +63,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
           __typename: entity.__typename,
           name: entity.name,
           id: entity.id,
-          status: 'saved',
+          status: SAVED,
         };
         this.props.dispatch(arrayPush(this.props.form, 'ports', newEntity));
       });

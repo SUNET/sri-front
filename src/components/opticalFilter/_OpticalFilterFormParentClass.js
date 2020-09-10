@@ -11,6 +11,7 @@ import renderFormBlockSection from '../common/BlockSection';
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import BulPort from '../common/BulkPort';
 // const
+import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class _OpticalFilterFormParentClass extends _BasicFormParentClass {
@@ -47,7 +48,7 @@ class _OpticalFilterFormParentClass extends _BasicFormParentClass {
           __typename: entity.__typename,
           name: entity.name,
           id: entity.id,
-          status: 'saved',
+          status: SAVED,
         };
         this.props.dispatch(arrayPush(this.props.form, 'ports', newEntity));
       });
