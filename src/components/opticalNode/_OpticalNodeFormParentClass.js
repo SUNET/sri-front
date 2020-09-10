@@ -12,6 +12,7 @@ import { isBrowser } from 'react-device-detect';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
 
 class _OpticalNodeFormParentClass extends _BasicFormParentClass {
@@ -52,7 +53,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         {this.renderModelMainSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
-        {!isFromModal && editMode && this.renderBulkPortToggleSection()}
+        {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog(editMode)}
       </>
     );
@@ -118,28 +119,6 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
           </div>
         </TogglePanel>
       </ToggleSection>
-    );
-  }
-
-  renderBulkPortToggleSection() {
-    const { t } = this.props;
-    return (
-      <section className="model-section">
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('general-forms/bulk-port')}</h2>
-          </ToggleHeading>
-          <TogglePanel>
-            <BulPort
-              handleBulkPortResponse={(dataForBulkPortCreate) => {
-                dataForBulkPortCreate.forEach((portData) => {
-                  this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
-                });
-              }}
-            ></BulPort>
-          </TogglePanel>
-        </ToggleSection>
-      </section>
     );
   }
 }

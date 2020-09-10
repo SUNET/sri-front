@@ -10,6 +10,7 @@ import { SAVED } from '../../utils/constants';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 
 class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -68,7 +69,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {!isFromModal && this.renderOwnerToggleSection(editMode)}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
-        {!isFromModal && editMode && this.renderBulkPortToggleSection()}
+        {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
       </>
     );
@@ -107,28 +108,6 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'owner' ? entityRemovedId : null}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
-            />
-          </TogglePanel>
-        </ToggleSection>
-      </section>
-    );
-  }
-
-  renderBulkPortToggleSection() {
-    const { t } = this.props;
-    return (
-      <section className="model-section">
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('general-forms/bulk-port')}</h2>
-          </ToggleHeading>
-          <TogglePanel>
-            <BulPort
-              handleBulkPortResponse={(dataForBulkPortCreate) => {
-                dataForBulkPortCreate.forEach((portData) => {
-                  this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
-                });
-              }}
             />
           </TogglePanel>
         </ToggleSection>
