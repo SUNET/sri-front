@@ -58,7 +58,7 @@ class OpticalLinkUpdateForm extends _OpticalLinkFormParentClass {
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
         {!isFromModal && this.renderSaveCancelButtons()}

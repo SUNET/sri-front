@@ -4,7 +4,6 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
-import BulPort from '../common/BulkPort';
 // const
 import { SAVED } from '../../utils/constants';
 

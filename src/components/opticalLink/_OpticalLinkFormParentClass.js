@@ -1,10 +1,9 @@
 import React from 'react';
-import { FieldArray, arrayPush, change } from 'redux-form';
+import { arrayPush, change } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import FieldArrayPorts from '../common/FieldArrayPorts';
 // const
 import { isBrowser } from 'react-device-detect';
 

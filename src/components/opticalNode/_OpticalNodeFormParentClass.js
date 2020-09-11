@@ -1,12 +1,10 @@
 import React from 'react';
-import { arrayPush } from 'redux-form';
 import { Form, Col } from 'react-bootstrap';
 
 // components
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import BulPort from '../common/BulkPort';
 // const
 import { isBrowser } from 'react-device-detect';
 
