@@ -107,6 +107,17 @@ class _GroupFormParentClass extends React.Component {
   };
 
   // Common sections RENDERS
+  renderSections(editMode) {
+    const { t } = this.props;
+    return (
+      <>
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderContactsToggleSection(editMode)}
+        {this.renderWorkLog(editMode)}
+      </>
+    );
+  }
+
   renderEditButton() {
     const { t } = this.props;
     const desktopClass = isBrowser ? 'with-vertical-separator with-vertical-separator--right' : '';
@@ -185,8 +196,9 @@ class _GroupFormParentClass extends React.Component {
   }
   renderWorkLog() {
     const { t, group } = this.props;
+    const componentClassName = 'workLog-block';
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         {this.IS_UPDATED_FORM ? (
           <Worklog model={group} refetch={this.refetch} />
         ) : (
@@ -215,65 +227,72 @@ class _GroupFormParentClass extends React.Component {
   // Specific toggle sections RENDERS
   renderDescriptionToggleSection(editMode = true) {
     const { t, description } = this.props;
+    const componentClassName = 'description-block';
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/description')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          {editMode ? (
-            <Field
-              name="description"
-              component={FieldInput}
-              as="textarea"
-              rows="3"
-              placeholder={t('general-forms/add-description')}
-            ></Field>
-          ) : (
-            <span className="pre-text">{description}</span>
-          )}
-        </TogglePanel>
-      </ToggleSection>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/description')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            {editMode ? (
+              <Field
+                name="description"
+                component={FieldInput}
+                as="textarea"
+                rows="3"
+                placeholder={t('general-forms/add-description')}
+              ></Field>
+            ) : (
+              <span className="pre-text">{description}</span>
+            )}
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
   renderContactsToggleSection(editMode = true) {
     const { t, entityRemovedId } = this.props;
+    const componentClassName = 'contacts-block';
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('main-entity-name/contacts')}</h2>
-        </ToggleHeading>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('main-entity-name/contacts')}</h2>
+          </ToggleHeading>
 
-        <TogglePanel>
-          <FieldArray
-            name="members"
-            component={FieldArrayMembersGroup}
-            editable={editMode}
-            dispatch={this.props.dispatch}
-            errors={this.props.formSyncErrors.members}
-            metaFields={this.props.fields}
-            handleContactSearch={this.handleSelectedMember}
-            handleAddContactRow={() => {
-              this.props.showNewContactForm();
-            }}
-            handleShowContactDetail={(contactId) => {
-              this.props.showContactDetailForm(contactId);
-            }}
-            handleShowContactEdition={(contactId) => {
-              this.props.showContactEditForm(contactId);
-            }}
-            removedContactId={entityRemovedId}
-            removedContactDeletedFromTheList={() => {
-              this.props.hideContactForm();
-            }}
-          />
-        </TogglePanel>
-      </ToggleSection>
+          <TogglePanel>
+            <FieldArray
+              name="members"
+              component={FieldArrayMembersGroup}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.members}
+              metaFields={this.props.fields}
+              handleContactSearch={this.handleSelectedMember}
+              handleAddContactRow={() => {
+                this.props.showNewContactForm();
+              }}
+              handleShowContactDetail={(contactId) => {
+                this.props.showContactDetailForm(contactId);
+              }}
+              handleShowContactEdition={(contactId) => {
+                this.props.showContactEditForm(contactId);
+              }}
+              removedContactId={entityRemovedId}
+              removedContactDeletedFromTheList={() => {
+                this.props.hideContactForm();
+              }}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
   renderModelMainSection(editMode = true) {
+    const componentClassName = 'main-section-block';
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <Form.Row>
           <Col>
             <Col>{this.renderDescriptionToggleSection(editMode)}</Col>

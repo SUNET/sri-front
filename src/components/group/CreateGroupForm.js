@@ -26,10 +26,9 @@ export class CreateGroupFormComponent extends _GroupFormParentClass {
     return (
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
-        <div className="model-details create-contact-form">
+        <div className={`model-details create-${this.MODEL_NAME}-form`}>
           {this.renderHeader(editMode, showBackButton)}
-          {this.renderModelMainSection(editMode)}
-          {this.renderWorkLog(editMode)}
+          {this.renderSections(editMode)}
         </div>
         {this.renderSaveCancelButtons()}
       </form>
@@ -37,7 +36,7 @@ export class CreateGroupFormComponent extends _GroupFormParentClass {
   }
 }
 
-const CreateGroupForm = reduxForm({
+export const CreateGroupForm = reduxForm({
   form: 'createGroup',
   validate: ValidationsGroupForm.validate,
   initialValues: {
