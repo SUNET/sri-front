@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 // Common imports
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Dropdown from '../Dropdown';
-
 import { isBrowser } from 'react-device-detect';
+import Dropdown from '../Dropdown';
 
 import { CREATE } from '../../utils/constants';
 
