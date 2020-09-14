@@ -18,22 +18,7 @@ import INFO_BY_ENTITIES from './infoByTypeEntity';
 // scss
 import '../../style/ModelDetails.scss';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import renderFormBlockSection from '../common/BlockSection';
 
 class _BasicFormParentClass extends React.Component {
   // GLOBAL VARs
@@ -81,6 +66,16 @@ class _BasicFormParentClass extends React.Component {
   };
 
   // Common sections RENDERS
+
+  renderSections(editMode) {
+    return (
+      <>
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+      </>
+    );
+  }
+
   renderEditButton() {
     const { t } = this.props;
     const desktopClass = isBrowser ? 'with-vertical-separator with-vertical-separator--right' : '';
@@ -192,30 +187,34 @@ class _BasicFormParentClass extends React.Component {
   // Specific toggle sections RENDERS
   renderDescriptionToggleSection(editMode = true) {
     const { t, description } = this.props;
+    const componentClassName = 'description-block';
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/description')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          {editMode ? (
-            <Field
-              name="description"
-              component={FieldInput}
-              as="textarea"
-              rows="3"
-              placeholder={t(`general-forms/add-description`)}
-            ></Field>
-          ) : (
-            <span className="pre-text">{description}</span>
-          )}
-        </TogglePanel>
-      </ToggleSection>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/description')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            {editMode ? (
+              <Field
+                name="description"
+                component={FieldInput}
+                as="textarea"
+                rows="3"
+                placeholder={t(`general-forms/add-description`)}
+              ></Field>
+            ) : (
+              <span className="pre-text">{description}</span>
+            )}
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
     const { t, url } = this.props;
+    const componentClassName = 'general-info-block';
     const generalInfoFirstRow = [
       {
         title: t('general-forms/website'),
@@ -239,32 +238,21 @@ class _BasicFormParentClass extends React.Component {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfoFirstRow.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfoFirstRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
-    );
-  }
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
+          </TogglePanel>
+        </ToggleSection>
       </section>
     );
   }

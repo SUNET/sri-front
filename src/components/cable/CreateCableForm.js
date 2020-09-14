@@ -29,9 +29,7 @@ class CreateCableForm extends _CableFormParentClass {
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
-          {this.renderModelMainSection(editMode)}
-          {this.renderConnectionsSection(editMode)}
-          {this.renderWorkLog(editMode)}
+          {this.renderSections(editMode)}
         </div>
         {this.renderSaveCancelButtons()}
       </form>

@@ -24,7 +24,7 @@ class ___EntityClassName__FormParentClass extends _BasicFormParentClass {
   renderSections(editMode) {
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {this.renderSections(editMode)}
         {this.renderWorkLog()}
       </>
     );

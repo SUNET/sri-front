@@ -61,7 +61,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
     const { isFromModal } = this.props;
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {this.renderSections(editMode)}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}

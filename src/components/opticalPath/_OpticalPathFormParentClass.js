@@ -29,7 +29,7 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
   renderSections(editMode) {
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {this.renderSections(editMode)}
         {this.renderWorkLog()}
       </>
     );

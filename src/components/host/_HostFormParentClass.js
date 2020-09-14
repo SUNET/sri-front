@@ -19,6 +19,9 @@ import { isBrowser } from 'react-device-detect';
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
 
+import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
+
 class _HostFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
   IS_UPDATED_FORM = false;
@@ -84,14 +87,19 @@ class _HostFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { host_type, t, rack_position, rack_units } = this.props;
+    const { host_type, t, rack_position, rack_units, isFromModal } = this.props;
     const isLogicalHost = host_type === 'Logical';
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderDetailsToggleSection(editMode)}
+        {this.renderOSToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {(!this.IS_UPDATED_FORM || (this.IS_UPDATED_FORM && !isLogicalHost)) && this.renderOwnerToggleSection(editMode)}
         {this.IS_UPDATED_FORM && isLogicalHost && this.renderHostUserToggleSection(editMode)}
+        {!isLogicalHost && !isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isLogicalHost && !isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog(editMode)}
       </>
     );
@@ -144,24 +152,8 @@ class _HostFormParentClass extends _BasicFormParentClass {
     );
   }
 
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderDetailsToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderOSToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
-      </section>
-    );
-  }
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, managed_by, host_type, ip_addresses, operational_state } = this.props;
 
     const generalInfo = [
@@ -214,24 +206,27 @@ class _HostFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderDetailsToggleSection(editMode = true) {
+    const componentClassName = 'details-block';
     const {
       t,
       support_group_obj,
@@ -323,30 +318,33 @@ class _HostFormParentClass extends _BasicFormParentClass {
       },
     ];
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/details')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {detailsSecondRow.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/details')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {detailsSecondRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
+              <div className="form-internal-block">
+                {detailsRowInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-            <div className="form-internal-block">
-              {detailsRowInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderOSToggleSection(editMode = true) {
     const { t, os, os_version } = this.props;
+    const componentClassName = 'os-block';
 
     const osInfo = [
       {
@@ -369,27 +367,30 @@ class _HostFormParentClass extends _BasicFormParentClass {
       },
     ];
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/os')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {osInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/os')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {osInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderOwnerToggleSection(editMode = false) {
     const { t, owner, entityRemovedId } = this.props;
+    const componentClassName = 'owner-block';
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
             <h2>{t('general-forms/owner')}</h2>

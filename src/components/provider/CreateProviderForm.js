@@ -30,7 +30,7 @@ class CreateProviderForm extends _BasicFormParentClass {
                 {showSaveCancelInHeader && this.renderSaveCancelButtons()}
                 <div className="model-details create-contact-form">
                     {this.renderHeader(editMode, showBackButton)}
-                    {this.renderModelMainSection(editMode)}
+                    {this.renderSections(editMode)}
                     {this.renderWorkLog(editMode)}
                 </div>
                 {!isFromModal && this.renderSaveCancelButtons()}

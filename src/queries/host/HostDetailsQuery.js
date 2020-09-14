@@ -61,6 +61,15 @@ const HostDetailsQuery = graphql`
       rack_units
       rack_position
       rack_back
+      ports {
+        id
+        name
+        __typename
+        relation_id
+        type: port_type {
+          name
+        }
+      }
     }
   }
 `;

@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Thu Sep 03 2020 07:43:35 GMT+0200 (GMT+02:00)
+# timestamp: Mon Sep 14 2020 14:46:44 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -1170,6 +1170,33 @@ input CompositeFirewallMutationInput {
   delete_owner: DeleteOwnerMutationInput
   update_input: UpdateFirewallInput
   unlink_subinputs: [DeleteRelationshipInput]
+  create_has_port: [CreatePortInput]
+  update_has_port: [UpdatePortInput]
+  deleted_has_port: [DeletePortInput]
+  create_has_cable: [CreateCableInput]
+  update_has_cable: [UpdateCableInput]
+  deleted_has_cable: [DeleteCableInput]
+  create_has_router: [CreateRouterInput]
+  update_has_router: [UpdateRouterInput]
+  deleted_has_router: [DeleteRouterInput]
+  create_has_switch: [CreateSwitchInput]
+  update_has_switch: [UpdateSwitchInput]
+  deleted_has_switch: [DeleteSwitchInput]
+  create_has_firewall: [CreateFirewallInput]
+  update_has_firewall: [UpdateFirewallInput]
+  deleted_has_firewall: [DeleteFirewallInput]
+  create_has_externalequipment: [CreateExternalEquipmentInput]
+  update_has_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_has_externalequipment: [DeleteExternalEquipmentInput]
+  create_has_opticalnode: [CreateOpticalNodeInput]
+  update_has_opticalnode: [UpdateOpticalNodeInput]
+  deleted_has_opticalnode: [DeleteOpticalNodeInput]
+  create_has_odf: [CreateOdfInput]
+  update_has_odf: [UpdateOdfInput]
+  deleted_has_odf: [DeleteOdfInput]
+  create_has_opticalfilter: [CreateOpticalFilterInput]
+  update_has_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_has_opticalfilter: [DeleteOpticalFilterInput]
   create_dependents_group: [CreateGroupInput]
   update_dependents_group: [UpdateGroupInput]
   deleted_dependents_group: [DeleteGroupInput]
@@ -1207,6 +1234,33 @@ type CompositeFirewallMutationPayload {
   deleted_owner: DeleteOwnerMutationPayload
   updated: UpdateFirewallPayload
   unlinked: [DeleteRelationshipPayload]
+  has_port_created: [CreatePortPayload]
+  has_port_updated: [UpdatePortPayload]
+  has_port_deleted: [DeletePortPayload]
+  has_cable_created: [CreateCablePayload]
+  has_cable_updated: [UpdateCablePayload]
+  has_cable_deleted: [DeleteCablePayload]
+  has_router_created: [CreateRouterPayload]
+  has_router_updated: [UpdateRouterPayload]
+  has_router_deleted: [DeleteRouterPayload]
+  has_switch_created: [CreateSwitchPayload]
+  has_switch_updated: [UpdateSwitchPayload]
+  has_switch_deleted: [DeleteSwitchPayload]
+  has_firewall_created: [CreateFirewallPayload]
+  has_firewall_updated: [UpdateFirewallPayload]
+  has_firewall_deleted: [DeleteFirewallPayload]
+  has_externalequipment_created: [CreateExternalEquipmentPayload]
+  has_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  has_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  has_opticalnode_created: [CreateOpticalNodePayload]
+  has_opticalnode_updated: [UpdateOpticalNodePayload]
+  has_opticalnode_deleted: [DeleteOpticalNodePayload]
+  has_odf_created: [CreateOdfPayload]
+  has_odf_updated: [UpdateOdfPayload]
+  has_odf_deleted: [DeleteOdfPayload]
+  has_opticalfilter_created: [CreateOpticalFilterPayload]
+  has_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  has_opticalfilter_deleted: [DeleteOpticalFilterPayload]
   dependents_group_created: [CreateGroupPayload]
   dependents_group_updated: [UpdateGroupPayload]
   dependents_group_deleted: [DeleteGroupPayload]
@@ -1491,6 +1545,9 @@ type CompositeGroupMutationPayload {
 input CompositeHostMutationInput {
   create_input: CreateHostInput
   update_input: EditHostInput
+  create_subinputs: [CreatePortInput]
+  update_subinputs: [UpdatePortInput]
+  delete_subinputs: [DeletePortInput]
   unlink_subinputs: [DeleteRelationshipInput]
   create_dependents_group: [CreateGroupInput]
   update_dependents_group: [UpdateGroupInput]
@@ -1528,6 +1585,9 @@ input CompositeHostMutationInput {
 type CompositeHostMutationPayload {
   created: CreateHostPayload
   updated: EditHostPayload
+  subcreated: [CreatePortPayload]
+  subupdated: [UpdatePortPayload]
+  subdeleted: [DeletePortPayload]
   unlinked: [DeleteRelationshipPayload]
   dependents_group_created: [CreateGroupPayload]
   dependents_group_updated: [UpdateGroupPayload]
@@ -3252,7 +3312,7 @@ type CreateCommentPayload {
 
 input CreateContactInput {
   first_name: String!
-  last_name: String!
+  last_name: String
   contact_type: ChoiceScalar!
   name: String
   title: String
@@ -4825,6 +4885,7 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   max_number_of_ports: Int
   services_locked: Boolean
   services_checked: Boolean
+  ports: [Port]
 }
 
 type firewallConnection {
@@ -5421,6 +5482,7 @@ type Host implements NINode & Logical & PhysicalLogical {
   host_services: String
   services_locked: Boolean
   services_checked: Boolean
+  ports: [Port]
 }
 
 type hostConnection {
@@ -8631,111 +8693,84 @@ type Query {
   getPlainGroups: [PlainGroup]
   getOpticalPathDependencyTypes: [TypeInfo]
   all_groups: [Group]
-  count_groups: Int
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
   getGroupById(id: ID): Group
   all_addresss: [Address]
-  count_addresss: Int
   addresss(filter: AddressFilter, orderBy: AddressOrderBy, before: String, after: String, first: Int, last: Int): addressConnection
   getAddressById(id: ID): Address
   all_phones: [Phone]
-  count_phones: Int
   phones(filter: PhoneFilter, orderBy: PhoneOrderBy, before: String, after: String, first: Int, last: Int): phoneConnection
   getPhoneById(id: ID): Phone
   all_emails: [Email]
-  count_emails: Int
   emails(filter: EmailFilter, orderBy: EmailOrderBy, before: String, after: String, first: Int, last: Int): emailConnection
   getEmailById(id: ID): Email
   all_contacts: [Contact]
-  count_contacts: Int
   contacts(filter: ContactFilter, orderBy: ContactOrderBy, before: String, after: String, first: Int, last: Int): contactConnection
   getContactById(id: ID): Contact
   all_organizations: [Organization]
-  count_organizations: Int
   organizations(filter: OrganizationFilter, orderBy: OrganizationOrderBy, before: String, after: String, first: Int, last: Int): organizationConnection
   getOrganizationById(id: ID): Organization
   all_procedures: [Procedure]
-  count_procedures: Int
   procedures(filter: ProcedureFilter, orderBy: ProcedureOrderBy, before: String, after: String, first: Int, last: Int): procedureConnection
   getProcedureById(id: ID): Procedure
   all_customers: [Customer]
-  count_customers: Int
   customers(filter: CustomerFilter, orderBy: CustomerOrderBy, before: String, after: String, first: Int, last: Int): customerConnection
   getCustomerById(id: ID): Customer
   all_endusers: [EndUser]
-  count_endusers: Int
   endUsers(filter: EndUserFilter, orderBy: EndUserOrderBy, before: String, after: String, first: Int, last: Int): endUserConnection
   getEndUserById(id: ID): EndUser
   all_providers: [Provider]
-  count_providers: Int
   providers(filter: ProviderFilter, orderBy: ProviderOrderBy, before: String, after: String, first: Int, last: Int): providerConnection
   getProviderById(id: ID): Provider
   all_siteowners: [SiteOwner]
-  count_siteowners: Int
   siteOwners(filter: SiteOwnerFilter, orderBy: SiteOwnerOrderBy, before: String, after: String, first: Int, last: Int): siteOwnerConnection
   getSiteOwnerById(id: ID): SiteOwner
   all_ports: [Port]
-  count_ports: Int
   ports(filter: PortFilter, orderBy: PortOrderBy, before: String, after: String, first: Int, last: Int): portConnection
   getPortById(id: ID): Port
   all_hosts: [Host]
-  count_hosts: Int
   hosts(filter: HostFilter, orderBy: HostOrderBy, before: String, after: String, first: Int, last: Int): hostConnection
   getHostById(id: ID): Host
   all_cables: [Cable]
-  count_cables: Int
   cables(filter: CableFilter, orderBy: CableOrderBy, before: String, after: String, first: Int, last: Int): cableConnection
   getCableById(id: ID): Cable
   all_routers: [Router]
-  count_routers: Int
   routers(filter: RouterFilter, orderBy: RouterOrderBy, before: String, after: String, first: Int, last: Int): routerConnection
   getRouterById(id: ID): Router
   all_switchs: [Switch]
-  count_switchs: Int
   switchs(filter: SwitchFilter, orderBy: SwitchOrderBy, before: String, after: String, first: Int, last: Int): switchConnection
   getSwitchById(id: ID): Switch
   all_firewalls: [Firewall]
-  count_firewalls: Int
   firewalls(filter: FirewallFilter, orderBy: FirewallOrderBy, before: String, after: String, first: Int, last: Int): firewallConnection
   getFirewallById(id: ID): Firewall
   all_externalequipments: [ExternalEquipment]
-  count_externalequipments: Int
   externalEquipments(filter: ExternalEquipmentFilter, orderBy: ExternalEquipmentOrderBy, before: String, after: String, first: Int, last: Int): externalEquipmentConnection
   getExternalEquipmentById(id: ID): ExternalEquipment
   all_opticalnodes: [OpticalNode]
-  count_opticalnodes: Int
   opticalNodes(filter: OpticalNodeFilter, orderBy: OpticalNodeOrderBy, before: String, after: String, first: Int, last: Int): opticalNodeConnection
   getOpticalNodeById(id: ID): OpticalNode
   all_odfs: [ODF]
-  count_odfs: Int
   odfs(filter: ODFFilter, orderBy: ODFOrderBy, before: String, after: String, first: Int, last: Int): odfConnection
   getODFById(id: ID): ODF
   all_opticalfilters: [OpticalFilter]
-  count_opticalfilters: Int
   opticalFilters(filter: OpticalFilterFilter, orderBy: OpticalFilterOrderBy, before: String, after: String, first: Int, last: Int): opticalFilterConnection
   getOpticalFilterById(id: ID): OpticalFilter
   all_opticallinks: [OpticalLink]
-  count_opticallinks: Int
   opticalLinks(filter: OpticalLinkFilter, orderBy: OpticalLinkOrderBy, before: String, after: String, first: Int, last: Int): opticalLinkConnection
   getOpticalLinkById(id: ID): OpticalLink
   all_opticalmultiplexsections: [OpticalMultiplexSection]
-  count_opticalmultiplexsections: Int
   opticalMultiplexSections(filter: OpticalMultiplexSectionFilter, orderBy: OpticalMultiplexSectionOrderBy, before: String, after: String, first: Int, last: Int): opticalMultiplexSectionConnection
   getOpticalMultiplexSectionById(id: ID): OpticalMultiplexSection
   all_opticalpaths: [OpticalPath]
-  count_opticalpaths: Int
   opticalPaths(filter: OpticalPathFilter, orderBy: OpticalPathOrderBy, before: String, after: String, first: Int, last: Int): opticalPathConnection
   getOpticalPathById(id: ID): OpticalPath
   all_peeringpartners: [PeeringPartner]
-  count_peeringpartners: Int
   peeringPartners(filter: PeeringPartnerFilter, orderBy: PeeringPartnerOrderBy, before: String, after: String, first: Int, last: Int): peeringPartnerConnection
   getPeeringPartnerById(id: ID): PeeringPartner
   all_peeringgroups: [PeeringGroup]
-  count_peeringgroups: Int
   peeringGroups(filter: PeeringGroupFilter, orderBy: PeeringGroupOrderBy, before: String, after: String, first: Int, last: Int): peeringGroupConnection
   getPeeringGroupById(id: ID): PeeringGroup
   all_hostusers: [HostUser]
-  count_hostusers: Int
   hostUsers(filter: HostUserFilter, orderBy: HostUserOrderBy, before: String, after: String, first: Int, last: Int): hostUserConnection
   getHostUserById(id: ID): HostUser
   search_generalsearch(filter: GenericFilter, before: String, after: String, first: Int, last: Int): GeneralSearchConnection
@@ -9611,7 +9646,7 @@ type UpdateCommentPayload {
 
 input UpdateContactInput {
   first_name: String!
-  last_name: String!
+  last_name: String
   contact_type: ChoiceScalar!
   name: String
   title: String

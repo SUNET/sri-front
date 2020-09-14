@@ -49,7 +49,7 @@ class _OpticalFilterFormParentClass extends _BasicFormParentClass {
     const { t, rack_position, rack_units, isFromModal } = this.props;
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {this.renderSections(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
