@@ -10,7 +10,7 @@ import ValidationsGroupForm from './ValidationsGroupForm';
 import { CREATE_GROUP_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-export class CreateGroupFormComponent extends _GroupFormParentClass {
+class CreateGroupFormComponent extends _GroupFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_GROUP_FORM;
   state = {

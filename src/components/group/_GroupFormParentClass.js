@@ -2,7 +2,7 @@
 import React from 'react';
 import { arrayPush, FieldArray, Field } from 'redux-form';
 import uuidv4 from 'uuid/v4';
-import { Form, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 // components
 import BackCTA from '../common/BackCTA';
 import EditField from '../EditField';
@@ -108,7 +108,6 @@ class _GroupFormParentClass extends React.Component {
 
   // Common sections RENDERS
   renderSections(editMode) {
-    const { t } = this.props;
     return (
       <>
         {this.renderDescriptionToggleSection(editMode)}
@@ -286,20 +285,6 @@ class _GroupFormParentClass extends React.Component {
             />
           </TogglePanel>
         </ToggleSection>
-      </section>
-    );
-  }
-  renderModelMainSection(editMode = true) {
-    const componentClassName = 'main-section-block';
-    return (
-      <section className={`model-section ${componentClassName}`}>
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderContactsToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
       </section>
     );
   }

@@ -1,7 +1,7 @@
 // Common imports
 import React from 'react';
 import { FieldArray, Field } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 // components
 import BackCTA from '../common/BackCTA';
 import ContactEmails from '../contact/ContactEmails';
@@ -19,22 +19,7 @@ import { isBrowser, isMobile } from 'react-device-detect';
 // scss
 import '../../style/ModelDetails.scss';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import renderFormBlockSection from '../common/BlockSection';
 
 class _ContactFormParentClass extends React.Component {
   // GLOBAL VARs
@@ -81,6 +66,17 @@ class _ContactFormParentClass extends React.Component {
   };
 
   // Common sections RENDERS
+  renderSections(editMode) {
+    return (
+      <>
+        {this.renderNotesToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderProfessionalDetails(editMode)}
+        {this.renderWorkLog(editMode)}
+      </>
+    );
+  }
+
   renderEditButton() {
     const { t } = this.props;
     const desktopClass = isBrowser ? 'with-vertical-separator with-vertical-separator--right' : '';
@@ -156,10 +152,12 @@ class _ContactFormParentClass extends React.Component {
       </EditField>
     );
   }
+
   renderWorkLog() {
     const { t, contact } = this.props;
+    const componentClassName = 'workLog-block';
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         {this.IS_UPDATED_FORM ? (
           <Worklog model={contact} refetch={this.refetch} />
         ) : (
@@ -174,6 +172,9 @@ class _ContactFormParentClass extends React.Component {
                 as="textarea"
                 rows="3"
                 placeholder={t('general-forms/worklog-add-comment')}
+                onBlur={(e) => {
+                  this.setState({ comment: e.target.value });
+                }}
               />
             </TogglePanel>
           </ToggleSection>
@@ -184,29 +185,34 @@ class _ContactFormParentClass extends React.Component {
 
   // Specific toggle sections RENDERS
   renderNotesToggleSection(editMode = true) {
-    const { t } = this.props;
+    const { t, notes } = this.props;
+    const componentClassName = 'notes-block';
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/notes')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          {editMode ? (
-            <Field
-              name="notes"
-              component={FieldInput}
-              as="textarea"
-              rows="3"
-              placeholder={t('general-forms/add-notes')}
-            />
-          ) : (
-            <span className="pre-text">{this.props.notes}</span>
-          )}
-        </TogglePanel>
-      </ToggleSection>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/notes')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            {editMode ? (
+              <Field
+                name="notes"
+                component={FieldInput}
+                as="textarea"
+                rows="3"
+                placeholder={t('general-forms/add-notes')}
+              ></Field>
+            ) : (
+              <span className="pre-text">{notes}</span>
+            )}
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
+
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, title, contactTypeObj, pgp_fingerprint } = this.props;
     const generalInfoFirstRow = [
       {
@@ -275,76 +281,66 @@ class _ContactFormParentClass extends React.Component {
       },
     ];
     return (
-      <ToggleSection defaultEditable={false}>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <>
-            <div className="form-internal-block">
-              {generalInfoFirstRow.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-            <div className="table-details mt-4">
-              <div>
-                <div>PGP Fingerprint</div>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection defaultEditable={false}>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <>
+              <div className="form-internal-block">
+                {generalInfoFirstRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
               </div>
-              <div>
+              <div className="table-details mt-4">
                 <div>
-                  {!editMode ? (
-                    pgp_fingerprint
-                  ) : (
-                    <Form.Group>
-                      <Field
-                        type="text"
-                        component={FieldInput}
-                        className={`${isBrowser ? 'xlg' : 'auto'}`}
-                        placeholder={t('general-forms/pgp-fingerprint')}
-                        name="pgp_fingerprint"
-                      />
-                    </Form.Group>
-                  )}
+                  <div>PGP Fingerprint</div>
+                </div>
+                <div>
+                  <div>
+                    {!editMode ? (
+                      pgp_fingerprint
+                    ) : (
+                      <Form.Group>
+                        <Field
+                          type="text"
+                          component={FieldInput}
+                          className={`${isBrowser ? 'xlg' : 'auto'}`}
+                          placeholder={t('general-forms/pgp-fingerprint')}
+                          name="pgp_fingerprint"
+                        />
+                      </Form.Group>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        </TogglePanel>
-      </ToggleSection>
+            </>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
   renderProfessionalDetails(editMode = true) {
+    const componentClassName = 'professional-details-block';
     const { t } = this.props;
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/professional-details')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <FieldArray
-            name="organizations"
-            component={FieldArrayOrganizationsContact}
-            editable={editMode}
-            dispatch={this.props.dispatch}
-            errors={this.props.formSyncErrors.organizations}
-            metaFields={this.props.fields}
-          />
-        </TogglePanel>
-      </ToggleSection>
-    );
-  }
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            {this.renderNotesToggleSection(editMode)}
-            <hr />
-            {this.renderGeneralInfoToggleSection(editMode)}
-            <hr />
-            {this.renderProfessionalDetails(editMode)}
-          </Col>
-        </Form.Row>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/professional-details')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="organizations"
+              component={FieldArrayOrganizationsContact}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.organizations}
+              metaFields={this.props.fields}
+            />
+          </TogglePanel>
+        </ToggleSection>
       </section>
     );
   }

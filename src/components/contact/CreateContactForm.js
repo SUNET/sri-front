@@ -9,7 +9,7 @@ import ValidationsContactForm from './ValidationContactForm';
 import { CREATE_CONTACT_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CreateContactForm extends _ContactFormParentClass {
+class CreateContactFormComponent extends _ContactFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_CONTACT_FORM;
 
@@ -27,10 +27,9 @@ class CreateContactForm extends _ContactFormParentClass {
     return (
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
-        <div className="model-details create-contact-form">
+        <div className={`model-details create-${this.MODEL_NAME}-form`}>
           {this.renderHeader(editMode, showBackButton, isFromModal)}
-          {this.renderModelMainSection(editMode)}
-          {this.renderWorkLog(editMode)}
+          {this.renderSections(editMode)}
         </div>
         {this.renderSaveCancelButtons()}
       </form>
@@ -38,9 +37,9 @@ class CreateContactForm extends _ContactFormParentClass {
   }
 }
 
-CreateContactForm = reduxForm({
+export const CreateContactForm = reduxForm({
   validate: ValidationsContactForm.contactFormValidate,
   initialValues: {},
-})(CreateContactForm);
+})(CreateContactFormComponent);
 
 export default withTranslation()(CreateContactForm);
