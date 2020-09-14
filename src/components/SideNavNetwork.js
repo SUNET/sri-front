@@ -116,8 +116,13 @@ class SideNavNetwork extends React.Component {
             <>
               <AccordionItemHeading>
                 <AccordionItemButton className="accordion__button with-arrow">
-                  <ReactSVG src={require(`../static/img/${icon}`)} wrapper="span" />
-                  {t(i18nText)}
+                  <div className="accordion__button__title">
+                    <ReactSVG src={require(`../static/img/${icon}`)} wrapper="span" />
+                    <span>{t(i18nText)}</span>
+                  </div>
+                  <div className={`accordion__button__arrow ${expanded ? 'accordion__button__arrow--expanded' : ''}`}>
+                    <i className="icon-arrow"></i>
+                  </div>
                 </AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>

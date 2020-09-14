@@ -2,14 +2,14 @@ import { generateSubInputs } from '../MutationsUtils';
 
 function formatterParentsByType(parents, parentType) {
   return generateSubInputs(
-    parents.filter((el) => el['__typename'] === parentType),
+    parents && parents.length > 0 ? parents.filter((el) => el['__typename'] === parentType) : [],
     `${parentType.toLowerCase()}_type`,
   );
 }
 
 function formatterParentsByTypeWithOperationState(parents, parentType) {
   const subInpunts = generateSubInputs(
-    parents.filter((el) => el['__typename'] === parentType),
+    parents && parents.length > 0 ? parents.filter((el) => el['__typename'] === parentType) : [],
     null,
     'operational_state',
   );
@@ -22,7 +22,7 @@ function formatterParentsByTypeWithOperationState(parents, parentType) {
 
 function formatterParentsByTypeWithoutSpecificFields(parents, parentType) {
   return generateSubInputs(
-    parents.filter((el) => el['__typename'] === parentType),
+    parents && parents.length > 0 ? parents.filter((el) => el['__typename'] === parentType) : [],
     null,
     null,
   );
@@ -41,8 +41,9 @@ function formatterRouterParents(parents) {
 }
 
 function formatterOpticalNodeParents(parents) {
+  const parentType = 'OpticalNode';
   const optNodesElements = generateSubInputs(
-    parents.filter((el) => el['__typename'] === 'OpticalNode'),
+    parents && parents.length > 0 ? parents.filter((el) => el['__typename'] === parentType) : [],
     'type',
     'operational_state',
   );

@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateOpticalNodeMutation from '../../mutations/opticalNode/UpdateOpticalNodeMutation';
 import ValidationsOpticalNodeForm from './ValidationsOpticalNodeForm';
 // const
-import { UPDATE_OPTICALNODE_FORM } from '../../utils/constants';
+import { UPDATE_OPTICALNODE_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class OpticalNodeUpdateForm extends _OpticalNodeFormParentClass {
@@ -32,10 +32,24 @@ class OpticalNodeUpdateForm extends _OpticalNodeFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (opticalNode) => {
+
+  handleSubmit = (entityData) => {
     this.setState({ editMode: false });
-    UpdateOpticalNodeMutation(opticalNode, this);
+    this.props.hideModalForm();
+    const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    const someItemWillBeDeleted = portsToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateOpticalNodeMutation(entityData, form);
+  }
+
   render() {
     let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;

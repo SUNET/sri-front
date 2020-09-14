@@ -75,6 +75,7 @@ const PORT_LIST = [
     type: FIELD_TYPES.ARRAY_LIST,
     name: 'ports',
     subFields: [
+      { type: FIELD_TYPES.SINGLE, name: '__typename' },
       { type: FIELD_TYPES.SINGLE, name: 'id' },
       { type: FIELD_TYPES.SINGLE, name: 'name' },
       { type: FIELD_TYPES.SINGLE, name: 'description' },
