@@ -10,7 +10,4 @@ npm run adapt-queries common
 npm run relay-common
 npm run build
 
-cp -r /app/build/* /bundle/
-rm -rf /app/build/*
-
 sh ./copy-bundle.sh
