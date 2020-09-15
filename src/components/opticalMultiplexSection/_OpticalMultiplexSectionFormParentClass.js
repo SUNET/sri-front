@@ -38,7 +38,7 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
 
   renderGeneralInfoToggleSection(editMode = true) {
     const componentClassName = 'general-info-block';
-    const { t, operational_state, type, interface_type, provider_id, provider_obj } = this.props;
+    const { t, operational_state, provider_id, provider_obj } = this.props;
 
     const generalInfo = [
       {

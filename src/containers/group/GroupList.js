@@ -1,19 +1,16 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import GroupList from "../../components/group/GroupList";
+import GroupList from '../../components/group/GroupList';
 
 const mapStateToProps = (state, props) => {
-    let { columns_visible, all_columns } = state.filterColumns.group;
-    return { columns_visible, all_columns };
+  let { columns_visible, all_columns } = state.filterColumns.group;
+  return { columns_visible, all_columns };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+  return {};
 };
 
-const GroupListContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(GroupList);
+const GroupListContainer = connect(mapStateToProps, mapDispatchToProps)(GroupList);
 
 export default GroupListContainer;

@@ -72,7 +72,7 @@ class ModalNewContact extends React.Component {
       textHeader: '',
       formId: '',
     };
-      console.log('entityName: ', entityName);
+    console.log('entityName: ', entityName);
     switch (entityName) {
       case 'Contact':
         entityData = {

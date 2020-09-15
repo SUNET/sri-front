@@ -4,7 +4,7 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import ConvertHostMutation from '../../mutations/host/ConvertHostMutation';
 // components
 import EditField from '../EditField';
-import { Form, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
@@ -19,7 +19,7 @@ import { isBrowser } from 'react-device-detect';
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
 
-import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderPortsToggleSection } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 
 class _HostFormParentClass extends _BasicFormParentClass {

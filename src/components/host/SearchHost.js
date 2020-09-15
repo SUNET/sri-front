@@ -29,11 +29,7 @@ class SearchHost extends _SearchEntityParentClass {
     { name: 'Description', value: 'description', filter: 'order' },
   ];
   LIST_QUERY = graphql`
-    query SearchHostAllQuery(
-      $count: Int!
-      $filter: HostFilter
-      $orderBy: HostOrderBy
-    ) {
+    query SearchHostAllQuery($count: Int!, $filter: HostFilter, $orderBy: HostOrderBy) {
       ...HostList_hosts @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;

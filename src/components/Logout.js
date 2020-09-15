@@ -7,7 +7,7 @@ const { API_HOST } = CONFIG;
 
 export class Logout extends Component {
   logout() {
-    window.location.replace(API_HOST + "/logout");
+    window.location.replace(API_HOST + '/logout');
   }
 
   render() {

@@ -34,7 +34,8 @@ class SearchOpticalMultiplexSection extends _SearchEntityParentClass {
       $filter: OpticalMultiplexSectionFilter
       $orderBy: OpticalMultiplexSectionOrderBy
     ) {
-      ...OpticalMultiplexSectionList_opticalMultiplexSections @arguments(count: $count, filter: $filter, orderBy: $orderBy)
+      ...OpticalMultiplexSectionList_opticalMultiplexSections
+        @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;
   constructor(props) {

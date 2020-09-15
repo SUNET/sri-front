@@ -1,7 +1,7 @@
 import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import { Field } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import { generateURL } from '../../utils';
 import { isBrowser } from 'react-device-detect';
@@ -48,7 +48,7 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
       <>
         {this.renderGeneralInfoToggleSection(editMode)}
         {with_same_name && this.renderRelatedEntities(with_same_name)}
-        {this.renderWorkLog()}  
+        {this.renderWorkLog()}
       </>
     );
   }

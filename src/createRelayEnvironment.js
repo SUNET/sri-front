@@ -1,5 +1,5 @@
 import { Environment, Network, RecordSource, Store, QueryResponseCache } from 'relay-runtime';
-import { getCsrfToken } from "./sagas/common";
+import { getCsrfToken } from './sagas/common';
 import CONFIG from './config';
 
 // CACHING

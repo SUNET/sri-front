@@ -1,6 +1,4 @@
 import React from 'react';
-import { Form, Col } from 'react-bootstrap';
-
 // components
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import Dropdown from '../Dropdown';

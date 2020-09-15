@@ -16,9 +16,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const CreateOpticalPathFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateOpticalPathForm);
+const CreateOpticalPathFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateOpticalPathForm);
 
 export default CreateOpticalPathFormContainer;

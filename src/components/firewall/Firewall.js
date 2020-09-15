@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 const FirewallQuery = graphql`
   query FirewallQuery($firewallId: ID!) {
     getFirewallById(id: $firewallId) {
-        __typename
+      __typename
       id
       name
       description

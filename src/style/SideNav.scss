@@ -2,7 +2,11 @@
 
 .side-nav {
     background-color: $secondary-color;
-    background-image: linear-gradient(to bottom, rgba(58, 80, 107, 0.5), rgba(58, 80, 107, 0.2)),
+    background-image: linear-gradient(
+            to bottom,
+            rgba(58, 80, 107, 0.5),
+            rgba(58, 80, 107, 0.2)
+        ),
         url("../static/img/bg-sidebar.png");
     background-size: 100%;
     background-repeat: no-repeat;

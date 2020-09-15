@@ -16,9 +16,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const CreateOpticalFilterFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateOpticalFilterForm);
+const CreateOpticalFilterFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateOpticalFilterForm);
 
 export default CreateOpticalFilterFormContainer;

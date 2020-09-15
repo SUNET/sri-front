@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import OpticalFilterList from '../../containers/opticalFilter/OpticalFilterList';
 import OpticalFilterDetailsContainer from '../../containers/opticalFilter/OpticalFilterDetails';
-import CreateOpticalFilterRoute from "./CreateOpticalFilterRoute/CreateOpticalFilterRoute";
+import CreateOpticalFilterRoute from './CreateOpticalFilterRoute/CreateOpticalFilterRoute';
 // Constants
 
 class SearchOpticalFilter extends _SearchEntityParentClass {
@@ -29,11 +29,7 @@ class SearchOpticalFilter extends _SearchEntityParentClass {
     { name: 'Description', value: 'description', filter: 'order' },
   ];
   LIST_QUERY = graphql`
-    query SearchOpticalFilterAllQuery(
-      $count: Int!
-      $filter: OpticalFilterFilter
-      $orderBy: OpticalFilterOrderBy
-    ) {
+    query SearchOpticalFilterAllQuery($count: Int!, $filter: OpticalFilterFilter, $orderBy: OpticalFilterOrderBy) {
       ...OpticalFilterList_opticalFilters @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;

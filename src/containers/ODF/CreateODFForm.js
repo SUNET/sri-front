@@ -16,9 +16,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const CreateODFFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateODFForm);
+const CreateODFFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateODFForm);
 
 export default CreateODFFormContainer;

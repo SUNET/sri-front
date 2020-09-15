@@ -6,7 +6,7 @@ import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
 const mutation = graphql`
-  mutation CreateOpticalPathMutation($input: CompositeOpticalPathMutationInput!)   {
+  mutation CreateOpticalPathMutation($input: CompositeOpticalPathMutationInput!) {
     composite_opticalPath(input: $input) {
       created {
         errors {

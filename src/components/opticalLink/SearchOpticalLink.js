@@ -29,11 +29,7 @@ class SearchOpticalLink extends _SearchEntityParentClass {
     { name: 'Description', value: 'description', filter: 'order' },
   ];
   LIST_QUERY = graphql`
-    query SearchOpticalLinkAllQuery(
-      $count: Int!
-      $filter: OpticalLinkFilter
-      $orderBy: OpticalLinkOrderBy
-    ) {
+    query SearchOpticalLinkAllQuery($count: Int!, $filter: OpticalLinkFilter, $orderBy: OpticalLinkOrderBy) {
       ...OpticalLinkList_opticalLinks @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;
