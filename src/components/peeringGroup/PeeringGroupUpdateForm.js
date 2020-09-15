@@ -44,8 +44,7 @@ class PeeringGroupUpdateForm extends _PeeringGroupFormParentClass {
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderDependenciesToggleSection(editMode)}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {this.renderSaveCancelButtons()}
       </form>
     );

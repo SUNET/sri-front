@@ -29,29 +29,16 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
   renderSections(editMode) {
     return (
       <>
-        {this.renderSections(editMode)}
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderDetailsToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
     );
   }
 
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderDetailsToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
-      </section>
-    );
-  }
-
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, operational_state, framing, capacity, wavelength } = this.props;
 
     const generalInfo = [
@@ -106,23 +93,26 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
   renderDetailsToggleSection(editMode = true) {
+    const componentClassName = 'details-block';
     const { t, provider_obj, provider_id } = this.props;
     const detailsInfo = [
       {
@@ -150,20 +140,22 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/details')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {detailsInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/details')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {detailsInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 }

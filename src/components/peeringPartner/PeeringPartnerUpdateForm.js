@@ -45,8 +45,6 @@ class PeeringPartnerUpdateForm extends _PeeringPartnerFormParentClass {
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
-        {with_same_name && this.renderRelatedEntities(with_same_name)}
-        {this.renderWorkLog()}
         {this.renderSaveCancelButtons()}
       </form>
     );

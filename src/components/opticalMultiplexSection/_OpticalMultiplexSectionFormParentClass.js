@@ -6,24 +6,8 @@ import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayDependencies from '../common/FieldArrayDependencies';
 // const
+import renderFormBlockSection from '../common/BlockSection';
 import { isBrowser } from 'react-device-detect';
-
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
 
 class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -41,11 +25,20 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
+  renderSections(editMode) {
+    return (
+      <>
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderDependenciesToggleSection(editMode)}
+        {this.renderWorkLog(editMode)}
+      </>
+    );
+  }
+
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, operational_state, type, interface_type, provider_id, provider_obj } = this.props;
-    console.log('interface_type: ', interface_type);
-    console.log('type: ', type);
-    console.log('operational_state: ', operational_state);
 
     const generalInfo = [
       {
@@ -86,28 +79,30 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderDependenciesToggleSection(editMode = false) {
+    const componentClassName = 'dependencies-block';
     const { t, entityRemovedId } = this.props;
-    console.log('this.props: ', this.props.dependencies);
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
             <h2>{t('general-forms/dependencies')}</h2>

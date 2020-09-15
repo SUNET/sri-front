@@ -30,8 +30,6 @@ class CreateOpticalMultiplexSectionForm extends _OpticalMultiplexSectionFormPare
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
           {this.renderSections(editMode)}
-          {this.renderDependenciesToggleSection(editMode)}
-          {this.renderWorkLog(editMode)}
         </div>
         {this.renderSaveCancelButtons()}
       </form>

@@ -22,10 +22,20 @@ class _PeeringGroupFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
+  renderSections(editMode) {
+    return (
+      <>
+        {this.renderDependenciesToggleSection(editMode)}
+        {this.renderWorkLog()}
+      </>
+    );
+  }
+
   renderDependenciesToggleSection(editMode = false) {
+    const componentClassName = 'dependencies-block';
     const { t, entityRemovedId } = this.props;
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
             <h2>{t('general-forms/dependencies')}</h2>

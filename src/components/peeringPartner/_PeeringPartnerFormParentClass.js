@@ -42,26 +42,24 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
-  renderModelMainSection(editMode = true) {
+  renderSections(editMode) {
+    let { with_same_name } = this.props;
     return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
-      </section>
+      <>
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {with_same_name && this.renderRelatedEntities(with_same_name)}
+        {this.renderWorkLog()}  
+      </>
     );
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, peering_link, as_number } = this.props;
     const generalInfoFirstRow = [
       {
         title: t('general-forms/as-number'),
-        presentContent: (
-          as_number
-        ),
+        presentContent: as_number,
         editContent: (
           <Form.Group>
             <Field
@@ -98,20 +96,22 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfoFirstRow.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfoFirstRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 }

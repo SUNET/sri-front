@@ -49,7 +49,8 @@ class _OpticalFilterFormParentClass extends _BasicFormParentClass {
     const { t, rack_position, rack_units, isFromModal } = this.props;
     return (
       <>
-        {this.renderSections(editMode)}
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
@@ -59,6 +60,7 @@ class _OpticalFilterFormParentClass extends _BasicFormParentClass {
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, operational_state, max_number_of_ports } = this.props;
 
     const generalInfo = [
@@ -92,20 +94,22 @@ class _OpticalFilterFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 }
