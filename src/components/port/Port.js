@@ -5,13 +5,13 @@ import graphql from 'babel-plugin-relay/macro';
 const PortQuery = graphql`
   query PortQuery($portId: ID!) {
     getPortById(id: $portId) {
-        __typename
+      __typename
       id
       name
       description
       type: port_type {
-          name
-          value
+        name
+        value
       }
     }
   }

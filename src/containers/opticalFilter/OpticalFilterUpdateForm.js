@@ -16,9 +16,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const OpticalFilterUpdateFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(OpticalFilterUpdateForm);
+const OpticalFilterUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(OpticalFilterUpdateForm);
 
 export default OpticalFilterUpdateFormContainer;

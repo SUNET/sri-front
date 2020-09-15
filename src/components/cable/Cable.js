@@ -5,13 +5,13 @@ import graphql from 'babel-plugin-relay/macro';
 const CableQuery = graphql`
   query CableQuery($cableId: ID!) {
     getCableById(id: $cableId) {
-        __typename
+      __typename
       id
       name
       description
       type: cable_type {
-          name
-          value
+        name
+        value
       }
     }
   }

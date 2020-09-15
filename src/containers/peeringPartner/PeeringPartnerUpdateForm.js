@@ -16,9 +16,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const PeeringPartnerUpdateFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PeeringPartnerUpdateForm);
+const PeeringPartnerUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(PeeringPartnerUpdateForm);
 
 export default PeeringPartnerUpdateFormContainer;

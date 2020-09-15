@@ -8,6 +8,8 @@ import FieldInput from '../../FieldInput';
 import '../../../style/RackBackInput.scss';
 
 export function renderRackToggleSection(editMode = true, { t, rack_position, rack_units }) {
+  const componentClassName = 'rack-details-block';
+
   const renderRackBackInput = (disabled) => (
     <div className="rack-back-section">
       <Form.Group>
@@ -48,7 +50,7 @@ export function renderRackToggleSection(editMode = true, { t, rack_position, rac
     },
   ];
   return (
-    <section className="model-section">
+    <section className={`model-section ${componentClassName}`}>
       <ToggleSection>
         <ToggleHeading>
           <h2>{t('general-forms/rack-section')}</h2>

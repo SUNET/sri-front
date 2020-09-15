@@ -62,10 +62,7 @@ class PortUpdateForm extends _PortFormParentClass {
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {!isFromModal && this.renderParentToggleSection(editMode)}
-        {!isFromModal && this.renderConnectedToToggleSection(editMode)}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );

@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BulkPort Component Renders correctly 1`] = `
+<CreateBulkPortWrapper>
+  <div>
+    <withI18nextTranslation(BulkPort)
+      t={[MockFunction]}
+    >
+      <BulkPort
+        i18n={Object {}}
+        t={[Function]}
+        tReady={false}
+      >
+        <div
+          className="bulk-create"
+        >
+          <div
+            className="bulk-create__left-block form-internal-block"
+          >
+            <div
+              className="form-internal-block__section"
+              key="bulk-port-type"
+            >
+              <div
+                className="form-internal-block__section__title"
+              >
+                general-forms/type
+              </div>
+              <div
+                className="form-internal-block__section__content form-internal-block__section__content--edition-mode"
+              >
+                <FormGroup>
+                  <div
+                    className="form-group"
+                  >
+                    <div
+                      className="select-input "
+                    >
+                      <Dropdown
+                        className="auto"
+                        emptyLabel="Select type"
+                        name="bulk-port_type"
+                        onChange={[Function]}
+                        type="port_types"
+                      >
+                        <FormGroup
+                          className="d-inline"
+                        >
+                          <div
+                            className="d-inline form-group"
+                          >
+                            <ReactRelayQueryRenderer
+                              environment={"RelayModernEnvironment()"}
+                              query={
+                                Object {
+                                  "fragment": Object {
+                                    "argumentDefinitions": Array [
+                                      Object {
+                                        "defaultValue": null,
+                                        "kind": "LocalArgument",
+                                        "name": "name",
+                                        "type": "String!",
+                                      },
+                                    ],
+                                    "kind": "Fragment",
+                                    "metadata": null,
+                                    "name": "DropdownQuery",
+                                    "selections": Array [
+                                      Object {
+                                        "alias": null,
+                                        "args": Array [
+                                          Object {
+                                            "kind": "Variable",
+                                            "name": "name",
+                                            "variableName": "name",
+                                          },
+                                        ],
+                                        "concreteType": "Choice",
+                                        "kind": "LinkedField",
+                                        "name": "getChoicesForDropdown",
+                                        "plural": true,
+                                        "selections": Array [
+                                          Object {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "name",
+                                            "storageKey": null,
+                                          },
+                                          Object {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "value",
+                                            "storageKey": null,
+                                          },
+                                        ],
+                                        "storageKey": null,
+                                      },
+                                    ],
+                                    "type": "Query",
+                                  },
+                                  "hash": "a084763b46e47fd40d438714d89c94e1",
+                                  "kind": "Request",
+                                  "operation": Object {
+                                    "argumentDefinitions": Array [
+                                      Object {
+                                        "defaultValue": null,
+                                        "kind": "LocalArgument",
+                                        "name": "name",
+                                        "type": "String!",
+                                      },
+                                    ],
+                                    "kind": "Operation",
+                                    "name": "DropdownQuery",
+                                    "selections": Array [
+                                      Object {
+                                        "alias": null,
+                                        "args": Array [
+                                          Object {
+                                            "kind": "Variable",
+                                            "name": "name",
+                                            "variableName": "name",
+                                          },
+                                        ],
+                                        "concreteType": "Choice",
+                                        "kind": "LinkedField",
+                                        "name": "getChoicesForDropdown",
+                                        "plural": true,
+                                        "selections": Array [
+                                          Object {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "name",
+                                            "storageKey": null,
+                                          },
+                                          Object {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "value",
+                                            "storageKey": null,
+                                          },
+                                          Object {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "id",
+                                            "storageKey": null,
+                                          },
+                                        ],
+                                        "storageKey": null,
+                                      },
+                                    ],
+                                  },
+                                  "params": Object {
+                                    "id": null,
+                                    "metadata": Object {},
+                                    "name": "DropdownQuery",
+                                    "operationKind": "query",
+                                    "text": "query DropdownQuery(
+  $name: String!
+) {
+  getChoicesForDropdown(name: $name) {
+    name
+    value
+    id
+  }
+}
+",
+                                  },
+                                }
+                              }
+                              render={[Function]}
+                              variables={
+                                Object {
+                                  "name": "port_types",
+                                }
+                              }
+                            >
+                              <select
+                                className="auto"
+                              >
+                                <option
+                                  value=""
+                                >
+                                  Select type
+                                </option>
+                              </select>
+                            </ReactRelayQueryRenderer>
+                          </div>
+                        </FormGroup>
+                      </Dropdown>
+                    </div>
+                  </div>
+                </FormGroup>
+              </div>
+            </div>
+            <div
+              className="form-internal-block__section"
+              key="bulk-port-prefix"
+            >
+              <div
+                className="form-internal-block__section__title"
+              >
+                general-forms/bulk-port/prefix
+              </div>
+              <div
+                className="form-internal-block__section__content form-internal-block__section__content--edition-mode"
+              >
+                <FormGroup>
+                  <div
+                    className="form-group"
+                  >
+                    <div
+                      className=""
+                    >
+                      <FormControl
+                        onChange={[Function]}
+                        placeholder="general-forms/bulk-port/prefix-placeholder"
+                        type="text"
+                        value=""
+                      >
+                        <input
+                          className="form-control"
+                          onChange={[Function]}
+                          placeholder="general-forms/bulk-port/prefix-placeholder"
+                          type="text"
+                          value=""
+                        />
+                      </FormControl>
+                    </div>
+                  </div>
+                </FormGroup>
+              </div>
+            </div>
+            <div
+              className="form-internal-block__section"
+              key="bulk-port-offset"
+            >
+              <div
+                className="form-internal-block__section__title"
+              >
+                general-forms/bulk-port/offset
+              </div>
+              <div
+                className="form-internal-block__section__content form-internal-block__section__content--edition-mode"
+              >
+                <FormGroup>
+                  <div
+                    className="form-group"
+                  >
+                    <div
+                      className=""
+                    >
+                      <FormControl
+                        onChange={[Function]}
+                        placeholder="general-forms/bulk-port/offset-placeholder"
+                        type="text"
+                        value={0}
+                      >
+                        <input
+                          className="form-control"
+                          onChange={[Function]}
+                          placeholder="general-forms/bulk-port/offset-placeholder"
+                          type="text"
+                          value={0}
+                        />
+                      </FormControl>
+                    </div>
+                  </div>
+                </FormGroup>
+              </div>
+            </div>
+          </div>
+          <div
+            className="d-flex bulk-create__right-block"
+          >
+            <div
+              className="bulk-create__right-block__number-input"
+            >
+              <FormGroup>
+                <div
+                  className="form-group"
+                >
+                  <div
+                    className=""
+                  >
+                    <FormControl
+                      onChange={[Function]}
+                      placeholder="general-forms/bulk-port/Number-of-ports"
+                      type="text"
+                      value=""
+                    >
+                      <input
+                        className="form-control"
+                        onChange={[Function]}
+                        placeholder="general-forms/bulk-port/Number-of-ports"
+                        type="text"
+                        value=""
+                      />
+                    </FormControl>
+                  </div>
+                </div>
+              </FormGroup>
+            </div>
+            <div
+              className="bulk-create__right-block__add-button"
+            >
+              <button
+                className="btn btn-add outline"
+                onClick={[Function]}
+                type="button"
+              >
+                <span>
+                  actions/add-new
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </BulkPort>
+    </withI18nextTranslation(BulkPort)>
+  </div>
+</CreateBulkPortWrapper>
+`;

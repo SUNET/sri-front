@@ -16,9 +16,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const RouterUpdateFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RouterUpdateForm);
+const RouterUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(RouterUpdateForm);
 
 export default RouterUpdateFormContainer;

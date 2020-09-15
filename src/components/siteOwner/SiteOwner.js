@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 const SiteOwnerQuery = graphql`
   query SiteOwnerQuery($siteOwnerId: ID!) {
     getSiteOwnerById(id: $siteOwnerId) {
-        __typename
+      __typename
       id
       name
     }

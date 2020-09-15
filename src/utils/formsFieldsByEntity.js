@@ -142,8 +142,8 @@ const host = {
     create: 'createHost',
     update: 'updateHost',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails', 'portDetails'],
   fields: [
     ...BASIC_INFO,
     ...RELATION_GROUP_INFO,
@@ -154,6 +154,7 @@ const host = {
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'owner' },
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'host_user' },
     { type: FIELD_TYPES.SINGLE, name: 'host_type' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
   ],
 };
 const peeringPartner = {

@@ -147,8 +147,7 @@ button:focus,
 .btn.focus,
 .btn:active.focus,
 .btn:active:focus,
-.btn:focus,
-    {
+.btn:focus {
     outline: 0;
     outline-color: transparent;
     outline-width: 0;
@@ -156,7 +155,9 @@ button:focus,
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
     outline: none;
     box-shadow: none !important;
 }
@@ -167,10 +168,11 @@ input:focus, textarea:focus, select:focus {
 .accordion__button.focus,
 .accordion__button:active.focus,
 .accordion__button.active.focus {
-  outline: none !important;
+    outline: none !important;
 }
 
-button, .btn:focus{
+button,
+.btn:focus {
     outline: none;
     box-shadow: none !important;
     border: 0;

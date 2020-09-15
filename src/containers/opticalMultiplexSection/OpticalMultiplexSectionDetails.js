@@ -25,6 +25,9 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-const OpticalMultiplexSectionDetailsContainer = connect(mapStateToProps, mapDispatchToProps)(OpticalMultiplexSectionDetails);
+const OpticalMultiplexSectionDetailsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(OpticalMultiplexSectionDetails);
 
 export default OpticalMultiplexSectionDetailsContainer;

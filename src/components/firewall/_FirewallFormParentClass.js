@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldArray, change, Field, arrayPush } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
@@ -60,7 +60,11 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     const { t, rack_position, rack_units } = this.props;
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderDetailsToggleSection(editMode)}
+        {this.renderSecurityToggleSection(editMode)}
+        {this.renderOSToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {this.renderOwnerToggleSection(editMode)}
         {this.renderWorkLog()}
@@ -68,29 +72,9 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     );
   }
 
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderDetailsToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderSecurityToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderOSToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
-      </section>
-    );
-  }
-
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, operational_state, contract_number, managed_by } = this.props;
-
     const generalInfo = [
       {
         title: t('general-forms/operational-state'),
@@ -135,24 +119,27 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderDetailsToggleSection(editMode = true) {
+    const componentClassName = 'details-block';
     const { t, model, vendor, backup, end_support } = this.props;
     const detailsInfo = [
       {
@@ -208,24 +195,27 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       },
     ];
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/details')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {detailsInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/details')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {detailsInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderSecurityToggleSection(editMode = true) {
+    const componentClassName = 'security-block';
     const {
       t,
       securityClassObj,
@@ -335,29 +325,32 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       },
     ];
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/security')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {securityInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/security')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {securityInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
+              <div className="form-internal-block">
+                {securitySecondRowInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-            <div className="form-internal-block">
-              {securitySecondRowInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderOSToggleSection(editMode = true) {
+    const componentClassName = 'os';
     const { t, os, os_version, max_number_of_ports, service_tag } = this.props;
 
     const osInfo = [
@@ -404,27 +397,30 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       },
     ];
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/os')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {osInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/os')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {osInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderOwnerToggleSection(editMode = false) {
+    const componentClassName = 'owner-block';
     const { t, owner, entityRemovedId } = this.props;
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
             <h2>{t('general-forms/owner')}</h2>

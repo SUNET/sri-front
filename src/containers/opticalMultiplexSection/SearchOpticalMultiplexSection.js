@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-const SearchOpticalMultiplexSectionContainer = connect(mapStateToProps, mapDispatchToProps)(SearchOpticalMultiplexSection);
+const SearchOpticalMultiplexSectionContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SearchOpticalMultiplexSection);
 
 export default SearchOpticalMultiplexSectionContainer;

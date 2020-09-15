@@ -63,7 +63,7 @@ export default function UpdateODFMutation(ODF, form) {
       create_has_port: ports.toCreate,
     },
   };
-  
+
   commitMutation(environment, {
     mutation,
     variables,

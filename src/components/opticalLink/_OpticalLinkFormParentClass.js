@@ -61,7 +61,8 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
     const { isFromModal } = this.props;
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
@@ -70,10 +71,8 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, operational_state, type, interface_type, provider_id, provider_obj } = this.props;
-    console.log('interface_type: ', interface_type);
-    console.log('type: ', type);
-    console.log('operational_state: ', operational_state);
 
     const generalInfo = [
       {
@@ -140,20 +139,22 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 }

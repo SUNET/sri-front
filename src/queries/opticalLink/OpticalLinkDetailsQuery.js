@@ -12,7 +12,7 @@ const OpticalLinkDetailsQuery = graphql`
         name
         value
       }
-      type: link_type{
+      type: link_type {
         id
         name
         value

@@ -28,11 +28,7 @@ class SearchFirewall extends _SearchEntityParentClass {
     { name: 'Description', value: 'description', filter: 'order' },
   ];
   LIST_QUERY = graphql`
-    query SearchFirewallAllQuery(
-      $count: Int!
-      $filter: FirewallFilter
-      $orderBy: FirewallOrderBy
-    ) {
+    query SearchFirewallAllQuery($count: Int!, $filter: FirewallFilter, $orderBy: FirewallOrderBy) {
       ...FirewallList_firewalls @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;

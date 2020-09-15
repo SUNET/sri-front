@@ -64,7 +64,7 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
     const { t, rack_position, rack_units, isFromModal } = this.props;
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {this.renderDescriptionToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {!isFromModal && this.renderOwnerToggleSection(editMode)}
         {!isFromModal && renderPortsToggleSection(editMode, this)}

@@ -12,7 +12,9 @@ class OpticalMultiplexSectionDetails extends _BasicDetailsParentClass {
   classDetails = 'opticalMultiplexSection-details';
 
   handleDelete = () => {
-    DeleteOpticalMultiplexSectionMutation(this.getId(), () => this.props.history.push(`/network/optical-multiplex-sections`));
+    DeleteOpticalMultiplexSectionMutation(this.getId(), () =>
+      this.props.history.push(`/network/optical-multiplex-sections`),
+    );
   };
 }
 

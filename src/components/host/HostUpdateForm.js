@@ -16,10 +16,13 @@ class HostUpdateForm extends _HostFormParentClass {
   FORM_ID = UPDATE_HOST_FORM;
   MODEL_NAME = 'host';
   ROUTE_LIST_DIRECTION = '/network/hosts';
-  state = {
-    editMode: false,
-    visibleConvertHostModal: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+      visibleConvertHostModal: false,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { hostId: this.props.host.id }, // Our refetchQuery needs to know the `hostID`

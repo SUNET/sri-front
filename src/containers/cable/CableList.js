@@ -1,19 +1,16 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import CableList from "../../components/cable/CableList";
+import CableList from '../../components/cable/CableList';
 
 const mapStateToProps = (state, props) => {
-    let { columns_visible, all_columns } = state.filterColumns.cable;
-    return { columns_visible, all_columns };
+  let { columns_visible, all_columns } = state.filterColumns.cable;
+  return { columns_visible, all_columns };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+  return {};
 };
 
-const CableListContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CableList);
+const CableListContainer = connect(mapStateToProps, mapDispatchToProps)(CableList);
 
 export default CableListContainer;

@@ -29,11 +29,7 @@ class SearchOpticalPath extends _SearchEntityParentClass {
     { name: 'Description', value: 'description', filter: 'order' },
   ];
   LIST_QUERY = graphql`
-    query SearchOpticalPathAllQuery(
-      $count: Int!
-      $filter: OpticalPathFilter
-      $orderBy: OpticalPathOrderBy
-    ) {
+    query SearchOpticalPathAllQuery($count: Int!, $filter: OpticalPathFilter, $orderBy: OpticalPathOrderBy) {
       ...OpticalPathList_opticalPaths @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;
