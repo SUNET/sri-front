@@ -90,7 +90,7 @@ const firewall = {
     update: 'updateFirewall',
   },
   dispatchPropertiesListCreate: ['notify'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
   fields: [
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,
@@ -106,6 +106,7 @@ const firewall = {
     { type: FIELD_TYPES.SINGLE, name: 'security_comment' },
     { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
     { type: FIELD_TYPES.SINGLE, name: 'service_tag' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
   ],
 };
 const router = {

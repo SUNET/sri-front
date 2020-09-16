@@ -70,6 +70,15 @@ const FirewallDetailsQuery = graphql`
           }
         }
       }
+      ports {
+        id
+        name
+        __typename
+        relation_id
+        type: port_type {
+          name
+        }
+      }
       __typename
       comments {
         id

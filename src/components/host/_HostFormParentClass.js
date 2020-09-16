@@ -19,7 +19,7 @@ import { isBrowser } from 'react-device-detect';
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
 
-import { renderPortsToggleSection } from '../common/formsSections/PortsToggleSection';
+import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 
 class _HostFormParentClass extends _BasicFormParentClass {
@@ -34,6 +34,24 @@ class _HostFormParentClass extends _BasicFormParentClass {
     if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
       this.props.hideModalConfirm();
       this.updateMutation(this.entityDataToUpdate, this);
+    }
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'owner') {
+        this.handleSelectedOwner(selectionData, methodName);
+      } else if (fieldModalOpened === 'ports') {
+        handleSelectedPort({
+          selection: selectionData,
+          getMethod: this.props.getPortById,
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
+      }
+      return false;
     }
     return true;
   }

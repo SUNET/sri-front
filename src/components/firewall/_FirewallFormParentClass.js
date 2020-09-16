@@ -16,6 +16,8 @@ import { isBrowser } from 'react-device-detect';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
+import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 
 class _FirewallFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -31,11 +33,21 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       this.updateMutation(this.entityDataToUpdate, this);
     }
     if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
       const selectionData = {
         id: nextProps.entitySavedId,
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
-      this.handleSelectedNetworkOrganization(selectionData, methodName);
+      if (fieldModalOpened === 'owner') {
+        this.handleSelectedNetworkOrganization(selectionData, methodName);
+      } else if (fieldModalOpened === 'ports') {
+        handleSelectedPort({
+          selection: selectionData,
+          getMethod: this.props.getPortById,
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
+      }
       return false;
     }
     return true;
@@ -57,7 +69,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units } = this.props;
+    const { t, rack_position, rack_units, isFromModal } = this.props;
     return (
       <>
         {this.renderDescriptionToggleSection(editMode)}
@@ -67,6 +79,8 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         {this.renderOSToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {this.renderOwnerToggleSection(editMode)}
+        {!isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
       </>
     );
