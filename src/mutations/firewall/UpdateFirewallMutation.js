@@ -7,6 +7,8 @@ import environment from '../../createRelayEnvironment';
 
 import { SAVED, REMOVE } from '../../utils/constants';
 
+import { generatePortForInput } from '../MutationsUtils';
+
 const mutation = graphql`
   mutation UpdateFirewallMutation($input: CompositeFirewallMutationInput!) {
     composite_firewall(input: $input) {
@@ -16,90 +18,7 @@ const mutation = graphql`
           messages
         }
         firewall {
-          id
-          name
-          description
-          operational_state {
-            name
-            value
-          }
-          managed_by {
-            id
-            value
-            name
-          }
-          responsible_group {
-            id
-            name
-          }
-          support_group {
-            id
-            name
-          }
-          backup
-          security_class {
-            name
-            value
-          }
-          security_comment
-          os
-          os_version
-          model
-          vendor
-          service_tag
-          end_support
-          max_number_of_ports
-          rack_units
-          rack_position
-          rack_back
-          contract_number
-          location {
-            id
-            name
-          }
-          owner {
-            __typename
-            id
-            name
-            ... on EndUser {
-              type: node_type {
-                name: type
-              }
-            }
-            ... on Customer {
-              type: node_type {
-                name: type
-              }
-            }
-            ... on HostUser {
-              type: node_type {
-                name: type
-              }
-            }
-            ... on Provider {
-              type: node_type {
-                name: type
-              }
-            }
-          }
-          __typename
-          comments {
-            id
-            user {
-              first_name
-              last_name
-            }
-            comment
-            submit_date
-          }
-          created
-          creator {
-            email
-          }
-          modified
-          modifier {
-            email
-          }
+          ...FirewallUpdateForm_firewall
         }
       }
     }
@@ -107,6 +26,7 @@ const mutation = graphql`
 `;
 
 export default function UpdateFirewallMutation(firewall, form) {
+  const ports = generatePortForInput(firewall.ports);
   const ownerToSaved = firewall.owner ? firewall.owner.find((o) => o.status === SAVED) : [];
   const ownerToRemove = firewall.owner ? firewall.owner.find((o) => o.status === REMOVE) : [];
   const variables = {
@@ -141,6 +61,10 @@ export default function UpdateFirewallMutation(firewall, form) {
 
         relationship_owner: ownerToSaved ? ownerToSaved.id : '',
       },
+      update_has_port: ports.toSaved,
+      unlink_subinputs: ports.toUnlink,
+      deleted_has_port: ports.toRemove,
+      create_has_port: ports.toCreate,
     },
   };
   if (ownerToRemove.length) {
