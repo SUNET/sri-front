@@ -18,7 +18,7 @@ exports[`BulkPort Component Renders correctly 1`] = `
             className="bulk-create__left-block form-internal-block"
           >
             <div
-              className="form-internal-block__section"
+              className="form-internal-block__section bulk-create__type-block"
               key="bulk-port-type"
             >
               <div
@@ -198,7 +198,7 @@ exports[`BulkPort Component Renders correctly 1`] = `
               </div>
             </div>
             <div
-              className="form-internal-block__section"
+              className="form-internal-block__section bulk-create__prefix-block"
               key="bulk-port-prefix"
             >
               <div
@@ -236,7 +236,7 @@ exports[`BulkPort Component Renders correctly 1`] = `
               </div>
             </div>
             <div
-              className="form-internal-block__section"
+              className="form-internal-block__section bulk-create__offset-block"
               key="bulk-port-offset"
             >
               <div
@@ -278,7 +278,7 @@ exports[`BulkPort Component Renders correctly 1`] = `
             className="d-flex bulk-create__right-block"
           >
             <div
-              className="bulk-create__right-block__number-input"
+              className="bulk-create__right-block__number-input bulk-create__ports-number-block"
             >
               <FormGroup>
                 <div
