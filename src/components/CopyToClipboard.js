@@ -34,7 +34,7 @@ class CopyToClipboard extends Component {
     return (
       <div className="copy-to-clipboard" onClick={(e) => this.copyContent(e)}>
         <Tooltip
-          tooltip={t('actions.copied')}
+          tooltip={t('actions/copied')}
           placement="left"
           trigger="none"
           delayShow={600}
