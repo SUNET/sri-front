@@ -44,7 +44,7 @@ class AppendChild extends React.Component {
           />
         ))}
         <button className="btn btn-add outline" onClick={(e) => this.handleAddField(e)}>
-          <span>{t('actions.add-new')}</span>
+          <span>{t('actions/add-new')}</span>
         </button>
       </div>
     );

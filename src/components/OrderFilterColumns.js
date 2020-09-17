@@ -149,10 +149,10 @@ class OrderFilterColumns extends React.Component {
               <Dropdown.Divider />
               <div className="text-center">
                 <button type="button" className="mr-2" onClick={() => this.resetFilterColumn()}>
-                  {t('actions.cancel')}
+                  {t('actions/cancel')}
                 </button>
                 <button type="button" className="btn secondary" onClick={() => this.applyOrderFilterColumns()}>
-                  {t('actions.accept')}
+                  {t('actions/accept')}
                 </button>
               </div>
             </div>
