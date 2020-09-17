@@ -26,7 +26,7 @@ class ComponentFormRow extends React.PureComponent {
               </div>
             ) : (
               <div className="ok-check" onClick={() => saveRow(index)}>
-                {t('actions.save')}
+                {t('actions/save')}
               </div>
             )}
           </div>

@@ -199,7 +199,7 @@ class _SearchEntityParentClass extends React.Component {
             onClick: () => {
               this.setState({ openMobileFiltersPanel: false });
             },
-            text: t('actions.accept'),
+            text: t('actions/accept'),
           },
         }}
       >

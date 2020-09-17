@@ -133,7 +133,7 @@ class ProfileForm extends React.Component {
                                     </ListGroup>*/}
                   <div className="text-right">
                     <button type="submit" className="btn primary lg">
-                      {t('actions.save')}
+                      {t('actions/save')}
                     </button>
                   </div>
                 </div>
