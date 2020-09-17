@@ -19,7 +19,7 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
   constructor(props) {
     super(props);
     this.state = {
-      editMode: props.isEditModeModal,
+      editMode: true,
     };
   }
   refetch = () => {

@@ -17,6 +17,8 @@ import CreateProviderFormContainer from '../containers/provider/CreateProviderFo
 import ProviderDetailsContainer from '../containers/provider/ProviderDetails';
 import CreateSiteOwnerFormContainer from '../containers/siteOwner/CreateSiteOwnerForm';
 import SiteOwnerDetailsContainer from '../containers/siteOwner/SiteOwnerDetails';
+import CreateHostFormContainer from '../containers/host/CreateHostForm';
+import HostDetailsContainer from '../containers/host/HostDetails';
 import FirewallDetailsContainer from '../containers/firewall/FirewallDetails';
 import CreateSwitchFormContainer from '../containers/switch/CreateSwitchForm';
 import SwitchDetailsContainer from '../containers/switch/SwitchDetails';
@@ -46,6 +48,8 @@ import {
   CREATE_PROVIDER_FORM,
   UPDATE_SITEOWNER_FORM,
   CREATE_SITEOWNER_FORM,
+  UPDATE_HOST_FORM,
+  CREATE_HOST_FORM,
   UPDATE_FIREWALL_FORM,
   CREATE_FIREWALL_FORM,
   UPDATE_SWITCH_FORM,
@@ -183,6 +187,14 @@ class ModalNewContact extends React.Component {
           ComponentToRender: isUpdateForm ? OpticalFilterDetailsContainer : CreateOpticalFilterFormContainer,
           textHeader: isUpdateForm ? 'entity-modify/optical-filters' : 'entity-add-new/optical-filters',
           formId: isUpdateForm ? UPDATE_OPTICALFILTER_FORM : CREATE_OPTICALFILTER_FORM,
+        };
+        break;
+      case 'hosts':
+      case 'Host':
+        entityData = {
+          ComponentToRender: isUpdateForm ? HostDetailsContainer : CreateHostFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/hosts' : 'entity-add-new/hosts',
+          formId: isUpdateForm ? UPDATE_HOST_FORM : CREATE_HOST_FORM,
         };
         break;
       default:
