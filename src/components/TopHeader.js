@@ -185,7 +185,7 @@ export class TopHeader extends React.Component {
             ],
           },
           {
-            name: 'Equipment & Cables',
+            name: t('section/network/equipment-cables'),
             route: '/network/cables',
             iconClass: 'icon-organization',
             subSubOptions: [
@@ -201,7 +201,7 @@ export class TopHeader extends React.Component {
             ],
           },
           {
-            name: 'Optical layers',
+            name: t('section/network/optical-layers'),
             route: '/network/optical-nodes',
             iconClass: 'icon-organization',
             subSubOptions: [
@@ -212,12 +212,20 @@ export class TopHeader extends React.Component {
             ],
           },
           {
-            name: 'Peering',
+            name: t('section/network/peering'),
             route: '/network/peering-partners',
             iconClass: 'icon-organization',
             subSubOptions: [
               { name: t('main-entity-name/peering-groups'), route: '/network/peering-groups' },
               { name: t('main-entity-name/peering-partners'), route: '/network/peering-partners' },
+            ],
+          },
+          {
+            name: t('section/network/location'),
+            route: '/network/location-sites',
+            iconClass: 'icon-organization',
+            subSubOptions: [
+              { name: t('main-entity-name/location-sites'), route: '/network/location-sites' },
             ],
           },
         ],

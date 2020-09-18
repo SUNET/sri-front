@@ -95,6 +95,11 @@ class SubMenuActions extends React.Component {
       pathTo: '/network/optical-filters/create',
       textButton: 'entity-add/optical-filters',
     },
+    {
+      path: '/network/location-sites/',
+      pathTo: '/network/location-sites/create',
+      textButton: 'entity-add/location-sites',
+    },
   ];
   render() {
     const { t } = this.props;

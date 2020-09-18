@@ -5,12 +5,12 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import { SAVED } from '../../utils/constants';
 import renderFormBlockSection from '../common/BlockSection';
 
-class ___EntityClassName__FormParentClass extends _BasicFormParentClass {
+class _SiteFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
   IS_UPDATED_FORM = false;
   FORM_ID;
-  MODEL_NAME = '__entityName__';
-  ROUTE_LIST_DIRECTION = '/__entityBlock__/__entityInternalRoutePath__s';
+  MODEL_NAME = 'site';
+  ROUTE_LIST_DIRECTION = '/network/location-sites';
 
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
@@ -24,7 +24,6 @@ class ___EntityClassName__FormParentClass extends _BasicFormParentClass {
   renderSections(editMode) {
     return (
       <>
-        {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
@@ -32,4 +31,4 @@ class ___EntityClassName__FormParentClass extends _BasicFormParentClass {
   }
 }
 
-export default ___EntityClassName__FormParentClass;
+export default _SiteFormParentClass;
