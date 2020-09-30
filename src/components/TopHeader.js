@@ -225,6 +225,8 @@ export class TopHeader extends React.Component {
             route: '/network/location-sites',
             iconClass: 'icon-organization',
             subSubOptions: [
+              { name: t('main-entity-name/location-racks'), route: '/network/location-racks' },
+              { name: t('main-entity-name/location-rooms'), route: '/network/location-rooms' },
               { name: t('main-entity-name/location-sites'), route: '/network/location-sites' },
             ],
           },

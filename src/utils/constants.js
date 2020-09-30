@@ -41,6 +41,10 @@ export const CREATE_OPTICALPATH_FORM = 'create-optical-path-form';
 export const UPDATE_OPTICALPATH_FORM = 'update-optical-path-form';
 export const CREATE_OPTICALFILTER_FORM = 'create-optical-filter-form';
 export const UPDATE_OPTICALFILTER_FORM = 'update-optical-filter-form';
+export const CREATE_RACK_FORM = 'create-location-racks-form';
+export const UPDATE_RACK_FORM = 'update-location-racks-form';
+export const CREATE_ROOM_FORM = 'create-location-rooms-form';
+export const UPDATE_ROOM_FORM = 'update-location-rooms-form';
 export const CREATE_SITE_FORM = 'create-location-sites-form';
 export const UPDATE_SITE_FORM = 'update-location-sites-form';
 // Community Tabs

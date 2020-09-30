@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const RackDetailsQuery = graphql`
+  query RackDetailsQuery($rackId: ID!) {
+    getRackById(id: $rackId) {
+      ...RackUpdateForm_rack
+      ___RACK_FIELDS___
+    }
+  }
+`;
+
+export default RackDetailsQuery;

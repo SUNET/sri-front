@@ -38,7 +38,7 @@ class SideNavNetwork extends React.Component {
   ];
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
   NETWORK_OPTICAL_ROUTES = ['optical-links', 'optical-filters', 'optical-multiplex-sections', 'optical-paths'];
-  NETWORK_LOCATION_ROUTES = ['location-sites'];
+  NETWORK_LOCATION_ROUTES = ['location-racks', 'location-rooms', 'location-sites'];
 
   MENU_DATA = [
     {
@@ -103,6 +103,8 @@ class SideNavNetwork extends React.Component {
         i18nText: 'section/network/location',
       },
       items: [
+        { path: 'location-racks', i18nText: 'main-entity-name/location-racks' },
+        { path: 'location-rooms', i18nText: 'main-entity-name/location-rooms' },
         { path: 'location-sites', i18nText: 'main-entity-name/location-sites' },
       ],
     },

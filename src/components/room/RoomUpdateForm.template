@@ -1,0 +1,97 @@
+import _RoomFormParentClass from './_RoomFormParentClass';
+// Common imports
+import React from 'react';
+import { withTranslation } from 'react-i18next';
+import { reduxForm } from 'redux-form';
+import { createRefetchContainer } from 'react-relay';
+import graphql from 'babel-plugin-relay/macro';
+import UpdateRoomMutation from '../../mutations/room/UpdateRoomMutation';
+import ValidationsRoomForm from '../common/_BasicValidationForm';
+// const
+import { UPDATE_ROOM_FORM, REMOVE } from '../../utils/constants';
+import { isBrowser } from 'react-device-detect';
+
+class RoomUpdateForm extends _RoomFormParentClass {
+  IS_UPDATED_FORM = true;
+  FORM_ID = UPDATE_ROOM_FORM;
+  MODEL_NAME = 'room';
+  ROUTE_LIST_DIRECTION = '/network/location-rooms';
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
+  refetch = () => {
+    this.props.relay.refetch(
+      { roomId: this.props.room.id }, // Our refetchQuery needs to know the `roomID`
+      null, // We can use the refetchVariables as renderVariables
+      () => {
+        this.updateBreadcrumbsData();
+      },
+      { force: true },
+    );
+  };
+  handleSubmit = (entityData) => {
+    this.setState({ editMode: false });
+    // this.props.hideModalForm();
+    // const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    // const someItemWillBeDeleted = portsToRemove.length > 0;
+    const someItemWillBeDeleted = false;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
+  };
+
+  updateMutation(entityData, form) {
+    UpdateRoomMutation(entityData, form);
+  }
+
+  render() {
+    let { handleSubmit } = this.props;
+    const { editMode } = this.state;
+    const showBackButton = isBrowser;
+    return (
+      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
+        {isBrowser && this.renderSaveCancelButtons()}
+        {this.renderHeader(editMode, showBackButton)}
+        {this.renderSections(editMode)}
+        {this.renderSaveCancelButtons()}
+      </form>
+    );
+  }
+}
+
+RoomUpdateForm = reduxForm({
+  validate: ValidationsRoomForm.validate,
+  enableReinitialize: true,
+  onSubmitSuccess: (result, dispatch, props) => {
+    document.documentElement.scrollTop = 0;
+  },
+})(RoomUpdateForm);
+
+const RoomUpdateFragment = createRefetchContainer(
+  withTranslation()(RoomUpdateForm),
+  {
+    room: graphql`
+      fragment RoomUpdateForm_room on Room {
+        ___ROOM_FIELDS___
+      }
+    `,
+  },
+
+  graphql`
+    # Refetch query to be fetched upon calling 'refetch'.
+    # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
+    query RoomUpdateFormRefetchQuery($roomId: ID!) {
+      getRoomById(id: $roomId) {
+        ...RoomUpdateForm_room
+      }
+    }
+  `,
+);
+
+export default RoomUpdateFragment;

@@ -3,6 +3,8 @@ const SWITCH_FIELDS = require('./entities/SwitchFields');
 const ROUTER_FIELDS = require('./entities/RouterFields');
 const OPTICALPATH_FIELDS = require('./entities/OpticalPathFields');
 const OPTICALFILTER_FIELDS = require('./entities/OpticalFilterFields');
+const RACK_FIELDS = require('./entities/RackFields');
+const ROOM_FIELDS = require('./entities/RoomFields');
 const SITE_FIELDS = require('./entities/SiteFields');
 
 module.exports = [
@@ -90,11 +92,40 @@ module.exports = [
     },
   },
   {
+    entity: 'Rack',
+    files: ['src/queries/rack/RackDetailsQuery', 'src/components/rack/RackUpdateForm'],
+    reference: '___RACK_FIELDS___',
+    queries: {
+      common: {
+        fields: [...RACK_FIELDS.RACK_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...RACK_FIELDS.RACK_COMMON_FIELDS, ...RACK_FIELDS.RACK_SUNET],
+      },
+      nordunet: {
+        fields: [...RACK_FIELDS.RACK_COMMON_FIELDS, ...RACK_FIELDS.RACK_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Room',
+    files: ['src/queries/room/RoomDetailsQuery', 'src/components/room/RoomUpdateForm'],
+    reference: '___ROOM_FIELDS___',
+    queries: {
+      common: {
+        fields: [...ROOM_FIELDS.ROOM_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...ROOM_FIELDS.ROOM_COMMON_FIELDS, ...ROOM_FIELDS.ROOM_SUNET],
+      },
+      nordunet: {
+        fields: [...ROOM_FIELDS.ROOM_COMMON_FIELDS, ...ROOM_FIELDS.ROOM_NORDUNI],
+      },
+    },
+  },
+  {
     entity: 'Site',
-    files: [
-      'src/queries/site/SiteDetailsQuery',
-      'src/components/site/SiteUpdateForm',
-    ],
+    files: ['src/queries/site/SiteDetailsQuery', 'src/components/site/SiteUpdateForm'],
     reference: '___SITE_FIELDS___',
     queries: {
       common: {

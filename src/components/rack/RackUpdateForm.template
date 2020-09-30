@@ -1,0 +1,97 @@
+import _RackFormParentClass from './_RackFormParentClass';
+// Common imports
+import React from 'react';
+import { withTranslation } from 'react-i18next';
+import { reduxForm } from 'redux-form';
+import { createRefetchContainer } from 'react-relay';
+import graphql from 'babel-plugin-relay/macro';
+import UpdateRackMutation from '../../mutations/rack/UpdateRackMutation';
+import ValidationsRackForm from '../common/_BasicValidationForm';
+// const
+import { UPDATE_RACK_FORM, REMOVE } from '../../utils/constants';
+import { isBrowser } from 'react-device-detect';
+
+class RackUpdateForm extends _RackFormParentClass {
+  IS_UPDATED_FORM = true;
+  FORM_ID = UPDATE_RACK_FORM;
+  MODEL_NAME = 'rack';
+  ROUTE_LIST_DIRECTION = '/network/location-racks';
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
+  refetch = () => {
+    this.props.relay.refetch(
+      { rackId: this.props.rack.id }, // Our refetchQuery needs to know the `rackID`
+      null, // We can use the refetchVariables as renderVariables
+      () => {
+        this.updateBreadcrumbsData();
+      },
+      { force: true },
+    );
+  };
+  handleSubmit = (entityData) => {
+    this.setState({ editMode: false });
+    // this.props.hideModalForm();
+    // const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    // const someItemWillBeDeleted = portsToRemove.length > 0;
+    const someItemWillBeDeleted = false;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
+  };
+
+  updateMutation(entityData, form) {
+    UpdateRackMutation(entityData, form);
+  }
+
+  render() {
+    let { handleSubmit } = this.props;
+    const { editMode } = this.state;
+    const showBackButton = isBrowser;
+    return (
+      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
+        {isBrowser && this.renderSaveCancelButtons()}
+        {this.renderHeader(editMode, showBackButton)}
+        {this.renderSections(editMode)}
+        {this.renderSaveCancelButtons()}
+      </form>
+    );
+  }
+}
+
+RackUpdateForm = reduxForm({
+  validate: ValidationsRackForm.validate,
+  enableReinitialize: true,
+  onSubmitSuccess: (result, dispatch, props) => {
+    document.documentElement.scrollTop = 0;
+  },
+})(RackUpdateForm);
+
+const RackUpdateFragment = createRefetchContainer(
+  withTranslation()(RackUpdateForm),
+  {
+    rack: graphql`
+      fragment RackUpdateForm_rack on Rack {
+        ___RACK_FIELDS___
+      }
+    `,
+  },
+
+  graphql`
+    # Refetch query to be fetched upon calling 'refetch'.
+    # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
+    query RackUpdateFormRefetchQuery($rackId: ID!) {
+      getRackById(id: $rackId) {
+        ...RackUpdateForm_rack
+      }
+    }
+  `,
+);
+
+export default RackUpdateFragment;

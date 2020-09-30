@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Fri Sep 18 2020 08:25:29 GMT+0200 (GMT+02:00)
+# timestamp: Mon Sep 28 2020 07:49:40 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -298,7 +298,7 @@ type Cable implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -494,6 +494,12 @@ input CompositeCableMutationInput {
   create_location_site: CreateSiteInput
   update_location_site: UpdateSiteInput
   deleted_location_site: DeleteSiteInput
+  create_location_room: CreateRoomInput
+  update_location_room: UpdateRoomInput
+  deleted_location_room: DeleteRoomInput
+  create_location_rack: CreateRackInput
+  update_location_rack: UpdateRackInput
+  deleted_location_rack: DeleteRackInput
   create_has_port: [CreatePortInput]
   update_has_port: [UpdatePortInput]
   deleted_has_port: [DeletePortInput]
@@ -551,12 +557,30 @@ input CompositeCableMutationInput {
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
+  create_parent_group: [CreateGroupInput]
+  update_parent_group: [UpdateGroupInput]
+  deleted_parent_group: [DeleteGroupInput]
+  create_parent_procedure: [CreateProcedureInput]
+  update_parent_procedure: [UpdateProcedureInput]
+  deleted_parent_procedure: [DeleteProcedureInput]
+  create_parent_address: [CreateAddressInput]
+  update_parent_address: [UpdateAddressInput]
+  deleted_parent_address: [DeleteAddressInput]
+  create_parent_phone: [CreatePhoneInput]
+  update_parent_phone: [UpdatePhoneInput]
+  deleted_parent_phone: [DeletePhoneInput]
+  create_parent_email: [CreateEmailInput]
+  update_parent_email: [UpdateEmailInput]
+  deleted_parent_email: [DeleteEmailInput]
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
   create_parent_cable: [CreateCableInput]
   update_parent_cable: [UpdateCableInput]
   deleted_parent_cable: [DeleteCableInput]
+  create_parent_host: [CreateHostInput]
+  update_parent_host: [EditHostInput]
+  deleted_parent_host: [DeleteHostInput]
   create_parent_router: [CreateRouterInput]
   update_parent_router: [UpdateRouterInput]
   deleted_parent_router: [DeleteRouterInput]
@@ -578,6 +602,18 @@ input CompositeCableMutationInput {
   create_parent_opticalfilter: [CreateOpticalFilterInput]
   update_parent_opticalfilter: [UpdateOpticalFilterInput]
   deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
+  create_parent_opticallink: [CreateOpticalLinkInput]
+  update_parent_opticallink: [UpdateOpticalLinkInput]
+  deleted_parent_opticallink: [DeleteOpticalLinkInput]
+  create_parent_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_parent_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_parent_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_parent_opticalpath: [CreateOpticalPathInput]
+  update_parent_opticalpath: [UpdateOpticalPathInput]
+  deleted_parent_opticalpath: [DeleteOpticalPathInput]
+  create_parent_peeringgroup: [CreatePeeringGroupInput]
+  update_parent_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_parent_peeringgroup: [DeletePeeringGroupInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -642,6 +678,12 @@ type CompositeCableMutationPayload {
   location_site_created: CreateSitePayload
   location_site_updated: UpdateSitePayload
   location_site_deleted: DeleteSitePayload
+  location_room_created: CreateRoomPayload
+  location_room_updated: UpdateRoomPayload
+  location_room_deleted: DeleteRoomPayload
+  location_rack_created: CreateRackPayload
+  location_rack_updated: UpdateRackPayload
+  location_rack_deleted: DeleteRackPayload
   has_port_created: [CreatePortPayload]
   has_port_updated: [UpdatePortPayload]
   has_port_deleted: [DeletePortPayload]
@@ -699,12 +741,30 @@ type CompositeCableMutationPayload {
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
+  parent_group_created: [CreateGroupPayload]
+  parent_group_updated: [UpdateGroupPayload]
+  parent_group_deleted: [DeleteGroupPayload]
+  parent_procedure_created: [CreateProcedurePayload]
+  parent_procedure_updated: [UpdateProcedurePayload]
+  parent_procedure_deleted: [DeleteProcedurePayload]
+  parent_address_created: [CreateAddressPayload]
+  parent_address_updated: [UpdateAddressPayload]
+  parent_address_deleted: [DeleteAddressPayload]
+  parent_phone_created: [CreatePhonePayload]
+  parent_phone_updated: [UpdatePhonePayload]
+  parent_phone_deleted: [DeletePhonePayload]
+  parent_email_created: [CreateEmailPayload]
+  parent_email_updated: [UpdateEmailPayload]
+  parent_email_deleted: [DeleteEmailPayload]
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
   parent_cable_created: [CreateCablePayload]
   parent_cable_updated: [UpdateCablePayload]
   parent_cable_deleted: [DeleteCablePayload]
+  parent_host_created: [CreateHostPayload]
+  parent_host_updated: [EditHostPayload]
+  parent_host_deleted: [DeleteHostPayload]
   parent_router_created: [CreateRouterPayload]
   parent_router_updated: [UpdateRouterPayload]
   parent_router_deleted: [DeleteRouterPayload]
@@ -726,6 +786,18 @@ type CompositeCableMutationPayload {
   parent_opticalfilter_created: [CreateOpticalFilterPayload]
   parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
   parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  parent_opticallink_created: [CreateOpticalLinkPayload]
+  parent_opticallink_updated: [UpdateOpticalLinkPayload]
+  parent_opticallink_deleted: [DeleteOpticalLinkPayload]
+  parent_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  parent_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  parent_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  parent_opticalpath_created: [CreateOpticalPathPayload]
+  parent_opticalpath_updated: [UpdateOpticalPathPayload]
+  parent_opticalpath_deleted: [DeleteOpticalPathPayload]
+  parent_peeringgroup_created: [CreatePeeringGroupPayload]
+  parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -851,6 +923,12 @@ input CompositeContactMutationInput {
   create_responsible_for_site: CreateSiteInput
   update_responsible_for_site: UpdateSiteInput
   deleted_responsible_for_site: DeleteSiteInput
+  create_responsible_for_room: CreateRoomInput
+  update_responsible_for_room: UpdateRoomInput
+  deleted_responsible_for_room: DeleteRoomInput
+  create_responsible_for_rack: CreateRackInput
+  update_responsible_for_rack: UpdateRackInput
+  deleted_responsible_for_rack: DeleteRackInput
   clientMutationId: String
 }
 
@@ -925,6 +1003,12 @@ type CompositeContactMutationPayload {
   responsible_for_site_created: CreateSitePayload
   responsible_for_site_updated: UpdateSitePayload
   responsible_for_site_deleted: DeleteSitePayload
+  responsible_for_room_created: CreateRoomPayload
+  responsible_for_room_updated: UpdateRoomPayload
+  responsible_for_room_deleted: DeleteRoomPayload
+  responsible_for_rack_created: CreateRackPayload
+  responsible_for_rack_updated: UpdateRackPayload
+  responsible_for_rack_deleted: DeleteRackPayload
   clientMutationId: String
 }
 
@@ -936,6 +1020,12 @@ input CompositeExternalEquipmentMutationInput {
   create_location_site: CreateSiteInput
   update_location_site: UpdateSiteInput
   deleted_location_site: DeleteSiteInput
+  create_location_room: CreateRoomInput
+  update_location_room: UpdateRoomInput
+  deleted_location_room: DeleteRoomInput
+  create_location_rack: CreateRackInput
+  update_location_rack: UpdateRackInput
+  deleted_location_rack: DeleteRackInput
   create_has_port: [CreatePortInput]
   update_has_port: [UpdatePortInput]
   deleted_has_port: [DeletePortInput]
@@ -993,12 +1083,30 @@ input CompositeExternalEquipmentMutationInput {
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
+  create_parent_group: [CreateGroupInput]
+  update_parent_group: [UpdateGroupInput]
+  deleted_parent_group: [DeleteGroupInput]
+  create_parent_procedure: [CreateProcedureInput]
+  update_parent_procedure: [UpdateProcedureInput]
+  deleted_parent_procedure: [DeleteProcedureInput]
+  create_parent_address: [CreateAddressInput]
+  update_parent_address: [UpdateAddressInput]
+  deleted_parent_address: [DeleteAddressInput]
+  create_parent_phone: [CreatePhoneInput]
+  update_parent_phone: [UpdatePhoneInput]
+  deleted_parent_phone: [DeletePhoneInput]
+  create_parent_email: [CreateEmailInput]
+  update_parent_email: [UpdateEmailInput]
+  deleted_parent_email: [DeleteEmailInput]
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
   create_parent_cable: [CreateCableInput]
   update_parent_cable: [UpdateCableInput]
   deleted_parent_cable: [DeleteCableInput]
+  create_parent_host: [CreateHostInput]
+  update_parent_host: [EditHostInput]
+  deleted_parent_host: [DeleteHostInput]
   create_parent_router: [CreateRouterInput]
   update_parent_router: [UpdateRouterInput]
   deleted_parent_router: [DeleteRouterInput]
@@ -1020,6 +1128,18 @@ input CompositeExternalEquipmentMutationInput {
   create_parent_opticalfilter: [CreateOpticalFilterInput]
   update_parent_opticalfilter: [UpdateOpticalFilterInput]
   deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
+  create_parent_opticallink: [CreateOpticalLinkInput]
+  update_parent_opticallink: [UpdateOpticalLinkInput]
+  deleted_parent_opticallink: [DeleteOpticalLinkInput]
+  create_parent_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_parent_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_parent_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_parent_opticalpath: [CreateOpticalPathInput]
+  update_parent_opticalpath: [UpdateOpticalPathInput]
+  deleted_parent_opticalpath: [DeleteOpticalPathInput]
+  create_parent_peeringgroup: [CreatePeeringGroupInput]
+  update_parent_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_parent_peeringgroup: [DeletePeeringGroupInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -1082,6 +1202,12 @@ type CompositeExternalEquipmentMutationPayload {
   location_site_created: CreateSitePayload
   location_site_updated: UpdateSitePayload
   location_site_deleted: DeleteSitePayload
+  location_room_created: CreateRoomPayload
+  location_room_updated: UpdateRoomPayload
+  location_room_deleted: DeleteRoomPayload
+  location_rack_created: CreateRackPayload
+  location_rack_updated: UpdateRackPayload
+  location_rack_deleted: DeleteRackPayload
   has_port_created: [CreatePortPayload]
   has_port_updated: [UpdatePortPayload]
   has_port_deleted: [DeletePortPayload]
@@ -1139,12 +1265,30 @@ type CompositeExternalEquipmentMutationPayload {
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
+  parent_group_created: [CreateGroupPayload]
+  parent_group_updated: [UpdateGroupPayload]
+  parent_group_deleted: [DeleteGroupPayload]
+  parent_procedure_created: [CreateProcedurePayload]
+  parent_procedure_updated: [UpdateProcedurePayload]
+  parent_procedure_deleted: [DeleteProcedurePayload]
+  parent_address_created: [CreateAddressPayload]
+  parent_address_updated: [UpdateAddressPayload]
+  parent_address_deleted: [DeleteAddressPayload]
+  parent_phone_created: [CreatePhonePayload]
+  parent_phone_updated: [UpdatePhonePayload]
+  parent_phone_deleted: [DeletePhonePayload]
+  parent_email_created: [CreateEmailPayload]
+  parent_email_updated: [UpdateEmailPayload]
+  parent_email_deleted: [DeleteEmailPayload]
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
   parent_cable_created: [CreateCablePayload]
   parent_cable_updated: [UpdateCablePayload]
   parent_cable_deleted: [DeleteCablePayload]
+  parent_host_created: [CreateHostPayload]
+  parent_host_updated: [EditHostPayload]
+  parent_host_deleted: [DeleteHostPayload]
   parent_router_created: [CreateRouterPayload]
   parent_router_updated: [UpdateRouterPayload]
   parent_router_deleted: [DeleteRouterPayload]
@@ -1166,6 +1310,18 @@ type CompositeExternalEquipmentMutationPayload {
   parent_opticalfilter_created: [CreateOpticalFilterPayload]
   parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
   parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  parent_opticallink_created: [CreateOpticalLinkPayload]
+  parent_opticallink_updated: [UpdateOpticalLinkPayload]
+  parent_opticallink_deleted: [DeleteOpticalLinkPayload]
+  parent_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  parent_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  parent_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  parent_opticalpath_created: [CreateOpticalPathPayload]
+  parent_opticalpath_updated: [UpdateOpticalPathPayload]
+  parent_opticalpath_deleted: [DeleteOpticalPathPayload]
+  parent_peeringgroup_created: [CreatePeeringGroupPayload]
+  parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -2336,6 +2492,12 @@ input CompositeOrganizationMutationInput {
   create_responsible_for_site: CreateSiteInput
   update_responsible_for_site: UpdateSiteInput
   deleted_responsible_for_site: DeleteSiteInput
+  create_responsible_for_room: CreateRoomInput
+  update_responsible_for_room: UpdateRoomInput
+  deleted_responsible_for_room: DeleteRoomInput
+  create_responsible_for_rack: CreateRackInput
+  update_responsible_for_rack: UpdateRackInput
+  deleted_responsible_for_rack: DeleteRackInput
   clientMutationId: String
 }
 
@@ -2409,6 +2571,12 @@ type CompositeOrganizationMutationPayload {
   responsible_for_site_created: CreateSitePayload
   responsible_for_site_updated: UpdateSitePayload
   responsible_for_site_deleted: DeleteSitePayload
+  responsible_for_room_created: CreateRoomPayload
+  responsible_for_room_updated: UpdateRoomPayload
+  responsible_for_room_deleted: DeleteRoomPayload
+  responsible_for_rack_created: CreateRackPayload
+  responsible_for_rack_updated: UpdateRackPayload
+  responsible_for_rack_deleted: DeleteRackPayload
   clientMutationId: String
 }
 
@@ -2545,12 +2713,30 @@ input CompositePortMutationInput {
   update_subinputs: [UpdateCableInput]
   delete_subinputs: [DeleteCableInput]
   unlink_subinputs: [DeleteRelationshipInput]
+  create_parent_group: [CreateGroupInput]
+  update_parent_group: [UpdateGroupInput]
+  deleted_parent_group: [DeleteGroupInput]
+  create_parent_procedure: [CreateProcedureInput]
+  update_parent_procedure: [UpdateProcedureInput]
+  deleted_parent_procedure: [DeleteProcedureInput]
+  create_parent_address: [CreateAddressInput]
+  update_parent_address: [UpdateAddressInput]
+  deleted_parent_address: [DeleteAddressInput]
+  create_parent_phone: [CreatePhoneInput]
+  update_parent_phone: [UpdatePhoneInput]
+  deleted_parent_phone: [DeletePhoneInput]
+  create_parent_email: [CreateEmailInput]
+  update_parent_email: [UpdateEmailInput]
+  deleted_parent_email: [DeleteEmailInput]
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
   create_parent_cable: [CreateCableInput]
   update_parent_cable: [UpdateCableInput]
   deleted_parent_cable: [DeleteCableInput]
+  create_parent_host: [CreateHostInput]
+  update_parent_host: [EditHostInput]
+  deleted_parent_host: [DeleteHostInput]
   create_parent_router: [CreateRouterInput]
   update_parent_router: [UpdateRouterInput]
   deleted_parent_router: [DeleteRouterInput]
@@ -2572,6 +2758,18 @@ input CompositePortMutationInput {
   create_parent_opticalfilter: [CreateOpticalFilterInput]
   update_parent_opticalfilter: [UpdateOpticalFilterInput]
   deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
+  create_parent_opticallink: [CreateOpticalLinkInput]
+  update_parent_opticallink: [UpdateOpticalLinkInput]
+  deleted_parent_opticallink: [DeleteOpticalLinkInput]
+  create_parent_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_parent_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_parent_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_parent_opticalpath: [CreateOpticalPathInput]
+  update_parent_opticalpath: [UpdateOpticalPathInput]
+  deleted_parent_opticalpath: [DeleteOpticalPathInput]
+  create_parent_peeringgroup: [CreatePeeringGroupInput]
+  update_parent_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_parent_peeringgroup: [DeletePeeringGroupInput]
   clientMutationId: String
 }
 
@@ -2582,12 +2780,30 @@ type CompositePortMutationPayload {
   subupdated: [UpdateCablePayload]
   subdeleted: [DeleteCablePayload]
   unlinked: [DeleteRelationshipPayload]
+  parent_group_created: [CreateGroupPayload]
+  parent_group_updated: [UpdateGroupPayload]
+  parent_group_deleted: [DeleteGroupPayload]
+  parent_procedure_created: [CreateProcedurePayload]
+  parent_procedure_updated: [UpdateProcedurePayload]
+  parent_procedure_deleted: [DeleteProcedurePayload]
+  parent_address_created: [CreateAddressPayload]
+  parent_address_updated: [UpdateAddressPayload]
+  parent_address_deleted: [DeleteAddressPayload]
+  parent_phone_created: [CreatePhonePayload]
+  parent_phone_updated: [UpdatePhonePayload]
+  parent_phone_deleted: [DeletePhonePayload]
+  parent_email_created: [CreateEmailPayload]
+  parent_email_updated: [UpdateEmailPayload]
+  parent_email_deleted: [DeleteEmailPayload]
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
   parent_cable_created: [CreateCablePayload]
   parent_cable_updated: [UpdateCablePayload]
   parent_cable_deleted: [DeleteCablePayload]
+  parent_host_created: [CreateHostPayload]
+  parent_host_updated: [EditHostPayload]
+  parent_host_deleted: [DeleteHostPayload]
   parent_router_created: [CreateRouterPayload]
   parent_router_updated: [UpdateRouterPayload]
   parent_router_deleted: [DeleteRouterPayload]
@@ -2609,6 +2825,310 @@ type CompositePortMutationPayload {
   parent_opticalfilter_created: [CreateOpticalFilterPayload]
   parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
   parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  parent_opticallink_created: [CreateOpticalLinkPayload]
+  parent_opticallink_updated: [UpdateOpticalLinkPayload]
+  parent_opticallink_deleted: [DeleteOpticalLinkPayload]
+  parent_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  parent_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  parent_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  parent_opticalpath_created: [CreateOpticalPathPayload]
+  parent_opticalpath_updated: [UpdateOpticalPathPayload]
+  parent_opticalpath_deleted: [DeleteOpticalPathPayload]
+  parent_peeringgroup_created: [CreatePeeringGroupPayload]
+  parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  clientMutationId: String
+}
+
+input CompositeRackMutationInput {
+  create_input: CreateRackInput
+  update_input: UpdateRackInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_parent_site: CreateSiteInput
+  update_parent_site: UpdateSiteInput
+  deleted_parent_site: DeleteSiteInput
+  create_parent_room: CreateRoomInput
+  update_parent_room: UpdateRoomInput
+  deleted_parent_room: DeleteRoomInput
+  create_parent_rack: CreateRackInput
+  update_parent_rack: UpdateRackInput
+  deleted_parent_rack: DeleteRackInput
+  create_located_in_port: [CreatePortInput]
+  update_located_in_port: [UpdatePortInput]
+  deleted_located_in_port: [DeletePortInput]
+  create_located_in_cable: [CreateCableInput]
+  update_located_in_cable: [UpdateCableInput]
+  deleted_located_in_cable: [DeleteCableInput]
+  create_located_in_router: [CreateRouterInput]
+  update_located_in_router: [UpdateRouterInput]
+  deleted_located_in_router: [DeleteRouterInput]
+  create_located_in_switch: [CreateSwitchInput]
+  update_located_in_switch: [UpdateSwitchInput]
+  deleted_located_in_switch: [DeleteSwitchInput]
+  create_located_in_firewall: [CreateFirewallInput]
+  update_located_in_firewall: [UpdateFirewallInput]
+  deleted_located_in_firewall: [DeleteFirewallInput]
+  create_located_in_externalequipment: [CreateExternalEquipmentInput]
+  update_located_in_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_located_in_externalequipment: [DeleteExternalEquipmentInput]
+  create_located_in_opticalnode: [CreateOpticalNodeInput]
+  update_located_in_opticalnode: [UpdateOpticalNodeInput]
+  deleted_located_in_opticalnode: [DeleteOpticalNodeInput]
+  create_located_in_odf: [CreateOdfInput]
+  update_located_in_odf: [UpdateOdfInput]
+  deleted_located_in_odf: [DeleteOdfInput]
+  create_located_in_opticalfilter: [CreateOpticalFilterInput]
+  update_located_in_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_located_in_opticalfilter: [DeleteOpticalFilterInput]
+  create_has_site: [CreateSiteInput]
+  update_has_site: [UpdateSiteInput]
+  deleted_has_site: [DeleteSiteInput]
+  create_has_room: [CreateRoomInput]
+  update_has_room: [UpdateRoomInput]
+  deleted_has_room: [DeleteRoomInput]
+  create_has_rack: [CreateRackInput]
+  update_has_rack: [UpdateRackInput]
+  deleted_has_rack: [DeleteRackInput]
+  create_responsible_for_organization: CreateOrganizationInput
+  update_responsible_for_organization: UpdateOrganizationInput
+  deleted_responsible_for_organization: DeleteOrganizationInput
+  create_responsible_for_contact: CreateContactInput
+  update_responsible_for_contact: UpdateContactInput
+  deleted_responsible_for_contact: DeleteContactInput
+  create_responsible_for_customer: CreateCustomerInput
+  update_responsible_for_customer: UpdateCustomerInput
+  deleted_responsible_for_customer: DeleteCustomerInput
+  create_responsible_for_enduser: CreateEndUserInput
+  update_responsible_for_enduser: UpdateEndUserInput
+  deleted_responsible_for_enduser: DeleteEndUserInput
+  create_responsible_for_provider: CreateProviderInput
+  update_responsible_for_provider: UpdateProviderInput
+  deleted_responsible_for_provider: DeleteProviderInput
+  create_responsible_for_siteowner: CreateSiteOwnerInput
+  update_responsible_for_siteowner: UpdateSiteOwnerInput
+  deleted_responsible_for_siteowner: DeleteSiteOwnerInput
+  create_responsible_for_peeringpartner: CreatePeeringPartnerInput
+  update_responsible_for_peeringpartner: UpdatePeeringPartnerInput
+  deleted_responsible_for_peeringpartner: DeletePeeringPartnerInput
+  clientMutationId: String
+}
+
+type CompositeRackMutationPayload {
+  created: CreateRackPayload
+  updated: UpdateRackPayload
+  unlinked: [DeleteRelationshipPayload]
+  parent_site_created: CreateSitePayload
+  parent_site_updated: UpdateSitePayload
+  parent_site_deleted: DeleteSitePayload
+  parent_room_created: CreateRoomPayload
+  parent_room_updated: UpdateRoomPayload
+  parent_room_deleted: DeleteRoomPayload
+  parent_rack_created: CreateRackPayload
+  parent_rack_updated: UpdateRackPayload
+  parent_rack_deleted: DeleteRackPayload
+  located_in_port_created: [CreatePortPayload]
+  located_in_port_updated: [UpdatePortPayload]
+  located_in_port_deleted: [DeletePortPayload]
+  located_in_cable_created: [CreateCablePayload]
+  located_in_cable_updated: [UpdateCablePayload]
+  located_in_cable_deleted: [DeleteCablePayload]
+  located_in_router_created: [CreateRouterPayload]
+  located_in_router_updated: [UpdateRouterPayload]
+  located_in_router_deleted: [DeleteRouterPayload]
+  located_in_switch_created: [CreateSwitchPayload]
+  located_in_switch_updated: [UpdateSwitchPayload]
+  located_in_switch_deleted: [DeleteSwitchPayload]
+  located_in_firewall_created: [CreateFirewallPayload]
+  located_in_firewall_updated: [UpdateFirewallPayload]
+  located_in_firewall_deleted: [DeleteFirewallPayload]
+  located_in_externalequipment_created: [CreateExternalEquipmentPayload]
+  located_in_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  located_in_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  located_in_opticalnode_created: [CreateOpticalNodePayload]
+  located_in_opticalnode_updated: [UpdateOpticalNodePayload]
+  located_in_opticalnode_deleted: [DeleteOpticalNodePayload]
+  located_in_odf_created: [CreateOdfPayload]
+  located_in_odf_updated: [UpdateOdfPayload]
+  located_in_odf_deleted: [DeleteOdfPayload]
+  located_in_opticalfilter_created: [CreateOpticalFilterPayload]
+  located_in_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  located_in_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  has_site_created: [CreateSitePayload]
+  has_site_updated: [UpdateSitePayload]
+  has_site_deleted: [DeleteSitePayload]
+  has_room_created: [CreateRoomPayload]
+  has_room_updated: [UpdateRoomPayload]
+  has_room_deleted: [DeleteRoomPayload]
+  has_rack_created: [CreateRackPayload]
+  has_rack_updated: [UpdateRackPayload]
+  has_rack_deleted: [DeleteRackPayload]
+  responsible_for_organization_created: CreateOrganizationPayload
+  responsible_for_organization_updated: UpdateOrganizationPayload
+  responsible_for_organization_deleted: DeleteOrganizationPayload
+  responsible_for_contact_created: CreateContactPayload
+  responsible_for_contact_updated: UpdateContactPayload
+  responsible_for_contact_deleted: DeleteContactPayload
+  responsible_for_customer_created: CreateCustomerPayload
+  responsible_for_customer_updated: UpdateCustomerPayload
+  responsible_for_customer_deleted: DeleteCustomerPayload
+  responsible_for_enduser_created: CreateEndUserPayload
+  responsible_for_enduser_updated: UpdateEndUserPayload
+  responsible_for_enduser_deleted: DeleteEndUserPayload
+  responsible_for_provider_created: CreateProviderPayload
+  responsible_for_provider_updated: UpdateProviderPayload
+  responsible_for_provider_deleted: DeleteProviderPayload
+  responsible_for_siteowner_created: CreateSiteOwnerPayload
+  responsible_for_siteowner_updated: UpdateSiteOwnerPayload
+  responsible_for_siteowner_deleted: DeleteSiteOwnerPayload
+  responsible_for_peeringpartner_created: CreatePeeringPartnerPayload
+  responsible_for_peeringpartner_updated: UpdatePeeringPartnerPayload
+  responsible_for_peeringpartner_deleted: DeletePeeringPartnerPayload
+  clientMutationId: String
+}
+
+input CompositeRoomMutationInput {
+  create_input: CreateRoomInput
+  update_input: UpdateRoomInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_parent_site: CreateSiteInput
+  update_parent_site: UpdateSiteInput
+  deleted_parent_site: DeleteSiteInput
+  create_parent_room: CreateRoomInput
+  update_parent_room: UpdateRoomInput
+  deleted_parent_room: DeleteRoomInput
+  create_parent_rack: CreateRackInput
+  update_parent_rack: UpdateRackInput
+  deleted_parent_rack: DeleteRackInput
+  create_located_in_port: [CreatePortInput]
+  update_located_in_port: [UpdatePortInput]
+  deleted_located_in_port: [DeletePortInput]
+  create_located_in_cable: [CreateCableInput]
+  update_located_in_cable: [UpdateCableInput]
+  deleted_located_in_cable: [DeleteCableInput]
+  create_located_in_router: [CreateRouterInput]
+  update_located_in_router: [UpdateRouterInput]
+  deleted_located_in_router: [DeleteRouterInput]
+  create_located_in_switch: [CreateSwitchInput]
+  update_located_in_switch: [UpdateSwitchInput]
+  deleted_located_in_switch: [DeleteSwitchInput]
+  create_located_in_firewall: [CreateFirewallInput]
+  update_located_in_firewall: [UpdateFirewallInput]
+  deleted_located_in_firewall: [DeleteFirewallInput]
+  create_located_in_externalequipment: [CreateExternalEquipmentInput]
+  update_located_in_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_located_in_externalequipment: [DeleteExternalEquipmentInput]
+  create_located_in_opticalnode: [CreateOpticalNodeInput]
+  update_located_in_opticalnode: [UpdateOpticalNodeInput]
+  deleted_located_in_opticalnode: [DeleteOpticalNodeInput]
+  create_located_in_odf: [CreateOdfInput]
+  update_located_in_odf: [UpdateOdfInput]
+  deleted_located_in_odf: [DeleteOdfInput]
+  create_located_in_opticalfilter: [CreateOpticalFilterInput]
+  update_located_in_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_located_in_opticalfilter: [DeleteOpticalFilterInput]
+  create_has_site: [CreateSiteInput]
+  update_has_site: [UpdateSiteInput]
+  deleted_has_site: [DeleteSiteInput]
+  create_has_room: [CreateRoomInput]
+  update_has_room: [UpdateRoomInput]
+  deleted_has_room: [DeleteRoomInput]
+  create_has_rack: [CreateRackInput]
+  update_has_rack: [UpdateRackInput]
+  deleted_has_rack: [DeleteRackInput]
+  create_responsible_for_organization: CreateOrganizationInput
+  update_responsible_for_organization: UpdateOrganizationInput
+  deleted_responsible_for_organization: DeleteOrganizationInput
+  create_responsible_for_contact: CreateContactInput
+  update_responsible_for_contact: UpdateContactInput
+  deleted_responsible_for_contact: DeleteContactInput
+  create_responsible_for_customer: CreateCustomerInput
+  update_responsible_for_customer: UpdateCustomerInput
+  deleted_responsible_for_customer: DeleteCustomerInput
+  create_responsible_for_enduser: CreateEndUserInput
+  update_responsible_for_enduser: UpdateEndUserInput
+  deleted_responsible_for_enduser: DeleteEndUserInput
+  create_responsible_for_provider: CreateProviderInput
+  update_responsible_for_provider: UpdateProviderInput
+  deleted_responsible_for_provider: DeleteProviderInput
+  create_responsible_for_siteowner: CreateSiteOwnerInput
+  update_responsible_for_siteowner: UpdateSiteOwnerInput
+  deleted_responsible_for_siteowner: DeleteSiteOwnerInput
+  create_responsible_for_peeringpartner: CreatePeeringPartnerInput
+  update_responsible_for_peeringpartner: UpdatePeeringPartnerInput
+  deleted_responsible_for_peeringpartner: DeletePeeringPartnerInput
+  clientMutationId: String
+}
+
+type CompositeRoomMutationPayload {
+  created: CreateRoomPayload
+  updated: UpdateRoomPayload
+  unlinked: [DeleteRelationshipPayload]
+  parent_site_created: CreateSitePayload
+  parent_site_updated: UpdateSitePayload
+  parent_site_deleted: DeleteSitePayload
+  parent_room_created: CreateRoomPayload
+  parent_room_updated: UpdateRoomPayload
+  parent_room_deleted: DeleteRoomPayload
+  parent_rack_created: CreateRackPayload
+  parent_rack_updated: UpdateRackPayload
+  parent_rack_deleted: DeleteRackPayload
+  located_in_port_created: [CreatePortPayload]
+  located_in_port_updated: [UpdatePortPayload]
+  located_in_port_deleted: [DeletePortPayload]
+  located_in_cable_created: [CreateCablePayload]
+  located_in_cable_updated: [UpdateCablePayload]
+  located_in_cable_deleted: [DeleteCablePayload]
+  located_in_router_created: [CreateRouterPayload]
+  located_in_router_updated: [UpdateRouterPayload]
+  located_in_router_deleted: [DeleteRouterPayload]
+  located_in_switch_created: [CreateSwitchPayload]
+  located_in_switch_updated: [UpdateSwitchPayload]
+  located_in_switch_deleted: [DeleteSwitchPayload]
+  located_in_firewall_created: [CreateFirewallPayload]
+  located_in_firewall_updated: [UpdateFirewallPayload]
+  located_in_firewall_deleted: [DeleteFirewallPayload]
+  located_in_externalequipment_created: [CreateExternalEquipmentPayload]
+  located_in_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  located_in_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  located_in_opticalnode_created: [CreateOpticalNodePayload]
+  located_in_opticalnode_updated: [UpdateOpticalNodePayload]
+  located_in_opticalnode_deleted: [DeleteOpticalNodePayload]
+  located_in_odf_created: [CreateOdfPayload]
+  located_in_odf_updated: [UpdateOdfPayload]
+  located_in_odf_deleted: [DeleteOdfPayload]
+  located_in_opticalfilter_created: [CreateOpticalFilterPayload]
+  located_in_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  located_in_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  has_site_created: [CreateSitePayload]
+  has_site_updated: [UpdateSitePayload]
+  has_site_deleted: [DeleteSitePayload]
+  has_room_created: [CreateRoomPayload]
+  has_room_updated: [UpdateRoomPayload]
+  has_room_deleted: [DeleteRoomPayload]
+  has_rack_created: [CreateRackPayload]
+  has_rack_updated: [UpdateRackPayload]
+  has_rack_deleted: [DeleteRackPayload]
+  responsible_for_organization_created: CreateOrganizationPayload
+  responsible_for_organization_updated: UpdateOrganizationPayload
+  responsible_for_organization_deleted: DeleteOrganizationPayload
+  responsible_for_contact_created: CreateContactPayload
+  responsible_for_contact_updated: UpdateContactPayload
+  responsible_for_contact_deleted: DeleteContactPayload
+  responsible_for_customer_created: CreateCustomerPayload
+  responsible_for_customer_updated: UpdateCustomerPayload
+  responsible_for_customer_deleted: DeleteCustomerPayload
+  responsible_for_enduser_created: CreateEndUserPayload
+  responsible_for_enduser_updated: UpdateEndUserPayload
+  responsible_for_enduser_deleted: DeleteEndUserPayload
+  responsible_for_provider_created: CreateProviderPayload
+  responsible_for_provider_updated: UpdateProviderPayload
+  responsible_for_provider_deleted: DeleteProviderPayload
+  responsible_for_siteowner_created: CreateSiteOwnerPayload
+  responsible_for_siteowner_updated: UpdateSiteOwnerPayload
+  responsible_for_siteowner_deleted: DeleteSiteOwnerPayload
+  responsible_for_peeringpartner_created: CreatePeeringPartnerPayload
+  responsible_for_peeringpartner_updated: UpdatePeeringPartnerPayload
+  responsible_for_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -2621,6 +3141,12 @@ input CompositeRouterMutationInput {
   create_location_site: CreateSiteInput
   update_location_site: UpdateSiteInput
   deleted_location_site: DeleteSiteInput
+  create_location_room: CreateRoomInput
+  update_location_room: UpdateRoomInput
+  deleted_location_room: DeleteRoomInput
+  create_location_rack: CreateRackInput
+  update_location_rack: UpdateRackInput
+  deleted_location_rack: DeleteRackInput
   create_has_port: [CreatePortInput]
   update_has_port: [UpdatePortInput]
   deleted_has_port: [DeletePortInput]
@@ -2678,12 +3204,30 @@ input CompositeRouterMutationInput {
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
+  create_parent_group: [CreateGroupInput]
+  update_parent_group: [UpdateGroupInput]
+  deleted_parent_group: [DeleteGroupInput]
+  create_parent_procedure: [CreateProcedureInput]
+  update_parent_procedure: [UpdateProcedureInput]
+  deleted_parent_procedure: [DeleteProcedureInput]
+  create_parent_address: [CreateAddressInput]
+  update_parent_address: [UpdateAddressInput]
+  deleted_parent_address: [DeleteAddressInput]
+  create_parent_phone: [CreatePhoneInput]
+  update_parent_phone: [UpdatePhoneInput]
+  deleted_parent_phone: [DeletePhoneInput]
+  create_parent_email: [CreateEmailInput]
+  update_parent_email: [UpdateEmailInput]
+  deleted_parent_email: [DeleteEmailInput]
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
   create_parent_cable: [CreateCableInput]
   update_parent_cable: [UpdateCableInput]
   deleted_parent_cable: [DeleteCableInput]
+  create_parent_host: [CreateHostInput]
+  update_parent_host: [EditHostInput]
+  deleted_parent_host: [DeleteHostInput]
   create_parent_router: [CreateRouterInput]
   update_parent_router: [UpdateRouterInput]
   deleted_parent_router: [DeleteRouterInput]
@@ -2705,6 +3249,18 @@ input CompositeRouterMutationInput {
   create_parent_opticalfilter: [CreateOpticalFilterInput]
   update_parent_opticalfilter: [UpdateOpticalFilterInput]
   deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
+  create_parent_opticallink: [CreateOpticalLinkInput]
+  update_parent_opticallink: [UpdateOpticalLinkInput]
+  deleted_parent_opticallink: [DeleteOpticalLinkInput]
+  create_parent_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_parent_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_parent_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_parent_opticalpath: [CreateOpticalPathInput]
+  update_parent_opticalpath: [UpdateOpticalPathInput]
+  deleted_parent_opticalpath: [DeleteOpticalPathInput]
+  create_parent_peeringgroup: [CreatePeeringGroupInput]
+  update_parent_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_parent_peeringgroup: [DeletePeeringGroupInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -2768,6 +3324,12 @@ type CompositeRouterMutationPayload {
   location_site_created: CreateSitePayload
   location_site_updated: UpdateSitePayload
   location_site_deleted: DeleteSitePayload
+  location_room_created: CreateRoomPayload
+  location_room_updated: UpdateRoomPayload
+  location_room_deleted: DeleteRoomPayload
+  location_rack_created: CreateRackPayload
+  location_rack_updated: UpdateRackPayload
+  location_rack_deleted: DeleteRackPayload
   has_port_created: [CreatePortPayload]
   has_port_updated: [UpdatePortPayload]
   has_port_deleted: [DeletePortPayload]
@@ -2825,12 +3387,30 @@ type CompositeRouterMutationPayload {
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
+  parent_group_created: [CreateGroupPayload]
+  parent_group_updated: [UpdateGroupPayload]
+  parent_group_deleted: [DeleteGroupPayload]
+  parent_procedure_created: [CreateProcedurePayload]
+  parent_procedure_updated: [UpdateProcedurePayload]
+  parent_procedure_deleted: [DeleteProcedurePayload]
+  parent_address_created: [CreateAddressPayload]
+  parent_address_updated: [UpdateAddressPayload]
+  parent_address_deleted: [DeleteAddressPayload]
+  parent_phone_created: [CreatePhonePayload]
+  parent_phone_updated: [UpdatePhonePayload]
+  parent_phone_deleted: [DeletePhonePayload]
+  parent_email_created: [CreateEmailPayload]
+  parent_email_updated: [UpdateEmailPayload]
+  parent_email_deleted: [DeleteEmailPayload]
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
   parent_cable_created: [CreateCablePayload]
   parent_cable_updated: [UpdateCablePayload]
   parent_cable_deleted: [DeleteCablePayload]
+  parent_host_created: [CreateHostPayload]
+  parent_host_updated: [EditHostPayload]
+  parent_host_deleted: [DeleteHostPayload]
   parent_router_created: [CreateRouterPayload]
   parent_router_updated: [UpdateRouterPayload]
   parent_router_deleted: [DeleteRouterPayload]
@@ -2852,6 +3432,18 @@ type CompositeRouterMutationPayload {
   parent_opticalfilter_created: [CreateOpticalFilterPayload]
   parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
   parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  parent_opticallink_created: [CreateOpticalLinkPayload]
+  parent_opticallink_updated: [UpdateOpticalLinkPayload]
+  parent_opticallink_deleted: [DeleteOpticalLinkPayload]
+  parent_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  parent_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  parent_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  parent_opticalpath_created: [CreateOpticalPathPayload]
+  parent_opticalpath_updated: [UpdateOpticalPathPayload]
+  parent_opticalpath_deleted: [DeleteOpticalPathPayload]
+  parent_peeringgroup_created: [CreatePeeringGroupPayload]
+  parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -2916,6 +3508,12 @@ input CompositeSiteMutationInput {
   create_parent_site: CreateSiteInput
   update_parent_site: UpdateSiteInput
   deleted_parent_site: DeleteSiteInput
+  create_parent_room: CreateRoomInput
+  update_parent_room: UpdateRoomInput
+  deleted_parent_room: DeleteRoomInput
+  create_parent_rack: CreateRackInput
+  update_parent_rack: UpdateRackInput
+  deleted_parent_rack: DeleteRackInput
   create_located_in_port: [CreatePortInput]
   update_located_in_port: [UpdatePortInput]
   deleted_located_in_port: [DeletePortInput]
@@ -2946,6 +3544,12 @@ input CompositeSiteMutationInput {
   create_has_site: [CreateSiteInput]
   update_has_site: [UpdateSiteInput]
   deleted_has_site: [DeleteSiteInput]
+  create_has_room: [CreateRoomInput]
+  update_has_room: [UpdateRoomInput]
+  deleted_has_room: [DeleteRoomInput]
+  create_has_rack: [CreateRackInput]
+  update_has_rack: [UpdateRackInput]
+  deleted_has_rack: [DeleteRackInput]
   create_responsible_for_organization: CreateOrganizationInput
   update_responsible_for_organization: UpdateOrganizationInput
   deleted_responsible_for_organization: DeleteOrganizationInput
@@ -2980,6 +3584,12 @@ type CompositeSiteMutationPayload {
   parent_site_created: CreateSitePayload
   parent_site_updated: UpdateSitePayload
   parent_site_deleted: DeleteSitePayload
+  parent_room_created: CreateRoomPayload
+  parent_room_updated: UpdateRoomPayload
+  parent_room_deleted: DeleteRoomPayload
+  parent_rack_created: CreateRackPayload
+  parent_rack_updated: UpdateRackPayload
+  parent_rack_deleted: DeleteRackPayload
   located_in_port_created: [CreatePortPayload]
   located_in_port_updated: [UpdatePortPayload]
   located_in_port_deleted: [DeletePortPayload]
@@ -3010,6 +3620,12 @@ type CompositeSiteMutationPayload {
   has_site_created: [CreateSitePayload]
   has_site_updated: [UpdateSitePayload]
   has_site_deleted: [DeleteSitePayload]
+  has_room_created: [CreateRoomPayload]
+  has_room_updated: [UpdateRoomPayload]
+  has_room_deleted: [DeleteRoomPayload]
+  has_rack_created: [CreateRackPayload]
+  has_rack_updated: [UpdateRackPayload]
+  has_rack_deleted: [DeleteRackPayload]
   responsible_for_organization_created: CreateOrganizationPayload
   responsible_for_organization_updated: UpdateOrganizationPayload
   responsible_for_organization_deleted: DeleteOrganizationPayload
@@ -3464,6 +4080,7 @@ type ConvertHostPayload {
 }
 
 input CreateAddressInput {
+  organization: ChoiceScalar
   name: String!
   phone: String
   street: String
@@ -3578,7 +4195,7 @@ input CreateExternalEquipmentInput {
   name: String!
   description: String
   relationship_owner: ChoiceScalar
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   clientMutationId: String
 }
 
@@ -3609,9 +4226,9 @@ input CreateFirewallInput {
   service_tag: String
   end_support: Date
   contract_number: String
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_owner: ChoiceScalar
-  relationship_user: Int
+  relationship_user: ChoiceScalar
   relationship_depends_on: Int
   relationship_ports: String
   services_locked: Boolean
@@ -3659,7 +4276,7 @@ input CreateHostInput {
   service_tag: String
   end_support: Date
   contract_number: String
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_owner: ChoiceScalar
   relationship_user: ChoiceScalar
   relationship_depends_on: Int
@@ -3683,7 +4300,7 @@ input CreateOdfInput {
   description: String
   max_number_of_ports: ChoiceScalar
   operational_state: ChoiceScalar
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   clientMutationId: String
 }
 
@@ -3701,7 +4318,7 @@ input CreateOpticalFilterInput {
   description: String
   max_number_of_ports: ChoiceScalar
   operational_state: ChoiceScalar
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   clientMutationId: String
 }
 
@@ -3749,7 +4366,7 @@ input CreateOpticalNodeInput {
   type: ChoiceScalar!
   operational_state: ChoiceScalar! = "In service"
   description: String
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   clientMutationId: String
 }
 
@@ -3893,6 +4510,21 @@ type CreateProviderPayload {
   clientMutationId: String
 }
 
+input CreateRackInput {
+  name: String!
+  height: Int
+  depth: Int
+  width: Int
+  rack_units: Int
+  clientMutationId: String
+}
+
+type CreateRackPayload {
+  errors: [ErrorType]
+  rack: Rack
+  clientMutationId: String
+}
+
 input CreateRoleInput {
   name: String!
   description: String
@@ -3906,12 +4538,24 @@ type CreateRolePayload {
   clientMutationId: String
 }
 
+input CreateRoomInput {
+  name: String!
+  floor: String
+  clientMutationId: String
+}
+
+type CreateRoomPayload {
+  errors: [ErrorType]
+  room: Room
+  clientMutationId: String
+}
+
 input CreateRouterInput {
   rack_units: Int
   rack_position: Int
   rack_back: Boolean
   operational_state: ChoiceScalar!
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_ports: String
   description: String
   clientMutationId: String
@@ -3978,9 +4622,9 @@ input CreateSwitchInput {
   service_tag: String
   end_support: Date
   contract_number: String
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_owner: ChoiceScalar
-  relationship_user: Int
+  relationship_user: ChoiceScalar
   relationship_depends_on: Int
   relationship_ports: String
   services_locked: Boolean
@@ -4448,6 +5092,17 @@ type DeleteProviderPayload {
   clientMutationId: String
 }
 
+input DeleteRackInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteRackPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteRelationshipInput {
   relation_id: Int!
   clientMutationId: String
@@ -4467,6 +5122,17 @@ input DeleteRoleInput {
 type DeleteRolePayload {
   success: Boolean!
   id: ID!
+  clientMutationId: String
+}
+
+input DeleteRoomInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteRoomPayload {
+  errors: [ErrorType]
+  success: Boolean!
   clientMutationId: String
 }
 
@@ -4559,7 +5225,7 @@ input EditHostInput {
   service_tag: String
   end_support: Date
   contract_number: String
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_owner: ChoiceScalar
   relationship_user: ChoiceScalar
   services_locked: Boolean
@@ -4906,7 +5572,7 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -5084,7 +5750,7 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -5691,6 +6357,7 @@ type Host implements NINode & Logical & PhysicalLogical {
   outgoing: [DictRelationType]
   comments: [CommentType]
   host_type: String
+  location: Location
   description: String
   operational_state: Choice
   ip_addresses: IPAddr
@@ -6309,6 +6976,14 @@ type Mutation {
   update_site(input: UpdateSiteInput!): UpdateSitePayload
   delete_site(input: DeleteSiteInput!): DeleteSitePayload
   composite_site(input: CompositeSiteMutationInput!): CompositeSiteMutationPayload
+  create_room(input: CreateRoomInput!): CreateRoomPayload
+  update_room(input: UpdateRoomInput!): UpdateRoomPayload
+  delete_room(input: DeleteRoomInput!): DeleteRoomPayload
+  composite_room(input: CompositeRoomMutationInput!): CompositeRoomMutationPayload
+  create_rack(input: CreateRackInput!): CreateRackPayload
+  update_rack(input: UpdateRackInput!): UpdateRackPayload
+  delete_rack(input: DeleteRackInput!): DeleteRackPayload
+  composite_rack(input: CompositeRackMutationInput!): CompositeRackMutationPayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -6444,7 +7119,7 @@ type ODF implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -6650,7 +7325,7 @@ type OpticalFilter implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -7213,7 +7888,7 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -8403,7 +9078,7 @@ interface Physical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
 }
 
@@ -8438,7 +9113,7 @@ type Port implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -9005,11 +9680,190 @@ type Query {
   all_sites: [Site]
   sites(filter: SiteFilter, orderBy: SiteOrderBy, before: String, after: String, first: Int, last: Int): siteConnection
   getSiteById(id: ID): Site
+  all_rooms: [Room]
+  rooms(filter: RoomFilter, orderBy: RoomOrderBy, before: String, after: String, first: Int, last: Int): roomConnection
+  getRoomById(id: ID): Room
+  all_racks: [Rack]
+  racks(filter: RackFilter, orderBy: RackOrderBy, before: String, after: String, first: Int, last: Int): rackConnection
+  getRackById(id: ID): Rack
   all_hostusers: [HostUser]
   hostUsers(filter: HostUserFilter, orderBy: HostUserOrderBy, before: String, after: String, first: Int, last: Int): hostUserConnection
   getHostUserById(id: ID): HostUser
   search_generalsearch(filter: GenericFilter, before: String, after: String, first: Int, last: Int): GeneralSearchConnection
   search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
+}
+
+type Rack implements NINode & Location {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  parent: Location
+  located_in: [Physical]
+  has: [Location]
+  responsible_for: Relation
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  height: Int
+  depth: Int
+  width: Int
+  rack_units: Int
+  front: [PhysicalLogical]
+  back: [PhysicalLogical]
+}
+
+type rackConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [rackEdge]!
+}
+
+"""A Relay edge containing a `rack` and its cursor."""
+type rackEdge {
+  """The item at the end of the edge"""
+  node: Rack
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input RackFilter {
+  AND: [RackNestedFilter!]
+  OR: [RackNestedFilter!]
+}
+
+input RackNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  height: Int
+  height_not: Int
+  height_lt: Int
+  height_lte: Int
+  height_gt: Int
+  height_gte: Int
+  height_in: [Int!]
+  height_not_in: [Int!]
+  depth: Int
+  depth_not: Int
+  depth_lt: Int
+  depth_lte: Int
+  depth_gt: Int
+  depth_gte: Int
+  depth_in: [Int!]
+  depth_not_in: [Int!]
+  width: Int
+  width_not: Int
+  width_lt: Int
+  width_lte: Int
+  width_gt: Int
+  width_gte: Int
+  width_in: [Int!]
+  width_not_in: [Int!]
+  rack_units: Int
+  rack_units_not: Int
+  rack_units_lt: Int
+  rack_units_lte: Int
+  rack_units_gt: Int
+  rack_units_gte: Int
+  rack_units_in: [Int!]
+  rack_units_not_in: [Int!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum RackOrderBy {
+  name_ASC
+  name_DESC
+  height_ASC
+  height_DESC
+  depth_ASC
+  depth_DESC
+  width_ASC
+  width_DESC
+  rack_units_ASC
+  rack_units_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 input RefreshInput {
@@ -9113,6 +9967,150 @@ type RoleRelationMutationPayload {
   clientMutationId: String
 }
 
+type Room implements NINode & Location {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  parent: Location
+  located_in: [Physical]
+  has: [Location]
+  responsible_for: Relation
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  floor: String
+}
+
+type roomConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [roomEdge]!
+}
+
+"""A Relay edge containing a `room` and its cursor."""
+type roomEdge {
+  """The item at the end of the edge"""
+  node: Room
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input RoomFilter {
+  AND: [RoomNestedFilter!]
+  OR: [RoomNestedFilter!]
+}
+
+input RoomNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  floor: String
+  floor_not: String
+  floor_lt: String
+  floor_lte: String
+  floor_gt: String
+  floor_gte: String
+  floor_contains: String
+  floor_not_contains: String
+  floor_starts_with: String
+  floor_not_starts_with: String
+  floor_ends_with: String
+  floor_not_ends_with: String
+  floor_in: [String!]
+  floor_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum RoomOrderBy {
+  name_ASC
+  name_DESC
+  floor_ASC
+  floor_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
 type Router implements NINode & Physical & PhysicalLogical {
   handle_id: ID!
   node_name: String!
@@ -9131,7 +10129,7 @@ type Router implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -9789,7 +10787,7 @@ type Switch implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [Physical]
+  parent: [PhysicalLogical]
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -10104,6 +11102,7 @@ type TypeInfo {
 }
 
 input UpdateAddressInput {
+  organization: ChoiceScalar
   name: String!
   phone: String
   street: String
@@ -10224,7 +11223,7 @@ input UpdateExternalEquipmentInput {
   name: String!
   description: String
   relationship_owner: ChoiceScalar
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_ports: String
   id: ID!
   clientMutationId: String
@@ -10257,9 +11256,9 @@ input UpdateFirewallInput {
   service_tag: String
   end_support: Date
   contract_number: String
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_owner: ChoiceScalar
-  relationship_user: Int
+  relationship_user: ChoiceScalar
   relationship_depends_on: Int
   relationship_ports: String
   services_locked: Boolean
@@ -10297,8 +11296,8 @@ input UpdateOdfInput {
   description: String
   max_number_of_ports: Int
   operational_state: ChoiceScalar
-  relationship_ports: String
   relationship_location: Int
+  relationship_ports: String
   id: ID!
   clientMutationId: String
 }
@@ -10317,8 +11316,8 @@ input UpdateOpticalFilterInput {
   description: String
   max_number_of_ports: Int
   operational_state: ChoiceScalar
-  relationship_ports: String
   relationship_location: Int
+  relationship_ports: String
   id: ID!
   clientMutationId: String
 }
@@ -10371,7 +11370,7 @@ input UpdateOpticalNodeInput {
   type: ChoiceScalar!
   operational_state: ChoiceScalar! = "In service"
   description: String
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   id: ID!
   clientMutationId: String
 }
@@ -10513,6 +11512,22 @@ type UpdateProviderPayload {
   clientMutationId: String
 }
 
+input UpdateRackInput {
+  name: String!
+  height: Int
+  depth: Int
+  width: Int
+  rack_units: Int
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateRackPayload {
+  errors: [ErrorType]
+  rack: Rack
+  clientMutationId: String
+}
+
 input UpdateRoleInput {
   id: ID
   name: String!
@@ -10526,12 +11541,25 @@ type UpdateRolePayload {
   clientMutationId: String
 }
 
+input UpdateRoomInput {
+  name: String!
+  floor: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateRoomPayload {
+  errors: [ErrorType]
+  room: Room
+  clientMutationId: String
+}
+
 input UpdateRouterInput {
   rack_units: Int
   rack_position: Int
   rack_back: Boolean
   operational_state: ChoiceScalar!
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   description: String
   id: ID!
   clientMutationId: String
@@ -10600,9 +11628,9 @@ input UpdateSwitchInput {
   service_tag: String
   end_support: Date
   contract_number: String
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_owner: ChoiceScalar
-  relationship_user: Int
+  relationship_user: ChoiceScalar
   relationship_depends_on: Int
   relationship_ports: String
   services_locked: Boolean

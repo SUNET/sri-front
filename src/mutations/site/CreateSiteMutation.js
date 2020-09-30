@@ -26,7 +26,16 @@ function CreateSiteMutation(site, form) {
     input: {
       create_input: {
         name: site.name,
-        description: site.description,
+        country: 'Netherlands',
+        site_type: '',
+        area: 'Gävleborg',
+        longitude: 47.83636,
+        latitude: 60.834803,
+        owner_id: 'SHY 86V',
+        owner_site_name: 'Ivarsson & Björk AB',
+        url: 'http://www.persson.se/',
+        telenor_subscription_id: 'GN57LFQ',
+        relationship_responsible_for: null,
       },
     },
   };

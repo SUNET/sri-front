@@ -213,29 +213,9 @@ class _BasicFormParentClass extends React.Component {
   }
 
   renderGeneralInfoToggleSection(editMode = true) {
-    const { t, url } = this.props;
+    const { t } = this.props;
     const componentClassName = 'general-info-block';
-    const generalInfoFirstRow = [
-      {
-        title: t('general-forms/website'),
-        presentContent: (
-          <a href={generateURL(url)} target="_blank" rel="noopener noreferrer">
-            {url}
-          </a>
-        ),
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
-              name="url"
-              component={FieldInput}
-              placeholder={t('general-forms/write-website')}
-            />
-          </Form.Group>
-        ),
-      },
-    ];
+    const generalInfoFirstRow = [this.getUrlField()];
 
     return (
       <section className={`model-section ${componentClassName}`}>
@@ -255,6 +235,29 @@ class _BasicFormParentClass extends React.Component {
         </ToggleSection>
       </section>
     );
+  }
+
+  getUrlField() {
+    const { t, url } = this.props;
+    return {
+      title: t('general-forms/website'),
+      presentContent: (
+        <a href={generateURL(url)} target="_blank" rel="noopener noreferrer">
+          {url}
+        </a>
+      ),
+      editContent: (
+        <Form.Group>
+          <Field
+            type="text"
+            className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
+            name="url"
+            component={FieldInput}
+            placeholder={t('general-forms/write-website')}
+          />
+        </Form.Group>
+      ),
+    };
   }
 
   renderRelatedEntities(relatedEntities) {

@@ -22,6 +22,8 @@ import SearchOpticalLinkContainer from '../containers/opticalLink/SearchOpticalL
 import SearchOpticalMultiplexSectionContainer from '../containers/opticalMultiplexSection/SearchOpticalMultiplexSection';
 import SearchOpticalPathContainer from '../containers/opticalPath/SearchOpticalPath';
 import SearchOpticalFilterContainer from '../containers/opticalFilter/SearchOpticalFilter';
+import SearchRackContainer from '../containers/rack/SearchRack';
+import SearchRoomContainer from '../containers/room/SearchRoom';
 import SearchSiteContainer from '../containers/site/SearchSite';
 
 class Network extends React.Component {
@@ -52,6 +54,8 @@ class Network extends React.Component {
             <Route path="/network/optical-multiplex-sections" component={SearchOpticalMultiplexSectionContainer} />
             <Route path="/network/optical-paths" component={SearchOpticalPathContainer} />
             <Route path="/network/optical-filters" component={SearchOpticalFilterContainer} />
+            <Route path="/network/location-racks" component={SearchRackContainer} />
+            <Route path="/network/location-rooms" component={SearchRoomContainer} />
             <Route path="/network/location-sites" component={SearchSiteContainer} />
           </Switch>
         </Col>
