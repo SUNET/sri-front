@@ -258,6 +258,12 @@ exports[`Some Component Renders correctly 1`] = `
                 "section/network/location",
               ],
               Array [
+                "main-entity-name/location-racks",
+              ],
+              Array [
+                "main-entity-name/location-rooms",
+              ],
+              Array [
                 "main-entity-name/location-sites",
               ],
               Array [
@@ -382,6 +388,14 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "section/network/location",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/location-racks",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/location-rooms",
               },
               Object {
                 "type": "return",
