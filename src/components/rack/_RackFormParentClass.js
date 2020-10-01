@@ -6,7 +6,6 @@ import { Form } from 'react-bootstrap';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
 // const
-import { SAVED } from '../../utils/constants';
 import renderFormBlockSection from '../common/BlockSection';
 import { isBrowser } from 'react-device-detect';
 

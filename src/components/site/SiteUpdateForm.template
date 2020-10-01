@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateSiteMutation from '../../mutations/site/UpdateSiteMutation';
 import ValidationsSiteForm from '../common/_BasicValidationForm';
 // const
-import { UPDATE_SITE_FORM, REMOVE } from '../../utils/constants';
+import { UPDATE_SITE_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class SiteUpdateForm extends _SiteFormParentClass {

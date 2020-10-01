@@ -8,7 +8,6 @@ import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/Togg
 import FieldInput from '../FieldInput';
 // const
 import { isBrowser } from 'react-device-detect';
-import { SAVED } from '../../utils/constants';
 import renderFormBlockSection from '../common/BlockSection';
 
 class _SiteFormParentClass extends _BasicFormParentClass {
