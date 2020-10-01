@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const SiteDetailsQuery = graphql`
+  query SiteDetailsQuery($siteId: ID!) {
+    getSiteById(id: $siteId) {
+      ...SiteUpdateForm_site
+      ___SITE_FIELDS___
+    }
+  }
+`;
+
+export default SiteDetailsQuery;

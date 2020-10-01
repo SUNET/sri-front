@@ -280,6 +280,48 @@ const opticalFilter = {
   ],
 };
 
+const rack = {
+  formName: {
+    create: 'createRack',
+    update: 'updateRack',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'height' },
+    { type: FIELD_TYPES.SINGLE, name: 'width' },
+    { type: FIELD_TYPES.SINGLE, name: 'depth' },
+    { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
+  ],
+};
+
+const room = {
+  formName: {
+    create: 'createRoom',
+    update: 'updateRoom',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [...BASIC_INFO],
+};
+
+const site = {
+  formName: {
+    create: 'createSite',
+    update: 'updateSite',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.SINGLE, name: 'area' },
+    { type: FIELD_TYPES.SINGLE, name: 'latitude' },
+    { type: FIELD_TYPES.SINGLE, name: 'longitude' },
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -298,4 +340,7 @@ export default {
   opticalMultiplexSection,
   opticalPath,
   opticalFilter,
+  rack,
+  room,
+  site,
 };

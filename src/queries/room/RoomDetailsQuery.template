@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const RoomDetailsQuery = graphql`
+  query RoomDetailsQuery($roomId: ID!) {
+    getRoomById(id: $roomId) {
+      ...RoomUpdateForm_room
+      ___ROOM_FIELDS___
+    }
+  }
+`;
+
+export default RoomDetailsQuery;

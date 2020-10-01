@@ -24,7 +24,8 @@ class ___EntityClassName__FormParentClass extends _BasicFormParentClass {
   renderSections(editMode) {
     return (
       <>
-        {this.renderSections(editMode)}
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
     );

@@ -40,3 +40,13 @@ src/components/opticalPath/OpticalPathUpdateForm.js
 
 src/queries/opticalFilter/OpticalFilterDetailsQuery.js
 src/components/opticalFilter/OpticalFilterUpdateForm.js
+
+src/queries/rack/RackDetailsQuery.js
+src/components/rack/RackUpdateForm.js
+
+src/queries/room/RoomDetailsQuery.js
+src/components/room/RoomUpdateForm.js
+
+
+src/queries/site/SiteDetailsQuery.js
+src/components/site/SiteUpdateForm.js
