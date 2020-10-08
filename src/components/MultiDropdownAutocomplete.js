@@ -2,10 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
+import { debounce } from '../utils';
+
 import '../style/MultiDropdownAutocomplete.scss';
+import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from '../utils/constants';
 
 const MAIN_CN = 'multi-dropdown-autocomplete';
 const SEARCH_CN = '__search-input';
+const PANEL_POPUP = '__panel-popup';
 const CLASS_FILTERS_CN = '__class-filters';
 const RESULTS_CN = '__results';
 
@@ -31,47 +35,44 @@ function useComponentVisible(initialIsVisible) {
 
 function formatData(resultData) {
   let formattedData = [];
-  // Object.keys(resultData.data).forEach((propName) => {
-  //   formattedData[propName] = resultData.data[propName].edges.map((edg) => edg.node);
-  // });
   Object.keys(resultData.data).forEach((propName) => {
     formattedData = [...formattedData, ...resultData.data[propName].edges.map((edg) => edg.node)];
   });
   return formattedData;
 }
 
-function renderSearchInput(setShowResults) {
+const SearchInput = ({ onFocus, onChange }) => {
+  const onChangeDebounce = debounce((text) => {
+    onChange(text);
+  }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
   return (
     <>
       <input
         type="text"
         placeholder="Search"
-        onFocus={(event) => {
-          setShowResults(true);
+        onFocus={onFocus}
+        onChange={(event) => {
+          onChangeDebounce(event.target.value);
         }}
       />
       <span className="input-icon"></span>
     </>
   );
-}
+};
 
-const ClassFilters = ({ filtersObject }) => {
+const ClassFilters = ({ parentClassName, filtersObject, onChangeSelectedFilter }) => {
   const [isSubTypesVisible, setIsSubTypesVisible] = useState(false);
   return (
-    <div
-      className={`${MAIN_CN}${CLASS_FILTERS_CN}__options`}
-      onChange={(event) => {
-        console.log(event.target.value);
-      }}
-    >
+    <div className={`${parentClassName}__options`} onChange={onChangeSelectedFilter}>
       <div
-        className={`${MAIN_CN}${CLASS_FILTERS_CN}__options__radio-option ${MAIN_CN}${CLASS_FILTERS_CN}__options__radio-option--main`}
+        className={`${parentClassName}__options__radio-option ${parentClassName}__options__radio-option--main`}
       >
         <input
           type="radio"
           id={filtersObject.main.fieldId}
           name="filter-by-entity"
           value={filtersObject.main.fieldId}
+          defaultChecked={true}
         />
         <label htmlFor={filtersObject.main.fieldId}>{filtersObject.main.name}</label>
         <span
@@ -86,7 +87,7 @@ const ClassFilters = ({ filtersObject }) => {
       {isSubTypesVisible &&
         filtersObject.subTypes.map((filter, index) => {
           return (
-            <div key={`filter-${index}`} className={`${MAIN_CN}${CLASS_FILTERS_CN}__options__radio-option`}>
+            <div key={`filter-${index}`} className={`${parentClassName}__options__radio-option`}>
               <input type="radio" id={filter.fieldId} name="filter-by-entity" value={filter.fieldId} />
               <label htmlFor={filter.fieldId}>{filter.name}</label>
             </div>
@@ -96,61 +97,61 @@ const ClassFilters = ({ filtersObject }) => {
   );
 };
 
-function renderResults(formattedData) {
+const AutocompleteResults = ({ parentClassName, data }) => {
+  const haveResults = Boolean(data && data.length);
   return (
     <>
-      {formattedData.map((element, index) => {
-        return (
-          <div key={`result-${index}`} className={`${MAIN_CN}${RESULTS_CN}__result-element`}>
-            {element.name}
-          </div>
-        );
-      })}
+      {haveResults &&
+        data.map((element, index) => {
+          return (
+            <div key={`result-${index}`} className={`${parentClassName}__result-element`}>
+              {element.name}
+            </div>
+          );
+        })}
+      {!haveResults && <div>ZERO RESULTS</div>}
     </>
   );
-}
+};
 
-const MultiDropdownAutocomplete = ({ locationsData }) => {
+const MultiDropdownAutocomplete = ({ locationsData, entityFilters, isActive, changePreFilter, changeText }) => {
   const formattedData = formatData(locationsData);
-  console.log('formattedData: ', formattedData);
-  const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
-  const FILTERS = {
-    main: {
-      name: 'Show All',
-      fieldId: 'showall',
-      filterProperty: {},
-    },
-    subTypes: [
-      {
-        name: 'Show Racks',
-        fieldId: 'showracks',
-        filterProperty: {},
-      },
-      {
-        name: 'Show Rooms',
-        fieldId: 'showrooms',
-        filterProperty: {},
-      },
-      {
-        name: 'Show Sites',
-        fieldId: 'showsites',
-        filterProperty: {},
-      },
-    ],
-  };
+  const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
   return (
     <div className={`${MAIN_CN}`} ref={ref}>
-      <div className={`${MAIN_CN}${SEARCH_CN}`}>{renderSearchInput(setIsComponentVisible)}</div>
+      <div className={`${MAIN_CN}${SEARCH_CN}`}>
+        <SearchInput
+          onFocus={() => {
+            setIsComponentVisible(true);
+            isActive();
+          }}
+          onChange={changeText}
+        />
+      </div>
       {isComponentVisible && (
-        <div className={`${MAIN_CN}${CLASS_FILTERS_CN}`}>
-          <ClassFilters filtersObject={FILTERS} />
+        <div className={`${MAIN_CN}${PANEL_POPUP}`}>
+          {
+            <div className={`${MAIN_CN}${PANEL_POPUP}${CLASS_FILTERS_CN}`}>
+              <ClassFilters
+                parentClassName={`${MAIN_CN}${PANEL_POPUP}${CLASS_FILTERS_CN}`}
+                filtersObject={entityFilters}
+                onChangeSelectedFilter={(event) => {
+                  changePreFilter(event.target.value);
+                }}
+              />
+            </div>
+          }
+          {
+            <div className={`${MAIN_CN}${PANEL_POPUP}${RESULTS_CN}`}>
+              <AutocompleteResults parentClassName={`${MAIN_CN}${PANEL_POPUP}${RESULTS_CN}`} data={formattedData} />
+            </div>
+          }
         </div>
       )}
-      {isComponentVisible && <div className={`${MAIN_CN}${RESULTS_CN}`}>{renderResults(formattedData)}</div>}
     </div>
   );
 };
 
 MultiDropdownAutocomplete.propsTypes = {};
 
-export default MultiDropdownAutocomplete;
+export default React.memo(MultiDropdownAutocomplete);
