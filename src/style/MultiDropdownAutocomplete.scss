@@ -89,16 +89,22 @@ $gray: #b1b1b1;
         &__results {
             background-color: #fff;
             border: 0.5px solid $complementary-color;
-            &__result-element {
+            &__result-element,
+            &__zero-result {
                 height: $height-input;
                 color: $gray;
                 display: flex;
                 align-items: center;
                 padding-left: $mid-padding;
+            }
+            &__result-element {
                 &:hover {
                     background: $complementary-color;
                     color: #fff;
                 }
+            }
+            &__zero-result {
+                justify-content: center;
             }
         }
     }

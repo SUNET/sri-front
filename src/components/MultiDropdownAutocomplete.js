@@ -109,7 +109,7 @@ const AutocompleteResults = ({ parentClassName, data }) => {
             </div>
           );
         })}
-      {!haveResults && <div>ZERO RESULTS</div>}
+      {!haveResults && <div className={`${parentClassName}__zero-result`}>No Results</div>}
     </>
   );
 };
