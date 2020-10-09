@@ -7,6 +7,7 @@ $mid-padding: $padding / 2;
 $gray: #b1b1b1;
 
 .multi-dropdown-autocomplete {
+    z-index: 99999999;
     background-color: #fff;
     width: 100%;
     position: relative;
@@ -98,9 +99,25 @@ $gray: #b1b1b1;
                 padding-left: $mid-padding;
             }
             &__result-element {
-                &:hover {
+                display: flex;
+                cursor: pointer;
+                &:hover,
+                &.--selected {
                     background: $complementary-color;
                     color: #fff;
+                    .multi-dropdown-autocomplete__panel-popup__results__result-element__icon {
+                        border: 0.5px solid #fff;
+                    }
+                }
+                &__icon {
+                    margin-right: $mid-padding;
+                    border-radius: 50%;
+                    border: 0.5px solid $complementary-color;
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
             }
             &__zero-result {

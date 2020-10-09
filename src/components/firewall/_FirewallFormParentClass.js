@@ -9,6 +9,7 @@ import FieldInput from '../FieldInput';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 import FieldArrayOwner from './FieldArrayOwner';
+import MultiDropdownAutocompleteLocationsRacks from '../MultiDropdownAutocompleteLocationsRacks';
 
 // const
 import { SAVED } from '../../utils/constants';
@@ -72,6 +73,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     const { t, rack_position, rack_units, isFromModal } = this.props;
     return (
       <>
+        {this.renderLocationRackToggleSection(editMode)}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}
@@ -462,6 +464,40 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               entityRemovedId={entityRemovedId}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
             />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderLocationRackToggleSection(editMode) {
+    const componentClassName = 'location-block';
+    const { t, location } = this.props;
+    console.log('location: ', location);
+    const locationRackElement = {
+      title: '',
+      presentContent: location && location[0].name,
+      editContent: (
+        <MultiDropdownAutocompleteLocationsRacks
+          optionsPreSelected={location}
+          onSelectOption={(newSelection) => {
+            console.log(newSelection);
+            this.props.dispatch(change(this.props.form, 'location', newSelection));
+          }}
+        />
+      ),
+    };
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/location')}</h2>
+          </ToggleHeading>
+
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">{renderFormBlockSection(editMode, locationRackElement, 666)}</div>
+            </div>
           </TogglePanel>
         </ToggleSection>
       </section>

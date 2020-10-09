@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp, faAngleDown, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { debounce } from '../utils';
 
@@ -41,7 +41,8 @@ function formatData(resultData) {
   return formattedData;
 }
 
-const SearchInput = ({ onFocus, onChange }) => {
+const SearchInput = ({ optionsPreSelected, onFocus, onChange }) => {
+  const selectedName = optionsPreSelected && optionsPreSelected.map((el) => el.name).join(', ');
   const onChangeDebounce = debounce((text) => {
     onChange(text);
   }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
@@ -51,6 +52,7 @@ const SearchInput = ({ onFocus, onChange }) => {
         type="text"
         placeholder="Search"
         onFocus={onFocus}
+        value={selectedName}
         onChange={(event) => {
           onChangeDebounce(event.target.value);
         }}
@@ -61,34 +63,41 @@ const SearchInput = ({ onFocus, onChange }) => {
 };
 
 const ClassFilters = ({ parentClassName, filtersObject, onChangeSelectedFilter }) => {
-  const [isSubTypesVisible, setIsSubTypesVisible] = useState(false);
+  const visibleSubTypes = !filtersObject.main || filtersObject.subTypes.some((st) => st.checked);
+  const [isSubTypesVisible, setIsSubTypesVisible] = useState(visibleSubTypes);
   return (
     <div className={`${parentClassName}__options`} onChange={onChangeSelectedFilter}>
-      <div
-        className={`${parentClassName}__options__radio-option ${parentClassName}__options__radio-option--main`}
-      >
-        <input
-          type="radio"
-          id={filtersObject.main.fieldId}
-          name="filter-by-entity"
-          value={filtersObject.main.fieldId}
-          defaultChecked={true}
-        />
-        <label htmlFor={filtersObject.main.fieldId}>{filtersObject.main.name}</label>
-        <span
-          className="arrow-cta"
-          onClick={() => {
-            setIsSubTypesVisible(!isSubTypesVisible);
-          }}
-        >
-          {isSubTypesVisible ? <FontAwesomeIcon icon={faAngleUp} /> : <FontAwesomeIcon icon={faAngleDown} />}
-        </span>
-      </div>
+      {filtersObject.main && (
+        <div className={`${parentClassName}__options__radio-option ${parentClassName}__options__radio-option--main`}>
+          <input
+            type="radio"
+            id={filtersObject.main.fieldId}
+            name="filter-by-entity"
+            value={filtersObject.main.fieldId}
+            defaultChecked={true}
+          />
+          <label htmlFor={filtersObject.main.fieldId}>{filtersObject.main.name}</label>
+          <span
+            className="arrow-cta"
+            onClick={() => {
+              setIsSubTypesVisible(!isSubTypesVisible);
+            }}
+          >
+            {isSubTypesVisible ? <FontAwesomeIcon icon={faAngleUp} /> : <FontAwesomeIcon icon={faAngleDown} />}
+          </span>
+        </div>
+      )}
       {isSubTypesVisible &&
         filtersObject.subTypes.map((filter, index) => {
           return (
             <div key={`filter-${index}`} className={`${parentClassName}__options__radio-option`}>
-              <input type="radio" id={filter.fieldId} name="filter-by-entity" value={filter.fieldId} />
+              <input
+                type="radio"
+                id={filter.fieldId}
+                name="filter-by-entity"
+                value={filter.fieldId}
+                defaultChecked={filter.checked}
+              />
               <label htmlFor={filter.fieldId}>{filter.name}</label>
             </div>
           );
@@ -97,15 +106,48 @@ const ClassFilters = ({ parentClassName, filtersObject, onChangeSelectedFilter }
   );
 };
 
-const AutocompleteResults = ({ parentClassName, data }) => {
+const AutocompleteResults = ({ parentClassName, data, isMultiSelect, onSelectOption, optionsPreSelected }) => {
   const haveResults = Boolean(data && data.length);
+  const [selectedResults, setSelectedResults] = useState(optionsPreSelected || []);
+
+  const onClick = (selectedElement) => {
+    const wasAlreadySelected = selectedResults.some((el) => el.id === selectedElement.id);
+    let newAllSelectedResults = [];
+    if (isMultiSelect) {
+      newAllSelectedResults = wasAlreadySelected
+        ? [...selectedResults.filter((sr) => sr.id !== selectedElement.id)]
+        : [...selectedResults, selectedElement];
+    } else {
+      newAllSelectedResults = wasAlreadySelected ? [] : [selectedElement];
+    }
+
+    setSelectedResults(newAllSelectedResults);
+    onSelectOption(newAllSelectedResults);
+  };
+
+  const dataToShow = [...data, ...selectedResults].reduce((acc, curr) => {
+    if (!acc.some((x) => x.id === curr.id)) {
+      acc.push(curr);
+    }
+    return acc;
+  }, []);
   return (
     <>
       {haveResults &&
-        data.map((element, index) => {
+        dataToShow.map((element, index) => {
+          const isSelected = selectedResults.some((res) => res.id === element.id);
           return (
-            <div key={`result-${index}`} className={`${parentClassName}__result-element`}>
-              {element.name}
+            <div
+              key={`result-${index}`}
+              className={`${parentClassName}__result-element ${isSelected ? '--selected' : ''}`}
+              onClick={() => {
+                onClick(element);
+              }}
+            >
+              <span className={`${parentClassName}__result-element__icon`}>
+                {isSelected ? <FontAwesomeIcon icon={faMinus} /> : <FontAwesomeIcon icon={faPlus} />}
+              </span>
+              <span className={`${parentClassName}__result-element__name`}>{element.name}</span>
             </div>
           );
         })}
@@ -114,7 +156,16 @@ const AutocompleteResults = ({ parentClassName, data }) => {
   );
 };
 
-const MultiDropdownAutocomplete = ({ locationsData, entityFilters, isActive, changePreFilter, changeText }) => {
+const MultiDropdownAutocomplete = ({
+  locationsData,
+  entityFilters,
+  isActive,
+  changePreFilter,
+  changeText,
+  isMultiSelect,
+  onSelectOption,
+  optionsPreSelected,
+}) => {
   const formattedData = formatData(locationsData);
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
   return (
@@ -126,11 +177,12 @@ const MultiDropdownAutocomplete = ({ locationsData, entityFilters, isActive, cha
             isActive();
           }}
           onChange={changeText}
+          optionsPreSelected={optionsPreSelected}
         />
       </div>
       {isComponentVisible && (
         <div className={`${MAIN_CN}${PANEL_POPUP}`}>
-          {
+          {entityFilters && (
             <div className={`${MAIN_CN}${PANEL_POPUP}${CLASS_FILTERS_CN}`}>
               <ClassFilters
                 parentClassName={`${MAIN_CN}${PANEL_POPUP}${CLASS_FILTERS_CN}`}
@@ -140,12 +192,22 @@ const MultiDropdownAutocomplete = ({ locationsData, entityFilters, isActive, cha
                 }}
               />
             </div>
-          }
-          {
-            <div className={`${MAIN_CN}${PANEL_POPUP}${RESULTS_CN}`}>
-              <AutocompleteResults parentClassName={`${MAIN_CN}${PANEL_POPUP}${RESULTS_CN}`} data={formattedData} />
-            </div>
-          }
+          )}
+
+          <div className={`${MAIN_CN}${PANEL_POPUP}${RESULTS_CN}`}>
+            <AutocompleteResults
+              parentClassName={`${MAIN_CN}${PANEL_POPUP}${RESULTS_CN}`}
+              data={formattedData}
+              isMultiSelect={isMultiSelect}
+              onSelectOption={(newSelection) => {
+                onSelectOption(newSelection);
+                if (!isMultiSelect) {
+                  setIsComponentVisible(false);
+                }
+              }}
+              optionsPreSelected={optionsPreSelected}
+            />
+          </div>
         </div>
       )}
     </div>
