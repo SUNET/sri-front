@@ -6,62 +6,38 @@ import { fetchQuery } from 'relay-runtime';
 import MultiDropdownAutocomplete from './MultiDropdownAutocomplete';
 
 const PRE_FILTERS = {
-  // main: {
-  //   name: 'Show All',
-  //   fieldId: 'showall',
-  //   filterProperty: {},
-  // },
+  main: {
+    checked: true,
+    name: 'All',
+    fieldId: 'showall',
+    filterProperty: {},
+  },
   subTypes: [
     {
-      name: 'Show Racks',
-      fieldId: 'racks',
+      name: 'Racks',
+      fieldId: 'Rack',
       filterProperty: {},
     },
     {
-      name: 'Show Rooms',
-      fieldId: 'rooms',
-      checked: true,
+      name: 'Rooms',
+      fieldId: 'Room',
       filterProperty: {},
     },
     {
-      name: 'Show Sites',
-      fieldId: 'sites',
+      name: 'Sites',
+      fieldId: 'Site',
       filterProperty: {},
     },
   ],
 };
 
-const MultiDropdownAutocompleteLocationsRacksQuery = graphql`
-  query MultiDropdownAutocompleteLocationsRacksQuery($count: Int!, $filter: RackFilter) {
-    racks(first: $count, filter: $filter) {
+const MultiDropdownAutocompleteLocationsQuery = graphql`
+  query MultiDropdownAutocompleteLocationsQuery($filter: MetatypeFilter, $count: Int!) {
+    locations(filter: $filter, first: $count) {
+      __typename
       edges {
         node {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
-
-const MultiDropdownAutocompleteLocationsRoomsQuery = graphql`
-  query MultiDropdownAutocompleteLocationsRoomsQuery($count: Int!, $filter: RoomFilter) {
-    rooms(first: $count, filter: $filter) {
-      edges {
-        node {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
-
-const MultiDropdownAutocompleteLocationsSitesQuery = graphql`
-  query MultiDropdownAutocompleteLocationsSitesQuery($count: Int!, $filter: SiteFilter) {
-    sites(first: $count, filter: $filter) {
-      edges {
-        node {
+          __typename
           id
           name
         }
@@ -71,22 +47,30 @@ const MultiDropdownAutocompleteLocationsSitesQuery = graphql`
 `;
 
 async function getLocations(preFilterEntity, textFilter = '') {
-  console.log('textFilter: ', textFilter);
-  console.log('preFilterEntity: ', preFilterEntity);
-  const queries = {
-    racks: MultiDropdownAutocompleteLocationsRacksQuery,
-    rooms: MultiDropdownAutocompleteLocationsRoomsQuery,
-    sites: MultiDropdownAutocompleteLocationsSitesQuery,
+  let count = 3;
+  const filter = {
+    name_contains: textFilter,
+    type_in: [preFilterEntity],
   };
-  const data = await fetchQuery(environment, queries[preFilterEntity], {
-    count: 3,
-    filter: { OR: [{ name_contains: textFilter }] },
+
+  if (preFilterEntity === PRE_FILTERS.main.fieldId) {
+    filter.type_in = PRE_FILTERS.subTypes.map((st) => st.fieldId);
+    count = 6;
+  }
+
+  const data = await fetchQuery(environment, MultiDropdownAutocompleteLocationsQuery, {
+    count,
+    filter,
   });
+
   return data;
 }
 
 const MultiDropdownAutocompleteLocations = ({ onSelectOption, optionsPreSelected }) => {
-  const [preFilter, changePreFilter] = useState('racks');
+  const preFilterChecked = PRE_FILTERS.main.checked
+    ? PRE_FILTERS.main.fieldId
+    : PRE_FILTERS.subTypes.find((st) => st.checked).fieldId;
+  const [preFilter, changePreFilter] = useState(preFilterChecked);
   const [textFilter, changeTextFilter] = useState('');
   const [filteredData, changeFilteredData] = useState({ data: {} });
   return (
@@ -96,6 +80,7 @@ const MultiDropdownAutocompleteLocations = ({ onSelectOption, optionsPreSelected
         locationsData={filteredData}
         isMultiSelect={true}
         optionsPreSelected={optionsPreSelected}
+        preFilterChecked={preFilter}
         isActive={async () => {
           if (!filteredData.data[preFilter]) {
             const data = await getLocations(preFilter, textFilter);

@@ -107,6 +107,7 @@ const firewall = {
     { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
     { type: FIELD_TYPES.SINGLE, name: 'service_tag' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'location' },
   ],
 };
 const router = {

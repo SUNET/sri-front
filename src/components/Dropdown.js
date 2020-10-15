@@ -285,6 +285,7 @@ class Dropdown extends React.PureComponent {
   }
 
   render() {
+    const { t, type } = this.props;
     let dropdownQuery = this.getQueryByModel(this.props.model);
     const variables =
       this.props.model === undefined
@@ -301,16 +302,16 @@ class Dropdown extends React.PureComponent {
           variables={variables}
           render={({ error, props }) => {
             if (error) {
-              return <div>{this.props.t('general/error')}</div>;
+              return <div>{t('general/error')}</div>;
             } else if (props) {
               const options = props[Object.keys(props)[0]];
-              if (this.props.type === 'combo_list') {
+              if (type === 'combo_list') {
                 return this.renderComboSelect(props);
               } else {
                 return this.renderField(options);
               }
             }
-            return this.props.type === 'combo_list' ? this.renderComboSelectDefault() : this.renderDefaultSelect();
+            return type === 'combo_list' ? this.renderComboSelectDefault() : this.renderDefaultSelect();
           }}
         />
       </Form.Group>

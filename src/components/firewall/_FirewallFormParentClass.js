@@ -10,9 +10,10 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 import FieldArrayOwner from './FieldArrayOwner';
 import MultiDropdownAutocompleteLocationsRacks from '../MultiDropdownAutocompleteLocationsRacks';
+import MultiDropdownAutocompleteOwners from '../MultiDropdownAutocompleteOwners';
 
 // const
-import { SAVED } from '../../utils/constants';
+import { SAVED, UNLINK } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
@@ -472,21 +473,44 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
   renderLocationRackToggleSection(editMode) {
     const componentClassName = 'location-block';
-    const { t, location } = this.props;
+    const { t, location, owner } = this.props;
     console.log('location: ', location);
-    const locationRackElement = {
-      title: '',
-      presentContent: location && location[0].name,
-      editContent: (
-        <MultiDropdownAutocompleteLocationsRacks
-          optionsPreSelected={location}
-          onSelectOption={(newSelection) => {
-            console.log(newSelection);
-            this.props.dispatch(change(this.props.form, 'location', newSelection));
-          }}
-        />
-      ),
-    };
+    console.log('owner: ', owner);
+    const locationInfo = [
+      {
+        title: '????',
+        presentContent: location && location[0] ? location[0].name : '',
+        editContent: (
+          <MultiDropdownAutocompleteLocationsRacks
+            optionsPreSelected={location}
+            onSelectOption={(newSelection) => {
+              console.log('newSelection: ', newSelection);
+              if (newSelection.length > 0) {
+                this.props.dispatch(change(this.props.form, 'location', [{ ...newSelection[0], status: SAVED }]));
+              } else {
+                this.props.dispatch(change(this.props.form, 'location', []));
+              }
+            }}
+          />
+        ),
+      },
+      // {
+      //   title: '',
+      //   presentContent: ownerPreselected && ownerPreselected[0] && ownerPreselected[0].name,
+      //   editContent: (
+      //     <MultiDropdownAutocompleteOwners
+      //       optionsPreSelected={ownerPreselected}
+      //       onSelectOption={(newSelection) => {
+      //         if (newSelection.length > 0) {
+      //           this.props.dispatch(change(this.props.form, 'owner', [{ ...newSelection[0], status: SAVED }]));
+      //         } else {
+      //           this.props.dispatch(change(this.props.form, 'owner', null));
+      //         }
+      //       }}
+      //     />
+      //   ),
+      // },
+    ];
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
@@ -496,7 +520,11 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
 
           <TogglePanel>
             <div>
-              <div className="form-internal-block">{renderFormBlockSection(editMode, locationRackElement, 666)}</div>
+              <div className="form-internal-block">
+                {locationInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
           </TogglePanel>
         </ToggleSection>

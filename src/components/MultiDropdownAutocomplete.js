@@ -42,7 +42,12 @@ function formatData(resultData) {
 }
 
 const SearchInput = ({ optionsPreSelected, onFocus, onChange }) => {
-  const selectedName = optionsPreSelected && optionsPreSelected.map((el) => el.name).join(', ');
+  const [textValue, setTextValue] = useState('');
+  useEffect(() => {
+    const selectedName = optionsPreSelected && optionsPreSelected.map((el) => el.name).join(', ');
+    setTextValue(selectedName);
+  }, [optionsPreSelected]);
+
   const onChangeDebounce = debounce((text) => {
     onChange(text);
   }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
@@ -52,9 +57,10 @@ const SearchInput = ({ optionsPreSelected, onFocus, onChange }) => {
         type="text"
         placeholder="Search"
         onFocus={onFocus}
-        value={selectedName}
+        value={textValue}
         onChange={(event) => {
           onChangeDebounce(event.target.value);
+          setTextValue(event.target.value);
         }}
       />
       <span className="input-icon"></span>
@@ -62,7 +68,42 @@ const SearchInput = ({ optionsPreSelected, onFocus, onChange }) => {
   );
 };
 
-const ClassFilters = ({ parentClassName, filtersObject, onChangeSelectedFilter }) => {
+const ClassFiltersOptions = ({ parentClassName, filtersObject, preFilterChecked, onChangeSelectedFilter }) => {
+  const [selectedFilter, setSelectedFilter] = useState(preFilterChecked);
+  return (
+    <div className={`${parentClassName}__options-list`}>
+      {filtersObject.main && (
+        <div
+          className={`${parentClassName}__options-list__filter-cta ${
+            selectedFilter === filtersObject.main.fieldId ? '--selected' : ''
+          }`}
+          onClick={() => {
+            setSelectedFilter(filtersObject.main.fieldId);
+            onChangeSelectedFilter(filtersObject.main.fieldId);
+          }}
+        >
+          {filtersObject.main.name}
+        </div>
+      )}
+      {filtersObject.subTypes.map((filter, index) => (
+        <div
+          key={index}
+          className={`${parentClassName}__options-list__filter-cta ${
+            selectedFilter === filter.fieldId ? '--selected' : ''
+          }`}
+          onClick={() => {
+            setSelectedFilter(filter.fieldId);
+            onChangeSelectedFilter(filter.fieldId);
+          }}
+        >
+          {filter.name}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const ClassFiltersRadioButtons = ({ parentClassName, filtersObject, onChangeSelectedFilter }) => {
   const visibleSubTypes = !filtersObject.main || filtersObject.subTypes.some((st) => st.checked);
   const [isSubTypesVisible, setIsSubTypesVisible] = useState(visibleSubTypes);
   return (
@@ -74,7 +115,7 @@ const ClassFilters = ({ parentClassName, filtersObject, onChangeSelectedFilter }
             id={filtersObject.main.fieldId}
             name="filter-by-entity"
             value={filtersObject.main.fieldId}
-            defaultChecked={true}
+            defaultChecked={filtersObject.main.checked}
           />
           <label htmlFor={filtersObject.main.fieldId}>{filtersObject.main.name}</label>
           <span
@@ -160,6 +201,7 @@ const MultiDropdownAutocomplete = ({
   locationsData,
   entityFilters,
   isActive,
+  preFilterChecked,
   changePreFilter,
   changeText,
   isMultiSelect,
@@ -184,11 +226,12 @@ const MultiDropdownAutocomplete = ({
         <div className={`${MAIN_CN}${PANEL_POPUP}`}>
           {entityFilters && (
             <div className={`${MAIN_CN}${PANEL_POPUP}${CLASS_FILTERS_CN}`}>
-              <ClassFilters
+              <ClassFiltersOptions
                 parentClassName={`${MAIN_CN}${PANEL_POPUP}${CLASS_FILTERS_CN}`}
                 filtersObject={entityFilters}
-                onChangeSelectedFilter={(event) => {
-                  changePreFilter(event.target.value);
+                preFilterChecked={preFilterChecked}
+                onChangeSelectedFilter={(value) => {
+                  changePreFilter(value);
                 }}
               />
             </div>

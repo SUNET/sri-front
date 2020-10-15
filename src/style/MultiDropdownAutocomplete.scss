@@ -35,10 +35,32 @@ $gray: #b1b1b1;
         position: absolute;
         width: 100%;
         &__class-filters {
+            &__options-list {
+                border: 0.5px solid $complementary-color;
+                background-color: #f2f2f2;
+                padding: 6px;
+                &__filter-cta {
+                    display: inline-block;
+                    background-color: transparent;
+                    color: $complementary-color;
+                    border-radius: 16px;
+                    border: 1px solid $complementary-color;
+                    padding: 3px 12px;
+                    height: 20px;
+                    margin: 6px 12px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    &.--selected {
+                        background-color: $complementary-color;
+                        color: #fff;
+                    }
+                }
+            }
             &__options {
                 display: flex;
                 flex-direction: column;
                 border: 0.5px solid $complementary-color;
+                background-color: #f2f2f2;
                 &__radio-option {
                     display: flex;
                     position: relative;
@@ -111,8 +133,8 @@ $gray: #b1b1b1;
                 }
                 &__icon {
                     margin-right: $mid-padding;
-                    border-radius: 50%;
-                    border: 0.5px solid $complementary-color;
+                    border-radius: 16px;
+                    border: 1px solid $complementary-color;
                     width: 20px;
                     height: 20px;
                     display: flex;

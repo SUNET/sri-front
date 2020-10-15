@@ -19,10 +19,7 @@ const MultiDropdownAutocompleteLocationsRacksQuery = graphql`
 `;
 
 async function getLocationsRacks(preFilterEntity, textFilter = '') {
-  const queries = {
-    racks: MultiDropdownAutocompleteLocationsRacksQuery,
-  };
-  const data = await fetchQuery(environment, queries[preFilterEntity], {
+  const data = await fetchQuery(environment, MultiDropdownAutocompleteLocationsRacksQuery, {
     count: 3,
     filter: { OR: [{ name_contains: textFilter }] },
   });
