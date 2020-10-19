@@ -65,6 +65,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         presentContent: type,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="optical_node_types"
@@ -78,6 +79,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"

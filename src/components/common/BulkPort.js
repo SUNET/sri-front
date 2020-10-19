@@ -167,6 +167,7 @@ class BulkPort extends Component {
           <Form.Group>
             <div className={`select-input ${hasError ? 'has-error' : ''}`}>
               <Dropdown
+                t={t}
                 className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
                 emptyLabel="Select type"
                 type="port_types"

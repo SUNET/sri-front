@@ -270,6 +270,7 @@ class _OrganizationFormParentClass extends React.Component {
         presentContent: typeObj ? typeObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="organization_types"
@@ -325,6 +326,7 @@ class _OrganizationFormParentClass extends React.Component {
 
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select parent"
             type="combo_list"

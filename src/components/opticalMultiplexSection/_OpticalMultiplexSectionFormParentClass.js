@@ -46,6 +46,7 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"
@@ -59,6 +60,7 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
         presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="provider_id"

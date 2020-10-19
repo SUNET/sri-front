@@ -70,6 +70,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"

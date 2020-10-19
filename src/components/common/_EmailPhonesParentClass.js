@@ -46,6 +46,7 @@ class _EmailPhonesParentClass extends React.Component {
           />
         </Form.Group>
         <Dropdown
+          t={t}
           className="auto"
           name={`${fieldEntity}.type`}
           type={`${this.FIELD_NAME}_type`}

@@ -137,6 +137,7 @@ const externalEquipment = {
     ...RACK_INFO,
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'owner' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'location' },
   ],
 };
 const host = {

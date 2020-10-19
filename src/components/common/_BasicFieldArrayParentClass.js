@@ -389,6 +389,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     const { t } = this.props;
     return (
       <Dropdown
+        t={t}
         emptyLabel={t(this.PRE_FILTER_SELECT.label)}
         className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
         type={this.PRE_FILTER_SELECT.type}

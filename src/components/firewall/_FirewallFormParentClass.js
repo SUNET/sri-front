@@ -9,17 +9,16 @@ import FieldInput from '../FieldInput';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 import FieldArrayOwner from './FieldArrayOwner';
-import MultiDropdownAutocompleteLocationsRacks from '../MultiDropdownAutocompleteLocationsRacks';
-import MultiDropdownAutocompleteOwners from '../MultiDropdownAutocompleteOwners';
 
 // const
-import { SAVED, UNLINK } from '../../utils/constants';
+import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
+import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
 class _FirewallFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -71,10 +70,10 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units, isFromModal } = this.props;
+    const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
       <>
-        {this.renderLocationRackToggleSection(editMode)}
+        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}
@@ -98,6 +97,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"
@@ -125,6 +125,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: managed_by,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="host_management_sw"
@@ -248,6 +249,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: securityClassObj ? securityClassObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="security_classes"
@@ -292,6 +294,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         editContent: (
           <div className="mr-3">
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               type="combo_list"
               name="support_group_id"
@@ -319,6 +322,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="responsible_group_id"
@@ -465,67 +469,6 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               entityRemovedId={entityRemovedId}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
             />
-          </TogglePanel>
-        </ToggleSection>
-      </section>
-    );
-  }
-
-  renderLocationRackToggleSection(editMode) {
-    const componentClassName = 'location-block';
-    const { t, location, owner } = this.props;
-    console.log('location: ', location);
-    console.log('owner: ', owner);
-    const locationInfo = [
-      {
-        title: '????',
-        presentContent: location && location[0] ? location[0].name : '',
-        editContent: (
-          <MultiDropdownAutocompleteLocationsRacks
-            optionsPreSelected={location}
-            onSelectOption={(newSelection) => {
-              console.log('newSelection: ', newSelection);
-              if (newSelection.length > 0) {
-                this.props.dispatch(change(this.props.form, 'location', [{ ...newSelection[0], status: SAVED }]));
-              } else {
-                this.props.dispatch(change(this.props.form, 'location', []));
-              }
-            }}
-          />
-        ),
-      },
-      // {
-      //   title: '',
-      //   presentContent: ownerPreselected && ownerPreselected[0] && ownerPreselected[0].name,
-      //   editContent: (
-      //     <MultiDropdownAutocompleteOwners
-      //       optionsPreSelected={ownerPreselected}
-      //       onSelectOption={(newSelection) => {
-      //         if (newSelection.length > 0) {
-      //           this.props.dispatch(change(this.props.form, 'owner', [{ ...newSelection[0], status: SAVED }]));
-      //         } else {
-      //           this.props.dispatch(change(this.props.form, 'owner', null));
-      //         }
-      //       }}
-      //     />
-      //   ),
-      // },
-    ];
-    return (
-      <section className={`model-section ${componentClassName}`}>
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('general-forms/location')}</h2>
-          </ToggleHeading>
-
-          <TogglePanel>
-            <div>
-              <div className="form-internal-block">
-                {locationInfo.map((formData, index) => {
-                  return renderFormBlockSection(editMode, formData, index);
-                })}
-              </div>
-            </div>
           </TogglePanel>
         </ToggleSection>
       </section>

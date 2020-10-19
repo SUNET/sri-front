@@ -5,7 +5,7 @@ import Home from './Home';
 import Network from './Network';
 import Community from './Community';
 import PersonalArea from './PersonalArea';
-// import Contracts from './Contracts';
+import Contracts from './Contracts';
 
 import environment from '../createRelayEnvironment';
 import GeneralSearchContainer from './generalSearch/GeneralSearch';
@@ -20,7 +20,7 @@ const Base = ({ view_network, view_community, generalFilter }) => (
     {generalFilter && <GeneralSearchContainer environment={environment} />}
     <Redirect exact from="/personal-area" to={'/personal-area/profile-settings'} />
     <Route path="/personal-area" component={PersonalArea} />
-    {/* <Route path="/contracts" component={Contracts} /> */}
+    <Route path="/contracts" component={Contracts} />
   </Switch>
 );
 

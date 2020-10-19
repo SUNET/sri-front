@@ -43,6 +43,7 @@ function formatData(resultData) {
 
 const SearchInput = ({ optionsPreSelected, onFocus, onChange }) => {
   const [textValue, setTextValue] = useState('');
+
   useEffect(() => {
     const selectedName = optionsPreSelected && optionsPreSelected.map((el) => el.name).join(', ');
     setTextValue(selectedName);
@@ -51,6 +52,7 @@ const SearchInput = ({ optionsPreSelected, onFocus, onChange }) => {
   const onChangeDebounce = debounce((text) => {
     onChange(text);
   }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
+
   return (
     <>
       <input

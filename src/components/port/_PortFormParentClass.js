@@ -105,6 +105,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
         presentContent: portTypeObj ? portTypeObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="port_types"

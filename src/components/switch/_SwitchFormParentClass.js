@@ -75,6 +75,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: null,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             model="switch_types"
@@ -92,6 +93,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
           presentContent: operational_state,
           editContent: (
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               emptyLabel="Select type"
               type="operational_states"
@@ -105,6 +107,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
           presentContent: managed_by,
           editContent: (
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               emptyLabel="Select type"
               type="host_management_sw"
@@ -137,6 +140,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="provider_id"
@@ -270,6 +274,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         editContent: (
           <div className="mr-3">
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               type="combo_list"
               name="support_group_id"
@@ -297,6 +302,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="responsible_group_id"

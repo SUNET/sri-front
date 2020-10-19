@@ -44,7 +44,6 @@ const FirewallDetailsQuery = graphql`
       location {
         id
         name
-        relation_id
       }
       owner {
         __typename

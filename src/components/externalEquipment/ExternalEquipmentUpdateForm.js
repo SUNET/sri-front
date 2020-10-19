@@ -19,7 +19,7 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
   constructor(props) {
     super(props);
     this.state = {
-      editMode: true,
+      editMode: props.isEditModeModal,
     };
   }
   refetch = () => {
@@ -83,6 +83,10 @@ const ExternalEquipmentUpdateFragment = createRefetchContainer(
         id
         name
         description
+        location {
+          id
+          name
+        }
         comments {
           id
           user {
