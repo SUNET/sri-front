@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { SAVED, REMOVE, UNLINK } from '../../utils/constants';
+import { SAVED, REMOVE } from '../../utils/constants';
 
 import { generatePortForInput } from '../MutationsUtils';
 

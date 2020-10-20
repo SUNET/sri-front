@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp, faAngleDown, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import { debounce } from '../utils';
 
@@ -105,49 +105,49 @@ const ClassFiltersOptions = ({ parentClassName, filtersObject, preFilterChecked,
   );
 };
 
-const ClassFiltersRadioButtons = ({ parentClassName, filtersObject, onChangeSelectedFilter }) => {
-  const visibleSubTypes = !filtersObject.main || filtersObject.subTypes.some((st) => st.checked);
-  const [isSubTypesVisible, setIsSubTypesVisible] = useState(visibleSubTypes);
-  return (
-    <div className={`${parentClassName}__options`} onChange={onChangeSelectedFilter}>
-      {filtersObject.main && (
-        <div className={`${parentClassName}__options__radio-option ${parentClassName}__options__radio-option--main`}>
-          <input
-            type="radio"
-            id={filtersObject.main.fieldId}
-            name="filter-by-entity"
-            value={filtersObject.main.fieldId}
-            defaultChecked={filtersObject.main.checked}
-          />
-          <label htmlFor={filtersObject.main.fieldId}>{filtersObject.main.name}</label>
-          <span
-            className="arrow-cta"
-            onClick={() => {
-              setIsSubTypesVisible(!isSubTypesVisible);
-            }}
-          >
-            {isSubTypesVisible ? <FontAwesomeIcon icon={faAngleUp} /> : <FontAwesomeIcon icon={faAngleDown} />}
-          </span>
-        </div>
-      )}
-      {isSubTypesVisible &&
-        filtersObject.subTypes.map((filter, index) => {
-          return (
-            <div key={`filter-${index}`} className={`${parentClassName}__options__radio-option`}>
-              <input
-                type="radio"
-                id={filter.fieldId}
-                name="filter-by-entity"
-                value={filter.fieldId}
-                defaultChecked={filter.checked}
-              />
-              <label htmlFor={filter.fieldId}>{filter.name}</label>
-            </div>
-          );
-        })}
-    </div>
-  );
-};
+// const ClassFiltersRadioButtons = ({ parentClassName, filtersObject, onChangeSelectedFilter }) => {
+//   const visibleSubTypes = !filtersObject.main || filtersObject.subTypes.some((st) => st.checked);
+//   const [isSubTypesVisible, setIsSubTypesVisible] = useState(visibleSubTypes);
+//   return (
+//     <div className={`${parentClassName}__options`} onChange={onChangeSelectedFilter}>
+//       {filtersObject.main && (
+//         <div className={`${parentClassName}__options__radio-option ${parentClassName}__options__radio-option--main`}>
+//           <input
+//             type="radio"
+//             id={filtersObject.main.fieldId}
+//             name="filter-by-entity"
+//             value={filtersObject.main.fieldId}
+//             defaultChecked={filtersObject.main.checked}
+//           />
+//           <label htmlFor={filtersObject.main.fieldId}>{filtersObject.main.name}</label>
+//           <span
+//             className="arrow-cta"
+//             onClick={() => {
+//               setIsSubTypesVisible(!isSubTypesVisible);
+//             }}
+//           >
+//             {isSubTypesVisible ? <FontAwesomeIcon icon={faAngleUp} /> : <FontAwesomeIcon icon={faAngleDown} />}
+//           </span>
+//         </div>
+//       )}
+//       {isSubTypesVisible &&
+//         filtersObject.subTypes.map((filter, index) => {
+//           return (
+//             <div key={`filter-${index}`} className={`${parentClassName}__options__radio-option`}>
+//               <input
+//                 type="radio"
+//                 id={filter.fieldId}
+//                 name="filter-by-entity"
+//                 value={filter.fieldId}
+//                 defaultChecked={filter.checked}
+//               />
+//               <label htmlFor={filter.fieldId}>{filter.name}</label>
+//             </div>
+//           );
+//         })}
+//     </div>
+//   );
+// };
 
 const AutocompleteResults = ({ parentClassName, data, isMultiSelect, onSelectOption, optionsPreSelected }) => {
   const haveResults = Boolean(data && data.length);
