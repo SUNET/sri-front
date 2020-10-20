@@ -9,7 +9,7 @@ export function renderLocationRackToggleSection(editMode = true, { t, form, disp
   const componentClassName = 'location-block';
   const locationInfo = [
     {
-      title: t('general-forms/responsible'),
+      title: null,
       presentContent: location && location[0] ? location[0].name : '',
       editContent: (
         <MultiDropdownAutocompleteLocationsRacks
