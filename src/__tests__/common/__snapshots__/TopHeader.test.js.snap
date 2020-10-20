@@ -463,38 +463,9 @@ exports[`Some Component Renders correctly 1`] = `
                           className="top-header__brand navbar-brand"
                           onClick={[Function]}
                         >
-                          <Image
-                            fluid={false}
-                            img-fluid="true"
-                            rounded={false}
-                            roundedCircle={false}
-                            src={
-                              Object {
-                                "ReactComponent": Object {
-                                  "$$typeof": Symbol(react.forward_ref),
-                                  "render": [Function],
-                                },
-                                "__esModule": true,
-                                "default": "logo.svg",
-                              }
-                            }
-                            thumbnail={false}
-                          >
-                            <img
-                              className=""
-                              img-fluid="true"
-                              src={
-                                Object {
-                                  "ReactComponent": Object {
-                                    "$$typeof": Symbol(react.forward_ref),
-                                    "render": [Function],
-                                  },
-                                  "__esModule": true,
-                                  "default": "logo.svg",
-                                }
-                              }
-                            />
-                          </Image>
+                          <div
+                            className="top-header__brand__logo-icon"
+                          />
                         </a>
                       </LinkAnchor>
                     </Link>
@@ -896,22 +867,9 @@ exports[`Some Component Renders correctly 1`] = `
                                 <a
                                   onClick={[Function]}
                                 >
-                                  <Image
-                                    fluid={false}
-                                    img-fluid="true"
-                                    onClick={[Function]}
-                                    rounded={false}
-                                    roundedCircle={true}
-                                    src="profile.png"
-                                    thumbnail={false}
-                                  >
-                                    <img
-                                      className="rounded-circle"
-                                      img-fluid="true"
-                                      onClick={[Function]}
-                                      src="profile.png"
-                                    />
-                                  </Image>
+                                  <div
+                                    className="top-header__user-block__profile__icon"
+                                  />
                                 </a>
                               </LinkAnchor>
                             </Link>

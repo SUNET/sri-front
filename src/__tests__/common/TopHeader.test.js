@@ -66,11 +66,9 @@ describe('Some Component', () => {
 describe('Elements', () => {
   it('Brand', () => {
     const brand = TopHeaderComponent.find('a.top-header__brand');
-    const imgBrand = brand.find('img');
+    const logoContainer = brand.find('.top-header__brand__logo-icon');
     expect(brand).toHaveLength(1);
-    expect(imgBrand).toHaveLength(1);
-    expect(imgBrand.prop('src').default).toBe('logo.svg');
-    expect(imgBrand.prop('img-fluid')).toBe('true');
+    expect(logoContainer).toHaveLength(1);
   });
   it('Navbar', () => {
     const navBarPaths = TopHeaderComponent.find('div.top-header__nav-paths');
@@ -88,11 +86,10 @@ describe('Elements', () => {
   it('Persona area', () => {
     const editProfileButton = TopHeaderComponent.find('div.top-header__user-block__profile');
     const link = editProfileButton.find('a');
-    const linkIcon = link.find('img');
+    const linkIcon = link.find('.top-header__user-block__profile__icon');
     expect(editProfileButton).toHaveLength(1);
     expect(link).toHaveLength(1);
     expect(linkIcon).toHaveLength(1);
-    expect(linkIcon.prop('src')).toBe('profile.png');
   });
   it('Logout Button', () => {
     const logoutWrapper = TopHeaderComponent.find('div.top-header__user-block__logout');
