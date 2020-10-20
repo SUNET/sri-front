@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Mon Sep 28 2020 07:49:40 GMT+0200 (GMT+02:00)
+# timestamp: Tue Oct 20 2020 11:57:07 GMT+0200 (GMT+02:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -52,8 +52,10 @@ type Address implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -295,6 +297,7 @@ type Cable implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Provider
   location: Location
   has: [Physical]
   part_of: Logical
@@ -306,7 +309,6 @@ type Cable implements NINode & Physical & PhysicalLogical {
   comments: [CommentType]
   cable_type: Choice
   description: String
-  provider: Provider
   ports: [Port]
 }
 
@@ -542,6 +544,9 @@ input CompositeCableMutationInput {
   create_part_of_email: CreateEmailInput
   update_part_of_email: UpdateEmailInput
   deleted_part_of_email: DeleteEmailInput
+  create_part_of_unit: CreateUnitInput
+  update_part_of_unit: UpdateUnitInput
+  deleted_part_of_unit: DeleteUnitInput
   create_part_of_host: CreateHostInput
   update_part_of_host: EditHostInput
   deleted_part_of_host: DeleteHostInput
@@ -557,6 +562,9 @@ input CompositeCableMutationInput {
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
+  create_part_of_service: CreateServiceInput
+  update_part_of_service: UpdateServiceInput
+  deleted_part_of_service: DeleteServiceInput
   create_parent_group: [CreateGroupInput]
   update_parent_group: [UpdateGroupInput]
   deleted_parent_group: [DeleteGroupInput]
@@ -572,6 +580,9 @@ input CompositeCableMutationInput {
   create_parent_email: [CreateEmailInput]
   update_parent_email: [UpdateEmailInput]
   deleted_parent_email: [DeleteEmailInput]
+  create_parent_unit: [CreateUnitInput]
+  update_parent_unit: [UpdateUnitInput]
+  deleted_parent_unit: [DeleteUnitInput]
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -614,6 +625,9 @@ input CompositeCableMutationInput {
   create_parent_peeringgroup: [CreatePeeringGroupInput]
   update_parent_peeringgroup: [UpdatePeeringGroupInput]
   deleted_parent_peeringgroup: [DeletePeeringGroupInput]
+  create_parent_service: [CreateServiceInput]
+  update_parent_service: [UpdateServiceInput]
+  deleted_parent_service: [DeleteServiceInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -650,6 +664,9 @@ input CompositeCableMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
@@ -665,6 +682,30 @@ input CompositeCableMutationInput {
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
+  create_provider_organization: CreateOrganizationInput
+  update_provider_organization: UpdateOrganizationInput
+  deleted_provider_organization: DeleteOrganizationInput
+  create_provider_contact: CreateContactInput
+  update_provider_contact: UpdateContactInput
+  deleted_provider_contact: DeleteContactInput
+  create_provider_customer: CreateCustomerInput
+  update_provider_customer: UpdateCustomerInput
+  deleted_provider_customer: DeleteCustomerInput
+  create_provider_enduser: CreateEndUserInput
+  update_provider_enduser: UpdateEndUserInput
+  deleted_provider_enduser: DeleteEndUserInput
+  create_provider_provider: CreateProviderInput
+  update_provider_provider: UpdateProviderInput
+  deleted_provider_provider: DeleteProviderInput
+  create_provider_siteowner: CreateSiteOwnerInput
+  update_provider_siteowner: UpdateSiteOwnerInput
+  deleted_provider_siteowner: DeleteSiteOwnerInput
+  create_provider_peeringpartner: CreatePeeringPartnerInput
+  update_provider_peeringpartner: UpdatePeeringPartnerInput
+  deleted_provider_peeringpartner: DeletePeeringPartnerInput
   clientMutationId: String
 }
 
@@ -726,6 +767,9 @@ type CompositeCableMutationPayload {
   part_of_email_created: CreateEmailPayload
   part_of_email_updated: UpdateEmailPayload
   part_of_email_deleted: DeleteEmailPayload
+  part_of_unit_created: CreateUnitPayload
+  part_of_unit_updated: UpdateUnitPayload
+  part_of_unit_deleted: DeleteUnitPayload
   part_of_host_created: CreateHostPayload
   part_of_host_updated: EditHostPayload
   part_of_host_deleted: DeleteHostPayload
@@ -741,6 +785,9 @@ type CompositeCableMutationPayload {
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
+  part_of_service_created: CreateServicePayload
+  part_of_service_updated: UpdateServicePayload
+  part_of_service_deleted: DeleteServicePayload
   parent_group_created: [CreateGroupPayload]
   parent_group_updated: [UpdateGroupPayload]
   parent_group_deleted: [DeleteGroupPayload]
@@ -756,6 +803,9 @@ type CompositeCableMutationPayload {
   parent_email_created: [CreateEmailPayload]
   parent_email_updated: [UpdateEmailPayload]
   parent_email_deleted: [DeleteEmailPayload]
+  parent_unit_created: [CreateUnitPayload]
+  parent_unit_updated: [UpdateUnitPayload]
+  parent_unit_deleted: [DeleteUnitPayload]
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -798,6 +848,9 @@ type CompositeCableMutationPayload {
   parent_peeringgroup_created: [CreatePeeringGroupPayload]
   parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
   parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  parent_service_created: [CreateServicePayload]
+  parent_service_updated: [UpdateServicePayload]
+  parent_service_deleted: [DeleteServicePayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -834,6 +887,9 @@ type CompositeCableMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
@@ -849,6 +905,30 @@ type CompositeCableMutationPayload {
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
+  provider_organization_created: CreateOrganizationPayload
+  provider_organization_updated: UpdateOrganizationPayload
+  provider_organization_deleted: DeleteOrganizationPayload
+  provider_contact_created: CreateContactPayload
+  provider_contact_updated: UpdateContactPayload
+  provider_contact_deleted: DeleteContactPayload
+  provider_customer_created: CreateCustomerPayload
+  provider_customer_updated: UpdateCustomerPayload
+  provider_customer_deleted: DeleteCustomerPayload
+  provider_enduser_created: CreateEndUserPayload
+  provider_enduser_updated: UpdateEndUserPayload
+  provider_enduser_deleted: DeleteEndUserPayload
+  provider_provider_created: CreateProviderPayload
+  provider_provider_updated: UpdateProviderPayload
+  provider_provider_deleted: DeleteProviderPayload
+  provider_siteowner_created: CreateSiteOwnerPayload
+  provider_siteowner_updated: UpdateSiteOwnerPayload
+  provider_siteowner_deleted: DeleteSiteOwnerPayload
+  provider_peeringpartner_created: CreatePeeringPartnerPayload
+  provider_peeringpartner_updated: UpdatePeeringPartnerPayload
+  provider_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -863,36 +943,42 @@ input CompositeContactMutationInput {
   update_subinputs: [UpdateEmailInput]
   delete_subinputs: [DeleteEmailInput]
   unlink_subinputs: [DeleteRelationshipInput]
-  create_uses_group: CreateGroupInput
-  update_uses_group: UpdateGroupInput
-  deleted_uses_group: DeleteGroupInput
-  create_uses_procedure: CreateProcedureInput
-  update_uses_procedure: UpdateProcedureInput
-  deleted_uses_procedure: DeleteProcedureInput
-  create_uses_address: CreateAddressInput
-  update_uses_address: UpdateAddressInput
-  deleted_uses_address: DeleteAddressInput
-  create_uses_phone: CreatePhoneInput
-  update_uses_phone: UpdatePhoneInput
-  deleted_uses_phone: DeletePhoneInput
-  create_uses_email: CreateEmailInput
-  update_uses_email: UpdateEmailInput
-  deleted_uses_email: DeleteEmailInput
-  create_uses_host: CreateHostInput
-  update_uses_host: EditHostInput
-  deleted_uses_host: DeleteHostInput
-  create_uses_opticallink: CreateOpticalLinkInput
-  update_uses_opticallink: UpdateOpticalLinkInput
-  deleted_uses_opticallink: DeleteOpticalLinkInput
-  create_uses_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
-  update_uses_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
-  deleted_uses_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
-  create_uses_opticalpath: CreateOpticalPathInput
-  update_uses_opticalpath: UpdateOpticalPathInput
-  deleted_uses_opticalpath: DeleteOpticalPathInput
-  create_uses_peeringgroup: CreatePeeringGroupInput
-  update_uses_peeringgroup: UpdatePeeringGroupInput
-  deleted_uses_peeringgroup: DeletePeeringGroupInput
+  create_uses_group: [CreateGroupInput]
+  update_uses_group: [UpdateGroupInput]
+  deleted_uses_group: [DeleteGroupInput]
+  create_uses_procedure: [CreateProcedureInput]
+  update_uses_procedure: [UpdateProcedureInput]
+  deleted_uses_procedure: [DeleteProcedureInput]
+  create_uses_address: [CreateAddressInput]
+  update_uses_address: [UpdateAddressInput]
+  deleted_uses_address: [DeleteAddressInput]
+  create_uses_phone: [CreatePhoneInput]
+  update_uses_phone: [UpdatePhoneInput]
+  deleted_uses_phone: [DeletePhoneInput]
+  create_uses_email: [CreateEmailInput]
+  update_uses_email: [UpdateEmailInput]
+  deleted_uses_email: [DeleteEmailInput]
+  create_uses_unit: [CreateUnitInput]
+  update_uses_unit: [UpdateUnitInput]
+  deleted_uses_unit: [DeleteUnitInput]
+  create_uses_host: [CreateHostInput]
+  update_uses_host: [EditHostInput]
+  deleted_uses_host: [DeleteHostInput]
+  create_uses_opticallink: [CreateOpticalLinkInput]
+  update_uses_opticallink: [UpdateOpticalLinkInput]
+  deleted_uses_opticallink: [DeleteOpticalLinkInput]
+  create_uses_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_uses_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_uses_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_uses_opticalpath: [CreateOpticalPathInput]
+  update_uses_opticalpath: [UpdateOpticalPathInput]
+  deleted_uses_opticalpath: [DeleteOpticalPathInput]
+  create_uses_peeringgroup: [CreatePeeringGroupInput]
+  update_uses_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_uses_peeringgroup: [DeletePeeringGroupInput]
+  create_uses_service: [CreateServiceInput]
+  update_uses_service: [UpdateServiceInput]
+  deleted_uses_service: [DeleteServiceInput]
   create_owns_port: [CreatePortInput]
   update_owns_port: [UpdatePortInput]
   deleted_owns_port: [DeletePortInput]
@@ -943,36 +1029,42 @@ type CompositeContactMutationPayload {
   subupdated: [UpdateEmailPayload]
   subdeleted: [DeleteEmailPayload]
   unlinked: [DeleteRelationshipPayload]
-  uses_group_created: CreateGroupPayload
-  uses_group_updated: UpdateGroupPayload
-  uses_group_deleted: DeleteGroupPayload
-  uses_procedure_created: CreateProcedurePayload
-  uses_procedure_updated: UpdateProcedurePayload
-  uses_procedure_deleted: DeleteProcedurePayload
-  uses_address_created: CreateAddressPayload
-  uses_address_updated: UpdateAddressPayload
-  uses_address_deleted: DeleteAddressPayload
-  uses_phone_created: CreatePhonePayload
-  uses_phone_updated: UpdatePhonePayload
-  uses_phone_deleted: DeletePhonePayload
-  uses_email_created: CreateEmailPayload
-  uses_email_updated: UpdateEmailPayload
-  uses_email_deleted: DeleteEmailPayload
-  uses_host_created: CreateHostPayload
-  uses_host_updated: EditHostPayload
-  uses_host_deleted: DeleteHostPayload
-  uses_opticallink_created: CreateOpticalLinkPayload
-  uses_opticallink_updated: UpdateOpticalLinkPayload
-  uses_opticallink_deleted: DeleteOpticalLinkPayload
-  uses_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
-  uses_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
-  uses_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
-  uses_opticalpath_created: CreateOpticalPathPayload
-  uses_opticalpath_updated: UpdateOpticalPathPayload
-  uses_opticalpath_deleted: DeleteOpticalPathPayload
-  uses_peeringgroup_created: CreatePeeringGroupPayload
-  uses_peeringgroup_updated: UpdatePeeringGroupPayload
-  uses_peeringgroup_deleted: DeletePeeringGroupPayload
+  uses_group_created: [CreateGroupPayload]
+  uses_group_updated: [UpdateGroupPayload]
+  uses_group_deleted: [DeleteGroupPayload]
+  uses_procedure_created: [CreateProcedurePayload]
+  uses_procedure_updated: [UpdateProcedurePayload]
+  uses_procedure_deleted: [DeleteProcedurePayload]
+  uses_address_created: [CreateAddressPayload]
+  uses_address_updated: [UpdateAddressPayload]
+  uses_address_deleted: [DeleteAddressPayload]
+  uses_phone_created: [CreatePhonePayload]
+  uses_phone_updated: [UpdatePhonePayload]
+  uses_phone_deleted: [DeletePhonePayload]
+  uses_email_created: [CreateEmailPayload]
+  uses_email_updated: [UpdateEmailPayload]
+  uses_email_deleted: [DeleteEmailPayload]
+  uses_unit_created: [CreateUnitPayload]
+  uses_unit_updated: [UpdateUnitPayload]
+  uses_unit_deleted: [DeleteUnitPayload]
+  uses_host_created: [CreateHostPayload]
+  uses_host_updated: [EditHostPayload]
+  uses_host_deleted: [DeleteHostPayload]
+  uses_opticallink_created: [CreateOpticalLinkPayload]
+  uses_opticallink_updated: [UpdateOpticalLinkPayload]
+  uses_opticallink_deleted: [DeleteOpticalLinkPayload]
+  uses_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  uses_opticalpath_created: [CreateOpticalPathPayload]
+  uses_opticalpath_updated: [UpdateOpticalPathPayload]
+  uses_opticalpath_deleted: [DeleteOpticalPathPayload]
+  uses_peeringgroup_created: [CreatePeeringGroupPayload]
+  uses_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  uses_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  uses_service_created: [CreateServicePayload]
+  uses_service_updated: [UpdateServicePayload]
+  uses_service_deleted: [DeleteServicePayload]
   owns_port_created: [CreatePortPayload]
   owns_port_updated: [UpdatePortPayload]
   owns_port_deleted: [DeletePortPayload]
@@ -1068,6 +1160,9 @@ input CompositeExternalEquipmentMutationInput {
   create_part_of_email: CreateEmailInput
   update_part_of_email: UpdateEmailInput
   deleted_part_of_email: DeleteEmailInput
+  create_part_of_unit: CreateUnitInput
+  update_part_of_unit: UpdateUnitInput
+  deleted_part_of_unit: DeleteUnitInput
   create_part_of_host: CreateHostInput
   update_part_of_host: EditHostInput
   deleted_part_of_host: DeleteHostInput
@@ -1083,6 +1178,9 @@ input CompositeExternalEquipmentMutationInput {
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
+  create_part_of_service: CreateServiceInput
+  update_part_of_service: UpdateServiceInput
+  deleted_part_of_service: DeleteServiceInput
   create_parent_group: [CreateGroupInput]
   update_parent_group: [UpdateGroupInput]
   deleted_parent_group: [DeleteGroupInput]
@@ -1098,6 +1196,9 @@ input CompositeExternalEquipmentMutationInput {
   create_parent_email: [CreateEmailInput]
   update_parent_email: [UpdateEmailInput]
   deleted_parent_email: [DeleteEmailInput]
+  create_parent_unit: [CreateUnitInput]
+  update_parent_unit: [UpdateUnitInput]
+  deleted_parent_unit: [DeleteUnitInput]
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -1140,6 +1241,9 @@ input CompositeExternalEquipmentMutationInput {
   create_parent_peeringgroup: [CreatePeeringGroupInput]
   update_parent_peeringgroup: [UpdatePeeringGroupInput]
   deleted_parent_peeringgroup: [DeletePeeringGroupInput]
+  create_parent_service: [CreateServiceInput]
+  update_parent_service: [UpdateServiceInput]
+  deleted_parent_service: [DeleteServiceInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -1176,6 +1280,9 @@ input CompositeExternalEquipmentMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
@@ -1191,6 +1298,30 @@ input CompositeExternalEquipmentMutationInput {
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
+  create_provider_organization: CreateOrganizationInput
+  update_provider_organization: UpdateOrganizationInput
+  deleted_provider_organization: DeleteOrganizationInput
+  create_provider_contact: CreateContactInput
+  update_provider_contact: UpdateContactInput
+  deleted_provider_contact: DeleteContactInput
+  create_provider_customer: CreateCustomerInput
+  update_provider_customer: UpdateCustomerInput
+  deleted_provider_customer: DeleteCustomerInput
+  create_provider_enduser: CreateEndUserInput
+  update_provider_enduser: UpdateEndUserInput
+  deleted_provider_enduser: DeleteEndUserInput
+  create_provider_provider: CreateProviderInput
+  update_provider_provider: UpdateProviderInput
+  deleted_provider_provider: DeleteProviderInput
+  create_provider_siteowner: CreateSiteOwnerInput
+  update_provider_siteowner: UpdateSiteOwnerInput
+  deleted_provider_siteowner: DeleteSiteOwnerInput
+  create_provider_peeringpartner: CreatePeeringPartnerInput
+  update_provider_peeringpartner: UpdatePeeringPartnerInput
+  deleted_provider_peeringpartner: DeletePeeringPartnerInput
   clientMutationId: String
 }
 
@@ -1250,6 +1381,9 @@ type CompositeExternalEquipmentMutationPayload {
   part_of_email_created: CreateEmailPayload
   part_of_email_updated: UpdateEmailPayload
   part_of_email_deleted: DeleteEmailPayload
+  part_of_unit_created: CreateUnitPayload
+  part_of_unit_updated: UpdateUnitPayload
+  part_of_unit_deleted: DeleteUnitPayload
   part_of_host_created: CreateHostPayload
   part_of_host_updated: EditHostPayload
   part_of_host_deleted: DeleteHostPayload
@@ -1265,6 +1399,9 @@ type CompositeExternalEquipmentMutationPayload {
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
+  part_of_service_created: CreateServicePayload
+  part_of_service_updated: UpdateServicePayload
+  part_of_service_deleted: DeleteServicePayload
   parent_group_created: [CreateGroupPayload]
   parent_group_updated: [UpdateGroupPayload]
   parent_group_deleted: [DeleteGroupPayload]
@@ -1280,6 +1417,9 @@ type CompositeExternalEquipmentMutationPayload {
   parent_email_created: [CreateEmailPayload]
   parent_email_updated: [UpdateEmailPayload]
   parent_email_deleted: [DeleteEmailPayload]
+  parent_unit_created: [CreateUnitPayload]
+  parent_unit_updated: [UpdateUnitPayload]
+  parent_unit_deleted: [DeleteUnitPayload]
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -1322,6 +1462,9 @@ type CompositeExternalEquipmentMutationPayload {
   parent_peeringgroup_created: [CreatePeeringGroupPayload]
   parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
   parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  parent_service_created: [CreateServicePayload]
+  parent_service_updated: [UpdateServicePayload]
+  parent_service_deleted: [DeleteServicePayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -1358,6 +1501,9 @@ type CompositeExternalEquipmentMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
@@ -1373,6 +1519,30 @@ type CompositeExternalEquipmentMutationPayload {
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
+  provider_organization_created: CreateOrganizationPayload
+  provider_organization_updated: UpdateOrganizationPayload
+  provider_organization_deleted: DeleteOrganizationPayload
+  provider_contact_created: CreateContactPayload
+  provider_contact_updated: UpdateContactPayload
+  provider_contact_deleted: DeleteContactPayload
+  provider_customer_created: CreateCustomerPayload
+  provider_customer_updated: UpdateCustomerPayload
+  provider_customer_deleted: DeleteCustomerPayload
+  provider_enduser_created: CreateEndUserPayload
+  provider_enduser_updated: UpdateEndUserPayload
+  provider_enduser_deleted: DeleteEndUserPayload
+  provider_provider_created: CreateProviderPayload
+  provider_provider_updated: UpdateProviderPayload
+  provider_provider_deleted: DeleteProviderPayload
+  provider_siteowner_created: CreateSiteOwnerPayload
+  provider_siteowner_updated: UpdateSiteOwnerPayload
+  provider_siteowner_deleted: DeleteSiteOwnerPayload
+  provider_peeringpartner_created: CreatePeeringPartnerPayload
+  provider_peeringpartner_updated: UpdatePeeringPartnerPayload
+  provider_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -1422,6 +1592,9 @@ input CompositeFirewallMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
@@ -1437,6 +1610,9 @@ input CompositeFirewallMutationInput {
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
   clientMutationId: String
 }
 
@@ -1486,6 +1662,9 @@ type CompositeFirewallMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
@@ -1501,6 +1680,9 @@ type CompositeFirewallMutationPayload {
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
   clientMutationId: String
 }
 
@@ -1553,6 +1735,9 @@ input CompositeGroupMutationInput {
   create_dependencies_email: [CreateEmailInput]
   update_dependencies_email: [UpdateEmailInput]
   deleted_dependencies_email: [DeleteEmailInput]
+  create_dependencies_unit: [CreateUnitInput]
+  update_dependencies_unit: [UpdateUnitInput]
+  deleted_dependencies_unit: [DeleteUnitInput]
   create_dependencies_port: [CreatePortInput]
   update_dependencies_port: [UpdatePortInput]
   deleted_dependencies_port: [DeletePortInput]
@@ -1595,6 +1780,30 @@ input CompositeGroupMutationInput {
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
+  create_dependencies_service: [CreateServiceInput]
+  update_dependencies_service: [UpdateServiceInput]
+  deleted_dependencies_service: [DeleteServiceInput]
+  create_used_by_organization: [CreateOrganizationInput]
+  update_used_by_organization: [UpdateOrganizationInput]
+  deleted_used_by_organization: [DeleteOrganizationInput]
+  create_used_by_contact: [CreateContactInput]
+  update_used_by_contact: [UpdateContactInput]
+  deleted_used_by_contact: [DeleteContactInput]
+  create_used_by_customer: [CreateCustomerInput]
+  update_used_by_customer: [UpdateCustomerInput]
+  deleted_used_by_customer: [DeleteCustomerInput]
+  create_used_by_enduser: [CreateEndUserInput]
+  update_used_by_enduser: [UpdateEndUserInput]
+  deleted_used_by_enduser: [DeleteEndUserInput]
+  create_used_by_provider: [CreateProviderInput]
+  update_used_by_provider: [UpdateProviderInput]
+  deleted_used_by_provider: [DeleteProviderInput]
+  create_used_by_siteowner: [CreateSiteOwnerInput]
+  update_used_by_siteowner: [UpdateSiteOwnerInput]
+  deleted_used_by_siteowner: [DeleteSiteOwnerInput]
+  create_used_by_peeringpartner: [CreatePeeringPartnerInput]
+  update_used_by_peeringpartner: [UpdatePeeringPartnerInput]
+  deleted_used_by_peeringpartner: [DeletePeeringPartnerInput]
   create_dependents_group: [CreateGroupInput]
   update_dependents_group: [UpdateGroupInput]
   deleted_dependents_group: [DeleteGroupInput]
@@ -1610,6 +1819,9 @@ input CompositeGroupMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
@@ -1625,6 +1837,30 @@ input CompositeGroupMutationInput {
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
+  create_provider_organization: CreateOrganizationInput
+  update_provider_organization: UpdateOrganizationInput
+  deleted_provider_organization: DeleteOrganizationInput
+  create_provider_contact: CreateContactInput
+  update_provider_contact: UpdateContactInput
+  deleted_provider_contact: DeleteContactInput
+  create_provider_customer: CreateCustomerInput
+  update_provider_customer: UpdateCustomerInput
+  deleted_provider_customer: DeleteCustomerInput
+  create_provider_enduser: CreateEndUserInput
+  update_provider_enduser: UpdateEndUserInput
+  deleted_provider_enduser: DeleteEndUserInput
+  create_provider_provider: CreateProviderInput
+  update_provider_provider: UpdateProviderInput
+  deleted_provider_provider: DeleteProviderInput
+  create_provider_siteowner: CreateSiteOwnerInput
+  update_provider_siteowner: UpdateSiteOwnerInput
+  deleted_provider_siteowner: DeleteSiteOwnerInput
+  create_provider_peeringpartner: CreatePeeringPartnerInput
+  update_provider_peeringpartner: UpdatePeeringPartnerInput
+  deleted_provider_peeringpartner: DeletePeeringPartnerInput
   clientMutationId: String
 }
 
@@ -1677,6 +1913,9 @@ type CompositeGroupMutationPayload {
   dependencies_email_created: [CreateEmailPayload]
   dependencies_email_updated: [UpdateEmailPayload]
   dependencies_email_deleted: [DeleteEmailPayload]
+  dependencies_unit_created: [CreateUnitPayload]
+  dependencies_unit_updated: [UpdateUnitPayload]
+  dependencies_unit_deleted: [DeleteUnitPayload]
   dependencies_port_created: [CreatePortPayload]
   dependencies_port_updated: [UpdatePortPayload]
   dependencies_port_deleted: [DeletePortPayload]
@@ -1719,6 +1958,30 @@ type CompositeGroupMutationPayload {
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependencies_service_created: [CreateServicePayload]
+  dependencies_service_updated: [UpdateServicePayload]
+  dependencies_service_deleted: [DeleteServicePayload]
+  used_by_organization_created: [CreateOrganizationPayload]
+  used_by_organization_updated: [UpdateOrganizationPayload]
+  used_by_organization_deleted: [DeleteOrganizationPayload]
+  used_by_contact_created: [CreateContactPayload]
+  used_by_contact_updated: [UpdateContactPayload]
+  used_by_contact_deleted: [DeleteContactPayload]
+  used_by_customer_created: [CreateCustomerPayload]
+  used_by_customer_updated: [UpdateCustomerPayload]
+  used_by_customer_deleted: [DeleteCustomerPayload]
+  used_by_enduser_created: [CreateEndUserPayload]
+  used_by_enduser_updated: [UpdateEndUserPayload]
+  used_by_enduser_deleted: [DeleteEndUserPayload]
+  used_by_provider_created: [CreateProviderPayload]
+  used_by_provider_updated: [UpdateProviderPayload]
+  used_by_provider_deleted: [DeleteProviderPayload]
+  used_by_siteowner_created: [CreateSiteOwnerPayload]
+  used_by_siteowner_updated: [UpdateSiteOwnerPayload]
+  used_by_siteowner_deleted: [DeleteSiteOwnerPayload]
+  used_by_peeringpartner_created: [CreatePeeringPartnerPayload]
+  used_by_peeringpartner_updated: [UpdatePeeringPartnerPayload]
+  used_by_peeringpartner_deleted: [DeletePeeringPartnerPayload]
   dependents_group_created: [CreateGroupPayload]
   dependents_group_updated: [UpdateGroupPayload]
   dependents_group_deleted: [DeleteGroupPayload]
@@ -1734,6 +1997,9 @@ type CompositeGroupMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
@@ -1749,6 +2015,30 @@ type CompositeGroupMutationPayload {
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
+  provider_organization_created: CreateOrganizationPayload
+  provider_organization_updated: UpdateOrganizationPayload
+  provider_organization_deleted: DeleteOrganizationPayload
+  provider_contact_created: CreateContactPayload
+  provider_contact_updated: UpdateContactPayload
+  provider_contact_deleted: DeleteContactPayload
+  provider_customer_created: CreateCustomerPayload
+  provider_customer_updated: UpdateCustomerPayload
+  provider_customer_deleted: DeleteCustomerPayload
+  provider_enduser_created: CreateEndUserPayload
+  provider_enduser_updated: UpdateEndUserPayload
+  provider_enduser_deleted: DeleteEndUserPayload
+  provider_provider_created: CreateProviderPayload
+  provider_provider_updated: UpdateProviderPayload
+  provider_provider_deleted: DeleteProviderPayload
+  provider_siteowner_created: CreateSiteOwnerPayload
+  provider_siteowner_updated: UpdateSiteOwnerPayload
+  provider_siteowner_deleted: DeleteSiteOwnerPayload
+  provider_peeringpartner_created: CreatePeeringPartnerPayload
+  provider_peeringpartner_updated: UpdatePeeringPartnerPayload
+  provider_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -1774,6 +2064,9 @@ input CompositeHostMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
@@ -1789,6 +2082,9 @@ input CompositeHostMutationInput {
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
   clientMutationId: String
 }
 
@@ -1814,6 +2110,9 @@ type CompositeHostMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
@@ -1829,6 +2128,9 @@ type CompositeHostMutationPayload {
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
   clientMutationId: String
 }
 
@@ -1987,6 +2289,9 @@ input CompositeOpticalLinkMutationInput {
   create_dependencies_email: [CreateEmailInput]
   update_dependencies_email: [UpdateEmailInput]
   deleted_dependencies_email: [DeleteEmailInput]
+  create_dependencies_unit: [CreateUnitInput]
+  update_dependencies_unit: [UpdateUnitInput]
+  deleted_dependencies_unit: [DeleteUnitInput]
   create_dependencies_port: [CreatePortInput]
   update_dependencies_port: [UpdatePortInput]
   deleted_dependencies_port: [DeletePortInput]
@@ -2029,6 +2334,9 @@ input CompositeOpticalLinkMutationInput {
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
+  create_dependencies_service: [CreateServiceInput]
+  update_dependencies_service: [UpdateServiceInput]
+  deleted_dependencies_service: [DeleteServiceInput]
   clientMutationId: String
 }
 
@@ -2051,6 +2359,9 @@ type CompositeOpticalLinkMutationPayload {
   dependencies_email_created: [CreateEmailPayload]
   dependencies_email_updated: [UpdateEmailPayload]
   dependencies_email_deleted: [DeleteEmailPayload]
+  dependencies_unit_created: [CreateUnitPayload]
+  dependencies_unit_updated: [UpdateUnitPayload]
+  dependencies_unit_deleted: [DeleteUnitPayload]
   dependencies_port_created: [CreatePortPayload]
   dependencies_port_updated: [UpdatePortPayload]
   dependencies_port_deleted: [DeletePortPayload]
@@ -2093,6 +2404,9 @@ type CompositeOpticalLinkMutationPayload {
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependencies_service_created: [CreateServicePayload]
+  dependencies_service_updated: [UpdateServicePayload]
+  dependencies_service_deleted: [DeleteServicePayload]
   clientMutationId: String
 }
 
@@ -2115,6 +2429,9 @@ input CompositeOpticalMultiplexSectionMutationInput {
   create_dependencies_email: [CreateEmailInput]
   update_dependencies_email: [UpdateEmailInput]
   deleted_dependencies_email: [DeleteEmailInput]
+  create_dependencies_unit: [CreateUnitInput]
+  update_dependencies_unit: [UpdateUnitInput]
+  deleted_dependencies_unit: [DeleteUnitInput]
   create_dependencies_port: [CreatePortInput]
   update_dependencies_port: [UpdatePortInput]
   deleted_dependencies_port: [DeletePortInput]
@@ -2157,6 +2474,9 @@ input CompositeOpticalMultiplexSectionMutationInput {
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
+  create_dependencies_service: [CreateServiceInput]
+  update_dependencies_service: [UpdateServiceInput]
+  deleted_dependencies_service: [DeleteServiceInput]
   clientMutationId: String
 }
 
@@ -2179,6 +2499,9 @@ type CompositeOpticalMultiplexSectionMutationPayload {
   dependencies_email_created: [CreateEmailPayload]
   dependencies_email_updated: [UpdateEmailPayload]
   dependencies_email_deleted: [DeleteEmailPayload]
+  dependencies_unit_created: [CreateUnitPayload]
+  dependencies_unit_updated: [UpdateUnitPayload]
+  dependencies_unit_deleted: [DeleteUnitPayload]
   dependencies_port_created: [CreatePortPayload]
   dependencies_port_updated: [UpdatePortPayload]
   dependencies_port_deleted: [DeletePortPayload]
@@ -2221,6 +2544,9 @@ type CompositeOpticalMultiplexSectionMutationPayload {
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependencies_service_created: [CreateServicePayload]
+  dependencies_service_updated: [UpdateServicePayload]
+  dependencies_service_deleted: [DeleteServicePayload]
   clientMutationId: String
 }
 
@@ -2313,6 +2639,9 @@ input CompositeOpticalPathMutationInput {
   create_dependencies_email: [CreateEmailInput]
   update_dependencies_email: [UpdateEmailInput]
   deleted_dependencies_email: [DeleteEmailInput]
+  create_dependencies_unit: [CreateUnitInput]
+  update_dependencies_unit: [UpdateUnitInput]
+  deleted_dependencies_unit: [DeleteUnitInput]
   create_dependencies_port: [CreatePortInput]
   update_dependencies_port: [UpdatePortInput]
   deleted_dependencies_port: [DeletePortInput]
@@ -2355,6 +2684,9 @@ input CompositeOpticalPathMutationInput {
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
+  create_dependencies_service: [CreateServiceInput]
+  update_dependencies_service: [UpdateServiceInput]
+  deleted_dependencies_service: [DeleteServiceInput]
   clientMutationId: String
 }
 
@@ -2377,6 +2709,9 @@ type CompositeOpticalPathMutationPayload {
   dependencies_email_created: [CreateEmailPayload]
   dependencies_email_updated: [UpdateEmailPayload]
   dependencies_email_deleted: [DeleteEmailPayload]
+  dependencies_unit_created: [CreateUnitPayload]
+  dependencies_unit_updated: [UpdateUnitPayload]
+  dependencies_unit_deleted: [DeleteUnitPayload]
   dependencies_port_created: [CreatePortPayload]
   dependencies_port_updated: [UpdatePortPayload]
   dependencies_port_deleted: [DeletePortPayload]
@@ -2419,6 +2754,9 @@ type CompositeOpticalPathMutationPayload {
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependencies_service_created: [CreateServicePayload]
+  dependencies_service_updated: [UpdateServicePayload]
+  dependencies_service_deleted: [DeleteServicePayload]
   clientMutationId: String
 }
 
@@ -2432,36 +2770,42 @@ input CompositeOrganizationMutationInput {
   update_address: [UpdateAddressInput]
   delete_address: [DeleteAddressInput]
   unlink_subinputs: [DeleteRelationshipInput]
-  create_uses_group: CreateGroupInput
-  update_uses_group: UpdateGroupInput
-  deleted_uses_group: DeleteGroupInput
-  create_uses_procedure: CreateProcedureInput
-  update_uses_procedure: UpdateProcedureInput
-  deleted_uses_procedure: DeleteProcedureInput
-  create_uses_address: CreateAddressInput
-  update_uses_address: UpdateAddressInput
-  deleted_uses_address: DeleteAddressInput
-  create_uses_phone: CreatePhoneInput
-  update_uses_phone: UpdatePhoneInput
-  deleted_uses_phone: DeletePhoneInput
-  create_uses_email: CreateEmailInput
-  update_uses_email: UpdateEmailInput
-  deleted_uses_email: DeleteEmailInput
-  create_uses_host: CreateHostInput
-  update_uses_host: EditHostInput
-  deleted_uses_host: DeleteHostInput
-  create_uses_opticallink: CreateOpticalLinkInput
-  update_uses_opticallink: UpdateOpticalLinkInput
-  deleted_uses_opticallink: DeleteOpticalLinkInput
-  create_uses_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
-  update_uses_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
-  deleted_uses_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
-  create_uses_opticalpath: CreateOpticalPathInput
-  update_uses_opticalpath: UpdateOpticalPathInput
-  deleted_uses_opticalpath: DeleteOpticalPathInput
-  create_uses_peeringgroup: CreatePeeringGroupInput
-  update_uses_peeringgroup: UpdatePeeringGroupInput
-  deleted_uses_peeringgroup: DeletePeeringGroupInput
+  create_uses_group: [CreateGroupInput]
+  update_uses_group: [UpdateGroupInput]
+  deleted_uses_group: [DeleteGroupInput]
+  create_uses_procedure: [CreateProcedureInput]
+  update_uses_procedure: [UpdateProcedureInput]
+  deleted_uses_procedure: [DeleteProcedureInput]
+  create_uses_address: [CreateAddressInput]
+  update_uses_address: [UpdateAddressInput]
+  deleted_uses_address: [DeleteAddressInput]
+  create_uses_phone: [CreatePhoneInput]
+  update_uses_phone: [UpdatePhoneInput]
+  deleted_uses_phone: [DeletePhoneInput]
+  create_uses_email: [CreateEmailInput]
+  update_uses_email: [UpdateEmailInput]
+  deleted_uses_email: [DeleteEmailInput]
+  create_uses_unit: [CreateUnitInput]
+  update_uses_unit: [UpdateUnitInput]
+  deleted_uses_unit: [DeleteUnitInput]
+  create_uses_host: [CreateHostInput]
+  update_uses_host: [EditHostInput]
+  deleted_uses_host: [DeleteHostInput]
+  create_uses_opticallink: [CreateOpticalLinkInput]
+  update_uses_opticallink: [UpdateOpticalLinkInput]
+  deleted_uses_opticallink: [DeleteOpticalLinkInput]
+  create_uses_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_uses_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_uses_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_uses_opticalpath: [CreateOpticalPathInput]
+  update_uses_opticalpath: [UpdateOpticalPathInput]
+  deleted_uses_opticalpath: [DeleteOpticalPathInput]
+  create_uses_peeringgroup: [CreatePeeringGroupInput]
+  update_uses_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_uses_peeringgroup: [DeletePeeringGroupInput]
+  create_uses_service: [CreateServiceInput]
+  update_uses_service: [UpdateServiceInput]
+  deleted_uses_service: [DeleteServiceInput]
   create_owns_port: [CreatePortInput]
   update_owns_port: [UpdatePortInput]
   deleted_owns_port: [DeletePortInput]
@@ -2511,36 +2855,42 @@ type CompositeOrganizationMutationPayload {
   address_updated: [UpdateAddressPayload]
   address_deleted: [DeleteAddressPayload]
   unlinked: [DeleteRelationshipPayload]
-  uses_group_created: CreateGroupPayload
-  uses_group_updated: UpdateGroupPayload
-  uses_group_deleted: DeleteGroupPayload
-  uses_procedure_created: CreateProcedurePayload
-  uses_procedure_updated: UpdateProcedurePayload
-  uses_procedure_deleted: DeleteProcedurePayload
-  uses_address_created: CreateAddressPayload
-  uses_address_updated: UpdateAddressPayload
-  uses_address_deleted: DeleteAddressPayload
-  uses_phone_created: CreatePhonePayload
-  uses_phone_updated: UpdatePhonePayload
-  uses_phone_deleted: DeletePhonePayload
-  uses_email_created: CreateEmailPayload
-  uses_email_updated: UpdateEmailPayload
-  uses_email_deleted: DeleteEmailPayload
-  uses_host_created: CreateHostPayload
-  uses_host_updated: EditHostPayload
-  uses_host_deleted: DeleteHostPayload
-  uses_opticallink_created: CreateOpticalLinkPayload
-  uses_opticallink_updated: UpdateOpticalLinkPayload
-  uses_opticallink_deleted: DeleteOpticalLinkPayload
-  uses_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
-  uses_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
-  uses_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
-  uses_opticalpath_created: CreateOpticalPathPayload
-  uses_opticalpath_updated: UpdateOpticalPathPayload
-  uses_opticalpath_deleted: DeleteOpticalPathPayload
-  uses_peeringgroup_created: CreatePeeringGroupPayload
-  uses_peeringgroup_updated: UpdatePeeringGroupPayload
-  uses_peeringgroup_deleted: DeletePeeringGroupPayload
+  uses_group_created: [CreateGroupPayload]
+  uses_group_updated: [UpdateGroupPayload]
+  uses_group_deleted: [DeleteGroupPayload]
+  uses_procedure_created: [CreateProcedurePayload]
+  uses_procedure_updated: [UpdateProcedurePayload]
+  uses_procedure_deleted: [DeleteProcedurePayload]
+  uses_address_created: [CreateAddressPayload]
+  uses_address_updated: [UpdateAddressPayload]
+  uses_address_deleted: [DeleteAddressPayload]
+  uses_phone_created: [CreatePhonePayload]
+  uses_phone_updated: [UpdatePhonePayload]
+  uses_phone_deleted: [DeletePhonePayload]
+  uses_email_created: [CreateEmailPayload]
+  uses_email_updated: [UpdateEmailPayload]
+  uses_email_deleted: [DeleteEmailPayload]
+  uses_unit_created: [CreateUnitPayload]
+  uses_unit_updated: [UpdateUnitPayload]
+  uses_unit_deleted: [DeleteUnitPayload]
+  uses_host_created: [CreateHostPayload]
+  uses_host_updated: [EditHostPayload]
+  uses_host_deleted: [DeleteHostPayload]
+  uses_opticallink_created: [CreateOpticalLinkPayload]
+  uses_opticallink_updated: [UpdateOpticalLinkPayload]
+  uses_opticallink_deleted: [DeleteOpticalLinkPayload]
+  uses_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  uses_opticalpath_created: [CreateOpticalPathPayload]
+  uses_opticalpath_updated: [UpdateOpticalPathPayload]
+  uses_opticalpath_deleted: [DeleteOpticalPathPayload]
+  uses_peeringgroup_created: [CreatePeeringGroupPayload]
+  uses_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  uses_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  uses_service_created: [CreateServicePayload]
+  uses_service_updated: [UpdateServicePayload]
+  uses_service_deleted: [DeleteServicePayload]
   owns_port_created: [CreatePortPayload]
   owns_port_updated: [UpdatePortPayload]
   owns_port_deleted: [DeletePortPayload]
@@ -2583,6 +2933,33 @@ type CompositeOrganizationMutationPayload {
 input CompositePeeringGroupMutationInput {
   update_input: UpdatePeeringGroupInput
   unlink_subinputs: [DeleteRelationshipInput]
+  create_part_of_port: CreatePortInput
+  update_part_of_port: UpdatePortInput
+  deleted_part_of_port: DeletePortInput
+  create_part_of_cable: CreateCableInput
+  update_part_of_cable: UpdateCableInput
+  deleted_part_of_cable: DeleteCableInput
+  create_part_of_router: CreateRouterInput
+  update_part_of_router: UpdateRouterInput
+  deleted_part_of_router: DeleteRouterInput
+  create_part_of_switch: CreateSwitchInput
+  update_part_of_switch: UpdateSwitchInput
+  deleted_part_of_switch: DeleteSwitchInput
+  create_part_of_firewall: CreateFirewallInput
+  update_part_of_firewall: UpdateFirewallInput
+  deleted_part_of_firewall: DeleteFirewallInput
+  create_part_of_externalequipment: CreateExternalEquipmentInput
+  update_part_of_externalequipment: UpdateExternalEquipmentInput
+  deleted_part_of_externalequipment: DeleteExternalEquipmentInput
+  create_part_of_opticalnode: CreateOpticalNodeInput
+  update_part_of_opticalnode: UpdateOpticalNodeInput
+  deleted_part_of_opticalnode: DeleteOpticalNodeInput
+  create_part_of_odf: CreateOdfInput
+  update_part_of_odf: UpdateOdfInput
+  deleted_part_of_odf: DeleteOdfInput
+  create_part_of_opticalfilter: CreateOpticalFilterInput
+  update_part_of_opticalfilter: UpdateOpticalFilterInput
+  deleted_part_of_opticalfilter: DeleteOpticalFilterInput
   create_dependencies_group: [CreateGroupInput]
   update_dependencies_group: [UpdateGroupInput]
   deleted_dependencies_group: [DeleteGroupInput]
@@ -2598,6 +2975,9 @@ input CompositePeeringGroupMutationInput {
   create_dependencies_email: [CreateEmailInput]
   update_dependencies_email: [UpdateEmailInput]
   deleted_dependencies_email: [DeleteEmailInput]
+  create_dependencies_unit: [CreateUnitInput]
+  update_dependencies_unit: [UpdateUnitInput]
+  deleted_dependencies_unit: [DeleteUnitInput]
   create_dependencies_port: [CreatePortInput]
   update_dependencies_port: [UpdatePortInput]
   deleted_dependencies_port: [DeletePortInput]
@@ -2640,12 +3020,120 @@ input CompositePeeringGroupMutationInput {
   create_dependencies_peeringgroup: [CreatePeeringGroupInput]
   update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
+  create_dependencies_service: [CreateServiceInput]
+  update_dependencies_service: [UpdateServiceInput]
+  deleted_dependencies_service: [DeleteServiceInput]
+  create_used_by_organization: [CreateOrganizationInput]
+  update_used_by_organization: [UpdateOrganizationInput]
+  deleted_used_by_organization: [DeleteOrganizationInput]
+  create_used_by_contact: [CreateContactInput]
+  update_used_by_contact: [UpdateContactInput]
+  deleted_used_by_contact: [DeleteContactInput]
+  create_used_by_customer: [CreateCustomerInput]
+  update_used_by_customer: [UpdateCustomerInput]
+  deleted_used_by_customer: [DeleteCustomerInput]
+  create_used_by_enduser: [CreateEndUserInput]
+  update_used_by_enduser: [UpdateEndUserInput]
+  deleted_used_by_enduser: [DeleteEndUserInput]
+  create_used_by_provider: [CreateProviderInput]
+  update_used_by_provider: [UpdateProviderInput]
+  deleted_used_by_provider: [DeleteProviderInput]
+  create_used_by_siteowner: [CreateSiteOwnerInput]
+  update_used_by_siteowner: [UpdateSiteOwnerInput]
+  deleted_used_by_siteowner: [DeleteSiteOwnerInput]
+  create_used_by_peeringpartner: [CreatePeeringPartnerInput]
+  update_used_by_peeringpartner: [UpdatePeeringPartnerInput]
+  deleted_used_by_peeringpartner: [DeletePeeringPartnerInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [EditHostInput]
+  deleted_dependents_host: [DeleteHostInput]
+  create_dependents_opticallink: [CreateOpticalLinkInput]
+  update_dependents_opticallink: [UpdateOpticalLinkInput]
+  deleted_dependents_opticallink: [DeleteOpticalLinkInput]
+  create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
+  create_provider_organization: CreateOrganizationInput
+  update_provider_organization: UpdateOrganizationInput
+  deleted_provider_organization: DeleteOrganizationInput
+  create_provider_contact: CreateContactInput
+  update_provider_contact: UpdateContactInput
+  deleted_provider_contact: DeleteContactInput
+  create_provider_customer: CreateCustomerInput
+  update_provider_customer: UpdateCustomerInput
+  deleted_provider_customer: DeleteCustomerInput
+  create_provider_enduser: CreateEndUserInput
+  update_provider_enduser: UpdateEndUserInput
+  deleted_provider_enduser: DeleteEndUserInput
+  create_provider_provider: CreateProviderInput
+  update_provider_provider: UpdateProviderInput
+  deleted_provider_provider: DeleteProviderInput
+  create_provider_siteowner: CreateSiteOwnerInput
+  update_provider_siteowner: UpdateSiteOwnerInput
+  deleted_provider_siteowner: DeleteSiteOwnerInput
+  create_provider_peeringpartner: CreatePeeringPartnerInput
+  update_provider_peeringpartner: UpdatePeeringPartnerInput
+  deleted_provider_peeringpartner: DeletePeeringPartnerInput
   clientMutationId: String
 }
 
 type CompositePeeringGroupMutationPayload {
   updated: UpdatePeeringGroupPayload
   unlinked: [DeleteRelationshipPayload]
+  part_of_port_created: CreatePortPayload
+  part_of_port_updated: UpdatePortPayload
+  part_of_port_deleted: DeletePortPayload
+  part_of_cable_created: CreateCablePayload
+  part_of_cable_updated: UpdateCablePayload
+  part_of_cable_deleted: DeleteCablePayload
+  part_of_router_created: CreateRouterPayload
+  part_of_router_updated: UpdateRouterPayload
+  part_of_router_deleted: DeleteRouterPayload
+  part_of_switch_created: CreateSwitchPayload
+  part_of_switch_updated: UpdateSwitchPayload
+  part_of_switch_deleted: DeleteSwitchPayload
+  part_of_firewall_created: CreateFirewallPayload
+  part_of_firewall_updated: UpdateFirewallPayload
+  part_of_firewall_deleted: DeleteFirewallPayload
+  part_of_externalequipment_created: CreateExternalEquipmentPayload
+  part_of_externalequipment_updated: UpdateExternalEquipmentPayload
+  part_of_externalequipment_deleted: DeleteExternalEquipmentPayload
+  part_of_opticalnode_created: CreateOpticalNodePayload
+  part_of_opticalnode_updated: UpdateOpticalNodePayload
+  part_of_opticalnode_deleted: DeleteOpticalNodePayload
+  part_of_odf_created: CreateOdfPayload
+  part_of_odf_updated: UpdateOdfPayload
+  part_of_odf_deleted: DeleteOdfPayload
+  part_of_opticalfilter_created: CreateOpticalFilterPayload
+  part_of_opticalfilter_updated: UpdateOpticalFilterPayload
+  part_of_opticalfilter_deleted: DeleteOpticalFilterPayload
   dependencies_group_created: [CreateGroupPayload]
   dependencies_group_updated: [UpdateGroupPayload]
   dependencies_group_deleted: [DeleteGroupPayload]
@@ -2661,6 +3149,9 @@ type CompositePeeringGroupMutationPayload {
   dependencies_email_created: [CreateEmailPayload]
   dependencies_email_updated: [UpdateEmailPayload]
   dependencies_email_deleted: [DeleteEmailPayload]
+  dependencies_unit_created: [CreateUnitPayload]
+  dependencies_unit_updated: [UpdateUnitPayload]
+  dependencies_unit_deleted: [DeleteUnitPayload]
   dependencies_port_created: [CreatePortPayload]
   dependencies_port_updated: [UpdatePortPayload]
   dependencies_port_deleted: [DeletePortPayload]
@@ -2703,6 +3194,87 @@ type CompositePeeringGroupMutationPayload {
   dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
   dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependencies_service_created: [CreateServicePayload]
+  dependencies_service_updated: [UpdateServicePayload]
+  dependencies_service_deleted: [DeleteServicePayload]
+  used_by_organization_created: [CreateOrganizationPayload]
+  used_by_organization_updated: [UpdateOrganizationPayload]
+  used_by_organization_deleted: [DeleteOrganizationPayload]
+  used_by_contact_created: [CreateContactPayload]
+  used_by_contact_updated: [UpdateContactPayload]
+  used_by_contact_deleted: [DeleteContactPayload]
+  used_by_customer_created: [CreateCustomerPayload]
+  used_by_customer_updated: [UpdateCustomerPayload]
+  used_by_customer_deleted: [DeleteCustomerPayload]
+  used_by_enduser_created: [CreateEndUserPayload]
+  used_by_enduser_updated: [UpdateEndUserPayload]
+  used_by_enduser_deleted: [DeleteEndUserPayload]
+  used_by_provider_created: [CreateProviderPayload]
+  used_by_provider_updated: [UpdateProviderPayload]
+  used_by_provider_deleted: [DeleteProviderPayload]
+  used_by_siteowner_created: [CreateSiteOwnerPayload]
+  used_by_siteowner_updated: [UpdateSiteOwnerPayload]
+  used_by_siteowner_deleted: [DeleteSiteOwnerPayload]
+  used_by_peeringpartner_created: [CreatePeeringPartnerPayload]
+  used_by_peeringpartner_updated: [UpdatePeeringPartnerPayload]
+  used_by_peeringpartner_deleted: [DeletePeeringPartnerPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [EditHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
+  dependents_opticallink_created: [CreateOpticalLinkPayload]
+  dependents_opticallink_updated: [UpdateOpticalLinkPayload]
+  dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
+  dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
+  provider_organization_created: CreateOrganizationPayload
+  provider_organization_updated: UpdateOrganizationPayload
+  provider_organization_deleted: DeleteOrganizationPayload
+  provider_contact_created: CreateContactPayload
+  provider_contact_updated: UpdateContactPayload
+  provider_contact_deleted: DeleteContactPayload
+  provider_customer_created: CreateCustomerPayload
+  provider_customer_updated: UpdateCustomerPayload
+  provider_customer_deleted: DeleteCustomerPayload
+  provider_enduser_created: CreateEndUserPayload
+  provider_enduser_updated: UpdateEndUserPayload
+  provider_enduser_deleted: DeleteEndUserPayload
+  provider_provider_created: CreateProviderPayload
+  provider_provider_updated: UpdateProviderPayload
+  provider_provider_deleted: DeleteProviderPayload
+  provider_siteowner_created: CreateSiteOwnerPayload
+  provider_siteowner_updated: UpdateSiteOwnerPayload
+  provider_siteowner_deleted: DeleteSiteOwnerPayload
+  provider_peeringpartner_created: CreatePeeringPartnerPayload
+  provider_peeringpartner_updated: UpdatePeeringPartnerPayload
+  provider_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -2728,6 +3300,9 @@ input CompositePortMutationInput {
   create_parent_email: [CreateEmailInput]
   update_parent_email: [UpdateEmailInput]
   deleted_parent_email: [DeleteEmailInput]
+  create_parent_unit: [CreateUnitInput]
+  update_parent_unit: [UpdateUnitInput]
+  deleted_parent_unit: [DeleteUnitInput]
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -2770,6 +3345,9 @@ input CompositePortMutationInput {
   create_parent_peeringgroup: [CreatePeeringGroupInput]
   update_parent_peeringgroup: [UpdatePeeringGroupInput]
   deleted_parent_peeringgroup: [DeletePeeringGroupInput]
+  create_parent_service: [CreateServiceInput]
+  update_parent_service: [UpdateServiceInput]
+  deleted_parent_service: [DeleteServiceInput]
   clientMutationId: String
 }
 
@@ -2795,6 +3373,9 @@ type CompositePortMutationPayload {
   parent_email_created: [CreateEmailPayload]
   parent_email_updated: [UpdateEmailPayload]
   parent_email_deleted: [DeleteEmailPayload]
+  parent_unit_created: [CreateUnitPayload]
+  parent_unit_updated: [UpdateUnitPayload]
+  parent_unit_deleted: [DeleteUnitPayload]
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -2837,6 +3418,9 @@ type CompositePortMutationPayload {
   parent_peeringgroup_created: [CreatePeeringGroupPayload]
   parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
   parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  parent_service_created: [CreateServicePayload]
+  parent_service_updated: [UpdateServicePayload]
+  parent_service_deleted: [DeleteServicePayload]
   clientMutationId: String
 }
 
@@ -3189,6 +3773,9 @@ input CompositeRouterMutationInput {
   create_part_of_email: CreateEmailInput
   update_part_of_email: UpdateEmailInput
   deleted_part_of_email: DeleteEmailInput
+  create_part_of_unit: CreateUnitInput
+  update_part_of_unit: UpdateUnitInput
+  deleted_part_of_unit: DeleteUnitInput
   create_part_of_host: CreateHostInput
   update_part_of_host: EditHostInput
   deleted_part_of_host: DeleteHostInput
@@ -3204,6 +3791,9 @@ input CompositeRouterMutationInput {
   create_part_of_peeringgroup: CreatePeeringGroupInput
   update_part_of_peeringgroup: UpdatePeeringGroupInput
   deleted_part_of_peeringgroup: DeletePeeringGroupInput
+  create_part_of_service: CreateServiceInput
+  update_part_of_service: UpdateServiceInput
+  deleted_part_of_service: DeleteServiceInput
   create_parent_group: [CreateGroupInput]
   update_parent_group: [UpdateGroupInput]
   deleted_parent_group: [DeleteGroupInput]
@@ -3219,6 +3809,9 @@ input CompositeRouterMutationInput {
   create_parent_email: [CreateEmailInput]
   update_parent_email: [UpdateEmailInput]
   deleted_parent_email: [DeleteEmailInput]
+  create_parent_unit: [CreateUnitInput]
+  update_parent_unit: [UpdateUnitInput]
+  deleted_parent_unit: [DeleteUnitInput]
   create_parent_port: [CreatePortInput]
   update_parent_port: [UpdatePortInput]
   deleted_parent_port: [DeletePortInput]
@@ -3261,6 +3854,9 @@ input CompositeRouterMutationInput {
   create_parent_peeringgroup: [CreatePeeringGroupInput]
   update_parent_peeringgroup: [UpdatePeeringGroupInput]
   deleted_parent_peeringgroup: [DeletePeeringGroupInput]
+  create_parent_service: [CreateServiceInput]
+  update_parent_service: [UpdateServiceInput]
+  deleted_parent_service: [DeleteServiceInput]
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -3297,6 +3893,9 @@ input CompositeRouterMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
@@ -3312,6 +3911,30 @@ input CompositeRouterMutationInput {
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
+  create_provider_organization: CreateOrganizationInput
+  update_provider_organization: UpdateOrganizationInput
+  deleted_provider_organization: DeleteOrganizationInput
+  create_provider_contact: CreateContactInput
+  update_provider_contact: UpdateContactInput
+  deleted_provider_contact: DeleteContactInput
+  create_provider_customer: CreateCustomerInput
+  update_provider_customer: UpdateCustomerInput
+  deleted_provider_customer: DeleteCustomerInput
+  create_provider_enduser: CreateEndUserInput
+  update_provider_enduser: UpdateEndUserInput
+  deleted_provider_enduser: DeleteEndUserInput
+  create_provider_provider: CreateProviderInput
+  update_provider_provider: UpdateProviderInput
+  deleted_provider_provider: DeleteProviderInput
+  create_provider_siteowner: CreateSiteOwnerInput
+  update_provider_siteowner: UpdateSiteOwnerInput
+  deleted_provider_siteowner: DeleteSiteOwnerInput
+  create_provider_peeringpartner: CreatePeeringPartnerInput
+  update_provider_peeringpartner: UpdatePeeringPartnerInput
+  deleted_provider_peeringpartner: DeletePeeringPartnerInput
   clientMutationId: String
 }
 
@@ -3372,6 +3995,9 @@ type CompositeRouterMutationPayload {
   part_of_email_created: CreateEmailPayload
   part_of_email_updated: UpdateEmailPayload
   part_of_email_deleted: DeleteEmailPayload
+  part_of_unit_created: CreateUnitPayload
+  part_of_unit_updated: UpdateUnitPayload
+  part_of_unit_deleted: DeleteUnitPayload
   part_of_host_created: CreateHostPayload
   part_of_host_updated: EditHostPayload
   part_of_host_deleted: DeleteHostPayload
@@ -3387,6 +4013,9 @@ type CompositeRouterMutationPayload {
   part_of_peeringgroup_created: CreatePeeringGroupPayload
   part_of_peeringgroup_updated: UpdatePeeringGroupPayload
   part_of_peeringgroup_deleted: DeletePeeringGroupPayload
+  part_of_service_created: CreateServicePayload
+  part_of_service_updated: UpdateServicePayload
+  part_of_service_deleted: DeleteServicePayload
   parent_group_created: [CreateGroupPayload]
   parent_group_updated: [UpdateGroupPayload]
   parent_group_deleted: [DeleteGroupPayload]
@@ -3402,6 +4031,9 @@ type CompositeRouterMutationPayload {
   parent_email_created: [CreateEmailPayload]
   parent_email_updated: [UpdateEmailPayload]
   parent_email_deleted: [DeleteEmailPayload]
+  parent_unit_created: [CreateUnitPayload]
+  parent_unit_updated: [UpdateUnitPayload]
+  parent_unit_deleted: [DeleteUnitPayload]
   parent_port_created: [CreatePortPayload]
   parent_port_updated: [UpdatePortPayload]
   parent_port_deleted: [DeletePortPayload]
@@ -3444,6 +4076,9 @@ type CompositeRouterMutationPayload {
   parent_peeringgroup_created: [CreatePeeringGroupPayload]
   parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
   parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  parent_service_created: [CreateServicePayload]
+  parent_service_updated: [UpdateServicePayload]
+  parent_service_deleted: [DeleteServicePayload]
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -3480,6 +4115,9 @@ type CompositeRouterMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
@@ -3495,6 +4133,380 @@ type CompositeRouterMutationPayload {
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
+  provider_organization_created: CreateOrganizationPayload
+  provider_organization_updated: UpdateOrganizationPayload
+  provider_organization_deleted: DeleteOrganizationPayload
+  provider_contact_created: CreateContactPayload
+  provider_contact_updated: UpdateContactPayload
+  provider_contact_deleted: DeleteContactPayload
+  provider_customer_created: CreateCustomerPayload
+  provider_customer_updated: UpdateCustomerPayload
+  provider_customer_deleted: DeleteCustomerPayload
+  provider_enduser_created: CreateEndUserPayload
+  provider_enduser_updated: UpdateEndUserPayload
+  provider_enduser_deleted: DeleteEndUserPayload
+  provider_provider_created: CreateProviderPayload
+  provider_provider_updated: UpdateProviderPayload
+  provider_provider_deleted: DeleteProviderPayload
+  provider_siteowner_created: CreateSiteOwnerPayload
+  provider_siteowner_updated: UpdateSiteOwnerPayload
+  provider_siteowner_deleted: DeleteSiteOwnerPayload
+  provider_peeringpartner_created: CreatePeeringPartnerPayload
+  provider_peeringpartner_updated: UpdatePeeringPartnerPayload
+  provider_peeringpartner_deleted: DeletePeeringPartnerPayload
+  clientMutationId: String
+}
+
+input CompositeServiceMutationInput {
+  create_input: CreateServiceInput
+  update_input: UpdateServiceInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_part_of_port: CreatePortInput
+  update_part_of_port: UpdatePortInput
+  deleted_part_of_port: DeletePortInput
+  create_part_of_cable: CreateCableInput
+  update_part_of_cable: UpdateCableInput
+  deleted_part_of_cable: DeleteCableInput
+  create_part_of_router: CreateRouterInput
+  update_part_of_router: UpdateRouterInput
+  deleted_part_of_router: DeleteRouterInput
+  create_part_of_switch: CreateSwitchInput
+  update_part_of_switch: UpdateSwitchInput
+  deleted_part_of_switch: DeleteSwitchInput
+  create_part_of_firewall: CreateFirewallInput
+  update_part_of_firewall: UpdateFirewallInput
+  deleted_part_of_firewall: DeleteFirewallInput
+  create_part_of_externalequipment: CreateExternalEquipmentInput
+  update_part_of_externalequipment: UpdateExternalEquipmentInput
+  deleted_part_of_externalequipment: DeleteExternalEquipmentInput
+  create_part_of_opticalnode: CreateOpticalNodeInput
+  update_part_of_opticalnode: UpdateOpticalNodeInput
+  deleted_part_of_opticalnode: DeleteOpticalNodeInput
+  create_part_of_odf: CreateOdfInput
+  update_part_of_odf: UpdateOdfInput
+  deleted_part_of_odf: DeleteOdfInput
+  create_part_of_opticalfilter: CreateOpticalFilterInput
+  update_part_of_opticalfilter: UpdateOpticalFilterInput
+  deleted_part_of_opticalfilter: DeleteOpticalFilterInput
+  create_dependencies_group: [CreateGroupInput]
+  update_dependencies_group: [UpdateGroupInput]
+  deleted_dependencies_group: [DeleteGroupInput]
+  create_dependencies_procedure: [CreateProcedureInput]
+  update_dependencies_procedure: [UpdateProcedureInput]
+  deleted_dependencies_procedure: [DeleteProcedureInput]
+  create_dependencies_address: [CreateAddressInput]
+  update_dependencies_address: [UpdateAddressInput]
+  deleted_dependencies_address: [DeleteAddressInput]
+  create_dependencies_phone: [CreatePhoneInput]
+  update_dependencies_phone: [UpdatePhoneInput]
+  deleted_dependencies_phone: [DeletePhoneInput]
+  create_dependencies_email: [CreateEmailInput]
+  update_dependencies_email: [UpdateEmailInput]
+  deleted_dependencies_email: [DeleteEmailInput]
+  create_dependencies_unit: [CreateUnitInput]
+  update_dependencies_unit: [UpdateUnitInput]
+  deleted_dependencies_unit: [DeleteUnitInput]
+  create_dependencies_port: [CreatePortInput]
+  update_dependencies_port: [UpdatePortInput]
+  deleted_dependencies_port: [DeletePortInput]
+  create_dependencies_cable: [CreateCableInput]
+  update_dependencies_cable: [UpdateCableInput]
+  deleted_dependencies_cable: [DeleteCableInput]
+  create_dependencies_host: [CreateHostInput]
+  update_dependencies_host: [EditHostInput]
+  deleted_dependencies_host: [DeleteHostInput]
+  create_dependencies_router: [CreateRouterInput]
+  update_dependencies_router: [UpdateRouterInput]
+  deleted_dependencies_router: [DeleteRouterInput]
+  create_dependencies_switch: [CreateSwitchInput]
+  update_dependencies_switch: [UpdateSwitchInput]
+  deleted_dependencies_switch: [DeleteSwitchInput]
+  create_dependencies_firewall: [CreateFirewallInput]
+  update_dependencies_firewall: [UpdateFirewallInput]
+  deleted_dependencies_firewall: [DeleteFirewallInput]
+  create_dependencies_externalequipment: [CreateExternalEquipmentInput]
+  update_dependencies_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_dependencies_externalequipment: [DeleteExternalEquipmentInput]
+  create_dependencies_opticalnode: [CreateOpticalNodeInput]
+  update_dependencies_opticalnode: [UpdateOpticalNodeInput]
+  deleted_dependencies_opticalnode: [DeleteOpticalNodeInput]
+  create_dependencies_odf: [CreateOdfInput]
+  update_dependencies_odf: [UpdateOdfInput]
+  deleted_dependencies_odf: [DeleteOdfInput]
+  create_dependencies_opticalfilter: [CreateOpticalFilterInput]
+  update_dependencies_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_dependencies_opticalfilter: [DeleteOpticalFilterInput]
+  create_dependencies_opticallink: [CreateOpticalLinkInput]
+  update_dependencies_opticallink: [UpdateOpticalLinkInput]
+  deleted_dependencies_opticallink: [DeleteOpticalLinkInput]
+  create_dependencies_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_dependencies_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_dependencies_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependencies_opticalpath: [CreateOpticalPathInput]
+  update_dependencies_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependencies_opticalpath: [DeleteOpticalPathInput]
+  create_dependencies_peeringgroup: [CreatePeeringGroupInput]
+  update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
+  create_dependencies_service: [CreateServiceInput]
+  update_dependencies_service: [UpdateServiceInput]
+  deleted_dependencies_service: [DeleteServiceInput]
+  create_used_by_organization: [CreateOrganizationInput]
+  update_used_by_organization: [UpdateOrganizationInput]
+  deleted_used_by_organization: [DeleteOrganizationInput]
+  create_used_by_contact: [CreateContactInput]
+  update_used_by_contact: [UpdateContactInput]
+  deleted_used_by_contact: [DeleteContactInput]
+  create_used_by_customer: [CreateCustomerInput]
+  update_used_by_customer: [UpdateCustomerInput]
+  deleted_used_by_customer: [DeleteCustomerInput]
+  create_used_by_enduser: [CreateEndUserInput]
+  update_used_by_enduser: [UpdateEndUserInput]
+  deleted_used_by_enduser: [DeleteEndUserInput]
+  create_used_by_provider: [CreateProviderInput]
+  update_used_by_provider: [UpdateProviderInput]
+  deleted_used_by_provider: [DeleteProviderInput]
+  create_used_by_siteowner: [CreateSiteOwnerInput]
+  update_used_by_siteowner: [UpdateSiteOwnerInput]
+  deleted_used_by_siteowner: [DeleteSiteOwnerInput]
+  create_used_by_peeringpartner: [CreatePeeringPartnerInput]
+  update_used_by_peeringpartner: [UpdatePeeringPartnerInput]
+  deleted_used_by_peeringpartner: [DeletePeeringPartnerInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [EditHostInput]
+  deleted_dependents_host: [DeleteHostInput]
+  create_dependents_opticallink: [CreateOpticalLinkInput]
+  update_dependents_opticallink: [UpdateOpticalLinkInput]
+  deleted_dependents_opticallink: [DeleteOpticalLinkInput]
+  create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
+  create_provider_organization: CreateOrganizationInput
+  update_provider_organization: UpdateOrganizationInput
+  deleted_provider_organization: DeleteOrganizationInput
+  create_provider_contact: CreateContactInput
+  update_provider_contact: UpdateContactInput
+  deleted_provider_contact: DeleteContactInput
+  create_provider_customer: CreateCustomerInput
+  update_provider_customer: UpdateCustomerInput
+  deleted_provider_customer: DeleteCustomerInput
+  create_provider_enduser: CreateEndUserInput
+  update_provider_enduser: UpdateEndUserInput
+  deleted_provider_enduser: DeleteEndUserInput
+  create_provider_provider: CreateProviderInput
+  update_provider_provider: UpdateProviderInput
+  deleted_provider_provider: DeleteProviderInput
+  create_provider_siteowner: CreateSiteOwnerInput
+  update_provider_siteowner: UpdateSiteOwnerInput
+  deleted_provider_siteowner: DeleteSiteOwnerInput
+  create_provider_peeringpartner: CreatePeeringPartnerInput
+  update_provider_peeringpartner: UpdatePeeringPartnerInput
+  deleted_provider_peeringpartner: DeletePeeringPartnerInput
+  clientMutationId: String
+}
+
+type CompositeServiceMutationPayload {
+  created: CreateServicePayload
+  updated: UpdateServicePayload
+  unlinked: [DeleteRelationshipPayload]
+  part_of_port_created: CreatePortPayload
+  part_of_port_updated: UpdatePortPayload
+  part_of_port_deleted: DeletePortPayload
+  part_of_cable_created: CreateCablePayload
+  part_of_cable_updated: UpdateCablePayload
+  part_of_cable_deleted: DeleteCablePayload
+  part_of_router_created: CreateRouterPayload
+  part_of_router_updated: UpdateRouterPayload
+  part_of_router_deleted: DeleteRouterPayload
+  part_of_switch_created: CreateSwitchPayload
+  part_of_switch_updated: UpdateSwitchPayload
+  part_of_switch_deleted: DeleteSwitchPayload
+  part_of_firewall_created: CreateFirewallPayload
+  part_of_firewall_updated: UpdateFirewallPayload
+  part_of_firewall_deleted: DeleteFirewallPayload
+  part_of_externalequipment_created: CreateExternalEquipmentPayload
+  part_of_externalequipment_updated: UpdateExternalEquipmentPayload
+  part_of_externalequipment_deleted: DeleteExternalEquipmentPayload
+  part_of_opticalnode_created: CreateOpticalNodePayload
+  part_of_opticalnode_updated: UpdateOpticalNodePayload
+  part_of_opticalnode_deleted: DeleteOpticalNodePayload
+  part_of_odf_created: CreateOdfPayload
+  part_of_odf_updated: UpdateOdfPayload
+  part_of_odf_deleted: DeleteOdfPayload
+  part_of_opticalfilter_created: CreateOpticalFilterPayload
+  part_of_opticalfilter_updated: UpdateOpticalFilterPayload
+  part_of_opticalfilter_deleted: DeleteOpticalFilterPayload
+  dependencies_group_created: [CreateGroupPayload]
+  dependencies_group_updated: [UpdateGroupPayload]
+  dependencies_group_deleted: [DeleteGroupPayload]
+  dependencies_procedure_created: [CreateProcedurePayload]
+  dependencies_procedure_updated: [UpdateProcedurePayload]
+  dependencies_procedure_deleted: [DeleteProcedurePayload]
+  dependencies_address_created: [CreateAddressPayload]
+  dependencies_address_updated: [UpdateAddressPayload]
+  dependencies_address_deleted: [DeleteAddressPayload]
+  dependencies_phone_created: [CreatePhonePayload]
+  dependencies_phone_updated: [UpdatePhonePayload]
+  dependencies_phone_deleted: [DeletePhonePayload]
+  dependencies_email_created: [CreateEmailPayload]
+  dependencies_email_updated: [UpdateEmailPayload]
+  dependencies_email_deleted: [DeleteEmailPayload]
+  dependencies_unit_created: [CreateUnitPayload]
+  dependencies_unit_updated: [UpdateUnitPayload]
+  dependencies_unit_deleted: [DeleteUnitPayload]
+  dependencies_port_created: [CreatePortPayload]
+  dependencies_port_updated: [UpdatePortPayload]
+  dependencies_port_deleted: [DeletePortPayload]
+  dependencies_cable_created: [CreateCablePayload]
+  dependencies_cable_updated: [UpdateCablePayload]
+  dependencies_cable_deleted: [DeleteCablePayload]
+  dependencies_host_created: [CreateHostPayload]
+  dependencies_host_updated: [EditHostPayload]
+  dependencies_host_deleted: [DeleteHostPayload]
+  dependencies_router_created: [CreateRouterPayload]
+  dependencies_router_updated: [UpdateRouterPayload]
+  dependencies_router_deleted: [DeleteRouterPayload]
+  dependencies_switch_created: [CreateSwitchPayload]
+  dependencies_switch_updated: [UpdateSwitchPayload]
+  dependencies_switch_deleted: [DeleteSwitchPayload]
+  dependencies_firewall_created: [CreateFirewallPayload]
+  dependencies_firewall_updated: [UpdateFirewallPayload]
+  dependencies_firewall_deleted: [DeleteFirewallPayload]
+  dependencies_externalequipment_created: [CreateExternalEquipmentPayload]
+  dependencies_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  dependencies_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  dependencies_opticalnode_created: [CreateOpticalNodePayload]
+  dependencies_opticalnode_updated: [UpdateOpticalNodePayload]
+  dependencies_opticalnode_deleted: [DeleteOpticalNodePayload]
+  dependencies_odf_created: [CreateOdfPayload]
+  dependencies_odf_updated: [UpdateOdfPayload]
+  dependencies_odf_deleted: [DeleteOdfPayload]
+  dependencies_opticalfilter_created: [CreateOpticalFilterPayload]
+  dependencies_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  dependencies_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  dependencies_opticallink_created: [CreateOpticalLinkPayload]
+  dependencies_opticallink_updated: [UpdateOpticalLinkPayload]
+  dependencies_opticallink_deleted: [DeleteOpticalLinkPayload]
+  dependencies_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  dependencies_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  dependencies_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependencies_opticalpath_created: [CreateOpticalPathPayload]
+  dependencies_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependencies_opticalpath_deleted: [DeleteOpticalPathPayload]
+  dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependencies_service_created: [CreateServicePayload]
+  dependencies_service_updated: [UpdateServicePayload]
+  dependencies_service_deleted: [DeleteServicePayload]
+  used_by_organization_created: [CreateOrganizationPayload]
+  used_by_organization_updated: [UpdateOrganizationPayload]
+  used_by_organization_deleted: [DeleteOrganizationPayload]
+  used_by_contact_created: [CreateContactPayload]
+  used_by_contact_updated: [UpdateContactPayload]
+  used_by_contact_deleted: [DeleteContactPayload]
+  used_by_customer_created: [CreateCustomerPayload]
+  used_by_customer_updated: [UpdateCustomerPayload]
+  used_by_customer_deleted: [DeleteCustomerPayload]
+  used_by_enduser_created: [CreateEndUserPayload]
+  used_by_enduser_updated: [UpdateEndUserPayload]
+  used_by_enduser_deleted: [DeleteEndUserPayload]
+  used_by_provider_created: [CreateProviderPayload]
+  used_by_provider_updated: [UpdateProviderPayload]
+  used_by_provider_deleted: [DeleteProviderPayload]
+  used_by_siteowner_created: [CreateSiteOwnerPayload]
+  used_by_siteowner_updated: [UpdateSiteOwnerPayload]
+  used_by_siteowner_deleted: [DeleteSiteOwnerPayload]
+  used_by_peeringpartner_created: [CreatePeeringPartnerPayload]
+  used_by_peeringpartner_updated: [UpdatePeeringPartnerPayload]
+  used_by_peeringpartner_deleted: [DeletePeeringPartnerPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [EditHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
+  dependents_opticallink_created: [CreateOpticalLinkPayload]
+  dependents_opticallink_updated: [UpdateOpticalLinkPayload]
+  dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
+  dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
+  provider_organization_created: CreateOrganizationPayload
+  provider_organization_updated: UpdateOrganizationPayload
+  provider_organization_deleted: DeleteOrganizationPayload
+  provider_contact_created: CreateContactPayload
+  provider_contact_updated: UpdateContactPayload
+  provider_contact_deleted: DeleteContactPayload
+  provider_customer_created: CreateCustomerPayload
+  provider_customer_updated: UpdateCustomerPayload
+  provider_customer_deleted: DeleteCustomerPayload
+  provider_enduser_created: CreateEndUserPayload
+  provider_enduser_updated: UpdateEndUserPayload
+  provider_enduser_deleted: DeleteEndUserPayload
+  provider_provider_created: CreateProviderPayload
+  provider_provider_updated: UpdateProviderPayload
+  provider_provider_deleted: DeleteProviderPayload
+  provider_siteowner_created: CreateSiteOwnerPayload
+  provider_siteowner_updated: UpdateSiteOwnerPayload
+  provider_siteowner_deleted: DeleteSiteOwnerPayload
+  provider_peeringpartner_created: CreatePeeringPartnerPayload
+  provider_peeringpartner_updated: UpdatePeeringPartnerPayload
+  provider_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -3672,6 +4684,9 @@ input CompositeSwitchMutationInput {
   create_dependents_email: [CreateEmailInput]
   update_dependents_email: [UpdateEmailInput]
   deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
   create_dependents_host: [CreateHostInput]
   update_dependents_host: [EditHostInput]
   deleted_dependents_host: [DeleteHostInput]
@@ -3687,6 +4702,9 @@ input CompositeSwitchMutationInput {
   create_dependents_peeringgroup: [CreatePeeringGroupInput]
   update_dependents_peeringgroup: [UpdatePeeringGroupInput]
   deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
   clientMutationId: String
 }
 
@@ -3712,6 +4730,9 @@ type CompositeSwitchMutationPayload {
   dependents_email_created: [CreateEmailPayload]
   dependents_email_updated: [UpdateEmailPayload]
   dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
   dependents_host_created: [CreateHostPayload]
   dependents_host_updated: [EditHostPayload]
   dependents_host_deleted: [DeleteHostPayload]
@@ -3727,6 +4748,359 @@ type CompositeSwitchMutationPayload {
   dependents_peeringgroup_created: [CreatePeeringGroupPayload]
   dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
   dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
+  clientMutationId: String
+}
+
+input CompositeUnitMutationInput {
+  create_input: CreateUnitInput
+  update_input: UpdateUnitInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_part_of_port: CreatePortInput
+  update_part_of_port: UpdatePortInput
+  deleted_part_of_port: DeletePortInput
+  create_part_of_cable: CreateCableInput
+  update_part_of_cable: UpdateCableInput
+  deleted_part_of_cable: DeleteCableInput
+  create_part_of_router: CreateRouterInput
+  update_part_of_router: UpdateRouterInput
+  deleted_part_of_router: DeleteRouterInput
+  create_part_of_switch: CreateSwitchInput
+  update_part_of_switch: UpdateSwitchInput
+  deleted_part_of_switch: DeleteSwitchInput
+  create_part_of_firewall: CreateFirewallInput
+  update_part_of_firewall: UpdateFirewallInput
+  deleted_part_of_firewall: DeleteFirewallInput
+  create_part_of_externalequipment: CreateExternalEquipmentInput
+  update_part_of_externalequipment: UpdateExternalEquipmentInput
+  deleted_part_of_externalequipment: DeleteExternalEquipmentInput
+  create_part_of_opticalnode: CreateOpticalNodeInput
+  update_part_of_opticalnode: UpdateOpticalNodeInput
+  deleted_part_of_opticalnode: DeleteOpticalNodeInput
+  create_part_of_odf: CreateOdfInput
+  update_part_of_odf: UpdateOdfInput
+  deleted_part_of_odf: DeleteOdfInput
+  create_part_of_opticalfilter: CreateOpticalFilterInput
+  update_part_of_opticalfilter: UpdateOpticalFilterInput
+  deleted_part_of_opticalfilter: DeleteOpticalFilterInput
+  create_dependencies_group: [CreateGroupInput]
+  update_dependencies_group: [UpdateGroupInput]
+  deleted_dependencies_group: [DeleteGroupInput]
+  create_dependencies_procedure: [CreateProcedureInput]
+  update_dependencies_procedure: [UpdateProcedureInput]
+  deleted_dependencies_procedure: [DeleteProcedureInput]
+  create_dependencies_address: [CreateAddressInput]
+  update_dependencies_address: [UpdateAddressInput]
+  deleted_dependencies_address: [DeleteAddressInput]
+  create_dependencies_phone: [CreatePhoneInput]
+  update_dependencies_phone: [UpdatePhoneInput]
+  deleted_dependencies_phone: [DeletePhoneInput]
+  create_dependencies_email: [CreateEmailInput]
+  update_dependencies_email: [UpdateEmailInput]
+  deleted_dependencies_email: [DeleteEmailInput]
+  create_dependencies_unit: [CreateUnitInput]
+  update_dependencies_unit: [UpdateUnitInput]
+  deleted_dependencies_unit: [DeleteUnitInput]
+  create_dependencies_port: [CreatePortInput]
+  update_dependencies_port: [UpdatePortInput]
+  deleted_dependencies_port: [DeletePortInput]
+  create_dependencies_cable: [CreateCableInput]
+  update_dependencies_cable: [UpdateCableInput]
+  deleted_dependencies_cable: [DeleteCableInput]
+  create_dependencies_host: [CreateHostInput]
+  update_dependencies_host: [EditHostInput]
+  deleted_dependencies_host: [DeleteHostInput]
+  create_dependencies_router: [CreateRouterInput]
+  update_dependencies_router: [UpdateRouterInput]
+  deleted_dependencies_router: [DeleteRouterInput]
+  create_dependencies_switch: [CreateSwitchInput]
+  update_dependencies_switch: [UpdateSwitchInput]
+  deleted_dependencies_switch: [DeleteSwitchInput]
+  create_dependencies_firewall: [CreateFirewallInput]
+  update_dependencies_firewall: [UpdateFirewallInput]
+  deleted_dependencies_firewall: [DeleteFirewallInput]
+  create_dependencies_externalequipment: [CreateExternalEquipmentInput]
+  update_dependencies_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_dependencies_externalequipment: [DeleteExternalEquipmentInput]
+  create_dependencies_opticalnode: [CreateOpticalNodeInput]
+  update_dependencies_opticalnode: [UpdateOpticalNodeInput]
+  deleted_dependencies_opticalnode: [DeleteOpticalNodeInput]
+  create_dependencies_odf: [CreateOdfInput]
+  update_dependencies_odf: [UpdateOdfInput]
+  deleted_dependencies_odf: [DeleteOdfInput]
+  create_dependencies_opticalfilter: [CreateOpticalFilterInput]
+  update_dependencies_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_dependencies_opticalfilter: [DeleteOpticalFilterInput]
+  create_dependencies_opticallink: [CreateOpticalLinkInput]
+  update_dependencies_opticallink: [UpdateOpticalLinkInput]
+  deleted_dependencies_opticallink: [DeleteOpticalLinkInput]
+  create_dependencies_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_dependencies_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_dependencies_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependencies_opticalpath: [CreateOpticalPathInput]
+  update_dependencies_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependencies_opticalpath: [DeleteOpticalPathInput]
+  create_dependencies_peeringgroup: [CreatePeeringGroupInput]
+  update_dependencies_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependencies_peeringgroup: [DeletePeeringGroupInput]
+  create_dependencies_service: [CreateServiceInput]
+  update_dependencies_service: [UpdateServiceInput]
+  deleted_dependencies_service: [DeleteServiceInput]
+  create_used_by_organization: [CreateOrganizationInput]
+  update_used_by_organization: [UpdateOrganizationInput]
+  deleted_used_by_organization: [DeleteOrganizationInput]
+  create_used_by_contact: [CreateContactInput]
+  update_used_by_contact: [UpdateContactInput]
+  deleted_used_by_contact: [DeleteContactInput]
+  create_used_by_customer: [CreateCustomerInput]
+  update_used_by_customer: [UpdateCustomerInput]
+  deleted_used_by_customer: [DeleteCustomerInput]
+  create_used_by_enduser: [CreateEndUserInput]
+  update_used_by_enduser: [UpdateEndUserInput]
+  deleted_used_by_enduser: [DeleteEndUserInput]
+  create_used_by_provider: [CreateProviderInput]
+  update_used_by_provider: [UpdateProviderInput]
+  deleted_used_by_provider: [DeleteProviderInput]
+  create_used_by_siteowner: [CreateSiteOwnerInput]
+  update_used_by_siteowner: [UpdateSiteOwnerInput]
+  deleted_used_by_siteowner: [DeleteSiteOwnerInput]
+  create_used_by_peeringpartner: [CreatePeeringPartnerInput]
+  update_used_by_peeringpartner: [UpdatePeeringPartnerInput]
+  deleted_used_by_peeringpartner: [DeletePeeringPartnerInput]
+  create_dependents_group: [CreateGroupInput]
+  update_dependents_group: [UpdateGroupInput]
+  deleted_dependents_group: [DeleteGroupInput]
+  create_dependents_procedure: [CreateProcedureInput]
+  update_dependents_procedure: [UpdateProcedureInput]
+  deleted_dependents_procedure: [DeleteProcedureInput]
+  create_dependents_address: [CreateAddressInput]
+  update_dependents_address: [UpdateAddressInput]
+  deleted_dependents_address: [DeleteAddressInput]
+  create_dependents_phone: [CreatePhoneInput]
+  update_dependents_phone: [UpdatePhoneInput]
+  deleted_dependents_phone: [DeletePhoneInput]
+  create_dependents_email: [CreateEmailInput]
+  update_dependents_email: [UpdateEmailInput]
+  deleted_dependents_email: [DeleteEmailInput]
+  create_dependents_unit: [CreateUnitInput]
+  update_dependents_unit: [UpdateUnitInput]
+  deleted_dependents_unit: [DeleteUnitInput]
+  create_dependents_host: [CreateHostInput]
+  update_dependents_host: [EditHostInput]
+  deleted_dependents_host: [DeleteHostInput]
+  create_dependents_opticallink: [CreateOpticalLinkInput]
+  update_dependents_opticallink: [UpdateOpticalLinkInput]
+  deleted_dependents_opticallink: [DeleteOpticalLinkInput]
+  create_dependents_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_dependents_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_dependents_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_dependents_opticalpath: [CreateOpticalPathInput]
+  update_dependents_opticalpath: [UpdateOpticalPathInput]
+  deleted_dependents_opticalpath: [DeleteOpticalPathInput]
+  create_dependents_peeringgroup: [CreatePeeringGroupInput]
+  update_dependents_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_dependents_peeringgroup: [DeletePeeringGroupInput]
+  create_dependents_service: [CreateServiceInput]
+  update_dependents_service: [UpdateServiceInput]
+  deleted_dependents_service: [DeleteServiceInput]
+  create_provider_organization: CreateOrganizationInput
+  update_provider_organization: UpdateOrganizationInput
+  deleted_provider_organization: DeleteOrganizationInput
+  create_provider_contact: CreateContactInput
+  update_provider_contact: UpdateContactInput
+  deleted_provider_contact: DeleteContactInput
+  create_provider_customer: CreateCustomerInput
+  update_provider_customer: UpdateCustomerInput
+  deleted_provider_customer: DeleteCustomerInput
+  create_provider_enduser: CreateEndUserInput
+  update_provider_enduser: UpdateEndUserInput
+  deleted_provider_enduser: DeleteEndUserInput
+  create_provider_provider: CreateProviderInput
+  update_provider_provider: UpdateProviderInput
+  deleted_provider_provider: DeleteProviderInput
+  create_provider_siteowner: CreateSiteOwnerInput
+  update_provider_siteowner: UpdateSiteOwnerInput
+  deleted_provider_siteowner: DeleteSiteOwnerInput
+  create_provider_peeringpartner: CreatePeeringPartnerInput
+  update_provider_peeringpartner: UpdatePeeringPartnerInput
+  deleted_provider_peeringpartner: DeletePeeringPartnerInput
+  clientMutationId: String
+}
+
+type CompositeUnitMutationPayload {
+  created: CreateUnitPayload
+  updated: UpdateUnitPayload
+  unlinked: [DeleteRelationshipPayload]
+  part_of_port_created: CreatePortPayload
+  part_of_port_updated: UpdatePortPayload
+  part_of_port_deleted: DeletePortPayload
+  part_of_cable_created: CreateCablePayload
+  part_of_cable_updated: UpdateCablePayload
+  part_of_cable_deleted: DeleteCablePayload
+  part_of_router_created: CreateRouterPayload
+  part_of_router_updated: UpdateRouterPayload
+  part_of_router_deleted: DeleteRouterPayload
+  part_of_switch_created: CreateSwitchPayload
+  part_of_switch_updated: UpdateSwitchPayload
+  part_of_switch_deleted: DeleteSwitchPayload
+  part_of_firewall_created: CreateFirewallPayload
+  part_of_firewall_updated: UpdateFirewallPayload
+  part_of_firewall_deleted: DeleteFirewallPayload
+  part_of_externalequipment_created: CreateExternalEquipmentPayload
+  part_of_externalequipment_updated: UpdateExternalEquipmentPayload
+  part_of_externalequipment_deleted: DeleteExternalEquipmentPayload
+  part_of_opticalnode_created: CreateOpticalNodePayload
+  part_of_opticalnode_updated: UpdateOpticalNodePayload
+  part_of_opticalnode_deleted: DeleteOpticalNodePayload
+  part_of_odf_created: CreateOdfPayload
+  part_of_odf_updated: UpdateOdfPayload
+  part_of_odf_deleted: DeleteOdfPayload
+  part_of_opticalfilter_created: CreateOpticalFilterPayload
+  part_of_opticalfilter_updated: UpdateOpticalFilterPayload
+  part_of_opticalfilter_deleted: DeleteOpticalFilterPayload
+  dependencies_group_created: [CreateGroupPayload]
+  dependencies_group_updated: [UpdateGroupPayload]
+  dependencies_group_deleted: [DeleteGroupPayload]
+  dependencies_procedure_created: [CreateProcedurePayload]
+  dependencies_procedure_updated: [UpdateProcedurePayload]
+  dependencies_procedure_deleted: [DeleteProcedurePayload]
+  dependencies_address_created: [CreateAddressPayload]
+  dependencies_address_updated: [UpdateAddressPayload]
+  dependencies_address_deleted: [DeleteAddressPayload]
+  dependencies_phone_created: [CreatePhonePayload]
+  dependencies_phone_updated: [UpdatePhonePayload]
+  dependencies_phone_deleted: [DeletePhonePayload]
+  dependencies_email_created: [CreateEmailPayload]
+  dependencies_email_updated: [UpdateEmailPayload]
+  dependencies_email_deleted: [DeleteEmailPayload]
+  dependencies_unit_created: [CreateUnitPayload]
+  dependencies_unit_updated: [UpdateUnitPayload]
+  dependencies_unit_deleted: [DeleteUnitPayload]
+  dependencies_port_created: [CreatePortPayload]
+  dependencies_port_updated: [UpdatePortPayload]
+  dependencies_port_deleted: [DeletePortPayload]
+  dependencies_cable_created: [CreateCablePayload]
+  dependencies_cable_updated: [UpdateCablePayload]
+  dependencies_cable_deleted: [DeleteCablePayload]
+  dependencies_host_created: [CreateHostPayload]
+  dependencies_host_updated: [EditHostPayload]
+  dependencies_host_deleted: [DeleteHostPayload]
+  dependencies_router_created: [CreateRouterPayload]
+  dependencies_router_updated: [UpdateRouterPayload]
+  dependencies_router_deleted: [DeleteRouterPayload]
+  dependencies_switch_created: [CreateSwitchPayload]
+  dependencies_switch_updated: [UpdateSwitchPayload]
+  dependencies_switch_deleted: [DeleteSwitchPayload]
+  dependencies_firewall_created: [CreateFirewallPayload]
+  dependencies_firewall_updated: [UpdateFirewallPayload]
+  dependencies_firewall_deleted: [DeleteFirewallPayload]
+  dependencies_externalequipment_created: [CreateExternalEquipmentPayload]
+  dependencies_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  dependencies_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  dependencies_opticalnode_created: [CreateOpticalNodePayload]
+  dependencies_opticalnode_updated: [UpdateOpticalNodePayload]
+  dependencies_opticalnode_deleted: [DeleteOpticalNodePayload]
+  dependencies_odf_created: [CreateOdfPayload]
+  dependencies_odf_updated: [UpdateOdfPayload]
+  dependencies_odf_deleted: [DeleteOdfPayload]
+  dependencies_opticalfilter_created: [CreateOpticalFilterPayload]
+  dependencies_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  dependencies_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  dependencies_opticallink_created: [CreateOpticalLinkPayload]
+  dependencies_opticallink_updated: [UpdateOpticalLinkPayload]
+  dependencies_opticallink_deleted: [DeleteOpticalLinkPayload]
+  dependencies_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  dependencies_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  dependencies_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependencies_opticalpath_created: [CreateOpticalPathPayload]
+  dependencies_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependencies_opticalpath_deleted: [DeleteOpticalPathPayload]
+  dependencies_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependencies_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependencies_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependencies_service_created: [CreateServicePayload]
+  dependencies_service_updated: [UpdateServicePayload]
+  dependencies_service_deleted: [DeleteServicePayload]
+  used_by_organization_created: [CreateOrganizationPayload]
+  used_by_organization_updated: [UpdateOrganizationPayload]
+  used_by_organization_deleted: [DeleteOrganizationPayload]
+  used_by_contact_created: [CreateContactPayload]
+  used_by_contact_updated: [UpdateContactPayload]
+  used_by_contact_deleted: [DeleteContactPayload]
+  used_by_customer_created: [CreateCustomerPayload]
+  used_by_customer_updated: [UpdateCustomerPayload]
+  used_by_customer_deleted: [DeleteCustomerPayload]
+  used_by_enduser_created: [CreateEndUserPayload]
+  used_by_enduser_updated: [UpdateEndUserPayload]
+  used_by_enduser_deleted: [DeleteEndUserPayload]
+  used_by_provider_created: [CreateProviderPayload]
+  used_by_provider_updated: [UpdateProviderPayload]
+  used_by_provider_deleted: [DeleteProviderPayload]
+  used_by_siteowner_created: [CreateSiteOwnerPayload]
+  used_by_siteowner_updated: [UpdateSiteOwnerPayload]
+  used_by_siteowner_deleted: [DeleteSiteOwnerPayload]
+  used_by_peeringpartner_created: [CreatePeeringPartnerPayload]
+  used_by_peeringpartner_updated: [UpdatePeeringPartnerPayload]
+  used_by_peeringpartner_deleted: [DeletePeeringPartnerPayload]
+  dependents_group_created: [CreateGroupPayload]
+  dependents_group_updated: [UpdateGroupPayload]
+  dependents_group_deleted: [DeleteGroupPayload]
+  dependents_procedure_created: [CreateProcedurePayload]
+  dependents_procedure_updated: [UpdateProcedurePayload]
+  dependents_procedure_deleted: [DeleteProcedurePayload]
+  dependents_address_created: [CreateAddressPayload]
+  dependents_address_updated: [UpdateAddressPayload]
+  dependents_address_deleted: [DeleteAddressPayload]
+  dependents_phone_created: [CreatePhonePayload]
+  dependents_phone_updated: [UpdatePhonePayload]
+  dependents_phone_deleted: [DeletePhonePayload]
+  dependents_email_created: [CreateEmailPayload]
+  dependents_email_updated: [UpdateEmailPayload]
+  dependents_email_deleted: [DeleteEmailPayload]
+  dependents_unit_created: [CreateUnitPayload]
+  dependents_unit_updated: [UpdateUnitPayload]
+  dependents_unit_deleted: [DeleteUnitPayload]
+  dependents_host_created: [CreateHostPayload]
+  dependents_host_updated: [EditHostPayload]
+  dependents_host_deleted: [DeleteHostPayload]
+  dependents_opticallink_created: [CreateOpticalLinkPayload]
+  dependents_opticallink_updated: [UpdateOpticalLinkPayload]
+  dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
+  dependents_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  dependents_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  dependents_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  dependents_opticalpath_created: [CreateOpticalPathPayload]
+  dependents_opticalpath_updated: [UpdateOpticalPathPayload]
+  dependents_opticalpath_deleted: [DeleteOpticalPathPayload]
+  dependents_peeringgroup_created: [CreatePeeringGroupPayload]
+  dependents_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  dependents_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  dependents_service_created: [CreateServicePayload]
+  dependents_service_updated: [UpdateServicePayload]
+  dependents_service_deleted: [DeleteServicePayload]
+  provider_organization_created: CreateOrganizationPayload
+  provider_organization_updated: UpdateOrganizationPayload
+  provider_organization_deleted: DeleteOrganizationPayload
+  provider_contact_created: CreateContactPayload
+  provider_contact_updated: UpdateContactPayload
+  provider_contact_deleted: DeleteContactPayload
+  provider_customer_created: CreateCustomerPayload
+  provider_customer_updated: UpdateCustomerPayload
+  provider_customer_deleted: DeleteCustomerPayload
+  provider_enduser_created: CreateEndUserPayload
+  provider_enduser_updated: UpdateEndUserPayload
+  provider_enduser_deleted: DeleteEndUserPayload
+  provider_provider_created: CreateProviderPayload
+  provider_provider_updated: UpdateProviderPayload
+  provider_provider_deleted: DeleteProviderPayload
+  provider_siteowner_created: CreateSiteOwnerPayload
+  provider_siteowner_updated: UpdateSiteOwnerPayload
+  provider_siteowner_deleted: DeleteSiteOwnerPayload
+  provider_peeringpartner_created: CreatePeeringPartnerPayload
+  provider_peeringpartner_updated: UpdatePeeringPartnerPayload
+  provider_peeringpartner_deleted: DeletePeeringPartnerPayload
   clientMutationId: String
 }
 
@@ -3746,7 +5120,7 @@ type Contact implements NINode & Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
@@ -4567,6 +5941,34 @@ type CreateRouterPayload {
   clientMutationId: String
 }
 
+input CreateServiceInput {
+  name: String
+  service_class: String
+  service_type: ChoiceScalar!
+  project_end_date: Date
+  decommissioned_date: Date
+  operational_state: ChoiceScalar!
+  description: String
+  responsible_group: ChoiceScalar
+  support_group: ChoiceScalar
+  ncs_service_name: String
+  vpn_type: String
+  vlan: String
+  vrf_target: String
+  route_distinguisher: String
+  contract_number: String
+  relationship_provider: ChoiceScalar
+  relationship_user: Int
+  relationship_depends_on: Int
+  clientMutationId: String
+}
+
+type CreateServicePayload {
+  errors: [ErrorType]
+  service: Service
+  clientMutationId: String
+}
+
 input CreateSiteInput {
   name: String!
   country: ChoiceScalar
@@ -4641,6 +6043,20 @@ type CreateSwitchPayload {
   clientMutationId: String
 }
 
+input CreateUnitInput {
+  name: String!
+  description: String
+  vlan: String
+  ip_address: String
+  clientMutationId: String
+}
+
+type CreateUnitPayload {
+  errors: [ErrorType]
+  unit: Unit
+  clientMutationId: String
+}
+
 type Customer implements NINode & Relation {
   handle_id: ID!
   node_name: String!
@@ -4656,7 +6072,7 @@ type Customer implements NINode & Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
@@ -5147,6 +6563,17 @@ type DeleteRouterPayload {
   clientMutationId: String
 }
 
+input DeleteServiceInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteServicePayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
 input DeleteSiteInput {
   id: ID!
   clientMutationId: String
@@ -5175,6 +6602,17 @@ input DeleteSwitchInput {
 }
 
 type DeleteSwitchPayload {
+  errors: [ErrorType]
+  success: Boolean!
+  clientMutationId: String
+}
+
+input DeleteUnitInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteUnitPayload {
   errors: [ErrorType]
   success: Boolean!
   clientMutationId: String
@@ -5249,8 +6687,10 @@ type Email implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -5402,7 +6842,7 @@ type EndUser implements NINode & Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
@@ -5569,6 +7009,7 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   location: Location
   has: [Physical]
   part_of: Logical
@@ -5747,6 +7188,7 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   location: Location
   has: [Physical]
   part_of: Logical
@@ -6195,8 +7637,10 @@ type Group implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -6350,8 +7794,10 @@ type Host implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -6685,7 +8131,7 @@ type HostUser implements NINode & Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
@@ -6859,14 +8305,50 @@ interface Location {
   responsible_for: Relation
 }
 
+type LocationConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [LocationEdge]!
+}
+
+"""A Relay edge containing a `Location` and its cursor."""
+type LocationEdge {
+  """The item at the end of the edge"""
+  node: Location
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 interface Logical {
   """The ID of the object."""
   id: ID!
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
+}
+
+type LogicalConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [LogicalEdge]!
+}
+
+"""A Relay edge containing a `Logical` and its cursor."""
+type LogicalEdge {
+  """The item at the end of the edge"""
+  node: Logical
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 enum MetaType {
@@ -6874,6 +8356,16 @@ enum MetaType {
   Relation
   Physical
   Location
+}
+
+input MetatypeFilter {
+  name_contains: String
+  type_in: [String]
+}
+
+enum MetatypeOrder {
+  name_ASC
+  name_DESC
 }
 
 type Mutation {
@@ -6928,6 +8420,10 @@ type Mutation {
   update_switch(input: UpdateSwitchInput!): UpdateSwitchPayload
   delete_switch(input: DeleteSwitchInput!): DeleteSwitchPayload
   composite_switch(input: CompositeSwitchMutationInput!): CompositeSwitchMutationPayload
+  create_unit(input: CreateUnitInput!): CreateUnitPayload
+  update_unit(input: UpdateUnitInput!): UpdateUnitPayload
+  delete_unit(input: DeleteUnitInput!): DeleteUnitPayload
+  composite_unit(input: CompositeUnitMutationInput!): CompositeUnitMutationPayload
   update_router(input: UpdateRouterInput!): UpdateRouterPayload
   delete_router(input: DeleteRouterInput!): DeleteRouterPayload
   composite_router(input: CompositeRouterMutationInput!): CompositeRouterMutationPayload
@@ -6984,6 +8480,10 @@ type Mutation {
   update_rack(input: UpdateRackInput!): UpdateRackPayload
   delete_rack(input: DeleteRackInput!): DeleteRackPayload
   composite_rack(input: CompositeRackMutationInput!): CompositeRackMutationPayload
+  create_service(input: CreateServiceInput!): CreateServicePayload
+  update_service(input: UpdateServiceInput!): UpdateServicePayload
+  delete_service(input: DeleteServiceInput!): DeleteServicePayload
+  composite_service(input: CompositeServiceMutationInput!): CompositeServiceMutationPayload
   create_comment(input: CreateCommentInput!): CreateCommentPayload
   update_comment(input: UpdateCommentInput!): UpdateCommentPayload
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
@@ -7116,6 +8616,7 @@ type ODF implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   location: Location
   has: [Physical]
   part_of: Logical
@@ -7322,6 +8823,7 @@ type OpticalFilter implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   location: Location
   has: [Physical]
   part_of: Logical
@@ -7528,8 +9030,10 @@ type OpticalLink implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Provider
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -7538,7 +9042,6 @@ type OpticalLink implements NINode & Logical & PhysicalLogical {
   link_type: Choice
   interface_type: Choice
   operational_state: Choice
-  provider: Provider
   ports: [Port]
 }
 
@@ -7724,15 +9227,16 @@ type OpticalMultiplexSection implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Provider
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
   description: String
   operational_state: Choice
-  provider: Provider
 }
 
 type opticalMultiplexSectionConnection {
@@ -7885,6 +9389,7 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   location: Location
   has: [Physical]
   part_of: Logical
@@ -8097,8 +9602,10 @@ type OpticalPath implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Provider
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -8109,7 +9616,6 @@ type OpticalPath implements NINode & Logical & PhysicalLogical {
   wavelength: Int
   operational_state: Choice
   enrs: JSON
-  provider: Provider
 }
 
 type opticalPathConnection {
@@ -8305,7 +9811,7 @@ type Organization implements NINode & Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
@@ -8649,12 +10155,15 @@ type PeeringGroup implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
+  ip_address: String
 }
 
 type peeringGroupConnection {
@@ -8694,6 +10203,20 @@ input PeeringGroupNestedFilter {
   name_not_ends_with: String
   name_in: [String!]
   name_not_in: [String!]
+  ip_address: String
+  ip_address_not: String
+  ip_address_lt: String
+  ip_address_lte: String
+  ip_address_gt: String
+  ip_address_gte: String
+  ip_address_contains: String
+  ip_address_not_contains: String
+  ip_address_starts_with: String
+  ip_address_not_starts_with: String
+  ip_address_ends_with: String
+  ip_address_not_ends_with: String
+  ip_address_in: [String!]
+  ip_address_not_in: [String!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -8752,6 +10275,8 @@ input PeeringGroupNestedFilter {
 enum PeeringGroupOrderBy {
   name_ASC
   name_DESC
+  ip_address_ASC
+  ip_address_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -8775,7 +10300,7 @@ type PeeringPartner implements NINode & Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
@@ -8784,6 +10309,7 @@ type PeeringPartner implements NINode & Relation {
   outgoing: [DictRelationType]
   comments: [CommentType]
   peering_link: String
+  ip_address: String
   as_number: String
 }
 
@@ -8852,6 +10378,20 @@ input PeeringPartnerNestedFilter {
   peering_link_not_ends_with: String
   peering_link_in: [String!]
   peering_link_not_in: [String!]
+  ip_address: String
+  ip_address_not: String
+  ip_address_lt: String
+  ip_address_lte: String
+  ip_address_gt: String
+  ip_address_gte: String
+  ip_address_contains: String
+  ip_address_not_contains: String
+  ip_address_starts_with: String
+  ip_address_not_starts_with: String
+  ip_address_ends_with: String
+  ip_address_not_ends_with: String
+  ip_address_in: [String!]
+  ip_address_not_in: [String!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -8914,6 +10454,8 @@ enum PeeringPartnerOrderBy {
   as_number_DESC
   peering_link_ASC
   peering_link_DESC
+  ip_address_ASC
+  ip_address_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -8931,8 +10473,10 @@ type Phone implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -9075,11 +10619,29 @@ interface Physical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   location: Location
   has: [Physical]
   part_of: Logical
   parent: [PhysicalLogical]
   owner: Relation
+}
+
+type PhysicalConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [PhysicalEdge]!
+}
+
+"""A Relay edge containing a `Physical` and its cursor."""
+type PhysicalEdge {
+  """The item at the end of the edge"""
+  node: Physical
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 interface PhysicalLogical {
@@ -9088,6 +10650,24 @@ interface PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
+}
+
+type PhysicalLogicalConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [PhysicalLogicalEdge]!
+}
+
+"""A Relay edge containing a `PhysicalLogical` and its cursor."""
+type PhysicalLogicalEdge {
+  """The item at the end of the edge"""
+  node: PhysicalLogical
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 type PlainGroup implements Node {
@@ -9110,6 +10690,7 @@ type Port implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   location: Location
   has: [Physical]
   part_of: Logical
@@ -9292,8 +10873,10 @@ type Procedure implements NINode & Logical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   part_of: Physical
   dependencies: [PhysicalLogical]
+  used_by: [Relation]
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -9435,7 +11018,7 @@ type Provider implements NINode & Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
@@ -9599,6 +11182,7 @@ type Query {
   getHostOwnerTypes: [TypeInfo]
   getPlainGroups: [PlainGroup]
   getOpticalPathDependencyTypes: [TypeInfo]
+  getServiceTypes: [ServiceType]
   all_groups: [Group]
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
   getGroupById(id: ID): Group
@@ -9659,6 +11243,9 @@ type Query {
   all_odfs: [ODF]
   odfs(filter: ODFFilter, orderBy: ODFOrderBy, before: String, after: String, first: Int, last: Int): odfConnection
   getODFById(id: ID): ODF
+  all_units: [Unit]
+  units(filter: UnitFilter, orderBy: UnitOrderBy, before: String, after: String, first: Int, last: Int): unitConnection
+  getUnitById(id: ID): Unit
   all_opticalfilters: [OpticalFilter]
   opticalFilters(filter: OpticalFilterFilter, orderBy: OpticalFilterOrderBy, before: String, after: String, first: Int, last: Int): opticalFilterConnection
   getOpticalFilterById(id: ID): OpticalFilter
@@ -9689,8 +11276,16 @@ type Query {
   all_hostusers: [HostUser]
   hostUsers(filter: HostUserFilter, orderBy: HostUserOrderBy, before: String, after: String, first: Int, last: Int): hostUserConnection
   getHostUserById(id: ID): HostUser
+  all_services: [Service]
+  services(filter: ServiceFilter, orderBy: ServiceOrderBy, before: String, after: String, first: Int, last: Int): serviceConnection
+  getServiceById(id: ID): Service
   search_generalsearch(filter: GenericFilter, before: String, after: String, first: Int, last: Int): GeneralSearchConnection
   search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
+  physicallogicals(filter: MetatypeFilter, orderBy: MetatypeOrder, before: String, after: String, first: Int, last: Int): PhysicalLogicalConnection
+  logicals(filter: MetatypeFilter, orderBy: MetatypeOrder, before: String, after: String, first: Int, last: Int): LogicalConnection
+  physicals(filter: MetatypeFilter, orderBy: MetatypeOrder, before: String, after: String, first: Int, last: Int): PhysicalConnection
+  relations(filter: MetatypeFilter, orderBy: MetatypeOrder, before: String, after: String, first: Int, last: Int): RelationConnection
+  locations(filter: MetatypeFilter, orderBy: MetatypeOrder, before: String, after: String, first: Int, last: Int): LocationConnection
 }
 
 type Rack implements NINode & Location {
@@ -9884,10 +11479,27 @@ interface Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
+}
+
+type RelationConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [RelationEdge]!
+}
+
+"""A Relay edge containing a `Relation` and its cursor."""
+type RelationEdge {
+  """The item at the end of the edge"""
+  node: Relation
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 """This class represents a Role in the relational db"""
@@ -10126,6 +11738,7 @@ type Router implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Relation
   location: Location
   has: [Physical]
   part_of: Logical
@@ -10338,6 +11951,343 @@ enum RouterOrderBy {
   modified_DESC
   handle_id_ASC
   handle_id_DESC
+}
+
+type Service implements NINode & Logical & PhysicalLogical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  dependents: [Logical]
+  provider: Relation
+  part_of: Physical
+  dependencies: [PhysicalLogical]
+  used_by: [Relation]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  service_type: ServiceType
+  service_class: ServiceClass
+  description: String
+  operational_state: Choice
+  responsible_group: Group
+  support_group: Group
+  project_end_date: DateTime
+  decommissioned_date: DateTime
+  ncs_service_name: String
+  vpn_type: String
+  vlan: String
+  vrf_target: String
+  route_distinguisher: String
+  contract_number: String
+  customers: [Customer]
+  end_users: [EndUser]
+}
+
+"""This class represents a ServiceType for service's mutations"""
+type ServiceClass implements Node {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  servicetype_set(before: String, after: String, first: Int, last: Int): ServiceTypeConnection!
+}
+
+type serviceConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [serviceEdge]!
+}
+
+"""A Relay edge containing a `service` and its cursor."""
+type serviceEdge {
+  """The item at the end of the edge"""
+  node: Service
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input ServiceFilter {
+  AND: [ServiceNestedFilter!]
+  OR: [ServiceNestedFilter!]
+}
+
+input ServiceNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  service_type: String
+  service_type_not: String
+  service_type_lt: String
+  service_type_lte: String
+  service_type_gt: String
+  service_type_gte: String
+  service_type_contains: String
+  service_type_not_contains: String
+  service_type_starts_with: String
+  service_type_not_starts_with: String
+  service_type_ends_with: String
+  service_type_not_ends_with: String
+  service_type_in: [String!]
+  service_type_not_in: [String!]
+  service_class: String
+  service_class_not: String
+  service_class_lt: String
+  service_class_lte: String
+  service_class_gt: String
+  service_class_gte: String
+  service_class_contains: String
+  service_class_not_contains: String
+  service_class_starts_with: String
+  service_class_not_starts_with: String
+  service_class_ends_with: String
+  service_class_not_ends_with: String
+  service_class_in: [String!]
+  service_class_not_in: [String!]
+  operational_state: ChoiceScalar
+  operational_state_not: ChoiceScalar
+  operational_state_lt: ChoiceScalar
+  operational_state_lte: ChoiceScalar
+  operational_state_gt: ChoiceScalar
+  operational_state_gte: ChoiceScalar
+  operational_state_contains: ChoiceScalar
+  operational_state_not_contains: ChoiceScalar
+  operational_state_starts_with: ChoiceScalar
+  operational_state_not_starts_with: ChoiceScalar
+  operational_state_ends_with: ChoiceScalar
+  operational_state_not_ends_with: ChoiceScalar
+  operational_state_in: [ChoiceScalar!]
+  operational_state_not_in: [ChoiceScalar!]
+  ncs_service_name: String
+  ncs_service_name_not: String
+  ncs_service_name_lt: String
+  ncs_service_name_lte: String
+  ncs_service_name_gt: String
+  ncs_service_name_gte: String
+  ncs_service_name_contains: String
+  ncs_service_name_not_contains: String
+  ncs_service_name_starts_with: String
+  ncs_service_name_not_starts_with: String
+  ncs_service_name_ends_with: String
+  ncs_service_name_not_ends_with: String
+  ncs_service_name_in: [String!]
+  ncs_service_name_not_in: [String!]
+  vpn_type: String
+  vpn_type_not: String
+  vpn_type_lt: String
+  vpn_type_lte: String
+  vpn_type_gt: String
+  vpn_type_gte: String
+  vpn_type_contains: String
+  vpn_type_not_contains: String
+  vpn_type_starts_with: String
+  vpn_type_not_starts_with: String
+  vpn_type_ends_with: String
+  vpn_type_not_ends_with: String
+  vpn_type_in: [String!]
+  vpn_type_not_in: [String!]
+  vlan: String
+  vlan_not: String
+  vlan_lt: String
+  vlan_lte: String
+  vlan_gt: String
+  vlan_gte: String
+  vlan_contains: String
+  vlan_not_contains: String
+  vlan_starts_with: String
+  vlan_not_starts_with: String
+  vlan_ends_with: String
+  vlan_not_ends_with: String
+  vlan_in: [String!]
+  vlan_not_in: [String!]
+  vrf_target: String
+  vrf_target_not: String
+  vrf_target_lt: String
+  vrf_target_lte: String
+  vrf_target_gt: String
+  vrf_target_gte: String
+  vrf_target_contains: String
+  vrf_target_not_contains: String
+  vrf_target_starts_with: String
+  vrf_target_not_starts_with: String
+  vrf_target_ends_with: String
+  vrf_target_not_ends_with: String
+  vrf_target_in: [String!]
+  vrf_target_not_in: [String!]
+  route_distinguisher: String
+  route_distinguisher_not: String
+  route_distinguisher_lt: String
+  route_distinguisher_lte: String
+  route_distinguisher_gt: String
+  route_distinguisher_gte: String
+  route_distinguisher_contains: String
+  route_distinguisher_not_contains: String
+  route_distinguisher_starts_with: String
+  route_distinguisher_not_starts_with: String
+  route_distinguisher_ends_with: String
+  route_distinguisher_not_ends_with: String
+  route_distinguisher_in: [String!]
+  route_distinguisher_not_in: [String!]
+  contract_number: String
+  contract_number_not: String
+  contract_number_lt: String
+  contract_number_lte: String
+  contract_number_gt: String
+  contract_number_gte: String
+  contract_number_contains: String
+  contract_number_not_contains: String
+  contract_number_starts_with: String
+  contract_number_not_starts_with: String
+  contract_number_ends_with: String
+  contract_number_not_ends_with: String
+  contract_number_in: [String!]
+  contract_number_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum ServiceOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  service_type_ASC
+  service_type_DESC
+  service_class_ASC
+  service_class_DESC
+  operational_state_ASC
+  operational_state_DESC
+  ncs_service_name_ASC
+  ncs_service_name_DESC
+  vpn_type_ASC
+  vpn_type_DESC
+  vlan_ASC
+  vlan_DESC
+  vrf_target_ASC
+  vrf_target_DESC
+  route_distinguisher_ASC
+  route_distinguisher_DESC
+  contract_number_ASC
+  contract_number_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
+}
+
+"""This class represents a ServiceType for service's mutations"""
+type ServiceType implements Node {
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  service_class: ServiceClass!
+}
+
+type ServiceTypeConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [ServiceTypeEdge]!
+}
+
+"""A Relay edge containing a `ServiceType` and its cursor."""
+type ServiceTypeEdge {
+  """The item at the end of the edge"""
+  node: ServiceType
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 type Site implements NINode & Location {
@@ -10622,7 +12572,7 @@ type SiteOwner implements NINode & Relation {
   name: String!
   relation_id: Int
   with_same_name: [Relation]
-  uses: Logical
+  uses: [Logical]
   provides: NINode
   owns: [Physical]
   responsible_for: Location
@@ -10784,6 +12734,7 @@ type Switch implements NINode & Physical & PhysicalLogical {
   name: String!
   relation_id: Int
   dependents: [Logical]
+  provider: Provider
   location: Location
   has: [Physical]
   part_of: Logical
@@ -10806,7 +12757,6 @@ type Switch implements NINode & Physical & PhysicalLogical {
   rack_units: Int
   rack_position: Int
   rack_back: Boolean
-  provider: Provider
   max_number_of_ports: Int
   ports: [Port]
   services_locked: Boolean
@@ -11099,6 +13049,185 @@ type TypeInfo {
   connection_name: String!
   byid_name: String!
   all_name: String!
+}
+
+type Unit implements NINode & Logical & PhysicalLogical {
+  handle_id: ID!
+  node_name: String!
+  node_type: NINodeType!
+  node_meta_type: NodeHandleNodeMetaType!
+  creator: User
+  created: DateTime!
+  modifier: User
+  modified: DateTime!
+
+  """The ID of the object."""
+  id: ID!
+  name: String!
+  relation_id: Int
+  dependents: [Logical]
+  provider: Relation
+  part_of: Physical
+  dependencies: [PhysicalLogical]
+  used_by: [Relation]
+  nidata: [DictEntryType]
+  incoming: [DictRelationType]
+  outgoing: [DictRelationType]
+  comments: [CommentType]
+  ip_address: String
+  description: String
+  vlan: String
+}
+
+type unitConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [unitEdge]!
+}
+
+"""A Relay edge containing a `unit` and its cursor."""
+type unitEdge {
+  """The item at the end of the edge"""
+  node: Unit
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input UnitFilter {
+  AND: [UnitNestedFilter!]
+  OR: [UnitNestedFilter!]
+}
+
+input UnitNestedFilter {
+  name: String
+  name_not: String
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_in: [String!]
+  name_not_in: [String!]
+  description: String
+  description_not: String
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_in: [String!]
+  description_not_in: [String!]
+  vlan: String
+  vlan_not: String
+  vlan_lt: String
+  vlan_lte: String
+  vlan_gt: String
+  vlan_gte: String
+  vlan_contains: String
+  vlan_not_contains: String
+  vlan_starts_with: String
+  vlan_not_starts_with: String
+  vlan_ends_with: String
+  vlan_not_ends_with: String
+  vlan_in: [String!]
+  vlan_not_in: [String!]
+  ip_address: String
+  ip_address_not: String
+  ip_address_lt: String
+  ip_address_lte: String
+  ip_address_gt: String
+  ip_address_gte: String
+  ip_address_contains: String
+  ip_address_not_contains: String
+  ip_address_starts_with: String
+  ip_address_not_starts_with: String
+  ip_address_ends_with: String
+  ip_address_not_ends_with: String
+  ip_address_in: [String!]
+  ip_address_not_in: [String!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  created: DateTime
+  created_not: DateTime
+  created_lt: DateTime
+  created_lte: DateTime
+  created_gt: DateTime
+  created_gte: DateTime
+  created_in: [DateTime!]
+  created_not_in: [DateTime!]
+  modified: DateTime
+  modified_not: DateTime
+  modified_lt: DateTime
+  modified_lte: DateTime
+  modified_gt: DateTime
+  modified_gte: DateTime
+  modified_in: [DateTime!]
+  modified_not_in: [DateTime!]
+  creator: UserInputType
+  creator_not: UserInputType
+  creator_lt: UserInputType
+  creator_lte: UserInputType
+  creator_gt: UserInputType
+  creator_gte: UserInputType
+  creator_contains: UserInputType
+  creator_not_contains: UserInputType
+  creator_starts_with: UserInputType
+  creator_not_starts_with: UserInputType
+  creator_ends_with: UserInputType
+  creator_not_ends_with: UserInputType
+  creator_in: [UserInputType!]
+  creator_not_in: [UserInputType!]
+  modifier: UserInputType
+  modifier_not: UserInputType
+  modifier_lt: UserInputType
+  modifier_lte: UserInputType
+  modifier_gt: UserInputType
+  modifier_gte: UserInputType
+  modifier_contains: UserInputType
+  modifier_not_contains: UserInputType
+  modifier_starts_with: UserInputType
+  modifier_not_starts_with: UserInputType
+  modifier_ends_with: UserInputType
+  modifier_not_ends_with: UserInputType
+  modifier_in: [UserInputType!]
+  modifier_not_in: [UserInputType!]
+}
+
+"""An enumeration."""
+enum UnitOrderBy {
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  vlan_ASC
+  vlan_DESC
+  ip_address_ASC
+  ip_address_DESC
+  created_ASC
+  created_DESC
+  modified_ASC
+  modified_DESC
+  handle_id_ASC
+  handle_id_DESC
 }
 
 input UpdateAddressInput {
@@ -11571,6 +13700,35 @@ type UpdateRouterPayload {
   clientMutationId: String
 }
 
+input UpdateServiceInput {
+  name: String
+  service_class: String
+  service_type: ChoiceScalar!
+  project_end_date: Date
+  decommissioned_date: Date
+  operational_state: ChoiceScalar!
+  description: String
+  responsible_group: ChoiceScalar
+  support_group: ChoiceScalar
+  ncs_service_name: String
+  vpn_type: String
+  vlan: String
+  vrf_target: String
+  route_distinguisher: String
+  contract_number: String
+  relationship_provider: ChoiceScalar
+  relationship_user: Int
+  relationship_depends_on: Int
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateServicePayload {
+  errors: [ErrorType]
+  service: Service
+  clientMutationId: String
+}
+
 input UpdateSiteInput {
   name: String!
   country: ChoiceScalar
@@ -11644,6 +13802,21 @@ input UpdateSwitchInput {
 type UpdateSwitchPayload {
   errors: [ErrorType]
   switch: Switch
+  clientMutationId: String
+}
+
+input UpdateUnitInput {
+  name: String!
+  description: String
+  vlan: String
+  ip_address: String
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateUnitPayload {
+  errors: [ErrorType]
+  unit: Unit
   clientMutationId: String
 }
 

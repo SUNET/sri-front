@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { updateProfile } from '../actions/App';
 
 import { Field, reduxForm } from 'redux-form';
-import { ListGroup, Form, Row, Col, Image } from 'react-bootstrap';
+import { ListGroup, Form, Row, Col } from 'react-bootstrap';
 
 import FieldInput from './FieldInput';
 
@@ -56,9 +56,7 @@ class ProfileForm extends React.Component {
                 <div className="profile-section text-center">
                   <div>
                     <h2>{t('profile-settings.profile-picture')}</h2>
-                    <div className="profile-picture">
-                      <Image src={require('../static/img/profile.png')} roundedCircle img-fluid="true" />
-                    </div>
+                    <div className="profile-picture"></div>
                   </div>
                   <div className="mt-3">
                     <h2>{t('profile-settings.personal-info')}</h2>
