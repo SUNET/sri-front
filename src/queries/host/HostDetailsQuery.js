@@ -43,6 +43,10 @@ const HostDetailsQuery = graphql`
           }
         }
       }
+      location {
+        id
+        name
+      }
       responsible_group {
         id
         name

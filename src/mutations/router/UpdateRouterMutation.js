@@ -35,6 +35,7 @@ export default function UpdateRouterMutation(router, form) {
         rack_units: router.rack_units,
         rack_position: router.rack_position,
         rack_back: router.rack_back,
+        relationship_location: router.location && router.location.length ? router.location[0].id : null,
       },
       update_has_port: ports.toSaved,
       unlink_subinputs: ports.toUnlink,

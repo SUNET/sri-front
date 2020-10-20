@@ -26,6 +26,10 @@ const mutation = graphql`
           rack_units
           rack_position
           rack_back
+          location {
+            id
+            name
+          }
           max_number_of_ports
           ports {
             id
@@ -56,6 +60,7 @@ export default function UpdateODFMutation(ODF, form) {
         rack_units: ODF.rack_units,
         rack_position: ODF.rack_position,
         rack_back: ODF.rack_back,
+        relationship_location: ODF.location && ODF.location.length ? ODF.location[0].id : null,
       },
       update_has_port: ports.toSaved,
       unlink_subinputs: ports.toUnlink,

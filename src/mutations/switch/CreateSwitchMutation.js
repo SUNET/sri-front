@@ -48,6 +48,8 @@ function CreateSwitchMutation(switchData, form) {
         responsible_group: switchData.responsible_group_id,
 
         max_number_of_ports: switchData.max_number_of_ports,
+
+        relationship_location: switchData.location && switchData.location.length ? switchData.location[0].id : null,
       },
       update_subinputs: ports.toSaved,
       unlink_subinputs: ports.toUnlink,
