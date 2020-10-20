@@ -83,6 +83,10 @@ const ODFUpdateFragment = createRefetchContainer(
         id
         name
         description
+        location {
+          id
+          name
+        }
         comments {
           id
           user {

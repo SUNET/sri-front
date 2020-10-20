@@ -54,6 +54,10 @@ const mutation = graphql`
               }
             }
           }
+          location {
+            id
+            name
+          }
           responsible_group {
             id
             name
@@ -98,6 +102,7 @@ function CreateHostMutation(host, form) {
         os_version: host.os_version,
         contract_number: host.contract_number,
         relationship_owner: ownerToSaved ? ownerToSaved.id : '',
+        relationship_location: host.location && host.location.length ? host.location[0].id : null,
       },
     },
   };

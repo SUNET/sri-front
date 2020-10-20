@@ -162,6 +162,7 @@ class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
     const indexRow = this.getIndexRow(organization.id);
     const content = editable ? (
       <Dropdown
+        t={t}
         className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
         type="combo_list"
         name="roles"
@@ -227,6 +228,7 @@ class FieldArrayOrganizationsContact extends _BasicFieldArrayParentClass {
     const content = editable ? (
       <Form.Group style={isBrowser ? { width: '170px' } : {}}>
         <Dropdown
+          t={t}
           className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
           emptyLabel=""
           type="combo_list"

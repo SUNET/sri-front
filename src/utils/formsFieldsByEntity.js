@@ -17,6 +17,7 @@ const RACK_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_position' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
+  { type: FIELD_TYPES.OBJ_TO_LIST, name: 'location' },
 ];
 const BASIC_OPERATIVE_SYSTEM = [
   { type: FIELD_TYPES.SINGLE, name: 'os' },

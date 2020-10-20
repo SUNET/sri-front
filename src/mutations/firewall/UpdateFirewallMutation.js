@@ -29,6 +29,7 @@ export default function UpdateFirewallMutation(firewall, form) {
   const ports = generatePortForInput(firewall.ports);
   const ownerToSaved = firewall.owner ? firewall.owner.find((o) => o.status === SAVED) : [];
   const ownerToRemove = firewall.owner ? firewall.owner.find((o) => o.status === REMOVE) : [];
+
   const variables = {
     input: {
       update_input: {
@@ -60,6 +61,8 @@ export default function UpdateFirewallMutation(firewall, form) {
         rack_back: firewall.rack_back,
 
         relationship_owner: ownerToSaved ? ownerToSaved.id : '',
+
+        relationship_location: firewall.location && firewall.location.length ? firewall.location[0].id : null,
       },
       update_has_port: ports.toSaved,
       unlink_subinputs: ports.toUnlink,

@@ -229,6 +229,7 @@ class _ContactFormParentClass extends React.Component {
         presentContent: contactTypeObj ? contactTypeObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className="auto"
             emptyLabel="Select type"
             name="contact_type"

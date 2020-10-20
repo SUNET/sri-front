@@ -24,16 +24,9 @@ class SearchRack extends _SearchEntityParentClass {
 
   PATH_ENTITY = `/network/location-racks`;
   PATH_ENTITY_ID = 'rackId';
-  DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Description', value: 'description', filter: 'order' },
-  ];
+  DEFAULT_COLUMNS = [{ name: 'Name', value: 'name', filter: 'order' }];
   LIST_QUERY = graphql`
-    query SearchRackAllQuery(
-      $count: Int!
-      $filter: RackFilter
-      $orderBy: RackOrderBy
-    ) {
+    query SearchRackAllQuery($count: Int!, $filter: RackFilter, $orderBy: RackOrderBy) {
       ...RackList_racks @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;

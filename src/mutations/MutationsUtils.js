@@ -108,6 +108,7 @@ export function formatExternalEquipmentVariables(data, isUpdate) {
 
         // owner
         relationship_owner: ownerToSaved ? ownerToSaved.id : '', // id customer/siteOwner/provider/endUser
+        relationship_location: data.location && data.location.length ? data.location[0].id : null,
       },
       // ports
       update_has_port: ports.toSaved,

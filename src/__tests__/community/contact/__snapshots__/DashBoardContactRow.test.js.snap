@@ -41,9 +41,7 @@ exports[`DashBoardContactRow Component Renders correctly 1`] = `
               >
                 <div
                   className="dash-board-row__image__default"
-                >
-                   
-                </div>
+                />
               </div>
             </Col>
             <Col

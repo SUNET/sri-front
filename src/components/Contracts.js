@@ -5,9 +5,11 @@ import '../style/Footer.scss';
 
 function Contracts({ t, i18n }) {
   return (
-    <div>
-      <p>Contracts</p>
-    </div>
+    <div
+      style={{
+        width: 450,
+      }}
+    ></div>
   );
 }
 

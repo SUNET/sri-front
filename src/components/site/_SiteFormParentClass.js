@@ -46,6 +46,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
         presentContent: site_type,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel={t('general-forms/type-placeholder')}
             type="site_types"
@@ -88,6 +89,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
         presentContent: country,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel={t('general-forms/type-placeholder')}
             type="countries"

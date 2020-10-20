@@ -10,10 +10,12 @@ import FieldInput from '../FieldInput';
 // const
 import { isBrowser } from 'react-device-detect';
 
+import renderFormBlockSection from '../common/BlockSection';
+
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
-import renderFormBlockSection from '../common/BlockSection';
+import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
 class _SwitchFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -47,9 +49,10 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
   }
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units, isFromModal } = this.props;
+    const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
       <>
+        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}
@@ -75,6 +78,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: null,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             model="switch_types"
@@ -92,6 +96,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
           presentContent: operational_state,
           editContent: (
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               emptyLabel="Select type"
               type="operational_states"
@@ -105,6 +110,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
           presentContent: managed_by,
           editContent: (
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               emptyLabel="Select type"
               type="host_management_sw"
@@ -137,6 +143,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="provider_id"
@@ -270,6 +277,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         editContent: (
           <div className="mr-3">
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               type="combo_list"
               name="support_group_id"
@@ -297,6 +305,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="responsible_group_id"

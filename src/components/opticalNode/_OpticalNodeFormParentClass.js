@@ -6,10 +6,12 @@ import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/Togg
 // const
 import { isBrowser } from 'react-device-detect';
 
+import renderFormBlockSection from '../common/BlockSection';
+
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
-import renderFormBlockSection from '../common/BlockSection';
+import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
 class _OpticalNodeFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -43,9 +45,10 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
   }
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units, isFromModal } = this.props;
+    const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
       <>
+        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
@@ -65,6 +68,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         presentContent: type,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="optical_node_types"
@@ -78,6 +82,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"

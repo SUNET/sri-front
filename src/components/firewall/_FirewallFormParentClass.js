@@ -18,6 +18,7 @@ import { renderRackToggleSection } from '../common/formsSections/RackToggleSecti
 import renderFormBlockSection from '../common/BlockSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
+import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
 class _FirewallFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -69,9 +70,10 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units, isFromModal } = this.props;
+    const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
       <>
+        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}
@@ -95,6 +97,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"
@@ -122,6 +125,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: managed_by,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="host_management_sw"
@@ -245,6 +249,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: securityClassObj ? securityClassObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="security_classes"
@@ -289,6 +294,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         editContent: (
           <div className="mr-3">
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               type="combo_list"
               name="support_group_id"
@@ -316,6 +322,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="responsible_group_id"

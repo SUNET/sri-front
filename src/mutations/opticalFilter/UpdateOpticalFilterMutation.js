@@ -37,6 +37,8 @@ export default function UpdateOpticalFilterMutation(opticalFilter, form) {
         rack_units: opticalFilter.rack_units,
         rack_position: opticalFilter.rack_position,
         max_number_of_ports: opticalFilter.max_number_of_ports,
+        relationship_location:
+          opticalFilter.location && opticalFilter.location.length ? opticalFilter.location[0].id : null,
       },
       update_has_port: ports.toSaved,
       unlink_subinputs: ports.toUnlink,

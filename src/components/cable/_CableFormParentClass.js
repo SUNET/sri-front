@@ -77,6 +77,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
         presentContent: cableTypeObj ? cableTypeObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="cable_types"
@@ -90,6 +91,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
         presentContent: providerObj ? providerObj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="provider_id"

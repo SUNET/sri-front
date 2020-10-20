@@ -57,6 +57,10 @@ const mutation = graphql`
               }
             }
           }
+          location {
+            id
+            name
+          }
           responsible_group {
             id
             name
@@ -106,6 +110,7 @@ export default function UpdateHostMutation(host, form) {
         contract_number: host.contract_number,
         relationship_owner: ownerToSaved ? ownerToSaved.id : '',
         relationship_user: hostUserToSaved ? hostUserToSaved.id : '',
+        relationship_location: host.location && host.location.length ? host.location[0].id : null,
       },
       unlink_subinputs: ports.toUnlink,
       update_subinputs: ports.toSaved,
@@ -118,6 +123,7 @@ export default function UpdateHostMutation(host, form) {
       id: ownerToRemove.id,
     };
   }
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

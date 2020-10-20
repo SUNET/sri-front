@@ -21,6 +21,7 @@ import renderFormBlockSection from '../common/BlockSection';
 
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
+import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
 class _HostFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -105,10 +106,11 @@ class _HostFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { host_type, t, rack_position, rack_units, isFromModal } = this.props;
+    const { host_type, t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     const isLogicalHost = host_type === 'Logical';
     return (
       <>
+        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}
@@ -185,6 +187,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
         presentContent: managed_by,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="host_management_sw"
@@ -198,6 +201,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"
@@ -260,6 +264,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
         presentContent: responsible_group_obj ? responsible_group_obj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="responsible_group_id"
@@ -287,6 +292,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
         editContent: (
           <div className="mr-3">
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               type="combo_list"
               name="support_group_id"

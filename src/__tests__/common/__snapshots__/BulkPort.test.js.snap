@@ -41,6 +41,7 @@ exports[`BulkPort Component Renders correctly 1`] = `
                         emptyLabel="Select type"
                         name="bulk-port_type"
                         onChange={[Function]}
+                        t={[Function]}
                         type="port_types"
                       >
                         <FormGroup

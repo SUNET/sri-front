@@ -217,6 +217,7 @@ class FieldArrayContactsOrganization extends React.Component {
             <div className="contact-in-organization__header__title">{t('general-forms/role')}</div>
             {editable ? (
               <Dropdown
+                t={t}
                 className="auto"
                 emptyLabel="Select role"
                 model="roles"
@@ -403,6 +404,7 @@ class FieldArrayContactsOrganization extends React.Component {
       <div className="contact-in-organization__body__row__element">
         {editable ? (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="roles"
