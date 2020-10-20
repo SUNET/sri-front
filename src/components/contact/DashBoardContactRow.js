@@ -17,7 +17,7 @@ export class DashBoardContactRow extends _DashBoardRowParentClass {
     return (
       <>
         <Col className="dash-board-row__image col-auto">
-          <div className="dash-board-row__image__default"> </div>
+          <div className="dash-board-row__image__default"></div>
         </Col>
         <Col className="px-0 dash-board-row__info">
           <div>
