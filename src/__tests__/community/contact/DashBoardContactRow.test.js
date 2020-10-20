@@ -69,9 +69,9 @@ describe('Elements', () => {
   it('Appears Logo Contact in fist COL', () => {
     const wrapper = DashBoardContactRowComponent.find('.dash-board-row');
     const logoContainer = wrapper.find('.dash-board-row__image.col');
+    const imgContainer = logoContainer.find('.dash-board-row__image__default');
     expect(logoContainer).toHaveLength(1);
-    const imgElement = logoContainer.find('img');
-    expect(imgElement.prop('src')).toBe('profile.png');
+    expect(imgContainer).toHaveLength(1);
   });
   it('Appears First Name and Last Name', () => {
     const wrapperCol = DashBoardContactRowComponent.find('.dash-board-row__info');
