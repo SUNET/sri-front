@@ -39,21 +39,10 @@ exports[`DashBoardContactRow Component Renders correctly 1`] = `
               <div
                 className="dash-board-row__image col-auto col"
               >
-                <div>
-                  <Image
-                    fluid={false}
-                    img-fluid="true"
-                    rounded={false}
-                    roundedCircle={true}
-                    src="profile.png"
-                    thumbnail={false}
-                  >
-                    <img
-                      className="rounded-circle"
-                      img-fluid="true"
-                      src="profile.png"
-                    />
-                  </Image>
+                <div
+                  className="dash-board-row__image__default"
+                >
+                   
                 </div>
               </div>
             </Col>
