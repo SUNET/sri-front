@@ -32,10 +32,10 @@ nav.top-header {
             &__icon {
                 width: 30px;
                 height: 30px;
-                background-image: url("../static/img/profile.png");
+                background-image: url("../static/img/profile.svg");
+                background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
-                background-size: cover;
                 border: 1px solid rgba(0,48,73,.2);
                 border-radius: 50% !important;
             }

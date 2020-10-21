@@ -29,7 +29,8 @@
             position: relative;
             width: 130px;
             height: 120px;
-            background-image: url("../static/img/profile.png");
+            background-image: url("../static/img/profile.svg");
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             border: solid 1px rgba(0, 48, 73, 0.2);
