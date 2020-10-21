@@ -10,7 +10,8 @@ import { SAVED } from '../../utils/constants';
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
-import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+// import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+
 
 class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -62,10 +63,10 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
+    const { t, rack_position, rack_units, isFromModal, /* location, dispatch, form*/ } = this.props;
     return (
       <>
-        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
+        {/* {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })} */}
         {this.renderDescriptionToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {!isFromModal && this.renderOwnerToggleSection(editMode)}
