@@ -13,7 +13,8 @@ import { isBrowser } from 'react-device-detect';
 
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
-import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+// import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+
 
 class _OpticalFilterFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -47,10 +48,10 @@ class _OpticalFilterFormParentClass extends _BasicFormParentClass {
   }
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
+    const { t, rack_position, rack_units, isFromModal, /* location, dispatch, form*/ } = this.props;
     return (
       <>
-        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
+        {/* {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })} */}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
