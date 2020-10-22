@@ -21,7 +21,10 @@ import {
   NETWORK_PEERING,
   NETWORK_OPTICAL,
   NETWORK_LOCATION,
+  NETWORK_SERVICE,
 } from '../utils/constants';
+
+import typeServicesList from './services/serviceList.json';
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
@@ -107,6 +110,14 @@ class SideNavNetwork extends React.Component {
         { path: 'location-rooms', i18nText: 'main-entity-name/location-rooms' },
         { path: 'location-sites', i18nText: 'main-entity-name/location-sites' },
       ],
+    },
+    {
+      header: {
+        name: NETWORK_SERVICE,
+        icon: 'location-icon.svg',
+        i18nText: '++++services++++',
+      },
+      items: typeServicesList.map((st) => ({ path: st.service_class.name.toLowerCase(), i18nText: st.name })),
     },
   ];
 

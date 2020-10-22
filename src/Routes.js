@@ -61,6 +61,7 @@ const Routes = {
   '/contracts': 'Contracts',
   '/personal-area': 'Personal Area',
   '/personal-area/profile-settings': 'Profile & settings',
+  '/network/services/VMWare': 'VMWare',
 };
 
 export const path = (url) => {

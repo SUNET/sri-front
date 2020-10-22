@@ -57,6 +57,7 @@ export const NETWORK_EQUIPMENT = 'network-equipment';
 export const NETWORK_PEERING = 'network-peering';
 export const NETWORK_OPTICAL = 'network-optical';
 export const NETWORK_LOCATION = 'network-location';
+export const NETWORK_SERVICE = 'network-service';
 // Contact data TYPE
 export const CONTACT_PERSONAL = 'personal';
 export const CONTACT_WORK = 'work';
