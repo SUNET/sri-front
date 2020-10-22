@@ -63,7 +63,7 @@ class _RackFormParentClass extends _BasicFormParentClass {
               className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
               name="width"
               component={FieldInput}
-              placeholder={t('general-forms/write-website')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -78,7 +78,7 @@ class _RackFormParentClass extends _BasicFormParentClass {
               className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
               name="depth"
               component={FieldInput}
-              placeholder={t('general-forms/write-website')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
@@ -93,7 +93,7 @@ class _RackFormParentClass extends _BasicFormParentClass {
               className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
               name="rack_units"
               component={FieldInput}
-              placeholder={t('general-forms/write-website')}
+              placeholder={t('general-forms/write-number')}
             />
           </Form.Group>
         ),
