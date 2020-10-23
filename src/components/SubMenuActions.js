@@ -3,6 +3,8 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { isBrowser } from 'react-device-detect';
 
+import formattedServicesData from './services/serviceListData';
+
 class SubMenuActions extends React.Component {
   ROUTE_LIST = [
     {
@@ -110,6 +112,11 @@ class SubMenuActions extends React.Component {
       pathTo: '/network/location-sites/create',
       textButton: 'entity-add/location-sites',
     },
+    ...formattedServicesData.map((service) => ({
+      path: `/network/${service.path}`,
+      pathTo: `/network/${service.path}/create`,
+      textButton: 'entity-add',
+    })),
   ];
   render() {
     const { t } = this.props;
