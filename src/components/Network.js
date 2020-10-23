@@ -3,6 +3,8 @@ import { withTranslation } from 'react-i18next';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 
+import formattedServicesData from './services/serviceListData';
+
 import SearchCustomerContainer from '../containers/customer/SearchCustomer';
 import SearchEndUsersContainer from '../containers/endUser/SearchEndUser';
 import SearchProvidersContainer from '../containers/provider/SearchProvider';
@@ -25,6 +27,8 @@ import SearchOpticalFilterContainer from '../containers/opticalFilter/SearchOpti
 import SearchRackContainer from '../containers/rack/SearchRack';
 import SearchRoomContainer from '../containers/room/SearchRoom';
 import SearchSiteContainer from '../containers/site/SearchSite';
+
+import GenericServiceList from '../components/services/ServiceList';
 
 class Network extends React.Component {
   render() {
@@ -57,6 +61,9 @@ class Network extends React.Component {
             <Route path="/network/location-racks" component={SearchRackContainer} />
             <Route path="/network/location-rooms" component={SearchRoomContainer} />
             <Route path="/network/location-sites" component={SearchSiteContainer} />
+            {formattedServicesData.map((service) => (
+              <Route path={`/network/${service.path}`} component={GenericServiceList} />
+            ))}
           </Switch>
         </Col>
       </Row>

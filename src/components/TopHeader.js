@@ -11,6 +11,9 @@ import { debounce } from '../utils';
 import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from '../utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
+import formattedServicesData from './services/serviceListData';
+
 import '../style/TopHeader.scss';
 
 export class TopHeader extends React.Component {
@@ -160,73 +163,79 @@ export class TopHeader extends React.Component {
         header: t('header.main-menu.community'),
         subOptions: [
           {
-            name: t(`main-entity-name/organizations`),
-            route: '/community/organizations',
+            i18nText: t(`main-entity-name/organizations`),
+            path: '/community/organizations',
             iconClass: 'icon-organization',
           },
-          { name: t(`main-entity-name/contacts`), route: '/community/contacts', iconClass: 'icon-contact' },
-          { name: t(`main-entity-name/groups`), route: '/community/groups', iconClass: 'icon-groups' },
+          { i18nText: t(`main-entity-name/contacts`), path: '/community/contacts', iconClass: 'icon-contact' },
+          { i18nText: t(`main-entity-name/groups`), path: '/community/groups', iconClass: 'icon-groups' },
         ],
       },
       {
         header: t('header.main-menu.network'),
         subOptions: [
           {
-            name: 'Organizations',
-            route: '/network/customers',
+            i18nText: 'Organizations',
+            path: '/network/customers',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('main-entity-name/customers'), route: '/network/customers' },
-              { name: t('main-entity-name/end-users'), route: '/network/end-users' },
-              { name: t('main-entity-name/providers'), route: '/network/providers' },
-              { name: t('main-entity-name/site-owners'), route: '/network/site-owners' },
+              { i18nText: t('main-entity-name/customers'), path: '/network/customers' },
+              { i18nText: t('main-entity-name/end-users'), path: '/network/end-users' },
+              { i18nText: t('main-entity-name/providers'), path: '/network/providers' },
+              { i18nText: t('main-entity-name/site-owners'), path: '/network/site-owners' },
             ],
           },
           {
-            name: t('section/network/equipment-cables'),
-            route: '/network/cables',
+            i18nText: t('section/network/equipment-cables'),
+            path: '/network/cables',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('main-entity-name/ports'), route: '/network/ports' },
-              { name: t('main-entity-name/cables'), route: '/network/cables' },
-              { name: t('main-entity-name/hosts'), route: '/network/hosts' },
-              { name: t('main-entity-name/firewalls'), route: '/network/firewalls' },
-              { name: t('main-entity-name/routers'), route: '/network/routers' },
-              { name: t('main-entity-name/switches'), route: '/network/switches' },
-              { name: t('main-entity-name/external-equipment'), route: '/network/external-equipments' },
-              { name: t('main-entity-name/optical-nodes'), route: '/network/optical-nodes' },
-              { name: t('main-entity-name/odfs'), route: '/network/odfs' },
+              { i18nText: t('main-entity-name/ports'), path: '/network/ports' },
+              { i18nText: t('main-entity-name/cables'), path: '/network/cables' },
+              { i18nText: t('main-entity-name/hosts'), path: '/network/hosts' },
+              { i18nText: t('main-entity-name/firewalls'), path: '/network/firewalls' },
+              { i18nText: t('main-entity-name/routers'), path: '/network/routers' },
+              { i18nText: t('main-entity-name/switches'), path: '/network/switches' },
+              { i18nText: t('main-entity-name/external-equipment'), path: '/network/external-equipments' },
+              { i18nText: t('main-entity-name/optical-nodes'), path: '/network/optical-nodes' },
+              { i18nText: t('main-entity-name/odfs'), path: '/network/odfs' },
             ],
           },
           {
-            name: t('section/network/optical-layers'),
-            route: '/network/optical-nodes',
+            i18nText: t('section/network/optical-layers'),
+            path: '/network/optical-nodes',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('main-entity-name/optical-filters'), route: 'optical-filters' },
-              { name: t('main-entity-name/optical-links'), route: 'optical-links' },
-              { name: t('main-entity-name/optical-multiplex-sections'), route: 'optical-multiplex-sections' },
-              { name: t('main-entity-name/optical-paths'), route: 'optical-paths' },
+              { i18nText: t('main-entity-name/optical-filters'), path: 'optical-filters' },
+              { i18nText: t('main-entity-name/optical-links'), path: 'optical-links' },
+              { i18nText: t('main-entity-name/optical-multiplex-sections'), path: 'optical-multiplex-sections' },
+              { i18nText: t('main-entity-name/optical-paths'), path: 'optical-paths' },
             ],
           },
           {
-            name: t('section/network/peering'),
-            route: '/network/peering-partners',
+            i18nText: t('section/network/peering'),
+            path: '/network/peering-partners',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('main-entity-name/peering-groups'), route: '/network/peering-groups' },
-              { name: t('main-entity-name/peering-partners'), route: '/network/peering-partners' },
+              { i18nText: t('main-entity-name/peering-groups'), path: '/network/peering-groups' },
+              { i18nText: t('main-entity-name/peering-partners'), path: '/network/peering-partners' },
             ],
           },
           {
-            name: t('section/network/location'),
-            route: '/network/location-sites',
+            i18nText: t('section/network/location'),
+            path: '/network/location-sites',
             iconClass: 'icon-organization',
             subSubOptions: [
-              { name: t('main-entity-name/location-racks'), route: '/network/location-racks' },
-              { name: t('main-entity-name/location-rooms'), route: '/network/location-rooms' },
-              { name: t('main-entity-name/location-sites'), route: '/network/location-sites' },
+              { i18nText: t('main-entity-name/location-racks'), path: '/network/location-racks' },
+              { i18nText: t('main-entity-name/location-rooms'), path: '/network/location-rooms' },
+              { i18nText: t('main-entity-name/location-sites'), path: '/network/location-sites' },
             ],
+          },
+          {
+            i18nText: t('+++++SERVICES'),
+            path: formattedServicesData[0].path,
+            iconClass: 'icon-organization',
+            subSubOptions: formattedServicesData,
           },
         ],
       },
