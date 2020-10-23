@@ -7,6 +7,8 @@ import { SAVED, REMOVE } from '../../utils/constants';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { generatePortForInput } from '../MutationsUtils';
+
 const mutation = graphql`
   mutation UpdateHostMutation($input: CompositeHostMutationInput!) {
     composite_host(input: $input) {
@@ -55,6 +57,10 @@ const mutation = graphql`
               }
             }
           }
+          location {
+            id
+            name
+          }
           responsible_group {
             id
             name
@@ -83,6 +89,7 @@ export default function UpdateHostMutation(host, form) {
   const ownerToSaved = host.owner ? host.owner.find((o) => o.status === SAVED) : null;
   const ownerToRemove = host.owner ? host.owner.find((o) => o.status === REMOVE) : null;
   const hostUserToSaved = host.host_user ? host.host_user.find((hu) => hu.status === SAVED) : null;
+  const ports = generatePortForInput(host.ports);
   const variables = {
     input: {
       update_input: {
@@ -103,7 +110,12 @@ export default function UpdateHostMutation(host, form) {
         contract_number: host.contract_number,
         relationship_owner: ownerToSaved ? ownerToSaved.id : '',
         relationship_user: hostUserToSaved ? hostUserToSaved.id : '',
+        relationship_location: host.location && host.location.length ? host.location[0].id : null,
       },
+      unlink_subinputs: ports.toUnlink,
+      update_subinputs: ports.toSaved,
+      delete_subinputs: ports.toRemove,
+      create_subinputs: ports.toCreate,
     },
   };
   if (ownerToRemove) {
@@ -111,6 +123,7 @@ export default function UpdateHostMutation(host, form) {
       id: ownerToRemove.id,
     };
   }
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

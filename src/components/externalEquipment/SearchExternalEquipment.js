@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import ExternalEquipmentList from '../../containers/externalEquipment/ExternalEquipmentList';
 import ExternalEquipmentDetailsContainer from '../../containers/externalEquipment/ExternalEquipmentDetails';
-import CreateExternalEquipmentRoute from "./CreateExternalEquipmentRoute/CreateExternalEquipmentRoute";
+import CreateExternalEquipmentRoute from './CreateExternalEquipmentRoute/CreateExternalEquipmentRoute';
 // Constants
 
 class SearchExternalEquipment extends _SearchEntityParentClass {

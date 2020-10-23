@@ -16,9 +16,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const ODFUpdateFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ODFUpdateForm);
+const ODFUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(ODFUpdateForm);
 
 export default ODFUpdateFormContainer;

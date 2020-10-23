@@ -3,6 +3,8 @@
 set -e
 set -x
 
+rm -rf /app/node_modules
+
 npm i
 npm run adapt-queries common
 npm run relay-common

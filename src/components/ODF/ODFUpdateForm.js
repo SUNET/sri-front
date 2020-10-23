@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateODFMutation from '../../mutations/ODF/UpdateODFMutation';
 import ValidationsODFForm from '../common/_BasicValidationForm';
 // const
-import { UPDATE_ODF_FORM } from '../../utils/constants';
+import { UPDATE_ODF_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class ODFUpdateForm extends _ODFFormParentClass {
@@ -32,10 +32,24 @@ class ODFUpdateForm extends _ODFFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (ODF) => {
+
+  handleSubmit = (entityData) => {
     this.setState({ editMode: false });
-    UpdateODFMutation(ODF, this);
+    this.props.hideModalForm();
+    const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    const someItemWillBeDeleted = portsToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateODFMutation(entityData, form);
+  }
+
   render() {
     let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
@@ -69,6 +83,10 @@ const ODFUpdateFragment = createRefetchContainer(
         id
         name
         description
+        location {
+          id
+          name
+        }
         comments {
           id
           user {

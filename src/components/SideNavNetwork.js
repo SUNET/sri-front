@@ -15,7 +15,13 @@ import { withRouter } from 'react-router-dom';
 import { path } from '../Routes';
 
 import '../style/SideNav.scss';
-import { NETWORK_ORGANIZATIONS, NETWORK_EQUIPMENT, NETWORK_PEERING, NETWORK_OPTICAL } from '../utils/constants';
+import {
+  NETWORK_ORGANIZATIONS,
+  NETWORK_EQUIPMENT,
+  NETWORK_PEERING,
+  NETWORK_OPTICAL,
+  NETWORK_LOCATION,
+} from '../utils/constants';
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
@@ -32,6 +38,7 @@ class SideNavNetwork extends React.Component {
   ];
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
   NETWORK_OPTICAL_ROUTES = ['optical-links', 'optical-filters', 'optical-multiplex-sections', 'optical-paths'];
+  NETWORK_LOCATION_ROUTES = ['location-racks', 'location-rooms', 'location-sites'];
 
   MENU_DATA = [
     {
@@ -51,7 +58,7 @@ class SideNavNetwork extends React.Component {
       header: {
         name: NETWORK_EQUIPMENT,
         icon: 'equipment-icon.svg',
-        i18nText: 'network.sub-menu.equipment',
+        i18nText: 'section/network/equipment-cables',
       },
       items: [
         { path: 'ports', i18nText: 'main-entity-name/ports' },
@@ -69,7 +76,7 @@ class SideNavNetwork extends React.Component {
       header: {
         name: NETWORK_OPTICAL,
         icon: 'optical_layers.svg',
-        i18nText: 'network.optical-layers.name',
+        i18nText: 'section/network/optical-layers',
       },
       items: [
         { path: 'optical-filters', i18nText: 'main-entity-name/optical-filters' },
@@ -82,11 +89,23 @@ class SideNavNetwork extends React.Component {
       header: {
         name: NETWORK_PEERING,
         icon: 'peering-icon.svg',
-        i18nText: 'network.peering',
+        i18nText: 'section/network/peering',
       },
       items: [
         { path: 'peering-groups', i18nText: 'main-entity-name/peering-groups' },
         { path: 'peering-partners', i18nText: 'main-entity-name/peering-partners' },
+      ],
+    },
+    {
+      header: {
+        name: NETWORK_LOCATION,
+        icon: 'location-icon.svg',
+        i18nText: 'section/network/location',
+      },
+      items: [
+        { path: 'location-racks', i18nText: 'main-entity-name/location-racks' },
+        { path: 'location-rooms', i18nText: 'main-entity-name/location-rooms' },
+        { path: 'location-sites', i18nText: 'main-entity-name/location-sites' },
       ],
     },
   ];
@@ -104,6 +123,8 @@ class SideNavNetwork extends React.Component {
       return NETWORK_PEERING;
     } else if (this.NETWORK_OPTICAL_ROUTES.includes(entityPath)) {
       return NETWORK_OPTICAL;
+    } else if (this.NETWORK_LOCATION_ROUTES.includes(entityPath)) {
+      return NETWORK_LOCATION;
     }
   };
 
@@ -116,8 +137,13 @@ class SideNavNetwork extends React.Component {
             <>
               <AccordionItemHeading>
                 <AccordionItemButton className="accordion__button with-arrow">
-                  <ReactSVG src={require(`../static/img/${icon}`)} wrapper="span" />
-                  {t(i18nText)}
+                  <div className="accordion__button__title">
+                    <ReactSVG src={require(`../static/img/${icon}`)} wrapper="span" />
+                    <span>{t(i18nText)}</span>
+                  </div>
+                  <div className={`accordion__button__arrow ${expanded ? 'accordion__button__arrow--expanded' : ''}`}>
+                    <i className="icon-arrow"></i>
+                  </div>
                 </AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>

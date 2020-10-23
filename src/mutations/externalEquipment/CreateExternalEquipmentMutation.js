@@ -80,7 +80,7 @@ function CreateExternalEquipmentMutation(externalEquipment, form) {
       if (externalEquipment.comment) {
         CreateCommentMutation(externalEquipmentId, externalEquipment.comment);
       }
-      form.props.notify(i18n.t('notify.network/externalEquipments-created-success'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/external-equipments'), 'success');
       if (form.props.history) {
         form.props.history.push(`/network/external-equipments/${externalEquipmentId}`);
       } else {

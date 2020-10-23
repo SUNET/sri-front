@@ -13,22 +13,7 @@ import { SAVED } from '../../utils/constants';
 // scss
 import '../../style/ModelDetails.scss';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import renderFormBlockSection from '../common/BlockSection';
 
 class _CableFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -72,7 +57,19 @@ class _CableFormParentClass extends _BasicFormParentClass {
     }
   }
   // Specific toggle sections RENDERS
+  renderSections(editMode) {
+    return (
+      <>
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderConnectionsSection(editMode)}
+        {this.renderWorkLog()}
+      </>
+    );
+  }
+
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, cableTypeObj, provider_id, providerObj } = this.props;
     const generalInfoFirstRow = [
       {
@@ -80,6 +77,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
         presentContent: cableTypeObj ? cableTypeObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="cable_types"
@@ -93,6 +91,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
         presentContent: providerObj ? providerObj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="provider_id"
@@ -113,20 +112,22 @@ class _CableFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfoFirstRow.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfoFirstRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 

@@ -209,8 +209,13 @@ export default createPaginationContainer(
     query: graphql`
       # Pagination query to be fetched upon calling 'loadMore'.
       # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
-      query OpticalMultiplexSectionListForwardQuery($count: Int!, $cursor: String, $orderBy: OpticalMultiplexSectionOrderBy) {
-        ...OpticalMultiplexSectionList_opticalMultiplexSections @arguments(count: $count, cursor: $cursor, orderBy: $orderBy)
+      query OpticalMultiplexSectionListForwardQuery(
+        $count: Int!
+        $cursor: String
+        $orderBy: OpticalMultiplexSectionOrderBy
+      ) {
+        ...OpticalMultiplexSectionList_opticalMultiplexSections
+          @arguments(count: $count, cursor: $cursor, orderBy: $orderBy)
       }
     `,
     getConnectionFromProps(props) {

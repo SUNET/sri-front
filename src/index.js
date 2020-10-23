@@ -1,18 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 
-import configureStore from "./store";
+import configureStore from './store';
 
-import * as actions from "./actions/App";
-import AppContainer from "./containers/App";
-import * as serviceWorker from "./serviceWorker";
+import * as actions from './actions/App';
+import AppContainer from './containers/App';
+import * as serviceWorker from './serviceWorker';
 
-import "./i18n";
+import './i18n';
 
-import "./style/reset.css";
-import "@fortawesome/fontawesome-free/css/all.css";
+import './style/reset.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 /* Store */
 export const store = configureStore();
@@ -20,16 +20,16 @@ export const store = configureStore();
 
 /* render app */
 const app = (
-    <Provider store={store}>
-        <AppContainer />
-    </Provider>
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>
 );
 
 const initialAction = () => {
-    store.dispatch(actions.appLoaded());
+  store.dispatch(actions.appLoaded());
 };
 
-ReactDOM.render(app, document.getElementById("root"), initialAction);
+ReactDOM.render(app, document.getElementById('root'), initialAction);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

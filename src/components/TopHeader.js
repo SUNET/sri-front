@@ -1,6 +1,6 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { Nav, Navbar, Image, Form, Dropdown } from 'react-bootstrap';
+import { Nav, Navbar, Form, Dropdown } from 'react-bootstrap';
 import { NavLink, Link } from 'react-router-dom';
 import { slide as BurgerMenu } from 'react-burger-menu';
 import Logout from './Logout';
@@ -12,8 +12,6 @@ import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from '../utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../style/TopHeader.scss';
-
-import profileImage from '../static/img/profile.png';
 
 export class TopHeader extends React.Component {
   state = {
@@ -36,7 +34,7 @@ export class TopHeader extends React.Component {
   renderBrand() {
     return (
       <Navbar.Brand className="top-header__brand" as={Link} to="/">
-        <Image src={require('../static/img/logo.svg')} img-fluid="true" />
+        <div className="top-header__brand__logo-icon"></div>
       </Navbar.Brand>
     );
   }
@@ -139,7 +137,7 @@ export class TopHeader extends React.Component {
     return (
       <Nav.Item className="top-header__user-block__profile px-0">
         <Link to="/personal-area/profile-settings">
-          <Image src={profileImage} roundedCircle img-fluid="true" onClick={() => this.closeMenu()} />
+          <div className="top-header__user-block__profile__icon"></div>
         </Link>
       </Nav.Item>
     );
@@ -185,7 +183,7 @@ export class TopHeader extends React.Component {
             ],
           },
           {
-            name: 'Equipment & Cables',
+            name: t('section/network/equipment-cables'),
             route: '/network/cables',
             iconClass: 'icon-organization',
             subSubOptions: [
@@ -201,7 +199,7 @@ export class TopHeader extends React.Component {
             ],
           },
           {
-            name: 'Optical layers',
+            name: t('section/network/optical-layers'),
             route: '/network/optical-nodes',
             iconClass: 'icon-organization',
             subSubOptions: [
@@ -212,12 +210,22 @@ export class TopHeader extends React.Component {
             ],
           },
           {
-            name: 'Peering',
+            name: t('section/network/peering'),
             route: '/network/peering-partners',
             iconClass: 'icon-organization',
             subSubOptions: [
               { name: t('main-entity-name/peering-groups'), route: '/network/peering-groups' },
               { name: t('main-entity-name/peering-partners'), route: '/network/peering-partners' },
+            ],
+          },
+          {
+            name: t('section/network/location'),
+            route: '/network/location-sites',
+            iconClass: 'icon-organization',
+            subSubOptions: [
+              { name: t('main-entity-name/location-racks'), route: '/network/location-racks' },
+              { name: t('main-entity-name/location-rooms'), route: '/network/location-rooms' },
+              { name: t('main-entity-name/location-sites'), route: '/network/location-sites' },
             ],
           },
         ],

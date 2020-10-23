@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 const SwitchQuery = graphql`
   query SwitchQuery($switchId: ID!) {
     getSwitchById(id: $switchId) {
-        __typename
+      __typename
       id
       name
       description

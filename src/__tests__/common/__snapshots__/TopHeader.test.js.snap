@@ -201,6 +201,9 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/site-owners",
               ],
               Array [
+                "section/network/equipment-cables",
+              ],
+              Array [
                 "main-entity-name/ports",
               ],
               Array [
@@ -228,6 +231,9 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/odfs",
               ],
               Array [
+                "section/network/optical-layers",
+              ],
+              Array [
                 "main-entity-name/optical-filters",
               ],
               Array [
@@ -240,10 +246,25 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/optical-paths",
               ],
               Array [
+                "section/network/peering",
+              ],
+              Array [
                 "main-entity-name/peering-groups",
               ],
               Array [
                 "main-entity-name/peering-partners",
+              ],
+              Array [
+                "section/network/location",
+              ],
+              Array [
+                "main-entity-name/location-racks",
+              ],
+              Array [
+                "main-entity-name/location-rooms",
+              ],
+              Array [
+                "main-entity-name/location-sites",
               ],
               Array [
                 "header.main-menu.home",
@@ -294,6 +315,10 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
+                "value": "section/network/equipment-cables",
+              },
+              Object {
+                "type": "return",
                 "value": "main-entity-name/ports",
               },
               Object {
@@ -330,6 +355,10 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
+                "value": "section/network/optical-layers",
+              },
+              Object {
+                "type": "return",
                 "value": "main-entity-name/optical-filters",
               },
               Object {
@@ -346,11 +375,31 @@ exports[`Some Component Renders correctly 1`] = `
               },
               Object {
                 "type": "return",
+                "value": "section/network/peering",
+              },
+              Object {
+                "type": "return",
                 "value": "main-entity-name/peering-groups",
               },
               Object {
                 "type": "return",
                 "value": "main-entity-name/peering-partners",
+              },
+              Object {
+                "type": "return",
+                "value": "section/network/location",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/location-racks",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/location-rooms",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/location-sites",
               },
               Object {
                 "type": "return",
@@ -414,38 +463,9 @@ exports[`Some Component Renders correctly 1`] = `
                           className="top-header__brand navbar-brand"
                           onClick={[Function]}
                         >
-                          <Image
-                            fluid={false}
-                            img-fluid="true"
-                            rounded={false}
-                            roundedCircle={false}
-                            src={
-                              Object {
-                                "ReactComponent": Object {
-                                  "$$typeof": Symbol(react.forward_ref),
-                                  "render": [Function],
-                                },
-                                "__esModule": true,
-                                "default": "logo.svg",
-                              }
-                            }
-                            thumbnail={false}
-                          >
-                            <img
-                              className=""
-                              img-fluid="true"
-                              src={
-                                Object {
-                                  "ReactComponent": Object {
-                                    "$$typeof": Symbol(react.forward_ref),
-                                    "render": [Function],
-                                  },
-                                  "__esModule": true,
-                                  "default": "logo.svg",
-                                }
-                              }
-                            />
-                          </Image>
+                          <div
+                            className="top-header__brand__logo-icon"
+                          />
                         </a>
                       </LinkAnchor>
                     </Link>
@@ -847,22 +867,9 @@ exports[`Some Component Renders correctly 1`] = `
                                 <a
                                   onClick={[Function]}
                                 >
-                                  <Image
-                                    fluid={false}
-                                    img-fluid="true"
-                                    onClick={[Function]}
-                                    rounded={false}
-                                    roundedCircle={true}
-                                    src="profile.png"
-                                    thumbnail={false}
-                                  >
-                                    <img
-                                      className="rounded-circle"
-                                      img-fluid="true"
-                                      onClick={[Function]}
-                                      src="profile.png"
-                                    />
-                                  </Image>
+                                  <div
+                                    className="top-header__user-block__profile__icon"
+                                  />
                                 </a>
                               </LinkAnchor>
                             </Link>

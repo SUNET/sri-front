@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import ODFList from '../../containers/ODF/ODFList';
 import ODFDetailsContainer from '../../containers/ODF/ODFDetails';
-import CreateODFRoute from "./CreateODFRoute/CreateODFRoute";
+import CreateODFRoute from './CreateODFRoute/CreateODFRoute';
 // Constants
 
 class SearchODF extends _SearchEntityParentClass {
@@ -29,11 +29,7 @@ class SearchODF extends _SearchEntityParentClass {
     { name: 'Description', value: 'description', filter: 'order' },
   ];
   LIST_QUERY = graphql`
-    query SearchODFAllQuery(
-      $count: Int!
-      $filter: ODFFilter
-      $orderBy: ODFOrderBy
-    ) {
+    query SearchODFAllQuery($count: Int!, $filter: ODFFilter, $orderBy: ODFOrderBy) {
       ...ODFList_odfs @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;

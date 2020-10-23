@@ -2,9 +2,8 @@ import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
 import PropTypes from 'prop-types';
 import { createFragmentContainer } from 'react-relay';
-import { Col, Image } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import _DashBoardRowParentClass from '../common/_DashBoardRowParentClass';
-import profileImage from '../../static/img/profile.png';
 
 export class DashBoardContactRow extends _DashBoardRowParentClass {
   constructor(props) {
@@ -18,9 +17,7 @@ export class DashBoardContactRow extends _DashBoardRowParentClass {
     return (
       <>
         <Col className="dash-board-row__image col-auto">
-          <div>
-            <Image src={profileImage} roundedCircle img-fluid="true" />
-          </div>
+          <div className="dash-board-row__image__default"></div>
         </Col>
         <Col className="px-0 dash-board-row__info">
           <div>

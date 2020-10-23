@@ -17,6 +17,30 @@ nav.top-header {
     font-family: karla;
     font-size: 16px;
     padding: 0.5rem 1rem 0.5rem;
+    .top-header__brand {
+        &__logo-icon {
+            width: 40px;
+            height: 40px;
+            background-image: url("../static/img/logo.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+    
+    .top-header__user-block {
+        &__profile {
+            &__icon {
+                width: 30px;
+                height: 30px;
+                background-image: url("../static/img/profile.svg");
+                background-size: 65%;
+                background-repeat: no-repeat;
+                background-position: center;
+                border: 1px solid rgba(0,48,73,.2);
+                border-radius: 50% !important;
+            }
+        }
+    }
 
     .navbar-brand {
         padding: 0;

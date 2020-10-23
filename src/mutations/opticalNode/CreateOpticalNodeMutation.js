@@ -29,6 +29,10 @@ const mutation = graphql`
           rack_units
           rack_position
           rack_back
+          location {
+            id
+            name
+          }
           operational_state {
             id
             name
@@ -51,6 +55,7 @@ function CreateOpticalNodeMutation(opticalNode, form) {
         rack_position: opticalNode.rack_position,
         operational_state: opticalNode.operational_state,
         type: opticalNode.type,
+        relationship_location: opticalNode.location && opticalNode.location.length ? opticalNode.location[0].id : null,
       },
       update_has_port: ports.toSaved,
       unlink_subinputs: ports.toUnlink,

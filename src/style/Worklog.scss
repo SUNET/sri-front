@@ -23,11 +23,10 @@
                         color: $secondary-color-30;
                         font-weight: bold;
                     }
-                    
+
                     &__comment {
                         margin-left: 16px;
                     }
-
                 }
                 &__date {
                     color: $secondary-color;
@@ -37,7 +36,7 @@
             }
         }
     }
-    .actions{
+    .actions {
         margin-top: 16px;
         text-align: right;
     }

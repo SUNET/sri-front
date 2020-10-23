@@ -1,19 +1,16 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import ContactList from "../../components/contact/ContactList";
+import ContactList from '../../components/contact/ContactList';
 
 const mapStateToProps = (state, props) => {
-    let { columns_visible, all_columns } = state.filterColumns.contact;
-    return { columns_visible, all_columns };
+  let { columns_visible, all_columns } = state.filterColumns.contact;
+  return { columns_visible, all_columns };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+  return {};
 };
 
-const ContactListContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ContactList);
+const ContactListContainer = connect(mapStateToProps, mapDispatchToProps)(ContactList);
 
 export default ContactListContainer;

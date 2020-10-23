@@ -21,6 +21,9 @@ const entityList = [
   'opticalMultiplexSection',
   'opticalPath',
   'opticalFilter',
+  'rack',
+  'room',
+  'site',
 ];
 const initialState = entityList.reduce((acc, curr) => {
   acc[curr] = {

@@ -37,16 +37,14 @@ class PeeringPartnerUpdateForm extends _PeeringPartnerFormParentClass {
     UpdatePeeringPartnerMutation(peeringPartner, this);
   };
   render() {
-    let { handleSubmit, with_same_name } = this.props;
+    let { handleSubmit } = this.props;
     const { editMode } = this.state;
     const showBackButton = isBrowser;
     return (
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {with_same_name && this.renderRelatedEntities(with_same_name)}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {this.renderSaveCancelButtons()}
       </form>
     );

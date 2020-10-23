@@ -23,15 +23,9 @@ class SearchPeeringPartner extends _SearchEntityParentClass {
 
   PATH_ENTITY = `/network/peering-partners`;
   PATH_ENTITY_ID = 'peeringPartnerId';
-  DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-  ];
+  DEFAULT_COLUMNS = [{ name: 'Name', value: 'name', filter: 'order' }];
   LIST_QUERY = graphql`
-    query SearchPeeringPartnerAllQuery(
-      $count: Int!
-      $filter: PeeringPartnerFilter
-      $orderBy: PeeringPartnerOrderBy
-    ) {
+    query SearchPeeringPartnerAllQuery($count: Int!, $filter: PeeringPartnerFilter, $orderBy: PeeringPartnerOrderBy) {
       ...PeeringPartnerList_peeringPartners @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;

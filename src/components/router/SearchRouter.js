@@ -28,11 +28,7 @@ class SearchRouter extends _SearchEntityParentClass {
     { name: 'Description', value: 'description', filter: 'order' },
   ];
   LIST_QUERY = graphql`
-    query SearchRouterAllQuery(
-      $count: Int!
-      $filter: RouterFilter
-      $orderBy: RouterOrderBy
-    ) {
+    query SearchRouterAllQuery($count: Int!, $filter: RouterFilter, $orderBy: RouterOrderBy) {
       ...RouterList_routers @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;

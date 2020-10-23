@@ -43,6 +43,10 @@ const HostDetailsQuery = graphql`
           }
         }
       }
+      location {
+        id
+        name
+      }
       responsible_group {
         id
         name
@@ -61,6 +65,15 @@ const HostDetailsQuery = graphql`
       rack_units
       rack_position
       rack_back
+      ports {
+        id
+        name
+        __typename
+        relation_id
+        type: port_type {
+          name
+        }
+      }
     }
   }
 `;

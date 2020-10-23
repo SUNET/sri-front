@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 // Common imports
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
-import Dropdown from '../Dropdown';
-
 import { isBrowser } from 'react-device-detect';
+import Dropdown from '../Dropdown';
 
 import { CREATE } from '../../utils/constants';
 
@@ -136,7 +135,7 @@ class BulkPort extends Component {
     const hasError = !stateValue.valid;
 
     return (
-      <div className="form-internal-block__section" key={`bulk-port-${inputName}`}>
+      <div className={`form-internal-block__section bulk-create__${inputName}-block`} key={`bulk-port-${inputName}`}>
         <div className="form-internal-block__section__title">{t(titleByInputName[inputName])}</div>
         <div className={'form-internal-block__section__content form-internal-block__section__content--edition-mode'}>
           {this.renderInput(inputName, hasError)}
@@ -148,20 +147,27 @@ class BulkPort extends Component {
   renderNumberPortsInput() {
     const { numberOfPorts } = this.state;
     const hasError = !numberOfPorts.valid;
-    return <div className="bulk-create__right-block__number-input">{this.renderInput('numberOfPorts', hasError)}</div>;
+    const fieldName = 'ports-number';
+    return (
+      <div className={`bulk-create__right-block__number-input bulk-create__${fieldName}-block`}>
+        {this.renderInput('numberOfPorts', hasError)}
+      </div>
+    );
   }
 
   renderSelectTypeInput() {
     const { t } = this.props;
     const { type } = this.state;
     const hasError = !type.valid;
+    const fieldName = 'type';
     return (
-      <div className="form-internal-block__section" key={`bulk-port-${'type'}`}>
+      <div className={`form-internal-block__section bulk-create__${fieldName}-block`} key={`bulk-port-${'type'}`}>
         <div className="form-internal-block__section__title">{t(titleByInputName['type'])}</div>
         <div className={'form-internal-block__section__content form-internal-block__section__content--edition-mode'}>
           <Form.Group>
             <div className={`select-input ${hasError ? 'has-error' : ''}`}>
               <Dropdown
+                t={t}
                 className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
                 emptyLabel="Select type"
                 type="port_types"

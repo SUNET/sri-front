@@ -1,19 +1,16 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import OrganizationList from "../../components/organization/OrganizationList";
+import OrganizationList from '../../components/organization/OrganizationList';
 
 const mapStateToProps = (state, props) => {
-    let { columns_visible, all_columns } = state.filterColumns.organization;
-    return { columns_visible, all_columns };
+  let { columns_visible, all_columns } = state.filterColumns.organization;
+  return { columns_visible, all_columns };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+  return {};
 };
 
-const OrganizationListContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(OrganizationList);
+const OrganizationListContainer = connect(mapStateToProps, mapDispatchToProps)(OrganizationList);
 
 export default OrganizationListContainer;

@@ -1,7 +1,7 @@
 // Common imports
 import React from 'react';
 import { arrayPush, FieldArray, Field, change } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 // components
 import BackCTA from '../common/BackCTA';
 import Dropdown from '../Dropdown';
@@ -20,22 +20,7 @@ import { isBrowser, isMobile } from 'react-device-detect';
 import '../../style/ModelDetails.scss';
 import '../../style/ComboSelect.scss';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import renderFormBlockSection from '../common/BlockSection';
 
 class _OrganizationFormParentClass extends React.Component {
   // GLOBAL VARs
@@ -132,6 +117,18 @@ class _OrganizationFormParentClass extends React.Component {
     return url;
   };
   // Common sections RENDERS
+  renderSections(editMode) {
+    return (
+      <>
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderAddressToggleSection(editMode)}
+        {this.renderContactsToggleSection(editMode)}
+        {this.renderWorkLog(editMode)}
+      </>
+    );
+  }
+
   renderEditButton() {
     const { t } = this.props;
     const desktopClass = isBrowser ? 'with-vertical-separator with-vertical-separator--right' : '';
@@ -206,12 +203,14 @@ class _OrganizationFormParentClass extends React.Component {
       </EditField>
     );
   }
+
   renderWorkLog() {
-    const { t, organization } = this.props;
+    const { t, contact } = this.props;
+    const componentClassName = 'workLog-block';
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         {this.IS_UPDATED_FORM ? (
-          <Worklog model={organization} refetch={this.refetch} />
+          <Worklog model={contact} refetch={this.refetch} />
         ) : (
           <ToggleSection defaultEditable={false}>
             <ToggleHeading>
@@ -238,28 +237,32 @@ class _OrganizationFormParentClass extends React.Component {
   // Specific toggle sections RENDERS
   renderDescriptionToggleSection(editMode = true) {
     const { t, description } = this.props;
+    const componentClassName = 'description-block';
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/description')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          {editMode ? (
-            <Field
-              name="description"
-              component={FieldInput}
-              as="textarea"
-              rows="3"
-              placeholder={t('general-forms/add-description')}
-            ></Field>
-          ) : (
-            <span className="pre-text">{description}</span>
-          )}
-        </TogglePanel>
-      </ToggleSection>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/description')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            {editMode ? (
+              <Field
+                name="description"
+                component={FieldInput}
+                as="textarea"
+                rows="3"
+                placeholder={t('general-forms/add-description')}
+              ></Field>
+            ) : (
+              <span className="pre-text">{description}</span>
+            )}
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { typeObj, organization_id, organization_number, website, organization_parent_id, t } = this.props;
     const generalInfoFirstRow = [
       {
@@ -267,6 +270,7 @@ class _OrganizationFormParentClass extends React.Component {
         presentContent: typeObj ? typeObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="organization_types"
@@ -322,6 +326,7 @@ class _OrganizationFormParentClass extends React.Component {
 
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select parent"
             type="combo_list"
@@ -396,121 +401,115 @@ class _OrganizationFormParentClass extends React.Component {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfoFirstRow.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfoFirstRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
+              <div className="form-internal-block mt-4">
+                {generalInfoSecondRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-            <div className="form-internal-block mt-4">
-              {generalInfoSecondRow.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
   renderAddressToggleSection(editMode = true) {
     const { t } = this.props;
+    const componentClassName = 'address-block';
     return (
-      <ToggleSection defaultEditable={false}>
-        <ToggleHeading>
-          <h2>{t('general-forms/address')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <FieldArray
-            name="addresses"
-            component={FieldArrayAddressOrganization}
-            editable={editMode}
-            dispatch={this.props.dispatch}
-            errors={this.props.formSyncErrors.addresses}
-            metaFields={this.props.fields}
-            rerenderOnEveryChange
-          />
-        </TogglePanel>
-      </ToggleSection>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection defaultEditable={false}>
+          <ToggleHeading>
+            <h2>{t('general-forms/address')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="addresses"
+              component={FieldArrayAddressOrganization}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.addresses}
+              metaFields={this.props.fields}
+              rerenderOnEveryChange
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
   renderContactsToggleSection(editMode = true) {
     const { t, entityRemovedId } = this.props;
+    const componentClassName = 'contacts-block';
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('main-entity-name/contacts')}</h2>
-        </ToggleHeading>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('main-entity-name/contacts')}</h2>
+          </ToggleHeading>
 
-        <TogglePanel>
-          <FieldArray
-            name="contacts"
-            component={FieldArrayContactOrganization}
-            editable={editMode}
-            dispatch={this.props.dispatch}
-            errors={this.props.formSyncErrors.contacts}
-            metaFields={this.props.fields}
-            rerenderOnEveryChange
-            handleContactSearch={this.handleSelectedContact}
-            handleAddContactRow={() => {
-              this.props.showNewContactForm();
-            }}
-            handleShowContactDetail={(contactId) => {
-              this.props.showContactDetailForm(contactId);
-            }}
-            handleShowContactEdition={(contactId) => {
-              this.props.showContactEditForm(contactId);
-            }}
-            removedContactId={entityRemovedId}
-            removedContactDeletedFromTheList={() => {
-              this.props.hideContactForm();
-            }}
-          />
-        </TogglePanel>
-      </ToggleSection>
+          <TogglePanel>
+            <FieldArray
+              name="contacts"
+              component={FieldArrayContactOrganization}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.contacts}
+              metaFields={this.props.fields}
+              rerenderOnEveryChange
+              handleContactSearch={this.handleSelectedContact}
+              handleAddContactRow={() => {
+                this.props.showNewContactForm();
+              }}
+              handleShowContactDetail={(contactId) => {
+                this.props.showContactDetailForm(contactId);
+              }}
+              handleShowContactEdition={(contactId) => {
+                this.props.showContactEditForm(contactId);
+              }}
+              removedContactId={entityRemovedId}
+              removedContactDeletedFromTheList={() => {
+                this.props.hideContactForm();
+              }}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
   renderAdditionalInfoToggleSection(editMode = true) {
     const { t, incident_management_info } = this.props;
+    const componentClassName = 'additional-info-block';
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/additional-info-incident')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          {editMode ? (
-            <Field
-              name="incident_management_info"
-              component={FieldInput}
-              as="textarea"
-              rows="3"
-              placeholder={t('general-forms/add-description')}
-            />
-          ) : (
-            <span className="pre-text">{incident_management_info}</span>
-          )}
-        </TogglePanel>
-      </ToggleSection>
-    );
-  }
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderAddressToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderContactsToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/additional-info-incident')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            {editMode ? (
+              <Field
+                name="incident_management_info"
+                component={FieldInput}
+                as="textarea"
+                rows="3"
+                placeholder={t('general-forms/add-description')}
+              />
+            ) : (
+              <span className="pre-text">{incident_management_info}</span>
+            )}
+          </TogglePanel>
+        </ToggleSection>
       </section>
     );
   }

@@ -1,19 +1,16 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import EndUserList from "../../components/endUser/EndUserList";
+import EndUserList from '../../components/endUser/EndUserList';
 
 const mapStateToProps = (state, props) => {
-    let { columns_visible, all_columns } = state.filterColumns.endUser;
-    return { columns_visible, all_columns };
+  let { columns_visible, all_columns } = state.filterColumns.endUser;
+  return { columns_visible, all_columns };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+  return {};
 };
 
-const EndUserListContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EndUserList);
+const EndUserListContainer = connect(mapStateToProps, mapDispatchToProps)(EndUserList);
 
 export default EndUserListContainer;

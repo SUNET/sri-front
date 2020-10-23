@@ -1,18 +1,15 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import Footer from "../components/Footer";
+import Footer from '../components/Footer';
 
 const mapStateToProps = (state, props) => {
-    return {};
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {};
+  return {};
 };
 
-const FooterContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Footer);
+const FooterContainer = connect(mapStateToProps, mapDispatchToProps)(Footer);
 
 export default FooterContainer;

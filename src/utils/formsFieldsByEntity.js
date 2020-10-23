@@ -17,6 +17,7 @@ const RACK_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_position' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
+  { type: FIELD_TYPES.OBJ_TO_LIST, name: 'location' },
 ];
 const BASIC_OPERATIVE_SYSTEM = [
   { type: FIELD_TYPES.SINGLE, name: 'os' },
@@ -90,7 +91,7 @@ const firewall = {
     update: 'updateFirewall',
   },
   dispatchPropertiesListCreate: ['notify'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
   fields: [
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,
@@ -106,6 +107,7 @@ const firewall = {
     { type: FIELD_TYPES.SINGLE, name: 'security_comment' },
     { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
     { type: FIELD_TYPES.SINGLE, name: 'service_tag' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
   ],
 };
 const router = {
@@ -142,8 +144,8 @@ const host = {
     create: 'createHost',
     update: 'updateHost',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'ownersDetails', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'ownersDetails', 'portDetails'],
   fields: [
     ...BASIC_INFO,
     ...RELATION_GROUP_INFO,
@@ -154,6 +156,7 @@ const host = {
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'owner' },
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'host_user' },
     { type: FIELD_TYPES.SINGLE, name: 'host_type' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
   ],
 };
 const peeringPartner = {
@@ -278,6 +281,48 @@ const opticalFilter = {
   ],
 };
 
+const rack = {
+  formName: {
+    create: 'createRack',
+    update: 'updateRack',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'height' },
+    { type: FIELD_TYPES.SINGLE, name: 'width' },
+    { type: FIELD_TYPES.SINGLE, name: 'depth' },
+    { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
+  ],
+};
+
+const room = {
+  formName: {
+    create: 'createRoom',
+    update: 'updateRoom',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [...BASIC_INFO],
+};
+
+const site = {
+  formName: {
+    create: 'createSite',
+    update: 'updateSite',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.SINGLE, name: 'area' },
+    { type: FIELD_TYPES.SINGLE, name: 'latitude' },
+    { type: FIELD_TYPES.SINGLE, name: 'longitude' },
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -296,4 +341,7 @@ export default {
   opticalMultiplexSection,
   opticalPath,
   opticalFilter,
+  rack,
+  room,
+  site,
 };

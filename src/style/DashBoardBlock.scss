@@ -35,6 +35,18 @@
         border-bottom: solid 1px $tertiary-color-20;
         padding: 12px 24px;
         min-height: 64px;
+        &__image {
+            &__default {
+                width: 30px;
+                height: 30px;
+                background-image: url("../static/img/profile.svg");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 65%;
+                border: 1px solid rgba(0,48,73,.2);
+                border-radius: 50% !important;
+            }
+        }
         &:hover {
             cursor: pointer;
         }
@@ -44,7 +56,7 @@
                 &:first-child {
                     img {
                         max-width: 40px;
-                        border: solid 1px rgba(177,177,177,1);
+                        border: solid 1px rgba(177, 177, 177, 1);
                     }
                 }
 

@@ -44,9 +44,7 @@ class OpticalMultiplexSectionUpdateForm extends _OpticalMultiplexSectionFormPare
       <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
         {isBrowser && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {this.renderDependenciesToggleSection(editMode)}
-        {this.renderWorkLog()}
+        {this.renderSections(editMode)}
         {this.renderSaveCancelButtons()}
       </form>
     );

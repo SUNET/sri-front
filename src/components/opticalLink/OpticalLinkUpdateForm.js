@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateOpticalLinkMutation from '../../mutations/opticalLink/UpdateOpticalLinkMutation';
 import ValidationsOpticalLinkForm from './ValidationsOpticalLinkForm';
 // const
-import { UPDATE_OPTICALLINK_FORM } from '../../utils/constants';
+import { UPDATE_OPTICALLINK_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class OpticalLinkUpdateForm extends _OpticalLinkFormParentClass {
@@ -32,23 +32,36 @@ class OpticalLinkUpdateForm extends _OpticalLinkFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (opticalLink) => {
+
+  handleSubmit = (entityData) => {
     this.setState({ editMode: false });
-    UpdateOpticalLinkMutation(opticalLink, this);
+    this.props.hideModalForm();
+    const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    const someItemWillBeDeleted = portsToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateOpticalLinkMutation(entityData, form);
+  }
+
   render() {
-    let { handleSubmit } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
-        {this.renderPortsToggleSection(editMode)}
-        {editMode && this.renderBulkPortToggleSection()}
-        {this.renderWorkLog()}
-        {this.renderSaveCancelButtons()}
+        {this.renderSections(editMode)}
+        {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
   }

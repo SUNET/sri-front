@@ -16,10 +16,13 @@ class HostUpdateForm extends _HostFormParentClass {
   FORM_ID = UPDATE_HOST_FORM;
   MODEL_NAME = 'host';
   ROUTE_LIST_DIRECTION = '/network/hosts';
-  state = {
-    editMode: false,
-    visibleConvertHostModal: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+      visibleConvertHostModal: false,
+    };
+  }
   refetch = () => {
     this.props.relay.refetch(
       { hostId: this.props.host.id }, // Our refetchQuery needs to know the `hostID`
@@ -48,15 +51,17 @@ class HostUpdateForm extends _HostFormParentClass {
   }
 
   render() {
-    let { handleSubmit } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
-        {this.renderSaveCancelButtons()}
+        {!isFromModal && this.renderSaveCancelButtons()}
         {this.state.visibleConvertHostModal && this.renderConvertHostModal()}
       </form>
     );
@@ -79,6 +84,10 @@ const HostUpdateFragment = createRefetchContainer(
         id
         name
         description
+        location {
+          id
+          name
+        }
         comments {
           id
           user {

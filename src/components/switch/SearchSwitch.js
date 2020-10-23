@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import SwitchList from '../../containers/switch/SwitchList';
 import SwitchDetailsContainer from '../../containers/switch/SwitchDetails';
-import CreateSwitchRoute from "./CreateSwitchRoute/CreateSwitchRoute";
+import CreateSwitchRoute from './CreateSwitchRoute/CreateSwitchRoute';
 // Constants
 
 class SearchSwitch extends _SearchEntityParentClass {
@@ -29,11 +29,7 @@ class SearchSwitch extends _SearchEntityParentClass {
     { name: 'Description', value: 'description', filter: 'order' },
   ];
   LIST_QUERY = graphql`
-    query SearchSwitchAllQuery(
-      $count: Int!
-      $filter: SwitchFilter
-      $orderBy: SwitchOrderBy
-    ) {
+    query SearchSwitchAllQuery($count: Int!, $filter: SwitchFilter, $orderBy: SwitchOrderBy) {
       ...SwitchList_switchs @arguments(count: $count, filter: $filter, orderBy: $orderBy)
     }
   `;

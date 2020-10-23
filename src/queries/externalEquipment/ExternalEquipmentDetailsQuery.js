@@ -44,6 +44,10 @@ const ExternalEquipmentDetailsQuery = graphql`
           }
         }
       }
+      location {
+        id
+        name
+      }
       has {
         id
         name

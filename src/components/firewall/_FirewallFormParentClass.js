@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldArray, change, Field, arrayPush } from 'redux-form';
-import { Form, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
@@ -16,6 +16,10 @@ import { isBrowser } from 'react-device-detect';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
+import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
+// import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+
 
 class _FirewallFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -31,11 +35,21 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       this.updateMutation(this.entityDataToUpdate, this);
     }
     if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
       const selectionData = {
         id: nextProps.entitySavedId,
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
-      this.handleSelectedNetworkOrganization(selectionData, methodName);
+      if (fieldModalOpened === 'owner') {
+        this.handleSelectedNetworkOrganization(selectionData, methodName);
+      } else if (fieldModalOpened === 'ports') {
+        handleSelectedPort({
+          selection: selectionData,
+          getMethod: this.props.getPortById,
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
+      }
       return false;
     }
     return true;
@@ -57,46 +71,34 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units } = this.props;
+    const { t, rack_position, rack_units, isFromModal, /* location, dispatch, form*/ } = this.props;
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {/* {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })} */}
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderDetailsToggleSection(editMode)}
+        {this.renderSecurityToggleSection(editMode)}
+        {this.renderOSToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {this.renderOwnerToggleSection(editMode)}
+        {!isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
       </>
     );
   }
 
-  renderModelMainSection(editMode = true) {
-    return (
-      <section className="model-section">
-        <Form.Row>
-          <Col>
-            <Col>{this.renderDescriptionToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderGeneralInfoToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderDetailsToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderSecurityToggleSection(editMode)}</Col>
-            <hr />
-            <Col>{this.renderOSToggleSection(editMode)}</Col>
-          </Col>
-        </Form.Row>
-      </section>
-    );
-  }
-
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, operational_state, contract_number, managed_by } = this.props;
-
     const generalInfo = [
       {
         title: t('general-forms/operational-state'),
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"
@@ -124,6 +126,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: managed_by,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="host_management_sw"
@@ -135,24 +138,27 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderDetailsToggleSection(editMode = true) {
+    const componentClassName = 'details-block';
     const { t, model, vendor, backup, end_support } = this.props;
     const detailsInfo = [
       {
@@ -208,24 +214,27 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       },
     ];
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/details')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {detailsInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/details')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {detailsInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderSecurityToggleSection(editMode = true) {
+    const componentClassName = 'security-block';
     const {
       t,
       securityClassObj,
@@ -241,6 +250,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: securityClassObj ? securityClassObj.name : undefined,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="security_classes"
@@ -285,6 +295,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         editContent: (
           <div className="mr-3">
             <Dropdown
+              t={t}
               className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
               type="combo_list"
               name="support_group_id"
@@ -312,6 +323,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="responsible_group_id"
@@ -335,29 +347,32 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       },
     ];
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/security')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {securityInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/security')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {securityInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
+              <div className="form-internal-block">
+                {securitySecondRowInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-            <div className="form-internal-block">
-              {securitySecondRowInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
-            </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderOSToggleSection(editMode = true) {
+    const componentClassName = 'os';
     const { t, os, os_version, max_number_of_ports, service_tag } = this.props;
 
     const osInfo = [
@@ -404,27 +419,30 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       },
     ];
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/os')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {osInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/os')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {osInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 
   renderOwnerToggleSection(editMode = false) {
+    const componentClassName = 'owner-block';
     const { t, owner, entityRemovedId } = this.props;
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
             <h2>{t('general-forms/owner')}</h2>

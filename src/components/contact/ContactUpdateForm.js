@@ -41,15 +41,15 @@ class ContactUpdateForm extends _ContactFormParentClass {
   };
   render() {
     const { isFromModal, handleSubmit } = this.props;
+    const { editMode } = this.state;
     const showBackButton = isBrowser && !isFromModal;
     const showSaveCancelInHeader = showBackButton;
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
-        {this.renderHeader(this.state.editMode, showBackButton, isFromModal)}
-        {this.renderModelMainSection(this.state.editMode)}
-        {this.renderWorkLog(this.state.editMode)}
+        {this.renderHeader(editMode, showBackButton, isFromModal)}
+        {this.renderSections(editMode)}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );

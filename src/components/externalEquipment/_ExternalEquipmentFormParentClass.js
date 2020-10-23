@@ -3,13 +3,15 @@ import { FieldArray, arrayPush } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import FieldArrayPorts from '../common/FieldArrayPorts';
 import FieldArrayOwner from '../firewall/FieldArrayOwner';
-import BulPort from '../common/BulkPort';
 // const
 import { SAVED } from '../../utils/constants';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
+import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
+// import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+
 
 class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -33,7 +35,12 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
       if (fieldModalOpened === 'owner') {
         this.handleSelectedNetworkOrganization(selectionData, methodName);
       } else if (fieldModalOpened === 'ports') {
-        this.handleSelectedPort(selectionData);
+        handleSelectedPort({
+          selection: selectionData,
+          getMethod: this.props.getPortById,
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
       }
       return false;
     }
@@ -55,30 +62,16 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
     }
   };
 
-  handleSelectedPort = (selection) => {
-    if (selection !== null && selection.id) {
-      this.props.getPortById(selection.id).then((entity) => {
-        const newEntity = {
-          type: entity.type,
-          __typename: entity.__typename,
-          name: entity.name,
-          id: entity.id,
-          status: 'saved',
-        };
-        this.props.dispatch(arrayPush(this.props.form, 'ports', newEntity));
-      });
-    }
-  };
-
   renderSections(editMode) {
-    const { t, rack_position, rack_units, isFromModal } = this.props;
+    const { t, rack_position, rack_units, isFromModal, /* location, dispatch, form*/ } = this.props;
     return (
       <>
-        {this.renderModelMainSection(editMode)}
+        {/* {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })} */}
+        {this.renderDescriptionToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {!isFromModal && this.renderOwnerToggleSection(editMode)}
-        {!isFromModal && this.renderPortsToggleSection(editMode)}
-        {!isFromModal && editMode && this.renderBulkPortToggleSection()}
+        {!isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
       </>
     );
@@ -117,67 +110,6 @@ class _ExternalEquipmentFormParentClass extends _BasicFormParentClass {
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'owner' ? entityRemovedId : null}
               disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
-            />
-          </TogglePanel>
-        </ToggleSection>
-      </section>
-    );
-  }
-
-  renderPortsToggleSection(editMode = false) {
-    const { t, entityRemovedId } = this.props;
-    return (
-      <section className="model-section">
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('main-entity-name/ports')}</h2>
-          </ToggleHeading>
-
-          <TogglePanel>
-            <FieldArray
-              name="ports"
-              component={FieldArrayPorts}
-              editable={editMode}
-              dispatch={this.props.dispatch}
-              errors={this.props.formSyncErrors.parents}
-              metaFields={this.props.fields}
-              handleDeployCreateForm={(typeEntityToShowForm) => {
-                this.setState({ fieldModalOpened: 'ports' });
-                this.props.showModalCreateForm(typeEntityToShowForm);
-              }}
-              showRowEditModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'ports' });
-                this.props.showModalEditForm(typeEntityToShowForm, entityId);
-              }}
-              showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'ports' });
-                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
-              }}
-              handleSearchResult={this.handleSelectedPort}
-              rerenderOnEveryChange
-              entityRemovedId={this.state.fieldModalOpened === 'ports' ? entityRemovedId : null}
-            />
-          </TogglePanel>
-        </ToggleSection>
-      </section>
-    );
-  }
-
-  renderBulkPortToggleSection() {
-    const { t } = this.props;
-    return (
-      <section className="model-section">
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('general-forms/bulk-port')}</h2>
-          </ToggleHeading>
-          <TogglePanel>
-            <BulPort
-              handleBulkPortResponse={(dataForBulkPortCreate) => {
-                dataForBulkPortCreate.forEach((portData) => {
-                  this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
-                });
-              }}
             />
           </TogglePanel>
         </ToggleSection>

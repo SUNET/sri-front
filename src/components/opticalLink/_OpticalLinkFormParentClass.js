@@ -1,30 +1,15 @@
 import React from 'react';
-import { FieldArray, arrayPush, change } from 'redux-form';
+import { arrayPush, change } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import FieldArrayPorts from '../common/FieldArrayPorts';
-import BulPort from '../common/BulkPort';
 // const
 import { isBrowser } from 'react-device-detect';
 
-const renderFormBlockSection = (editable, data, uniqueKey) => {
-  const isPresentState = !editable;
-  const presentContent = data.presentContent || '';
-  return (
-    <div className="form-internal-block__section" key={uniqueKey}>
-      <div className="form-internal-block__section__title">{data.title}</div>
-      <div
-        className={`form-internal-block__section__content ${
-          editable ? 'form-internal-block__section__content--edition-mode' : ''
-        }`}
-      >
-        {isPresentState ? presentContent : data.editContent}
-      </div>
-    </div>
-  );
-};
+import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
+import renderFormBlockSection from '../common/BlockSection';
 
 class _OpticalLinkFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -38,6 +23,21 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
     if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
       this.props.hideModalConfirm();
       this.updateMutation(this.entityDataToUpdate, this);
+    }
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      if (fieldModalOpened === 'ports') {
+        handleSelectedPort({
+          selection: selectionData,
+          getMethod: this.props.getPortById,
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
+      }
+      return false;
     }
     return true;
   }
@@ -57,11 +57,22 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
     }
   };
 
+  renderSections(editMode) {
+    const { isFromModal } = this.props;
+    return (
+      <>
+        {this.renderDescriptionToggleSection(editMode)}
+        {this.renderGeneralInfoToggleSection(editMode)}
+        {!isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isFromModal && editMode && renderBulkPortToggleSection(this)}
+        {this.renderWorkLog()}
+      </>
+    );
+  }
+
   renderGeneralInfoToggleSection(editMode = true) {
+    const componentClassName = 'general-info-block';
     const { t, operational_state, type, interface_type, provider_id, provider_obj } = this.props;
-    console.log('interface_type: ', interface_type);
-    console.log('type: ', type);
-    console.log('operational_state: ', operational_state);
 
     const generalInfo = [
       {
@@ -69,6 +80,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
         presentContent: operational_state,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="operational_states"
@@ -82,6 +94,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
         presentContent: type,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="optical_link_types"
@@ -95,6 +108,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
         presentContent: interface_type,
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="optical_link_interface_type"
@@ -108,6 +122,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
         presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown
+            t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             type="combo_list"
             name="provider_id"
@@ -128,78 +143,19 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
     ];
 
     return (
-      <ToggleSection>
-        <ToggleHeading>
-          <h2>{t('general-forms/general-information')}</h2>
-        </ToggleHeading>
-        <TogglePanel>
-          <div>
-            <div className="form-internal-block">
-              {generalInfo.map((formData, index) => {
-                return renderFormBlockSection(editMode, formData, index);
-              })}
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/general-information')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {generalInfo.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
             </div>
-          </div>
-        </TogglePanel>
-      </ToggleSection>
-    );
-  }
-
-  renderPortsToggleSection(editMode = false) {
-    const { t, entityRemovedId } = this.props;
-    return (
-      <section className="model-section">
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('main-entity-name/ports')}</h2>
-          </ToggleHeading>
-
-          <TogglePanel>
-            <FieldArray
-              name="ports"
-              component={FieldArrayPorts}
-              editable={editMode}
-              dispatch={this.props.dispatch}
-              errors={this.props.formSyncErrors.parents}
-              metaFields={this.props.fields}
-              handleDeployCreateForm={(typeEntityToShowForm) => {
-                this.setState({ fieldModalOpened: 'ports' });
-                this.props.showModalCreateForm(typeEntityToShowForm);
-              }}
-              showRowEditModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'ports' });
-                this.props.showModalEditForm(typeEntityToShowForm, entityId);
-              }}
-              showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'ports' });
-                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
-              }}
-              handleSearchResult={this.handleSelectedPort}
-              rerenderOnEveryChange
-              entityRemovedId={this.state.fieldModalOpened === 'ports' ? entityRemovedId : null}
-            />
-          </TogglePanel>
-        </ToggleSection>
-      </section>
-    );
-  }
-
-  renderBulkPortToggleSection() {
-    const { t } = this.props;
-    return (
-      <section className="model-section">
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('general-forms/bulk-port')}</h2>
-          </ToggleHeading>
-          <TogglePanel>
-            <BulPort
-              handleBulkPortResponse={(dataForBulkPortCreate) => {
-                dataForBulkPortCreate.forEach((portData) => {
-                  this.props.dispatch(arrayPush(this.props.form, 'ports', portData));
-                });
-              }}
-            ></BulPort>
           </TogglePanel>
         </ToggleSection>
       </section>

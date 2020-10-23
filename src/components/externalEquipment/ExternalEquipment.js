@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 const ExternalEquipmentQuery = graphql`
   query ExternalEquipmentQuery($externalEquipmentId: ID!) {
     getExternalEquipmentById(id: $externalEquipmentId) {
-        __typename
+      __typename
       id
       name
       description

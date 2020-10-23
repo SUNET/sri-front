@@ -47,7 +47,7 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderModelMainSection(editMode)}
+        {this.renderSections(editMode)}
         {with_same_name && this.renderRelatedEntities(with_same_name)}
         {this.renderWorkLog()}
         {!isFromModal && this.renderSaveCancelButtons()}
