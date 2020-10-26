@@ -3,7 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { isBrowser } from 'react-device-detect';
 
-import formattedServicesData from './services/serviceListData';
+import formattedServicesData from './service/serviceListData';
 
 class SubMenuActions extends React.Component {
   ROUTE_LIST = [

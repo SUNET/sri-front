@@ -211,7 +211,9 @@ class _SearchEntityParentClass extends React.Component {
       </LateralSliderMenu>
     );
   }
+  preRender() {}
   render() {
+    this.preRender();
     return (
       <section className="mt-3">
         <Switch>

@@ -323,6 +323,18 @@ const site = {
   ],
 };
 
+const service = {
+  formName: {
+    create: 'createService',
+    update: 'updateService',
+  },
+  dispatchPropertiesListCreate: ['notify'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'confirm'],
+  fields: [
+    ...BASIC_INFO,
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -344,4 +356,5 @@ export default {
   rack,
   room,
   site,
+  service,
 };

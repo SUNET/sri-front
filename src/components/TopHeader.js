@@ -12,7 +12,7 @@ import { MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE } from '../utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import formattedServicesData from './services/serviceListData';
+import formattedServicesData from './service/serviceListData';
 
 import '../style/TopHeader.scss';
 

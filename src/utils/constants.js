@@ -47,6 +47,10 @@ export const CREATE_ROOM_FORM = 'create-location-rooms-form';
 export const UPDATE_ROOM_FORM = 'update-location-rooms-form';
 export const CREATE_SITE_FORM = 'create-location-sites-form';
 export const UPDATE_SITE_FORM = 'update-location-sites-form';
+
+export const CREATE_SERVICE_FORM = 'create-location-services-form';
+export const UPDATE_SERVICE_FORM = 'update-location-services-form';
+
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';

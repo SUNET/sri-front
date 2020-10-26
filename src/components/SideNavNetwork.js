@@ -24,7 +24,7 @@ import {
   NETWORK_SERVICE,
 } from '../utils/constants';
 
-import formattedServicesData from './services/serviceListData';
+import formattedServicesData from './service/serviceListData';
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
