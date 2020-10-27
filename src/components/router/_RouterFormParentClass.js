@@ -15,7 +15,7 @@ import renderFormBlockSection from '../common/BlockSection';
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
-// import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
 
 class _RouterFormParentClass extends _BasicFormParentClass {
@@ -50,10 +50,10 @@ class _RouterFormParentClass extends _BasicFormParentClass {
   }
 
   renderSections(editMode) {
-    const { t, rack_position, rack_units, isFromModal, /* location, dispatch, form*/ } = this.props;
+    const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
       <>
-        {/* {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })} */}
+        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
