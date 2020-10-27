@@ -28,6 +28,12 @@ export default function UpdateServiceMutation(service, form) {
         id: service.id,
         name: service.name,
         description: service.description,
+        operational_state: service.operational_state,
+        service_type: 'Interface Switch',
+        relationship_provider: null,
+        decommissioned_date: service.decommissioned_date,
+        support_group: service.support_group_id,
+        responsible_group: service.responsible_group_id,
       },
     },
   };

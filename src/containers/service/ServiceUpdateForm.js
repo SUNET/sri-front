@@ -8,6 +8,7 @@ const ENTITY_NAME = 'service';
 
 const mapStateToProps = (state, props) => {
   const mappedStateToProps = getUpdateProps(ENTITY_NAME, props, state);
+  console.log('mappedStateToProps: ', mappedStateToProps);
   return mappedStateToProps;
 };
 

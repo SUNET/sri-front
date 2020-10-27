@@ -232,7 +232,7 @@ export class TopHeader extends React.Component {
             ],
           },
           {
-            i18nText: t('+++++SERVICES'),
+            i18nText: t('main-entity-name/services'),
             path: formattedServicesData[0].path,
             iconClass: 'icon-organization',
             subSubOptions: formattedServicesData,

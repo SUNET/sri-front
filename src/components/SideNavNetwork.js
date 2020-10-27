@@ -116,7 +116,7 @@ class SideNavNetwork extends React.Component {
       header: {
         name: NETWORK_SERVICE,
         icon: 'location-icon.svg',
-        i18nText: '++++services++++',
+        i18nText: 'section/network/service',
       },
       items: formattedServicesData,
     },
