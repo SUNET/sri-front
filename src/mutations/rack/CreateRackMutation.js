@@ -45,7 +45,7 @@ function CreateRackMutation(rack, form) {
       if (rack.comment) {
         CreateCommentMutation(entityId, rack.comment);
       }
-      form.props.notify(i18n.t('entity-notify-create/racks'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/location-racks'), 'success');
       if (form.props.history) {
         form.props.history.push(`/network/location-racks/${entityId}`);
       } else {

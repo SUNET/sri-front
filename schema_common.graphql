@@ -1,5 +1,5 @@
 # source: http://sri.localenv.loc/api/graphql/
-# timestamp: Tue Oct 20 2020 13:07:47 GMT+0200 (GMT+02:00)
+# timestamp: Tue Oct 27 2020 13:24:39 GMT+0100 (GMT+01:00)
 
 """This class represents an Action from the activity log"""
 type Action implements Node {
@@ -13425,7 +13425,7 @@ input UpdateOdfInput {
   description: String
   max_number_of_ports: Int
   operational_state: ChoiceScalar
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_ports: String
   id: ID!
   clientMutationId: String
@@ -13445,7 +13445,7 @@ input UpdateOpticalFilterInput {
   description: String
   max_number_of_ports: Int
   operational_state: ChoiceScalar
-  relationship_location: Int
+  relationship_location: ChoiceScalar
   relationship_ports: String
   id: ID!
   clientMutationId: String

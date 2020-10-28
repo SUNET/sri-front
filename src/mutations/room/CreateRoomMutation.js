@@ -42,7 +42,7 @@ function CreateRoomMutation(room, form) {
       if (room.comment) {
         CreateCommentMutation(entityId, room.comment);
       }
-      form.props.notify(i18n.t('entity-notify-create/rooms'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/location-rooms'), 'success');
       if (form.props.history) {
         form.props.history.push(`/network/location-rooms/${entityId}`);
       } else {

@@ -21,7 +21,7 @@ import renderFormBlockSection from '../common/BlockSection';
 
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
-// import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
 
 class _HostFormParentClass extends _BasicFormParentClass {
@@ -107,11 +107,11 @@ class _HostFormParentClass extends _BasicFormParentClass {
   };
 
   renderSections(editMode) {
-    const { host_type, t, rack_position, rack_units, isFromModal, /* location, dispatch, form*/ } = this.props;
+    const { host_type, t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     const isLogicalHost = host_type === 'Logical';
     return (
       <>
-        {/* {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })} */}
+        {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}

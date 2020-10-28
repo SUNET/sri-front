@@ -51,7 +51,7 @@ function CreateSiteMutation(site, form) {
       if (site.comment) {
         CreateCommentMutation(entityId, site.comment);
       }
-      form.props.notify(i18n.t('entity-notify-create/sites'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/location-sites'), 'success');
       if (form.props.history) {
         form.props.history.push(`/network/location-sites/${entityId}`);
       } else {
