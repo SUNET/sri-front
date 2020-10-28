@@ -54,7 +54,7 @@ export const checkStatus = function(response) {
     console.log('SCHEMA_VERSION: ', CONFIG.SCHEMA_VERSION);
     return response;
   }
-  fetch(`${API_HOST}/login/?next=/`, {
+  fetch(`${API_HOST}${CONFIG.LOGIN_URL}`, {
     method: 'GET',
   }).then((response) => {
     document.location.href = response.url;
