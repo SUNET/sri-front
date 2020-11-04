@@ -1,13 +1,12 @@
 import { Environment, Network, RecordSource, Store, QueryResponseCache } from 'relay-runtime';
-import { getCsrfToken } from './sagas/common';
+import { getCsrfToken, redirectToLogin } from './utils/fetchUtils';
 import CONFIG from './config';
-import LOGIN_URL from './config';
 
+const { API_HOST } = CONFIG;
 // CACHING
 const oneMinute = 1; // the cache is deactivated because the filters stop working, because when you change the filters the variables are kept.
 const cache = new QueryResponseCache({ size: 100, ttl: oneMinute });
 
-const { API_HOST } = CONFIG;
 
 async function fetchQuery(operation, variables, cacheConfig, uploadables) {
   const queryId = operation.name;
@@ -40,7 +39,7 @@ async function fetchQuery(operation, variables, cacheConfig, uploadables) {
   })
     .then((response) => {
       if (response.redirected) {
-        return window.location.replace(`${API_HOST}${LOGIN_URL}`);
+        return redirectToLogin()
       }
       return response.json();
     })
@@ -63,7 +62,7 @@ async function fetchQuery(operation, variables, cacheConfig, uploadables) {
       return jsonResult;
     })
     .catch((err) => {
-      window.location.replace(`${API_HOST}${LOGIN_URL}`);
+      return redirectToLogin();
     });
 }
 
