@@ -53,16 +53,16 @@ async function getRequest(url) {
     .then((response) => response.json());
 }
 
-async function postRequest(url, data) {
-  const postConfig = await getPostRequest();
-  return window
-    .fetch(url, {
-      ...postConfig,
-      body: JSON.stringify(data),
-    })
-    .then(checkStatus)
-    .then((response) => response.json());
-}
+// async function postRequest(url, data) {
+//   const postConfig = await getPostRequest();
+//   return window
+//     .fetch(url, {
+//       ...postConfig,
+//       body: JSON.stringify(data),
+//     })
+//     .then(checkStatus)
+//     .then((response) => response.json());
+// }
 
 async function putRequest(url, data) {
   const postConfig = await getPutConfig();
