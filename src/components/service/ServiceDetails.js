@@ -12,10 +12,13 @@ class ServiceDetails extends _BasicDetailsParentClass {
   classDetails = 'service-details';
 
   handleDelete = () => {
-    DeleteServiceMutation(this.getId(), () =>
-      this.props.history.push('/network/services'),
-    );
+    DeleteServiceMutation(this.getId(), () => this.props.history.push('/network/services'));
   };
+
+  getCustomPropsCreateComponent() {
+    const { currentClass } = this.props;
+    return { currentClass };
+  }
 }
 
 export default ServiceDetails;

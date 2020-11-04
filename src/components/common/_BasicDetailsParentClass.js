@@ -31,6 +31,8 @@ class _BasicDetailsParentClass extends React.Component {
     throw new Error('This method should be overwritten in the child class');
   };
 
+  getCustomPropsCreateComponent() {}
+
   render() {
     const entityId = this.getId();
     return (
@@ -46,6 +48,7 @@ class _BasicDetailsParentClass extends React.Component {
           } else if (props) {
             const customProps = {
               [this.entityNameProp]: props[this.entityGetDetailsMethodName],
+              ...this.getCustomPropsCreateComponent(),
             };
             return (
               <section className={`model-details ${this.classDetails}`}>

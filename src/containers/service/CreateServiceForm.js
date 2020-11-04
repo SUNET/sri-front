@@ -1,13 +1,22 @@
 import { connect } from 'react-redux';
 import CreateServiceForm from '../../components/service/CreateServiceForm';
 
-import { getCreateProps } from '../../utils/mapPropsFormFactory';
+import { getUpdateProps } from '../../utils/mapPropsFormFactory';
 import { getDispatchPropsCreate } from '../../utils/mapDispatchFormFactory';
 
 const ENTITY_NAME = 'service';
 
 const mapStateToProps = (state, props) => {
-  const mappedStateToProps = getCreateProps(ENTITY_NAME, props, state);
+  const { currentClass } = props;
+  const servicePropsWithClassType = {
+    service: {
+      service_type: {
+        id: currentClass.id,
+        name: currentClass.originalName,
+      },
+    },
+  };
+  const mappedStateToProps = getUpdateProps(ENTITY_NAME, servicePropsWithClassType, state);
   return mappedStateToProps;
 };
 
@@ -16,9 +25,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const CreateServiceFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateServiceForm);
+const CreateServiceFormContainer = connect(mapStateToProps, mapDispatchToProps)(CreateServiceForm);
 
 export default CreateServiceFormContainer;

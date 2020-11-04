@@ -43,8 +43,8 @@ class SearchService extends _SearchEntityParentClass {
   }
 
   getFilters = () => {
-    const { currentType } = this.props;
-    const filterArrayAND = [{ service_type: currentType.originalName }];
+    const { currentClass } = this.props;
+    const filterArrayAND = [{ service_class: currentClass.originalName }];
     let filterArrayOR = [];
     let filters = {};
 
@@ -61,9 +61,14 @@ class SearchService extends _SearchEntityParentClass {
     return filters;
   };
 
+  getCustomPropsCreateComponent() {
+    const { currentClass } = this.props;
+    return { currentClass };
+  }
+
   preRender() {
-    const { currentType } = this.props;
-    this.PATH_ENTITY = `/network/${currentType.path}`;
+    const { currentClass } = this.props;
+    this.PATH_ENTITY = `/network/${currentClass.path}`;
   }
 }
 

@@ -64,7 +64,7 @@ class Network extends React.Component {
                   key={index}
                   path={`/network/${service.path}`}
                   render={(props) => {
-                    return <SearchServiceContainer currentType={service} />;
+                    return <SearchServiceContainer currentClass={service} />;
                   }}
                 />
               );

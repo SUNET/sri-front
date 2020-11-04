@@ -18,7 +18,8 @@ class CreateServiceForm extends _ServiceFormParentClass {
     errors: [],
   };
   handleSubmit = (service) => {
-    CreateServiceMutation(service, this);
+    const { currentClass } = this.props;
+    CreateServiceMutation({ ...service, currentClass }, this);
   };
   render() {
     const { handleSubmit } = this.props;

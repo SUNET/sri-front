@@ -1,7 +1,6 @@
 import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
-import { FieldArray, change, Field, arrayPush } from 'redux-form';
-import FieldInput from '../FieldInput';
+import { change } from 'redux-form';
 import moment from 'moment';
 // components
 import { Form } from 'react-bootstrap';
@@ -9,7 +8,6 @@ import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 // const
-import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 import renderFormBlockSection from '../common/BlockSection';
@@ -43,8 +41,7 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
 
   renderGeneralInfoToggleSection(editMode = true) {
     const componentClassName = 'general-info-block';
-    const { t, operational_state, decommissioned_date, service_type_obj } = this.props;
-    const serviceTypeValue = service_type_obj ? service_type_obj.name : '';
+    const { t, operational_state, decommissioned_date, service_type_obj, currentClass } = this.props;
     const datePickerElement = (
       <Form.Group>
         <DayPickerInput
@@ -67,16 +64,27 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
         <Form.Control type="text" name="" value="" disabled />
       </Form.Group>
     );
-    const serviceTypeDisabledInput = (
+    const serviceTypeDropdown = (
       <Form.Group>
-        <Form.Control type="text" name="serviceTypeValue" value={serviceTypeValue} disabled />
+        <Dropdown
+          t={t}
+          className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+          emptyLabel="Select type"
+          model="services_types"
+          name="service_type_id"
+          serviceClass={currentClass.originalName}
+          onChange={(newValue) => {
+            this.props.dispatch(change(this.props.form, 'service_type_id', newValue ? newValue.id : null));
+            this.props.dispatch(change(this.props.form, 'service_type_obj', newValue ? newValue : null));
+          }}
+        />
       </Form.Group>
     );
     const generalInfo = [
       {
         title: t('general-forms/service-type'),
-        presentContent: serviceTypeDisabledInput,
-        editContent: serviceTypeDisabledInput,
+        presentContent: service_type_obj ? service_type_obj.name : '',
+        editContent: serviceTypeDropdown,
       },
       {
         title: t('general-forms/operational-state'),

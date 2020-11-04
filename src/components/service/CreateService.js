@@ -3,7 +3,7 @@ import CreateServiceFormContainer from '../../containers/service/CreateServiceFo
 
 class CreateService extends React.Component {
   render() {
-    return <CreateServiceFormContainer />;
+    return <CreateServiceFormContainer {...this.props} />;
   }
 }
 

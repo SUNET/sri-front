@@ -212,6 +212,7 @@ class _SearchEntityParentClass extends React.Component {
     );
   }
   preRender() {}
+  getCustomPropsCreateComponent() {}
   render() {
     this.preRender();
     return (
@@ -227,8 +228,20 @@ class _SearchEntityParentClass extends React.Component {
               </>
             )}
           />
-          <Route path={`${this.PATH_ENTITY}/create`} component={this.CREATE_COMPONENT} />
-          <Route path={`${this.PATH_ENTITY}/:${this.PATH_ENTITY_ID}`} component={this.DETAIL_CONTAINER} />
+          <Route
+            path={`${this.PATH_ENTITY}/create`}
+            render={(routeProps) => {
+              const allProps = { ...routeProps, ...this.getCustomPropsCreateComponent() };
+              return <this.CREATE_COMPONENT {...allProps} />;
+            }}
+          />
+          <Route
+            path={`${this.PATH_ENTITY}/:${this.PATH_ENTITY_ID}`}
+            render={(routeProps) => {
+              const allProps = { ...routeProps, ...this.getCustomPropsCreateComponent() };
+              return <this.DETAIL_CONTAINER {...allProps} />;
+            }}
+          />
         </Switch>
       </section>
     );
