@@ -245,9 +245,9 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
       os,
       os_version,
       support_group_id,
-      supportGroupObj,
+      support_group_obj,
       responsible_group_id,
-      responsibleGroupObj,
+      responsible_group_obj,
     } = this.props;
 
     const detailsInfoFirstRow = [
@@ -274,7 +274,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     const detailsInfoSecondRow = [
       {
         title: t('general-forms/support-group'),
-        presentContent: supportGroupObj ? supportGroupObj.name : '',
+        presentContent: support_group_obj ? support_group_obj.name : '',
         editContent: (
           <div className="mr-3">
             <Dropdown
@@ -285,7 +285,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
               model="group"
               placeholder={t('general-forms/write-support-group')}
               currentValue={support_group_id}
-              objectCurrentValue={supportGroupObj}
+              objectCurrentValue={support_group_obj}
               nameDataInsideRequest="all_groups"
               valueField="id"
               labelElementsArray={['name']}
@@ -294,7 +294,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
                   change(this.props.form, 'support_group_id', newSupportGroup ? newSupportGroup.id : null),
                 );
                 this.props.dispatch(
-                  change(this.props.form, 'supportGroupObj', newSupportGroup ? newSupportGroup : null),
+                  change(this.props.form, 'support_group_obj', newSupportGroup ? newSupportGroup : null),
                 );
               }}
             />
@@ -303,7 +303,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
       },
       {
         title: t('general-forms/responsible-group'),
-        presentContent: responsibleGroupObj ? responsibleGroupObj.name : '',
+        presentContent: responsible_group_obj ? responsible_group_obj.name : '',
         editContent: (
           <Dropdown
             t={t}
@@ -313,7 +313,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
             model="group"
             placeholder={t('general-forms/write-responsible-group')}
             currentValue={responsible_group_id}
-            objectCurrentValue={responsibleGroupObj}
+            objectCurrentValue={responsible_group_obj}
             nameDataInsideRequest="all_groups"
             valueField="id"
             labelElementsArray={['name']}
@@ -322,7 +322,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
                 change(this.props.form, 'responsible_group_id', newSupportGroup ? newSupportGroup.id : null),
               );
               this.props.dispatch(
-                change(this.props.form, 'responsibleGroupObj', newSupportGroup ? newSupportGroup : null),
+                change(this.props.form, 'responsible_group_obj', newSupportGroup ? newSupportGroup : null),
               );
             }}
           />

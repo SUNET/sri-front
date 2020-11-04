@@ -98,6 +98,27 @@ const DropdownOwnersQuery = graphql`
   }
 `;
 
+const DropdownServicesTypesQuery = graphql`
+  query DropdownServicesTypesQuery($filter: ServiceClassFilter) {
+    services_classes(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+          servicetype_set {
+            edges {
+              node {
+                id
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 class Dropdown extends React.PureComponent {
   static propTypes = {
     type: PropTypes.string,
@@ -110,6 +131,7 @@ class Dropdown extends React.PureComponent {
   };
   getQueryByModel(model) {
     let queryModel;
+    let queryVariables = null;
     switch (model) {
       case 'organization':
         queryModel = DropdownOrganizationsAllQuery;
@@ -135,11 +157,22 @@ class Dropdown extends React.PureComponent {
       case 'switch_types':
         queryModel = DropdownSwitchTypesQuery;
         break;
+      case 'services_types':
+        queryModel = DropdownServicesTypesQuery;
+        queryVariables = {
+          filter: {
+            name_contains: this.props.serviceClass,
+          },
+        };
+        break;
       default:
         queryModel = DropdownQuery;
+        queryVariables = {
+          name: this.props.type,
+        };
         break;
     }
-    return queryModel;
+    return { queryModel, queryVariables };
   }
 
   getCustomLabel(element) {
@@ -175,6 +208,18 @@ class Dropdown extends React.PureComponent {
     };
   }
 
+  getFormattedServiceTypes(servicesList) {
+    return servicesList.edges[0].node.servicetype_set.edges.map((ed) => ({
+      id: ed.node.id,
+      name: ed.node.name,
+    }));
+  }
+
+  getCurrentOptionObject(allOptions, currentId) {
+    const formattedServiceList = this.getFormattedServiceTypes(allOptions);
+    return formattedServiceList.find((opt) => opt.id === currentId);
+  }
+
   // for real backend dropdowns
   renderOptions = (options) => {
     return options.map((option) => {
@@ -198,6 +243,17 @@ class Dropdown extends React.PureComponent {
   // dropdowns optimized by the backend to improve performance
   renderOptionsModelOptimized = (options) => {
     return options.map((option) => {
+      return (
+        <option key={option.id} value={option.id}>
+          {option.name}
+        </option>
+      );
+    });
+  };
+
+  renderServicesTypesOptions = (serviceList) => {
+    const formattedServiceList = this.getFormattedServiceTypes(serviceList);
+    return formattedServiceList.map((option) => {
       return (
         <option key={option.id} value={option.id}>
           {option.name}
@@ -243,6 +299,8 @@ class Dropdown extends React.PureComponent {
         onChange={(e) => {
           if (this.props.model === 'physical_types' || this.props.model === 'owners_types') {
             this.props.onChange(options.find((o) => o.value === e.target.value));
+          } else if (this.props.model === 'services_types') {
+            this.props.onChange(this.getCurrentOptionObject(options, e.target.value));
           } else {
             this.props.onChange(e.target);
           }
@@ -259,6 +317,7 @@ class Dropdown extends React.PureComponent {
         {(this.props.model === 'roles' || this.props.model === 'default_roles') && this.renderOptionsModel(options)}
         {(this.props.model === 'physical_types' || this.props.model === 'owners_types') && this.renderOptions(options)}
         {this.props.model === 'switch_types' && this.renderOptions(options)}
+        {this.props.model === 'services_types' && this.renderServicesTypesOptions(options)}
         {this.props.model === undefined && this.renderOptions(options)}
       </Field>
     );
@@ -287,18 +346,13 @@ class Dropdown extends React.PureComponent {
   render() {
     const { t, type } = this.props;
     let dropdownQuery = this.getQueryByModel(this.props.model);
-    const variables =
-      this.props.model === undefined
-        ? {
-            name: this.props.type,
-          }
-        : null;
+    const variables = dropdownQuery.queryVariables;
     return (
       <Form.Group className="d-inline">
         {this.props.label && <Form.Label>{this.props.label}</Form.Label>}
         <QueryRenderer
           environment={environment}
-          query={dropdownQuery}
+          query={dropdownQuery.queryModel}
           variables={variables}
           render={({ error, props }) => {
             if (error) {

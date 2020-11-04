@@ -24,6 +24,7 @@ const entityList = [
   'rack',
   'room',
   'site',
+  'service'
 ];
 const initialState = entityList.reduce((acc, curr) => {
   acc[curr] = {

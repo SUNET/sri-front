@@ -267,6 +267,9 @@ exports[`Some Component Renders correctly 1`] = `
                 "main-entity-name/location-sites",
               ],
               Array [
+                "main-entity-name/services",
+              ],
+              Array [
                 "header.main-menu.home",
               ],
               Array [
@@ -400,6 +403,10 @@ exports[`Some Component Renders correctly 1`] = `
               Object {
                 "type": "return",
                 "value": "main-entity-name/location-sites",
+              },
+              Object {
+                "type": "return",
+                "value": "main-entity-name/services",
               },
               Object {
                 "type": "return",

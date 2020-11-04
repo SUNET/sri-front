@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const ServiceDetailsQuery = graphql`
+  query ServiceDetailsQuery($serviceId: ID!) {
+    getServiceById(id: $serviceId) {
+      ...ServiceUpdateForm_service
+      ___SERVICE_FIELDS___
+    }
+  }
+`;
+
+export default ServiceDetailsQuery;

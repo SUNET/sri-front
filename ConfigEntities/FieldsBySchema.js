@@ -6,6 +6,7 @@ const OPTICALFILTER_FIELDS = require('./entities/OpticalFilterFields');
 const RACK_FIELDS = require('./entities/RackFields');
 const ROOM_FIELDS = require('./entities/RoomFields');
 const SITE_FIELDS = require('./entities/SiteFields');
+const SERVICE_FIELDS = require('./entities/ServiceFields');
 
 module.exports = [
   {
@@ -136,6 +137,22 @@ module.exports = [
       },
       nordunet: {
         fields: [...SITE_FIELDS.SITE_COMMON_FIELDS, ...SITE_FIELDS.SITE_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Service',
+    files: ['src/queries/service/ServiceDetailsQuery', 'src/components/service/ServiceUpdateForm'],
+    reference: '___SERVICE_FIELDS___',
+    queries: {
+      common: {
+        fields: [...SERVICE_FIELDS.SERVICE_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...SERVICE_FIELDS.SERVICE_COMMON_FIELDS, ...SERVICE_FIELDS.SERVICE_SUNET],
+      },
+      nordunet: {
+        fields: [...SERVICE_FIELDS.SERVICE_COMMON_FIELDS, ...SERVICE_FIELDS.SERVICE_NORDUNI],
       },
     },
   },
