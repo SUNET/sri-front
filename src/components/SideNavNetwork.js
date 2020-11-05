@@ -21,7 +21,10 @@ import {
   NETWORK_PEERING,
   NETWORK_OPTICAL,
   NETWORK_LOCATION,
+  NETWORK_SERVICE,
 } from '../utils/constants';
+
+import formattedServicesData from './service/serviceListData';
 
 class SideNavNetwork extends React.Component {
   NETWORK_ORGANIZATIONS_ROUTES = ['customers', 'end-users', 'providers', 'site-owners'];
@@ -39,6 +42,7 @@ class SideNavNetwork extends React.Component {
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
   NETWORK_OPTICAL_ROUTES = ['optical-links', 'optical-filters', 'optical-multiplex-sections', 'optical-paths'];
   NETWORK_LOCATION_ROUTES = ['location-racks', 'location-rooms', 'location-sites'];
+  NETWORK_SERVICE_ROUTES = formattedServicesData.map((service) => service.path);
 
   MENU_DATA = [
     {
@@ -108,6 +112,14 @@ class SideNavNetwork extends React.Component {
         { path: 'location-sites', i18nText: 'main-entity-name/location-sites' },
       ],
     },
+    {
+      header: {
+        name: NETWORK_SERVICE,
+        icon: 'services-icon.svg',
+        i18nText: 'section/network/service',
+      },
+      items: formattedServicesData,
+    },
   ];
 
   matchUrl = () => {
@@ -125,6 +137,8 @@ class SideNavNetwork extends React.Component {
       return NETWORK_OPTICAL;
     } else if (this.NETWORK_LOCATION_ROUTES.includes(entityPath)) {
       return NETWORK_LOCATION;
+    } else if (this.NETWORK_SERVICE_ROUTES.includes(entityPath)) {
+      return NETWORK_SERVICE;
     }
   };
 
