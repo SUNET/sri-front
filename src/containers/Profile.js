@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
 import { formValueSelector, getFormMeta, getFormSyncErrors } from 'redux-form';
-import * as actions from '../actions/Notify';
+import * as notifyActions from '../actions/Notify';
+import * as appActions from '../actions/App';
 
 const mapStateToProps = (state, props) => {
   const updateGroupSelector = formValueSelector('profile');
@@ -36,8 +37,11 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
+    updateProfile: (newDataProfile) => {
+      dispatch(appActions.updateProfile(newDataProfile));
+    },
     notify: (msg, level) => {
-      dispatch(actions.notify(msg, level));
+      dispatch(notifyActions.notify(msg, level));
     },
   };
 };

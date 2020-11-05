@@ -9,9 +9,7 @@ const urlLogin = `${API_HOST}${LOGIN_URL}`;
 export default async function requestWhoami() {
   try {
     console.log('Getting user id from', urlWhoAmi);
-    const user = await getRequest(urlWhoAmi);
-    console.log('user: ', user);
-    return user;
+    return await getRequest(urlWhoAmi);
   } catch (error) {
     console.log('Error getting user id', error);
     redirectToLogin();
@@ -19,19 +17,7 @@ export default async function requestWhoami() {
 }
 
 export async function updateProfile(newProfileData) {
-  console.log('newProfileData: ', newProfileData);
-  const updatedProfile = await putRequest(urlUpdateProfile, newProfileData);
-  console.log('updatedProfile: ', updatedProfile);
-  // const data = {
-  //   email: state.app.user.email,
-  //   display_name: state.app.user.display_name,
-  //   landing_page: state.app.user.landing_page,
-  //   id: state.app.user.userid,
-  //   user_id: state.app.user.userid,
-  //   view_community: state.app.user.view_community,
-  //   view_network: state.app.user.view_network,
-  //   view_services: state.app.user.view_services,
-  // };
+  return await putRequest(`${urlUpdateProfile}${newProfileData.id}/`, newProfileData);
 }
 
 export async function getCsrfToken() {
@@ -65,14 +51,14 @@ async function getRequest(url) {
 // }
 
 async function putRequest(url, data) {
-  const postConfig = await getPutConfig();
+  const putConfig = await getPutConfig();
   return window
     .fetch(url, {
-      ...postConfig,
+      ...putConfig,
       body: JSON.stringify(data),
     })
     .then(checkStatus)
-    .then((response) => response.json());
+    .then((response) => ({ success: true }));
 }
 
 async function checkStatus(response) {
@@ -83,7 +69,6 @@ async function checkStatus(response) {
   fetch(`${API_HOST}${CONFIG.LOGIN_URL}`, {
     method: 'GET',
   }).then((response) => {
-    console.log('response: ', response);
     document.location.href = response.url;
   });
   throw new Error(response.statusText);

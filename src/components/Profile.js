@@ -24,22 +24,21 @@ class ProfileForm extends React.Component {
   };
 
   handleSubmit = async (values) => {
-    console.log('this.props: ', this.props);
-    console.log('values: ', values);
     const { user } = this.props;
-    const updatedProfile = await updateProfile({ ...{ user_id: user.userid }, ...values });
-    // const updatedProfile = await updateProfile(values);
-    console.log('updatedProfile: ', updatedProfile);
-    // this.props.dispatch(
-    //   updateProfile({
-    //     display_name: values.name,
-    //     email: values.email,
-    //     landing_page: 'community',
-    //     view_community: values.community,
-    //     view_network: values.network,
-    //     view_services: values.services,
-    //   }),
-    // );
+    const updatedProfileData = {
+      id: user.id,
+      user_id: user.userid,
+      display_name: values.name,
+      email: values.email,
+      landing_page: 'community',
+      view_community: values.community,
+      view_network: values.network,
+      view_services: values.services,
+    };
+    const updatedProfile = await updateProfile(updatedProfileData);
+    if (updatedProfile.success) {
+      this.props.updateProfile(updatedProfileData);
+    }
   };
   render() {
     const { t, handleSubmit } = this.props;
