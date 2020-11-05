@@ -93,14 +93,14 @@ async function getPutConfig() {
   };
 }
 
-async function getPostRequest() {
-  return {
-    method: 'post',
-    redirect: 'manual',
-    credentials: 'include',
-    headers: await getHeaders(),
-  };
-}
+// async function getPostRequest() {
+//   return {
+//     method: 'post',
+//     redirect: 'manual',
+//     credentials: 'include',
+//     headers: await getHeaders(),
+//   };
+// }
 
 async function getGetConfig() {
   return {
