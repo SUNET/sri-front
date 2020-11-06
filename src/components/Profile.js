@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 
-import { updateProfile } from '../actions/App';
+import { updateProfile } from '../utils/fetchUtils';
 
 import { Field, reduxForm } from 'redux-form';
 import { ListGroup, Form, Row, Col } from 'react-bootstrap';
@@ -23,17 +23,22 @@ class ProfileForm extends React.Component {
     this.setState({ default_page: event.target.value });
   };
 
-  handleSubmit = (values) => {
-    this.props.dispatch(
-      updateProfile({
-        display_name: values.name,
-        email: values.email,
-        landing_page: 'community',
-        view_community: values.community,
-        view_network: values.network,
-        view_services: values.services,
-      }),
-    );
+  handleSubmit = async (values) => {
+    const { user } = this.props;
+    const updatedProfileData = {
+      id: user.id,
+      user_id: user.userid,
+      display_name: values.name,
+      email: values.email,
+      landing_page: 'community',
+      view_community: values.community,
+      view_network: values.network,
+      view_services: values.services,
+    };
+    const updatedProfile = await updateProfile(updatedProfileData);
+    if (updatedProfile.success) {
+      this.props.updateProfile(updatedProfileData);
+    }
   };
   render() {
     const { t, handleSubmit } = this.props;

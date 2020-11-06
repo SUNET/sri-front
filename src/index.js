@@ -14,6 +14,8 @@ import './i18n';
 import './style/reset.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
+import requestWhoami from './utils/fetchUtils';
+
 /* Store */
 export const store = configureStore();
 // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -25,7 +27,9 @@ const app = (
   </Provider>
 );
 
-const initialAction = () => {
+const initialAction = async () => {
+  const user = await requestWhoami();
+  store.dispatch(actions.iam(user));
   store.dispatch(actions.appLoaded());
 };
 
