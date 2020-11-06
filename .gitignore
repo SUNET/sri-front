@@ -50,3 +50,6 @@ src/components/room/RoomUpdateForm.js
 
 src/queries/site/SiteDetailsQuery.js
 src/components/site/SiteUpdateForm.js
+
+src/queries/service/ServiceDetailsQuery.js
+src/components/service/ServiceUpdateForm.js

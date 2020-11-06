@@ -1,3 +1,10 @@
+import formattedServicesData from './components/service/serviceListData';
+
+const servicesRoutes = formattedServicesData.reduce((acc, curr) => {
+  acc[`/network/${curr.path}`] = curr.originalName;
+  return acc;
+}, {});
+
 const Routes = {
   '/': 'Home',
   '/dashboard': 'Dashboard',
@@ -12,8 +19,9 @@ const Routes = {
   '/network/logical/hosts': 'Hosts',
   '/network/logical/optical-paths': 'Optical paths',
   '/network/locations': 'Locations',
-  '/network/locations/racks': 'Racks',
-  '/network/locations/sites': 'Sites',
+  '/network/location-racks': 'Racks',
+  '/network/location-rooms': 'Rooms',
+  '/network/location-sites': 'Sites',
   '/network/providers': 'Providers',
   '/network/providers/create': 'Create Provider',
   '/network/customers': 'Customers',
@@ -61,6 +69,7 @@ const Routes = {
   '/contracts': 'Contracts',
   '/personal-area': 'Personal Area',
   '/personal-area/profile-settings': 'Profile & settings',
+  ...servicesRoutes,
 };
 
 export const path = (url) => {

@@ -17,7 +17,7 @@ class AccordionMenuOptions extends React.Component {
     return (
       <>
         <i className={`accordion-menu-options__link__icon ${subOption.iconClass}`}></i>
-        <span className="accordion-menu-options__link__name">{subOption.name}</span>
+        <span className="accordion-menu-options__link__name">{subOption.i18nText}</span>
       </>
     );
   }
@@ -27,7 +27,7 @@ class AccordionMenuOptions extends React.Component {
         <Nav.Link
           as={NavLink}
           activeClassName="active"
-          to={subOption.route}
+          to={subOption.path}
           onClick={() => this.props.onSelectedOption()}
         >
           {this.renderSubOptions(subOption)}
@@ -46,7 +46,7 @@ class AccordionMenuOptions extends React.Component {
           <div className="accordion-menu-options__link">
             <div className="--fake-link">
               <i className={`accordion-menu-options__link__icon ${option.iconClass}`}></i>
-              <span className="accordion-menu-options__link__name">{option.name}</span>
+              <span className="accordion-menu-options__link__name">{option.i18nText}</span>
             </div>
           </div>
         </ToggleHeading>

@@ -3,6 +3,8 @@ import { withTranslation } from 'react-i18next';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 
+import formattedServicesData from './service/serviceListData';
+
 import SearchCustomerContainer from '../containers/customer/SearchCustomer';
 import SearchEndUsersContainer from '../containers/endUser/SearchEndUser';
 import SearchProvidersContainer from '../containers/provider/SearchProvider';
@@ -25,6 +27,7 @@ import SearchOpticalFilterContainer from '../containers/opticalFilter/SearchOpti
 import SearchRackContainer from '../containers/rack/SearchRack';
 import SearchRoomContainer from '../containers/room/SearchRoom';
 import SearchSiteContainer from '../containers/site/SearchSite';
+import SearchServiceContainer from '../containers/service/SearchService';
 
 class Network extends React.Component {
   render() {
@@ -32,8 +35,6 @@ class Network extends React.Component {
       <Row>
         <Col>
           <Switch>
-            {/* <Route exact path={`${this.props.match.url}`} component={() => <p>Network</p>} /> */}
-            {/* <Route component={Locations} /> */}
             <Redirect exact from="/network" to="/network/customers" />
             <Route path="/network/customers" component={SearchCustomerContainer} />
             <Route path="/network/end-users" component={SearchEndUsersContainer} />
@@ -57,6 +58,17 @@ class Network extends React.Component {
             <Route path="/network/location-racks" component={SearchRackContainer} />
             <Route path="/network/location-rooms" component={SearchRoomContainer} />
             <Route path="/network/location-sites" component={SearchSiteContainer} />
+            {formattedServicesData.map((service, index) => {
+              return (
+                <Route
+                  key={index}
+                  path={`/network/${service.path}`}
+                  render={(props) => {
+                    return <SearchServiceContainer currentClass={service} />;
+                  }}
+                />
+              );
+            })}
           </Switch>
         </Col>
       </Row>

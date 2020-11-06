@@ -323,6 +323,23 @@ const site = {
   ],
 };
 
+const service = {
+  formName: {
+    create: 'createService',
+    update: 'updateService',
+  },
+  dispatchPropertiesListCreate: ['notify'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'confirm'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.SINGLE, name: 'decommissioned_date' },
+    { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
+    ...RELATION_GROUP_INFO,
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -344,4 +361,5 @@ export default {
   rack,
   room,
   site,
+  service,
 };
