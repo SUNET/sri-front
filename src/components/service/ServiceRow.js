@@ -29,7 +29,7 @@ class ServiceRow extends React.PureComponent {
   renderCellElementsList(sectionName, path, listElements) {
     const links = listElements.map((el, index, arr) => {
       const isLast = index === arr.length - 1;
-      const uniqKey = `${new Date()}-index`;
+      const uniqKey = `${new Date().getTime()}-${index}`;
       return (
         <span key={uniqKey}>
           <a
