@@ -73,6 +73,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
   renderGeneralInfoToggleSection(editMode = true) {
     const componentClassName = 'general-info-block';
     const { t, cableTypeObj, provider_id, providerObj, cable_length } = this.props;
+    console.log('cable_length: ', cable_length);
     const generalInfoFirstRow = [
       {
         title: t('general-forms/type'),
@@ -88,6 +89,23 @@ class _CableFormParentClass extends _BasicFormParentClass {
           />
         ),
       },
+      {
+        title: t('general-forms/cable-length'),
+        presentContent: cable_length,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="cable_length"
+              component={FieldInput}
+              placeholder={t('general-forms/decimal-placeholder')}
+            />
+          </Form.Group>
+        ),
+      },
+    ];
+
+    const generalInfoSecondRow = [
       {
         title: t('entity-name/provider'),
         presentContent: providerObj ? providerObj.name : '',
@@ -111,20 +129,6 @@ class _CableFormParentClass extends _BasicFormParentClass {
           />
         ),
       },
-      {
-        title: t('general-forms/cable-length'),
-        presentContent: cable_length,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="cable_length"
-              component={FieldInput}
-              placeholder={t('general-forms/decimal-placeholder')}
-            />
-          </Form.Group>
-        ),
-      },
     ];
 
     return (
@@ -137,6 +141,11 @@ class _CableFormParentClass extends _BasicFormParentClass {
             <div>
               <div className="form-internal-block">
                 {generalInfoFirstRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
+              <div className="form-internal-block">
+                {generalInfoSecondRow.map((formData, index) => {
                   return renderFormBlockSection(editMode, formData, index);
                 })}
               </div>
