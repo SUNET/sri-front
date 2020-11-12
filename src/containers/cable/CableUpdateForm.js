@@ -20,7 +20,6 @@ const mapStateToProps = (state, props) => {
   const formName = props.isFromModal ? 'updateCableInModal' : 'updateCable';
   const updateCableSelector = formValueSelector(formName);
   const { cable } = props;
-  console.log('cable: ', cable);
   const initialValues = {
     id: cable.id,
     name: cable.name,
