@@ -145,7 +145,6 @@ export class ServiceList extends React.Component {
 
   render() {
     const { t, services } = this.props;
-
     return (
       <>
         <Table responsive={isMobile} className="model-list" borderless>

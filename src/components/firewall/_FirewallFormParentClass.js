@@ -202,7 +202,6 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
               dayPickerProps={{
                 locale: 'en',
                 localeUtils: MomentLocaleUtils,
-                numberOfMonths: 1,
               }}
               onDayChange={(newDate) => {
                 const formattedDate = newDate ? formatDate(newDate, 'YYYY-MM-DD') : '';

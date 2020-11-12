@@ -5,6 +5,8 @@ import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
+import getMutationData from './FormatServiceDataMutation.js';
+
 const mutation = graphql`
   mutation CreateServiceMutation($input: CompositeServiceMutationInput!) {
     composite_service(input: $input) {
@@ -22,20 +24,18 @@ const mutation = graphql`
 `;
 
 function CreateServiceMutation(service, form) {
+  const { createOrUpdateInput, subInputs } = getMutationData(service);
   const variables = {
     input: {
       create_input: {
-        name: service.name,
-        description: service.description,
-        operational_state: service.operational_state,
-        service_type: service.service_type_obj.name,
-        relationship_provider: null,
-        decommissioned_date: service.decommissioned_date,
-        support_group: service.support_group_id,
-        responsible_group: service.responsible_group_id,
+        ...createOrUpdateInput,
       },
+      ...subInputs,
     },
   };
+  if (service.service_type_obj.name === 'Project') {
+    variables.input.create_input.project_end_date = service.project_end_date;
+  }
   commitMutation(environment, {
     mutation,
     variables,

@@ -8,6 +8,14 @@ import getCustomer from '../components/customer/Customer';
 import getEndUser from '../components/endUser/EndUser';
 import getHostUser from '../components/hostUser/HostUser';
 import getPort from '../components/port/Port';
+import getCable from '../components/cable/Cable';
+import getSwitch from '../components/switch/Switch';
+import getFirewall from '../components/firewall/Firewall';
+import getExternalEquipment from '../components/externalEquipment/ExternalEquipment';
+import getOpticalFilter from '../components/opticalFilter/OpticalFilter';
+import getRouter from '../components/router/Router';
+import getOpticalNode from '../components/opticalNode/OpticalNode';
+import getODF from '../components/ODF/ODF';
 
 const MAP_NAME_PROPERTY_METHOD = {
   notify: (dispatch) => ({
@@ -56,6 +64,17 @@ const MAP_NAME_PROPERTY_METHOD = {
     getCustomerById: (id) => getCustomer(id),
     getEndUserById: (id) => getEndUser(id),
     getHostUserById: (id) => getHostUser(id),
+  }),
+  physicalDetails: () => ({
+    getCableById: (id) => getCable(id),
+    getPortById: (id) => getPort(id),
+    getSwitchById: (id) => getSwitch(id),
+    getFirewallById: (id) => getFirewall(id),
+    getExternalEquipmentById: (id) => getExternalEquipment(id),
+    getOpticalFilterById: (id) => getOpticalFilter(id),
+    getRouterById: (id) => getRouter(id),
+    getOpticalNodeById: (id) => getOpticalNode(id),
+    getODFById: (id) => getODF(id),
   }),
   portDetails: () => ({
     getPortById: (id) => getPort(id),

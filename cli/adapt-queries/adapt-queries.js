@@ -29,12 +29,14 @@ const STRUCTURE_BY_FIELD_TYPE = {
     }`,
   name_value_object: (fieldInfo) => `
     ${getNameWithAlias(fieldInfo)} {
+        __typename
         name
         value
     }
   `,
   id_name_object: (fieldInfo) => `
     ${getNameWithAlias(fieldInfo)} {
+        __typename
         id
         name
     }
