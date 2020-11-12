@@ -11,6 +11,7 @@ const CABLE_COMMON_FIELDS = [
     name: 'provider',
     type: FIELD_TYPES.ID_OBJECT,
   },
+  { type: FIELD_TYPES.SINGLE, name: 'cable_length' },
   ...COMMON_FIELDS.PORT_LIST,
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,

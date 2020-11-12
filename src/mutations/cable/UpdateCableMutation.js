@@ -48,6 +48,7 @@ export default function UpdateCableMutation(cable, form) {
         id: cable.id,
         name: cable.name,
         description: cable.description,
+        cable_length: cable.cable_length,
         cable_type: cable.cable_type,
         relationship_provider: cable.provider_id,
       },

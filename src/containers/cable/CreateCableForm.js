@@ -16,6 +16,7 @@ const mapStateToProps = (state, props) => {
     fields: getFormMeta(formName)(state),
     formSyncErrors: getFormSyncErrors(formName)(state),
     name: createCableSelector(state, 'name'),
+    cable_length: createCableSelector(state, 'cable_length'),
     provider_id: createCableSelector(state, 'provider_id'),
     providerObj: createCableSelector(state, 'providerObj'),
     connections: createCableSelector(state, 'connections'),

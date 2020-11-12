@@ -309,6 +309,7 @@ type Cable implements NINode & Physical & PhysicalLogical {
   outgoing: [DictRelationType]
   comments: [CommentType]
   cable_type: Choice
+  cable_length: Float
   ports: [Port]
 }
 
@@ -5476,6 +5477,7 @@ type CreateAddressPayload {
 input CreateCableInput {
   name: String!
   cable_type: ChoiceScalar!
+  cable_length: Float
   description: String
   relationship_provider: ChoiceScalar
   clientMutationId: String
@@ -13449,6 +13451,7 @@ type UpdateAddressPayload {
 input UpdateCableInput {
   name: String!
   cable_type: ChoiceScalar!
+  cable_length: Float
   description: String
   relationship_provider: ChoiceScalar
   id: ID!
