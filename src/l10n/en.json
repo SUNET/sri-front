@@ -248,6 +248,8 @@
             "general-forms/interface-type": "Interface Type",
             "general-forms/select-physical-type": "Select a Physical Type ",
             "general-forms/select-cable-type": "Select a Cable Type",
+            "general-forms/cable-length": "Cable Length",
+            "general-forms/cable-length-placeholder": "Meters with decimals",
             "general-forms/location-site-type": "Site Type",
             "general-forms/type-placeholder": "Select Type",
             "general-forms/area": "Area",
