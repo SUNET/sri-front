@@ -79,7 +79,7 @@ function CreateODFMutation(ODF, form) {
       if (ODF.comment) {
         CreateCommentMutation(entityId, ODF.comment);
       }
-      form.props.notify(i18n.t('notify.network/odfs-created-success'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/odfs'), 'success');
       if (form.props.history) {
         form.props.history.push(`/network/odfs/${entityId}`);
       } else {

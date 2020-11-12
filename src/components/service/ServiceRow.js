@@ -26,11 +26,46 @@ class ServiceRow extends React.PureComponent {
     );
   }
 
+  renderCellElementsList(sectionName, path, listElements) {
+    const links = listElements.map((el, index, arr) => {
+      const isLast = index === arr.length - 1;
+      const uniqKey = `${new Date()}-index`;
+      return (
+        <span key={uniqKey}>
+          <a
+            href={`${window.location.origin}/${path}/${el.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {el.name}
+          </a>
+          {!isLast && <span>|</span>}
+        </span>
+      );
+    });
+    return (
+      (this.props.columnsVisible[sectionName] || this.props.showAllColumns) && (
+        <td>
+          <span className="d-flex flex-wrap" style={{ width: '100%' }}>
+            {links}
+          </span>
+        </td>
+      )
+    );
+  }
+
   render() {
-    let service = this.props.service;
+    let { service } = this.props;
     return (
       <tr onClick={(e) => this.props.onClick(e, service)}>
         {this.renderCellSection('name', service.name)}
+        {this.renderCellSection('service_type', service.service_type.name)}
+        {this.renderCellSection('service_class', service.service_class.name)}
+        {this.renderCellElementsList('customers', 'network/customers', service.customers)}
+        {this.renderCellElementsList('end_users', 'network/end-users', service.end_users)}
         {this.renderCellSection('description', service.description)}
         {/* td for generate the space for the final cta */}
         <td></td>
@@ -45,6 +80,22 @@ const ServiceRowFragment = createFragmentContainer(ServiceRow, {
       id
       name
       description
+      service_class {
+        name
+      }
+      service_type {
+        name
+      }
+      customers {
+        id
+        __typename
+        name
+      }
+      end_users {
+        id
+        __typename
+        name
+      }
     }
   `,
 });

@@ -7,7 +7,10 @@ import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
 const ENTITY_NAME = 'service';
 
 const mapStateToProps = (state, props) => {
-  const mappedStateToProps = getUpdateProps(ENTITY_NAME, props, state);
+  const { service } = props;
+  const users = service.customers && service.end_users ? [...service.customers, ...service.end_users] : [];
+  const serviceWithUsers = { ...service, ...{ users } };
+  const mappedStateToProps = getUpdateProps(ENTITY_NAME, { ...props, service: serviceWithUsers }, state);
   return mappedStateToProps;
 };
 
@@ -16,9 +19,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const ServiceUpdateFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ServiceUpdateForm);
+const ServiceUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(ServiceUpdateForm);
 
 export default ServiceUpdateFormContainer;

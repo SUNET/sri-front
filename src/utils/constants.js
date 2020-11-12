@@ -73,6 +73,10 @@ export const SAVED = 'saved';
 export const CREATE = 'created';
 export const CHANGED = 'changed';
 
+// FieldsArray 
+export const NEW = 'new';
+export const ORIGIN = 'origin';
+
 // TIMES WAIT
 export const MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE = 250;
 

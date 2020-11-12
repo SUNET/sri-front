@@ -43,7 +43,7 @@ function ConvertHostMutation(data, form) {
         return ['error'];
       }
 
-      form.props.notify(i18n.t('notify.network/convert-host-success'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/hosts'), 'success');
       if (form.props.history) {
         form.props.history.push(getUrlBySlug(new_type.slug, new_id));
       }

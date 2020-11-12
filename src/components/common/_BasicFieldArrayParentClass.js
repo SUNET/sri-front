@@ -396,6 +396,7 @@ class _BasicFieldArrayParentClass extends React.Component {
         name={this.PRE_FILTER_SELECT.name}
         model={this.PRE_FILTER_SELECT.model}
         onChange={(optionSelected) => {
+          console.log('optionSelected: ', optionSelected);
           this.setState({
             currentPreFilterModel: optionSelected ? optionSelected.value : null,
             preFilterMethod: optionSelected ? optionSelected.getDetailsMethodName : null,

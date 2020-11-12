@@ -328,14 +328,26 @@ const service = {
     create: 'createService',
     update: 'updateService',
   },
-  dispatchPropertiesListCreate: ['notify'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'ownersDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'ownersDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.SINGLE, name: 'decommissioned_date' },
+    { type: FIELD_TYPES.SINGLE, name: 'project_end_date' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
+
+    { type: FIELD_TYPES.SINGLE, name: 'ncs_service_name' },
+    { type: FIELD_TYPES.SINGLE, name: 'vpn_type' },
+    { type: FIELD_TYPES.SINGLE, name: 'vlan' },
+    { type: FIELD_TYPES.SINGLE, name: 'vrf_target' },
+
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'customers' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'end_users' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'users' }, // customised field joining customers and endusers, does not come directly from the api
+
     ...RELATION_GROUP_INFO,
   ],
 };
