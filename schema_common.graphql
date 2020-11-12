@@ -306,6 +306,7 @@ type Cable implements NINode & Physical & PhysicalLogical {
   comments: [CommentType]
   cable_type: Choice
   description: String
+  cable_length: Float
   ports: [Port]
 }
 
@@ -13870,4 +13871,3 @@ type VerifyPayload {
   payload: GenericScalar!
   clientMutationId: String
 }
-
