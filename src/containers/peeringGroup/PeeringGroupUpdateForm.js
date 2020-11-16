@@ -10,11 +10,9 @@ const mapStateToProps = (state, props) => {
   const { peeringGroup } = props;
   const { used_by, dependencies } = peeringGroup;
   const resourcedUsed = dependencies.map((dep) => {
-    console.log('dep: ', dep);
     const dataUsedBy = used_by.filter((user) => user.ip_address === dep.ip_address);
     const router =
       dep.part_of.__typename === 'Port' ? dep.part_of.parent.find((par) => par.__typename === 'Router') : null;
-    console.log('router: ', router);
     return {
       router: router ? router.name : null,
       pic: dep.part_of.name,

@@ -33,8 +33,7 @@ class _PeeringGroupFormParentClass extends _BasicFormParentClass {
 
   renderDependenciesToggleSection(editMode = false) {
     const componentClassName = 'dependencies-block';
-    const { t, entityRemovedId, resourcedUsed } = this.props;
-    console.log('resourcedUsed: ', resourcedUsed);
+    const { t, entityRemovedId } = this.props;
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
