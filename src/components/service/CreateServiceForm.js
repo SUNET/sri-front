@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateServiceMutation from '../../mutations/service/CreateServiceMutation';
-import ValidationsServiceForm from '../common/_BasicValidationForm';
+import ValidationsServiceForm from './ValidationsServiceForm';
 // const
 import { CREATE_SERVICE_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';

@@ -3,7 +3,7 @@ import { FieldArray } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import FieldArrayDependencies from '../common/FieldArrayDependencies';
+import FieldArrayResourcesUsed from './FieldArrayResourcesUsed';
 // const
 
 class _PeeringGroupFormParentClass extends _BasicFormParentClass {
@@ -33,7 +33,8 @@ class _PeeringGroupFormParentClass extends _BasicFormParentClass {
 
   renderDependenciesToggleSection(editMode = false) {
     const componentClassName = 'dependencies-block';
-    const { t, entityRemovedId } = this.props;
+    const { t, entityRemovedId, resourcedUsed } = this.props;
+    console.log('resourcedUsed: ', resourcedUsed);
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
@@ -43,23 +44,23 @@ class _PeeringGroupFormParentClass extends _BasicFormParentClass {
 
           <TogglePanel>
             <FieldArray
-              name="dependencies"
-              component={FieldArrayDependencies}
+              name="resourcedUsed"
+              component={FieldArrayResourcesUsed}
               editable={editMode}
               dispatch={this.props.dispatch}
               errors={this.props.formSyncErrors.parents}
               metaFields={this.props.fields}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'dependencies' });
+                this.setState({ fieldModalOpened: 'resourcedUsed' });
                 this.props.showModalEditForm(typeEntityToShowForm, entityId);
               }}
               showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'dependencies' });
+                this.setState({ fieldModalOpened: 'resourcedUsed' });
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedPort}
               rerenderOnEveryChange
-              entityRemovedId={this.state.fieldModalOpened === 'dependencies' ? entityRemovedId : null}
+              entityRemovedId={this.state.fieldModalOpened === 'resourcedUsed' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>

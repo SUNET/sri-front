@@ -179,6 +179,8 @@ const peeringGroup = {
   fields: [
     { type: FIELD_TYPES.SINGLE, name: 'name' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'used_by' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'resourcedUsed' }, // customised field joining dependencies and used_by, does not come directly from the api
   ],
 };
 
