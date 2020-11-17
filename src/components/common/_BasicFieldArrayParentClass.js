@@ -454,7 +454,7 @@ class _BasicFieldArrayParentClass extends React.Component {
 
   render() {
     return (
-      <div className="contact-in-organization">
+      <div className={`contact-in-organization contact-in-organization--${this.styleModifier}`}>
         {this.renderHeader()}
         {this.renderBody()}
         {this.PRE_FILTER_SELECT && this.renderFooter()}

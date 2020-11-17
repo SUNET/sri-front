@@ -112,14 +112,22 @@ const formatDependenciesToRemove = (dependencies) => {
 };
 
 const getMutationData = (service) => {
-  const customersSubInputs = generateSubInputs(service.users.filter((us) => us.__typename === 'Customer'));
-  const endUsersSubInputs = generateSubInputs(service.users.filter((us) => us.__typename === 'EndUser'));
-  const dependenciesToAdd = formatDependenciesToUpdate(service.dependencies.filter((dep) => dep.origin === NEW));
+  const customersSubInputs = generateSubInputs(
+    service.users ? service.users.filter((us) => us.__typename === 'Customer') : [],
+  );
+  const endUsersSubInputs = generateSubInputs(
+    service.users ? service.users.filter((us) => us.__typename === 'EndUser') : [],
+  );
+  const dependenciesToAdd = formatDependenciesToUpdate(
+    service.dependencies ? service.dependencies.filter((dep) => dep.origin === NEW) : [],
+  );
   const dependenciesToUnlink = service.dependencies
-    .filter((dep) => dep.status === UNLINK)
-    .map((dep) => ({ relation_id: dep.relation_id }));
+    ? service.dependencies.filter((dep) => dep.status === UNLINK).map((dep) => ({ relation_id: dep.relation_id }))
+    : [];
 
-  const dependenciesToRemove = formatDependenciesToRemove(service.dependencies.filter((dep) => dep.status === REMOVE));
+  const dependenciesToRemove = service.dependencies
+    ? formatDependenciesToRemove(service.dependencies.filter((dep) => dep.status === REMOVE))
+    : {};
   return {
     createOrUpdateInput: {
       name: service.name,

@@ -7,7 +7,29 @@ import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
 const ENTITY_NAME = 'peeringGroup';
 
 const mapStateToProps = (state, props) => {
-  const mappedStateToProps = getUpdateProps(ENTITY_NAME, props, state);
+  const { peeringGroup } = props;
+  const { used_by, dependencies } = peeringGroup;
+  const resourcedUsed = dependencies.map((dep) => {
+    const dataUsedBy = used_by.filter((user) => user.ip_address === dep.ip_address);
+    const router =
+      dep.part_of.__typename === 'Port' ? dep.part_of.parent.find((par) => par.__typename === 'Router') : null;
+    return {
+      router: router ? router.name : null,
+      pic: dep.part_of.name,
+      unit: dep.name,
+      ip_address: dep.ip_address,
+      vlan: dep.vlan,
+      user_address: dataUsedBy ? dataUsedBy.map((user) => user.ip_address).join(', ') : null,
+      userName: dataUsedBy ? dataUsedBy.map((user) => user.name).join(', ') : null,
+      dataUsedBy,
+    };
+  });
+  const peeringGroupWithResourcedUsed = { ...peeringGroup, ...{ resourcedUsed } };
+  const mappedStateToProps = getUpdateProps(
+    ENTITY_NAME,
+    { ...props, peeringGroup: peeringGroupWithResourcedUsed },
+    state,
+  );
   return mappedStateToProps;
 };
 
