@@ -23,7 +23,6 @@ const mapStateToProps = (state, props) => {
     };
   });
   const peeringPartnerWithResourcedUsed = { ...peeringPartner, ...{ resourcedUsed } };
-  console.log('peeringPartnerWithResourcedUsed: ', peeringPartnerWithResourcedUsed);
   const mappedStateToProps = getUpdateProps(
     ENTITY_NAME,
     { ...props, peeringPartner: peeringPartnerWithResourcedUsed },

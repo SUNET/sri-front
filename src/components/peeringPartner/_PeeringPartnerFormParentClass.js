@@ -1,12 +1,13 @@
 import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
-import { Field } from 'redux-form';
+import { Field, FieldArray } from 'redux-form';
 import { Form } from 'react-bootstrap';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import { generateURL } from '../../utils';
 import { isBrowser } from 'react-device-detect';
 import FieldInput from '../FieldInput';
 // components
+import FieldArrayPPartnersUsed from './FieldArrayPPartnersUsed';
 // const
 
 const renderFormBlockSection = (editable, data, uniqueKey) => {
@@ -47,6 +48,7 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
     return (
       <>
         {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderDependenciesToggleSection(editMode)}
         {with_same_name && this.renderRelatedEntities(with_same_name)}
         {this.renderWorkLog()}
       </>
@@ -109,6 +111,42 @@ class _PeeringPartnerFormParentClass extends _BasicFormParentClass {
                 })}
               </div>
             </div>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderDependenciesToggleSection(editMode = false) {
+    const componentClassName = 'dependencies-block';
+    const { t, entityRemovedId } = this.props;
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/dependencies')}</h2>
+          </ToggleHeading>
+
+          <TogglePanel>
+            <FieldArray
+              name="resourcedUsed"
+              component={FieldArrayPPartnersUsed}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'resourcedUsed' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'resourcedUsed' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={this.handleSelectedPort}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'resourcedUsed' ? entityRemovedId : null}
+            />
           </TogglePanel>
         </ToggleSection>
       </section>
