@@ -281,6 +281,8 @@
             "general-forms/interface-address": "Interface Address",
             "general-forms/user-address": "User Address",
             "general-forms/router": "Router",
+            "general-forms/peering-group": "Peering Group",
+            "general-forms/interface-network": "Interface Network",
             "Comment --DELETE--": "******************************** [FIN] GENERAL FORMS ****************************************",
             "Comment --DELETE--": "******************************** FILTERS ****************************************",
             "paginator.load_more": "Load More",

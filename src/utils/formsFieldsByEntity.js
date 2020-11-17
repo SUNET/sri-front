@@ -169,6 +169,7 @@ const peeringPartner = {
     { type: FIELD_TYPES.SINGLE, name: 'peering_link' },
     { type: FIELD_TYPES.SINGLE, name: 'as_number' },
     { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'resourcedUsed' }, // customised field joining dependencies and used_by, does not come directly from the api
   ],
 };
 const peeringGroup = {
