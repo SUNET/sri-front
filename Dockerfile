@@ -1,10 +1,8 @@
-FROM node:12-alpine3.12 as sri-front
+FROM node:12-alpine3.12
 
 WORKDIR /app
 
 COPY . ./
-
-RUN mkdir /bundle
 
 RUN chmod +x bundle-pj.sh; chmod +x copy-bundle.sh
 
