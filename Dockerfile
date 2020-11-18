@@ -4,9 +4,7 @@ WORKDIR /app
 
 COPY . ./
 
-RUN mkdir -p /bundle
-
-VOLUME /bundle
+RUN mkdir /bundle
 
 RUN chmod +x bundle-pj.sh; chmod +x copy-bundle.sh
 
