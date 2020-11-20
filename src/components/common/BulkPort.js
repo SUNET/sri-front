@@ -69,7 +69,7 @@ class BulkPort extends Component {
           value: type.value,
         },
         __typename: 'Port',
-        name: `${prefix.value}-${index}`,
+        name: `${prefix.value}${index}`,
         id: `port-to-create-${index}-${maxNumberWithOffset}`,
         status: CREATE,
       });
