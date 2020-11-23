@@ -4,7 +4,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import CreateOpticalMultiplexSectionMutation from '../../mutations/opticalMultiplexSection/CreateOpticalMultiplexSectionMutation';
+import CreateMutation from '../../mutations/opticalMultiplexSection/CreateOpticalMultiplexSectionMutation';
 import ValidationsOpticalMultiplexSectionForm from './ValidationsOpticalMultiplexSectionForm';
 // const
 import { CREATE_OPTICALMULTIPLEXSECTION_FORM } from '../../utils/constants';
@@ -14,11 +14,9 @@ class CreateOpticalMultiplexSectionForm extends _OpticalMultiplexSectionFormPare
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_OPTICALMULTIPLEXSECTION_FORM;
   ROUTE_LIST_DIRECTION = '/network/optical-multiplex-sections';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (opticalMultiplexSection) => {
-    CreateOpticalMultiplexSectionMutation(opticalMultiplexSection, this);
   };
   render() {
     const { handleSubmit } = this.props;

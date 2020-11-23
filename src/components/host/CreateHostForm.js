@@ -3,7 +3,7 @@ import _HostFormParentClass from './_HostFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateHostMutation from '../../mutations/host/CreateHostMutation';
+import CreateMutation from '../../mutations/host/CreateHostMutation';
 import ValidationsHostForm from './ValidationsHostForm';
 // const
 import { CREATE_HOST_FORM } from '../../utils/constants';
@@ -13,11 +13,9 @@ class CreateHostForm extends _HostFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_HOST_FORM;
   ROUTE_LIST_DIRECTION = '/network/hosts';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (host) => {
-    CreateHostMutation(host, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

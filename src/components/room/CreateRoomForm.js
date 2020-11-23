@@ -4,7 +4,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import CreateRoomMutation from '../../mutations/room/CreateRoomMutation';
+import CreateMutation from '../../mutations/room/CreateRoomMutation';
 import ValidationsRoomForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_ROOM_FORM } from '../../utils/constants';
@@ -14,11 +14,9 @@ class CreateRoomForm extends _RoomFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_ROOM_FORM;
   ROUTE_LIST_DIRECTION = '/network/location-rooms';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (room) => {
-    CreateRoomMutation(room, this);
   };
   render() {
     const { handleSubmit } = this.props;

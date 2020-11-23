@@ -4,7 +4,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import CreateOpticalPathMutation from '../../mutations/opticalPath/CreateOpticalPathMutation';
+import CreateMutation from '../../mutations/opticalPath/CreateOpticalPathMutation';
 import ValidationsOpticalPathForm from './ValidationsOpticalPathForm';
 // const
 import { CREATE_OPTICALPATH_FORM } from '../../utils/constants';
@@ -14,11 +14,9 @@ class CreateOpticalPathForm extends _OpticalPathFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_OPTICALPATH_FORM;
   ROUTE_LIST_DIRECTION = '/network/optical-paths';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (opticalPath) => {
-    CreateOpticalPathMutation(opticalPath, this);
   };
   render() {
     const { handleSubmit } = this.props;

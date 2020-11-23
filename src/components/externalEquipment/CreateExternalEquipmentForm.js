@@ -3,7 +3,7 @@ import _ExternalEquipmentFormParentClass from './_ExternalEquipmentFormParentCla
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateExternalEquipmentMutation from '../../mutations/externalEquipment/CreateExternalEquipmentMutation';
+import CreateMutation from '../../mutations/externalEquipment/CreateExternalEquipmentMutation';
 import ValidationsExternalEquipmentForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_EXTERNALEQUIPMENT_FORM } from '../../utils/constants';
@@ -12,11 +12,9 @@ import { isBrowser } from 'react-device-detect';
 class CreateExternalEquipmentForm extends _ExternalEquipmentFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_EXTERNALEQUIPMENT_FORM;
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (externalEquipment) => {
-    CreateExternalEquipmentMutation(externalEquipment, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

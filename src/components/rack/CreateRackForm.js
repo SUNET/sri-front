@@ -4,7 +4,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import CreateRackMutation from '../../mutations/rack/CreateRackMutation';
+import CreateMutation from '../../mutations/rack/CreateRackMutation';
 import ValidationsRackForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_RACK_FORM } from '../../utils/constants';
@@ -14,11 +14,9 @@ class CreateRackForm extends _RackFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_RACK_FORM;
   ROUTE_LIST_DIRECTION = '/network/location-racks';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (rack) => {
-    CreateRackMutation(rack, this);
   };
   render() {
     const { handleSubmit } = this.props;

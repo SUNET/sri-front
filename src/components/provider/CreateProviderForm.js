@@ -3,7 +3,7 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateProviderMutation from '../../mutations/provider/CreateProviderMutation';
+import CreateMutation from '../../mutations/provider/CreateProviderMutation';
 import ValidationsProviderForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_PROVIDER_FORM } from '../../utils/constants';
@@ -13,11 +13,9 @@ class CreateProviderForm extends _BasicFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_PROVIDER_FORM;
   ROUTE_LIST_DIRECTION = '/network/providers';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (provider) => {
-    CreateProviderMutation(provider, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

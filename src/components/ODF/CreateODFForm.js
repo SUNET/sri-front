@@ -3,7 +3,7 @@ import _ODFFormParentClass from './_ODFFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateODFMutation from '../../mutations/ODF/CreateODFMutation';
+import CreateMutation from '../../mutations/ODF/CreateODFMutation';
 import ValidationsODFForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_ODF_FORM } from '../../utils/constants';
@@ -13,11 +13,9 @@ class CreateODFForm extends _ODFFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_ODF_FORM;
   ROUTE_LIST_DIRECTION = '/network/odf';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (ODF) => {
-    CreateODFMutation(ODF, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;
