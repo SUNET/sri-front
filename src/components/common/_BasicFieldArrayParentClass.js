@@ -58,9 +58,24 @@ class _BasicFieldArrayParentClass extends React.Component {
       selectedRowKey: null,
     });
   }
+
+  getAllValues(filterObj) {
+    console.log('filterObj: ', filterObj);
+    const allValues = this.props.fields.getAll();
+    if (!!filterObj) {
+      debugger;
+      const [filterKey, filterValue] = Object.entries(filterObj)[0];
+      return allValues.filter((v) => v[filterKey] === filterValue);
+    }
+    return allValues;
+  }
+
+  getFilterTable() {
+    return null
+  }
   // methods getData
   getValueById(id) {
-    const allValues = this.props.fields.getAll();
+    const allValues = this.getAllValues();
     const valueData = allValues.find((value) => value.id === id);
     const valueIndex = allValues.findIndex((value) => value.id === id);
 
@@ -345,8 +360,10 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderBody() {
-    const { editable, fields } = this.props;
-    const values = fields.getAll();
+    const { editable } = this.props;
+    const filter = this.getFilterTable();
+    const values = this.getAllValues(filter);
+    console.log('values: ', values);
     return (
       <div className="contact-in-organization__body">
         {values &&
@@ -396,7 +413,6 @@ class _BasicFieldArrayParentClass extends React.Component {
         name={this.PRE_FILTER_SELECT.name}
         model={this.PRE_FILTER_SELECT.model}
         onChange={(optionSelected) => {
-          console.log('optionSelected: ', optionSelected);
           this.setState({
             currentPreFilterModel: optionSelected ? optionSelected.value : null,
             preFilterMethod: optionSelected ? optionSelected.getDetailsMethodName : null,
@@ -407,11 +423,10 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderDropDownSearch() {
-    const { t, fields } = this.props;
+    const { t } = this.props;
     let existingElements = [];
-    if (fields.getAll()) {
-      existingElements = fields
-        .getAll()
+    if (this.getAllValues()) {
+      existingElements = this.getAllValues()
         .filter((el) => el.status === SAVED)
         .map((row) => row.id);
     }

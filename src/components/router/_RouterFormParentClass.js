@@ -1,11 +1,12 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, FieldArray } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import { Form } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
+import FieldArrayRouterIsUsed from './FieldArrayRouterIsUsed';
 
 // const
 import { isBrowser } from 'react-device-detect';
@@ -16,7 +17,6 @@ import { renderRackToggleSection } from '../common/formsSections/RackToggleSecti
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
-
 
 class _RouterFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -58,6 +58,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
         {this.renderGeneralInfoToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isFromModal && this.renderIsUsedToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
       </>
@@ -123,6 +124,50 @@ class _RouterFormParentClass extends _BasicFormParentClass {
                 })}
               </div>
             </div>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderIsUsedToggleSection(editMode = true) {
+    const componentClassName = 'is-used-block';
+    const { t, dependents, entityRemovedId } = this.props;
+    console.log('dependents: ', dependents);
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('++++used by')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <ToggleSection>
+              <ToggleHeading>
+                <h2>{t('general-forms/dependencies')}</h2>
+              </ToggleHeading>
+
+              <TogglePanel>
+                <FieldArray
+                  name="dependents"
+                  component={FieldArrayRouterIsUsed}
+                  editable={editMode}
+                  dispatch={this.props.dispatch}
+                  errors={this.props.formSyncErrors.parents}
+                  metaFields={this.props.fields}
+                  showRowEditModal={(typeEntityToShowForm, entityId) => {
+                    this.setState({ fieldModalOpened: 'dependents' });
+                    this.props.showModalEditForm(typeEntityToShowForm, entityId);
+                  }}
+                  showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                    this.setState({ fieldModalOpened: 'dependents' });
+                    this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+                  }}
+                  handleSearchResult={this.handleSelectedPort}
+                  rerenderOnEveryChange
+                  entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
+                />
+              </TogglePanel>
+            </ToggleSection>
           </TogglePanel>
         </ToggleSection>
       </section>

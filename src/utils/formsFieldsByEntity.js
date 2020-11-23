@@ -123,6 +123,7 @@ const router = {
     { type: FIELD_TYPES.SINGLE, name: 'model' },
     { type: FIELD_TYPES.SINGLE, name: 'version' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
   ],
 };
 const externalEquipment = {

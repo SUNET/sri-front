@@ -7,6 +7,17 @@ const ROUTER_COMMON_FIELDS = [
   { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
   { type: FIELD_TYPES.SINGLE, name: 'model' },
   { type: FIELD_TYPES.SINGLE, name: 'version' },
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'dependents',
+    subFields: [
+      { type: FIELD_TYPES.SINGLE, name: '__typename' },
+      { type: FIELD_TYPES.SINGLE, name: 'id' },
+      { type: FIELD_TYPES.SINGLE, name: 'name' },
+      { type: FIELD_TYPES.SINGLE, name: 'description' },
+      { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
+    ],
+  },
   ...COMMON_FIELDS.PORT_LIST,
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
