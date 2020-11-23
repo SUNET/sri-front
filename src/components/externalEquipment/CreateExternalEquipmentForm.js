@@ -12,7 +12,6 @@ import { isBrowser } from 'react-device-detect';
 class CreateExternalEquipmentForm extends _ExternalEquipmentFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_EXTERNALEQUIPMENT_FORM;
-  ROUTE_LIST_DIRECTION = '/network/external-equipments';
   state = {
     errors: [],
   };

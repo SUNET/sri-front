@@ -15,7 +15,6 @@ class OpticalLinkUpdateForm extends _OpticalLinkFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_OPTICALLINK_FORM;
   MODEL_NAME = 'opticalLink';
-  ROUTE_LIST_DIRECTION = '/network/opticalLinks';
   constructor(props) {
     super(props);
     this.state = {
