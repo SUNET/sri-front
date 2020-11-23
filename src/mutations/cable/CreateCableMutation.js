@@ -23,7 +23,7 @@ const mutation = graphql`
 `;
 
 function CreateCableMutation(cable, form) {
-  const connections = generateSubInputs(cable.connections, 'cable_type');
+  const connections = generateSubInputs(cable.connections, 'port_type');
   const variables = {
     input: {
       create_input: {
