@@ -363,8 +363,8 @@ class _BasicFieldArrayParentClass extends React.Component {
               >
                 {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                 {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                {editable && this.renderButtonsBox(row.id, willHaveModalsButtons)}
-                {!editable && row.status === SAVED && willHaveModalsButtons && this.renderMoreInfoButton(row)}
+                {editable && row.id && this.renderButtonsBox(row.id, willHaveModalsButtons)}
+                {!editable && row.status === SAVED && willHaveModalsButtons && row.id && this.renderMoreInfoButton(row)}
               </div>
             );
           })}

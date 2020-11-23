@@ -22,6 +22,7 @@ const mapStateToProps = (state, props) => {
       user_address: dataUsedBy ? dataUsedBy.map((user) => user.ip_address).join(', ') : null,
       userName: dataUsedBy ? dataUsedBy.map((user) => user.name).join(', ') : null,
       dataUsedBy,
+      id: dataUsedBy.id,
     };
   });
   const peeringGroupWithResourcedUsed = { ...peeringGroup, ...{ resourcedUsed } };
