@@ -16,6 +16,8 @@ const mapStateToProps = (state, props) => {
     return {
       ip_address: pGroup.ip_address,
       peeringGroup: pGroup.name,
+      id: pGroup.id,
+      __typename: pGroup.__typename,
       interfaceNetwork: '',
       unit: unit.name,
       pic: port.name,

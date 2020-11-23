@@ -15,7 +15,6 @@ class PeeringGroupUpdateForm extends _PeeringGroupFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_PEERINGGROUP_FORM;
   MODEL_NAME = 'peeringGroup';
-  ROUTE_LIST_DIRECTION = '/network/peeringGroups';
   constructor(props) {
     super(props);
     this.state = {
@@ -37,15 +36,17 @@ class PeeringGroupUpdateForm extends _PeeringGroupFormParentClass {
     UpdatePeeringGroupMutation(peeringGroup, this);
   };
   render() {
-    let { handleSubmit } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
-        {this.renderSaveCancelButtons()}
+        {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
   }
