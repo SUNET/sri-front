@@ -90,7 +90,6 @@ export default function UpdateEndUserMutation(endUser, form) {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      console.log('response: ', response);
       if (response.update_endUser.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_endUser.updated.errors;

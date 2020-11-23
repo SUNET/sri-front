@@ -90,7 +90,6 @@ export default function UpdateProviderMutation(provider, form) {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      console.log('response: ', response);
       if (response.update_provider.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.update_provider.updated.errors;

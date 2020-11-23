@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import HostList from '../../containers/host/HostList';
 import HostDetailsContainer from '../../containers/host/HostDetails';
-import CreateHost from './CreateHost';
+import CreateHost from './CreateHostRoute/CreateHostRoute';
 // Constants
 
 class SearchHost extends _SearchEntityParentClass {

@@ -123,7 +123,6 @@ export default function UpdateHostMutation(host, form) {
       id: ownerToRemove.id,
     };
   }
-  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,
