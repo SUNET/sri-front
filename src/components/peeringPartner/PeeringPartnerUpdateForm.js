@@ -15,7 +15,6 @@ class PeeringPartnerUpdateForm extends _PeeringPartnerFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_PEERINGPARTNER_FORM;
   MODEL_NAME = 'peeringPartner';
-  ROUTE_LIST_DIRECTION = '/network/peeringPartners';
   constructor(props) {
     super(props);
     this.state = {

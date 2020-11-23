@@ -26,6 +26,10 @@ class _ContactFormParentClass extends React.Component {
   IS_UPDATED_FORM = false;
   FORM_ID;
   MODEL_NAME = 'contact';
+  state = {
+    editMode: false,
+    disabledSubmitButton: false,
+  };
 
   componentDidMount() {
     if (this.IS_UPDATED_FORM) {
@@ -100,7 +104,15 @@ class _ContactFormParentClass extends React.Component {
     const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
-    return <SaveCancelCTAs formId={formId} cancelText={textToButtons} onCancel={functionToCancel} />;
+    const { disabledSubmitButton } = this.state;
+    return (
+      <SaveCancelCTAs
+        formId={formId}
+        cancelText={textToButtons}
+        onCancel={functionToCancel}
+        saveButtonDisabled={disabledSubmitButton}
+      />
+    );
   }
   renderHeader(editMode = true, showBackButton = true, isFromModal = false) {
     return (

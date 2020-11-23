@@ -151,7 +151,14 @@ class _OrganizationFormParentClass extends React.Component {
     const { t } = this.props;
     const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
-    return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
+    return (
+      <SaveCancelCTAs
+        formId={this.FORM_ID}
+        cancelText={textToButtons}
+        onCancel={functionToCancel}
+        saveButtonDisabled={this.state.disabledSubmitButton}
+      />
+    );
   }
   renderHeader(editMode = true, showBackButton = true) {
     return (
