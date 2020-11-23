@@ -15,7 +15,6 @@ class ExternalEquipmentUpdateForm extends _ExternalEquipmentFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_EXTERNALEQUIPMENT_FORM;
   MODEL_NAME = 'externalEquipment';
-  ROUTE_LIST_DIRECTION = '/network/externalEquipments';
   constructor(props) {
     super(props);
     this.state = {

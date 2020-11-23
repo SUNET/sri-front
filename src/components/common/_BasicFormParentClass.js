@@ -118,7 +118,7 @@ class _BasicFormParentClass extends React.Component {
     const { isFromModal } = this.props;
     return (
       <div className="title-section">
-        {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
+        {showBackButton && <BackCTA onClick={() => this.props.history.push(this.ROUTE_LIST_DIRECTION)} />}
         {!isFromModal && this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
         <div className="vertical-separator"></div>
         <div className={`title-section__name-inputs ${editionModeClass}`}>{this.renderInputName('name', editMode)}</div>
