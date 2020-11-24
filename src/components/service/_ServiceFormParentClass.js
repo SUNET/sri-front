@@ -21,7 +21,11 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID;
   MODEL_NAME = 'service';
-  ROUTE_LIST_DIRECTION = '/network/services';
+
+  constructor(props) {
+    super(props);
+    this.ROUTE_LIST_DIRECTION = `/network/${props.currentClass.path}`;
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;

@@ -24,7 +24,7 @@ class SearchSite extends _SearchEntityParentClass {
 
   PATH_ENTITY = `/network/location-sites`;
   PATH_ENTITY_ID = 'siteId';
-  DEFAULT_COLUMNS = [{ name: 'Name', value: 'name', filter: 'order' }];
+  DEFAULT_COLUMNS = [{ name: 'Name', value: 'name', filter: 'order', textFilter: true }];
   LIST_QUERY = graphql`
     query SearchSiteAllQuery($count: Int!, $filter: SiteFilter, $orderBy: SiteOrderBy) {
       ...SiteList_sites @arguments(count: $count, filter: $filter, orderBy: $orderBy)

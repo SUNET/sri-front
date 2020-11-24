@@ -13,7 +13,6 @@ import { isBrowser } from 'react-device-detect';
 class CreateServiceForm extends _ServiceFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_SERVICE_FORM;
-  ROUTE_LIST_DIRECTION = '/network/services';
   MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],

@@ -13,6 +13,12 @@ import CreateOrganization from './CreateOrganization';
 import OrganizationDetailsContainer from '../../containers/organization/OrganizationDetails';
 import OrganizationListContainer from '../../containers/organization/OrganizationList';
 
+import { isEmpty } from '../../utils';
+
+import CONFIG from '../../config';
+
+const { ITEMS_PER_PAGE } = CONFIG;
+
 class SearchOrganization extends _SearchEntityParentClass {
   LIST_CONTAINER = OrganizationListContainer;
   CREATE_COMPONENT = CreateOrganization;
@@ -24,9 +30,9 @@ class SearchOrganization extends _SearchEntityParentClass {
   PATH_ENTITY = '/community/organizations';
   PATH_ENTITY_ID = 'organizationId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Organization ID', value: 'organization_id', filter: 'order' },
-    { name: 'Type', value: 'type', filter: 'order-filter' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Organization ID', value: 'organization_id', filter: 'order', textFilter: true },
+    { name: 'Type', value: 'type', filter: 'order-filter', textFilter: true },
     { name: 'Affiliation', value: 'affiliation' },
     { name: 'Parent Organization ID', value: 'parent_organization_id' },
   ];
@@ -37,13 +43,6 @@ class SearchOrganization extends _SearchEntityParentClass {
       ...OrganizationList_organization_types
     }
   `;
-  constructor(props) {
-    super(props);
-    if (isMobile) {
-      const visible = true;
-      props.showHideColumn('name', visible, this.MODEL_NAME);
-    }
-  }
 }
 
 export default withTranslation()(withRouter(SearchOrganization));

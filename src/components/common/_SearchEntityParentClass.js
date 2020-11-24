@@ -80,7 +80,7 @@ class _SearchEntityParentClass extends React.Component {
   handleOnChangeFilter = (filterValue) => {
     this.setState({
       filterValueText: filterValue,
-      filterValue: this.DEFAULT_COLUMNS.map((column) => {
+      filterValue: this.DEFAULT_COLUMNS.filter(c => c.textFilter).map((column) => {
         return { [column.value + '_contains']: filterValue };
       }),
     });

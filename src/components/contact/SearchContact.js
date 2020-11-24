@@ -24,10 +24,10 @@ class SearchContact extends _SearchEntityParentClass {
   PATH_ENTITY = '/community/contacts';
   PATH_ENTITY_ID = 'contactId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
     { name: 'Organization', value: 'organizations', filter: 'order' },
     { name: 'Roles', value: 'roles', filter: 'order-filter' },
-    { name: 'Contact Type', value: 'contact_type', filter: 'order' },
+    { name: 'Contact Type', value: 'contact_type', filter: 'order', textFilter: true },
   ];
 
   LIST_QUERY = graphql`
