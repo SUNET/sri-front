@@ -20,10 +20,10 @@ import { withTranslation } from 'react-i18next';
 //   }
 // }
 
-const SaveCancelCTAs = ({ t, formId, cancelText, saveButtonDisabled }) => {
+const SaveCancelCTAs = ({ t, formId, cancelText, saveButtonDisabled, onCancel }) => {
   return (
     <div className="save-cancel-ctas text-right mt-4">
-      <button type="button" className="save-cancel-ctas__cancel mr-2 btn link" onClick={(e) => this.onClickCancel()}>
+      <button type="button" className="save-cancel-ctas__cancel mr-2 btn link" onClick={(e) => onCancel()}>
         {cancelText}
       </button>
       <button

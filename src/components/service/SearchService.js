@@ -23,7 +23,7 @@ class SearchService extends _SearchEntityParentClass {
   MODEL_NAME = 'service';
   MODEL_LIST_NAME = 'services';
 
-  PATH_ENTITY = `/network/services`;
+  PATH_ENTITY = ``;
   PATH_ENTITY_ID = 'serviceId';
   DEFAULT_COLUMNS = [
     { name: 'Name', value: 'name', filter: 'order', textFilter: true },
