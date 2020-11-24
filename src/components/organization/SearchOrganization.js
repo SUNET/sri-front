@@ -3,7 +3,6 @@ import _SearchEntityParentClass from '../common/_SearchEntityParentClass';
 // React imports
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import { isMobile } from 'react-device-detect';
 
 // GraphQL imports
 import graphql from 'babel-plugin-relay/macro';
@@ -12,12 +11,6 @@ import graphql from 'babel-plugin-relay/macro';
 import CreateOrganization from './CreateOrganization';
 import OrganizationDetailsContainer from '../../containers/organization/OrganizationDetails';
 import OrganizationListContainer from '../../containers/organization/OrganizationList';
-
-import { isEmpty } from '../../utils';
-
-import CONFIG from '../../config';
-
-const { ITEMS_PER_PAGE } = CONFIG;
 
 class SearchOrganization extends _SearchEntityParentClass {
   LIST_CONTAINER = OrganizationListContainer;
