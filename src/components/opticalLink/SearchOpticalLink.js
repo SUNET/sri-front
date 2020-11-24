@@ -25,8 +25,8 @@ class SearchOpticalLink extends _SearchEntityParentClass {
   PATH_ENTITY = `/network/optical-links`;
   PATH_ENTITY_ID = 'opticalLinkId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchOpticalLinkAllQuery($count: Int!, $filter: OpticalLinkFilter, $orderBy: OpticalLinkOrderBy) {

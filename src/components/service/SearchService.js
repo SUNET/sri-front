@@ -26,12 +26,12 @@ class SearchService extends _SearchEntityParentClass {
   PATH_ENTITY = `/network/services`;
   PATH_ENTITY_ID = 'serviceId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Type', value: 'service_type', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Type', value: 'service_type', filter: 'order', textFilter: true },
     { name: 'Class', value: 'service_class', filter: 'order' },
     { name: 'Customers', value: 'customers', filter: 'order' },
     { name: 'End Users', value: 'end_users', filter: 'order' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchServiceAllQuery($count: Int!, $filter: ServiceFilter, $orderBy: ServiceOrderBy) {

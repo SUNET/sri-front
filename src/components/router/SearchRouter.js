@@ -24,8 +24,8 @@ class SearchRouter extends _SearchEntityParentClass {
   PATH_ENTITY = `/network/routers`;
   PATH_ENTITY_ID = 'routerId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchRouterAllQuery($count: Int!, $filter: RouterFilter, $orderBy: RouterOrderBy) {
