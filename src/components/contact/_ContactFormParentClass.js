@@ -26,6 +26,8 @@ class _ContactFormParentClass extends React.Component {
   IS_UPDATED_FORM = false;
   FORM_ID;
   MODEL_NAME = 'contact';
+  ROUTE_LIST_DIRECTION = '/community/contacts';
+
   state = {
     editMode: false,
     disabledSubmitButton: false,
