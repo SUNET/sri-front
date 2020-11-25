@@ -4,8 +4,6 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { UNLINK, REMOVE, SAVED, CHANGED } from '../../utils/constants';
-
 import { formattedRoles, formattedSubInputs } from './MutationsMethods';
 
 const mutation = graphql`

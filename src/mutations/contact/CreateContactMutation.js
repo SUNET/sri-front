@@ -2,7 +2,6 @@ import { commitMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
 import CreateComentMutation from '../CreateCommentMutation';
-import DeleteRelationshipMutation from '../DeleteRelationshipMutation';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
