@@ -1,7 +1,8 @@
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // Common imports
 import React from 'react';
-import { FieldArray, arrayPush } from 'redux-form';
+import { Form } from 'react-bootstrap';
+import { Field, FieldArray, arrayPush } from 'redux-form';
 import { change } from 'redux-form';
 // components
 import Dropdown from '../Dropdown';
@@ -10,6 +11,7 @@ import FieldArrayConnections from './FieldArrayConnections';
 // const
 import { isBrowser } from 'react-device-detect';
 import { SAVED } from '../../utils/constants';
+import FieldInput from '../FieldInput';
 // scss
 import '../../style/ModelDetails.scss';
 
@@ -70,7 +72,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
 
   renderGeneralInfoToggleSection(editMode = true) {
     const componentClassName = 'general-info-block';
-    const { t, cableTypeObj, provider_id, providerObj } = this.props;
+    const { t, cableTypeObj, provider_id, providerObj, cable_length } = this.props;
     const generalInfoFirstRow = [
       {
         title: t('general-forms/type'),
@@ -86,6 +88,23 @@ class _CableFormParentClass extends _BasicFormParentClass {
           />
         ),
       },
+      {
+        title: t('general-forms/cable-length'),
+        presentContent: cable_length,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="cable_length"
+              component={FieldInput}
+              placeholder={t('general-forms/decimal-placeholder')}
+            />
+          </Form.Group>
+        ),
+      },
+    ];
+
+    const generalInfoSecondRow = [
       {
         title: t('entity-name/provider'),
         presentContent: providerObj ? providerObj.name : '',
@@ -121,6 +140,11 @@ class _CableFormParentClass extends _BasicFormParentClass {
             <div>
               <div className="form-internal-block">
                 {generalInfoFirstRow.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
+              <div className="form-internal-block">
+                {generalInfoSecondRow.map((formData, index) => {
                   return renderFormBlockSection(editMode, formData, index);
                 })}
               </div>

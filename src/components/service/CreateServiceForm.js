@@ -4,8 +4,8 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import CreateServiceMutation from '../../mutations/service/CreateServiceMutation';
-import ValidationsServiceForm from '../common/_BasicValidationForm';
+import CreateMutation from '../../mutations/service/CreateServiceMutation';
+import ValidationsServiceForm from './ValidationsServiceForm';
 // const
 import { CREATE_SERVICE_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
@@ -13,13 +13,13 @@ import { isBrowser } from 'react-device-detect';
 class CreateServiceForm extends _ServiceFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_SERVICE_FORM;
-  ROUTE_LIST_DIRECTION = '/network/services';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
   };
-  handleSubmit = (service) => {
+  preProcessSubmitData = (service) => {
     const { currentClass } = this.props;
-    CreateServiceMutation({ ...service, currentClass }, this);
+    return { ...service, currentClass };
   };
   render() {
     const { handleSubmit } = this.props;

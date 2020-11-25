@@ -123,7 +123,7 @@ function CreatePortMutation(port, form) {
       if (port.comment) {
         CreateCommentMutation(portId, port.comment);
       }
-      form.props.notify(i18n.t('notify.network/ports-created-success'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/ports'), 'success');
       if (form.props.history) {
         form.props.history.push(`/network/ports/${portId}`);
       } else {

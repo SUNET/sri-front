@@ -24,7 +24,7 @@ const { ITEMS_PER_PAGE } = CONFIG;
 
 class _SearchEntityParentClass extends React.Component {
   MODEL_NAME = '';
-  MODEL_LIST_NAME = '';
+  MODEL_LIST_NAME = [''];
   LIST_QUERY = undefined;
   DEFAULT_COLUMNS = [];
   PATH_ENTITY = '';
@@ -33,6 +33,8 @@ class _SearchEntityParentClass extends React.Component {
   LIST_CONTAINER = undefined;
   CREATE_COMPONENT = undefined;
   DETAIL_CONTAINER = undefined;
+
+  currentCountList = ITEMS_PER_PAGE;
 
   state = {
     itemsPerPage: ITEMS_PER_PAGE,
@@ -73,12 +75,12 @@ class _SearchEntityParentClass extends React.Component {
     this.setState({ orderBy: { orderBy: orderBy } });
   };
   handleOnChangeCount = (count) => {
-    this.setState({ countList: this.state.countList + count });
+    this.currentCountList = count;
   };
   handleOnChangeFilter = (filterValue) => {
     this.setState({
       filterValueText: filterValue,
-      filterValue: this.DEFAULT_COLUMNS.map((column) => {
+      filterValue: this.DEFAULT_COLUMNS.filter(c => c.textFilter).map((column) => {
         return { [column.value + '_contains']: filterValue };
       }),
     });
@@ -142,7 +144,7 @@ class _SearchEntityParentClass extends React.Component {
             environment={environment}
             query={this.LIST_QUERY}
             variables={{
-              count: this.state.itemsPerPage,
+              count: this.currentCountList,
               ...this.state.orderBy,
               filter: this.getFilters(),
             }}
@@ -150,8 +152,9 @@ class _SearchEntityParentClass extends React.Component {
             mainClass=""
             componentToRender={{
               Component: this.LIST_CONTAINER,
-              mainProps: [this.MODEL_LIST_NAME],
+              mainProps: Array.isArray(this.MODEL_LIST_NAME) ? this.MODEL_LIST_NAME : [this.MODEL_LIST_NAME],
               componentProps: {
+                currentFilters: this.getFilters(),
                 changeCount: this.handleOnChangeCount,
                 columnChangeOrderBy: this.handleColumnChangeOrderBy,
                 orderBy: this.state.orderBy.orderBy,

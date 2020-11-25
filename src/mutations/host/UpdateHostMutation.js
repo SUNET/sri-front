@@ -79,6 +79,15 @@ const mutation = graphql`
           rack_units
           rack_position
           rack_back
+          ports {
+            id
+            name
+            __typename
+            relation_id
+            type: port_type {
+              name
+            }
+          }
         }
       }
     }
@@ -123,7 +132,6 @@ export default function UpdateHostMutation(host, form) {
       id: ownerToRemove.id,
     };
   }
-  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

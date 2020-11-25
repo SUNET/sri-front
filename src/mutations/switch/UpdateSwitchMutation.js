@@ -58,7 +58,6 @@ export default function UpdateSwitchMutation(switchData, form) {
       create_subinputs: ports.toCreate,
     },
   };
-  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

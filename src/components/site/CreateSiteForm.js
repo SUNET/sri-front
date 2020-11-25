@@ -4,7 +4,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import CreateSiteMutation from '../../mutations/site/CreateSiteMutation';
+import CreateMutation from '../../mutations/site/CreateSiteMutation';
 import ValidationsSiteForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_SITE_FORM } from '../../utils/constants';
@@ -14,11 +14,9 @@ class CreateSiteForm extends _SiteFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_SITE_FORM;
   ROUTE_LIST_DIRECTION = '/network/location-sites';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (site) => {
-    CreateSiteMutation(site, this);
   };
   render() {
     const { handleSubmit } = this.props;

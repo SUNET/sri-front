@@ -3,7 +3,7 @@ import _CableFormParentClass from './_CableFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateCableMutation from '../../mutations/cable/CreateCableMutation';
+import CreateMutation from '../../mutations/cable/CreateCableMutation';
 import ValidationsCableForm from './ValidationsCableForm';
 // const
 import { CREATE_CABLE_FORM } from '../../utils/constants';
@@ -12,11 +12,9 @@ import { isBrowser } from 'react-device-detect';
 class CreateCableForm extends _CableFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_CABLE_FORM;
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (cable) => {
-    CreateCableMutation(cable, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

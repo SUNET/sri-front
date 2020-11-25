@@ -363,8 +363,8 @@ class _BasicFieldArrayParentClass extends React.Component {
               >
                 {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
                 {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                {editable && this.renderButtonsBox(row.id, willHaveModalsButtons)}
-                {!editable && row.status === SAVED && willHaveModalsButtons && this.renderMoreInfoButton(row)}
+                {editable && row.id && this.renderButtonsBox(row.id, willHaveModalsButtons)}
+                {!editable && row.status === SAVED && willHaveModalsButtons && row.id && this.renderMoreInfoButton(row)}
               </div>
             );
           })}
@@ -453,7 +453,7 @@ class _BasicFieldArrayParentClass extends React.Component {
 
   render() {
     return (
-      <div className="contact-in-organization">
+      <div className={`contact-in-organization contact-in-organization--${this.styleModifier}`}>
         {this.renderHeader()}
         {this.renderBody()}
         {this.PRE_FILTER_SELECT && this.renderFooter()}

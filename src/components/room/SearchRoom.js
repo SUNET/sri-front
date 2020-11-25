@@ -24,7 +24,7 @@ class SearchRoom extends _SearchEntityParentClass {
 
   PATH_ENTITY = `/network/location-rooms`;
   PATH_ENTITY_ID = 'roomId';
-  DEFAULT_COLUMNS = [{ name: 'Name', value: 'name', filter: 'order' }];
+  DEFAULT_COLUMNS = [{ name: 'Name', value: 'name', filter: 'order', textFilter: true }];
   LIST_QUERY = graphql`
     query SearchRoomAllQuery($count: Int!, $filter: RoomFilter, $orderBy: RoomOrderBy) {
       ...RoomList_rooms @arguments(count: $count, filter: $filter, orderBy: $orderBy)

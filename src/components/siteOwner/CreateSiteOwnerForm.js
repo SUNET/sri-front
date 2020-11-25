@@ -3,7 +3,7 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateSiteOwnerMutation from '../../mutations/siteOwner/CreateSiteOwnerMutation';
+import CreateMutation from '../../mutations/siteOwner/CreateSiteOwnerMutation';
 import ValidationsSiteOwnerForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_SITEOWNER_FORM } from '../../utils/constants';
@@ -13,11 +13,9 @@ class CreateSiteOwnerForm extends _BasicFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_SITEOWNER_FORM;
   ROUTE_LIST_DIRECTION = '/network/site-owners';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (siteOwner) => {
-    CreateSiteOwnerMutation(siteOwner, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

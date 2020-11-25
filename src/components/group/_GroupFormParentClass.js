@@ -139,7 +139,14 @@ class _GroupFormParentClass extends React.Component {
     const { t } = this.props;
     const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
-    return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
+    return (
+      <SaveCancelCTAs
+        formId={this.FORM_ID}
+        cancelText={textToButtons}
+        onCancel={functionToCancel}
+        saveButtonDisabled={this.state.disabledSubmitButton}
+      />
+    );
   }
   renderHeader(editMode = true, showBackButton = true) {
     return (
@@ -155,7 +162,7 @@ class _GroupFormParentClass extends React.Component {
     const editionModeClass = editMode ? 'title-section__name-inputs--edition-mode' : '';
     return (
       <div className="title-section">
-        {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
+        {showBackButton && <BackCTA onClick={() => this.props.history.push(this.ROUTE_LIST_DIRECTION)} />}
         {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
         <div className="vertical-separator"></div>
         <div data-name="name" className={`title-section__name-inputs ${editionModeClass}`}>

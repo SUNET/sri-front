@@ -25,8 +25,8 @@ class Search__EntityClassName__ extends _SearchEntityParentClass {
   PATH_ENTITY = `/__entityBlock__/__entityInternalRoutePath__s`;
   PATH_ENTITY_ID = '__entityName__Id';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query Search__EntityClassName__AllQuery(

@@ -32,6 +32,7 @@ import CreateOpticalFilterFormContainer from '../containers/opticalFilter/Create
 import OpticalFilterDetailsContainer from '../containers/opticalFilter/OpticalFilterDetails';
 import CreateOpticalNodeFormContainer from '../containers/opticalNode/CreateOpticalNodeForm';
 import OpticalNodeDetailsContainer from '../containers/opticalNode/OpticalNodeDetails';
+import PeeringGroupDetailsContainer from '../containers/peeringGroup/PeeringGroupDetails';
 
 import {
   CREATE_CONTACT_FORM,
@@ -40,30 +41,32 @@ import {
   UPDATE_PORT_FORM,
   CREATE_CABLE_FORM,
   UPDATE_CABLE_FORM,
-  UPDATE_CUSTOMER_FORM,
   CREATE_CUSTOMER_FORM,
-  UPDATE_ENDUSER_FORM,
+  UPDATE_CUSTOMER_FORM,
   CREATE_ENDUSER_FORM,
-  UPDATE_PROVIDER_FORM,
+  UPDATE_ENDUSER_FORM,
   CREATE_PROVIDER_FORM,
-  UPDATE_SITEOWNER_FORM,
+  UPDATE_PROVIDER_FORM,
   CREATE_SITEOWNER_FORM,
-  UPDATE_HOST_FORM,
+  UPDATE_SITEOWNER_FORM,
   CREATE_HOST_FORM,
-  UPDATE_FIREWALL_FORM,
+  UPDATE_HOST_FORM,
   CREATE_FIREWALL_FORM,
-  UPDATE_SWITCH_FORM,
+  UPDATE_FIREWALL_FORM,
   CREATE_SWITCH_FORM,
-  UPDATE_EXTERNALEQUIPMENT_FORM,
+  UPDATE_SWITCH_FORM,
   CREATE_EXTERNALEQUIPMENT_FORM,
-  UPDATE_ROUTER_FORM,
+  UPDATE_EXTERNALEQUIPMENT_FORM,
   CREATE_ROUTER_FORM,
-  UPDATE_ODF_FORM,
+  UPDATE_ROUTER_FORM,
   CREATE_ODF_FORM,
-  UPDATE_OPTICALFILTER_FORM,
+  UPDATE_ODF_FORM,
   CREATE_OPTICALFILTER_FORM,
-  UPDATE_OPTICALNODE_FORM,
+  UPDATE_OPTICALFILTER_FORM,
   CREATE_OPTICALNODE_FORM,
+  UPDATE_OPTICALNODE_FORM,
+  CREATE_PEERINGGROUP_FORM,
+  UPDATE_PEERINGGROUP_FORM,
 } from '../utils/constants';
 import '../style/ModalNewContact.scss';
 
@@ -76,7 +79,6 @@ class ModalNewContact extends React.Component {
       textHeader: '',
       formId: '',
     };
-    console.log('entityName: ', entityName);
     switch (entityName) {
       case 'Contact':
         entityData = {
@@ -195,6 +197,14 @@ class ModalNewContact extends React.Component {
           ComponentToRender: isUpdateForm ? HostDetailsContainer : CreateHostFormContainer,
           textHeader: isUpdateForm ? 'entity-modify/hosts' : 'entity-add-new/hosts',
           formId: isUpdateForm ? UPDATE_HOST_FORM : CREATE_HOST_FORM,
+        };
+        break;
+      case 'peeringGroups':
+      case 'PeeringGroup':
+        entityData = {
+          ComponentToRender: isUpdateForm ? PeeringGroupDetailsContainer : null,
+          textHeader: isUpdateForm ? 'entity-modify/peering-groups' : 'entity-add-new/peering-groups',
+          formId: isUpdateForm ? UPDATE_PEERINGGROUP_FORM : CREATE_PEERINGGROUP_FORM,
         };
         break;
       default:

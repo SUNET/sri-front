@@ -26,6 +26,12 @@ class _ContactFormParentClass extends React.Component {
   IS_UPDATED_FORM = false;
   FORM_ID;
   MODEL_NAME = 'contact';
+  ROUTE_LIST_DIRECTION = '/community/contacts';
+
+  state = {
+    editMode: false,
+    disabledSubmitButton: false,
+  };
 
   componentDidMount() {
     if (this.IS_UPDATED_FORM) {
@@ -100,7 +106,15 @@ class _ContactFormParentClass extends React.Component {
     const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
-    return <SaveCancelCTAs formId={formId} cancelText={textToButtons} onCancel={functionToCancel} />;
+    const { disabledSubmitButton } = this.state;
+    return (
+      <SaveCancelCTAs
+        formId={formId}
+        cancelText={textToButtons}
+        onCancel={functionToCancel}
+        saveButtonDisabled={disabledSubmitButton}
+      />
+    );
   }
   renderHeader(editMode = true, showBackButton = true, isFromModal = false) {
     return (
@@ -116,7 +130,7 @@ class _ContactFormParentClass extends React.Component {
     const editionModeClass = editMode ? 'title-section__name-inputs--edition-mode' : '';
     return (
       <div className="title-section">
-        {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
+        {showBackButton && <BackCTA onClick={() => this.props.history.push(this.ROUTE_LIST_DIRECTION)} />}
         {this.IS_UPDATED_FORM && isMobile && !isFromModal && this.renderEditButton()}
         <div className="vertical-separator"></div>
         <div className={`title-section__name-inputs ${editionModeClass}`}>

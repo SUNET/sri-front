@@ -50,8 +50,13 @@ class _BasicFormParentClass extends React.Component {
   refetch = () => {
     throw new Error('This method should be overwritten in the child class');
   };
-  handleSubmit = () => {
-    throw new Error('This method should be overwritten in the child class');
+  preProcessSubmitData = (data) => {
+    return data;
+  };
+  handleSubmit = (entityData) => {
+    const dataToMutation = this.preProcessSubmitData(entityData);
+    this.setState({ disabledSubmitButton: true });
+    this.MUTATION_SUBMIT(dataToMutation, this);
   };
   onClickDelete = () => {
     this.props.onDelete();
@@ -99,7 +104,14 @@ class _BasicFormParentClass extends React.Component {
     const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
-    return <SaveCancelCTAs formId={formId} cancelText={textToButtons} onCancel={functionToCancel} />;
+    return (
+      <SaveCancelCTAs
+        formId={formId}
+        cancelText={textToButtons}
+        onCancel={functionToCancel}
+        saveButtonDisabled={this.state.disabledSubmitButton}
+      />
+    );
   }
 
   renderHeader(editMode = true, showBackButton = true) {
@@ -118,7 +130,7 @@ class _BasicFormParentClass extends React.Component {
     const { isFromModal } = this.props;
     return (
       <div className="title-section">
-        {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
+        {showBackButton && <BackCTA onClick={() => this.props.history.push(this.ROUTE_LIST_DIRECTION)} />}
         {!isFromModal && this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
         <div className="vertical-separator"></div>
         <div className={`title-section__name-inputs ${editionModeClass}`}>{this.renderInputName('name', editMode)}</div>

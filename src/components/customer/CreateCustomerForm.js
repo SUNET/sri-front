@@ -3,7 +3,7 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateCustomerMutation from '../../mutations/customer/CreateCustomerMutation';
+import CreateMutation from '../../mutations/customer/CreateCustomerMutation';
 import ValidationsCustomerForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_CUSTOMER_FORM } from '../../utils/constants';
@@ -13,11 +13,9 @@ class CreateCustomerForm extends _BasicFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_CUSTOMER_FORM;
   ROUTE_LIST_DIRECTION = '/network/customers';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (customer) => {
-    CreateCustomerMutation(customer, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

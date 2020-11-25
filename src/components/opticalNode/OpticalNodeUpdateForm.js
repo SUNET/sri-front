@@ -15,7 +15,6 @@ class OpticalNodeUpdateForm extends _OpticalNodeFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_OPTICALNODE_FORM;
   MODEL_NAME = 'opticalNode';
-  ROUTE_LIST_DIRECTION = '/network/opticalNodes';
   constructor(props) {
     super(props);
     this.state = {

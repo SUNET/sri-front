@@ -9,11 +9,43 @@ const PeeringGroupDetailsQuery = graphql`
       name
       dependencies {
         __typename
-        type: __typename
-        relation_id
         id
         name
+        relation_id
+        ... on Logical {
+          dependencies {
+            __typename
+            id
+            name
+          }
+          part_of {
+            __typename
+            id
+            name
+            parent {
+              __typename
+              id
+              name
+            }
+          }
+        }
+        ... on Unit {
+          ip_address
+          vlan
+        }
       }
+      used_by {
+        __typename
+        id
+        name
+        relation_id
+        ... on PeeringPartner {
+          ip_address
+          as_number
+          peering_link
+        }
+      }
+
       comments {
         id
         user {

@@ -3,7 +3,7 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateEndUserMutation from '../../mutations/endUser/CreateEndUserMutation';
+import CreateMutation from '../../mutations/endUser/CreateEndUserMutation';
 import ValidationsEndUserForm from '../common/_BasicValidationForm';
 // const
 import { CREATE_ENDUSER_FORM } from '../../utils/constants';
@@ -13,11 +13,9 @@ class CreateEndUserForm extends _BasicFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_ENDUSER_FORM;
   ROUTE_LIST_DIRECTION = '/network/end-users';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (endUser) => {
-    CreateEndUserMutation(endUser, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

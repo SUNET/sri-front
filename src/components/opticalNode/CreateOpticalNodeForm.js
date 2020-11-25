@@ -3,7 +3,7 @@ import _OpticalNodeFormParentClass from './_OpticalNodeFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateOpticalNodeMutation from '../../mutations/opticalNode/CreateOpticalNodeMutation';
+import CreateMutation from '../../mutations/opticalNode/CreateOpticalNodeMutation';
 import ValidationsOpticalNodeForm from './ValidationsOpticalNodeForm';
 // const
 import { CREATE_OPTICALNODE_FORM } from '../../utils/constants';
@@ -13,11 +13,9 @@ class CreateOpticalNodeForm extends _OpticalNodeFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_OPTICALNODE_FORM;
   ROUTE_LIST_DIRECTION = '/network/optical-nodes';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (opticalNode) => {
-    CreateOpticalNodeMutation(opticalNode, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

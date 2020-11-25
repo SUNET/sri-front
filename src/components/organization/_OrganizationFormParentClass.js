@@ -151,7 +151,14 @@ class _OrganizationFormParentClass extends React.Component {
     const { t } = this.props;
     const textToButtons = this.IS_UPDATED_FORM ? t('actions/delete') : t('actions/cancel');
     const functionToCancel = this.IS_UPDATED_FORM ? this.onClickDelete : this.onClickCancel;
-    return <SaveCancelCTAs formId={this.FORM_ID} cancelText={textToButtons} onCancel={functionToCancel} />;
+    return (
+      <SaveCancelCTAs
+        formId={this.FORM_ID}
+        cancelText={textToButtons}
+        onCancel={functionToCancel}
+        saveButtonDisabled={this.state.disabledSubmitButton}
+      />
+    );
   }
   renderHeader(editMode = true, showBackButton = true) {
     return (
@@ -167,7 +174,7 @@ class _OrganizationFormParentClass extends React.Component {
     const editionModeClass = editMode ? 'title-section__name-inputs--edition-mode' : '';
     return (
       <div className="title-section">
-        {showBackButton && <BackCTA onClick={() => this.props.history.goBack()} />}
+        {showBackButton && <BackCTA onClick={() => this.props.history.push(this.ROUTE_LIST_DIRECTION)} />}
         {this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
         <div className="vertical-separator"></div>
         <div className={`title-section__name-inputs ${editionModeClass}`}>{this.renderInputName('name', editMode)}</div>
@@ -205,12 +212,12 @@ class _OrganizationFormParentClass extends React.Component {
   }
 
   renderWorkLog() {
-    const { t, contact } = this.props;
+    const { t, organization } = this.props;
     const componentClassName = 'workLog-block';
     return (
       <section className={`model-section ${componentClassName}`}>
         {this.IS_UPDATED_FORM ? (
-          <Worklog model={contact} refetch={this.refetch} />
+          <Worklog model={organization} refetch={this.refetch} />
         ) : (
           <ToggleSection defaultEditable={false}>
             <ToggleHeading>

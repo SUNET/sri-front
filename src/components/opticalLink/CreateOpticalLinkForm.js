@@ -4,7 +4,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import CreateOpticalLinkMutation from '../../mutations/opticalLink/CreateOpticalLinkMutation';
+import CreateMutation from '../../mutations/opticalLink/CreateOpticalLinkMutation';
 import ValidationsOpticalLinkForm from './ValidationsOpticalLinkForm';
 // const
 import { CREATE_OPTICALLINK_FORM } from '../../utils/constants';
@@ -14,11 +14,9 @@ class CreateOpticalLinkForm extends _OpticalLinkFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_OPTICALLINK_FORM;
   ROUTE_LIST_DIRECTION = '/network/optical-links';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (opticalLink) => {
-    CreateOpticalLinkMutation(opticalLink, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

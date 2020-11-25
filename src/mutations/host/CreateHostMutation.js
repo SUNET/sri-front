@@ -4,7 +4,8 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
 import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
-import { SAVED } from '../../utils/constants';
+import { SAVED, REMOVE } from '../../utils/constants';
+import { generatePortForInput } from '../MutationsUtils';
 
 const mutation = graphql`
   mutation CreateHostMutation($input: CompositeHostMutationInput!) {
@@ -76,6 +77,15 @@ const mutation = graphql`
           rack_units
           rack_position
           rack_back
+          ports {
+            id
+            name
+            __typename
+            relation_id
+            type: port_type {
+              name
+            }
+          }
         }
       }
     }
@@ -84,6 +94,9 @@ const mutation = graphql`
 
 function CreateHostMutation(host, form) {
   const ownerToSaved = host.owner ? host.owner.find((o) => o.status === SAVED) : null;
+  const ownerToRemove = host.owner ? host.owner.find((o) => o.status === REMOVE) : null;
+  const hostUserToSaved = host.host_user ? host.host_user.find((hu) => hu.status === SAVED) : null;
+  const ports = generatePortForInput(host.ports);
   const variables = {
     input: {
       create_input: {
@@ -102,10 +115,20 @@ function CreateHostMutation(host, form) {
         os_version: host.os_version,
         contract_number: host.contract_number,
         relationship_owner: ownerToSaved ? ownerToSaved.id : '',
+        relationship_user: hostUserToSaved ? hostUserToSaved.id : '',
         relationship_location: host.location && host.location.length ? host.location[0].id : null,
       },
+      unlink_subinputs: ports.toUnlink,
+      update_subinputs: ports.toSaved,
+      delete_subinputs: ports.toRemove,
+      create_subinputs: ports.toCreate,
     },
   };
+  if (ownerToRemove) {
+    variables.input.delete_owner = {
+      id: ownerToRemove.id,
+    };
+  }
   commitMutation(environment, {
     mutation,
     variables,

@@ -25,9 +25,9 @@ class SearchProvider extends _SearchEntityParentClass {
   PATH_ENTITY = '/network/providers';
   PATH_ENTITY_ID = 'providerId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
     { name: 'URL', value: 'url' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchProviderAllQuery($count: Int!, $filter: ProviderFilter, $orderBy: ProviderOrderBy) {

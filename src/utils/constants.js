@@ -27,6 +27,7 @@ export const CREATE_EXTERNALEQUIPMENT_FORM = 'create-external-equipment-form';
 export const UPDATE_EXTERNALEQUIPMENT_FORM = 'update-external-equipment-form';
 export const CREATE_HOST_FORM = 'create-host-form';
 export const UPDATE_HOST_FORM = 'update-host-form';
+export const CREATE_PEERINGGROUP_FORM = 'create-peering-partner-form';
 export const UPDATE_PEERINGPARTNER_FORM = 'update-peering-partner-form';
 export const UPDATE_PEERINGGROUP_FORM = 'update-peering-group-form';
 export const CREATE_OPTICALNODE_FORM = 'create-optical-node-form';
@@ -72,6 +73,10 @@ export const REMOVE = 'remove';
 export const SAVED = 'saved';
 export const CREATE = 'created';
 export const CHANGED = 'changed';
+
+// FieldsArray 
+export const NEW = 'new';
+export const ORIGIN = 'origin';
 
 // TIMES WAIT
 export const MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE = 250;

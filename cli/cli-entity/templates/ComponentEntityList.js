@@ -182,12 +182,12 @@ export default createPaginationContainer(
   {
     __entityName__s: graphql`
       fragment __EntityClassName__List___entityName__s on Query
-        @argumentDefinitions(
-          count: { type: "Int" }
-          cursor: { type: "String" }
-          filter: { type: __EntityClassName__Filter }
-          orderBy: { type: __EntityClassName__OrderBy }
-        ) {
+      @argumentDefinitions(
+        count: { type: "Int" }
+        cursor: { type: "String" }
+        filter: { type: __EntityClassName__Filter }
+        orderBy: { type: __EntityClassName__OrderBy }
+      ) {
         __entityName__s(first: $count, after: $cursor, filter: $filter, orderBy: $orderBy)
           @connection(key: "__EntityClassName__List___entityName__s", filters: []) {
           edges {
@@ -209,8 +209,14 @@ export default createPaginationContainer(
     query: graphql`
       # Pagination query to be fetched upon calling 'loadMore'.
       # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
-      query __EntityClassName__ListForwardQuery($count: Int!, $cursor: String, $orderBy: __EntityClassName__OrderBy) {
-        ...__EntityClassName__List___entityName__s @arguments(count: $count, cursor: $cursor, orderBy: $orderBy)
+      query __EntityClassName__ListForwardQuery(
+        $count: Int!
+        $cursor: String
+        $orderBy: __EntityClassName__OrderBy
+        $filter: __EntityClassName__Filter
+      ) {
+        ...__EntityClassName__List___entityName__s
+          @arguments(count: $count, cursor: $cursor, orderBy: $orderBy, filter: $filter)
       }
     `,
     getConnectionFromProps(props) {

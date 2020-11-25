@@ -34,7 +34,6 @@ function CreateCustomerMutation(customer, form) {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      console.log('response: ', response);
       if (response.create_customer.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.create_customer.errors;

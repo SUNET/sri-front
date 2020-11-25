@@ -3,7 +3,7 @@ import _PortFormParentClass from './_PortFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreatePortMutation from '../../mutations/port/CreatePortMutation';
+import CreateMutation from '../../mutations/port/CreatePortMutation';
 import ValidationsPortForm from './ValidationsPortForm';
 // const
 import { CREATE_PORT_FORM } from '../../utils/constants';
@@ -12,11 +12,9 @@ import { isBrowser } from 'react-device-detect';
 class CreatePortForm extends _PortFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_PORT_FORM;
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (port) => {
-    CreatePortMutation(port, this);
   };
   render() {
     const { handleSubmit, isFromModal } = this.props;

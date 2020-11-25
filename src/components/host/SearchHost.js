@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import HostList from '../../containers/host/HostList';
 import HostDetailsContainer from '../../containers/host/HostDetails';
-import CreateHost from './CreateHost';
+import CreateHost from './CreateHostRoute/CreateHostRoute';
 // Constants
 
 class SearchHost extends _SearchEntityParentClass {
@@ -25,8 +25,8 @@ class SearchHost extends _SearchEntityParentClass {
   PATH_ENTITY = `/network/hosts`;
   PATH_ENTITY_ID = 'hostId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchHostAllQuery($count: Int!, $filter: HostFilter, $orderBy: HostOrderBy) {

@@ -47,7 +47,9 @@ type Address implements NINode & Logical & PhysicalLogical {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
   dependents: [Logical]
   provider: Relation
   part_of: Physical
@@ -288,10 +290,12 @@ type Cable implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Provider
@@ -305,7 +309,7 @@ type Cable implements NINode & Physical & PhysicalLogical {
   outgoing: [DictRelationType]
   comments: [CommentType]
   cable_type: Choice
-  description: String
+  cable_length: Float
   ports: [Port]
 }
 
@@ -5111,10 +5115,12 @@ type Contact implements NINode & Relation {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   with_same_name: [Relation]
   uses: [Logical]
@@ -5471,6 +5477,7 @@ type CreateAddressPayload {
 input CreateCableInput {
   name: String!
   cable_type: ChoiceScalar!
+  cable_length: Float
   description: String
   relationship_provider: ChoiceScalar
   clientMutationId: String
@@ -6063,10 +6070,12 @@ type Customer implements NINode & Relation {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   with_same_name: [Relation]
   uses: [Logical]
@@ -6078,7 +6087,6 @@ type Customer implements NINode & Relation {
   outgoing: [DictRelationType]
   comments: [CommentType]
   url: String
-  description: String
 }
 
 type customerConnection {
@@ -6430,6 +6438,7 @@ type DeleteOrganizationPayload {
 
 input DeleteOwnerMutationInput {
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -6666,12 +6675,33 @@ input EditHostInput {
   services_locked: Boolean
   services_checked: Boolean
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
 type EditHostPayload {
   errors: [ErrorType]
   host: Host
+  clientMutationId: String
+}
+
+input EditUserProfileInput {
+  user_id: ID!
+  display_name: String
+  email: String
+  is_staff: Boolean
+  is_active: Boolean
+  landing_page: LandingPage
+  view_network: Boolean
+  view_services: Boolean
+  view_community: Boolean
+  clientMutationId: String
+}
+
+type EditUserProfilePayload {
+  success: Boolean
+  errors: [ErrorType]
+  userprofile: UserProfile
   clientMutationId: String
 }
 
@@ -6682,7 +6712,9 @@ type Email implements NINode & Logical & PhysicalLogical {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
   dependents: [Logical]
   provider: Relation
   part_of: Physical
@@ -6833,10 +6865,12 @@ type EndUser implements NINode & Relation {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   with_same_name: [Relation]
   uses: [Logical]
@@ -6848,7 +6882,6 @@ type EndUser implements NINode & Relation {
   outgoing: [DictRelationType]
   comments: [CommentType]
   url: String
-  description: String
 }
 
 type endUserConnection {
@@ -7000,10 +7033,12 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -7016,7 +7051,6 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   ports: [Port]
   rack_units: Int
   rack_position: Int
@@ -7179,10 +7213,12 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -7195,7 +7231,6 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   operational_state: Choice
   ip_addresses: IPAddr
   responsible_group: Group
@@ -7611,12 +7646,55 @@ input GenericFilter {
   query: String!
 }
 
+input GenericNodeFilter {
+  name_contains: String
+  type_in: [String]
+  with_context: WithContext
+}
+
+enum GenericNodeOrder {
+  name_ASC
+  name_DESC
+}
+
 """
 The `GenericScalar` scalar type represents a generic
 GraphQL scalar value that could be:
 String, Boolean, Int, Float, List or Object.
 """
 scalar GenericScalar
+
+input GrantUserPermissionInput {
+  user_id: ID!
+  context: String!
+  read: Boolean
+  write: Boolean
+  list: Boolean
+  admin: Boolean
+  clientMutationId: String
+}
+
+type GrantUserPermissionPayload {
+  success: Boolean
+  errors: [ErrorType]
+  user: User
+  clientMutationId: String
+}
+
+input GrantUsersPermissionInput {
+  users_ids: [ID!]
+  context: String!
+  read: Boolean
+  write: Boolean
+  list: Boolean
+  admin: Boolean
+  clientMutationId: String
+}
+
+type GrantUsersPermissionPayload {
+  results: [GrantUserPermissionPayload]
+  clientMutationId: String
+}
 
 """The group type is used to group contacts"""
 type Group implements NINode & Logical & PhysicalLogical {
@@ -7628,10 +7706,12 @@ type Group implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -7642,7 +7722,6 @@ type Group implements NINode & Logical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   contacts: [Contact]
   contact_relations: [IDRelation]
 }
@@ -7785,10 +7864,12 @@ type Host implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -7801,7 +7882,6 @@ type Host implements NINode & Logical & PhysicalLogical {
   comments: [CommentType]
   host_type: String
   location: Location
-  description: String
   operational_state: Choice
   ip_addresses: IPAddr
   responsible_group: Group
@@ -8122,10 +8202,12 @@ type HostUser implements NINode & Relation {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   with_same_name: [Relation]
   uses: [Logical]
@@ -8137,7 +8219,6 @@ type HostUser implements NINode & Relation {
   outgoing: [DictRelationType]
   comments: [CommentType]
   url: String
-  description: String
 }
 
 type hostUserConnection {
@@ -8291,11 +8372,19 @@ interface KeyValue {
   value: String!
 }
 
+enum LandingPage {
+  NETWORK
+  SERVICES
+  COMMUNITY
+}
+
 interface Location {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
   parent: Location
   located_in: [Physical]
   has: [Location]
@@ -8323,7 +8412,9 @@ interface Logical {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
   dependents: [Logical]
   provider: Relation
   part_of: Physical
@@ -8363,6 +8454,13 @@ input MetatypeFilter {
 enum MetatypeOrder {
   name_ASC
   name_DESC
+}
+
+type ModulePermissions {
+  read: Boolean!
+  list: Boolean!
+  write: Boolean!
+  admin: Boolean!
 }
 
 type Mutation {
@@ -8486,6 +8584,10 @@ type Mutation {
   delete_comment(input: DeleteCommentInput!): DeleteCommentPayload
   delete_relationship(input: DeleteRelationshipInput!): DeleteRelationshipPayload
   create_option(input: CreateOptionForDropdownInput!): CreateOptionForDropdownPayload
+  set_nodes_context(input: SetNodesContextInput!): SetNodesContextPayload
+  grant_user_permission(input: GrantUserPermissionInput!): GrantUserPermissionPayload
+  grant_users_permissions(input: GrantUsersPermissionInput!): GrantUsersPermissionPayload
+  edit_user_profile(input: EditUserProfileInput!): EditUserProfilePayload
 
   """Obtain JSON Web Token mutation"""
   token_auth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
@@ -8502,7 +8604,26 @@ interface NINode {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
+}
+
+type NINodeConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [NINodeEdge]!
+}
+
+"""A Relay edge containing a `NINode` and its cursor."""
+type NINodeEdge {
+  """The item at the end of the edge"""
+  node: NINode
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 """Generic NodeHandler graphene type"""
@@ -8573,10 +8694,12 @@ type NodeHandler implements NINode {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -8607,10 +8730,12 @@ type ODF implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -8623,7 +8748,6 @@ type ODF implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   operational_state: Choice
   rack_units: Int
   rack_position: Int
@@ -8814,10 +8938,12 @@ type OpticalFilter implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -8830,7 +8956,6 @@ type OpticalFilter implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   operational_state: Choice
   rack_units: Int
   rack_position: Int
@@ -9021,10 +9146,12 @@ type OpticalLink implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Provider
@@ -9035,7 +9162,6 @@ type OpticalLink implements NINode & Logical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   link_type: Choice
   interface_type: Choice
   operational_state: Choice
@@ -9218,10 +9344,12 @@ type OpticalMultiplexSection implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Provider
@@ -9232,7 +9360,6 @@ type OpticalMultiplexSection implements NINode & Logical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   operational_state: Choice
 }
 
@@ -9380,10 +9507,12 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -9396,7 +9525,6 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   type: Choice
   ports: [Port]
   rack_units: Int
@@ -9593,10 +9721,12 @@ type OpticalPath implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Provider
@@ -9607,7 +9737,6 @@ type OpticalPath implements NINode & Logical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   framing: Choice
   capacity: Choice
   wavelength: Int
@@ -9802,10 +9931,12 @@ type Organization implements NINode & Relation {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   with_same_name: [Relation]
   uses: [Logical]
@@ -9816,7 +9947,6 @@ type Organization implements NINode & Relation {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   organization_number: String
   organization_id: String
   incident_management_info: String
@@ -10146,10 +10276,12 @@ type PeeringGroup implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -10291,10 +10423,12 @@ type PeeringPartner implements NINode & Relation {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   with_same_name: [Relation]
   uses: [Logical]
@@ -10468,7 +10602,9 @@ type Phone implements NINode & Logical & PhysicalLogical {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
   dependents: [Logical]
   provider: Relation
   part_of: Physical
@@ -10614,7 +10750,9 @@ interface Physical {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
   dependents: [Logical]
   provider: Relation
   location: Location
@@ -10645,7 +10783,9 @@ interface PhysicalLogical {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
   dependents: [Logical]
   provider: Relation
 }
@@ -10681,10 +10821,12 @@ type Port implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -10698,7 +10840,6 @@ type Port implements NINode & Physical & PhysicalLogical {
   outgoing: [DictRelationType]
   comments: [CommentType]
   port_type: Choice
-  description: String
   connected_to: [Physical]
 }
 
@@ -10864,10 +11005,12 @@ type Procedure implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -10878,7 +11021,6 @@ type Procedure implements NINode & Logical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
 }
 
 type procedureConnection {
@@ -11009,10 +11151,12 @@ type Provider implements NINode & Relation {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   with_same_name: [Relation]
   uses: [Logical]
@@ -11024,7 +11168,6 @@ type Provider implements NINode & Relation {
   outgoing: [DictRelationType]
   comments: [CommentType]
   url: String
-  description: String
 }
 
 type providerConnection {
@@ -11163,6 +11306,7 @@ enum ProviderOrderBy {
 }
 
 type Query {
+  ninodes(filter: GenericNodeFilter, orderBy: GenericNodeOrder, before: String, after: String, first: Int, last: Int): NINodeConnection
   getAvailableDropdowns: [String]
   getChoicesForDropdown(name: String!): [Choice]
   roles(filter: RoleFilter, orderBy: RoleOrderBy, before: String, after: String, first: Int, last: Int): RoleConnection
@@ -11180,6 +11324,9 @@ type Query {
   getPlainGroups: [PlainGroup]
   getOpticalPathDependencyTypes: [TypeInfo]
   getServiceTypes: [ServiceType]
+  getUserPermissions: UserPermissions
+  getUserById(ID: ID): User
+  users(filter: UserFilter, orderBy: UserOrder, before: String, after: String, first: Int, last: Int): UserConnection
   services_classes(filter: ServiceClassFilter, orderBy: ServiceClassOrder, before: String, after: String, first: Int, last: Int): ServiceClassConnection
   all_groups: [Group]
   groups(filter: GroupFilter, orderBy: GroupOrderBy, before: String, after: String, first: Int, last: Int): groupConnection
@@ -11295,10 +11442,12 @@ type Rack implements NINode & Location {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   parent: Location
   located_in: [Physical]
@@ -11475,7 +11624,9 @@ interface Relation {
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
+  contexts: [String]
   with_same_name: [Relation]
   uses: [Logical]
   provides: NINode
@@ -11586,10 +11737,12 @@ type Room implements NINode & Location {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   parent: Location
   located_in: [Physical]
@@ -11730,10 +11883,12 @@ type Router implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -11746,7 +11901,6 @@ type Router implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   operational_state: Choice
   model: String
   version: String
@@ -11960,10 +12114,12 @@ type Service implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -11976,7 +12132,6 @@ type Service implements NINode & Logical & PhysicalLogical {
   comments: [CommentType]
   service_type: ServiceType
   service_class: ServiceClass
-  description: String
   operational_state: Choice
   responsible_group: Group
   support_group: Group
@@ -12315,6 +12470,19 @@ type ServiceTypeEdge {
   cursor: String!
 }
 
+input SetNodesContextInput {
+  contexts: [String!]
+  nodes: [ID!]
+  clientMutationId: String
+}
+
+type SetNodesContextPayload {
+  success: Boolean
+  errors: [ErrorType]
+  nodes: [NINode]
+  clientMutationId: String
+}
+
 type Site implements NINode & Location {
   handle_id: ID!
   node_name: String!
@@ -12324,10 +12492,12 @@ type Site implements NINode & Location {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   parent: Location
   located_in: [Physical]
@@ -12591,10 +12761,12 @@ type SiteOwner implements NINode & Relation {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   with_same_name: [Relation]
   uses: [Logical]
@@ -12606,7 +12778,6 @@ type SiteOwner implements NINode & Relation {
   outgoing: [DictRelationType]
   comments: [CommentType]
   url: String
-  description: String
 }
 
 type siteOwnerConnection {
@@ -12753,10 +12924,12 @@ type Switch implements NINode & Physical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Provider
@@ -12769,7 +12942,6 @@ type Switch implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  description: String
   operational_state: Choice
   ip_addresses: IPAddr
   responsible_group: Group
@@ -13085,10 +13257,12 @@ type Unit implements NINode & Logical & PhysicalLogical {
   created: DateTime!
   modifier: User
   modified: DateTime!
+  contexts: [String]
 
   """The ID of the object."""
   id: ID!
   name: String!
+  description: String
   relation_id: Int
   dependents: [Logical]
   provider: Relation
@@ -13100,7 +13274,6 @@ type Unit implements NINode & Logical & PhysicalLogical {
   outgoing: [DictRelationType]
   comments: [CommentType]
   ip_address: String
-  description: String
   vlan: String
 }
 
@@ -13265,6 +13438,7 @@ input UpdateAddressInput {
   postal_code: String
   postal_area: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13277,9 +13451,11 @@ type UpdateAddressPayload {
 input UpdateCableInput {
   name: String!
   cable_type: ChoiceScalar!
+  cable_length: Float
   description: String
   relationship_provider: ChoiceScalar
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13319,6 +13495,7 @@ input UpdateContactInput {
   phone_type: ChoiceScalar
   role_id: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13333,6 +13510,7 @@ input UpdateCustomerInput {
   url: String
   description: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13347,6 +13525,7 @@ input UpdateEmailInput {
   name: String!
   type: ChoiceScalar!
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13361,6 +13540,7 @@ input UpdateEndUserInput {
   description: String
   url: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13380,6 +13560,7 @@ input UpdateExternalEquipmentInput {
   relationship_location: ChoiceScalar
   relationship_ports: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13419,6 +13600,7 @@ input UpdateFirewallInput {
   services_checked: Boolean
   max_number_of_ports: Int
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13433,6 +13615,7 @@ input UpdateGroupInput {
   description: String
   relationship_member_of: ChoiceScalar
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13453,6 +13636,7 @@ input UpdateOdfInput {
   relationship_location: ChoiceScalar
   relationship_ports: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13473,6 +13657,7 @@ input UpdateOpticalFilterInput {
   relationship_location: ChoiceScalar
   relationship_ports: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13492,6 +13677,7 @@ input UpdateOpticalLinkInput {
   relationship_end_a: Int
   relationship_end_b: Int
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13507,6 +13693,7 @@ input UpdateOpticalMultiplexSectionInput {
   description: String
   relationship_provider: ChoiceScalar
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13526,6 +13713,7 @@ input UpdateOpticalNodeInput {
   description: String
   relationship_location: ChoiceScalar
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13545,6 +13733,7 @@ input UpdateOpticalPathInput {
   enrs: String
   relationship_provider: ChoiceScalar
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13577,6 +13766,7 @@ input UpdateOrganizationInput {
   it_security_contact: ChoiceScalar
   it_manager_contact: ChoiceScalar
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13589,6 +13779,7 @@ type UpdateOrganizationPayload {
 input UpdatePeeringGroupInput {
   name: String!
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13601,6 +13792,7 @@ type UpdatePeeringGroupPayload {
 input UpdatePeeringPartnerInput {
   name: String!
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13615,6 +13807,7 @@ input UpdatePhoneInput {
   name: String!
   type: ChoiceScalar!
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13630,6 +13823,7 @@ input UpdatePortInput {
   description: String
   relationship_connected_to: Int
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13643,6 +13837,7 @@ input UpdateProcedureInput {
   name: String!
   description: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13657,6 +13852,7 @@ input UpdateProviderInput {
   url: String
   description: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13673,6 +13869,7 @@ input UpdateRackInput {
   width: Int
   rack_units: Int
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13699,6 +13896,7 @@ input UpdateRoomInput {
   name: String!
   floor: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13716,6 +13914,7 @@ input UpdateRouterInput {
   relationship_location: ChoiceScalar
   description: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13745,6 +13944,7 @@ input UpdateServiceInput {
   relationship_user: Int
   relationship_depends_on: Int
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13767,6 +13967,7 @@ input UpdateSiteInput {
   url: String
   relationship_responsible_for: ChoiceScalar
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13775,6 +13976,7 @@ input UpdateSiteOwnerInput {
   description: String
   url: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13821,6 +14023,7 @@ input UpdateSwitchInput {
   max_number_of_ports: Int
   relationship_provider: ChoiceScalar
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13836,6 +14039,7 @@ input UpdateUnitInput {
   vlan: String
   ip_address: String
   id: ID!
+  skip_update: Boolean
   clientMutationId: String
 }
 
@@ -13854,11 +14058,60 @@ type User {
   first_name: String!
   last_name: String!
   email: String!
+  user_permissions: UserPermissions
+  is_staff: Boolean
+  is_active: Boolean
+}
+
+type UserConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [UserEdge]!
+}
+
+"""A Relay edge containing a `User` and its cursor."""
+type UserEdge {
+  """The item at the end of the edge"""
+  node: User
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input UserFilter {
+  username_contains: String
 }
 
 """This object represents an input for an user used in connections"""
 input UserInputType {
   username: String!
+}
+
+enum UserOrder {
+  username_ASC
+  username_DESC
+}
+
+type UserPermissions {
+  community: ModulePermissions
+  network: ModulePermissions
+  contracts: ModulePermissions
+}
+
+type UserProfile {
+  id: ID!
+  user: User!
+  email: String
+  display_name: String
+  avatar: String
+  created: DateTime
+  modified: DateTime
+  landing_page: LandingPage
+  view_network: Boolean!
+  view_services: Boolean!
+  view_community: Boolean!
 }
 
 input VerifyInput {
@@ -13869,5 +14122,10 @@ input VerifyInput {
 type VerifyPayload {
   payload: GenericScalar!
   clientMutationId: String
+}
+
+input WithContext {
+  contexts: [String]
+  exclude: Boolean!
 }
 
