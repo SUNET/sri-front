@@ -49,6 +49,12 @@ class _RouterFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
+  handleSelectedIsUsed(selection) {
+    console.log('selection: ', selection);
+    // TODO: get details by id and __typename
+    return {};
+  }
+
   renderSections(editMode) {
     const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
@@ -162,7 +168,9 @@ class _RouterFormParentClass extends _BasicFormParentClass {
                     this.setState({ fieldModalOpened: 'dependents' });
                     this.props.showModalDetailForm(typeEntityToShowForm, entityId);
                   }}
-                  handleSearchResult={this.handleSelectedPort}
+                  handleSearchResult={(selection) => {
+                    this.handleSelectedIsUsed(selection);
+                  }}
                   rerenderOnEveryChange
                   entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
                 />

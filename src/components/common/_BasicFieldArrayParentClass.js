@@ -60,10 +60,8 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   getAllValues(filterObj) {
-    console.log('filterObj: ', filterObj);
     const allValues = this.props.fields.getAll();
     if (!!filterObj) {
-      debugger;
       const [filterKey, filterValue] = Object.entries(filterObj)[0];
       return allValues.filter((v) => v[filterKey] === filterValue);
     }
@@ -71,7 +69,7 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   getFilterTable() {
-    return null
+    return null;
   }
   // methods getData
   getValueById(id) {
@@ -443,6 +441,20 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
+  renderAddNewCTA() {
+    const { t } = this.props;
+    return (
+      <button
+        type="button"
+        className="contact-in-organization__footer__add btn btn-add outline"
+        disabled={this.isDisabledFilters()}
+        onClick={(e) => this.showCreateForm()}
+      >
+        {t('actions/add-new')}
+      </button>
+    );
+  }
+
   renderFooter() {
     const { t, editable } = this.props;
     return (
@@ -451,14 +463,7 @@ class _BasicFieldArrayParentClass extends React.Component {
           <>
             {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
             {(this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) && this.renderDropDownSearch()}
-            <button
-              type="button"
-              className="contact-in-organization__footer__add btn btn-add outline"
-              disabled={this.isDisabledFilters()}
-              onClick={(e) => this.showCreateForm()}
-            >
-              {t('actions/add-new')}
-            </button>
+            {this.renderAddNewCTA()}
           </>
         )}
       </div>

@@ -4,9 +4,15 @@ import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 import { withTranslation } from 'react-i18next';
 import PillsFilter from '../PillsFilter';
 
+import DropdownSearch from '../DropdownSearch';
+import { UNLINK, SAVED, REMOVE, CREATE } from '../../utils/constants';
+
 class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
+    this.state = {
+      currentPreFilterModel: 'Service',
+    };
     this.FIELD_NAME_IN_FORM = 'resourcedUsed';
     this.HEADER_TEXTS = {
       summary: [
@@ -32,10 +38,14 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
       modal: null,
     };
     this.PRE_FILTER_SELECT = {
-      label: null,
+      // label: null,
       type: 'routerDependentsTypes',
-      name: null,
-      entityMandatory: null,
+      // name: null,
+      // entityMandatory: null,
+
+      label: 'general-forms/select-physical-type',
+      model: 'routerDependentsTypes',
+      name: 'physical_types_preFilter',
     };
     this.MODEL_TO_SEARCH = null;
   }
@@ -57,22 +67,46 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
         //     preFilterMethod: optionSelected ? optionSelected.getDetailsMethodName : null,
         //   });
         // }}
-        onChange={(currentFilter) => {
-          console.log(currentFilter.type_name);
+        onChange={(optionSelected) => {
+          console.log(optionSelected);
           this.setState({
-            test: { __typename: currentFilter.type_name },
+            currentPreFilterModel: optionSelected ? optionSelected.type_name : null,
+            filter: { __typename: optionSelected.type_name },
           });
         }}
       />
     );
   }
 
-  getFilterTable() {
-    console.log(this.state.test);
-    if (this.state.test) {
+  renderDropDownSearch() {
+    const { t } = this.props;
+    let existingElements = [];
+    if (this.getAllValues()) {
+      existingElements = this.getAllValues()
+        .filter((el) => el.status === SAVED)
+        .map((row) => row.id);
     }
-    return this.state.test;
+    return (
+      <DropdownSearch
+        disabled={this.isDisabledFilters()}
+        model={'logicals'}
+        entityTypeFilter={this.state.currentPreFilterModel}
+        selection={(selectedElement) => {
+          this.props.handleSearchResult(selectedElement, this.state.preFilterMethod);
+        }}
+        placeholder={`${t(`search-filter.search`)} ${this.state.currentPreFilterModel}`}
+        skipElements={existingElements}
+      />
+    );
   }
+
+  getFilterTable() {
+    if (this.state.filter) {
+    }
+    return this.state.filter;
+  }
+
+  renderAddNewCTA() {}
 }
 
 export default withTranslation()(FieldArrayRouterIsUsed);
