@@ -6,6 +6,8 @@ import DeleteRelationshipMutation from '../DeleteRelationshipMutation';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { formattedRoles, formattedSubInputs } from './MutationsMethods';
+
 const mutation = graphql`
   mutation CreateContactMutation($input: CompositeContactMutationInput!) {
     composite_contact(input: $input) {
@@ -118,60 +120,12 @@ const mutation = graphql`
 `;
 
 export default function CreateContactMutation(contact, form) {
-  const newEmails = [];
-  const newPhones = [];
-
-  const roles = [];
-
-  // let fullName = contact.name.trim();
-  // if (fullName.includes(" ")) {
-  //     fullName = fullName.split(" ");
-  //     contact.first_name = fullName[0];
-  //     contact.last_name = fullName[1];
-  // } else {
-  //     contact.first_name = fullName;
-  //     contact.last_name = fullName;
-  // }
-
-  const emails = contact.emails;
-  if (emails) {
-    Object.keys(emails).forEach((email_key) => {
-      let email = emails[email_key];
-      newEmails.push({
-        name: email.email,
-        type: email.type,
-      });
-    });
-  }
-
-  const phones = contact.phones;
-  if (phones) {
-    Object.keys(phones).forEach((phone_key) => {
-      let phone = phones[phone_key];
-      newPhones.push({
-        name: phone.phone,
-        type: phone.type,
-      });
-    });
-  }
-
-  const organizations = contact.organizations;
-  if (organizations) {
-    Object.keys(organizations).forEach((organization_key) => {
-      let organization = organizations[organization_key];
-      if (organization.status === 'saved') {
-        if (organization.origin === 'store') {
-          if (organization.role_obj) {
-            DeleteRelationshipMutation(organization.role_obj.relation_id);
-          }
-        }
-        roles.push({
-          role_id: organization.role,
-          organization_id: organization.organization,
-        });
-      }
-    });
-  }
+  const { emails } = contact;
+  const { phones } = contact;
+  const { organizations } = contact;
+  const emailsFormatted = formattedSubInputs(emails, 'email');
+  const phonesFormatted = formattedSubInputs(phones, 'phone');
+  const rolesFormatted = formattedRoles(organizations, form);
 
   const variables = {
     input: {
@@ -184,9 +138,9 @@ export default function CreateContactMutation(contact, form) {
         pgp_fingerprint: contact.pgp_fingerprint,
         clientMutationId: '',
       },
-      create_subinputs: newEmails,
-      create_phones: newPhones,
-      link_rolerelations: roles,
+      create_subinputs: emailsFormatted.toCreate,
+      create_phones: phonesFormatted.toCreate,
+      link_rolerelations: rolesFormatted.toAdd,
     },
   };
 
