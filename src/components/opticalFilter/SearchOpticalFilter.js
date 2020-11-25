@@ -25,8 +25,8 @@ class SearchOpticalFilter extends _SearchEntityParentClass {
   PATH_ENTITY = `/network/optical-filters`;
   PATH_ENTITY_ID = 'opticalFilterId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchOpticalFilterAllQuery($count: Int!, $filter: OpticalFilterFilter, $orderBy: OpticalFilterOrderBy) {

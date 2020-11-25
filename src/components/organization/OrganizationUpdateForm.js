@@ -17,7 +17,6 @@ class OrganizationUpdateForm extends _OrganizationFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_ORGANIZATION_FORM;
   MODEL_NAME = 'organization';
-  ROUTE_LIST_DIRECTION = '/community/organizations';
   state = {
     editMode: false,
   };

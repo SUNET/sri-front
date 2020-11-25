@@ -111,14 +111,14 @@
         .DayPickerInput-Overlay {
             position: relative;
         }
-
-        .DayPicker-NavButton--prev,
-        .DayPicker-NavButton--next {
-            color: $complementary-color;
-            background-image: url("../static/img/angle-arrow.svg");
-        }
-        .DayPicker-NavButton--prev {
-            transform: rotate(180deg);
-        }
     }
+}
+
+.DayPicker-NavButton--prev,
+.DayPicker-NavButton--next {
+    color: $complementary-color;
+    background-image: url("../static/img/angle-arrow.svg");
+}
+.DayPicker-NavButton--prev {
+    transform: rotate(180deg);
 }

@@ -23,7 +23,7 @@ class SearchPeeringGroup extends _SearchEntityParentClass {
 
   PATH_ENTITY = `/network/peering-groups`;
   PATH_ENTITY_ID = 'peeringGroupId';
-  DEFAULT_COLUMNS = [{ name: 'Name', value: 'name', filter: 'order' }];
+  DEFAULT_COLUMNS = [{ name: 'Name', value: 'name', filter: 'order', textFilter: true }];
   LIST_QUERY = graphql`
     query SearchPeeringGroupAllQuery($count: Int!, $filter: PeeringGroupFilter, $orderBy: PeeringGroupOrderBy) {
       ...PeeringGroupList_peeringGroups @arguments(count: $count, filter: $filter, orderBy: $orderBy)

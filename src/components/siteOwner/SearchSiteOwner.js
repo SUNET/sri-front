@@ -25,9 +25,9 @@ class SearchSiteOwner extends _SearchEntityParentClass {
   PATH_ENTITY = '/network/site-owners';
   PATH_ENTITY_ID = 'siteOwnerId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
     { name: 'URL', value: 'url' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchSiteOwnerAllQuery($count: Int!, $filter: SiteOwnerFilter, $orderBy: SiteOwnerOrderBy) {

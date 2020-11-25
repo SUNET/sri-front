@@ -25,8 +25,8 @@ class SearchOpticalPath extends _SearchEntityParentClass {
   PATH_ENTITY = `/network/optical-paths`;
   PATH_ENTITY_ID = 'opticalPathId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchOpticalPathAllQuery($count: Int!, $filter: OpticalPathFilter, $orderBy: OpticalPathOrderBy) {

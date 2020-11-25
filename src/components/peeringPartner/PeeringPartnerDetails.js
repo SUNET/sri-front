@@ -12,7 +12,7 @@ class PeeringPartnerDetails extends _BasicDetailsParentClass {
   classDetails = 'peeringPartner-details';
 
   handleDelete = () => {
-    DeletePeeringPartnerMutation(this.getId(), () => this.props.history.push(`/network/peeringPartners`));
+    DeletePeeringPartnerMutation(this.getId(), () => this.props.history.push(`/network/peering-partners`));
   };
 }
 

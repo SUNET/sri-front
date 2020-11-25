@@ -25,9 +25,9 @@ class SearchCable extends _SearchEntityParentClass {
   PATH_ENTITY = `/network/cables`;
   PATH_ENTITY_ID = 'cableId';
   DEFAULT_COLUMNS = [
-    { name: 'Name', value: 'name', filter: 'order' },
-    { name: 'Cable Type', value: 'cable_type' },
-    { name: 'Description', value: 'description', filter: 'order' },
+    { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Cable Type', value: 'cable_type', textFilter: true },
+    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchCableAllQuery($count: Int!, $filter: CableFilter, $orderBy: CableOrderBy) {

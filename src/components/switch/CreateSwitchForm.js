@@ -3,7 +3,7 @@ import _SwitchFormParentClass from './_SwitchFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateSwitchMutation from '../../mutations/switch/CreateSwitchMutation';
+import CreateMutation from '../../mutations/switch/CreateSwitchMutation';
 import ValidationsSwitchForm from './ValidationsSwitchForm';
 // const
 import { CREATE_SWITCH_FORM } from '../../utils/constants';
@@ -13,11 +13,9 @@ class CreateSwitchForm extends _SwitchFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_SWITCH_FORM;
   ROUTE_LIST_DIRECTION = '/network/switches';
+  MUTATION_SUBMIT = CreateMutation;
   state = {
     errors: [],
-  };
-  handleSubmit = (switchData) => {
-    CreateSwitchMutation(switchData, this);
   };
   render() {
     const { handleSubmit } = this.props;

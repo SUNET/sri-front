@@ -3,7 +3,7 @@ import _ContactFormParentClass from './_ContactFormParentClass';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
-import CreateContactMutation from '../../mutations/contact/CreateContactMutation';
+import CreateMutation from '../../mutations/contact/CreateContactMutation';
 import ValidationsContactForm from './ValidationContactForm';
 // const
 import { CREATE_CONTACT_FORM } from '../../utils/constants';
@@ -12,10 +12,12 @@ import { isBrowser } from 'react-device-detect';
 class CreateContactFormComponent extends _ContactFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_CONTACT_FORM;
+  MUTATION_SUBMIT = CreateMutation;
 
-  handleSubmit = (contact) => {
+  handleSubmit = (dataToMutation) => {
     this.props.hideContactModal();
-    CreateContactMutation(contact, this);
+    this.setState({ disabledSubmitButton: true });
+    this.MUTATION_SUBMIT(dataToMutation, this);
   };
 
   render() {
