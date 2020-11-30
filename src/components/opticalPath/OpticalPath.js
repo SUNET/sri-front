@@ -9,7 +9,20 @@ const OpticalPathQuery = graphql`
       id
       name
       description
+      framing {
+        __typename
+        name
+        value
+      }
+
+      capacity {
+        __typename
+        name
+        value
+      }
+
       operational_state {
+        __typename
         name
         value
       }

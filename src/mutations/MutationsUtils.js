@@ -128,4 +128,35 @@ export function formatExternalEquipmentVariables(data, isUpdate) {
   return variables;
 }
 
+export const formatDependenciesToUpdate = (MUTATION_FIELD_DEPENDENCY_BY_TYPENAME, dependencies) => {
+  return dependencies.reduce((acc, curr) => {
+    const currDependencyField = MUTATION_FIELD_DEPENDENCY_BY_TYPENAME[curr['__typename']];
+
+    debugger;
+    const dataToMutation = {
+      id: curr.id,
+      skip_update: true,
+      ...currDependencyField.fields.reduce((fieldsToMutation, field) => {
+        if (field.type === 'simple') {
+          fieldsToMutation[field.name] = curr[field.name];
+        } else if (field.type === 'object') {
+          debugger;
+          fieldsToMutation[field.name] = curr[field.name].value || curr[field.name].name;
+        } else if (field.type === 'type') {
+          fieldsToMutation[field.mutationName] = curr[field.name].value || curr[field.name].name;
+        }
+
+        return fieldsToMutation;
+      }, {}),
+    };
+
+    if (acc[currDependencyField.updateName]) {
+      acc[currDependencyField.updateName].push(dataToMutation);
+    } else {
+      acc[currDependencyField.updateName] = [dataToMutation];
+    }
+    return acc;
+  }, {});
+};
+
 export default {};

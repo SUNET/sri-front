@@ -12,7 +12,14 @@ const getNameWithAlias = (fieldInfo) => {
   }
   return `${fieldInfo.name}`;
 };
-
+const mountOnSentencesToInsert = (onSentences) => {
+  const result = onSentences.map((onSent) => {
+    return `...on ${onSent.entity} {
+       ${mountStringToInsert(onSent.subFields)}
+    }`;
+  });
+  return result;
+};
 const mountStringToInsert = (fieldsList) => {
   const result = fieldsList.map((fieldElement) => {
     return STRUCTURE_BY_FIELD_TYPE[fieldElement.type](fieldElement);
@@ -26,6 +33,7 @@ const STRUCTURE_BY_FIELD_TYPE = {
   field_array_list: (fieldInfo) => `
     ${fieldInfo.name} {
       ${mountStringToInsert(fieldInfo.subFields)}
+      ${fieldInfo.onSentences ? mountOnSentencesToInsert(fieldInfo.onSentences) : ''}
     }`,
   name_value_object: (fieldInfo) => `
     ${getNameWithAlias(fieldInfo)} {

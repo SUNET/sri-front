@@ -5,7 +5,50 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { generatePortForInput } from '../MutationsUtils';
+import { generatePortForInput, formatDependenciesToUpdate } from '../MutationsUtils';
+
+import { UNLINK, NEW, REMOVE } from '../../utils/constants';
+
+const MUTATION_FIELD_DEPENDENCY_BY_TYPENAME = {
+  Service: {
+    updateName: 'update_dependents_service',
+    deleteName: '',
+    fields: [
+      { name: 'name', type: 'simple' },
+      { name: 'service_type', type: 'object' },
+      { name: 'operational_state', type: 'object' },
+    ],
+  },
+  OpticalPath: {
+    updateName: 'update_dependents_opticalpath',
+    deleteName: '',
+    fields: [
+      { name: 'name', type: 'simple' },
+      { name: 'wavelength', type: 'simple' },
+      { name: 'framing', type: 'object' },
+      { name: 'capacity', type: 'object' },
+      { name: 'operational_state', type: 'object' },
+    ],
+  },
+  OpticalMultiplexSection: {
+    updateName: 'update_dependents_opticalmultiplexsection',
+    deleteName: '',
+    fields: [
+      { name: 'name', type: 'simple' },
+      { name: 'operational_state', type: 'object' },
+    ],
+  },
+  OpticalLink: {
+    updateName: 'update_dependents_opticallink',
+    deleteName: '',
+    fields: [
+      { name: 'name', type: 'simple' },
+      { name: 'link_type', type: 'object' },
+      { name: 'operational_state', type: 'object' },
+      { name: 'interface_type', type: 'object' },
+    ],
+  },
+};
 
 const mutation = graphql`
   mutation UpdateRouterMutation($input: CompositeRouterMutationInput!) {
@@ -24,7 +67,17 @@ const mutation = graphql`
 `;
 
 export default function UpdateRouterMutation(router, form) {
+  console.log('router: ', router);
   const ports = generatePortForInput(router.ports);
+
+  const dependentsToAdd = formatDependenciesToUpdate(
+    MUTATION_FIELD_DEPENDENCY_BY_TYPENAME,
+    router.dependents ? router.dependents.filter((dep) => dep.origin === NEW) : [],
+  );
+
+  const dependentsToUnlink = router.dependents
+    ? router.dependents.filter((dep) => dep.status === UNLINK).map((dep) => ({ relation_id: dep.relation_id }))
+    : [];
 
   const variables = {
     input: {
@@ -38,13 +91,14 @@ export default function UpdateRouterMutation(router, form) {
         relationship_location: router.location && router.location.length ? router.location[0].id : null,
       },
       update_has_port: ports.toSaved,
-      unlink_subinputs: ports.toUnlink,
+      unlink_subinputs: [...ports.toUnlink, ...dependentsToUnlink],
       deleted_has_port: ports.toRemove,
       create_has_port: ports.toCreate,
+      ...dependentsToAdd,
     },
   };
 
-    console.log(JSON.stringify(variables));
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

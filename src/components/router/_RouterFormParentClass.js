@@ -10,7 +10,7 @@ import FieldArrayRouterIsUsed from './FieldArrayRouterIsUsed';
 
 // const
 import { isBrowser } from 'react-device-detect';
-import { SAVED } from '../../utils/constants';
+import { SAVED, NEW } from '../../utils/constants';
 
 import renderFormBlockSection from '../common/BlockSection';
 
@@ -30,6 +30,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
     return getMethod(id).then((entity) => ({
       ...entity,
       status: SAVED,
+      origin: NEW,
     }));
   }
 
@@ -150,8 +151,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
 
   renderIsUsedToggleSection(editMode = true) {
     const componentClassName = 'is-used-block';
-    const { t, dependents, entityRemovedId } = this.props;
-    console.log('dependents: ', dependents);
+    const { t, entityRemovedId } = this.props;
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>

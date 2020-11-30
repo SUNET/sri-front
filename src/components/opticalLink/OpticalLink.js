@@ -9,7 +9,17 @@ const OpticalLinkQuery = graphql`
       id
       name
       description
+      link_type {
+        __typename
+        name
+        value
+      }
       operational_state {
+        name
+        value
+      }
+      interface_type {
+        __typename
         name
         value
       }
