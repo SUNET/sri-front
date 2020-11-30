@@ -402,11 +402,7 @@ class _BasicFieldArrayParentClass extends React.Component {
     return (
       <div key={Math.random()} className={className}>
         {text}
-        {text && showAllText && (
-          <ExpansibleTextBox
-            text={text}
-          />
-        )}
+        {text && showAllText && <ExpansibleTextBox text={text} />}
       </div>
     );
   }
@@ -467,7 +463,7 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderFooter() {
-    const { t, editable } = this.props;
+    const { editable } = this.props;
     return (
       <div className="contact-in-organization__footer">
         {editable && (

@@ -1,6 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'react-bootstrap';
+import React, { useState } from 'react';
 import { QueryRenderer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
