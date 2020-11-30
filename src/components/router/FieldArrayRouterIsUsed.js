@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import PillsFilter from '../PillsFilter';
 
 import DropdownSearch from '../DropdownSearch';
-import { UNLINK, SAVED, REMOVE, CREATE } from '../../utils/constants';
+import { SAVED } from '../../utils/constants';
 
 class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
   ENTITIES_WITHOUT_MODAL = ['Service', 'OpticalPath', 'OpticalMultiplexSection', 'OpticalLink'];
@@ -53,24 +53,9 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
   }
 
   renderPreFilterDropDown() {
-    const { t } = this.props;
     return (
       <PillsFilter
-        // t={t}
-        // emptyLabel={t(this.PRE_FILTER_SELECT.label)}
-        // className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
-        // type={this.PRE_FILTER_SELECT.type}
-        // name={this.PRE_FILTER_SELECT.name}
-        // model={this.PRE_FILTER_SELECT.model}
-        // onChange={(optionSelected) => {
-        //   console.log('optionSelected: ', optionSelected);
-        //   this.setState({
-        //     currentPreFilterModel: optionSelected ? optionSelected.value : null,
-        //     preFilterMethod: optionSelected ? optionSelected.getDetailsMethodName : null,
-        //   });
-        // }}
         onChange={(optionSelected) => {
-          console.log(optionSelected);
           this.setState({
             currentPreFilterModel: optionSelected ? optionSelected.type_name : null,
             filter: { __typename: optionSelected.type_name },
@@ -117,7 +102,7 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
   renderAddNewCTA() {}
 
   renderFooter() {
-    const { t, editable } = this.props;
+    const { editable } = this.props;
     return (
       <div className="contact-in-organization__footer">
         {
