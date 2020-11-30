@@ -73,7 +73,6 @@ class PillsFilter extends React.PureComponent {
               ],
               ...props[dataQuery.bodyName],
             ];
-            console.log('optionsListWithAllOption: ', optionsListWithAllOption);
             return <Pills optionsList={optionsListWithAllOption} onChange={onChange} />;
           }
         }}
