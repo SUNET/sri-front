@@ -364,7 +364,6 @@ class _BasicFieldArrayParentClass extends React.Component {
     const { editable } = this.props;
     const filter = this.getFilterTable();
     const values = this.getAllValues(filter);
-    console.log('values: ', values);
     return (
       <div className="contact-in-organization__body">
         {values &&
@@ -391,9 +390,6 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderFieldRow(row, fieldConfig) {
-    console.log('row: ', row);
-    // contact-in-organization__body__row__element--ellipsis
-    // showAllText
     const { fieldKey, showAllText } = fieldConfig;
     const nestedFieldName = fieldKey.split('.');
     const className = `contact-in-organization__body__row__element ${
