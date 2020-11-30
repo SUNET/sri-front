@@ -44,6 +44,7 @@ export default function UpdateRouterMutation(router, form) {
     },
   };
 
+    console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

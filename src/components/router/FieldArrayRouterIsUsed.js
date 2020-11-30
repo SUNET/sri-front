@@ -8,12 +8,13 @@ import DropdownSearch from '../DropdownSearch';
 import { UNLINK, SAVED, REMOVE, CREATE } from '../../utils/constants';
 
 class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
+  ENTITIES_WITHOUT_MODAL = ['Service', 'OpticalPath', 'OpticalMultiplexSection', 'OpticalLink'];
   constructor(props) {
     super(props);
     this.state = {
-      currentPreFilterModel: 'Service',
+      currentPreFilterModel: 'All',
     };
-    this.FIELD_NAME_IN_FORM = 'resourcedUsed';
+    this.FIELD_NAME_IN_FORM = 'dependents';
     this.HEADER_TEXTS = {
       summary: [
         {
@@ -33,6 +34,7 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
         {
           text: 'general-forms/description',
           fieldKey: 'description',
+          showAllText: true,
         },
       ],
       modal: null,
@@ -100,13 +102,35 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
     );
   }
 
+  isDisabledFilters() {
+    return this.state.currentPreFilterModel === 'All';
+  }
+
   getFilterTable() {
-    if (this.state.filter) {
+    const { currentPreFilterModel } = this.state;
+    if (currentPreFilterModel === 'All') {
+      return null;
     }
-    return this.state.filter;
+    return { __typename: currentPreFilterModel };
   }
 
   renderAddNewCTA() {}
+
+  renderFooter() {
+    const { t, editable } = this.props;
+    return (
+      <div className="contact-in-organization__footer">
+        {
+          <>
+            {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
+            {editable &&
+              (this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) &&
+              this.renderDropDownSearch()}
+          </>
+        }
+      </div>
+    );
+  }
 }
 
 export default withTranslation()(FieldArrayRouterIsUsed);

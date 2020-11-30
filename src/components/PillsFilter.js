@@ -63,7 +63,20 @@ class PillsFilter extends React.PureComponent {
           if (error) {
             return <div>{t('general/error')}</div>;
           } else if (props) {
-            return <Pills optionsList={props[dataQuery.bodyName]} onChange={onChange} />;
+            const optionsListWithAllOption = [
+              ...[
+                {
+                  all_name: 'all',
+                  byid_name: null,
+                  can_create: false,
+                  connection_name: null,
+                  type_name: 'All',
+                },
+              ],
+              ...props[dataQuery.bodyName],
+            ];
+            console.log('optionsListWithAllOption: ', optionsListWithAllOption);
+            return <Pills optionsList={optionsListWithAllOption} onChange={onChange} />;
           }
         }}
       />

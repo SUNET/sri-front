@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, FieldArray } from 'redux-form';
+import { Field, FieldArray, arrayPush } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import { Form } from 'react-bootstrap';
@@ -10,6 +10,7 @@ import FieldArrayRouterIsUsed from './FieldArrayRouterIsUsed';
 
 // const
 import { isBrowser } from 'react-device-detect';
+import { SAVED } from '../../utils/constants';
 
 import renderFormBlockSection from '../common/BlockSection';
 
@@ -24,6 +25,13 @@ class _RouterFormParentClass extends _BasicFormParentClass {
   FORM_ID;
   MODEL_NAME = 'router';
   ROUTE_LIST_DIRECTION = '/network/routers';
+
+  getSelectedLogical(id, getMethod) {
+    return getMethod(id).then((entity) => ({
+      ...entity,
+      status: SAVED,
+    }));
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
@@ -49,10 +57,14 @@ class _RouterFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
-  handleSelectedIsUsed(selection) {
-    console.log('selection: ', selection);
-    // TODO: get details by id and __typename
-    return {};
+  async handleSelectedIsUsed(selection) {
+    const { dispatch, form } = this.props;
+    if (selection) {
+      const { id, __typename } = selection;
+      const newEntity = await this.getSelectedLogical(id, this.props[`get${__typename}ById`]);
+      if (newEntity) dispatch(arrayPush(form, 'dependents', newEntity));
+    }
+    return null;
   }
 
   renderSections(editMode) {

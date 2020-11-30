@@ -90,6 +90,9 @@
                     padding-right: 1em;
                     margin-left: auto;
                 }
+                &.--with-all-text-box {
+                    padding-right: 2.5em;
+                }
             }
             &__action-message {
                 background-color: $gray-color;

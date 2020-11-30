@@ -9,6 +9,8 @@ import ReactSVG from 'react-svg';
 import DropdownSearch from '../DropdownSearch';
 import Dropdown from '../Dropdown';
 
+import ExpansibleTextBox from '../ExpansibleTextBox';
+
 class _BasicFieldArrayParentClass extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +30,7 @@ class _BasicFieldArrayParentClass extends React.Component {
       currentPreFilterModel: '',
       preFilterMethod: '',
       fieldModalOpened: '',
+      rowWithAllTextVisible: null,
     };
   }
   // lifecycle
@@ -376,8 +379,8 @@ class _BasicFieldArrayParentClass extends React.Component {
                   row.status !== SAVED ? 'contact-in-organization__body__row--disabled' : ''
                 }`}
               >
-                {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
+                {isBrowser && this.HEADER_TEXTS.all.map((fieldConfig) => this.renderFieldRow(row, fieldConfig))}
+                {isMobile && this.HEADER_TEXTS.summary.map((fieldConfig) => this.renderFieldRow(row, fieldConfig))}
                 {editable && row.id && this.renderButtonsBox(row.id, willHaveModalsButtons)}
                 {!editable && row.status === SAVED && willHaveModalsButtons && row.id && this.renderMoreInfoButton(row)}
               </div>
@@ -387,15 +390,27 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
-  renderFieldRow(row, fieldName) {
-    const nestedFieldName = fieldName.split('.');
+  renderFieldRow(row, fieldConfig) {
+    console.log('row: ', row);
+    // contact-in-organization__body__row__element--ellipsis
+    // showAllText
+    const { fieldKey, showAllText } = fieldConfig;
+    const nestedFieldName = fieldKey.split('.');
+    const className = `contact-in-organization__body__row__element ${
+      showAllText ? 'contact-in-organization__body__row__element--ellipsis --with-all-text-box' : ''
+    }`;
     let text = row[nestedFieldName[0]];
     if (text && nestedFieldName.length > 1) {
       text = row[nestedFieldName[0]][nestedFieldName[1]];
     }
     return (
-      <div key={Math.random()} className="contact-in-organization__body__row__element">
+      <div key={Math.random()} className={className}>
         {text}
+        {text && showAllText && (
+          <ExpansibleTextBox
+            text={text}
+          />
+        )}
       </div>
     );
   }
