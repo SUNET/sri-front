@@ -19,6 +19,62 @@ import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSec
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
+const PORT_TABLE_HEADER_TEXTS = {
+  summary: [
+    {
+      text: 'general-forms/port-title',
+      fieldKey: 'name',
+    },
+  ],
+  all: [
+    {
+      text: 'general-forms/port-title',
+      fieldKey: 'name',
+    },
+    {
+      text: 'general-forms/description',
+      fieldKey: 'description',
+      showAllText: true,
+    },
+    {
+      text: 'general-forms/type',
+      fieldKey: 'type.name',
+    },
+    {
+      text: 'general-forms/cable-title',
+      fieldKey: 'cable.name',
+      withLink: true,
+      listElements: true,
+    },
+    {
+      text: 'general-forms/end-equipment',
+      fieldKey: 'endEquipment.name',
+      withLink: true,
+      listElements: true,
+    },
+    {
+      text: 'general-forms/end-port',
+      fieldKey: 'endPorts.name',
+      withLink: true,
+      listElements: true,
+    },
+    {
+      text: 'general-forms/units-title',
+      fieldKey: 'unit.name',
+      //TODO: unlock when UNIT is developed
+      // withLink: true,
+      listElements: true,
+    },
+    {
+      text: 'general-forms/depends-on-port',
+      fieldKey: 'dependsOnPort.name',
+      withLink: true,
+      listElements: true,
+    },
+  ],
+  modal: ['general-forms/parent-element-detail'],
+};
+
 class _RouterFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
   IS_UPDATED_FORM = false;
@@ -76,7 +132,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
-        {!isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isFromModal && renderPortsToggleSection(editMode, this, PORT_TABLE_HEADER_TEXTS)}
         {!isFromModal && this.renderIsUsedToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}

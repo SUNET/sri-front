@@ -40,11 +40,7 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
       modal: null,
     };
     this.PRE_FILTER_SELECT = {
-      // label: null,
       type: 'routerDependentsTypes',
-      // name: null,
-      // entityMandatory: null,
-
       label: 'general-forms/select-physical-type',
       model: 'routerDependentsTypes',
       name: 'physical_types_preFilter',

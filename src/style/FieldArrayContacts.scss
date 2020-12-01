@@ -139,4 +139,13 @@
             }
         }
     }
+    &--xl-table {
+        .contact-in-organization__header__title,
+        .contact-in-organization__body__row__element {
+            padding-left: 0;
+            @include desktop {
+                max-width: 120px;
+            }
+        }
+    }
 }

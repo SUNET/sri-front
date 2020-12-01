@@ -47,6 +47,8 @@ const STRUCTURE_BY_FIELD_TYPE = {
         __typename
         id
         name
+        ${fieldInfo.subFields ? mountStringToInsert(fieldInfo.subFields) : ''}
+        ${fieldInfo.onSentences ? mountOnSentencesToInsert(fieldInfo.onSentences) : ''}
     }
   `,
 };

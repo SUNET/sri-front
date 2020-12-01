@@ -11,6 +11,8 @@ import Dropdown from '../Dropdown';
 
 import ExpansibleTextBox from '../ExpansibleTextBox';
 
+import { RoutesNetworkEntity } from '../../Routes';
+
 class _BasicFieldArrayParentClass extends React.Component {
   constructor(props) {
     super(props);
@@ -396,13 +398,51 @@ class _BasicFieldArrayParentClass extends React.Component {
       showAllText ? 'contact-in-organization__body__row__element--ellipsis --with-all-text-box' : ''
     }`;
     let text = row[nestedFieldName[0]];
+    if (text && text.length > 0 && fieldConfig.listElements) {
+      return this.renderFieldRowMultipleLinks(text, fieldConfig, className);
+    }
     if (text && nestedFieldName.length > 1) {
       text = row[nestedFieldName[0]][nestedFieldName[1]];
     }
+    return this.renderFieldRowSimpleText(text, fieldConfig, className);
+  }
+
+  renderFieldRowSimpleText(text, fieldConfig, className) {
+    const { showAllText } = fieldConfig;
     return (
       <div key={Math.random()} className={className}>
         {text}
         {text && showAllText && <ExpansibleTextBox text={text} />}
+      </div>
+    );
+  }
+
+  renderFieldRowMultipleLinks(elements, fieldConfig, className) {
+    let pathToLink = null;
+
+    return (
+      <div key={Math.random()} className={className}>
+        {elements.map((el) => {
+          if (fieldConfig.withLink) {
+            pathToLink = `/${RoutesNetworkEntity[el.__typename]}/${el.id}`;
+          }
+          return (
+            <div key={Math.random()}>
+              {pathToLink && (
+                <a
+                  href={pathToLink}
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  {el.name}
+                </a>
+              )}
+              {!pathToLink && <span>{el.name}</span>}
+            </div>
+          );
+        })}
       </div>
     );
   }

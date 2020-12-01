@@ -19,7 +19,7 @@ export async function handleSelectedPort({ selection, getMethod, form, dispatch 
   if (newEntity) dispatch(arrayPush(form, 'ports', newEntity));
 }
 
-export function renderPortsToggleSection(editMode = false, entityFormClass) {
+export function renderPortsToggleSection(editMode = false, entityFormClass, headerConfig) {
   const {
     t,
     entityRemovedId,
@@ -43,6 +43,7 @@ export function renderPortsToggleSection(editMode = false, entityFormClass) {
         <TogglePanel>
           <FieldArray
             name="ports"
+            headerConfig={headerConfig}
             component={FieldArrayPorts}
             editable={editMode}
             dispatch={dispatch}

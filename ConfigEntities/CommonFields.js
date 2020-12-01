@@ -82,6 +82,46 @@ const PORT_LIST = [
       { type: FIELD_TYPES.SINGLE, name: 'description' },
       { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
       { type: FIELD_TYPES.OBJECT, name: 'port_type', alias: 'type' },
+      {
+        type: FIELD_TYPES.ID_OBJECT,
+        name: 'part_of',
+        onSentences: [
+          {
+            entity: 'Unit',
+            subFields: [
+              {
+                type: FIELD_TYPES.ARRAY_LIST,
+                name: 'dependents',
+                subFields: [
+                  { name: 'id', type: FIELD_TYPES.SINGLE },
+                  { name: 'name', type: FIELD_TYPES.SINGLE },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: FIELD_TYPES.ID_OBJECT,
+        name: 'connected_to',
+        onSentences: [
+          {
+            entity: 'Cable',
+            subFields: [
+              {
+                type: FIELD_TYPES.ARRAY_LIST,
+                name: 'ports',
+                subFields: [
+                  { name: '__typename', type: FIELD_TYPES.SINGLE },
+                  { name: 'id', type: FIELD_TYPES.SINGLE },
+                  { name: 'name', type: FIELD_TYPES.SINGLE },
+                  { name: 'parent', type: FIELD_TYPES.ID_OBJECT },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];
