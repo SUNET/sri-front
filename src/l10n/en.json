@@ -284,6 +284,7 @@
             "general-forms/router": "Router",
             "general-forms/peering-group": "Peering Group",
             "general-forms/interface-network": "Interface Network",
+            "general-forms/routers-used-by": "Router Used By",
             "Comment --DELETE--": "******************************** [FIN] GENERAL FORMS ****************************************",
             "Comment --DELETE--": "******************************** FILTERS ****************************************",
             "paginator.load_more": "Load More",

@@ -156,38 +156,30 @@ class _RouterFormParentClass extends _BasicFormParentClass {
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('++++used by')}</h2>
+            <h2>{t('general-forms/routers-used-by')}</h2>
           </ToggleHeading>
           <TogglePanel>
-            <ToggleSection>
-              <ToggleHeading>
-                <h2>{t('general-forms/dependencies')}</h2>
-              </ToggleHeading>
-
-              <TogglePanel>
-                <FieldArray
-                  name="dependents"
-                  component={FieldArrayRouterIsUsed}
-                  editable={editMode}
-                  dispatch={this.props.dispatch}
-                  errors={this.props.formSyncErrors.parents}
-                  metaFields={this.props.fields}
-                  showRowEditModal={(typeEntityToShowForm, entityId) => {
-                    this.setState({ fieldModalOpened: 'dependents' });
-                    this.props.showModalEditForm(typeEntityToShowForm, entityId);
-                  }}
-                  showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                    this.setState({ fieldModalOpened: 'dependents' });
-                    this.props.showModalDetailForm(typeEntityToShowForm, entityId);
-                  }}
-                  handleSearchResult={(selection) => {
-                    this.handleSelectedIsUsed(selection);
-                  }}
-                  rerenderOnEveryChange
-                  entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
-                />
-              </TogglePanel>
-            </ToggleSection>
+            <FieldArray
+              name="dependents"
+              component={FieldArrayRouterIsUsed}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection) => {
+                this.handleSelectedIsUsed(selection);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
+            />
           </TogglePanel>
         </ToggleSection>
       </section>
