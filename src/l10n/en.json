@@ -264,6 +264,7 @@
             "general-forms/longitude": "Longitude",
             "general-forms/latitude": "Latitude",
             "general-forms/decimal-placeholder": "Decimal Degrees",
+            "general-forms/decimal-length-placeholder": "Meters, eg 1.5",
             "general-forms/dimensions": "Dimensions",
             "general-forms/dimensions/height": "Height",
             "general-forms/dimensions/width": "Width",
