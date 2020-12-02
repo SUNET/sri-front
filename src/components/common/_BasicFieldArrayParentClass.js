@@ -9,6 +9,10 @@ import ReactSVG from 'react-svg';
 import DropdownSearch from '../DropdownSearch';
 import Dropdown from '../Dropdown';
 
+import ExpansibleTextBox from '../ExpansibleTextBox';
+
+import { RoutesNetworkEntity } from '../../Routes';
+
 class _BasicFieldArrayParentClass extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +32,7 @@ class _BasicFieldArrayParentClass extends React.Component {
       currentPreFilterModel: '',
       preFilterMethod: '',
       fieldModalOpened: '',
+      rowWithAllTextVisible: null,
     };
   }
   // lifecycle
@@ -58,9 +63,22 @@ class _BasicFieldArrayParentClass extends React.Component {
       selectedRowKey: null,
     });
   }
+
+  getAllValues(filterObj) {
+    const allValues = this.props.fields.getAll();
+    if (!!filterObj) {
+      const [filterKey, filterValue] = Object.entries(filterObj)[0];
+      return allValues.filter((v) => v[filterKey] === filterValue);
+    }
+    return allValues;
+  }
+
+  getFilterTable() {
+    return null;
+  }
   // methods getData
   getValueById(id) {
-    const allValues = this.props.fields.getAll();
+    const allValues = this.getAllValues();
     const valueData = allValues.find((value) => value.id === id);
     const valueIndex = allValues.findIndex((value) => value.id === id);
 
@@ -345,8 +363,9 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderBody() {
-    const { editable, fields } = this.props;
-    const values = fields.getAll();
+    const { editable } = this.props;
+    const filter = this.getFilterTable();
+    const values = this.getAllValues(filter);
     return (
       <div className="contact-in-organization__body">
         {values &&
@@ -361,8 +380,8 @@ class _BasicFieldArrayParentClass extends React.Component {
                   row.status !== SAVED ? 'contact-in-organization__body__row--disabled' : ''
                 }`}
               >
-                {isBrowser && this.HEADER_TEXTS.all.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
-                {isMobile && this.HEADER_TEXTS.summary.map(({ fieldKey }) => this.renderFieldRow(row, fieldKey))}
+                {isBrowser && this.HEADER_TEXTS.all.map((fieldConfig) => this.renderFieldRow(row, fieldConfig))}
+                {isMobile && this.HEADER_TEXTS.summary.map((fieldConfig) => this.renderFieldRow(row, fieldConfig))}
                 {editable && row.id && this.renderButtonsBox(row.id, willHaveModalsButtons)}
                 {!editable && row.status === SAVED && willHaveModalsButtons && row.id && this.renderMoreInfoButton(row)}
               </div>
@@ -372,15 +391,58 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
-  renderFieldRow(row, fieldName) {
-    const nestedFieldName = fieldName.split('.');
+  renderFieldRow(row, fieldConfig) {
+    const { fieldKey, showAllText } = fieldConfig;
+    const nestedFieldName = fieldKey.split('.');
+    const className = `contact-in-organization__body__row__element ${
+      showAllText ? 'contact-in-organization__body__row__element--ellipsis --with-all-text-box' : ''
+    }`;
     let text = row[nestedFieldName[0]];
+    if (text && text.length > 0 && fieldConfig.listElements) {
+      return this.renderFieldRowMultipleLinks(text, fieldConfig, className);
+    }
     if (text && nestedFieldName.length > 1) {
       text = row[nestedFieldName[0]][nestedFieldName[1]];
     }
+    return this.renderFieldRowSimpleText(text, fieldConfig, className);
+  }
+
+  renderFieldRowSimpleText(text, fieldConfig, className) {
+    const { showAllText } = fieldConfig;
     return (
-      <div key={Math.random()} className="contact-in-organization__body__row__element">
+      <div key={Math.random()} className={className}>
         {text}
+        {text && showAllText && <ExpansibleTextBox text={text} />}
+      </div>
+    );
+  }
+
+  renderFieldRowMultipleLinks(elements, fieldConfig, className) {
+    let pathToLink = null;
+
+    return (
+      <div key={Math.random()} className={className}>
+        {elements.map((el) => {
+          if (fieldConfig.withLink) {
+            pathToLink = `/${RoutesNetworkEntity[el.__typename]}/${el.id}`;
+          }
+          return (
+            <div key={Math.random()}>
+              {pathToLink && (
+                <a
+                  href={pathToLink}
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  {el.name}
+                </a>
+              )}
+              {!pathToLink && <span>{el.name}</span>}
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -406,11 +468,10 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   renderDropDownSearch() {
-    const { t, fields } = this.props;
+    const { t } = this.props;
     let existingElements = [];
-    if (fields.getAll()) {
-      existingElements = fields
-        .getAll()
+    if (this.getAllValues()) {
+      existingElements = this.getAllValues()
         .filter((el) => el.status === SAVED)
         .map((row) => row.id);
     }
@@ -427,22 +488,29 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
+  renderAddNewCTA() {
+    const { t } = this.props;
+    return (
+      <button
+        type="button"
+        className="contact-in-organization__footer__add btn btn-add outline"
+        disabled={this.isDisabledFilters()}
+        onClick={(e) => this.showCreateForm()}
+      >
+        {t('actions/add-new')}
+      </button>
+    );
+  }
+
   renderFooter() {
-    const { t, editable } = this.props;
+    const { editable } = this.props;
     return (
       <div className="contact-in-organization__footer">
         {editable && (
           <>
             {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
             {(this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) && this.renderDropDownSearch()}
-            <button
-              type="button"
-              className="contact-in-organization__footer__add btn btn-add outline"
-              disabled={this.isDisabledFilters()}
-              onClick={(e) => this.showCreateForm()}
-            >
-              {t('actions/add-new')}
-            </button>
+            {this.renderAddNewCTA()}
           </>
         )}
       </div>

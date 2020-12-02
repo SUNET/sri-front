@@ -115,7 +115,7 @@ const router = {
     create: 'createRouter',
     update: 'updateRouter',
   },
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
     ...RACK_INFO,
@@ -123,6 +123,7 @@ const router = {
     { type: FIELD_TYPES.SINGLE, name: 'model' },
     { type: FIELD_TYPES.SINGLE, name: 'version' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
   ],
 };
 const externalEquipment = {

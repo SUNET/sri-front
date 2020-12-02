@@ -78,4 +78,25 @@ export const path = (url) => {
   return fixedPath;
 };
 
+export const RoutesNetworkEntity = {
+  Cable: 'network/cables',
+  Port: 'network/ports',
+  Host: 'network/hosts',
+  Firewall: 'network/firewalls',
+  Router: 'network/routers',
+  Switch: 'network/switches',
+  ExternalEquipment: 'network/external-equipments',
+  OpticalNode: 'network/optical-nodes',
+  ODF: 'network/odfs',
+  OpticalFilter: 'network/optical-filters',
+  OpticalLink: 'network/optical-links',
+  OpticalMultiplexSection: 'network/optical-multiplex-sections',
+  OpticalPath: 'network/optical-paths',
+  PeeringGroup: 'network/peering-groups',
+  PeeringPartner: 'network/peering-partners',
+  Rack: 'network/location-racks',
+  Room: 'network/location-room',
+  Site: 'network/location-site',
+};
+
 export default Routes;

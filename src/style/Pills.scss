@@ -1,0 +1,25 @@
+@import "../variables.scss";
+
+.pills {
+    display: flex;
+    align-items: center;
+    &__option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: transparent;
+        color: $complementary-color;
+        border-radius: 16px;
+        border: 1px solid $complementary-color;
+        padding: 3px 12px;
+        height: 100%;
+        margin: 6px 12px;
+        font-weight: bold;
+        cursor: pointer;
+        &.--selected {
+            background-color: $complementary-color;
+            color: #fff;
+        }
+    }
+}

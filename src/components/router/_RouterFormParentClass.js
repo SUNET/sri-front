@@ -1,14 +1,16 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, FieldArray, arrayPush } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import { Form } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
+import FieldArrayRouterIsUsed from './FieldArrayRouterIsUsed';
 
 // const
 import { isBrowser } from 'react-device-detect';
+import { SAVED, NEW } from '../../utils/constants';
 
 import renderFormBlockSection from '../common/BlockSection';
 
@@ -17,6 +19,61 @@ import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSec
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
 
+const PORT_TABLE_HEADER_TEXTS = {
+  summary: [
+    {
+      text: 'general-forms/port-title',
+      fieldKey: 'name',
+    },
+  ],
+  all: [
+    {
+      text: 'general-forms/port-title',
+      fieldKey: 'name',
+    },
+    {
+      text: 'general-forms/description',
+      fieldKey: 'description',
+      showAllText: true,
+    },
+    {
+      text: 'general-forms/type',
+      fieldKey: 'type.name',
+    },
+    {
+      text: 'general-forms/cable-title',
+      fieldKey: 'cable.name',
+      withLink: true,
+      listElements: true,
+    },
+    {
+      text: 'general-forms/end-equipment',
+      fieldKey: 'endEquipment.name',
+      withLink: true,
+      listElements: true,
+    },
+    {
+      text: 'general-forms/end-port',
+      fieldKey: 'endPorts.name',
+      withLink: true,
+      listElements: true,
+    },
+    {
+      text: 'general-forms/units-title',
+      fieldKey: 'unit.name',
+      //TODO: unlock when UNIT is developed
+      // withLink: true,
+      listElements: true,
+    },
+    {
+      text: 'general-forms/depends-on-port',
+      fieldKey: 'dependsOnPort.name',
+      withLink: true,
+      listElements: true,
+    },
+  ],
+  modal: ['general-forms/parent-element-detail'],
+};
 
 class _RouterFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -24,6 +81,14 @@ class _RouterFormParentClass extends _BasicFormParentClass {
   FORM_ID;
   MODEL_NAME = 'router';
   ROUTE_LIST_DIRECTION = '/network/routers';
+
+  getSelectedLogical(id, getMethod) {
+    return getMethod(id).then((entity) => ({
+      ...entity,
+      status: SAVED,
+      origin: NEW,
+    }));
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
@@ -49,6 +114,16 @@ class _RouterFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
+  async handleSelectedIsUsed(selection) {
+    const { dispatch, form } = this.props;
+    if (selection) {
+      const { id, __typename } = selection;
+      const newEntity = await this.getSelectedLogical(id, this.props[`get${__typename}ById`]);
+      if (newEntity) dispatch(arrayPush(form, 'dependents', newEntity));
+    }
+    return null;
+  }
+
   renderSections(editMode) {
     const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
@@ -57,7 +132,8 @@ class _RouterFormParentClass extends _BasicFormParentClass {
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
-        {!isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isFromModal && renderPortsToggleSection(editMode, this, PORT_TABLE_HEADER_TEXTS)}
+        {!isFromModal && this.renderIsUsedToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
       </>
@@ -123,6 +199,43 @@ class _RouterFormParentClass extends _BasicFormParentClass {
                 })}
               </div>
             </div>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderIsUsedToggleSection(editMode = true) {
+    const componentClassName = 'is-used-block';
+    const { t, entityRemovedId } = this.props;
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/routers-used-by')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="dependents"
+              component={FieldArrayRouterIsUsed}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection) => {
+                this.handleSelectedIsUsed(selection);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
+            />
           </TogglePanel>
         </ToggleSection>
       </section>
