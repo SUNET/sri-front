@@ -34,7 +34,6 @@ class ServiceRow extends React.PureComponent {
         <span key={uniqKey}>
           <a
             href={`${window.location.origin}/${path}/${el.id}`}
-            target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => {
               e.stopPropagation();

@@ -29,8 +29,8 @@ class SearchService extends _SearchEntityParentClass {
     { name: 'Name', value: 'name', filter: 'order', textFilter: true },
     { name: 'Type', value: 'service_type', filter: 'order', textFilter: true },
     { name: 'Class', value: 'service_class', filter: 'order' },
-    { name: 'Customers', value: 'customers', filter: 'order' },
-    { name: 'End Users', value: 'end_users', filter: 'order' },
+    { name: 'Customers', value: 'customers' },
+    { name: 'End Users', value: 'end_users' },
     { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
