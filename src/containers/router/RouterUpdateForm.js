@@ -38,26 +38,14 @@ const mapStateToProps = (state, props) => {
 
       const endPorts = getAllOtherPorts(port.connected_to, port.id);
       const endEquipments = getAllEndEquipments(endPorts);
-      const partOf = {
-        __typename: 'Unit',
-        id: 'UGVlcmluZ0dyb3VwOjU2NjA=',
-        name: '1-67737-870-0',
-        dependents: [
-          {
-            __typename: 'PeeringGroup',
-            id: 'UGVlcmluZ0dyb3VwOjI3NzI=',
-            name: 'Strandberg Pettersson AB',
-          },
-        ],
-        dependencies: [],
-      };
+      const partOf = port.part_of;
       const portWithAllData = {
         ...port,
         cable,
         endEquipment: endEquipments,
         endPorts: endPorts,
         unit: partOf,
-        dependsOnPort: partOf.dependents[0],
+        dependsOnPort: partOf ? partOf.dependents : null,
       };
       return portWithAllData;
     }),

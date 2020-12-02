@@ -93,6 +93,7 @@ const PORT_LIST = [
                 type: FIELD_TYPES.ARRAY_LIST,
                 name: 'dependents',
                 subFields: [
+                  { type: FIELD_TYPES.SINGLE, name: '__typename' },
                   { name: 'id', type: FIELD_TYPES.SINGLE },
                   { name: 'name', type: FIELD_TYPES.SINGLE },
                 ],
