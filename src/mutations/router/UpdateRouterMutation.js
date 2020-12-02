@@ -7,7 +7,7 @@ import environment from '../../createRelayEnvironment';
 
 import { generatePortForInput, formatDependenciesToUpdate } from '../MutationsUtils';
 
-import { UNLINK, NEW, REMOVE } from '../../utils/constants';
+import { UNLINK, NEW } from '../../utils/constants';
 
 const MUTATION_FIELD_DEPENDENCY_BY_TYPENAME = {
   Service: {
