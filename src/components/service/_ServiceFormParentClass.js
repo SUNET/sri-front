@@ -24,7 +24,9 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
 
   constructor(props) {
     super(props);
-    this.ROUTE_LIST_DIRECTION = `/network/${props.currentClass.path}`;
+    if (!props.isFromModal) {
+      this.ROUTE_LIST_DIRECTION = `/network/${props.currentClass?.path}`;
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -145,7 +147,7 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
           emptyLabel="Select type"
           model="services_types"
           name="service_type_id"
-          serviceClass={currentClass.originalName}
+          serviceClass={currentClass?.originalName}
           onChange={(newValue) => {
             this.props.dispatch(change(this.props.form, 'service_type_id', newValue ? newValue.id : null));
             this.props.dispatch(change(this.props.form, 'service_type_obj', newValue ? newValue : null));
@@ -185,7 +187,7 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
       },
     ];
 
-    if (currentClass.originalName === 'IP') {
+    if (currentClass?.originalName === 'IP') {
       generalInfo.push({
         title: t('general-forms/end-project-date'),
         presentContent: service_type_obj && service_type_obj.name === 'Project' ? project_end_date : disabledDateInput,

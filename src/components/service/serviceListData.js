@@ -63,7 +63,7 @@ const serviceListData = {
   },
 };
 
-export default serviceListData.data.services_classes.edges.map(({ node }) => {
+const formattedList = serviceListData.data.services_classes.edges.map(({ node }) => {
   return {
     id: node.id,
     path: `service-${kebabCase(node.name)}`,
@@ -71,3 +71,9 @@ export default serviceListData.data.services_classes.edges.map(({ node }) => {
     i18nText: node.name,
   };
 });
+
+export default formattedList;
+
+export const getClassByName = (name) => {
+  return formattedList.find((el) => el.originalName === name);
+};

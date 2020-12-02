@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const UnitDetailsQuery = graphql`
+  query UnitDetailsQuery($unitId: ID!) {
+    getUnitById(id: $unitId) {
+      ...UnitUpdateForm_unit
+      ___UNIT_FIELDS___
+    }
+  }
+`;
+
+export default UnitDetailsQuery;

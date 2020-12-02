@@ -19,7 +19,7 @@ class RouterUpdateForm extends _RouterFormParentClass {
   constructor(props) {
     super(props);
     this.state = {
-      editMode: true, // props.isEditModeModal,
+      editMode: props.isEditModeModal,
     };
   }
   refetch = () => {

@@ -59,6 +59,7 @@ const Routes = {
   '/network/optical-filters/create': 'Create Optical Filter',
   '/network/location-site': 'Location Site',
   '/network/location-site/create': 'Create Location Site',
+  '/network/units': 'Unit',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',
@@ -97,6 +98,7 @@ export const RoutesNetworkEntity = {
   Rack: 'network/location-racks',
   Room: 'network/location-room',
   Site: 'network/location-site',
+  Unit: 'network/units',
 };
 
 export default Routes;

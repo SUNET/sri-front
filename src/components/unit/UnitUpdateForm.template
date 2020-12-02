@@ -1,21 +1,19 @@
-import _OpticalPathFormParentClass from './_OpticalPathFormParentClass';
+import _UnitFormParentClass from './_UnitFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import UpdateOpticalPathMutation from '../../mutations/opticalPath/UpdateOpticalPathMutation';
-import ValidationsOpticalPathForm from './ValidationsOpticalPathForm';
+import ValidationsUnitForm from '../common/_BasicValidationForm';
 // const
-import { UPDATE_OPTICALPATH_FORM } from '../../utils/constants';
+import { UPDATE_UNIT_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class OpticalPathUpdateForm extends _OpticalPathFormParentClass {
+class UnitUpdateForm extends _UnitFormParentClass {
   IS_UPDATED_FORM = true;
-  FORM_ID = UPDATE_OPTICALPATH_FORM;
-  MODEL_NAME = 'opticalPath';
-  ROUTE_LIST_DIRECTION = '/network/optical-paths';
+  FORM_ID = UPDATE_UNIT_FORM;
+  MODEL_NAME = 'unit';
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +22,7 @@ class OpticalPathUpdateForm extends _OpticalPathFormParentClass {
   }
   refetch = () => {
     this.props.relay.refetch(
-      { opticalPathId: this.props.opticalPath.id }, // Our refetchQuery needs to know the `opticalPathID`
+      { unitId: this.props.unit.id }, // Our refetchQuery needs to know the `unitID`
       null, // We can use the refetchVariables as renderVariables
       () => {
         this.updateBreadcrumbsData();
@@ -32,10 +30,24 @@ class OpticalPathUpdateForm extends _OpticalPathFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (opticalPath) => {
+  handleSubmit = (entityData) => {
     this.setState({ editMode: false });
-    UpdateOpticalPathMutation(opticalPath, this);
+    // this.props.hideModalForm();
+    // const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    // const someItemWillBeDeleted = portsToRemove.length > 0;
+    const someItemWillBeDeleted = false;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    return null;
+  }
+
   render() {
     let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
@@ -53,20 +65,20 @@ class OpticalPathUpdateForm extends _OpticalPathFormParentClass {
   }
 }
 
-OpticalPathUpdateForm = reduxForm({
-  validate: ValidationsOpticalPathForm.validate,
+UnitUpdateForm = reduxForm({
+  validate: ValidationsUnitForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
   },
-})(OpticalPathUpdateForm);
+})(UnitUpdateForm);
 
-const OpticalPathUpdateFragment = createRefetchContainer(
-  withTranslation()(OpticalPathUpdateForm),
+const UnitUpdateFragment = createRefetchContainer(
+  withTranslation()(UnitUpdateForm),
   {
-    opticalPath: graphql`
-      fragment OpticalPathUpdateForm_opticalPath on OpticalPath {
-        ___OPTICALPATH_FIELDS___
+    unit: graphql`
+      fragment UnitUpdateForm_unit on Unit {
+        ___UNIT_FIELDS___
       }
     `,
   },
@@ -74,12 +86,12 @@ const OpticalPathUpdateFragment = createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling 'refetch'.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query OpticalPathUpdateFormRefetchQuery($opticalPathId: ID!) {
-      getOpticalPathById(id: $opticalPathId) {
-        ...OpticalPathUpdateForm_opticalPath
+    query UnitUpdateFormRefetchQuery($unitId: ID!) {
+      getUnitById(id: $unitId) {
+        ...UnitUpdateForm_unit
       }
     }
   `,
 );
 
-export default OpticalPathUpdateFragment;
+export default UnitUpdateFragment;
