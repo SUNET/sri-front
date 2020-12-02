@@ -56,13 +56,13 @@ class UnitUpdateForm extends _UnitFormParentClass {
     const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
-        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
   }
+  renderHeaderRight() {}
 }
 
 UnitUpdateForm = reduxForm({

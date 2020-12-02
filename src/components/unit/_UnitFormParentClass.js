@@ -2,10 +2,12 @@ import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import { Field, FieldArray, arrayPush } from 'redux-form';
 // components
+import { Form } from 'react-bootstrap';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayUsedBy from '../common/FieldArrayUsedBy';
+import IpAddressesList from '../IpAddressesList';
 // const
-import { SAVED } from '../../utils/constants';
+import { isBrowser } from 'react-device-detect';
 import renderFormBlockSection from '../common/BlockSection';
 
 class _UnitFormParentClass extends _BasicFormParentClass {
@@ -25,16 +27,50 @@ class _UnitFormParentClass extends _BasicFormParentClass {
   }
 
   renderSections(editMode) {
-    console.log(this.props);
     const { t } = this.props;
     return (
       <>
-        {this.renderDescriptionToggleSection(editMode)}
-        {this.renderGeneralInfoToggleSection(editMode)}
-        {this.renderIsUsedToggleSection(editMode, 'dependents', 'is-used-block-dependents', t('--->dependents'))}
-        {this.renderIsUsedToggleSection(editMode, 'dependencies', 'is-used-block-dependencies', t('--->dependencies'))}
+        {this.renderDescriptionToggleSection(false)}
+        {this.renderIPAddressesToggleSection(false)}
+        {this.renderIsUsedToggleSection(false, 'dependents', 'is-used-block-dependents', t('general-forms/used-by'))}
+        {this.renderIsUsedToggleSection(false, 'dependencies', 'is-used-block-dependencies', t('general-forms/depends-on'))}
         {this.renderWorkLog()}
       </>
+    );
+  }
+
+  renderIPAddressesToggleSection(editMode) {
+    const componentClassName = 'ip-addresses-block';
+    const { t, vlan, ip_addresses } = this.props;
+    const componentsToRender = [
+      {
+        title: t('general-forms/vlan'),
+        presentContent: vlan,
+      },
+      {
+        title: t('network.switch.details.ip-address'),
+        presentContent: (
+          <IpAddressesList ipList={ip_addresses ? ip_addresses : []} editMode={editMode} onChangeIpList={() => {}} />
+        ),
+      },
+    ];
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/ip-addresses')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <div>
+              <div className="form-internal-block">
+                {componentsToRender.map((formData, index) => {
+                  return renderFormBlockSection(editMode, formData, index);
+                })}
+              </div>
+            </div>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
     );
   }
 

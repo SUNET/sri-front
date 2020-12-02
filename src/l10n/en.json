@@ -293,6 +293,8 @@
             "general-forms/end-port": "End Port",
             "general-forms/units-title": "Units",
             "general-forms/depends-on-port": "Depends On Port",
+            "general-forms/used-by": "Used By",
+            "general-forms/ip-addresses": "IP Addresses",
             "Comment --DELETE--": "******************************** [FIN] GENERAL FORMS ****************************************",
             "Comment --DELETE--": "******************************** FILTERS ****************************************",
             "paginator.load_more": "Load More",
