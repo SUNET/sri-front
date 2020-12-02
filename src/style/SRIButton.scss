@@ -9,7 +9,7 @@ button:focus {
 button.btn {
     line-height: normal;
     position: relative;
-    font-family: karla;
+    font-family: roboto;
     border: none;
 
     &:disabled {
@@ -44,7 +44,7 @@ button.btn {
 
         &.add-cta {
             @include desktop {
-                width: 200px;
+                width: auto;
                 padding: 13px 32px;
             }
         }
