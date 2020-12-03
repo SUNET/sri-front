@@ -1,13 +1,11 @@
 import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
-import { Field, FieldArray, arrayPush } from 'redux-form';
+import { FieldArray } from 'redux-form';
 // components
-import { Form } from 'react-bootstrap';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayUsedBy from '../common/FieldArrayUsedBy';
 import IpAddressesList from '../IpAddressesList';
 // const
-import { isBrowser } from 'react-device-detect';
 import renderFormBlockSection from '../common/BlockSection';
 
 class _UnitFormParentClass extends _BasicFormParentClass {
@@ -75,7 +73,7 @@ class _UnitFormParentClass extends _BasicFormParentClass {
   }
 
   renderIsUsedToggleSection(editMode = true, fieldName, componentClassName, headerText) {
-    const { t, entityRemovedId } = this.props;
+    const { entityRemovedId } = this.props;
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
