@@ -5,13 +5,7 @@ const generateDependEntities = (name) => {
   return {
     type: FIELD_TYPES.ARRAY_LIST,
     name: name,
-    subFields: [
-      { type: FIELD_TYPES.SINGLE, name: '__typename' },
-      { type: FIELD_TYPES.SINGLE, name: 'id' },
-      { type: FIELD_TYPES.SINGLE, name: 'name' },
-      { type: FIELD_TYPES.SINGLE, name: 'description' },
-      { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
-    ],
+    subFields: [...COMMON_FIELDS.BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
     onSentences: [
       {
         entity: 'Service',
@@ -66,11 +60,14 @@ const UNIT_COMMON_FIELDS = [
                 type: FIELD_TYPES.ID_OBJECT,
                 name: 'location',
                 subFields: [
-                  { type: FIELD_TYPES.SINGLE, name: '__typename' },
-                  { type: FIELD_TYPES.SINGLE, name: 'id' },
-                  { type: FIELD_TYPES.SINGLE, name: 'name' },
-                  { type: FIELD_TYPES.ID_OBJECT, name: 'has' },
-                  { type: FIELD_TYPES.ID_OBJECT, name: 'parent' },
+                  ...COMMON_FIELDS.BASIC_INFO,
+                  {
+                    type: FIELD_TYPES.ID_OBJECT,
+                    name: 'parent',
+                    subFields: [
+                      { type: FIELD_TYPES.ID_OBJECT, name: 'parent', subFields: [...COMMON_FIELDS.BASIC_INFO] },
+                    ],
+                  },
                 ],
               },
             ],

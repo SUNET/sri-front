@@ -2,11 +2,38 @@ import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import { FieldArray } from 'redux-form';
 // components
+import BackCTA from '../common/BackCTA';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayUsedBy from '../common/FieldArrayUsedBy';
 import IpAddressesList from '../IpAddressesList';
 // const
+import { isMobile } from 'react-device-detect';
 import renderFormBlockSection from '../common/BlockSection';
+
+const getPath = (type, id) => {
+  return `/network/location-${type.toLowerCase()}s/${id}`;
+};
+const getLocationElement = (locationBlock, locType) => {
+  if (!locationBlock) return null;
+  let id, name;
+  if (locationBlock.__typename === locType) {
+    id = locationBlock.id;
+    name = locationBlock.name;
+  }
+  if (locationBlock?.parent.__typename === locType) {
+    id = locationBlock?.parent.id;
+    name = locationBlock?.parent.name;
+  }
+  if (locationBlock?.parent?.parent.__typename === locType) {
+    id = locationBlock?.parent?.parent?.id;
+    name = locationBlock?.parent?.parent?.name;
+  }
+  return {
+    id,
+    name,
+    path: getPath(locType, id),
+  };
+};
 
 class _UnitFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -31,9 +58,49 @@ class _UnitFormParentClass extends _BasicFormParentClass {
         {this.renderDescriptionToggleSection(false)}
         {this.renderIPAddressesToggleSection(false)}
         {this.renderIsUsedToggleSection(false, 'dependents', 'is-used-block-dependents', t('general-forms/used-by'))}
-        {this.renderIsUsedToggleSection(false, 'dependencies', 'is-used-block-dependencies', t('general-forms/depends-on'))}
+        {this.renderIsUsedToggleSection(
+          false,
+          'dependencies',
+          'is-used-block-dependencies',
+          t('general-forms/depends-on'),
+        )}
         {this.renderWorkLog()}
       </>
+    );
+  }
+  renderSubTitleInHeader() {
+    const { t, unit } = this.props;
+    const routers = unit?.part_of?.parent;
+    const location = routers && routers.length > 0 ? routers[0].location : null;
+    const rack = getLocationElement(location, 'Rack');
+    const room = getLocationElement(location, 'Room');
+    const site = getLocationElement(location, 'Site');
+    const locationsToRender = [rack, room, site].filter((el) => el);
+
+    return (
+      <div className="model-details__subtitle">
+        <div className="model-details__subtitle__title">{t('general-forms/located-in')}:</div>
+        <div className="model-details__subtitle__content">
+          {locationsToRender.map((el, index, arr) => {
+            const isLast = index === arr.length - 1;
+            const uniqKey = `${new Date().getTime()}-${index}`;
+            return (
+              <span key={uniqKey}>
+                <a
+                  href={`${el.path}`}
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  {el.name}
+                </a>
+                {!isLast && <span>|</span>}
+              </span>
+            );
+          })}
+        </div>
+      </div>
     );
   }
 

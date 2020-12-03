@@ -2,6 +2,21 @@
 @import "./viewports.scss";
 
 .model-details {
+    &__subtitle {
+        font-size: 12px;
+        display: flex;
+        margin: 1em 8em;
+        &__title {
+            color: #b1b1b1;
+        }
+        &__content {
+            color: $complementary-color;
+            text-decoration: underline;
+            a {
+                padding: 0 1em;
+            }
+        }
+    }
     .title-section {
         display: flex;
         align-items: center;

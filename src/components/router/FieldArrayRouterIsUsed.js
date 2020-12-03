@@ -8,7 +8,7 @@ import DropdownSearch from '../DropdownSearch';
 import { SAVED } from '../../utils/constants';
 
 class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
-  ENTITIES_WITHOUT_MODAL = ['Service', 'OpticalPath', 'OpticalMultiplexSection', 'OpticalLink'];
+  ENTITIES_WITHOUT_MODAL = ['Service', 'OpticalPath', 'OpticalMultiplexSection', 'OpticalLink', 'Unit'];
   constructor(props) {
     super(props);
     this.state = {
