@@ -2,12 +2,10 @@ import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 import { FieldArray } from 'redux-form';
 // components
-import BackCTA from '../common/BackCTA';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayUsedBy from '../common/FieldArrayUsedBy';
 import IpAddressesList from '../IpAddressesList';
 // const
-import { isMobile } from 'react-device-detect';
 import renderFormBlockSection from '../common/BlockSection';
 
 const getPath = (type, id) => {
