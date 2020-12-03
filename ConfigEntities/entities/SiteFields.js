@@ -2,13 +2,18 @@ const FIELD_TYPES = require('../FieldsTypes');
 const COMMON_FIELDS = require('../CommonFields');
 
 const SITE_COMMON_FIELDS = [
-  { type: FIELD_TYPES.SINGLE, name: 'id' },
-  { type: FIELD_TYPES.SINGLE, name: 'name' },
-  { type: FIELD_TYPES.SINGLE, name: '__typename' },
-  { type: FIELD_TYPES.SINGLE, name: 'url' },
+  ...COMMON_FIELDS.BASIC_INFO,
+  { type: FIELD_TYPES.SINGLE, name: 'country' },
+  { type: FIELD_TYPES.OBJECT, name: 'country_code' },
   { type: FIELD_TYPES.SINGLE, name: 'area' },
   { type: FIELD_TYPES.SINGLE, name: 'latitude' },
   { type: FIELD_TYPES.SINGLE, name: 'longitude' },
+  { type: FIELD_TYPES.SINGLE, name: 'owner_id' },
+  { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
+  { type: FIELD_TYPES.SINGLE, name: 'url' },
+  { type: FIELD_TYPES.SINGLE, name: 'telenor_subscription_id' },
+  { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
+  ...COMMON_FIELDS.ADDRESSES_LIST,
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
 ];

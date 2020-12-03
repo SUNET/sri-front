@@ -156,4 +156,37 @@ export const formatDependenciesToUpdate = (MUTATION_FIELD_DEPENDENCY_BY_TYPENAME
   }, {});
 };
 
+export const formatAddresses = (addresses) => {
+  const result = {
+    toCreate: [],
+    toUpdate: [],
+    toDelete: [],
+  };
+
+  const formatterAddressMap = (addressElement) => {
+    console.log('addressElement: ', addressElement);
+    return {
+      id: addressElement.id,
+      name: 'main',
+      street: addressElement.street,
+      postal_code: addressElement.postal_code,
+      postal_area: addressElement.postal_area,
+      phone: addressElement.phone,
+    };
+  };
+
+  if (addresses) {
+    result.toCreate = addresses
+      .filter((address) => address.status === SAVED && (!address.created || address.created === undefined))
+      .map(formatterAddressMap);
+
+    result.toUpdate = addresses
+      .filter((address) => address.status === SAVED && address.created)
+      .map(formatterAddressMap);
+
+    result.toDelete = addresses.filter((address) => address.status === REMOVE).map((address) => ({ id: address.id }));
+  }
+  return result;
+};
+
 export default {};

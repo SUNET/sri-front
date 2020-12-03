@@ -227,7 +227,7 @@ class _BasicFormParentClass extends React.Component {
   renderGeneralInfoToggleSection(editMode = true) {
     const { t } = this.props;
     const componentClassName = 'general-info-block';
-    const generalInfoFirstRow = [this.getUrlField()];
+    const generalInfoFirstRow = [this.getUrlField('url')];
 
     return (
       <section className={`model-section ${componentClassName}`}>
@@ -249,7 +249,7 @@ class _BasicFormParentClass extends React.Component {
     );
   }
 
-  getUrlField() {
+  getUrlField(fieldName) {
     const { t, url } = this.props;
     return {
       title: t('general-forms/website'),
@@ -263,7 +263,7 @@ class _BasicFormParentClass extends React.Component {
           <Field
             type="text"
             className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
-            name="url"
+            name={fieldName}
             component={FieldInput}
             placeholder={t('general-forms/write-website')}
           />

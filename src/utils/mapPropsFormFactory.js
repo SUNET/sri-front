@@ -6,6 +6,7 @@ function formatterSubInputs(subInputs) {
     ...element,
     status: 'saved',
     origin: 'store',
+    created: true,
   }));
 }
 

@@ -324,6 +324,14 @@ const site = {
     { type: FIELD_TYPES.SINGLE, name: 'area' },
     { type: FIELD_TYPES.SINGLE, name: 'latitude' },
     { type: FIELD_TYPES.SINGLE, name: 'longitude' },
+    { type: FIELD_TYPES.SINGLE, name: 'owner_id' },
+    { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.SINGLE, name: 'telenor_subscription_id' },
+    { type: FIELD_TYPES.OBJECT, name: 'country_code' },
+    { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
+    { type: FIELD_TYPES.SINGLE, name: 'country' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'addresses' },
   ],
 };
 
@@ -338,7 +346,7 @@ const service = {
     ...BASIC_INFO,
     { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'service_class' },
-    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.ID_OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.SINGLE, name: 'decommissioned_date' },
     { type: FIELD_TYPES.SINGLE, name: 'project_end_date' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },

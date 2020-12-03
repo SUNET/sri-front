@@ -37,6 +37,14 @@ const DropdownProvidersAllQuery = graphql`
     }
   }
 `;
+const DropdownSiteOwnersAllQuery = graphql`
+  query DropdownSiteOwnersAllQuery {
+    all_siteowners {
+      id
+      name
+    }
+  }
+`;
 const DropdownGroupsAllQuery = graphql`
   query DropdownGroupsAllQuery {
     all_groups: getPlainGroups {
@@ -164,6 +172,9 @@ class Dropdown extends React.PureComponent {
             name_contains: this.props.serviceClass,
           },
         };
+        break;
+      case 'siteOwner':
+        queryModel = DropdownSiteOwnersAllQuery;
         break;
       default:
         queryModel = DropdownQuery;
