@@ -14,15 +14,15 @@ const getPath = (type, id) => {
 const getLocationElement = (locationBlock, locType) => {
   if (!locationBlock) return null;
   let id, name;
-  if (locationBlock.__typename === locType) {
+  if (locationBlock?.__typename === locType) {
     id = locationBlock.id;
     name = locationBlock.name;
   }
-  if (locationBlock?.parent.__typename === locType) {
+  if (locationBlock?.parent?.__typename === locType) {
     id = locationBlock?.parent.id;
     name = locationBlock?.parent.name;
   }
-  if (locationBlock?.parent?.parent.__typename === locType) {
+  if (locationBlock?.parent?.parent?.__typename === locType) {
     id = locationBlock?.parent?.parent?.id;
     name = locationBlock?.parent?.parent?.name;
   }
