@@ -53,3 +53,6 @@ src/components/site/SiteUpdateForm.js
 
 src/queries/service/ServiceDetailsQuery.js
 src/components/service/ServiceUpdateForm.js
+
+src/queries/unit/UnitDetailsQuery.js
+src/components/unit/UnitUpdateForm.js

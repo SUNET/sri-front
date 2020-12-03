@@ -7,14 +7,14 @@ import PillsFilter from '../PillsFilter';
 import DropdownSearch from '../DropdownSearch';
 import { SAVED } from '../../utils/constants';
 
-class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
-  ENTITIES_WITHOUT_MODAL = ['Service', 'OpticalPath', 'OpticalMultiplexSection', 'OpticalLink', 'Unit'];
+class FieldArrayUsedBy extends _BasicFieldArrayParentClass {
+  // ENTITIES_WITHOUT_MODAL = ['Service', 'OpticalPath', 'OpticalMultiplexSection', 'OpticalLink'];
   constructor(props) {
     super(props);
     this.state = {
       currentPreFilterModel: 'All',
     };
-    this.FIELD_NAME_IN_FORM = 'dependents';
+    this.FIELD_NAME_IN_FORM = props.fieldNameForm || 'dependents';
     this.HEADER_TEXTS = {
       summary: [
         {
@@ -39,12 +39,14 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
       ],
       modal: null,
     };
-    this.PRE_FILTER_SELECT = {
-      type: 'routerDependentsTypes',
-      label: 'general-forms/select-physical-type',
-      model: 'routerDependentsTypes',
-      name: 'physical_types_preFilter',
-    };
+    this.PRE_FILTER_SELECT = props.preFilter
+      ? {
+          type: 'routerDependentsTypes',
+          label: 'general-forms/select-physical-type',
+          model: 'routerDependentsTypes',
+          name: 'physical_types_preFilter',
+        }
+      : null;
     this.MODEL_TO_SEARCH = null;
   }
 
@@ -114,4 +116,4 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
   }
 }
 
-export default withTranslation()(FieldArrayRouterIsUsed);
+export default withTranslation()(FieldArrayUsedBy);

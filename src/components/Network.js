@@ -28,6 +28,7 @@ import SearchRackContainer from '../containers/rack/SearchRack';
 import SearchRoomContainer from '../containers/room/SearchRoom';
 import SearchSiteContainer from '../containers/site/SearchSite';
 import SearchServiceContainer from '../containers/service/SearchService';
+import SearchUnitContainer from '../containers/unit/SearchUnit';
 
 class Network extends React.Component {
   render() {
@@ -36,6 +37,7 @@ class Network extends React.Component {
         <Col>
           <Switch>
             <Redirect exact from="/network" to="/network/customers" />
+            <Redirect exact from="/network/units" to="/network/customers" />
             <Route path="/network/customers" component={SearchCustomerContainer} />
             <Route path="/network/end-users" component={SearchEndUsersContainer} />
             <Route path="/network/providers" component={SearchProvidersContainer} />
@@ -58,6 +60,7 @@ class Network extends React.Component {
             <Route path="/network/location-racks" component={SearchRackContainer} />
             <Route path="/network/location-rooms" component={SearchRoomContainer} />
             <Route path="/network/location-sites" component={SearchSiteContainer} />
+            <Route path="/network/units/" component={SearchUnitContainer} />
             {formattedServicesData.map((service, index) => {
               return (
                 <Route

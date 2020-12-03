@@ -61,8 +61,7 @@ const PORT_TABLE_HEADER_TEXTS = {
     {
       text: 'general-forms/units-title',
       fieldKey: 'unit.name',
-      //TODO: unlock when UNIT is developed
-      // withLink: true,
+      withLink: true,
       listElements: true,
     },
     {

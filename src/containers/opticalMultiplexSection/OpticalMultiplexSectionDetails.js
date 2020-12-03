@@ -6,6 +6,8 @@ import OpticalMultiplexSectionDetails from '../../components/opticalMultiplexSec
 
 const mapStateToProps = (state, props) => {
   return {
+    idFromModal: state.formModal.entityId,
+    history: props.history,
     isDeleteConfirmed: state.confirmModal.confirmDelete,
     confirmModalType: state.confirmModal.type,
   };

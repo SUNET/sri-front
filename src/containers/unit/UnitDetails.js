@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import * as notifyActions from '../../actions/Notify';
 import * as confirmModalActions from '../../actions/ConfirmModal';
 
-import OpticalLinkDetails from '../../components/opticalLink/OpticalLinkDetails';
+import UnitDetails from '../../components/unit/UnitDetails';
 
 const mapStateToProps = (state, props) => {
   return {
@@ -27,6 +27,6 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-const OpticalLinkDetailsContainer = connect(mapStateToProps, mapDispatchToProps)(OpticalLinkDetails);
+const UnitDetailsContainer = connect(mapStateToProps, mapDispatchToProps)(UnitDetails);
 
-export default OpticalLinkDetailsContainer;
+export default UnitDetailsContainer;

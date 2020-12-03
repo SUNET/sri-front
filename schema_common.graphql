@@ -12999,6 +12999,7 @@ type Unit implements NINode & Logical & PhysicalLogical {
   comments: [CommentType]
   ip_address: String
   vlan: String
+  ip_addresses: IPAddr
 }
 
 type unitConnection {

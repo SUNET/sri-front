@@ -131,8 +131,6 @@ export function formatExternalEquipmentVariables(data, isUpdate) {
 export const formatDependenciesToUpdate = (MUTATION_FIELD_DEPENDENCY_BY_TYPENAME, dependencies) => {
   return dependencies.reduce((acc, curr) => {
     const currDependencyField = MUTATION_FIELD_DEPENDENCY_BY_TYPENAME[curr['__typename']];
-
-    debugger;
     const dataToMutation = {
       id: curr.id,
       skip_update: true,
@@ -140,7 +138,6 @@ export const formatDependenciesToUpdate = (MUTATION_FIELD_DEPENDENCY_BY_TYPENAME
         if (field.type === 'simple') {
           fieldsToMutation[field.name] = curr[field.name];
         } else if (field.type === 'object') {
-          debugger;
           fieldsToMutation[field.name] = curr[field.name].value || curr[field.name].name;
         } else if (field.type === 'type') {
           fieldsToMutation[field.mutationName] = curr[field.name].value || curr[field.name].name;

@@ -44,7 +44,7 @@ const mapStateToProps = (state, props) => {
         cable,
         endEquipment: endEquipments,
         endPorts: endPorts,
-        unit: partOf,
+        unit: partOf ? [partOf] : null,
         dependsOnPort: partOf ? partOf.dependents : null,
       };
       return portWithAllData;
