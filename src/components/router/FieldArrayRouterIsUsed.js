@@ -95,7 +95,7 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
     return { __typename: currentPreFilterModel };
   }
 
-  renderAddNewCTA() {}
+  // renderAddNewCTA() {}
 
   renderFooter() {
     const { editable } = this.props;
@@ -107,6 +107,7 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
             {editable &&
               (this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) &&
               this.renderDropDownSearch()}
+            {this.renderAddNewCTA()}
           </>
         }
       </div>
