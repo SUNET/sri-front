@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldArray, arrayPush } from 'redux-form';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../ToggleSection';
-import FieldArrayEquipments from '../../site/FieldArrayEquipments';
+import FieldArrayEquipments from '../FieldArrayEquipments';
 import { SAVED, NEW } from '../../../utils/constants';
 
 export function getSelectedPhysical(selection, getMethod) {

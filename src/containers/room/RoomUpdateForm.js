@@ -7,7 +7,13 @@ import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
 const ENTITY_NAME = 'room';
 
 const mapStateToProps = (state, props) => {
-  const mappedStateToProps = getUpdateProps(ENTITY_NAME, props, state);
+  const { room } = props;
+  const roomWithRoomsAndRacksSeparates = {
+    ...room,
+    sites: room.has?.filter((el) => el.__typename === 'Site'),
+    racks: room.has?.filter((el) => el.__typename === 'Rack'),
+  };
+  const mappedStateToProps = getUpdateProps(ENTITY_NAME, { ...props, room: roomWithRoomsAndRacksSeparates }, state);
   return mappedStateToProps;
 };
 
@@ -16,9 +22,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return mappedDispatchToProps;
 };
 
-const RoomUpdateFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RoomUpdateForm);
+const RoomUpdateFormContainer = connect(mapStateToProps, mapDispatchToProps)(RoomUpdateForm);
 
 export default RoomUpdateFormContainer;

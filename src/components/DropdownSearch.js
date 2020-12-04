@@ -235,6 +235,19 @@ const DropdownSearchLogicalQuery = graphql`
   }
 `;
 
+const DropdownSearchAllSitesQuery = graphql`
+  query DropdownSearchAllSitesQuery($filter: SiteFilter) {
+    sites(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 const DropdownSearchAllRoomsQuery = graphql`
   query DropdownSearchAllRoomsQuery($filter: RoomFilter) {
     rooms(filter: $filter) {
@@ -345,6 +358,10 @@ class DropdownSearch extends React.Component {
       case 'racks':
       case 'Rack':
         queryModel.query = DropdownSearchAllRacksQuery;
+        break;
+      case 'sites':
+      case 'Site':
+        queryModel.query = DropdownSearchAllSitesQuery;
         break;
       default:
         queryModel.query = DropdownSearchAllContactsQuery;

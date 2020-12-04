@@ -7,8 +7,6 @@ import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
 const ENTITY_NAME = 'site';
 
 const mapStateToProps = (state, props) => {
-  // const rooms = has?.filter((el) => el.__typename === 'Room');
-  // console.log('rooms: ', rooms);
   const { site } = props;
   const siteWithRoomsAndRacksSeparates = {
     ...site,

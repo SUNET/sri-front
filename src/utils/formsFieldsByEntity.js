@@ -318,6 +318,10 @@ const room = {
       type: FIELD_TYPES.ARRAY_LIST,
       name: 'located_in',
     },
+    { type: FIELD_TYPES.SINGLE, name: 'floor' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'has' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'sites' }, // custom field
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'racks' }, // custom field
   ],
 };
 

@@ -11,8 +11,8 @@ import FieldArrayAddressOrganization from '../organization/FieldArrayAddressOrga
 import { isBrowser } from 'react-device-detect';
 import renderFormBlockSection from '../common/BlockSection';
 
-import FieldArrayRooms from './FieldArrayRooms';
-import FieldArrayRacks from './FieldArrayRacks';
+import FieldArrayRooms from '../common/FieldArrayRooms';
+import FieldArrayRacks from '../common/FieldArrayRacks';
 
 import { renderEquipmentsToggleSection, handleSelectedPhysical } from '../common/formsSections/LocatedInToggleSection';
 
