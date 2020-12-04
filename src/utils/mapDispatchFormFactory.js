@@ -17,6 +17,11 @@ import getRouter from '../components/router/Router';
 import getOpticalNode from '../components/opticalNode/OpticalNode';
 import getODF from '../components/ODF/ODF';
 
+import getService from '../components/service/Service';
+import getOpticalPath from '../components/opticalPath/OpticalPath';
+import getOpticalMultiplexSection from '../components/opticalMultiplexSection/OpticalMultiplexSection';
+import getOpticalLink from '../components/opticalLink/OpticalLink';
+
 const MAP_NAME_PROPERTY_METHOD = {
   notify: (dispatch) => ({
     notify: (msg, level) => {
@@ -75,6 +80,12 @@ const MAP_NAME_PROPERTY_METHOD = {
     getRouterById: (id) => getRouter(id),
     getOpticalNodeById: (id) => getOpticalNode(id),
     getODFById: (id) => getODF(id),
+  }),
+  logicalDetails: () => ({
+    getServiceById: (id) => getService(id),
+    getOpticalPathById: (id) => getOpticalPath(id),
+    getOpticalMultiplexSectionById: (id) => getOpticalMultiplexSection(id),
+    getOpticalLinkById: (id) => getOpticalLink(id),
   }),
   portDetails: () => ({
     getPortById: (id) => getPort(id),

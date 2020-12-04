@@ -221,6 +221,20 @@ const DropdownSearchAllODFsQuery = graphql`
   }
 `;
 
+const DropdownSearchLogicalQuery = graphql`
+  query DropdownSearchLogicalQuery($filter: MetatypeFilter) {
+    logicals(filter: $filter) {
+      edges {
+        node {
+          __typename
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -295,6 +309,9 @@ class DropdownSearch extends React.Component {
       case 'odfs':
         queryModel.query = DropdownSearchAllODFsQuery;
         break;
+      case 'logicals':
+        queryModel.query = DropdownSearchLogicalQuery;
+        break;
       default:
         queryModel.query = DropdownSearchAllContactsQuery;
         break;
@@ -304,12 +321,17 @@ class DropdownSearch extends React.Component {
 
   getItems = debounce((filter) => {
     const { modelName, query, typeFilter } = this.getQueryByModel(this.props.model);
-    const { skipElements, model } = this.props;
+    const { skipElements, model, entityTypeFilter } = this.props;
     let variables = {
       filter: {},
     };
     if (model === 'ports-type-head') {
       variables.filter.query = filter;
+    } else if (model === 'logicals') {
+      variables.filter = {
+        name_contains: filter,
+        type_in: entityTypeFilter,
+      };
     } else {
       variables.filter = { AND: [{ name_contains: filter }] };
 

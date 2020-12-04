@@ -2,6 +2,21 @@
 @import "./viewports.scss";
 
 .model-details {
+    &__subtitle {
+        font-size: 12px;
+        display: flex;
+        margin: 1em 8em;
+        &__title {
+            color: #b1b1b1;
+        }
+        &__content {
+            color: $complementary-color;
+            text-decoration: underline;
+            a {
+                padding: 0 1em;
+            }
+        }
+    }
     .title-section {
         display: flex;
         align-items: center;
@@ -124,7 +139,7 @@
                                     width: calc(100% - 70px);
                                 }
                                 &__secondary-text {
-                                    font-family: karla;
+                                    font-family: roboto;
                                     color: $secondary-color-30;
                                     width: 70px;
                                 }
@@ -161,7 +176,7 @@
                 flex-direction: column;
                 max-width: 100%;
                 &__title {
-                    font-family: karla;
+                    font-family: roboto;
                     font-weight: bold;
                     color: $secondary-color-30;
                     &:not(.with-icon) {
@@ -199,7 +214,7 @@
                                     margin-right: 8px;
                                 }
                                 &__secondary-text {
-                                    font-family: karla;
+                                    font-family: roboto;
                                     color: $secondary-color-30;
                                 }
                             }
@@ -241,7 +256,7 @@
 
             > div:first-of-type {
                 display: table-header-group;
-                font-family: karla;
+                font-family: roboto;
                 font-weight: bold;
                 color: $secondary-color-30;
 
@@ -377,7 +392,7 @@
 
                     > div:last-of-type {
                         display: table-cell;
-                        font-family: karla;
+                        font-family: roboto;
                         color: $secondary-color-30;
                     }
                 }

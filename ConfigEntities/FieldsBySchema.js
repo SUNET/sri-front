@@ -7,6 +7,7 @@ const RACK_FIELDS = require('./entities/RackFields');
 const ROOM_FIELDS = require('./entities/RoomFields');
 const SITE_FIELDS = require('./entities/SiteFields');
 const SERVICE_FIELDS = require('./entities/ServiceFields');
+const UNIT_FIELDS = require('./entities/UnitFields');
 
 module.exports = [
   {
@@ -153,6 +154,22 @@ module.exports = [
       },
       nordunet: {
         fields: [...SERVICE_FIELDS.SERVICE_COMMON_FIELDS, ...SERVICE_FIELDS.SERVICE_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Unit',
+    files: ['src/queries/unit/UnitDetailsQuery', 'src/components/unit/UnitUpdateForm'],
+    reference: '___UNIT_FIELDS___',
+    queries: {
+      common: {
+        fields: [...UNIT_FIELDS.UNIT_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...UNIT_FIELDS.UNIT_COMMON_FIELDS, ...UNIT_FIELDS.UNIT_SUNET],
+      },
+      nordunet: {
+        fields: [...UNIT_FIELDS.UNIT_COMMON_FIELDS, ...UNIT_FIELDS.UNIT_NORDUNI],
       },
     },
   },

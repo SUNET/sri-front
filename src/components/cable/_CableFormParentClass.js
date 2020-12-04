@@ -97,7 +97,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
               type="text"
               name="cable_length"
               component={FieldInput}
-              placeholder={t('general-forms/decimal-placeholder')}
+              placeholder={t('general-forms/decimal-length-placeholder')}
             />
           </Form.Group>
         ),

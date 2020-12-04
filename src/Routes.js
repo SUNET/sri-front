@@ -59,6 +59,7 @@ const Routes = {
   '/network/optical-filters/create': 'Create Optical Filter',
   '/network/location-site': 'Location Site',
   '/network/location-site/create': 'Create Location Site',
+  '/network/units': 'Unit',
   '/community': 'Community',
   '/community/organizations': 'Organizations',
   '/community/organizations/create': 'Create Organization',
@@ -76,6 +77,28 @@ export const path = (url) => {
   const fixedPath = url.endsWith('/') ? path(url.substring(0, url.length - 1)) : url;
 
   return fixedPath;
+};
+
+export const RoutesNetworkEntity = {
+  Cable: 'network/cables',
+  Port: 'network/ports',
+  Host: 'network/hosts',
+  Firewall: 'network/firewalls',
+  Router: 'network/routers',
+  Switch: 'network/switches',
+  ExternalEquipment: 'network/external-equipments',
+  OpticalNode: 'network/optical-nodes',
+  ODF: 'network/odfs',
+  OpticalFilter: 'network/optical-filters',
+  OpticalLink: 'network/optical-links',
+  OpticalMultiplexSection: 'network/optical-multiplex-sections',
+  OpticalPath: 'network/optical-paths',
+  PeeringGroup: 'network/peering-groups',
+  PeeringPartner: 'network/peering-partners',
+  Rack: 'network/location-racks',
+  Room: 'network/location-room',
+  Site: 'network/location-site',
+  Unit: 'network/units',
 };
 
 export default Routes;

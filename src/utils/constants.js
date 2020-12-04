@@ -52,6 +52,9 @@ export const UPDATE_SITE_FORM = 'update-location-sites-form';
 export const CREATE_SERVICE_FORM = 'create-location-services-form';
 export const UPDATE_SERVICE_FORM = 'update-location-services-form';
 
+export const CREATE_UNIT_FORM = 'create-units-form';
+export const UPDATE_UNIT_FORM = 'update-units-form';
+
 // Community Tabs
 export const COMMUNITY_ORGANIZATIONS = 'organizations';
 export const COMMUNITY_GROUPS = 'groups';

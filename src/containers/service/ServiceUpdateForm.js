@@ -4,12 +4,18 @@ import ServiceUpdateForm from '../../components/service/ServiceUpdateForm';
 import { getUpdateProps } from '../../utils/mapPropsFormFactory';
 import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
 
+import { getClassByName } from '../../components/service/serviceListData';
+
 const ENTITY_NAME = 'service';
 
 const mapStateToProps = (state, props) => {
   const { service } = props;
   const users = service.customers && service.end_users ? [...service.customers, ...service.end_users] : [];
-  const serviceWithUsers = { ...service, ...{ users } };
+  const serviceWithUsers = {
+    ...service,
+    ...{ users },
+    ...{ currentClass: getClassByName(service.service_class.name) },
+  };
   const mappedStateToProps = getUpdateProps(ENTITY_NAME, { ...props, service: serviceWithUsers }, state);
   return mappedStateToProps;
 };

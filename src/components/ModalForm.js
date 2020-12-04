@@ -34,6 +34,18 @@ import CreateOpticalNodeFormContainer from '../containers/opticalNode/CreateOpti
 import OpticalNodeDetailsContainer from '../containers/opticalNode/OpticalNodeDetails';
 import PeeringGroupDetailsContainer from '../containers/peeringGroup/PeeringGroupDetails';
 
+import CreateOpticalLinkFormContainer from '../containers/opticalLink/CreateOpticalLinkForm';
+import OpticalLinkDetailsContainer from '../containers/opticalLink/OpticalLinkDetails';
+
+import CreateOpticalPathFormContainer from '../containers/opticalPath/CreateOpticalPathForm';
+import OpticalPathDetailsContainer from '../containers/opticalPath/OpticalPathDetails';
+
+import CreateOpticalMultiplexSectionFormContainer from '../containers/opticalMultiplexSection/CreateOpticalMultiplexSectionForm';
+import OpticalMultiplexSectionDetailsContainer from '../containers/opticalMultiplexSection/OpticalMultiplexSectionDetails';
+
+import CreateServiceFormContainer from '../containers/service/CreateServiceForm';
+import ServiceDetailsContainer from '../containers/service/ServiceDetails';
+
 import {
   CREATE_CONTACT_FORM,
   UPDATE_CONTACT_FORM,
@@ -67,6 +79,14 @@ import {
   UPDATE_OPTICALNODE_FORM,
   CREATE_PEERINGGROUP_FORM,
   UPDATE_PEERINGGROUP_FORM,
+  UPDATE_OPTICALLINK_FORM,
+  CREATE_OPTICALLINK_FORM,
+  UPDATE_OPTICALPATH_FORM,
+  CREATE_OPTICALPATH_FORM,
+  CREATE_OPTICALMULTIPLEXSECTION_FORM,
+  UPDATE_OPTICALMULTIPLEXSECTION_FORM,
+  CREATE_SERVICE_FORM,
+  UPDATE_SERVICE_FORM,
 } from '../utils/constants';
 import '../style/ModalNewContact.scss';
 
@@ -205,6 +225,46 @@ class ModalNewContact extends React.Component {
           ComponentToRender: isUpdateForm ? PeeringGroupDetailsContainer : null,
           textHeader: isUpdateForm ? 'entity-modify/peering-groups' : 'entity-add-new/peering-groups',
           formId: isUpdateForm ? UPDATE_PEERINGGROUP_FORM : CREATE_PEERINGGROUP_FORM,
+        };
+        break;
+      case 'opticalLinks':
+      case 'OpticalLink':
+        entityData = {
+          ComponentToRender: isUpdateForm ? OpticalLinkDetailsContainer : CreateOpticalLinkFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/optical-links' : 'entity-add-new/optical-links',
+          formId: isUpdateForm ? UPDATE_OPTICALLINK_FORM : CREATE_OPTICALLINK_FORM,
+        };
+        break;
+      case 'opticalPaths':
+      case 'OpticalPath':
+        entityData = {
+          ComponentToRender: isUpdateForm ? OpticalPathDetailsContainer : CreateOpticalPathFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/optical-paths' : 'entity-add-new/optical-paths',
+          formId: isUpdateForm ? UPDATE_OPTICALPATH_FORM : CREATE_OPTICALPATH_FORM,
+        };
+        break;
+      case 'opticalMultiplexSections':
+      case 'OpticalMultiplexSection':
+        entityData = {
+          ComponentToRender: isUpdateForm
+            ? OpticalMultiplexSectionDetailsContainer
+            : CreateOpticalMultiplexSectionFormContainer,
+          textHeader: isUpdateForm
+            ? 'entity-modify/optical-multiplex-sections'
+            : 'entity-add-new/optical-multiplex-sections',
+          formId: isUpdateForm ? UPDATE_OPTICALMULTIPLEXSECTION_FORM : CREATE_OPTICALMULTIPLEXSECTION_FORM,
+        };
+        break;
+      case 'services':
+      case 'Service':
+        entityData = {
+          ComponentToRender: isUpdateForm
+            ? ServiceDetailsContainer
+            : CreateServiceFormContainer,
+          textHeader: isUpdateForm
+            ? 'entity-modify/services'
+            : 'entity-add-new/services',
+          formId: isUpdateForm ? UPDATE_SERVICE_FORM : CREATE_SERVICE_FORM,
         };
         break;
       default:

@@ -1,0 +1,97 @@
+import _UnitFormParentClass from './_UnitFormParentClass';
+// Common imports
+import React from 'react';
+import { withTranslation } from 'react-i18next';
+import { reduxForm } from 'redux-form';
+import { createRefetchContainer } from 'react-relay';
+import graphql from 'babel-plugin-relay/macro';
+import ValidationsUnitForm from '../common/_BasicValidationForm';
+// const
+import { UPDATE_UNIT_FORM } from '../../utils/constants';
+import { isBrowser } from 'react-device-detect';
+
+class UnitUpdateForm extends _UnitFormParentClass {
+  IS_UPDATED_FORM = true;
+  FORM_ID = UPDATE_UNIT_FORM;
+  MODEL_NAME = 'unit';
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: props.isEditModeModal,
+    };
+  }
+  refetch = () => {
+    this.props.relay.refetch(
+      { unitId: this.props.unit.id }, // Our refetchQuery needs to know the `unitID`
+      null, // We can use the refetchVariables as renderVariables
+      () => {
+        this.updateBreadcrumbsData();
+      },
+      { force: true },
+    );
+  };
+  handleSubmit = (entityData) => {
+    this.setState({ editMode: false });
+    // this.props.hideModalForm();
+    // const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    // const someItemWillBeDeleted = portsToRemove.length > 0;
+    const someItemWillBeDeleted = false;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = entityData;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(entityData, this);
+    }
+  };
+
+  updateMutation(entityData, form) {
+    return null;
+  }
+
+  render() {
+    let { handleSubmit, isFromModal } = this.props;
+    const { editMode } = this.state;
+    const showBackButton = isBrowser && !isFromModal;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
+    return (
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {this.renderHeader(editMode, showBackButton)}
+        {this.renderSubTitleInHeader()}
+        {this.renderSections(editMode)}
+        {!isFromModal && this.renderSaveCancelButtons()}
+      </form>
+    );
+  }
+  renderHeaderRight() {}
+}
+
+UnitUpdateForm = reduxForm({
+  validate: ValidationsUnitForm.validate,
+  enableReinitialize: true,
+  onSubmitSuccess: (result, dispatch, props) => {
+    document.documentElement.scrollTop = 0;
+  },
+})(UnitUpdateForm);
+
+const UnitUpdateFragment = createRefetchContainer(
+  withTranslation()(UnitUpdateForm),
+  {
+    unit: graphql`
+      fragment UnitUpdateForm_unit on Unit {
+        ___UNIT_FIELDS___
+      }
+    `,
+  },
+
+  graphql`
+    # Refetch query to be fetched upon calling 'refetch'.
+    # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
+    query UnitUpdateFormRefetchQuery($unitId: ID!) {
+      getUnitById(id: $unitId) {
+        ...UnitUpdateForm_unit
+      }
+    }
+  `,
+);
+
+export default UnitUpdateFragment;

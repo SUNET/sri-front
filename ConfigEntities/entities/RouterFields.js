@@ -7,6 +7,47 @@ const ROUTER_COMMON_FIELDS = [
   { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
   { type: FIELD_TYPES.SINGLE, name: 'model' },
   { type: FIELD_TYPES.SINGLE, name: 'version' },
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'dependents',
+    subFields: [
+      { type: FIELD_TYPES.SINGLE, name: '__typename' },
+      { type: FIELD_TYPES.SINGLE, name: 'id' },
+      { type: FIELD_TYPES.SINGLE, name: 'name' },
+      { type: FIELD_TYPES.SINGLE, name: 'description' },
+      { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
+    ],
+    onSentences: [
+      {
+        entity: 'Service',
+        subFields: [
+          { type: FIELD_TYPES.ID_OBJECT, name: 'service_type', alias: 'type' },
+          { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+        ],
+      },
+      {
+        entity: 'OpticalPath',
+        subFields: [
+          { type: FIELD_TYPES.SINGLE, name: 'wavelength' },
+          { type: FIELD_TYPES.OBJECT, name: 'framing' },
+          { type: FIELD_TYPES.OBJECT, name: 'capacity' },
+          { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+        ],
+      },
+      {
+        entity: 'OpticalMultiplexSection',
+        subFields: [{ type: FIELD_TYPES.OBJECT, name: 'operational_state' }],
+      },
+      {
+        entity: 'OpticalLink',
+        subFields: [
+          { type: FIELD_TYPES.OBJECT, name: 'link_type', alias: 'type' },
+          { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
+          { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+        ],
+      },
+    ],
+  },
   ...COMMON_FIELDS.PORT_LIST,
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,

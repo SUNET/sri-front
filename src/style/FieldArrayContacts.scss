@@ -19,7 +19,7 @@
         width: 100%;
         &__title {
             margin-bottom: 1.5rem;
-            font-family: karla;
+            font-family: roboto;
             font-weight: bold;
             color: $secondary-color-30;
             align-items: center;
@@ -90,6 +90,9 @@
                     padding-right: 1em;
                     margin-left: auto;
                 }
+                &.--with-all-text-box {
+                    padding-right: 2.5em;
+                }
             }
             &__action-message {
                 background-color: $gray-color;
@@ -133,6 +136,15 @@
             padding-left: 0;
             @include desktop {
                 flex-basis: 13%;
+            }
+        }
+    }
+    &--xl-table {
+        .contact-in-organization__header__title,
+        .contact-in-organization__body__row__element {
+            padding-left: 0;
+            @include desktop {
+                max-width: 120px;
             }
         }
     }
