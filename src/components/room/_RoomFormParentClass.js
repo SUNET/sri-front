@@ -1,6 +1,6 @@
 import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
-import { arrayPush, FieldArray, Field, change } from 'redux-form';
+import { arrayPush, FieldArray, Field } from 'redux-form';
 // components
 import { Form } from 'react-bootstrap';
 import FieldInput from '../FieldInput';

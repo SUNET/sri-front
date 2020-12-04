@@ -348,7 +348,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
   }
 
   renderRoomsToggleSection(editMode) {
-    const { t, entityRemovedId, racks, rooms } = this.props;
+    const { t, entityRemovedId } = this.props;
     const componentClassName = 'rooms-list-block';
     return (
       <section className={`model-section ${componentClassName}`}>
