@@ -178,7 +178,6 @@ export const formatAddresses = (addresses) => {
   };
 
   const formatterAddressMap = (addressElement) => {
-    console.log('addressElement: ', addressElement);
     return {
       id: addressElement.id,
       name: 'main',

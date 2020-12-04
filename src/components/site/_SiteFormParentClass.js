@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldArray, Field, change } from 'redux-form';
+import { arrayPush, FieldArray, Field, change } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import { Form } from 'react-bootstrap';
@@ -12,6 +12,7 @@ import { isBrowser } from 'react-device-detect';
 import renderFormBlockSection from '../common/BlockSection';
 
 import FieldArrayRooms from './FieldArrayRooms';
+import FieldArrayRacks from './FieldArrayRacks';
 
 import { renderEquipmentsToggleSection, handleSelectedPhysical } from '../common/formsSections/LocatedInToggleSection';
 
@@ -21,6 +22,36 @@ class _SiteFormParentClass extends _BasicFormParentClass {
   FORM_ID;
   MODEL_NAME = 'site';
   ROUTE_LIST_DIRECTION = '/network/location-sites';
+
+  handleSelectedRoom = (selection) => {
+    if (selection !== null && selection.id) {
+      this.props.getRoomById(selection.id).then((entity) => {
+        const newEntity = {
+          type: entity.type,
+          __typename: entity.__typename,
+          name: entity.name,
+          id: entity.id,
+          status: 'saved',
+        };
+        this.props.dispatch(arrayPush(this.props.form, 'rooms', newEntity));
+      });
+    }
+  };
+
+  handleSelectedRack = (selection) => {
+    if (selection !== null && selection.id) {
+      this.props.getRackById(selection.id).then((entity) => {
+        const newEntity = {
+          type: entity.type,
+          __typename: entity.__typename,
+          name: entity.name,
+          id: entity.id,
+          status: 'saved',
+        };
+        this.props.dispatch(arrayPush(this.props.form, 'racks', newEntity));
+      });
+    }
+  };
 
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
@@ -41,6 +72,10 @@ class _SiteFormParentClass extends _BasicFormParentClass {
           form: this.props.form,
           dispatch: this.props.dispatch,
         });
+      } else if (fieldModalOpened === 'room') {
+        this.handleSelectedRoom(selectionData);
+      } else if (fieldModalOpened === 'rack') {
+        this.handleSelectedRack(selectionData);
       }
       return false;
     }
@@ -55,6 +90,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
         {this.renderAddressListToggleSection(editMode)}
         {this.renderOwnerToggleSection(editMode)}
         {this.renderRoomsToggleSection(editMode)}
+        {this.renderRacksToggleSection(editMode)}
         {renderEquipmentsToggleSection(editMode, this)}
         {this.renderWorkLog()}
       </>
@@ -318,7 +354,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('general-forms/routers-used-by')}</h2>
+            <h2>{t('main-entity-name/location-rooms')}</h2>
           </ToggleHeading>
           <TogglePanel>
             <FieldArray
@@ -345,6 +381,47 @@ class _SiteFormParentClass extends _BasicFormParentClass {
               }}
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'rooms' ? entityRemovedId : null}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderRacksToggleSection(editMode) {
+    const { t, entityRemovedId } = this.props;
+    const componentClassName = 'racks-list-block';
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('main-entity-name/location-racks')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="racks"
+              component={FieldArrayRacks}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.located_in}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'rack' });
+                this.props.showModalCreateForm('Rack');
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'racks' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'racks' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection) => {
+                this.handleSelectedRack(selection);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'racks' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>

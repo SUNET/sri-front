@@ -235,6 +235,32 @@ const DropdownSearchLogicalQuery = graphql`
   }
 `;
 
+const DropdownSearchAllRoomsQuery = graphql`
+  query DropdownSearchAllRoomsQuery($filter: RoomFilter) {
+    rooms(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+const DropdownSearchAllRacksQuery = graphql`
+  query DropdownSearchAllRacksQuery($filter: RackFilter) {
+    racks(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -312,6 +338,14 @@ class DropdownSearch extends React.Component {
       case 'logicals':
         queryModel.query = DropdownSearchLogicalQuery;
         break;
+      case 'rooms':
+      case 'Room':
+        queryModel.query = DropdownSearchAllRoomsQuery;
+        break;
+      case 'racks':
+      case 'Rack':
+        queryModel.query = DropdownSearchAllRacksQuery;
+        break;
       default:
         queryModel.query = DropdownSearchAllContactsQuery;
         break;
@@ -346,7 +380,7 @@ class DropdownSearch extends React.Component {
       }
     }
 
-    if (filter.length > MIN_CHAR_TO_FIND) {
+    if (filter.length >= MIN_CHAR_TO_FIND) {
       this.setState({ filterValue: filter, allItems: this.LOADING_VALUE });
       fetchQuery(environment, query, variables).then((data) => {
         let newData = data[modelName].edges.map((edge) => edge.node);

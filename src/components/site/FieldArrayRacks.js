@@ -1,11 +1,11 @@
 import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 import { withTranslation } from 'react-i18next';
 
-class FieldArrayRooms extends _BasicFieldArrayParentClass {
+class FieldArrayRacks extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
     this.styleModifier = '';
-    this.FIELD_NAME_IN_FORM = 'rooms';
+    this.FIELD_NAME_IN_FORM = 'racks';
     this.HEADER_TEXTS = props.headerConfig || {
       summary: [
         {
@@ -17,10 +17,6 @@ class FieldArrayRooms extends _BasicFieldArrayParentClass {
         {
           text: 'general-forms/name',
           fieldKey: 'name',
-        },
-        {
-          text: 'general-forms/floor',
-          fieldKey: 'floor',
         },
         {
           text: 'general-forms/equipments',
@@ -35,10 +31,10 @@ class FieldArrayRooms extends _BasicFieldArrayParentClass {
       label: null,
       type: null,
       name: null,
-      entityMandatory: 'Room',
+      entityMandatory: 'Rack',
     };
-    this.MODEL_TO_SEARCH = 'rooms';
+    this.MODEL_TO_SEARCH = 'racks';
   }
 }
 
-export default withTranslation()(FieldArrayRooms);
+export default withTranslation()(FieldArrayRacks);

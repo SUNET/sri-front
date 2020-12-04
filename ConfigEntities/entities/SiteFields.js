@@ -9,11 +9,15 @@ const SITE_HAS = [
     onSentences: [
       {
         entity: 'Room',
-        subFields: [{ type: FIELD_TYPES.SINGLE, name: 'floor' }, ...COMMON_FIELDS.LOCATED_IN_BLOCK],
+        subFields: [
+          { type: FIELD_TYPES.SINGLE, name: 'floor' },
+          ...COMMON_FIELDS.LOCATED_IN_BLOCK,
+          { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
+        ],
       },
       {
         entity: 'Rack',
-        subFields: [...COMMON_FIELDS.LOCATED_IN_BLOCK],
+        subFields: [...COMMON_FIELDS.LOCATED_IN_BLOCK, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
       },
     ],
   },

@@ -188,7 +188,6 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   disabledNewEntityCreation() {
-    console.log('this.ENTITIES_WITHOUT_NEW_MODAL: ', this.ENTITIES_WITHOUT_NEW_MODAL);
     if (!this.ENTITIES_WITHOUT_NEW_MODAL) {
       return false;
     }

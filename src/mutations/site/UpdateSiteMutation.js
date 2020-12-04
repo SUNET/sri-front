@@ -7,6 +7,8 @@ import environment from '../../createRelayEnvironment';
 
 import { formatAddresses } from '../MutationsUtils';
 
+import { generateSubInputs } from '../MutationsUtils';
+
 import {
   generateLocatedIn,
   generateLocatedInToUnlink,
@@ -34,6 +36,8 @@ export default function UpdateSiteMutation(site, form) {
   const physicalToAdd = generateLocatedIn(site);
   const physicalToUnlink = generateLocatedInToUnlink(site);
   const physicalToRemove = generateLocatedInToRemove(site);
+  const roomsToMutation = generateSubInputs(site.rooms, null, null);
+  const racksToMutation = generateSubInputs(site.racks, null, null);
   const variables = {
     input: {
       update_input: {
@@ -53,9 +57,13 @@ export default function UpdateSiteMutation(site, form) {
       create_subinputs: formattedAddresses.toCreate,
       update_subinputs: formattedAddresses.toUpdate,
       delete_subinputs: formattedAddresses.toDelete,
-      unlink_subinputs: [...physicalToUnlink],
+      unlink_subinputs: [...physicalToUnlink, ...roomsToMutation.toUnlink, ...racksToMutation.toUnlink],
       ...physicalToAdd,
       ...physicalToRemove,
+      update_has_room: roomsToMutation.toUpdate,
+      deleted_has_room: roomsToMutation.toDelete,
+      update_has_rack: racksToMutation.toUpdate,
+      deleted_has_rack: racksToMutation.toDelete,
     },
   };
   commitMutation(environment, {

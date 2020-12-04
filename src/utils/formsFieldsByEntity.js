@@ -290,8 +290,8 @@ const rack = {
     create: 'createRack',
     update: 'updateRack',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'locationsDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'height' },
@@ -310,8 +310,8 @@ const room = {
     create: 'createRoom',
     update: 'updateRoom',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'locationsDetails'],
   fields: [
     ...BASIC_INFO,
     {
@@ -326,8 +326,8 @@ const site = {
     create: 'createSite',
     update: 'updateSite',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'locationsDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
