@@ -9,6 +9,7 @@ const RACK_COMMON_FIELDS = [
   { type: FIELD_TYPES.SINGLE, name: 'width' },
   { type: FIELD_TYPES.SINGLE, name: 'depth' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
+  ...COMMON_FIELDS.LOCATED_IN_BLOCK,
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
 ];

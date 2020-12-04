@@ -290,14 +290,18 @@ const rack = {
     create: 'createRack',
     update: 'updateRack',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'height' },
     { type: FIELD_TYPES.SINGLE, name: 'width' },
     { type: FIELD_TYPES.SINGLE, name: 'depth' },
     { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
+    {
+      type: FIELD_TYPES.ARRAY_LIST,
+      name: 'located_in',
+    },
   ],
 };
 
@@ -306,9 +310,15 @@ const room = {
     create: 'createRoom',
     update: 'updateRoom',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
-  fields: [...BASIC_INFO],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails'],
+  fields: [
+    ...BASIC_INFO,
+    {
+      type: FIELD_TYPES.ARRAY_LIST,
+      name: 'located_in',
+    },
+  ],
 };
 
 const site = {
@@ -316,8 +326,8 @@ const site = {
     create: 'createSite',
     update: 'updateSite',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
@@ -332,6 +342,13 @@ const site = {
     { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
     { type: FIELD_TYPES.SINGLE, name: 'country' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'addresses' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'has' },
+    {
+      type: FIELD_TYPES.ARRAY_LIST,
+      name: 'located_in',
+    },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'rooms' }, // custom field
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'racks' }, // custom field
   ],
 };
 

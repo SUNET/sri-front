@@ -67,7 +67,6 @@ const mutation = graphql`
 `;
 
 export default function UpdateRouterMutation(router, form) {
-  console.log('router: ', router);
   const ports = generatePortForInput(router.ports);
 
   const dependentsToAdd = formatDependenciesToUpdate(

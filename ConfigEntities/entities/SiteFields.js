@@ -1,6 +1,24 @@
 const FIELD_TYPES = require('../FieldsTypes');
 const COMMON_FIELDS = require('../CommonFields');
 
+const SITE_HAS = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'has',
+    subFields: [...COMMON_FIELDS.BASIC_INFO],
+    onSentences: [
+      {
+        entity: 'Room',
+        subFields: [{ type: FIELD_TYPES.SINGLE, name: 'floor' }, ...COMMON_FIELDS.LOCATED_IN_BLOCK],
+      },
+      {
+        entity: 'Rack',
+        subFields: [...COMMON_FIELDS.LOCATED_IN_BLOCK],
+      },
+    ],
+  },
+];
+
 const SITE_COMMON_FIELDS = [
   ...COMMON_FIELDS.BASIC_INFO,
   { type: FIELD_TYPES.SINGLE, name: 'country' },
@@ -13,6 +31,8 @@ const SITE_COMMON_FIELDS = [
   { type: FIELD_TYPES.SINGLE, name: 'url' },
   { type: FIELD_TYPES.SINGLE, name: 'telenor_subscription_id' },
   { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
+  ...COMMON_FIELDS.LOCATED_IN_BLOCK,
+  ...SITE_HAS,
   ...COMMON_FIELDS.ADDRESSES_LIST,
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,

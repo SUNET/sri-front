@@ -141,6 +141,14 @@ const ADDRESSES_LIST = [
   },
 ];
 
+const LOCATED_IN_BLOCK = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'located_in',
+    subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
+  },
+];
+
 module.exports = {
   COMMENTS_FIELDS,
   USER_CREATOR_MODIFIER_FIELDS,
@@ -151,4 +159,5 @@ module.exports = {
   RELATION_GROUP_INFO,
   RACK_INFO,
   ADDRESSES_LIST,
+  LOCATED_IN_BLOCK,
 };

@@ -5,6 +5,12 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import {
+  generateLocatedIn,
+  generateLocatedInToUnlink,
+  generateLocatedInToRemove,
+} from '../locationsMutationsCommon/GenerateLocatedInMutation';
+
 const mutation = graphql`
   mutation UpdateRoomMutation($input: CompositeRoomMutationInput!) {
     composite_room(input: $input) {
@@ -22,6 +28,9 @@ const mutation = graphql`
 `;
 
 export default function UpdateRoomMutation(room, form) {
+  const physicalToAdd = generateLocatedIn(room);
+  const physicalToUnlink = generateLocatedInToUnlink(room);
+  const physicalToRemove = generateLocatedInToRemove(room);
   const variables = {
     input: {
       update_input: {
@@ -29,6 +38,9 @@ export default function UpdateRoomMutation(room, form) {
         name: room.name,
         description: room.description,
       },
+      unlink_subinputs: [...physicalToUnlink],
+      ...physicalToAdd,
+      ...physicalToRemove,
     },
   };
   commitMutation(environment, {

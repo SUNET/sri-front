@@ -9,6 +9,8 @@ import FieldInput from '../FieldInput';
 import renderFormBlockSection from '../common/BlockSection';
 import { isBrowser } from 'react-device-detect';
 
+import { renderEquipmentsToggleSection } from '../common/formsSections/LocatedInToggleSection';
+
 class _RackFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
   IS_UPDATED_FORM = false;
@@ -22,6 +24,17 @@ class _RackFormParentClass extends _BasicFormParentClass {
       this.props.hideModalConfirm();
       this.updateMutation(this.entityDataToUpdate, this);
     }
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'located_in') {
+        this.handleSelectedLocatedIn(selectionData, methodName);
+      }
+      return false;
+    }
     return true;
   }
 
@@ -29,6 +42,7 @@ class _RackFormParentClass extends _BasicFormParentClass {
     return (
       <>
         {this.renderDimensionsToggleSection(editMode)}
+        {renderEquipmentsToggleSection(editMode, this)}
         {this.renderWorkLog()}
       </>
     );

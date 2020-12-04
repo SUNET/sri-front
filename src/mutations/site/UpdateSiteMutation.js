@@ -7,6 +7,12 @@ import environment from '../../createRelayEnvironment';
 
 import { formatAddresses } from '../MutationsUtils';
 
+import {
+  generateLocatedIn,
+  generateLocatedInToUnlink,
+  generateLocatedInToRemove,
+} from '../locationsMutationsCommon/GenerateLocatedInMutation';
+
 const mutation = graphql`
   mutation UpdateSiteMutation($input: CompositeSiteMutationInput!) {
     composite_site(input: $input) {
@@ -25,6 +31,9 @@ const mutation = graphql`
 
 export default function UpdateSiteMutation(site, form) {
   const formattedAddresses = formatAddresses(site.addresses);
+  const physicalToAdd = generateLocatedIn(site);
+  const physicalToUnlink = generateLocatedInToUnlink(site);
+  const physicalToRemove = generateLocatedInToRemove(site);
   const variables = {
     input: {
       update_input: {
@@ -44,9 +53,11 @@ export default function UpdateSiteMutation(site, form) {
       create_subinputs: formattedAddresses.toCreate,
       update_subinputs: formattedAddresses.toUpdate,
       delete_subinputs: formattedAddresses.toDelete,
+      unlink_subinputs: [...physicalToUnlink],
+      ...physicalToAdd,
+      ...physicalToRemove,
     },
   };
-  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

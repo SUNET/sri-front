@@ -1,5 +1,5 @@
 import React from 'react';
-import { arrayPush, FieldArray, Field, change } from 'redux-form';
+import { FieldArray, Field, change } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import { Form } from 'react-bootstrap';
@@ -10,6 +10,10 @@ import FieldArrayAddressOrganization from '../organization/FieldArrayAddressOrga
 // const
 import { isBrowser } from 'react-device-detect';
 import renderFormBlockSection from '../common/BlockSection';
+
+import FieldArrayRooms from './FieldArrayRooms';
+
+import { renderEquipmentsToggleSection } from '../common/formsSections/LocatedInToggleSection';
 
 class _SiteFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -24,6 +28,17 @@ class _SiteFormParentClass extends _BasicFormParentClass {
       this.props.hideModalConfirm();
       this.updateMutation(this.entityDataToUpdate, this);
     }
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'located_in') {
+        this.handleSelectedLocatedIn(selectionData, methodName);
+      }
+      return false;
+    }
     return true;
   }
 
@@ -34,6 +49,8 @@ class _SiteFormParentClass extends _BasicFormParentClass {
         {this.renderAddressToggleSection(editMode)}
         {this.renderAddressListToggleSection(editMode)}
         {this.renderOwnerToggleSection(editMode)}
+        {this.renderRoomsToggleSection(editMode)}
+        {renderEquipmentsToggleSection(editMode, this)}
         {this.renderWorkLog()}
       </>
     );
@@ -282,6 +299,47 @@ class _SiteFormParentClass extends _BasicFormParentClass {
               errors={this.props.formSyncErrors.addresses}
               metaFields={this.props.fields}
               rerenderOnEveryChange
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderRoomsToggleSection(editMode) {
+    const { t, entityRemovedId, racks, rooms } = this.props;
+    const componentClassName = 'rooms-list-block';
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/routers-used-by')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="rooms"
+              component={FieldArrayRooms}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.located_in}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'room' });
+                this.props.showModalCreateForm('Room');
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'rooms' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'rooms' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection) => {
+                // this.handleSelectedIsUsed(selection);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'rooms' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>
