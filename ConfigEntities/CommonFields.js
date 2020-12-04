@@ -76,10 +76,7 @@ const PORT_LIST = [
     type: FIELD_TYPES.ARRAY_LIST,
     name: 'ports',
     subFields: [
-      { type: FIELD_TYPES.SINGLE, name: '__typename' },
-      { type: FIELD_TYPES.SINGLE, name: 'id' },
-      { type: FIELD_TYPES.SINGLE, name: 'name' },
-      { type: FIELD_TYPES.SINGLE, name: 'description' },
+      ...BASIC_INFO,
       { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
       { type: FIELD_TYPES.OBJECT, name: 'port_type', alias: 'type' },
       {
@@ -127,6 +124,31 @@ const PORT_LIST = [
   },
 ];
 
+const ADDRESSES_LIST = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'addresses',
+    subFields: [
+      ...BASIC_INFO,
+      { name: 'phone', type: FIELD_TYPES.SINGLE },
+      { name: 'street', type: FIELD_TYPES.SINGLE },
+      { name: 'floor', type: FIELD_TYPES.SINGLE },
+      { name: 'room', type: FIELD_TYPES.SINGLE },
+      { name: 'postal_code', type: FIELD_TYPES.SINGLE },
+      { name: 'postal_area', type: FIELD_TYPES.SINGLE },
+      { type: FIELD_TYPES.SINGLE, name: 'id', alias: 'key' },
+    ],
+  },
+];
+
+const LOCATED_IN_BLOCK = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'located_in',
+    subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
+  },
+];
+
 module.exports = {
   COMMENTS_FIELDS,
   USER_CREATOR_MODIFIER_FIELDS,
@@ -136,4 +158,6 @@ module.exports = {
   BASIC_OPERATIVE_SYSTEM,
   RELATION_GROUP_INFO,
   RACK_INFO,
+  ADDRESSES_LIST,
+  LOCATED_IN_BLOCK,
 };

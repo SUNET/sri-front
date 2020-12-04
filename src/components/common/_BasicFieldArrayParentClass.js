@@ -187,6 +187,16 @@ class _BasicFieldArrayParentClass extends React.Component {
     return this.props.disabledFilters || (this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false);
   }
 
+  disabledNewEntityCreation() {
+    if (!this.ENTITIES_WITHOUT_NEW_MODAL) {
+      return false;
+    }
+    const isAEntityWithoutCreationModal = this.ENTITIES_WITHOUT_NEW_MODAL.some(
+      (e) => e === this.state.currentPreFilterModel,
+    );
+    return isAEntityWithoutCreationModal;
+  }
+
   // common Renders
   renderModal() {
     const { t } = this.props;
@@ -494,7 +504,7 @@ class _BasicFieldArrayParentClass extends React.Component {
       <button
         type="button"
         className="contact-in-organization__footer__add btn btn-add outline"
-        disabled={this.isDisabledFilters()}
+        disabled={this.isDisabledFilters() || this.disabledNewEntityCreation()}
         onClick={(e) => this.showCreateForm()}
       >
         {t('actions/add-new')}

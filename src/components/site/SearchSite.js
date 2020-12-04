@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import SiteList from '../../containers/site/SiteList';
 import SiteDetailsContainer from '../../containers/site/SiteDetails';
-import CreateSite from './CreateSite';
+import CreateSite from './CreateSiteRoute/CreateSiteRoute';
 // Constants
 
 class SearchSite extends _SearchEntityParentClass {

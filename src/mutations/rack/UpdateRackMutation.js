@@ -5,6 +5,12 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import {
+  generateLocatedIn,
+  generateLocatedInToUnlink,
+  generateLocatedInToRemove,
+} from '../locationsMutationsCommon/GenerateLocatedInMutation';
+
 const mutation = graphql`
   mutation UpdateRackMutation($input: CompositeRackMutationInput!) {
     composite_rack(input: $input) {
@@ -22,6 +28,9 @@ const mutation = graphql`
 `;
 
 export default function UpdateRackMutation(rack, form) {
+  const physicalToAdd = generateLocatedIn(rack);
+  const physicalToUnlink = generateLocatedInToUnlink(rack);
+  const physicalToRemove = generateLocatedInToRemove(rack);
   const variables = {
     input: {
       update_input: {
@@ -32,6 +41,9 @@ export default function UpdateRackMutation(rack, form) {
         depth: rack.depth,
         rack_units: rack.rack_units,
       },
+      unlink_subinputs: [...physicalToUnlink],
+      ...physicalToAdd,
+      ...physicalToRemove,
     },
   };
   commitMutation(environment, {

@@ -14,10 +14,9 @@ const mapStateToProps = (state, props) => {
   const serviceWithUsers = {
     ...service,
     ...{ users },
-    ...{ currentClass: getClassByName(service.service_class.name) },
   };
   const mappedStateToProps = getUpdateProps(ENTITY_NAME, { ...props, service: serviceWithUsers }, state);
-  return mappedStateToProps;
+  return { ...mappedStateToProps, ...{ currentClass: getClassByName(service.service_class.name) } };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
