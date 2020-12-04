@@ -9,7 +9,7 @@ import FieldInput from '../FieldInput';
 import renderFormBlockSection from '../common/BlockSection';
 import { isBrowser } from 'react-device-detect';
 
-import { renderEquipmentsToggleSection } from '../common/formsSections/LocatedInToggleSection';
+import { renderEquipmentsToggleSection, handleSelectedPhysical } from '../common/formsSections/LocatedInToggleSection';
 
 class _RackFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -31,7 +31,12 @@ class _RackFormParentClass extends _BasicFormParentClass {
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'located_in') {
-        this.handleSelectedLocatedIn(selectionData, methodName);
+        handleSelectedPhysical({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
       }
       return false;
     }

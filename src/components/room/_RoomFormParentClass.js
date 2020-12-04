@@ -2,7 +2,7 @@ import React from 'react';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 // const
-import { renderEquipmentsToggleSection } from '../common/formsSections/LocatedInToggleSection';
+import { renderEquipmentsToggleSection, handleSelectedPhysical } from '../common/formsSections/LocatedInToggleSection';
 
 class _RoomFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -24,7 +24,12 @@ class _RoomFormParentClass extends _BasicFormParentClass {
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'located_in') {
-        this.handleSelectedLocatedIn(selectionData, methodName);
+        handleSelectedPhysical({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
       }
       return false;
     }

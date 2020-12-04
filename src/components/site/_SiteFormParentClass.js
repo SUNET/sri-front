@@ -13,7 +13,7 @@ import renderFormBlockSection from '../common/BlockSection';
 
 import FieldArrayRooms from './FieldArrayRooms';
 
-import { renderEquipmentsToggleSection } from '../common/formsSections/LocatedInToggleSection';
+import { renderEquipmentsToggleSection, handleSelectedPhysical } from '../common/formsSections/LocatedInToggleSection';
 
 class _SiteFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -35,7 +35,12 @@ class _SiteFormParentClass extends _BasicFormParentClass {
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'located_in') {
-        this.handleSelectedLocatedIn(selectionData, methodName);
+        handleSelectedPhysical({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
       }
       return false;
     }
@@ -336,7 +341,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={(selection) => {
-                // this.handleSelectedIsUsed(selection);
+                this.handleSelectedRoom(selection);
               }}
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'rooms' ? entityRemovedId : null}
