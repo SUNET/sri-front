@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import RoomList from '../../containers/room/RoomList';
 import RoomDetailsContainer from '../../containers/room/RoomDetails';
-import CreateRoom from './CreateRoom';
+import CreateRoom from './CreateRoomRoute/CreateRoomRoute';
 // Constants
 
 class SearchRoom extends _SearchEntityParentClass {

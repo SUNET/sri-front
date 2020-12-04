@@ -303,6 +303,7 @@
             "general-forms/owner-site-name": "Owner Site ID",
             "general-forms/telenor-subs-id": "Telenor Subscription ID",
             "general-forms/addresses": "Addresses",
+            "general-forms/equipments": "Equipments",
             "Comment --DELETE--": "******************************** [FIN] GENERAL FORMS ****************************************",
             "Comment --DELETE--": "******************************** FILTERS ****************************************",
             "paginator.load_more": "Load More",

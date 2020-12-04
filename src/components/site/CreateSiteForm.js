@@ -2,7 +2,6 @@ import _SiteFormParentClass from './_SiteFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateMutation from '../../mutations/site/CreateSiteMutation';
 import ValidationsSiteForm from '../common/_BasicValidationForm';
@@ -42,4 +41,4 @@ CreateSiteForm = reduxForm({
   },
 })(CreateSiteForm);
 
-export default withTranslation()(withRouter(CreateSiteForm));
+export default withTranslation()(CreateSiteForm);

@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import RackList from '../../containers/rack/RackList';
 import RackDetailsContainer from '../../containers/rack/RackDetails';
-import CreateRack from './CreateRack';
+import CreateRack from './CreateRackRoute/CreateRackRoute';
 // Constants
 
 class SearchRack extends _SearchEntityParentClass {

@@ -2,7 +2,6 @@ import _RackFormParentClass from './_RackFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateMutation from '../../mutations/rack/CreateRackMutation';
 import ValidationsRackForm from '../common/_BasicValidationForm';
@@ -42,4 +41,4 @@ CreateRackForm = reduxForm({
   },
 })(CreateRackForm);
 
-export default withTranslation()(withRouter(CreateRackForm));
+export default withTranslation()(CreateRackForm);

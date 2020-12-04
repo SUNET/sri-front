@@ -2,7 +2,6 @@ import _RoomFormParentClass from './_RoomFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateMutation from '../../mutations/room/CreateRoomMutation';
 import ValidationsRoomForm from '../common/_BasicValidationForm';
@@ -42,4 +41,4 @@ CreateRoomForm = reduxForm({
   },
 })(CreateRoomForm);
 
-export default withTranslation()(withRouter(CreateRoomForm));
+export default withTranslation()(CreateRoomForm);
