@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import OpticalMultiplexSectionList from '../../containers/opticalMultiplexSection/OpticalMultiplexSectionList';
 import OpticalMultiplexSectionDetailsContainer from '../../containers/opticalMultiplexSection/OpticalMultiplexSectionDetails';
-import CreateOpticalMultiplexSection from './CreateOpticalMultiplexSection';
+import CreateOpticalMultiplexSection from './CreateOpticalMultiplexSectionRoute/CreateOpticalMultiplexSectionRoute';
 // Constants
 
 class SearchOpticalMultiplexSection extends _SearchEntityParentClass {

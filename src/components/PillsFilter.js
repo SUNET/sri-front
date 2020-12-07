@@ -27,7 +27,7 @@ function getQueryByModel(type) {
   return QUERIES_BY_TYPE[type] ? QUERIES_BY_TYPE[type] : QUERIES_BY_TYPE['default'];
 }
 
-const Pills = ({ optionsList, onChange }) => {
+export const Pills = ({ optionsList, onChange }) => {
   const [selectedPill, setSelectedPill] = useState(optionsList[0]);
   return (
     <div className="pills">

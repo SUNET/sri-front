@@ -5,6 +5,8 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { generateRackParentSubInputs } from '../MutationsUtils';
+
 import {
   generateLocatedIn,
   generateLocatedInToUnlink,
@@ -31,6 +33,7 @@ export default function UpdateRackMutation(rack, form) {
   const physicalToAdd = generateLocatedIn(rack);
   const physicalToUnlink = generateLocatedInToUnlink(rack);
   const physicalToRemove = generateLocatedInToRemove(rack);
+  const parentToMutation = generateRackParentSubInputs(rack.parent);
   const variables = {
     input: {
       update_input: {
@@ -41,9 +44,13 @@ export default function UpdateRackMutation(rack, form) {
         depth: rack.depth,
         rack_units: rack.rack_units,
       },
-      unlink_subinputs: [...physicalToUnlink],
+      unlink_subinputs: [...physicalToUnlink, ...parentToMutation.toUnlink],
       ...physicalToAdd,
       ...physicalToRemove,
+      update_parent_site: parentToMutation.siteToUpdate,
+      update_parent_room: parentToMutation.roomToUpdate,
+      deleted_parent_site: parentToMutation.siteToDelete,
+      deleted_parent_room: parentToMutation.roomToDelete,
     },
   };
   commitMutation(environment, {

@@ -100,6 +100,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
       const selectionData = {
         id: nextProps.entitySavedId,
       };
+      const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'ports') {
         handleSelectedPort({
           selection: selectionData,
@@ -107,17 +108,19 @@ class _RouterFormParentClass extends _BasicFormParentClass {
           form: this.props.form,
           dispatch: this.props.dispatch,
         });
+      } else if (fieldModalOpened === 'dependents') {
+        this.handleSelectedIsUsed(selectionData, methodName);
       }
       return false;
     }
     return true;
   }
 
-  async handleSelectedIsUsed(selection) {
+  async handleSelectedIsUsed(selection, methodName) {
     const { dispatch, form } = this.props;
     if (selection) {
-      const { id, __typename } = selection;
-      const newEntity = await this.getSelectedLogical(id, this.props[`get${__typename}ById`]);
+      const { id } = selection;
+      const newEntity = await this.getSelectedLogical(id, this.props[methodName]);
       if (newEntity) dispatch(arrayPush(form, 'dependents', newEntity));
     }
     return null;
@@ -221,6 +224,10 @@ class _RouterFormParentClass extends _BasicFormParentClass {
               dispatch={this.props.dispatch}
               errors={this.props.formSyncErrors.parents}
               metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
                 this.setState({ fieldModalOpened: 'dependents' });
                 this.props.showModalEditForm(typeEntityToShowForm, entityId);
@@ -229,8 +236,8 @@ class _RouterFormParentClass extends _BasicFormParentClass {
                 this.setState({ fieldModalOpened: 'dependents' });
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
-              handleSearchResult={(selection) => {
-                this.handleSelectedIsUsed(selection);
+              handleSearchResult={(selection, typeOfSelection) => {
+                this.handleSelectedIsUsed(selection, `get${typeOfSelection}ById`);
               }}
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}

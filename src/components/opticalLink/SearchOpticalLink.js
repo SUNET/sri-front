@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import OpticalLinkList from '../../containers/opticalLink/OpticalLinkList';
 import OpticalLinkDetailsContainer from '../../containers/opticalLink/OpticalLinkDetails';
-import CreateOpticalLink from './CreateOpticalLink';
+import CreateOpticalLink from './CreateOpticalLinkRoute/CreateOpticalLinkRoute';
 // Constants
 
 class SearchOpticalLink extends _SearchEntityParentClass {

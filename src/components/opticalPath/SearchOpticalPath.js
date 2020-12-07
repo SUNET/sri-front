@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import OpticalPathList from '../../containers/opticalPath/OpticalPathList';
 import OpticalPathDetailsContainer from '../../containers/opticalPath/OpticalPathDetails';
-import CreateOpticalPath from './CreateOpticalPath';
+import CreateOpticalPath from './CreateOpticalPathRoute/CreateOpticalPathRoute';
 // Constants
 
 class SearchOpticalPath extends _SearchEntityParentClass {

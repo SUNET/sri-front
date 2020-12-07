@@ -202,4 +202,29 @@ export const formatAddresses = (addresses) => {
   return result;
 };
 
+export const generateRackParentSubInputs = (parent) => {
+  const dataToMutation = {
+    siteToUpdate: null,
+    roomToUpdate: null,
+    siteToDelete: null,
+    roomToDelete: null,
+    toUnlink: [],
+  };
+  if (!parent) return dataToMutation;
+
+  const parentSite = parent.filter((loc) => loc.__typename === 'Site');
+  const parentRoom = parent.filter((loc) => loc.__typename === 'Room');
+
+  const siteToMutation = generateSubInputs(parentSite);
+  const roomToMutation = generateSubInputs(parentRoom);
+
+  return {
+    siteToUpdate: siteToMutation.toUpdate.length > 0 ? siteToMutation.toUpdate[0] : null,
+    roomToUpdate: roomToMutation.toUpdate.length > 0 ? roomToMutation.toUpdate[0] : null,
+    siteToDelete: siteToMutation.toDelete.length > 0 ? siteToMutation.toDelete[0] : null,
+    roomToDelete: roomToMutation.toDelete.length > 0 ? roomToMutation.toDelete[0] : null,
+    toUnlink: [...siteToMutation.toUnlink, ...roomToMutation.toUnlink],
+  };
+};
+
 export default {};

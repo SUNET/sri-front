@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import ServiceList from '../../containers/service/ServiceList';
 import ServiceDetailsContainer from '../../containers/service/ServiceDetails';
-import CreateService from './CreateService';
+import CreateService from './CreateServiceRoute/CreateServiceRoute';
 
 import { isEmpty } from '../../utils';
 

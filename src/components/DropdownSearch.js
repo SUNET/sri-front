@@ -235,6 +235,21 @@ const DropdownSearchLogicalQuery = graphql`
   }
 `;
 
+const DropdownSearchLocationsQuery = graphql`
+  query DropdownSearchLocationsQuery($filter: MetatypeFilter) {
+    locations(filter: $filter) {
+      __typename
+      edges {
+        node {
+          __typename
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 const DropdownSearchAllSitesQuery = graphql`
   query DropdownSearchAllSitesQuery($filter: SiteFilter) {
     sites(filter: $filter) {
@@ -351,6 +366,9 @@ class DropdownSearch extends React.Component {
       case 'logicals':
         queryModel.query = DropdownSearchLogicalQuery;
         break;
+      case 'locations':
+        queryModel.query = DropdownSearchLocationsQuery;
+        break;
       case 'rooms':
       case 'Room':
         queryModel.query = DropdownSearchAllRoomsQuery;
@@ -378,7 +396,7 @@ class DropdownSearch extends React.Component {
     };
     if (model === 'ports-type-head') {
       variables.filter.query = filter;
-    } else if (model === 'logicals') {
+    } else if (model === 'logicals' || model === 'locations') {
       variables.filter = {
         name_contains: filter,
         type_in: entityTypeFilter,
