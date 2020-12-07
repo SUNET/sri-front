@@ -114,6 +114,7 @@
             "entity-add/optical-filters": "Add Optical Filter",
             "entity-modify/optical-filters": "Modify Optical Filter",
             "entity-add-new/optical-filters": "Add new Optical Filter",
+            "entity-notify-create/optical-filters": "Optical Filter created successfully",
             "main-entity-name/optical-multiplex-sections": "Optical Multiplex Sections",
             "entity-add/optical-multiplex-sections": "Add Optical Multiplex Section",
             "entity-modify/optical-multiplex-sections": "Modify Optical Multiplex Section",

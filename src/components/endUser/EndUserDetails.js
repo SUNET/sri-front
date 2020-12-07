@@ -12,7 +12,7 @@ class EndUserDetails extends _BasicDetailsParentClass {
   classDetails = 'endUser-details';
 
   handleDelete = () => {
-    DeleteEndUserMutation(this.getId(), () => this.props.history.push(`/network/endUsers`));
+    DeleteEndUserMutation(this.getId(), () => this.props.history.push(`/network/end-users`));
   };
 }
 

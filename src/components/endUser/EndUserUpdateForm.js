@@ -15,7 +15,7 @@ class EndUserUpdateForm extends _BasicFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_ENDUSER_FORM;
   MODEL_NAME = 'endUser';
-  ROUTE_LIST_DIRECTION = '/network/endUsers';
+  ROUTE_LIST_DIRECTION = '/network/end-users';
   constructor(props) {
     super(props);
     this.state = {

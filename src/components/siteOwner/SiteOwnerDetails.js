@@ -12,7 +12,7 @@ class SiteOwnerDetails extends _BasicDetailsParentClass {
   classDetails = 'siteOwner-details';
 
   handleDelete = () => {
-    DeleteSiteOwnerMutation(this.getId(), () => this.props.history.push(`/network/siteOwners`));
+    DeleteSiteOwnerMutation(this.getId(), () => this.props.history.push(`/network/site-owners`));
   };
 }
 
