@@ -1,13 +1,15 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, FieldArray, arrayPush } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import { Form } from 'react-bootstrap';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
+import FieldArrayLocationRack from '../common/FieldArrayLocationRack';
 // const
 import renderFormBlockSection from '../common/BlockSection';
 import { isBrowser } from 'react-device-detect';
+import { SAVED } from '../../utils/constants';
 
 import { renderEquipmentsToggleSection, handleSelectedPhysical } from '../common/formsSections/LocatedInToggleSection';
 
@@ -43,11 +45,27 @@ class _RackFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
+  handleSelectedLocation = (selection, methodName) => {
+    if (selection !== null && selection.id) {
+      this.props[methodName](selection.id).then((entity) => {
+        const newEntity = {
+          type: entity.type,
+          __typename: entity.__typename,
+          name: entity.name,
+          id: entity.id,
+          status: 'saved',
+        };
+        this.props.dispatch(arrayPush(this.props.form, 'parent', newEntity));
+      });
+    }
+  };
+
   renderSections(editMode) {
     return (
       <>
         {this.renderDimensionsToggleSection(editMode)}
         {renderEquipmentsToggleSection(editMode, this)}
+        {this.renderLocationRackToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
     );
@@ -133,6 +151,49 @@ class _RackFormParentClass extends _BasicFormParentClass {
                 })}
               </div>
             </div>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderLocationRackToggleSection(editMode = true) {
+    const componentClassName = 'location-block';
+    const { t, entityRemovedId, parent } = this.props;
+    const haveSomeParent = parent && parent.length > 0 && parent[0].status === SAVED;
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/location')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="parent"
+              component={FieldArrayLocationRack}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'parent' });
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'parent' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'parent' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection, typeOfSelection) => {
+                this.handleSelectedLocation(selection, `get${typeOfSelection}ById`);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'parent' ? entityRemovedId : null}
+              disabledFilters={haveSomeParent}
+            />
           </TogglePanel>
         </ToggleSection>
       </section>

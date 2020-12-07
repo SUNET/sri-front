@@ -2,19 +2,18 @@ import React from 'react';
 import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 // Common imports
 import { withTranslation } from 'react-i18next';
-import PillsFilter from '../PillsFilter';
+import { Pills } from '../PillsFilter';
 
 import DropdownSearch from '../DropdownSearch';
 import { SAVED } from '../../utils/constants';
 
-class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
-  ENTITIES_WITHOUT_MODAL = ['Service', 'OpticalPath', 'OpticalMultiplexSection', 'OpticalLink', 'Unit'];
+class FieldArrayLocationRack extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
     this.state = {
       currentPreFilterModel: 'All',
     };
-    this.FIELD_NAME_IN_FORM = 'dependents';
+    this.FIELD_NAME_IN_FORM = 'parent';
     this.HEADER_TEXTS = {
       summary: [
         {
@@ -50,7 +49,30 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
 
   renderPreFilterDropDown() {
     return (
-      <PillsFilter
+      <Pills
+        optionsList={[
+          {
+            all_name: 'all',
+            byid_name: null,
+            can_create: false,
+            connection_name: null,
+            type_name: 'All',
+          },
+          {
+            all_name: 'all_rooms',
+            byid_name: 'getRoomById',
+            can_create: true,
+            connection_name: 'rooms',
+            type_name: 'Room',
+          },
+          {
+            all_name: 'all_sites',
+            byid_name: 'getSiteById',
+            can_create: true,
+            connection_name: 'sites',
+            type_name: 'Site',
+          },
+        ]}
         onChange={(optionSelected) => {
           this.setState({
             currentPreFilterModel: optionSelected ? optionSelected.type_name : null,
@@ -72,10 +94,10 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
     return (
       <DropdownSearch
         disabled={this.isDisabledFilters()}
-        model={'logicals'}
+        model={'locations'}
         entityTypeFilter={this.state.currentPreFilterModel}
         selection={(selectedElement) => {
-          this.props.handleSearchResult(selectedElement, this.state.preFilterMethod);
+          this.props.handleSearchResult(selectedElement, this.state.currentPreFilterModel);
         }}
         placeholder={`${t(`search-filter.search`)} ${this.state.currentPreFilterModel}`}
         skipElements={existingElements}
@@ -84,7 +106,7 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
   }
 
   isDisabledFilters() {
-    return this.state.currentPreFilterModel === 'All';
+    return this.props.disabledFilters || this.state.currentPreFilterModel === 'All';
   }
 
   getFilterTable() {
@@ -105,7 +127,7 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
             {editable &&
               (this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) &&
               this.renderDropDownSearch()}
-            {this.renderAddNewCTA()}
+            {editable && this.renderAddNewCTA()}
           </>
         }
       </div>
@@ -113,4 +135,4 @@ class FieldArrayRouterIsUsed extends _BasicFieldArrayParentClass {
   }
 }
 
-export default withTranslation()(FieldArrayRouterIsUsed);
+export default withTranslation()(FieldArrayLocationRack);

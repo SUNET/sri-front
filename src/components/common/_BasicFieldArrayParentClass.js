@@ -65,7 +65,7 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   getAllValues(filterObj) {
-    const allValues = this.props.fields.getAll();
+    const allValues = this.props.fields.getAll() || [];
     if (!!filterObj) {
       const [filterKey, filterValue] = Object.entries(filterObj)[0];
       return allValues.filter((v) => v[filterKey] === filterValue);

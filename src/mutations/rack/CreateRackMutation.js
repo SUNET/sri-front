@@ -5,6 +5,14 @@ import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
+import { generateRackParentSubInputs } from '../MutationsUtils';
+
+import {
+  generateLocatedIn,
+  generateLocatedInToUnlink,
+  generateLocatedInToRemove,
+} from '../locationsMutationsCommon/GenerateLocatedInMutation';
+
 const mutation = graphql`
   mutation CreateRackMutation($input: CompositeRackMutationInput!) {
     composite_rack(input: $input) {
@@ -22,6 +30,10 @@ const mutation = graphql`
 `;
 
 function CreateRackMutation(rack, form) {
+  const physicalToAdd = generateLocatedIn(rack);
+  const physicalToUnlink = generateLocatedInToUnlink(rack);
+  const physicalToRemove = generateLocatedInToRemove(rack);
+  const parentToMutation = generateRackParentSubInputs(rack.parent);
   const variables = {
     input: {
       create_input: {
@@ -31,6 +43,13 @@ function CreateRackMutation(rack, form) {
         depth: rack.depth,
         rack_units: rack.rack_units,
       },
+      unlink_subinputs: [...physicalToUnlink, ...parentToMutation.toUnlink],
+      ...physicalToAdd,
+      ...physicalToRemove,
+      update_parent_site: parentToMutation.siteToUpdate,
+      update_parent_room: parentToMutation.roomToUpdate,
+      deleted_parent_site: parentToMutation.siteToDelete,
+      deleted_parent_room: parentToMutation.roomToDelete,
     },
   };
   commitMutation(environment, {

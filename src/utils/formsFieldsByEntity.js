@@ -298,6 +298,7 @@ const rack = {
     { type: FIELD_TYPES.SINGLE, name: 'width' },
     { type: FIELD_TYPES.SINGLE, name: 'depth' },
     { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'parent' },
     {
       type: FIELD_TYPES.ARRAY_LIST,
       name: 'located_in',
