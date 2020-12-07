@@ -55,6 +55,8 @@ import RoomDetailsContainer from '../containers/room/RoomDetails';
 import CreateRackFormContainer from '../containers/rack/CreateRackForm';
 import RackDetailsContainer from '../containers/rack/RackDetails';
 
+import UnitDetailsContainer from '../containers/unit/UnitDetails';
+
 import {
   CREATE_CONTACT_FORM,
   UPDATE_CONTACT_FORM,
@@ -102,6 +104,7 @@ import {
   UPDATE_ROOM_FORM,
   CREATE_RACK_FORM,
   UPDATE_RACK_FORM,
+  UPDATE_UNIT_FORM,
 } from '../utils/constants';
 import '../style/ModalNewContact.scss';
 
@@ -303,6 +306,15 @@ class ModalNewContact extends React.Component {
           ComponentToRender: isUpdateForm ? RackDetailsContainer : CreateRackFormContainer,
           textHeader: isUpdateForm ? 'entity-modify/location-racks' : 'entity-add-new/location-racks',
           formId: isUpdateForm ? UPDATE_RACK_FORM : CREATE_RACK_FORM,
+        };
+        break;
+
+      case 'Unit':
+      case 'units':
+        entityData = {
+          ComponentToRender: isUpdateForm ? UnitDetailsContainer : null,
+          textHeader: isUpdateForm ? 'main-entity-name/unit' : null,
+          formId: isUpdateForm ? UPDATE_UNIT_FORM : null,
         };
         break;
 
