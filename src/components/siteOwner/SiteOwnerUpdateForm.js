@@ -15,7 +15,7 @@ class SiteOwnerUpdateForm extends _BasicFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_SITEOWNER_FORM;
   MODEL_NAME = 'siteOwner';
-  ROUTE_LIST_DIRECTION = '/network/siteOwners';
+  ROUTE_LIST_DIRECTION = '/network/site-owners';
   constructor(props) {
     super(props);
     this.state = {
