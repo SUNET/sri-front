@@ -25,7 +25,9 @@ class SearchRouter extends _SearchEntityParentClass {
   PATH_ENTITY_ID = 'routerId';
   DEFAULT_COLUMNS = [
     { name: 'Name', value: 'name', filter: 'order', textFilter: true },
-    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
+    { name: 'Model', value: 'model', filter: 'order', textFilter: true },
+    { name: 'JUNOS Version', value: 'junos_version', filter: null, textFilter: false },
+    { name: 'Operational State', value: 'operational_state', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchRouterAllQuery($count: Int!, $filter: RouterFilter, $orderBy: RouterOrderBy) {
@@ -42,3 +44,4 @@ class SearchRouter extends _SearchEntityParentClass {
 }
 
 export default withTranslation()(withRouter(SearchRouter));
+

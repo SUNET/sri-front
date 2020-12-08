@@ -5697,6 +5697,7 @@ type CreateServicePayload {
 
 input CreateSiteInput {
   name: String!
+  country_code: ChoiceScalar
   country: ChoiceScalar
   site_type: ChoiceScalar
   area: String
@@ -9253,6 +9254,8 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   rack_position: Int
   rack_back: Boolean
   operational_state: Choice
+  link: String
+  ots: String
 }
 
 type opticalNodeConnection {
@@ -9358,6 +9361,34 @@ input OpticalNodeNestedFilter {
   operational_state_not_ends_with: ChoiceScalar
   operational_state_in: [ChoiceScalar!]
   operational_state_not_in: [ChoiceScalar!]
+  link: String
+  link_not: String
+  link_lt: String
+  link_lte: String
+  link_gt: String
+  link_gte: String
+  link_contains: String
+  link_not_contains: String
+  link_starts_with: String
+  link_not_starts_with: String
+  link_ends_with: String
+  link_not_ends_with: String
+  link_in: [String!]
+  link_not_in: [String!]
+  ots: String
+  ots_not: String
+  ots_lt: String
+  ots_lte: String
+  ots_gt: String
+  ots_gte: String
+  ots_contains: String
+  ots_not_contains: String
+  ots_starts_with: String
+  ots_not_starts_with: String
+  ots_ends_with: String
+  ots_not_ends_with: String
+  ots_in: [String!]
+  ots_not_in: [String!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -9426,6 +9457,10 @@ enum OpticalNodeOrderBy {
   rack_position_DESC
   operational_state_ASC
   operational_state_DESC
+  link_ASC
+  link_DESC
+  ots_ASC
+  ots_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -12681,6 +12716,7 @@ type Switch implements NINode & Physical & PhysicalLogical {
   ports: [Port]
   services_locked: Boolean
   services_checked: Boolean
+  model: String
 }
 
 type switchConnection {
@@ -12866,6 +12902,20 @@ input SwitchNestedFilter {
   services_checked_gte: Boolean
   services_checked_in: [Boolean!]
   services_checked_not_in: [Boolean!]
+  model: String
+  model_not: String
+  model_lt: String
+  model_lte: String
+  model_gt: String
+  model_gte: String
+  model_contains: String
+  model_not_contains: String
+  model_starts_with: String
+  model_not_starts_with: String
+  model_ends_with: String
+  model_not_ends_with: String
+  model_in: [String!]
+  model_not_in: [String!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -12944,6 +12994,8 @@ enum SwitchOrderBy {
   rack_position_DESC
   max_number_of_ports_ASC
   max_number_of_ports_DESC
+  model_ASC
+  model_DESC
   created_ASC
   created_DESC
   modified_ASC
@@ -13681,6 +13733,7 @@ type UpdateServicePayload {
 
 input UpdateSiteInput {
   name: String!
+  country_code: ChoiceScalar
   country: ChoiceScalar
   site_type: ChoiceScalar
   area: String

@@ -25,7 +25,9 @@ class SearchFirewall extends _SearchEntityParentClass {
   PATH_ENTITY_ID = 'firewallId';
   DEFAULT_COLUMNS = [
     { name: 'Name', value: 'name', filter: 'order', textFilter: true },
-    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
+    { name: 'Model', value: 'model', filter: 'order', textFilter: true },
+    { name: 'OS Version', value: 'os_version', filter: 'order', textFilter: true },
+    { name: 'Operational State', value: 'operational_state', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`
     query SearchFirewallAllQuery($count: Int!, $filter: FirewallFilter, $orderBy: FirewallOrderBy) {

@@ -26,7 +26,10 @@ class SearchHost extends _SearchEntityParentClass {
   PATH_ENTITY_ID = 'hostId';
   DEFAULT_COLUMNS = [
     { name: 'Name', value: 'name', filter: 'order', textFilter: true },
-    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
+    { name: 'IP Addresses', value: 'ip_addresses', filter: null, textFilter: false },
+    { name: 'OS', value: 'os', filter: 'order', textFilter: true },
+    { name: 'OS Version', value: 'os_version', filter: 'order', textFilter: true },
+    { name: 'User', value: 'host_type', filter: 'order', textFilter: false },
   ];
   LIST_QUERY = graphql`
     query SearchHostAllQuery($count: Int!, $filter: HostFilter, $orderBy: HostOrderBy) {
