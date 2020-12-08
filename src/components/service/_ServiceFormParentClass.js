@@ -29,6 +29,11 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
     }
   }
 
+  backToList = () => {
+    const [, blockPath, entityPath] = this.props?.history?.location?.pathname?.split('/');
+    this.props.history.push(`/${blockPath}/${entityPath}`);
+  };
+
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
     if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {

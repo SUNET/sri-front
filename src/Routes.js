@@ -1,9 +1,12 @@
 import formattedServicesData from './components/service/serviceListData';
 
-const servicesRoutes = formattedServicesData.reduce((acc, curr) => {
-  acc[`/network/${curr.path}`] = curr.originalName;
-  return acc;
-}, {});
+const servicesRoutes = formattedServicesData.reduce(
+  (acc, curr) => {
+    acc[`/network/${curr.path}`] = curr.originalName;
+    return acc;
+  },
+  { '/network/service-all': 'ALL' },
+);
 
 const Routes = {
   '/': 'Home',
