@@ -51,7 +51,6 @@ export default function UpdateSiteMutation(site, form) {
         owner_id: site.owner_id,
         owner_site_name: site.owner_site_name,
         url: site.url,
-        telenor_subscription_id: site.telenor_subscription_id,
         relationship_responsible_for: site.site_responsible_id,
       },
       create_subinputs: formattedAddresses.toCreate,

@@ -56,7 +56,6 @@ class UnitUpdateForm extends _UnitFormParentClass {
     return (
       <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
         {this.renderHeader(editMode, showBackButton)}
-        {this.renderSubTitleInHeader()}
         {this.renderSections(editMode)}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>

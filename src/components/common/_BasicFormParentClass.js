@@ -62,14 +62,16 @@ class _BasicFormParentClass extends React.Component {
     this.props.onDelete();
   };
   onClickCancel = () => {
-    const { isFromModal, history, hideModalForm } = this.props;
+    const { isFromModal, hideModalForm } = this.props;
     if (isFromModal) {
       hideModalForm();
     } else {
-      history.push(this.ROUTE_LIST_DIRECTION);
+      this.backToList();
     }
   };
-
+  backToList = () => {
+    this.props.history.push(this.ROUTE_LIST_DIRECTION);
+  };
   // Common sections RENDERS
 
   renderSections(editMode) {
@@ -130,7 +132,7 @@ class _BasicFormParentClass extends React.Component {
     const { isFromModal } = this.props;
     return (
       <div className="title-section">
-        {showBackButton && <BackCTA onClick={() => this.props.history.push(this.ROUTE_LIST_DIRECTION)} />}
+        {showBackButton && <BackCTA onClick={() => this.backToList()} />}
         {!isFromModal && this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
         <div className="vertical-separator"></div>
         <div className={`title-section__name-inputs ${editionModeClass}`}>{this.renderInputName('name', editMode)}</div>
@@ -291,7 +293,7 @@ class _BasicFormParentClass extends React.Component {
                 </ToggleHeading>
                 <TogglePanel>
                   <FieldRelatedEntity
-                    fields={INFO_BY_ENTITIES[formattedEntityData['__typename']].fields}
+                    fieldsInfo={INFO_BY_ENTITIES[formattedEntityData['__typename']]}
                     data={formattedEntityData}
                     t={t}
                   />

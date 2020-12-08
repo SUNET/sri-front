@@ -12,7 +12,7 @@ import { renderRackToggleSection } from '../common/formsSections/RackToggleSecti
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
-
+import renderLocatedInSubTitleHeader from '../common/formsSections/LocatedInSubTitleHeader';
 
 class _OpticalNodeFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -49,6 +49,7 @@ class _OpticalNodeFormParentClass extends _BasicFormParentClass {
     const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
       <>
+        {location && renderLocatedInSubTitleHeader(t('general-forms/located-in'), location)}
         {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}

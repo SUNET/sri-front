@@ -8,7 +8,7 @@ const ENTITY_NAME = 'service';
 
 const mapStateToProps = (state, props) => {
   const mappedStateToProps = getCreateProps(ENTITY_NAME, props, state);
-  return mappedStateToProps;
+  return { ...mappedStateToProps, ...{ currentClass: props.currentClass } };
 };
 
 const mapDispatchToProps = (dispatch, props) => {

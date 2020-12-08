@@ -117,8 +117,25 @@ const FirewallUpdateFragment = createRefetchContainer(
         rack_back
         contract_number
         location {
+          __typename
           id
           name
+
+          parent {
+            __typename
+            id
+            name
+
+            parent {
+              __typename
+              id
+              name
+              id
+              name
+              description
+              __typename
+            }
+          }
         }
         owner {
           __typename

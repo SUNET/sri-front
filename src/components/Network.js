@@ -61,6 +61,21 @@ class Network extends React.Component {
             <Route path="/network/location-rooms" component={SearchRoomContainer} />
             <Route path="/network/location-sites" component={SearchSiteContainer} />
             <Route path="/network/units/" component={SearchUnitContainer} />
+            <Route
+              path="/network/service-all/"
+              render={(props) => {
+                return (
+                  <SearchServiceContainer
+                    currentClass={{
+                      id: 'all',
+                      path: `service-all`,
+                      originalName: '',
+                      i18nText: '',
+                    }}
+                  />
+                );
+              }}
+            />
             {formattedServicesData.map((service, index) => {
               return (
                 <Route

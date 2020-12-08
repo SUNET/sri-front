@@ -27,11 +27,11 @@ class ODFRow extends React.PureComponent {
   }
 
   render() {
-    let ODF = this.props.ODF;
+    let { ODF } = this.props;
     return (
       <tr onClick={(e) => this.props.onClick(e, ODF)}>
         {this.renderCellSection('name', ODF.name)}
-        {this.renderCellSection('description', ODF.description)}
+        {this.renderCellSection('location', ODF.location?.name)}
         {/* td for generate the space for the final cta */}
         <td></td>
       </tr>
@@ -44,7 +44,9 @@ const ODFRowFragment = createFragmentContainer(ODFRow, {
     fragment ODFRow_ODF on ODF {
       id
       name
-      description
+      location {
+        name
+      }
     }
   `,
 });

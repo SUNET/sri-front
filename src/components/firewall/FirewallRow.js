@@ -27,11 +27,13 @@ class FirewallRow extends React.PureComponent {
   }
 
   render() {
-    let firewall = this.props.firewall;
+    let { firewall } = this.props;
     return (
       <tr onClick={(e) => this.props.onClick(e, firewall)}>
         {this.renderCellSection('name', firewall.name)}
-        {this.renderCellSection('description', firewall.description)}
+        {this.renderCellSection('model', firewall.model)}
+        {this.renderCellSection('os_version', firewall.os_version)}
+        {this.renderCellSection('operational_state', firewall.operational_state.name)}
         {/* td for generate the space for the final cta */}
         <td></td>
       </tr>
@@ -45,6 +47,13 @@ const FirewallRowFragment = createFragmentContainer(FirewallRow, {
       id
       name
       description
+      name
+      model
+      os_version
+      operational_state {
+        name
+        value
+      }
     }
   `,
 });

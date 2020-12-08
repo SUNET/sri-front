@@ -115,7 +115,7 @@ class SubMenuActions extends React.Component {
     ...formattedServicesData.map((service) => ({
       path: `/network/${service.path}`,
       pathTo: `/network/${service.path}/create`,
-      textButton: 'entity-add',
+      textButton: 'entity-add/services',
     })),
   ];
   render() {

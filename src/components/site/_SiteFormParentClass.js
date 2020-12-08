@@ -140,7 +140,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
   }
 
   renderAddressToggleSection(editMode) {
-    const componentClassName = 'address-block';
+    const componentClassName = 'location-block';
 
     const { t, country, area, longitude, latitude } = this.props;
 
@@ -203,7 +203,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('general-forms/address')}</h2>
+            <h2>{t('general-forms/location')}</h2>
           </ToggleHeading>
           <TogglePanel>
             <div>
@@ -225,7 +225,6 @@ class _SiteFormParentClass extends _BasicFormParentClass {
       t,
       owner_id,
       owner_site_name,
-      telenor_subscription_id,
       site_responsible_obj,
       site_responsible_id,
     } = this.props;
@@ -281,20 +280,6 @@ class _SiteFormParentClass extends _BasicFormParentClass {
           </Form.Group>
         ),
       },
-      {
-        title: t('general-forms/telenor-subs-id'),
-        presentContent: telenor_subscription_id,
-        editContent: (
-          <Form.Group>
-            <Field
-              type="text"
-              name="telenor_subscription_id"
-              component={FieldInput}
-              placeholder={t('general-forms/write-id')}
-            />
-          </Form.Group>
-        ),
-      },
       this.getUrlField('url'),
     ];
     return (
@@ -329,7 +314,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection defaultEditable={false}>
           <ToggleHeading>
-            <h2>{t('general-forms/addresses')}</h2>
+            <h2>{t('general-forms/address')}</h2>
           </ToggleHeading>
           <TogglePanel>
             <FieldArray

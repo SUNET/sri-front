@@ -44,8 +44,24 @@ const HostDetailsQuery = graphql`
         }
       }
       location {
+        __typename
         id
         name
+        parent {
+          __typename
+          id
+          name
+
+          parent {
+            __typename
+            id
+            name
+            id
+            name
+            description
+            __typename
+          }
+        }
       }
       responsible_group {
         id

@@ -3,6 +3,7 @@ import SearchService from '../../components/service/SearchService';
 import { showHideColumn, showAllColumns, cancelFilterColumns } from '../../actions/FilterColumns';
 
 const mapStateToProps = (state, props) => {
+  console.log('props: ', props);
   return {};
 };
 
