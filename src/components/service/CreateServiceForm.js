@@ -41,9 +41,7 @@ class CreateServiceForm extends _ServiceFormParentClass {
 
 CreateServiceForm = reduxForm({
   validate: ValidationsServiceForm.validate,
-  initialValues: {
-    name: '',
-  },
+  initialValues: {},
 })(CreateServiceForm);
 
 export default withTranslation()(CreateServiceForm);

@@ -8,7 +8,6 @@ import { Form } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
-import FieldArrayOwner from '../common/FieldArrayOwner';
 import FieldArrayHostUser from './FieldArrayHostUser';
 import IpAddressesList from '../IpAddressesList';
 import ConvertHostModal from './ConvertHostModal';

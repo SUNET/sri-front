@@ -89,6 +89,11 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
     }
   };
 
+  renderInputName(kindOfName, editMode = true) {
+    const { name } = this.props;
+    return <h1>{name}</h1>;
+  }
+
   renderSections(editMode) {
     return (
       <>
