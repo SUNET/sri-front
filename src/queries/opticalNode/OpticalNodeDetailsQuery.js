@@ -26,8 +26,23 @@ const OpticalNodeDetailsQuery = graphql`
       rack_position
       rack_back
       location {
+        __typename
         id
         name
+        parent {
+          __typename
+          id
+          name
+          parent {
+            __typename
+            id
+            name
+            id
+            name
+            description
+            __typename
+          }
+        }
       }
       operational_state {
         id

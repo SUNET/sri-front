@@ -16,8 +16,24 @@ const ODFDetailsQuery = graphql`
       rack_position
       rack_back
       location {
+        __typename
         id
         name
+        parent {
+          __typename
+          id
+          name
+
+          parent {
+            __typename
+            id
+            name
+            id
+            name
+            description
+            __typename
+          }
+        }
       }
       max_number_of_ports
       ports {

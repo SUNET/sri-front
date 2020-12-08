@@ -68,7 +68,17 @@ const RACK_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_position' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
-  { type: FIELD_TYPES.ID_OBJECT, name: 'location' },
+  {
+    type: FIELD_TYPES.ID_OBJECT,
+    name: 'location',
+    subFields: [
+      {
+        type: FIELD_TYPES.ID_OBJECT,
+        name: 'parent',
+        subFields: [{ type: FIELD_TYPES.ID_OBJECT, name: 'parent', subFields: [...BASIC_INFO] }],
+      },
+    ],
+  },
 ];
 
 const PORT_LIST = [

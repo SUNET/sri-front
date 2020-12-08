@@ -22,6 +22,7 @@ import renderFormBlockSection from '../common/BlockSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
+import renderLocatedInSubTitleHeader from '../common/formsSections/LocatedInSubTitleHeader';
 
 class _HostFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -100,6 +101,7 @@ class _HostFormParentClass extends _BasicFormParentClass {
     const isLogicalHost = host_type === 'Logical';
     return (
       <>
+        {location && renderLocatedInSubTitleHeader(t('general-forms/located-in'), location)}
         {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
