@@ -342,7 +342,6 @@ const site = {
     { type: FIELD_TYPES.SINGLE, name: 'owner_id' },
     { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
     { type: FIELD_TYPES.SINGLE, name: 'url' },
-    { type: FIELD_TYPES.SINGLE, name: 'telenor_subscription_id' },
     { type: FIELD_TYPES.OBJECT, name: 'country_code' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
     { type: FIELD_TYPES.SINGLE, name: 'country' },

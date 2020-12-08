@@ -33,7 +33,6 @@ const SITE_COMMON_FIELDS = [
   { type: FIELD_TYPES.SINGLE, name: 'owner_id' },
   { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
   { type: FIELD_TYPES.SINGLE, name: 'url' },
-  { type: FIELD_TYPES.SINGLE, name: 'telenor_subscription_id' },
   { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
   ...COMMON_FIELDS.LOCATED_IN_BLOCK,
   ...SITE_HAS,
