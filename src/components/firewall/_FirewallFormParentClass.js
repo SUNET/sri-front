@@ -8,18 +8,17 @@ import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/Togg
 import FieldInput from '../FieldInput';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
-import FieldArrayOwner from './FieldArrayOwner';
 
 // const
-import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
+
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
+import { renderOwnerToggleSection, handleSelectedOwner } from '../common/formsSections/OwnerToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
-
 
 class _FirewallFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -41,7 +40,12 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'owner') {
-        this.handleSelectedNetworkOrganization(selectionData, methodName);
+        handleSelectedOwner({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
       } else if (fieldModalOpened === 'ports') {
         handleSelectedPort({
           selection: selectionData,
@@ -55,21 +59,6 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
-  handleSelectedNetworkOrganization = (selection, typeOfSelection) => {
-    if (selection !== null && selection.id) {
-      this.props[typeOfSelection](selection.id).then((entity) => {
-        const newEntity = {
-          type: entity.__typename,
-          __typename: entity.__typename,
-          name: entity.name,
-          id: entity.id,
-          status: 'saved',
-        };
-        this.props.dispatch(arrayPush(this.props.form, 'owner', newEntity));
-      });
-    }
-  };
-
   renderSections(editMode) {
     const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
@@ -81,7 +70,7 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
         {this.renderSecurityToggleSection(editMode)}
         {this.renderOSToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
-        {this.renderOwnerToggleSection(editMode)}
+        {renderOwnerToggleSection(editMode, this)}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
@@ -431,44 +420,6 @@ class _FirewallFormParentClass extends _BasicFormParentClass {
                 })}
               </div>
             </div>
-          </TogglePanel>
-        </ToggleSection>
-      </section>
-    );
-  }
-
-  renderOwnerToggleSection(editMode = false) {
-    const componentClassName = 'owner-block';
-    const { t, owner, entityRemovedId } = this.props;
-    return (
-      <section className={`model-section ${componentClassName}`}>
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('general-forms/owner')}</h2>
-          </ToggleHeading>
-
-          <TogglePanel>
-            <FieldArray
-              name="owner"
-              component={FieldArrayOwner}
-              editable={editMode}
-              dispatch={this.props.dispatch}
-              errors={this.props.formSyncErrors.parents}
-              metaFields={this.props.fields}
-              handleDeployCreateForm={(typeEntityToShowForm) => {
-                this.props.showModalCreateForm(typeEntityToShowForm);
-              }}
-              showRowEditModal={(typeEntityToShowForm, entityId) => {
-                this.props.showModalEditForm(typeEntityToShowForm, entityId);
-              }}
-              showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
-              }}
-              handleSearchResult={this.handleSelectedNetworkOrganization}
-              rerenderOnEveryChange
-              entityRemovedId={entityRemovedId}
-              disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
-            />
           </TogglePanel>
         </ToggleSection>
       </section>

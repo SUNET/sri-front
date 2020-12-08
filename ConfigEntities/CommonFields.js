@@ -149,6 +149,32 @@ const LOCATED_IN_BLOCK = [
   },
 ];
 
+const OWNER_ENTITY = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'owner',
+    subFields: [...BASIC_INFO],
+    onSentences: [
+      {
+        entity: 'EndUser',
+        subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: '__typename', alias: 'type' }],
+      },
+      {
+        entity: 'Customer',
+        subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: '__typename', alias: 'type' }],
+      },
+      {
+        entity: 'HostUser',
+        subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: '__typename', alias: 'type' }],
+      },
+      {
+        entity: 'Provider',
+        subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: '__typename', alias: 'type' }],
+      },
+    ],
+  },
+];
+
 module.exports = {
   COMMENTS_FIELDS,
   USER_CREATOR_MODIFIER_FIELDS,
@@ -160,4 +186,5 @@ module.exports = {
   RACK_INFO,
   ADDRESSES_LIST,
   LOCATED_IN_BLOCK,
+  OWNER_ENTITY,
 };

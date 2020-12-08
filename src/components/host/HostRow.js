@@ -29,6 +29,7 @@ class HostRow extends React.PureComponent {
 
   render() {
     let { host, columnsVisible, showAllColumns } = this.props;
+    const ip_addresses = host.ip_addresses ? host.ip_addresses : [];
     return (
       <tr onClick={(e) => this.props.onClick(e, host)}>
         {this.renderCellSection('name', host.name)}
@@ -36,7 +37,7 @@ class HostRow extends React.PureComponent {
           columnsVisible,
           showAllColumns,
           'ip_addresses',
-          host.ip_addresses.map((ip) => ({ name: ip })),
+          ip_addresses.map((ip) => ({ name: ip })),
         )}
         {this.renderCellSection('os', host.os)}
         {this.renderCellSection('os_version', host.os_version)}

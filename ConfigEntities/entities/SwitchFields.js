@@ -11,6 +11,7 @@ const SWITCH_COMMON_FIELDS = [
   { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
   { type: FIELD_TYPES.SINGLE, name: 'ip_addresses' },
   { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
+  ...COMMON_FIELDS.OWNER_ENTITY,
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
 ];

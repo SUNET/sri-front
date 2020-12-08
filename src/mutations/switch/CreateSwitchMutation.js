@@ -6,6 +6,8 @@ import CreateCommentMutation from '../CreateCommentMutation';
 import { generatePortForInput } from '../MutationsUtils';
 import i18n from '../../i18n';
 
+import { SAVED, REMOVE } from '../../utils/constants';
+
 const mutation = graphql`
   mutation CreateSwitchMutation($input: CompositeSwitchMutationInput!) {
     composite_switch(input: $input) {
@@ -24,6 +26,8 @@ const mutation = graphql`
 
 function CreateSwitchMutation(switchData, form) {
   const ports = generatePortForInput(switchData.ports);
+  const ownerToSaved = switchData.owner ? switchData.owner.find((o) => o.status === SAVED) : {};
+  const ownerToRemove = switchData.owner ? switchData.owner.find((o) => o.status === REMOVE) : {};
   const variables = {
     input: {
       create_input: {
@@ -50,6 +54,8 @@ function CreateSwitchMutation(switchData, form) {
         max_number_of_ports: switchData.max_number_of_ports,
 
         relationship_location: switchData.location && switchData.location.length ? switchData.location[0].id : null,
+
+        relationship_owner: ownerToSaved?.id,
       },
       update_subinputs: ports.toSaved,
       unlink_subinputs: ports.toUnlink,
@@ -57,6 +63,12 @@ function CreateSwitchMutation(switchData, form) {
       create_subinputs: ports.toCreate,
     },
   };
+
+  if (ownerToRemove?.id) {
+    variables.input.delete_owner = {
+      id: ownerToRemove.id,
+    };
+  }
   commitMutation(environment, {
     mutation,
     variables,

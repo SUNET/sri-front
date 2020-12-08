@@ -79,6 +79,7 @@ const switchEntity = {
     ...BASIC_OPERATIVE_SYSTEM,
     ...RACK_INFO,
     ...RELATION_GROUP_INFO,
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'owner' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
     { type: FIELD_TYPES.SINGLE, name: 'ip_addresses' },
     { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
@@ -90,8 +91,8 @@ const firewall = {
     create: 'createFirewall',
     update: 'updateFirewall',
   },
-  dispatchPropertiesListCreate: ['notify'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  dispatchPropertiesListCreate: ['notify', 'ownersDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails', 'ownersDetails'],
   fields: [
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,

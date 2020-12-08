@@ -5,6 +5,8 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { SAVED, REMOVE } from '../../utils/constants';
+
 import { generatePortForInput } from '../MutationsUtils';
 
 const mutation = graphql`
@@ -25,6 +27,8 @@ const mutation = graphql`
 
 export default function UpdateSwitchMutation(switchData, form) {
   const ports = generatePortForInput(switchData.ports);
+  const ownerToSaved = switchData.owner ? switchData.owner.find((o) => o.status === SAVED) : {};
+  const ownerToRemove = switchData.owner ? switchData.owner.find((o) => o.status === REMOVE) : {};
   const variables = {
     input: {
       update_input: {
@@ -51,6 +55,8 @@ export default function UpdateSwitchMutation(switchData, form) {
         max_number_of_ports: switchData.max_number_of_ports,
 
         relationship_location: switchData.location && switchData.location.length ? switchData.location[0].id : null,
+
+        relationship_owner: ownerToSaved?.id,
       },
       update_subinputs: ports.toSaved,
       unlink_subinputs: ports.toUnlink,
@@ -58,6 +64,12 @@ export default function UpdateSwitchMutation(switchData, form) {
       create_subinputs: ports.toCreate,
     },
   };
+
+  if (ownerToRemove?.id) {
+    variables.input.delete_owner = {
+      id: ownerToRemove.id,
+    };
+  }
   commitMutation(environment, {
     mutation,
     variables,

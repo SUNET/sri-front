@@ -27,8 +27,8 @@ const mutation = graphql`
 
 export default function UpdateFirewallMutation(firewall, form) {
   const ports = generatePortForInput(firewall.ports);
-  const ownerToSaved = firewall.owner ? firewall.owner.find((o) => o.status === SAVED) : [];
-  const ownerToRemove = firewall.owner ? firewall.owner.find((o) => o.status === REMOVE) : [];
+  const ownerToSaved = firewall.owner ? firewall.owner.find((o) => o.status === SAVED) : {};
+  const ownerToRemove = firewall.owner ? firewall.owner.find((o) => o.status === REMOVE) : {};
 
   const variables = {
     input: {
@@ -60,7 +60,7 @@ export default function UpdateFirewallMutation(firewall, form) {
         rack_position: firewall.rack_position,
         rack_back: firewall.rack_back,
 
-        relationship_owner: ownerToSaved ? ownerToSaved.id : '',
+        relationship_owner: ownerToSaved?.id,
 
         relationship_location: firewall.location && firewall.location.length ? firewall.location[0].id : null,
       },
@@ -70,7 +70,7 @@ export default function UpdateFirewallMutation(firewall, form) {
       create_has_port: ports.toCreate,
     },
   };
-  if (ownerToRemove.length) {
+  if (ownerToRemove?.id) {
     variables.input.delete_owner = {
       id: ownerToRemove.id,
     };
