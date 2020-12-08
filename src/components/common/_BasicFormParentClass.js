@@ -293,7 +293,7 @@ class _BasicFormParentClass extends React.Component {
                 </ToggleHeading>
                 <TogglePanel>
                   <FieldRelatedEntity
-                    fields={INFO_BY_ENTITIES[formattedEntityData['__typename']].fields}
+                    fieldsInfo={INFO_BY_ENTITIES[formattedEntityData['__typename']]}
                     data={formattedEntityData}
                     t={t}
                   />
