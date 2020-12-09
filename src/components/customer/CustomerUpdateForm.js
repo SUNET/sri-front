@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import _CustomerFormParentClass from './_CustomerFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import BasicValidation from '../common/_BasicValidationForm';
 import { UPDATE_CUSTOMER_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CustomerUpdateForm extends _BasicFormParentClass {
+class CustomerUpdateForm extends _CustomerFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_CUSTOMER_FORM;
   MODEL_NAME = 'customer';
@@ -38,7 +38,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
     UpdateCustomerMutation(customer, this);
   };
   render() {
-    let { with_same_name, handleSubmit, isFromModal } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
     const showBackButton = isBrowser && !isFromModal;
     const showSaveCancelInHeader = showBackButton;
@@ -48,8 +48,6 @@ class CustomerUpdateForm extends _BasicFormParentClass {
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
-        {with_same_name && this.renderRelatedEntities(with_same_name)}
-        {this.renderWorkLog()}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
@@ -73,6 +71,28 @@ const CustomerUpdateFragment = createRefetchContainer(
         name
         description
         url
+        owns {
+          __typename
+          id
+          name
+          relation_id
+        }
+        uses {
+          __typename
+          id
+          name
+          description
+          relation_id
+          ... on Service {
+            service_type {
+              name
+            }
+            operational_state {
+              value
+              name
+            }
+          }
+        }
         comments {
           id
           user {

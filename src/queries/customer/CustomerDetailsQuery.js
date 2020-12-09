@@ -46,6 +46,28 @@ const CustomerDetailsQuery = graphql`
         }
         __typename
       }
+      uses {
+        __typename
+        id
+        name
+        description
+        relation_id
+        ... on Service {
+          service_type {
+            name
+          }
+          operational_state {
+            value
+            name
+          }
+        }
+      }
+      owns {
+        __typename
+        id
+        name
+        relation_id
+      }
       comments {
         id
         user {

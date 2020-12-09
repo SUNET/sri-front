@@ -289,6 +289,18 @@ const DropdownSearchAllRacksQuery = graphql`
   }
 `;
 
+const DropdownSearchAllServicesQuery = graphql`
+  query DropdownSearchAllServicesQuery($filter: ServiceFilter) {
+    services(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -380,6 +392,10 @@ class DropdownSearch extends React.Component {
       case 'sites':
       case 'Site':
         queryModel.query = DropdownSearchAllSitesQuery;
+        break;
+      case 'services':
+      case 'Service':
+        queryModel.query = DropdownSearchAllServicesQuery;
         break;
       default:
         queryModel.query = DropdownSearchAllContactsQuery;

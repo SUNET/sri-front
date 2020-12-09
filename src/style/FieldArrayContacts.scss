@@ -130,6 +130,10 @@
             width: $outline-cta-width !important;
         }
     }
+    &__internal-filter-block {
+        display: flex;
+        margin: 0.5rem 0 1rem 0;
+    }
     &--long-table {
         .contact-in-organization__header__title,
         .contact-in-organization__body__row__element {

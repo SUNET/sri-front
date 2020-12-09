@@ -310,6 +310,7 @@
             "general-forms/floor": "Floor",
             "general-forms/internal-link": "Internal Link",
             "general-forms/go-to-detail": "Go to detail",
+            "general-forms/owned-equipment": "Owned Equipment",
             "Comment --DELETE--": "******************************** [FIN] GENERAL FORMS ****************************************",
             "Comment --DELETE--": "******************************** FILTERS ****************************************",
             "paginator.load_more": "Load More",

@@ -52,6 +52,7 @@ type Address implements NINode & Logical & PhysicalLogical {
   contexts: [String]
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -299,6 +300,7 @@ type Cable implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Provider
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -509,6 +511,9 @@ input CompositeCableMutationInput {
   create_has_cable: [CreateCableInput]
   update_has_cable: [UpdateCableInput]
   deleted_has_cable: [DeleteCableInput]
+  create_has_host: [CreateHostInput]
+  update_has_host: [EditHostInput]
+  deleted_has_host: [DeleteHostInput]
   update_has_router: [UpdateRouterInput]
   deleted_has_router: [DeleteRouterInput]
   create_has_switch: [CreateSwitchInput]
@@ -545,9 +550,6 @@ input CompositeCableMutationInput {
   deleted_part_of_email: DeleteEmailInput
   update_part_of_unit: UpdateUnitInput
   deleted_part_of_unit: DeleteUnitInput
-  create_part_of_host: CreateHostInput
-  update_part_of_host: EditHostInput
-  deleted_part_of_host: DeleteHostInput
   create_part_of_opticallink: CreateOpticalLinkInput
   update_part_of_opticallink: UpdateOpticalLinkInput
   deleted_part_of_opticallink: DeleteOpticalLinkInput
@@ -659,9 +661,6 @@ input CompositeCableMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -722,6 +721,9 @@ type CompositeCableMutationPayload {
   has_cable_created: [CreateCablePayload]
   has_cable_updated: [UpdateCablePayload]
   has_cable_deleted: [DeleteCablePayload]
+  has_host_created: [CreateHostPayload]
+  has_host_updated: [EditHostPayload]
+  has_host_deleted: [DeleteHostPayload]
   has_router_updated: [UpdateRouterPayload]
   has_router_deleted: [DeleteRouterPayload]
   has_switch_created: [CreateSwitchPayload]
@@ -758,9 +760,6 @@ type CompositeCableMutationPayload {
   part_of_email_deleted: DeleteEmailPayload
   part_of_unit_updated: UpdateUnitPayload
   part_of_unit_deleted: DeleteUnitPayload
-  part_of_host_created: CreateHostPayload
-  part_of_host_updated: EditHostPayload
-  part_of_host_deleted: DeleteHostPayload
   part_of_opticallink_created: CreateOpticalLinkPayload
   part_of_opticallink_updated: UpdateOpticalLinkPayload
   part_of_opticallink_deleted: DeleteOpticalLinkPayload
@@ -872,9 +871,6 @@ type CompositeCableMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -941,9 +937,6 @@ input CompositeContactMutationInput {
   deleted_uses_email: [DeleteEmailInput]
   update_uses_unit: [UpdateUnitInput]
   deleted_uses_unit: [DeleteUnitInput]
-  create_uses_host: [CreateHostInput]
-  update_uses_host: [EditHostInput]
-  deleted_uses_host: [DeleteHostInput]
   create_uses_opticallink: [CreateOpticalLinkInput]
   update_uses_opticallink: [UpdateOpticalLinkInput]
   deleted_uses_opticallink: [DeleteOpticalLinkInput]
@@ -964,6 +957,9 @@ input CompositeContactMutationInput {
   create_owns_cable: [CreateCableInput]
   update_owns_cable: [UpdateCableInput]
   deleted_owns_cable: [DeleteCableInput]
+  create_owns_host: [CreateHostInput]
+  update_owns_host: [EditHostInput]
+  deleted_owns_host: [DeleteHostInput]
   update_owns_router: [UpdateRouterInput]
   deleted_owns_router: [DeleteRouterInput]
   create_owns_switch: [CreateSwitchInput]
@@ -1023,9 +1019,6 @@ type CompositeContactMutationPayload {
   uses_email_deleted: [DeleteEmailPayload]
   uses_unit_updated: [UpdateUnitPayload]
   uses_unit_deleted: [DeleteUnitPayload]
-  uses_host_created: [CreateHostPayload]
-  uses_host_updated: [EditHostPayload]
-  uses_host_deleted: [DeleteHostPayload]
   uses_opticallink_created: [CreateOpticalLinkPayload]
   uses_opticallink_updated: [UpdateOpticalLinkPayload]
   uses_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -1046,6 +1039,309 @@ type CompositeContactMutationPayload {
   owns_cable_created: [CreateCablePayload]
   owns_cable_updated: [UpdateCablePayload]
   owns_cable_deleted: [DeleteCablePayload]
+  owns_host_created: [CreateHostPayload]
+  owns_host_updated: [EditHostPayload]
+  owns_host_deleted: [DeleteHostPayload]
+  owns_router_updated: [UpdateRouterPayload]
+  owns_router_deleted: [DeleteRouterPayload]
+  owns_switch_created: [CreateSwitchPayload]
+  owns_switch_updated: [UpdateSwitchPayload]
+  owns_switch_deleted: [DeleteSwitchPayload]
+  owns_firewall_updated: [UpdateFirewallPayload]
+  owns_firewall_deleted: [DeleteFirewallPayload]
+  owns_externalequipment_created: [CreateExternalEquipmentPayload]
+  owns_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  owns_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  owns_opticalnode_created: [CreateOpticalNodePayload]
+  owns_opticalnode_updated: [UpdateOpticalNodePayload]
+  owns_opticalnode_deleted: [DeleteOpticalNodePayload]
+  owns_odf_created: [CreateOdfPayload]
+  owns_odf_updated: [UpdateOdfPayload]
+  owns_odf_deleted: [DeleteOdfPayload]
+  owns_opticalfilter_created: [CreateOpticalFilterPayload]
+  owns_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  owns_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  responsible_for_site_created: CreateSitePayload
+  responsible_for_site_updated: UpdateSitePayload
+  responsible_for_site_deleted: DeleteSitePayload
+  responsible_for_room_created: CreateRoomPayload
+  responsible_for_room_updated: UpdateRoomPayload
+  responsible_for_room_deleted: DeleteRoomPayload
+  responsible_for_rack_created: CreateRackPayload
+  responsible_for_rack_updated: UpdateRackPayload
+  responsible_for_rack_deleted: DeleteRackPayload
+  clientMutationId: String
+}
+
+input CompositeCustomerMutationInput {
+  create_input: CreateCustomerInput
+  update_input: UpdateCustomerInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_uses_group: [CreateGroupInput]
+  update_uses_group: [UpdateGroupInput]
+  deleted_uses_group: [DeleteGroupInput]
+  create_uses_procedure: [CreateProcedureInput]
+  update_uses_procedure: [UpdateProcedureInput]
+  deleted_uses_procedure: [DeleteProcedureInput]
+  create_uses_address: [CreateAddressInput]
+  update_uses_address: [UpdateAddressInput]
+  deleted_uses_address: [DeleteAddressInput]
+  create_uses_phone: [CreatePhoneInput]
+  update_uses_phone: [UpdatePhoneInput]
+  deleted_uses_phone: [DeletePhoneInput]
+  create_uses_email: [CreateEmailInput]
+  update_uses_email: [UpdateEmailInput]
+  deleted_uses_email: [DeleteEmailInput]
+  update_uses_unit: [UpdateUnitInput]
+  deleted_uses_unit: [DeleteUnitInput]
+  create_uses_opticallink: [CreateOpticalLinkInput]
+  update_uses_opticallink: [UpdateOpticalLinkInput]
+  deleted_uses_opticallink: [DeleteOpticalLinkInput]
+  create_uses_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_uses_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_uses_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_uses_opticalpath: [CreateOpticalPathInput]
+  update_uses_opticalpath: [UpdateOpticalPathInput]
+  deleted_uses_opticalpath: [DeleteOpticalPathInput]
+  update_uses_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_uses_peeringgroup: [DeletePeeringGroupInput]
+  create_uses_service: [CreateServiceInput]
+  update_uses_service: [UpdateServiceInput]
+  deleted_uses_service: [DeleteServiceInput]
+  create_owns_port: [CreatePortInput]
+  update_owns_port: [UpdatePortInput]
+  deleted_owns_port: [DeletePortInput]
+  create_owns_cable: [CreateCableInput]
+  update_owns_cable: [UpdateCableInput]
+  deleted_owns_cable: [DeleteCableInput]
+  create_owns_host: [CreateHostInput]
+  update_owns_host: [EditHostInput]
+  deleted_owns_host: [DeleteHostInput]
+  update_owns_router: [UpdateRouterInput]
+  deleted_owns_router: [DeleteRouterInput]
+  create_owns_switch: [CreateSwitchInput]
+  update_owns_switch: [UpdateSwitchInput]
+  deleted_owns_switch: [DeleteSwitchInput]
+  update_owns_firewall: [UpdateFirewallInput]
+  deleted_owns_firewall: [DeleteFirewallInput]
+  create_owns_externalequipment: [CreateExternalEquipmentInput]
+  update_owns_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_owns_externalequipment: [DeleteExternalEquipmentInput]
+  create_owns_opticalnode: [CreateOpticalNodeInput]
+  update_owns_opticalnode: [UpdateOpticalNodeInput]
+  deleted_owns_opticalnode: [DeleteOpticalNodeInput]
+  create_owns_odf: [CreateOdfInput]
+  update_owns_odf: [UpdateOdfInput]
+  deleted_owns_odf: [DeleteOdfInput]
+  create_owns_opticalfilter: [CreateOpticalFilterInput]
+  update_owns_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_owns_opticalfilter: [DeleteOpticalFilterInput]
+  create_responsible_for_site: CreateSiteInput
+  update_responsible_for_site: UpdateSiteInput
+  deleted_responsible_for_site: DeleteSiteInput
+  create_responsible_for_room: CreateRoomInput
+  update_responsible_for_room: UpdateRoomInput
+  deleted_responsible_for_room: DeleteRoomInput
+  create_responsible_for_rack: CreateRackInput
+  update_responsible_for_rack: UpdateRackInput
+  deleted_responsible_for_rack: DeleteRackInput
+  clientMutationId: String
+}
+
+type CompositeCustomerMutationPayload {
+  created: CreateCustomerPayload
+  updated: UpdateCustomerPayload
+  unlinked: [DeleteRelationshipPayload]
+  uses_group_created: [CreateGroupPayload]
+  uses_group_updated: [UpdateGroupPayload]
+  uses_group_deleted: [DeleteGroupPayload]
+  uses_procedure_created: [CreateProcedurePayload]
+  uses_procedure_updated: [UpdateProcedurePayload]
+  uses_procedure_deleted: [DeleteProcedurePayload]
+  uses_address_created: [CreateAddressPayload]
+  uses_address_updated: [UpdateAddressPayload]
+  uses_address_deleted: [DeleteAddressPayload]
+  uses_phone_created: [CreatePhonePayload]
+  uses_phone_updated: [UpdatePhonePayload]
+  uses_phone_deleted: [DeletePhonePayload]
+  uses_email_created: [CreateEmailPayload]
+  uses_email_updated: [UpdateEmailPayload]
+  uses_email_deleted: [DeleteEmailPayload]
+  uses_unit_updated: [UpdateUnitPayload]
+  uses_unit_deleted: [DeleteUnitPayload]
+  uses_opticallink_created: [CreateOpticalLinkPayload]
+  uses_opticallink_updated: [UpdateOpticalLinkPayload]
+  uses_opticallink_deleted: [DeleteOpticalLinkPayload]
+  uses_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  uses_opticalpath_created: [CreateOpticalPathPayload]
+  uses_opticalpath_updated: [UpdateOpticalPathPayload]
+  uses_opticalpath_deleted: [DeleteOpticalPathPayload]
+  uses_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  uses_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  uses_service_created: [CreateServicePayload]
+  uses_service_updated: [UpdateServicePayload]
+  uses_service_deleted: [DeleteServicePayload]
+  owns_port_created: [CreatePortPayload]
+  owns_port_updated: [UpdatePortPayload]
+  owns_port_deleted: [DeletePortPayload]
+  owns_cable_created: [CreateCablePayload]
+  owns_cable_updated: [UpdateCablePayload]
+  owns_cable_deleted: [DeleteCablePayload]
+  owns_host_created: [CreateHostPayload]
+  owns_host_updated: [EditHostPayload]
+  owns_host_deleted: [DeleteHostPayload]
+  owns_router_updated: [UpdateRouterPayload]
+  owns_router_deleted: [DeleteRouterPayload]
+  owns_switch_created: [CreateSwitchPayload]
+  owns_switch_updated: [UpdateSwitchPayload]
+  owns_switch_deleted: [DeleteSwitchPayload]
+  owns_firewall_updated: [UpdateFirewallPayload]
+  owns_firewall_deleted: [DeleteFirewallPayload]
+  owns_externalequipment_created: [CreateExternalEquipmentPayload]
+  owns_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  owns_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  owns_opticalnode_created: [CreateOpticalNodePayload]
+  owns_opticalnode_updated: [UpdateOpticalNodePayload]
+  owns_opticalnode_deleted: [DeleteOpticalNodePayload]
+  owns_odf_created: [CreateOdfPayload]
+  owns_odf_updated: [UpdateOdfPayload]
+  owns_odf_deleted: [DeleteOdfPayload]
+  owns_opticalfilter_created: [CreateOpticalFilterPayload]
+  owns_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  owns_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  responsible_for_site_created: CreateSitePayload
+  responsible_for_site_updated: UpdateSitePayload
+  responsible_for_site_deleted: DeleteSitePayload
+  responsible_for_room_created: CreateRoomPayload
+  responsible_for_room_updated: UpdateRoomPayload
+  responsible_for_room_deleted: DeleteRoomPayload
+  responsible_for_rack_created: CreateRackPayload
+  responsible_for_rack_updated: UpdateRackPayload
+  responsible_for_rack_deleted: DeleteRackPayload
+  clientMutationId: String
+}
+
+input CompositeEndUserMutationInput {
+  create_input: CreateEndUserInput
+  update_input: UpdateEndUserInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_uses_group: [CreateGroupInput]
+  update_uses_group: [UpdateGroupInput]
+  deleted_uses_group: [DeleteGroupInput]
+  create_uses_procedure: [CreateProcedureInput]
+  update_uses_procedure: [UpdateProcedureInput]
+  deleted_uses_procedure: [DeleteProcedureInput]
+  create_uses_address: [CreateAddressInput]
+  update_uses_address: [UpdateAddressInput]
+  deleted_uses_address: [DeleteAddressInput]
+  create_uses_phone: [CreatePhoneInput]
+  update_uses_phone: [UpdatePhoneInput]
+  deleted_uses_phone: [DeletePhoneInput]
+  create_uses_email: [CreateEmailInput]
+  update_uses_email: [UpdateEmailInput]
+  deleted_uses_email: [DeleteEmailInput]
+  update_uses_unit: [UpdateUnitInput]
+  deleted_uses_unit: [DeleteUnitInput]
+  create_uses_opticallink: [CreateOpticalLinkInput]
+  update_uses_opticallink: [UpdateOpticalLinkInput]
+  deleted_uses_opticallink: [DeleteOpticalLinkInput]
+  create_uses_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_uses_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_uses_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_uses_opticalpath: [CreateOpticalPathInput]
+  update_uses_opticalpath: [UpdateOpticalPathInput]
+  deleted_uses_opticalpath: [DeleteOpticalPathInput]
+  update_uses_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_uses_peeringgroup: [DeletePeeringGroupInput]
+  create_uses_service: [CreateServiceInput]
+  update_uses_service: [UpdateServiceInput]
+  deleted_uses_service: [DeleteServiceInput]
+  create_owns_port: [CreatePortInput]
+  update_owns_port: [UpdatePortInput]
+  deleted_owns_port: [DeletePortInput]
+  create_owns_cable: [CreateCableInput]
+  update_owns_cable: [UpdateCableInput]
+  deleted_owns_cable: [DeleteCableInput]
+  create_owns_host: [CreateHostInput]
+  update_owns_host: [EditHostInput]
+  deleted_owns_host: [DeleteHostInput]
+  update_owns_router: [UpdateRouterInput]
+  deleted_owns_router: [DeleteRouterInput]
+  create_owns_switch: [CreateSwitchInput]
+  update_owns_switch: [UpdateSwitchInput]
+  deleted_owns_switch: [DeleteSwitchInput]
+  update_owns_firewall: [UpdateFirewallInput]
+  deleted_owns_firewall: [DeleteFirewallInput]
+  create_owns_externalequipment: [CreateExternalEquipmentInput]
+  update_owns_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_owns_externalequipment: [DeleteExternalEquipmentInput]
+  create_owns_opticalnode: [CreateOpticalNodeInput]
+  update_owns_opticalnode: [UpdateOpticalNodeInput]
+  deleted_owns_opticalnode: [DeleteOpticalNodeInput]
+  create_owns_odf: [CreateOdfInput]
+  update_owns_odf: [UpdateOdfInput]
+  deleted_owns_odf: [DeleteOdfInput]
+  create_owns_opticalfilter: [CreateOpticalFilterInput]
+  update_owns_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_owns_opticalfilter: [DeleteOpticalFilterInput]
+  create_responsible_for_site: CreateSiteInput
+  update_responsible_for_site: UpdateSiteInput
+  deleted_responsible_for_site: DeleteSiteInput
+  create_responsible_for_room: CreateRoomInput
+  update_responsible_for_room: UpdateRoomInput
+  deleted_responsible_for_room: DeleteRoomInput
+  create_responsible_for_rack: CreateRackInput
+  update_responsible_for_rack: UpdateRackInput
+  deleted_responsible_for_rack: DeleteRackInput
+  clientMutationId: String
+}
+
+type CompositeEndUserMutationPayload {
+  created: CreateEndUserPayload
+  updated: UpdateEndUserPayload
+  unlinked: [DeleteRelationshipPayload]
+  uses_group_created: [CreateGroupPayload]
+  uses_group_updated: [UpdateGroupPayload]
+  uses_group_deleted: [DeleteGroupPayload]
+  uses_procedure_created: [CreateProcedurePayload]
+  uses_procedure_updated: [UpdateProcedurePayload]
+  uses_procedure_deleted: [DeleteProcedurePayload]
+  uses_address_created: [CreateAddressPayload]
+  uses_address_updated: [UpdateAddressPayload]
+  uses_address_deleted: [DeleteAddressPayload]
+  uses_phone_created: [CreatePhonePayload]
+  uses_phone_updated: [UpdatePhonePayload]
+  uses_phone_deleted: [DeletePhonePayload]
+  uses_email_created: [CreateEmailPayload]
+  uses_email_updated: [UpdateEmailPayload]
+  uses_email_deleted: [DeleteEmailPayload]
+  uses_unit_updated: [UpdateUnitPayload]
+  uses_unit_deleted: [DeleteUnitPayload]
+  uses_opticallink_created: [CreateOpticalLinkPayload]
+  uses_opticallink_updated: [UpdateOpticalLinkPayload]
+  uses_opticallink_deleted: [DeleteOpticalLinkPayload]
+  uses_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  uses_opticalpath_created: [CreateOpticalPathPayload]
+  uses_opticalpath_updated: [UpdateOpticalPathPayload]
+  uses_opticalpath_deleted: [DeleteOpticalPathPayload]
+  uses_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  uses_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  uses_service_created: [CreateServicePayload]
+  uses_service_updated: [UpdateServicePayload]
+  uses_service_deleted: [DeleteServicePayload]
+  owns_port_created: [CreatePortPayload]
+  owns_port_updated: [UpdatePortPayload]
+  owns_port_deleted: [DeletePortPayload]
+  owns_cable_created: [CreateCablePayload]
+  owns_cable_updated: [UpdateCablePayload]
+  owns_cable_deleted: [DeleteCablePayload]
+  owns_host_created: [CreateHostPayload]
+  owns_host_updated: [EditHostPayload]
+  owns_host_deleted: [DeleteHostPayload]
   owns_router_updated: [UpdateRouterPayload]
   owns_router_deleted: [DeleteRouterPayload]
   owns_switch_created: [CreateSwitchPayload]
@@ -1097,6 +1393,9 @@ input CompositeExternalEquipmentMutationInput {
   create_has_cable: [CreateCableInput]
   update_has_cable: [UpdateCableInput]
   deleted_has_cable: [DeleteCableInput]
+  create_has_host: [CreateHostInput]
+  update_has_host: [EditHostInput]
+  deleted_has_host: [DeleteHostInput]
   update_has_router: [UpdateRouterInput]
   deleted_has_router: [DeleteRouterInput]
   create_has_switch: [CreateSwitchInput]
@@ -1133,9 +1432,6 @@ input CompositeExternalEquipmentMutationInput {
   deleted_part_of_email: DeleteEmailInput
   update_part_of_unit: UpdateUnitInput
   deleted_part_of_unit: DeleteUnitInput
-  create_part_of_host: CreateHostInput
-  update_part_of_host: EditHostInput
-  deleted_part_of_host: DeleteHostInput
   create_part_of_opticallink: CreateOpticalLinkInput
   update_part_of_opticallink: UpdateOpticalLinkInput
   deleted_part_of_opticallink: DeleteOpticalLinkInput
@@ -1247,9 +1543,6 @@ input CompositeExternalEquipmentMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -1308,6 +1601,9 @@ type CompositeExternalEquipmentMutationPayload {
   has_cable_created: [CreateCablePayload]
   has_cable_updated: [UpdateCablePayload]
   has_cable_deleted: [DeleteCablePayload]
+  has_host_created: [CreateHostPayload]
+  has_host_updated: [EditHostPayload]
+  has_host_deleted: [DeleteHostPayload]
   has_router_updated: [UpdateRouterPayload]
   has_router_deleted: [DeleteRouterPayload]
   has_switch_created: [CreateSwitchPayload]
@@ -1344,9 +1640,6 @@ type CompositeExternalEquipmentMutationPayload {
   part_of_email_deleted: DeleteEmailPayload
   part_of_unit_updated: UpdateUnitPayload
   part_of_unit_deleted: DeleteUnitPayload
-  part_of_host_created: CreateHostPayload
-  part_of_host_updated: EditHostPayload
-  part_of_host_deleted: DeleteHostPayload
   part_of_opticallink_created: CreateOpticalLinkPayload
   part_of_opticallink_updated: UpdateOpticalLinkPayload
   part_of_opticallink_deleted: DeleteOpticalLinkPayload
@@ -1458,9 +1751,6 @@ type CompositeExternalEquipmentMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -1509,6 +1799,9 @@ input CompositeFirewallMutationInput {
   create_has_cable: [CreateCableInput]
   update_has_cable: [UpdateCableInput]
   deleted_has_cable: [DeleteCableInput]
+  create_has_host: [CreateHostInput]
+  update_has_host: [EditHostInput]
+  deleted_has_host: [DeleteHostInput]
   update_has_router: [UpdateRouterInput]
   deleted_has_router: [DeleteRouterInput]
   create_has_switch: [CreateSwitchInput]
@@ -1545,9 +1838,6 @@ input CompositeFirewallMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -1575,6 +1865,9 @@ type CompositeFirewallMutationPayload {
   has_cable_created: [CreateCablePayload]
   has_cable_updated: [UpdateCablePayload]
   has_cable_deleted: [DeleteCablePayload]
+  has_host_created: [CreateHostPayload]
+  has_host_updated: [EditHostPayload]
+  has_host_deleted: [DeleteHostPayload]
   has_router_updated: [UpdateRouterPayload]
   has_router_deleted: [DeleteRouterPayload]
   has_switch_created: [CreateSwitchPayload]
@@ -1611,9 +1904,6 @@ type CompositeFirewallMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -1644,6 +1934,9 @@ input CompositeGroupMutationInput {
   create_part_of_cable: CreateCableInput
   update_part_of_cable: UpdateCableInput
   deleted_part_of_cable: DeleteCableInput
+  create_part_of_host: CreateHostInput
+  update_part_of_host: EditHostInput
+  deleted_part_of_host: DeleteHostInput
   update_part_of_router: UpdateRouterInput
   deleted_part_of_router: DeleteRouterInput
   create_part_of_switch: CreateSwitchInput
@@ -1760,9 +2053,6 @@ input CompositeGroupMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -1814,6 +2104,9 @@ type CompositeGroupMutationPayload {
   part_of_cable_created: CreateCablePayload
   part_of_cable_updated: UpdateCablePayload
   part_of_cable_deleted: DeleteCablePayload
+  part_of_host_created: CreateHostPayload
+  part_of_host_updated: EditHostPayload
+  part_of_host_deleted: DeleteHostPayload
   part_of_router_updated: UpdateRouterPayload
   part_of_router_deleted: DeleteRouterPayload
   part_of_switch_created: CreateSwitchPayload
@@ -1930,9 +2223,6 @@ type CompositeGroupMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -1995,9 +2285,6 @@ input CompositeHostMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -2039,9 +2326,6 @@ type CompositeHostMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -2069,6 +2353,9 @@ input CompositeODFMutationInput {
   create_has_cable: [CreateCableInput]
   update_has_cable: [UpdateCableInput]
   deleted_has_cable: [DeleteCableInput]
+  create_has_host: [CreateHostInput]
+  update_has_host: [EditHostInput]
+  deleted_has_host: [DeleteHostInput]
   update_has_router: [UpdateRouterInput]
   deleted_has_router: [DeleteRouterInput]
   create_has_switch: [CreateSwitchInput]
@@ -2101,6 +2388,9 @@ type CompositeODFMutationPayload {
   has_cable_created: [CreateCablePayload]
   has_cable_updated: [UpdateCablePayload]
   has_cable_deleted: [DeleteCablePayload]
+  has_host_created: [CreateHostPayload]
+  has_host_updated: [EditHostPayload]
+  has_host_deleted: [DeleteHostPayload]
   has_router_updated: [UpdateRouterPayload]
   has_router_deleted: [DeleteRouterPayload]
   has_switch_created: [CreateSwitchPayload]
@@ -2133,6 +2423,9 @@ input CompositeOpticalFilterMutationInput {
   create_has_cable: [CreateCableInput]
   update_has_cable: [UpdateCableInput]
   deleted_has_cable: [DeleteCableInput]
+  create_has_host: [CreateHostInput]
+  update_has_host: [EditHostInput]
+  deleted_has_host: [DeleteHostInput]
   update_has_router: [UpdateRouterInput]
   deleted_has_router: [DeleteRouterInput]
   create_has_switch: [CreateSwitchInput]
@@ -2165,6 +2458,9 @@ type CompositeOpticalFilterMutationPayload {
   has_cable_created: [CreateCablePayload]
   has_cable_updated: [UpdateCablePayload]
   has_cable_deleted: [DeleteCablePayload]
+  has_host_created: [CreateHostPayload]
+  has_host_updated: [EditHostPayload]
+  has_host_deleted: [DeleteHostPayload]
   has_router_updated: [UpdateRouterPayload]
   has_router_deleted: [DeleteRouterPayload]
   has_switch_created: [CreateSwitchPayload]
@@ -2462,6 +2758,9 @@ input CompositeOpticalNodeMutationInput {
   create_has_cable: [CreateCableInput]
   update_has_cable: [UpdateCableInput]
   deleted_has_cable: [DeleteCableInput]
+  create_has_host: [CreateHostInput]
+  update_has_host: [EditHostInput]
+  deleted_has_host: [DeleteHostInput]
   update_has_router: [UpdateRouterInput]
   deleted_has_router: [DeleteRouterInput]
   create_has_switch: [CreateSwitchInput]
@@ -2495,6 +2794,9 @@ type CompositeOpticalNodeMutationPayload {
   has_cable_created: [CreateCablePayload]
   has_cable_updated: [UpdateCablePayload]
   has_cable_deleted: [DeleteCablePayload]
+  has_host_created: [CreateHostPayload]
+  has_host_updated: [EditHostPayload]
+  has_host_deleted: [DeleteHostPayload]
   has_router_updated: [UpdateRouterPayload]
   has_router_deleted: [DeleteRouterPayload]
   has_switch_created: [CreateSwitchPayload]
@@ -2676,9 +2978,6 @@ input CompositeOrganizationMutationInput {
   deleted_uses_email: [DeleteEmailInput]
   update_uses_unit: [UpdateUnitInput]
   deleted_uses_unit: [DeleteUnitInput]
-  create_uses_host: [CreateHostInput]
-  update_uses_host: [EditHostInput]
-  deleted_uses_host: [DeleteHostInput]
   create_uses_opticallink: [CreateOpticalLinkInput]
   update_uses_opticallink: [UpdateOpticalLinkInput]
   deleted_uses_opticallink: [DeleteOpticalLinkInput]
@@ -2699,6 +2998,9 @@ input CompositeOrganizationMutationInput {
   create_owns_cable: [CreateCableInput]
   update_owns_cable: [UpdateCableInput]
   deleted_owns_cable: [DeleteCableInput]
+  create_owns_host: [CreateHostInput]
+  update_owns_host: [EditHostInput]
+  deleted_owns_host: [DeleteHostInput]
   update_owns_router: [UpdateRouterInput]
   deleted_owns_router: [DeleteRouterInput]
   create_owns_switch: [CreateSwitchInput]
@@ -2757,9 +3059,6 @@ type CompositeOrganizationMutationPayload {
   uses_email_deleted: [DeleteEmailPayload]
   uses_unit_updated: [UpdateUnitPayload]
   uses_unit_deleted: [DeleteUnitPayload]
-  uses_host_created: [CreateHostPayload]
-  uses_host_updated: [EditHostPayload]
-  uses_host_deleted: [DeleteHostPayload]
   uses_opticallink_created: [CreateOpticalLinkPayload]
   uses_opticallink_updated: [UpdateOpticalLinkPayload]
   uses_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -2780,6 +3079,9 @@ type CompositeOrganizationMutationPayload {
   owns_cable_created: [CreateCablePayload]
   owns_cable_updated: [UpdateCablePayload]
   owns_cable_deleted: [DeleteCablePayload]
+  owns_host_created: [CreateHostPayload]
+  owns_host_updated: [EditHostPayload]
+  owns_host_deleted: [DeleteHostPayload]
   owns_router_updated: [UpdateRouterPayload]
   owns_router_deleted: [DeleteRouterPayload]
   owns_switch_created: [CreateSwitchPayload]
@@ -2820,6 +3122,9 @@ input CompositePeeringGroupMutationInput {
   create_part_of_cable: CreateCableInput
   update_part_of_cable: UpdateCableInput
   deleted_part_of_cable: DeleteCableInput
+  create_part_of_host: CreateHostInput
+  update_part_of_host: EditHostInput
+  deleted_part_of_host: DeleteHostInput
   update_part_of_router: UpdateRouterInput
   deleted_part_of_router: DeleteRouterInput
   create_part_of_switch: CreateSwitchInput
@@ -2936,9 +3241,6 @@ input CompositePeeringGroupMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -2986,6 +3288,9 @@ type CompositePeeringGroupMutationPayload {
   part_of_cable_created: CreateCablePayload
   part_of_cable_updated: UpdateCablePayload
   part_of_cable_deleted: DeleteCablePayload
+  part_of_host_created: CreateHostPayload
+  part_of_host_updated: EditHostPayload
+  part_of_host_deleted: DeleteHostPayload
   part_of_router_updated: UpdateRouterPayload
   part_of_router_deleted: DeleteRouterPayload
   part_of_switch_created: CreateSwitchPayload
@@ -3102,9 +3407,6 @@ type CompositePeeringGroupMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -3281,6 +3583,156 @@ type CompositePortMutationPayload {
   clientMutationId: String
 }
 
+input CompositeProviderMutationInput {
+  create_input: CreateProviderInput
+  update_input: UpdateProviderInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_uses_group: [CreateGroupInput]
+  update_uses_group: [UpdateGroupInput]
+  deleted_uses_group: [DeleteGroupInput]
+  create_uses_procedure: [CreateProcedureInput]
+  update_uses_procedure: [UpdateProcedureInput]
+  deleted_uses_procedure: [DeleteProcedureInput]
+  create_uses_address: [CreateAddressInput]
+  update_uses_address: [UpdateAddressInput]
+  deleted_uses_address: [DeleteAddressInput]
+  create_uses_phone: [CreatePhoneInput]
+  update_uses_phone: [UpdatePhoneInput]
+  deleted_uses_phone: [DeletePhoneInput]
+  create_uses_email: [CreateEmailInput]
+  update_uses_email: [UpdateEmailInput]
+  deleted_uses_email: [DeleteEmailInput]
+  update_uses_unit: [UpdateUnitInput]
+  deleted_uses_unit: [DeleteUnitInput]
+  create_uses_opticallink: [CreateOpticalLinkInput]
+  update_uses_opticallink: [UpdateOpticalLinkInput]
+  deleted_uses_opticallink: [DeleteOpticalLinkInput]
+  create_uses_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_uses_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_uses_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_uses_opticalpath: [CreateOpticalPathInput]
+  update_uses_opticalpath: [UpdateOpticalPathInput]
+  deleted_uses_opticalpath: [DeleteOpticalPathInput]
+  update_uses_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_uses_peeringgroup: [DeletePeeringGroupInput]
+  create_uses_service: [CreateServiceInput]
+  update_uses_service: [UpdateServiceInput]
+  deleted_uses_service: [DeleteServiceInput]
+  create_owns_port: [CreatePortInput]
+  update_owns_port: [UpdatePortInput]
+  deleted_owns_port: [DeletePortInput]
+  create_owns_cable: [CreateCableInput]
+  update_owns_cable: [UpdateCableInput]
+  deleted_owns_cable: [DeleteCableInput]
+  create_owns_host: [CreateHostInput]
+  update_owns_host: [EditHostInput]
+  deleted_owns_host: [DeleteHostInput]
+  update_owns_router: [UpdateRouterInput]
+  deleted_owns_router: [DeleteRouterInput]
+  create_owns_switch: [CreateSwitchInput]
+  update_owns_switch: [UpdateSwitchInput]
+  deleted_owns_switch: [DeleteSwitchInput]
+  update_owns_firewall: [UpdateFirewallInput]
+  deleted_owns_firewall: [DeleteFirewallInput]
+  create_owns_externalequipment: [CreateExternalEquipmentInput]
+  update_owns_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_owns_externalequipment: [DeleteExternalEquipmentInput]
+  create_owns_opticalnode: [CreateOpticalNodeInput]
+  update_owns_opticalnode: [UpdateOpticalNodeInput]
+  deleted_owns_opticalnode: [DeleteOpticalNodeInput]
+  create_owns_odf: [CreateOdfInput]
+  update_owns_odf: [UpdateOdfInput]
+  deleted_owns_odf: [DeleteOdfInput]
+  create_owns_opticalfilter: [CreateOpticalFilterInput]
+  update_owns_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_owns_opticalfilter: [DeleteOpticalFilterInput]
+  create_responsible_for_site: CreateSiteInput
+  update_responsible_for_site: UpdateSiteInput
+  deleted_responsible_for_site: DeleteSiteInput
+  create_responsible_for_room: CreateRoomInput
+  update_responsible_for_room: UpdateRoomInput
+  deleted_responsible_for_room: DeleteRoomInput
+  create_responsible_for_rack: CreateRackInput
+  update_responsible_for_rack: UpdateRackInput
+  deleted_responsible_for_rack: DeleteRackInput
+  clientMutationId: String
+}
+
+type CompositeProviderMutationPayload {
+  created: CreateProviderPayload
+  updated: UpdateProviderPayload
+  unlinked: [DeleteRelationshipPayload]
+  uses_group_created: [CreateGroupPayload]
+  uses_group_updated: [UpdateGroupPayload]
+  uses_group_deleted: [DeleteGroupPayload]
+  uses_procedure_created: [CreateProcedurePayload]
+  uses_procedure_updated: [UpdateProcedurePayload]
+  uses_procedure_deleted: [DeleteProcedurePayload]
+  uses_address_created: [CreateAddressPayload]
+  uses_address_updated: [UpdateAddressPayload]
+  uses_address_deleted: [DeleteAddressPayload]
+  uses_phone_created: [CreatePhonePayload]
+  uses_phone_updated: [UpdatePhonePayload]
+  uses_phone_deleted: [DeletePhonePayload]
+  uses_email_created: [CreateEmailPayload]
+  uses_email_updated: [UpdateEmailPayload]
+  uses_email_deleted: [DeleteEmailPayload]
+  uses_unit_updated: [UpdateUnitPayload]
+  uses_unit_deleted: [DeleteUnitPayload]
+  uses_opticallink_created: [CreateOpticalLinkPayload]
+  uses_opticallink_updated: [UpdateOpticalLinkPayload]
+  uses_opticallink_deleted: [DeleteOpticalLinkPayload]
+  uses_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  uses_opticalpath_created: [CreateOpticalPathPayload]
+  uses_opticalpath_updated: [UpdateOpticalPathPayload]
+  uses_opticalpath_deleted: [DeleteOpticalPathPayload]
+  uses_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  uses_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  uses_service_created: [CreateServicePayload]
+  uses_service_updated: [UpdateServicePayload]
+  uses_service_deleted: [DeleteServicePayload]
+  owns_port_created: [CreatePortPayload]
+  owns_port_updated: [UpdatePortPayload]
+  owns_port_deleted: [DeletePortPayload]
+  owns_cable_created: [CreateCablePayload]
+  owns_cable_updated: [UpdateCablePayload]
+  owns_cable_deleted: [DeleteCablePayload]
+  owns_host_created: [CreateHostPayload]
+  owns_host_updated: [EditHostPayload]
+  owns_host_deleted: [DeleteHostPayload]
+  owns_router_updated: [UpdateRouterPayload]
+  owns_router_deleted: [DeleteRouterPayload]
+  owns_switch_created: [CreateSwitchPayload]
+  owns_switch_updated: [UpdateSwitchPayload]
+  owns_switch_deleted: [DeleteSwitchPayload]
+  owns_firewall_updated: [UpdateFirewallPayload]
+  owns_firewall_deleted: [DeleteFirewallPayload]
+  owns_externalequipment_created: [CreateExternalEquipmentPayload]
+  owns_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  owns_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  owns_opticalnode_created: [CreateOpticalNodePayload]
+  owns_opticalnode_updated: [UpdateOpticalNodePayload]
+  owns_opticalnode_deleted: [DeleteOpticalNodePayload]
+  owns_odf_created: [CreateOdfPayload]
+  owns_odf_updated: [UpdateOdfPayload]
+  owns_odf_deleted: [DeleteOdfPayload]
+  owns_opticalfilter_created: [CreateOpticalFilterPayload]
+  owns_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  owns_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  responsible_for_site_created: CreateSitePayload
+  responsible_for_site_updated: UpdateSitePayload
+  responsible_for_site_deleted: DeleteSitePayload
+  responsible_for_room_created: CreateRoomPayload
+  responsible_for_room_updated: UpdateRoomPayload
+  responsible_for_room_deleted: DeleteRoomPayload
+  responsible_for_rack_created: CreateRackPayload
+  responsible_for_rack_updated: UpdateRackPayload
+  responsible_for_rack_deleted: DeleteRackPayload
+  clientMutationId: String
+}
+
 input CompositeRackMutationInput {
   create_input: CreateRackInput
   update_input: UpdateRackInput
@@ -3300,6 +3752,9 @@ input CompositeRackMutationInput {
   create_located_in_cable: [CreateCableInput]
   update_located_in_cable: [UpdateCableInput]
   deleted_located_in_cable: [DeleteCableInput]
+  create_located_in_host: [CreateHostInput]
+  update_located_in_host: [EditHostInput]
+  deleted_located_in_host: [DeleteHostInput]
   update_located_in_router: [UpdateRouterInput]
   deleted_located_in_router: [DeleteRouterInput]
   create_located_in_switch: [CreateSwitchInput]
@@ -3371,6 +3826,9 @@ type CompositeRackMutationPayload {
   located_in_cable_created: [CreateCablePayload]
   located_in_cable_updated: [UpdateCablePayload]
   located_in_cable_deleted: [DeleteCablePayload]
+  located_in_host_created: [CreateHostPayload]
+  located_in_host_updated: [EditHostPayload]
+  located_in_host_deleted: [DeleteHostPayload]
   located_in_router_updated: [UpdateRouterPayload]
   located_in_router_deleted: [DeleteRouterPayload]
   located_in_switch_created: [CreateSwitchPayload]
@@ -3442,6 +3900,9 @@ input CompositeRoomMutationInput {
   create_located_in_cable: [CreateCableInput]
   update_located_in_cable: [UpdateCableInput]
   deleted_located_in_cable: [DeleteCableInput]
+  create_located_in_host: [CreateHostInput]
+  update_located_in_host: [EditHostInput]
+  deleted_located_in_host: [DeleteHostInput]
   update_located_in_router: [UpdateRouterInput]
   deleted_located_in_router: [DeleteRouterInput]
   create_located_in_switch: [CreateSwitchInput]
@@ -3513,6 +3974,9 @@ type CompositeRoomMutationPayload {
   located_in_cable_created: [CreateCablePayload]
   located_in_cable_updated: [UpdateCablePayload]
   located_in_cable_deleted: [DeleteCablePayload]
+  located_in_host_created: [CreateHostPayload]
+  located_in_host_updated: [EditHostPayload]
+  located_in_host_deleted: [DeleteHostPayload]
   located_in_router_updated: [UpdateRouterPayload]
   located_in_router_deleted: [DeleteRouterPayload]
   located_in_switch_created: [CreateSwitchPayload]
@@ -3586,6 +4050,9 @@ input CompositeRouterMutationInput {
   create_has_cable: [CreateCableInput]
   update_has_cable: [UpdateCableInput]
   deleted_has_cable: [DeleteCableInput]
+  create_has_host: [CreateHostInput]
+  update_has_host: [EditHostInput]
+  deleted_has_host: [DeleteHostInput]
   update_has_router: [UpdateRouterInput]
   deleted_has_router: [DeleteRouterInput]
   create_has_switch: [CreateSwitchInput]
@@ -3622,9 +4089,6 @@ input CompositeRouterMutationInput {
   deleted_part_of_email: DeleteEmailInput
   update_part_of_unit: UpdateUnitInput
   deleted_part_of_unit: DeleteUnitInput
-  create_part_of_host: CreateHostInput
-  update_part_of_host: EditHostInput
-  deleted_part_of_host: DeleteHostInput
   create_part_of_opticallink: CreateOpticalLinkInput
   update_part_of_opticallink: UpdateOpticalLinkInput
   deleted_part_of_opticallink: DeleteOpticalLinkInput
@@ -3736,9 +4200,6 @@ input CompositeRouterMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -3798,6 +4259,9 @@ type CompositeRouterMutationPayload {
   has_cable_created: [CreateCablePayload]
   has_cable_updated: [UpdateCablePayload]
   has_cable_deleted: [DeleteCablePayload]
+  has_host_created: [CreateHostPayload]
+  has_host_updated: [EditHostPayload]
+  has_host_deleted: [DeleteHostPayload]
   has_router_updated: [UpdateRouterPayload]
   has_router_deleted: [DeleteRouterPayload]
   has_switch_created: [CreateSwitchPayload]
@@ -3834,9 +4298,6 @@ type CompositeRouterMutationPayload {
   part_of_email_deleted: DeleteEmailPayload
   part_of_unit_updated: UpdateUnitPayload
   part_of_unit_deleted: DeleteUnitPayload
-  part_of_host_created: CreateHostPayload
-  part_of_host_updated: EditHostPayload
-  part_of_host_deleted: DeleteHostPayload
   part_of_opticallink_created: CreateOpticalLinkPayload
   part_of_opticallink_updated: UpdateOpticalLinkPayload
   part_of_opticallink_deleted: DeleteOpticalLinkPayload
@@ -3948,9 +4409,6 @@ type CompositeRouterMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -3999,6 +4457,9 @@ input CompositeServiceMutationInput {
   create_part_of_cable: CreateCableInput
   update_part_of_cable: UpdateCableInput
   deleted_part_of_cable: DeleteCableInput
+  create_part_of_host: CreateHostInput
+  update_part_of_host: EditHostInput
+  deleted_part_of_host: DeleteHostInput
   update_part_of_router: UpdateRouterInput
   deleted_part_of_router: DeleteRouterInput
   create_part_of_switch: CreateSwitchInput
@@ -4115,9 +4576,6 @@ input CompositeServiceMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -4166,6 +4624,9 @@ type CompositeServiceMutationPayload {
   part_of_cable_created: CreateCablePayload
   part_of_cable_updated: UpdateCablePayload
   part_of_cable_deleted: DeleteCablePayload
+  part_of_host_created: CreateHostPayload
+  part_of_host_updated: EditHostPayload
+  part_of_host_deleted: DeleteHostPayload
   part_of_router_updated: UpdateRouterPayload
   part_of_router_deleted: DeleteRouterPayload
   part_of_switch_created: CreateSwitchPayload
@@ -4282,9 +4743,6 @@ type CompositeServiceMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -4345,6 +4803,9 @@ input CompositeSiteMutationInput {
   create_located_in_cable: [CreateCableInput]
   update_located_in_cable: [UpdateCableInput]
   deleted_located_in_cable: [DeleteCableInput]
+  create_located_in_host: [CreateHostInput]
+  update_located_in_host: [EditHostInput]
+  deleted_located_in_host: [DeleteHostInput]
   update_located_in_router: [UpdateRouterInput]
   deleted_located_in_router: [DeleteRouterInput]
   create_located_in_switch: [CreateSwitchInput]
@@ -4419,6 +4880,9 @@ type CompositeSiteMutationPayload {
   located_in_cable_created: [CreateCablePayload]
   located_in_cable_updated: [UpdateCablePayload]
   located_in_cable_deleted: [DeleteCablePayload]
+  located_in_host_created: [CreateHostPayload]
+  located_in_host_updated: [EditHostPayload]
+  located_in_host_deleted: [DeleteHostPayload]
   located_in_router_updated: [UpdateRouterPayload]
   located_in_router_deleted: [DeleteRouterPayload]
   located_in_switch_created: [CreateSwitchPayload]
@@ -4471,6 +4935,156 @@ type CompositeSiteMutationPayload {
   clientMutationId: String
 }
 
+input CompositeSiteOwnerMutationInput {
+  create_input: CreateSiteOwnerInput
+  update_input: UpdateSiteOwnerInput
+  unlink_subinputs: [DeleteRelationshipInput]
+  create_uses_group: [CreateGroupInput]
+  update_uses_group: [UpdateGroupInput]
+  deleted_uses_group: [DeleteGroupInput]
+  create_uses_procedure: [CreateProcedureInput]
+  update_uses_procedure: [UpdateProcedureInput]
+  deleted_uses_procedure: [DeleteProcedureInput]
+  create_uses_address: [CreateAddressInput]
+  update_uses_address: [UpdateAddressInput]
+  deleted_uses_address: [DeleteAddressInput]
+  create_uses_phone: [CreatePhoneInput]
+  update_uses_phone: [UpdatePhoneInput]
+  deleted_uses_phone: [DeletePhoneInput]
+  create_uses_email: [CreateEmailInput]
+  update_uses_email: [UpdateEmailInput]
+  deleted_uses_email: [DeleteEmailInput]
+  update_uses_unit: [UpdateUnitInput]
+  deleted_uses_unit: [DeleteUnitInput]
+  create_uses_opticallink: [CreateOpticalLinkInput]
+  update_uses_opticallink: [UpdateOpticalLinkInput]
+  deleted_uses_opticallink: [DeleteOpticalLinkInput]
+  create_uses_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
+  update_uses_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
+  deleted_uses_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
+  create_uses_opticalpath: [CreateOpticalPathInput]
+  update_uses_opticalpath: [UpdateOpticalPathInput]
+  deleted_uses_opticalpath: [DeleteOpticalPathInput]
+  update_uses_peeringgroup: [UpdatePeeringGroupInput]
+  deleted_uses_peeringgroup: [DeletePeeringGroupInput]
+  create_uses_service: [CreateServiceInput]
+  update_uses_service: [UpdateServiceInput]
+  deleted_uses_service: [DeleteServiceInput]
+  create_owns_port: [CreatePortInput]
+  update_owns_port: [UpdatePortInput]
+  deleted_owns_port: [DeletePortInput]
+  create_owns_cable: [CreateCableInput]
+  update_owns_cable: [UpdateCableInput]
+  deleted_owns_cable: [DeleteCableInput]
+  create_owns_host: [CreateHostInput]
+  update_owns_host: [EditHostInput]
+  deleted_owns_host: [DeleteHostInput]
+  update_owns_router: [UpdateRouterInput]
+  deleted_owns_router: [DeleteRouterInput]
+  create_owns_switch: [CreateSwitchInput]
+  update_owns_switch: [UpdateSwitchInput]
+  deleted_owns_switch: [DeleteSwitchInput]
+  update_owns_firewall: [UpdateFirewallInput]
+  deleted_owns_firewall: [DeleteFirewallInput]
+  create_owns_externalequipment: [CreateExternalEquipmentInput]
+  update_owns_externalequipment: [UpdateExternalEquipmentInput]
+  deleted_owns_externalequipment: [DeleteExternalEquipmentInput]
+  create_owns_opticalnode: [CreateOpticalNodeInput]
+  update_owns_opticalnode: [UpdateOpticalNodeInput]
+  deleted_owns_opticalnode: [DeleteOpticalNodeInput]
+  create_owns_odf: [CreateOdfInput]
+  update_owns_odf: [UpdateOdfInput]
+  deleted_owns_odf: [DeleteOdfInput]
+  create_owns_opticalfilter: [CreateOpticalFilterInput]
+  update_owns_opticalfilter: [UpdateOpticalFilterInput]
+  deleted_owns_opticalfilter: [DeleteOpticalFilterInput]
+  create_responsible_for_site: CreateSiteInput
+  update_responsible_for_site: UpdateSiteInput
+  deleted_responsible_for_site: DeleteSiteInput
+  create_responsible_for_room: CreateRoomInput
+  update_responsible_for_room: UpdateRoomInput
+  deleted_responsible_for_room: DeleteRoomInput
+  create_responsible_for_rack: CreateRackInput
+  update_responsible_for_rack: UpdateRackInput
+  deleted_responsible_for_rack: DeleteRackInput
+  clientMutationId: String
+}
+
+type CompositeSiteOwnerMutationPayload {
+  created: CreateSiteOwnerPayload
+  updated: UpdateSiteOwnerPayload
+  unlinked: [DeleteRelationshipPayload]
+  uses_group_created: [CreateGroupPayload]
+  uses_group_updated: [UpdateGroupPayload]
+  uses_group_deleted: [DeleteGroupPayload]
+  uses_procedure_created: [CreateProcedurePayload]
+  uses_procedure_updated: [UpdateProcedurePayload]
+  uses_procedure_deleted: [DeleteProcedurePayload]
+  uses_address_created: [CreateAddressPayload]
+  uses_address_updated: [UpdateAddressPayload]
+  uses_address_deleted: [DeleteAddressPayload]
+  uses_phone_created: [CreatePhonePayload]
+  uses_phone_updated: [UpdatePhonePayload]
+  uses_phone_deleted: [DeletePhonePayload]
+  uses_email_created: [CreateEmailPayload]
+  uses_email_updated: [UpdateEmailPayload]
+  uses_email_deleted: [DeleteEmailPayload]
+  uses_unit_updated: [UpdateUnitPayload]
+  uses_unit_deleted: [DeleteUnitPayload]
+  uses_opticallink_created: [CreateOpticalLinkPayload]
+  uses_opticallink_updated: [UpdateOpticalLinkPayload]
+  uses_opticallink_deleted: [DeleteOpticalLinkPayload]
+  uses_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
+  uses_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
+  uses_opticalpath_created: [CreateOpticalPathPayload]
+  uses_opticalpath_updated: [UpdateOpticalPathPayload]
+  uses_opticalpath_deleted: [DeleteOpticalPathPayload]
+  uses_peeringgroup_updated: [UpdatePeeringGroupPayload]
+  uses_peeringgroup_deleted: [DeletePeeringGroupPayload]
+  uses_service_created: [CreateServicePayload]
+  uses_service_updated: [UpdateServicePayload]
+  uses_service_deleted: [DeleteServicePayload]
+  owns_port_created: [CreatePortPayload]
+  owns_port_updated: [UpdatePortPayload]
+  owns_port_deleted: [DeletePortPayload]
+  owns_cable_created: [CreateCablePayload]
+  owns_cable_updated: [UpdateCablePayload]
+  owns_cable_deleted: [DeleteCablePayload]
+  owns_host_created: [CreateHostPayload]
+  owns_host_updated: [EditHostPayload]
+  owns_host_deleted: [DeleteHostPayload]
+  owns_router_updated: [UpdateRouterPayload]
+  owns_router_deleted: [DeleteRouterPayload]
+  owns_switch_created: [CreateSwitchPayload]
+  owns_switch_updated: [UpdateSwitchPayload]
+  owns_switch_deleted: [DeleteSwitchPayload]
+  owns_firewall_updated: [UpdateFirewallPayload]
+  owns_firewall_deleted: [DeleteFirewallPayload]
+  owns_externalequipment_created: [CreateExternalEquipmentPayload]
+  owns_externalequipment_updated: [UpdateExternalEquipmentPayload]
+  owns_externalequipment_deleted: [DeleteExternalEquipmentPayload]
+  owns_opticalnode_created: [CreateOpticalNodePayload]
+  owns_opticalnode_updated: [UpdateOpticalNodePayload]
+  owns_opticalnode_deleted: [DeleteOpticalNodePayload]
+  owns_odf_created: [CreateOdfPayload]
+  owns_odf_updated: [UpdateOdfPayload]
+  owns_odf_deleted: [DeleteOdfPayload]
+  owns_opticalfilter_created: [CreateOpticalFilterPayload]
+  owns_opticalfilter_updated: [UpdateOpticalFilterPayload]
+  owns_opticalfilter_deleted: [DeleteOpticalFilterPayload]
+  responsible_for_site_created: CreateSitePayload
+  responsible_for_site_updated: UpdateSitePayload
+  responsible_for_site_deleted: DeleteSitePayload
+  responsible_for_room_created: CreateRoomPayload
+  responsible_for_room_updated: UpdateRoomPayload
+  responsible_for_room_deleted: DeleteRoomPayload
+  responsible_for_rack_created: CreateRackPayload
+  responsible_for_rack_updated: UpdateRackPayload
+  responsible_for_rack_deleted: DeleteRackPayload
+  clientMutationId: String
+}
+
 input CompositeSwitchMutationInput {
   create_input: CreateSwitchInput
   update_input: UpdateSwitchInput
@@ -4495,9 +5109,6 @@ input CompositeSwitchMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -4539,9 +5150,6 @@ type CompositeSwitchMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -4569,6 +5177,9 @@ input CompositeUnitMutationInput {
   create_part_of_cable: CreateCableInput
   update_part_of_cable: UpdateCableInput
   deleted_part_of_cable: DeleteCableInput
+  create_part_of_host: CreateHostInput
+  update_part_of_host: EditHostInput
+  deleted_part_of_host: DeleteHostInput
   update_part_of_router: UpdateRouterInput
   deleted_part_of_router: DeleteRouterInput
   create_part_of_switch: CreateSwitchInput
@@ -4685,9 +5296,6 @@ input CompositeUnitMutationInput {
   deleted_dependents_email: [DeleteEmailInput]
   update_dependents_unit: [UpdateUnitInput]
   deleted_dependents_unit: [DeleteUnitInput]
-  create_dependents_host: [CreateHostInput]
-  update_dependents_host: [EditHostInput]
-  deleted_dependents_host: [DeleteHostInput]
   create_dependents_opticallink: [CreateOpticalLinkInput]
   update_dependents_opticallink: [UpdateOpticalLinkInput]
   deleted_dependents_opticallink: [DeleteOpticalLinkInput]
@@ -4736,6 +5344,9 @@ type CompositeUnitMutationPayload {
   part_of_cable_created: CreateCablePayload
   part_of_cable_updated: UpdateCablePayload
   part_of_cable_deleted: DeleteCablePayload
+  part_of_host_created: CreateHostPayload
+  part_of_host_updated: EditHostPayload
+  part_of_host_deleted: DeleteHostPayload
   part_of_router_updated: UpdateRouterPayload
   part_of_router_deleted: DeleteRouterPayload
   part_of_switch_created: CreateSwitchPayload
@@ -4852,9 +5463,6 @@ type CompositeUnitMutationPayload {
   dependents_email_deleted: [DeleteEmailPayload]
   dependents_unit_updated: [UpdateUnitPayload]
   dependents_unit_deleted: [DeleteUnitPayload]
-  dependents_host_created: [CreateHostPayload]
-  dependents_host_updated: [EditHostPayload]
-  dependents_host_deleted: [DeleteHostPayload]
   dependents_opticallink_created: [CreateOpticalLinkPayload]
   dependents_opticallink_updated: [UpdateOpticalLinkPayload]
   dependents_opticallink_deleted: [DeleteOpticalLinkPayload]
@@ -6440,6 +7048,7 @@ type Email implements NINode & Logical & PhysicalLogical {
   contexts: [String]
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -6765,6 +7374,7 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -6945,6 +7555,7 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -6954,7 +7565,6 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  operational_state: Choice
   ip_addresses: IPAddr
   responsible_group: Group
   support_group: Group
@@ -7438,6 +8048,7 @@ type Group implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -7578,7 +8189,7 @@ enum GroupOrderBy {
   handle_id_DESC
 }
 
-type Host implements NINode & Logical & PhysicalLogical {
+type Host implements NINode & Physical & PhysicalLogical {
   handle_id: ID!
   node_name: String!
   node_type: NINodeType!
@@ -7596,16 +8207,17 @@ type Host implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
-  part_of: Physical
-  dependencies: [PhysicalLogical]
-  used_by: [Relation]
+  operational_state: Choice
+  location: Location
+  has: [Physical]
+  part_of: Logical
+  parent: [PhysicalLogical]
+  owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
   host_type: String
-  location: Location
-  operational_state: Choice
   ip_addresses: IPAddr
   responsible_group: Group
   support_group: Group
@@ -8140,6 +8752,7 @@ interface Logical {
   contexts: [String]
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -8217,15 +8830,19 @@ type Mutation {
   create_customer(input: CreateCustomerInput!): CreateCustomerPayload
   update_customer(input: UpdateCustomerInput!): UpdateCustomerPayload
   delete_customer(input: DeleteCustomerInput!): DeleteCustomerPayload
+  composite_customer(input: CompositeCustomerMutationInput!): CompositeCustomerMutationPayload
   create_endUser(input: CreateEndUserInput!): CreateEndUserPayload
   update_endUser(input: UpdateEndUserInput!): UpdateEndUserPayload
   delete_endUser(input: DeleteEndUserInput!): DeleteEndUserPayload
+  composite_endUser(input: CompositeEndUserMutationInput!): CompositeEndUserMutationPayload
   create_provider(input: CreateProviderInput!): CreateProviderPayload
   update_provider(input: UpdateProviderInput!): UpdateProviderPayload
   delete_provider(input: DeleteProviderInput!): DeleteProviderPayload
+  composite_provider(input: CompositeProviderMutationInput!): CompositeProviderMutationPayload
   create_siteOwner(input: CreateSiteOwnerInput!): CreateSiteOwnerPayload
   update_siteOwner(input: UpdateSiteOwnerInput!): UpdateSiteOwnerPayload
   delete_siteOwner(input: DeleteSiteOwnerInput!): DeleteSiteOwnerPayload
+  composite_siteOwner(input: CompositeSiteOwnerMutationInput!): CompositeSiteOwnerMutationPayload
   create_port(input: CreatePortInput!): CreatePortPayload
   update_port(input: UpdatePortInput!): UpdatePortPayload
   delete_port(input: DeletePortInput!): DeletePortPayload
@@ -8462,6 +9079,7 @@ type ODF implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -8471,7 +9089,6 @@ type ODF implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  operational_state: Choice
   rack_units: Int
   rack_position: Int
   rack_back: Boolean
@@ -8670,6 +9287,7 @@ type OpticalFilter implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -8679,7 +9297,6 @@ type OpticalFilter implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  operational_state: Choice
   rack_units: Int
   rack_position: Int
   rack_back: Boolean
@@ -8878,6 +9495,7 @@ type OpticalLink implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Provider
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -8887,7 +9505,6 @@ type OpticalLink implements NINode & Logical & PhysicalLogical {
   comments: [CommentType]
   link_type: Choice
   interface_type: Choice
-  operational_state: Choice
   ports: [Port]
 }
 
@@ -9076,6 +9693,7 @@ type OpticalMultiplexSection implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Provider
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -9083,7 +9701,6 @@ type OpticalMultiplexSection implements NINode & Logical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  operational_state: Choice
 }
 
 type opticalMultiplexSectionConnection {
@@ -9239,6 +9856,7 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -9253,7 +9871,6 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   rack_units: Int
   rack_position: Int
   rack_back: Boolean
-  operational_state: Choice
   link: String
   ots: String
 }
@@ -9487,6 +10104,7 @@ type OpticalPath implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Provider
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -9497,7 +10115,6 @@ type OpticalPath implements NINode & Logical & PhysicalLogical {
   framing: Choice
   capacity: Choice
   wavelength: Int
-  operational_state: Choice
   enrs: JSON
 }
 
@@ -10042,6 +10659,7 @@ type PeeringGroup implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -10364,6 +10982,7 @@ type Phone implements NINode & Logical & PhysicalLogical {
   contexts: [String]
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -10512,6 +11131,7 @@ interface Physical {
   contexts: [String]
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -10545,6 +11165,7 @@ interface PhysicalLogical {
   contexts: [String]
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
 }
 
 type PhysicalLogicalConnection {
@@ -10587,6 +11208,7 @@ type Port implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -10771,6 +11393,7 @@ type Procedure implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -11072,6 +11695,7 @@ type Query {
   getRolesFromRoleGroup(name: String): [Role]
   getMetatypes: [MetaType]
   getTypesForMetatype(metatype: MetaType): [TypeInfo]
+  getTypesForMetatypes(metatypes: [MetaType]): [TypeInfo]
   getAvailableContexts: [String]
   getContextActivity(filter: ActionFilter!, orderBy: ActionOrderBy, before: String, after: String, first: Int, last: Int): ActionConnection
   getSwitchTypes: [SwitchType]
@@ -11650,6 +12274,7 @@ type Router implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -11659,7 +12284,6 @@ type Router implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  operational_state: Choice
   model: String
   version: String
   rack_units: Int
@@ -11881,6 +12505,7 @@ type Service implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]
@@ -11890,7 +12515,6 @@ type Service implements NINode & Logical & PhysicalLogical {
   comments: [CommentType]
   service_type: ServiceType
   service_class: ServiceClass
-  operational_state: Choice
   responsible_group: Group
   support_group: Group
   project_end_date: DateTime
@@ -12691,6 +13315,7 @@ type Switch implements NINode & Physical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Provider
+  operational_state: Choice
   location: Location
   has: [Physical]
   part_of: Logical
@@ -12700,7 +13325,6 @@ type Switch implements NINode & Physical & PhysicalLogical {
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
-  operational_state: Choice
   ip_addresses: IPAddr
   responsible_group: Group
   support_group: Group
@@ -13042,6 +13666,7 @@ type Unit implements NINode & Logical & PhysicalLogical {
   relation_id: Int
   dependents: [Logical]
   provider: Relation
+  operational_state: Choice
   part_of: Physical
   dependencies: [PhysicalLogical]
   used_by: [Relation]

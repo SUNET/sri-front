@@ -10,6 +10,7 @@ import DropdownSearch from '../DropdownSearch';
 import Dropdown from '../Dropdown';
 
 import ExpansibleTextBox from '../ExpansibleTextBox';
+import PillsFilter from '../PillsFilter';
 
 import { RoutesNetworkEntity } from '../../Routes';
 
@@ -527,11 +528,43 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
+  renderFilterHeader() {
+    return (
+      <div className="contact-in-organization__internal-filter-block">
+        {this.INTERNAL_FILTER?.pills && (
+          <PillsFilter
+            type="dropdownOperationalState"
+            onChange={(currentInternalFilter) => {
+              this.setState({
+                currentInternalFilter: { ...currentInternalFilter, fieldToFilter: 'operational_state' },
+              });
+            }}
+          />
+        )}
+        {this.INTERNAL_FILTER?.text && (
+          <div>
+            <input
+              type="text"
+              placeholder="Filter by text"
+              value={this.state.internalTextFilter.filterText}
+              onChange={(event) => {
+                this.setState({
+                  internalTextFilter: { field: 'name', value: event.target.value },
+                });
+              }}
+            />
+          </div>
+        )}
+      </div>
+    );
+  }
+
   // specific renders
 
   render() {
     return (
       <div className={`contact-in-organization contact-in-organization--${this.styleModifier}`}>
+        {this.renderFilterHeader()}
         {this.renderHeader()}
         {this.renderBody()}
         {this.PRE_FILTER_SELECT && this.renderFooter()}
