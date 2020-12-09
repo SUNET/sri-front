@@ -106,6 +106,7 @@ const mapStateToProps = (state, props) => {
     incident_management_info: organization.incident_management_info,
     contacts: formattedContacts(organization),
     addresses: formattedAddresses(organization.addresses),
+    with_same_name: organization.with_same_name,
   };
   const contactsValues = updateOrganizationSelector(state, 'contacts');
   const addressesValues = updateOrganizationSelector(state, 'addresses');
@@ -147,6 +148,7 @@ const mapStateToProps = (state, props) => {
     // these props are because this form has entities listed as attributes
     isDeleteConfirmed: state.confirmModal.confirmDelete,
     confirmModalType: state.confirmModal.type,
+    with_same_name: updateOrganizationSelector(state, 'with_same_name'),
   };
 };
 

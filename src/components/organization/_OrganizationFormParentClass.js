@@ -1,7 +1,7 @@
 // Common imports
 import React from 'react';
 import { arrayPush, FieldArray, Field, change } from 'redux-form';
-import { Form } from 'react-bootstrap';
+import { Form, Col } from 'react-bootstrap';
 // components
 import BackCTA from '../common/BackCTA';
 import Dropdown from '../Dropdown';
@@ -14,6 +14,10 @@ import InfoCreatorModifier from '../InfoCreatorModifier';
 import SaveCancelCTAs from '../common/SaveCancelCTAs';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import Worklog from '../Worklog';
+import FieldRelatedEntity from '../common/FieldRelatedEntity';
+import INFO_BY_ENTITIES from '../common/infoByTypeEntity';
+
+import { formatAffiliationOrganizationData } from '../../utils';
 // const
 import { isBrowser, isMobile } from 'react-device-detect';
 // scss
@@ -118,12 +122,14 @@ class _OrganizationFormParentClass extends React.Component {
   };
   // Common sections RENDERS
   renderSections(editMode) {
+    let { with_same_name } = this.props;
     return (
       <>
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderAddressToggleSection(editMode)}
         {this.renderContactsToggleSection(editMode)}
+        {with_same_name && this.renderRelatedEntities(with_same_name)}
         {this.renderWorkLog(editMode)}
       </>
     );
@@ -517,6 +523,39 @@ class _OrganizationFormParentClass extends React.Component {
             )}
           </TogglePanel>
         </ToggleSection>
+      </section>
+    );
+  }
+
+  renderRelatedEntities(relatedEntities) {
+    const { t } = this.props;
+    return (
+      <section className="model-section">
+        {relatedEntities.map((entity, index) => {
+          let formattedEntityData;
+          if (entity['__typename'] === 'Organization') {
+            formattedEntityData = formatAffiliationOrganizationData(entity);
+          } else {
+            formattedEntityData = entity;
+          }
+          return (
+            <Col key={entity.id}>
+              <ToggleSection>
+                <ToggleHeading>
+                  <h2>{t(`${INFO_BY_ENTITIES[formattedEntityData['__typename']].headerNameI18nText}`)}</h2>
+                </ToggleHeading>
+                <TogglePanel>
+                  <FieldRelatedEntity
+                    fieldsInfo={INFO_BY_ENTITIES[formattedEntityData['__typename']]}
+                    data={formattedEntityData}
+                    t={t}
+                  />
+                </TogglePanel>
+              </ToggleSection>
+              <hr />
+            </Col>
+          );
+        })}
       </section>
     );
   }
