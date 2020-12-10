@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import _SiteOwnerFormParentClass from './_SiteOwnerFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import ValidationsSiteOwnerForm from '../common/_BasicValidationForm';
 import { CREATE_SITEOWNER_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CreateSiteOwnerForm extends _BasicFormParentClass {
+class CreateSiteOwnerForm extends _SiteOwnerFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_SITEOWNER_FORM;
   ROUTE_LIST_DIRECTION = '/network/site-owners';
@@ -29,7 +29,6 @@ class CreateSiteOwnerForm extends _BasicFormParentClass {
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
           {this.renderSections(editMode)}
-          {this.renderWorkLog(editMode)}
         </div>
         {this.renderSaveCancelButtons()}
       </form>

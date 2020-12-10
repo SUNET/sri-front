@@ -5,99 +5,57 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { generateSubInputs } from '../MutationsUtils';
+
 const mutation = graphql`
-  mutation UpdateProviderMutation($input: UpdateProviderInput!) {
-    update_provider(input: $input) {
-      errors {
-        field
-        messages
-      }
-      provider {
-        id
-        name
-        description
-        url
-        __typename
-        with_same_name {
-          id
-          name
-          ... on Organization {
-            website
-            organization_id
-            parent_organization {
-              organization_id
-            }
-            affiliation_partner
-            affiliation_customer
-            affiliation_provider
-            affiliation_host_user
-            affiliation_site_owner
-            affiliation_end_customer
-            type {
-              name
-              value
-            }
-          }
-          ... on EndUser {
-            url
-          }
-          ... on Customer {
-            url
-          }
-          ... on SiteOwner {
-            url
-          }
-          ... on Provider {
-            url
-          }
-          ... on PeeringPartner {
-            peering_link
-          }
-          __typename
-        }
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
+  mutation UpdateProviderMutation($input: CompositeProviderMutationInput!) {
+    composite_provider(input: $input) {
+      updated {
+        provider {
+          ...ProviderUpdateForm_provider
         }
       }
     }
   }
 `;
 
-export default function UpdateProviderMutation(provider, form) {
+export default function UpdateProviderMutation(entityData, form) {
+  const servicesSubInputs = generateSubInputs(
+    entityData.uses && entityData.uses.length > 0 ? entityData.uses : [],
+    'service_type',
+    'operational_state',
+  );
+
   const variables = {
     input: {
-      id: provider.id,
-      name: provider.name,
-      description: provider.description,
-      url: provider.url,
+      update_input: {
+        id: entityData.id,
+        name: entityData.name,
+        description: entityData.description,
+        url: entityData.url,
+      },
+      update_uses_service: servicesSubInputs.toUpdate.map((s) => ({
+        ...s,
+        ...{ operational_state: s.operational_state.value },
+      })),
+      deleted_uses_service: servicesSubInputs.toDelete,
+      unlink_subinputs: [...servicesSubInputs.toUnlink],
     },
   };
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.update_provider.errors) {
+      if (response.composite_provider.updated.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
-        return response.update_provider.updated.errors;
+        return response.composite_provider.updated.errors;
       }
       form.props.reset();
-      form.props.notify(i18n.t('notify/changes-saved'), 'success');
-      if (!form.props.isFromModal) {
+      if (form.props.isFromModal) {
+        form.props.editedEntity('Provider', response.composite_provider.updated.provider.id);
+      } else {
         form.refetch();
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

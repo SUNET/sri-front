@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const ProviderDetailsQuery = graphql`
+  query ProviderDetailsQuery($providerId: ID!) {
+    getProviderById(id: $providerId) {
+      ...ProviderUpdateForm_provider
+      ___PROVIDER_FIELDS___
+    }
+  }
+`;
+
+export default ProviderDetailsQuery;

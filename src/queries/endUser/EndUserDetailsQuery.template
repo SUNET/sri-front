@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const EndUserDetailsQuery = graphql`
+  query EndUserDetailsQuery($endUserId: ID!) {
+    getEndUserById(id: $endUserId) {
+      ...EndUserUpdateForm_endUser
+      ___ENDUSER_FIELDS___
+    }
+  }
+`;
+
+export default EndUserDetailsQuery;

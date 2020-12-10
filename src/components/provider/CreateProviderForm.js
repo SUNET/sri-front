@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import _ProviderFormParentClass from './_ProviderFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import ValidationsProviderForm from '../common/_BasicValidationForm';
 import { CREATE_PROVIDER_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CreateProviderForm extends _BasicFormParentClass {
+class CreateProviderForm extends _ProviderFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_PROVIDER_FORM;
   ROUTE_LIST_DIRECTION = '/network/providers';
@@ -29,7 +29,6 @@ class CreateProviderForm extends _BasicFormParentClass {
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
           {this.renderSections(editMode)}
-          {this.renderWorkLog(editMode)}
         </div>
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>
