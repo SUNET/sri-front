@@ -1,4 +1,3 @@
-import React from 'react';
 import _BasicFieldArrayParentClass from '../common/_BasicFieldArrayParentClass';
 import { withTranslation } from 'react-i18next';
 

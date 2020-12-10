@@ -31,7 +31,6 @@ export function renderOwnedEquipmentToggleSection(editMode = false, entityFormCl
     dispatch,
     formSyncErrors,
     fields,
-    getOwnEquipmentById,
     form,
   } = entityFormClass.props;
 
