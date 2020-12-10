@@ -20,10 +20,10 @@ const mutation = graphql`
 `;
 
 export default function UpdateSiteOwnerMutation(entityData, form) {
-  const servicesSubInputs = generateSubInputs(
-    entityData.uses && entityData.uses.length > 0 ? entityData.uses : [],
-    'service_type',
-    'operational_state',
+  const sitesSubInputs = generateSubInputs(
+    entityData.responsible_for && entityData.responsible_for.length > 0 ? entityData.responsible_for : [],
+    null,
+    null,
   );
 
   const variables = {
@@ -34,14 +34,13 @@ export default function UpdateSiteOwnerMutation(entityData, form) {
         description: entityData.description,
         url: entityData.url,
       },
-      update_uses_service: servicesSubInputs.toUpdate.map((s) => ({
-        ...s,
-        ...{ operational_state: s.operational_state.value },
-      })),
-      deleted_uses_service: servicesSubInputs.toDelete,
-      unlink_subinputs: [...servicesSubInputs.toUnlink],
+      unlink_subinputs: sitesSubInputs.toUnlink,
+      update_responsible_for_site: sitesSubInputs.toUpdate,
+      deleted_responsible_for_site: sitesSubInputs.toDelete,
     },
   };
+
+  console.log(JSON.stringify(variables));
 
   commitMutation(environment, {
     mutation,

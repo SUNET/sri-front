@@ -17,7 +17,6 @@ export function getSelectedOwnEquipment(selection, getMethod) {
 
 export async function handleSelectedOwnEquipment({ selection, getMethod, form, dispatch }) {
   const newEntity = await getSelectedOwnEquipment(selection, getMethod);
-  console.log('newEntity: ', newEntity);
   if (newEntity) dispatch(arrayPush(form, 'owns', newEntity));
 }
 

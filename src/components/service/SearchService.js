@@ -48,7 +48,6 @@ class SearchService extends _SearchEntityParentClass {
 
   getFilters = () => {
     const { currentClass } = this.props;
-    console.log('currentClass: ', currentClass);
     let filterArrayAND = [];
     if (currentClass.id !== 'all') {
       filterArrayAND = [{ service_class: currentClass?.originalName }];
@@ -76,7 +75,6 @@ class SearchService extends _SearchEntityParentClass {
 
   preRender() {
     const { currentClass } = this.props;
-    console.log('currentClass: ', currentClass);
     this.PATH_ENTITY = `/network/${currentClass?.path}`;
   }
 }

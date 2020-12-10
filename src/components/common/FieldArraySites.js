@@ -5,7 +5,7 @@ class FieldArraySites extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
     this.styleModifier = '';
-    this.FIELD_NAME_IN_FORM = 'sites';
+    this.FIELD_NAME_IN_FORM = props.fieldNameInForm || 'sites';
     this.HEADER_TEXTS = props.headerConfig || {
       summary: [
         {
@@ -34,6 +34,20 @@ class FieldArraySites extends _BasicFieldArrayParentClass {
       entityMandatory: 'Site',
     };
     this.MODEL_TO_SEARCH = 'sites';
+    this.INTERNAL_FILTER = props.internalFilter || null;
+  }
+  getAllValues(filterObj) {
+    const allValues = this.props.fields.getAll() || [];
+    if (!!filterObj) {
+      const [textFilterKey, textFilterValue] = Object.entries(filterObj)[0];
+      return allValues.filter((v) => v[textFilterKey].includes(textFilterValue));
+    }
+    return allValues;
+  }
+
+  getFilterTable() {
+    const { internalTextFilter } = this.state;
+    return { name: internalTextFilter?.value };
   }
 }
 

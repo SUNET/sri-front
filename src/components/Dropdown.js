@@ -127,6 +127,17 @@ const DropdownServicesTypesQuery = graphql`
   }
 `;
 
+const DropdownLogicalAndPhysicalTypesQuery = graphql`
+  query DropdownLogicalAndPhysicalTypesQuery {
+    getTypesForMetatypes(metatypes: [Physical, Logical]) {
+      name: type_name
+      value: connection_name
+      getDetailsMethodName: byid_name
+      all_name
+    }
+  }
+`;
+
 class Dropdown extends React.PureComponent {
   static propTypes = {
     type: PropTypes.string,
@@ -175,6 +186,9 @@ class Dropdown extends React.PureComponent {
         break;
       case 'siteOwner':
         queryModel = DropdownSiteOwnersAllQuery;
+        break;
+      case 'logical_and_physical':
+        queryModel = DropdownLogicalAndPhysicalTypesQuery;
         break;
       default:
         queryModel = DropdownQuery;
@@ -308,7 +322,11 @@ class Dropdown extends React.PureComponent {
         className={this.props.className}
         component={FieldSelect}
         onChange={(e) => {
-          if (this.props.model === 'physical_types' || this.props.model === 'owners_types') {
+          if (
+            this.props.model === 'physical_types' ||
+            this.props.model === 'owners_types' ||
+            this.props.model === 'logical_and_physical'
+          ) {
             this.props.onChange(options.find((o) => o.value === e.target.value));
           } else if (this.props.model === 'services_types') {
             this.props.onChange(this.getCurrentOptionObject(options, e.target.value));
@@ -326,7 +344,10 @@ class Dropdown extends React.PureComponent {
         )}
         {this.props.model === 'organization' && this.renderOptionsModelOptimized(options)}
         {(this.props.model === 'roles' || this.props.model === 'default_roles') && this.renderOptionsModel(options)}
-        {(this.props.model === 'physical_types' || this.props.model === 'owners_types') && this.renderOptions(options)}
+        {(this.props.model === 'physical_types' ||
+          this.props.model === 'owners_types' ||
+          this.props.model === 'logical_and_physical') &&
+          this.renderOptions(options)}
         {this.props.model === 'switch_types' && this.renderOptions(options)}
         {this.props.model === 'services_types' && this.renderServicesTypesOptions(options)}
         {this.props.model === undefined && this.renderOptions(options)}
