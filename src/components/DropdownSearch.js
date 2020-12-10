@@ -301,6 +301,67 @@ const DropdownSearchAllServicesQuery = graphql`
     }
   }
 `;
+
+const DropdownSearchAllUnitsQuery = graphql`
+  query DropdownSearchAllUnitsQuery($filter: UnitFilter) {
+    units(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+const DropdownSearchAllOpticalLinksQuery = graphql`
+  query DropdownSearchAllOpticalLinksQuery($filter: OpticalLinkFilter) {
+    opticalLinks(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+const DropdownSearchAllPeeringGroupsQuery = graphql`
+  query DropdownSearchAllPeeringGroupsQuery($filter: PeeringGroupFilter) {
+    peeringGroups(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+const DropdownSearchAllOpticalPathsQuery = graphql`
+  query DropdownSearchAllOpticalPathsQuery($filter: OpticalPathFilter) {
+    opticalPaths(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+const DropdownSearchAllOpticalMultiplexSectionsQuery = graphql`
+  query DropdownSearchAllOpticalMultiplexSectionQuery($filter: OpticalMultiplexSectionFilter) {
+    opticalMultiplexSections(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -397,8 +458,28 @@ class DropdownSearch extends React.Component {
       case 'Service':
         queryModel.query = DropdownSearchAllServicesQuery;
         break;
+      case 'units':
+      case 'Unit':
+        queryModel.query = DropdownSearchAllUnitsQuery;
+        break;
+      case 'opticalLinks':
+      case 'OpticalLink':
+        queryModel.query = DropdownSearchAllOpticalLinksQuery;
+        break;
+      case 'peeringGroups':
+      case 'PeeringGroup':
+        queryModel.query = DropdownSearchAllPeeringGroupsQuery;
+        break;
+      case 'opticalPaths':
+      case 'OpticalPath':
+        queryModel.query = DropdownSearchAllOpticalPathsQuery;
+        break;
+      case 'opticalMultiplexSections':
+      case 'OpticalMultiplexSection':
+        queryModel.query = DropdownSearchAllOpticalMultiplexSectionsQuery;
+        break;
       default:
-        queryModel.query = DropdownSearchAllContactsQuery;
+        queryModel.query = null;
         break;
     }
     return queryModel;
@@ -406,6 +487,9 @@ class DropdownSearch extends React.Component {
 
   getItems = debounce((filter) => {
     const { modelName, query, typeFilter } = this.getQueryByModel(this.props.model);
+    if (!query) {
+      return false;
+    }
     const { skipElements, model, entityTypeFilter } = this.props;
     let variables = {
       filter: {},

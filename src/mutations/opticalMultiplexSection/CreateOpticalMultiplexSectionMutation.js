@@ -43,7 +43,6 @@ const mutation = graphql`
 `;
 
 function CreateOpticalMultiplexSectionMutation(opticalMultiplexSection, form) {
-  console.log('opticalMultiplexSection: ', opticalMultiplexSection);
   const ports = generatePortForInput(opticalMultiplexSection.ports);
   const variables = {
     input: {

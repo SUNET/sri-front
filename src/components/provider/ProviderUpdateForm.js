@@ -73,22 +73,12 @@ description
 __typename
 url
 
-    uses {
+    provides {
       id
 name
 description
 __typename
 relation_id
-      ...on Service {
-       
-    service_type {
-        __typename
-        id
-        name
-        
-        
-    }
-  
 
     operational_state {
         __typename
@@ -96,7 +86,7 @@ relation_id
         value
     }
   
-    }
+      
     }
 
     with_same_name {

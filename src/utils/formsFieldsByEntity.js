@@ -59,7 +59,29 @@ const provider = {
     create: 'createProvider',
     update: 'updateProvider',
   },
-  ...genericNetworkOrganization,
+  dispatchPropertiesListCreate: [
+    'notify',
+    'modal',
+    'serviceDetails',
+    'physicalDetails',
+    'locationsDetails',
+    'logicalDetails',
+  ],
+  dispatchPropertiesListUpdate: [
+    'notify',
+    'breadcrumbs',
+    'modal',
+    'serviceDetails',
+    'physicalDetails',
+    'locationsDetails',
+    'logicalDetails',
+  ],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'provides' },
+  ],
 };
 const siteOwner = {
   formName: {

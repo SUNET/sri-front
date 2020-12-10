@@ -20,14 +20,12 @@ const mutation = graphql`
 `;
 
 export default function UpdateSiteOwnerMutation(entityData, form) {
-  console.log('entityData.responsible_for: ', entityData.responsible_for);
   const sitesSubInputs = generateSubInputs(
     entityData.responsible_for && entityData.responsible_for.length > 0 ? entityData.responsible_for : [],
     null,
     null,
   );
 
-  console.log('sitesSubInputs: ', sitesSubInputs);
   const variables = {
     input: {
       update_input: {

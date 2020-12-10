@@ -5,7 +5,11 @@ import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
-import { generateSubInputs } from '../MutationsUtils';
+import { formatDependenciesToUpdate, formatDependenciesToRemove } from '../MutationsUtils';
+
+import MUTATION_FIELD_PROVIDE_BY_TYPENAME from './ConfigMutationsProvide';
+
+import { NEW, UNLINK, REMOVE } from '../../utils/constants';
 
 const mutation = graphql`
   mutation CreateProviderMutation($input: CompositeProviderMutationInput!) {
@@ -24,11 +28,20 @@ const mutation = graphql`
 `;
 
 function CreateProviderMutation(entityData, form) {
-  const servicesSubInputs = generateSubInputs(
-    entityData.uses && entityData.uses.length > 0 ? entityData.uses : [],
-    'service_type',
-    'operational_state',
+  const providesToAdd = formatDependenciesToUpdate(
+    MUTATION_FIELD_PROVIDE_BY_TYPENAME,
+    entityData.provides ? entityData.provides.filter((dep) => dep.origin === NEW) : [],
   );
+
+  const providesToRemove = formatDependenciesToRemove(
+    MUTATION_FIELD_PROVIDE_BY_TYPENAME,
+    entityData.provides ? entityData.provides.filter((dep) => dep.status === REMOVE) : [],
+  );
+
+  const providesToUnlink = entityData.provides
+    ? entityData.provides.filter((loc) => loc.status === UNLINK).map((loc) => ({ relation_id: loc.relation_id }))
+    : [];
+
   const variables = {
     input: {
       create_input: {
@@ -36,12 +49,9 @@ function CreateProviderMutation(entityData, form) {
         description: entityData.description,
         url: entityData.url,
       },
-      update_uses_service: servicesSubInputs.toUpdate.map((s) => ({
-        ...s,
-        ...{ operational_state: s.operational_state.value },
-      })),
-      deleted_uses_service: servicesSubInputs.toDelete,
-      unlink_subinputs: [...servicesSubInputs.toUnlink],
+      ...providesToAdd,
+      ...providesToRemove,
+      unlink_subinputs: [...providesToUnlink],
     },
   };
   commitMutation(environment, {
