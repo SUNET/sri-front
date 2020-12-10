@@ -66,7 +66,14 @@ const siteOwner = {
     create: 'createSiteOwner',
     update: 'updateSiteOwner',
   },
-  ...genericNetworkOrganization,
+  dispatchPropertiesListCreate: ['notify', 'modal', 'serviceDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'serviceDetails', 'locationsDetails'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'responsible_for' },
+  ],
 };
 const switchEntity = {
   formName: {

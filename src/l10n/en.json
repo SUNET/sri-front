@@ -311,6 +311,7 @@
             "general-forms/internal-link": "Internal Link",
             "general-forms/go-to-detail": "Go to detail",
             "general-forms/owned-equipment": "Owned Equipment",
+            "general-forms/owner-id": "Owner ID",
             "Comment --DELETE--": "******************************** [FIN] GENERAL FORMS ****************************************",
             "Comment --DELETE--": "******************************** FILTERS ****************************************",
             "paginator.load_more": "Load More",

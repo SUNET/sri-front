@@ -73,29 +73,15 @@ description
 __typename
 url
 
-    uses {
+    responsible_for {
       id
 name
 description
 __typename
 relation_id
-      ...on Service {
-       
-    service_type {
-        __typename
-        id
-        name
-        
-        
-    }
-  
-
-    operational_state {
-        __typename
-        name
-        value
-    }
-  
+      ...on Site {
+       country
+owner_id
     }
     }
 

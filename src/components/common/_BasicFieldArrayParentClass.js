@@ -34,6 +34,7 @@ class _BasicFieldArrayParentClass extends React.Component {
       preFilterMethod: '',
       fieldModalOpened: '',
       rowWithAllTextVisible: null,
+      internalTextFilter: { field: 'name', value: '' },
     };
   }
   // lifecycle
