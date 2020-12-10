@@ -185,6 +185,97 @@ const OWNER_ENTITY = [
   },
 ];
 
+const WITH_SAME_NAME = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'with_same_name',
+    subFields: [...BASIC_INFO],
+    onSentences: [
+      {
+        entity: 'EndUser',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'Customer',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'SiteOwner',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'Provider',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'Customer',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'Organization',
+        subFields: [
+          { name: 'website', type: FIELD_TYPES.SINGLE },
+          { name: 'organization_id', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_partner', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_customer', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_provider', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_host_user', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_site_owner', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_end_customer', type: FIELD_TYPES.SINGLE },
+
+          {
+            name: 'parent_organization',
+            type: FIELD_TYPES.ID_OBJECT,
+            subFields: [{ name: 'organization_id', type: FIELD_TYPES.SINGLE }],
+          },
+          { type: FIELD_TYPES.OBJECT, name: 'type' },
+        ],
+      },
+    ],
+  },
+];
+
+const USES_SERVICES = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'uses',
+    subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
+    onSentences: [
+      {
+        entity: 'Service',
+        subFields: [
+          { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
+          { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+        ],
+      },
+    ],
+  },
+];
 module.exports = {
   COMMENTS_FIELDS,
   USER_CREATOR_MODIFIER_FIELDS,
@@ -197,4 +288,6 @@ module.exports = {
   ADDRESSES_LIST,
   LOCATED_IN_BLOCK,
   OWNER_ENTITY,
+  WITH_SAME_NAME,
+  USES_SERVICES,
 };

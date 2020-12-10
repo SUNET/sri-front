@@ -6,15 +6,15 @@ const getPresentContent = (partialPath, fieldInfo, data) => {
   let content;
   switch (fieldInfo.type) {
     case 'textType':
-      content = <div>{data[fieldInfo.internalName].name}</div>;
+      content = <div>{data[fieldInfo?.internalName]?.name}</div>;
       break;
     case 'text':
-      content = <div>{data[fieldInfo.internalName]}</div>;
+      content = <div>{data[fieldInfo?.internalName]}</div>;
       break;
     case 'internal-url':
       content = (
-        <a href={`/${partialPath}/${data.id}`} rel="noopener noreferrer">
-          {data.internalLinkText}
+        <a href={`/${partialPath}/${data?.id}`} rel="noopener noreferrer">
+          {data?.internalLinkText}
         </a>
       );
       break;
