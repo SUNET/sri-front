@@ -30,12 +30,14 @@ const PHYSICAL_BASIC_DATA = [
   { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
 ];
 const genericNetworkOrganization = {
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'serviceDetails', 'physicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'serviceDetails', 'physicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
     { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'uses' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'owns' },
   ],
 };
 const customer = {
@@ -368,7 +370,7 @@ const service = {
     ...BASIC_INFO,
     { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'service_class' },
-    { type: FIELD_TYPES.ID_OBJECT, name: 'operational_state' },
+    { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.SINGLE, name: 'decommissioned_date' },
     { type: FIELD_TYPES.SINGLE, name: 'project_end_date' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },

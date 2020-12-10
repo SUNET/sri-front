@@ -99,6 +99,9 @@ const MAP_NAME_PROPERTY_METHOD = {
   portDetails: () => ({
     getPortById: (id) => getPort(id),
   }),
+  serviceDetails: () => ({
+    getServiceById: (id) => getService(id),
+  }),
 };
 
 function mountDispatchPropsByList(propertiesList, dispatch) {

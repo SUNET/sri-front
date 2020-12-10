@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const CustomerDetailsQuery = graphql`
+  query CustomerDetailsQuery($customerId: ID!) {
+    getCustomerById(id: $customerId) {
+      ...CustomerUpdateForm_customer
+      ___CUSTOMER_FIELDS___
+    }
+  }
+`;
+
+export default CustomerDetailsQuery;

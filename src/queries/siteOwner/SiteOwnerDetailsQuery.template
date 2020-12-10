@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const SiteOwnerDetailsQuery = graphql`
+  query SiteOwnerDetailsQuery($siteOwnerId: ID!) {
+    getSiteOwnerById(id: $siteOwnerId) {
+      ...SiteOwnerUpdateForm_siteOwner
+      ___SITEOWNER_FIELDS___
+    }
+  }
+`;
+
+export default SiteOwnerDetailsQuery;

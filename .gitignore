@@ -56,3 +56,15 @@ src/components/service/ServiceUpdateForm.js
 
 src/queries/unit/UnitDetailsQuery.js
 src/components/unit/UnitUpdateForm.js
+
+src/queries/customer/CustomerDetailsQuery.js
+src/components/customer/CustomerUpdateForm.js
+
+src/queries/endUser/EndUserDetailsQuery.js
+src/components/endUser/EndUserUpdateForm.js
+
+src/queries/provider/ProviderDetailsQuery.js
+src/components/provider/ProviderUpdateForm.js
+
+src/queries/siteOwner/SiteOwnerDetailsQuery.js
+src/components/siteOwner/SiteOwnerUpdateForm.js

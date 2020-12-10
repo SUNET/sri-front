@@ -45,6 +45,9 @@ export function generateSubInputs(subInputObject, typeFieldName, specificFieldNa
         if (typeFieldName && element.type) {
           resultElement[typeFieldName] = element.type.value;
         }
+        if (typeFieldName && element[typeFieldName]) {
+          resultElement[typeFieldName] = element[typeFieldName].name || element[typeFieldName].value;
+        }
         if (specificFieldName && element[specificFieldName]) {
           resultElement[specificFieldName] = element[specificFieldName];
         }

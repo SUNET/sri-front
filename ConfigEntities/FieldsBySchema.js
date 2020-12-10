@@ -8,6 +8,10 @@ const ROOM_FIELDS = require('./entities/RoomFields');
 const SITE_FIELDS = require('./entities/SiteFields');
 const SERVICE_FIELDS = require('./entities/ServiceFields');
 const UNIT_FIELDS = require('./entities/UnitFields');
+const CUSTOMER_FIELDS = require('./entities/CustomerFields');
+const ENDUSER_FIELDS = require('./entities/EndUserFields');
+const PROVIDER_FIELDS = require('./entities/ProviderFields');
+const SITEOWNER_FIELDS = require('./entities/SiteOwnerFields');
 
 module.exports = [
   {
@@ -170,6 +174,54 @@ module.exports = [
       },
       nordunet: {
         fields: [...UNIT_FIELDS.UNIT_COMMON_FIELDS, ...UNIT_FIELDS.UNIT_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Customer',
+    files: ['src/queries/customer/CustomerDetailsQuery', 'src/components/customer/CustomerUpdateForm'],
+    reference: '___CUSTOMER_FIELDS___',
+    queries: {
+      common: {
+        fields: [...CUSTOMER_FIELDS.CUSTOMER_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...CUSTOMER_FIELDS.CUSTOMER_COMMON_FIELDS, ...CUSTOMER_FIELDS.CUSTOMER_SUNET],
+      },
+      nordunet: {
+        fields: [...CUSTOMER_FIELDS.CUSTOMER_COMMON_FIELDS, ...CUSTOMER_FIELDS.CUSTOMER_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Provider',
+    files: ['src/queries/provider/ProviderDetailsQuery', 'src/components/provider/ProviderUpdateForm'],
+    reference: '___PROVIDER_FIELDS___',
+    queries: {
+      common: {
+        fields: [...PROVIDER_FIELDS.PROVIDER_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...PROVIDER_FIELDS.PROVIDER_COMMON_FIELDS, ...PROVIDER_FIELDS.PROVIDER_SUNET],
+      },
+      nordunet: {
+        fields: [...PROVIDER_FIELDS.PROVIDER_COMMON_FIELDS, ...PROVIDER_FIELDS.PROVIDER_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'SiteOwner',
+    files: ['src/queries/siteOwner/SiteOwnerDetailsQuery', 'src/components/siteOwner/SiteOwnerUpdateForm'],
+    reference: '___SITEOWNER_FIELDS___',
+    queries: {
+      common: {
+        fields: [...SITEOWNER_FIELDS.SITEOWNER_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...SITEOWNER_FIELDS.SITEOWNER_COMMON_FIELDS, ...SITEOWNER_FIELDS.SITEOWNER_SUNET],
+      },
+      nordunet: {
+        fields: [...SITEOWNER_FIELDS.SITEOWNER_COMMON_FIELDS, ...SITEOWNER_FIELDS.SITEOWNER_NORDUNI],
       },
     },
   },
