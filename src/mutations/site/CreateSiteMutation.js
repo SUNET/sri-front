@@ -5,6 +5,16 @@ import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
+import { formatAddresses } from '../MutationsUtils';
+
+import { generateSubInputs } from '../MutationsUtils';
+
+import {
+  generateLocatedIn,
+  generateLocatedInToUnlink,
+  generateLocatedInToRemove,
+} from '../locationsMutationsCommon/GenerateLocatedInMutation';
+
 const mutation = graphql`
   mutation CreateSiteMutation($input: CompositeSiteMutationInput!) {
     composite_site(input: $input) {
@@ -22,21 +32,36 @@ const mutation = graphql`
 `;
 
 function CreateSiteMutation(site, form) {
+  const formattedAddresses = formatAddresses(site.addresses);
+  const physicalToAdd = generateLocatedIn(site);
+  const physicalToUnlink = generateLocatedInToUnlink(site);
+  const physicalToRemove = generateLocatedInToRemove(site);
+  const roomsToMutation = generateSubInputs(site.rooms, null, null);
+  const racksToMutation = generateSubInputs(site.racks, null, null);
   const variables = {
     input: {
       create_input: {
         name: site.name,
-        country: 'Netherlands',
-        site_type: '',
-        area: 'Gävleborg',
-        longitude: 47.83636,
-        latitude: 60.834803,
-        owner_id: 'SHY 86V',
-        owner_site_name: 'Ivarsson & Björk AB',
-        url: 'http://www.persson.se/',
-        telenor_subscription_id: 'GN57LFQ',
-        relationship_responsible_for: null,
+        country_code: site.country_code,
+        site_type: site.site_type,
+        area: site.area,
+        longitude: site.longitude,
+        latitude: site.latitude,
+        owner_id: site.owner_id,
+        owner_site_name: site.owner_site_name,
+        url: site.url,
+        relationship_responsible_for: site.site_responsible_id,
       },
+      create_subinputs: formattedAddresses.toCreate,
+      update_subinputs: formattedAddresses.toUpdate,
+      delete_subinputs: formattedAddresses.toDelete,
+      unlink_subinputs: [...physicalToUnlink, ...roomsToMutation.toUnlink, ...racksToMutation.toUnlink],
+      ...physicalToAdd,
+      ...physicalToRemove,
+      update_has_room: roomsToMutation.toUpdate,
+      deleted_has_room: roomsToMutation.toDelete,
+      update_has_rack: racksToMutation.toUpdate,
+      deleted_has_rack: racksToMutation.toDelete,
     },
   };
   commitMutation(environment, {

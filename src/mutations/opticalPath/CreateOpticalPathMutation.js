@@ -25,7 +25,6 @@ function CreateOpticalPathMutation(opticalPath, form) {
   const variables = {
     input: {
       create_input: {
-        name: opticalPath.name,
         description: opticalPath.description,
         operational_state: opticalPath.operational_state,
         framing: opticalPath.framing,
@@ -47,7 +46,7 @@ function CreateOpticalPathMutation(opticalPath, form) {
       if (opticalPath.comment) {
         CreateCommentMutation(entityId, opticalPath.comment);
       }
-      form.props.notify(i18n.t('entity-notify-create/opticalPaths'), 'success');
+      form.props.notify(i18n.t('entity-notify-create/optical-paths'), 'success');
       if (form.props.history) {
         form.props.history.push(`/network/optical-paths/${entityId}`);
       } else {

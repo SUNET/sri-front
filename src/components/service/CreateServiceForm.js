@@ -2,7 +2,6 @@ import _ServiceFormParentClass from './_ServiceFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateMutation from '../../mutations/service/CreateServiceMutation';
 import ValidationsServiceForm from './ValidationsServiceForm';
@@ -22,12 +21,14 @@ class CreateServiceForm extends _ServiceFormParentClass {
     return { ...service, currentClass };
   };
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, isFromModal } = this.props;
     const editMode = true;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
           {this.renderSections(editMode)}
@@ -40,9 +41,7 @@ class CreateServiceForm extends _ServiceFormParentClass {
 
 CreateServiceForm = reduxForm({
   validate: ValidationsServiceForm.validate,
-  initialValues: {
-    name: '',
-  },
+  initialValues: {},
 })(CreateServiceForm);
 
-export default withTranslation()(withRouter(CreateServiceForm));
+export default withTranslation()(CreateServiceForm);

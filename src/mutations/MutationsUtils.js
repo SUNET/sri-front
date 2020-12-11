@@ -45,6 +45,9 @@ export function generateSubInputs(subInputObject, typeFieldName, specificFieldNa
         if (typeFieldName && element.type) {
           resultElement[typeFieldName] = element.type.value;
         }
+        if (typeFieldName && element[typeFieldName]) {
+          resultElement[typeFieldName] = element[typeFieldName].name || element[typeFieldName].value;
+        }
         if (specificFieldName && element[specificFieldName]) {
           resultElement[specificFieldName] = element[specificFieldName];
         }
@@ -136,11 +139,12 @@ export const formatDependenciesToUpdate = (MUTATION_FIELD_DEPENDENCY_BY_TYPENAME
       skip_update: true,
       ...currDependencyField.fields.reduce((fieldsToMutation, field) => {
         if (field.type === 'simple') {
-          fieldsToMutation[field.name] = curr[field.name];
+          fieldsToMutation[field.name] = curr[field.alias || field.name];
         } else if (field.type === 'object') {
-          fieldsToMutation[field.name] = curr[field.name].value || curr[field.name].name;
+          fieldsToMutation[field.name] = curr[field.alias || field.name].value || curr[field.alias || field.name].name;
         } else if (field.type === 'type') {
-          fieldsToMutation[field.mutationName] = curr[field.name].value || curr[field.name].name;
+          fieldsToMutation[field.mutationName] =
+            curr[field.alias || field.name].value || curr[field.alias || field.name].name;
         }
 
         return fieldsToMutation;
@@ -154,6 +158,76 @@ export const formatDependenciesToUpdate = (MUTATION_FIELD_DEPENDENCY_BY_TYPENAME
     }
     return acc;
   }, {});
+};
+
+export const formatDependenciesToRemove = (MUTATION_FIELD_DEPENDENCY_BY_TYPENAME, subListEntities) => {
+  return subListEntities.reduce((acc, curr) => {
+    const currDependencyField = MUTATION_FIELD_DEPENDENCY_BY_TYPENAME[curr['__typename']];
+
+    if (acc[currDependencyField.deleteName]) {
+      acc[currDependencyField.deleteName].push({ id: curr.id });
+    } else {
+      acc[currDependencyField.deleteName] = [{ id: curr.id }];
+    }
+    return acc;
+  }, {});
+};
+
+export const formatAddresses = (addresses) => {
+  const result = {
+    toCreate: [],
+    toUpdate: [],
+    toDelete: [],
+  };
+
+  const formatterAddressMap = (addressElement) => {
+    return {
+      id: addressElement.id,
+      name: 'main',
+      street: addressElement.street,
+      postal_code: addressElement.postal_code,
+      postal_area: addressElement.postal_area,
+      phone: addressElement.phone,
+    };
+  };
+
+  if (addresses) {
+    result.toCreate = addresses
+      .filter((address) => address.status === SAVED && (!address.created || address.created === undefined))
+      .map(formatterAddressMap);
+
+    result.toUpdate = addresses
+      .filter((address) => address.status === SAVED && address.created)
+      .map(formatterAddressMap);
+
+    result.toDelete = addresses.filter((address) => address.status === REMOVE).map((address) => ({ id: address.id }));
+  }
+  return result;
+};
+
+export const generateRackParentSubInputs = (parent) => {
+  const dataToMutation = {
+    siteToUpdate: null,
+    roomToUpdate: null,
+    siteToDelete: null,
+    roomToDelete: null,
+    toUnlink: [],
+  };
+  if (!parent) return dataToMutation;
+
+  const parentSite = parent.filter((loc) => loc.__typename === 'Site');
+  const parentRoom = parent.filter((loc) => loc.__typename === 'Room');
+
+  const siteToMutation = generateSubInputs(parentSite);
+  const roomToMutation = generateSubInputs(parentRoom);
+
+  return {
+    siteToUpdate: siteToMutation.toUpdate.length > 0 ? siteToMutation.toUpdate[0] : null,
+    roomToUpdate: roomToMutation.toUpdate.length > 0 ? roomToMutation.toUpdate[0] : null,
+    siteToDelete: siteToMutation.toDelete.length > 0 ? siteToMutation.toDelete[0] : null,
+    roomToDelete: roomToMutation.toDelete.length > 0 ? roomToMutation.toDelete[0] : null,
+    toUnlink: [...siteToMutation.toUnlink, ...roomToMutation.toUnlink],
+  };
 };
 
 export default {};

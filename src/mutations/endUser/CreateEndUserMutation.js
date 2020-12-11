@@ -5,50 +5,63 @@ import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
+import { generateSubInputs } from '../MutationsUtils';
+
 const mutation = graphql`
-  mutation CreateEndUserMutation($input: CreateEndUserInput!) {
-    create_endUser(input: $input) {
-      errors {
-        field
-        messages
-      }
-      endUser {
-        id
-        name
-        description
-        url
+  mutation CreateEndUserMutation($input: CompositeEndUserMutationInput!) {
+    composite_endUser(input: $input) {
+      created {
+        errors {
+          field
+          messages
+        }
+        endUser {
+          ...EndUserUpdateForm_endUser
+        }
       }
     }
   }
 `;
 
 function CreateEndUserMutation(endUser, form) {
+  const servicesSubInputs = generateSubInputs(
+    endUser.uses && endUser.uses.length > 0 ? endUser.uses : [],
+    'service_type',
+    'operational_state',
+  );
   const variables = {
     input: {
-      name: endUser.name,
-      description: endUser.description,
-      url: endUser.url,
+      create_input: {
+        name: endUser.name,
+        description: endUser.description,
+        url: endUser.url,
+      },
+      update_uses_service: servicesSubInputs.toUpdate.map((s) => ({
+        ...s,
+        ...{ operational_state: s.operational_state.value },
+      })),
+      deleted_uses_service: servicesSubInputs.toDelete,
+      unlink_subinputs: [...servicesSubInputs.toUnlink],
     },
   };
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.create_endUser.errors) {
+      if (response.composite_endUser.created.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
-        return response.create_endUser.errors;
+        return response.composite_endUser.created.errors;
+      }
+      const entityId = response.composite_endUser.created.endUser.__id;
+      if (endUser.comment) {
+        CreateCommentMutation(entityId, endUser.comment);
+      }
+      form.props.notify(i18n.t('entity-notify-create/end-users'), 'success');
+      if (form.props.history) {
+        form.props.history.push(`/network/end-users/${entityId}`);
       } else {
-        const endUser_id = response.create_endUser.endUser.id;
-        if (endUser.comment) {
-          CreateCommentMutation(endUser_id, endUser.comment);
-        }
-        if (form.props.history) {
-          form.props.history.push('/network/end-users/' + endUser_id);
-        } else {
-          form.props.createdEntity('EndUser', endUser_id);
-          form.props.hideModalForm();
-        }
-        form.props.notify(i18n.t('entity-notify-create/end-users'), 'success');
+        form.props.createdEntity('EndUser', entityId);
+        form.props.hideModalForm();
       }
     },
     onError: (errors) => console.error(errors),

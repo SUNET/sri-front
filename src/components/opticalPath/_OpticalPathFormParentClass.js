@@ -26,6 +26,11 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
     return true;
   }
 
+  renderInputName(kindOfName, editMode = true) {
+    const { name } = this.props;
+    return <h1>{name}</h1>;
+  }
+
   renderSections(editMode) {
     return (
       <>

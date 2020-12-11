@@ -68,7 +68,17 @@ const RACK_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_position' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
-  { type: FIELD_TYPES.ID_OBJECT, name: 'location' },
+  {
+    type: FIELD_TYPES.ID_OBJECT,
+    name: 'location',
+    subFields: [
+      {
+        type: FIELD_TYPES.ID_OBJECT,
+        name: 'parent',
+        subFields: [{ type: FIELD_TYPES.ID_OBJECT, name: 'parent', subFields: [...BASIC_INFO] }],
+      },
+    ],
+  },
 ];
 
 const PORT_LIST = [
@@ -76,10 +86,7 @@ const PORT_LIST = [
     type: FIELD_TYPES.ARRAY_LIST,
     name: 'ports',
     subFields: [
-      { type: FIELD_TYPES.SINGLE, name: '__typename' },
-      { type: FIELD_TYPES.SINGLE, name: 'id' },
-      { type: FIELD_TYPES.SINGLE, name: 'name' },
-      { type: FIELD_TYPES.SINGLE, name: 'description' },
+      ...BASIC_INFO,
       { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
       { type: FIELD_TYPES.OBJECT, name: 'port_type', alias: 'type' },
       {
@@ -127,6 +134,148 @@ const PORT_LIST = [
   },
 ];
 
+const ADDRESSES_LIST = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'addresses',
+    subFields: [
+      ...BASIC_INFO,
+      { name: 'phone', type: FIELD_TYPES.SINGLE },
+      { name: 'street', type: FIELD_TYPES.SINGLE },
+      { name: 'floor', type: FIELD_TYPES.SINGLE },
+      { name: 'room', type: FIELD_TYPES.SINGLE },
+      { name: 'postal_code', type: FIELD_TYPES.SINGLE },
+      { name: 'postal_area', type: FIELD_TYPES.SINGLE },
+      { type: FIELD_TYPES.SINGLE, name: 'id', alias: 'key' },
+    ],
+  },
+];
+
+const LOCATED_IN_BLOCK = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'located_in',
+    subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
+  },
+];
+
+const OWNER_ENTITY = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'owner',
+    subFields: [...BASIC_INFO],
+    onSentences: [
+      {
+        entity: 'EndUser',
+        subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: '__typename', alias: 'type' }],
+      },
+      {
+        entity: 'Customer',
+        subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: '__typename', alias: 'type' }],
+      },
+      {
+        entity: 'HostUser',
+        subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: '__typename', alias: 'type' }],
+      },
+      {
+        entity: 'Provider',
+        subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: '__typename', alias: 'type' }],
+      },
+    ],
+  },
+];
+
+const WITH_SAME_NAME = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'with_same_name',
+    subFields: [...BASIC_INFO],
+    onSentences: [
+      {
+        entity: 'EndUser',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'Customer',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'SiteOwner',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'Provider',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'Customer',
+        subFields: [
+          {
+            type: FIELD_TYPES.SINGLE,
+            name: 'url',
+          },
+        ],
+      },
+      {
+        entity: 'Organization',
+        subFields: [
+          { name: 'website', type: FIELD_TYPES.SINGLE },
+          { name: 'organization_id', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_partner', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_customer', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_provider', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_host_user', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_site_owner', type: FIELD_TYPES.SINGLE },
+          { name: 'affiliation_end_customer', type: FIELD_TYPES.SINGLE },
+
+          {
+            name: 'parent_organization',
+            type: FIELD_TYPES.ID_OBJECT,
+            subFields: [{ name: 'organization_id', type: FIELD_TYPES.SINGLE }],
+          },
+          { type: FIELD_TYPES.OBJECT, name: 'type' },
+        ],
+      },
+    ],
+  },
+];
+
+const USES_SERVICES = [
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'uses',
+    subFields: [...BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
+    onSentences: [
+      {
+        entity: 'Service',
+        subFields: [
+          { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
+          { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+        ],
+      },
+    ],
+  },
+];
 module.exports = {
   COMMENTS_FIELDS,
   USER_CREATOR_MODIFIER_FIELDS,
@@ -136,4 +285,9 @@ module.exports = {
   BASIC_OPERATIVE_SYSTEM,
   RELATION_GROUP_INFO,
   RACK_INFO,
+  ADDRESSES_LIST,
+  LOCATED_IN_BLOCK,
+  OWNER_ENTITY,
+  WITH_SAME_NAME,
+  USES_SERVICES,
 };

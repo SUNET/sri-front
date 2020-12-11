@@ -10,6 +10,7 @@ import DropdownSearch from '../DropdownSearch';
 import Dropdown from '../Dropdown';
 
 import ExpansibleTextBox from '../ExpansibleTextBox';
+import PillsFilter from '../PillsFilter';
 
 import { RoutesNetworkEntity } from '../../Routes';
 
@@ -33,6 +34,7 @@ class _BasicFieldArrayParentClass extends React.Component {
       preFilterMethod: '',
       fieldModalOpened: '',
       rowWithAllTextVisible: null,
+      internalTextFilter: { field: 'name', value: '' },
     };
   }
   // lifecycle
@@ -65,7 +67,7 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
 
   getAllValues(filterObj) {
-    const allValues = this.props.fields.getAll();
+    const allValues = this.props.fields.getAll() || [];
     if (!!filterObj) {
       const [filterKey, filterValue] = Object.entries(filterObj)[0];
       return allValues.filter((v) => v[filterKey] === filterValue);
@@ -185,6 +187,16 @@ class _BasicFieldArrayParentClass extends React.Component {
   }
   isDisabledFilters() {
     return this.props.disabledFilters || (this.PRE_FILTER_SELECT.type ? !this.state.currentPreFilterModel : false);
+  }
+
+  disabledNewEntityCreation() {
+    if (!this.ENTITIES_WITHOUT_NEW_MODAL) {
+      return false;
+    }
+    const isAEntityWithoutCreationModal = this.ENTITIES_WITHOUT_NEW_MODAL.some(
+      (e) => e === this.state.currentPreFilterModel,
+    );
+    return isAEntityWithoutCreationModal;
   }
 
   // common Renders
@@ -494,7 +506,7 @@ class _BasicFieldArrayParentClass extends React.Component {
       <button
         type="button"
         className="contact-in-organization__footer__add btn btn-add outline"
-        disabled={this.isDisabledFilters()}
+        disabled={this.isDisabledFilters() || this.disabledNewEntityCreation()}
         onClick={(e) => this.showCreateForm()}
       >
         {t('actions/add-new')}
@@ -517,11 +529,43 @@ class _BasicFieldArrayParentClass extends React.Component {
     );
   }
 
+  renderFilterHeader() {
+    return (
+      <div className="contact-in-organization__internal-filter-block">
+        {this.INTERNAL_FILTER?.pills && (
+          <PillsFilter
+            type="dropdownOperationalState"
+            onChange={(currentInternalFilter) => {
+              this.setState({
+                currentInternalFilter: { ...currentInternalFilter, fieldToFilter: 'operational_state' },
+              });
+            }}
+          />
+        )}
+        {this.INTERNAL_FILTER?.text && (
+          <div>
+            <input
+              type="text"
+              placeholder="Filter by text"
+              value={this.state.internalTextFilter.filterText}
+              onChange={(event) => {
+                this.setState({
+                  internalTextFilter: { field: 'name', value: event.target.value },
+                });
+              }}
+            />
+          </div>
+        )}
+      </div>
+    );
+  }
+
   // specific renders
 
   render() {
     return (
       <div className={`contact-in-organization contact-in-organization--${this.styleModifier}`}>
+        {this.renderFilterHeader()}
         {this.renderHeader()}
         {this.renderBody()}
         {this.PRE_FILTER_SELECT && this.renderFooter()}

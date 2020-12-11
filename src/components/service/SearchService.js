@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import ServiceList from '../../containers/service/ServiceList';
 import ServiceDetailsContainer from '../../containers/service/ServiceDetails';
-import CreateService from './CreateService';
+import CreateService from './CreateServiceRoute/CreateServiceRoute';
 
 import { isEmpty } from '../../utils';
 
@@ -48,7 +48,10 @@ class SearchService extends _SearchEntityParentClass {
 
   getFilters = () => {
     const { currentClass } = this.props;
-    const filterArrayAND = [{ service_class: currentClass.originalName }];
+    let filterArrayAND = [];
+    if (currentClass.id !== 'all') {
+      filterArrayAND = [{ service_class: currentClass?.originalName }];
+    }
     let filterArrayOR = [];
     let filters = {};
 
@@ -72,7 +75,7 @@ class SearchService extends _SearchEntityParentClass {
 
   preRender() {
     const { currentClass } = this.props;
-    this.PATH_ENTITY = `/network/${currentClass.path}`;
+    this.PATH_ENTITY = `/network/${currentClass?.path}`;
   }
 }
 

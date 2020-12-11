@@ -42,7 +42,7 @@ class SideNavNetwork extends React.Component {
   NETWORK_PEERING_ROUTES = ['peering-partners', 'peering-groups'];
   NETWORK_OPTICAL_ROUTES = ['optical-links', 'optical-filters', 'optical-multiplex-sections', 'optical-paths'];
   NETWORK_LOCATION_ROUTES = ['location-racks', 'location-rooms', 'location-sites'];
-  NETWORK_SERVICE_ROUTES = formattedServicesData.map((service) => service.path);
+  NETWORK_SERVICE_ROUTES = ['service-all', ...formattedServicesData.map((service) => service.path)];
 
   MENU_DATA = [
     {
@@ -118,7 +118,7 @@ class SideNavNetwork extends React.Component {
         icon: 'services-icon.svg',
         i18nText: 'section/network/service',
       },
-      items: formattedServicesData,
+      items: [{ path: 'service-all', i18nText: 'filter_columns.all' }, ...formattedServicesData],
     },
   ];
 

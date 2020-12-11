@@ -2,7 +2,6 @@ import _SiteFormParentClass from './_SiteFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateMutation from '../../mutations/site/CreateSiteMutation';
 import ValidationsSiteForm from '../common/_BasicValidationForm';
@@ -19,12 +18,14 @@ class CreateSiteForm extends _SiteFormParentClass {
     errors: [],
   };
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, isFromModal } = this.props;
     const editMode = true;
-    const showBackButton = isBrowser;
+    const showBackButton = isBrowser && !isFromModal;
+    const showSaveCancelInHeader = showBackButton;
+    const formId = `${this.FORM_ID}${isFromModal ? 'InModal' : ''}`;
     return (
-      <form id={this.FORM_ID} onSubmit={handleSubmit(this.handleSubmit)}>
-        {isBrowser && this.renderSaveCancelButtons()}
+      <form id={formId} onSubmit={handleSubmit(this.handleSubmit)}>
+        {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         <div className="model-details create-contact-form">
           {this.renderHeader(editMode, showBackButton)}
           {this.renderSections(editMode)}
@@ -42,4 +43,4 @@ CreateSiteForm = reduxForm({
   },
 })(CreateSiteForm);
 
-export default withTranslation()(withRouter(CreateSiteForm));
+export default withTranslation()(CreateSiteForm);

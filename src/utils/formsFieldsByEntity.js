@@ -30,12 +30,14 @@ const PHYSICAL_BASIC_DATA = [
   { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
 ];
 const genericNetworkOrganization = {
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'serviceDetails', 'physicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'serviceDetails', 'physicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
     { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'uses' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'owns' },
   ],
 };
 const customer = {
@@ -57,14 +59,43 @@ const provider = {
     create: 'createProvider',
     update: 'updateProvider',
   },
-  ...genericNetworkOrganization,
+  dispatchPropertiesListCreate: [
+    'notify',
+    'modal',
+    'serviceDetails',
+    'physicalDetails',
+    'locationsDetails',
+    'logicalDetails',
+  ],
+  dispatchPropertiesListUpdate: [
+    'notify',
+    'breadcrumbs',
+    'modal',
+    'serviceDetails',
+    'physicalDetails',
+    'locationsDetails',
+    'logicalDetails',
+  ],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'provides' },
+  ],
 };
 const siteOwner = {
   formName: {
     create: 'createSiteOwner',
     update: 'updateSiteOwner',
   },
-  ...genericNetworkOrganization,
+  dispatchPropertiesListCreate: ['notify', 'modal', 'serviceDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'serviceDetails', 'locationsDetails'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'responsible_for' },
+  ],
 };
 const switchEntity = {
   formName: {
@@ -79,6 +110,7 @@ const switchEntity = {
     ...BASIC_OPERATIVE_SYSTEM,
     ...RACK_INFO,
     ...RELATION_GROUP_INFO,
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'owner' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
     { type: FIELD_TYPES.SINGLE, name: 'ip_addresses' },
     { type: FIELD_TYPES.SINGLE, name: 'max_number_of_ports' },
@@ -90,8 +122,8 @@ const firewall = {
     create: 'createFirewall',
     update: 'updateFirewall',
   },
-  dispatchPropertiesListCreate: ['notify'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  dispatchPropertiesListCreate: ['notify', 'ownersDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails', 'ownersDetails'],
   fields: [
     ...BASIC_INFO,
     ...PHYSICAL_BASIC_DATA,
@@ -290,14 +322,19 @@ const rack = {
     create: 'createRack',
     update: 'updateRack',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'locationsDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'height' },
     { type: FIELD_TYPES.SINGLE, name: 'width' },
     { type: FIELD_TYPES.SINGLE, name: 'depth' },
     { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'parent' },
+    {
+      type: FIELD_TYPES.ARRAY_LIST,
+      name: 'located_in',
+    },
   ],
 };
 
@@ -306,9 +343,19 @@ const room = {
     create: 'createRoom',
     update: 'updateRoom',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
-  fields: [...BASIC_INFO],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'locationsDetails'],
+  fields: [
+    ...BASIC_INFO,
+    {
+      type: FIELD_TYPES.ARRAY_LIST,
+      name: 'located_in',
+    },
+    { type: FIELD_TYPES.SINGLE, name: 'floor' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'has' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'sites' }, // custom field
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'racks' }, // custom field
+  ],
 };
 
 const site = {
@@ -316,14 +363,28 @@ const site = {
     create: 'createSite',
     update: 'updateSite',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'locationsDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
     { type: FIELD_TYPES.SINGLE, name: 'area' },
     { type: FIELD_TYPES.SINGLE, name: 'latitude' },
     { type: FIELD_TYPES.SINGLE, name: 'longitude' },
+    { type: FIELD_TYPES.SINGLE, name: 'owner_id' },
+    { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
+    { type: FIELD_TYPES.SINGLE, name: 'url' },
+    { type: FIELD_TYPES.OBJECT, name: 'country_code' },
+    { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
+    { type: FIELD_TYPES.SINGLE, name: 'country' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'addresses' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'has' },
+    {
+      type: FIELD_TYPES.ARRAY_LIST,
+      name: 'located_in',
+    },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'rooms' }, // custom field
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'racks' }, // custom field
   ],
 };
 

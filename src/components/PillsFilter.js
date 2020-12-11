@@ -18,8 +18,18 @@ const PillsFilterRouterDependentsTypesQuery = graphql`
   }
 `;
 
+const PillsFilterOperationalStateQuery = graphql`
+  query PillsFilterOperationalStateQuery {
+    getChoicesForDropdown(name: "operational_states") {
+      name
+      value
+    }
+  }
+`;
+
 const QUERIES_BY_TYPE = {
   routerDependentsTypes: { query: PillsFilterRouterDependentsTypesQuery, bodyName: 'getRouterDependentsTypes' },
+  dropdownOperationalState: { query: PillsFilterOperationalStateQuery, bodyName: 'getChoicesForDropdown' },
   default: { query: PillsFilterRouterDependentsTypesQuery, bodyName: 'getRouterDependentsTypes' },
 };
 
@@ -27,7 +37,7 @@ function getQueryByModel(type) {
   return QUERIES_BY_TYPE[type] ? QUERIES_BY_TYPE[type] : QUERIES_BY_TYPE['default'];
 }
 
-const Pills = ({ optionsList, onChange }) => {
+export const Pills = ({ optionsList, onChange }) => {
   const [selectedPill, setSelectedPill] = useState(optionsList[0]);
   return (
     <div className="pills">
@@ -71,7 +81,10 @@ class PillsFilter extends React.PureComponent {
                   type_name: 'All',
                 },
               ],
-              ...props[dataQuery.bodyName],
+              ...props[dataQuery.bodyName].map((opt) => ({
+                ...opt,
+                type_name: opt.name || opt.type_name,
+              })),
             ];
             return <Pills optionsList={optionsListWithAllOption} onChange={onChange} />;
           }

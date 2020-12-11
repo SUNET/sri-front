@@ -54,6 +54,7 @@ export default function UpdateOpticalMultiplexSectionMutation(opticalMultiplexSe
       },
     },
   };
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

@@ -5,50 +5,73 @@ import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
+import { formatDependenciesToUpdate, formatDependenciesToRemove } from '../MutationsUtils';
+
+import MUTATION_FIELD_PROVIDE_BY_TYPENAME from './ConfigMutationsProvide';
+
+import { NEW, UNLINK, REMOVE } from '../../utils/constants';
+
 const mutation = graphql`
-  mutation CreateProviderMutation($input: CreateProviderInput!) {
-    create_provider(input: $input) {
-      errors {
-        field
-        messages
-      }
-      provider {
-        id
-        name
-        description
-        url
+  mutation CreateProviderMutation($input: CompositeProviderMutationInput!) {
+    composite_provider(input: $input) {
+      created {
+        errors {
+          field
+          messages
+        }
+        provider {
+          ...ProviderUpdateForm_provider
+        }
       }
     }
   }
 `;
 
-function CreateProviderMutation(provider, form) {
+function CreateProviderMutation(entityData, form) {
+  const providesToAdd = formatDependenciesToUpdate(
+    MUTATION_FIELD_PROVIDE_BY_TYPENAME,
+    entityData.provides ? entityData.provides.filter((dep) => dep.origin === NEW) : [],
+  );
+
+  const providesToRemove = formatDependenciesToRemove(
+    MUTATION_FIELD_PROVIDE_BY_TYPENAME,
+    entityData.provides ? entityData.provides.filter((dep) => dep.status === REMOVE) : [],
+  );
+
+  const providesToUnlink = entityData.provides
+    ? entityData.provides.filter((loc) => loc.status === UNLINK).map((loc) => ({ relation_id: loc.relation_id }))
+    : [];
+
   const variables = {
     input: {
-      name: provider.name,
-      description: provider.description,
-      url: provider.url,
+      create_input: {
+        name: entityData.name,
+        description: entityData.description,
+        url: entityData.url,
+      },
+      ...providesToAdd,
+      ...providesToRemove,
+      unlink_subinputs: [...providesToUnlink],
     },
   };
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.create_provider.errors) {
+      if (response.composite_provider.created.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
-        return response.create_provider.updated.errors;
+        return response.composite_provider.created.errors;
+      }
+      const entityId = response.composite_provider.created.provider.__id;
+      if (entityData.comment) {
+        CreateCommentMutation(entityId, entityData.comment);
+      }
+      form.props.notify(i18n.t('entity-notify-create/providers'), 'success');
+      if (form.props.history) {
+        form.props.history.push(`/network/providers/${entityId}`);
       } else {
-        const provider_id = response.create_provider.provider.id;
-        if (provider.comment) {
-          CreateCommentMutation(provider_id, provider.comment);
-        }
-        if (form.props.history) {
-          form.props.history.push('/network/providers/' + provider_id);
-        } else {
-          form.props.createdEntity('Provider', provider_id);
-          form.props.hideModalForm();
-        }
-        form.props.notify(i18n.t('entity-notify-create/providers'), 'success');
+        form.props.createdEntity('Provider', entityId);
+        form.props.hideModalForm();
       }
     },
     onError: (errors) => console.error(errors),

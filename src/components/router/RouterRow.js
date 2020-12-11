@@ -27,11 +27,13 @@ class RouterRow extends React.PureComponent {
   }
 
   render() {
-    let router = this.props.router;
+    let { router } = this.props;
     return (
       <tr onClick={(e) => this.props.onClick(e, router)}>
         {this.renderCellSection('name', router.name)}
-        {this.renderCellSection('description', router.description)}
+        {this.renderCellSection('model', router.model)}
+        {this.renderCellSection('version', router.version)}
+        {this.renderCellSection('operational_state', router.operational_state?.name)}
         {/* td for generate the space for the final cta */}
         <td></td>
       </tr>
@@ -44,7 +46,13 @@ const RouterRowFragment = createFragmentContainer(RouterRow, {
     fragment RouterRow_router on Router {
       id
       name
-      description
+      operational_state {
+        __typename
+        name
+        value
+      }
+      version
+      model
     }
   `,
 });

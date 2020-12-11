@@ -130,7 +130,7 @@ const getMutationData = (service) => {
     : {};
   return {
     createOrUpdateInput: {
-      name: service.name,
+      // name: service.name,
       description: service.description,
       operational_state: service.operational_state,
       service_type: service.service_type_obj.name,

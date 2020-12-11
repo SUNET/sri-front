@@ -2,14 +2,21 @@ import React from 'react';
 import FormBlockSection from './FormBlockSection';
 import { generateURL } from '../../utils';
 
-const getPresentContent = (fieldInfo, data) => {
+const getPresentContent = (partialPath, fieldInfo, data) => {
   let content;
   switch (fieldInfo.type) {
     case 'textType':
-      content = <div>{data[fieldInfo.internalName].name}</div>;
+      content = <div>{data[fieldInfo?.internalName]?.name}</div>;
       break;
     case 'text':
-      content = <div>{data[fieldInfo.internalName]}</div>;
+      content = <div>{data[fieldInfo?.internalName]}</div>;
+      break;
+    case 'internal-url':
+      content = (
+        <a href={`/${partialPath}/${data?.id}`} rel="noopener noreferrer">
+          {data?.internalLinkText}
+        </a>
+      );
       break;
     case 'url':
       content = (
@@ -24,13 +31,17 @@ const getPresentContent = (fieldInfo, data) => {
   return content;
 };
 function FieldRelatedEntity(props) {
-  const { t, data, fields } = props;
+  const { t, data, fieldsInfo } = props;
+  const { fields } = fieldsInfo;
   return (
     <div key={data.id} className="field-related-entity d-flex flex-wrap">
       {fields.map((field, index) => {
         const structuredData = {
           title: t(`${field.i18nText}`),
-          presentContent: getPresentContent(field, data),
+          presentContent: getPresentContent(fieldsInfo?.partialPath, field, {
+            ...data,
+            ...{ internalLinkText: t('general-forms/go-to-detail') },
+          }),
         };
         return <FormBlockSection key={`${data.id}+${index}`} editable={false} data={structuredData} />;
       })}

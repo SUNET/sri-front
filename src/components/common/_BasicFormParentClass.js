@@ -62,14 +62,16 @@ class _BasicFormParentClass extends React.Component {
     this.props.onDelete();
   };
   onClickCancel = () => {
-    const { isFromModal, history, hideModalForm } = this.props;
+    const { isFromModal, hideModalForm } = this.props;
     if (isFromModal) {
       hideModalForm();
     } else {
-      history.push(this.ROUTE_LIST_DIRECTION);
+      this.backToList();
     }
   };
-
+  backToList = () => {
+    this.props.history.push(this.ROUTE_LIST_DIRECTION);
+  };
   // Common sections RENDERS
 
   renderSections(editMode) {
@@ -130,7 +132,7 @@ class _BasicFormParentClass extends React.Component {
     const { isFromModal } = this.props;
     return (
       <div className="title-section">
-        {showBackButton && <BackCTA onClick={() => this.props.history.push(this.ROUTE_LIST_DIRECTION)} />}
+        {showBackButton && <BackCTA onClick={() => this.backToList()} />}
         {!isFromModal && this.IS_UPDATED_FORM && isMobile && this.renderEditButton()}
         <div className="vertical-separator"></div>
         <div className={`title-section__name-inputs ${editionModeClass}`}>{this.renderInputName('name', editMode)}</div>
@@ -227,7 +229,7 @@ class _BasicFormParentClass extends React.Component {
   renderGeneralInfoToggleSection(editMode = true) {
     const { t } = this.props;
     const componentClassName = 'general-info-block';
-    const generalInfoFirstRow = [this.getUrlField()];
+    const generalInfoFirstRow = [this.getUrlField('url')];
 
     return (
       <section className={`model-section ${componentClassName}`}>
@@ -249,7 +251,7 @@ class _BasicFormParentClass extends React.Component {
     );
   }
 
-  getUrlField() {
+  getUrlField(fieldName) {
     const { t, url } = this.props;
     return {
       title: t('general-forms/website'),
@@ -263,7 +265,7 @@ class _BasicFormParentClass extends React.Component {
           <Field
             type="text"
             className={`${isBrowser ? 'xlg' : 'xlg mw-100'}`}
-            name="url"
+            name={fieldName}
             component={FieldInput}
             placeholder={t('general-forms/write-website')}
           />
@@ -283,22 +285,21 @@ class _BasicFormParentClass extends React.Component {
           } else {
             formattedEntityData = entity;
           }
+          const entityType = formattedEntityData['__typename'];
           return (
-            <Col key={entity.id}>
-              <ToggleSection>
-                <ToggleHeading>
-                  <h2>{t(`${INFO_BY_ENTITIES[formattedEntityData['__typename']].headerNameI18nText}`)}</h2>
-                </ToggleHeading>
-                <TogglePanel>
-                  <FieldRelatedEntity
-                    fields={INFO_BY_ENTITIES[formattedEntityData['__typename']].fields}
-                    data={formattedEntityData}
-                    t={t}
-                  />
-                </TogglePanel>
-              </ToggleSection>
-              <hr />
-            </Col>
+            entityType && (
+              <Col key={entity.id}>
+                <ToggleSection>
+                  <ToggleHeading>
+                    <h2>{t(`${INFO_BY_ENTITIES[entityType].headerNameI18nText}`)}</h2>
+                  </ToggleHeading>
+                  <TogglePanel>
+                    <FieldRelatedEntity fieldsInfo={INFO_BY_ENTITIES[entityType]} data={formattedEntityData} t={t} />
+                  </TogglePanel>
+                </ToggleSection>
+                <hr />
+              </Col>
+            )
           );
         })}
       </section>

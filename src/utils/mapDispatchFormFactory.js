@@ -21,6 +21,12 @@ import getService from '../components/service/Service';
 import getOpticalPath from '../components/opticalPath/OpticalPath';
 import getOpticalMultiplexSection from '../components/opticalMultiplexSection/OpticalMultiplexSection';
 import getOpticalLink from '../components/opticalLink/OpticalLink';
+import getUnit from '../components/unit/Unit';
+import getPeeringGroup from '../components/peeringGroup/PeeringGroup';
+
+import getSite from '../components/site/Site';
+import getRoom from '../components/room/Room';
+import getRack from '../components/rack/Rack';
 
 const MAP_NAME_PROPERTY_METHOD = {
   notify: (dispatch) => ({
@@ -81,14 +87,24 @@ const MAP_NAME_PROPERTY_METHOD = {
     getOpticalNodeById: (id) => getOpticalNode(id),
     getODFById: (id) => getODF(id),
   }),
+  locationsDetails: () => ({
+    getSiteById: (id) => getSite(id),
+    getRoomById: (id) => getRoom(id),
+    getRackById: (id) => getRack(id),
+  }),
   logicalDetails: () => ({
     getServiceById: (id) => getService(id),
     getOpticalPathById: (id) => getOpticalPath(id),
     getOpticalMultiplexSectionById: (id) => getOpticalMultiplexSection(id),
     getOpticalLinkById: (id) => getOpticalLink(id),
+    getUnitById: (id) => getUnit(id),
+    getPeeringGroupById: (id) => getPeeringGroup(id),
   }),
   portDetails: () => ({
     getPortById: (id) => getPort(id),
+  }),
+  serviceDetails: () => ({
+    getServiceById: (id) => getService(id),
   }),
 };
 

@@ -24,9 +24,12 @@ class SearchSwitch extends _SearchEntityParentClass {
 
   PATH_ENTITY = `/network/switches`;
   PATH_ENTITY_ID = 'switchId';
+
   DEFAULT_COLUMNS = [
     { name: 'Name', value: 'name', filter: 'order', textFilter: true },
-    { name: 'Description', value: 'description', filter: 'order', textFilter: true },
+    { name: 'Model', value: 'description', filter: 'order', textFilter: true },
+    { name: 'IP Addresses', value: 'ip_addresses', filter: null, textFilter: false },
+    { name: 'User', value: '', filter: null, textFilter: false },
   ];
   LIST_QUERY = graphql`
     query SearchSwitchAllQuery($count: Int!, $filter: SwitchFilter, $orderBy: SwitchOrderBy) {

@@ -2,7 +2,6 @@ import _OpticalLinkFormParentClass from './_OpticalLinkFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import CreateMutation from '../../mutations/opticalLink/CreateOpticalLinkMutation';
 import ValidationsOpticalLinkForm from './ValidationsOpticalLinkForm';
@@ -44,4 +43,4 @@ CreateOpticalLinkForm = reduxForm({
   },
 })(CreateOpticalLinkForm);
 
-export default withTranslation()(withRouter(CreateOpticalLinkForm));
+export default withTranslation()(CreateOpticalLinkForm);

@@ -5,72 +5,14 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { generateSubInputs } from '../MutationsUtils';
+
 const mutation = graphql`
-  mutation UpdateEndUserMutation($input: UpdateEndUserInput!) {
-    update_endUser(input: $input) {
-      errors {
-        field
-        messages
-      }
-      endUser {
-        id
-        name
-        description
-        url
-        __typename
-        with_same_name {
-          id
-          name
-          ... on Organization {
-            website
-            organization_id
-            parent_organization {
-              organization_id
-            }
-            affiliation_partner
-            affiliation_customer
-            affiliation_provider
-            affiliation_host_user
-            affiliation_site_owner
-            affiliation_end_customer
-            type {
-              name
-              value
-            }
-          }
-          ... on EndUser {
-            url
-          }
-          ... on Customer {
-            url
-          }
-          ... on SiteOwner {
-            url
-          }
-          ... on Provider {
-            url
-          }
-          ... on PeeringPartner {
-            peering_link
-          }
-          __typename
-        }
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
+  mutation UpdateEndUserMutation($input: CompositeEndUserMutationInput!) {
+    composite_endUser(input: $input) {
+      updated {
+        endUser {
+          ...EndUserUpdateForm_endUser
         }
       }
     }
@@ -78,26 +20,42 @@ const mutation = graphql`
 `;
 
 export default function UpdateEndUserMutation(endUser, form) {
+  const servicesSubInputs = generateSubInputs(
+    endUser.uses && endUser.uses.length > 0 ? endUser.uses : [],
+    'service_type',
+    'operational_state',
+  );
+
   const variables = {
     input: {
-      id: endUser.id,
-      name: endUser.name,
-      description: endUser.description,
-      url: endUser.url,
+      update_input: {
+        id: endUser.id,
+        name: endUser.name,
+        description: endUser.description,
+        url: endUser.url,
+      },
+      update_uses_service: servicesSubInputs.toUpdate.map((s) => ({
+        ...s,
+        ...{ operational_state: s.operational_state.value },
+      })),
+      deleted_uses_service: servicesSubInputs.toDelete,
+      unlink_subinputs: [...servicesSubInputs.toUnlink],
     },
   };
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.update_endUser.errors) {
+      if (response.composite_endUser.updated.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
-        return response.update_endUser.updated.errors;
+        return response.composite_endUser.updated.errors;
       }
       form.props.reset();
-      form.props.notify(i18n.t('notify/changes-saved'), 'success');
-      if (!form.props.isFromModal) {
+      if (form.props.isFromModal) {
+        form.props.editedEntity('EndUser', response.composite_endUser.updated.endUser.id);
+      } else {
         form.refetch();
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

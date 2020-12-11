@@ -162,6 +162,26 @@ const OrganizationUpdateFormFragment = createRefetchContainer(
             }
           }
         }
+        with_same_name {
+          id
+          name
+          ... on EndUser {
+            url
+          }
+          ... on Customer {
+            url
+          }
+          ... on SiteOwner {
+            url
+          }
+          ... on Provider {
+            url
+          }
+          ... on PeeringPartner {
+            peering_link
+          }
+          __typename
+        }
         comments {
           id
           user {

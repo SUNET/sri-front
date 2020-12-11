@@ -8,30 +8,7 @@ import IpAddressesList from '../IpAddressesList';
 // const
 import renderFormBlockSection from '../common/BlockSection';
 
-const getPath = (type, id) => {
-  return `/network/location-${type.toLowerCase()}s/${id}`;
-};
-const getLocationElement = (locationBlock, locType) => {
-  if (!locationBlock) return null;
-  let id, name;
-  if (locationBlock?.__typename === locType) {
-    id = locationBlock.id;
-    name = locationBlock.name;
-  }
-  if (locationBlock?.parent?.__typename === locType) {
-    id = locationBlock?.parent.id;
-    name = locationBlock?.parent.name;
-  }
-  if (locationBlock?.parent?.parent?.__typename === locType) {
-    id = locationBlock?.parent?.parent?.id;
-    name = locationBlock?.parent?.parent?.name;
-  }
-  return {
-    id,
-    name,
-    path: getPath(locType, id),
-  };
-};
+import renderLocatedInSubTitleHeader from '../common/formsSections/LocatedInSubTitleHeader';
 
 class _UnitFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -50,9 +27,12 @@ class _UnitFormParentClass extends _BasicFormParentClass {
   }
 
   renderSections(editMode) {
-    const { t } = this.props;
+    const { t, unit } = this.props;
+    const routers = unit?.part_of?.parent;
+    const location = routers && routers.length > 0 ? routers[0].location : null;
     return (
       <>
+        {location && renderLocatedInSubTitleHeader(t('general-forms/located-in'), location)}
         {this.renderDescriptionToggleSection(false)}
         {this.renderIPAddressesToggleSection(false)}
         {this.renderIsUsedToggleSection(false, 'dependents', 'is-used-block-dependents', t('general-forms/used-by'))}
@@ -64,41 +44,6 @@ class _UnitFormParentClass extends _BasicFormParentClass {
         )}
         {this.renderWorkLog()}
       </>
-    );
-  }
-  renderSubTitleInHeader() {
-    const { t, unit } = this.props;
-    const routers = unit?.part_of?.parent;
-    const location = routers && routers.length > 0 ? routers[0].location : null;
-    const rack = getLocationElement(location, 'Rack');
-    const room = getLocationElement(location, 'Room');
-    const site = getLocationElement(location, 'Site');
-    const locationsToRender = [rack, room, site].filter((el) => el);
-
-    return (
-      <div className="model-details__subtitle">
-        <div className="model-details__subtitle__title">{t('general-forms/located-in')}:</div>
-        <div className="model-details__subtitle__content">
-          {locationsToRender.map((el, index, arr) => {
-            const isLast = index === arr.length - 1;
-            const uniqKey = `${new Date().getTime()}-${index}`;
-            return (
-              <span key={uniqKey}>
-                <a
-                  href={`${el.path}`}
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  {el.name}
-                </a>
-                {!isLast && <span>|</span>}
-              </span>
-            );
-          })}
-        </div>
-      </div>
     );
   }
 

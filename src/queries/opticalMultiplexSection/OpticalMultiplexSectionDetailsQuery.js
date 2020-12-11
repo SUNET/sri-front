@@ -17,6 +17,7 @@ const OpticalMultiplexSectionDetailsQuery = graphql`
         name
       }
       dependencies {
+        __typename
         id
         name
         type: __typename

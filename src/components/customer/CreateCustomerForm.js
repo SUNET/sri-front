@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import _CustomerFormParentClass from './_CustomerFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import ValidationsCustomerForm from '../common/_BasicValidationForm';
 import { CREATE_CUSTOMER_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CreateCustomerForm extends _BasicFormParentClass {
+class CreateCustomerForm extends _CustomerFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_CUSTOMER_FORM;
   ROUTE_LIST_DIRECTION = '/network/customers';

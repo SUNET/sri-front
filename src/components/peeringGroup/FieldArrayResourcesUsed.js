@@ -6,7 +6,7 @@ class FieldArrayResourcesUsed extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
     this.FIELD_NAME_IN_FORM = 'resourcedUsed';
-    this.styleModifier = 'long-table';
+    this.styleModifier = 'xl-table';
     this.HEADER_TEXTS = {
       summary: [
         {
@@ -17,7 +17,9 @@ class FieldArrayResourcesUsed extends _BasicFieldArrayParentClass {
       all: [
         {
           text: 'general-forms/router',
-          fieldKey: 'router',
+          fieldKey: 'router.name',
+          withLink: true,
+          listElements: true,
         },
         {
           text: 'general-forms/pic',
@@ -41,7 +43,9 @@ class FieldArrayResourcesUsed extends _BasicFieldArrayParentClass {
         },
         {
           text: 'general-forms/user',
-          fieldKey: 'userName',
+          fieldKey: 'user.name',
+          withLink: true,
+          listElements: true,
         },
       ],
       modal: null, // ['general-forms/parent-element-detail'],
@@ -56,9 +60,9 @@ class FieldArrayResourcesUsed extends _BasicFieldArrayParentClass {
     this.MODEL_TO_SEARCH = null;
   }
 
-  renderMoreInfoButton() {
-    return null;
-  }
+  // renderMoreInfoButton() {
+  //   return null;
+  // }
 }
 
 export default withTranslation()(FieldArrayResourcesUsed);

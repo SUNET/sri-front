@@ -11,12 +11,12 @@ import FieldInput from '../FieldInput';
 import { isBrowser } from 'react-device-detect';
 
 import renderFormBlockSection from '../common/BlockSection';
-
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
+import { renderOwnerToggleSection, handleSelectedOwner } from '../common/formsSections/OwnerToggleSection';
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
-
+import renderLocatedInSubTitleHeader from '../common/formsSections/LocatedInSubTitleHeader';
 
 class _SwitchFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -36,7 +36,15 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
       const selectionData = {
         id: nextProps.entitySavedId,
       };
-      if (fieldModalOpened === 'ports') {
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'owner') {
+        handleSelectedOwner({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
+      } else if (fieldModalOpened === 'ports') {
         handleSelectedPort({
           selection: selectionData,
           getMethod: this.props.getPortById,
@@ -53,6 +61,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
     const { t, rack_position, rack_units, isFromModal, location, dispatch, form } = this.props;
     return (
       <>
+        {location && renderLocatedInSubTitleHeader(t('general-forms/located-in'), location)}
         {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
@@ -60,6 +69,7 @@ class _SwitchFormParentClass extends _BasicFormParentClass {
         {this.renderSecurityToggleSection(editMode)}
         {this.renderHostToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
+        {renderOwnerToggleSection(editMode, this)}
         {!isFromModal && renderPortsToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}

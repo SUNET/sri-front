@@ -1,4 +1,4 @@
-import _BasicFormParentClass from '../common/_BasicFormParentClass';
+import _CustomerFormParentClass from './_CustomerFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import BasicValidation from '../common/_BasicValidationForm';
 import { UPDATE_CUSTOMER_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CustomerUpdateForm extends _BasicFormParentClass {
+class CustomerUpdateForm extends _CustomerFormParentClass {
   IS_UPDATED_FORM = true;
   FORM_ID = UPDATE_CUSTOMER_FORM;
   MODEL_NAME = 'customer';
@@ -38,7 +38,7 @@ class CustomerUpdateForm extends _BasicFormParentClass {
     UpdateCustomerMutation(customer, this);
   };
   render() {
-    let { with_same_name, handleSubmit, isFromModal } = this.props;
+    let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;
     const showBackButton = isBrowser && !isFromModal;
     const showSaveCancelInHeader = showBackButton;
@@ -48,8 +48,6 @@ class CustomerUpdateForm extends _BasicFormParentClass {
         {showSaveCancelInHeader && this.renderSaveCancelButtons()}
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
-        {with_same_name && this.renderRelatedEntities(with_same_name)}
-        {this.renderWorkLog()}
         {!isFromModal && this.renderSaveCancelButtons()}
       </form>
     );
@@ -70,26 +68,113 @@ const CustomerUpdateFragment = createRefetchContainer(
     customer: graphql`
       fragment CustomerUpdateForm_customer on Customer {
         id
+name
+description
+__typename
+url
+
+    owns {
+      id
+name
+description
+__typename
+relation_id
+      
+    }
+
+    uses {
+      id
+name
+description
+__typename
+relation_id
+      ...on Service {
+       
+    service_type {
+        __typename
+        id
         name
-        description
-        url
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
-        }
+        
+        
+    }
+  
+
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+    }
+    }
+
+    with_same_name {
+      id
+name
+description
+__typename
+      ...on EndUser {
+       url
+    },...on Customer {
+       url
+    },...on SiteOwner {
+       url
+    },...on Provider {
+       url
+    },...on Customer {
+       url
+    },...on Organization {
+       website
+organization_id
+affiliation_partner
+affiliation_customer
+affiliation_provider
+affiliation_host_user
+affiliation_site_owner
+affiliation_end_customer
+
+    parent_organization {
+        __typename
+        id
+        name
+        organization_id
+        
+    }
+  
+
+    type {
+        __typename
+        name
+        value
+    }
+  
+    }
+    }
+
+    comments {
+      id
+
+    user {
+      first_name
+last_name
+      
+    }
+comment
+submit_date
+      
+    }
+created
+
+    creator {
+      email
+      
+    }
+modified
+
+    modifier {
+      email
+      
+    }
       }
     `,
   },

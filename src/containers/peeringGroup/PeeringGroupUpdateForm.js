@@ -14,15 +14,17 @@ const mapStateToProps = (state, props) => {
     const router =
       dep.part_of.__typename === 'Port' ? dep.part_of.parent.find((par) => par.__typename === 'Router') : null;
     return {
-      router: router ? router.name : null,
+      router: router ? [router] : null,
       pic: dep.part_of.name,
       unit: dep.name,
       ip_address: dep.ip_address,
       vlan: dep.vlan,
       user_address: dataUsedBy ? dataUsedBy.map((user) => user.ip_address).join(', ') : null,
       userName: dataUsedBy ? dataUsedBy.map((user) => user.name).join(', ') : null,
+      user: dataUsedBy ? [...dataUsedBy] : null,
       dataUsedBy,
-      id: dataUsedBy.id,
+      id: dep ? dep.id : null,
+      __typename: dep.__typename,
     };
   });
   const peeringGroupWithResourcedUsed = { ...peeringGroup, ...{ resourcedUsed } };

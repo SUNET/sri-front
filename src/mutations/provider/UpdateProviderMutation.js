@@ -5,99 +5,71 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { formatDependenciesToUpdate, formatDependenciesToRemove } from '../MutationsUtils';
+
+import MUTATION_FIELD_PROVIDE_BY_TYPENAME from './ConfigMutationsProvide';
+
+import { NEW, UNLINK, REMOVE } from '../../utils/constants';
+
 const mutation = graphql`
-  mutation UpdateProviderMutation($input: UpdateProviderInput!) {
-    update_provider(input: $input) {
-      errors {
-        field
-        messages
-      }
-      provider {
-        id
-        name
-        description
-        url
-        __typename
-        with_same_name {
-          id
-          name
-          ... on Organization {
-            website
-            organization_id
-            parent_organization {
-              organization_id
-            }
-            affiliation_partner
-            affiliation_customer
-            affiliation_provider
-            affiliation_host_user
-            affiliation_site_owner
-            affiliation_end_customer
-            type {
-              name
-              value
-            }
-          }
-          ... on EndUser {
-            url
-          }
-          ... on Customer {
-            url
-          }
-          ... on SiteOwner {
-            url
-          }
-          ... on Provider {
-            url
-          }
-          ... on PeeringPartner {
-            peering_link
-          }
-          __typename
+  mutation UpdateProviderMutation($input: CompositeProviderMutationInput!) {
+    composite_provider(input: $input) {
+      updated {
+        errors {
+          field
+          messages
         }
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
+        provider {
+          ...ProviderUpdateForm_provider
         }
       }
     }
   }
 `;
 
-export default function UpdateProviderMutation(provider, form) {
+export default function UpdateProviderMutation(entityData, form) {
+  const providesToAdd = formatDependenciesToUpdate(
+    MUTATION_FIELD_PROVIDE_BY_TYPENAME,
+    entityData.provides ? entityData.provides.filter((dep) => dep.origin === NEW) : [],
+  );
+
+  const providesToRemove = formatDependenciesToRemove(
+    MUTATION_FIELD_PROVIDE_BY_TYPENAME,
+    entityData.provides ? entityData.provides.filter((dep) => dep.status === REMOVE) : [],
+  );
+
+  const providesToUnlink = entityData.provides
+    ? entityData.provides.filter((loc) => loc.status === UNLINK).map((loc) => ({ relation_id: loc.relation_id }))
+    : [];
+
   const variables = {
     input: {
-      id: provider.id,
-      name: provider.name,
-      description: provider.description,
-      url: provider.url,
+      update_input: {
+        id: entityData.id,
+        name: entityData.name,
+        description: entityData.description,
+        url: entityData.url,
+      },
+      ...providesToAdd,
+      ...providesToRemove,
+      unlink_subinputs: [...providesToUnlink],
     },
   };
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.update_provider.errors) {
+      if (response.composite_provider.updated.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
-        return response.update_provider.updated.errors;
+        return response.composite_provider.updated.errors;
       }
       form.props.reset();
-      form.props.notify(i18n.t('notify/changes-saved'), 'success');
-      if (!form.props.isFromModal) {
+      if (form.props.isFromModal) {
+        form.props.editedEntity('Provider', response.composite_provider.updated.provider.id);
+      } else {
         form.refetch();
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

@@ -46,6 +46,17 @@ import OpticalMultiplexSectionDetailsContainer from '../containers/opticalMultip
 import CreateServiceFormContainer from '../containers/service/CreateServiceForm';
 import ServiceDetailsContainer from '../containers/service/ServiceDetails';
 
+import CreateSiteFormContainer from '../containers/site/CreateSiteForm';
+import SiteDetailsContainer from '../containers/site/SiteDetails';
+
+import CreateRoomFormContainer from '../containers/room/CreateRoomForm';
+import RoomDetailsContainer from '../containers/room/RoomDetails';
+
+import CreateRackFormContainer from '../containers/rack/CreateRackForm';
+import RackDetailsContainer from '../containers/rack/RackDetails';
+
+import UnitDetailsContainer from '../containers/unit/UnitDetails';
+
 import {
   CREATE_CONTACT_FORM,
   UPDATE_CONTACT_FORM,
@@ -87,6 +98,13 @@ import {
   UPDATE_OPTICALMULTIPLEXSECTION_FORM,
   CREATE_SERVICE_FORM,
   UPDATE_SERVICE_FORM,
+  CREATE_SITE_FORM,
+  UPDATE_SITE_FORM,
+  CREATE_ROOM_FORM,
+  UPDATE_ROOM_FORM,
+  CREATE_RACK_FORM,
+  UPDATE_RACK_FORM,
+  UPDATE_UNIT_FORM,
 } from '../utils/constants';
 import '../style/ModalNewContact.scss';
 
@@ -258,15 +276,48 @@ class ModalNewContact extends React.Component {
       case 'services':
       case 'Service':
         entityData = {
-          ComponentToRender: isUpdateForm
-            ? ServiceDetailsContainer
-            : CreateServiceFormContainer,
-          textHeader: isUpdateForm
-            ? 'entity-modify/services'
-            : 'entity-add-new/services',
+          ComponentToRender: isUpdateForm ? ServiceDetailsContainer : CreateServiceFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/services' : 'entity-add-new/services',
           formId: isUpdateForm ? UPDATE_SERVICE_FORM : CREATE_SERVICE_FORM,
         };
         break;
+
+      case 'sites':
+      case 'Site':
+        entityData = {
+          ComponentToRender: isUpdateForm ? SiteDetailsContainer : CreateSiteFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/location-sites' : 'entity-add-new/location-sites',
+          formId: isUpdateForm ? UPDATE_SITE_FORM : CREATE_SITE_FORM,
+        };
+        break;
+
+      case 'rooms':
+      case 'Room':
+        entityData = {
+          ComponentToRender: isUpdateForm ? RoomDetailsContainer : CreateRoomFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/location-rooms' : 'entity-add-new/location-rooms',
+          formId: isUpdateForm ? UPDATE_ROOM_FORM : CREATE_ROOM_FORM,
+        };
+        break;
+
+      case 'racks':
+      case 'Rack':
+        entityData = {
+          ComponentToRender: isUpdateForm ? RackDetailsContainer : CreateRackFormContainer,
+          textHeader: isUpdateForm ? 'entity-modify/location-racks' : 'entity-add-new/location-racks',
+          formId: isUpdateForm ? UPDATE_RACK_FORM : CREATE_RACK_FORM,
+        };
+        break;
+
+      case 'Unit':
+      case 'units':
+        entityData = {
+          ComponentToRender: isUpdateForm ? UnitDetailsContainer : null,
+          textHeader: isUpdateForm ? 'main-entity-name/unit' : null,
+          formId: isUpdateForm ? UPDATE_UNIT_FORM : null,
+        };
+        break;
+
       default:
         break;
     }

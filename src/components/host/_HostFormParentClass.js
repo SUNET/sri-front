@@ -8,7 +8,6 @@ import { Form } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
-import FieldArrayOwner from '../firewall/FieldArrayOwner';
 import FieldArrayHostUser from './FieldArrayHostUser';
 import IpAddressesList from '../IpAddressesList';
 import ConvertHostModal from './ConvertHostModal';
@@ -17,12 +16,13 @@ import { SAVED } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 import { renderRackToggleSection } from '../common/formsSections/RackToggleSection';
+import { renderOwnerToggleSection, handleSelectedOwner } from '../common/formsSections/OwnerToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
 
 import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import { renderLocationRackToggleSection } from '../common/formsSections/LocationRackToggleSection';
-
+import renderLocatedInSubTitleHeader from '../common/formsSections/LocatedInSubTitleHeader';
 
 class _HostFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -44,7 +44,12 @@ class _HostFormParentClass extends _BasicFormParentClass {
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'owner') {
-        this.handleSelectedOwner(selectionData, methodName);
+        handleSelectedOwner({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
       } else if (fieldModalOpened === 'ports') {
         handleSelectedPort({
           selection: selectionData,
@@ -57,21 +62,6 @@ class _HostFormParentClass extends _BasicFormParentClass {
     }
     return true;
   }
-
-  handleSelectedOwner = (selection, typeOfSelection) => {
-    if (selection !== null && selection.id) {
-      this.props[typeOfSelection](selection.id).then((entity) => {
-        const newEntity = {
-          type: entity.type,
-          __typename: entity.__typename,
-          name: entity.name,
-          id: entity.id,
-          status: 'saved',
-        };
-        this.props.dispatch(arrayPush(this.props.form, 'owner', newEntity));
-      });
-    }
-  };
 
   handleSelectedHostUser = (selection, typeOfSelection) => {
     if (selection !== null && selection.id) {
@@ -111,13 +101,15 @@ class _HostFormParentClass extends _BasicFormParentClass {
     const isLogicalHost = host_type === 'Logical';
     return (
       <>
+        {location && renderLocatedInSubTitleHeader(t('general-forms/located-in'), location)}
         {renderLocationRackToggleSection(editMode, { t, location, dispatch, form })}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}
         {this.renderOSToggleSection(editMode)}
         {renderRackToggleSection(editMode, { t, rack_position, rack_units })}
-        {(!this.IS_UPDATED_FORM || (this.IS_UPDATED_FORM && !isLogicalHost)) && this.renderOwnerToggleSection(editMode)}
+        {(!this.IS_UPDATED_FORM || (this.IS_UPDATED_FORM && !isLogicalHost)) &&
+          renderOwnerToggleSection(editMode, this)}
         {this.IS_UPDATED_FORM && isLogicalHost && this.renderHostUserToggleSection(editMode)}
         {!isLogicalHost && !isFromModal && renderPortsToggleSection(editMode, this)}
         {!isLogicalHost && !isFromModal && editMode && renderBulkPortToggleSection(this)}
@@ -405,44 +397,6 @@ class _HostFormParentClass extends _BasicFormParentClass {
                 })}
               </div>
             </div>
-          </TogglePanel>
-        </ToggleSection>
-      </section>
-    );
-  }
-
-  renderOwnerToggleSection(editMode = false) {
-    const { t, owner, entityRemovedId } = this.props;
-    const componentClassName = 'owner-block';
-    return (
-      <section className={`model-section ${componentClassName}`}>
-        <ToggleSection>
-          <ToggleHeading>
-            <h2>{t('general-forms/owner')}</h2>
-          </ToggleHeading>
-
-          <TogglePanel>
-            <FieldArray
-              name="owner"
-              component={FieldArrayOwner}
-              editable={editMode}
-              dispatch={this.props.dispatch}
-              errors={this.props.formSyncErrors.parents}
-              metaFields={this.props.fields}
-              handleDeployCreateForm={(typeEntityToShowForm) => {
-                this.props.showModalCreateForm(typeEntityToShowForm);
-              }}
-              showRowEditModal={(typeEntityToShowForm, entityId) => {
-                this.props.showModalEditForm(typeEntityToShowForm, entityId);
-              }}
-              showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
-              }}
-              handleSearchResult={this.handleSelectedOwner}
-              rerenderOnEveryChange
-              entityRemovedId={entityRemovedId}
-              disabledFilters={owner && owner.filter((o) => o.status === SAVED).length > 0}
-            />
           </TogglePanel>
         </ToggleSection>
       </section>

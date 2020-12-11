@@ -26,7 +26,6 @@ export default function UpdateOpticalPathMutation(opticalPath, form) {
     input: {
       update_input: {
         id: opticalPath.id,
-        name: opticalPath.name,
         description: opticalPath.description,
         operational_state: opticalPath.operational_state,
         framing: opticalPath.framing,

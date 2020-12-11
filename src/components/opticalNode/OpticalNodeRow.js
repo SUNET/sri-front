@@ -27,11 +27,13 @@ class OpticalNodeRow extends React.PureComponent {
   }
 
   render() {
-    let opticalNode = this.props.opticalNode;
+    let { opticalNode } = this.props;
     return (
       <tr onClick={(e) => this.props.onClick(e, opticalNode)}>
         {this.renderCellSection('name', opticalNode.name)}
-        {this.renderCellSection('description', opticalNode.description)}
+        {this.renderCellSection('type', opticalNode.type?.name)}
+        {this.renderCellSection('link', opticalNode.link)}
+        {this.renderCellSection('ots', opticalNode.ots)}
         {/* td for generate the space for the final cta */}
         <td></td>
       </tr>
@@ -44,7 +46,13 @@ const OpticalNodeRowFragment = createFragmentContainer(OpticalNodeRow, {
     fragment OpticalNodeRow_opticalNode on OpticalNode {
       id
       name
-      description
+      link
+      ots
+      type {
+        id
+        name
+        value
+      }
     }
   `,
 });

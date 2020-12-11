@@ -5,99 +5,57 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import { generateSubInputs } from '../MutationsUtils';
+
 const mutation = graphql`
-  mutation UpdateSiteOwnerMutation($input: UpdateSiteOwnerInput!) {
-    update_siteOwner(input: $input) {
-      errors {
-        field
-        messages
-      }
-      siteOwner {
-        id
-        name
-        description
-        url
-        __typename
-        with_same_name {
-          id
-          name
-          ... on Organization {
-            website
-            organization_id
-            parent_organization {
-              organization_id
-            }
-            affiliation_partner
-            affiliation_customer
-            affiliation_provider
-            affiliation_host_user
-            affiliation_site_owner
-            affiliation_end_customer
-            type {
-              name
-              value
-            }
-          }
-          ... on EndUser {
-            url
-          }
-          ... on Customer {
-            url
-          }
-          ... on SiteOwner {
-            url
-          }
-          ... on Provider {
-            url
-          }
-          ... on PeeringPartner {
-            peering_link
-          }
-          __typename
-        }
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
+  mutation UpdateSiteOwnerMutation($input: CompositeSiteOwnerMutationInput!) {
+    composite_siteOwner(input: $input) {
+      updated {
+        siteOwner {
+          ...SiteOwnerUpdateForm_siteOwner
         }
       }
     }
   }
 `;
 
-export default function UpdateSiteOwnerMutation(siteOwner, form) {
+export default function UpdateSiteOwnerMutation(entityData, form) {
+  const sitesSubInputs = generateSubInputs(
+    entityData.responsible_for && entityData.responsible_for.length > 0 ? entityData.responsible_for : [],
+    null,
+    null,
+  );
+
   const variables = {
     input: {
-      id: siteOwner.id,
-      name: siteOwner.name,
-      description: siteOwner.description,
-      url: siteOwner.url,
+      update_input: {
+        id: entityData.id,
+        name: entityData.name,
+        description: entityData.description,
+        url: entityData.url,
+      },
+      unlink_subinputs: sitesSubInputs.toUnlink,
+      update_responsible_for_site: sitesSubInputs.toUpdate,
+      deleted_responsible_for_site: sitesSubInputs.toDelete,
     },
   };
+
+  console.log(JSON.stringify(variables));
+
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response, errors) => {
-      if (response.update_siteOwner.errors) {
+      if (response.composite_siteOwner.updated.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
-        return response.update_siteOwner.updated.errors;
+        return response.composite_siteOwner.updated.errors;
       }
       form.props.reset();
-      form.props.notify(i18n.t('notify/changes-saved'), 'success');
-      if (!form.props.isFromModal) {
+      if (form.props.isFromModal) {
+        form.props.editedEntity('SiteOwner', response.composite_siteOwner.updated.siteOwner.id);
+      } else {
         form.refetch();
+        form.props.notify(i18n.t('notify/changes-saved'), 'success');
       }
     },
     updater: (store) => {},

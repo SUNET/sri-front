@@ -5,64 +5,90 @@ const SiteOwnerDetailsQuery = graphql`
     getSiteOwnerById(id: $siteOwnerId) {
       ...SiteOwnerUpdateForm_siteOwner
       id
-      name
-      description
-      url
-      __typename
-      with_same_name {
+name
+description
+__typename
+url
+
+    responsible_for {
+      id
+name
+description
+__typename
+relation_id
+      ...on Site {
+       country
+owner_id
+    }
+    }
+
+    with_same_name {
+      id
+name
+description
+__typename
+      ...on EndUser {
+       url
+    },...on Customer {
+       url
+    },...on SiteOwner {
+       url
+    },...on Provider {
+       url
+    },...on Customer {
+       url
+    },...on Organization {
+       website
+organization_id
+affiliation_partner
+affiliation_customer
+affiliation_provider
+affiliation_host_user
+affiliation_site_owner
+affiliation_end_customer
+
+    parent_organization {
+        __typename
         id
         name
-        ... on Organization {
-          website
-          organization_id
-          parent_organization {
-            organization_id
-          }
-          affiliation_partner
-          affiliation_customer
-          affiliation_provider
-          affiliation_host_user
-          affiliation_site_owner
-          affiliation_end_customer
-          type {
-            name
-            value
-          }
-        }
-        ... on EndUser {
-          url
-        }
-        ... on Customer {
-          url
-        }
-        ... on SiteOwner {
-          url
-        }
-        ... on Provider {
-          url
-        }
-        ... on PeeringPartner {
-          peering_link
-        }
+        organization_id
+        
+    }
+  
+
+    type {
         __typename
-      }
-      comments {
-        id
-        user {
-          first_name
-          last_name
-        }
-        comment
-        submit_date
-      }
-      created
-      creator {
-        email
-      }
-      modified
-      modifier {
-        email
-      }
+        name
+        value
+    }
+  
+    }
+    }
+
+    comments {
+      id
+
+    user {
+      first_name
+last_name
+      
+    }
+comment
+submit_date
+      
+    }
+created
+
+    creator {
+      email
+      
+    }
+modified
+
+    modifier {
+      email
+      
+    }
     }
   }
 `;

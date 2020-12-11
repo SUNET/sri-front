@@ -11,7 +11,7 @@ import graphql from 'babel-plugin-relay/macro';
 // Components imports
 import OpticalPathList from '../../containers/opticalPath/OpticalPathList';
 import OpticalPathDetailsContainer from '../../containers/opticalPath/OpticalPathDetails';
-import CreateOpticalPath from './CreateOpticalPath';
+import CreateOpticalPath from './CreateOpticalPathRoute/CreateOpticalPathRoute';
 // Constants
 
 class SearchOpticalPath extends _SearchEntityParentClass {
@@ -26,6 +26,9 @@ class SearchOpticalPath extends _SearchEntityParentClass {
   PATH_ENTITY_ID = 'opticalPathId';
   DEFAULT_COLUMNS = [
     { name: 'Name', value: 'name', filter: 'order', textFilter: true },
+    { name: 'Framing', value: 'framing', filter: 'order', textFilter: true },
+    { name: 'Capacity', value: 'capacity', filter: 'order', textFilter: true },
+    { name: 'ENRs', value: 'enrs', filter: null, textFilter: false },
     { name: 'Description', value: 'description', filter: 'order', textFilter: true },
   ];
   LIST_QUERY = graphql`

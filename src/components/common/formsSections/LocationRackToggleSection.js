@@ -15,7 +15,6 @@ export function renderLocationRackToggleSection(editMode = true, { t, form, disp
         <MultiDropdownAutocompleteLocationsRacks
           optionsPreSelected={location}
           onSelectOption={(newSelection) => {
-            console.log('newSelection: ', newSelection);
             if (newSelection.length > 0) {
               dispatch(change(form, 'location', [{ ...newSelection[0], status: SAVED }]));
             } else {
