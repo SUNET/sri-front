@@ -9,6 +9,7 @@ import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/Togg
 import FieldArrayParentPort from './FieldArrayParentPort';
 import FieldArrayConnectedToPort from './FieldArrayConnectedToPort';
 import renderFormBlockSection from '../common/BlockSection';
+import renderLocatedInSubTitleHeader from '../common/formsSections/LocatedInSubTitleHeader';
 
 // const
 import { isBrowser } from 'react-device-detect';
@@ -84,9 +85,11 @@ class _PortFormParentClass extends _BasicFormParentClass {
 
   // Specific toggle sections RENDERS
   renderSections(editMode) {
-    const { isFromModal } = this.props;
+    const { t, isFromModal, location } = this.props;
+    console.log('location: ', location);
     return (
       <>
+        {location && renderLocatedInSubTitleHeader(t('general-forms/located-in'), location)}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {!isFromModal && this.renderParentToggleSection(editMode)}

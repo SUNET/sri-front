@@ -20,7 +20,7 @@ class FieldArrayParentPort extends _BasicFieldArrayParentClass {
         },
         {
           text: 'general-forms/entity-type',
-          fieldKey: 'entityType.name',
+          fieldKey: '__typename',
         },
         {
           text: 'general-forms/type',

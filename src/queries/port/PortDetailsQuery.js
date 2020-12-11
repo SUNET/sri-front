@@ -5,135 +5,98 @@ const PortDetailsQuery = graphql`
     getPortById(id: $portId) {
       ...PortUpdateForm_port
       id
-      name
-      description
-      port_type {
+name
+description
+__typename
+
+    comments {
+      id
+
+    user {
+      first_name
+last_name
+      
+    }
+comment
+submit_date
+      
+    }
+created
+
+    creator {
+      email
+      
+    }
+modified
+
+    modifier {
+      email
+      
+    }
+
+    type: port_type {
+        __typename
         name
         value
-      }
-      parent {
+    }
+  
+
+    connected_to {
+      id
+name
+description
+__typename
+relation_id
+      ...on Cable {
+       
+    type: cable_type {
         __typename
-        id
         name
-        relation_id
-        ... on Port {
-          description
-          entityType: node_type {
-            name: type
-          }
-          type: port_type {
-            name
-            value
-          }
-        }
-        ... on Cable {
-          description
-          entityType: node_type {
-            name: type
-          }
-          type: cable_type {
-            name
-            value
-          }
-        }
-        ... on ExternalEquipment {
-          description
-          entityType: node_type {
-            name: type
-          }
-        }
-        ... on Switch {
-          description
-          operational_state {
-            name
-            value
-          }
-          entityType: node_type {
-            name: type
-          }
-        }
-        ... on Firewall {
-          description
-          operational_state {
-            name
-            value
-          }
-          entityType: node_type {
-            name: type
-          }
-        }
-        ... on OpticalFilter {
-          description
-          entityType: node_type {
-            name: type
-          }
-        }
-        ... on OpticalNode {
-          description
-          operational_state {
-            name
-            value
-          }
-          entityType: node_type {
-            name: type
-          }
-          type {
-            name
-            value
-          }
-        }
-        ... on Router {
-          description
-          operational_state {
-            name
-            value
-          }
-          entityType: node_type {
-            name: type
-          }
-        }
-        ... on ODF {
-          description
-          operational_state {
-            name
-            value
-          }
-          entityType: node_type {
-            name: type
-          }
-        }
-      }
-      connected_to {
+        value
+    }
+  
+    }
+    }
+
+    parent {
+      id
+name
+description
+__typename
+relation_id
+
+    operational_state {
         __typename
-        id
         name
-        relation_id
-        ... on Cable {
-          description
-          type: cable_type {
-            name
-            value
-          }
-        }
-      }
-      __typename
-      comments {
-        id
-        user {
-          first_name
-          last_name
-        }
-        comment
-        submit_date
-      }
-      created
-      creator {
-        email
-      }
-      modified
-      modifier {
-        email
-      }
+        value
+    }
+  
+      ...on Port {
+       
+    type: port_type {
+        __typename
+        name
+        value
+    }
+  
+    },...on Cable {
+       
+    type: cable_type {
+        __typename
+        name
+        value
+    }
+  
+    },...on OpticalNode {
+       
+    type {
+        __typename
+        name
+        value
+    }
+  
+    }
+    }
     }
   }
 `;

@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const PortDetailsQuery = graphql`
+  query PortDetailsQuery($portId: ID!) {
+    getPortById(id: $portId) {
+      ...PortUpdateForm_port
+      ___PORT_FIELDS___
+    }
+  }
+`;
+
+export default PortDetailsQuery;
