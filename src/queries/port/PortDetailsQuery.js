@@ -41,6 +41,38 @@ modified
     }
   
 
+    location {
+        __typename
+        id
+        name
+        id
+name
+description
+__typename
+
+    parent {
+        __typename
+        id
+        name
+        
+    parent {
+        __typename
+        id
+        name
+        id
+name
+description
+__typename
+        
+    }
+  
+        
+    }
+  
+        
+    }
+  
+
     connected_to {
       id
 name
@@ -96,6 +128,15 @@ relation_id
     }
   
     }
+    }
+
+    dependents {
+      id
+name
+description
+__typename
+relation_id
+      
     }
     }
   }

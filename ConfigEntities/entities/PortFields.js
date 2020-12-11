@@ -6,6 +6,7 @@ const PORT_COMMON_FIELDS = [
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
   { type: FIELD_TYPES.OBJECT, name: 'port_type', alias: 'type' },
+  ...COMMON_FIELDS.COMPLETE_LOCATION,
   {
     type: FIELD_TYPES.ARRAY_LIST,
     name: 'connected_to',
@@ -39,6 +40,11 @@ const PORT_COMMON_FIELDS = [
         subFields: [{ type: FIELD_TYPES.OBJECT, name: 'type' }],
       },
     ],
+  },
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'dependents',
+    subFields: [...COMMON_FIELDS.BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
   },
 ];
 

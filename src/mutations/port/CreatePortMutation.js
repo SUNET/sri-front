@@ -17,76 +17,7 @@ const mutation = graphql`
           messages
         }
         port {
-          id
-          name
-          port_type {
-            value
-            name
-          }
-          description
-          parent {
-            id
-            name
-            relation_id
-            ... on Port {
-              entityType: node_type {
-                name: type
-              }
-              type: port_type {
-                value
-                name
-              }
-              description
-            }
-            ... on Cable {
-              entityType: node_type {
-                name: type
-              }
-              type: cable_type {
-                value
-                name
-              }
-              description
-            }
-            ... on ExternalEquipment {
-              description
-              entityType: node_type {
-                name: type
-              }
-            }
-          }
-          connected_to {
-            id
-            name
-            ... on Cable {
-              type: cable_type {
-                value
-                name
-              }
-              description
-            }
-          }
-        }
-      }
-      subupdated {
-        errors {
-          field
-          messages
-        }
-        cable {
-          id
-          name
-          description
-          type: cable_type {
-            value
-            name
-          }
-        }
-      }
-      parent_port_updated {
-        errors {
-          field
-          messages
+          ...PortUpdateForm_port
         }
       }
     }
@@ -94,8 +25,8 @@ const mutation = graphql`
 `;
 
 function CreatePortMutation(port, form) {
-  const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
-  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parents);
+  const connectedTo = generateSubInputs(port.connected_to, 'cable_type');
+  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parent);
 
   const variables = {
     input: {

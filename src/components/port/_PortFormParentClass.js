@@ -37,7 +37,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
       const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'parents') {
         this.handleSelectedParent(selectionData, methodName);
-      } else if (fieldModalOpened === 'connectedTo') {
+      } else if (fieldModalOpened === 'connected_to') {
         this.handleSelectedConnectedTo(selectionData);
       }
       return false;
@@ -78,7 +78,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
           id: cable.id,
           status: 'saved',
         };
-        this.props.dispatch(arrayPush(this.props.form, 'connectedTo', newCable));
+        this.props.dispatch(arrayPush(this.props.form, 'connected_to', newCable));
       });
     }
   };
@@ -86,7 +86,6 @@ class _PortFormParentClass extends _BasicFormParentClass {
   // Specific toggle sections RENDERS
   renderSections(editMode) {
     const { t, isFromModal, location } = this.props;
-    console.log('location: ', location);
     return (
       <>
         {location && renderLocatedInSubTitleHeader(t('general-forms/located-in'), location)}
@@ -101,18 +100,18 @@ class _PortFormParentClass extends _BasicFormParentClass {
 
   renderGeneralInfoToggleSection(editMode = true) {
     const componentClassName = 'general-info-block';
-    const { t, portTypeObj } = this.props;
+    const { t, type } = this.props;
     const generalInfoFirstRow = [
       {
         title: t('general-forms/type'),
-        presentContent: portTypeObj ? portTypeObj.name : undefined,
+        presentContent: type,
         editContent: (
           <Dropdown
             t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="port_types"
-            name="port_type"
+            name="type"
             onChange={(e) => {}}
           />
         ),
@@ -150,27 +149,27 @@ class _PortFormParentClass extends _BasicFormParentClass {
 
           <TogglePanel>
             <FieldArray
-              name="parents"
+              name="parent"
               component={FieldArrayParentPort}
               editable={editMode}
               dispatch={this.props.dispatch}
-              errors={this.props.formSyncErrors.parents}
+              errors={this.props.formSyncErrors.parent}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
-                this.setState({ fieldModalOpened: 'parents' });
+                this.setState({ fieldModalOpened: 'parent' });
                 this.props.showModalCreateForm(typeEntityToShowForm);
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'parents' });
+                this.setState({ fieldModalOpened: 'parent' });
                 this.props.showModalEditForm(typeEntityToShowForm, entityId);
               }}
               showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'parents' });
+                this.setState({ fieldModalOpened: 'parent' });
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedParent}
               rerenderOnEveryChange
-              entityRemovedId={this.state.fieldModalOpened === 'parents' ? entityRemovedId : null}
+              entityRemovedId={this.state.fieldModalOpened === 'parent' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>
@@ -189,27 +188,27 @@ class _PortFormParentClass extends _BasicFormParentClass {
 
           <TogglePanel>
             <FieldArray
-              name="connectedTo"
+              name="connected_to"
               component={FieldArrayConnectedToPort}
               editable={editMode}
               dispatch={this.props.dispatch}
-              errors={this.props.formSyncErrors.connectedTo}
+              errors={this.props.formSyncErrors.connected_to}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
-                this.setState({ fieldModalOpened: 'connectedTo' });
+                this.setState({ fieldModalOpened: 'connected_to' });
                 this.props.showModalCreateForm(typeEntityToShowForm);
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'connectedTo' });
+                this.setState({ fieldModalOpened: 'connected_to' });
                 this.props.showModalEditForm(typeEntityToShowForm, entityId);
               }}
               showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'connectedTo' });
+                this.setState({ fieldModalOpened: 'connected_to' });
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={this.handleSelectedConnectedTo}
               rerenderOnEveryChange
-              entityRemovedId={this.state.fieldModalOpened === 'connectedTo' ? entityRemovedId : null}
+              entityRemovedId={this.state.fieldModalOpened === 'connected_to' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>

@@ -435,6 +435,23 @@ const unit = {
   ],
 };
 
+const port = {
+  formName: {
+    create: 'createPort',
+    update: 'updatePort',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.OBJECT, name: 'type' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'parent' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'connected_to' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'location' },
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -458,4 +475,5 @@ export default {
   site,
   service,
   unit,
+  port,
 };

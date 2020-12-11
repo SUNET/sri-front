@@ -20,41 +20,20 @@ const mutation = graphql`
           ...PortUpdateForm_port
         }
       }
-      subupdated {
-        errors {
-          field
-          messages
-        }
-        cable {
-          id
-          name
-          description
-          type: cable_type {
-            value
-            name
-          }
-        }
-      }
-      parent_port_updated {
-        errors {
-          field
-          messages
-        }
-      }
     }
   }
 `;
 
 export default function UpdatePortMutation(port, form) {
-  const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
-  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parents);
+  const connectedTo = generateSubInputs(port.connected_to, 'cable_type');
+  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parent);
   const variables = {
     input: {
       update_input: {
         id: port.id,
         name: port.name,
         description: port.description,
-        port_type: port.port_type,
+        port_type: port.type.name,
       },
       ...parentsFormatted.toUpdateObject,
       ...parentsFormatted.toDeleteObject,

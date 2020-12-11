@@ -10,13 +10,7 @@ const ROUTER_COMMON_FIELDS = [
   {
     type: FIELD_TYPES.ARRAY_LIST,
     name: 'dependents',
-    subFields: [
-      { type: FIELD_TYPES.SINGLE, name: '__typename' },
-      { type: FIELD_TYPES.SINGLE, name: 'id' },
-      { type: FIELD_TYPES.SINGLE, name: 'name' },
-      { type: FIELD_TYPES.SINGLE, name: 'description' },
-      { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
-    ],
+    subFields: [...COMMON_FIELDS.BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
     onSentences: [
       {
         entity: 'Service',

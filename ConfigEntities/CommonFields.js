@@ -48,6 +48,21 @@ const BASIC_INFO = [
   { type: FIELD_TYPES.SINGLE, name: '__typename' },
 ];
 
+const COMPLETE_LOCATION = [
+  {
+    type: FIELD_TYPES.ID_OBJECT,
+    name: 'location',
+    subFields: [
+      ...BASIC_INFO,
+      {
+        type: FIELD_TYPES.ID_OBJECT,
+        name: 'parent',
+        subFields: [{ type: FIELD_TYPES.ID_OBJECT, name: 'parent', subFields: [...BASIC_INFO] }],
+      },
+    ],
+  },
+];
+
 const PHYSICAL_BASIC_DATA = [
   { type: FIELD_TYPES.OBJECT, name: 'managed_by' },
   { type: FIELD_TYPES.SINGLE, name: 'backup' },
@@ -68,17 +83,7 @@ const RACK_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_position' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
-  {
-    type: FIELD_TYPES.ID_OBJECT,
-    name: 'location',
-    subFields: [
-      {
-        type: FIELD_TYPES.ID_OBJECT,
-        name: 'parent',
-        subFields: [{ type: FIELD_TYPES.ID_OBJECT, name: 'parent', subFields: [...BASIC_INFO] }],
-      },
-    ],
-  },
+  ...COMPLETE_LOCATION,
 ];
 
 const PORT_LIST = [
@@ -290,4 +295,5 @@ module.exports = {
   OWNER_ENTITY,
   WITH_SAME_NAME,
   USES_SERVICES,
+  COMPLETE_LOCATION,
 };
