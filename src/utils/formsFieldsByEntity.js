@@ -147,7 +147,15 @@ const router = {
     create: 'createRouter',
     update: 'updateRouter',
   },
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: [
+    'notify',
+    'breadcrumbs',
+    'modal',
+    'confirm',
+    'portDetails',
+    'physicalDetails',
+    'logicalDetails',
+  ],
   fields: [
     ...BASIC_INFO,
     ...RACK_INFO,

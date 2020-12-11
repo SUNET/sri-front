@@ -9,6 +9,7 @@
         color: $complementary-color;
     }
     &__all-text {
+        height: auto !important;
         overflow: auto !important;
         z-index: 1;
         position: absolute;

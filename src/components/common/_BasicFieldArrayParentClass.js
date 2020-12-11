@@ -66,6 +66,14 @@ class _BasicFieldArrayParentClass extends React.Component {
     });
   }
 
+  getHeaderConfig(allOrSummary) {
+    const { currentPreFilterModel } = this.state;
+    if (this.FIELDS_BY_PREFILTER && this.FIELDS_BY_PREFILTER[currentPreFilterModel]) {
+      return this.FIELDS_BY_PREFILTER[currentPreFilterModel];
+    }
+    return this.HEADER_TEXTS[allOrSummary];
+  }
+
   getAllValues(filterObj) {
     const allValues = this.props.fields.getAll() || [];
     if (!!filterObj) {
@@ -247,7 +255,7 @@ class _BasicFieldArrayParentClass extends React.Component {
             row.status === UNLINK ? 'd-none' : ''
           }`}
         >
-          {this.HEADER_TEXTS.all.map((headerInfo, index) => {
+          {this.getHeaderConfig('all').map((headerInfo, index) => {
             const { text, fieldKey } = headerInfo;
             return (
               <div className="contact-in-organization__body__row__element" key={index}>
@@ -359,8 +367,8 @@ class _BasicFieldArrayParentClass extends React.Component {
     const { t } = this.props;
 
     const headers = isMobile
-      ? this.HEADER_TEXTS.summary.map((headerInfo) => t(headerInfo.text))
-      : this.HEADER_TEXTS.all.map((headerInfo) => t(headerInfo.text));
+      ? this.getHeaderConfig('summary').map((headerInfo) => t(headerInfo.text))
+      : this.getHeaderConfig('all').map((headerInfo) => t(headerInfo.text));
     return (
       <div className="contact-in-organization__header">
         {headers.map((title, index) => {
@@ -392,8 +400,9 @@ class _BasicFieldArrayParentClass extends React.Component {
                   row.status !== SAVED ? 'contact-in-organization__body__row--disabled' : ''
                 }`}
               >
-                {isBrowser && this.HEADER_TEXTS.all.map((fieldConfig) => this.renderFieldRow(row, fieldConfig))}
-                {isMobile && this.HEADER_TEXTS.summary.map((fieldConfig) => this.renderFieldRow(row, fieldConfig))}
+                {isBrowser && this.getHeaderConfig('all').map((fieldConfig) => this.renderFieldRow(row, fieldConfig))}
+                {isMobile &&
+                  this.getHeaderConfig('summary').map((fieldConfig) => this.renderFieldRow(row, fieldConfig))}
                 {editable && row.id && this.renderButtonsBox(row.id, willHaveModalsButtons)}
                 {!editable && row.status === SAVED && willHaveModalsButtons && row.id && this.renderMoreInfoButton(row)}
               </div>
@@ -543,17 +552,19 @@ class _BasicFieldArrayParentClass extends React.Component {
           />
         )}
         {this.INTERNAL_FILTER?.text && (
-          <div>
-            <input
-              type="text"
-              placeholder="Filter by text"
-              value={this.state.internalTextFilter.filterText}
-              onChange={(event) => {
-                this.setState({
-                  internalTextFilter: { field: 'name', value: event.target.value },
-                });
-              }}
-            />
+          <div className="downshift">
+            <div>
+              <input
+                type="text"
+                placeholder="Filter by text"
+                value={this.state?.internalTextFilter?.value}
+                onChange={(event) => {
+                  this.setState({
+                    internalTextFilter: { field: 'name', value: event.target.value },
+                  });
+                }}
+              />
+            </div>
           </div>
         )}
       </div>
