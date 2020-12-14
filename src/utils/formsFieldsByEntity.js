@@ -282,8 +282,8 @@ const opticalMultiplexSection = {
     create: 'createOpticalMultiplexSection',
     update: 'updateOpticalMultiplexSection',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },

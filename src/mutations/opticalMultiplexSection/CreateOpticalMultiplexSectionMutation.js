@@ -3,7 +3,11 @@ import graphql from 'babel-plugin-relay/macro';
 import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { onCompleteCompositeCreationEntity, generatePortForInput } from '../MutationsUtils';
+import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
+import {
+  getDependenciesToForOMSAdd,
+  getDependenciesToForOMSDelete,
+} from '../ConfigDependenciesMutationForOMS';
 
 const mutation = graphql`
   mutation CreateOpticalMultiplexSectionMutation($input: CompositeOpticalMultiplexSectionMutationInput!) {
@@ -43,7 +47,6 @@ const mutation = graphql`
 `;
 
 function CreateOpticalMultiplexSectionMutation(opticalMultiplexSection, form) {
-  const ports = generatePortForInput(opticalMultiplexSection.ports);
   const variables = {
     input: {
       create_input: {
@@ -52,10 +55,8 @@ function CreateOpticalMultiplexSectionMutation(opticalMultiplexSection, form) {
         operational_state: opticalMultiplexSection.operational_state,
         relationship_provider: opticalMultiplexSection.provider_id,
       },
-      create_dependencies_port: ports.toCreate,
-      update_dependencies_port: ports.toSaved,
-      deleted_dependencies_port: ports.toRemove,
-      unlink_subinputs: ports.toUnlink,
+      ...getDependenciesToForOMSAdd(opticalMultiplexSection.dependencies),
+      ...getDependenciesToForOMSDelete(opticalMultiplexSection.dependencies),
     },
   };
   commitMutation(environment, {

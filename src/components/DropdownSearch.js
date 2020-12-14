@@ -362,6 +362,18 @@ const DropdownSearchAllOpticalMultiplexSectionsQuery = graphql`
     }
   }
 `;
+const DropdownSearchAllHostsQuery = graphql`
+  query DropdownSearchAllHostQuery($filter: HostFilter) {
+    hosts(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -477,6 +489,10 @@ class DropdownSearch extends React.Component {
       case 'opticalMultiplexSections':
       case 'OpticalMultiplexSection':
         queryModel.query = DropdownSearchAllOpticalMultiplexSectionsQuery;
+        break;
+      case 'hosts':
+      case 'Host':
+        queryModel.query = DropdownSearchAllHostsQuery;
         break;
       default:
         queryModel.query = null;

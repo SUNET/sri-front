@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldArray, change } from 'redux-form';
+import { FieldArray, change, arrayPush } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
@@ -8,7 +8,29 @@ import FieldArrayDependencies from '../common/FieldArrayDependencies';
 // const
 import renderFormBlockSection from '../common/BlockSection';
 import { isBrowser } from 'react-device-detect';
+import { SAVED, NEW } from '../../utils/constants';
 
+function getSelectedDependencies(selection, getMethod) {
+  if (selection && selection.id) {
+    return getMethod(selection.id).then((entity) => {
+      const newEntity = {
+        ...entity,
+        origin: NEW,
+        status: SAVED,
+      };
+      if (entity.operational_state) {
+        newEntity.operational_state = entity.operational_state;
+      }
+      return newEntity;
+    });
+  }
+  return null;
+}
+
+async function handleSelectedDependencies({ selection, getMethod, form, dispatch }) {
+  const newEntity = await getSelectedDependencies(selection, getMethod);
+  if (newEntity) dispatch(arrayPush(form, 'dependencies', newEntity));
+}
 class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
   IS_UPDATED_FORM = false;
@@ -21,6 +43,22 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
     if (confirmedDelete && nextProps.confirmModalType === 'partialDelete') {
       this.props.hideModalConfirm();
       this.updateMutation(this.entityDataToUpdate, this);
+    }
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'dependencies') {
+        handleSelectedDependencies({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
+      }
+      return false;
     }
     return true;
   }
@@ -126,7 +164,14 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
                 this.setState({ fieldModalOpened: 'dependencies' });
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
-              handleSearchResult={this.handleSelectedPort}
+              handleSearchResult={async (selection, typeOfSelection) => {
+                handleSelectedDependencies({
+                  selection,
+                  getMethod: this.props[typeOfSelection],
+                  form: this.props.form,
+                  dispatch: this.props.dispatch,
+                });
+              }}
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'dependencies' ? entityRemovedId : null}
             />
