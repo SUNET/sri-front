@@ -4,8 +4,6 @@ import { withTranslation } from 'react-i18next';
 class FieldArrayProvides extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
-    // this.styleModifier = 'xl-table';
-    // TODO :this.ENTITIES_WITHOUT_MODAL = ['HostUser'];
     this.ENTITIES_WITHOUT_MODAL = this.ENTITIES_WITHOUT_NEW_MODAL = [
       'Email',
       'emails',
