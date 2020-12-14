@@ -12,6 +12,7 @@ const CUSTOMER_FIELDS = require('./entities/CustomerFields');
 const ENDUSER_FIELDS = require('./entities/EndUserFields');
 const PROVIDER_FIELDS = require('./entities/ProviderFields');
 const SITEOWNER_FIELDS = require('./entities/SiteOwnerFields');
+const PORT_FIELDS = require('./entities/PortFields');
 
 module.exports = [
   {
@@ -194,6 +195,22 @@ module.exports = [
     },
   },
   {
+    entity: 'EndUser',
+    files: ['src/queries/endUser/EndUserDetailsQuery', 'src/components/endUser/EndUserUpdateForm'],
+    reference: '___ENDUSER_FIELDS___',
+    queries: {
+      common: {
+        fields: [...ENDUSER_FIELDS.ENDUSER_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...ENDUSER_FIELDS.ENDUSER_COMMON_FIELDS, ...ENDUSER_FIELDS.ENDUSER_SUNET],
+      },
+      nordunet: {
+        fields: [...ENDUSER_FIELDS.ENDUSER_COMMON_FIELDS, ...ENDUSER_FIELDS.ENDUSER_NORDUNI],
+      },
+    },
+  },
+  {
     entity: 'Provider',
     files: ['src/queries/provider/ProviderDetailsQuery', 'src/components/provider/ProviderUpdateForm'],
     reference: '___PROVIDER_FIELDS___',
@@ -222,6 +239,22 @@ module.exports = [
       },
       nordunet: {
         fields: [...SITEOWNER_FIELDS.SITEOWNER_COMMON_FIELDS, ...SITEOWNER_FIELDS.SITEOWNER_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Port',
+    files: ['src/queries/port/PortDetailsQuery', 'src/components/port/PortUpdateForm'],
+    reference: '___PORT_FIELDS___',
+    queries: {
+      common: {
+        fields: [...PORT_FIELDS.PORT_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...PORT_FIELDS.PORT_COMMON_FIELDS, ...PORT_FIELDS.PORT_SUNET],
+      },
+      nordunet: {
+        fields: [...PORT_FIELDS.PORT_COMMON_FIELDS, ...PORT_FIELDS.PORT_NORDUNI],
       },
     },
   },

@@ -25,6 +25,7 @@ function CreateOpticalPathMutation(opticalPath, form) {
   const variables = {
     input: {
       create_input: {
+        name: opticalPath.name,
         description: opticalPath.description,
         operational_state: opticalPath.operational_state,
         framing: opticalPath.framing,

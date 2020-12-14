@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 class FieldArrayParentPort extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
-    this.FIELD_NAME_IN_FORM = 'parents';
+    this.FIELD_NAME_IN_FORM = 'parent';
     this.HEADER_TEXTS = {
       summary: [
         {
@@ -20,7 +20,7 @@ class FieldArrayParentPort extends _BasicFieldArrayParentClass {
         },
         {
           text: 'general-forms/entity-type',
-          fieldKey: 'entityType.name',
+          fieldKey: '__typename',
         },
         {
           text: 'general-forms/type',

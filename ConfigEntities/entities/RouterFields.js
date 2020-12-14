@@ -11,18 +11,16 @@ const ROUTER_COMMON_FIELDS = [
     type: FIELD_TYPES.ARRAY_LIST,
     name: 'dependents',
     subFields: [
-      { type: FIELD_TYPES.SINGLE, name: '__typename' },
-      { type: FIELD_TYPES.SINGLE, name: 'id' },
-      { type: FIELD_TYPES.SINGLE, name: 'name' },
-      { type: FIELD_TYPES.SINGLE, name: 'description' },
+      ...COMMON_FIELDS.BASIC_INFO,
       { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
+      { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     ],
     onSentences: [
       {
         entity: 'Service',
         subFields: [
           { type: FIELD_TYPES.ID_OBJECT, name: 'service_type', alias: 'type' },
-          { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+          { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
         ],
       },
       {
@@ -44,6 +42,11 @@ const ROUTER_COMMON_FIELDS = [
           { type: FIELD_TYPES.OBJECT, name: 'link_type', alias: 'type' },
           { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
           { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+          {
+            type: FIELD_TYPES.ARRAY_LIST,
+            name: 'ports',
+            subFields: [...COMMON_FIELDS.BASIC_INFO],
+          },
         ],
       },
     ],
