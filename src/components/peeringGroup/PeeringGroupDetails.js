@@ -12,7 +12,7 @@ class PeeringGroupDetails extends _BasicDetailsParentClass {
   classDetails = 'peeringGroup-details';
 
   handleDelete = () => {
-    DeletePeeringGroupMutation(this.getId(), () => this.props.history.push(`/network/peeringGroups`));
+    DeletePeeringGroupMutation(this.getId(), () => this.props.history.push(`/network/peering-groups`));
   };
 }
 
