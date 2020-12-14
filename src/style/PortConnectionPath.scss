@@ -1,0 +1,33 @@
+@import "../variables.scss";
+
+.connection-path {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    &__element {
+        padding: 1.5rem 0;
+        display: flex;
+        &__content {
+            &__link-name {
+                color: black;
+                font-weight: bold;
+                a {
+                    padding-right: 0.5rem;
+                    color: $complementary-color;
+                    font-size: 14px;
+                }
+            }
+            &__type {
+                font-size: 12px;
+            }
+        }
+        &__arrow {
+            margin: 0 1rem;
+            width: 60px;
+            height: 18px;
+            background-image: url("../static/img/union-arrow.svg");
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+    }
+}

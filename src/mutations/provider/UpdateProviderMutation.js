@@ -55,7 +55,6 @@ export default function UpdateProviderMutation(entityData, form) {
       unlink_subinputs: [...providesToUnlink],
     },
   };
-  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

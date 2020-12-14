@@ -14,7 +14,28 @@ const PORT_COMMON_FIELDS = [
     onSentences: [
       {
         entity: 'Cable',
-        subFields: [{ type: FIELD_TYPES.OBJECT, name: 'cable_type', alias: 'type' }],
+        subFields: [
+          { type: FIELD_TYPES.OBJECT, name: 'cable_type', alias: 'type' },
+          {
+            type: FIELD_TYPES.ARRAY_LIST,
+            name: 'ports',
+            subFields: [
+              ...COMMON_FIELDS.BASIC_INFO,
+              { type: FIELD_TYPES.OBJECT, name: 'port_type', alias: 'type' },
+              {
+                type: FIELD_TYPES.ARRAY_LIST,
+                name: 'parent',
+                subFields: [...COMMON_FIELDS.BASIC_INFO],
+                onSentences: [
+                  {
+                    entity: 'Physical',
+                    subFields: [...COMMON_FIELDS.COMPLETE_LOCATION],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     ],
   },
@@ -44,7 +65,12 @@ const PORT_COMMON_FIELDS = [
   {
     type: FIELD_TYPES.ARRAY_LIST,
     name: 'dependents',
-    subFields: [...COMMON_FIELDS.BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
+    subFields: [
+      ...COMMON_FIELDS.BASIC_INFO,
+      { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
+      { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    ],
+    onSentences: COMMON_FIELDS.ON_SENTENCES_DEPENDENTS_BLOCK,
   },
 ];
 

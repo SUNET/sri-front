@@ -15,41 +15,7 @@ const ROUTER_COMMON_FIELDS = [
       { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
       { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     ],
-    onSentences: [
-      {
-        entity: 'Service',
-        subFields: [
-          { type: FIELD_TYPES.ID_OBJECT, name: 'service_type', alias: 'type' },
-          { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
-        ],
-      },
-      {
-        entity: 'OpticalPath',
-        subFields: [
-          { type: FIELD_TYPES.SINGLE, name: 'wavelength' },
-          { type: FIELD_TYPES.OBJECT, name: 'framing' },
-          { type: FIELD_TYPES.OBJECT, name: 'capacity' },
-          { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
-        ],
-      },
-      {
-        entity: 'OpticalMultiplexSection',
-        subFields: [{ type: FIELD_TYPES.OBJECT, name: 'operational_state' }],
-      },
-      {
-        entity: 'OpticalLink',
-        subFields: [
-          { type: FIELD_TYPES.OBJECT, name: 'link_type', alias: 'type' },
-          { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
-          { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
-          {
-            type: FIELD_TYPES.ARRAY_LIST,
-            name: 'ports',
-            subFields: [...COMMON_FIELDS.BASIC_INFO],
-          },
-        ],
-      },
-    ],
+    onSentences: COMMON_FIELDS.ON_SENTENCES_DEPENDENTS_BLOCK,
   },
   ...COMMON_FIELDS.PORT_LIST,
   ...COMMON_FIELDS.COMMENTS_FIELDS,

@@ -281,6 +281,42 @@ const USES_SERVICES = [
     ],
   },
 ];
+
+const ON_SENTENCES_DEPENDENTS_BLOCK = [
+  {
+    entity: 'Service',
+    subFields: [
+      { type: FIELD_TYPES.ID_OBJECT, name: 'service_type', alias: 'type' },
+      { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
+    ],
+  },
+  {
+    entity: 'OpticalPath',
+    subFields: [
+      { type: FIELD_TYPES.SINGLE, name: 'wavelength' },
+      { type: FIELD_TYPES.OBJECT, name: 'framing' },
+      { type: FIELD_TYPES.OBJECT, name: 'capacity' },
+      { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    ],
+  },
+  {
+    entity: 'OpticalMultiplexSection',
+    subFields: [{ type: FIELD_TYPES.OBJECT, name: 'operational_state' }],
+  },
+  {
+    entity: 'OpticalLink',
+    subFields: [
+      { type: FIELD_TYPES.OBJECT, name: 'link_type', alias: 'type' },
+      { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
+      { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+      {
+        type: FIELD_TYPES.ARRAY_LIST,
+        name: 'ports',
+        subFields: [...BASIC_INFO],
+      },
+    ],
+  },
+];
 module.exports = {
   COMMENTS_FIELDS,
   USER_CREATOR_MODIFIER_FIELDS,
@@ -296,4 +332,5 @@ module.exports = {
   WITH_SAME_NAME,
   USES_SERVICES,
   COMPLETE_LOCATION,
+  ON_SENTENCES_DEPENDENTS_BLOCK,
 };

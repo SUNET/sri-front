@@ -24,6 +24,10 @@ const OpticalLinkQuery = graphql`
         value
       }
       type: __typename
+      ports {
+        id
+        name
+      }
     }
   }
 `;

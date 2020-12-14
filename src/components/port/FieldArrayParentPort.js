@@ -29,6 +29,7 @@ class FieldArrayParentPort extends _BasicFieldArrayParentClass {
         {
           text: 'general-forms/description',
           fieldKey: 'description',
+          showAllText: true,
         },
       ],
       modal: ['general-forms/parent-element-detail'],

@@ -44,3 +44,29 @@ export const kebabCase = (string) =>
     .replace(/([a-z])([A-Z])/g, '$1-$2')
     .replace(/\s+/g, '-')
     .toLowerCase();
+
+export const getLocationElement = (locationBlock, locType) => {
+  if (!locationBlock) return null;
+  let id, name;
+  if (locationBlock?.__typename === locType) {
+    id = locationBlock.id;
+    name = locationBlock.name;
+  }
+  if (locationBlock?.parent?.__typename === locType) {
+    id = locationBlock?.parent.id;
+    name = locationBlock?.parent.name;
+  }
+  if (locationBlock?.parent?.parent?.__typename === locType) {
+    id = locationBlock?.parent?.parent?.id;
+    name = locationBlock?.parent?.parent?.name;
+  }
+  return {
+    id,
+    name,
+    path: getLocationPath(locType, id),
+  };
+};
+
+const getLocationPath = (type, id) => {
+  return `/network/location-${type.toLowerCase()}s/${id}`;
+};

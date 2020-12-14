@@ -382,7 +382,6 @@ const site = {
     { type: FIELD_TYPES.SINGLE, name: 'owner_id' },
     { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
     { type: FIELD_TYPES.SINGLE, name: 'url' },
-    { type: FIELD_TYPES.OBJECT, name: 'country_code' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
     { type: FIELD_TYPES.SINGLE, name: 'country' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'addresses' },
@@ -448,8 +447,8 @@ const port = {
     create: 'createPort',
     update: 'updatePort',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'type' },

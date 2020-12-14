@@ -10,11 +10,56 @@ import FieldArrayParentPort from './FieldArrayParentPort';
 import FieldArrayConnectedToPort from './FieldArrayConnectedToPort';
 import renderFormBlockSection from '../common/BlockSection';
 import renderLocatedInSubTitleHeader from '../common/formsSections/LocatedInSubTitleHeader';
+import FieldArrayDependenciesMultiFields from '../common/FieldArrayDependenciesMultiFields';
 
 // const
+import { SAVED, NEW } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 // scss
 import '../../style/ModelDetails.scss';
+import '../../style/PortConnectionPath.scss';
+
+const ConnectionPath = ({ blocks }) => {
+  return (
+    <div className="connection-path">
+      {blocks.map((el, index, arr) => {
+        const isLast = index === arr.length - 1;
+
+        return (
+          <div className="connection-path__element">
+            <div className="connection-path__element__content">
+              <div className="connection-path__element__content__link-name">
+                <a
+                  href={`${el.path}`}
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  {el.name}
+                </a>
+                {el.portName && !el.currentElement && (
+                  <a
+                    href={`${el.portPath}`}
+                    rel="noopener noreferrer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    {el.portName}
+                  </a>
+                )}
+                {el.portName && el.currentElement && el.portName}
+              </div>
+              <div className="connection-path__element__content__type">({el.connectionType})</div>
+            </div>
+            {!isLast && <div className="connection-path__element__arrow"></div>}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 class _PortFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -22,6 +67,14 @@ class _PortFormParentClass extends _BasicFormParentClass {
   FORM_ID = '';
   MODEL_NAME = 'port';
   ROUTE_LIST_DIRECTION = '/network/ports';
+
+  getSelectedLogical(id, getMethod) {
+    return getMethod(id).then((entity) => ({
+      ...entity,
+      status: SAVED,
+      origin: NEW,
+    }));
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     const confirmedDelete = !this.props.isDeleteConfirmed && nextProps.isDeleteConfirmed;
@@ -83,6 +136,16 @@ class _PortFormParentClass extends _BasicFormParentClass {
     }
   };
 
+  async handleSelectedIsUsed(selection, methodName) {
+    const { dispatch, form } = this.props;
+    if (selection) {
+      const { id } = selection;
+      const newEntity = await this.getSelectedLogical(id, this.props[methodName]);
+      if (newEntity) dispatch(arrayPush(form, 'dependents', newEntity));
+    }
+    return null;
+  }
+
   // Specific toggle sections RENDERS
   renderSections(editMode) {
     const { t, isFromModal, location } = this.props;
@@ -91,8 +154,10 @@ class _PortFormParentClass extends _BasicFormParentClass {
         {location && renderLocatedInSubTitleHeader(t('general-forms/located-in'), location)}
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
+        {this.renderIsUsedToggleSection(editMode)}
         {!isFromModal && this.renderParentToggleSection(editMode)}
         {!isFromModal && this.renderConnectedToToggleSection(editMode)}
+        {this.renderConnectionPathToggleSection(editMode)}
         {this.renderWorkLog(editMode)}
       </>
     );
@@ -210,6 +275,73 @@ class _PortFormParentClass extends _BasicFormParentClass {
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'connected_to' ? entityRemovedId : null}
             />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderIsUsedToggleSection(editMode = true) {
+    const componentClassName = 'is-used-block';
+    const { t, entityRemovedId } = this.props;
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/ports-used-by')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="dependents"
+              component={FieldArrayDependenciesMultiFields}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection, typeOfSelection) => {
+                this.handleSelectedIsUsed(selection, `get${typeOfSelection}ById`);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderConnectionPathToggleSection(editMode = true) {
+    const componentClassName = 'connection-path-block';
+    const { t, connected_to } = this.props;
+    let connectionPathElements = [];
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/connection-path')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            {connected_to &&
+              connected_to.length &&
+              connected_to.map(({ connection_path }) => {
+                if (connection_path) {
+                  const { originEquipment, cable, destinationEquipment } = connection_path;
+                  connectionPathElements = [originEquipment, cable, destinationEquipment];
+                }
+                return <ConnectionPath blocks={connectionPathElements} />;
+              })}
           </TogglePanel>
         </ToggleSection>
       </section>

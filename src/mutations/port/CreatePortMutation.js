@@ -33,7 +33,7 @@ function CreatePortMutation(port, form) {
       create_input: {
         name: port.name,
         description: port.description,
-        port_type: port.port_type,
+        port_type: port.type,
       },
       ...parentsFormatted.toUpdateObject,
       ...parentsFormatted.toDeleteObject,
@@ -50,7 +50,7 @@ function CreatePortMutation(port, form) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_port.created.errors;
       }
-      const portId = response.composite_port.created.port.id;
+      const portId = response.composite_port.created.port.id || response.composite_port.created.port.__id;
       if (port.comment) {
         CreateCommentMutation(portId, port.comment);
       }
