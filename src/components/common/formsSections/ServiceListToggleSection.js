@@ -16,7 +16,6 @@ export function getSelectedService(selection, getMethod) {
 
 export async function handleSelectedService({ selection, getMethod, form, dispatch }) {
   const newEntity = await getSelectedService(selection, getMethod);
-  console.log('newEntity: ', newEntity);
   if (newEntity) dispatch(arrayPush(form, 'uses', newEntity));
 }
 

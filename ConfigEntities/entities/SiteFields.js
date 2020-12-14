@@ -26,7 +26,6 @@ const SITE_HAS = [
 const SITE_COMMON_FIELDS = [
   ...COMMON_FIELDS.BASIC_INFO,
   { type: FIELD_TYPES.SINGLE, name: 'country' },
-  { type: FIELD_TYPES.OBJECT, name: 'country_code' },
   { type: FIELD_TYPES.SINGLE, name: 'area' },
   { type: FIELD_TYPES.SINGLE, name: 'latitude' },
   { type: FIELD_TYPES.SINGLE, name: 'longitude' },

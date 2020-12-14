@@ -7,6 +7,11 @@ import environment from '../../createRelayEnvironment';
 
 import { generateSubInputs } from '../MutationsUtils';
 import formatAndMergeAllPortsParentsEntities from './PortFormatter';
+import {
+  getDependenciesToAdd,
+  getDependenciesToUnlink,
+  getDependenciesToDelete,
+} from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation UpdatePortMutation($input: CompositePortMutationInput!) {
@@ -33,16 +38,21 @@ export default function UpdatePortMutation(port, form) {
         id: port.id,
         name: port.name,
         description: port.description,
-        port_type: port.type.name,
+        port_type: port.type,
       },
       ...parentsFormatted.toUpdateObject,
       ...parentsFormatted.toDeleteObject,
       update_subinputs: connectedTo.toUpdate,
-      unlink_subinputs: [...connectedTo.toUnlink, ...parentsFormatted.toUnlinkList],
+      unlink_subinputs: [
+        ...connectedTo.toUnlink,
+        ...parentsFormatted.toUnlinkList,
+        ...getDependenciesToUnlink(port.dependents),
+      ],
       delete_subinputs: [...connectedTo.toDelete],
+      ...getDependenciesToAdd(port.dependents),
+      ...getDependenciesToDelete(port.dependents),
     },
   };
-
   commitMutation(environment, {
     mutation,
     variables,

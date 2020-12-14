@@ -1,30 +1,5 @@
 import React from 'react';
-
-const getPath = (type, id) => {
-  return `/network/location-${type.toLowerCase()}s/${id}`;
-};
-
-const getLocationElement = (locationBlock, locType) => {
-  if (!locationBlock) return null;
-  let id, name;
-  if (locationBlock?.__typename === locType) {
-    id = locationBlock.id;
-    name = locationBlock.name;
-  }
-  if (locationBlock?.parent?.__typename === locType) {
-    id = locationBlock?.parent.id;
-    name = locationBlock?.parent.name;
-  }
-  if (locationBlock?.parent?.parent?.__typename === locType) {
-    id = locationBlock?.parent?.parent?.id;
-    name = locationBlock?.parent?.parent?.name;
-  }
-  return {
-    id,
-    name,
-    path: getPath(locType, id),
-  };
-};
+import { getLocationElement } from '../../../utils';
 
 export default function renderLocatedInSubTitleHeader(titleText, location) {
   const locationData = Array.isArray(location) && location.length > 0 ? location[0] : location;

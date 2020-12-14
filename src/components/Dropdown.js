@@ -75,17 +75,6 @@ const DropdownRolesGroupDefaultQuery = graphql`
   }
 `;
 
-const DropdownPhysicalTypesQuery = graphql`
-  query DropdownPhysicalTypesQuery {
-    getTypesForMetatype(metatype: Physical) {
-      name: type_name
-      value: connection_name
-      getDetailsMethodName: byid_name
-      all_name
-    }
-  }
-`;
-
 const DropdownSwitchTypesQuery = graphql`
   query DropdownSwitchTypesQuery {
     getSwitchTypes {
@@ -123,6 +112,28 @@ const DropdownServicesTypesQuery = graphql`
           }
         }
       }
+    }
+  }
+`;
+
+const DropdownLogicalTypesQuery = graphql`
+  query DropdownLogicalTypesQuery {
+    getTypesForMetatype(metatype: Logical) {
+      name: type_name
+      value: connection_name
+      getDetailsMethodName: byid_name
+      all_name
+    }
+  }
+`;
+
+const DropdownPhysicalTypesQuery = graphql`
+  query DropdownPhysicalTypesQuery {
+    getTypesForMetatype(metatype: Physical) {
+      name: type_name
+      value: connection_name
+      getDetailsMethodName: byid_name
+      all_name
     }
   }
 `;
@@ -167,9 +178,6 @@ class Dropdown extends React.PureComponent {
       case 'default_roles':
         queryModel = DropdownRolesGroupDefaultQuery;
         break;
-      case 'physical_types':
-        queryModel = DropdownPhysicalTypesQuery;
-        break;
       case 'owners_types':
         queryModel = DropdownOwnersQuery;
         break;
@@ -186,6 +194,12 @@ class Dropdown extends React.PureComponent {
         break;
       case 'siteOwner':
         queryModel = DropdownSiteOwnersAllQuery;
+        break;
+      case 'physical_types':
+        queryModel = DropdownPhysicalTypesQuery;
+        break;
+      case 'logical_types':
+        queryModel = DropdownLogicalTypesQuery;
         break;
       case 'logical_and_physical':
         queryModel = DropdownLogicalAndPhysicalTypesQuery;
@@ -325,6 +339,7 @@ class Dropdown extends React.PureComponent {
           if (
             this.props.model === 'physical_types' ||
             this.props.model === 'owners_types' ||
+            this.props.model === 'logical_types' ||
             this.props.model === 'logical_and_physical'
           ) {
             this.props.onChange(options.find((o) => o.value === e.target.value));
@@ -345,6 +360,7 @@ class Dropdown extends React.PureComponent {
         {this.props.model === 'organization' && this.renderOptionsModelOptimized(options)}
         {(this.props.model === 'roles' || this.props.model === 'default_roles') && this.renderOptionsModel(options)}
         {(this.props.model === 'physical_types' ||
+          this.props.model === 'logical_types' ||
           this.props.model === 'owners_types' ||
           this.props.model === 'logical_and_physical') &&
           this.renderOptions(options)}

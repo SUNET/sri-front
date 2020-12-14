@@ -20,8 +20,8 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
         field: 'name',
       },
     };
-    this.FIELD_NAME_IN_FORM = 'dependents';
-    this.HEADER_TEXTS = {
+    this.FIELD_NAME_IN_FORM = props.fieldNameInForm || 'dependents';
+    this.HEADER_TEXTS = props.headerConfig || {
       summary: [
         {
           text: 'general-forms/name',
@@ -45,14 +45,15 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
       ],
       modal: null,
     };
-    this.PRE_FILTER_SELECT = {
+    this.PRE_FILTER_SELECT = props.preFilterSelect || {
+      pills: true,
       type: 'routerDependentsTypes',
       label: 'general-forms/select-physical-type',
       model: 'routerDependentsTypes',
       name: 'physical_types_preFilter',
     };
     this.MODEL_TO_SEARCH = null;
-    this.FIELDS_BY_PREFILTER = {
+    this.FIELDS_BY_PREFILTER = props.fieldsByPreFilter || {
       OpticalLink: [
         {
           text: 'general-forms/name',
@@ -125,7 +126,7 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
     };
   }
 
-  renderPreFilterDropDown() {
+  renderPreFilterPillsDropDown() {
     return (
       <PillsFilter
         onChange={(optionSelected) => {
@@ -203,7 +204,8 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
       <div className="contact-in-organization__footer">
         {
           <>
-            {this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
+            {this.PRE_FILTER_SELECT.pills && this.renderPreFilterPillsDropDown()}
+            {!this.PRE_FILTER_SELECT.pills && this.PRE_FILTER_SELECT.type && this.renderPreFilterDropDown()}
             {editable &&
               (this.PRE_FILTER_SELECT.entityMandatory || this.PRE_FILTER_SELECT.model) &&
               this.renderDropDownSearch()}

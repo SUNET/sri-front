@@ -64,7 +64,6 @@ class _ProviderFormParentClass extends _BasicFormParentClass {
 
   renderSections(editMode) {
     const { with_same_name } = this.props;
-    console.log(this.props.provides);
     return (
       <>
         {this.renderDescriptionToggleSection(editMode)}

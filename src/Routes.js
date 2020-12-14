@@ -99,8 +99,8 @@ export const RoutesNetworkEntity = {
   PeeringGroup: 'network/peering-groups',
   PeeringPartner: 'network/peering-partners',
   Rack: 'network/location-racks',
-  Room: 'network/location-room',
-  Site: 'network/location-site',
+  Room: 'network/location-rooms',
+  Site: 'network/location-sites',
   Unit: 'network/units',
 };
 
