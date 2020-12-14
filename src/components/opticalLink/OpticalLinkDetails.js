@@ -12,7 +12,7 @@ class OpticalLinkDetails extends _BasicDetailsParentClass {
   classDetails = 'opticalLink-details';
 
   handleDelete = () => {
-    DeleteOpticalLinkMutation(this.getId(), () => this.props.history.push(`/network/opticalLinks`));
+    DeleteOpticalLinkMutation(this.getId(), () => this.props.history.push(`/network/optical-links`));
   };
 }
 
