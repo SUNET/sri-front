@@ -62,9 +62,9 @@ const mapStateToProps = (state, props) => {
       endEquipment: theOtherPort?.parent
         ? [
             {
-              id: theOtherPort?.parent[0]?.id,
-              name: theOtherPort?.parent[0]?.name,
-              __typename: theOtherPort?.parent[0]?.__typename,
+              id: theOtherPort?.parent?.id,
+              name: theOtherPort?.parent?.name,
+              __typename: theOtherPort?.parent?.__typename,
             },
           ]
         : [],
