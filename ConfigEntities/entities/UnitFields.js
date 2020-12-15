@@ -55,22 +55,7 @@ const UNIT_COMMON_FIELDS = [
         onSentences: [
           {
             entity: 'Router',
-            subFields: [
-              {
-                type: FIELD_TYPES.ID_OBJECT,
-                name: 'location',
-                subFields: [
-                  ...COMMON_FIELDS.BASIC_INFO,
-                  {
-                    type: FIELD_TYPES.ID_OBJECT,
-                    name: 'parent',
-                    subFields: [
-                      { type: FIELD_TYPES.ID_OBJECT, name: 'parent', subFields: [...COMMON_FIELDS.BASIC_INFO] },
-                    ],
-                  },
-                ],
-              },
-            ],
+            subFields: [...COMMON_FIELDS.COMPLETE_LOCATION],
           },
         ],
       },

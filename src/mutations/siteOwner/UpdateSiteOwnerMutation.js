@@ -40,8 +40,6 @@ export default function UpdateSiteOwnerMutation(entityData, form) {
     },
   };
 
-  console.log(JSON.stringify(variables));
-
   commitMutation(environment, {
     mutation,
     variables,

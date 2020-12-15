@@ -6,7 +6,7 @@ import { Form } from 'react-bootstrap';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldInput from '../FieldInput';
-import FieldArrayRouterIsUsed from './FieldArrayRouterIsUsed';
+import FieldArrayDependenciesMultiFields from '../common/FieldArrayDependenciesMultiFields';
 
 // const
 import { isBrowser } from 'react-device-detect';
@@ -221,7 +221,7 @@ class _RouterFormParentClass extends _BasicFormParentClass {
           <TogglePanel>
             <FieldArray
               name="dependents"
-              component={FieldArrayRouterIsUsed}
+              component={FieldArrayDependenciesMultiFields}
               editable={editMode}
               dispatch={this.props.dispatch}
               errors={this.props.formSyncErrors.parents}

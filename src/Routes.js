@@ -82,9 +82,19 @@ export const path = (url) => {
   return fixedPath;
 };
 
+export const RoutesCommunityEntity = {
+  Contact: 'community/contacts',
+  Group: 'community/groups',
+  Organization: 'community/organizations',
+};
+
 export const RoutesNetworkEntity = {
-  Cable: 'network/cables',
+  Customer: 'network/customers',
+  EndUser: 'network/endUsers',
+  Provider: 'network/providers',
+  SiteOwner: 'network/siteOwners',
   Port: 'network/ports',
+  Cable: 'network/cables',
   Host: 'network/hosts',
   Firewall: 'network/firewalls',
   Router: 'network/routers',
@@ -99,9 +109,10 @@ export const RoutesNetworkEntity = {
   PeeringGroup: 'network/peering-groups',
   PeeringPartner: 'network/peering-partners',
   Rack: 'network/location-racks',
-  Room: 'network/location-room',
-  Site: 'network/location-site',
+  Room: 'network/location-rooms',
+  Site: 'network/location-sites',
   Unit: 'network/units',
+  Service: 'network/service-all',
 };
 
 export default Routes;

@@ -18,7 +18,7 @@ class OpticalNodeDetails extends _BasicDetailsParentClass {
       deletedEntity(idEntity);
     };
     const callbackInRouteForm = () => {
-      history.push(`/network/opticalNodes`);
+      history.push(`/network/optical-nodes`);
     };
     DeleteOpticalNodeMutation(idEntity, isFromModal ? callbackAfterDeleteInModal : callbackInRouteForm);
   };

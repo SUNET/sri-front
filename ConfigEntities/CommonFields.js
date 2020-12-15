@@ -48,6 +48,21 @@ const BASIC_INFO = [
   { type: FIELD_TYPES.SINGLE, name: '__typename' },
 ];
 
+const COMPLETE_LOCATION = [
+  {
+    type: FIELD_TYPES.ID_OBJECT,
+    name: 'location',
+    subFields: [
+      ...BASIC_INFO,
+      {
+        type: FIELD_TYPES.ID_OBJECT,
+        name: 'parent',
+        subFields: [{ type: FIELD_TYPES.ID_OBJECT, name: 'parent', subFields: [...BASIC_INFO] }],
+      },
+    ],
+  },
+];
+
 const PHYSICAL_BASIC_DATA = [
   { type: FIELD_TYPES.OBJECT, name: 'managed_by' },
   { type: FIELD_TYPES.SINGLE, name: 'backup' },
@@ -68,17 +83,7 @@ const RACK_INFO = [
   { type: FIELD_TYPES.SINGLE, name: 'rack_units' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_position' },
   { type: FIELD_TYPES.SINGLE, name: 'rack_back' },
-  {
-    type: FIELD_TYPES.ID_OBJECT,
-    name: 'location',
-    subFields: [
-      {
-        type: FIELD_TYPES.ID_OBJECT,
-        name: 'parent',
-        subFields: [{ type: FIELD_TYPES.ID_OBJECT, name: 'parent', subFields: [...BASIC_INFO] }],
-      },
-    ],
-  },
+  ...COMPLETE_LOCATION,
 ];
 
 const PORT_LIST = [
@@ -276,6 +281,42 @@ const USES_SERVICES = [
     ],
   },
 ];
+
+const ON_SENTENCES_DEPENDENTS_BLOCK = [
+  {
+    entity: 'Service',
+    subFields: [
+      { type: FIELD_TYPES.ID_OBJECT, name: 'service_type', alias: 'type' },
+      { type: FIELD_TYPES.ID_OBJECT, name: 'service_type' },
+    ],
+  },
+  {
+    entity: 'OpticalPath',
+    subFields: [
+      { type: FIELD_TYPES.SINGLE, name: 'wavelength' },
+      { type: FIELD_TYPES.OBJECT, name: 'framing' },
+      { type: FIELD_TYPES.OBJECT, name: 'capacity' },
+      { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    ],
+  },
+  {
+    entity: 'OpticalMultiplexSection',
+    subFields: [{ type: FIELD_TYPES.OBJECT, name: 'operational_state' }],
+  },
+  {
+    entity: 'OpticalLink',
+    subFields: [
+      { type: FIELD_TYPES.OBJECT, name: 'link_type', alias: 'type' },
+      { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
+      { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+      {
+        type: FIELD_TYPES.ARRAY_LIST,
+        name: 'ports',
+        subFields: [...BASIC_INFO],
+      },
+    ],
+  },
+];
 module.exports = {
   COMMENTS_FIELDS,
   USER_CREATOR_MODIFIER_FIELDS,
@@ -290,4 +331,6 @@ module.exports = {
   OWNER_ENTITY,
   WITH_SAME_NAME,
   USES_SERVICES,
+  COMPLETE_LOCATION,
+  ON_SENTENCES_DEPENDENTS_BLOCK,
 };

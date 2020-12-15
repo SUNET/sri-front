@@ -38,7 +38,7 @@ class SwitchRow extends React.PureComponent {
           columnsVisible,
           showAllColumns,
           'ip_addresses',
-          row.ip_addresses.map((ip) => ({ name: ip })),
+          row.ip_addresses ? row.ip_addresses.map((ip) => ({ name: ip })) : [],
         )}
         {renderCellElementsList(columnsVisible, showAllColumns, 'owner', owner, 'network')}
         {/* td for generate the space for the final cta */}

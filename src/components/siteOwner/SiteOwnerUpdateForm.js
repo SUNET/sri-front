@@ -80,7 +80,13 @@ description
 __typename
 relation_id
       ...on Site {
-       country
+       
+    country {
+        __typename
+        name
+        value
+    }
+  
 owner_id
     }
     }

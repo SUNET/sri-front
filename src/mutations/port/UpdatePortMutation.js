@@ -7,6 +7,11 @@ import environment from '../../createRelayEnvironment';
 
 import { generateSubInputs } from '../MutationsUtils';
 import formatAndMergeAllPortsParentsEntities from './PortFormatter';
+import {
+  getDependenciesToAdd,
+  getDependenciesToUnlink,
+  getDependenciesToDelete,
+} from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation UpdatePortMutation($input: CompositePortMutationInput!) {
@@ -20,50 +25,44 @@ const mutation = graphql`
           ...PortUpdateForm_port
         }
       }
-      subupdated {
-        errors {
-          field
-          messages
-        }
-        cable {
-          id
-          name
-          description
-          type: cable_type {
-            value
-            name
-          }
-        }
-      }
-      parent_port_updated {
-        errors {
-          field
-          messages
-        }
-      }
     }
   }
 `;
 
+const formatUpdateParentsWithoutArray = (parentsObjectMutation) => {
+  return Object.entries(parentsObjectMutation).reduce((acc, [key, value]) => {
+    return {
+      ...acc,
+      [key]: value.length > 0 ? value[0] : null,
+    };
+  }, {});
+};
+
 export default function UpdatePortMutation(port, form) {
-  const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
-  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parents);
+  const connectedTo = generateSubInputs(port.connected_to, 'cable_type');
+  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parent);
   const variables = {
     input: {
       update_input: {
         id: port.id,
         name: port.name,
         description: port.description,
-        port_type: port.port_type,
+        port_type: port.type,
       },
-      ...parentsFormatted.toUpdateObject,
-      ...parentsFormatted.toDeleteObject,
-      update_subinputs: connectedTo.toUpdate,
-      unlink_subinputs: [...connectedTo.toUnlink, ...parentsFormatted.toUnlinkList],
-      delete_subinputs: [...connectedTo.toDelete],
+      ...formatUpdateParentsWithoutArray(parentsFormatted.toUpdateObject),
+      ...formatUpdateParentsWithoutArray(parentsFormatted.toDeleteObject),
+      update_subinputs: connectedTo.toUpdate.length > 0 ? connectedTo.toUpdate[0] : null,
+      unlink_subinputs: [
+        ...connectedTo.toUnlink,
+        ...parentsFormatted.toUnlinkList,
+        ...getDependenciesToUnlink(port.dependents),
+      ],
+      delete_subinputs: connectedTo.toDelete.length > 0 ? connectedTo.toDelete[0] : null,
+      ...getDependenciesToAdd(port.dependents),
+      ...getDependenciesToDelete(port.dependents),
     },
   };
-
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

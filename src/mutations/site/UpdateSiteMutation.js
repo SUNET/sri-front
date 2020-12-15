@@ -38,12 +38,13 @@ export default function UpdateSiteMutation(site, form) {
   const physicalToRemove = generateLocatedInToRemove(site);
   const roomsToMutation = generateSubInputs(site.rooms, null, null);
   const racksToMutation = generateSubInputs(site.racks, null, null);
+  console.log('site.country: ', site.country);
   const variables = {
     input: {
       update_input: {
         id: site.id,
         name: site.name,
-        country_code: site.country_code,
+        country: site.country,
         site_type: site.site_type,
         area: site.area,
         longitude: site.longitude,

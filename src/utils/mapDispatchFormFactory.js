@@ -23,6 +23,7 @@ import getOpticalMultiplexSection from '../components/opticalMultiplexSection/Op
 import getOpticalLink from '../components/opticalLink/OpticalLink';
 import getUnit from '../components/unit/Unit';
 import getPeeringGroup from '../components/peeringGroup/PeeringGroup';
+import getHost from '../components/host/Host';
 
 import getSite from '../components/site/Site';
 import getRoom from '../components/room/Room';
@@ -99,6 +100,7 @@ const MAP_NAME_PROPERTY_METHOD = {
     getOpticalLinkById: (id) => getOpticalLink(id),
     getUnitById: (id) => getUnit(id),
     getPeeringGroupById: (id) => getPeeringGroup(id),
+    getHostById: (id) => getHost(id),
   }),
   portDetails: () => ({
     getPortById: (id) => getPort(id),

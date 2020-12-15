@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 
 import App from '../components/App';
 
+import * as generalSearchActions from '../actions/GeneralSearch';
+
 const mapStateToProps = (state, props) => {
   return {
     is_fetching: state.app.is_fetching,
@@ -13,7 +15,11 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => {
-  return {};
+  return {
+    cleanGeneralSearch: () => {
+      dispatch(generalSearchActions.cleanGeneralSearch());
+    },
+  };
 };
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

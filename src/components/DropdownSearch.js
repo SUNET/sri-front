@@ -362,6 +362,18 @@ const DropdownSearchAllOpticalMultiplexSectionsQuery = graphql`
     }
   }
 `;
+const DropdownSearchAllHostsQuery = graphql`
+  query DropdownSearchAllHostQuery($filter: HostFilter) {
+    hosts(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
 class DropdownSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -478,6 +490,10 @@ class DropdownSearch extends React.Component {
       case 'OpticalMultiplexSection':
         queryModel.query = DropdownSearchAllOpticalMultiplexSectionsQuery;
         break;
+      case 'hosts':
+      case 'Host':
+        queryModel.query = DropdownSearchAllHostsQuery;
+        break;
       default:
         queryModel.query = null;
         break;
@@ -522,7 +538,8 @@ class DropdownSearch extends React.Component {
         if (newData.length === 0) {
           newData = this.NO_MATCHES_RESULT;
         }
-        this.setState({ filterValue: filter, allItems: newData });
+        const filteredData = this.postFilterResult(newData);
+        this.setState({ filterValue: filter, allItems: filteredData });
       });
     } else {
       this.setState({ filterValue: filter, allItems: [] });
@@ -533,6 +550,13 @@ class DropdownSearch extends React.Component {
     this.props.selection(selection);
   };
 
+  postFilterResult(data) {
+    const { skipElements } = this.props;
+    if (!skipElements || skipElements.length === 0) {
+      return data;
+    }
+    return data.filter((d) => !skipElements.some((se) => se === d.id));
+  }
   render() {
     return (
       <div

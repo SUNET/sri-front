@@ -55,6 +55,7 @@ function CreateOpticalLinkMutation(opticalLink, form) {
   const variables = {
     input: {
       create_input: {
+        name: opticalLink.name,
         description: opticalLink.description,
         operational_state: opticalLink.operational_state,
         link_type: opticalLink.type,

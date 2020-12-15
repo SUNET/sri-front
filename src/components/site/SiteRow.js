@@ -31,7 +31,7 @@ class SiteRow extends React.PureComponent {
     return (
       <tr onClick={(e) => this.props.onClick(e, site)}>
         {this.renderCellSection('name', site.name)}
-        {this.renderCellSection('country', site.country)}
+        {this.renderCellSection('country', site?.country?.name)}
         {this.renderCellSection('area', site.area)}
         {/* td for generate the space for the final cta */}
         <td></td>
@@ -45,7 +45,11 @@ const SiteRowFragment = createFragmentContainer(SiteRow, {
     fragment SiteRow_site on Site {
       id
       name
-      country 
+      country {
+        __typename
+        name
+        value
+      }
       area
     }
   `,

@@ -68,3 +68,6 @@ src/components/provider/ProviderUpdateForm.js
 
 src/queries/siteOwner/SiteOwnerDetailsQuery.js
 src/components/siteOwner/SiteOwnerUpdateForm.js
+
+src/queries/port/PortDetailsQuery.js
+src/components/port/PortUpdateForm.js

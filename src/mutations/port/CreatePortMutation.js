@@ -7,6 +7,7 @@ import CreateCommentMutation from '../CreateCommentMutation';
 
 import { generateSubInputs } from '../MutationsUtils';
 import formatAndMergeAllPortsParentsEntities from './PortFormatter';
+import { getDependenciesToAdd, getDependenciesToDelete } from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation CreatePortMutation($input: CompositePortMutationInput!) {
@@ -17,98 +18,39 @@ const mutation = graphql`
           messages
         }
         port {
-          id
-          name
-          port_type {
-            value
-            name
-          }
-          description
-          parent {
-            id
-            name
-            relation_id
-            ... on Port {
-              entityType: node_type {
-                name: type
-              }
-              type: port_type {
-                value
-                name
-              }
-              description
-            }
-            ... on Cable {
-              entityType: node_type {
-                name: type
-              }
-              type: cable_type {
-                value
-                name
-              }
-              description
-            }
-            ... on ExternalEquipment {
-              description
-              entityType: node_type {
-                name: type
-              }
-            }
-          }
-          connected_to {
-            id
-            name
-            ... on Cable {
-              type: cable_type {
-                value
-                name
-              }
-              description
-            }
-          }
-        }
-      }
-      subupdated {
-        errors {
-          field
-          messages
-        }
-        cable {
-          id
-          name
-          description
-          type: cable_type {
-            value
-            name
-          }
-        }
-      }
-      parent_port_updated {
-        errors {
-          field
-          messages
+          ...PortUpdateForm_port
         }
       }
     }
   }
 `;
 
+const formatUpdateParentsWithoutArray = (parentsObjectMutation) => {
+  return Object.entries(parentsObjectMutation).reduce((acc, [key, value]) => {
+    return {
+      ...acc,
+      [key]: value.length > 0 ? value[0] : null,
+    };
+  }, {});
+};
+
 function CreatePortMutation(port, form) {
-  const connectedTo = generateSubInputs(port.connectedTo, 'cable_type');
-  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parents);
+  const connectedTo = generateSubInputs(port.connected_to, 'cable_type');
+  const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parent);
 
   const variables = {
     input: {
       create_input: {
         name: port.name,
         description: port.description,
-        port_type: port.port_type,
+        port_type: port.type,
       },
-      ...parentsFormatted.toUpdateObject,
-      ...parentsFormatted.toDeleteObject,
-      update_subinputs: connectedTo.toUpdate,
-      unlink_subinputs: [...connectedTo.toUnlink, ...parentsFormatted.toUnlinkList],
-      delete_subinputs: [...connectedTo.toDelete],
+      ...formatUpdateParentsWithoutArray(parentsFormatted.toUpdateObject),
+      ...formatUpdateParentsWithoutArray(parentsFormatted.toDeleteObject),
+      update_subinputs: connectedTo.toUpdate.length > 0 ? connectedTo.toUpdate[0] : null,
+      delete_subinputs: connectedTo.toDelete.length > 0 ? connectedTo.toDelete[0] : null,
+      ...getDependenciesToAdd(port.dependents),
+      ...getDependenciesToDelete(port.dependents),
     },
   };
   commitMutation(environment, {
@@ -119,7 +61,7 @@ function CreatePortMutation(port, form) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
         return response.composite_port.created.errors;
       }
-      const portId = response.composite_port.created.port.id;
+      const portId = response.composite_port.created.port.id || response.composite_port.created.port.__id;
       if (port.comment) {
         CreateCommentMutation(portId, port.comment);
       }

@@ -147,7 +147,15 @@ const router = {
     create: 'createRouter',
     update: 'updateRouter',
   },
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: [
+    'notify',
+    'breadcrumbs',
+    'modal',
+    'confirm',
+    'portDetails',
+    'physicalDetails',
+    'logicalDetails',
+  ],
   fields: [
     ...BASIC_INFO,
     ...RACK_INFO,
@@ -274,8 +282,8 @@ const opticalMultiplexSection = {
     create: 'createOpticalMultiplexSection',
     update: 'updateOpticalMultiplexSection',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
@@ -374,9 +382,8 @@ const site = {
     { type: FIELD_TYPES.SINGLE, name: 'owner_id' },
     { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
     { type: FIELD_TYPES.SINGLE, name: 'url' },
-    { type: FIELD_TYPES.OBJECT, name: 'country_code' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
-    { type: FIELD_TYPES.SINGLE, name: 'country' },
+    { type: FIELD_TYPES.OBJECT, name: 'country' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'addresses' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'has' },
     {
@@ -435,6 +442,23 @@ const unit = {
   ],
 };
 
+const port = {
+  formName: {
+    create: 'createPort',
+    update: 'updatePort',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
+  fields: [
+    ...BASIC_INFO,
+    { type: FIELD_TYPES.OBJECT, name: 'type' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'parent' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'connected_to' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'location' },
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -458,4 +482,5 @@ export default {
   site,
   service,
   unit,
+  port,
 };
