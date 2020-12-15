@@ -5,7 +5,6 @@ import { withTranslation } from 'react-i18next';
 class FieldArrayPorts extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
-    this.styleModifier = 'xl-table';
     this.FIELD_NAME_IN_FORM = 'ports';
     this.HEADER_TEXTS = props.headerConfig || {
       summary: [
