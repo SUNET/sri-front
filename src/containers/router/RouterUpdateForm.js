@@ -6,24 +6,11 @@ import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
 
 const ENTITY_NAME = 'router';
 
-const getAllOtherPorts = (cables, originalPortId) => {
-  if (cables.length === 0) {
+const getAllOtherPorts = (cable, originalPortId) => {
+  if (!cable) {
     return null;
   }
-  const otherPorts = cables.map((cable) => {
-    return cable.ports.find((port) => port.id !== originalPortId);
-  });
-  return otherPorts;
-};
-
-const getAllEndEquipments = (ports) => {
-  if (!ports || ports.length === 0) {
-    return null;
-  }
-  const otherPorts = ports.map((port) => {
-    return port.parent.length > 0 ? port.parent[0] : null;
-  });
-  return otherPorts;
+  return cable.ports.find((port) => port.id !== originalPortId);
 };
 
 const mapStateToProps = (state, props) => {
@@ -31,13 +18,14 @@ const mapStateToProps = (state, props) => {
   const { ports = [] } = router;
   const portsCompleteData = {
     ports: ports.map((port) => {
-      const cable =
-        port.connected_to.length > 0
-          ? port.connected_to.map((cn) => ({ name: cn.name, id: cn.id, __typename: cn.__typename }))
-          : null;
+      const cable = {
+        name: port?.connected_to?.name,
+        id: port?.connected_to?.id,
+        __typename: port?.connected_to?.__typename,
+      };
 
-      const endPorts = getAllOtherPorts(port.connected_to, port.id);
-      const endEquipments = getAllEndEquipments(endPorts);
+      const endPorts = getAllOtherPorts(port?.connected_to, port.id);
+      const endEquipments = endPorts?.parent;
       const partOf = port.part_of;
       const portWithAllData = {
         ...port,

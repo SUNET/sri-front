@@ -59,16 +59,15 @@ const mapStateToProps = (state, props) => {
       endSite: [{ ...getLocationElement(theOtherPort?.parent?.location, 'Site'), __typename: 'Site' }],
       endRoom: [{ ...getLocationElement(theOtherPort?.parent?.location, 'Room'), __typename: 'Room' }],
       endRack: [{ ...getLocationElement(theOtherPort?.parent?.location, 'Rack'), __typename: 'Rack' }],
-      endEquipment:
-        theOtherPort?.parent.length > 0 // only one
-          ? [
-              {
-                id: theOtherPort?.parent[0]?.id,
-                name: theOtherPort?.parent[0]?.name,
-                __typename: theOtherPort?.parent[0]?.__typename,
-              },
-            ]
-          : [],
+      endEquipment: theOtherPort?.parent
+        ? [
+            {
+              id: theOtherPort?.parent?.id,
+              name: theOtherPort?.parent?.name,
+              __typename: theOtherPort?.parent?.__typename,
+            },
+          ]
+        : [],
       endPort: [
         {
           id: theOtherPort?.id,
