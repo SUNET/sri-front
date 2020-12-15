@@ -45,7 +45,11 @@ const SiteRowFragment = createFragmentContainer(SiteRow, {
     fragment SiteRow_site on Site {
       id
       name
-      country 
+      country {
+        __typename
+        name
+        value
+      }
       area
     }
   `,

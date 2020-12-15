@@ -7,6 +7,7 @@ import CreateCommentMutation from '../CreateCommentMutation';
 
 import { generateSubInputs } from '../MutationsUtils';
 import formatAndMergeAllPortsParentsEntities from './PortFormatter';
+import { getDependenciesToAdd, getDependenciesToDelete } from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation CreatePortMutation($input: CompositePortMutationInput!) {
@@ -24,6 +25,15 @@ const mutation = graphql`
   }
 `;
 
+const formatUpdateParentsWithoutArray = (parentsObjectMutation) => {
+  return Object.entries(parentsObjectMutation).reduce((acc, [key, value]) => {
+    return {
+      ...acc,
+      [key]: value.length > 0 ? value[0] : null,
+    };
+  }, {});
+};
+
 function CreatePortMutation(port, form) {
   const connectedTo = generateSubInputs(port.connected_to, 'cable_type');
   const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parent);
@@ -35,11 +45,12 @@ function CreatePortMutation(port, form) {
         description: port.description,
         port_type: port.type,
       },
-      ...parentsFormatted.toUpdateObject,
-      ...parentsFormatted.toDeleteObject,
-      update_subinputs: connectedTo.toUpdate,
-      unlink_subinputs: [...connectedTo.toUnlink, ...parentsFormatted.toUnlinkList],
-      delete_subinputs: [...connectedTo.toDelete],
+      ...formatUpdateParentsWithoutArray(parentsFormatted.toUpdateObject),
+      ...formatUpdateParentsWithoutArray(parentsFormatted.toDeleteObject),
+      update_subinputs: connectedTo.toUpdate.length > 0 ? connectedTo.toUpdate[0] : null,
+      delete_subinputs: connectedTo.toDelete.length > 0 ? connectedTo.toDelete[0] : null,
+      ...getDependenciesToAdd(port.dependents),
+      ...getDependenciesToDelete(port.dependents),
     },
   };
   commitMutation(environment, {

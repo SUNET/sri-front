@@ -26,7 +26,7 @@ const ConnectionPath = ({ blocks }) => {
         const isLast = index === arr.length - 1;
 
         return (
-          <div className="connection-path__element">
+          <div key={Math.random()} className="connection-path__element">
             <div className="connection-path__element__content">
               <div className="connection-path__element__content__link-name">
                 <a
@@ -88,7 +88,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
         id: nextProps.entitySavedId,
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
-      if (fieldModalOpened === 'parents') {
+      if (fieldModalOpened === 'parent') {
         this.handleSelectedParent(selectionData, methodName);
       } else if (fieldModalOpened === 'connected_to') {
         this.handleSelectedConnectedTo(selectionData);
@@ -115,7 +115,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
         if (entity.operational_state) {
           newEntity.operational_state = entity.operational_state;
         }
-        this.props.dispatch(arrayPush(this.props.form, 'parents', newEntity));
+        this.props.dispatch(arrayPush(this.props.form, 'parent', newEntity));
       });
     }
   };
@@ -205,6 +205,8 @@ class _PortFormParentClass extends _BasicFormParentClass {
 
   renderParentToggleSection(editMode = false) {
     const { t, entityRemovedId } = this.props;
+    const disabledFilters =
+      !!this.props.parent && (!this.props.parent || this.props.parent.filter((cn) => cn.status === SAVED).length >= 1);
     return (
       <section className="model-section">
         <ToggleSection>
@@ -235,6 +237,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
               handleSearchResult={this.handleSelectedParent}
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'parent' ? entityRemovedId : null}
+              disabledFilters={disabledFilters}
             />
           </TogglePanel>
         </ToggleSection>
@@ -244,6 +247,9 @@ class _PortFormParentClass extends _BasicFormParentClass {
 
   renderConnectedToToggleSection(editMode = false) {
     const { t, entityRemovedId } = this.props;
+    const disabledFilters =
+      !!this.props.connected_to &&
+      (!this.props.connected_to || this.props.connected_to.filter((cn) => cn.status === SAVED).length >= 1);
     return (
       <section className="model-section">
         <ToggleSection>
@@ -274,6 +280,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
               handleSearchResult={this.handleSelectedConnectedTo}
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'connected_to' ? entityRemovedId : null}
+              disabledFilters={disabledFilters}
             />
           </TogglePanel>
         </ToggleSection>
@@ -340,7 +347,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
                   const { originEquipment, cable, destinationEquipment } = connection_path;
                   connectionPathElements = [originEquipment, cable, destinationEquipment];
                 }
-                return <ConnectionPath blocks={connectionPathElements} />;
+                return <ConnectionPath key={Math.random()} blocks={connectionPathElements} />;
               })}
           </TogglePanel>
         </ToggleSection>

@@ -8,8 +8,8 @@ import { RoutesNetworkEntity } from '../../Routes';
 const ENTITY_NAME = 'port';
 
 const getConnectionPathData = (originPort, destinationPort) => {
-  const parentElement = originPort.parent[0];
-  const cable = originPort.connected_to[0];
+  const parentElement = originPort?.parent;
+  const cable = originPort?.connected_to;
   const destinationPortParent = destinationPort?.parent;
 
   if (!parentElement || !cable || !destinationPortParent) {
@@ -33,12 +33,12 @@ const getConnectionPathData = (originPort, destinationPort) => {
         connectionType: cable?.type?.name,
         path: `/${RoutesNetworkEntity[cable.__typename]}/${cable.id}`,
       },
-      destinationEquipment: destinationPortParent[0]
+      destinationEquipment: destinationPortParent
         ? {
-            id: destinationPortParent[0].id,
-            name: destinationPortParent[0].name,
+            id: destinationPortParent.id,
+            name: destinationPortParent.name,
             connectionType: destinationPort?.type?.name,
-            path: `/${RoutesNetworkEntity[destinationPortParent[0].__typename]}/${destinationPortParent[0].id}`,
+            path: `/${RoutesNetworkEntity[destinationPortParent.__typename]}/${destinationPortParent.id}`,
             portName: destinationPort.name,
             portPath: `/${RoutesNetworkEntity[destinationPort?.__typename]}/${destinationPort?.id}`,
           }
@@ -49,17 +49,16 @@ const getConnectionPathData = (originPort, destinationPort) => {
 
 const mapStateToProps = (state, props) => {
   const { port } = props;
-  const { id, connected_to = [] } = port;
-
-  const cablesWithAllData = connected_to.map((cable) => {
-    // MAX2
-    const theOtherPort = cable.ports.find((port) => port.id !== id);
-    return {
-      ...cable,
+  const { id, connected_to } = port;
+  const theOtherPort = connected_to?.ports.find((port) => port.id !== id);
+  let connectedToWithAllData;
+  if (theOtherPort) {
+    connectedToWithAllData = {
+      ...connected_to,
       ...getConnectionPathData(port, theOtherPort),
-      endSite: [{ ...getLocationElement(theOtherPort?.parent[0]?.location, 'Site'), __typename: 'Site' }],
-      endRoom: [{ ...getLocationElement(theOtherPort?.parent[0]?.location, 'Room'), __typename: 'Room' }],
-      endRack: [{ ...getLocationElement(theOtherPort?.parent[0]?.location, 'Rack'), __typename: 'Rack' }],
+      endSite: [{ ...getLocationElement(theOtherPort?.parent?.location, 'Site'), __typename: 'Site' }],
+      endRoom: [{ ...getLocationElement(theOtherPort?.parent?.location, 'Room'), __typename: 'Room' }],
+      endRack: [{ ...getLocationElement(theOtherPort?.parent?.location, 'Rack'), __typename: 'Rack' }],
       endEquipment:
         theOtherPort?.parent.length > 0 // only one
           ? [
@@ -78,11 +77,16 @@ const mapStateToProps = (state, props) => {
         },
       ],
     };
-  });
-  const portsCompleteData = {
-    connected_to: cablesWithAllData,
-  };
-  const portWithCableCompleteData = { ...port, ...portsCompleteData, ...getConnectionPathData(port) };
+  }
+
+  const portWithCableCompleteData = connectedToWithAllData
+    ? {
+        ...port,
+        ...{
+          connected_to: connectedToWithAllData,
+        },
+      }
+    : { ...port };
   const mappedStateToProps = getUpdateProps(ENTITY_NAME, { ...props, port: portWithCableCompleteData }, state);
   return mappedStateToProps;
 };
