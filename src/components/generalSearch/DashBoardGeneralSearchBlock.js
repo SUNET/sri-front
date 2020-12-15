@@ -47,7 +47,6 @@ class DashBoardGeneralSearchBlock extends _DashBoardBlockParentClass {
 
   render() {
     return this.renderListComponent();
-    // return <div>GENERAL LIST!!!!</div>;
   }
 }
 

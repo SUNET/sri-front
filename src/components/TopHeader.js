@@ -26,7 +26,9 @@ export class TopHeader extends React.Component {
   }
 
   handleGeneralSearch = debounce((filter) => {
-    this.props.startGeneralSearch(filter);
+    if (filter && filter.length > 2) {
+      this.props.startGeneralSearch(filter);
+    }
   }, MILLISECONDS_TO_WAIT_REQUEST_AUTOCOMPLETE);
 
   cleanGeneralSearch() {
