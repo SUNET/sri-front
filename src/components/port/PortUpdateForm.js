@@ -38,7 +38,10 @@ class PortUpdateForm extends _PortFormParentClass {
     this.setState({ editMode: false });
     this.props.hideModalForm();
     const parentToRemove = entityData.parent.filter((parent) => parent.status === REMOVE);
-    const connectionsToRemove = entityData.connected_to.filter((connection) => connection.status === REMOVE);
+    const connectionsToRemove =
+      entityData?.connected_to && entityData?.connected_to.length > 0
+        ? entityData.connected_to.filter((connection) => connection.status === REMOVE)
+        : [];
     const someItemWillBeDeleted = parentToRemove.length > 0 || connectionsToRemove.length > 0;
     if (someItemWillBeDeleted) {
       this.entityDataToUpdate = entityData;
@@ -83,282 +86,242 @@ const PortUpdateFragment = createRefetchContainer(
     port: graphql`
       fragment PortUpdateForm_port on Port {
         id
-name
-description
-__typename
-
-    comments {
-      id
-
-    user {
-      first_name
-last_name
-      
-    }
-comment
-submit_date
-      
-    }
-created
-
-    creator {
-      email
-      
-    }
-modified
-
-    modifier {
-      email
-      
-    }
-
-    type: port_type {
-        __typename
         name
-        value
-    }
-  
+        description
+        __typename
 
-    location {
-        __typename
-        id
-        name
-        id
-name
-description
-__typename
+        comments {
+          id
 
-    parent {
-        __typename
-        id
-        name
-        
-    parent {
-        __typename
-        id
-        name
-        id
-name
-description
-__typename
-        
-    }
-  
-        
-    }
-  
-        
-    }
-  
+          user {
+            first_name
+            last_name
+          }
+          comment
+          submit_date
+        }
+        created
 
-    connected_to {
-      id
-name
-description
-__typename
-relation_id
-      ...on Cable {
-       
-    type: cable_type {
-        __typename
-        name
-        value
-    }
-  
+        creator {
+          email
+        }
+        modified
 
-    ports {
-      id
-name
-description
-__typename
+        modifier {
+          email
+        }
 
-    type: port_type {
-        __typename
-        name
-        value
-    }
-  
+        type: port_type {
+          __typename
+          name
+          value
+        }
 
-    parent {
-      id
-name
-description
-__typename
-      ...on Physical {
-       
-    location {
-        __typename
-        id
-        name
-        id
-name
-description
-__typename
+        location {
+          __typename
+          id
+          name
+          id
+          name
+          description
+          __typename
 
-    parent {
-        __typename
-        id
-        name
-        
-    parent {
-        __typename
-        id
-        name
-        id
-name
-description
-__typename
-        
-    }
-  
-        
-    }
-  
-        
-    }
-  
-    }
-    }
-      
-    }
-    }
-    }
+          parent {
+            __typename
+            id
+            name
 
-    parent {
-      id
-name
-description
-__typename
-relation_id
+            parent {
+              __typename
+              id
+              name
+              id
+              name
+              description
+              __typename
+            }
+          }
+        }
 
-    operational_state {
-        __typename
-        name
-        value
-    }
-  
-      ...on Port {
-       
-    type: port_type {
-        __typename
-        name
-        value
-    }
-  
-    },...on Cable {
-       
-    type: cable_type {
-        __typename
-        name
-        value
-    }
-  
-    },...on OpticalNode {
-       
-    type {
-        __typename
-        name
-        value
-    }
-  
-    }
-    }
+        connected_to {
+          id
+          name
+          description
+          __typename
+          relation_id
+          ... on Cable {
+            type: cable_type {
+              __typename
+              name
+              value
+            }
 
-    dependents {
-      id
-name
-description
-__typename
-relation_id
+            ports {
+              id
+              name
+              description
+              __typename
 
-    operational_state {
-        __typename
-        name
-        value
-    }
-  
-      ...on Service {
-       
-    type: service_type {
-        __typename
-        id
-        name
-        
-        
-    }
-  
+              type: port_type {
+                __typename
+                name
+                value
+              }
 
-    service_type {
-        __typename
-        id
-        name
-        
-        
-    }
-  
-    },...on OpticalPath {
-       wavelength
+              parent {
+                id
+                name
+                description
+                __typename
+                ... on Physical {
+                  location {
+                    __typename
+                    id
+                    name
+                    id
+                    name
+                    description
+                    __typename
 
-    framing {
-        __typename
-        name
-        value
-    }
-  
+                    parent {
+                      __typename
+                      id
+                      name
 
-    capacity {
-        __typename
-        name
-        value
-    }
-  
+                      parent {
+                        __typename
+                        id
+                        name
+                        id
+                        name
+                        description
+                        __typename
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
 
-    operational_state {
-        __typename
-        name
-        value
-    }
-  
-    },...on OpticalMultiplexSection {
-       
-    operational_state {
-        __typename
-        name
-        value
-    }
-  
-    },...on OpticalLink {
-       
-    type: link_type {
-        __typename
-        name
-        value
-    }
-  
+        parent {
+          id
+          name
+          description
+          __typename
+          relation_id
 
-    interface_type {
-        __typename
-        name
-        value
-    }
-  
+          operational_state {
+            __typename
+            name
+            value
+          }
 
-    operational_state {
-        __typename
-        name
-        value
-    }
-  
+          ... on Port {
+            type: port_type {
+              __typename
+              name
+              value
+            }
+          }
+          ... on Cable {
+            type: cable_type {
+              __typename
+              name
+              value
+            }
+          }
+          ... on OpticalNode {
+            type {
+              __typename
+              name
+              value
+            }
+          }
+        }
 
-    ports {
-      id
-name
-description
-__typename
-      
-    }
-    }
-    }
+        dependents {
+          id
+          name
+          description
+          __typename
+          relation_id
+
+          operational_state {
+            __typename
+            name
+            value
+          }
+
+          ... on Service {
+            type: service_type {
+              __typename
+              id
+              name
+            }
+
+            service_type {
+              __typename
+              id
+              name
+            }
+          }
+          ... on OpticalPath {
+            wavelength
+
+            framing {
+              __typename
+              name
+              value
+            }
+
+            capacity {
+              __typename
+              name
+              value
+            }
+
+            operational_state {
+              __typename
+              name
+              value
+            }
+          }
+          ... on OpticalMultiplexSection {
+            operational_state {
+              __typename
+              name
+              value
+            }
+          }
+          ... on OpticalLink {
+            type: link_type {
+              __typename
+              name
+              value
+            }
+
+            interface_type {
+              __typename
+              name
+              value
+            }
+
+            operational_state {
+              __typename
+              name
+              value
+            }
+
+            ports {
+              id
+              name
+              description
+              __typename
+            }
+          }
+        }
       }
     `,
   },
