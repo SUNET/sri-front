@@ -26,7 +26,7 @@ const ConnectionPath = ({ blocks }) => {
         const isLast = index === arr.length - 1;
 
         return (
-          <div className="connection-path__element">
+          <div key={Math.random()} className="connection-path__element">
             <div className="connection-path__element__content">
               <div className="connection-path__element__content__link-name">
                 <a
@@ -347,7 +347,7 @@ class _PortFormParentClass extends _BasicFormParentClass {
                   const { originEquipment, cable, destinationEquipment } = connection_path;
                   connectionPathElements = [originEquipment, cable, destinationEquipment];
                 }
-                return <ConnectionPath blocks={connectionPathElements} />;
+                return <ConnectionPath key={Math.random()} blocks={connectionPathElements} />;
               })}
           </TogglePanel>
         </ToggleSection>
