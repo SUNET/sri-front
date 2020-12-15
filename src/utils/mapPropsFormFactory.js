@@ -34,7 +34,7 @@ function getDataByFieldType({ fieldName, dataField, fieldType, state, selector }
       break;
     case FIELD_TYPES.OBJECT:
       result.initialValue = {
-        [fieldName]: dataField ? dataField.value : undefined,
+        [fieldName]: dataField ? dataField.name : undefined,
       };
       if (state) {
         result.selectorValue = { [fieldName]: selector(state, fieldName) };

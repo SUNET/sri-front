@@ -12,7 +12,7 @@ const SITEOWNER_COMMON_FIELDS = [
       {
         entity: 'Site',
         subFields: [
-          { type: FIELD_TYPES.SINGLE, name: 'country' },
+          { type: FIELD_TYPES.OBJECT, name: 'country' },
           { type: FIELD_TYPES.SINGLE, name: 'owner_id' },
         ],
       },

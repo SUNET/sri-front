@@ -29,6 +29,15 @@ const mutation = graphql`
   }
 `;
 
+const formatUpdateParentsWithoutArray = (parentsObjectMutation) => {
+  return Object.entries(parentsObjectMutation).reduce((acc, [key, value]) => {
+    return {
+      ...acc,
+      [key]: value.length > 0 ? value[0] : null,
+    };
+  }, {});
+};
+
 export default function UpdatePortMutation(port, form) {
   const connectedTo = generateSubInputs(port.connected_to, 'cable_type');
   const parentsFormatted = formatAndMergeAllPortsParentsEntities(port.parent);
@@ -40,19 +49,20 @@ export default function UpdatePortMutation(port, form) {
         description: port.description,
         port_type: port.type,
       },
-      ...parentsFormatted.toUpdateObject,
-      ...parentsFormatted.toDeleteObject,
-      update_subinputs: connectedTo.toUpdate,
+      ...formatUpdateParentsWithoutArray(parentsFormatted.toUpdateObject),
+      ...formatUpdateParentsWithoutArray(parentsFormatted.toDeleteObject),
+      update_subinputs: connectedTo.toUpdate.length > 0 ? connectedTo.toUpdate[0] : null,
       unlink_subinputs: [
         ...connectedTo.toUnlink,
         ...parentsFormatted.toUnlinkList,
         ...getDependenciesToUnlink(port.dependents),
       ],
-      delete_subinputs: [...connectedTo.toDelete],
+      delete_subinputs: connectedTo.toDelete.length > 0 ? connectedTo.toDelete[0] : null,
       ...getDependenciesToAdd(port.dependents),
       ...getDependenciesToDelete(port.dependents),
     },
   };
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

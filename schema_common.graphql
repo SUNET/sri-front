@@ -304,7 +304,7 @@ type Cable implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -564,65 +564,65 @@ input CompositeCableMutationInput {
   create_part_of_service: CreateServiceInput
   update_part_of_service: UpdateServiceInput
   deleted_part_of_service: DeleteServiceInput
-  create_parent_group: [CreateGroupInput]
-  update_parent_group: [UpdateGroupInput]
-  deleted_parent_group: [DeleteGroupInput]
-  create_parent_procedure: [CreateProcedureInput]
-  update_parent_procedure: [UpdateProcedureInput]
-  deleted_parent_procedure: [DeleteProcedureInput]
-  create_parent_address: [CreateAddressInput]
-  update_parent_address: [UpdateAddressInput]
-  deleted_parent_address: [DeleteAddressInput]
-  create_parent_phone: [CreatePhoneInput]
-  update_parent_phone: [UpdatePhoneInput]
-  deleted_parent_phone: [DeletePhoneInput]
-  create_parent_email: [CreateEmailInput]
-  update_parent_email: [UpdateEmailInput]
-  deleted_parent_email: [DeleteEmailInput]
-  update_parent_unit: [UpdateUnitInput]
-  deleted_parent_unit: [DeleteUnitInput]
-  create_parent_port: [CreatePortInput]
-  update_parent_port: [UpdatePortInput]
-  deleted_parent_port: [DeletePortInput]
-  create_parent_cable: [CreateCableInput]
-  update_parent_cable: [UpdateCableInput]
-  deleted_parent_cable: [DeleteCableInput]
-  create_parent_host: [CreateHostInput]
-  update_parent_host: [EditHostInput]
-  deleted_parent_host: [DeleteHostInput]
-  update_parent_router: [UpdateRouterInput]
-  deleted_parent_router: [DeleteRouterInput]
-  create_parent_switch: [CreateSwitchInput]
-  update_parent_switch: [UpdateSwitchInput]
-  deleted_parent_switch: [DeleteSwitchInput]
-  update_parent_firewall: [UpdateFirewallInput]
-  deleted_parent_firewall: [DeleteFirewallInput]
-  create_parent_externalequipment: [CreateExternalEquipmentInput]
-  update_parent_externalequipment: [UpdateExternalEquipmentInput]
-  deleted_parent_externalequipment: [DeleteExternalEquipmentInput]
-  create_parent_opticalnode: [CreateOpticalNodeInput]
-  update_parent_opticalnode: [UpdateOpticalNodeInput]
-  deleted_parent_opticalnode: [DeleteOpticalNodeInput]
-  create_parent_odf: [CreateOdfInput]
-  update_parent_odf: [UpdateOdfInput]
-  deleted_parent_odf: [DeleteOdfInput]
-  create_parent_opticalfilter: [CreateOpticalFilterInput]
-  update_parent_opticalfilter: [UpdateOpticalFilterInput]
-  deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
-  create_parent_opticallink: [CreateOpticalLinkInput]
-  update_parent_opticallink: [UpdateOpticalLinkInput]
-  deleted_parent_opticallink: [DeleteOpticalLinkInput]
-  create_parent_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
-  update_parent_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
-  deleted_parent_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
-  create_parent_opticalpath: [CreateOpticalPathInput]
-  update_parent_opticalpath: [UpdateOpticalPathInput]
-  deleted_parent_opticalpath: [DeleteOpticalPathInput]
-  update_parent_peeringgroup: [UpdatePeeringGroupInput]
-  deleted_parent_peeringgroup: [DeletePeeringGroupInput]
-  create_parent_service: [CreateServiceInput]
-  update_parent_service: [UpdateServiceInput]
-  deleted_parent_service: [DeleteServiceInput]
+  create_parent_group: CreateGroupInput
+  update_parent_group: UpdateGroupInput
+  deleted_parent_group: DeleteGroupInput
+  create_parent_procedure: CreateProcedureInput
+  update_parent_procedure: UpdateProcedureInput
+  deleted_parent_procedure: DeleteProcedureInput
+  create_parent_address: CreateAddressInput
+  update_parent_address: UpdateAddressInput
+  deleted_parent_address: DeleteAddressInput
+  create_parent_phone: CreatePhoneInput
+  update_parent_phone: UpdatePhoneInput
+  deleted_parent_phone: DeletePhoneInput
+  create_parent_email: CreateEmailInput
+  update_parent_email: UpdateEmailInput
+  deleted_parent_email: DeleteEmailInput
+  update_parent_unit: UpdateUnitInput
+  deleted_parent_unit: DeleteUnitInput
+  create_parent_port: CreatePortInput
+  update_parent_port: UpdatePortInput
+  deleted_parent_port: DeletePortInput
+  create_parent_cable: CreateCableInput
+  update_parent_cable: UpdateCableInput
+  deleted_parent_cable: DeleteCableInput
+  create_parent_host: CreateHostInput
+  update_parent_host: EditHostInput
+  deleted_parent_host: DeleteHostInput
+  update_parent_router: UpdateRouterInput
+  deleted_parent_router: DeleteRouterInput
+  create_parent_switch: CreateSwitchInput
+  update_parent_switch: UpdateSwitchInput
+  deleted_parent_switch: DeleteSwitchInput
+  update_parent_firewall: UpdateFirewallInput
+  deleted_parent_firewall: DeleteFirewallInput
+  create_parent_externalequipment: CreateExternalEquipmentInput
+  update_parent_externalequipment: UpdateExternalEquipmentInput
+  deleted_parent_externalequipment: DeleteExternalEquipmentInput
+  create_parent_opticalnode: CreateOpticalNodeInput
+  update_parent_opticalnode: UpdateOpticalNodeInput
+  deleted_parent_opticalnode: DeleteOpticalNodeInput
+  create_parent_odf: CreateOdfInput
+  update_parent_odf: UpdateOdfInput
+  deleted_parent_odf: DeleteOdfInput
+  create_parent_opticalfilter: CreateOpticalFilterInput
+  update_parent_opticalfilter: UpdateOpticalFilterInput
+  deleted_parent_opticalfilter: DeleteOpticalFilterInput
+  create_parent_opticallink: CreateOpticalLinkInput
+  update_parent_opticallink: UpdateOpticalLinkInput
+  deleted_parent_opticallink: DeleteOpticalLinkInput
+  create_parent_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
+  update_parent_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
+  deleted_parent_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_parent_opticalpath: CreateOpticalPathInput
+  update_parent_opticalpath: UpdateOpticalPathInput
+  deleted_parent_opticalpath: DeleteOpticalPathInput
+  update_parent_peeringgroup: UpdatePeeringGroupInput
+  deleted_parent_peeringgroup: DeletePeeringGroupInput
+  create_parent_service: CreateServiceInput
+  update_parent_service: UpdateServiceInput
+  deleted_parent_service: DeleteServiceInput
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -774,65 +774,65 @@ type CompositeCableMutationPayload {
   part_of_service_created: CreateServicePayload
   part_of_service_updated: UpdateServicePayload
   part_of_service_deleted: DeleteServicePayload
-  parent_group_created: [CreateGroupPayload]
-  parent_group_updated: [UpdateGroupPayload]
-  parent_group_deleted: [DeleteGroupPayload]
-  parent_procedure_created: [CreateProcedurePayload]
-  parent_procedure_updated: [UpdateProcedurePayload]
-  parent_procedure_deleted: [DeleteProcedurePayload]
-  parent_address_created: [CreateAddressPayload]
-  parent_address_updated: [UpdateAddressPayload]
-  parent_address_deleted: [DeleteAddressPayload]
-  parent_phone_created: [CreatePhonePayload]
-  parent_phone_updated: [UpdatePhonePayload]
-  parent_phone_deleted: [DeletePhonePayload]
-  parent_email_created: [CreateEmailPayload]
-  parent_email_updated: [UpdateEmailPayload]
-  parent_email_deleted: [DeleteEmailPayload]
-  parent_unit_updated: [UpdateUnitPayload]
-  parent_unit_deleted: [DeleteUnitPayload]
-  parent_port_created: [CreatePortPayload]
-  parent_port_updated: [UpdatePortPayload]
-  parent_port_deleted: [DeletePortPayload]
-  parent_cable_created: [CreateCablePayload]
-  parent_cable_updated: [UpdateCablePayload]
-  parent_cable_deleted: [DeleteCablePayload]
-  parent_host_created: [CreateHostPayload]
-  parent_host_updated: [EditHostPayload]
-  parent_host_deleted: [DeleteHostPayload]
-  parent_router_updated: [UpdateRouterPayload]
-  parent_router_deleted: [DeleteRouterPayload]
-  parent_switch_created: [CreateSwitchPayload]
-  parent_switch_updated: [UpdateSwitchPayload]
-  parent_switch_deleted: [DeleteSwitchPayload]
-  parent_firewall_updated: [UpdateFirewallPayload]
-  parent_firewall_deleted: [DeleteFirewallPayload]
-  parent_externalequipment_created: [CreateExternalEquipmentPayload]
-  parent_externalequipment_updated: [UpdateExternalEquipmentPayload]
-  parent_externalequipment_deleted: [DeleteExternalEquipmentPayload]
-  parent_opticalnode_created: [CreateOpticalNodePayload]
-  parent_opticalnode_updated: [UpdateOpticalNodePayload]
-  parent_opticalnode_deleted: [DeleteOpticalNodePayload]
-  parent_odf_created: [CreateOdfPayload]
-  parent_odf_updated: [UpdateOdfPayload]
-  parent_odf_deleted: [DeleteOdfPayload]
-  parent_opticalfilter_created: [CreateOpticalFilterPayload]
-  parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
-  parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
-  parent_opticallink_created: [CreateOpticalLinkPayload]
-  parent_opticallink_updated: [UpdateOpticalLinkPayload]
-  parent_opticallink_deleted: [DeleteOpticalLinkPayload]
-  parent_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
-  parent_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
-  parent_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
-  parent_opticalpath_created: [CreateOpticalPathPayload]
-  parent_opticalpath_updated: [UpdateOpticalPathPayload]
-  parent_opticalpath_deleted: [DeleteOpticalPathPayload]
-  parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
-  parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
-  parent_service_created: [CreateServicePayload]
-  parent_service_updated: [UpdateServicePayload]
-  parent_service_deleted: [DeleteServicePayload]
+  parent_group_created: CreateGroupPayload
+  parent_group_updated: UpdateGroupPayload
+  parent_group_deleted: DeleteGroupPayload
+  parent_procedure_created: CreateProcedurePayload
+  parent_procedure_updated: UpdateProcedurePayload
+  parent_procedure_deleted: DeleteProcedurePayload
+  parent_address_created: CreateAddressPayload
+  parent_address_updated: UpdateAddressPayload
+  parent_address_deleted: DeleteAddressPayload
+  parent_phone_created: CreatePhonePayload
+  parent_phone_updated: UpdatePhonePayload
+  parent_phone_deleted: DeletePhonePayload
+  parent_email_created: CreateEmailPayload
+  parent_email_updated: UpdateEmailPayload
+  parent_email_deleted: DeleteEmailPayload
+  parent_unit_updated: UpdateUnitPayload
+  parent_unit_deleted: DeleteUnitPayload
+  parent_port_created: CreatePortPayload
+  parent_port_updated: UpdatePortPayload
+  parent_port_deleted: DeletePortPayload
+  parent_cable_created: CreateCablePayload
+  parent_cable_updated: UpdateCablePayload
+  parent_cable_deleted: DeleteCablePayload
+  parent_host_created: CreateHostPayload
+  parent_host_updated: EditHostPayload
+  parent_host_deleted: DeleteHostPayload
+  parent_router_updated: UpdateRouterPayload
+  parent_router_deleted: DeleteRouterPayload
+  parent_switch_created: CreateSwitchPayload
+  parent_switch_updated: UpdateSwitchPayload
+  parent_switch_deleted: DeleteSwitchPayload
+  parent_firewall_updated: UpdateFirewallPayload
+  parent_firewall_deleted: DeleteFirewallPayload
+  parent_externalequipment_created: CreateExternalEquipmentPayload
+  parent_externalequipment_updated: UpdateExternalEquipmentPayload
+  parent_externalequipment_deleted: DeleteExternalEquipmentPayload
+  parent_opticalnode_created: CreateOpticalNodePayload
+  parent_opticalnode_updated: UpdateOpticalNodePayload
+  parent_opticalnode_deleted: DeleteOpticalNodePayload
+  parent_odf_created: CreateOdfPayload
+  parent_odf_updated: UpdateOdfPayload
+  parent_odf_deleted: DeleteOdfPayload
+  parent_opticalfilter_created: CreateOpticalFilterPayload
+  parent_opticalfilter_updated: UpdateOpticalFilterPayload
+  parent_opticalfilter_deleted: DeleteOpticalFilterPayload
+  parent_opticallink_created: CreateOpticalLinkPayload
+  parent_opticallink_updated: UpdateOpticalLinkPayload
+  parent_opticallink_deleted: DeleteOpticalLinkPayload
+  parent_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
+  parent_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
+  parent_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  parent_opticalpath_created: CreateOpticalPathPayload
+  parent_opticalpath_updated: UpdateOpticalPathPayload
+  parent_opticalpath_deleted: DeleteOpticalPathPayload
+  parent_peeringgroup_updated: UpdatePeeringGroupPayload
+  parent_peeringgroup_deleted: DeletePeeringGroupPayload
+  parent_service_created: CreateServicePayload
+  parent_service_updated: UpdateServicePayload
+  parent_service_deleted: DeleteServicePayload
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -1800,65 +1800,65 @@ input CompositeExternalEquipmentMutationInput {
   create_part_of_service: CreateServiceInput
   update_part_of_service: UpdateServiceInput
   deleted_part_of_service: DeleteServiceInput
-  create_parent_group: [CreateGroupInput]
-  update_parent_group: [UpdateGroupInput]
-  deleted_parent_group: [DeleteGroupInput]
-  create_parent_procedure: [CreateProcedureInput]
-  update_parent_procedure: [UpdateProcedureInput]
-  deleted_parent_procedure: [DeleteProcedureInput]
-  create_parent_address: [CreateAddressInput]
-  update_parent_address: [UpdateAddressInput]
-  deleted_parent_address: [DeleteAddressInput]
-  create_parent_phone: [CreatePhoneInput]
-  update_parent_phone: [UpdatePhoneInput]
-  deleted_parent_phone: [DeletePhoneInput]
-  create_parent_email: [CreateEmailInput]
-  update_parent_email: [UpdateEmailInput]
-  deleted_parent_email: [DeleteEmailInput]
-  update_parent_unit: [UpdateUnitInput]
-  deleted_parent_unit: [DeleteUnitInput]
-  create_parent_port: [CreatePortInput]
-  update_parent_port: [UpdatePortInput]
-  deleted_parent_port: [DeletePortInput]
-  create_parent_cable: [CreateCableInput]
-  update_parent_cable: [UpdateCableInput]
-  deleted_parent_cable: [DeleteCableInput]
-  create_parent_host: [CreateHostInput]
-  update_parent_host: [EditHostInput]
-  deleted_parent_host: [DeleteHostInput]
-  update_parent_router: [UpdateRouterInput]
-  deleted_parent_router: [DeleteRouterInput]
-  create_parent_switch: [CreateSwitchInput]
-  update_parent_switch: [UpdateSwitchInput]
-  deleted_parent_switch: [DeleteSwitchInput]
-  update_parent_firewall: [UpdateFirewallInput]
-  deleted_parent_firewall: [DeleteFirewallInput]
-  create_parent_externalequipment: [CreateExternalEquipmentInput]
-  update_parent_externalequipment: [UpdateExternalEquipmentInput]
-  deleted_parent_externalequipment: [DeleteExternalEquipmentInput]
-  create_parent_opticalnode: [CreateOpticalNodeInput]
-  update_parent_opticalnode: [UpdateOpticalNodeInput]
-  deleted_parent_opticalnode: [DeleteOpticalNodeInput]
-  create_parent_odf: [CreateOdfInput]
-  update_parent_odf: [UpdateOdfInput]
-  deleted_parent_odf: [DeleteOdfInput]
-  create_parent_opticalfilter: [CreateOpticalFilterInput]
-  update_parent_opticalfilter: [UpdateOpticalFilterInput]
-  deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
-  create_parent_opticallink: [CreateOpticalLinkInput]
-  update_parent_opticallink: [UpdateOpticalLinkInput]
-  deleted_parent_opticallink: [DeleteOpticalLinkInput]
-  create_parent_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
-  update_parent_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
-  deleted_parent_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
-  create_parent_opticalpath: [CreateOpticalPathInput]
-  update_parent_opticalpath: [UpdateOpticalPathInput]
-  deleted_parent_opticalpath: [DeleteOpticalPathInput]
-  update_parent_peeringgroup: [UpdatePeeringGroupInput]
-  deleted_parent_peeringgroup: [DeletePeeringGroupInput]
-  create_parent_service: [CreateServiceInput]
-  update_parent_service: [UpdateServiceInput]
-  deleted_parent_service: [DeleteServiceInput]
+  create_parent_group: CreateGroupInput
+  update_parent_group: UpdateGroupInput
+  deleted_parent_group: DeleteGroupInput
+  create_parent_procedure: CreateProcedureInput
+  update_parent_procedure: UpdateProcedureInput
+  deleted_parent_procedure: DeleteProcedureInput
+  create_parent_address: CreateAddressInput
+  update_parent_address: UpdateAddressInput
+  deleted_parent_address: DeleteAddressInput
+  create_parent_phone: CreatePhoneInput
+  update_parent_phone: UpdatePhoneInput
+  deleted_parent_phone: DeletePhoneInput
+  create_parent_email: CreateEmailInput
+  update_parent_email: UpdateEmailInput
+  deleted_parent_email: DeleteEmailInput
+  update_parent_unit: UpdateUnitInput
+  deleted_parent_unit: DeleteUnitInput
+  create_parent_port: CreatePortInput
+  update_parent_port: UpdatePortInput
+  deleted_parent_port: DeletePortInput
+  create_parent_cable: CreateCableInput
+  update_parent_cable: UpdateCableInput
+  deleted_parent_cable: DeleteCableInput
+  create_parent_host: CreateHostInput
+  update_parent_host: EditHostInput
+  deleted_parent_host: DeleteHostInput
+  update_parent_router: UpdateRouterInput
+  deleted_parent_router: DeleteRouterInput
+  create_parent_switch: CreateSwitchInput
+  update_parent_switch: UpdateSwitchInput
+  deleted_parent_switch: DeleteSwitchInput
+  update_parent_firewall: UpdateFirewallInput
+  deleted_parent_firewall: DeleteFirewallInput
+  create_parent_externalequipment: CreateExternalEquipmentInput
+  update_parent_externalequipment: UpdateExternalEquipmentInput
+  deleted_parent_externalequipment: DeleteExternalEquipmentInput
+  create_parent_opticalnode: CreateOpticalNodeInput
+  update_parent_opticalnode: UpdateOpticalNodeInput
+  deleted_parent_opticalnode: DeleteOpticalNodeInput
+  create_parent_odf: CreateOdfInput
+  update_parent_odf: UpdateOdfInput
+  deleted_parent_odf: DeleteOdfInput
+  create_parent_opticalfilter: CreateOpticalFilterInput
+  update_parent_opticalfilter: UpdateOpticalFilterInput
+  deleted_parent_opticalfilter: DeleteOpticalFilterInput
+  create_parent_opticallink: CreateOpticalLinkInput
+  update_parent_opticallink: UpdateOpticalLinkInput
+  deleted_parent_opticallink: DeleteOpticalLinkInput
+  create_parent_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
+  update_parent_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
+  deleted_parent_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_parent_opticalpath: CreateOpticalPathInput
+  update_parent_opticalpath: UpdateOpticalPathInput
+  deleted_parent_opticalpath: DeleteOpticalPathInput
+  update_parent_peeringgroup: UpdatePeeringGroupInput
+  deleted_parent_peeringgroup: DeletePeeringGroupInput
+  create_parent_service: CreateServiceInput
+  update_parent_service: UpdateServiceInput
+  deleted_parent_service: DeleteServiceInput
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -2008,65 +2008,65 @@ type CompositeExternalEquipmentMutationPayload {
   part_of_service_created: CreateServicePayload
   part_of_service_updated: UpdateServicePayload
   part_of_service_deleted: DeleteServicePayload
-  parent_group_created: [CreateGroupPayload]
-  parent_group_updated: [UpdateGroupPayload]
-  parent_group_deleted: [DeleteGroupPayload]
-  parent_procedure_created: [CreateProcedurePayload]
-  parent_procedure_updated: [UpdateProcedurePayload]
-  parent_procedure_deleted: [DeleteProcedurePayload]
-  parent_address_created: [CreateAddressPayload]
-  parent_address_updated: [UpdateAddressPayload]
-  parent_address_deleted: [DeleteAddressPayload]
-  parent_phone_created: [CreatePhonePayload]
-  parent_phone_updated: [UpdatePhonePayload]
-  parent_phone_deleted: [DeletePhonePayload]
-  parent_email_created: [CreateEmailPayload]
-  parent_email_updated: [UpdateEmailPayload]
-  parent_email_deleted: [DeleteEmailPayload]
-  parent_unit_updated: [UpdateUnitPayload]
-  parent_unit_deleted: [DeleteUnitPayload]
-  parent_port_created: [CreatePortPayload]
-  parent_port_updated: [UpdatePortPayload]
-  parent_port_deleted: [DeletePortPayload]
-  parent_cable_created: [CreateCablePayload]
-  parent_cable_updated: [UpdateCablePayload]
-  parent_cable_deleted: [DeleteCablePayload]
-  parent_host_created: [CreateHostPayload]
-  parent_host_updated: [EditHostPayload]
-  parent_host_deleted: [DeleteHostPayload]
-  parent_router_updated: [UpdateRouterPayload]
-  parent_router_deleted: [DeleteRouterPayload]
-  parent_switch_created: [CreateSwitchPayload]
-  parent_switch_updated: [UpdateSwitchPayload]
-  parent_switch_deleted: [DeleteSwitchPayload]
-  parent_firewall_updated: [UpdateFirewallPayload]
-  parent_firewall_deleted: [DeleteFirewallPayload]
-  parent_externalequipment_created: [CreateExternalEquipmentPayload]
-  parent_externalequipment_updated: [UpdateExternalEquipmentPayload]
-  parent_externalequipment_deleted: [DeleteExternalEquipmentPayload]
-  parent_opticalnode_created: [CreateOpticalNodePayload]
-  parent_opticalnode_updated: [UpdateOpticalNodePayload]
-  parent_opticalnode_deleted: [DeleteOpticalNodePayload]
-  parent_odf_created: [CreateOdfPayload]
-  parent_odf_updated: [UpdateOdfPayload]
-  parent_odf_deleted: [DeleteOdfPayload]
-  parent_opticalfilter_created: [CreateOpticalFilterPayload]
-  parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
-  parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
-  parent_opticallink_created: [CreateOpticalLinkPayload]
-  parent_opticallink_updated: [UpdateOpticalLinkPayload]
-  parent_opticallink_deleted: [DeleteOpticalLinkPayload]
-  parent_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
-  parent_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
-  parent_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
-  parent_opticalpath_created: [CreateOpticalPathPayload]
-  parent_opticalpath_updated: [UpdateOpticalPathPayload]
-  parent_opticalpath_deleted: [DeleteOpticalPathPayload]
-  parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
-  parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
-  parent_service_created: [CreateServicePayload]
-  parent_service_updated: [UpdateServicePayload]
-  parent_service_deleted: [DeleteServicePayload]
+  parent_group_created: CreateGroupPayload
+  parent_group_updated: UpdateGroupPayload
+  parent_group_deleted: DeleteGroupPayload
+  parent_procedure_created: CreateProcedurePayload
+  parent_procedure_updated: UpdateProcedurePayload
+  parent_procedure_deleted: DeleteProcedurePayload
+  parent_address_created: CreateAddressPayload
+  parent_address_updated: UpdateAddressPayload
+  parent_address_deleted: DeleteAddressPayload
+  parent_phone_created: CreatePhonePayload
+  parent_phone_updated: UpdatePhonePayload
+  parent_phone_deleted: DeletePhonePayload
+  parent_email_created: CreateEmailPayload
+  parent_email_updated: UpdateEmailPayload
+  parent_email_deleted: DeleteEmailPayload
+  parent_unit_updated: UpdateUnitPayload
+  parent_unit_deleted: DeleteUnitPayload
+  parent_port_created: CreatePortPayload
+  parent_port_updated: UpdatePortPayload
+  parent_port_deleted: DeletePortPayload
+  parent_cable_created: CreateCablePayload
+  parent_cable_updated: UpdateCablePayload
+  parent_cable_deleted: DeleteCablePayload
+  parent_host_created: CreateHostPayload
+  parent_host_updated: EditHostPayload
+  parent_host_deleted: DeleteHostPayload
+  parent_router_updated: UpdateRouterPayload
+  parent_router_deleted: DeleteRouterPayload
+  parent_switch_created: CreateSwitchPayload
+  parent_switch_updated: UpdateSwitchPayload
+  parent_switch_deleted: DeleteSwitchPayload
+  parent_firewall_updated: UpdateFirewallPayload
+  parent_firewall_deleted: DeleteFirewallPayload
+  parent_externalequipment_created: CreateExternalEquipmentPayload
+  parent_externalequipment_updated: UpdateExternalEquipmentPayload
+  parent_externalequipment_deleted: DeleteExternalEquipmentPayload
+  parent_opticalnode_created: CreateOpticalNodePayload
+  parent_opticalnode_updated: UpdateOpticalNodePayload
+  parent_opticalnode_deleted: DeleteOpticalNodePayload
+  parent_odf_created: CreateOdfPayload
+  parent_odf_updated: UpdateOdfPayload
+  parent_odf_deleted: DeleteOdfPayload
+  parent_opticalfilter_created: CreateOpticalFilterPayload
+  parent_opticalfilter_updated: UpdateOpticalFilterPayload
+  parent_opticalfilter_deleted: DeleteOpticalFilterPayload
+  parent_opticallink_created: CreateOpticalLinkPayload
+  parent_opticallink_updated: UpdateOpticalLinkPayload
+  parent_opticallink_deleted: DeleteOpticalLinkPayload
+  parent_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
+  parent_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
+  parent_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  parent_opticalpath_created: CreateOpticalPathPayload
+  parent_opticalpath_updated: UpdateOpticalPathPayload
+  parent_opticalpath_deleted: DeleteOpticalPathPayload
+  parent_peeringgroup_updated: UpdatePeeringGroupPayload
+  parent_peeringgroup_deleted: DeletePeeringGroupPayload
+  parent_service_created: CreateServicePayload
+  parent_service_updated: UpdateServicePayload
+  parent_service_deleted: DeleteServicePayload
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -3920,69 +3920,69 @@ type CompositePeeringGroupMutationPayload {
 input CompositePortMutationInput {
   create_input: CreatePortInput
   update_input: UpdatePortInput
-  create_subinputs: [CreateCableInput]
-  update_subinputs: [UpdateCableInput]
-  delete_subinputs: [DeleteCableInput]
+  create_subinputs: CreateCableInput
+  update_subinputs: UpdateCableInput
+  delete_subinputs: DeleteCableInput
   unlink_subinputs: [DeleteRelationshipInput]
-  create_parent_group: [CreateGroupInput]
-  update_parent_group: [UpdateGroupInput]
-  deleted_parent_group: [DeleteGroupInput]
-  create_parent_procedure: [CreateProcedureInput]
-  update_parent_procedure: [UpdateProcedureInput]
-  deleted_parent_procedure: [DeleteProcedureInput]
-  create_parent_address: [CreateAddressInput]
-  update_parent_address: [UpdateAddressInput]
-  deleted_parent_address: [DeleteAddressInput]
-  create_parent_phone: [CreatePhoneInput]
-  update_parent_phone: [UpdatePhoneInput]
-  deleted_parent_phone: [DeletePhoneInput]
-  create_parent_email: [CreateEmailInput]
-  update_parent_email: [UpdateEmailInput]
-  deleted_parent_email: [DeleteEmailInput]
-  update_parent_unit: [UpdateUnitInput]
-  deleted_parent_unit: [DeleteUnitInput]
-  create_parent_port: [CreatePortInput]
-  update_parent_port: [UpdatePortInput]
-  deleted_parent_port: [DeletePortInput]
-  create_parent_cable: [CreateCableInput]
-  update_parent_cable: [UpdateCableInput]
-  deleted_parent_cable: [DeleteCableInput]
-  create_parent_host: [CreateHostInput]
-  update_parent_host: [EditHostInput]
-  deleted_parent_host: [DeleteHostInput]
-  update_parent_router: [UpdateRouterInput]
-  deleted_parent_router: [DeleteRouterInput]
-  create_parent_switch: [CreateSwitchInput]
-  update_parent_switch: [UpdateSwitchInput]
-  deleted_parent_switch: [DeleteSwitchInput]
-  update_parent_firewall: [UpdateFirewallInput]
-  deleted_parent_firewall: [DeleteFirewallInput]
-  create_parent_externalequipment: [CreateExternalEquipmentInput]
-  update_parent_externalequipment: [UpdateExternalEquipmentInput]
-  deleted_parent_externalequipment: [DeleteExternalEquipmentInput]
-  create_parent_opticalnode: [CreateOpticalNodeInput]
-  update_parent_opticalnode: [UpdateOpticalNodeInput]
-  deleted_parent_opticalnode: [DeleteOpticalNodeInput]
-  create_parent_odf: [CreateOdfInput]
-  update_parent_odf: [UpdateOdfInput]
-  deleted_parent_odf: [DeleteOdfInput]
-  create_parent_opticalfilter: [CreateOpticalFilterInput]
-  update_parent_opticalfilter: [UpdateOpticalFilterInput]
-  deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
-  create_parent_opticallink: [CreateOpticalLinkInput]
-  update_parent_opticallink: [UpdateOpticalLinkInput]
-  deleted_parent_opticallink: [DeleteOpticalLinkInput]
-  create_parent_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
-  update_parent_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
-  deleted_parent_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
-  create_parent_opticalpath: [CreateOpticalPathInput]
-  update_parent_opticalpath: [UpdateOpticalPathInput]
-  deleted_parent_opticalpath: [DeleteOpticalPathInput]
-  update_parent_peeringgroup: [UpdatePeeringGroupInput]
-  deleted_parent_peeringgroup: [DeletePeeringGroupInput]
-  create_parent_service: [CreateServiceInput]
-  update_parent_service: [UpdateServiceInput]
-  deleted_parent_service: [DeleteServiceInput]
+  create_parent_group: CreateGroupInput
+  update_parent_group: UpdateGroupInput
+  deleted_parent_group: DeleteGroupInput
+  create_parent_procedure: CreateProcedureInput
+  update_parent_procedure: UpdateProcedureInput
+  deleted_parent_procedure: DeleteProcedureInput
+  create_parent_address: CreateAddressInput
+  update_parent_address: UpdateAddressInput
+  deleted_parent_address: DeleteAddressInput
+  create_parent_phone: CreatePhoneInput
+  update_parent_phone: UpdatePhoneInput
+  deleted_parent_phone: DeletePhoneInput
+  create_parent_email: CreateEmailInput
+  update_parent_email: UpdateEmailInput
+  deleted_parent_email: DeleteEmailInput
+  update_parent_unit: UpdateUnitInput
+  deleted_parent_unit: DeleteUnitInput
+  create_parent_port: CreatePortInput
+  update_parent_port: UpdatePortInput
+  deleted_parent_port: DeletePortInput
+  create_parent_cable: CreateCableInput
+  update_parent_cable: UpdateCableInput
+  deleted_parent_cable: DeleteCableInput
+  create_parent_host: CreateHostInput
+  update_parent_host: EditHostInput
+  deleted_parent_host: DeleteHostInput
+  update_parent_router: UpdateRouterInput
+  deleted_parent_router: DeleteRouterInput
+  create_parent_switch: CreateSwitchInput
+  update_parent_switch: UpdateSwitchInput
+  deleted_parent_switch: DeleteSwitchInput
+  update_parent_firewall: UpdateFirewallInput
+  deleted_parent_firewall: DeleteFirewallInput
+  create_parent_externalequipment: CreateExternalEquipmentInput
+  update_parent_externalequipment: UpdateExternalEquipmentInput
+  deleted_parent_externalequipment: DeleteExternalEquipmentInput
+  create_parent_opticalnode: CreateOpticalNodeInput
+  update_parent_opticalnode: UpdateOpticalNodeInput
+  deleted_parent_opticalnode: DeleteOpticalNodeInput
+  create_parent_odf: CreateOdfInput
+  update_parent_odf: UpdateOdfInput
+  deleted_parent_odf: DeleteOdfInput
+  create_parent_opticalfilter: CreateOpticalFilterInput
+  update_parent_opticalfilter: UpdateOpticalFilterInput
+  deleted_parent_opticalfilter: DeleteOpticalFilterInput
+  create_parent_opticallink: CreateOpticalLinkInput
+  update_parent_opticallink: UpdateOpticalLinkInput
+  deleted_parent_opticallink: DeleteOpticalLinkInput
+  create_parent_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
+  update_parent_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
+  deleted_parent_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_parent_opticalpath: CreateOpticalPathInput
+  update_parent_opticalpath: UpdateOpticalPathInput
+  deleted_parent_opticalpath: DeleteOpticalPathInput
+  update_parent_peeringgroup: UpdatePeeringGroupInput
+  deleted_parent_peeringgroup: DeletePeeringGroupInput
+  create_parent_service: CreateServiceInput
+  update_parent_service: UpdateServiceInput
+  deleted_parent_service: DeleteServiceInput
   create_dependents_group: [CreateGroupInput]
   update_dependents_group: [UpdateGroupInput]
   deleted_dependents_group: [DeleteGroupInput]
@@ -4020,69 +4020,69 @@ input CompositePortMutationInput {
 type CompositePortMutationPayload {
   created: CreatePortPayload
   updated: UpdatePortPayload
-  subcreated: [CreateCablePayload]
-  subupdated: [UpdateCablePayload]
-  subdeleted: [DeleteCablePayload]
+  subcreated: CreateCablePayload
+  subupdated: UpdateCablePayload
+  subdeleted: DeleteCablePayload
   unlinked: [DeleteRelationshipPayload]
-  parent_group_created: [CreateGroupPayload]
-  parent_group_updated: [UpdateGroupPayload]
-  parent_group_deleted: [DeleteGroupPayload]
-  parent_procedure_created: [CreateProcedurePayload]
-  parent_procedure_updated: [UpdateProcedurePayload]
-  parent_procedure_deleted: [DeleteProcedurePayload]
-  parent_address_created: [CreateAddressPayload]
-  parent_address_updated: [UpdateAddressPayload]
-  parent_address_deleted: [DeleteAddressPayload]
-  parent_phone_created: [CreatePhonePayload]
-  parent_phone_updated: [UpdatePhonePayload]
-  parent_phone_deleted: [DeletePhonePayload]
-  parent_email_created: [CreateEmailPayload]
-  parent_email_updated: [UpdateEmailPayload]
-  parent_email_deleted: [DeleteEmailPayload]
-  parent_unit_updated: [UpdateUnitPayload]
-  parent_unit_deleted: [DeleteUnitPayload]
-  parent_port_created: [CreatePortPayload]
-  parent_port_updated: [UpdatePortPayload]
-  parent_port_deleted: [DeletePortPayload]
-  parent_cable_created: [CreateCablePayload]
-  parent_cable_updated: [UpdateCablePayload]
-  parent_cable_deleted: [DeleteCablePayload]
-  parent_host_created: [CreateHostPayload]
-  parent_host_updated: [EditHostPayload]
-  parent_host_deleted: [DeleteHostPayload]
-  parent_router_updated: [UpdateRouterPayload]
-  parent_router_deleted: [DeleteRouterPayload]
-  parent_switch_created: [CreateSwitchPayload]
-  parent_switch_updated: [UpdateSwitchPayload]
-  parent_switch_deleted: [DeleteSwitchPayload]
-  parent_firewall_updated: [UpdateFirewallPayload]
-  parent_firewall_deleted: [DeleteFirewallPayload]
-  parent_externalequipment_created: [CreateExternalEquipmentPayload]
-  parent_externalequipment_updated: [UpdateExternalEquipmentPayload]
-  parent_externalequipment_deleted: [DeleteExternalEquipmentPayload]
-  parent_opticalnode_created: [CreateOpticalNodePayload]
-  parent_opticalnode_updated: [UpdateOpticalNodePayload]
-  parent_opticalnode_deleted: [DeleteOpticalNodePayload]
-  parent_odf_created: [CreateOdfPayload]
-  parent_odf_updated: [UpdateOdfPayload]
-  parent_odf_deleted: [DeleteOdfPayload]
-  parent_opticalfilter_created: [CreateOpticalFilterPayload]
-  parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
-  parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
-  parent_opticallink_created: [CreateOpticalLinkPayload]
-  parent_opticallink_updated: [UpdateOpticalLinkPayload]
-  parent_opticallink_deleted: [DeleteOpticalLinkPayload]
-  parent_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
-  parent_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
-  parent_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
-  parent_opticalpath_created: [CreateOpticalPathPayload]
-  parent_opticalpath_updated: [UpdateOpticalPathPayload]
-  parent_opticalpath_deleted: [DeleteOpticalPathPayload]
-  parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
-  parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
-  parent_service_created: [CreateServicePayload]
-  parent_service_updated: [UpdateServicePayload]
-  parent_service_deleted: [DeleteServicePayload]
+  parent_group_created: CreateGroupPayload
+  parent_group_updated: UpdateGroupPayload
+  parent_group_deleted: DeleteGroupPayload
+  parent_procedure_created: CreateProcedurePayload
+  parent_procedure_updated: UpdateProcedurePayload
+  parent_procedure_deleted: DeleteProcedurePayload
+  parent_address_created: CreateAddressPayload
+  parent_address_updated: UpdateAddressPayload
+  parent_address_deleted: DeleteAddressPayload
+  parent_phone_created: CreatePhonePayload
+  parent_phone_updated: UpdatePhonePayload
+  parent_phone_deleted: DeletePhonePayload
+  parent_email_created: CreateEmailPayload
+  parent_email_updated: UpdateEmailPayload
+  parent_email_deleted: DeleteEmailPayload
+  parent_unit_updated: UpdateUnitPayload
+  parent_unit_deleted: DeleteUnitPayload
+  parent_port_created: CreatePortPayload
+  parent_port_updated: UpdatePortPayload
+  parent_port_deleted: DeletePortPayload
+  parent_cable_created: CreateCablePayload
+  parent_cable_updated: UpdateCablePayload
+  parent_cable_deleted: DeleteCablePayload
+  parent_host_created: CreateHostPayload
+  parent_host_updated: EditHostPayload
+  parent_host_deleted: DeleteHostPayload
+  parent_router_updated: UpdateRouterPayload
+  parent_router_deleted: DeleteRouterPayload
+  parent_switch_created: CreateSwitchPayload
+  parent_switch_updated: UpdateSwitchPayload
+  parent_switch_deleted: DeleteSwitchPayload
+  parent_firewall_updated: UpdateFirewallPayload
+  parent_firewall_deleted: DeleteFirewallPayload
+  parent_externalequipment_created: CreateExternalEquipmentPayload
+  parent_externalequipment_updated: UpdateExternalEquipmentPayload
+  parent_externalequipment_deleted: DeleteExternalEquipmentPayload
+  parent_opticalnode_created: CreateOpticalNodePayload
+  parent_opticalnode_updated: UpdateOpticalNodePayload
+  parent_opticalnode_deleted: DeleteOpticalNodePayload
+  parent_odf_created: CreateOdfPayload
+  parent_odf_updated: UpdateOdfPayload
+  parent_odf_deleted: DeleteOdfPayload
+  parent_opticalfilter_created: CreateOpticalFilterPayload
+  parent_opticalfilter_updated: UpdateOpticalFilterPayload
+  parent_opticalfilter_deleted: DeleteOpticalFilterPayload
+  parent_opticallink_created: CreateOpticalLinkPayload
+  parent_opticallink_updated: UpdateOpticalLinkPayload
+  parent_opticallink_deleted: DeleteOpticalLinkPayload
+  parent_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
+  parent_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
+  parent_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  parent_opticalpath_created: CreateOpticalPathPayload
+  parent_opticalpath_updated: UpdateOpticalPathPayload
+  parent_opticalpath_deleted: DeleteOpticalPathPayload
+  parent_peeringgroup_updated: UpdatePeeringGroupPayload
+  parent_peeringgroup_deleted: DeletePeeringGroupPayload
+  parent_service_created: CreateServicePayload
+  parent_service_updated: UpdateServicePayload
+  parent_service_deleted: DeleteServicePayload
   dependents_group_created: [CreateGroupPayload]
   dependents_group_updated: [UpdateGroupPayload]
   dependents_group_deleted: [DeleteGroupPayload]
@@ -4755,65 +4755,65 @@ input CompositeRouterMutationInput {
   create_part_of_service: CreateServiceInput
   update_part_of_service: UpdateServiceInput
   deleted_part_of_service: DeleteServiceInput
-  create_parent_group: [CreateGroupInput]
-  update_parent_group: [UpdateGroupInput]
-  deleted_parent_group: [DeleteGroupInput]
-  create_parent_procedure: [CreateProcedureInput]
-  update_parent_procedure: [UpdateProcedureInput]
-  deleted_parent_procedure: [DeleteProcedureInput]
-  create_parent_address: [CreateAddressInput]
-  update_parent_address: [UpdateAddressInput]
-  deleted_parent_address: [DeleteAddressInput]
-  create_parent_phone: [CreatePhoneInput]
-  update_parent_phone: [UpdatePhoneInput]
-  deleted_parent_phone: [DeletePhoneInput]
-  create_parent_email: [CreateEmailInput]
-  update_parent_email: [UpdateEmailInput]
-  deleted_parent_email: [DeleteEmailInput]
-  update_parent_unit: [UpdateUnitInput]
-  deleted_parent_unit: [DeleteUnitInput]
-  create_parent_port: [CreatePortInput]
-  update_parent_port: [UpdatePortInput]
-  deleted_parent_port: [DeletePortInput]
-  create_parent_cable: [CreateCableInput]
-  update_parent_cable: [UpdateCableInput]
-  deleted_parent_cable: [DeleteCableInput]
-  create_parent_host: [CreateHostInput]
-  update_parent_host: [EditHostInput]
-  deleted_parent_host: [DeleteHostInput]
-  update_parent_router: [UpdateRouterInput]
-  deleted_parent_router: [DeleteRouterInput]
-  create_parent_switch: [CreateSwitchInput]
-  update_parent_switch: [UpdateSwitchInput]
-  deleted_parent_switch: [DeleteSwitchInput]
-  update_parent_firewall: [UpdateFirewallInput]
-  deleted_parent_firewall: [DeleteFirewallInput]
-  create_parent_externalequipment: [CreateExternalEquipmentInput]
-  update_parent_externalequipment: [UpdateExternalEquipmentInput]
-  deleted_parent_externalequipment: [DeleteExternalEquipmentInput]
-  create_parent_opticalnode: [CreateOpticalNodeInput]
-  update_parent_opticalnode: [UpdateOpticalNodeInput]
-  deleted_parent_opticalnode: [DeleteOpticalNodeInput]
-  create_parent_odf: [CreateOdfInput]
-  update_parent_odf: [UpdateOdfInput]
-  deleted_parent_odf: [DeleteOdfInput]
-  create_parent_opticalfilter: [CreateOpticalFilterInput]
-  update_parent_opticalfilter: [UpdateOpticalFilterInput]
-  deleted_parent_opticalfilter: [DeleteOpticalFilterInput]
-  create_parent_opticallink: [CreateOpticalLinkInput]
-  update_parent_opticallink: [UpdateOpticalLinkInput]
-  deleted_parent_opticallink: [DeleteOpticalLinkInput]
-  create_parent_opticalmultiplexsection: [CreateOpticalMultiplexSectionInput]
-  update_parent_opticalmultiplexsection: [UpdateOpticalMultiplexSectionInput]
-  deleted_parent_opticalmultiplexsection: [DeleteOpticalMultiplexSectionInput]
-  create_parent_opticalpath: [CreateOpticalPathInput]
-  update_parent_opticalpath: [UpdateOpticalPathInput]
-  deleted_parent_opticalpath: [DeleteOpticalPathInput]
-  update_parent_peeringgroup: [UpdatePeeringGroupInput]
-  deleted_parent_peeringgroup: [DeletePeeringGroupInput]
-  create_parent_service: [CreateServiceInput]
-  update_parent_service: [UpdateServiceInput]
-  deleted_parent_service: [DeleteServiceInput]
+  create_parent_group: CreateGroupInput
+  update_parent_group: UpdateGroupInput
+  deleted_parent_group: DeleteGroupInput
+  create_parent_procedure: CreateProcedureInput
+  update_parent_procedure: UpdateProcedureInput
+  deleted_parent_procedure: DeleteProcedureInput
+  create_parent_address: CreateAddressInput
+  update_parent_address: UpdateAddressInput
+  deleted_parent_address: DeleteAddressInput
+  create_parent_phone: CreatePhoneInput
+  update_parent_phone: UpdatePhoneInput
+  deleted_parent_phone: DeletePhoneInput
+  create_parent_email: CreateEmailInput
+  update_parent_email: UpdateEmailInput
+  deleted_parent_email: DeleteEmailInput
+  update_parent_unit: UpdateUnitInput
+  deleted_parent_unit: DeleteUnitInput
+  create_parent_port: CreatePortInput
+  update_parent_port: UpdatePortInput
+  deleted_parent_port: DeletePortInput
+  create_parent_cable: CreateCableInput
+  update_parent_cable: UpdateCableInput
+  deleted_parent_cable: DeleteCableInput
+  create_parent_host: CreateHostInput
+  update_parent_host: EditHostInput
+  deleted_parent_host: DeleteHostInput
+  update_parent_router: UpdateRouterInput
+  deleted_parent_router: DeleteRouterInput
+  create_parent_switch: CreateSwitchInput
+  update_parent_switch: UpdateSwitchInput
+  deleted_parent_switch: DeleteSwitchInput
+  update_parent_firewall: UpdateFirewallInput
+  deleted_parent_firewall: DeleteFirewallInput
+  create_parent_externalequipment: CreateExternalEquipmentInput
+  update_parent_externalequipment: UpdateExternalEquipmentInput
+  deleted_parent_externalequipment: DeleteExternalEquipmentInput
+  create_parent_opticalnode: CreateOpticalNodeInput
+  update_parent_opticalnode: UpdateOpticalNodeInput
+  deleted_parent_opticalnode: DeleteOpticalNodeInput
+  create_parent_odf: CreateOdfInput
+  update_parent_odf: UpdateOdfInput
+  deleted_parent_odf: DeleteOdfInput
+  create_parent_opticalfilter: CreateOpticalFilterInput
+  update_parent_opticalfilter: UpdateOpticalFilterInput
+  deleted_parent_opticalfilter: DeleteOpticalFilterInput
+  create_parent_opticallink: CreateOpticalLinkInput
+  update_parent_opticallink: UpdateOpticalLinkInput
+  deleted_parent_opticallink: DeleteOpticalLinkInput
+  create_parent_opticalmultiplexsection: CreateOpticalMultiplexSectionInput
+  update_parent_opticalmultiplexsection: UpdateOpticalMultiplexSectionInput
+  deleted_parent_opticalmultiplexsection: DeleteOpticalMultiplexSectionInput
+  create_parent_opticalpath: CreateOpticalPathInput
+  update_parent_opticalpath: UpdateOpticalPathInput
+  deleted_parent_opticalpath: DeleteOpticalPathInput
+  update_parent_peeringgroup: UpdatePeeringGroupInput
+  deleted_parent_peeringgroup: DeletePeeringGroupInput
+  create_parent_service: CreateServiceInput
+  update_parent_service: UpdateServiceInput
+  deleted_parent_service: DeleteServiceInput
   create_owner_organization: CreateOrganizationInput
   update_owner_organization: UpdateOrganizationInput
   deleted_owner_organization: DeleteOrganizationInput
@@ -4964,65 +4964,65 @@ type CompositeRouterMutationPayload {
   part_of_service_created: CreateServicePayload
   part_of_service_updated: UpdateServicePayload
   part_of_service_deleted: DeleteServicePayload
-  parent_group_created: [CreateGroupPayload]
-  parent_group_updated: [UpdateGroupPayload]
-  parent_group_deleted: [DeleteGroupPayload]
-  parent_procedure_created: [CreateProcedurePayload]
-  parent_procedure_updated: [UpdateProcedurePayload]
-  parent_procedure_deleted: [DeleteProcedurePayload]
-  parent_address_created: [CreateAddressPayload]
-  parent_address_updated: [UpdateAddressPayload]
-  parent_address_deleted: [DeleteAddressPayload]
-  parent_phone_created: [CreatePhonePayload]
-  parent_phone_updated: [UpdatePhonePayload]
-  parent_phone_deleted: [DeletePhonePayload]
-  parent_email_created: [CreateEmailPayload]
-  parent_email_updated: [UpdateEmailPayload]
-  parent_email_deleted: [DeleteEmailPayload]
-  parent_unit_updated: [UpdateUnitPayload]
-  parent_unit_deleted: [DeleteUnitPayload]
-  parent_port_created: [CreatePortPayload]
-  parent_port_updated: [UpdatePortPayload]
-  parent_port_deleted: [DeletePortPayload]
-  parent_cable_created: [CreateCablePayload]
-  parent_cable_updated: [UpdateCablePayload]
-  parent_cable_deleted: [DeleteCablePayload]
-  parent_host_created: [CreateHostPayload]
-  parent_host_updated: [EditHostPayload]
-  parent_host_deleted: [DeleteHostPayload]
-  parent_router_updated: [UpdateRouterPayload]
-  parent_router_deleted: [DeleteRouterPayload]
-  parent_switch_created: [CreateSwitchPayload]
-  parent_switch_updated: [UpdateSwitchPayload]
-  parent_switch_deleted: [DeleteSwitchPayload]
-  parent_firewall_updated: [UpdateFirewallPayload]
-  parent_firewall_deleted: [DeleteFirewallPayload]
-  parent_externalequipment_created: [CreateExternalEquipmentPayload]
-  parent_externalequipment_updated: [UpdateExternalEquipmentPayload]
-  parent_externalequipment_deleted: [DeleteExternalEquipmentPayload]
-  parent_opticalnode_created: [CreateOpticalNodePayload]
-  parent_opticalnode_updated: [UpdateOpticalNodePayload]
-  parent_opticalnode_deleted: [DeleteOpticalNodePayload]
-  parent_odf_created: [CreateOdfPayload]
-  parent_odf_updated: [UpdateOdfPayload]
-  parent_odf_deleted: [DeleteOdfPayload]
-  parent_opticalfilter_created: [CreateOpticalFilterPayload]
-  parent_opticalfilter_updated: [UpdateOpticalFilterPayload]
-  parent_opticalfilter_deleted: [DeleteOpticalFilterPayload]
-  parent_opticallink_created: [CreateOpticalLinkPayload]
-  parent_opticallink_updated: [UpdateOpticalLinkPayload]
-  parent_opticallink_deleted: [DeleteOpticalLinkPayload]
-  parent_opticalmultiplexsection_created: [CreateOpticalMultiplexSectionPayload]
-  parent_opticalmultiplexsection_updated: [UpdateOpticalMultiplexSectionPayload]
-  parent_opticalmultiplexsection_deleted: [DeleteOpticalMultiplexSectionPayload]
-  parent_opticalpath_created: [CreateOpticalPathPayload]
-  parent_opticalpath_updated: [UpdateOpticalPathPayload]
-  parent_opticalpath_deleted: [DeleteOpticalPathPayload]
-  parent_peeringgroup_updated: [UpdatePeeringGroupPayload]
-  parent_peeringgroup_deleted: [DeletePeeringGroupPayload]
-  parent_service_created: [CreateServicePayload]
-  parent_service_updated: [UpdateServicePayload]
-  parent_service_deleted: [DeleteServicePayload]
+  parent_group_created: CreateGroupPayload
+  parent_group_updated: UpdateGroupPayload
+  parent_group_deleted: DeleteGroupPayload
+  parent_procedure_created: CreateProcedurePayload
+  parent_procedure_updated: UpdateProcedurePayload
+  parent_procedure_deleted: DeleteProcedurePayload
+  parent_address_created: CreateAddressPayload
+  parent_address_updated: UpdateAddressPayload
+  parent_address_deleted: DeleteAddressPayload
+  parent_phone_created: CreatePhonePayload
+  parent_phone_updated: UpdatePhonePayload
+  parent_phone_deleted: DeletePhonePayload
+  parent_email_created: CreateEmailPayload
+  parent_email_updated: UpdateEmailPayload
+  parent_email_deleted: DeleteEmailPayload
+  parent_unit_updated: UpdateUnitPayload
+  parent_unit_deleted: DeleteUnitPayload
+  parent_port_created: CreatePortPayload
+  parent_port_updated: UpdatePortPayload
+  parent_port_deleted: DeletePortPayload
+  parent_cable_created: CreateCablePayload
+  parent_cable_updated: UpdateCablePayload
+  parent_cable_deleted: DeleteCablePayload
+  parent_host_created: CreateHostPayload
+  parent_host_updated: EditHostPayload
+  parent_host_deleted: DeleteHostPayload
+  parent_router_updated: UpdateRouterPayload
+  parent_router_deleted: DeleteRouterPayload
+  parent_switch_created: CreateSwitchPayload
+  parent_switch_updated: UpdateSwitchPayload
+  parent_switch_deleted: DeleteSwitchPayload
+  parent_firewall_updated: UpdateFirewallPayload
+  parent_firewall_deleted: DeleteFirewallPayload
+  parent_externalequipment_created: CreateExternalEquipmentPayload
+  parent_externalequipment_updated: UpdateExternalEquipmentPayload
+  parent_externalequipment_deleted: DeleteExternalEquipmentPayload
+  parent_opticalnode_created: CreateOpticalNodePayload
+  parent_opticalnode_updated: UpdateOpticalNodePayload
+  parent_opticalnode_deleted: DeleteOpticalNodePayload
+  parent_odf_created: CreateOdfPayload
+  parent_odf_updated: UpdateOdfPayload
+  parent_odf_deleted: DeleteOdfPayload
+  parent_opticalfilter_created: CreateOpticalFilterPayload
+  parent_opticalfilter_updated: UpdateOpticalFilterPayload
+  parent_opticalfilter_deleted: DeleteOpticalFilterPayload
+  parent_opticallink_created: CreateOpticalLinkPayload
+  parent_opticallink_updated: UpdateOpticalLinkPayload
+  parent_opticallink_deleted: DeleteOpticalLinkPayload
+  parent_opticalmultiplexsection_created: CreateOpticalMultiplexSectionPayload
+  parent_opticalmultiplexsection_updated: UpdateOpticalMultiplexSectionPayload
+  parent_opticalmultiplexsection_deleted: DeleteOpticalMultiplexSectionPayload
+  parent_opticalpath_created: CreateOpticalPathPayload
+  parent_opticalpath_updated: UpdateOpticalPathPayload
+  parent_opticalpath_deleted: DeleteOpticalPathPayload
+  parent_peeringgroup_updated: UpdatePeeringGroupPayload
+  parent_peeringgroup_deleted: DeletePeeringGroupPayload
+  parent_service_created: CreateServicePayload
+  parent_service_updated: UpdateServicePayload
+  parent_service_deleted: DeleteServicePayload
   owner_organization_created: CreateOrganizationPayload
   owner_organization_updated: UpdateOrganizationPayload
   owner_organization_deleted: DeleteOrganizationPayload
@@ -6839,7 +6839,6 @@ type CreateServicePayload {
 
 input CreateSiteInput {
   name: String!
-  country_code: ChoiceScalar
   country: ChoiceScalar
   site_type: ChoiceScalar
   area: String
@@ -7912,7 +7911,7 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -8093,7 +8092,7 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -8745,7 +8744,7 @@ type Host implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -9617,7 +9616,7 @@ type ODF implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -9825,7 +9824,7 @@ type OpticalFilter implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -10394,7 +10393,7 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -11669,7 +11668,7 @@ interface Physical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
 }
 
@@ -11746,14 +11745,14 @@ type Port implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
   comments: [CommentType]
   port_type: Choice
-  connected_to: [Physical]
+  connected_to: Physical
 }
 
 type portConnection {
@@ -12812,7 +12811,7 @@ type Router implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -13424,8 +13423,7 @@ type Site implements NINode & Location {
   outgoing: [DictRelationType]
   comments: [CommentType]
   site_type: Choice
-  country: String
-  country_code: Choice
+  country: Choice
   area: String
   longitude: Float
   latitude: Float
@@ -13488,34 +13486,20 @@ input SiteNestedFilter {
   site_type_not_ends_with: ChoiceScalar
   site_type_in: [ChoiceScalar!]
   site_type_not_in: [ChoiceScalar!]
-  country: String
-  country_not: String
-  country_lt: String
-  country_lte: String
-  country_gt: String
-  country_gte: String
-  country_contains: String
-  country_not_contains: String
-  country_starts_with: String
-  country_not_starts_with: String
-  country_ends_with: String
-  country_not_ends_with: String
-  country_in: [String!]
-  country_not_in: [String!]
-  country_code: ChoiceScalar
-  country_code_not: ChoiceScalar
-  country_code_lt: ChoiceScalar
-  country_code_lte: ChoiceScalar
-  country_code_gt: ChoiceScalar
-  country_code_gte: ChoiceScalar
-  country_code_contains: ChoiceScalar
-  country_code_not_contains: ChoiceScalar
-  country_code_starts_with: ChoiceScalar
-  country_code_not_starts_with: ChoiceScalar
-  country_code_ends_with: ChoiceScalar
-  country_code_not_ends_with: ChoiceScalar
-  country_code_in: [ChoiceScalar!]
-  country_code_not_in: [ChoiceScalar!]
+  country: ChoiceScalar
+  country_not: ChoiceScalar
+  country_lt: ChoiceScalar
+  country_lte: ChoiceScalar
+  country_gt: ChoiceScalar
+  country_gte: ChoiceScalar
+  country_contains: ChoiceScalar
+  country_not_contains: ChoiceScalar
+  country_starts_with: ChoiceScalar
+  country_not_starts_with: ChoiceScalar
+  country_ends_with: ChoiceScalar
+  country_not_ends_with: ChoiceScalar
+  country_in: [ChoiceScalar!]
+  country_not_in: [ChoiceScalar!]
   area: String
   area_not: String
   area_lt: String
@@ -13648,8 +13632,6 @@ enum SiteOrderBy {
   site_type_DESC
   country_ASC
   country_DESC
-  country_code_ASC
-  country_code_DESC
   area_ASC
   area_DESC
   owner_id_ASC
@@ -13853,7 +13835,7 @@ type Switch implements NINode & Physical & PhysicalLogical {
   location: Location
   has: [Physical]
   part_of: Logical
-  parent: [PhysicalLogical]
+  parent: PhysicalLogical
   owner: Relation
   nidata: [DictEntryType]
   incoming: [DictRelationType]
@@ -14892,7 +14874,6 @@ type UpdateServicePayload {
 
 input UpdateSiteInput {
   name: String!
-  country_code: ChoiceScalar
   country: ChoiceScalar
   site_type: ChoiceScalar
   area: String

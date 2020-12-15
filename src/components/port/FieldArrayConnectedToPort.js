@@ -67,45 +67,12 @@ class FieldArrayConnectedToPort extends _BasicFieldArrayParentClass {
       ],
       modal: ['general-forms/connected-to-element-detail'],
     };
-    this.INTERNAL_FILTER = {
-      text: {
-        fieldsAffected: ['name'],
-      },
-    };
     this.PRE_FILTER_SELECT = {
       label: 'general-forms/select-cable-type',
       type: 'cable_types',
       name: 'cable_types_preFilter',
       entityMandatory: 'Cable',
     };
-  }
-
-  getFilterTable() {
-    const { internalTextFilter } = this.state;
-    return { __typename: null, operational_state: null, name: internalTextFilter?.value };
-  }
-
-  getAllValues(filterObj) {
-    const allValues = this.props.fields.getAll() || [];
-    if (!!filterObj) {
-      const [mainFilterKey, mainFilterValue] = Object.entries(filterObj)[0];
-      const [opStateFilter, opStateValue] = Object.entries(filterObj)[1];
-      const [textFilterKey, textFilterValue] = Object.entries(filterObj)[2];
-
-      const valuesFilteredByType = allValues.filter((v) => {
-        const value = v[mainFilterKey];
-        return !!!mainFilterValue || value === mainFilterValue;
-      });
-      const valuesFilteredByOpState = valuesFilteredByType.filter((v) => {
-        const value = v[opStateFilter]?.value || v[opStateFilter];
-        return !!!opStateValue || value === opStateValue;
-      });
-      const valuesFilteredByText = valuesFilteredByOpState.filter((v) => {
-        return v[textFilterKey].toLowerCase().includes(textFilterValue.toLowerCase());
-      });
-      return valuesFilteredByText;
-    }
-    return allValues;
   }
 }
 

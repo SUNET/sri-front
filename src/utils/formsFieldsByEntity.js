@@ -383,7 +383,7 @@ const site = {
     { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
     { type: FIELD_TYPES.SINGLE, name: 'url' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
-    { type: FIELD_TYPES.SINGLE, name: 'country' },
+    { type: FIELD_TYPES.OBJECT, name: 'country' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'addresses' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'has' },
     {
@@ -452,8 +452,8 @@ const port = {
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'type' },
-    { type: FIELD_TYPES.ARRAY_LIST, name: 'parent' },
-    { type: FIELD_TYPES.ARRAY_LIST, name: 'connected_to' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'parent' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'connected_to' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'location' },
   ],
