@@ -156,13 +156,14 @@ class _CableFormParentClass extends _BasicFormParentClass {
   }
 
   renderConnectionsSection(editMode = false) {
+    const componentClassName = 'connections-block';
     const { t, entityRemovedId } = this.props;
     const disabledFilters =
       !!this.props.connections &&
       (!this.props.connections ||
         this.props.connections.filter((cn) => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
             <h2>{t('general-forms/connects')}</h2>

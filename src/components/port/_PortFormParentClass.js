@@ -18,48 +18,7 @@ import { isBrowser } from 'react-device-detect';
 // scss
 import '../../style/ModelDetails.scss';
 import '../../style/PortConnectionPath.scss';
-
-const ConnectionPath = ({ blocks }) => {
-  return (
-    <div className="connection-path">
-      {blocks.map((el, index, arr) => {
-        const isLast = index === arr.length - 1;
-
-        return (
-          <div key={Math.random()} className="connection-path__element">
-            <div className="connection-path__element__content">
-              <div className="connection-path__element__content__link-name">
-                <a
-                  href={`${el.path}`}
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  {el.name}
-                </a>
-                {el.portName && !el.currentElement && (
-                  <a
-                    href={`${el.portPath}`}
-                    rel="noopener noreferrer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  >
-                    {el.portName}
-                  </a>
-                )}
-                {el.portName && el.currentElement && el.portName}
-              </div>
-              <div className="connection-path__element__content__type">({el.connectionType})</div>
-            </div>
-            {!isLast && <div className="connection-path__element__arrow"></div>}
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+import ConnectionPath from './ConnectionPath';
 
 class _PortFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -204,11 +163,12 @@ class _PortFormParentClass extends _BasicFormParentClass {
   }
 
   renderParentToggleSection(editMode = false) {
+    const componentClassName = 'parent-block';
     const { t, entityRemovedId } = this.props;
     const disabledFilters =
       !!this.props.parent && (!this.props.parent || this.props.parent.filter((cn) => cn.status === SAVED).length >= 1);
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
             <h2>{t('general-forms/parent')}</h2>
@@ -246,12 +206,13 @@ class _PortFormParentClass extends _BasicFormParentClass {
   }
 
   renderConnectedToToggleSection(editMode = false) {
+    const componentClassName = 'connected-to-block';
     const { t, entityRemovedId } = this.props;
     const disabledFilters =
       !!this.props.connected_to &&
       (!this.props.connected_to || this.props.connected_to.filter((cn) => cn.status === SAVED).length >= 1);
     return (
-      <section className="model-section">
+      <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
             <h2>{t('general-forms/connected-to')}</h2>
