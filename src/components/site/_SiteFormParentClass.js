@@ -143,7 +143,6 @@ class _SiteFormParentClass extends _BasicFormParentClass {
     const componentClassName = 'location-block';
 
     const { t, country, area, longitude, latitude } = this.props;
-    console.log('country: ', country);
     const addressInfo = [
       {
         title: t('general-forms/country'),

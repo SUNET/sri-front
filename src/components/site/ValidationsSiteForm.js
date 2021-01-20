@@ -2,7 +2,6 @@ const REQUIRED_TEXT = '* Required!';
 
 export default class ValidationCustomerForm {
   static validate = (values) => {
-    console.log('---->', values.country);
     const errors = {};
     if (!values.name) {
       errors.name = REQUIRED_TEXT;
