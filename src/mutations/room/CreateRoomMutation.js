@@ -7,7 +7,6 @@ import CreateCommentMutation from '../CreateCommentMutation';
 import { generateSubInputs } from '../MutationsUtils';
 import {
   generateLocatedIn,
-  generateLocatedInToUnlink,
   generateLocatedInToRemove,
 } from '../locationsMutationsCommon/GenerateLocatedInMutation';
 
