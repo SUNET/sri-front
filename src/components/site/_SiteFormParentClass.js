@@ -143,19 +143,21 @@ class _SiteFormParentClass extends _BasicFormParentClass {
     const componentClassName = 'location-block';
 
     const { t, country, area, longitude, latitude } = this.props;
+    console.log('country: ', country);
     const addressInfo = [
       {
         title: t('general-forms/country'),
-        presentContent: country,
+        presentContent: country?.name,
         editContent: (
           <Dropdown
             t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel={t('general-forms/type-placeholder')}
             type="countries"
-            name="country_code"
-            onChange={(e) => {
-              this.props.dispatch(change(this.props.form, 'country', e.value));
+            name="country_value"
+            model="name_value_structure"
+            onChange={(newValue) => {
+              this.props.dispatch(change(this.props.form, 'country', newValue ? newValue : null));
             }}
           />
         ),
@@ -220,13 +222,7 @@ class _SiteFormParentClass extends _BasicFormParentClass {
 
   renderOwnerToggleSection(editMode) {
     const componentClassName = 'site-owner-block';
-    const {
-      t,
-      owner_id,
-      owner_site_name,
-      site_responsible_obj,
-      site_responsible_id,
-    } = this.props;
+    const { t, owner_id, owner_site_name, site_responsible_obj, site_responsible_id } = this.props;
 
     const responsibleInfo = [
       {
