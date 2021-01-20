@@ -1,4 +1,3 @@
-import urlRegex from 'url-regex';
 const REQUIRED_TEXT = '* Required!';
 
 export default class ValidationCustomerForm {
