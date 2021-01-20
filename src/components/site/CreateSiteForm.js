@@ -4,7 +4,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import CreateMutation from '../../mutations/site/CreateSiteMutation';
-import ValidationsSiteForm from '../common/_BasicValidationForm';
+import ValidationsSiteForm from './ValidationsSiteForm';
 // const
 import { CREATE_SITE_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';

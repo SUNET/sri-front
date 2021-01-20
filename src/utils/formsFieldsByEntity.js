@@ -3,6 +3,7 @@ export const FIELD_TYPES = {
   ARRAY_LIST: 'field_array_list',
   OBJ_TO_LIST: 'field_array_object_to_list',
   OBJECT: 'name_value_object',
+  OBJECT_COUNTRY: 'name_value_object_country',
   ID_OBJECT: 'id_name_object',
 };
 const BASIC_INFO = [
@@ -383,7 +384,7 @@ const site = {
     { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
     { type: FIELD_TYPES.SINGLE, name: 'url' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
-    { type: FIELD_TYPES.OBJECT, name: 'country' },
+    { type: FIELD_TYPES.OBJECT_TEST, name: 'country' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'addresses' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'has' },
     {
