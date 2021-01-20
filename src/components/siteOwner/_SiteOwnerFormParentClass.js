@@ -24,6 +24,8 @@ class _SiteOwnerFormParentClass extends _BasicFormParentClass {
           name: entity.name,
           id: entity.id,
           status: 'saved',
+          country: entity.country,
+          owner_id: entity.owner_id,
         };
         this.props.dispatch(arrayPush(this.props.form, 'responsible_for', newEntity));
       });
@@ -79,7 +81,7 @@ class _SiteOwnerFormParentClass extends _BasicFormParentClass {
         },
         {
           text: 'general-forms/country',
-          fieldKey: 'country',
+          fieldKey: 'country.name',
         },
         {
           text: 'general-forms/owner-id',
