@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Component Renders correctly 1`] = `
+<CreateConnectionPathWrapper>
+  <div>
+    <ConnectionPath
+      blocks={
+        Array [
+          Object {
+            "connectionType": "C13 / C14",
+            "currentElement": true,
+            "id": "fake-id1",
+            "name": "test1450",
+            "path": "/network/routers/fake-id1",
+            "portName": "14500",
+            "portPath": "/network/ports/UG9ydDo3MDE1",
+          },
+          Object {
+            "connectionType": "Dark Fiber",
+            "id": "fake-id2",
+            "name": "14400-14500",
+            "path": "/network/cables/fake-id2",
+          },
+          Object {
+            "connectionType": "C13 / C14",
+            "id": "fake-id3",
+            "name": "test1440",
+            "path": "/network/external-equipments/fake-id3",
+            "portName": "14400",
+            "portPath": "/network/ports/UG9ydDo3MDEy",
+          },
+        ]
+      }
+      changeConnectionPath={[MockFunction]}
+      t={[MockFunction]}
+    >
+      <div
+        className="connection-path"
+      >
+        <div
+          className="connection-path__element"
+          key="connection-path__key-0"
+        >
+          <div
+            className="connection-path__element__content"
+          >
+            <div
+              className="connection-path__element__content__link-name"
+            >
+              <a
+                href="/network/routers/fake-id1"
+                onClick={[Function]}
+                rel="noopener noreferrer"
+              >
+                test1450
+              </a>
+              14500
+            </div>
+            <div
+              className="connection-path__element__content__type"
+            >
+              (
+              C13 / C14
+              )
+            </div>
+          </div>
+          <div
+            className="connection-path__element__arrow"
+          />
+        </div>
+        <div
+          className="connection-path__element"
+          key="connection-path__key-1"
+        >
+          <div
+            className="connection-path__element__content"
+          >
+            <div
+              className="connection-path__element__content__link-name"
+            >
+              <a
+                href="/network/cables/fake-id2"
+                onClick={[Function]}
+                rel="noopener noreferrer"
+              >
+                14400-14500
+              </a>
+            </div>
+            <div
+              className="connection-path__element__content__type"
+            >
+              (
+              Dark Fiber
+              )
+            </div>
+          </div>
+          <div
+            className="connection-path__element__arrow"
+          />
+        </div>
+        <div
+          className="connection-path__element"
+          key="connection-path__key-2"
+        >
+          <div
+            className="connection-path__element__content"
+          >
+            <div
+              className="connection-path__element__content__link-name"
+            >
+              <a
+                href="/network/external-equipments/fake-id3"
+                onClick={[Function]}
+                rel="noopener noreferrer"
+              >
+                test1440
+              </a>
+              <a
+                href="/network/ports/UG9ydDo3MDEy"
+                onClick={[Function]}
+                rel="noopener noreferrer"
+              >
+                14400
+              </a>
+            </div>
+            <div
+              className="connection-path__element__content__type"
+            >
+              (
+              C13 / C14
+              )
+            </div>
+          </div>
+        </div>
+      </div>
+    </ConnectionPath>
+  </div>
+</CreateConnectionPathWrapper>
+`;

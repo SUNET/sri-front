@@ -9,7 +9,7 @@ import ValidationsPortForm from './ValidationsPortForm';
 import { CREATE_PORT_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CreatePortForm extends _PortFormParentClass {
+class CreatePortFormComponent extends _PortFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_PORT_FORM;
   MUTATION_SUBMIT = CreateMutation;
@@ -35,11 +35,11 @@ class CreatePortForm extends _PortFormParentClass {
   }
 }
 
-CreatePortForm = reduxForm({
+export const CreatePortForm = reduxForm({
   validate: ValidationsPortForm.validate,
   initialValues: {
     name: '',
   },
-})(CreatePortForm);
+})(CreatePortFormComponent);
 
 export default withTranslation()(CreatePortForm);
