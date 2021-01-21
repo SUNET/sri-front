@@ -92,6 +92,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
   renderGeneralInfoToggleSection(editMode = true) {
     const componentClassName = 'general-info-block';
     const { t, cable_type, provider_id, provider_obj, cable_length } = this.props;
+    console.log('cable_type: ', cable_type);
     const generalInfoFirstRow = [
       {
         title: t('general-forms/type'),

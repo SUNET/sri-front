@@ -469,7 +469,7 @@ const cable = {
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
-    { name: 'cable_type', type: FIELD_TYPES.OBJECT },
+    { name: 'cable_type', type: FIELD_TYPES.OBJECT_NAME },
     { name: 'provider', type: FIELD_TYPES.ID_OBJECT },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
