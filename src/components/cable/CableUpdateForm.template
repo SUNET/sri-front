@@ -38,7 +38,7 @@ class CableUpdateForm extends _CableFormParentClass {
   handleSubmit = (entityData) => {
     this.setState({ editMode: false });
     this.props.hideModalForm();
-    const connectionsToRemove = entityData.connections.filter((connection) => connection.status === REMOVE);
+    const connectionsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
     const someItemWillBeDeleted = connectionsToRemove.length > 0;
     if (someItemWillBeDeleted) {
       this.entityDataToUpdate = entityData;

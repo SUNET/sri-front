@@ -1,0 +1,9 @@
+1. Arrancar normalmente -> docker-compose -f /opt/sri/norduni-developer/norduni/compose.yml up
+2. parar manualmente norduni_norduni_1 -> docker stop norduni_norduni_1
+3. Purge a los contenedores e img sin usar -> docker system prune -a -f
+4. Parar todos los contenedores activos -> docker stop $(docker ps -a -q)
+5. arrancar normalmente -> sriDocker
+
+
+Borrar contenedor -> docker rm norduni_norduni_1
+Borrar imagen -> docker rmi norduni_norduni:latest

@@ -40,7 +40,7 @@ function getDataByFieldType({ fieldName, dataField, fieldType, state, selector }
         result.selectorValue = { [fieldName]: selector(state, fieldName) };
       }
       break;
-    case FIELD_TYPES.OBJECT_COUNTRY:
+    case FIELD_TYPES.OBJECT_NAME:
       result.initialValue = {
         [fieldName]: dataField,
         [`${fieldName}_value`]: dataField?.value,
