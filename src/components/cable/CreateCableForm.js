@@ -9,7 +9,7 @@ import ValidationsCableForm from './ValidationsCableForm';
 import { CREATE_CABLE_FORM } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class CreateCableForm extends _CableFormParentClass {
+class CreateCableFormComponent extends _CableFormParentClass {
   IS_UPDATED_FORM = false;
   FORM_ID = CREATE_CABLE_FORM;
   MUTATION_SUBMIT = CreateMutation;
@@ -35,11 +35,11 @@ class CreateCableForm extends _CableFormParentClass {
   }
 }
 
-CreateCableForm = reduxForm({
+export const CreateCableForm = reduxForm({
   validate: ValidationsCableForm.validate,
   initialValues: {
     name: '',
   },
-})(CreateCableForm);
+})(CreateCableFormComponent);
 
 export default withTranslation()(CreateCableForm);

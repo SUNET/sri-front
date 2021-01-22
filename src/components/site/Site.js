@@ -10,6 +10,11 @@ const SiteQuery = graphql`
       name
       description
       type: __typename
+      country {
+        name
+        value
+      }
+      owner_id
     }
   }
 `;

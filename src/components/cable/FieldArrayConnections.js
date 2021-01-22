@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 class FieldArrayConnections extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
-    this.FIELD_NAME_IN_FORM = 'connections';
+    this.FIELD_NAME_IN_FORM = 'ports';
     this.HEADER_TEXTS = {
       summary: [
         {
@@ -31,7 +31,7 @@ class FieldArrayConnections extends _BasicFieldArrayParentClass {
       name: null,
       entityMandatory: 'Port',
     };
-    this.MODEL_TO_SEARCH = 'ports-type-head';
+    this.MODEL_TO_SEARCH = 'search_cable_port';
   }
 }
 

@@ -12,11 +12,13 @@ const mapStateToProps = (state, props) => {
   const resourcedUsed = dependencies.map((dep) => {
     const dataUsedBy = used_by.filter((user) => user.ip_address === dep.ip_address);
     const router =
-      dep.part_of.__typename === 'Port' ? dep.part_of.parent.find((par) => par.__typename === 'Router') : null;
+      dep.part_of?.__typename === 'Port' && dep.part_of?.parent && dep.part_of?.parent.__typename === 'Router'
+        ? dep.part_of.parent
+        : null;
     return {
       router: router ? [router] : null,
       pic: dep.part_of.name,
-      unit: dep.name,
+      unit: dep?.name,
       ip_address: dep.ip_address,
       vlan: dep.vlan,
       user_address: dataUsedBy ? dataUsedBy.map((user) => user.ip_address).join(', ') : null,

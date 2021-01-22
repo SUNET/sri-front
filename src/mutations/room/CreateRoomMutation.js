@@ -4,6 +4,11 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
+import { generateSubInputs } from '../MutationsUtils';
+import {
+  generateLocatedIn,
+  generateLocatedInToRemove,
+} from '../locationsMutationsCommon/GenerateLocatedInMutation';
 
 const mutation = graphql`
   mutation CreateRoomMutation($input: CompositeRoomMutationInput!) {
@@ -22,12 +27,22 @@ const mutation = graphql`
 `;
 
 function CreateRoomMutation(room, form) {
+  const physicalToAdd = generateLocatedIn(room);
+  const physicalToRemove = generateLocatedInToRemove(room);
+  const sitesToMutation = generateSubInputs(room.sites, null, null);
+  const racksToMutation = generateSubInputs(room.racks, null, null);
   const variables = {
     input: {
       create_input: {
         name: room.name,
         description: room.description,
       },
+      ...physicalToAdd,
+      ...physicalToRemove,
+      update_has_site: sitesToMutation.toUpdate,
+      deleted_has_site: sitesToMutation.toDelete,
+      update_has_rack: racksToMutation.toUpdate,
+      deleted_has_rack: racksToMutation.toDelete,
     },
   };
   commitMutation(environment, {

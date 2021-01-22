@@ -50,6 +50,7 @@ type Address implements NINode & Logical & PhysicalLogical {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -298,6 +299,7 @@ type Cable implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Provider
   operational_state: Choice
@@ -448,6 +450,23 @@ enum CableOrderBy {
   modified_DESC
   handle_id_ASC
   handle_id_DESC
+}
+
+type CablePortSearchConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [CablePortSearchEdge]!
+}
+
+"""A Relay edge containing a `CablePortSearch` and its cursor."""
+type CablePortSearchEdge {
+  """The item at the end of the edge"""
+  node: Port
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 """This class is used for the choices available in a dropdown"""
@@ -6052,6 +6071,7 @@ type Contact implements NINode & Relation {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -6813,19 +6833,19 @@ input CreateServiceInput {
   name: String
   service_class: String
   service_type: ChoiceScalar!
-  project_end_date: Date
-  decommissioned_date: Date
   operational_state: ChoiceScalar!
   description: String
   responsible_group: ChoiceScalar
   support_group: ChoiceScalar
+  relationship_provider: ChoiceScalar
+  project_end_date: Date
+  decommissioned_date: Date
   ncs_service_name: String
   vpn_type: String
   vlan: String
   vrf_target: String
   route_distinguisher: String
   contract_number: String
-  relationship_provider: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
   clientMutationId: String
@@ -6941,6 +6961,7 @@ type Customer implements NINode & Relation {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -7579,6 +7600,7 @@ type Email implements NINode & Logical & PhysicalLogical {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -7737,6 +7759,7 @@ type EndUser implements NINode & Relation {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -7905,6 +7928,7 @@ type ExternalEquipment implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -8086,6 +8110,7 @@ type Firewall implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -8579,6 +8604,7 @@ type Group implements NINode & Logical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -8738,6 +8764,7 @@ type Host implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -9077,6 +9104,7 @@ type HostUser implements NINode & Relation {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -9253,6 +9281,7 @@ interface Location {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
   parent: Location
   located_in: [Physical]
   has: [Location]
@@ -9283,6 +9312,7 @@ interface Logical {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -9480,6 +9510,7 @@ interface NINode {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
 }
 
 type NINodeConnection {
@@ -9574,6 +9605,7 @@ type NodeHandler implements NINode {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   nidata: [DictEntryType]
   incoming: [DictRelationType]
   outgoing: [DictRelationType]
@@ -9610,6 +9642,7 @@ type ODF implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -9818,6 +9851,7 @@ type OpticalFilter implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -10026,6 +10060,7 @@ type OpticalLink implements NINode & Logical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Provider
   operational_state: Choice
@@ -10224,6 +10259,7 @@ type OpticalMultiplexSection implements NINode & Logical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Provider
   operational_state: Choice
@@ -10387,6 +10423,7 @@ type OpticalNode implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -10635,6 +10672,7 @@ type OpticalPath implements NINode & Logical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Provider
   operational_state: Choice
@@ -10845,6 +10883,7 @@ type Organization implements NINode & Relation {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -11190,6 +11229,7 @@ type PeeringGroup implements NINode & Logical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -11338,6 +11378,7 @@ type PeeringPartner implements NINode & Relation {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -11513,6 +11554,7 @@ type Phone implements NINode & Logical & PhysicalLogical {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -11662,6 +11704,7 @@ interface Physical {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -11696,6 +11739,7 @@ interface PhysicalLogical {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -11739,6 +11783,7 @@ type Port implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -11924,6 +11969,7 @@ type Procedure implements NINode & Logical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -12071,6 +12117,7 @@ type Provider implements NINode & Relation {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -12341,6 +12388,7 @@ type Query {
   getServiceById(id: ID): Service
   search_generalsearch(filter: GenericFilter, before: String, after: String, first: Int, last: Int): GeneralSearchConnection
   search_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): PortSearchConnection
+  search_cable_port(filter: GenericFilter, before: String, after: String, first: Int, last: Int): CablePortSearchConnection
   physicallogicals(filter: MetatypeFilter, orderBy: MetatypeOrder, before: String, after: String, first: Int, last: Int): PhysicalLogicalConnection
   logicals(filter: MetatypeFilter, orderBy: MetatypeOrder, before: String, after: String, first: Int, last: Int): LogicalConnection
   physicals(filter: MetatypeFilter, orderBy: MetatypeOrder, before: String, after: String, first: Int, last: Int): PhysicalConnection
@@ -12364,6 +12412,7 @@ type Rack implements NINode & Location {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   parent: Location
   located_in: [Physical]
   has: [Location]
@@ -12542,6 +12591,7 @@ interface Relation {
   description: String
   relation_id: Int
   contexts: [String]
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -12659,6 +12709,7 @@ type Room implements NINode & Location {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   parent: Location
   located_in: [Physical]
   has: [Location]
@@ -12805,6 +12856,7 @@ type Router implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -13036,6 +13088,7 @@ type Service implements NINode & Logical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -13414,6 +13467,7 @@ type Site implements NINode & Location {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   parent: Location
   located_in: [Physical]
   has: [Location]
@@ -13666,6 +13720,7 @@ type SiteOwner implements NINode & Relation {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   with_same_name: [Relation]
   uses: [Logical]
   provides: [PhysicalLogical]
@@ -13829,6 +13884,7 @@ type Switch implements NINode & Physical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Provider
   operational_state: Choice
@@ -14180,6 +14236,7 @@ type Unit implements NINode & Logical & PhysicalLogical {
   name: String!
   description: String
   relation_id: Int
+  match_txt: String
   dependents: [Logical]
   provider: Relation
   operational_state: Choice
@@ -14846,19 +14903,19 @@ input UpdateServiceInput {
   name: String
   service_class: String
   service_type: ChoiceScalar!
-  project_end_date: Date
-  decommissioned_date: Date
   operational_state: ChoiceScalar!
   description: String
   responsible_group: ChoiceScalar
   support_group: ChoiceScalar
+  relationship_provider: ChoiceScalar
+  project_end_date: Date
+  decommissioned_date: Date
   ncs_service_name: String
   vpn_type: String
   vlan: String
   vrf_target: String
   route_distinguisher: String
   contract_number: String
-  relationship_provider: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
   id: ID!

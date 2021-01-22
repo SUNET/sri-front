@@ -345,6 +345,8 @@ class Dropdown extends React.PureComponent {
             this.props.onChange(options.find((o) => o.value === e.target.value));
           } else if (this.props.model === 'services_types') {
             this.props.onChange(this.getCurrentOptionObject(options, e.target.value));
+          } else if (this.props.model === 'name_value_structure') {
+            this.props.onChange(options.find(x => x.value === e.target.value));
           } else {
             this.props.onChange(e.target);
           }
@@ -366,6 +368,7 @@ class Dropdown extends React.PureComponent {
           this.renderOptions(options)}
         {this.props.model === 'switch_types' && this.renderOptions(options)}
         {this.props.model === 'services_types' && this.renderServicesTypesOptions(options)}
+        {this.props.model === 'name_value_structure' && this.renderOptions(options)}
         {this.props.model === undefined && this.renderOptions(options)}
       </Field>
     );

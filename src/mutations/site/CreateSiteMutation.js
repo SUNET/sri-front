@@ -42,7 +42,7 @@ function CreateSiteMutation(site, form) {
     input: {
       create_input: {
         name: site.name,
-        country: site.country,
+        country: site.country?.value,
         site_type: site.site_type,
         area: site.area,
         longitude: site.longitude,

@@ -116,7 +116,24 @@ const DropdownSearchTypeHeadPortsQuery = graphql`
     }
   }
 `;
-
+const DropdownSearchCablePortQuery = graphql`
+  query DropdownSearchCablePortQuery($filter: GenericFilter) {
+    search_cable_port(filter: $filter) {
+      edges {
+        node {
+          id
+          name
+          match_txt
+          type: port_type {
+            id
+            name
+            value
+          }
+        }
+      }
+    }
+  }
+`;
 const DropdownSearchAllSwitchsQuery = graphql`
   query DropdownSearchAllSwitchsQuery($filter: SwitchFilter) {
     switchs(filter: $filter) {
@@ -426,6 +443,10 @@ class DropdownSearch extends React.Component {
         queryModel.query = DropdownSearchTypeHeadPortsQuery;
         queryModel.modelName = 'search_port';
         break;
+      case 'search_cable_port':
+        queryModel.query = DropdownSearchCablePortQuery;
+        queryModel.modelName = 'search_cable_port';
+        break;
       case 'Patch':
       case 'Power Cable':
       case 'Dark Fiber':
@@ -510,7 +531,7 @@ class DropdownSearch extends React.Component {
     let variables = {
       filter: {},
     };
-    if (model === 'ports-type-head') {
+    if (model === 'ports-type-head' || model === 'search_cable_port') {
       variables.filter.query = filter;
     } else if (model === 'logicals' || model === 'locations') {
       variables.filter = {
@@ -539,7 +560,7 @@ class DropdownSearch extends React.Component {
           newData = this.NO_MATCHES_RESULT;
         }
         const filteredData = this.postFilterResult(newData);
-        this.setState({ filterValue: filter, allItems: filteredData });
+        this.setState({ filterValue: filter, allItems: this.postFormatter(filteredData, filter) });
       });
     } else {
       this.setState({ filterValue: filter, allItems: [] });
@@ -556,6 +577,28 @@ class DropdownSearch extends React.Component {
       return data;
     }
     return data.filter((d) => !skipElements.some((se) => se === d.id));
+  }
+  postFormatter(data, filterText) {
+    if (!data.every((d) => d.match_txt)) {
+      return data;
+    }
+    const formattedDataWithMatchText = data.map((d) => {
+      const matchTxtLower = d.match_txt.toLowerCase();
+      const indexMatch = matchTxtLower.indexOf(filterText.toLowerCase());
+      const boldSubString = `<span class="font-weight-bold">${d.match_txt.substring(
+        indexMatch,
+        indexMatch + filterText.length,
+      )}</span>`;
+      const resultMatch =
+        d.match_txt.substring(0, indexMatch) + boldSubString + d.match_txt.substring(indexMatch + filterText.length);
+      return {
+        ...d,
+        ...{
+          matchTxt: resultMatch,
+        },
+      };
+    });
+    return formattedDataWithMatchText;
   }
   render() {
     return (
@@ -608,7 +651,10 @@ class DropdownSearch extends React.Component {
                             isSelected: selectedItem === item,
                           })}
                         >
-                          {itemToString(item)}
+                          {this.props.model !== 'search_cable_port' && itemToString(item)}
+                          {this.props.model === 'search_cable_port' && (
+                            <div dangerouslySetInnerHTML={{ __html: item.matchTxt }} />
+                          )}
                         </Item>
                       ))
                     : null}
