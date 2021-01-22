@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import { formatDependenciesToUpdate, formatDependenciesToRemove } from '../MutationsUtils';
+import { generateSubInputs, formatDependenciesToUpdate, formatDependenciesToRemove } from '../MutationsUtils';
 
 import MUTATION_FIELD_PROVIDE_BY_TYPENAME from './ConfigMutationsProvide';
 
@@ -42,6 +42,12 @@ export default function UpdateProviderMutation(entityData, form) {
     ? entityData.provides.filter((loc) => loc.status === UNLINK).map((loc) => ({ relation_id: loc.relation_id }))
     : [];
 
+  const servicesSubInputs = generateSubInputs(
+    entityData.uses && entityData.uses.length > 0 ? entityData.uses : [],
+    'service_type',
+    'operational_state',
+  );
+
   const variables = {
     input: {
       update_input: {
@@ -52,7 +58,12 @@ export default function UpdateProviderMutation(entityData, form) {
       },
       ...providesToAdd,
       ...providesToRemove,
-      unlink_subinputs: [...providesToUnlink],
+      unlink_subinputs: [...providesToUnlink, ...servicesSubInputs.toUnlink],
+      update_uses_service: servicesSubInputs.toUpdate.map((s) => ({
+        ...s,
+        ...{ operational_state: s.operational_state.value },
+      })),
+      deleted_uses_service: servicesSubInputs.toDelete,
     },
   };
   commitMutation(environment, {
