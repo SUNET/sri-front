@@ -82,6 +82,7 @@ const provider = {
     { type: FIELD_TYPES.SINGLE, name: 'url' },
     { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'provides' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'uses' },
   ],
 };
 const siteOwner = {

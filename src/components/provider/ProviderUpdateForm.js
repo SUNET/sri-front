@@ -89,6 +89,32 @@ relation_id
       
     }
 
+    uses {
+      id
+name
+description
+__typename
+relation_id
+      ...on Service {
+       
+    service_type {
+        __typename
+        id
+        name
+        
+        
+    }
+  
+
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+    }
+    }
+
     with_same_name {
       id
 name
