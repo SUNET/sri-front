@@ -18,7 +18,7 @@ const mapStateToProps = (state, props) => {
     return {
       router: router ? [router] : null,
       pic: dep.part_of.name,
-      unit: dep.name,
+      unit: dep?.name,
       ip_address: dep.ip_address,
       vlan: dep.vlan,
       user_address: dataUsedBy ? dataUsedBy.map((user) => user.ip_address).join(', ') : null,
