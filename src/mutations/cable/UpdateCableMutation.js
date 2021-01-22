@@ -5,6 +5,11 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 import { generateSubInputs } from '../MutationsUtils';
+import {
+  getDependenciesToAdd,
+  getDependenciesToUnlink,
+  getDependenciesToDelete,
+} from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation UpdateCableMutation($input: CompositeCableMutationInput!) {
@@ -53,8 +58,10 @@ export default function UpdateCableMutation(cable, form) {
         relationship_provider: cable.provider_id,
       },
       update_subinputs: ports.toUpdate,
-      unlink_subinputs: ports.toUnlink,
       delete_subinputs: ports.toDelete,
+      unlink_subinputs: [...ports.toUnlink, ...getDependenciesToUnlink(cable.dependents)],
+      ...getDependenciesToAdd(cable.dependents),
+      ...getDependenciesToDelete(cable.dependents),
     },
   };
   commitMutation(environment, {

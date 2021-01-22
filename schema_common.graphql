@@ -6833,19 +6833,19 @@ input CreateServiceInput {
   name: String
   service_class: String
   service_type: ChoiceScalar!
-  project_end_date: Date
-  decommissioned_date: Date
   operational_state: ChoiceScalar!
   description: String
   responsible_group: ChoiceScalar
   support_group: ChoiceScalar
+  relationship_provider: ChoiceScalar
+  project_end_date: Date
+  decommissioned_date: Date
   ncs_service_name: String
   vpn_type: String
   vlan: String
   vrf_target: String
   route_distinguisher: String
   contract_number: String
-  relationship_provider: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
   clientMutationId: String
@@ -14903,19 +14903,19 @@ input UpdateServiceInput {
   name: String
   service_class: String
   service_type: ChoiceScalar!
-  project_end_date: Date
-  decommissioned_date: Date
   operational_state: ChoiceScalar!
   description: String
   responsible_group: ChoiceScalar
   support_group: ChoiceScalar
+  relationship_provider: ChoiceScalar
+  project_end_date: Date
+  decommissioned_date: Date
   ncs_service_name: String
   vpn_type: String
   vlan: String
   vrf_target: String
   route_distinguisher: String
   contract_number: String
-  relationship_provider: ChoiceScalar
   relationship_user: Int
   relationship_depends_on: Int
   id: ID!

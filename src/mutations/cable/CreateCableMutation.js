@@ -5,6 +5,10 @@ import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
 import { generateSubInputs } from '../MutationsUtils';
 import i18n from '../../i18n';
+import {
+  getDependenciesToAdd,
+  getDependenciesToDelete,
+} from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation CreateCableMutation($input: CompositeCableMutationInput!) {
@@ -34,7 +38,9 @@ function CreateCableMutation(cable, form) {
         relationship_provider: cable.provider_id,
       },
       update_subinputs: ports.toUpdate,
-      unlink_subinputs: ports.toUnlink,
+      delete_subinputs: ports.toDelete,
+      ...getDependenciesToAdd(cable.dependents),
+      ...getDependenciesToDelete(cable.dependents),
     },
   };
   commitMutation(environment, {

@@ -9,6 +9,7 @@ import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayConnections from './FieldArrayConnections';
 import FieldArrayDependenciesMultiFields from '../common/FieldArrayDependenciesMultiFields';
+import ConnectionPath from '../common/ConnectionPath';
 // const
 import { isBrowser } from 'react-device-detect';
 import { SAVED, NEW } from '../../utils/constants';
@@ -84,6 +85,8 @@ class _CableFormParentClass extends _BasicFormParentClass {
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderConnectionsSection(editMode)}
+        {this.renderIsUsedToggleSection(editMode)}
+        {this.renderConnectionPathToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
     );
@@ -182,8 +185,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
     const { t, entityRemovedId } = this.props;
     const disabledFilters =
       !!this.props.ports &&
-      (!this.props.ports ||
-        this.props.ports.filter((cn) => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
+      (!this.props.ports || this.props.ports.filter((cn) => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
@@ -231,7 +233,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
           <ToggleHeading>
-            <h2>{t('general-forms/routers-used-by')}</h2>
+            <h2>{t('general-forms/used-by')}</h2>
           </ToggleHeading>
           <TogglePanel>
             <FieldArray
@@ -259,6 +261,32 @@ class _CableFormParentClass extends _BasicFormParentClass {
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
             />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderConnectionPathToggleSection(editMode = true) {
+    const componentClassName = 'connection-path-block';
+    const { t, connected_to } = this.props;
+    let connectionPathElements = [];
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/connection-path')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            {connected_to &&
+              connected_to.length &&
+              connected_to.map(({ connection_path }) => {
+                if (connection_path) {
+                  const { originEquipment, cable, destinationEquipment } = connection_path;
+                  connectionPathElements = [originEquipment, cable, destinationEquipment];
+                }
+                return <ConnectionPath key={Math.random()} blocks={connectionPathElements} />;
+              })}
           </TogglePanel>
         </ToggleSection>
       </section>

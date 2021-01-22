@@ -473,6 +473,7 @@ const cable = {
     { name: 'provider', type: FIELD_TYPES.ID_OBJECT },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'connected_to' },
   ],
 };
 
