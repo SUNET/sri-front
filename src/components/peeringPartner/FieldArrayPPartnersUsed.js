@@ -37,7 +37,9 @@ class FieldArrayPPartnersUsed extends _BasicFieldArrayParentClass {
         },
         {
           text: 'general-forms/router',
-          fieldKey: 'router',
+          fieldKey: 'router.name',
+          withLink: true,
+          listElements: true,
         },
       ],
       modal: null, // ['general-forms/parent-element-detail'],
