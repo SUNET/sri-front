@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 class FieldArrayConnections extends _BasicFieldArrayParentClass {
   constructor(props) {
     super(props);
-    this.FIELD_NAME_IN_FORM = 'connections';
+    this.FIELD_NAME_IN_FORM = 'ports';
     this.HEADER_TEXTS = {
       summary: [
         {
