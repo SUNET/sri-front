@@ -12,7 +12,7 @@ const mapStateToProps = (state, props) => {
   const resourcedUsed = uses.map((pGroup) => {
     const unit = pGroup.dependencies.find((dep) => dep.ip_address === pGroup.ip_address);
     const port = unit.part_of;
-    const router = port?.parent && port?.parent.length ? port.parent.find((par) => par.__typename === 'Router') : [];
+    const router = port?.parent && port?.parent && port.parent.__typename === 'Router' ? port.parent : null;
     return {
       ip_address: pGroup.ip_address,
       peeringGroup: pGroup.name,
@@ -21,7 +21,7 @@ const mapStateToProps = (state, props) => {
       interfaceNetwork: unit?.ip_address,
       unit: unit?.name,
       pic: port.name,
-      router: router?.name,
+      router: [router],
     };
   });
   const peeringPartnerWithResourcedUsed = { ...peeringPartner, ...{ resourcedUsed } };
