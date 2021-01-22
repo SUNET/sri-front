@@ -1,16 +1,17 @@
 import React from 'react';
 
+import '../../style/PortConnectionPath.scss';
+
 const ConnectionPath = ({ blocks }) => {
   return (
     <div className="connection-path">
       {blocks.map((el, index, arr) => {
         const isLast = index === arr.length - 1;
-
         return (
           <div key={`connection-path__key-${index}`} className="connection-path__element">
             <div className="connection-path__element__content">
               <div className="connection-path__element__content__link-name">
-                <a
+                {<a
                   href={`${el.path}`}
                   rel="noopener noreferrer"
                   onClick={(e) => {
@@ -18,7 +19,7 @@ const ConnectionPath = ({ blocks }) => {
                   }}
                 >
                   {el.name}
-                </a>
+                </a>}
                 {el.portName && !el.currentElement && (
                   <a
                     href={`${el.portPath}`}

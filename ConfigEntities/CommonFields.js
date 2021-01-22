@@ -115,6 +115,17 @@ const PORT_LIST = [
         ],
       },
       {
+        type: FIELD_TYPES.ARRAY_LIST,
+        name: 'parent',
+        subFields: [...BASIC_INFO],
+        onSentences: [
+          {
+            entity: 'Physical',
+            subFields: [...COMPLETE_LOCATION],
+          },
+        ],
+      },
+      {
         type: FIELD_TYPES.ID_OBJECT,
         name: 'connected_to',
         onSentences: [

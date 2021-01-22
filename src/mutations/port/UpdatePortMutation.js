@@ -62,7 +62,6 @@ export default function UpdatePortMutation(port, form) {
       ...getDependenciesToDelete(port.dependents),
     },
   };
-  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,
