@@ -12,8 +12,8 @@ const mapStateToProps = (state, props) => {
   const resourcedUsed = dependencies.map((dep) => {
     const dataUsedBy = used_by.filter((user) => user.ip_address === dep.ip_address);
     const router =
-      dep.part_of?.__typename === 'Port' && dep.part_of?.parent && dep.part_of?.parent.length > 0
-        ? dep.part_of.parent.find((par) => par.__typename === 'Router')
+      dep.part_of?.__typename === 'Port' && dep.part_of?.parent && dep.part_of?.parent.__typename === 'Router'
+        ? dep.part_of.parent
         : null;
     return {
       router: router ? [router] : null,
