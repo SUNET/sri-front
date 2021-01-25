@@ -6,7 +6,7 @@ set -x
 rm -rf /app/node_modules
 
 # get forms version from backend
-export FORMS_VERSION=$(curl http://sri-nginx/api/forms/)
+export SCHEMA_VERSION=$(curl http://sri-nginx/api/forms/)
 
 # get schema
 npm install get-graphql-schema
