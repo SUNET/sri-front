@@ -22,6 +22,10 @@ const CABLE_SUNET = [
     name: 'tele2_alternative_circuit_id',
     type: FIELD_TYPES.SINGLE,
   },
+  {
+    name: 'tele2_cable_contract',
+    type: FIELD_TYPES.OBJECT,
+  },
 ];
 
 const CABLE_NORDUNI = [];
