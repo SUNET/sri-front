@@ -17,8 +17,7 @@ import { SAVED, NEW } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 // scss
 import '../../style/ModelDetails.scss';
-import '../../style/PortConnectionPath.scss';
-import ConnectionPath from './ConnectionPath';
+import ConnectionPath from '../common/ConnectionPath';
 
 class _PortFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs

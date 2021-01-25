@@ -3,7 +3,7 @@ export const FIELD_TYPES = {
   ARRAY_LIST: 'field_array_list',
   OBJ_TO_LIST: 'field_array_object_to_list',
   OBJECT: 'name_value_object',
-  OBJECT_COUNTRY: 'name_value_object_country',
+  OBJECT_NAME: 'name_value_object_v2',
   ID_OBJECT: 'id_name_object',
 };
 const BASIC_INFO = [
@@ -82,6 +82,7 @@ const provider = {
     { type: FIELD_TYPES.SINGLE, name: 'url' },
     { type: FIELD_TYPES.SINGLE, name: 'with_same_name' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'provides' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'uses' },
   ],
 };
 const siteOwner = {
@@ -384,7 +385,7 @@ const site = {
     { type: FIELD_TYPES.SINGLE, name: 'owner_site_name' },
     { type: FIELD_TYPES.SINGLE, name: 'url' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'site_responsible' },
-    { type: FIELD_TYPES.OBJECT_TEST, name: 'country' },
+    { type: FIELD_TYPES.OBJECT_NAME, name: 'country' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'addresses' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'has' },
     {
@@ -460,6 +461,23 @@ const port = {
   ],
 };
 
+const cable = {
+  formName: {
+    create: 'createCable',
+    update: 'updateCable',
+  },
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
+  fields: [
+    ...BASIC_INFO,
+    { name: 'cable_type', type: FIELD_TYPES.OBJECT_NAME },
+    { name: 'provider', type: FIELD_TYPES.ID_OBJECT },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
+    { type: FIELD_TYPES.OBJ_TO_LIST, name: 'connected_to' },
+  ],
+};
+
 export default {
   customer,
   endUser,
@@ -484,4 +502,5 @@ export default {
   service,
   unit,
   port,
+  cable,
 };
