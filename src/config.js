@@ -3,7 +3,6 @@ const API_HOST_SUFFIX = '__API_HOST__';
 const COOKIE_DOMAIN = '__COOKIE_DOMAIN__';
 const SCHEMA_VERSION = '__SCHEMA_VERSION__';
 const LOGIN_URL = '__LOGIN_URL__';
-const FORMS_VERSION = '__FORMS_VERSION__';
 
 
 export default {
