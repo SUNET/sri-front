@@ -8,9 +8,11 @@ import { change } from 'redux-form';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayConnections from './FieldArrayConnections';
+import FieldArrayDependenciesMultiFields from '../common/FieldArrayDependenciesMultiFields';
+import ConnectionPath from '../common/ConnectionPath';
 // const
 import { isBrowser } from 'react-device-detect';
-import { SAVED } from '../../utils/constants';
+import { SAVED, NEW } from '../../utils/constants';
 import FieldInput from '../FieldInput';
 // scss
 import '../../style/ModelDetails.scss';
@@ -37,12 +39,20 @@ class _CableFormParentClass extends _BasicFormParentClass {
         id: nextProps.entitySavedId,
       };
       const methodName = `get${nextProps.entityInModalName}ById`;
-      if (fieldModalOpened === 'connections') {
+      if (fieldModalOpened === 'ports') {
         this.getConnectionDetails(selectionData, methodName);
       }
       return false;
     }
     return true;
+  }
+
+  getSelectedLogical(id, getMethod) {
+    return getMethod(id).then((entity) => ({
+      ...entity,
+      status: SAVED,
+      origin: NEW,
+    }));
   }
 
   getConnectionDetails(selectionData) {
@@ -53,9 +63,19 @@ class _CableFormParentClass extends _BasicFormParentClass {
     }
   }
 
+  async handleSelectedIsUsed(selection, methodName) {
+    const { dispatch, form } = this.props;
+    if (selection) {
+      const { id } = selection;
+      const newEntity = await this.getSelectedLogical(id, this.props[methodName]);
+      if (newEntity) dispatch(arrayPush(form, 'dependents', newEntity));
+    }
+    return null;
+  }
+
   handleConnectionSearch(newConnection) {
     if (newConnection !== null) {
-      this.props.dispatch(arrayPush(this.props.form, 'connections', { ...newConnection, ...{ status: 'saved' } }));
+      this.props.dispatch(arrayPush(this.props.form, 'ports', { ...newConnection, ...{ status: 'saved' } }));
     }
   }
   // Specific toggle sections RENDERS
@@ -65,6 +85,8 @@ class _CableFormParentClass extends _BasicFormParentClass {
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderConnectionsSection(editMode)}
+        {this.renderIsUsedToggleSection(editMode)}
+        {this.renderConnectionPathToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
     );
@@ -72,19 +94,22 @@ class _CableFormParentClass extends _BasicFormParentClass {
 
   renderGeneralInfoToggleSection(editMode = true) {
     const componentClassName = 'general-info-block';
-    const { t, cableTypeObj, provider_id, providerObj, cable_length } = this.props;
+    const { t, cable_type, provider_id, provider_obj, cable_length } = this.props;
     const generalInfoFirstRow = [
       {
         title: t('general-forms/type'),
-        presentContent: cableTypeObj ? cableTypeObj.name : undefined,
+        presentContent: cable_type?.name,
         editContent: (
           <Dropdown
             t={t}
             className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
             emptyLabel="Select type"
             type="cable_types"
-            name="cable_type"
-            onChange={(e) => {}}
+            model="name_value_structure"
+            name="cable_type_value"
+            onChange={(newValue) => {
+              this.props.dispatch(change(this.props.form, 'cable_type', newValue ? newValue : null));
+            }}
           />
         ),
       },
@@ -107,7 +132,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
     const generalInfoSecondRow = [
       {
         title: t('entity-name/provider'),
-        presentContent: providerObj ? providerObj.name : '',
+        presentContent: provider_obj ? provider_obj.name : '',
         editContent: (
           <Dropdown
             t={t}
@@ -117,13 +142,13 @@ class _CableFormParentClass extends _BasicFormParentClass {
             model="provider"
             placeholder={t('search-filter.search-providers')}
             currentValue={provider_id}
-            objectCurrentValue={providerObj}
+            objectCurrentValue={provider_obj}
             nameDataInsideRequest="all_providers"
             valueField="id"
             labelElementsArray={['name']}
             onChange={(newProvider) => {
               this.props.dispatch(change(this.props.form, 'provider_id', newProvider ? newProvider.id : null));
-              this.props.dispatch(change(this.props.form, 'providerObj', newProvider ? newProvider : null));
+              this.props.dispatch(change(this.props.form, 'provider_obj', newProvider ? newProvider : null));
             }}
           />
         ),
@@ -159,9 +184,8 @@ class _CableFormParentClass extends _BasicFormParentClass {
     const componentClassName = 'connections-block';
     const { t, entityRemovedId } = this.props;
     const disabledFilters =
-      !!this.props.connections &&
-      (!this.props.connections ||
-        this.props.connections.filter((cn) => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
+      !!this.props.ports &&
+      (!this.props.ports || this.props.ports.filter((cn) => cn.status === SAVED).length >= this.MAX_CONNECTIONS);
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
@@ -171,22 +195,22 @@ class _CableFormParentClass extends _BasicFormParentClass {
 
           <TogglePanel>
             <FieldArray
-              name="connections"
+              name="ports"
               component={FieldArrayConnections}
               editable={editMode}
               dispatch={this.props.dispatch}
               errors={this.props.formSyncErrors.connectedTo}
               metaFields={this.props.fields}
               handleDeployCreateForm={(typeEntityToShowForm) => {
-                this.setState({ fieldModalOpened: 'connections' });
+                this.setState({ fieldModalOpened: 'ports' });
                 this.props.showModalCreateForm('Port');
               }}
               showRowEditModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'connections' });
+                this.setState({ fieldModalOpened: 'ports' });
                 this.props.showModalEditForm('Port', entityId);
               }}
               showRowDetailModal={(typeEntityToShowForm, entityId) => {
-                this.setState({ fieldModalOpened: 'connections' });
+                this.setState({ fieldModalOpened: 'ports' });
                 this.props.showModalDetailForm('Port', entityId);
               }}
               handleSearchResult={(newConnection) => {
@@ -196,6 +220,73 @@ class _CableFormParentClass extends _BasicFormParentClass {
               entityRemovedId={entityRemovedId}
               disabledFilters={disabledFilters}
             />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderIsUsedToggleSection(editMode = true) {
+    const componentClassName = 'is-used-block';
+    const { t, entityRemovedId } = this.props;
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/used-by')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="dependents"
+              component={FieldArrayDependenciesMultiFields}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection, typeOfSelection) => {
+                this.handleSelectedIsUsed(selection, `get${typeOfSelection}ById`);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderConnectionPathToggleSection(editMode = true) {
+    const componentClassName = 'connection-path-block';
+    const { t, connected_to } = this.props;
+    let connectionPathElements = [];
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/connection-path')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            {connected_to &&
+              connected_to.length &&
+              connected_to.map(({ connection_path }) => {
+                if (connection_path) {
+                  const { originEquipment, cable, destinationEquipment } = connection_path;
+                  connectionPathElements = [originEquipment, cable, destinationEquipment];
+                }
+                return <ConnectionPath key={Math.random()} blocks={connectionPathElements} />;
+              })}
           </TogglePanel>
         </ToggleSection>
       </section>
