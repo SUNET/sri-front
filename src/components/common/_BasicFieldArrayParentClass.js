@@ -188,7 +188,7 @@ class _BasicFieldArrayParentClass extends React.Component {
   getValueDataAttribute(row, fieldKey) {
     const keys = fieldKey.split('.');
     if (keys.length > 1) {
-      return row[keys[0]][keys[1]];
+      return row[keys[0]] ? row[keys[0]][keys[1]] : null;
     } else {
       return row[keys[0]];
     }

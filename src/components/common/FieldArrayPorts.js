@@ -33,6 +33,39 @@ class FieldArrayPorts extends _BasicFieldArrayParentClass {
       entityMandatory: 'Port',
     };
     this.MODEL_TO_SEARCH = 'ports-type-head';
+    this.INTERNAL_FILTER = {
+      text: {
+        fieldsAffected: ['name', 'description', 'type.name', 'cable.name', 'endEquipment.name'],
+      },
+    };
+  }
+
+  getAllValues(filterObj) {
+    const allValues = this.props.fields.getAll() || [];
+    const getAllFieldsInString = (value) => {
+      const allTextsToBeFiltered = this.INTERNAL_FILTER.text.fieldsAffected.reduce((acc, curr) => {
+        const textResult = this.getValueDataAttribute(value, curr);
+        return textResult ? acc + textResult : acc;
+      }, '');
+      console.log('allTextsToBeFiltered: ', allTextsToBeFiltered);
+      return allTextsToBeFiltered;
+    };
+
+    if (!!filterObj) {
+      const [, textFilterValue] = Object.entries(filterObj)[0];
+
+      return allValues.filter((v) =>
+        getAllFieldsInString(v)
+          .toLowerCase()
+          .includes(textFilterValue.toLowerCase()),
+      );
+    }
+    return allValues;
+  }
+
+  getFilterTable() {
+    const { internalTextFilter } = this.state;
+    return { name: internalTextFilter?.value };
   }
 }
 

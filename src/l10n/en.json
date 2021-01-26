@@ -156,6 +156,7 @@
             "entity-notify-create/services": "Service created successfully",
             "main-entity-name/units": "Units",
             "main-entity-name/unit": "Unit",
+            "main-entity-name/host-users": "Host Users",
             "Comment --DELETE--": "********************************[FIN] ENTITIES NAMES****************************************",
             "Comment --DELETE--": "******************************** GENERAL FORMS ****************************************",
             "general-forms/name": "Name",
