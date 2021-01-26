@@ -81,7 +81,8 @@ class FieldArrayServices extends _BasicFieldArrayParentClass {
           return !!!mainFilterValue || value === mainFilterValue;
         })
         .filter(
-          (v) => v[textFilterKey].includes(textFilterValue) || v[descriptionFilterKey].includes(descriptionFilterValue),
+          (v) => v[textFilterKey].toLowerCase().includes(textFilterValue.toLowerCase()) ||
+            v[descriptionFilterKey].toLowerCase().includes(descriptionFilterValue.toLowerCase()),
         );
     }
     return allValues;
