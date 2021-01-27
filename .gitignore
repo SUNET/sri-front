@@ -81,8 +81,8 @@ src/components/firewall/FirewallUpdateForm.js
 src/queries/host/HostDetailsQuery.js
 src/components/host/HostUpdateForm.js
 
-src/queries/odf/ODFDetailsQuery.js
-src/components/odf/ODFUpdateForm.js
+src/queries/ODF/ODFDetailsQuery.js
+src/components/ODF/ODFUpdateForm.js
 
 src/queries/opticalLink/OpticalLinkDetailsQuery.js
 src/components/opticalLink/OpticalLinkUpdateForm.js
