@@ -4,7 +4,6 @@ const COOKIE_DOMAIN = '__COOKIE_DOMAIN__';
 const SCHEMA_VERSION = '__SCHEMA_VERSION__';
 const LOGIN_URL = '__LOGIN_URL__';
 
-
 export default {
   API_HOST: `${PROTOCOL}//${API_HOST_SUFFIX}`,
   COOKIE_DOMAIN,
@@ -13,4 +12,6 @@ export default {
   ITEMS_PER_PAGE: 10,
   ALL_ITEMS: 100000,
   LIMIT_NEW_CONTACTS: 20,
+  IS_SUNET_VERSION: SCHEMA_VERSION === 'sunet',
+  IS_NORDUNI_VERSION: SCHEMA_VERSION === 'norduni',
 };
