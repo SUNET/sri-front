@@ -1,32 +1,29 @@
-import _ServiceFormParentClass from './_ServiceFormParentClass';
+import _OpticalLinkFormParentClass from './_OpticalLinkFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import UpdateServiceMutation from '../../mutations/service/UpdateServiceMutation';
-import ValidationsServiceForm from './ValidationsServiceForm';
+import UpdateOpticalLinkMutation from '../../mutations/opticalLink/UpdateOpticalLinkMutation';
+import ValidationsOpticalLinkForm from './ValidationsOpticalLinkForm';
 // const
-import { UPDATE_SERVICE_FORM } from '../../utils/constants';
+import { UPDATE_OPTICALLINK_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class ServiceUpdateForm extends _ServiceFormParentClass {
+class OpticalLinkUpdateForm extends _OpticalLinkFormParentClass {
   IS_UPDATED_FORM = true;
-  FORM_ID = UPDATE_SERVICE_FORM;
-  MODEL_NAME = 'service';
+  FORM_ID = UPDATE_OPTICALLINK_FORM;
+  MODEL_NAME = 'opticalLink';
   constructor(props) {
     super(props);
-    if (!props.isFromModal) {
-      this.ROUTE_LIST_DIRECTION = `/network/${props.currentClass.path}`;
-    }
     this.state = {
       editMode: props.isEditModeModal,
     };
   }
   refetch = () => {
     this.props.relay.refetch(
-      { serviceId: this.props.service.id }, // Our refetchQuery needs to know the `serviceID`
+      { opticalLinkId: this.props.opticalLink.id }, // Our refetchQuery needs to know the `opticalLinkID`
       null, // We can use the refetchVariables as renderVariables
       () => {
         this.updateBreadcrumbsData();
@@ -34,26 +31,23 @@ class ServiceUpdateForm extends _ServiceFormParentClass {
       { force: true },
     );
   };
+
   handleSubmit = (entityData) => {
-    const dataToMutation = this.preProcessSubmitData(entityData);
     this.setState({ editMode: false });
-    const someItemWillBeDeleted = false;
+    this.props.hideModalForm();
+    const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    const someItemWillBeDeleted = portsToRemove.length > 0;
     if (someItemWillBeDeleted) {
-      this.entityDataToUpdate = dataToMutation;
+      this.entityDataToUpdate = entityData;
       this.props.showModalConfirm('partialDelete');
     } else {
-      this.updateMutation(dataToMutation, this);
+      this.updateMutation(entityData, this);
     }
   };
 
   updateMutation(entityData, form) {
-    UpdateServiceMutation(entityData, form);
+    UpdateOpticalLinkMutation(entityData, form);
   }
-
-  preProcessSubmitData = (service) => {
-    const { currentClass } = this.props;
-    return { ...service, currentClass };
-  };
 
   render() {
     let { handleSubmit, isFromModal } = this.props;
@@ -71,20 +65,21 @@ class ServiceUpdateForm extends _ServiceFormParentClass {
     );
   }
 }
-ServiceUpdateForm = reduxForm({
-  validate: ValidationsServiceForm.validate,
+
+OpticalLinkUpdateForm = reduxForm({
+  validate: ValidationsOpticalLinkForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
   },
-})(ServiceUpdateForm);
+})(OpticalLinkUpdateForm);
 
-const ServiceUpdateFragment = createRefetchContainer(
-  withTranslation()(ServiceUpdateForm),
+const OpticalLinkUpdateFragment = createRefetchContainer(
+  withTranslation()(OpticalLinkUpdateForm),
   {
-    service: graphql`
-      fragment ServiceUpdateForm_service on Service {
-        ___SERVICE_FIELDS___
+    opticalLink: graphql`
+      fragment OpticalLinkUpdateForm_opticalLink on OpticalLink {
+        ___OPTICAL_LINK_FIELDS___
       }
     `,
   },
@@ -92,12 +87,12 @@ const ServiceUpdateFragment = createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling 'refetch'.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query ServiceUpdateFormRefetchQuery($serviceId: ID!) {
-      getServiceById(id: $serviceId) {
-        ...ServiceUpdateForm_service
+    query OpticalLinkUpdateFormRefetchQuery($opticalLinkId: ID!) {
+      getOpticalLinkById(id: $opticalLinkId) {
+        ...OpticalLinkUpdateForm_opticalLink
       }
     }
   `,
 );
 
-export default ServiceUpdateFragment;
+export default OpticalLinkUpdateFragment;

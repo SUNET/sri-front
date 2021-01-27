@@ -286,15 +286,17 @@ class _BasicFormParentClass extends React.Component {
             formattedEntityData = entity;
           }
           const entityType = formattedEntityData['__typename'];
+          const fieldsInfo = INFO_BY_ENTITIES[entityType] ? INFO_BY_ENTITIES[entityType] : INFO_BY_ENTITIES.default;
           return (
-            entityType && (
+            entityType &&
+            fieldsInfo && (
               <Col key={entity.id}>
                 <ToggleSection>
                   <ToggleHeading>
-                    <h2>{t(`${INFO_BY_ENTITIES[entityType].headerNameI18nText}`)}</h2>
+                    <h2>{t(`${fieldsInfo.headerNameI18nText}`)}</h2>
                   </ToggleHeading>
                   <TogglePanel>
-                    <FieldRelatedEntity fieldsInfo={INFO_BY_ENTITIES[entityType]} data={formattedEntityData} t={t} />
+                    <FieldRelatedEntity fieldsInfo={fieldsInfo} data={formattedEntityData} t={t} />
                   </TogglePanel>
                 </ToggleSection>
                 <hr />

@@ -470,11 +470,13 @@ const cable = {
   dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
-    { name: 'cable_type', type: FIELD_TYPES.OBJECT_NAME },
-    { name: 'provider', type: FIELD_TYPES.ID_OBJECT },
+    { type: FIELD_TYPES.OBJECT_NAME, name: 'cable_type' },
+    { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
     { type: FIELD_TYPES.OBJ_TO_LIST, name: 'connected_to' },
+    { type: FIELD_TYPES.OBJECT_NAME, name: 'tele2_cable_contract' },
+    { type: FIELD_TYPES.SINGLE, name: 'tele2_alternative_circuit_id' },
   ],
 };
 
