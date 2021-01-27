@@ -1,0 +1,22 @@
+const FIELD_TYPES = require('../FieldsTypes');
+const COMMON_FIELDS = require('../CommonFields');
+
+const OPTICAL_NODE_COMMON_FIELDS = [
+  ...COMMON_FIELDS.BASIC_INFO,
+  ...COMMON_FIELDS.PORT_LIST,
+  ...COMMON_FIELDS.RACK_INFO,
+  { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+  { type: FIELD_TYPES.OBJECT, name: 'type' },
+  ...COMMON_FIELDS.COMMENTS_FIELDS,
+  ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
+];
+
+const OPTICAL_NODE_SUNET = [];
+
+const OPTICAL_NODE_NORDUNI = [];
+
+module.exports = {
+  OPTICAL_NODE_COMMON_FIELDS,
+  OPTICAL_NODE_SUNET,
+  OPTICAL_NODE_NORDUNI,
+};

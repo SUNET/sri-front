@@ -71,3 +71,21 @@ src/components/siteOwner/SiteOwnerUpdateForm.js
 
 src/queries/port/PortDetailsQuery.js
 src/components/port/PortUpdateForm.js
+
+src/queries/externalEquipment/ExternalEquipmentDetailsQuery.js
+src/components/externalEquipment/ExternalEquipmentUpdateForm.js
+
+src/queries/firewall/FirewallDetailsQuery.js
+src/components/firewall/FirewallUpdateForm.js
+
+src/queries/host/HostDetailsQuery.js
+src/components/host/HostUpdateForm.js
+
+src/queries/odf/ODFDetailsQuery.js
+src/components/odf/ODFUpdateForm.js
+
+src/queries/opticalLink/OpticalLinkDetailsQuery.js
+src/components/opticalLink/OpticalLinkUpdateForm.js
+
+src/queries/opticalNode/OpticalNodeDetailsQuery.js
+src/components/opticalNode/OpticalNodeUpdateForm.js

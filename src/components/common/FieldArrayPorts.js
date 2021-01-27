@@ -70,7 +70,7 @@ class FieldArrayPorts extends _BasicFieldArrayParentClass {
     this.MODEL_TO_SEARCH = 'ports-type-head';
     this.INTERNAL_FILTER = {
       text: {
-        fieldsAffected: ['name', 'description', 'type.name', 'cable.name', 'endEquipment.name'],
+        fieldsAffected: ['all'],
       },
     };
   }
@@ -78,11 +78,16 @@ class FieldArrayPorts extends _BasicFieldArrayParentClass {
   getAllValues(filterObj) {
     const allValues = this.props.fields.getAll() || [];
     const getAllFieldsInString = (value) => {
-      const allTextsToBeFiltered = this.INTERNAL_FILTER.text.fieldsAffected.reduce((acc, curr) => {
-        const textResult = this.getValueDataAttribute(value, curr);
+      const allTextsToBeFiltered = this.HEADER_TEXTS.all.reduce((acc, curr) => {
+        let textResult;
+        if (curr.listElements) {
+          const listElements = value[curr.fieldKey.split('.')[0]];
+          textResult = listElements && listElements.length ? listElements.reduce((a, c) => a + c.name, '') : '';
+        } else {
+          textResult = this.getValueDataAttribute(value, curr.fieldKey);
+        }
         return textResult ? acc + textResult : acc;
       }, '');
-      console.log('allTextsToBeFiltered: ', allTextsToBeFiltered);
       return allTextsToBeFiltered;
     };
 

@@ -4,10 +4,20 @@ import OpticalLinkUpdateForm from '../../components/opticalLink/OpticalLinkUpdat
 import { getUpdateProps } from '../../utils/mapPropsFormFactory';
 import { getDispatchPropsUpdate } from '../../utils/mapDispatchFormFactory';
 
+import { formatPortData } from '../../components/common/formsSections/PortsToggleSection';
+
 const ENTITY_NAME = 'opticalLink';
 
 const mapStateToProps = (state, props) => {
-  const mappedStateToProps = getUpdateProps(ENTITY_NAME, props, state);
+  const entityData = props[ENTITY_NAME];
+  const { ports = [] } = entityData;
+  const portsCompleteData = formatPortData(ports);
+  const routerWithPortsCompleteData = { ...entityData, ...portsCompleteData };
+  const mappedStateToProps = getUpdateProps(
+    ENTITY_NAME,
+    { ...props, [ENTITY_NAME]: routerWithPortsCompleteData },
+    state,
+  );
   return mappedStateToProps;
 };
 
