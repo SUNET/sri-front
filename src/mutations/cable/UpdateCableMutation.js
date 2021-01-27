@@ -4,6 +4,7 @@ import graphql from 'babel-plugin-relay/macro';
 
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
+import CONFIG from '../../config';
 import { generateSubInputs } from '../MutationsUtils';
 import {
   getDependenciesToAdd,
@@ -64,13 +65,17 @@ export default function UpdateCableMutation(cable, form) {
       ...getDependenciesToDelete(cable.dependents),
     },
   };
+  if (CONFIG.IS_SUNET_VERSION) {
+    variables.input.update_input.tele2_alternative_circuit_id = cable.tele2_alternative_circuit_id;
+    variables.input.update_input.tele2_cable_contract = cable.tele2_cable_contract?.value;
+  }
   commitMutation(environment, {
     mutation,
     variables,
     onCompleted: (response) => {
       if (response.composite_cable.updated.errors) {
         form.props.notify(i18n.t('notify/generic-error'), 'error');
-        return response.update_cable.updated.errors;
+        return response.composite_cable.updated.errors;
       }
       form.props.reset();
       if (form.props.isFromModal) {

@@ -14,8 +14,8 @@ npx get-graphql-schema http://sri-nginx/api/graphql/ > schema_${SCHEMA_VERSION}.
 
 # make bundle
 npm i
-npm run adapt-queries common
-npm run relay-common
+npm run adapt-queries ${SCHEMA_VERSION}
+npm run relay-${SCHEMA_VERSION}
 npm run build
 
 # copy to nginx
