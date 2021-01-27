@@ -64,7 +64,7 @@ class FieldArrayServices extends _BasicFieldArrayParentClass {
         ],
       },
       text: {
-        fieldsAffected: ['name', 'description'],
+        fieldsAffected: ['name'],
       },
     };
   }
@@ -74,17 +74,12 @@ class FieldArrayServices extends _BasicFieldArrayParentClass {
     if (!!filterObj) {
       const [mainFilterKey, mainFilterValue] = Object.entries(filterObj)[0];
       const [textFilterKey, textFilterValue] = Object.entries(filterObj)[1];
-      const [descriptionFilterKey, descriptionFilterValue] = Object.entries(filterObj)[2];
       return allValues
         .filter((v) => {
           const value = v[mainFilterKey]?.value || v[mainFilterKey];
           return !!!mainFilterValue || value === mainFilterValue;
         })
-        .filter(
-          (v) =>
-            v[textFilterKey].toLowerCase().includes(textFilterValue.toLowerCase()) ||
-            v[descriptionFilterKey].toLowerCase().includes(descriptionFilterValue.toLowerCase()),
-        );
+        .filter((v) => v[textFilterKey].includes(textFilterValue));
     }
     return allValues;
   }
@@ -95,15 +90,7 @@ class FieldArrayServices extends _BasicFieldArrayParentClass {
     if (currentInternalFilter?.type_name === 'All') {
       operationalValue = null;
     }
-    return {
-      operational_state: operationalValue,
-      name: internalTextFilter?.value,
-      description: internalTextFilter?.value,
-    };
-  }
-
-  renderAddNewCTA() {
-    return null;
+    return { operational_state: operationalValue, name: internalTextFilter?.value };
   }
 }
 

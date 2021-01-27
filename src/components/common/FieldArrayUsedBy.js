@@ -47,11 +47,6 @@ class FieldArrayUsedBy extends _BasicFieldArrayParentClass {
           name: 'physical_types_preFilter',
         }
       : null;
-    this.INTERNAL_FILTER = {
-      text: {
-        fieldsAffected: ['name', 'description'],
-      },
-    };
     this.MODEL_TO_SEARCH = null;
   }
 

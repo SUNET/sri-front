@@ -8,22 +8,12 @@ const ROOM_HAS = [
     subFields: [...COMMON_FIELDS.BASIC_INFO],
     onSentences: [
       {
-        entity: 'Rack',
+        entity: 'Site',
         subFields: [...COMMON_FIELDS.LOCATED_IN_BLOCK, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
       },
-    ],
-  },
-];
-
-const ROOM_PARENT = [
-  {
-    type: FIELD_TYPES.ARRAY_LIST,
-    name: 'parent',
-    subFields: [...COMMON_FIELDS.BASIC_INFO, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
-    onSentences: [
       {
-        entity: 'Site',
-        subFields: [...COMMON_FIELDS.LOCATED_IN_BLOCK],
+        entity: 'Rack',
+        subFields: [...COMMON_FIELDS.LOCATED_IN_BLOCK, { type: FIELD_TYPES.SINGLE, name: 'relation_id' }],
       },
     ],
   },
@@ -34,7 +24,6 @@ const ROOM_COMMON_FIELDS = [
   { type: FIELD_TYPES.SINGLE, name: 'floor' },
   ...COMMON_FIELDS.LOCATED_IN_BLOCK,
   ...ROOM_HAS,
-  ...ROOM_PARENT,
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
 ];

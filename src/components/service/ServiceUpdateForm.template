@@ -35,25 +35,22 @@ class ServiceUpdateForm extends _ServiceFormParentClass {
     );
   };
   handleSubmit = (entityData) => {
-    const dataToMutation = this.preProcessSubmitData(entityData);
     this.setState({ editMode: false });
+    // this.props.hideModalForm();
+    // const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    // const someItemWillBeDeleted = portsToRemove.length > 0;
     const someItemWillBeDeleted = false;
     if (someItemWillBeDeleted) {
-      this.entityDataToUpdate = dataToMutation;
+      this.entityDataToUpdate = entityData;
       this.props.showModalConfirm('partialDelete');
     } else {
-      this.updateMutation(dataToMutation, this);
+      this.updateMutation(entityData, this);
     }
   };
 
   updateMutation(entityData, form) {
     UpdateServiceMutation(entityData, form);
   }
-
-  preProcessSubmitData = (service) => {
-    const { currentClass } = this.props;
-    return { ...service, currentClass };
-  };
 
   render() {
     let { handleSubmit, isFromModal } = this.props;
