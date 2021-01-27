@@ -1,21 +1,20 @@
-import _ODFFormParentClass from './_ODFFormParentClass';
+import _OpticalNodeFormParentClass from './_OpticalNodeFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import UpdateODFMutation from '../../mutations/ODF/UpdateODFMutation';
-import ValidationsODFForm from '../common/_BasicValidationForm';
+import UpdateOpticalNodeMutation from '../../mutations/opticalNode/UpdateOpticalNodeMutation';
+import ValidationsOpticalNodeForm from './ValidationsOpticalNodeForm';
 // const
-import { UPDATE_ODF_FORM, REMOVE } from '../../utils/constants';
+import { UPDATE_OPTICALNODE_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class ODFUpdateForm extends _ODFFormParentClass {
+class OpticalNodeUpdateForm extends _OpticalNodeFormParentClass {
   IS_UPDATED_FORM = true;
-  FORM_ID = UPDATE_ODF_FORM;
-  MODEL_NAME = 'ODF';
-  ROUTE_LIST_DIRECTION = '/network/odfs';
+  FORM_ID = UPDATE_OPTICALNODE_FORM;
+  MODEL_NAME = 'opticalNode';
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +23,7 @@ class ODFUpdateForm extends _ODFFormParentClass {
   }
   refetch = () => {
     this.props.relay.refetch(
-      { ODFId: this.props.ODF.id }, // Our refetchQuery needs to know the `ODFID`
+      { opticalNodeId: this.props.opticalNode.id }, // Our refetchQuery needs to know the `opticalNodeID`
       null, // We can use the refetchVariables as renderVariables
       () => {
         this.updateBreadcrumbsData();
@@ -47,7 +46,7 @@ class ODFUpdateForm extends _ODFFormParentClass {
   };
 
   updateMutation(entityData, form) {
-    UpdateODFMutation(entityData, form);
+    UpdateOpticalNodeMutation(entityData, form);
   }
 
   render() {
@@ -67,59 +66,20 @@ class ODFUpdateForm extends _ODFFormParentClass {
   }
 }
 
-ODFUpdateForm = reduxForm({
-  validate: ValidationsODFForm.validate,
+OpticalNodeUpdateForm = reduxForm({
+  validate: ValidationsOpticalNodeForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
   },
-})(ODFUpdateForm);
+})(OpticalNodeUpdateForm);
 
-const ODFUpdateFragment = createRefetchContainer(
-  withTranslation()(ODFUpdateForm),
+const OpticalNodeUpdateFragment = createRefetchContainer(
+  withTranslation()(OpticalNodeUpdateForm),
   {
-    ODF: graphql`
-      fragment ODFUpdateForm_ODF on ODF {
-        id
-        name
-        description
-        location {
-          __typename
-          id
-          name
-          parent {
-            __typename
-            id
-            name
-
-            parent {
-              __typename
-              id
-              name
-              id
-              name
-              description
-              __typename
-            }
-          }
-        }
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
-        }
+    opticalNode: graphql`
+      fragment OpticalNodeUpdateForm_opticalNode on OpticalNode {
+        ___OPTICAL_NODE_FIELDS___
       }
     `,
   },
@@ -127,12 +87,12 @@ const ODFUpdateFragment = createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling 'refetch'.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query ODFUpdateFormRefetchQuery($ODFId: ID!) {
-      getODFById(id: $ODFId) {
-        ...ODFUpdateForm_ODF
+    query OpticalNodeUpdateFormRefetchQuery($opticalNodeId: ID!) {
+      getOpticalNodeById(id: $opticalNodeId) {
+        ...OpticalNodeUpdateForm_opticalNode
       }
     }
   `,
 );
 
-export default ODFUpdateFragment;
+export default OpticalNodeUpdateFragment;

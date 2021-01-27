@@ -10,18 +10,53 @@ class FieldArrayPorts extends _BasicFieldArrayParentClass {
     this.HEADER_TEXTS = props.headerConfig || {
       summary: [
         {
-          text: 'general-forms/name',
+          text: 'general-forms/port-title',
           fieldKey: 'name',
         },
       ],
       all: [
         {
-          text: 'general-forms/name',
+          text: 'general-forms/port-title',
           fieldKey: 'name',
+        },
+        {
+          text: 'general-forms/description',
+          fieldKey: 'description',
+          showAllText: true,
         },
         {
           text: 'general-forms/type',
           fieldKey: 'type.name',
+        },
+        {
+          text: 'general-forms/cable-title',
+          fieldKey: 'cable.name',
+          withLink: true,
+          listElements: true,
+        },
+        {
+          text: 'general-forms/end-equipment',
+          fieldKey: 'endEquipment.name',
+          withLink: true,
+          listElements: true,
+        },
+        {
+          text: 'general-forms/end-port',
+          fieldKey: 'endPorts.name',
+          withLink: true,
+          listElements: true,
+        },
+        {
+          text: 'general-forms/units-title',
+          fieldKey: 'unit.name',
+          withLink: true,
+          listElements: true,
+        },
+        {
+          text: 'general-forms/depends-on-port',
+          fieldKey: 'dependsOnPort.name',
+          withLink: true,
+          listElements: true,
         },
       ],
       modal: ['general-forms/parent-element-detail'],
@@ -33,6 +68,44 @@ class FieldArrayPorts extends _BasicFieldArrayParentClass {
       entityMandatory: 'Port',
     };
     this.MODEL_TO_SEARCH = 'ports-type-head';
+    this.INTERNAL_FILTER = {
+      text: {
+        fieldsAffected: ['all'],
+      },
+    };
+  }
+
+  getAllValues(filterObj) {
+    const allValues = this.props.fields.getAll() || [];
+    const getAllFieldsInString = (value) => {
+      const allTextsToBeFiltered = this.HEADER_TEXTS.all.reduce((acc, curr) => {
+        let textResult;
+        if (curr.listElements) {
+          const listElements = value[curr.fieldKey.split('.')[0]];
+          textResult = listElements && listElements.length ? listElements.reduce((a, c) => a + c.name, '') : '';
+        } else {
+          textResult = this.getValueDataAttribute(value, curr.fieldKey);
+        }
+        return textResult ? acc + textResult : acc;
+      }, '');
+      return allTextsToBeFiltered;
+    };
+
+    if (!!filterObj) {
+      const [, textFilterValue] = Object.entries(filterObj)[0];
+
+      return allValues.filter((v) =>
+        getAllFieldsInString(v)
+          .toLowerCase()
+          .includes(textFilterValue.toLowerCase()),
+      );
+    }
+    return allValues;
+  }
+
+  getFilterTable() {
+    const { internalTextFilter } = this.state;
+    return { name: internalTextFilter?.value };
   }
 }
 
