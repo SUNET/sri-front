@@ -81,7 +81,8 @@ class FieldArrayServices extends _BasicFieldArrayParentClass {
           return !!!mainFilterValue || value === mainFilterValue;
         })
         .filter(
-          (v) => v[textFilterKey].toLowerCase().includes(textFilterValue.toLowerCase()) ||
+          (v) =>
+            v[textFilterKey].toLowerCase().includes(textFilterValue.toLowerCase()) ||
             v[descriptionFilterKey].toLowerCase().includes(descriptionFilterValue.toLowerCase()),
         );
     }
@@ -99,6 +100,10 @@ class FieldArrayServices extends _BasicFieldArrayParentClass {
       name: internalTextFilter?.value,
       description: internalTextFilter?.value,
     };
+  }
+
+  renderAddNewCTA() {
+    return null;
   }
 }
 

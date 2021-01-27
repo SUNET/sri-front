@@ -37,6 +37,21 @@ class _BasicFieldArrayParentClass extends React.Component {
       internalTextFilter: { field: 'name', value: '' },
     };
   }
+
+  getAllFieldsInString(value) {
+    const allTextsToBeFiltered = this.HEADER_TEXTS.all.reduce((acc, curr) => {
+      let textResult;
+      if (curr.listElements) {
+        const listElements = value[curr.fieldKey.split('.')[0]];
+        textResult = listElements && listElements.length ? listElements.reduce((a, c) => a + c.name, '') : '';
+      } else {
+        textResult = this.getValueDataAttribute(value, curr.fieldKey);
+      }
+      return textResult ? acc + textResult : acc;
+    }, '');
+    return allTextsToBeFiltered;
+  }
+
   // lifecycle
   shouldComponentUpdate(nextProps, nextState) {
     const newRemovedRow = !!nextProps.entityRemovedId && nextProps.entityRemovedId !== this.props.entityRemovedId;

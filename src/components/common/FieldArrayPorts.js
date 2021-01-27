@@ -77,25 +77,10 @@ class FieldArrayPorts extends _BasicFieldArrayParentClass {
 
   getAllValues(filterObj) {
     const allValues = this.props.fields.getAll() || [];
-    const getAllFieldsInString = (value) => {
-      const allTextsToBeFiltered = this.HEADER_TEXTS.all.reduce((acc, curr) => {
-        let textResult;
-        if (curr.listElements) {
-          const listElements = value[curr.fieldKey.split('.')[0]];
-          textResult = listElements && listElements.length ? listElements.reduce((a, c) => a + c.name, '') : '';
-        } else {
-          textResult = this.getValueDataAttribute(value, curr.fieldKey);
-        }
-        return textResult ? acc + textResult : acc;
-      }, '');
-      return allTextsToBeFiltered;
-    };
-
     if (!!filterObj) {
       const [, textFilterValue] = Object.entries(filterObj)[0];
-
       return allValues.filter((v) =>
-        getAllFieldsInString(v)
+        this.getAllFieldsInString(v)
           .toLowerCase()
           .includes(textFilterValue.toLowerCase()),
       );
