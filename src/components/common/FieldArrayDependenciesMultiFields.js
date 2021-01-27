@@ -21,6 +21,7 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
       },
     };
     this.FIELD_NAME_IN_FORM = props.fieldNameInForm || 'dependents';
+    this.ENTITIES_WITHOUT_NEW_MODAL = ['Service'];
     this.HEADER_TEXTS = props.headerConfig || {
       summary: [
         {
