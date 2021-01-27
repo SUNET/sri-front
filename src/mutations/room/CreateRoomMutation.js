@@ -4,7 +4,7 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { generateSubInputs, generateRoomParentSubInputs } from '../MutationsUtils';
+import { generateSubInputs } from '../MutationsUtils';
 import { generateLocatedIn, generateLocatedInToRemove } from '../locationsMutationsCommon/GenerateLocatedInMutation';
 
 const mutation = graphql`
