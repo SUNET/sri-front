@@ -1,21 +1,20 @@
-import _FirewallFormParentClass from './_FirewallFormParentClass';
+import _OpticalLinkFormParentClass from './_OpticalLinkFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import UpdateFirewallMutation from '../../mutations/firewall/UpdateFirewallMutation';
-import ValidationsFirewallForm from './ValidationsFirewallForm';
+import UpdateOpticalLinkMutation from '../../mutations/opticalLink/UpdateOpticalLinkMutation';
+import ValidationsOpticalLinkForm from './ValidationsOpticalLinkForm';
 // const
-import { UPDATE_FIREWALL_FORM, REMOVE } from '../../utils/constants';
+import { UPDATE_OPTICALLINK_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class FirewallUpdateForm extends _FirewallFormParentClass {
+class OpticalLinkUpdateForm extends _OpticalLinkFormParentClass {
   IS_UPDATED_FORM = true;
-  FORM_ID = UPDATE_FIREWALL_FORM;
-  MODEL_NAME = 'firewall';
-  ROUTE_LIST_DIRECTION = '/network/firewalls';
+  FORM_ID = UPDATE_OPTICALLINK_FORM;
+  MODEL_NAME = 'opticalLink';
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +23,7 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   }
   refetch = () => {
     this.props.relay.refetch(
-      { firewallId: this.props.firewall.id }, // Our refetchQuery needs to know the `firewallID`
+      { opticalLinkId: this.props.opticalLink.id }, // Our refetchQuery needs to know the `opticalLinkID`
       null, // We can use the refetchVariables as renderVariables
       () => {
         this.updateBreadcrumbsData();
@@ -35,8 +34,9 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
 
   handleSubmit = (entityData) => {
     this.setState({ editMode: false });
-    const ownerToRemove = entityData.owner ? entityData.owner.filter((ow) => ow.status === REMOVE) : [];
-    const someItemWillBeDeleted = ownerToRemove.length > 0;
+    this.props.hideModalForm();
+    const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
+    const someItemWillBeDeleted = portsToRemove.length > 0;
     if (someItemWillBeDeleted) {
       this.entityDataToUpdate = entityData;
       this.props.showModalConfirm('partialDelete');
@@ -46,7 +46,7 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   };
 
   updateMutation(entityData, form) {
-    UpdateFirewallMutation(entityData, form);
+    UpdateOpticalLinkMutation(entityData, form);
   }
 
   render() {
@@ -66,20 +66,39 @@ class FirewallUpdateForm extends _FirewallFormParentClass {
   }
 }
 
-FirewallUpdateForm = reduxForm({
-  validate: ValidationsFirewallForm.validate,
+OpticalLinkUpdateForm = reduxForm({
+  validate: ValidationsOpticalLinkForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
   },
-})(FirewallUpdateForm);
+})(OpticalLinkUpdateForm);
 
-const FirewallUpdateFragment = createRefetchContainer(
-  withTranslation()(FirewallUpdateForm),
+const OpticalLinkUpdateFragment = createRefetchContainer(
+  withTranslation()(OpticalLinkUpdateForm),
   {
-    firewall: graphql`
-      fragment FirewallUpdateForm_firewall on Firewall {
-        ___FIREWALL_FIELDS___
+    opticalLink: graphql`
+      fragment OpticalLinkUpdateForm_opticalLink on OpticalLink {
+        id
+        name
+        description
+        comments {
+          id
+          user {
+            first_name
+            last_name
+          }
+          comment
+          submit_date
+        }
+        created
+        creator {
+          email
+        }
+        modified
+        modifier {
+          email
+        }
       }
     `,
   },
@@ -87,12 +106,12 @@ const FirewallUpdateFragment = createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling 'refetch'.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query FirewallUpdateFormRefetchQuery($firewallId: ID!) {
-      getFirewallById(id: $firewallId) {
-        ...FirewallUpdateForm_firewall
+    query OpticalLinkUpdateFormRefetchQuery($opticalLinkId: ID!) {
+      getOpticalLinkById(id: $opticalLinkId) {
+        ...OpticalLinkUpdateForm_opticalLink
       }
     }
   `,
 );
 
-export default FirewallUpdateFragment;
+export default OpticalLinkUpdateFragment;

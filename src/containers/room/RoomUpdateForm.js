@@ -10,7 +10,7 @@ const mapStateToProps = (state, props) => {
   const { room } = props;
   const roomWithRoomsAndRacksSeparates = {
     ...room,
-    sites: room.parent?.__typename === 'Site' ? [room.parent] : [],
+    sites: room.has?.filter((el) => el.__typename === 'Site'),
     racks: room.has?.filter((el) => el.__typename === 'Rack'),
   };
   const mappedStateToProps = getUpdateProps(ENTITY_NAME, { ...props, room: roomWithRoomsAndRacksSeparates }, state);

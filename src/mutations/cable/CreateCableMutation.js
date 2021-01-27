@@ -1,12 +1,14 @@
 import { commitMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 import environment from '../../createRelayEnvironment';
-import CONFIG from '../../config';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
 import { generateSubInputs } from '../MutationsUtils';
 import i18n from '../../i18n';
-import { getDependenciesToAdd, getDependenciesToDelete } from '../GeneralConfigMutationsFields';
+import {
+  getDependenciesToAdd,
+  getDependenciesToDelete,
+} from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation CreateCableMutation($input: CompositeCableMutationInput!) {
@@ -41,12 +43,6 @@ function CreateCableMutation(cable, form) {
       ...getDependenciesToDelete(cable.dependents),
     },
   };
-
-  if (CONFIG.IS_SUNET_VERSION) {
-    variables.input.update_input.tele2_alternative_circuit_id = cable.tele2_alternative_circuit_id;
-    variables.input.update_input.tele2_cable_contract = cable.tele2_cable_contract?.value;
-  }
-
   commitMutation(environment, {
     mutation,
     variables,

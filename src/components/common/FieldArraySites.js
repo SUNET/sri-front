@@ -38,14 +38,9 @@ class FieldArraySites extends _BasicFieldArrayParentClass {
   }
   getAllValues(filterObj) {
     const allValues = this.props.fields.getAll() || [];
-
     if (!!filterObj) {
-      const [, textFilterValue] = Object.entries(filterObj)[0];
-      return allValues.filter((v) =>
-        this.getAllFieldsInString(v)
-          .toLowerCase()
-          .includes(textFilterValue.toLowerCase()),
-      );
+      const [textFilterKey, textFilterValue] = Object.entries(filterObj)[0];
+      return allValues.filter((v) => v[textFilterKey].includes(textFilterValue));
     }
     return allValues;
   }

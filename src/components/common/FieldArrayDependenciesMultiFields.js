@@ -21,7 +21,6 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
       },
     };
     this.FIELD_NAME_IN_FORM = props.fieldNameInForm || 'dependents';
-    this.ENTITIES_WITHOUT_NEW_MODAL = ['Service'];
     this.HEADER_TEXTS = props.headerConfig || {
       summary: [
         {
@@ -173,7 +172,7 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
     if (currentPreFilterModel === 'All') filterByType = null;
     if (operationalValue === 'All') operationalValue = null;
 
-    return { __typename: filterByType, operational_state: operationalValue, name: internalTextFilter?.value, description: internalTextFilter?.value };
+    return { __typename: filterByType, operational_state: operationalValue, name: internalTextFilter?.value };
   }
 
   getAllValues(filterObj) {
@@ -182,7 +181,6 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
       const [mainFilterKey, mainFilterValue] = Object.entries(filterObj)[0];
       const [opStateFilter, opStateValue] = Object.entries(filterObj)[1];
       const [textFilterKey, textFilterValue] = Object.entries(filterObj)[2];
-      const [descFilterKey, descFilterValue] = Object.entries(filterObj)[3];
 
       const valuesFilteredByType = allValues.filter((v) => {
         const value = v[mainFilterKey];
@@ -193,10 +191,7 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
         return !!!opStateValue || value === opStateValue;
       });
       const valuesFilteredByText = valuesFilteredByOpState.filter((v) => {
-        return (
-          v[textFilterKey].toLowerCase().includes(textFilterValue.toLowerCase()) ||
-          v[descFilterKey].toLowerCase().includes(descFilterValue.toLowerCase())
-        );
+        return v[textFilterKey].toLowerCase().includes(textFilterValue.toLowerCase());
       });
       return valuesFilteredByText;
     }

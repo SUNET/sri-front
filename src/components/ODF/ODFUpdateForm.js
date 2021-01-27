@@ -1,20 +1,21 @@
-import _OpticalNodeFormParentClass from './_OpticalNodeFormParentClass';
+import _ODFFormParentClass from './_ODFFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import UpdateOpticalNodeMutation from '../../mutations/opticalNode/UpdateOpticalNodeMutation';
-import ValidationsOpticalNodeForm from './ValidationsOpticalNodeForm';
+import UpdateODFMutation from '../../mutations/ODF/UpdateODFMutation';
+import ValidationsODFForm from '../common/_BasicValidationForm';
 // const
-import { UPDATE_OPTICALNODE_FORM, REMOVE } from '../../utils/constants';
+import { UPDATE_ODF_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class OpticalNodeUpdateForm extends _OpticalNodeFormParentClass {
+class ODFUpdateForm extends _ODFFormParentClass {
   IS_UPDATED_FORM = true;
-  FORM_ID = UPDATE_OPTICALNODE_FORM;
-  MODEL_NAME = 'opticalNode';
+  FORM_ID = UPDATE_ODF_FORM;
+  MODEL_NAME = 'ODF';
+  ROUTE_LIST_DIRECTION = '/network/odfs';
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +24,7 @@ class OpticalNodeUpdateForm extends _OpticalNodeFormParentClass {
   }
   refetch = () => {
     this.props.relay.refetch(
-      { opticalNodeId: this.props.opticalNode.id }, // Our refetchQuery needs to know the `opticalNodeID`
+      { ODFId: this.props.ODF.id }, // Our refetchQuery needs to know the `ODFID`
       null, // We can use the refetchVariables as renderVariables
       () => {
         this.updateBreadcrumbsData();
@@ -46,7 +47,7 @@ class OpticalNodeUpdateForm extends _OpticalNodeFormParentClass {
   };
 
   updateMutation(entityData, form) {
-    UpdateOpticalNodeMutation(entityData, form);
+    UpdateODFMutation(entityData, form);
   }
 
   render() {
@@ -66,20 +67,59 @@ class OpticalNodeUpdateForm extends _OpticalNodeFormParentClass {
   }
 }
 
-OpticalNodeUpdateForm = reduxForm({
-  validate: ValidationsOpticalNodeForm.validate,
+ODFUpdateForm = reduxForm({
+  validate: ValidationsODFForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
   },
-})(OpticalNodeUpdateForm);
+})(ODFUpdateForm);
 
-const OpticalNodeUpdateFragment = createRefetchContainer(
-  withTranslation()(OpticalNodeUpdateForm),
+const ODFUpdateFragment = createRefetchContainer(
+  withTranslation()(ODFUpdateForm),
   {
-    opticalNode: graphql`
-      fragment OpticalNodeUpdateForm_opticalNode on OpticalNode {
-        ___OPTICAL_NODE_FIELDS___
+    ODF: graphql`
+      fragment ODFUpdateForm_ODF on ODF {
+        id
+        name
+        description
+        location {
+          __typename
+          id
+          name
+          parent {
+            __typename
+            id
+            name
+
+            parent {
+              __typename
+              id
+              name
+              id
+              name
+              description
+              __typename
+            }
+          }
+        }
+        comments {
+          id
+          user {
+            first_name
+            last_name
+          }
+          comment
+          submit_date
+        }
+        created
+        creator {
+          email
+        }
+        modified
+        modifier {
+          email
+        }
       }
     `,
   },
@@ -87,12 +127,12 @@ const OpticalNodeUpdateFragment = createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling 'refetch'.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query OpticalNodeUpdateFormRefetchQuery($opticalNodeId: ID!) {
-      getOpticalNodeById(id: $opticalNodeId) {
-        ...OpticalNodeUpdateForm_opticalNode
+    query ODFUpdateFormRefetchQuery($ODFId: ID!) {
+      getODFById(id: $ODFId) {
+        ...ODFUpdateForm_ODF
       }
     }
   `,
 );
 
-export default OpticalNodeUpdateFragment;
+export default ODFUpdateFragment;

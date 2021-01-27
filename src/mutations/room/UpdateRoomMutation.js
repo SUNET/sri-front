@@ -4,7 +4,7 @@ import graphql from 'babel-plugin-relay/macro';
 
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
-import { generateSubInputs, generateRoomParentSubInputs } from '../MutationsUtils';
+import { generateSubInputs } from '../MutationsUtils';
 import {
   generateLocatedIn,
   generateLocatedInToUnlink,
@@ -31,22 +31,20 @@ export default function UpdateRoomMutation(room, form) {
   const physicalToAdd = generateLocatedIn(room);
   const physicalToUnlink = generateLocatedInToUnlink(room);
   const physicalToRemove = generateLocatedInToRemove(room);
-  const sitesToMutation = generateRoomParentSubInputs(room.sites, null, null);
+  const sitesToMutation = generateSubInputs(room.sites, null, null);
   const racksToMutation = generateSubInputs(room.racks, null, null);
   const variables = {
     input: {
       update_input: {
         id: room.id,
         name: room.name,
-        floor: room.floor,
+        floor: room.floor
       },
       unlink_subinputs: [...physicalToUnlink, ...sitesToMutation.toUnlink, ...racksToMutation.toUnlink],
       ...physicalToAdd,
       ...physicalToRemove,
-      update_parent_site:
-        sitesToMutation?.toUpdate && sitesToMutation?.toUpdate.length > 0 ? sitesToMutation.toUpdate[0] : null,
-      deleted_parent_site:
-        sitesToMutation?.toDelete && sitesToMutation?.toDelete.length > 0 ? sitesToMutation.toDelete[0] : null,
+      update_has_site: sitesToMutation.toUpdate,
+      deleted_has_site: sitesToMutation.toDelete,
       update_has_rack: racksToMutation.toUpdate,
       deleted_has_rack: racksToMutation.toDelete,
     },

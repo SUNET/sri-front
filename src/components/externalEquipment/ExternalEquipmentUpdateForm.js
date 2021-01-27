@@ -79,7 +79,46 @@ const ExternalEquipmentUpdateFragment = createRefetchContainer(
   {
     externalEquipment: graphql`
       fragment ExternalEquipmentUpdateForm_externalEquipment on ExternalEquipment {
-        ___EXTERNAL_EQUIPMENT_FIELDS___
+        id
+        name
+        description
+        location {
+          __typename
+          id
+          name
+          parent {
+            __typename
+            id
+            name
+
+            parent {
+              __typename
+              id
+              name
+              id
+              name
+              description
+              __typename
+            }
+          }
+        }
+        comments {
+          id
+          user {
+            first_name
+            last_name
+          }
+          comment
+          submit_date
+        }
+        created
+        creator {
+          email
+        }
+        modified
+        modifier {
+          email
+        }
       }
     `,
   },

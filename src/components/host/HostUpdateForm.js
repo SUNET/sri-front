@@ -1,30 +1,31 @@
-import _ODFFormParentClass from './_ODFFormParentClass';
+import _HostFormParentClass from './_HostFormParentClass';
 // Common imports
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { reduxForm } from 'redux-form';
 import { createRefetchContainer } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-import UpdateODFMutation from '../../mutations/ODF/UpdateODFMutation';
-import ValidationsODFForm from '../common/_BasicValidationForm';
+import UpdateMutation from '../../mutations/host/UpdateHostMutation';
+import ValidationsHostForm from './ValidationsHostForm';
 // const
-import { UPDATE_ODF_FORM, REMOVE } from '../../utils/constants';
+import { UPDATE_HOST_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
-class ODFUpdateForm extends _ODFFormParentClass {
+class HostUpdateForm extends _HostFormParentClass {
   IS_UPDATED_FORM = true;
-  FORM_ID = UPDATE_ODF_FORM;
-  MODEL_NAME = 'ODF';
-  ROUTE_LIST_DIRECTION = '/network/odfs';
+  FORM_ID = UPDATE_HOST_FORM;
+  MODEL_NAME = 'host';
+  ROUTE_LIST_DIRECTION = '/network/hosts';
   constructor(props) {
     super(props);
     this.state = {
       editMode: props.isEditModeModal,
+      visibleConvertHostModal: false,
     };
   }
   refetch = () => {
     this.props.relay.refetch(
-      { ODFId: this.props.ODF.id }, // Our refetchQuery needs to know the `ODFID`
+      { hostId: this.props.host.id }, // Our refetchQuery needs to know the `hostID`
       null, // We can use the refetchVariables as renderVariables
       () => {
         this.updateBreadcrumbsData();
@@ -35,9 +36,8 @@ class ODFUpdateForm extends _ODFFormParentClass {
 
   handleSubmit = (entityData) => {
     this.setState({ editMode: false });
-    this.props.hideModalForm();
-    const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
-    const someItemWillBeDeleted = portsToRemove.length > 0;
+    const ownerToRemove = entityData.owner ? entityData.owner.filter((ow) => ow.status === REMOVE) : [];
+    const someItemWillBeDeleted = ownerToRemove.length > 0;
     if (someItemWillBeDeleted) {
       this.entityDataToUpdate = entityData;
       this.props.showModalConfirm('partialDelete');
@@ -47,7 +47,7 @@ class ODFUpdateForm extends _ODFFormParentClass {
   };
 
   updateMutation(entityData, form) {
-    UpdateODFMutation(entityData, form);
+    UpdateMutation(entityData, form);
   }
 
   render() {
@@ -62,25 +62,65 @@ class ODFUpdateForm extends _ODFFormParentClass {
         {this.renderHeader(editMode, showBackButton)}
         {this.renderSections(editMode)}
         {!isFromModal && this.renderSaveCancelButtons()}
+        {this.state.visibleConvertHostModal && this.renderConvertHostModal()}
       </form>
     );
   }
 }
 
-ODFUpdateForm = reduxForm({
-  validate: ValidationsODFForm.validate,
+HostUpdateForm = reduxForm({
+  validate: ValidationsHostForm.validate,
   enableReinitialize: true,
   onSubmitSuccess: (result, dispatch, props) => {
     document.documentElement.scrollTop = 0;
   },
-})(ODFUpdateForm);
+})(HostUpdateForm);
 
-const ODFUpdateFragment = createRefetchContainer(
-  withTranslation()(ODFUpdateForm),
+const HostUpdateFragment = createRefetchContainer(
+  withTranslation()(HostUpdateForm),
   {
-    ODF: graphql`
-      fragment ODFUpdateForm_ODF on ODF {
-        ___ODF_FIELDS___
+    host: graphql`
+      fragment HostUpdateForm_host on Host {
+        id
+        name
+        description
+        location {
+          __typename
+          id
+          name
+          parent {
+            __typename
+            id
+            name
+
+            parent {
+              __typename
+              id
+              name
+              id
+              name
+              description
+              __typename
+            }
+          }
+        }
+        comments {
+          id
+          user {
+            first_name
+            last_name
+          }
+          comment
+          submit_date
+        }
+        created
+        creator {
+          email
+        }
+        modified
+        modifier {
+          email
+        }
       }
     `,
   },
@@ -88,12 +128,12 @@ const ODFUpdateFragment = createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling 'refetch'.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query ODFUpdateFormRefetchQuery($ODFId: ID!) {
-      getODFById(id: $ODFId) {
-        ...ODFUpdateForm_ODF
+    query HostUpdateFormRefetchQuery($hostId: ID!) {
+      getHostById(id: $hostId) {
+        ...HostUpdateForm_host
       }
     }
   `,
 );
 
-export default ODFUpdateFragment;
+export default HostUpdateFragment;
