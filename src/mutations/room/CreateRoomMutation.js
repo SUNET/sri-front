@@ -4,7 +4,7 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
-import { generateSubInputs } from '../MutationsUtils';
+import { generateSubInputs, generateRoomParentSubInputs } from '../MutationsUtils';
 import {
   generateLocatedIn,
   generateLocatedInToRemove,
@@ -30,7 +30,7 @@ function CreateRoomMutation(room, form) {
   const physicalToAdd = generateLocatedIn(room);
   const physicalToRemove = generateLocatedInToRemove(room);
   const sitesToMutation = generateSubInputs(room.sites, null, null);
-  const racksToMutation = generateSubInputs(room.racks, null, null);
+  const racksToMutation = generateRoomParentSubInputs(room.racks, null, null);
   const variables = {
     input: {
       create_input: {
@@ -39,8 +39,8 @@ function CreateRoomMutation(room, form) {
       },
       ...physicalToAdd,
       ...physicalToRemove,
-      update_has_site: sitesToMutation.toUpdate,
-      deleted_has_site: sitesToMutation.toDelete,
+      update_parent_site: sitesToMutation.toUpdate,
+      deleted_parent_site: sitesToMutation.toDelete,
       update_has_rack: racksToMutation.toUpdate,
       deleted_has_rack: racksToMutation.toDelete,
     },

@@ -50,6 +50,12 @@ const INFO_BY_ENTITIES = {
       { i18nText: 'general-forms/internal-link', internalName: 'internal-url', type: 'internal-url' },
     ],
   },
+  HostUser: {
+    partialPath: 'network/host-users',
+    headerNameI18nText: 'main-entity-name/host-users',
+    fields: [],
+  },
+  default: null,
 };
 
 export default INFO_BY_ENTITIES;
