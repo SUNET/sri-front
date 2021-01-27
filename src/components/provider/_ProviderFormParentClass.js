@@ -5,7 +5,10 @@ import { arrayPush, FieldArray } from 'redux-form';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
 import FieldArrayProvides from '../common/FieldArrayProvides';
 import { SAVED, NEW } from '../../utils/constants';
-
+import {
+  renderServiceListToggleSection,
+  handleSelectedService,
+} from '../common/formsSections/ServiceListToggleSection.js';
 // const
 
 function getSelectedProvide(selection, getMethod) {
@@ -56,6 +59,13 @@ class _ProviderFormParentClass extends _BasicFormParentClass {
           form: this.props.form,
           dispatch: this.props.dispatch,
         });
+      } else if (fieldModalOpened === 'uses') {
+        handleSelectedService({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
       }
       return false;
     }
@@ -63,12 +73,14 @@ class _ProviderFormParentClass extends _BasicFormParentClass {
   }
 
   renderSections(editMode) {
-    const { with_same_name } = this.props;
+    const { with_same_name, uses } = this.props;
+    console.log('uses: ', uses);
     return (
       <>
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {with_same_name && this.renderRelatedEntities(with_same_name)}
+        {renderServiceListToggleSection(editMode, this)}
         {this.renderProvidesToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
