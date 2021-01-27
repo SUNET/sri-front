@@ -36,6 +36,7 @@ function CreateRoomMutation(room, form) {
       create_input: {
         name: room.name,
         description: room.description,
+        floor: room.floor,
       },
       ...physicalToAdd,
       ...physicalToRemove,
