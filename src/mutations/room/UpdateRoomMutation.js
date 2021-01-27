@@ -38,13 +38,15 @@ export default function UpdateRoomMutation(room, form) {
       update_input: {
         id: room.id,
         name: room.name,
-        floor: room.floor
+        floor: room.floor,
       },
       unlink_subinputs: [...physicalToUnlink, ...sitesToMutation.toUnlink, ...racksToMutation.toUnlink],
       ...physicalToAdd,
       ...physicalToRemove,
-      update_parent_site: sitesToMutation.toUpdate,
-      deleted_parent_site: sitesToMutation.toDelete,
+      update_parent_site:
+        sitesToMutation?.toUpdate && sitesToMutation?.toUpdate.length > 0 ? sitesToMutation.toUpdate[0] : null,
+      deleted_parent_site:
+        sitesToMutation?.toDelete && sitesToMutation?.toDelete.length > 0 ? sitesToMutation.toDelete[0] : null,
       update_has_rack: racksToMutation.toUpdate,
       deleted_has_rack: racksToMutation.toDelete,
     },
