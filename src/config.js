@@ -4,6 +4,7 @@ const COOKIE_DOMAIN = '__COOKIE_DOMAIN__';
 const SCHEMA_VERSION = '__SCHEMA_VERSION__';
 const LOGIN_URL = '__LOGIN_URL__';
 
+
 export default {
   API_HOST: `${PROTOCOL}//${API_HOST_SUFFIX}`,
   COOKIE_DOMAIN,
