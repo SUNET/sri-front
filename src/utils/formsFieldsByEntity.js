@@ -300,8 +300,8 @@ const opticalPath = {
     create: 'createOpticalPath',
     update: 'updateOpticalPath',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
@@ -309,6 +309,7 @@ const opticalPath = {
     { type: FIELD_TYPES.OBJECT, name: 'capacity' },
     { type: FIELD_TYPES.SINGLE, name: 'wavelength' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
   ],
 };
 
