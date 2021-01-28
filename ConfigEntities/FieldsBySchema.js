@@ -13,6 +13,12 @@ const ENDUSER_FIELDS = require('./entities/EndUserFields');
 const PROVIDER_FIELDS = require('./entities/ProviderFields');
 const SITEOWNER_FIELDS = require('./entities/SiteOwnerFields');
 const PORT_FIELDS = require('./entities/PortFields');
+const EXTERNAL_EQUIPMENT_FIELDS = require('./entities/ExternalEquipmentFields');
+const FIREWALL_FIELDS = require('./entities/FirewallFields');
+const HOST_FIELDS = require('./entities/HostFields');
+const ODF_FIELDS = require('./entities/ODFFields');
+const OPTICAL_LINK_FIELDS = require('./entities/OpticalLinkFields');
+const OPTICAL_NODE_FIELDS = require('./entities/OpticalNodeFields');
 
 module.exports = [
   {
@@ -255,6 +261,111 @@ module.exports = [
       },
       nordunet: {
         fields: [...PORT_FIELDS.PORT_COMMON_FIELDS, ...PORT_FIELDS.PORT_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'ExternalEquipment',
+    files: [
+      'src/queries/externalEquipment/ExternalEquipmentDetailsQuery',
+      'src/components/externalEquipment/ExternalEquipmentUpdateForm',
+    ],
+    reference: '___EXTERNAL_EQUIPMENT_FIELDS___',
+    queries: {
+      common: {
+        fields: [...EXTERNAL_EQUIPMENT_FIELDS.EXTERNAL_EQUIPMENT_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [
+          ...EXTERNAL_EQUIPMENT_FIELDS.EXTERNAL_EQUIPMENT_COMMON_FIELDS,
+          ...EXTERNAL_EQUIPMENT_FIELDS.EXTERNAL_EQUIPMENT_SUNET,
+        ],
+      },
+      nordunet: {
+        fields: [
+          ...EXTERNAL_EQUIPMENT_FIELDS.EXTERNAL_EQUIPMENT_COMMON_FIELDS,
+          ...EXTERNAL_EQUIPMENT_FIELDS.EXTERNAL_EQUIPMENT_NORDUNI,
+        ],
+      },
+    },
+  },
+  {
+    entity: 'Firewall',
+    files: ['src/queries/firewall/FirewallDetailsQuery', 'src/components/firewall/FirewallUpdateForm'],
+    reference: '___FIREWALL_FIELDS___',
+    queries: {
+      common: {
+        fields: [...FIREWALL_FIELDS.FIREWALL_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...FIREWALL_FIELDS.FIREWALL_COMMON_FIELDS, ...FIREWALL_FIELDS.FIREWALL_SUNET],
+      },
+      nordunet: {
+        fields: [...FIREWALL_FIELDS.FIREWALL_COMMON_FIELDS, ...FIREWALL_FIELDS.FIREWALL_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'Host',
+    files: ['src/queries/host/HostDetailsQuery', 'src/components/host/HostUpdateForm'],
+    reference: '___HOST_FIELDS___',
+    queries: {
+      common: {
+        fields: [...HOST_FIELDS.HOST_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...HOST_FIELDS.HOST_COMMON_FIELDS, ...HOST_FIELDS.HOST_SUNET],
+      },
+      nordunet: {
+        fields: [...HOST_FIELDS.HOST_COMMON_FIELDS, ...HOST_FIELDS.HOST_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'ODF',
+    files: ['src/queries/ODF/ODFDetailsQuery', 'src/components/ODF/ODFUpdateForm'],
+    reference: '___ODF_FIELDS___',
+    queries: {
+      common: {
+        fields: [...ODF_FIELDS.ODF_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...ODF_FIELDS.ODF_COMMON_FIELDS, ...ODF_FIELDS.ODF_SUNET],
+      },
+      nordunet: {
+        fields: [...ODF_FIELDS.ODF_COMMON_FIELDS, ...ODF_FIELDS.ODF_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'OpticalLink',
+    files: ['src/queries/opticalLink/OpticalLinkDetailsQuery', 'src/components/opticalLink/OpticalLinkUpdateForm'],
+    reference: '___OPTICAL_LINK_FIELDS___',
+    queries: {
+      common: {
+        fields: [...OPTICAL_LINK_FIELDS.OPTICAL_LINK_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...OPTICAL_LINK_FIELDS.OPTICAL_LINK_COMMON_FIELDS, ...OPTICAL_LINK_FIELDS.OPTICAL_LINK_SUNET],
+      },
+      nordunet: {
+        fields: [...OPTICAL_LINK_FIELDS.OPTICAL_LINK_COMMON_FIELDS, ...OPTICAL_LINK_FIELDS.OPTICAL_LINK_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'OpticalNode',
+    files: ['src/queries/opticalNode/OpticalNodeDetailsQuery', 'src/components/opticalNode/OpticalNodeUpdateForm'],
+    reference: '___OPTICAL_NODE_FIELDS___',
+    queries: {
+      common: {
+        fields: [...OPTICAL_NODE_FIELDS.OPTICAL_NODE_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [...OPTICAL_NODE_FIELDS.OPTICAL_NODE_COMMON_FIELDS, ...OPTICAL_NODE_FIELDS.OPTICAL_NODE_SUNET],
+      },
+      nordunet: {
+        fields: [...OPTICAL_NODE_FIELDS.OPTICAL_NODE_COMMON_FIELDS, ...OPTICAL_NODE_FIELDS.OPTICAL_NODE_NORDUNI],
       },
     },
   },

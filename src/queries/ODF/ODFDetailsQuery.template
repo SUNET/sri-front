@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const ODFDetailsQuery = graphql`
+  query ODFDetailsQuery($ODFId: ID!) {
+    getODFById(id: $ODFId) {
+      ...ODFUpdateForm_ODF
+      ___ODF_FIELDS___
+    }
+  }
+`;
+
+export default ODFDetailsQuery;

@@ -14,6 +14,7 @@ import ConnectionPath from '../common/ConnectionPath';
 import { isBrowser } from 'react-device-detect';
 import { SAVED, NEW } from '../../utils/constants';
 import FieldInput from '../FieldInput';
+import CONFIG from '../../config';
 // scss
 import '../../style/ModelDetails.scss';
 
@@ -94,7 +95,18 @@ class _CableFormParentClass extends _BasicFormParentClass {
 
   renderGeneralInfoToggleSection(editMode = true) {
     const componentClassName = 'general-info-block';
-    const { t, cable_type, provider_id, provider_obj, cable_length } = this.props;
+    let generalInfoThirdRow = [];
+
+    const {
+      tele2_cable_contract,
+      tele2_alternative_circuit_id,
+      t,
+      cable_type,
+      provider_id,
+      provider_obj,
+      cable_length,
+    } = this.props;
+
     const generalInfoFirstRow = [
       {
         title: t('general-forms/type'),
@@ -155,6 +167,37 @@ class _CableFormParentClass extends _BasicFormParentClass {
       },
     ];
 
+    if (CONFIG.IS_SUNET_VERSION) {
+      generalInfoThirdRow = [
+        {
+          title: t('general-forms/cable-tele2-circuitid'),
+          presentContent: tele2_alternative_circuit_id,
+          editContent: (
+            <Form.Group>
+              <Field type="text" name="tele2_alternative_circuit_id" component={FieldInput} />
+            </Form.Group>
+          ),
+        },
+        {
+          title: t('general-forms/cable-tele2-contract'),
+          presentContent: tele2_cable_contract?.name,
+          editContent: (
+            <Dropdown
+              t={t}
+              className={`${isBrowser ? 'auto' : 'xlg mw-100'}`}
+              emptyLabel="Select type"
+              type="tele2_cable_contracts"
+              model="name_value_structure"
+              name="tele2_cable_contract_value"
+              onChange={(newValue) => {
+                this.props.dispatch(change(this.props.form, 'tele2_cable_contract', newValue ? newValue : null));
+              }}
+            />
+          ),
+        },
+      ];
+    }
+
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
@@ -173,6 +216,13 @@ class _CableFormParentClass extends _BasicFormParentClass {
                   return renderFormBlockSection(editMode, formData, index);
                 })}
               </div>
+              {CONFIG.IS_SUNET_VERSION && (
+                <div className="form-internal-block">
+                  {generalInfoThirdRow.map((formData, index) => {
+                    return renderFormBlockSection(editMode, formData, index);
+                  })}
+                </div>
+              )}
             </div>
           </TogglePanel>
         </ToggleSection>

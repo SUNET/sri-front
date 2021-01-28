@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const ExternalEquipmentDetailsQuery = graphql`
+  query ExternalEquipmentDetailsQuery($externalEquipmentId: ID!) {
+    getExternalEquipmentById(id: $externalEquipmentId) {
+      ...ExternalEquipmentUpdateForm_externalEquipment
+      ___EXTERNAL_EQUIPMENT_FIELDS___
+    }
+  }
+`;
+
+export default ExternalEquipmentDetailsQuery;

@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const FirewallDetailsQuery = graphql`
+  query FirewallDetailsQuery($firewallId: ID!) {
+    getFirewallById(id: $firewallId) {
+      ...FirewallUpdateForm_firewall
+      ___FIREWALL_FIELDS___
+    }
+  }
+`;
+
+export default FirewallDetailsQuery;
