@@ -167,7 +167,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
       },
     ];
 
-    if (CONFIG.IS_SUNET_VERSION) {
+    if (CONFIG.SCHEMA_VERSION === 'sunet') {
       generalInfoThirdRow = [
         {
           title: t('general-forms/cable-tele2-circuitid'),
@@ -216,7 +216,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
                   return renderFormBlockSection(editMode, formData, index);
                 })}
               </div>
-              {CONFIG.IS_SUNET_VERSION && (
+              {CONFIG.SCHEMA_VERSION === 'sunet' && (
                 <div className="form-internal-block">
                   {generalInfoThirdRow.map((formData, index) => {
                     return renderFormBlockSection(editMode, formData, index);
