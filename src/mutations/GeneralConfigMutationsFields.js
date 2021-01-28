@@ -43,7 +43,6 @@ const MUTATION_FIELD_DEPENDENCY_BY_TYPENAME = {
 };
 
 export const getDependenciesToAdd = (dependencies, config = MUTATION_FIELD_DEPENDENCY_BY_TYPENAME) => {
-  console.log('config: ', config);
   const dependentsToAdd = formatDependenciesToUpdate(
     config,
     dependencies ? dependencies.filter((dep) => dep.origin === NEW) : [],

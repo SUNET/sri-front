@@ -37,8 +37,12 @@ function CreateOpticalPathMutation(opticalPath, form) {
         wavelength: opticalPath.wavelength,
         relationship_provider: opticalPath.provider_id,
       },
+      // dependencies
       ...getDependenciesToAdd(opticalPath.dependencies, configDependencies),
       ...getDependenciesToDelete(opticalPath.dependencies, configDependencies),
+      // dependents (default config)
+      ...getDependenciesToAdd(opticalPath.dependents),
+      ...getDependenciesToDelete(opticalPath.dependents),
     },
   };
   commitMutation(environment, {

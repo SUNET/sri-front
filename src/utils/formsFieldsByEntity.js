@@ -310,6 +310,7 @@ const opticalPath = {
     { type: FIELD_TYPES.SINGLE, name: 'wavelength' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
   ],
 };
 

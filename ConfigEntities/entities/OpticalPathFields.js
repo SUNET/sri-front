@@ -10,6 +10,16 @@ const OPTICALPATH_COMMON_FIELDS = [
   { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
   {
     type: FIELD_TYPES.ARRAY_LIST,
+    name: 'dependents',
+    subFields: [
+      ...COMMON_FIELDS.BASIC_INFO,
+      { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
+      { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    ],
+    onSentences: COMMON_FIELDS.ON_SENTENCES_DEPENDENTS_BLOCK,
+  },
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
     name: 'dependencies',
     subFields: [
       { type: FIELD_TYPES.SINGLE, name: '__typename' },
