@@ -4,7 +4,6 @@ import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
-import FieldArrayDependencies from '../common/FieldArrayDependencies';
 import FieldArrayDependenciesMultiFields from '../common/FieldArrayDependenciesMultiFields';
 // const
 import renderFormBlockSection from '../common/BlockSection';
