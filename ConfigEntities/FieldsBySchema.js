@@ -19,6 +19,7 @@ const HOST_FIELDS = require('./entities/HostFields');
 const ODF_FIELDS = require('./entities/ODFFields');
 const OPTICAL_LINK_FIELDS = require('./entities/OpticalLinkFields');
 const OPTICAL_NODE_FIELDS = require('./entities/OpticalNodeFields');
+const OPTICAL_MULTIPLEX_SECTION_FIELDS = require('./entities/OpticalMultiplexSectionFields');
 
 module.exports = [
   {
@@ -366,6 +367,31 @@ module.exports = [
       },
       nordunet: {
         fields: [...OPTICAL_NODE_FIELDS.OPTICAL_NODE_COMMON_FIELDS, ...OPTICAL_NODE_FIELDS.OPTICAL_NODE_NORDUNI],
+      },
+    },
+  },
+  {
+    entity: 'OpticalMultiplexSection',
+    files: [
+      'src/queries/opticalMultiplexSection/OpticalMultiplexSectionDetailsQuery',
+      'src/components/opticalMultiplexSection/OpticalMultiplexSectionUpdateForm',
+    ],
+    reference: '___OPTICAL_MULTIPLEX_SECTION_FIELDS___',
+    queries: {
+      common: {
+        fields: [...OPTICAL_MULTIPLEX_SECTION_FIELDS.OPTICAL_MULTIPLEX_SECTION_COMMON_FIELDS],
+      },
+      sunet: {
+        fields: [
+          ...OPTICAL_MULTIPLEX_SECTION_FIELDS.OPTICAL_MULTIPLEX_SECTION_COMMON_FIELDS,
+          ...OPTICAL_MULTIPLEX_SECTION_FIELDS.OPTICAL_MULTIPLEX_SECTION_SUNET,
+        ],
+      },
+      nordunet: {
+        fields: [
+          ...OPTICAL_MULTIPLEX_SECTION_FIELDS.OPTICAL_MULTIPLEX_SECTION_COMMON_FIELDS,
+          ...OPTICAL_MULTIPLEX_SECTION_FIELDS.OPTICAL_MULTIPLEX_SECTION_NORDUNI,
+        ],
       },
     },
   },

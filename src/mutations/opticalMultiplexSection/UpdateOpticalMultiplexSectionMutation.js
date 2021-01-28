@@ -4,11 +4,20 @@ import graphql from 'babel-plugin-relay/macro';
 
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
+
+// for dependencies
 import {
   getDependenciesToForOMSAdd,
   getDependenciesToForOMSUnlink,
   getDependenciesToForOMSDelete,
 } from '../ConfigDependenciesMutationForOMS';
+
+// for dependents
+import {
+  getDependenciesToAdd,
+  getDependenciesToUnlink,
+  getDependenciesToDelete,
+} from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation UpdateOpticalMultiplexSectionMutation($input: CompositeOpticalMultiplexSectionMutationInput!) {
@@ -57,11 +66,19 @@ export default function UpdateOpticalMultiplexSectionMutation(opticalMultiplexSe
         operational_state: opticalMultiplexSection.operational_state,
         relationship_provider: opticalMultiplexSection.provider_id,
       },
-      unlink_subinputs: [...getDependenciesToForOMSUnlink(opticalMultiplexSection.dependencies)],
+      unlink_subinputs: [
+        ...getDependenciesToForOMSUnlink(opticalMultiplexSection.dependencies),
+        ...getDependenciesToUnlink(opticalMultiplexSection.dependents),
+      ],
+      // dependencies
       ...getDependenciesToForOMSAdd(opticalMultiplexSection.dependencies),
       ...getDependenciesToForOMSDelete(opticalMultiplexSection.dependencies),
+      // dependents
+      ...getDependenciesToAdd(opticalMultiplexSection.dependents),
+      ...getDependenciesToDelete(opticalMultiplexSection.dependents),
     },
   };
+  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,

@@ -174,7 +174,12 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
     if (currentPreFilterModel === 'All') filterByType = null;
     if (operationalValue === 'All') operationalValue = null;
 
-    return { __typename: filterByType, operational_state: operationalValue, name: internalTextFilter?.value, description: internalTextFilter?.value };
+    return {
+      __typename: filterByType,
+      operational_state: operationalValue,
+      name: internalTextFilter?.value,
+      description: internalTextFilter?.value,
+    };
   }
 
   getAllValues(filterObj) {
@@ -184,7 +189,6 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
       const [opStateFilter, opStateValue] = Object.entries(filterObj)[1];
       const [textFilterKey, textFilterValue] = Object.entries(filterObj)[2];
       const [descFilterKey, descFilterValue] = Object.entries(filterObj)[3];
-
       const valuesFilteredByType = allValues.filter((v) => {
         const value = v[mainFilterKey];
         return !!!mainFilterValue || value === mainFilterValue;
@@ -196,7 +200,7 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
       const valuesFilteredByText = valuesFilteredByOpState.filter((v) => {
         return (
           v[textFilterKey].toLowerCase().includes(textFilterValue.toLowerCase()) ||
-          v[descFilterKey].toLowerCase().includes(descFilterValue.toLowerCase())
+          (v[descFilterKey] !== null && v[descFilterKey].toLowerCase().includes(descFilterValue.toLowerCase()))
         );
       });
       return valuesFilteredByText;
