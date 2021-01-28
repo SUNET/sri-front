@@ -67,25 +67,251 @@ const OpticalMultiplexSectionUpdateFragment = createRefetchContainer(
     opticalMultiplexSection: graphql`
       fragment OpticalMultiplexSectionUpdateForm_opticalMultiplexSection on OpticalMultiplexSection {
         id
+name
+description
+__typename
+
+    operational_state {
+        __typename
         name
-        description
-        comments {
-          id
-          user {
-            first_name
-            last_name
-          }
-          comment
-          submit_date
-        }
-        created
-        creator {
-          email
-        }
-        modified
-        modifier {
-          email
-        }
+        value
+    }
+  
+
+    provider {
+        __typename
+        id
+        name
+        
+        
+    }
+  
+
+    dependents {
+      id
+name
+description
+__typename
+relation_id
+
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+      ...on Service {
+       
+    type: service_type {
+        __typename
+        id
+        name
+        
+        
+    }
+  
+
+    service_type {
+        __typename
+        id
+        name
+        
+        
+    }
+  
+    },...on OpticalPath {
+       wavelength
+
+    framing {
+        __typename
+        name
+        value
+    }
+  
+
+    capacity {
+        __typename
+        name
+        value
+    }
+  
+
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+    },...on OpticalMultiplexSection {
+       
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+    },...on OpticalLink {
+       
+    type: link_type {
+        __typename
+        name
+        value
+    }
+  
+
+    interface_type {
+        __typename
+        name
+        value
+    }
+  
+
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+
+    ports {
+      id
+name
+description
+__typename
+      
+    }
+    }
+    }
+
+    dependencies {
+      __typename
+id
+name
+description
+relation_id
+      ...on Service {
+       
+    type: service_type {
+        __typename
+        id
+        name
+        
+        
+    }
+  
+
+    service_type {
+        __typename
+        id
+        name
+        
+        
+    }
+  
+    },...on OpticalPath {
+       wavelength
+
+    framing {
+        __typename
+        name
+        value
+    }
+  
+
+    capacity {
+        __typename
+        name
+        value
+    }
+  
+
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+    },...on OpticalMultiplexSection {
+       
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+    },...on OpticalLink {
+       
+    type: link_type {
+        __typename
+        name
+        value
+    }
+  
+
+    interface_type {
+        __typename
+        name
+        value
+    }
+  
+
+    operational_state {
+        __typename
+        name
+        value
+    }
+  
+
+    ports {
+      id
+name
+description
+__typename
+      
+    }
+    },...on Cable {
+       
+    type: cable_type {
+        __typename
+        name
+        value
+    }
+  
+
+    ports {
+      id
+name
+description
+__typename
+      
+    }
+    }
+    }
+
+    comments {
+      id
+
+    user {
+      first_name
+last_name
+      
+    }
+comment
+submit_date
+      
+    }
+created
+
+    creator {
+      email
+      
+    }
+modified
+
+    modifier {
+      email
+      
+    }
       }
     `,
   },

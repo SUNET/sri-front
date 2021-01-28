@@ -43,8 +43,8 @@ function CreateCableMutation(cable, form) {
   };
 
   if (CONFIG.IS_SUNET_VERSION) {
-    variables.input.update_input.tele2_alternative_circuit_id = cable.tele2_alternative_circuit_id;
-    variables.input.update_input.tele2_cable_contract = cable.tele2_cable_contract?.value;
+    variables.input.create_input.tele2_alternative_circuit_id = cable.tele2_alternative_circuit_id;
+    variables.input.create_input.tele2_cable_contract = cable.tele2_cable_contract?.value;
   }
 
   commitMutation(environment, {

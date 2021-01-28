@@ -47,7 +47,6 @@ const QUERIES_BY_TYPE = {
 };
 
 function getQueryByModel(type) {
-  console.log(type);
   return QUERIES_BY_TYPE[type] ? QUERIES_BY_TYPE[type] : QUERIES_BY_TYPE['default'];
 }
 
