@@ -162,7 +162,7 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
 
   renderDependenciesToggleSection(editMode = true) {
     const componentClassName = 'dependencies-block';
-    const { t, entityRemovedId } = this.props;
+    const { t, entityRemovedId, form, dispatch } = this.props;
     return (
       <section className={`model-section ${componentClassName}`}>
         <ToggleSection>
@@ -269,7 +269,12 @@ class _OpticalMultiplexSectionFormParentClass extends _BasicFormParentClass {
                 this.props.showModalDetailForm(typeEntityToShowForm, entityId);
               }}
               handleSearchResult={(selection, typeOfSelection) => {
-                this.handleSelectedDependency(selection, `get${typeOfSelection}ById`);
+                handleSelectedDependencies({
+                  selection,
+                  getMethod: this.props[`get${typeOfSelection}ById`],
+                  form,
+                  dispatch,
+                });
               }}
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'dependencies' ? entityRemovedId : null}

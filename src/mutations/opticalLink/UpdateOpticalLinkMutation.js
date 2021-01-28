@@ -5,7 +5,7 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
-import configDependencies from './DependenciesConfig';
+import configDependencies from '../DependenciesConfig';
 
 import {
   getDependenciesToAdd,

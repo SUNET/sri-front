@@ -1,14 +1,38 @@
 import React from 'react';
-import { Field, change } from 'redux-form';
+import { Field, FieldArray, change, arrayPush } from 'redux-form';
 import { Form } from 'react-bootstrap';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import FieldInput from '../FieldInput';
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
+import FieldArrayDependenciesMultiFields from '../common/FieldArrayDependenciesMultiFields';
 // const
 import renderFormBlockSection from '../common/BlockSection';
 import { isBrowser } from 'react-device-detect';
+import { SAVED, NEW } from '../../utils/constants';
+
+function getSelectedDependencies(selection, getMethod) {
+  if (selection && selection.id) {
+    return getMethod(selection.id).then((entity) => {
+      const newEntity = {
+        ...entity,
+        origin: NEW,
+        status: SAVED,
+      };
+      if (entity.operational_state) {
+        newEntity.operational_state = entity.operational_state;
+      }
+      return newEntity;
+    });
+  }
+  return null;
+}
+
+async function handleSelectedDependencies({ selection, getMethod, form, dispatch }) {
+  const newEntity = await getSelectedDependencies(selection, getMethod);
+  if (newEntity) dispatch(arrayPush(form, 'dependencies', newEntity));
+}
 
 class _OpticalPathFormParentClass extends _BasicFormParentClass {
   // GLOBAL VARs
@@ -27,11 +51,13 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
   }
 
   renderSections(editMode) {
+    const { isFromModal } = this.props;
     return (
       <>
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}
+        {!isFromModal && this.renderDependenciesToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
     );
@@ -157,6 +183,131 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
                 })}
               </div>
             </div>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderDependenciesToggleSection(editMode = true) {
+    const componentClassName = 'dependencies-block';
+    const { t, entityRemovedId, form, dispatch } = this.props;
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/depends-on')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              fieldsByPreFilter={{
+                OpticalLink: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'main-entity-name/ports',
+                    fieldKey: 'ports.name',
+                    withLink: true,
+                    listElements: true,
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+                OpticalMultiplexSection: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+                OpticalPath: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+                Service: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'general-forms/service-type',
+                    fieldKey: 'service_type.name',
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+                Cable: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'general-forms/type',
+                    fieldKey: 'type.name',
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+              }}
+              preFilterSelect={{
+                pills: true,
+                type: 'opticalLinkDependenciesTypes',
+                label: 'general-forms/select-physical-type',
+                model: 'opticalLinkDependenciesTypes',
+                name: 'physical_types_preFilter',
+              }}
+              name="dependencies"
+              fieldNameInForm="dependencies"
+              component={FieldArrayDependenciesMultiFields}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'dependencies' });
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependencies' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependencies' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection, typeOfSelection) => {
+                handleSelectedDependencies({
+                  selection,
+                  getMethod: this.props[`get${typeOfSelection}ById`],
+                  form,
+                  dispatch,
+                });
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'dependencies' ? entityRemovedId : null}
+            />
           </TogglePanel>
         </ToggleSection>
       </section>
