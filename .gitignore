@@ -89,3 +89,6 @@ src/components/opticalLink/OpticalLinkUpdateForm.js
 
 src/queries/opticalNode/OpticalNodeDetailsQuery.js
 src/components/opticalNode/OpticalNodeUpdateForm.js
+
+src/queries/opticalMultiplexSection/OpticalMultiplexSectionDetailsQuery.js
+src/components/opticalMultiplexSection/OpticalMultiplexSectionUpdateForm.js

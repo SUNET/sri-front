@@ -291,6 +291,7 @@ const opticalMultiplexSection = {
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
   ],
 };
 
