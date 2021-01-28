@@ -178,7 +178,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
   }
 
   renderDependenciesToggleSection(editMode = true) {
-    const componentClassName = 'is-used-block';
+    const componentClassName = 'dependencies-block';
     const { t, entityRemovedId } = this.props;
     return (
       <section className={`model-section ${componentClassName}`}>
