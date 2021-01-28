@@ -7,10 +7,32 @@ const OPTICAL_LINK_COMMON_FIELDS = [
     name: 'provider',
     type: FIELD_TYPES.ID_OBJECT,
   },
-  ...COMMON_FIELDS.PORT_LIST,
   { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
   { type: FIELD_TYPES.OBJECT, name: 'link_type', alias: 'type' },
   { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
+  {
+    type: FIELD_TYPES.ARRAY_LIST,
+    name: 'dependencies',
+    subFields: [
+      ...COMMON_FIELDS.BASIC_INFO,
+      { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
+      { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
+    ],
+    onSentences: [
+      ...COMMON_FIELDS.ON_SENTENCES_DEPENDENTS_BLOCK,
+      {
+        entity: 'Cable',
+        subFields: [
+          { name: 'cable_type', type: FIELD_TYPES.OBJECT, alias: 'type' },
+          {
+            type: FIELD_TYPES.ARRAY_LIST,
+            name: 'ports',
+            subFields: [...COMMON_FIELDS.BASIC_INFO],
+          },
+        ],
+      },
+    ],
+  },
   ...COMMON_FIELDS.COMMENTS_FIELDS,
   ...COMMON_FIELDS.USER_CREATOR_MODIFIER_FIELDS,
 ];

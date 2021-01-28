@@ -42,9 +42,10 @@ const MUTATION_FIELD_DEPENDENCY_BY_TYPENAME = {
   },
 };
 
-export const getDependenciesToAdd = (dependencies) => {
+export const getDependenciesToAdd = (dependencies, config = MUTATION_FIELD_DEPENDENCY_BY_TYPENAME) => {
+  console.log('config: ', config);
   const dependentsToAdd = formatDependenciesToUpdate(
-    MUTATION_FIELD_DEPENDENCY_BY_TYPENAME,
+    config,
     dependencies ? dependencies.filter((dep) => dep.origin === NEW) : [],
   );
 
@@ -58,9 +59,9 @@ export const getDependenciesToUnlink = (dependencies) => {
   return dependentsToUnlink;
 };
 
-export const getDependenciesToDelete = (dependencies) => {
+export const getDependenciesToDelete = (dependencies, config = MUTATION_FIELD_DEPENDENCY_BY_TYPENAME) => {
   const dependentsToDelete = formatDependenciesToRemove(
-    MUTATION_FIELD_DEPENDENCY_BY_TYPENAME,
+    config,
     dependencies ? dependencies.filter((dep) => dep.status === REMOVE) : [],
   );
 

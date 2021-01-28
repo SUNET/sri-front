@@ -13,6 +13,10 @@ const CableQuery = graphql`
         name
         value
       }
+      cable_type {
+        name
+        value
+      }
     }
   }
 `;
