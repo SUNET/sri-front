@@ -252,6 +252,20 @@ const DropdownSearchLogicalQuery = graphql`
   }
 `;
 
+const DropdownSearchPhysicalLogicalQuery = graphql`
+  query DropdownSearchPhysicalLogicalQuery($filter: MetatypeFilter) {
+    physicallogicals(filter: $filter) {
+      edges {
+        node {
+          __typename
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 const DropdownSearchLocationsQuery = graphql`
   query DropdownSearchLocationsQuery($filter: MetatypeFilter) {
     locations(filter: $filter) {
@@ -472,6 +486,9 @@ class DropdownSearch extends React.Component {
       case 'logicals':
         queryModel.query = DropdownSearchLogicalQuery;
         break;
+      case 'physicallogicals':
+        queryModel.query = DropdownSearchPhysicalLogicalQuery;
+        break;
       case 'locations':
         queryModel.query = DropdownSearchLocationsQuery;
         break;
@@ -533,7 +550,7 @@ class DropdownSearch extends React.Component {
     };
     if (model === 'ports-type-head' || model === 'search_cable_port') {
       variables.filter.query = filter;
-    } else if (model === 'logicals' || model === 'locations') {
+    } else if (model === 'logicals' || model === 'locations' || model === 'physicallogicals') {
       variables.filter = {
         name_contains: filter,
         type_in: entityTypeFilter,

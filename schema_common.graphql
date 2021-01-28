@@ -12346,6 +12346,7 @@ type Query {
   getHostOwnerTypes: [TypeInfo]
   getPlainGroups: [PlainGroup]
   getOpticalPathDependencyTypes: [TypeInfo]
+  getOpticalLinkDependendenciesTypes: [TypeInfo]
   getRouterDependentsTypes: [TypeInfo]
   getServiceTypes: [ServiceType]
   getUserPermissions: UserPermissions

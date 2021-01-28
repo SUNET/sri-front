@@ -35,8 +35,8 @@ class OpticalLinkUpdateForm extends _OpticalLinkFormParentClass {
   handleSubmit = (entityData) => {
     this.setState({ editMode: false });
     this.props.hideModalForm();
-    const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
-    const someItemWillBeDeleted = portsToRemove.length > 0;
+    const dependenciesToRemove = entityData.dependencies.filter((dep) => dep.status === REMOVE);
+    const someItemWillBeDeleted = dependenciesToRemove.length > 0;
     if (someItemWillBeDeleted) {
       this.entityDataToUpdate = entityData;
       this.props.showModalConfirm('partialDelete');

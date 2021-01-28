@@ -267,15 +267,15 @@ const opticalLink = {
     create: 'createOpticalLink',
     update: 'updateOpticalLink',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'portDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'type' },
     { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
-    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
   ],
 };
 

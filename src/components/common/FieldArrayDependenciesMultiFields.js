@@ -130,6 +130,7 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
   renderPreFilterPillsDropDown() {
     return (
       <PillsFilter
+        type={this.PRE_FILTER_SELECT.model}
         onChange={(optionSelected) => {
           this.setState({
             currentPreFilterModel: optionSelected ? optionSelected.type_name : null,
@@ -151,7 +152,7 @@ class FieldArrayDependenciesMultiFields extends _BasicFieldArrayParentClass {
     return (
       <DropdownSearch
         disabled={this.isDisabledFilters()}
-        model={'logicals'}
+        model={'physicallogicals'}
         entityTypeFilter={this.state.currentPreFilterModel}
         selection={(selectedElement) => {
           this.props.handleSearchResult(selectedElement, this.state.currentPreFilterModel);
