@@ -5,10 +5,7 @@ import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 import { generateSubInputs } from '../MutationsUtils';
-import {
-  generateLocatedIn,
-  generateLocatedInToRemove,
-} from '../locationsMutationsCommon/GenerateLocatedInMutation';
+import { generateLocatedIn, generateLocatedInToRemove } from '../locationsMutationsCommon/GenerateLocatedInMutation';
 
 const mutation = graphql`
   mutation CreateRoomMutation($input: CompositeRoomMutationInput!) {
@@ -40,8 +37,8 @@ function CreateRoomMutation(room, form) {
       },
       ...physicalToAdd,
       ...physicalToRemove,
-      update_has_site: sitesToMutation.toUpdate,
-      deleted_has_site: sitesToMutation.toDelete,
+      update_parent_site: sitesToMutation?.toUpdate.length > 0 ? sitesToMutation.toUpdate[0] : null,
+      deleted_parent_site: sitesToMutation?.toDelete.length > 0 ? sitesToMutation.toDelete[0] : null,
       update_has_rack: racksToMutation.toUpdate,
       deleted_has_rack: racksToMutation.toDelete,
     },
