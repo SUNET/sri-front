@@ -42,6 +42,8 @@ class _CableFormParentClass extends _BasicFormParentClass {
       const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'ports') {
         this.getConnectionDetails(selectionData, methodName);
+      } else if (fieldModalOpened === 'dependents') {
+        this.handleSelectedIsUsed(selectionData, methodName);
       }
       return false;
     }

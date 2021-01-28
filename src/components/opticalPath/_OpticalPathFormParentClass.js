@@ -47,7 +47,43 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
       this.props.hideModalConfirm();
       this.updateMutation(this.entityDataToUpdate, this);
     }
+    if (nextProps.entitySavedId) {
+      const { fieldModalOpened } = nextState;
+      const selectionData = {
+        id: nextProps.entitySavedId,
+      };
+      const methodName = `get${nextProps.entityInModalName}ById`;
+      if (fieldModalOpened === 'dependencies') {
+        handleSelectedDependencies({
+          selection: selectionData,
+          getMethod: this.props[methodName],
+          form: this.props.form,
+          dispatch: this.props.dispatch,
+        });
+      } else if (fieldModalOpened === 'dependents') {
+        this.handleSelectedIsUsed(selectionData, methodName);
+      }
+      return false;
+    }
     return true;
+  }
+
+  getSelectedLogical(id, getMethod) {
+    return getMethod(id).then((entity) => ({
+      ...entity,
+      status: SAVED,
+      origin: NEW,
+    }));
+  }
+
+  async handleSelectedIsUsed(selection, methodName) {
+    const { dispatch, form } = this.props;
+    if (selection) {
+      const { id } = selection;
+      const newEntity = await this.getSelectedLogical(id, this.props[methodName]);
+      if (newEntity) dispatch(arrayPush(form, 'dependents', newEntity));
+    }
+    return null;
   }
 
   renderSections(editMode) {
@@ -58,6 +94,7 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
         {this.renderGeneralInfoToggleSection(editMode)}
         {this.renderDetailsToggleSection(editMode)}
         {!isFromModal && this.renderDependenciesToggleSection(editMode)}
+        {!isFromModal && this.renderIsUsedToggleSection(editMode)}
         {this.renderWorkLog()}
       </>
     );
@@ -307,6 +344,47 @@ class _OpticalPathFormParentClass extends _BasicFormParentClass {
               }}
               rerenderOnEveryChange
               entityRemovedId={this.state.fieldModalOpened === 'dependencies' ? entityRemovedId : null}
+            />
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderIsUsedToggleSection(editMode = true) {
+    const componentClassName = 'is-used-block';
+    const { t, entityRemovedId } = this.props;
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/used-by')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              name="dependents"
+              component={FieldArrayDependenciesMultiFields}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependents' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection, typeOfSelection) => {
+                this.handleSelectedIsUsed(selection, `get${typeOfSelection}ById`);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'dependents' ? entityRemovedId : null}
             />
           </TogglePanel>
         </ToggleSection>
