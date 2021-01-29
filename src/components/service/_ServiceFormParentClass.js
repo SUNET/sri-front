@@ -128,6 +128,7 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
       provider_id,
       provider_obj,
       project_end_date,
+      contract_number,
     } = this.props;
 
     const datePickerElement = (formElementName, value) => {
@@ -200,6 +201,23 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
             : disabledDateInput,
       },
     ];
+
+    if (currentClass.originalName === 'External') {
+      generalInfo.push({
+        title: t('general-forms/contract-number'),
+        presentContent: contract_number,
+        editContent: (
+          <Form.Group>
+            <Field
+              type="text"
+              name="contract_number"
+              component={FieldInput}
+              placeholder={t('general-forms/write-text')}
+            />
+          </Form.Group>
+        ),
+      });
+    }
 
     if (currentClass?.originalName === 'IP') {
       generalInfo.push({

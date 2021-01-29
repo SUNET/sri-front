@@ -50,6 +50,7 @@ const SERVICE_COMMON_FIELDS = [
       { type: FIELD_TYPES.SINGLE, name: 'relation_id' },
     ],
   },
+  { type: FIELD_TYPES.SINGLE, name: 'contract_number' },
 
   ...COMMON_FIELDS.RELATION_GROUP_INFO,
   ...COMMON_FIELDS.COMMENTS_FIELDS,

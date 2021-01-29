@@ -426,6 +426,7 @@ const service = {
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'users' }, // customised field joining customers and endusers, does not come directly from the api
     { type: FIELD_TYPES.OBJECT, name: 'currentClass' },
+    { type: FIELD_TYPES.SINGLE, name: 'contract_number' },
 
     ...RELATION_GROUP_INFO,
   ],

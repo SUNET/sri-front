@@ -36,6 +36,7 @@ export default function UpdateServiceMutation(service, form) {
   };
   if (service.currentClass.originalName === 'External') {
     variables.input.update_input.name = service.name;
+    variables.input.update_input.contract_number = service.contract_number;
   }
   if (service.service_type_obj.name === 'Project') {
     variables.input.update_input.project_end_date = service.project_end_date;
