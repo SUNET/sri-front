@@ -1,0 +1,12 @@
+import graphql from 'babel-plugin-relay/macro';
+
+const OpticalMultiplexSectionDetailsQuery = graphql`
+  query OpticalMultiplexSectionDetailsQuery($opticalMultiplexSectionId: ID!) {
+    getOpticalMultiplexSectionById(id: $opticalMultiplexSectionId) {
+      ...OpticalMultiplexSectionUpdateForm_opticalMultiplexSection
+      ___OPTICAL_MULTIPLEX_SECTION_FIELDS___
+    }
+  }
+`;
+
+export default OpticalMultiplexSectionDetailsQuery;

@@ -1,13 +1,14 @@
 import React from 'react';
-import { arrayPush, change } from 'redux-form';
+import { arrayPush, change, FieldArray } from 'redux-form';
 import _BasicFormParentClass from '../common/_BasicFormParentClass';
 // components
 import Dropdown from '../Dropdown';
 import ToggleSection, { ToggleHeading, TogglePanel } from '../../components/ToggleSection';
+import FieldArrayDependenciesMultiFields from '../common/FieldArrayDependenciesMultiFields';
 // const
 import { isBrowser } from 'react-device-detect';
+import { SAVED, NEW } from '../../utils/constants';
 
-import { renderPortsToggleSection, handleSelectedPort } from '../common/formsSections/PortsToggleSection';
 import { renderBulkPortToggleSection } from '../common/formsSections/BulkPortToggleSection';
 import renderFormBlockSection from '../common/BlockSection';
 
@@ -29,17 +30,31 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
       const selectionData = {
         id: nextProps.entitySavedId,
       };
-      if (fieldModalOpened === 'ports') {
-        handleSelectedPort({
-          selection: selectionData,
-          getMethod: this.props.getPortById,
-          form: this.props.form,
-          dispatch: this.props.dispatch,
-        });
+      if (fieldModalOpened === 'dependencies') {
+        const methodName = `get${nextProps.entityInModalName}ById`;
+        this.handleSelectedDependency(selectionData, methodName);
       }
       return false;
     }
     return true;
+  }
+
+  getSelectedLogical(id, getMethod) {
+    return getMethod(id).then((entity) => ({
+      ...entity,
+      status: SAVED,
+      origin: NEW,
+    }));
+  }
+
+  async handleSelectedDependency(selection, methodName) {
+    const { dispatch, form } = this.props;
+    if (selection) {
+      const { id } = selection;
+      const newEntity = await this.getSelectedLogical(id, this.props[methodName]);
+      if (newEntity) dispatch(arrayPush(form, 'dependencies', newEntity));
+    }
+    return null;
   }
 
   handleSelectedNetworkOrganization = (selection, typeOfSelection) => {
@@ -63,7 +78,7 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
       <>
         {this.renderDescriptionToggleSection(editMode)}
         {this.renderGeneralInfoToggleSection(editMode)}
-        {!isFromModal && renderPortsToggleSection(editMode, this)}
+        {!isFromModal && this.renderDependenciesToggleSection(editMode, this)}
         {!isFromModal && editMode && renderBulkPortToggleSection(this)}
         {this.renderWorkLog()}
       </>
@@ -156,6 +171,126 @@ class _OpticalLinkFormParentClass extends _BasicFormParentClass {
                 })}
               </div>
             </div>
+          </TogglePanel>
+        </ToggleSection>
+      </section>
+    );
+  }
+
+  renderDependenciesToggleSection(editMode = true) {
+    const componentClassName = 'dependencies-block';
+    const { t, entityRemovedId } = this.props;
+    return (
+      <section className={`model-section ${componentClassName}`}>
+        <ToggleSection>
+          <ToggleHeading>
+            <h2>{t('general-forms/dependencies')}</h2>
+          </ToggleHeading>
+          <TogglePanel>
+            <FieldArray
+              fieldsByPreFilter={{
+                OpticalLink: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'main-entity-name/ports',
+                    fieldKey: 'ports.name',
+                    withLink: true,
+                    listElements: true,
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+                OpticalMultiplexSection: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+                OpticalPath: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+                Service: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'general-forms/service-type',
+                    fieldKey: 'service_type.name',
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+                Cable: [
+                  {
+                    text: 'general-forms/name',
+                    fieldKey: 'name',
+                  },
+                  {
+                    text: 'general-forms/type',
+                    fieldKey: 'type.name',
+                  },
+                  {
+                    text: 'general-forms/description',
+                    fieldKey: 'description',
+                    showAllText: true,
+                  },
+                ],
+              }}
+              preFilterSelect={{
+                pills: true,
+                type: 'opticalLinkDependenciesTypes',
+                label: 'general-forms/select-physical-type',
+                model: 'opticalLinkDependenciesTypes',
+                name: 'physical_types_preFilter',
+              }}
+              name="dependencies"
+              fieldNameInForm="dependencies"
+              component={FieldArrayDependenciesMultiFields}
+              editable={editMode}
+              dispatch={this.props.dispatch}
+              errors={this.props.formSyncErrors.parents}
+              metaFields={this.props.fields}
+              handleDeployCreateForm={(typeEntityToShowForm) => {
+                this.setState({ fieldModalOpened: 'dependencies' });
+                this.props.showModalCreateForm(typeEntityToShowForm);
+              }}
+              showRowEditModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependencies' });
+                this.props.showModalEditForm(typeEntityToShowForm, entityId);
+              }}
+              showRowDetailModal={(typeEntityToShowForm, entityId) => {
+                this.setState({ fieldModalOpened: 'dependencies' });
+                this.props.showModalDetailForm(typeEntityToShowForm, entityId);
+              }}
+              handleSearchResult={(selection, typeOfSelection) => {
+                this.handleSelectedDependency(selection, `get${typeOfSelection}ById`);
+              }}
+              rerenderOnEveryChange
+              entityRemovedId={this.state.fieldModalOpened === 'dependencies' ? entityRemovedId : null}
+            />
           </TogglePanel>
         </ToggleSection>
       </section>

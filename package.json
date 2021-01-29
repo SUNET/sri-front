@@ -102,7 +102,7 @@
     "create-entity-list": "node ./cli/cli.js generate-list",
     "create-entity-details": "node ./cli/cli.js generate-details",
     "graphql:codegen": "graphql codegen",
-    "alternative-generate-schema": "get-graphql-schema http://sri.localenv.loc/api/graphql/ > schema.graphql"
+    "alternative-generate-schema": "get-graphql-schema http://sri.localenv.loc/api/graphql/ > schema_common.graphql"
   },
   "eslintConfig": {
     "extends": "react-app"

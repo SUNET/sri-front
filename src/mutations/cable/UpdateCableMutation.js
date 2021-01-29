@@ -65,7 +65,7 @@ export default function UpdateCableMutation(cable, form) {
       ...getDependenciesToDelete(cable.dependents),
     },
   };
-  if (CONFIG.IS_SUNET_VERSION) {
+  if (CONFIG.SCHEMA_VERSION === 'sunet') {
     variables.input.update_input.tele2_alternative_circuit_id = cable.tele2_alternative_circuit_id;
     variables.input.update_input.tele2_cable_contract = cable.tele2_cable_contract?.value;
   }

@@ -31,8 +31,8 @@ const PHYSICAL_BASIC_DATA = [
   { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
 ];
 const genericNetworkOrganization = {
-  dispatchPropertiesListCreate: ['notify', 'modal', 'serviceDetails', 'physicalDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'serviceDetails', 'physicalDetails'],
+  dispatchPropertiesListCreate: ['notify', 'confirm', 'modal', 'serviceDetails', 'physicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'confirm', 'modal', 'serviceDetails', 'physicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
@@ -67,6 +67,7 @@ const provider = {
     'physicalDetails',
     'locationsDetails',
     'logicalDetails',
+    'confirm',
   ],
   dispatchPropertiesListUpdate: [
     'notify',
@@ -76,6 +77,7 @@ const provider = {
     'physicalDetails',
     'locationsDetails',
     'logicalDetails',
+    'confirm',
   ],
   fields: [
     ...BASIC_INFO,
@@ -90,8 +92,8 @@ const siteOwner = {
     create: 'createSiteOwner',
     update: 'updateSiteOwner',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'serviceDetails', 'locationsDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'serviceDetails', 'locationsDetails'],
+  dispatchPropertiesListCreate: ['notify', 'confirm', 'modal', 'serviceDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'confirm', 'breadcrumbs', 'modal', 'serviceDetails', 'locationsDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
@@ -267,15 +269,15 @@ const opticalLink = {
     create: 'createOpticalLink',
     update: 'updateOpticalLink',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'portDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'portDetails'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'type' },
     { type: FIELD_TYPES.OBJECT, name: 'interface_type' },
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
-    { type: FIELD_TYPES.ARRAY_LIST, name: 'ports' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
   ],
 };
 
@@ -291,6 +293,7 @@ const opticalMultiplexSection = {
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
   ],
 };
 
@@ -299,8 +302,8 @@ const opticalPath = {
     create: 'createOpticalPath',
     update: 'updateOpticalPath',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm'],
+  dispatchPropertiesListCreate: ['notify', 'modal', 'physicalDetails', 'logicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'confirm', 'physicalDetails', 'logicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
@@ -308,6 +311,8 @@ const opticalPath = {
     { type: FIELD_TYPES.OBJECT, name: 'capacity' },
     { type: FIELD_TYPES.SINGLE, name: 'wavelength' },
     { type: FIELD_TYPES.ID_OBJECT, name: 'provider' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
+    { type: FIELD_TYPES.ARRAY_LIST, name: 'dependents' },
   ],
 };
 
@@ -423,6 +428,7 @@ const service = {
     { type: FIELD_TYPES.ARRAY_LIST, name: 'dependencies' },
     { type: FIELD_TYPES.ARRAY_LIST, name: 'users' }, // customised field joining customers and endusers, does not come directly from the api
     { type: FIELD_TYPES.OBJECT, name: 'currentClass' },
+    { type: FIELD_TYPES.SINGLE, name: 'contract_number' },
 
     ...RELATION_GROUP_INFO,
   ],

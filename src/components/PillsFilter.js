@@ -27,9 +27,22 @@ const PillsFilterOperationalStateQuery = graphql`
   }
 `;
 
+const PillsFilterOpticalLinkDependenciesTypesQuery = graphql`
+  query PillsFilterOpticalLinkDependenciesTypesQuery {
+    getOpticalLinkDependendenciesTypes {
+      type_name
+      connection_name
+      byid_name
+      all_name
+      can_create
+    }
+  }
+`;
+
 const QUERIES_BY_TYPE = {
   routerDependentsTypes: { query: PillsFilterRouterDependentsTypesQuery, bodyName: 'getRouterDependentsTypes' },
   dropdownOperationalState: { query: PillsFilterOperationalStateQuery, bodyName: 'getChoicesForDropdown' },
+  opticalLinkDependenciesTypes: { query: PillsFilterOpticalLinkDependenciesTypesQuery, bodyName: 'getOpticalLinkDependendenciesTypes' },
   default: { query: PillsFilterRouterDependentsTypesQuery, bodyName: 'getRouterDependentsTypes' },
 };
 

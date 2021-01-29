@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateServiceMutation from '../../mutations/service/UpdateServiceMutation';
 import ValidationsServiceForm from './ValidationsServiceForm';
 // const
-import { UPDATE_SERVICE_FORM } from '../../utils/constants';
+import { UPDATE_SERVICE_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class ServiceUpdateForm extends _ServiceFormParentClass {
@@ -37,7 +37,9 @@ class ServiceUpdateForm extends _ServiceFormParentClass {
   handleSubmit = (entityData) => {
     const dataToMutation = this.preProcessSubmitData(entityData);
     this.setState({ editMode: false });
-    const someItemWillBeDeleted = false;
+    const dependenciesToRemove = entityData.dependencies.filter((dep) => dep.status === REMOVE);
+    const usersToRemove = entityData.users.filter((dep) => dep.status === REMOVE);
+    const someItemWillBeDeleted = dependenciesToRemove.length > 0 || usersToRemove.length > 0;
     if (someItemWillBeDeleted) {
       this.entityDataToUpdate = dataToMutation;
       this.props.showModalConfirm('partialDelete');

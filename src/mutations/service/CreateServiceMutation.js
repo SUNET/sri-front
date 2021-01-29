@@ -33,8 +33,9 @@ function CreateServiceMutation(service, form) {
       ...subInputs,
     },
   };
-  if (service.currentClass.originalName === 'External') {
+  if (service.currentClass?.originalName === 'External') {
     variables.input.create_input.name = service.name;
+    variables.input.create_input.contract_number = service.contract_number;
   }
   if (service.service_type_obj.name === 'Project') {
     variables.input.create_input.project_end_date = service.project_end_date;

@@ -4,10 +4,12 @@ import environment from '../../createRelayEnvironment';
 import { ROOT_ID } from 'relay-runtime';
 import CreateCommentMutation from '../CreateCommentMutation';
 import { onCompleteCompositeCreationEntity } from '../MutationsUtils';
-import {
-  getDependenciesToForOMSAdd,
-  getDependenciesToForOMSDelete,
-} from '../ConfigDependenciesMutationForOMS';
+
+// for dependencies
+import { getDependenciesToForOMSAdd, getDependenciesToForOMSDelete } from '../ConfigDependenciesMutationForOMS';
+
+// for dependents
+import { getDependenciesToAdd, getDependenciesToDelete } from '../GeneralConfigMutationsFields';
 
 const mutation = graphql`
   mutation CreateOpticalMultiplexSectionMutation($input: CompositeOpticalMultiplexSectionMutationInput!) {
@@ -55,8 +57,12 @@ function CreateOpticalMultiplexSectionMutation(opticalMultiplexSection, form) {
         operational_state: opticalMultiplexSection.operational_state,
         relationship_provider: opticalMultiplexSection.provider_id,
       },
+      // dependencies
       ...getDependenciesToForOMSAdd(opticalMultiplexSection.dependencies),
       ...getDependenciesToForOMSDelete(opticalMultiplexSection.dependencies),
+      // dependents
+      ...getDependenciesToAdd(opticalMultiplexSection.dependents),
+      ...getDependenciesToDelete(opticalMultiplexSection.dependents),
     },
   };
   commitMutation(environment, {

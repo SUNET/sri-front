@@ -5,6 +5,10 @@ import { ROOT_ID } from 'relay-runtime';
 import i18n from '../../i18n';
 import CreateCommentMutation from '../CreateCommentMutation';
 
+import configDependencies from '../DependenciesConfig';
+
+import { getDependenciesToAdd, getDependenciesToDelete } from '../GeneralConfigMutationsFields';
+
 const mutation = graphql`
   mutation CreateOpticalPathMutation($input: CompositeOpticalPathMutationInput!) {
     composite_opticalPath(input: $input) {
@@ -33,6 +37,12 @@ function CreateOpticalPathMutation(opticalPath, form) {
         wavelength: opticalPath.wavelength,
         relationship_provider: opticalPath.provider_id,
       },
+      // dependencies
+      ...getDependenciesToAdd(opticalPath.dependencies, configDependencies),
+      ...getDependenciesToDelete(opticalPath.dependencies, configDependencies),
+      // dependents (default config)
+      ...getDependenciesToAdd(opticalPath.dependents),
+      ...getDependenciesToDelete(opticalPath.dependents),
     },
   };
   commitMutation(environment, {

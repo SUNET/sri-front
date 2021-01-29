@@ -5,6 +5,14 @@ import graphql from 'babel-plugin-relay/macro';
 import i18n from '../../i18n';
 import environment from '../../createRelayEnvironment';
 
+import configDependencies from '../DependenciesConfig';
+
+import {
+  getDependenciesToAdd,
+  getDependenciesToUnlink,
+  getDependenciesToDelete,
+} from '../GeneralConfigMutationsFields';
+
 const mutation = graphql`
   mutation UpdateOpticalPathMutation($input: CompositeOpticalPathMutationInput!) {
     composite_opticalPath(input: $input) {
@@ -34,6 +42,16 @@ export default function UpdateOpticalPathMutation(opticalPath, form) {
         wavelength: opticalPath.wavelength,
         relationship_provider: opticalPath.provider_id,
       },
+      unlink_subinputs: [
+        ...getDependenciesToUnlink(opticalPath.dependencies),
+        ...getDependenciesToUnlink(opticalPath.dependents),
+      ],
+      // dependencies
+      ...getDependenciesToAdd(opticalPath.dependencies, configDependencies),
+      ...getDependenciesToDelete(opticalPath.dependencies, configDependencies),
+      // dependents (default config)
+      ...getDependenciesToAdd(opticalPath.dependents),
+      ...getDependenciesToDelete(opticalPath.dependents),
     },
   };
   commitMutation(environment, {

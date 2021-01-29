@@ -42,6 +42,8 @@ class _CableFormParentClass extends _BasicFormParentClass {
       const methodName = `get${nextProps.entityInModalName}ById`;
       if (fieldModalOpened === 'ports') {
         this.getConnectionDetails(selectionData, methodName);
+      } else if (fieldModalOpened === 'dependents') {
+        this.handleSelectedIsUsed(selectionData, methodName);
       }
       return false;
     }
@@ -167,7 +169,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
       },
     ];
 
-    if (CONFIG.IS_SUNET_VERSION) {
+    if (CONFIG.SCHEMA_VERSION === 'sunet') {
       generalInfoThirdRow = [
         {
           title: t('general-forms/cable-tele2-circuitid'),
@@ -216,7 +218,7 @@ class _CableFormParentClass extends _BasicFormParentClass {
                   return renderFormBlockSection(editMode, formData, index);
                 })}
               </div>
-              {CONFIG.IS_SUNET_VERSION && (
+              {CONFIG.SCHEMA_VERSION === 'sunet' && (
                 <div className="form-internal-block">
                   {generalInfoThirdRow.map((formData, index) => {
                     return renderFormBlockSection(editMode, formData, index);
