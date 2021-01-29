@@ -267,7 +267,7 @@ function formatContacts(form, contacts) {
           id: contact.id,
           first_name: contact.first_name,
           last_name: contact.last_name,
-          contact_type: contact.contact_type.value,
+          contact_type: contact.contact_type?.value,
         };
         if (rolesToAdd.length > 0) {
           return rolesToAdd.map((role) => ({
