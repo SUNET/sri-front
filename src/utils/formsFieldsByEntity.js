@@ -31,8 +31,8 @@ const PHYSICAL_BASIC_DATA = [
   { type: FIELD_TYPES.OBJECT, name: 'operational_state' },
 ];
 const genericNetworkOrganization = {
-  dispatchPropertiesListCreate: ['notify', 'modal', 'serviceDetails', 'physicalDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'serviceDetails', 'physicalDetails'],
+  dispatchPropertiesListCreate: ['notify', 'confirm', 'modal', 'serviceDetails', 'physicalDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'confirm', 'modal', 'serviceDetails', 'physicalDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
@@ -67,6 +67,7 @@ const provider = {
     'physicalDetails',
     'locationsDetails',
     'logicalDetails',
+    'confirm',
   ],
   dispatchPropertiesListUpdate: [
     'notify',
@@ -76,6 +77,7 @@ const provider = {
     'physicalDetails',
     'locationsDetails',
     'logicalDetails',
+    'confirm',
   ],
   fields: [
     ...BASIC_INFO,
@@ -90,8 +92,8 @@ const siteOwner = {
     create: 'createSiteOwner',
     update: 'updateSiteOwner',
   },
-  dispatchPropertiesListCreate: ['notify', 'modal', 'serviceDetails', 'locationsDetails'],
-  dispatchPropertiesListUpdate: ['notify', 'breadcrumbs', 'modal', 'serviceDetails', 'locationsDetails'],
+  dispatchPropertiesListCreate: ['notify', 'confirm', 'modal', 'serviceDetails', 'locationsDetails'],
+  dispatchPropertiesListUpdate: ['notify', 'confirm', 'breadcrumbs', 'modal', 'serviceDetails', 'locationsDetails'],
   fields: [
     ...BASIC_INFO,
     { type: FIELD_TYPES.SINGLE, name: 'url' },
