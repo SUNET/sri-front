@@ -34,7 +34,7 @@ export default function UpdateServiceMutation(service, form) {
       ...subInputs,
     },
   };
-  if (service.currentClass.originalName === 'External') {
+  if (service.currentClass?.originalName === 'External') {
     variables.input.update_input.name = service.name;
     variables.input.update_input.contract_number = service.contract_number;
   }
