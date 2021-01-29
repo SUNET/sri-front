@@ -209,7 +209,6 @@ export default function CreateOrganizationMutation(organization, form) {
   }
   const { contacts } = organization;
   if (contacts) {
-    debugger;
     updateContacts = contacts
       .filter((contact) => contact.created || contact.created !== undefined)
       .map((contact) => {
@@ -258,7 +257,6 @@ export default function CreateOrganizationMutation(organization, form) {
     },
   };
 
-  console.log(JSON.stringify(variables));
   commitMutation(environment, {
     mutation,
     variables,
