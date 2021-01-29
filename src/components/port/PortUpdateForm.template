@@ -42,7 +42,9 @@ class PortUpdateForm extends _PortFormParentClass {
       entityData.connected_to && entityData.connected_to.length > 0
         ? entityData.connected_to.filter((connection) => connection.status === REMOVE)
         : [];
-    const someItemWillBeDeleted = parentToRemove.length > 0 || connectionsToRemove.length > 0;
+    const dependenciesToRemove = entityData.dependents.filter((dep) => dep.status === REMOVE);
+    const someItemWillBeDeleted =
+      parentToRemove.length > 0 || connectionsToRemove.length > 0 || dependenciesToRemove.length > 0;
     if (someItemWillBeDeleted) {
       this.entityDataToUpdate = entityData;
       this.props.showModalConfirm('partialDelete');

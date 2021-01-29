@@ -37,7 +37,8 @@ class RouterUpdateForm extends _RouterFormParentClass {
     this.setState({ editMode: false });
     this.props.hideModalForm();
     const portsToRemove = entityData.ports.filter((connection) => connection.status === REMOVE);
-    const someItemWillBeDeleted = portsToRemove.length > 0;
+    const dependenciesToRemove = entityData.dependents.filter((dep) => dep.status === REMOVE);
+    const someItemWillBeDeleted = portsToRemove.length > 0 || dependenciesToRemove.length > 0;
     if (someItemWillBeDeleted) {
       this.entityDataToUpdate = entityData;
       this.props.showModalConfirm('partialDelete');

@@ -8,7 +8,7 @@ import graphql from 'babel-plugin-relay/macro';
 import UpdateEndUserMutation from '../../mutations/endUser/UpdateEndUserMutation';
 import ValidationsEndUserForm from '../common/_BasicValidationForm';
 // const
-import { UPDATE_ENDUSER_FORM } from '../../utils/constants';
+import { UPDATE_ENDUSER_FORM, REMOVE } from '../../utils/constants';
 import { isBrowser } from 'react-device-detect';
 
 class EndUserUpdateForm extends _EndUserFormParentClass {
@@ -32,11 +32,22 @@ class EndUserUpdateForm extends _EndUserFormParentClass {
       { force: true },
     );
   };
-  handleSubmit = (endUser) => {
+  handleSubmit = (entityData) => {
+    const dataToMutation = this.preProcessSubmitData(entityData);
     this.setState({ editMode: false });
-    this.props.hideModalForm();
-    UpdateEndUserMutation(endUser, this);
+    const usesToRemove = entityData.uses.filter((dep) => dep.status === REMOVE);
+    const someItemWillBeDeleted = usesToRemove.length > 0;
+    if (someItemWillBeDeleted) {
+      this.entityDataToUpdate = dataToMutation;
+      this.props.showModalConfirm('partialDelete');
+    } else {
+      this.updateMutation(dataToMutation, this);
+    }
   };
+
+  updateMutation(entityData, form) {
+    UpdateEndUserMutation(entityData, form);
+  }
   render() {
     let { handleSubmit, isFromModal } = this.props;
     const { editMode } = this.state;

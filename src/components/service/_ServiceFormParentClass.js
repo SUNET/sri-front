@@ -96,7 +96,7 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
 
   renderInputName(kindOfName, editMode = true) {
     const { name, currentClass } = this.props;
-    if (currentClass.originalName === 'External') {
+    if (currentClass?.originalName === 'External') {
       return super.renderInputName(kindOfName, editMode);
     } else {
       return <h1>{name}</h1>;
@@ -202,7 +202,7 @@ class _ServiceFormParentClass extends _BasicFormParentClass {
       },
     ];
 
-    if (currentClass.originalName === 'External') {
+    if (currentClass?.originalName === 'External') {
       generalInfo.push({
         title: t('general-forms/contract-number'),
         presentContent: contract_number,
